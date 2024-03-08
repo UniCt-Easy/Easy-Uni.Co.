@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,9 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-using System;
 using System.Data;
-using System.Windows.Forms;
 using metaeasylibrary;
 using metadatalibrary;
 
@@ -30,6 +28,10 @@ namespace meta_garatraspareview {
             ListingTypes.Add("default");
             Name = "gare";
         }
+        private string[] mykey = new string[] { "idGaraTraspare", "cig" };
+        public override string[] primaryKey() {
+            return mykey;
+        }
 
         public override void DescribeColumns(DataTable T, string listtype) {
             base.DescribeColumns(T, listtype);
@@ -40,10 +42,12 @@ namespace meta_garatraspareview {
                 int nPos = 1;
                 DescribeAColumn(T, "idGaraTraspare", "Id Gara Traspare", nPos++);
                 DescribeAColumn(T, "cig", "CIG", nPos++);
-                DescribeAColumn(T, "codicefiscale", "Codice Fiscale", nPos++);
-                DescribeAColumn(T, "SommaImportoAggiudicazione", "Somma Importo Aggiudicazione", nPos++);
-                DescribeAColumn(T, "ragionesociale", "Ragione Sociale", nPos++);
-                DescribeAColumn(T, "identificativoFiscaleEstero", "Identificativo Fiscale Estero", nPos++);
+                DescribeAColumn(T, "Fornitore", "Anagr. Fornitore", nPos++);
+                DescribeAColumn(T, "FornitoreCFPIva", "Fornitore CF/P.Iva", nPos++);
+                DescribeAColumn(T, "FornitoreIdEstero", "Fornitore Id Estero", nPos++);
+                DescribeAColumn(T, "SommaImportoAggiudicazione", "Importo Aggiudicazione", nPos++);
+                DescribeAColumn(T, "Rup", "Rup", nPos++);
+                DescribeAColumn(T, "RupCF", "Rup CF/P.Iva", nPos++);
             }
         }
     }

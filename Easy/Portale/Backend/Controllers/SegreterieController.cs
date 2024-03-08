@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -21,24 +21,14 @@ using System.Web.Http.Cors;
 using Backend.CommonBackend;
 using Backend.Extensions;
 using metadatalibrary;
-using metaeasylibrary;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Net;
 using System.Web;
-using System.Web.Http;
-using System.Web.Http.Cors;
-using progettocosto_functions;
-using System.Diagnostics;
-using System.Security;
-using System.Web.Configuration;
 using Backend.Components;
 
-namespace Backend.Controllers {
+namespace Backend.Controllers
+{
 
 
 
@@ -81,8 +71,8 @@ namespace Backend.Controllers {
 
             int protnumero = getProtNumber();
             int protanno = getProtAnno();
-            DataSet myds = DataSetSerializer.deserialize(JObject.Parse(ds), dispatcher);
-            // protocollo potrebbe avere 2 righe, prendo quelal in stato added, la'ltra potrebbe essere quelal da nullificare
+            DataSet myds = DataSetSerializer.deserialize(JObject.Parse(ds),false, dispatcher);
+            // protocollo potrebbe avere 2 righe, prendo quella in stato added, l'altra potrebbe essere quelal da nullificare
             foreach (DataRow r in myds.Tables[tProtocollo].Rows) {
                 if (r.RowState == DataRowState.Added && r[dataannullamentoField] == DBNull.Value) {
                     myds.Tables[tProtocollo].Rows[0][protnumeroField] = protnumero;
@@ -116,13 +106,13 @@ namespace Backend.Controllers {
             ProcedureMessageCollection myMessages = postData.DO_POST_SERVICE();
             var success = myMessages.Count == 0;
             var canIgnore = success;
-            var dsSerialized = DataUtils.dataSetToJSon(outDs);
+            var dsSerialized = DataUtils.dataSetToJSon(outDs,false);
             var messagesSerialized = DataSetSerializer.serializeMessages(myMessages);
-            // costrusico risposta da mandare al client con il ds e i messaggi eventuali più altre info utili
+            // costruisco risposta da mandare al client con il ds e i messaggi eventuali più altre info utili
             var result = DataUtils.getJsonSaveDataSetAnswer(dsSerialized, messagesSerialized, success, canIgnore);
 
             //invio risposta al client
-            return Content(HttpStatusCode.OK, result);
+            return Json(result);// Content(HttpStatusCode.OK, result);
         }
 
         private int getProtNumber() {

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -113,6 +113,23 @@ namespace meta_registry
 		}
 
 		public override bool IsValid(DataRow R, out string errmess, out string errfield) {
+
+			if (edit_type == "anagrafica") {
+				if (string.IsNullOrEmpty(R["authorization_free"].ToString())) {
+					errmess = "\"Esente ai fini dell'autorizzazione dell'Agente di Riscossione\" deve essere valorizzato";
+					errfield = "authorization_free";
+					return false;
+				}
+			}
+
+			if (edit_type == "anagrafica" || R["flag_pa"].ToString().ToUpper() == "") {
+				if (R["flag_pa"].ToString().ToUpper() == "") {
+					errmess = "Applica split payment (per le fatture di vendita) presente nella scheda Altri Dati";
+					errfield = "flag_pa";
+					return false;
+				}
+			}
+
 			if (!base.IsValid(R, out errmess, out errfield)) return false;
 
 			//----------------------segreterie-------------------------------------------- begin
@@ -133,9 +150,8 @@ namespace meta_registry
 							return false;
 						}
 
-						if (edit_type == "anagrafica" || R["active"].ToString().ToUpper() == "S") {
-
-							if (R["idregistryclass"].ToString().ToUpper() == "OO") {
+						if (edit_type == "anagrafica" || R["flag_pa"].ToString().ToUpper() == "") {
+								if (R["idregistryclass"].ToString().ToUpper() == "OO") {
 								errmess = "Attenzione! La tipologia non dovrebbe MAI essere 'altro'.";
 								errfield = "idregistryclass";
 								return false;
@@ -317,7 +333,7 @@ namespace meta_registry
 									messaggio =
 										$"Attenzione! Non è stato inserito l\'indirizzo di residenza ({predefinito}) valido per la data odierna.";
 
-									drConferma = MessageBox. Show(LinkedForm, messaggio, caption, mb);
+									drConferma = MetaFactory.factory.getSingleton<IMessageShower>(). Show(LinkedForm, messaggio, caption, mb);
 									if ((InsertMode) || (drConferma == DialogResult.No)) {
 										return false;
 									}*/

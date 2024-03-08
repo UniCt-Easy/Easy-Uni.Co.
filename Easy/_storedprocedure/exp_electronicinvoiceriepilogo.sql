@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE procedure exp_electronicinvoiceriepilogo(@yelectronicinvoice smallint, @nelectronicinvoice int) as
+CREATE procedure exp_electronicinvoiceriepilogo  (@yelectronicinvoice smallint=null, @nelectronicinvoice int=null, @yinv int=null,	@ninv int=null,	@idinvkind int=null) as
 begin
 -- exec exp_electronicinvoiceriepilogo 2019, 127
 -- Importi raggruppati per Aliquota, o Natua, se l'operazione non rientra tra quelle imponibili (ossia aliquota = 0)
@@ -54,7 +54,9 @@ begin
 		on R.idreg = I.idreg
 	join ivakind
 		on ivakind.idivakind = ID.idivakind
-	where I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+	where (I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+		or
+		 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind )
 	and isnull(ivakind.rate ,0) >0
 	group by I.idinvkind, I.yinv, I.ninv,ivakind.rate, ivakind.flag, I.flagdeferred,I.flag_enable_split_payment,    replace (replace(ID.fereferencerule,char(13),''),char(10),'')
 
@@ -83,7 +85,9 @@ begin
 		on ivakind.idivakind = ID.idivakind
 	join registry R
 		on R.idreg = I.idreg
-	where I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+	where (I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+		or
+		 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind )
 	and isnull(ivakind.rate ,0) =0
 	group by I.idinvkind, I.yinv, I.ninv,ivakind.idfenature, ivakind.flag, I.flagdeferred,   replace (replace(ID.fereferencerule,char(13),''),char(10),''),I.flag_enable_split_payment
 

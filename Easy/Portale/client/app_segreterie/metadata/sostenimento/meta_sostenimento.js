@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -118,7 +101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'votosu', 'Su', null, 220, null);
 						this.describeAColumn(table, 'votolode', 'Lode', null, 230, null);
 						this.describeAColumn(table, 'giudizio', 'Giudizio', null, 240, 50);
-						this.describeAColumn(table, '!idattivform_attivform_title', 'Attivit‡ formativa', null, 91, null);
+						this.describeAColumn(table, '!idattivform_attivform_title', 'Attivit√† formativa', null, 91, null);
 						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform', columnNameLookup:'title', columnNamekey:'idattivform' };
 						this.describeAColumn(table, '!idsostenimentoesito_sostenimentoesito_title', 'Esito', null, 121, null);
 						objCalcFieldConfig['!idsostenimentoesito_sostenimentoesito_title'] = { tableNameLookup:'sostenimentoesito', columnNameLookup:'title', columnNamekey:'idsostenimentoesito' };
@@ -162,7 +145,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'ingresso':
 						table.columns["ects"].caption = "ECTS";
 						table.columns["idappello"].caption = "Appello";
-						table.columns["idattivform"].caption = "Attivit‡ formativa";
+						table.columns["idattivform"].caption = "Attivit√† formativa";
 						table.columns["idcorsostudio"].caption = "Corso studio";
 						table.columns["iddidprog"].caption = "Didattica programmata";
 						table.columns["idiscrizione"].caption = "Iscrizione";

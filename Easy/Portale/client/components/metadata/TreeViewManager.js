@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module TreeViewManager
  * @description
@@ -77,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     /**
      *
-     * @param {html node} elTree
+     * @param {node} elTree
      * @param {DataTable} treeTable
      * @param {HelpForm} helpform
      * @patram {DataTable} primaryTable
@@ -88,6 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         if (!elTree) return;
         this.elTree = elTree;
+        this.el = elTree;       //rimedio a potenziale incompatibilità con altri controlli custom
         this.helpform = helpform;
         this.treeTable = treeTable;
         this.primaryTable = primaryTable;
@@ -95,6 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         var tag = $(elTree).data("tag");
         this.tag = tag; // lo espongo,lo usa helpform
         this.meta = appMeta.getMeta(this.treeTable.tableForReading());
+
         this.listType =  this.helpform.getField(tag, 1);
 
         // calcolo autorelazione
@@ -102,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         // var private
         this.doubleClickForSelect = true; // se true al dblclick lanbcia òla select
-        this.fixedData = false; // indica se il tree è caricato tutto all'inzio cioè true, false nel caso incrementale
+        this.fixedData = false; // indica se il tree è caricato tutto all'inizio cioè true, false nel caso incrementale
         this.inited= false;
         this.treeNodes = [];
         this.jsTreeMethod = jsTreeMethod;
@@ -175,7 +160,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          */
         addInternalEvents:function () {
-            var self  = this;
+            let self  = this;
 
             // eseguito al click sul nodo da parte dell'utnete
             this.tree.on(jsTreeEvent.ACTIVATE_NODE, function (e, data) {
@@ -187,7 +172,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 self.timeoutId = setTimeout(function () {
                     self.selectNodeEv(data.node, true);
-                }, appMeta.dbClickTimeout);
+                }, appMeta.currApp.dbClickTimeout);
 
 
             });
@@ -199,15 +184,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     self.timeoutId = null;
                 }
 
-                var tree = $(this).jstree();
-                var node = tree.get_node(event.target);
-                self.dblclickEv(node, true)
+                let tree = $(this).jstree();
+                let node = tree.get_node(event.target);
+                self.dblclickEv(node, true);
 
             });
 
             // manda a capo il testo
             $(this.elTree).bind('hover_node.jstree', function() {
-                var bar = $(this).find('.jstree-wholerow-hovered');
+                let bar = $(this).find('.jstree-wholerow-hovered');
                 bar.css('height',
                     bar.parent().children('a.jstree-anchor').height() + 'px');
             });
@@ -221,7 +206,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (!this.metaPage) return;
             if (!this.metaPage.inited) return;
             if (!this.metaPage.mainSelectionEnabled) return;
-            var self = this;
+            let self = this;
             node.original.canSelect()
                 .then(function (res) {
                     if (res) {
@@ -358,7 +343,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         expandNode:function (node) {
-            var def = Deferred("exapandNode");
+            var def = Deferred("expandNode");
             var self = this;
             var r = node.original.dataRow;
             if (!r) return def.resolve();
@@ -387,8 +372,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         });
 
                     var filterChild = getData.getWhereKeyClauseByColumns(dtRow, parentCols, childCols, self.treeTable,false);
+                    // console.log(filterChild.toString());
                     //var sort = r.getRow().table.orderBy();
+
                     var filterChildList  = dtRow.table.select(filterChild);
+                    // console.log(filterChildList);
+
                     var allAddrowDeferred = [];
 
                     // TODO canSelect è async : gestire nel loop
@@ -424,7 +413,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *
          * @param {treenode js} parentNode
          * @param {ObjectRow} childRow
-         * @returns {Deferred(jsTreeNode)}
+         * @returns {Deferred<jsTreeNode>)}
          */
         addRow:function(parentNode, childRow){
             var def = Deferred("addRow");
@@ -460,7 +449,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @method InitializeJsTree
          * @private
          * @description ASYNC
-         * Loading of jstree is not syncronous, so the it launches the first init and returns a deferred.
+         * Loading of jstree is not syncronous, so it launches the first init and returns a deferred.
          * It sets to true the global class var "inited" to store that loading is done
          */
         initializeJsTree:function () {
@@ -499,7 +488,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     }
                 });
 
-            return def.promise()
+            return def.promise();
         },
 
         /**
@@ -538,10 +527,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Fills the treeview with the nodes taken from all tree_table rows
          * Selects no node.
-         * @returns {Deferred}
+         * @returns Promise
          */
         fillNodes:function (isToSelect, last) {
-            var def = Deferred('filNodes');
+            var def = Deferred('fillNodes');
             var self = this;
             var sort = this.getSorting(this.treeTable);
 
@@ -564,7 +553,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                         var allCreateNodeDeferred = [];
 
-                        // le createnode sono asyncrone dentro un ciclo, metto in array e risolvo in when()
+                        // le createnode sono asincrone dentro un ciclo, metto in array e risolvo in when()
                         _.forEach(roots, function (rootRow) {
                             allCreateNodeDeferred.push(self.createNewNode(null, rootRow));
                         });
@@ -580,7 +569,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                     // se passo null come 1o prm aggiunge in testa all'albero. oppure potrei passare "#"
                                     self.addNode(null, newNode);
-
                                     allfillChildsNodeDeferred.push(self.fillChildsNode(newNode, newNode.dataRow));
                                 });
 
@@ -641,7 +629,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @method fillChildsNode
          * @private
          * @description ASYNC
-         * @param {jstree node} parentNode
+         * @param {node} parentNode
          * @param {ObjectRow} parentRow
          * @returns {Deferred}
          */
@@ -652,12 +640,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             parentNode.toExplore = false;
 
             var self = this;
+
             var childList = parentRow.getRow().getChildRows(this.autoChildRelation.name);
 
             // le createnode sono asyncrone dentro un ciclo, metto in array e risolvo in when()
             var allCreateNodeDeferred = [];
             _.forEach(childList, function (childRow) {
-                if (childRow === parentRow) return true; // promssima iterazione
+                if (childRow === parentRow) return true; // prossima iterazione
 
                 // TODO canSelect è async : gestire nel loop
                 if (!security.canSelect(childRow)){
@@ -669,20 +658,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 allCreateNodeDeferred.push(self.createNewNode(parentRow, childRow));
             });
 
-            var res =  $.when.apply($, allCreateNodeDeferred)
+            var res = $.when.apply($, allCreateNodeDeferred)
                 .then(function() {
-
                     var allfillChildsNodeDeferred = [];
                     _.forEach(arguments, function (newNode) {
-
                         self.addNode(parentNode, newNode);
                         allfillChildsNodeDeferred.push(self.fillChildsNode(newNode, newNode.dataRow));
-
                     });
 
                     return $.when.apply($, allfillChildsNodeDeferred)
                         .then(function(defObj) {
-
                             // if fixed data don't add dummy nodes
                             if (self.fixedData) return def.resolve();
 
@@ -693,9 +678,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     parentNode.toExplore = true;
                                 }
                             }
-
                             return def.resolve();
-
                         });
 
                 });
@@ -711,7 +694,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {ObjectRow} parentRow
          * @param {ObjectRow} childRow
          * Creates a new TreeNode and returns a js object the representation of the node in jstree
-         * @returns {Deferred (TreeNode)}
+         * @returns {Deferred<TreeNode>)}
          */
         createNewNode:function (parentRow, childRow) {
             return this.nodeDispatcher.getNode(parentRow, childRow);
@@ -733,7 +716,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     this.tree.jstree(jsTreeMethod.RENAME_NODE, n2 , n1.text );
                 }
 
-                return true
+                return true;
             }
             return false;
         },
@@ -779,7 +762,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             // recupero l'autogenerato id e lo lego al nodo jstree
             var retNodeId = this.tree.jstree(jsTreeMethod.CREATE_NODE , parentNode, node, 'last', false, false);
-            // il node non viene modificato, quindi configuro l'id autogenerato tramite il emtodo setJsTreeNodeId() della classe TreeNode
+            // il node non viene modificato, quindi configuro l'id autogenerato tramite il metodo setJsTreeNodeId()
+            //   della classe TreeNode
             // N.B id è importante per la lib jstree per aggiungere i nodi al posto giusto
             node.setJsTreeNodeId(retNodeId);
 
@@ -796,9 +780,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Returns true if the node "node" is linked to the row "dataRow" , false otherwise
          * @returns {boolean}
          */
-        compareNode:function (node, dataRow) {
+        compareNode:function (node, dataRow){
             if (!node.dataRow || !dataRow) return false;
-            return this.compareNodeByRow(node.dataRow, dataRow)
+            return this.compareNodeByRow(node.dataRow, dataRow);
         },
 
         /**
@@ -807,12 +791,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Selects the TreeNode corresponding to a given DataRow
          * @param {ObjectRow} dataRow
+         * @param {boolean} propagate
          */
         selectNodeByRow:function(dataRow, propagate){
             var def = Deferred('selectNodeByRow');
             // **** **** **** ***
-            // ===> N:B Commentata riga 3823 della libreria jstree.js poichè la extend perde la getRow() dell'ObjectRow linkato al nodo in fase di costruzione.
-            // capire il motivo, se possibile, oppure modificare la libreria commentando apputno tale riga che estende un ogetto plaintrxt vuoto con il nodo passato
+            // ===> N:B Commentata riga 3823 della libreria jstree.js poichè la extend perde la getRow() dell'ObjectRow
+            //  linkato al nodo in fase di costruzione.
+            // capire il motivo, se possibile, oppure modificare la libreria commentando appunto tale riga che
+            //   estende un ogetto plaintext vuoto con il nodo passato
             // "node = $.extend(true, {}, node);
 
             var self = this;
@@ -822,7 +809,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             return this.selectNodeByNode(retNode, propagate)
                 .then(function () {
                     def.resolve(retNode);
-                })
+                });
         },
 
         /**
@@ -852,6 +839,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * @param  {TreeNode} nodeToSelect
+         * @param {boolean} propagate
          */
         selectNodeByNode:function (nodeToSelect, propagate) {
             var def = Deferred('selectNodeByNode');
@@ -867,7 +855,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 .then(function () {
                     def.resolve();
                 });
-            return def.from(res).promise()
+            return def.from(res).promise();
         },
 
         /**
@@ -878,10 +866,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {ObjectRow|null}
          */
         selectedRow:function () {
-            var selectedNodes = this.tree.jstree( jsTreeMethod.GET_SELECTED , true); // torna un array. dovrebbe essere sempre di lunghezza 1
+            // Torna un array. Dovrebbe essere sempre di lunghezza 1
+            var selectedNodes = this.tree.jstree( jsTreeMethod.GET_SELECTED , true);
             if (selectedNodes.length > 0){
                 var selNode = selectedNodes[0];
-                // la funz torna il nodo del jsTree, per recuperare l'oggetto TreeNode di partenza utilizzo orginal dell'oggetto jsTree stesso
+                // la funz. torna il nodo del jsTree, per recuperare l'oggetto TreeNode di partenza utilizzo orginal dell'oggetto jsTree stesso
                 return selNode.original.dataRow;
             }
 
@@ -898,10 +887,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         selectedNode:function () {
             var selectedNodes = this.tree.jstree( jsTreeMethod.GET_SELECTED, true); // torna un array. dovrebbe essere sempre di lunghezza 1
             if (selectedNodes.length > 0){
-                var selNode = selectedNodes[selectedNodes.length - 1];
-                return selNode;
+                return  selectedNodes[selectedNodes.length - 1];
             }
-
             return null;
         },
 
@@ -912,7 +899,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description ASYNC
          * Reads all the rows parent pf a row "r" and select it on the tree
          * @param {DataRow} r
-         * @return {Deferred(DataRow)}
+         * @param {string} listType
+         * @return Deferred<DataRow>
          */
         selectRow:function( r,  listType) {
             var def = Deferred("selectRow_treeViewManager");
@@ -921,7 +909,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (!r) return def.resolve(null);
 
             //Verify if R is already in Tree
-            var keyfilter = getData.getWhereKeyClause(r, this.treeTable, this.treeTable, false);
+            var keyfilter = this.treeTable.keyFilter(r.current);//, this.treeTable, this.treeTable, false);
             var existent = this.treeTable.select(keyfilter);
 
             var toSelect = null;
@@ -950,9 +938,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     return self.selectNodeByRow(toSelect, true)
                                         .then(function () {
                                             return def.resolve(toSelect);
-                                        }) // lancerà evento di selezione riga su metapage
-
-                                })
+                                        }); // lancerà evento di selezione riga su metapage
+                                });
                         });
                 });
 
@@ -967,7 +954,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param startCondition
          * @param startValueWanted
          * @param startFieldWanted
-         * @returns {Deferred(null|ObjectRow)}
+         * @returns {Deferred<null|ObjectRow>}
          */
         startWithField:function(startCondition, startValueWanted, startFieldWanted) {
             var def = Deferred("startWithField");
@@ -980,14 +967,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     //checks if any filter is present
                     if (self.treeTable.MetaData_TreeFilterTable) {
-                        var rowkey = getData.getWhereKeyClause(dtRow, dtRow.table, dtRow.table, false);
+                        var rowkey = dtRow.table.keyFilter(dtRow.current);
+                            //getData.getWhereKeyClause(dtRow, dtRow.table, dtRow.table, false);
                         var list = self.treeTable.MetaData_TreeFilterTable;
                         var founded = list.select(rowkey);
                         if (founded.length === 0) {
                             return def.resolve(null);
                         }
                     }
-
 
                     return self.defDescribeTree
                         .then(function (res){
@@ -1004,12 +991,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         .then(function () {
                                             self.helpform.lastSelected(self.treeTable, dtRow);
                                             return def.resolve(dtRow);
-                                        })
-
+                                        });
                                 });
                         }) ;
-
-
                 });
         },
 
@@ -1035,7 +1019,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     // recupera i nodi non root
                     var notRoots = self.treeTable.select(q.not(rootFilter));
 
-                    // TODO la clear pulisce la tabella, quindi i notRoots calcolati non hanno più getRow, sono semplic object invece di objectRow
+                    // TODO la clear pulisce la tabella, quindi i notRoots calcolati non hanno più getRow,
+                    //  sono semplici object invece di objectRow
                     //this.treeTableCopy = getD
 
                     // popola self.treeTable con i nodi root e i figli
@@ -1052,20 +1037,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     metaModel.copyPrimaryKey(list, self.treeTable);
 
                     _.forEach(list.rows, function (toCopy) {
-                        var searchFilter = getData.getWhereKeyClause(toCopy, toCopy.table, toCopy.table, false);
+                        var searchFilter =self.treeTable.keyFilter(toCopy.current);
+                            //getData.getWhereKeyClause(toCopy, toCopy.table, toCopy.table, false);
 
-                        if (self.treeTable.select(searchFilter).length > 0) return true; // continuo iterazione
+                        if (self.treeTable.select(searchFilter).length > 0) {
+                            return true;
+                        } // continuo iterazione
                         var newR = self.treeTable.newRow();
                         _.forEach(self.treeTable.columns, function (col) {
                             newR[col.name] = toCopy[col.name];
                             // TreeTable.Rows.Add(newR);
                             newR.acceptChanges();
-                        })
+                        });
                     });
 
                     var rowsChild  = [];
                     _.forEach(list.rows, function (toCopy) {
-                        var searchFilter = getData.getWhereKeyClause(toCopy, toCopy.table, toCopy.table, false);
+                        var searchFilter =self.treeTable.keyFilter(toCopy.current);
+                            //getData.getWhereKeyClause(toCopy, toCopy.table, toCopy.table, false);
                         var found = self.treeTable.select(searchFilter)[0];
                         rowsChild.push(found);
                     });
@@ -1081,7 +1070,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         // ********************************************************************************************************************** //
-        // INIZIO FUNZIONI PER ALGIRITMO PER RECUPERARE I PARENTS di un set di child, e poi recuperarne tutti i chhilddi primo livello
+        // INIZIO FUNZIONI PER ALGORITMO PER RECUPERARE I PARENTS di un set di child, e poi
+        //  recuperarne tutti i children di primo livello
 
         /**
          * @method populateTreeFromChilds
@@ -1092,10 +1082,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         populateTreeFromChilds:function (rowsChild) {
-
             /*
              1. Dati n child, lancio una funz server doGetAllRowsParents(): cioè 1 query con or dei filtri dei childs attuali su AutoParent Relation.
-             2. Per ogni riga tornata verifico che effettivamente siano tornati dei parents. se non trovo parents vado al punto 4.
+             2. Per ogni riga ricevuta verifico che effettivamente siano tornati dei parents. se non trovo parents vado al punto 4.
              3. itero il punto 1 e 2 su tutti i nuovi parents del punto 2.
              4. Trovo tutti i childs di tutte le righe precedenti tramite AutoChild Relation
 
@@ -1124,7 +1113,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         });
                 });
 
-            return def.from(res).promise()
+            return def.from(res).promise();
         },
 
         /**
@@ -1134,16 +1123,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Returns all the child rows of the table "treeTable"
          */
         expandChilds:function (list) {
-            var childFilter = null;
-            var self = this;
-            var def = Deferred("getParents");
+            let childFilter = null;
+            let self = this;
+            let def = Deferred("getParents");
 
             if (!list) return def.resolve(false);
             if (list.length === 0) return def.resolve(false);
 
-            var rel = getDataUtils.getAutoChildRelation(self.treeTable);
+            let rel = getDataUtils.getAutoChildRelation(self.treeTable);
 
-            var rowsManaged = [];
+            let rowsManaged = [];
 
             _.forEach(list, function (row) {
 
@@ -1151,26 +1140,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 if (!row) return true;
                 if (!row.getRow) return true;
                 //  if (self.treeTable.existingRow(row)) return true; // se esiste non considero di nuovo nel filtro
-                var dtRow = row.getRow();
-                if (dtRow.state === dataRowState.deleted || dtRow.state === dataRowState.detached ) return true;
+                let dtRow = row.getRow();
+                if (dtRow.state === dataRowState.deleted ||
+                    dtRow.state === dataRowState.detached ) {
+                    return true;
+                }
 
                 //  osservo se già ho considerato
-                var arr = _.filter(rowsManaged, self.treeTable.keyFilter(row));
-                if (arr.length !== 0) return true;
+                let arr = _.filter(rowsManaged, self.treeTable.keyFilter(row));
+                if (arr.length !== 0) {
+                    return true;
+                }
                 rowsManaged.push(row);
-
-                var parentCols = _.map(rel.parentCols,
+                let parentCols = _.map(rel.parentCols,
                     function (cName) {
                         return  self.treeTable.columns[cName];
                     });
 
-                var childCols = _.map(rel.childCols,
+                let childCols = _.map(rel.childCols,
                     function (cName) {
                         return  self.treeTable.columns[cName];
                     });
 
                 // calcolo nuovo filtro
-                var currFilter = getData.getWhereKeyClauseByColumns(dtRow, parentCols , childCols, self.treeTable, true);
+                let currFilter = getData.getWhereKeyClauseByColumns(dtRow, parentCols , childCols, self.treeTable, true);
                 if (!currFilter) return true;
 
                 // se esiste il filtro lo concateno in or con il filtro parziale se già esiste, altrimenti inizializzo con il  currFilter
@@ -1179,7 +1172,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             childFilter = self.helpform.mergeFilters(childFilter, self.treeTable.staticFilter());
             // eseguo la select, con il filtro di or costruito con e clausole dei child. popolo la self.treeTable
-            var res =  getData.runSelectIntoTable(self.treeTable, childFilter, null);
+            let res =  getData.runSelectIntoTable(self.treeTable, childFilter, null);
 
             return  def.from(res).promise();
         },
@@ -1192,23 +1185,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {ObjectRow[]} rows
          */
         doGetAllRowsParents:function (rows) {
-            var self = this;
-            var def = Deferred("doGetAllRowsParents");
+            let self = this;
+            let def = Deferred("doGetAllRowsParents");
 
             // prendo autorelazione
-            var parentRel = getDataUtils.getAutoParentRelation(self.treeTable);
+            let parentRel = getDataUtils.getAutoParentRelation(self.treeTable);
 
             // array dei nuovi parents di cui poi dovrò trovare a sua volta i parent
-            var newParentRows = [];
+            let newParentRows = [];
 
-            var res = this.getRowParents(rows)
+            let res = this.getRowParents(rows)
 
                 .then(function () {
 
-                    // 2. Per ogni riga child di input verifico che effettivamente siano tornati dei parents dopo la query
+                    // 2. Per ogni riga child di input verifico che effettivamente siano ricevuti dei parents dopo la query
                     _.forEach(rows, function (rowChild) {
 
-                        var parents = parentRel.getParents(rowChild);
+                        let parents = parentRel.getParents(rowChild);
                         // aggiungo ai nuovi parent. Ha senso solo se ha un padre. N.B non è un grafo!
                         // Se avesse più di 1 padre ci sarebbe errore nei dati!
                         if (parents.length === 1 )  newParentRows.push(parents[0]);
@@ -1251,12 +1244,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         getRowParents:function (rows) {
-            var parentFilter = null;
-            var self = this;
-            var def = Deferred("getParents");
-            var rel = getDataUtils.getAutoParentRelation(self.treeTable);
+            let parentFilter = null;
+            let self = this;
+            let def = Deferred("getParents");
+            let rel = getDataUtils.getAutoParentRelation(self.treeTable);
 
-            var rowsManaged = [];
+            let rowsManaged = [];
 
             _.forEach(rows, function (childRow) {
 
@@ -1296,7 +1289,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             return  def.from(res).promise();
         },
 
-        // FINE FUNZIONI PER ALGIRITMO PER RECUPERARE I PARENTS di un set di child, e poi recuperarne tutti i chhilddi primo livello
+        // FINE FUNZIONI PER ALGORITMO PER RECUPERARE I PARENTS di un set di children, e poi recuperarne tutti i children
+        //  di primo livello
         // ********************************************************************************************************************** //
 
         /***
@@ -1314,7 +1308,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          * Reads some row related to a tree in order to display it at beginning
-         * @param el
          * @param {jsDataQuery} filter
          * @param {boolean} skipPrimary
          * @returns {Deferred}
@@ -1339,13 +1332,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          *
-         * @param {Html node} el
+         * @param {node} el
          * @param {Object} param {tableWantedName:tableWantedName, filter:filter, selList:selList}
          * @returns {*}
          */
         preFill: function(el, param) {
             // Metodo di interfaccia del customControl
-            var def = Deferred("preFill-treeviewManager");
+            let def = Deferred("preFill-treeviewManager");
 
             if(param.tableWantedName && param.tableWantedName !== this.treeTable.name ) return def.resolve();
 
@@ -1375,7 +1368,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          *
-         * @param {jsTreeNode} node
+         * @param {TreeNode} node
          */
         cascadeDelete:function (node) {
             var self = this;
@@ -1401,7 +1394,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          *
-         * @param  {jsTreeNode} node
+         * @param  {TreeNode} node
          * @returns {boolean}
          */
         isRoot:function (node) {
@@ -1412,7 +1405,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          *
-         * @param  {jsTreeNode} node
+         * @param  {TreeNode} node
          * @returns {boolean}
          */
         isLeaf:function (node) {
@@ -1420,7 +1413,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         /**
-         * @param  {jsTreeNode} node
+         * @param  {TreeNode} node
          * @returns {boolean}
          */
         hasDummyChild:function (node) {
@@ -1440,7 +1433,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /**
          *
          * @param id
-         * @returns {jsTreeNode}
+         * @returns {TreeNode}
          */
         getNodeById:function (id) {
             if (id === undefined || id === null) return null;
@@ -1448,7 +1441,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         }
     };
 
-    window.appMeta.CustomControl("tree", TreeViewManager);
+    appMeta.CustomControl("tree", TreeViewManager);
     appMeta.TreeViewManager = TreeViewManager;
 
 

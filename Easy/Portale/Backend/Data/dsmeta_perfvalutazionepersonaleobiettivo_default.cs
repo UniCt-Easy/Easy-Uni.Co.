@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -92,11 +92,13 @@ private void initClass() {
 	tperfvalutazionepersonaleobiettivo.defineColumn("ct", typeof(DateTime),false);
 	tperfvalutazionepersonaleobiettivo.defineColumn("cu", typeof(string),false);
 	tperfvalutazionepersonaleobiettivo.defineColumn("description", typeof(string));
+	tperfvalutazionepersonaleobiettivo.defineColumn("idperfprogettoobiettivoattivita", typeof(int));
 	tperfvalutazionepersonaleobiettivo.defineColumn("idperfvalutazionepersonale", typeof(int),false);
 	tperfvalutazionepersonaleobiettivo.defineColumn("idperfvalutazionepersonaleobiettivo", typeof(int),false);
 	tperfvalutazionepersonaleobiettivo.defineColumn("inverso", typeof(string));
 	tperfvalutazionepersonaleobiettivo.defineColumn("lt", typeof(DateTime),false);
 	tperfvalutazionepersonaleobiettivo.defineColumn("lu", typeof(string),false);
+	tperfvalutazionepersonaleobiettivo.defineColumn("note", typeof(string));
 	tperfvalutazionepersonaleobiettivo.defineColumn("peso", typeof(decimal));
 	tperfvalutazionepersonaleobiettivo.defineColumn("title", typeof(string));
 	tperfvalutazionepersonaleobiettivo.defineColumn("valorenumerico", typeof(decimal));

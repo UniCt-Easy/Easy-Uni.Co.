@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -28,7 +28,7 @@ namespace meta_assetgrantdetail
     public class Meta_assetgrantdetail :Meta_easydata {
         public Meta_assetgrantdetail(DataAccess Conn, MetaDataDispatcher Dispatcher):
             base(Conn, Dispatcher, "assetgrantdetail") {
-            Name = "Risconti applicati";
+            Name = "Risconti/Riserve utilizzati";
             EditTypes.Add("detail");
             ListingTypes.Add("detail");
 
@@ -56,12 +56,12 @@ namespace meta_assetgrantdetail
         protected override Form GetForm(string FormName) {
 
             if (FormName == "detail") {
-                Name = "Risconti applicati";
+                Name = "Risconti/Riserve utilizzati";
                 return GetFormByDllName("assetgrantdetail_single");
             }
 
             if (FormName == "default") {
-                Name = "Risconti applicati";
+                Name = "Risconti/Riserve utilizzati";
                 return GetFormByDllName("assetgrantdetail_default");
             }
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -455,7 +455,7 @@ namespace csa_import_default {
                 }
             }
 
-            //MessageBox.Show(
+            //MetaFactory.factory.getSingleton<IMessageShower>().Show(
             //    $"Totale spese: iniziale: {totSpeseIniziale}  intermedio:{totSpeseIntermedio}  finale:{totSpeseFinale} \n\r" +
             //    $"Totale entrate: iniziale: {totEntrateIniziale}  intermedio:{totEntrateIntermedio}  finale:{totEntrateFinale} \n\r");
 
@@ -490,7 +490,7 @@ namespace csa_import_default {
             }
 
             bool someError = false;
-            //Per ogni raggruppamento per anagrafica effettua le netizzazioni ed i collegamenti tra entrate e spese
+            //Per ogni raggruppamento per anagrafica effettua le nettizzazioni ed i collegamenti tra entrate e spese
             foreach (var rAnag in righePerAnagrafica.Values) {
                 if (!rAnag.collegaTutteEntrate()) {
                     MetaFactory.factory.getSingleton<IMessageShower>().Show(

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -46,15 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'gratuito', 'Gratuito', null, 60, null);
 						this.describeAColumn(table, 'start', 'Inizio', null, 70, null);
 						this.describeAColumn(table, 'stop', 'Fine', null, 80, null);
-						this.describeAColumn(table, '!idaffidamentokind_affidamentokind_title', 'Tipologia', null, 21, null);
-						objCalcFieldConfig['!idaffidamentokind_affidamentokind_title'] = { tableNameLookup:'affidamentokind', columnNameLookup:'title', columnNamekey:'idaffidamentokind' };
-						this.describeAColumn(table, '!iderogazkind_erogazkind_title', 'Tipo di erogazione', null, 41, null);
-						objCalcFieldConfig['!iderogazkind_erogazkind_title'] = { tableNameLookup:'erogazkind', columnNameLookup:'title', columnNamekey:'iderogazkind' };
-						this.describeAColumn(table, '!idreg_docenti_registry_docenti_title', 'Docente', null, 11, null);
-						objCalcFieldConfig['!idreg_docenti_registry_docenti_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
-						this.describeAColumn(table, '!affidamentocaratteristica', 'Caratteristiche dell\'affidamento', null, 90, null);
-						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Docente', null, 11, null);
-						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'seg':

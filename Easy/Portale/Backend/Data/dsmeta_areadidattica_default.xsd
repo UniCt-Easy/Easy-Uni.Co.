@@ -3,6 +3,14 @@
   <xs:element name="dsmeta_areadidattica_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="macroareadidattica" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmacroareadidattica" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="corsostudiokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -20,6 +28,7 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idareadidattica" type="xs:int" />
               <xs:element name="idcorsostudiokind" type="xs:int" />
+              <xs:element name="idmacroareadidattica" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="sortcode" type="xs:int" />
@@ -31,6 +40,10 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:macroareadidattica" />
+      <xs:field xpath="mstns:idmacroareadidattica" />
+    </xs:unique>
+    <xs:unique name="corsostudiokinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:corsostudiokinddefaultview" />
       <xs:field xpath="mstns:idcorsostudiokind" />
     </xs:unique>
@@ -41,6 +54,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_areadidattica_macroareadidattica_idmacroareadidattica" msdata:parent="macroareadidattica" msdata:child="areadidattica" msdata:parentkey="idmacroareadidattica" msdata:childkey="idmacroareadidattica" />
       <msdata:Relationship name="FK_areadidattica_corsostudiokinddefaultview_idcorsostudiokind" msdata:parent="corsostudiokinddefaultview" msdata:child="areadidattica" msdata:parentkey="idcorsostudiokind" msdata:childkey="idcorsostudiokind" />
     </xs:appinfo>
   </xs:annotation>

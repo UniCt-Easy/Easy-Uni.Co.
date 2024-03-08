@@ -7,33 +7,31 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfinterazioni_default_idperfinterazionekind">Tipo di interazione</label>
-					<select id="perfinterazioni_default_idperfinterazionekind" class="custom-select d-block w-100"  data-source-name="perfinterazionekind" data-value-member="idperfinterazionekind" data-display-member="title" data-custom-control="combo" data-tag="perfinterazioni.idperfinterazionekind"  data-mandatory  > </select>
+					<select id="perfinterazioni_default_idperfinterazionekind" class="custom-select d-block w-100"  data-source-name="perfinterazionekind" data-value-member="idperfinterazionekind" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="perfinterazioni.idperfinterazionekind?perfinterazionidefaultview.perfinterazioni_idperfinterazionekind"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#perfinterazioni_default_data").datetimepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="perfinterazioni_default_data">Data</label>
-					<input id="perfinterazioni_default_data" type="text" class="form-control" data-tag="perfinterazioni.data.g"  />
+					<input id="perfinterazioni_default_data" type="text" class="form-control" data-tag="perfinterazioni.data.g?perfinterazionidefaultview.perfinterazioni_data.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<label class="col-form-label col-md-12" for="perfinterazioni_default_commentival">Commenti valutatore</label>
-					<textarea class="textarea form-control" id="perfinterazioni_default_commentival" type="text"  rows="4" data-tag="perfinterazioni.commentival"></textarea>
+					<label class="col-form-label col-md-12" for="perfinterazioni_default_commenti">Commenti</label>
+					<textarea class="textarea form-control" id="perfinterazioni_default_commenti" type="text"  rows="4" data-tag="perfinterazioni.commenti?perfinterazionidefaultview.commenti"  ></textarea>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-					<label class="col-form-label col-md-12" for="perfinterazioni_default_commenti">Commenti valutato</label>
-					<textarea class="textarea form-control" id="perfinterazioni_default_commenti" type="text"  rows="4" data-tag="perfinterazioni.commenti"></textarea>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfinterazioni_default_utente">Utente</label>
+					<input id="perfinterazioni_default_utente" type="text" class="form-control" data-tag="perfinterazioni.utente?perfinterazionidefaultview.perfinterazioni_utente"  />
 				</div>
 			</div>
- <button id="SendMail" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-cogs mr-1" ></i>Invia mail
-    </button>
+		<button id="SendMail" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-envelope mr-1" ></i>Avvisa il Dirigente e il valutato via email
+		</button>
+		<button id="SendMailComp" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-envelope mr-1" ></i>Avvisa il rilevatore e il valutato via email
+		</button>
 </form>
 
 </div>

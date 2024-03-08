@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -50,13 +50,15 @@ namespace bankdispositionsetup_bccirpina {
             this.label2 = new System.Windows.Forms.Label();
             this.txtNproceedsTransm = new System.Windows.Forms.TextBox();
             this.btnProceedsTransm = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.DS = new bankdispositionsetup_bccirpina.vistaForm();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.openFileDialog = createOpenFileDialog(_openFileDialog1);
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             this.gboxPagamenti.SuspendLayout();
             this.gboxIncassi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -175,7 +177,7 @@ namespace bankdispositionsetup_bccirpina {
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "xml";
+            //this.saveFileDialog1.DefaultExt = "xml";
             // 
             // DS
             // 
@@ -258,11 +260,13 @@ namespace bankdispositionsetup_bccirpina {
         private System.Windows.Forms.Button btnGeneraFilePagamenti;
         private System.Windows.Forms.Button btnGeneraFileIncassi;
         public vistaForm DS;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.OpenFileDialog _openFileDialog1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private metadatalibrary.IOpenFileDialog openFileDialog;
+        private metadatalibrary.ISaveFileDialog saveFileDialog1;
     }
 }

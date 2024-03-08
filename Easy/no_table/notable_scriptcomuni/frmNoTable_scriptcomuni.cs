@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,6 +39,8 @@ namespace notable_scriptcomuni {
 	public partial class frmNoTable_scriptcomuni : MetaDataForm  {
 		public frmNoTable_scriptcomuni() {
 			InitializeComponent();
+			askFileName.FileName = "openFileVarComuni";
+			askFileName.RestoreDirectory = true;
 		}
 		
 		private DataTable variazioneComuni = null;
@@ -321,7 +323,7 @@ namespace notable_scriptcomuni {
 		private DataTable readFileListaComuniAE(string fileName) {
 			var dtToImport = new DataTable();
 			var header =
-				"Codice Nazionale;Sigla Provincia;Denominazione Italiana;Denominazione Estera;Codice Catastale;Ufficio Catasto Terreni;Ufficio Catasto Fabbricati;Codice Conservatoria;Codice Istat;Data Costituzione;Attesa VCT Territorio;Attesa VCT Fabbricati";
+				"CodiceNazionale;SiglaProvincia;DenominazioneItaliana;DenominazioneEstera;CodiceCatastale;UfficioCatastoTerreni;UfficioCatastoFabbricati;CodiceConservatoria;CodiceIstat;DataCostituzione;AttesaVCTTerritorio;AttesaVCTFabbricati";
              // "Codice Nazionale;Sigla Provincia;Denominazione Italiana;Denominazione Estera;Codice Catastale;Ufficio Catasto Terreni;Ufficio Catasto Fabbricati;Codice Conservatoria;Codice Istat;Data Costituzione;Attesa VCT Territorio;Attesa VCT Fabbricati"
 			foreach (string colName in header.Split(';')) {
 				dtToImport.Columns.Add(colName, typeof(string));
@@ -545,7 +547,7 @@ namespace notable_scriptcomuni {
 		private DataTable readFileVariazioni(string fileName) {
 			var dtToImport = new DataTable();
 			var header =
-				"Codice Nazionale;Sigla Provincia;Denominazione Italiana;Denominazione Estera;Codice Catastale;Data Variazione;Tipo Variazione;Tipo Annotazione;Info;Estremi Provvedimento;Contenuto Provvedimento";
+				"CodiceNazionale;SiglaProvincia;DenominazioneItaliana;DenominazioneEstera;CodiceCatastale;DataVariazione;TipoVariazione;TipoAnnotazione;Info;EstremiProvvedimento;ContenutoProvvedimento";
 			//   Codice Nazionale;Sigla Provincia;Denominazione Italiana;Denominazione Estera;Codice Catastale;Data Variazione;Tipo Variazione;Tipo Annotazione;Info;Estremi Provvedimento;Contenuto Provvedimento
 			foreach (string colName in header.Split(';')) {
 				dtToImport.Columns.Add(colName, typeof(string));
@@ -1279,7 +1281,7 @@ namespace notable_scriptcomuni {
 			                                   q.eq("idcode", idcode));
 			int maxVersion;
 			if (rr.Length == 0) {
-				//MessageBox.Show($"Non ho trovato codici associati all'idcity {idcity} idagency {idagency} idcode {idcode}","Errore");
+				//MetaFactory.factory.getSingleton<IMessageShower>().Show($"Non ho trovato codici associati all'idcity {idcity} idagency {idagency} idcode {idcode}","Errore");
 				maxVersion = 0;
 			}
 			else {
@@ -1647,13 +1649,15 @@ namespace notable_scriptcomuni {
 			Dictionary<int,DataRow> esenzioniAggiuntive = new Dictionary<int, DataRow>();
 			var dtToImport = new DataTable();
 			var header =
-				"CODICE_CATASTALE;COMUNE;PR;NUMERO_DELIBERA;DATA_DELIBERA;DATA_PUBBLICAZIONE;NOTE;MULTIALIQ;ALIQUOTA;FASCIA;ALIQUOTA_2;FASCIA_2;ALIQUOTA_3;FASCIA_3;ALIQUOTA_4;FASCIA_4;ALIQUOTA_5;FASCIA_5;ALIQUOTA_6;FASCIA_6;FLAG_NUOVA; IMPORTO_ESENTE";
+				"CODICE_CATASTALE;COMUNE;PR;NUMERO_DELIBERA;DATA_DELIBERA;DATA_PUBBLICAZIONE;NOTE;MULTIALIQ;ALIQUOTA;FASCIA;ALIQUOTA_2;FASCIA_2;ALIQUOTA_3;FASCIA_3;ALIQUOTA_4;FASCIA_4;ALIQUOTA_5;FASCIA_5;ALIQUOTA_6;FASCIA_6;" +
+				"ALIQUOTA_7;FASCIA_7;ALIQUOTA_8;FASCIA_8;ALIQUOTA_9;FASCIA_9;ALIQUOTA_10;FASCIA_10;ALIQUOTA_11;FASCIA_11;" +
+				"ALIQUOTA_12;FASCIA_12;FLAG_NUOVA;IMPORTO_ESENTE";
 			foreach (string colName in header.Split(';')) {
 				dtToImport.Columns.Add(colName, typeof(string));
 			}
 
 			var culture = new CultureInfo("en-US");
-
+			int maxcolumns = 12;
 			readFileGenerico(dtToImport, fileName);
 			dtToImport.Columns.Add("start", typeof(DateTime));
 			dtToImport.Columns.Add("data_delib", typeof(DateTime));
@@ -1664,13 +1668,10 @@ namespace notable_scriptcomuni {
 			dtToImport.Columns.Add("annotations", typeof(string));
 			dtToImport.Columns.Add("toinsert", typeof(string));
 			dtToImport.Columns.Add("enforcement", typeof(string));
-			for (int i = 1; i <= 6; i++) {
+			for (int i = 1; i <= maxcolumns; i++) {
 				dtToImport.Columns.Add("limit" + i.ToString(), typeof(decimal));
 				dtToImport.Columns.Add("rate" + i.ToString(), typeof(decimal));
 			}
-
-
-
 			StringBuilder sb = new StringBuilder();
 			dtToImport.Columns.Add("esente", typeof(decimal));
 			dtToImport.Columns["COMUNE"].ColumnName = "title";
@@ -1708,7 +1709,7 @@ namespace notable_scriptcomuni {
 				if (r["title"].ToString() == "BARANELLO") {
 					int h = 1;
 				}
-				for (int i = 1; i <= 6; i++) {
+				for (int i = 1; i <= maxcolumns; i++) {
 					string fascia = r["FASCIA_" + i.ToString()].ToString();
 					fascia = fascia.Replace("\"", "").Replace("  ", " ").Replace("  ", " ").Replace("  ", " ").Replace("  ", " ");
 					fascia = fascia.Replace("Applicabile a tutti i casi escluso gli esenti", "aliquota unica");
@@ -1804,7 +1805,7 @@ namespace notable_scriptcomuni {
 
 				decimal esenteOriginale = CfgFn.GetNoNullDecimal(r["esente"]);
 				decimal esente = esenteOriginale;
-				for (int i = 1; i <= 6; i++) {
+				for (int i = 1; i <= maxcolumns; i++) {
 					string fascia = r[$"FASCIA_{i}"].ToString().Trim().ToLowerInvariant();
 					if (fascia.Contains("residenti")) continue;
 
@@ -1919,7 +1920,8 @@ namespace notable_scriptcomuni {
 			foreach (DataRow r in dtToImport.Rows) {
 				foreach (var d in new Dictionary<string, string>() {
 					{"aliquota", "rate1"}, {"aliquota_2", "rate2"}, {"aliquota_3", "rate3"}, {"aliquota_4", "rate4"},
-					{"aliquota_5", "rate5"}, {"aliquota_6", "rate6"}
+					{"aliquota_5", "rate5"}, {"aliquota_6", "rate6"}, {"aliquota_7", "rate7"}, {"aliquota_8", "rate8"}
+					, {"aliquota_9", "rate9"}, {"aliquota_10", "rate10"}, {"aliquota_11", "rate11"}, {"aliquota_12", "rate12"}
 				}) {
 					var ali = r[d.Key];
 					if (ali.ToString() == "") continue;
@@ -1971,7 +1973,7 @@ namespace notable_scriptcomuni {
 					//getIdCity(r["nazionale"].ToString(), provincia, true) ?? DBNull.Value;
 				if (idcity == DBNull.Value) {
 					sb.AppendLine($"Comune {r["title"]} ({r["nazionale"]}) Data pubblicazione: {dStart} non trovato in geo_city_codeview");
-					//MessageBox.Show($"Codice nazionale: {r["nazionale"]} non trovato in geo_city_codeview", "Errore");
+					//MetaFactory.factory.getSingleton<IMessageShower>().Show($"Codice nazionale: {r["nazionale"]} non trovato in geo_city_codeview", "Errore");
 					continue;
 				}
 
@@ -1983,7 +1985,7 @@ namespace notable_scriptcomuni {
 			foreach (DataRow r in dtToImport.Rows) {
 				string fascia = r["FASCIA_1"].ToString().Trim().ToLowerInvariant();
 				if (fascia == "aliquota unica") {
-					for (int i = 1; i <= 6; i++) {
+					for (int i = 1; i <= maxcolumns; i++) {
 						r[$"limit{i}"] = 0;
 					}
 				}
@@ -2028,6 +2030,12 @@ namespace notable_scriptcomuni {
 				if (CfgFn.GetNoNullDecimal(r["rate4"]) != 0)sb.AppendLine($"Il comune {r["title"]} non dovrebbe avere aliquota4<>0 ");
 				if (CfgFn.GetNoNullDecimal(r["rate5"]) != 0)sb.AppendLine($"Il comune {r["title"]} non dovrebbe avere aliquota5<>0 ");
 				if (CfgFn.GetNoNullDecimal(r["rate6"]) != 0)sb.AppendLine($"Il comune {r["title"]} non dovrebbe avere aliquota6<>0 ");
+				if (CfgFn.GetNoNullDecimal(r["rate7"]) != 0) sb.AppendLine($"Il comune {r["title"]} non dovrebbe avere aliquota7<>0 ");
+				if (CfgFn.GetNoNullDecimal(r["rate8"]) != 0) sb.AppendLine($"Il comune {r["title"]} non dovrebbe avere aliquota8<>0 ");
+				if (CfgFn.GetNoNullDecimal(r["rate9"]) != 0) sb.AppendLine($"Il comune {r["title"]} non dovrebbe avere aliquota9<>0 ");
+				if (CfgFn.GetNoNullDecimal(r["rate10"]) != 0) sb.AppendLine($"Il comune {r["title"]} non dovrebbe avere aliquota10<>0 ");
+				if (CfgFn.GetNoNullDecimal(r["rate11"]) != 0) sb.AppendLine($"Il comune {r["title"]} non dovrebbe avere aliquota11<>0 ");
+				if (CfgFn.GetNoNullDecimal(r["rate12"]) != 0) sb.AppendLine($"Il comune {r["title"]} non dovrebbe avere aliquota12<>0 ");
 			}
 
 			//questa non dovrebbe dare righe a meno che non siano esenzioni particolari  (1)
@@ -2116,7 +2124,7 @@ namespace notable_scriptcomuni {
 				decimal limitePrecedente = 0;
 				int ultimaFasciaValorizzata = 0;
 				bool aliquotaUnicaTrovata = false;
-				for (int i = 1; i <= 6; i++) {
+				for (int i = 1; i <= maxcolumns; i++) {
 					string fascia = r[$"FASCIA_{i}"].ToString().Trim().ToLowerInvariant();
 					if (fascia == "") {
 						if (CfgFn.GetNoNullDecimal(r[$"rate{i}"]) != 0) {
@@ -2264,7 +2272,7 @@ namespace notable_scriptcomuni {
 				}
 				int searchFirstFase = 0;
 				bool allResidenti = true;
-				for (int i = 1; i <= 6; i++) {
+				for (int i = 1; i <= maxcolumns; i++) {
 					string fascia = r[$"FASCIA_{i}"].ToString().Trim().ToLowerInvariant();
 					if (fascia == "aliquota unica") {
 						searchFirstFase = i;
@@ -2289,7 +2297,7 @@ namespace notable_scriptcomuni {
 					}
 
 					decimal max = 0;
-					for (int i = 1; i <= 6; i++) {
+					for (int i = 1; i <= maxcolumns; i++) {
 						decimal rate = CfgFn.GetNoNullDecimal(r[$"rate{i}"]);
 						r[$"rate{i}"] = 0;
 						r[$"limit{i}"]=0;

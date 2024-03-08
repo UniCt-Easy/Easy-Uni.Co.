@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -48,8 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.idreg)
-					parentRow.idreg = this.sec.usr('idreg');
 				_.forEach(this.getDataTable("assetdiaryora").rows, function (r) {
 					var p = [];
 					var dtProgetto = self.getDataTable('progettosegview');
@@ -97,24 +78,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			
 			
 			afterRowSelect: function (t, r) {
-				$('#assetdiary_docente_idworkpackage').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#assetdiary_docente_idworkpackage').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#assetdiary_docente_idprogetto').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#assetdiary_docente_idprogetto').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#assetdiary_docente_idworkpackage').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idworkpackage);
+				$('#assetdiary_docente_idworkpackage').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idworkpackage);
+				$('#assetdiary_docente_idprogetto').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idworkpackage);
+				$('#assetdiary_docente_idprogetto').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idworkpackage);
+				if (t.name === "assetsegview" && r !== null) {
+					return this.manageidpiece(this).then(function () {
+						return def.resolve();
+					});
+				}
 				//afterRowSelectin
 				var arraydef = [];
 				var self = this;
-				if (t.name === "progettosegview" && r !== null) {
-					appMeta.metaModel.cachedTable(this.getDataTable("workpackagesegview"), false);
-					var assetdiary_docente_idworkpackageCtrl = $('#assetdiary_docente_idworkpackage').data("customController");
-					arraydef.push(assetdiary_docente_idworkpackageCtrl.filteredPreFillCombo(window.jsDataQuery.eq("idprogetto", r ? r.idprogetto : null), null, true)
-						.then(function (dt) {
-							if (self.state.currentRow && self.state.currentRow.idworkpackage)
-								assetdiary_docente_idworkpackageCtrl.fillControl(null, self.state.currentRow.idworkpackage);
-							return true;
-						})
-);
-				}
 				if (t.name === "progettosegview" && r !== null) {
 					appMeta.metaModel.cachedTable(this.getDataTable("assetsegview"), false);
 					var assetdiary_doc_idpieceCtrl = $('#assetdiary_docente_idpiece').data("customController");
@@ -164,14 +139,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.assetdiary.defaults({ 'idreg': this.sec.usr('idreg') });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
 					$('#calendar11').fullCalendar('rerenderEvents');
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);
-				$('#assetdiary_docente_idpiece').on("change", _.partial(this.manageidpiece, self));
-				appMeta.metaModel.cachedTable(this.getDataTable("workpackagesegview"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("workpackagesegview"));
 				appMeta.metaModel.cachedTable(this.getDataTable("assetsegview"), true);
 				appMeta.metaModel.lockRead(this.getDataTable("assetsegview"));
 				//fireAfterLink
@@ -229,7 +202,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				if (!this.isEmpty()) {
 					if (this.state.currentRow.idreg && this.state.currentRow.idassetdiary &&
 						this.state.currentRow.idasset && this.state.currentRow.idpiece) {
-						// carica tutte le attivit‡ dell'utente tranne quelle del diario d'uso corrente 
+						// carica tutte le attivit√† dell'utente tranne quelle del diario d'uso corrente 
 						var filterOthersActivities = self.q.and(
 							self.q.eq("idreg", this.state.currentRow.idreg),
 							self.q.ne("idassetdiary", this.state.currentRow.idassetdiary)
@@ -302,6 +275,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					});
 			},
 
+			children: ['assetdiaryora'],
+			haveChildren: function () {
+				var self = this;
+				return _.some(this.children, function (child) {
+					if (child !== '')
+						return !!self.getDataTable(child).rows.length;
+					else
+						return false;
+				});
+			},
+
 			manageidpiece: function(that) { 
 				if ($('#assetdiary_docente_idpiece option:selected').text()) {
 					var matches = $('#assetdiary_docente_idpiece option:selected').text().match(new RegExp("Identificativo: " + "(.*)" + ";  Codice UPB:"));
@@ -314,17 +298,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						}
 					}
 				}
-			},
-
-			children: ['assetdiaryora'],
-			haveChildren: function () {
-				var self = this;
-				return _.some(this.children, function (child) {
-					if (child !== '')
-						return !!self.getDataTable(child).rows.length;
-					else
-						return false;
-				});
 			},
 
 			//buttons

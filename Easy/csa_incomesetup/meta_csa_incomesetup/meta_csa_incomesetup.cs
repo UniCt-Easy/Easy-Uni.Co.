@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using metaeasylibrary;
 using metadatalibrary;
+using funzioni_configurazione;
 
 namespace meta_csa_incomesetup
 {
@@ -67,16 +68,23 @@ namespace meta_csa_incomesetup
 	    string [] ritenuteFields= new string[] 
 	        {"idfin_income","idfin_expense","idsor_siope_income","idsor_siope_expense","idacc_expense","idacc_agency_credit"};
 	    //finincome && finexpense && sortingincome && sortingexpense && accountente && accountcreditente;
+		string [] ritenuteFieldsNoSiope= new string[] 
+	        {"idfin_income","idfin_expense","idacc_expense","idacc_agency_credit"};
 
 	    string []  recuperiFields= new string[] {
 	        "idfin_incomeclawback","idsor_siope_incomeclawback","idacc_revenue","idfin_cost","idsor_siope_cost",
 	        "idacc_cost","idupb"
 	    };// finincomeclawback && sortingincomeclawback && account_revenue && finexpensecost  && sortingexpensecost  && account_cost && upb;
+		string []  recuperiFieldsNoSiope= new string[] {
+	        "idfin_incomeclawback","idacc_revenue","idfin_cost","idacc_cost","idupb"};
 
 
 	    string [] contributiFields = new string[] {
 	        "idfin_incomeclawback","idsor_siope_incomeclawback","idacc_revenue","idacc_expense","idacc_agency_credit"
 	    };//finincomeclawback && sortingincomeclawback && account_revenue && accountente && accountcreditente;
+
+		string [] contributiFieldsNoSiope = new string[] {
+	        "idfin_incomeclawback","idacc_revenue","idacc_expense","idacc_agency_credit"};
 
 	    bool checkConfigurazione(DataRow r, string[] cfg) {
 	        List<string> elencoVietati = new List<string>();
@@ -96,13 +104,24 @@ namespace meta_csa_incomesetup
 
         public override bool IsValid(DataRow R, out string errmess, out string errfield) {
             if (!base.IsValid(R, out errmess, out errfield)) return false;
-          
-            if (!(checkConfigurazione(R,ritenuteFields)|checkConfigurazione(R,contributiFields)| checkConfigurazione(R,recuperiFields))) {
-                errmess = "Configurazione incompleta o errata";
-                //errfield = "...";
-                return false;
-            }
-            
+
+			int flagSiope = CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("codesorkind", "SIOPE_U_18"), "flag"));
+
+			string SiopeObb = ((CfgFn.GetNoNullInt32(flagSiope) & 1) != 0) ? "S" : "N";
+
+			if (SiopeObb == "N") {
+				if (!(checkConfigurazione(R, ritenuteFieldsNoSiope) | checkConfigurazione(R, contributiFieldsNoSiope) | checkConfigurazione(R, recuperiFieldsNoSiope))) {
+					errmess = "Configurazione incompleta o errata";
+					return false;
+				}
+			}
+			else {
+				if (!(checkConfigurazione(R,ritenuteFields)|checkConfigurazione(R,contributiFields)| checkConfigurazione(R,recuperiFields))) {
+					errmess = "Configurazione incompleta o errata";
+					//errfield = "...";
+					return false;
+				}
+			}
 
             return true;
         }

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -44,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'cf', 'Crediti formativi', 'fixed.2', 20, null);
 						this.describeAColumn(table, 'cfintegrazione', 'Crediti formativi di integrazione', 'fixed.2', 30, null);
 						this.describeAColumn(table, 'data', 'Data', 'g', 40, null);
-						this.describeAColumn(table, 'idiscrizionebmi', 'Iscrizione al bando di mobilit‡ internazionale', null, 100, null);
+						this.describeAColumn(table, 'idiscrizionebmi', 'Iscrizione al bando di mobilit√† internazionale', null, 100, null);
 						this.describeAColumn(table, 'voto', 'Voto', 'fixed.2', 160, null);
 						this.describeAColumn(table, 'votolode', 'Lode', null, 170, null);
 						this.describeAColumn(table, 'votosu', 'Su', null, 180, null);
@@ -53,11 +36,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'segstudprat':
 						this.describeAColumn(table, '!idconvalidakind_convalidakind_title', 'Tipologia', null, 51, null);
 						objCalcFieldConfig['!idconvalidakind_convalidakind_title'] = { tableNameLookup:'convalidakind', columnNameLookup:'title', columnNamekey:'idconvalidakind' };
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_data', 'Data Iscrizione al bando di mobilit‡ internazionale', 'g', 102, null);
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idreg_title', 'Denominazione Iscrizione al bando di mobilit‡ internazionale', null, 101, null);
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_anno', 'Anno di corso Iscrizione al bando di mobilit‡ internazionale', null, 101, null);
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_iddidprog', 'Didattica programmata Iscrizione al bando di mobilit‡ internazionale', null, 102, null);
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_aa', 'Anno accademico Iscrizione al bando di mobilit‡ internazionale', null, 103, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_data', 'Data Iscrizione al bando di mobilit√† internazionale', 'g', 102, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idreg_title', 'Denominazione Iscrizione al bando di mobilit√† internazionale', null, 101, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_anno', 'Anno di corso Iscrizione al bando di mobilit√† internazionale', null, 101, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_iddidprog', 'Didattica programmata Iscrizione al bando di mobilit√† internazionale', null, 102, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_aa', 'Anno accademico Iscrizione al bando di mobilit√† internazionale', null, 103, null);
 						objCalcFieldConfig['!idiscrizionebmi_iscrizionebmi_data'] = { tableNameLookup:'iscrizionebmi', columnNameLookup:'data', columnNamekey:'idiscrizionebmi' };
 						objCalcFieldConfig['!idiscrizionebmi_iscrizionebmi_idreg_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idiscrizionebmi' };
 						objCalcFieldConfig['!idiscrizionebmi_iscrizionebmi_idiscrizione_anno'] = { tableNameLookup:'iscrizione', columnNameLookup:'anno', columnNamekey:'idiscrizionebmi' };
@@ -115,11 +98,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idiscrizione_from_iscrizione_iddidprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idiscrizione_from' };
 						objCalcFieldConfig['!idiscrizione_from_iscrizione_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idiscrizione_from' };
 						objCalcFieldConfig['!idiscrizione_from_iscrizione_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idiscrizione_from' };
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_data', 'Data Iscrizione al bando di mobilit‡ internazionale', 'g', 102, null);
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idreg_title', 'Denominazione Iscrizione al bando di mobilit‡ internazionale', null, 101, null);
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_anno', 'Anno di corso Iscrizione al bando di mobilit‡ internazionale', null, 101, null);
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_iddidprog', 'Didattica programmata Iscrizione al bando di mobilit‡ internazionale', null, 102, null);
-						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_aa', 'Anno accademico Iscrizione al bando di mobilit‡ internazionale', null, 103, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_data', 'Data Iscrizione al bando di mobilit√† internazionale', 'g', 102, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idreg_title', 'Denominazione Iscrizione al bando di mobilit√† internazionale', null, 101, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_anno', 'Anno di corso Iscrizione al bando di mobilit√† internazionale', null, 101, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_iddidprog', 'Didattica programmata Iscrizione al bando di mobilit√† internazionale', null, 102, null);
+						this.describeAColumn(table, '!idiscrizionebmi_iscrizionebmi_idiscrizione_aa', 'Anno accademico Iscrizione al bando di mobilit√† internazionale', null, 103, null);
 						objCalcFieldConfig['!idiscrizionebmi_iscrizionebmi_data'] = { tableNameLookup:'iscrizionebmi', columnNameLookup:'data', columnNamekey:'idiscrizionebmi' };
 						objCalcFieldConfig['!idiscrizionebmi_iscrizionebmi_idreg_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idiscrizionebmi' };
 						objCalcFieldConfig['!idiscrizionebmi_iscrizionebmi_idiscrizione_anno'] = { tableNameLookup:'iscrizione', columnNameLookup:'anno', columnNamekey:'idiscrizionebmi' };

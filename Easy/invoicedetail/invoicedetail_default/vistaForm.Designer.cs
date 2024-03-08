@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,15 +29,9 @@ namespace invoicedetail_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Elenco aliquote
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ivakind 		=> Tables["ivakind"];
 
-	///<summary>
-	///Dettaglio documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicedetail 		=> Tables["invoicedetail"];
 
@@ -50,21 +44,12 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting3 		=> Tables["sorting3"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Tipo contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable mandatekind 		=> Tables["mandatekind"];
 
-	///<summary>
-	///Tipo di Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimatekind 		=> Tables["estimatekind"];
 
@@ -80,75 +65,39 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable income_taxable 		=> Tables["income_taxable"];
 
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoice 		=> Tables["invoice"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotive 		=> Tables["accmotive"];
 
-	///<summary>
-	///Unit√† di misura supplementare
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable intrastatmeasure 		=> Tables["intrastatmeasure"];
 
-	///<summary>
-	///Nomenclatura combinata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable intrastatcode 		=> Tables["intrastatcode"];
 
-	///<summary>
-	///collegamento tra registri iva e  tipo documento iva
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekindregisterkind 		=> Tables["invoicekindregisterkind"];
 
-	///<summary>
-	///Registro IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ivaregisterkind 		=> Tables["ivaregisterkind"];
 
-	///<summary>
-	///Codice del servizio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable intrastatservice 		=> Tables["intrastatservice"];
 
-	///<summary>
-	/// Natura della transazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable intrastatsupplymethod 		=> Tables["intrastatsupplymethod"];
 
-	///<summary>
-	///Unit√† di Misura per il carico/scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable unit 		=> Tables["unit"];
 
-	///<summary>
-	/// Unit√† di Misura per l'acquisto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable package 		=> Tables["package"];
 
-	///<summary>
-	///Classificazione Merceologica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable listclass 		=> Tables["listclass"];
 
@@ -161,45 +110,24 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind1 		=> Tables["invoicekind1"];
 
-	///<summary>
-	///Tipo Cessione / Prestazione per fattura elettronica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fetransfer 		=> Tables["fetransfer"];
 
-	///<summary>
-	///Ripartizione dei costi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable costpartition 		=> Tables["costpartition"];
 
-	///<summary>
-	///trattasi di valori codificati dalla PCC
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable pccdebitmotive 		=> Tables["pccdebitmotive"];
 
-	///<summary>
-	///trattasi di valori codificati dalla PCC
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable pccdebitstatus 		=> Tables["pccdebitstatus"];
 
-	///<summary>
-	///Impegno di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable epexp 		=> Tables["epexp"];
 
-	///<summary>
-	///dettagli di una fattura inseriti in liquidazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicedetaildeferred 		=> Tables["invoicedetaildeferred"];
 
-	///<summary>
-	///Accertamento di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable epacc 		=> Tables["epacc"];
 
@@ -213,10 +141,10 @@ public partial class vistaForm: DataSet {
 	public DataTable sorting_siopes 		=> Tables["sorting_siopes"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable tassonomia_pagopa 		=> Tables["tassonomia_pagopa"];
+	public DataTable finmotive_iva_income 		=> Tables["finmotive_iva_income"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable finmotive_iva_income 		=> Tables["finmotive_iva_income"];
+	public DataTable tassonomia_pagopa 		=> Tables["tassonomia_pagopa"];
 
 	#endregion
 
@@ -272,6 +200,9 @@ private void initClass() {
 	tivakind.Columns.Add(C);
 	tivakind.Columns.Add( new DataColumn("active", typeof(string)));
 	tivakind.Columns.Add( new DataColumn("idivataxablekind", typeof(int)));
+	tivakind.Columns.Add( new DataColumn("codeivakind", typeof(string)));
+	tivakind.Columns.Add( new DataColumn("flag", typeof(int)));
+	tivakind.Columns.Add( new DataColumn("annotations", typeof(string)));
 	tivakind.Columns.Add( new DataColumn("idfenature", typeof(string)));
 	Tables.Add(tivakind);
 	tivakind.PrimaryKey =  new DataColumn[]{tivakind.Columns["idivakind"]};
@@ -376,6 +307,7 @@ private void initClass() {
 	tinvoicedetail.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	tinvoicedetail.Columns.Add( new DataColumn("idtassonomia", typeof(int)));
 	tinvoicedetail.Columns.Add( new DataColumn("idfinmotive_iva", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("rownum_main", typeof(int)));
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.PrimaryKey =  new DataColumn[]{tinvoicedetail.Columns["idinvkind"], tinvoicedetail.Columns["yinv"], tinvoicedetail.Columns["ninv"], tinvoicedetail.Columns["rownum"]};
 
@@ -617,6 +549,7 @@ private void initClass() {
 	tmandatekind.Columns.Add( new DataColumn("idsor03", typeof(int)));
 	tmandatekind.Columns.Add( new DataColumn("idsor04", typeof(int)));
 	tmandatekind.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tmandatekind.Columns.Add( new DataColumn("linktoinvoice", typeof(string)));
 	Tables.Add(tmandatekind);
 	tmandatekind.PrimaryKey =  new DataColumn[]{tmandatekind.Columns["idmankind"]};
 
@@ -654,6 +587,7 @@ private void initClass() {
 	testimatekind.Columns.Add( new DataColumn("idsor03", typeof(int)));
 	testimatekind.Columns.Add( new DataColumn("idsor04", typeof(int)));
 	testimatekind.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	testimatekind.Columns.Add( new DataColumn("linktoinvoice", typeof(string)));
 	Tables.Add(testimatekind);
 	testimatekind.PrimaryKey =  new DataColumn[]{testimatekind.Columns["idestimkind"]};
 
@@ -1410,6 +1344,7 @@ private void initClass() {
 	tpccdebitstatus.Columns.Add(C);
 	tpccdebitstatus.Columns.Add( new DataColumn("listingorder", typeof(int)));
 	tpccdebitstatus.Columns.Add( new DataColumn("flag", typeof(int)));
+	tpccdebitstatus.Columns.Add( new DataColumn("active", typeof(string)));
 	Tables.Add(tpccdebitstatus);
 	tpccdebitstatus.PrimaryKey =  new DataColumn[]{tpccdebitstatus.Columns["idpccdebitstatus"]};
 
@@ -1677,6 +1612,29 @@ private void initClass() {
 	tsorting_siopes.PrimaryKey =  new DataColumn[]{tsorting_siopes.Columns["idsor"]};
 
 
+	//////////////////// FINMOTIVE_IVA_INCOME /////////////////////////////////
+	var tfinmotive_iva_income= new DataTable("finmotive_iva_income");
+	C= new DataColumn("idfinmotive", typeof(string));
+	C.AllowDBNull=false;
+	tfinmotive_iva_income.Columns.Add(C);
+	C= new DataColumn("active", typeof(string));
+	C.AllowDBNull=false;
+	tfinmotive_iva_income.Columns.Add(C);
+	C= new DataColumn("codemotive", typeof(string));
+	C.AllowDBNull=false;
+	tfinmotive_iva_income.Columns.Add(C);
+	tfinmotive_iva_income.Columns.Add( new DataColumn("paridfinmotive", typeof(string)));
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tfinmotive_iva_income.Columns.Add(C);
+	tfinmotive_iva_income.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tfinmotive_iva_income.Columns.Add( new DataColumn("lu", typeof(string)));
+	tfinmotive_iva_income.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tfinmotive_iva_income.Columns.Add( new DataColumn("cu", typeof(string)));
+	Tables.Add(tfinmotive_iva_income);
+	tfinmotive_iva_income.PrimaryKey =  new DataColumn[]{tfinmotive_iva_income.Columns["idfinmotive"]};
+
+
 	//////////////////// TASSONOMIA_PAGOPA /////////////////////////////////
 	var ttassonomia_pagopa= new DataTable("tassonomia_pagopa");
 	C= new DataColumn("idtassonomia", typeof(int));
@@ -1703,29 +1661,6 @@ private void initClass() {
 	ttassonomia_pagopa.Columns.Add( new DataColumn("motivoriscossione", typeof(string)));
 	Tables.Add(ttassonomia_pagopa);
 	ttassonomia_pagopa.PrimaryKey =  new DataColumn[]{ttassonomia_pagopa.Columns["idtassonomia"]};
-
-
-	//////////////////// FINMOTIVE_IVA_INCOME /////////////////////////////////
-	var tfinmotive_iva_income= new DataTable("finmotive_iva_income");
-	C= new DataColumn("idfinmotive", typeof(string));
-	C.AllowDBNull=false;
-	tfinmotive_iva_income.Columns.Add(C);
-	C= new DataColumn("active", typeof(string));
-	C.AllowDBNull=false;
-	tfinmotive_iva_income.Columns.Add(C);
-	C= new DataColumn("codemotive", typeof(string));
-	C.AllowDBNull=false;
-	tfinmotive_iva_income.Columns.Add(C);
-	tfinmotive_iva_income.Columns.Add( new DataColumn("paridfinmotive", typeof(string)));
-	C= new DataColumn("title", typeof(string));
-	C.AllowDBNull=false;
-	tfinmotive_iva_income.Columns.Add(C);
-	tfinmotive_iva_income.Columns.Add( new DataColumn("lt", typeof(DateTime)));
-	tfinmotive_iva_income.Columns.Add( new DataColumn("lu", typeof(string)));
-	tfinmotive_iva_income.Columns.Add( new DataColumn("ct", typeof(DateTime)));
-	tfinmotive_iva_income.Columns.Add( new DataColumn("cu", typeof(string)));
-	Tables.Add(tfinmotive_iva_income);
-	tfinmotive_iva_income.PrimaryKey =  new DataColumn[]{tfinmotive_iva_income.Columns["idfinmotive"]};
 
 
 	#endregion
@@ -1864,13 +1799,13 @@ private void initClass() {
 	cChild = new []{invoicedetail.Columns["idsor_siope"]};
 	Relations.Add(new DataRelation("sorting_siopes_invoicedetail",cPar,cChild,false));
 
-	cPar = new []{tassonomia_pagopa.Columns["idtassonomia"]};
-	cChild = new []{invoicedetail.Columns["idtassonomia"]};
-	Relations.Add(new DataRelation("tassonomia_pagopa_invoicedetail",cPar,cChild,false));
-
 	cPar = new []{finmotive_iva_income.Columns["idfinmotive"]};
 	cChild = new []{invoicedetail.Columns["idfinmotive_iva"]};
 	Relations.Add(new DataRelation("finmotive_iva_invoicedetail",cPar,cChild,false));
+
+	cPar = new []{tassonomia_pagopa.Columns["idtassonomia"]};
+	cChild = new []{invoicedetail.Columns["idtassonomia"]};
+	Relations.Add(new DataRelation("tassonomia_pagopa_invoicedetail",cPar,cChild,false));
 
 	#endregion
 

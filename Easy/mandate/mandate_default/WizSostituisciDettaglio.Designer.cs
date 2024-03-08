@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -411,7 +411,6 @@ namespace mandate_default {
 			// btnCopy
 			// 
 			this.btnCopy.Enabled = false;
-			this.btnCopy.Visible = false;
 			this.btnCopy.Location = new System.Drawing.Point(146, 20);
 			this.btnCopy.Name = "btnCopy";
 			this.btnCopy.Size = new System.Drawing.Size(334, 23);
@@ -419,6 +418,7 @@ namespace mandate_default {
 			this.btnCopy.TabStop = false;
 			this.btnCopy.Text = "Ricopia le informazioni del dettaglio da annullare nel nuovo";
 			this.btnCopy.UseVisualStyleBackColor = true;
+			this.btnCopy.Visible = false;
 			this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
 			// 
 			// groupBox7
@@ -1178,6 +1178,7 @@ namespace mandate_default {
 			// txtNewDescrizione
 			// 
 			this.txtNewDescrizione.Location = new System.Drawing.Point(430, 204);
+			this.txtNewDescrizione.MaxLength = 150;
 			this.txtNewDescrizione.Multiline = true;
 			this.txtNewDescrizione.Name = "txtNewDescrizione";
 			this.txtNewDescrizione.Size = new System.Drawing.Size(314, 52);

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -129,7 +129,6 @@ namespace invoice_default { //documentoiva//
         private Label label20;
         private Label label21;
         private GroupBox gboxintra_acquisti;
-        private ComboBox cmb_natura;
         private ComboBox cmb_provorigine;
         private ComboBox cmb_isodestinazione;
         private ComboBox cmb_provdestinazione;
@@ -146,8 +145,6 @@ namespace invoice_default { //documentoiva//
         private TextBox textBox2;
         private TextBox textBox5;
         private GroupBox gboxNatura;
-        private Button button4;
-        private TextBox txtDescrUPB;
         private Label labDataCrgCausale;
         private TextBox textBox7;
         private GroupBox gboxCausaleCrg;
@@ -242,14 +239,10 @@ namespace invoice_default { //documentoiva//
         private Label label44;
         private Button btnCreaRegistroUnico;
         private CheckBox chkIncludeInPaymentIndicator;
-        private CheckBox checkBox1;
-        private DataGrid dgrPCC;
-        private Label label46;
         private CheckBox chkProtocollanelRU;
         private Button btnAnnullaFattura;
         private TextBox textBox8;
         private Button btnRipartizione;
-        private Button btnModStatodelDebito;
         private TabPage tabAllegati;
         private DataGrid dataGrid3;
         private Button btnDelAtt;
@@ -305,6 +298,7 @@ namespace invoice_default { //documentoiva//
         private GroupBox grpCertificatiNecessari;
         private CheckBox chkDurc;
         private CheckBox chkVisura;
+        private CheckBox chkPattoIntegrita;
         private CheckBox chkCCdedicato;
         private GroupBox groupBox11;
         private TextBox txtNocigmotive;
@@ -318,7 +312,7 @@ namespace invoice_default { //documentoiva//
 		private TabPage tabFE;
 		private TabControl tabControl2;
 		private TabPage tabPage2;
-		private GroupBox groupBox17;
+		private GroupBox grpFEvendita;
 		private GroupBox gboxBollo;
 		private RadioButton rdbNoBollo;
 		private RadioButton rdb19_2014;
@@ -355,7 +349,7 @@ namespace invoice_default { //documentoiva//
 		private Label label52;
 		private TextBox txtRifamm_acq;
 		private TabPage tabPage3;
-		private Button btnInviaSdI;
+		private Button btnInviaSdIFEacquestere;
 		private Button btnCheck;
 		private GroupBox grpSdIAcqEstere;
 		private GroupBox groupBox13;
@@ -399,6 +393,36 @@ namespace invoice_default { //documentoiva//
 		private ComboBox cmbDocumentKind;
 		private GroupBox grpDenominazione;
 		private GroupBox grpDocumentKind;
+		private TextBox txtCodeA;
+		private GroupBox grpColonnaA;
+		private TextBox txtDescrA;
+		private GroupBox grpColonnaB;
+		private TextBox txtDescrB;
+		private TextBox txtCodeB;
+		private Button BtnCodiceA;
+		private Button btnCodiceB;
+		private GroupBox groupBox12;
+		private Button btnCheckFEvendita;
+		private Button btnInviaSdIFEvendita;
+		private Button btnAggiungiDaFattura;
+		private TabPage tabPCC;
+		private DataGrid dataGrid5;
+		private Button btnEliminaPCC;
+		private Button btnModificaPCC;
+		private Button btnInserisciPCC;
+		private Label label46;
+		private DataGrid dgrPCC;
+		private CheckBox checkBox1;
+		private Label label60;
+		private Label label61;
+		private TextBox txtIdentificativoSdI;
+		private Button btnCreaRigheStatodeldebito;
+		private Button btnModStatodelDebito;
+		private TabPage tabPageCampiAggiuntivi;
+		private Button btnRimuovi;
+		private Button button1;
+		private Button button2;
+		private DataGrid gridFatture;
 		private bool skipAfterFill = false;
 
         public Frm_invoice_default() {
@@ -466,6 +490,7 @@ namespace invoice_default { //documentoiva//
 			this.tabRegistri = new System.Windows.Forms.TabPage();
 			this.dataGrid1 = new System.Windows.Forms.DataGrid();
 			this.tabPageDettagli = new System.Windows.Forms.TabPage();
+			this.btnAggiungiDaFattura = new System.Windows.Forms.Button();
 			this.btnCollegaCarichiCespite = new System.Windows.Forms.Button();
 			this.btnUnisciDettagli = new System.Windows.Forms.Button();
 			this.btnDividiDettaglio = new System.Windows.Forms.Button();
@@ -564,6 +589,7 @@ namespace invoice_default { //documentoiva//
 			this.chkRegolaritaFisc = new System.Windows.Forms.CheckBox();
 			this.chkDurc = new System.Windows.Forms.CheckBox();
 			this.chkVisura = new System.Windows.Forms.CheckBox();
+			this.chkPattoIntegrita = new System.Windows.Forms.CheckBox();
 			this.chkCCdedicato = new System.Windows.Forms.CheckBox();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabIntrastat = new System.Windows.Forms.TabPage();
@@ -573,18 +599,16 @@ namespace invoice_default { //documentoiva//
 			this.rdbextracom = new System.Windows.Forms.RadioButton();
 			this.rdbintracom = new System.Windows.Forms.RadioButton();
 			this.rdbitalia = new System.Windows.Forms.RadioButton();
-			this.gboxIntraInfoServizi = new System.Windows.Forms.GroupBox();
-			this.cmbModpagamento = new System.Windows.Forms.ComboBox();
-			this.label25 = new System.Windows.Forms.Label();
-			this.textBox13 = new System.Windows.Forms.TextBox();
-			this.label31 = new System.Windows.Forms.Label();
-			this.cmb_isopagamento = new System.Windows.Forms.ComboBox();
-			this.label32 = new System.Windows.Forms.Label();
 			this.gboxIntraInfoBeni = new System.Windows.Forms.GroupBox();
 			this.gboxNatura = new System.Windows.Forms.GroupBox();
-			this.button4 = new System.Windows.Forms.Button();
-			this.cmb_natura = new System.Windows.Forms.ComboBox();
-			this.txtDescrUPB = new System.Windows.Forms.TextBox();
+			this.grpColonnaB = new System.Windows.Forms.GroupBox();
+			this.btnCodiceB = new System.Windows.Forms.Button();
+			this.txtDescrB = new System.Windows.Forms.TextBox();
+			this.txtCodeB = new System.Windows.Forms.TextBox();
+			this.grpColonnaA = new System.Windows.Forms.GroupBox();
+			this.BtnCodiceA = new System.Windows.Forms.Button();
+			this.txtDescrA = new System.Windows.Forms.TextBox();
+			this.txtCodeA = new System.Windows.Forms.TextBox();
 			this.gboxintra_vendite = new System.Windows.Forms.GroupBox();
 			this.textBox5 = new System.Windows.Forms.TextBox();
 			this.textBox3 = new System.Windows.Forms.TextBox();
@@ -594,6 +618,13 @@ namespace invoice_default { //documentoiva//
 			this.cmb_isodestinazione = new System.Windows.Forms.ComboBox();
 			this.label20 = new System.Windows.Forms.Label();
 			this.label21 = new System.Windows.Forms.Label();
+			this.gboxIntraInfoServizi = new System.Windows.Forms.GroupBox();
+			this.cmbModpagamento = new System.Windows.Forms.ComboBox();
+			this.label25 = new System.Windows.Forms.Label();
+			this.textBox13 = new System.Windows.Forms.TextBox();
+			this.label31 = new System.Windows.Forms.Label();
+			this.cmb_isopagamento = new System.Windows.Forms.ComboBox();
+			this.label32 = new System.Windows.Forms.Label();
 			this.gboxintra_acquisti = new System.Windows.Forms.GroupBox();
 			this.textBox4 = new System.Windows.Forms.TextBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
@@ -653,12 +684,12 @@ namespace invoice_default { //documentoiva//
 			this.tabFE = new System.Windows.Forms.TabPage();
 			this.tabControl2 = new System.Windows.Forms.TabControl();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.grpFEAcquistoEstere = new System.Windows.Forms.GroupBox();
 			this.grpDenominazione = new System.Windows.Forms.GroupBox();
 			this.cmbDenominazione = new System.Windows.Forms.ComboBox();
+			this.grpFEAcquistoEstere = new System.Windows.Forms.GroupBox();
 			this.grpDocumentKind = new System.Windows.Forms.GroupBox();
 			this.cmbDocumentKind = new System.Windows.Forms.ComboBox();
-			this.groupBox17 = new System.Windows.Forms.GroupBox();
+			this.grpFEvendita = new System.Windows.Forms.GroupBox();
 			this.gboxBollo = new System.Windows.Forms.GroupBox();
 			this.rdbNoBollo = new System.Windows.Forms.RadioButton();
 			this.rdb19_2014 = new System.Windows.Forms.RadioButton();
@@ -695,9 +726,12 @@ namespace invoice_default { //documentoiva//
 			this.label52 = new System.Windows.Forms.Label();
 			this.txtRifamm_acq = new System.Windows.Forms.TextBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.groupBox12 = new System.Windows.Forms.GroupBox();
+			this.btnCheckFEvendita = new System.Windows.Forms.Button();
+			this.btnInviaSdIFEvendita = new System.Windows.Forms.Button();
 			this.groupBox18 = new System.Windows.Forms.GroupBox();
 			this.btnCheck = new System.Windows.Forms.Button();
-			this.btnInviaSdI = new System.Windows.Forms.Button();
+			this.btnInviaSdIFEacquestere = new System.Windows.Forms.Button();
 			this.grpSdIAcqEstere = new System.Windows.Forms.GroupBox();
 			this.groupBox13 = new System.Windows.Forms.GroupBox();
 			this.comboStatoTrasmSdiAcqEstere = new System.Windows.Forms.ComboBox();
@@ -726,6 +760,8 @@ namespace invoice_default { //documentoiva//
 			this.label50 = new System.Windows.Forms.Label();
 			this.textBox9 = new System.Windows.Forms.TextBox();
 			this.grpSDI_acquisto = new System.Windows.Forms.GroupBox();
+			this.label61 = new System.Windows.Forms.Label();
+			this.txtIdentificativoSdI = new System.Windows.Forms.TextBox();
 			this.gboxStatoSdi = new System.Windows.Forms.GroupBox();
 			this.cmbStatusAcquito = new System.Windows.Forms.ComboBox();
 			this.grpIdSsi = new System.Windows.Forms.GroupBox();
@@ -734,12 +770,13 @@ namespace invoice_default { //documentoiva//
 			this.grpMessaggi = new System.Windows.Forms.GroupBox();
 			this.chkDT_decorrenzatermini = new System.Windows.Forms.CheckBox();
 			this.chkSE_scartoesitocommittente = new System.Windows.Forms.CheckBox();
+			this.tabPageCampiAggiuntivi = new System.Windows.Forms.TabPage();
+			this.btnRimuovi = new System.Windows.Forms.Button();
+			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
+			this.gridFatture = new System.Windows.Forms.DataGrid();
 			this.tabRegistroUnico = new System.Windows.Forms.TabPage();
-			this.label46 = new System.Windows.Forms.Label();
-			this.dgrPCC = new System.Windows.Forms.DataGrid();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.grpRegistroUnico = new System.Windows.Forms.GroupBox();
-			this.btnModStatodelDebito = new System.Windows.Forms.Button();
 			this.btnCreaRegistroUnico = new System.Windows.Forms.Button();
 			this.txtProgressivoRU = new System.Windows.Forms.TextBox();
 			this.label45 = new System.Windows.Forms.Label();
@@ -767,6 +804,17 @@ namespace invoice_default { //documentoiva//
 			this.radioButton3 = new System.Windows.Forms.RadioButton();
 			this.radioButton2 = new System.Windows.Forms.RadioButton();
 			this.rdbTicket = new System.Windows.Forms.RadioButton();
+			this.tabPCC = new System.Windows.Forms.TabPage();
+			this.btnModStatodelDebito = new System.Windows.Forms.Button();
+			this.btnCreaRigheStatodeldebito = new System.Windows.Forms.Button();
+			this.label60 = new System.Windows.Forms.Label();
+			this.dataGrid5 = new System.Windows.Forms.DataGrid();
+			this.btnEliminaPCC = new System.Windows.Forms.Button();
+			this.btnModificaPCC = new System.Windows.Forms.Button();
+			this.btnInserisciPCC = new System.Windows.Forms.Button();
+			this.label46 = new System.Windows.Forms.Label();
+			this.dgrPCC = new System.Windows.Forms.DataGrid();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.tabAltro = new System.Windows.Forms.TabPage();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
 			this.txtNocigmotive = new System.Windows.Forms.TextBox();
@@ -814,10 +862,12 @@ namespace invoice_default { //documentoiva//
 			this.tabControl1.SuspendLayout();
 			this.tabIntrastat.SuspendLayout();
 			this.gboxtipofattura.SuspendLayout();
-			this.gboxIntraInfoServizi.SuspendLayout();
 			this.gboxIntraInfoBeni.SuspendLayout();
 			this.gboxNatura.SuspendLayout();
+			this.grpColonnaB.SuspendLayout();
+			this.grpColonnaA.SuspendLayout();
 			this.gboxintra_vendite.SuspendLayout();
+			this.gboxIntraInfoServizi.SuspendLayout();
 			this.gboxintra_acquisti.SuspendLayout();
 			this.tabMagazzino.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridStock)).BeginInit();
@@ -833,10 +883,10 @@ namespace invoice_default { //documentoiva//
 			this.tabFE.SuspendLayout();
 			this.tabControl2.SuspendLayout();
 			this.tabPage2.SuspendLayout();
-			this.grpFEAcquistoEstere.SuspendLayout();
 			this.grpDenominazione.SuspendLayout();
+			this.grpFEAcquistoEstere.SuspendLayout();
 			this.grpDocumentKind.SuspendLayout();
-			this.groupBox17.SuspendLayout();
+			this.grpFEvendita.SuspendLayout();
 			this.gboxBollo.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			this.groupBox7.SuspendLayout();
@@ -848,6 +898,7 @@ namespace invoice_default { //documentoiva//
 			this.grpIPAMittenteVendita.SuspendLayout();
 			this.grpDestinatarioAcquisto.SuspendLayout();
 			this.tabPage3.SuspendLayout();
+			this.groupBox12.SuspendLayout();
 			this.groupBox18.SuspendLayout();
 			this.grpSdIAcqEstere.SuspendLayout();
 			this.groupBox13.SuspendLayout();
@@ -863,13 +914,17 @@ namespace invoice_default { //documentoiva//
 			this.gboxStatoSdi.SuspendLayout();
 			this.grpIdSsi.SuspendLayout();
 			this.grpMessaggi.SuspendLayout();
+			this.tabPageCampiAggiuntivi.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridFatture)).BeginInit();
 			this.tabRegistroUnico.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dgrPCC)).BeginInit();
 			this.grpRegistroUnico.SuspendLayout();
 			this.tabAllegati.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).BeginInit();
 			this.tabTesseraSSN.SuspendLayout();
 			this.gboxTesseraSSN.SuspendLayout();
+			this.tabPCC.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid5)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrPCC)).BeginInit();
 			this.tabAltro.SuspendLayout();
 			this.groupBox11.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrCarichiCespite)).BeginInit();
@@ -1201,6 +1256,7 @@ namespace invoice_default { //documentoiva//
 			// 
 			// tabPageDettagli
 			// 
+			this.tabPageDettagli.Controls.Add(this.btnAggiungiDaFattura);
 			this.tabPageDettagli.Controls.Add(this.btnCollegaCarichiCespite);
 			this.tabPageDettagli.Controls.Add(this.btnUnisciDettagli);
 			this.tabPageDettagli.Controls.Add(this.btnDividiDettaglio);
@@ -1230,6 +1286,16 @@ namespace invoice_default { //documentoiva//
 			this.tabPageDettagli.TabIndex = 1;
 			this.tabPageDettagli.Text = "Dettagli";
 			this.tabPageDettagli.UseVisualStyleBackColor = true;
+			// 
+			// btnAggiungiDaFattura
+			// 
+			this.btnAggiungiDaFattura.Location = new System.Drawing.Point(443, 11);
+			this.btnAggiungiDaFattura.Name = "btnAggiungiDaFattura";
+			this.btnAggiungiDaFattura.Size = new System.Drawing.Size(126, 41);
+			this.btnAggiungiDaFattura.TabIndex = 55;
+			this.btnAggiungiDaFattura.Text = "Aggiungi da Fattura di riferimento";
+			this.btnAggiungiDaFattura.Visible = false;
+			this.btnAggiungiDaFattura.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// btnCollegaCarichiCespite
 			// 
@@ -2188,9 +2254,10 @@ namespace invoice_default { //documentoiva//
 			this.grpCertificatiNecessari.Controls.Add(this.chkDurc);
 			this.grpCertificatiNecessari.Controls.Add(this.chkVisura);
 			this.grpCertificatiNecessari.Controls.Add(this.chkCCdedicato);
+			this.grpCertificatiNecessari.Controls.Add(this.chkPattoIntegrita);
 			this.grpCertificatiNecessari.Location = new System.Drawing.Point(549, 16);
 			this.grpCertificatiNecessari.Name = "grpCertificatiNecessari";
-			this.grpCertificatiNecessari.Size = new System.Drawing.Size(405, 142);
+			this.grpCertificatiNecessari.Size = new System.Drawing.Size(420, 142);
 			this.grpCertificatiNecessari.TabIndex = 98;
 			this.grpCertificatiNecessari.TabStop = false;
 			this.grpCertificatiNecessari.Text = "Certificati necessari";
@@ -2271,10 +2338,21 @@ namespace invoice_default { //documentoiva//
 			this.chkVisura.Tag = "invoice.requested_doc:1";
 			this.chkVisura.Text = "Visura Camerale";
 			this.chkVisura.UseVisualStyleBackColor = true;
-			// 
-			// chkCCdedicato
-			// 
-			this.chkCCdedicato.AutoSize = true;
+            // 
+            // chkPattoIntegrita
+            // 
+            this.chkPattoIntegrita.AutoSize = true;
+            this.chkPattoIntegrita.Location = new System.Drawing.Point(310, 106);
+            this.chkPattoIntegrita.Name = "chkPattoIntegrita";
+            this.chkPattoIntegrita.Size = new System.Drawing.Size(102, 17);
+            this.chkPattoIntegrita.TabIndex = 93;
+            this.chkPattoIntegrita.Tag = "invoice.requested_doc:8";
+            this.chkPattoIntegrita.Text = "Patto di Integrità";
+            this.chkPattoIntegrita.UseVisualStyleBackColor = true;
+            // 
+            // chkCCdedicato
+            // 
+            this.chkCCdedicato.AutoSize = true;
 			this.chkCCdedicato.Location = new System.Drawing.Point(10, 27);
 			this.chkCCdedicato.Name = "chkCCdedicato";
 			this.chkCCdedicato.Size = new System.Drawing.Size(84, 17);
@@ -2298,6 +2376,7 @@ namespace invoice_default { //documentoiva//
 			this.tabControl1.Controls.Add(this.tabRegistroUnico);
 			this.tabControl1.Controls.Add(this.tabAllegati);
 			this.tabControl1.Controls.Add(this.tabTesseraSSN);
+			this.tabControl1.Controls.Add(this.tabPCC);
 			this.tabControl1.Controls.Add(this.tabAltro);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -2310,7 +2389,6 @@ namespace invoice_default { //documentoiva//
 			// 
 			this.tabIntrastat.Controls.Add(this.chkRecuperoIvaIntraExtra);
 			this.tabIntrastat.Controls.Add(this.gboxtipofattura);
-			this.tabIntrastat.Controls.Add(this.gboxIntraInfoServizi);
 			this.tabIntrastat.Controls.Add(this.gboxIntraInfoBeni);
 			this.tabIntrastat.Location = new System.Drawing.Point(4, 22);
 			this.tabIntrastat.Name = "tabIntrastat";
@@ -2391,86 +2469,13 @@ namespace invoice_default { //documentoiva//
 			this.rdbitalia.UseVisualStyleBackColor = true;
 			this.rdbitalia.CheckedChanged += new System.EventHandler(this.rdbitalia_CheckedChanged);
 			// 
-			// gboxIntraInfoServizi
-			// 
-			this.gboxIntraInfoServizi.Controls.Add(this.cmbModpagamento);
-			this.gboxIntraInfoServizi.Controls.Add(this.label25);
-			this.gboxIntraInfoServizi.Controls.Add(this.textBox13);
-			this.gboxIntraInfoServizi.Controls.Add(this.label31);
-			this.gboxIntraInfoServizi.Controls.Add(this.cmb_isopagamento);
-			this.gboxIntraInfoServizi.Controls.Add(this.label32);
-			this.gboxIntraInfoServizi.Location = new System.Drawing.Point(15, 284);
-			this.gboxIntraInfoServizi.Name = "gboxIntraInfoServizi";
-			this.gboxIntraInfoServizi.Size = new System.Drawing.Size(586, 67);
-			this.gboxIntraInfoServizi.TabIndex = 24;
-			this.gboxIntraInfoServizi.TabStop = false;
-			this.gboxIntraInfoServizi.Text = "Dettagli ai fini dei modelli Intrastat per Servizi resi / ricevuti";
-			// 
-			// cmbModpagamento
-			// 
-			this.cmbModpagamento.DataSource = this.DS.intrastatpaymethod;
-			this.cmbModpagamento.DisplayMember = "description";
-			this.cmbModpagamento.FormattingEnabled = true;
-			this.cmbModpagamento.Location = new System.Drawing.Point(134, 38);
-			this.cmbModpagamento.Name = "cmbModpagamento";
-			this.cmbModpagamento.Size = new System.Drawing.Size(194, 21);
-			this.cmbModpagamento.TabIndex = 13;
-			this.cmbModpagamento.Tag = "invoice.idintrastatpaymethod";
-			this.cmbModpagamento.ValueMember = "idintrastatpaymethod";
-			// 
-			// label25
-			// 
-			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(16, 44);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(114, 13);
-			this.label25.TabIndex = 12;
-			this.label25.Text = "Modalità di pagamento";
-			// 
-			// textBox13
-			// 
-			this.textBox13.Location = new System.Drawing.Point(422, 16);
-			this.textBox13.Name = "textBox13";
-			this.textBox13.ReadOnly = true;
-			this.textBox13.Size = new System.Drawing.Size(75, 20);
-			this.textBox13.TabIndex = 11;
-			this.textBox13.Tag = "intrastatnation_payment.idintrastatnation";
-			// 
-			// label31
-			// 
-			this.label31.AutoSize = true;
-			this.label31.Location = new System.Drawing.Point(345, 21);
-			this.label31.Name = "label31";
-			this.label31.Size = new System.Drawing.Size(61, 13);
-			this.label31.TabIndex = 7;
-			this.label31.Text = "Codice ISO";
-			// 
-			// cmb_isopagamento
-			// 
-			this.cmb_isopagamento.DisplayMember = "description";
-			this.cmb_isopagamento.FormattingEnabled = true;
-			this.cmb_isopagamento.Location = new System.Drawing.Point(134, 13);
-			this.cmb_isopagamento.Name = "cmb_isopagamento";
-			this.cmb_isopagamento.Size = new System.Drawing.Size(194, 21);
-			this.cmb_isopagamento.TabIndex = 5;
-			this.cmb_isopagamento.Tag = "invoice.iso_payment?invoiceview.idintrastatnation_payment";
-			this.cmb_isopagamento.ValueMember = "code";
-			// 
-			// label32
-			// 
-			this.label32.AutoSize = true;
-			this.label32.Location = new System.Drawing.Point(24, 20);
-			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(104, 13);
-			this.label32.TabIndex = 3;
-			this.label32.Text = "Paese di pagamento";
-			// 
 			// gboxIntraInfoBeni
 			// 
 			this.gboxIntraInfoBeni.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.gboxIntraInfoBeni.Controls.Add(this.gboxNatura);
 			this.gboxIntraInfoBeni.Controls.Add(this.gboxintra_vendite);
+			this.gboxIntraInfoBeni.Controls.Add(this.gboxIntraInfoServizi);
 			this.gboxIntraInfoBeni.Controls.Add(this.gboxintra_acquisti);
 			this.gboxIntraInfoBeni.Location = new System.Drawing.Point(8, 55);
 			this.gboxIntraInfoBeni.Name = "gboxIntraInfoBeni";
@@ -2482,51 +2487,105 @@ namespace invoice_default { //documentoiva//
 			// 
 			// gboxNatura
 			// 
-			this.gboxNatura.Controls.Add(this.button4);
-			this.gboxNatura.Controls.Add(this.cmb_natura);
-			this.gboxNatura.Controls.Add(this.txtDescrUPB);
+			this.gboxNatura.Controls.Add(this.grpColonnaB);
+			this.gboxNatura.Controls.Add(this.grpColonnaA);
 			this.gboxNatura.Location = new System.Drawing.Point(6, 164);
 			this.gboxNatura.Name = "gboxNatura";
-			this.gboxNatura.Size = new System.Drawing.Size(587, 65);
+			this.gboxNatura.Size = new System.Drawing.Size(587, 172);
 			this.gboxNatura.TabIndex = 7;
 			this.gboxNatura.TabStop = false;
 			this.gboxNatura.Tag = "";
+			this.gboxNatura.Text = "Natura della transazione";
 			// 
-			// button4
+			// grpColonnaB
 			// 
-			this.button4.BackColor = System.Drawing.SystemColors.Control;
-			this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.button4.Location = new System.Drawing.Point(8, 10);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(176, 20);
-			this.button4.TabIndex = 5;
-			this.button4.TabStop = false;
-			this.button4.Tag = "manage.intrastatkind.lista";
-			this.button4.Text = "Natura della transazione:";
-			this.button4.UseVisualStyleBackColor = false;
+			this.grpColonnaB.Controls.Add(this.btnCodiceB);
+			this.grpColonnaB.Controls.Add(this.txtDescrB);
+			this.grpColonnaB.Controls.Add(this.txtCodeB);
+			this.grpColonnaB.Location = new System.Drawing.Point(268, 20);
+			this.grpColonnaB.Name = "grpColonnaB";
+			this.grpColonnaB.Size = new System.Drawing.Size(272, 134);
+			this.grpColonnaB.TabIndex = 10;
+			this.grpColonnaB.TabStop = false;
+			this.grpColonnaB.Tag = "AutoChoose.txtCodeB.default";
+			this.grpColonnaB.Text = "Colonna B";
 			// 
-			// cmb_natura
+			// btnCodiceB
 			// 
-			this.cmb_natura.FormattingEnabled = true;
-			this.cmb_natura.Location = new System.Drawing.Point(9, 35);
-			this.cmb_natura.Name = "cmb_natura";
-			this.cmb_natura.Size = new System.Drawing.Size(177, 21);
-			this.cmb_natura.TabIndex = 6;
-			this.cmb_natura.Tag = "invoice.idintrastatkind";
+			this.btnCodiceB.Location = new System.Drawing.Point(17, 23);
+			this.btnCodiceB.Name = "btnCodiceB";
+			this.btnCodiceB.Size = new System.Drawing.Size(69, 23);
+			this.btnCodiceB.TabIndex = 11;
+			this.btnCodiceB.Tag = "choose.intrastatkinddet.default";
+			this.btnCodiceB.Text = "Codice B";
+			this.btnCodiceB.UseVisualStyleBackColor = true;
 			// 
-			// txtDescrUPB
+			// txtDescrB
 			// 
-			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDescrB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(192, 12);
-			this.txtDescrUPB.Multiline = true;
-			this.txtDescrUPB.Name = "txtDescrUPB";
-			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(387, 42);
-			this.txtDescrUPB.TabIndex = 4;
-			this.txtDescrUPB.TabStop = false;
-			this.txtDescrUPB.Tag = "intrastatkind.description";
+			this.txtDescrB.Location = new System.Drawing.Point(17, 55);
+			this.txtDescrB.Multiline = true;
+			this.txtDescrB.Name = "txtDescrB";
+			this.txtDescrB.ReadOnly = true;
+			this.txtDescrB.Size = new System.Drawing.Size(244, 73);
+			this.txtDescrB.TabIndex = 9;
+			this.txtDescrB.TabStop = false;
+			this.txtDescrB.Tag = "intrastatkinddet.description";
+			// 
+			// txtCodeB
+			// 
+			this.txtCodeB.Location = new System.Drawing.Point(114, 26);
+			this.txtCodeB.Name = "txtCodeB";
+			this.txtCodeB.Size = new System.Drawing.Size(147, 20);
+			this.txtCodeB.TabIndex = 8;
+			this.txtCodeB.Tag = "intrastatkinddet.code_b?x";
+			// 
+			// grpColonnaA
+			// 
+			this.grpColonnaA.Controls.Add(this.BtnCodiceA);
+			this.grpColonnaA.Controls.Add(this.txtDescrA);
+			this.grpColonnaA.Controls.Add(this.txtCodeA);
+			this.grpColonnaA.Location = new System.Drawing.Point(6, 21);
+			this.grpColonnaA.Name = "grpColonnaA";
+			this.grpColonnaA.Size = new System.Drawing.Size(254, 133);
+			this.grpColonnaA.TabIndex = 9;
+			this.grpColonnaA.TabStop = false;
+			this.grpColonnaA.Tag = "AutoChoose.txtCodeA.default";
+			this.grpColonnaA.Text = "Colonna A";
+			// 
+			// BtnCodiceA
+			// 
+			this.BtnCodiceA.Location = new System.Drawing.Point(15, 19);
+			this.BtnCodiceA.Name = "BtnCodiceA";
+			this.BtnCodiceA.Size = new System.Drawing.Size(72, 23);
+			this.BtnCodiceA.TabIndex = 10;
+			this.BtnCodiceA.Tag = "choose.intrastatkind.default";
+			this.BtnCodiceA.Text = "Codice A";
+			this.BtnCodiceA.UseVisualStyleBackColor = true;
+			// 
+			// txtDescrA
+			// 
+			this.txtDescrA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDescrA.Location = new System.Drawing.Point(15, 54);
+			this.txtDescrA.Multiline = true;
+			this.txtDescrA.Name = "txtDescrA";
+			this.txtDescrA.ReadOnly = true;
+			this.txtDescrA.Size = new System.Drawing.Size(233, 73);
+			this.txtDescrA.TabIndex = 9;
+			this.txtDescrA.TabStop = false;
+			this.txtDescrA.Tag = "intrastatkind.description";
+			// 
+			// txtCodeA
+			// 
+			this.txtCodeA.Location = new System.Drawing.Point(93, 22);
+			this.txtCodeA.Name = "txtCodeA";
+			this.txtCodeA.Size = new System.Drawing.Size(156, 20);
+			this.txtCodeA.TabIndex = 8;
+			this.txtCodeA.Tag = "intrastatkind.code_a?x";
 			// 
 			// gboxintra_vendite
 			// 
@@ -2619,6 +2678,80 @@ namespace invoice_default { //documentoiva//
 			this.label21.Size = new System.Drawing.Size(96, 13);
 			this.label21.TabIndex = 4;
 			this.label21.Text = "Provincia di origine";
+			// 
+			// gboxIntraInfoServizi
+			// 
+			this.gboxIntraInfoServizi.Controls.Add(this.cmbModpagamento);
+			this.gboxIntraInfoServizi.Controls.Add(this.label25);
+			this.gboxIntraInfoServizi.Controls.Add(this.textBox13);
+			this.gboxIntraInfoServizi.Controls.Add(this.label31);
+			this.gboxIntraInfoServizi.Controls.Add(this.cmb_isopagamento);
+			this.gboxIntraInfoServizi.Controls.Add(this.label32);
+			this.gboxIntraInfoServizi.Location = new System.Drawing.Point(8, 342);
+			this.gboxIntraInfoServizi.Name = "gboxIntraInfoServizi";
+			this.gboxIntraInfoServizi.Size = new System.Drawing.Size(586, 67);
+			this.gboxIntraInfoServizi.TabIndex = 24;
+			this.gboxIntraInfoServizi.TabStop = false;
+			this.gboxIntraInfoServizi.Text = "Dettagli ai fini dei modelli Intrastat per Servizi resi / ricevuti";
+			// 
+			// cmbModpagamento
+			// 
+			this.cmbModpagamento.DataSource = this.DS.intrastatpaymethod;
+			this.cmbModpagamento.DisplayMember = "description";
+			this.cmbModpagamento.FormattingEnabled = true;
+			this.cmbModpagamento.Location = new System.Drawing.Point(134, 38);
+			this.cmbModpagamento.Name = "cmbModpagamento";
+			this.cmbModpagamento.Size = new System.Drawing.Size(194, 21);
+			this.cmbModpagamento.TabIndex = 13;
+			this.cmbModpagamento.Tag = "invoice.idintrastatpaymethod";
+			this.cmbModpagamento.ValueMember = "idintrastatpaymethod";
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(16, 44);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(114, 13);
+			this.label25.TabIndex = 12;
+			this.label25.Text = "Modalità di pagamento";
+			// 
+			// textBox13
+			// 
+			this.textBox13.Location = new System.Drawing.Point(422, 16);
+			this.textBox13.Name = "textBox13";
+			this.textBox13.ReadOnly = true;
+			this.textBox13.Size = new System.Drawing.Size(75, 20);
+			this.textBox13.TabIndex = 11;
+			this.textBox13.Tag = "intrastatnation_payment.idintrastatnation";
+			// 
+			// label31
+			// 
+			this.label31.AutoSize = true;
+			this.label31.Location = new System.Drawing.Point(345, 21);
+			this.label31.Name = "label31";
+			this.label31.Size = new System.Drawing.Size(61, 13);
+			this.label31.TabIndex = 7;
+			this.label31.Text = "Codice ISO";
+			// 
+			// cmb_isopagamento
+			// 
+			this.cmb_isopagamento.DisplayMember = "description";
+			this.cmb_isopagamento.FormattingEnabled = true;
+			this.cmb_isopagamento.Location = new System.Drawing.Point(134, 13);
+			this.cmb_isopagamento.Name = "cmb_isopagamento";
+			this.cmb_isopagamento.Size = new System.Drawing.Size(194, 21);
+			this.cmb_isopagamento.TabIndex = 5;
+			this.cmb_isopagamento.Tag = "invoice.iso_payment?invoiceview.idintrastatnation_payment";
+			this.cmb_isopagamento.ValueMember = "code";
+			// 
+			// label32
+			// 
+			this.label32.AutoSize = true;
+			this.label32.Location = new System.Drawing.Point(24, 20);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(104, 13);
+			this.label32.TabIndex = 3;
+			this.label32.Text = "Paese di pagamento";
 			// 
 			// gboxintra_acquisti
 			// 
@@ -3252,6 +3385,7 @@ namespace invoice_default { //documentoiva//
 			// 
 			this.tabControl2.Controls.Add(this.tabPage2);
 			this.tabControl2.Controls.Add(this.tabPage3);
+			this.tabControl2.Controls.Add(this.tabPageCampiAggiuntivi);
 			this.tabControl2.Location = new System.Drawing.Point(8, 3);
 			this.tabControl2.Name = "tabControl2";
 			this.tabControl2.SelectedIndex = 0;
@@ -3260,8 +3394,9 @@ namespace invoice_default { //documentoiva//
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.grpDenominazione);
 			this.tabPage2.Controls.Add(this.grpFEAcquistoEstere);
-			this.tabPage2.Controls.Add(this.groupBox17);
+			this.tabPage2.Controls.Add(this.grpFEvendita);
 			this.tabPage2.Controls.Add(this.grpLegaleRappresentante);
 			this.tabPage2.Controls.Add(this.grpDestinatarioVendita);
 			this.tabPage2.Controls.Add(this.grpMittenteVendita);
@@ -3274,31 +3409,20 @@ namespace invoice_default { //documentoiva//
 			this.tabPage2.Text = "Fattura Elettronica";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
-			// grpFEAcquistoEstere
-			// 
-			this.grpFEAcquistoEstere.Controls.Add(this.grpDenominazione);
-			this.grpFEAcquistoEstere.Controls.Add(this.grpDocumentKind);
-			this.grpFEAcquistoEstere.Location = new System.Drawing.Point(6, 374);
-			this.grpFEAcquistoEstere.Name = "grpFEAcquistoEstere";
-			this.grpFEAcquistoEstere.Size = new System.Drawing.Size(943, 71);
-			this.grpFEAcquistoEstere.TabIndex = 50;
-			this.grpFEAcquistoEstere.TabStop = false;
-			this.grpFEAcquistoEstere.Text = "FE Acquisto Estere";
-			// 
 			// grpDenominazione
 			// 
 			this.grpDenominazione.Controls.Add(this.cmbDenominazione);
-			this.grpDenominazione.Location = new System.Drawing.Point(522, 20);
+			this.grpDenominazione.Location = new System.Drawing.Point(539, 187);
 			this.grpDenominazione.Name = "grpDenominazione";
 			this.grpDenominazione.Size = new System.Drawing.Size(413, 46);
 			this.grpDenominazione.TabIndex = 5;
 			this.grpDenominazione.TabStop = false;
-			this.grpDenominazione.Text = "Denominazione del Dipartimento o Amministrazione da inserire nella FE";
+			this.grpDenominazione.Text = "Dipartimento o Amministrazione da inserire nelle FE di Vendita o FE acq.Estere";
 			// 
 			// cmbDenominazione
 			// 
 			this.cmbDenominazione.DataSource = this.DS.treasurer_acq_estere;
-			this.cmbDenominazione.DisplayMember = "description";
+			this.cmbDenominazione.DisplayMember = "departmentname_fe";
 			this.cmbDenominazione.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbDenominazione.FormattingEnabled = true;
 			this.cmbDenominazione.Location = new System.Drawing.Point(6, 19);
@@ -3307,6 +3431,16 @@ namespace invoice_default { //documentoiva//
 			this.cmbDenominazione.TabIndex = 3;
 			this.cmbDenominazione.Tag = "invoice.idtreasurer_acq_estere";
 			this.cmbDenominazione.ValueMember = "idtreasurer";
+			// 
+			// grpFEAcquistoEstere
+			// 
+			this.grpFEAcquistoEstere.Controls.Add(this.grpDocumentKind);
+			this.grpFEAcquistoEstere.Location = new System.Drawing.Point(6, 374);
+			this.grpFEAcquistoEstere.Name = "grpFEAcquistoEstere";
+			this.grpFEAcquistoEstere.Size = new System.Drawing.Size(505, 71);
+			this.grpFEAcquistoEstere.TabIndex = 50;
+			this.grpFEAcquistoEstere.TabStop = false;
+			this.grpFEAcquistoEstere.Text = "FE Acquisto Estere/Autofatture";
 			// 
 			// grpDocumentKind
 			// 
@@ -3331,18 +3465,18 @@ namespace invoice_default { //documentoiva//
 			this.cmbDocumentKind.Tag = "invoice.idfedocumentkind";
 			this.cmbDocumentKind.ValueMember = "idfedocumentkind";
 			// 
-			// groupBox17
+			// grpFEvendita
 			// 
-			this.groupBox17.Controls.Add(this.gboxBollo);
-			this.groupBox17.Controls.Add(this.groupBox5);
-			this.groupBox17.Controls.Add(this.groupBox7);
-			this.groupBox17.Controls.Add(this.groupBox8);
-			this.groupBox17.Location = new System.Drawing.Point(6, 245);
-			this.groupBox17.Name = "groupBox17";
-			this.groupBox17.Size = new System.Drawing.Size(943, 120);
-			this.groupBox17.TabIndex = 49;
-			this.groupBox17.TabStop = false;
-			this.groupBox17.Text = "Fattura di Vendita";
+			this.grpFEvendita.Controls.Add(this.gboxBollo);
+			this.grpFEvendita.Controls.Add(this.groupBox5);
+			this.grpFEvendita.Controls.Add(this.groupBox7);
+			this.grpFEvendita.Controls.Add(this.groupBox8);
+			this.grpFEvendita.Location = new System.Drawing.Point(6, 244);
+			this.grpFEvendita.Name = "grpFEvendita";
+			this.grpFEvendita.Size = new System.Drawing.Size(943, 120);
+			this.grpFEvendita.TabIndex = 49;
+			this.grpFEvendita.TabStop = false;
+			this.grpFEvendita.Text = "Fattura di Vendita";
 			// 
 			// gboxBollo
 			// 
@@ -3476,19 +3610,20 @@ namespace invoice_default { //documentoiva//
 			// grpLegaleRappresentante
 			// 
 			this.grpLegaleRappresentante.Controls.Add(this.txtLegaleRappresentante);
-			this.grpLegaleRappresentante.Location = new System.Drawing.Point(292, 190);
+			this.grpLegaleRappresentante.Location = new System.Drawing.Point(6, 186);
 			this.grpLegaleRappresentante.Name = "grpLegaleRappresentante";
-			this.grpLegaleRappresentante.Size = new System.Drawing.Size(657, 49);
+			this.grpLegaleRappresentante.Size = new System.Drawing.Size(530, 49);
 			this.grpLegaleRappresentante.TabIndex = 48;
 			this.grpLegaleRappresentante.TabStop = false;
 			this.grpLegaleRappresentante.Tag = "AutoChoose.txtLegaleRappresentante.lista.(active=\'S\')";
-			this.grpLegaleRappresentante.Text = "Legale Rappresentante del Destinatario della Fattura di Vendita o FE acq.Estere";
+			this.grpLegaleRappresentante.Text = "Blocco da valorizzare nei casi in cui il cedente/prestatore si avvalga di un rapp" +
+    "resentante fiscale in Italia";
 			// 
 			// txtLegaleRappresentante
 			// 
 			this.txtLegaleRappresentante.Location = new System.Drawing.Point(7, 21);
 			this.txtLegaleRappresentante.Name = "txtLegaleRappresentante";
-			this.txtLegaleRappresentante.Size = new System.Drawing.Size(642, 20);
+			this.txtLegaleRappresentante.Size = new System.Drawing.Size(508, 20);
 			this.txtLegaleRappresentante.TabIndex = 9;
 			this.txtLegaleRappresentante.Tag = "registry_sostituto.title?invoiceview.registry_sostituto";
 			// 
@@ -3502,7 +3637,7 @@ namespace invoice_default { //documentoiva//
 			this.grpDestinatarioVendita.Controls.Add(this.txtRifamm_ven_cliente);
 			this.grpDestinatarioVendita.Controls.Add(this.label47);
 			this.grpDestinatarioVendita.Controls.Add(this.txtIpa_ven_cliente);
-			this.grpDestinatarioVendita.Location = new System.Drawing.Point(292, 10);
+			this.grpDestinatarioVendita.Location = new System.Drawing.Point(357, 7);
 			this.grpDestinatarioVendita.Name = "grpDestinatarioVendita";
 			this.grpDestinatarioVendita.Size = new System.Drawing.Size(313, 174);
 			this.grpDestinatarioVendita.TabIndex = 47;
@@ -3587,9 +3722,9 @@ namespace invoice_default { //documentoiva//
 			// 
 			this.grpMittenteVendita.Controls.Add(this.grpRifAmmMittenteVendita);
 			this.grpMittenteVendita.Controls.Add(this.grpIPAMittenteVendita);
-			this.grpMittenteVendita.Location = new System.Drawing.Point(611, 11);
+			this.grpMittenteVendita.Location = new System.Drawing.Point(3, 7);
 			this.grpMittenteVendita.Name = "grpMittenteVendita";
-			this.grpMittenteVendita.Size = new System.Drawing.Size(338, 173);
+			this.grpMittenteVendita.Size = new System.Drawing.Size(347, 173);
 			this.grpMittenteVendita.TabIndex = 46;
 			this.grpMittenteVendita.TabStop = false;
 			this.grpMittenteVendita.Text = "Mittente della FE Vendita e FE acq.Estere";
@@ -3662,7 +3797,7 @@ namespace invoice_default { //documentoiva//
 			this.grpDestinatarioAcquisto.Controls.Add(this.label51);
 			this.grpDestinatarioAcquisto.Controls.Add(this.label52);
 			this.grpDestinatarioAcquisto.Controls.Add(this.txtRifamm_acq);
-			this.grpDestinatarioAcquisto.Location = new System.Drawing.Point(6, 10);
+			this.grpDestinatarioAcquisto.Location = new System.Drawing.Point(675, 7);
 			this.grpDestinatarioAcquisto.Name = "grpDestinatarioAcquisto";
 			this.grpDestinatarioAcquisto.Size = new System.Drawing.Size(279, 95);
 			this.grpDestinatarioAcquisto.TabIndex = 45;
@@ -3708,6 +3843,7 @@ namespace invoice_default { //documentoiva//
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.groupBox12);
 			this.tabPage3.Controls.Add(this.groupBox18);
 			this.tabPage3.Controls.Add(this.grpSdIAcqEstere);
 			this.tabPage3.Controls.Add(this.grpSDI_vendita);
@@ -3720,10 +3856,43 @@ namespace invoice_default { //documentoiva//
 			this.tabPage3.Text = "Trasmissione a SDI";
 			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
+			// groupBox12
+			// 
+			this.groupBox12.Controls.Add(this.btnCheckFEvendita);
+			this.groupBox12.Controls.Add(this.btnInviaSdIFEvendita);
+			this.groupBox12.Location = new System.Drawing.Point(415, 196);
+			this.groupBox12.Name = "groupBox12";
+			this.groupBox12.Size = new System.Drawing.Size(514, 60);
+			this.groupBox12.TabIndex = 48;
+			this.groupBox12.TabStop = false;
+			this.groupBox12.Text = "Trasmissione FE Vendita";
+			// 
+			// btnCheckFEvendita
+			// 
+			this.btnCheckFEvendita.AutoSize = true;
+			this.btnCheckFEvendita.Location = new System.Drawing.Point(15, 28);
+			this.btnCheckFEvendita.Name = "btnCheckFEvendita";
+			this.btnCheckFEvendita.Size = new System.Drawing.Size(105, 23);
+			this.btnCheckFEvendita.TabIndex = 45;
+			this.btnCheckFEvendita.Text = "Controlla dati";
+			this.btnCheckFEvendita.UseVisualStyleBackColor = true;
+			this.btnCheckFEvendita.Click += new System.EventHandler(this.btnCheckFEvendita_Click);
+			// 
+			// btnInviaSdIFEvendita
+			// 
+			this.btnInviaSdIFEvendita.AutoSize = true;
+			this.btnInviaSdIFEvendita.Location = new System.Drawing.Point(175, 29);
+			this.btnInviaSdIFEvendita.Name = "btnInviaSdIFEvendita";
+			this.btnInviaSdIFEvendita.Size = new System.Drawing.Size(164, 23);
+			this.btnInviaSdIFEvendita.TabIndex = 46;
+			this.btnInviaSdIFEvendita.Text = "Predisponi trasmissione";
+			this.btnInviaSdIFEvendita.UseVisualStyleBackColor = true;
+			this.btnInviaSdIFEvendita.Click += new System.EventHandler(this.btnInviaSdIFEvendita_Click);
+			// 
 			// groupBox18
 			// 
 			this.groupBox18.Controls.Add(this.btnCheck);
-			this.groupBox18.Controls.Add(this.btnInviaSdI);
+			this.groupBox18.Controls.Add(this.btnInviaSdIFEacquestere);
 			this.groupBox18.Location = new System.Drawing.Point(12, 205);
 			this.groupBox18.Name = "groupBox18";
 			this.groupBox18.Size = new System.Drawing.Size(372, 60);
@@ -3742,16 +3911,16 @@ namespace invoice_default { //documentoiva//
 			this.btnCheck.UseVisualStyleBackColor = true;
 			this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
 			// 
-			// btnInviaSdI
+			// btnInviaSdIFEacquestere
 			// 
-			this.btnInviaSdI.AutoSize = true;
-			this.btnInviaSdI.Location = new System.Drawing.Point(175, 29);
-			this.btnInviaSdI.Name = "btnInviaSdI";
-			this.btnInviaSdI.Size = new System.Drawing.Size(164, 23);
-			this.btnInviaSdI.TabIndex = 46;
-			this.btnInviaSdI.Text = "Predisponi trasmissione";
-			this.btnInviaSdI.UseVisualStyleBackColor = true;
-			this.btnInviaSdI.Click += new System.EventHandler(this.btnInviaSdI_Click);
+			this.btnInviaSdIFEacquestere.AutoSize = true;
+			this.btnInviaSdIFEacquestere.Location = new System.Drawing.Point(175, 29);
+			this.btnInviaSdIFEacquestere.Name = "btnInviaSdIFEacquestere";
+			this.btnInviaSdIFEacquestere.Size = new System.Drawing.Size(164, 23);
+			this.btnInviaSdIFEacquestere.TabIndex = 46;
+			this.btnInviaSdIFEacquestere.Text = "Predisponi trasmissione";
+			this.btnInviaSdIFEacquestere.UseVisualStyleBackColor = true;
+			this.btnInviaSdIFEacquestere.Click += new System.EventHandler(this.btnInviaSdI_Click);
 			// 
 			// grpSdIAcqEstere
 			// 
@@ -3897,7 +4066,7 @@ namespace invoice_default { //documentoiva//
 			this.grpSDI_vendita.Controls.Add(this.groupBox10);
 			this.grpSDI_vendita.Controls.Add(this.groupBox9);
 			this.grpSDI_vendita.Controls.Add(this.groupBox3);
-			this.grpSDI_vendita.Location = new System.Drawing.Point(302, 18);
+			this.grpSDI_vendita.Location = new System.Drawing.Point(415, 256);
 			this.grpSDI_vendita.Name = "grpSDI_vendita";
 			this.grpSDI_vendita.Size = new System.Drawing.Size(514, 168);
 			this.grpSDI_vendita.TabIndex = 36;
@@ -4068,15 +4237,35 @@ namespace invoice_default { //documentoiva//
 			// 
 			// grpSDI_acquisto
 			// 
+			this.grpSDI_acquisto.Controls.Add(this.label61);
+			this.grpSDI_acquisto.Controls.Add(this.txtIdentificativoSdI);
 			this.grpSDI_acquisto.Controls.Add(this.gboxStatoSdi);
 			this.grpSDI_acquisto.Controls.Add(this.grpIdSsi);
 			this.grpSDI_acquisto.Controls.Add(this.grpMessaggi);
 			this.grpSDI_acquisto.Location = new System.Drawing.Point(21, 18);
 			this.grpSDI_acquisto.Name = "grpSDI_acquisto";
-			this.grpSDI_acquisto.Size = new System.Drawing.Size(238, 168);
+			this.grpSDI_acquisto.Size = new System.Drawing.Size(395, 168);
 			this.grpSDI_acquisto.TabIndex = 35;
 			this.grpSDI_acquisto.TabStop = false;
 			this.grpSDI_acquisto.Text = "Dati SdI - Acquisto";
+			// 
+			// label61
+			// 
+			this.label61.Location = new System.Drawing.Point(150, 69);
+			this.label61.Name = "label61";
+			this.label61.Size = new System.Drawing.Size(93, 18);
+			this.label61.TabIndex = 42;
+			this.label61.Text = "Identificativo SdI:";
+			this.label61.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtIdentificativoSdI
+			// 
+			this.txtIdentificativoSdI.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtIdentificativoSdI.Location = new System.Drawing.Point(242, 68);
+			this.txtIdentificativoSdI.Name = "txtIdentificativoSdI";
+			this.txtIdentificativoSdI.Size = new System.Drawing.Size(147, 20);
+			this.txtIdentificativoSdI.TabIndex = 41;
+			this.txtIdentificativoSdI.Tag = "sdi_acquisto.identificativo_sdi?invoiceview.identificativo_sdi";
 			// 
 			// gboxStatoSdi
 			// 
@@ -4085,7 +4274,7 @@ namespace invoice_default { //documentoiva//
 			this.gboxStatoSdi.Controls.Add(this.cmbStatusAcquito);
 			this.gboxStatoSdi.Location = new System.Drawing.Point(6, 19);
 			this.gboxStatoSdi.Name = "gboxStatoSdi";
-			this.gboxStatoSdi.Size = new System.Drawing.Size(226, 40);
+			this.gboxStatoSdi.Size = new System.Drawing.Size(383, 40);
 			this.gboxStatoSdi.TabIndex = 27;
 			this.gboxStatoSdi.TabStop = false;
 			this.gboxStatoSdi.Text = "Stato";
@@ -4099,7 +4288,7 @@ namespace invoice_default { //documentoiva//
 			this.cmbStatusAcquito.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbStatusAcquito.Location = new System.Drawing.Point(6, 15);
 			this.cmbStatusAcquito.Name = "cmbStatusAcquito";
-			this.cmbStatusAcquito.Size = new System.Drawing.Size(214, 21);
+			this.cmbStatusAcquito.Size = new System.Drawing.Size(371, 21);
 			this.cmbStatusAcquito.TabIndex = 43;
 			this.cmbStatusAcquito.Tag = "sdi_acquisto.idsdi_status?invoiceview.idsdi_status";
 			this.cmbStatusAcquito.ValueMember = "idsdi_status";
@@ -4110,13 +4299,13 @@ namespace invoice_default { //documentoiva//
 			this.grpIdSsi.Controls.Add(this.txtNumFile);
 			this.grpIdSsi.Location = new System.Drawing.Point(7, 56);
 			this.grpIdSsi.Name = "grpIdSsi";
-			this.grpIdSsi.Size = new System.Drawing.Size(147, 36);
+			this.grpIdSsi.Size = new System.Drawing.Size(137, 36);
 			this.grpIdSsi.TabIndex = 33;
 			this.grpIdSsi.TabStop = false;
 			// 
 			// label49
 			// 
-			this.label49.Location = new System.Drawing.Point(5, 7);
+			this.label49.Location = new System.Drawing.Point(4, 7);
 			this.label49.Name = "label49";
 			this.label49.Size = new System.Drawing.Size(56, 25);
 			this.label49.TabIndex = 9;
@@ -4126,7 +4315,7 @@ namespace invoice_default { //documentoiva//
 			// txtNumFile
 			// 
 			this.txtNumFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNumFile.Location = new System.Drawing.Point(65, 10);
+			this.txtNumFile.Location = new System.Drawing.Point(60, 10);
 			this.txtNumFile.Name = "txtNumFile";
 			this.txtNumFile.Size = new System.Drawing.Size(71, 20);
 			this.txtNumFile.TabIndex = 8;
@@ -4165,11 +4354,66 @@ namespace invoice_default { //documentoiva//
 			this.chkSE_scartoesitocommittente.Text = "Notifica di scarto esito committente";
 			this.chkSE_scartoesitocommittente.UseVisualStyleBackColor = true;
 			// 
+			// tabPageCampiAggiuntivi
+			// 
+			this.tabPageCampiAggiuntivi.Controls.Add(this.btnRimuovi);
+			this.tabPageCampiAggiuntivi.Controls.Add(this.button1);
+			this.tabPageCampiAggiuntivi.Controls.Add(this.button2);
+			this.tabPageCampiAggiuntivi.Controls.Add(this.gridFatture);
+			this.tabPageCampiAggiuntivi.Location = new System.Drawing.Point(4, 22);
+			this.tabPageCampiAggiuntivi.Name = "tabPageCampiAggiuntivi";
+			this.tabPageCampiAggiuntivi.Size = new System.Drawing.Size(955, 446);
+			this.tabPageCampiAggiuntivi.TabIndex = 2;
+			this.tabPageCampiAggiuntivi.Text = "Campi aggiuntivi";
+			this.tabPageCampiAggiuntivi.UseVisualStyleBackColor = true;
+			// 
+			// btnRimuovi
+			// 
+			this.btnRimuovi.Location = new System.Drawing.Point(9, 98);
+			this.btnRimuovi.Name = "btnRimuovi";
+			this.btnRimuovi.Size = new System.Drawing.Size(82, 23);
+			this.btnRimuovi.TabIndex = 15;
+			this.btnRimuovi.Tag = "delete";
+			this.btnRimuovi.Text = "Rimuovi";
+			this.btnRimuovi.UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(9, 58);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(82, 23);
+			this.button1.TabIndex = 16;
+			this.button1.Tag = "edit.detail";
+			this.button1.Text = "Modifica...";
+			this.button1.UseVisualStyleBackColor = true;
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(8, 20);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(82, 23);
+			this.button2.TabIndex = 14;
+			this.button2.Tag = "insert.detail";
+			this.button2.Text = "Inserisci";
+			this.button2.UseVisualStyleBackColor = true;
+			// 
+			// gridFatture
+			// 
+			this.gridFatture.AllowNavigation = false;
+			this.gridFatture.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gridFatture.DataMember = "";
+			this.gridFatture.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridFatture.Location = new System.Drawing.Point(97, 16);
+			this.gridFatture.Name = "gridFatture";
+			this.gridFatture.Size = new System.Drawing.Size(842, 416);
+			this.gridFatture.TabIndex = 13;
+			this.gridFatture.TabStop = false;
+			this.gridFatture.Tag = "invoiceadditionalfields.detail.detail";
+			// 
 			// tabRegistroUnico
 			// 
-			this.tabRegistroUnico.Controls.Add(this.label46);
-			this.tabRegistroUnico.Controls.Add(this.dgrPCC);
-			this.tabRegistroUnico.Controls.Add(this.checkBox1);
 			this.tabRegistroUnico.Controls.Add(this.grpRegistroUnico);
 			this.tabRegistroUnico.Location = new System.Drawing.Point(4, 22);
 			this.tabRegistroUnico.Name = "tabRegistroUnico";
@@ -4178,41 +4422,8 @@ namespace invoice_default { //documentoiva//
 			this.tabRegistroUnico.Text = "Reg.Unico";
 			this.tabRegistroUnico.UseVisualStyleBackColor = true;
 			// 
-			// label46
-			// 
-			this.label46.Location = new System.Drawing.Point(8, 220);
-			this.label46.Name = "label46";
-			this.label46.Size = new System.Drawing.Size(258, 20);
-			this.label46.TabIndex = 28;
-			this.label46.Text = "Trasmissione PCC";
-			// 
-			// dgrPCC
-			// 
-			this.dgrPCC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dgrPCC.DataMember = "";
-			this.dgrPCC.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dgrPCC.Location = new System.Drawing.Point(8, 243);
-			this.dgrPCC.Name = "dgrPCC";
-			this.dgrPCC.Size = new System.Drawing.Size(947, 211);
-			this.dgrPCC.TabIndex = 27;
-			this.dgrPCC.Tag = "pccview.invoice";
-			// 
-			// checkBox1
-			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(11, 185);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(151, 17);
-			this.checkBox1.TabIndex = 26;
-			this.checkBox1.Tag = "invoice.resendingpcc:S:N";
-			this.checkBox1.Text = "Ritrasmetti fattura alla PCC";
-			this.checkBox1.UseVisualStyleBackColor = true;
-			// 
 			// grpRegistroUnico
 			// 
-			this.grpRegistroUnico.Controls.Add(this.btnModStatodelDebito);
 			this.grpRegistroUnico.Controls.Add(this.btnCreaRegistroUnico);
 			this.grpRegistroUnico.Controls.Add(this.txtProgressivoRU);
 			this.grpRegistroUnico.Controls.Add(this.label45);
@@ -4225,16 +4436,6 @@ namespace invoice_default { //documentoiva//
 			this.grpRegistroUnico.Size = new System.Drawing.Size(861, 166);
 			this.grpRegistroUnico.TabIndex = 1;
 			this.grpRegistroUnico.TabStop = false;
-			// 
-			// btnModStatodelDebito
-			// 
-			this.btnModStatodelDebito.Location = new System.Drawing.Point(220, 133);
-			this.btnModStatodelDebito.Name = "btnModStatodelDebito";
-			this.btnModStatodelDebito.Size = new System.Drawing.Size(144, 23);
-			this.btnModStatodelDebito.TabIndex = 21;
-			this.btnModStatodelDebito.Text = "Modifica Stato del Debito";
-			this.btnModStatodelDebito.UseVisualStyleBackColor = true;
-			this.btnModStatodelDebito.Click += new System.EventHandler(this.btnModStatodelDebito_Click);
 			// 
 			// btnCreaRegistroUnico
 			// 
@@ -4554,6 +4755,128 @@ namespace invoice_default { //documentoiva//
 			this.rdbTicket.UseVisualStyleBackColor = true;
 			this.rdbTicket.CheckedChanged += new System.EventHandler(this.rdbTicket_CheckedChanged);
 			// 
+			// tabPCC
+			// 
+			this.tabPCC.Controls.Add(this.btnModStatodelDebito);
+			this.tabPCC.Controls.Add(this.btnCreaRigheStatodeldebito);
+			this.tabPCC.Controls.Add(this.label60);
+			this.tabPCC.Controls.Add(this.dataGrid5);
+			this.tabPCC.Controls.Add(this.btnEliminaPCC);
+			this.tabPCC.Controls.Add(this.btnModificaPCC);
+			this.tabPCC.Controls.Add(this.btnInserisciPCC);
+			this.tabPCC.Controls.Add(this.label46);
+			this.tabPCC.Controls.Add(this.dgrPCC);
+			this.tabPCC.Controls.Add(this.checkBox1);
+			this.tabPCC.Location = new System.Drawing.Point(4, 22);
+			this.tabPCC.Name = "tabPCC";
+			this.tabPCC.Size = new System.Drawing.Size(981, 478);
+			this.tabPCC.TabIndex = 17;
+			this.tabPCC.Text = "PCC";
+			this.tabPCC.UseVisualStyleBackColor = true;
+			// 
+			// btnModStatodelDebito
+			// 
+			this.btnModStatodelDebito.Location = new System.Drawing.Point(403, 20);
+			this.btnModStatodelDebito.Name = "btnModStatodelDebito";
+			this.btnModStatodelDebito.Size = new System.Drawing.Size(144, 23);
+			this.btnModStatodelDebito.TabIndex = 58;
+			this.btnModStatodelDebito.Text = "Modifica Stato del Debito";
+			this.btnModStatodelDebito.UseVisualStyleBackColor = true;
+			this.btnModStatodelDebito.Click += new System.EventHandler(this.btnModStatodelDebito_Click);
+			// 
+			// btnCreaRigheStatodeldebito
+			// 
+			this.btnCreaRigheStatodeldebito.Location = new System.Drawing.Point(8, 14);
+			this.btnCreaRigheStatodeldebito.Name = "btnCreaRigheStatodeldebito";
+			this.btnCreaRigheStatodeldebito.Size = new System.Drawing.Size(134, 23);
+			this.btnCreaRigheStatodeldebito.TabIndex = 57;
+			this.btnCreaRigheStatodeldebito.Text = "Aggiorna Stato del debito";
+			this.btnCreaRigheStatodeldebito.UseVisualStyleBackColor = true;
+			this.btnCreaRigheStatodeldebito.Click += new System.EventHandler(this.btnCreaRigheStatodeldebito_Click);
+			// 
+			// label60
+			// 
+			this.label60.AutoSize = true;
+			this.label60.Location = new System.Drawing.Point(9, 48);
+			this.label60.Name = "label60";
+			this.label60.Size = new System.Drawing.Size(133, 13);
+			this.label60.TabIndex = 36;
+			this.label60.Text = "Stato del debito dettagliato";
+			// 
+			// dataGrid5
+			// 
+			this.dataGrid5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid5.DataMember = "";
+			this.dataGrid5.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid5.Location = new System.Drawing.Point(11, 69);
+			this.dataGrid5.Name = "dataGrid5";
+			this.dataGrid5.ReadOnly = true;
+			this.dataGrid5.Size = new System.Drawing.Size(949, 146);
+			this.dataGrid5.TabIndex = 35;
+			this.dataGrid5.Tag = "pccdebitstatusdetail.detail.detail";
+			// 
+			// btnEliminaPCC
+			// 
+			this.btnEliminaPCC.Location = new System.Drawing.Point(887, 20);
+			this.btnEliminaPCC.Name = "btnEliminaPCC";
+			this.btnEliminaPCC.Size = new System.Drawing.Size(68, 23);
+			this.btnEliminaPCC.TabIndex = 34;
+			this.btnEliminaPCC.Tag = "delete";
+			this.btnEliminaPCC.Text = "Elimina";
+			// 
+			// btnModificaPCC
+			// 
+			this.btnModificaPCC.Location = new System.Drawing.Point(807, 20);
+			this.btnModificaPCC.Name = "btnModificaPCC";
+			this.btnModificaPCC.Size = new System.Drawing.Size(69, 23);
+			this.btnModificaPCC.TabIndex = 33;
+			this.btnModificaPCC.Tag = "edit.detail";
+			this.btnModificaPCC.Text = "Modifica...";
+			// 
+			// btnInserisciPCC
+			// 
+			this.btnInserisciPCC.Location = new System.Drawing.Point(727, 20);
+			this.btnInserisciPCC.Name = "btnInserisciPCC";
+			this.btnInserisciPCC.Size = new System.Drawing.Size(68, 23);
+			this.btnInserisciPCC.TabIndex = 32;
+			this.btnInserisciPCC.Tag = "insert.detail";
+			this.btnInserisciPCC.Text = "Inserisci...";
+			// 
+			// label46
+			// 
+			this.label46.Location = new System.Drawing.Point(8, 250);
+			this.label46.Name = "label46";
+			this.label46.Size = new System.Drawing.Size(258, 20);
+			this.label46.TabIndex = 31;
+			this.label46.Text = "Trasmissione PCC";
+			// 
+			// dgrPCC
+			// 
+			this.dgrPCC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgrPCC.DataMember = "";
+			this.dgrPCC.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrPCC.Location = new System.Drawing.Point(8, 274);
+			this.dgrPCC.Name = "dgrPCC";
+			this.dgrPCC.Size = new System.Drawing.Size(947, 196);
+			this.dgrPCC.TabIndex = 30;
+			this.dgrPCC.Tag = "pccview.invoice";
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(11, 224);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(151, 17);
+			this.checkBox1.TabIndex = 29;
+			this.checkBox1.Tag = "invoice.resendingpcc:S:N";
+			this.checkBox1.Text = "Ritrasmetti fattura alla PCC";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			this.checkBox1.Visible = false;
+			// 
 			// tabAltro
 			// 
 			this.tabAltro.Controls.Add(this.groupBox11);
@@ -4809,13 +5132,16 @@ namespace invoice_default { //documentoiva//
 			this.tabIntrastat.PerformLayout();
 			this.gboxtipofattura.ResumeLayout(false);
 			this.gboxtipofattura.PerformLayout();
-			this.gboxIntraInfoServizi.ResumeLayout(false);
-			this.gboxIntraInfoServizi.PerformLayout();
 			this.gboxIntraInfoBeni.ResumeLayout(false);
 			this.gboxNatura.ResumeLayout(false);
-			this.gboxNatura.PerformLayout();
+			this.grpColonnaB.ResumeLayout(false);
+			this.grpColonnaB.PerformLayout();
+			this.grpColonnaA.ResumeLayout(false);
+			this.grpColonnaA.PerformLayout();
 			this.gboxintra_vendite.ResumeLayout(false);
 			this.gboxintra_vendite.PerformLayout();
+			this.gboxIntraInfoServizi.ResumeLayout(false);
+			this.gboxIntraInfoServizi.PerformLayout();
 			this.gboxintra_acquisti.ResumeLayout(false);
 			this.gboxintra_acquisti.PerformLayout();
 			this.tabMagazzino.ResumeLayout(false);
@@ -4840,10 +5166,10 @@ namespace invoice_default { //documentoiva//
 			this.tabFE.ResumeLayout(false);
 			this.tabControl2.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
-			this.grpFEAcquistoEstere.ResumeLayout(false);
 			this.grpDenominazione.ResumeLayout(false);
+			this.grpFEAcquistoEstere.ResumeLayout(false);
 			this.grpDocumentKind.ResumeLayout(false);
-			this.groupBox17.ResumeLayout(false);
+			this.grpFEvendita.ResumeLayout(false);
 			this.gboxBollo.ResumeLayout(false);
 			this.gboxBollo.PerformLayout();
 			this.groupBox5.ResumeLayout(false);
@@ -4862,6 +5188,8 @@ namespace invoice_default { //documentoiva//
 			this.grpDestinatarioAcquisto.ResumeLayout(false);
 			this.grpDestinatarioAcquisto.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
+			this.groupBox12.ResumeLayout(false);
+			this.groupBox12.PerformLayout();
 			this.groupBox18.ResumeLayout(false);
 			this.groupBox18.PerformLayout();
 			this.grpSdIAcqEstere.ResumeLayout(false);
@@ -4879,14 +5207,15 @@ namespace invoice_default { //documentoiva//
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
 			this.grpSDI_acquisto.ResumeLayout(false);
+			this.grpSDI_acquisto.PerformLayout();
 			this.gboxStatoSdi.ResumeLayout(false);
 			this.grpIdSsi.ResumeLayout(false);
 			this.grpIdSsi.PerformLayout();
 			this.grpMessaggi.ResumeLayout(false);
 			this.grpMessaggi.PerformLayout();
+			this.tabPageCampiAggiuntivi.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.gridFatture)).EndInit();
 			this.tabRegistroUnico.ResumeLayout(false);
-			this.tabRegistroUnico.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dgrPCC)).EndInit();
 			this.grpRegistroUnico.ResumeLayout(false);
 			this.grpRegistroUnico.PerformLayout();
 			this.tabAllegati.ResumeLayout(false);
@@ -4895,6 +5224,10 @@ namespace invoice_default { //documentoiva//
 			this.tabTesseraSSN.PerformLayout();
 			this.gboxTesseraSSN.ResumeLayout(false);
 			this.gboxTesseraSSN.PerformLayout();
+			this.tabPCC.ResumeLayout(false);
+			this.tabPCC.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid5)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrPCC)).EndInit();
 			this.tabAltro.ResumeLayout(false);
 			this.groupBox11.ResumeLayout(false);
 			this.groupBox11.PerformLayout();
@@ -4917,7 +5250,7 @@ namespace invoice_default { //documentoiva//
         private EP_Manager EPM;
         private int faseSpesaMax = 0;
         private int faseEntrataMax;
-
+        private bool TrasmettiPCC = false;
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
             QHC = new CQueryHelper();
@@ -4953,7 +5286,7 @@ namespace invoice_default { //documentoiva//
             GetData.SetStaticFilter(DS.intrastatnation_provenance, QHS.CmpEq("flague", "S"));
             GetData.SetStaticFilter(DS.intrastatnation_payment, QHS.CmpEq("flague", "S"));
             GetData.SetStaticFilter(DS.intrastatnation_destination, QHS.CmpEq("flague", "S"));
-            GetData.SetStaticFilter(DS.treasurer_acq_estere, QHS.AppAnd(QHS.CmpEq("active", "S"), QHS.IsNotNull("departmentname_fe")));
+            GetData.SetStaticFilter(DS.treasurer_acq_estere, QHS.IsNotNull("departmentname_fe"));
 
             HelpForm.SetDenyNull(DS.invoice.Columns["active"], true);
             HelpForm.SetDenyNull(DS.invoice.Columns["flagintracom"], true);
@@ -4975,10 +5308,6 @@ namespace invoice_default { //documentoiva//
             cmb_isopagamento.DataSource = DS.intrastatnation_payment;
             cmb_isopagamento.DisplayMember = "description";
             cmb_isopagamento.ValueMember = "idintrastatnation";
-
-            cmb_natura.DataSource = DS.intrastatkind;
-            cmb_natura.DisplayMember = "idintrastatkind";
-            cmb_natura.ValueMember = "idintrastatkind";
 
             cmb_provorigine.DataSource = DS.geo_country_origin;
             cmb_provorigine.ValueMember = "idcountry";
@@ -5047,11 +5376,25 @@ namespace invoice_default { //documentoiva//
             }
 
             btnRipartizione.ContextMenu = CMenu;
-			
+            ApplicaFiltroNaturaTransazione();
         }
 
         bool abilitaBroadcast = true;
 
+        void ApplicaFiltroNaturaTransazione() {
+            if ((int)Meta.GetSys("esercizio") >= 2022) {
+                GetData.SetStaticFilter(DS.intrastatkind, QHS.IsNotNull("code_a"));
+                grpColonnaA.Tag= "AutoChoose.txtCodeA.default";
+                grpColonnaB.Enabled = true;
+            }
+            else {
+                GetData.SetStaticFilter(DS.intrastatkind, QHS.IsNull("code_a"));
+                grpColonnaA.Tag = "AutoChoose.txtCodeA.pre2022";
+                BtnCodiceA.Tag= "choose.intrastatkind.pre2022";
+                txtCodeA.Tag = "intrastatkind.idintrastatkind?x";
+                grpColonnaB.Enabled = false; ;
+            }
+        }
         void MetaData_messageBroadcaster(object sender, object message) {
             if (!abilitaBroadcast) return;
             abilitaBroadcast = false;
@@ -5096,7 +5439,10 @@ namespace invoice_default { //documentoiva//
 
             btnAggiungiDaOrdini.Enabled = false;
             btnAggiungiDaContratti.Enabled = false;
-
+            btnCreaRigheStatodeldebito.Enabled = false;
+            btnInserisciPCC.Enabled = false;
+            btnModificaPCC.Enabled = false;
+            btnEliminaPCC.Enabled = false;
             chkRecuperoIvaIntraExtra.Visible = recuperoIntraUEAttivo;
             chkRecuperoIvaIntraExtra.Enabled = true;
 
@@ -5140,9 +5486,14 @@ namespace invoice_default { //documentoiva//
                 if (debitStatusSetup["idpccdebitstatus"] != DBNull.Value) {
                     MetaData.SetDefault(DS.invoicedetail, "idpccdebitstatus", debitStatusSetup["idpccdebitstatus"]);
                 }
+                TrasmettiPCC = (debitStatusSetup["flagpcc"].ToString() == "S" ? true : false);
             }
 
             DisabilitaDocumento(false);
+            txtCodeA.Text = "";
+            txtCodeB.Text = "";
+            txtDescrA.Text = "";
+            txtDescrB.Text = "";
             DoEnableDisableIntrastat();
             DoVisibileLabelSoggettiNonResidenti();
             DoEnableDisableComunicazioni();
@@ -5164,8 +5515,9 @@ namespace invoice_default { //documentoiva//
             grpSdIAcqEstere.Enabled = true;
             cmbDocumentKind.Enabled = true;
             cmbDenominazione.Enabled = true;
-            btnCheck.Enabled = true;
-            btnInviaSdI.Enabled = false;
+            btnCheck.Enabled = false;
+            btnInviaSdIFEacquestere.Enabled = false;
+            btnCheckFEvendita.Enabled = false;
             //gboxStatoSdi.Enabled = true;
             //txtIPA.ReadOnly = false;
             //txtNumFile.ReadOnly = false;
@@ -5175,7 +5527,8 @@ namespace invoice_default { //documentoiva//
             grpDestinatarioVendita.Enabled = true;
             grpMittenteVendita.Enabled = true;
 			grpLegaleRappresentante.Enabled = true;
-			txtIpa_acq.Text = "";
+            cmbDenominazione.Enabled = true;
+            txtIpa_acq.Text = "";
             txtRifamm_acq.Text = "";
             txtIpa_ven_emittente.Text = "";
             txtRifamm_ven_emittente.Text = "";
@@ -5230,7 +5583,19 @@ namespace invoice_default { //documentoiva//
                 PropagaModificheAiFratelli(rInvoicedetailMod);
             }
 
-            if (!Meta.IsEmpty) {
+            //controlla che si stato modificato un dettaglio fattura ... Oppure che un dettaglio fattura sia stato cancellato
+            if (DS.invoicedetail.ExtendedProperties["RigaModificataPCC"]!=null) { 
+                DS.invoicedetail.ExtendedProperties["RigaModificataPCC"] = null;
+                DS.pccdebitstatusdetail.ExtendedProperties["RigaModificataPCC"] = null;
+                AllineaRigheStatodeldebito();
+			}
+			else {
+               if ((Meta.FirstFillForThisRow) && ExistsFiedlModified()) {
+					DS.pccdebitstatusdetail.Clear();
+					AllineaRigheStatodeldebito();
+				}
+			}
+			if (!Meta.IsEmpty) {
                 AllineaStock();
                 RicalcolaCostiStock();
             }
@@ -5358,12 +5723,20 @@ namespace invoice_default { //documentoiva//
                 btnAggiungiDaContratti.Visible = false;
                 btnCreaDaContratto.Visible = false;
                 gboxProfessionale.Visible = false;
+                btnCreaRigheStatodeldebito.Visible = false;
+                btnInserisciPCC.Visible = false;
+                btnModificaPCC.Visible = false;
+                btnEliminaPCC.Visible = false;
                 return;
             }
             if (cboTipo.SelectedIndex <= 0) {
                 btnAggiungiDaOrdini.Visible = false;
                 btnAggiungiDaContratti.Visible = false;
                 btnCreaDaContratto.Visible = false;
+                btnCreaRigheStatodeldebito.Visible = false;
+                btnInserisciPCC.Visible = false;
+                btnModificaPCC.Visible = false;
+                btnEliminaPCC.Visible = false;
                 return;
             }
 
@@ -5373,7 +5746,10 @@ namespace invoice_default { //documentoiva//
                 //btnAggiungiDaOrdini.Visible = false;
                 btnAggiungiDaContratti.Visible = false;
                 //btnCreaDaContratto.Visible = false;
-
+                btnCreaRigheStatodeldebito.Visible = TrasmettiPCC;
+                btnInserisciPCC.Visible = TrasmettiPCC;
+                btnModificaPCC.Visible = TrasmettiPCC;
+                btnEliminaPCC.Visible = TrasmettiPCC;
                 return;
             }
             object codiceDoc = cboTipo.SelectedValue;
@@ -5384,12 +5760,20 @@ namespace invoice_default { //documentoiva//
                 btnAggiungiDaOrdini.Visible = chkflag_ddt.Checked ; //&& (faseSpesaMax>1);
                 btnCreaDaContratto.Visible = true;
                 gboxProfessionale.Visible = true;
+                btnCreaRigheStatodeldebito.Visible = TrasmettiPCC;
+                btnInserisciPCC.Visible = TrasmettiPCC;
+                btnModificaPCC.Visible = TrasmettiPCC;
+                btnEliminaPCC.Visible = TrasmettiPCC;
                 VerificaCollegamentoAContratto(vendita); //Ri-Disabilita eventualmente i bottoni
             }
             else {
                 btnAggiungiDaOrdini.Visible = false;
                 gboxProfessionale.Visible = false;
                 btnCreaDaContratto.Visible = false;
+                btnCreaRigheStatodeldebito.Visible = false;
+                btnInserisciPCC.Visible = false;
+                btnModificaPCC.Visible = false;
+                btnEliminaPCC.Visible = false;
             }
             if (vendita) {
 	            btnAggiungiDaContratti.Visible = true; //(faseEntrataMax>1);
@@ -5625,7 +6009,7 @@ namespace invoice_default { //documentoiva//
                 rInvKind = rkinds[0];
 
             GestisciFiltroAnagrafica(rInvKind);
-
+            EnableDisabileAggiungidaFattRif(rInvKind);
             string tiponumerazione = (rInvKind != null)
                 ? rInvKind["flag_autodocnumbering"].ToString()
                 : "N";
@@ -5728,6 +6112,11 @@ namespace invoice_default { //documentoiva//
             }
             if (Meta.FirstFillForThisRow) {
                 VisualizzaTabPageAutoFattura();
+                btnCreaRigheStatodeldebito.Enabled = TrasmettiPCC;
+                btnInserisciPCC.Enabled = TrasmettiPCC;
+                btnModificaPCC.Enabled = TrasmettiPCC;
+                btnEliminaPCC.Enabled = TrasmettiPCC;
+
             }
 
             bool accompagnatoria = chkflag_ddt.Checked;
@@ -5771,7 +6160,9 @@ namespace invoice_default { //documentoiva//
             grpDestinatarioVendita.Enabled = vendita;
             grpMittenteVendita.Enabled = vendita || (acquisto && FatturaElettronicaEstera().ToString() == "S" && !FatturaInviataSdI());
 			grpLegaleRappresentante.Enabled = vendita;
-			if (Meta.EditMode) {
+            cmbDenominazione.Enabled = vendita || (acquisto && FatturaElettronicaEstera().ToString() == "S" && !FatturaInviataSdI());
+
+            if (Meta.EditMode) {
                 chkFatturaSpedizioniere.Enabled = false;
                 btnInserisciBollettaDoganale.Enabled = false;
             }
@@ -6026,6 +6417,7 @@ namespace invoice_default { //documentoiva//
                     }
                 }
             }
+
         }
 
         public bool AggiornaSDIAcquistoEnabled = true;
@@ -6302,6 +6694,29 @@ namespace invoice_default { //documentoiva//
                 HelpForm.SetComboBoxValue(cmbDenominazione, R["idtreasurer"]);
             }
         }
+        public void EnableDisabileAggiungidaFattRif(DataRow Rinvoicekind) {
+            object NC;
+            if (cboTipo.SelectedIndex <= 0) return;
+            if (Rinvoicekind["flag"] == null) {
+                NC = "N";
+            }
+            else {
+                NC = (CfgFn.GetNoNullByte(Rinvoicekind["flag"]) & 4) != 0
+                    ? "S"
+                    : "N";
+            }
+			if (NC != null) {
+				if (NC.ToString().ToUpper() == "S") {
+					btnAggiungiDaFattura.Visible = true;
+					btnAggiungiDaFattura.Enabled = true;
+				}
+				else {
+					btnAggiungiDaFattura.Visible = false;
+					btnAggiungiDaFattura.Enabled = false;
+				}
+			}
+
+		}
         public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
             if (!Meta.DrawStateIsDone)
                 return;
@@ -6309,6 +6724,7 @@ namespace invoice_default { //documentoiva//
                 EnableDisableFEEstera();
                 DoEnableDisableIntrastat();
                 EnableDisableFE();
+                EnableDisabileAggiungidaFattRif(R);
                 gboxTesseraSSN.Enabled = isSSN();
                 if (!isSSN() && Meta.InsertMode) {
                     clearSSN();
@@ -6388,6 +6804,15 @@ namespace invoice_default { //documentoiva//
                     AbilitaDisabilitaRegistroUnico();
 
                 }
+                if ((Meta.InsertMode) || (Meta.EditMode)){
+                    if (tipoRegistroAV().ToUpper() == "V")  {
+                        EliminaRigheStatodeldebito();
+                    }
+                    else {
+                        AllineaRigheStatodeldebito();
+                    }
+                }
+
                 if (Meta.IsEmpty) {
                     SetFilters();
                 }
@@ -6424,12 +6849,39 @@ namespace invoice_default { //documentoiva//
                     grpDestinatarioVendita.Enabled = true;
                     grpMittenteVendita.Enabled = true;
 					grpLegaleRappresentante.Enabled = true;
-				}
+                    cmbDenominazione.Enabled = true;
+                }
                 else {
                     grpDestinatarioVendita.Enabled = false;
                     grpMittenteVendita.Enabled = false;
 					grpLegaleRappresentante.Enabled = false;
-				}
+                    cmbDenominazione.Enabled = false;
+                    if (cmbDenominazione.SelectedIndex > 0) {
+                        cmbDenominazione.SelectedIndex = -1;
+                    }
+                }
+            }
+            if (T.TableName == "invoicedetail") {
+                if (!Meta.DrawStateIsDone) return;
+                if (R == null) return;
+                //deve aggiornare gli importi dello stato del debito PCC
+                if (DS.invoicedetail.ExtendedProperties["RigaModificataPCC"] != null) {
+                    DS.invoicedetail.ExtendedProperties["RigaModificataPCC"] = null;
+                    DS.pccdebitstatusdetail.ExtendedProperties["RigaModificataPCC"] = null;
+                    AllineaRigheStatodeldebito();
+                }
+            }
+
+            if (T.TableName == "intrastatkind") {
+                if (Meta.DrawStateIsDone) {
+                    ImpostaFiltroCodeBbyCodeA(R);
+                }
+            }
+
+            if (T.TableName == "intrastatkinddet") {
+                if (Meta.DrawStateIsDone) {
+                    ImpostaFiltroCodeB(R);
+                }
             }
 
             if (T.TableName == "currency") {
@@ -6845,7 +7297,7 @@ namespace invoice_default { //documentoiva//
             }
             else {
                 if (DS.currency.Select(QHC.CmpEq("idcurrency", codicevaluta)).Length == 0) {
-                    QueryCreator.ShowError(this, "L'anagrafica è associato ad una valuta non valida.", null);
+                    QueryCreator.ShowError(this, "L'anagrafica è associata ad una valuta non valida.", null);
                 }
                 else {
                     DataRow CurrValuta = DS.currency.Select(QHC.CmpEq("idcurrency", codicevaluta))[0];
@@ -6854,7 +7306,74 @@ namespace invoice_default { //documentoiva//
             }
         }
 
+        private void ImpostaFiltroCodeBbyCodeA(DataRow R) {
+            if (controller.IsEmpty) return;
+            if ((int)Meta.GetSys("esercizio") < 2022)
+                return;
+            DataRow Curr = DS.invoice.Rows[0];
+            string filter = "";
 
+            if (Curr["idintrastatkind"]!= DBNull.Value) {
+                if (Curr["idintrastatkind"] != R["idintrastatkind"].ToString()) {
+                    Curr["idintrastatkind"] = R["idintrastatkind"];
+                    Curr["idintrastatkinddet"] = DBNull.Value;
+                    txtCodeB.Text = "";
+                    txtDescrB.Text = "";
+                }
+                
+                DataRow RR = DS.intrastatkind.Select(QHC.CmpEq("idintrastatkind", Curr["idintrastatkind"]))[0];
+                filter = qhc.CmpEq("code_a",RR["code_a"]);
+            }
+			else {
+                Curr["idintrastatkinddet"] = DBNull.Value;
+                txtCodeB.Text = "";
+                txtDescrB.Text = "";
+                return;
+            }
+
+            MetaData Mintrastatkinddet = MetaData.GetMetaData(this, "intrastatkinddet");
+            Mintrastatkinddet.FilterLocked = true;
+            Mintrastatkinddet.DS = DS.Clone();
+
+            DataRow Choosen = Mintrastatkinddet.SelectOne("default", filter, "intrastatkinddet", null);
+            if (Choosen == null)
+                return;
+
+            Curr["idintrastatkinddet"] = Choosen["idintrastatkinddet"];
+            txtCodeB.Text = Choosen["code_b"].ToString();
+            txtDescrB.Text = Choosen["description"].ToString();
+
+        }
+        private void ImpostaFiltroCodeB(DataRow R) {
+            if (controller.IsEmpty) return;
+            DataRow Curr = DS.invoice.Rows[0];
+            string filter = "";
+
+            if (Curr["idintrastatkind"] != DBNull.Value) {
+                DataRow RR = DS.intrastatkind.Select(QHC.CmpEq("idintrastatkind", Curr["idintrastatkind"]))[0];
+                filter = qhc.CmpEq("code_a", RR["code_a"]);
+            }
+            else {
+                Curr["idintrastatkinddet"] = DBNull.Value;
+                txtCodeB.Text = "";
+                txtDescrB.Text = "";
+                show(this, "Indicare prima la colonna A.\n");
+                return;
+            }
+
+            MetaData Mintrastatkinddet = MetaData.GetMetaData(this, "intrastatkinddet");
+            Mintrastatkinddet.FilterLocked = true;
+            Mintrastatkinddet.DS = DS.Clone();
+
+            DataRow Choosen = Mintrastatkinddet.SelectOne("default", filter, "intrastatkinddet", null);
+            if (Choosen == null)
+                return;
+
+            Curr["idintrastatkinddet"] = Choosen["idintrastatkinddet"];
+            txtCodeB.Text = Choosen["code_b"].ToString();
+            txtDescrB.Text = Choosen["description"].ToString();
+
+        }
         private void ImpostaTxtValuta(DataRow ValutaRow) {
             if (ValutaRow == null) {
                 txtCambio.ReadOnly = false;
@@ -7003,8 +7522,9 @@ namespace invoice_default { //documentoiva//
             DataTable T = DS.invoicedetail;
             object idcurrency = R["idcurrency"];
             DataRow[] Selected = null;
-            var F = new FrmWizardScegliDettagli(Meta, regfilter, flagmixfilter, idcurrency, T,
+            FrmWizardScegliDettagli F = new FrmWizardScegliDettagli(Meta, regfilter, flagmixfilter, idcurrency, T,
                 !chkflag_ddt.Checked);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK)return;
             Selected = F.SelectedRows;
             if (Selected == null)return;
@@ -7148,6 +7668,11 @@ namespace invoice_default { //documentoiva//
         /// <param name="number">quantità da collegare del dettaglio ordine</param>
         /// <returns></returns>
         private DataRow AddMandateDetailRow(DataRow RmanDet, decimal number) {
+            if (CfgFn.GetNoNullDouble(RmanDet["number"]) == 0) {
+                show($"Attenzione, la quantità del dettaglio n. {RmanDet["rownum"]}  del Contratto Passivo " +
+                    $"selezionato è 0.\r\nCorreggere il dato e ripetere l'operazione.");
+                return null;
+            }
             DataRow R = DS.invoice.Rows[0];
             decimal unitsforpackage = 1;
             if (RmanDet["unitsforpackage"] != DBNull.Value &&
@@ -7230,6 +7755,84 @@ namespace invoice_default { //documentoiva//
                 InvDet["idivakind"] = RmanDet["idivakind"];
             }
             AdjustIdGroup(InvDet);
+            return InvDet;
+        }
+
+
+        private DataRow AddInvoiceDetailMainRow(DataRow RinvMain, decimal number) {
+            DataRow R = DS.invoice.Rows[0];
+            decimal unitsforpackage = 1;
+            if (RinvMain["unitsforpackage"] != DBNull.Value &&
+                CfgFn.GetNoNullDecimal(RinvMain["unitsforpackage"]) != 0)
+                unitsforpackage = CfgFn.GetNoNullDecimal(RinvMain["unitsforpackage"]);
+            decimal npackage = number / unitsforpackage;
+            MetaData MI = MetaData.GetMetaData(this, "invoicedetail");
+            MI.SetDefaults(DS.invoicedetail);
+
+
+            object idivakind = DBNull.Value;
+
+            //Calcola un tipo iva adeguato
+            if (RinvMain["idivakind"] == DBNull.Value) {
+                decimal taxrate = CfgFn.GetNoNullDecimal(RinvMain["taxrate"]);
+                DataRow[] Valuta = DS.ivakind.Select(
+                    QHC.AppAnd(QHC.CmpEq("rate", taxrate), QHC.CmpEq("active", "S")),
+                    "unabatabilitypercentage ASC");
+                if ((Valuta == null) || (Valuta.Length == 0)) {
+                    show($"Non è stata trovata un\'aliquota per l\'iva al {taxrate:n}%");
+                    return null;
+                }
+                else {
+                    DataRow Val = Valuta[0];
+                    idivakind = Val["idivakind"];
+                }
+            }
+
+            DataRow InvDet = MI.Get_New_Row(R, DS.invoicedetail);
+            foreach (string colname in
+                new string[] {
+                     "detaildescription",
+                    "taxable", "tax", "discount", "idupb","idupb_iva",
+                    "idsor1", "idsor2", "idsor3", "idcostpartition", "competencystart", "competencystop",
+                    "idaccmotive", "va3type", "cigcode",
+                    "idlist", "idunit", "idpackage", "unitsforpackage", "expensekind", "idsor_siope", "cupcode"
+                }) {
+                if (RinvMain.Table.Columns.Contains(colname)) InvDet[colname] = RinvMain[colname];
+
+            }
+            //InvDet["manrownum"] = RinvMain["rownum"];
+            InvDet["number"] = number;
+            InvDet["npackage"] = npackage;
+            // A: bene inventariabile
+            // P: Bene non inventariabile  
+            // S: Servizi
+            // O: Altro
+            InvDet["intrastatoperationkind"] = RinvMain["intrastatoperationkind"];
+
+            double imponibile = CfgFn.GetNoNullDouble(RinvMain["taxable"]);
+            double quantita = CfgFn.GetNoNullDouble(number);
+            //double aliquota = CfgFn.GetNoNullDouble(RinvMain["taxrate"]);
+            double sconto = CfgFn.GetNoNullDouble(RinvMain["discount"]);
+            double imponibileTOT = (imponibile * quantita * (1 - sconto));
+
+            double ivaTOT = CfgFn.GetNoNullDouble(RinvMain["tax"]) *
+                            (CfgFn.GetNoNullDouble(number) / CfgFn.GetNoNullDouble(RinvMain["number"]));
+            double impindeduc = CfgFn.GetNoNullDouble(RinvMain["unabatable"]) *
+                                (CfgFn.GetNoNullDouble(number) / CfgFn.GetNoNullDouble(RinvMain["number"]));
+
+            InvDet["tax"] = CfgFn.RoundValuta(ivaTOT);
+            InvDet["unabatable"] = CfgFn.RoundValuta(impindeduc);
+            if (RinvMain["idivakind"] == DBNull.Value) {
+                InvDet["idivakind"] = idivakind;
+            }
+            else {
+                InvDet["idivakind"] = RinvMain["idivakind"];
+            }
+            InvDet["idinvkind_main"] = RinvMain["idinvkind"];
+            InvDet["yinv_main"] = RinvMain["yinv"];
+            InvDet["ninv_main"] = RinvMain["ninv"];
+            InvDet["rownum_main"] = RinvMain["rownum"];
+            //AdjustIdGroup(InvDet);
             return InvDet;
         }
 
@@ -7522,10 +8125,37 @@ namespace invoice_default { //documentoiva//
 
         }
 
+    // controlla che sia stato modificato uno dei seguenti campi
+    private bool ExistsFiedlModified() {
+            bool FiedlModified = false;
+            DataRow Curr = DS.invoice.Rows[0];
+            bool SplitPayment = (Curr["flag_enable_split_payment"].ToString() == "S" ? true : false);
+            foreach (DataRow Rd in DS.invoicedetail.Select()) {
+                if (Rd.RowState == DataRowState.Added) {
+                    return true;
+				}
+                if ((CfgFn.GetNoNullDecimal(Rd["number", DataRowVersion.Current])) != (CfgFn.GetNoNullDecimal(Rd["number", DataRowVersion.Original]))) {
+                    return true;
+                }
+                if ((CfgFn.GetNoNullDecimal(Rd["taxable", DataRowVersion.Current])) != (CfgFn.GetNoNullDecimal(Rd["taxable", DataRowVersion.Original]))) {
+                    return true;
+                }
+                if (SplitPayment && (CfgFn.GetNoNullDecimal(Rd["tax", DataRowVersion.Current])) != (CfgFn.GetNoNullDecimal(Rd["tax", DataRowVersion.Original]))) {
+                    return true;
+                }
+                if (Rd["idpccdebitstatus", DataRowVersion.Current].ToString() != Rd["idpccdebitstatus", DataRowVersion.Original].ToString()) {
+                    return true;
+                }
+            }
+
+            return FiedlModified;
+
+        }
         private object RichiediData(DataRow rInvoicedetail) {
             string t = "Data annullamento dettaglio ordine N." + rInvoicedetail["nman"] + "/" + rInvoicedetail["yman"] +
                        " riga " + rInvoicedetail["manrownum"];
             AskDate frm = new AskDate(t, Meta.Conn);
+            createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if ((dr != DialogResult.OK) || (frm.txtData.Text == "")) {
                 show(this,
@@ -7644,6 +8274,7 @@ namespace invoice_default { //documentoiva//
                 null, filter, null, true);
 
             Form mv = new FrmManage_Var(DS, Meta.Conn, Meta.Dispatcher, "E");
+            createForm(mv, null);
             DialogResult dr = mv.ShowDialog();
             if (dr != DialogResult.OK) {
                 DS.expensevar.Clear();
@@ -7962,6 +8593,7 @@ namespace invoice_default { //documentoiva//
                 filtroEP = AddAccMotiveFilter.AddAmmDepFilter(filtroEP, Conn);
                 //string filtroEP ="((idepoperation='prestprof')OR(idepoperation='spesaprof'))";
                 FrmAskInfo F = new FrmAskInfo(Meta, idacc, idupb, filtroEP, EPM.UsaScritture);
+                createForm(F, this);
                 if (F.ShowDialog(this) != DialogResult.OK) {
                     Meta.unlink(ProfService);
                     return;
@@ -8157,6 +8789,7 @@ namespace invoice_default { //documentoiva//
                 }
                 else {
                     FrmAskInfoIva F = new FrmAskInfoIva(IvaKind, Ref["amount"], description);
+                    createForm(F, null);
                     if (F.ShowDialog() != DialogResult.OK) return;
                     selected = F.cmbIvakind.SelectedValue;
                 }
@@ -8274,6 +8907,7 @@ namespace invoice_default { //documentoiva//
             object idcurrency = R["idcurrency"];
 
             FrmWizardScegliDettagliContratto F = new FrmWizardScegliDettagliContratto(Meta, regfilter, idcurrency, T);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK)
                 return;
             DataRow[] Selected = F.SelectedRows;
@@ -8311,6 +8945,7 @@ namespace invoice_default { //documentoiva//
             }
             MetaData MI = MetaData.GetMetaData(this, "invoicedetail");
             MI.SetDefaults(DS.invoicedetail);
+
             foreach (DataRow Curr in Selected) {
                 object idivakind = DBNull.Value;
                 DataRow InvDet = MI.Get_New_Row(R, DS.invoicedetail);
@@ -8351,11 +8986,8 @@ namespace invoice_default { //documentoiva//
 	                    InvDet["fereferencerule"] = descr;
 					}
                 }
-
                 AdjustIdGroupEstimate(InvDet);
             }
-
-
 
             Meta.myGetData.GetTemporaryValues(DS.invoicedetail);
             Meta.FreshForm(true);
@@ -8366,6 +8998,7 @@ namespace invoice_default { //documentoiva//
             gboxIntraInfoServizi.Enabled = acquisti || vendite;
             gboxintra_acquisti.Enabled = acquisti;
             gboxintra_vendite.Enabled = vendite;
+            //gboxNatura.Enabled = acquisti;se nel dettaglio ci sono dei beni, va abilitato sia per le vendite che per gli acquisti
         }
 
         /*
@@ -8404,8 +9037,8 @@ namespace invoice_default { //documentoiva//
             if (Meta.IsEmpty) {
                 cmbDocumentKind.Enabled = true;
                 cmbDenominazione.Enabled = true;
-                btnInviaSdI.Enabled = false;
-                btnCheck.Enabled = true;
+                btnInviaSdIFEacquestere.Enabled = false;
+                btnCheck.Enabled = false;
                 return;
 			}
             if (FatturaElettronicaEstera() == "N") {
@@ -8414,22 +9047,22 @@ namespace invoice_default { //documentoiva//
                     cmbDocumentKind.SelectedIndex = -1;
 				}
 
-                cmbDenominazione.Enabled = false;
-                if (cmbDenominazione.SelectedIndex > 0) {
-                    cmbDenominazione.SelectedIndex = -1;
-				}
+    //            cmbDenominazione.Enabled = false;
+    //            if (cmbDenominazione.SelectedIndex > 0) {
+    //                cmbDenominazione.SelectedIndex = -1;
+				//}
 
-                btnInviaSdI.Enabled = false;
+                btnInviaSdIFEacquestere.Enabled = false;
                 btnCheck.Enabled = false;
                 grpFEAcquistoEstere.Enabled = false;
             }
             else {
                 cmbDocumentKind.Enabled = true;
-                cmbDenominazione.Enabled = true;
+                //cmbDenominazione.Enabled = true;
                 grpMittenteVendita.Enabled = !FatturaInviataSdI(); ;
                 grpFEAcquistoEstere.Enabled = !FatturaInviataSdI();
 
-                btnInviaSdI.Enabled = !FatturaInviataSdI();
+                btnInviaSdIFEacquestere.Enabled = !FatturaInviataSdI();
                 btnCheck.Enabled = true;
 			}
 		}
@@ -8438,6 +9071,8 @@ namespace invoice_default { //documentoiva//
             if (Meta.IsEmpty) {
                 cmbCondizioniPagFE.Enabled = true;
                 cmbModPagFE.Enabled = true;
+                btnInviaSdIFEvendita.Enabled = false;
+                btnCheckFEvendita.Enabled = false;
                 return;
             }
             if (tipoRegistroAV().ToUpper() != "V") {
@@ -8453,10 +9088,19 @@ namespace invoice_default { //documentoiva//
                     cmbModPagFE.SelectedIndex = -1;
                 }
                 DS.invoice.Rows[0]["idfepaymethod"] = DBNull.Value;
+                btnInviaSdIFEvendita.Enabled = false;
+                btnCheckFEvendita.Enabled = false;
+                grpFEvendita.Enabled = false;
             }
             else {
+                //E' di Vendita
                 cmbCondizioniPagFE.Enabled = true;
                 cmbModPagFE.Enabled = true;
+
+                grpMittenteVendita.Enabled = !FatturaInviataSdI(); ;
+                grpFEvendita.Enabled = !FatturaInviataSdI();
+                btnInviaSdIFEvendita.Enabled = !FatturaInviataSdI();
+                btnCheckFEvendita.Enabled = !FatturaInviataSdI();
             }
 
         }
@@ -8504,7 +9148,7 @@ namespace invoice_default { //documentoiva//
         }
 
         private void DoEnableDisableIntrastat() {
-            if (Meta.IsEmpty) {
+			if (Meta.IsEmpty) {
                 EnableIntrastat(true, true);
                 return;
             }
@@ -8735,7 +9379,7 @@ namespace invoice_default { //documentoiva//
             string filter = QHS.CmpEq("idreg", RDoc["idreg"]);
             //sceglie tra i dettagli che hanno ancora del disponibile
             FrmWizardScegliDDT_IN F = new FrmWizardScegliDDT_IN(filter, Meta, DS);
-
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK)
                 return;
             DataRow[] Selected = F.SelectedRows; //Selected sono una o più bollette da fatturare
@@ -9036,6 +9680,7 @@ namespace invoice_default { //documentoiva//
             }
             //Apre un form in cui fa scegliere il magazzino idstore e poi lo restituisce, o null se cancel
             FrmAskInfoStore F = new FrmAskInfoStore(Meta.Dispatcher, InvDet, List);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK)
                 return null;
             return F.idstore;
@@ -9045,6 +9690,7 @@ namespace invoice_default { //documentoiva//
         private object GetExpiryForInvoiceDetail(DataRow InvDet, DataRow List) {
             //Apre un form in cui fa scegliere la data scadenza e poi lo restituisce, o null se cancel
             FrmAskInfoExpiry F = new FrmAskInfoExpiry(Meta.Dispatcher, InvDet, List);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK)
                 return null;
             return F.expiry;
@@ -9180,6 +9826,7 @@ namespace invoice_default { //documentoiva//
             }
             DataRow RStockView = StockViewRows[0];
             FrmModifyInfoStore F = new FrmModifyInfoStore(Meta.Dispatcher, RStockView);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK)
                 return;
 
@@ -9280,7 +9927,7 @@ namespace invoice_default { //documentoiva//
                     || (C.ColumnName == "doc")
                     || (C.ColumnName == "iso_origin") || (C.ColumnName == "iso_provenance") ||
                     (C.ColumnName == "idcountry_destination")
-                    || (C.ColumnName == "idintrastatkind") || (C.ColumnName == "iso_payment") ||
+                    || (C.ColumnName == "idintrastatkind") || (C.ColumnName == "idintrastatkinddet") || (C.ColumnName == "iso_payment") ||
                     (C.ColumnName == "idintrastatpaymethod")
                     )
                     continue;
@@ -9446,7 +10093,7 @@ namespace invoice_default { //documentoiva//
         private void EnableTabDettagli(bool abilita) {
             btnAggiungiDaContratti.Enabled = abilita ; //&& (faseEntrataMax>1);
             btnAggiungiDaOrdini.Enabled = abilita;  // && (faseSpesaMax>1);
-            btnBolletta.Enabled = abilita;
+             btnBolletta.Enabled = abilita;
             btnCreaDaContratto.Enabled = abilita;
             btnContabilizzazioni.Enabled = abilita;
             buttonInsert.Enabled = abilita;
@@ -9593,7 +10240,11 @@ namespace invoice_default { //documentoiva//
             if (Meta.InsertMode)
                 return false;
             DataRow rInvoice = DS.invoice.Rows[0];
+            //Inviamo solo FE di acquisto estere e FE di vendita
             if (CfgFn.GetNoNullInt32(rInvoice["idsdi_acquistoestere"])!=0) {
+                return true;
+            }
+            if (CfgFn.GetNoNullInt32(rInvoice["idsdi_vendita"]) != 0) {
                 return true;
             }
             return false;
@@ -9728,7 +10379,7 @@ namespace invoice_default { //documentoiva//
         private void btnModStatodelDebito_Click(object sender, EventArgs e) {
             object selected = DBNull.Value;
             object pccdebitmotive = DBNull.Value;
-            DataTable Pccdebitstatus = Conn.RUN_SELECT("pccdebitstatus", "*", "listingorder asc", null, null, null, true);
+            DataTable Pccdebitstatus = Conn.RUN_SELECT("pccdebitstatus", "*", "listingorder asc", qhs.CmpEq("active","S"), null, null, true);
             object idpccdebitstatusDefault = null;
             if (DS.config.Rows.Count > 0) {
                 DataRow debitStatusSetup = DS.config.Rows[0];
@@ -9736,14 +10387,15 @@ namespace invoice_default { //documentoiva//
             }
 
             FrmAskStatoDelDebito F = new FrmAskStatoDelDebito(Meta, Pccdebitstatus, idpccdebitstatusDefault);
+            createForm(F, null);
             if (F.ShowDialog() != DialogResult.OK)
                 return;
             selected = F.cmbStatodeldebito.SelectedValue;
             pccdebitmotive = F.idpccdebitmotive;
             string message = "";
             if (selected != null)
-                message = "Cambio lo Stato del Debito a tutti i dettagli ponendoli come: " +
-                          selected.ToString() + "?. La Causale resterà invariata";
+                message = "Cambio lo Stato del Debito a tutti i dettagli fattura ponendoli come: " +
+                          selected.ToString() + "? Saranno aggiornati anche gli importi dello Stato del debito PCC";
             if (pccdebitmotive != null)
                 message = "Cambio lo Stato del Debito e la Causale a tutti i dettagli ponendoli come: " +
                           selected.ToString() + " e " + pccdebitmotive + "?";
@@ -9758,6 +10410,7 @@ namespace invoice_default { //documentoiva//
                     if ((pccdebitmotive != DBNull.Value) && (pccdebitmotive != null))
                         r["idpccdebitmotive"] = pccdebitmotive;
                 }
+                AllineaRigheStatodeldebito();
             }
         }
 
@@ -9826,6 +10479,7 @@ namespace invoice_default { //documentoiva//
                 FrmAssociaDettagliDaFE F = new FrmAssociaDettagliDaFE(Meta, R["idsdi_acquisto"], R["idcurrency"],
                     flagactivity, regfilter, flagmixfilter,
                     !chkflag_ddt.Checked, T);
+                createForm(F, this);
                 if (F.ShowDialog(this) != DialogResult.OK) {
                     Meta.DontWarnOnInsertCancel = true;
                     AggiornaSDIAcquistoEnabled = false;
@@ -9860,6 +10514,7 @@ namespace invoice_default { //documentoiva//
             if (modalita == "parcella") {
 
                 FrmCreaDaParcellaFE F = new FrmCreaDaParcellaFE(Meta, R["idsdi_acquisto"], flagactivity, regfilter, T);
+                createForm(F, this);
                 if (F?.ShowDialog(this) != DialogResult.OK) {
                     Meta.DontWarnOnInsertCancel = true;
                     AggiornaSDIAcquistoEnabled = false;
@@ -9939,6 +10594,7 @@ namespace invoice_default { //documentoiva//
             }
             if ((chk_auto_split_payment.Checked && chk_auto_split_payment.Enabled) && (chk_enable_split_payment.Checked))
                 chk_enable_reverse_charge.Checked = false;
+            AllineaRigheStatodeldebito();
         }
 
         private void chk_enable_reverse_charge_CheckedChanged(object sender, EventArgs e) {
@@ -10022,7 +10678,11 @@ namespace invoice_default { //documentoiva//
                 return;
             }
             if (RigaSelezionata["idestimkind"] != DBNull.Value) {
-                show("Dettaglio collegato a Contratto Attivo2", "Avviso");
+                show("Dettaglio collegato a Contratto Attivo", "Avviso");
+                return;
+            }
+            if (RigaSelezionata["rownum_main"] != DBNull.Value) {
+                show("Dettaglio collegato a Nota di Variazione", "Avviso");
                 return;
             }
             if ((RigaSelezionata["idexp_taxable"] != DBNull.Value) && (RigaSelezionata["idexp_iva"] != DBNull.Value)) {
@@ -10037,6 +10697,7 @@ namespace invoice_default { //documentoiva//
             decimal totaleImponibile = CfgFn.GetNoNullDecimal(RigaSelezionata["taxable"]);
             decimal totaleIva = CfgFn.GetNoNullDecimal(RigaSelezionata["tax"]);
             frmAskDividi F = new frmAskDividi(RigaSelezionata, Meta, Meta.Dispatcher);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK)
                 return;
 
@@ -10420,7 +11081,7 @@ namespace invoice_default { //documentoiva//
                 double ivadetraibile; //CfgFn.RoundValuta(ivadetraibilelorda*abatablerate);		
 
                 if (istituzionale) {
-                    ivaindetraibile = CfgFn.RoundValuta(iva);
+                    ivaindetraibile = 0;
                     ivadetraibile = 0;
                 }
                 else {
@@ -10449,8 +11110,12 @@ namespace invoice_default { //documentoiva//
                         if (QueryCreator.IsPrimaryKey(DS.invoicedetail, field))
                             continue;
                         if (field == "tax") {
-                            rNew["taxable"] = ivaIndetraibile;
+                            rNew["taxable"] = CfgFn.RoundValuta(iva);
                             rNew["tax"] = 0;
+                            continue;
+                        }
+                        if (field == "unabatable") {
+                            rNew["unabatable"] = ivaIndetraibile;
                             continue;
                         }
                         if (field == "idaccmotive") {
@@ -10611,6 +11276,7 @@ namespace invoice_default { //documentoiva//
 
             ep_functions.FrmShowTracciato FT = new ep_functions.FrmShowTracciato(tracciatoRipartizione,
                 "Importazione ripartizione");
+            createForm(FT, null);
             FT.ShowDialog();
         }
 
@@ -10914,14 +11580,16 @@ namespace invoice_default { //documentoiva//
 			DataTable tElectronicinvoicedetail = new DataTable();
 			DataTable tElectronicinvoiceriepilogo = new DataTable();
 			DataTable tElectronicinvoiceAllegati = new DataTable();
-			DataRow Curr = DS.invoice.Rows[0];
+            DataTable tElectronicinvoicedetailFattCollegateEstere = new DataTable();
+
+            DataRow Curr = DS.invoice.Rows[0];
 			Meta.dontClose = true;
 			DataSet Out = Meta.Conn.CallSP("exp_electronicinvoice_estere", new object[] { Curr["yinv"], Curr["ninv"], Curr["idinvkind"] });
 			if (Out == null) return;
 			tElectronicinvoice = Out.Tables[0];
 			if (tElectronicinvoice.Rows.Count == 0) {
 				Meta.dontClose = false;
-				show(this, "Non vi sono fatture da esportare.");
+				show(this, "La fattura non può essere trasmessa, cliccare su Controlla dati e correggere gli errori riscontrati.");
 				return;
 			}
 
@@ -10931,8 +11599,12 @@ namespace invoice_default { //documentoiva//
 			if (Out2 != null) tElectronicinvoiceriepilogo = Out2.Tables[0]; else return;
 			DataSet Out3 = Meta.Conn.CallSP("exp_electronicinvoiceallegati_estere", new object[] { Curr["yinv"], Curr["ninv"], Curr["idinvkind"] });
 			if (Out3 != null) tElectronicinvoiceAllegati = Out3.Tables[0];
+            DataSet Out4 = Meta.Conn.CallSP("exp_electronicinvoicedatifatturecollegate",
+                new object[] { Curr["yelectronicinvoice"], Curr["nelectronicinvoice"], Curr["yinv"], Curr["ninv"], Curr["idinvkind"] });
+            if (Out4 != null) tElectronicinvoicedetailFattCollegateEstere = Out4.Tables[0];
 
-			Meta.dontClose = false;
+
+            Meta.dontClose = false;
 			Application.DoEvents();
 			Cursor.Current = Cursors.WaitCursor;
 			DataRow R = tElectronicinvoice.Rows[0];
@@ -11007,10 +11679,15 @@ namespace invoice_default { //documentoiva//
 				writersdi.WriteEndElement();// chiude <IdFiscaleIVA>
 				//writersdi.WriteElementString("CodiceFiscale", getAZ09(R["IdTrasmittenteCodice"]));
 				writersdi.WriteStartElement("Anagrafica");// apre <Anagrafica>
-				writersdi.WriteElementString("Denominazione", getLatin1(R["DenominazioneFornitore"]));
-                writersdi.WriteElementString("Nome", getAZ(R["NomeFornitore"]));
-                writersdi.WriteElementString("Cognome", getAZ(R["CognomeFornitore"]));
-
+                if (getLatin1(R["DenominazioneFornitore"]) != "") {
+                    writersdi.WriteElementString("Denominazione", getLatin1(R["DenominazioneFornitore"]));
+                }
+                if (getAZ(R["NomeFornitore"]) != "") {
+                    writersdi.WriteElementString("Nome", getAZ(R["NomeFornitore"]));
+                }
+                if (getAZ(R["CognomeFornitore"]) != "") {
+                    writersdi.WriteElementString("Cognome", getAZ(R["CognomeFornitore"]));
+                }
                 writersdi.WriteEndElement();// chiude <Anagrafica>
 				writersdi.WriteElementString("RegimeFiscale", format(R["RegimeFiscale"]));
 				writersdi.WriteEndElement();// chiude <DatiAnagrafici>
@@ -11100,7 +11777,8 @@ namespace invoice_default { //documentoiva//
 				writersdi.WriteEndElement();// chiude <Sede>
 				writersdi.WriteEndElement();// chiude <CessionarioCommittente>
 
-				writersdi.WriteEndElement();// Chiude -  <FatturaElettronicaHeader>
+                writersdi.WriteElementString("SoggettoEmittente", "CC");
+                writersdi.WriteEndElement();// Chiude -  <FatturaElettronicaHeader>
 											//            foreach (DataRow rFattura in tElectronicinvoice.Select()) {//Spostato sopra
 				writersdi.WriteStartElement("FatturaElettronicaBody"); //Apre <FatturaElettronicaBody>
 				writersdi.WriteStartElement("DatiGenerali"); //Apre <DatiGenerali>
@@ -11110,7 +11788,7 @@ namespace invoice_default { //documentoiva//
 				writersdi.WriteElementString("Data", format(rFattura["data"]));
 				writersdi.WriteElementString("Numero", getLatin1(rFattura["numero"]));
 
-                //PER LE FATTURE DI ACQSUITO ESTERE NON HA SENSO QUESTO CAMPO
+                //PER LE FATTURE DI ACQUISTO ESTERE NON HA SENSO QUESTO CAMPO
                 //if (tElectronicinvoice.Columns.Contains("idstampkind") && rFattura["idstampkind"].ToString().ToUpper() == "DM19_2014") {
                 //	writersdi.WriteStartElement("DatiBollo"); //Apre <DatiBollo>
                 //											  //writersdi.WriteElementString("NumeroBollo", format("DM-17-GIU-2014"));
@@ -11153,15 +11831,37 @@ namespace invoice_default { //documentoiva//
 					}
 					writersdi.WriteEndElement();// Chiude -  <DatiOrdineAcquisto>
 				}
-				if (rFattura["tipofattura"].ToString() == "V") {// Se è una Nota di Credito
-					writersdi.WriteStartElement("DatiFattureCollegate");
-					writersdi.WriteElementString("IdDocumento", getLatin1(rFattura["IdDocumentoFatturaMadre"]));
-					writersdi.WriteElementString("Data", format(rFattura["DataFatturaMadre"]));
-					writersdi.WriteEndElement();// Chiude -  <DatiFattureCollegate>
-				}
+                foreach (DataRow rDetail in tElectronicinvoicedetailFattCollegateEstere.Select(filterOrdineAcquisto)) {
+                    writersdi.WriteStartElement("DatiFattureCollegate");//Apre - <DatiFattureCollegate>
+                    writersdi.WriteElementString("RiferimentoNumeroLinea", format(rDetail["RiferimentoNumeroLinea"]));
+                    writersdi.WriteElementString("IdDocumento", getLatin1(rDetail["IdDocumento"]));
+                    if (rDetail["DataDocumentoCollegato"].ToString() != "") {
+                        writersdi.WriteElementString("Data", format(rDetail["DataDocumentoCollegato"]));
+                    }
+                    if (rDetail["NumItem"].ToString() != "") {
+                        writersdi.WriteElementString("NumItem", getLatin1(rDetail["NumItem"]));
+                    }
+                    if (rDetail["CodiceCommessaConvenzione"].ToString() != "") {
+                        writersdi.WriteElementString("CodiceCommessaConvenzione", rDetail["CodiceCommessaConvenzione"].ToString());
+                    }
+
+                    if (rDetail["CodiceCUP"].ToString() != "") {
+                        writersdi.WriteElementString("CodiceCUP", getLatin1(rDetail["CodiceCUP"]));
+                    }
+                    if (rDetail["CodiceCIG"].ToString() != "") {
+                        writersdi.WriteElementString("CodiceCIG", getLatin1(rDetail["CodiceCIG"]));
+                    }
+                    writersdi.WriteEndElement();// Chiude -  <DatiFattureCollegate>
+                }
+                //if (rFattura["tipofattura"].ToString() == "V") {// Se è una Nota di Credito
+                //	writersdi.WriteStartElement("DatiFattureCollegate");
+                //	writersdi.WriteElementString("IdDocumento", getLatin1(rFattura["IdDocumentoFatturaMadre"]));
+                //	writersdi.WriteElementString("Data", format(rFattura["DataFatturaMadre"]));
+                //	writersdi.WriteEndElement();// Chiude -  <DatiFattureCollegate>
+                //}
 
 
-				writersdi.WriteEndElement();// Chiude -  <DatiGenerali>
+                writersdi.WriteEndElement();// Chiude -  <DatiGenerali>
 
 				writersdi.WriteStartElement("DatiBeniServizi"); //Apre <DatiBeniServizi>
 				string filterDoc = QHC.AppAnd(QHC.CmpEq("idinvkind", rFattura["idinvkind"]), QHC.CmpEq("yinv", rFattura["yinv"]), QHC.CmpEq("ninv", rFattura["ninv"]));
@@ -11259,11 +11959,23 @@ namespace invoice_default { //documentoiva//
 				string xmlString = sw.ToString();
 				rSdi_acquistoestere["xml"] = xmlString;
 
-				Meta.SaveFormData();
-				Stream s = GenerateStreamFromString(xmlString);
-                ApriFormFE();
-                grpMittenteVendita.Enabled = false;
-                grpFEAcquistoEstere.Enabled = false;
+                //Meta.SaveFormData();
+                PostData Post = Meta.Get_PostData();
+                Post.InitClass(DS, Conn);
+                bool res = Post.DO_POST();
+                if (!res) {
+                    if (DS.HasChanges()) {
+                        DS.RejectChanges();
+                        Meta.FreshForm();
+                    }
+                }
+                else {
+                    Stream s = GenerateStreamFromString(xmlString);
+                    ApriFormFE();
+                    grpMittenteVendita.Enabled = false;
+                    grpFEAcquistoEstere.Enabled = false;
+                }
+
                 //ValidaXML_conXSD(s);
             }// foreach in TElectronicinvoice
 		}// Fine 
@@ -11396,14 +12108,835 @@ namespace invoice_default { //documentoiva//
             }
             return res;
         }
-        //private void btnInviaSdI_Click(object sender, EventArgs e) {
 
-        //}
+		private void btnNaturaTransazione_Click(object sender, EventArgs e) {
+            
+            string filter = "";
+            string listingtype = "";
+            if ((int)Meta.GetSys("esercizio") >= 2022) {
+                filter = QHS.IsNotNull("code_a");
+                listingtype = "default";
+			}
+            else {
+                filter = QHS.IsNull("code_a");
+                listingtype = "old";
+			}
+            
+            MetaData E = Meta.Dispatcher.Get("intrastatkindview");
+            E.DS = DS.Clone();
+            E.FilterLocked = true;
+            DataRow Choosen = E.SelectOne(listingtype, filter, "intrastatkindview", null);
+            if (Choosen == null) return;
+            Meta.Conn.RUN_SELECT_INTO_TABLE(DS.intrastatkind, null, QHS.AppAnd(QHS.CmpEq("idintrastatkind", Choosen["idintrastatkind"])), null, true);
+            Meta.Conn.RUN_SELECT_INTO_TABLE(DS.intrastatkinddet, null, QHS.AppAnd(QHS.CmpEq("idintrastatkinddet", Choosen["idintrastatkinddet"])), null, true);
 
-        //private void btnInviaSdI_Click_1(object sender, EventArgs e) {
+            if (Choosen["code_a"] != DBNull.Value) {
+                txtCodeA.Text = Choosen["code_a"].ToString();
+                txtDescrA.Text = Choosen["description_a"].ToString();
+                txtCodeB.Text = Choosen["code_b"].ToString();
+                txtDescrB.Text = Choosen["description_b"].ToString();
+			}
+            else {
+                txtCodeA.Text = Choosen["idintrastatkind"].ToString();
+                txtDescrA.Text = Choosen["description_a"].ToString();
+			}
 
-        //}
+            if (Meta.IsEmpty || DS.invoice.Rows.Count == 0) return;
+            DataRow curr = DS.invoice.Rows[0];
 
+            curr["idintrastatkind"] = Choosen["idintrastatkind"];
+            curr["idintrastatkinddet"] = Choosen["idintrastatkinddet"];
+            
+		}
+
+		private void btnCheckFEvendita_Click(object sender, EventArgs e) {
+            if (DS.invoice.Rows.Count == 0) {
+                return;
+            }
+
+            if (!Meta.GetFormData(false)) return;
+            PostData.RemoveFalseUpdates(DS);
+            if (DS.HasChanges()) {
+                show(this, "Per controllare i dati occorre prima SALVARE");
+                return;
+            }
+            DataRow Curr = DS.invoice.Rows[0];
+            DataTable tElectronicinvoicecheck = Meta.Conn.CallSP("exp_electronicinvoicecheck", 
+                    new object[] { Curr["yelectronicinvoice"], Curr["nelectronicinvoice"], Curr["yinv"], Curr["ninv"], Curr["idinvkind"] }, false).Tables[0];
+            if (tElectronicinvoicecheck == null) {
+                return;
+            }
+            if (tElectronicinvoicecheck.Rows.Count == 0) {
+                show(this, "Non vi sono errori.");
+                return;
+            }
+
+            exportclass.DataTableToExcel(tElectronicinvoicecheck, true);
+        }
+
+      private void btnInviaSdIFEvendita_Click(object sender, EventArgs e) {
+            if (Meta.destroyed) return;
+
+            //Crea la riga in sdi_vendita per la fattura selezionata
+            if (DS.invoice.Rows.Count == 0) {
+                return;
+            }
+
+            if (!Meta.GetFormData(false))
+                return;
+            PostData.RemoveFalseUpdates(DS);
+            if (DS.HasChanges()) {
+                show(this, "Per generare il file occorre prima SALVARE");
+                return;
+            }
+            DataTable tElectronicinvoice = new DataTable();
+            DataTable tElectronicinvoicedetail = new DataTable();
+            DataTable tElectronicinvoiceriepilogo = new DataTable();
+            DataTable tElectronicinvoiceAllegati = new DataTable();
+            DataTable tElectronicinvoicedetailFattCollegate = new DataTable();
+            DataRow Curr = DS.invoice.Rows[0];
+            Meta.dontClose = true;
+            DataSet Out = Meta.Conn.CallSP("exp_electronicinvoice", 
+                new object[] { Curr["yelectronicinvoice"], Curr["nelectronicinvoice"], Curr["yinv"], Curr["ninv"], Curr["idinvkind"] }, false);
+            if (Out == null) return;
+            tElectronicinvoice = Out.Tables[0];
+            if (tElectronicinvoice.Rows.Count == 0) {
+                Meta.dontClose = false;
+                show(this, "La fattura non può essere trasmessa, cliccare su Controlla dati e correggere gli errori riscontrati.");
+                return;
+            }
+
+            DataSet Out1 = Meta.Conn.CallSP("exp_electronicinvoicedetail",
+                new object[] { Curr["yelectronicinvoice"], Curr["nelectronicinvoice"], Curr["yinv"], Curr["ninv"], Curr["idinvkind"] });
+            if (Out1 != null) tElectronicinvoicedetail = Out1.Tables[0]; else return;
+            DataSet Out2 = Meta.Conn.CallSP("exp_electronicinvoiceriepilogo",
+                new object[] { Curr["yelectronicinvoice"], Curr["nelectronicinvoice"], Curr["yinv"], Curr["ninv"], Curr["idinvkind"] });
+            if (Out2 != null) tElectronicinvoiceriepilogo = Out2.Tables[0]; else return;
+            DataSet Out3 = Meta.Conn.CallSP("exp_electronicinvoiceallegati", 
+                new object[] { Curr["yelectronicinvoice"], Curr["nelectronicinvoice"], Curr["yinv"], Curr["ninv"], Curr["idinvkind"] });
+            if (Out3 != null) tElectronicinvoiceAllegati = Out3.Tables[0];
+            DataSet Out4 = Meta.Conn.CallSP("exp_electronicinvoicedatifatturecollegate",
+                new object[] { Curr["yelectronicinvoice"], Curr["nelectronicinvoice"], Curr["yinv"], Curr["ninv"], Curr["idinvkind"] });
+            if (Out4 != null) tElectronicinvoicedetailFattCollegate = Out4.Tables[0];
+
+            Meta.dontClose = false;
+            Application.DoEvents();
+            Cursor.Current = Cursors.WaitCursor;
+            DataRow R = tElectronicinvoice.Rows[0];
+
+            string NomeFile = BuildNomeFileXml();
+
+            MetaData Sdi_Vendita = MetaData.GetMetaData(this, "sdi_vendita");
+            Sdi_Vendita.SetDefaults(DS.sdi_vendita);
+
+            foreach (DataRow rFattura in tElectronicinvoice.Select()) {
+                Sdi_Vendita.SetDefaults(DS.sdi_vendita);
+                DataRow rSdi_vendita = Sdi_Vendita.Get_New_Row(null, DS.sdi_vendita);
+                rSdi_vendita["position"] = 1;  //rFattura["position"];
+                //rSdi_vendita["filename"] = NomeFile; //calcolato in automatico ora
+                rSdi_vendita["exported"] = "N";
+                rSdi_vendita["ipa_fe"] = rFattura["ipa_ven_emittente"];
+                rSdi_vendita["idsdi_rifamm"] = rFattura["rifamm_ven_emittente"];
+
+                string filterInvoice = QHC.AppAnd(QHC.CmpEq("idinvkind", rFattura["idinvkind"]), QHC.CmpEq("yinv", rFattura["yinv"]), QHC.CmpEq("ninv", rFattura["ninv"]));
+                DataRow rInvoice = DS.invoice.Select(filterInvoice)[0];
+                rInvoice["idsdi_vendita"] = rSdi_vendita["idsdi_vendita"];
+
+                StringWriter sw = new StringWriter();
+                writersdi = new XmlTextWriter(sw);
+                writersdi.Formatting = Formatting.Indented;
+
+                writersdi.WriteProcessingInstruction("xml", "version='1.0' encoding='UTF-8' ");
+                //I.ipa_ven_cliente as 'CodiceDestinatario',
+                //I.rifamm_ven_cliente as 'RiferimentoAmministrazione',
+                bool isPA = rFattura["CodiceDestinatario"].ToString().Length == 6;
+
+
+
+                string versione = isPA ? "FPA12" : "FPR12"; //FPA12
+                string formatotrasmissione = versione;
+
+                writersdi.WriteStartElement("p:FatturaElettronica");
+                writersdi.WriteAttributeString("versione", versione);
+                writersdi.WriteAttributeString("xmlns", "ds", null, "http://www.w3.org/2000/09/xmldsig#");
+                writersdi.WriteAttributeString("xmlns", "p", null, "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2");
+                writersdi.WriteAttributeString("xmlns", "xsi", null, "http://www.w3.org/2001/XMLSchema-instance");
+
+                writersdi.WriteStartElement("FatturaElettronicaHeader"); //apre <FatturaElettronicaHeader>
+                writersdi.WriteStartElement("DatiTrasmissione"); //Apre <DatiTrasmissione>
+                writersdi.WriteStartElement("IdTrasmittente");// apre <IdTrasmittente>
+                writersdi.WriteElementString("IdPaese", "IT");
+                writersdi.WriteElementString("IdCodice", format(R["IdTrasmittenteCodice"]));
+                writersdi.WriteEndElement();// chiude <IdTrasmittente>
+                writersdi.WriteElementString("ProgressivoInvio", getLatin1(R["ProgressivoInvio"]));
+                writersdi.WriteElementString("FormatoTrasmissione", formatotrasmissione); ///era SDI11
+                writersdi.WriteElementString("CodiceDestinatario", getAZ09(R["CodiceDestinatario"]));
+                //1.1.5 < ContattiTrasmittente > Dati relativi ai contatti del trasmittente
+                //1.1.5.1 < Telefono > xs:normalizedString Contatto telefonico fisso o mobile
+                //1.1.5.2 < Email > xs:string   Indirizzo di posta elettronica
+                //if (R["email_ven_cliente"]!=DBNull.Value) {
+                //    writersdi.WriteStartElement("ContattiTrasmittente"); //Apre <ContattiTrasmittente>
+                //    writersdi.WriteElementString("Email", getAZ09(R["email_ven_cliente"]));
+                //    writersdi.WriteEndElement();// chiude <ContattiTrasmittente>
+                //}
+
+                if (rFattura["CodiceDestinatario"].ToString() == "0000000" && R["pec_ven_cliente"] != DBNull.Value) {
+                    writersdi.WriteElementString("PECDestinatario", R["pec_ven_cliente"].ToString());
+                }
+
+                writersdi.WriteEndElement();// chiude <DatiTrasmissione>
+                writersdi.WriteStartElement("CedentePrestatore"); //Apre <CedentePrestatore>
+                writersdi.WriteStartElement("DatiAnagrafici"); //Apre <DatiAnagrafici>
+                writersdi.WriteStartElement("IdFiscaleIVA");// apre <IdFiscaleIVA>
+                writersdi.WriteElementString("IdPaese", "IT");
+                writersdi.WriteElementString("IdCodice", format(R["IdFiscaleIvaCodiceDip"]));
+                writersdi.WriteEndElement();// chiude <IdFiscaleIVA>
+                writersdi.WriteElementString("CodiceFiscale", getAZ09(R["IdTrasmittenteCodice"]));
+                writersdi.WriteStartElement("Anagrafica");// apre <Anagrafica>
+                writersdi.WriteElementString("Denominazione", getLatin1(R["DenominazioneDip"]));
+                writersdi.WriteEndElement();// chiude <Anagrafica>
+                writersdi.WriteElementString("RegimeFiscale", format(R["RegimeFiscale"]));
+                writersdi.WriteEndElement();// chiude <DatiAnagrafici>
+                writersdi.WriteStartElement("Sede"); //Apre <Sede>
+                writersdi.WriteElementString("Indirizzo", getLatin1(R["indirizzoDip"]));
+                writersdi.WriteElementString("CAP", getdigit09(R["capDip"]));
+                writersdi.WriteElementString("Comune", getLatin1(R["comuneDip"]));
+                writersdi.WriteElementString("Provincia", getAZ(R["provinciaDip"]));
+                writersdi.WriteElementString("Nazione", "IT");
+                writersdi.WriteEndElement();// chiude <Sede>
+                                            //		1.4.3 < StabileOrganizzazione > Blocco da valorizzare se e solo se l'elemento informativo 1.1.3 <FormatoTrasmissione> = "FPR12" (fattura tra privati), nel caso di cessionario/committente non residente e con stabile organizzazione in Italia
+                                            //	1.4.3.1 < Indirizzo > xs:normalizedString Indirizzo della sede del cessionario / committente(nome della via, piazza etc.)
+                                            //	1.4.3.2 < NumeroCivico > xs:normalizedString Numero civico riferito all'indirizzo (non indicare se già presente nell'elemento informativo indirizzo)
+                                            //	1.4.3.3 < CAP > xs:string   Codice Avviamento Postale
+                                            //	1.4.3.4 < Comune > xs:normalizedString Comune relativo alla stabile organizzazione in Italia
+                                            //	1.4.3.5 < Provincia > xs:string   Sigla della provincia di appartenenza del comune indicato nell'elemento informativo 1.4.3.4 <Comune>. Da valorizzare se l'elemento informativo 1.4,3.6 < Nazione > è uguale a IT
+                                            //	1.4.3.6 < Nazione > xs:string   Codice della nazione espresso secondo lo standard ISO 3166 - 1 alpha - 2 code
+                if ((versione == "FPR12") && (R["indirizzoStabileOrg"] != DBNull.Value)) {
+                    writersdi.WriteStartElement("StabileOrganizzazione"); //Apre <StabileOrganizzazione>
+                    writersdi.WriteElementString("Indirizzo", getLatin1(R["indirizzoStabileOrg"]));
+                    writersdi.WriteElementString("CAP", getdigit09(R["capStabileOrg"]));
+                    writersdi.WriteElementString("Comune", getLatin1(R["comuneStabileOrg"]));
+                    writersdi.WriteElementString("Provincia", getAZ(R["provinciaStabileOrg"]));
+                    writersdi.WriteElementString("Nazione", getAZ(R["nazioneStabileOrg"]));
+                    writersdi.WriteEndElement();// chiude <StabileOrganizzazione>
+                }
+
+                if ((R["rea_number"] != DBNull.Value)) {
+                    writersdi.WriteStartElement("IscrizioneREA"); //Apre <IscrizioneREA>
+                    writersdi.WriteElementString("Ufficio", getAZ(R["rea_provinceoffice"]));
+                    writersdi.WriteElementString("NumeroREA", getLatin1(R["rea_number"]));
+                    if (format(R["rea_socialcapital"]) != "") {
+                        writersdi.WriteElementString("CapitaleSociale", format(R["rea_socialcapital"]));
+                    }
+                    if (getLatin1(R["rea_partner"]) != "") {
+                        writersdi.WriteElementString("SocioUnico", getLatin1(R["rea_partner"]));
+                    }
+                    writersdi.WriteElementString("StatoLiquidazione", getLatin1(R["rea_closingstatus"]));
+                    writersdi.WriteEndElement();// chiude <IscrizioneREA>
+                }
+
+                //1.4.4 < RappresentanteFiscale > Blocco da valorizzare se e solo se l'elemento informativo 1.1.3 <FormatoTrasmissione> = "FPR12" (fattura tra privati), nel caso di cessionario/committente che si avvale di rappresentante fiscale in Italia
+                //	1.4.4.1 < IdFiscaleIVA > Numero di identificazione fiscale ai fini IVA; i primi due caratteri rappresentano il paese(IT, DE, ES …..) ed i restanti(fino ad un massimo di 28) il codice vero e proprio che, per i residenti in Italia, corrisponde al numero di partita IVA.
+                //		1.4.4.1.1 < IdPaese > xs:string   Codice della nazione espresso secondo lo standard ISO 3166 - 1 alpha - 2 code
+                //		1.4.4.1.2 < IdCodice > xs:string   Codice identificativo fiscale
+                //		1.4.4.2 < Denominazione > (campo assente nella scheda indirizzi dell'anagrafica)				
+                //		1.4.4.3 < Nome > (campo assente nella scheda indirizzi dell'anagrafica)			
+                //		1.4.4.4 < Cognome > (campo assente nella scheda indirizzi dell'anagrafica)
+                if ((versione == "FPR12") && (R["IdPaeseRappresentante"] != DBNull.Value)) {
+                    writersdi.WriteStartElement("RappresentanteFiscale"); //Apre <StabileOrganizzazione>
+                    writersdi.WriteElementString("IdPaese", getAZ(R["IdPaeseRappresentante"]));
+                    writersdi.WriteElementString("IdCodice", getAZ09(R["IdCodiceRappresentante"]));
+                    if (R["DenominazioneRappresentante"] != DBNull.Value)
+                        writersdi.WriteElementString("Denominazione", getAZ(R["DenominazioneRappresentante"]));
+                    writersdi.WriteElementString("Nome", getAZ(R["NomeRappresentante"]));
+                    writersdi.WriteElementString("Cognome", getAZ(R["CognomeRappresentante"]));
+                    writersdi.WriteEndElement();// chiude <StabileOrganizzazione>
+                }
+                if (R["RiferimentoAmministrazione"].ToString() != "") {
+                    writersdi.WriteElementString("RiferimentoAmministrazione", getLatin1(R["RiferimentoAmministrazione"]));
+                }
+                writersdi.WriteEndElement();// chiude <CedentePrestatore>
+
+                writersdi.WriteStartElement("CessionarioCommittente"); //Apre <CessionarioCommittente>
+                writersdi.WriteStartElement("DatiAnagrafici"); //Apre <DatiAnagrafici>
+                if (R["IdFiscaleIvaCodiceCliente"].ToString() != "") {
+                    writersdi.WriteStartElement("IdFiscaleIVA");// apre <IdFiscaleIVA>
+                    writersdi.WriteElementString("IdPaese", getAZ(R["IdFiscaleIvaPaeseCliente"]));
+                    writersdi.WriteElementString("IdCodice", format(R["IdFiscaleIvaCodiceCliente"]));
+                    writersdi.WriteEndElement();// chiude <IdFiscaleIVA>
+                }
+                if (R["CFCliente"].ToString() != "") {
+                    writersdi.WriteElementString("CodiceFiscale", getAZ09(R["CFCliente"]));
+                }
+                writersdi.WriteStartElement("Anagrafica");// apre <Anagrafica>
+                if (R["DenominazioneCliente"].ToString() != "") {
+                    writersdi.WriteElementString("Denominazione", getLatin1(R["DenominazioneCliente"]));
+                }
+                if (R["nomeCliente"].ToString() != "") {
+                    writersdi.WriteElementString("Nome", getLatin1(R["nomeCliente"]));
+                }
+                if (R["cognomeCliente"].ToString() != "") {
+                    writersdi.WriteElementString("Cognome", getLatin1(R["cognomeCliente"]));
+                }
+                writersdi.WriteEndElement();// chiude <Anagrafica>
+                writersdi.WriteEndElement();// chiude <DatiAnagrafici>
+                writersdi.WriteStartElement("Sede"); //Apre <Sede>
+                writersdi.WriteElementString("Indirizzo", getLatin1(R["indirizzoCliente"]));
+                writersdi.WriteElementString("CAP", getdigit09(R["capCliente"]));
+                writersdi.WriteElementString("Comune", getLatin1(R["comuneCliente"]));
+                writersdi.WriteElementString("Provincia", getAZ(R["provinciaCliente"]));
+                writersdi.WriteElementString("Nazione", getAZ(R["nazioneCliente"]));
+                writersdi.WriteEndElement();// chiude <Sede>
+                writersdi.WriteEndElement();// chiude <CessionarioCommittente>
+
+                writersdi.WriteEndElement();// Chiude -  <FatturaElettronicaHeader>
+                                            //            foreach (DataRow rFattura in tElectronicinvoice.Select()) {//Spostato sopra
+                writersdi.WriteStartElement("FatturaElettronicaBody"); //Apre <FatturaElettronicaBody>
+                writersdi.WriteStartElement("DatiGenerali"); //Apre <DatiGenerali>
+                writersdi.WriteStartElement("DatiGeneraliDocumento"); //Apre <DatiGeneraliDocumento>
+                writersdi.WriteElementString("TipoDocumento", format(rFattura["TipoDocumento"]));
+                writersdi.WriteElementString("Divisa", getAZ(rFattura["divisa"]));
+                writersdi.WriteElementString("Data", format(rFattura["data"]));
+                writersdi.WriteElementString("Numero", getLatin1(rFattura["numero"]));
+
+                if (tElectronicinvoice.Columns.Contains("idstampkind") && rFattura["idstampkind"].ToString().ToUpper() == "DM19_2014") {
+                    writersdi.WriteStartElement("DatiBollo"); //Apre <DatiBollo>
+                    //writersdi.WriteElementString("NumeroBollo", format("DM-17-GIU-2014"));
+                    writersdi.WriteElementString("BolloVirtuale", format("SI"));
+                    decimal impBollo = 2;
+                    writersdi.WriteElementString("ImportoBollo", format(impBollo));
+                    writersdi.WriteEndElement();// Chiude -  <DatiBollo>
+                }
+
+                if (rFattura["tipoScontoMaggiorazione"].ToString() != "") {
+                    writersdi.WriteStartElement("ScontoMaggiorazione"); //Apre <ScontoMaggiorazione>
+                    writersdi.WriteElementString("Tipo", format(rFattura["tipoScontoMaggiorazione"]));
+                    writersdi.WriteElementString("Importo", format(Math.Abs(CfgFn.GetNoNullDecimal(rFattura["sconto"]))));
+                    writersdi.WriteEndElement();// Chiude -  <ScontoMaggiorazione>
+                }
+                writersdi.WriteElementString("ImportoTotaleDocumento", format(rFattura["ImportoTotaleDocumento"]));
+                writersdi.WriteElementString("Causale", getLatin1(rFattura["causale"]));
+                writersdi.WriteEndElement();// Chiude -  <DatiGeneraliDocumento>
+                string filterOrdineAcquisto = QHC.AppAnd(QHC.CmpEq("idinvkind", rFattura["idinvkind"]),
+                    QHC.CmpEq("yinv", rFattura["yinv"]), QHC.CmpEq("ninv", rFattura["ninv"]), QHC.IsNotNull("IdDocumento"));
+
+                //"IdDocumento" viene valorizzato solo se c'è il collegamento al C.A. ed è stato indicato il cig o il cup nel dettaglio fattura.
+
+
+                foreach (DataRow rDetail in tElectronicinvoicedetail.Select(QHC.AppAnd(filterOrdineAcquisto, QHC.CmpEq("recordkind", "DatiOrdineAcquisto")))) {
+                    writersdi.WriteStartElement("DatiOrdineAcquisto");//Apre - <DatiOrdineAcquisto>
+                    if (rDetail["RiferimentoNumeroLinea"].ToString() != ""){
+                        writersdi.WriteElementString("RiferimentoNumeroLinea", format(rDetail["RiferimentoNumeroLinea"]));
+                    }
+                    if (rDetail["IdDocumento"].ToString() != "") {
+                        writersdi.WriteElementString("IdDocumento", getLatin1(rDetail["IdDocumento"]));
+                    }
+                    if (rDetail["DataDocumentoCollegato"].ToString() != "") {
+                        writersdi.WriteElementString("Data", format(rDetail["DataDocumentoCollegato"]));
+                    }
+                    if (rDetail["NumItem"].ToString() != "") {
+                        writersdi.WriteElementString("NumItem", getLatin1(rDetail["NumItem"]));
+                    }
+                    if (rDetail["CodiceCommessaConvenzione"].ToString() != "") {
+                        writersdi.WriteElementString("CodiceCommessaConvenzione", rDetail["CodiceCommessaConvenzione"].ToString());
+                    }
+
+                    if (rDetail["CodiceCUP"].ToString() != "") {
+                        writersdi.WriteElementString("CodiceCUP", getLatin1(rDetail["CodiceCUP"]));
+                    }
+                    if (rDetail["CodiceCIG"].ToString() != "") {
+                        writersdi.WriteElementString("CodiceCIG", getLatin1(rDetail["CodiceCIG"]));
+                    }
+                    writersdi.WriteEndElement();// Chiude -  <DatiOrdineAcquisto>
+                }
+
+                foreach (DataRow rDetail in tElectronicinvoicedetailFattCollegate.Select(filterOrdineAcquisto)) {
+                    writersdi.WriteStartElement("DatiFattureCollegate");//Apre - <DatiFattureCollegate>
+                    if (rDetail["RiferimentoNumeroLinea"].ToString() != "") {
+                        writersdi.WriteElementString("RiferimentoNumeroLinea", format(rDetail["RiferimentoNumeroLinea"]));
+                    }
+                    if (rDetail["IdDocumento"].ToString() != "") {
+                        writersdi.WriteElementString("IdDocumento", getLatin1(rDetail["IdDocumento"]));
+                    }
+                    if (rDetail["DataDocumentoCollegato"].ToString() != "") {
+                        writersdi.WriteElementString("Data", format(rDetail["DataDocumentoCollegato"]));
+                    }
+                    if (rDetail["NumItem"].ToString() != "") {
+                        writersdi.WriteElementString("NumItem", getLatin1(rDetail["NumItem"]));
+                    }
+                    if (rDetail["CodiceCommessaConvenzione"].ToString() != "") {
+                        writersdi.WriteElementString("CodiceCommessaConvenzione", rDetail["CodiceCommessaConvenzione"].ToString());
+                    }
+
+                    if (rDetail["CodiceCUP"].ToString() != "") {
+                        writersdi.WriteElementString("CodiceCUP", getLatin1(rDetail["CodiceCUP"]));
+                    }
+                    if (rDetail["CodiceCIG"].ToString() != "") {
+                        writersdi.WriteElementString("CodiceCIG", getLatin1(rDetail["CodiceCIG"]));
+                    }
+                    writersdi.WriteEndElement();// Chiude -  <DatiFattureCollegate>
+                }
+                //if (rFattura["tipofattura"].ToString() == "V") {// Se è una Nota di Credito
+                //    writersdi.WriteStartElement("DatiFattureCollegate");
+                //    writersdi.WriteElementString("IdDocumento", getLatin1(rFattura["IdDocumentoFatturaMadre"]));
+                //    writersdi.WriteElementString("Data", format(rFattura["DataFatturaMadre"]));
+                //    writersdi.WriteEndElement();// Chiude -  <DatiFattureCollegate>
+                //}
+
+
+                writersdi.WriteEndElement();// Chiude -  <DatiGenerali>
+
+                writersdi.WriteStartElement("DatiBeniServizi"); //Apre <DatiBeniServizi>
+                string filterDoc = QHC.AppAnd(QHC.CmpEq("idinvkind", rFattura["idinvkind"]), QHC.CmpEq("yinv", rFattura["yinv"]), QHC.CmpEq("ninv", rFattura["ninv"]));
+                foreach (DataRow rDettFattura in tElectronicinvoicedetail.Select(QHC.AppAnd(filterDoc, QHC.CmpEq("recordkind", "DatiBeniServizi")))) {
+                    writersdi.WriteStartElement("DettaglioLinee"); //Apre <DettaglioLinee>
+                    writersdi.WriteElementString("NumeroLinea", format(rDettFattura["NumeroLinea"]));
+                    if (rDettFattura["TipoCessionePrestazione"].ToString() != "") {
+                        writersdi.WriteElementString("TipoCessionePrestazione", format(rDettFattura["TipoCessionePrestazione"]));
+                    }
+                    if (rDettFattura["CodiceTipo"] != DBNull.Value) {
+                        writersdi.WriteStartElement("CodiceArticolo"); //Apre <CodiceArticolo>
+                        writersdi.WriteElementString("CodiceTipo", format(rDettFattura["CodiceTipo"]));
+                        writersdi.WriteElementString("CodiceValore", format(rDettFattura["CodiceValore"]));
+                        writersdi.WriteEndElement();//chiude  CodiceArticolo
+                    }
+                    writersdi.WriteElementString("Descrizione", getLatin1(rDettFattura["Descrizione"]).TrimEnd());
+                    writersdi.WriteElementString("Quantita", format(rDettFattura["quantita"]));
+                    decimal prezzoUnitario = CfgFn.GetNoNullDecimal(rDettFattura["PrezzoUnitario"]);
+                    writersdi.WriteElementString("PrezzoUnitario", SecurityElement.Escape(FormatDecimalN(prezzoUnitario, 6)));
+                    if (rDettFattura["tipoScontoMaggiorazioneDettaglio"].ToString() != "") {
+                        writersdi.WriteStartElement("ScontoMaggiorazione"); //Apre <ScontoMaggiorazione>
+                        writersdi.WriteElementString("Tipo", format(rDettFattura["tipoScontoMaggiorazioneDettaglio"]));
+                        writersdi.WriteElementString("Percentuale", FormatDecimalN(Math.Abs(CfgFn.GetNoNullDecimal(rDettFattura["scontoDettaglio"])), 2));
+                        writersdi.WriteEndElement();// Chiude -  <ScontoMaggiorazione>
+                    }
+                    writersdi.WriteElementString("PrezzoTotale", format(rDettFattura["PrezzoTotale"]));
+                    writersdi.WriteElementString("AliquotaIVA", format(rDettFattura["AliquotaIVA"]));
+                    if (rDettFattura["Natura"].ToString() != "") {
+                        writersdi.WriteElementString("Natura", format(rDettFattura["Natura"]));
+                    }
+                    writersdi.WriteEndElement();// Chiude -  <DettaglioLinee>
+                }// chiusura foreach sui dettagli fattura
+
+                foreach (DataRow rRiepilogo in tElectronicinvoiceriepilogo.Select(filterDoc)) {
+                    writersdi.WriteStartElement("DatiRiepilogo");//Apre - <DatiRiepilogo>
+                    writersdi.WriteElementString("AliquotaIVA", format(rRiepilogo["AliquotaIVA"]));
+                    if (rRiepilogo["Natura"].ToString() != "") {
+                        writersdi.WriteElementString("Natura", format(rRiepilogo["Natura"]));
+                    }
+                    writersdi.WriteElementString("ImponibileImporto", format(rRiepilogo["ImponibileImporto"]));
+                    writersdi.WriteElementString("Imposta", format(rRiepilogo["Imposta"]));
+                    writersdi.WriteElementString("EsigibilitaIVA", format(rRiepilogo["EsigibilitaIVA"]));
+                    if (rRiepilogo["RiferimentoNormativo"].ToString() != "") {
+                        writersdi.WriteElementString("RiferimentoNormativo", getLatin1(rRiepilogo["RiferimentoNormativo"]));
+                    }
+                    writersdi.WriteEndElement();// Chiude -  <DatiRiepilogo>
+                }
+
+
+
+                writersdi.WriteEndElement();// Chiude -  <DatiBeniServizi>
+
+                if (rFattura["tipofattura"].ToString() == "F") {// Solo se Fattura inseriamo il blocco DatiPagamento
+                    writersdi.WriteStartElement("DatiPagamento");//Apre - <DatiPagamento>
+                    writersdi.WriteElementString("CondizioniPagamento", format(rFattura["CondizioniPagamento"]));
+
+                    writersdi.WriteStartElement("DettaglioPagamento");
+                    if (rFattura["ModalitaPagamento"].ToString().ToString() != "") {
+                        writersdi.WriteElementString("ModalitaPagamento", format(rFattura["ModalitaPagamento"]));
+                    }
+                    //Data registrazione, usata anche prima    
+                    writersdi.WriteElementString("DataRiferimentoTerminiPagamento", format(rFattura["data"]));
+                    if (rFattura["idexpirationkind"].ToString() != "") {
+                        DateTime DataScadenzaPagamento = CalcolaDataScadenza(rFattura["idexpirationkind"], rFattura["paymentexpiring"], rFattura["data"], rFattura["datadocumento"]);
+                        int GiorniTerminiPagamento = CalcolaGiorniTerminiPagamento(rFattura["data"], DataScadenzaPagamento);
+                        writersdi.WriteElementString("GiorniTerminiPagamento", GiorniTerminiPagamento.ToString());
+                        writersdi.WriteElementString("DataScadenzaPagamento", FormatData(DataScadenzaPagamento));
+                    }
+                    writersdi.WriteElementString("ImportoPagamento", format(rFattura["ImportoPagamento"]));
+                    if (rFattura["IBAN"].ToString() != "") {
+                        writersdi.WriteElementString("IBAN", format(rFattura["IBAN"]));
+                    }
+                    if (rFattura["CodicePagamento"].ToString() != "") {
+                        writersdi.WriteElementString("CodicePagamento", format(rFattura["CodicePagamento"]));
+                    }
+                    writersdi.WriteEndElement();// Chiude -  <DettaglioPagamento>
+
+                    writersdi.WriteEndElement();// Chiude -  <DatiPagamento>
+
+                }
+                if (tElectronicinvoiceAllegati.Rows.Count > 0) {
+                    foreach (DataRow rAllegato in tElectronicinvoiceAllegati.Select(filterDoc)) {
+                        writersdi.WriteStartElement("Allegati");//Apre - <Allegati>                        
+                        writersdi.WriteElementString("NomeAttachment", getLatin1(rAllegato["filename"]));
+                        writersdi.WriteElementString("Attachment", format(rAllegato["attachment"]));
+                        writersdi.WriteEndElement();// Chiude -  <Allegati>
+                    }
+                }
+                writersdi.WriteEndElement();// Chiude -  <FatturaElettronicaBody>
+
+                writersdi.WriteEndElement();//chiudep:Fattura
+                writersdi.Close();
+
+                string xmlString = sw.ToString();
+                rSdi_vendita["xml"] = xmlString;
+
+                //Meta.SaveFormData();
+                //Effettua il post
+                PostData Post = Meta.Get_PostData();
+                Post.InitClass(DS, Conn);
+                bool res = Post.DO_POST();
+                if (!res) {
+                    if (DS.HasChanges()) {
+                        DS.RejectChanges();
+                        Meta.FreshForm();
+                    }
+                }
+                else {
+                    Stream s = GenerateStreamFromString(xmlString);
+                    ApriFormFEvendita();
+                    grpMittenteVendita.Enabled = false;
+
+                    grpFEvendita.Enabled = false;
+                }
+                //ValidaXML_conXSD(s);
+            }// foreach in TElectronicinvoice
+        }// Fine 
+
+        private int CalcolaGiorniTerminiPagamento(object datariferimento, DateTime DataScadenzaPagamento) {
+            DateTime Data_Riferimento = (DateTime)datariferimento;
+
+            double dinizio = 0;
+            double dfine = 0;
+
+            try {
+                dinizio = Data_Riferimento.ToOADate();
+                dfine = DataScadenzaPagamento.ToOADate();
+            }
+            catch {
+                return -1;
+            }
+
+            int ngiorni = Convert.ToInt32(Math.Floor(dfine - dinizio));
+            return ngiorni;
+
+        }
+        private DateTime CalcolaDataScadenza(object TipoScadenza, object ngiorni, object dataregistrazione, object datadocumento) {
+            int NNgiorni = CfgFn.GetNoNullInt32(ngiorni);
+            DateTime Data_Registrazione = (DateTime)dataregistrazione;
+            DateTime Data_Documento = (DateTime)datadocumento;
+            DateTime Data_Scadenza = DateTime.MinValue;
+
+            //  1	Data contabile = data registrazione
+            //  2	Data documento
+            //  3	Fine mese data documento
+            //  4	Fine mese data contabile
+            //  5	Pagamento Immediato
+
+            if (CfgFn.GetNoNullInt32(TipoScadenza) == 1 && CfgFn.GetNoNullInt32(NNgiorni) > 0) {
+                Data_Scadenza = Data_Registrazione.AddDays(NNgiorni);
+            }
+            if (CfgFn.GetNoNullInt32(TipoScadenza) == 1 && CfgFn.GetNoNullInt32(NNgiorni) == 0) {
+                Data_Scadenza = Data_Registrazione;
+            }
+            if (CfgFn.GetNoNullInt32(TipoScadenza) == 2 && CfgFn.GetNoNullInt32(NNgiorni) > 0) {
+                Data_Scadenza = Data_Documento.AddDays(NNgiorni);
+            }
+            if (CfgFn.GetNoNullInt32(TipoScadenza) == 2 && CfgFn.GetNoNullInt32(NNgiorni) == 0) {
+                Data_Scadenza = Data_Documento;
+            }
+            if (CfgFn.GetNoNullInt32(TipoScadenza) == 3) {
+                int intMese = Data_Documento.Month;
+                int intAnno = Data_Documento.Year;
+                int intGiorno = DateTime.DaysInMonth(intAnno, intMese);
+                DateTime FineMeseDataDocumento = new DateTime(intAnno, intMese, intGiorno);
+                FineMeseDataDocumento = FineMeseDataDocumento.AddDays(NNgiorni);
+                Data_Scadenza = FineMeseDataDocumento;
+            }
+            if (CfgFn.GetNoNullInt32(TipoScadenza) == 4) {
+                int intMese = Data_Registrazione.Month;
+                int intAnno = Data_Registrazione.Year;
+                int intGiorno = DateTime.DaysInMonth(intAnno, intMese);
+                DateTime FineMeseDataContabile = new DateTime(intAnno, intMese, intGiorno);
+                FineMeseDataContabile = FineMeseDataContabile.AddDays(NNgiorni);
+                Data_Scadenza = FineMeseDataContabile;
+            }
+            if (CfgFn.GetNoNullInt32(TipoScadenza) == 5) {
+                Data_Scadenza = Data_Registrazione;
+            }
+
+            return Data_Scadenza;
+        }
+
+
+        void ApriFormFEvendita() {
+            if (DS.sdi_vendita.Rows.Count == 0) return;
+            MetaData ToMeta = Meta.Dispatcher.Get("sdi_vendita");
+            if (ToMeta == null) return;
+            object idsdi_vendita = DS.invoice.Rows[0]["idsdi_vendita"];
+            if ((idsdi_vendita == null) || (idsdi_vendita == DBNull.Value))
+                return;
+
+            string checkfilter = QHS.CmpEq("idsdi_vendita", idsdi_vendita);
+            ToMeta.ContextFilter = checkfilter;
+            Form F = null;
+            if (Meta.linkedForm != null) F = Meta.linkedForm.ParentForm;
+            bool result = ToMeta.Edit(F, "default", false);
+            string listtype = ToMeta.DefaultListType;
+            DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
+            if (R != null) ToMeta.SelectRow(R, listtype);
+
+        }
+
+		private void button1_Click(object sender, EventArgs e) {
+            if (Meta.IsEmpty) return;
+            Meta.GetFormData(true);
+            var R = DS.invoice[0];
+            if (CfgFn.GetNoNullInt32(R["idreg"]) == 0) {
+                show("Selezionare prima il fornitore.");
+                return;
+            }
+            object idreg = R["idreg"];
+            string regfilter = QHS.CmpEq("idreg", idreg);
+            object idinvkind = R["idinvkind"];
+            string idinvkindfilter = QHS.CmpEq("idinvkind", idinvkind);
+            string idinvkindfilter_C = QHC.CmpEq("idinvkind", idinvkind);
+            
+            DataRow[] TipoFattura = DS.invoicekind.Select(idinvkindfilter_C);
+            bool acquisto = false; 
+            if (TipoFattura.Length != 0) {
+                byte flag = 0;
+                flag = CfgFn.GetNoNullByte(TipoFattura[0]["flag"]); //se bit 0 =1 allora è vendita
+                acquisto = ((flag & 1) == 0);
+            }
+            string acquistovendita = acquisto ? "A" : "V";  
+            DataTable T = DS.invoicedetail;
+            object idcurrency = R["idcurrency"];
+            int flagactivity = TipoAttivita();
+            DataRow[] Selected = null;
+
+            FrmWizardScegliDettagliFatturaMadre F = new FrmWizardScegliDettagliFatturaMadre(Meta, regfilter, acquistovendita, idcurrency, flagactivity,T);
+            createForm(F, this);
+            if (F.ShowDialog(this) != DialogResult.OK) return;
+            Selected = F.SelectedRows; // riga di invoicedetailmainavailable
+            if (Selected == null) return;
+            if (Selected.Length == 0) return;
+            //Aggiornamento causali EP
+            DataRow rSelected = Selected[0];
+            string filterInvMain = QHS.AppAnd(QHS.CmpEq("idinvkind", rSelected["idinvkind"]),
+                                              QHS.CmpEq("yinv", rSelected["yinv"]),
+                                              QHS.CmpEq("ninv", rSelected["ninv"]));
+            DataTable Invoice = Conn.RUN_SELECT("invoice", "*", null, filterInvMain, null, false);
+            if ((Invoice != null) && (Invoice.Rows.Count != 0)) {
+                DataRow rInvoice = Invoice.Rows[0];
+                if ((
+                    (rInvoice["idaccmotivedebit"] != DBNull.Value) ||
+                    (rInvoice["idaccmotivedebit_crg"] != DBNull.Value) ||
+                    (rInvoice["idaccmotivedebit_datacrg"] != DBNull.Value))
+                     &&
+                    ((R["idaccmotivedebit"] == DBNull.Value) &&
+                     (R["idaccmotivedebit_crg"] == DBNull.Value) &&
+                     (R["idaccmotivedebit_datacrg"] == DBNull.Value))
+                    ) {
+                    if (show("Si desidera aggiornare le causali EP prendendole dalla Fattura di Riferimento? ",
+                     "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
+
+                        object idaccmotivedebit = rInvoice["idaccmotivedebit"];
+                        R["idaccmotivedebit"] = idaccmotivedebit;
+                        object idaccmotivedebit_crg = rInvoice["idaccmotivedebit_crg"];
+                        R["idaccmotivedebit_crg"] = idaccmotivedebit_crg;
+                        R["idaccmotivedebit_datacrg"] = rInvoice["idaccmotivedebit_datacrg"];
+                    }
+                }
+            }
+
+            foreach (DataRow Curr in Selected) {
+                decimal unitsforpackage = 1;
+                if (Curr["unitsforpackage"] != DBNull.Value)
+                    unitsforpackage = CfgFn.GetNoNullInt32(Curr["unitsforpackage"]);
+                decimal NumberResidual = CfgFn.GetNoNullDecimal(Curr["residual"]) * unitsforpackage;
+                AddInvoiceDetailMainRow(Curr, CfgFn.GetNoNullDecimal(NumberResidual));
+            }
+
+
+
+            Meta.myGetData.GetTemporaryValues(DS.invoicedetail);
+            Meta.FreshForm(true);
+
+        }
+
+        private void EliminaRigheStatodeldebito() {
+            if (Meta.IsEmpty) return;
+            if (DS.invoice.Rows.Count == 0) return;
+            DS.pccdebitstatusdetail.Clear();
+        }
+        private void btnCreaRigheStatodeldebito_Click(object sender, EventArgs e) {
+            AllineaRigheStatodeldebito();
+        }
+            private void AllineaRigheStatodeldebito() {
+            if (!TrasmettiPCC) return;
+            if (Meta.IsEmpty) return;
+            if (DS.invoice.Rows.Count == 0)  return;
+            if (!(Meta.FirstFillForThisRow)) {
+                Meta.GetFormData(true);
+            }
+            DataRow Curr = DS.invoice.Rows[0];
+            string myVeroTipoFattura = veroTipoFatturaAv(Curr["idinvkind"]);
+			if (myVeroTipoFattura != "A") {
+                DS.pccdebitstatusdetail.Clear();
+                return;
+			}
+            //Dobbiamo considerare solo i dett.fattura aventi i seguenti stati
+            string fdet = QHC.FieldIn("idpccdebitstatus", new string[] { "NOLIQ", "SospCnst", "SospContz", "SospEsReg" });
+            double imp_sosp_contenzioso = 0;
+            double iva_sosp_contenzioso = 0;
+            double imp_sosp_contestazione = 0;
+            double iva_sosp_contestazione = 0;
+            double imp_sosp_regolareverifica = 0;
+            double iva_sosp_regolareverifica = 0;
+            double imp_nonliquidabile = 0;
+            double iva_nonliquidabile = 0;
+            DateTime _start = Conn.GetDataContabile();
+
+            bool creaaggiorna = false;
+            foreach (DataRow RDet in DS.invoicedetail.Select(fdet)) {
+                double newnpackage = CfgFn.GetNoNullDouble(RDet["npackage"]);
+                double tassocambio = CfgFn.GetNoNullDouble(CfgFn.GetNoNullDouble(Curr["exchangerate"]));
+                double aliquota =
+                    CfgFn.GetNoNullDouble(Meta.Conn.DO_READ_VALUE("ivakind",
+                        QHS.CmpEq("idivakind", RDet["idivakind"]),
+                        "rate"));
+                double percindeduc =
+                    CfgFn.GetNoNullDouble(Meta.Conn.DO_READ_VALUE("ivakind",
+                        QHS.CmpEq("idivakind", RDet["idivakind"]),
+                        "unabatabilitypercentage"));
+                double imponibile = CfgFn.GetNoNullDouble(RDet["taxable"]);
+                double quantitaConfezioni = newnpackage;
+                double sconto = CfgFn.GetNoNullDouble(RDet["discount"]);
+                double imponibiletotEUR = CfgFn.RoundValuta((imponibile * quantitaConfezioni * (1 - sconto) * tassocambio));
+                double ivaEUR = CfgFn.RoundValuta(imponibiletotEUR * aliquota);
+                //Calcola gli importi
+                if (RDet["idpccdebitstatus"].ToString() == "NOLIQ") {
+                    imp_nonliquidabile += imponibiletotEUR;
+                    iva_nonliquidabile += ivaEUR;
+                    creaaggiorna = true;
+                }
+                if (RDet["idpccdebitstatus"].ToString() == "SospCnst") {
+                    imp_sosp_contestazione += imponibiletotEUR;
+                    iva_sosp_contestazione += ivaEUR;
+                    creaaggiorna = true;
+                }
+                if (RDet["idpccdebitstatus"].ToString() == "SospContz") {
+                    imp_sosp_contenzioso += imponibiletotEUR;
+                    iva_sosp_contenzioso += ivaEUR;
+                    creaaggiorna = true;
+                }
+                if (RDet["idpccdebitstatus"].ToString() == "SospEsReg") {
+                    imp_sosp_regolareverifica += imponibiletotEUR;
+                    iva_sosp_regolareverifica += ivaEUR;
+                    creaaggiorna = true;
+                }
+            }
+            //Se ci sono dettagli fattura nello stato  "NOLIQ", "SospCnst", "SospContz", "SospEsReg", calcola gli importi e Aggiorna (o Crea) al riga in pccdebitstatusdetail
+            if (creaaggiorna) {
+                if (DS.pccdebitstatusdetail.Select(QHC.IsNull("idpcc")).Length > 0) {
+                    bool SplitPayment = (Curr["flag_enable_split_payment"].ToString() == "S" ? true : false);
+                    //Se c'è la riga con idpcc null, sarà solo 1
+                    DataRow R = DS.pccdebitstatusdetail.Select(QHC.IsNull("idpcc"))[0];
+                    R["imp_sosp_contenzioso"] = imp_sosp_contenzioso;
+                    R["iva_sosp_contenzioso"] = (SplitPayment ? 0 : iva_sosp_contenzioso);
+                    if ((imp_sosp_contenzioso > 0) && (R["start_sosp_contenzioso"]==DBNull.Value)){
+                        R["start_sosp_contenzioso"] = _start;
+                    }
+                    if (imp_sosp_contenzioso == 0) {
+                        R["start_sosp_contenzioso"] = DBNull.Value;
+                    }
+                    R["imp_sosp_contestazione"] = imp_sosp_contestazione;
+                    R["iva_sosp_contestazione"] = (SplitPayment ? 0 : iva_sosp_contestazione);
+                    if ((imp_sosp_contestazione > 0) && (R["start_sosp_contestazione"]==DBNull.Value) ){
+                        R["start_sosp_contestazione"] = _start;
+                    }
+                    if (imp_sosp_contestazione == 0){
+                        R["start_sosp_contestazione"] = DBNull.Value;
+                    }
+                    R["imp_sosp_regolareverifica"] = imp_sosp_regolareverifica;
+                    R["iva_sosp_regolareverifica"] = (SplitPayment ? 0 : iva_sosp_regolareverifica);
+                    if ((imp_sosp_regolareverifica > 0) && (R["start_sosp_regolareverifica"]==DBNull.Value)){
+                        R["start_sosp_regolareverifica"] = _start;
+                    }
+                    if (imp_sosp_regolareverifica == 0) {
+                        R["start_sosp_regolareverifica"] = DBNull.Value;
+                    }
+                    R["imp_nonliquidabile"] = imp_nonliquidabile;
+                    R["iva_nonliquidabile"] = (SplitPayment ? 0 : iva_nonliquidabile);
+                }
+				else { 
+                    DataRow RNew = createPccdebitstatusdetailFromInvDetail(Curr, imp_sosp_contenzioso, iva_sosp_contenzioso,
+                                        imp_sosp_contestazione, iva_sosp_contestazione,
+                                        imp_sosp_regolareverifica, iva_sosp_regolareverifica,
+                                        imp_nonliquidabile, iva_nonliquidabile);
+                }
+			}
+
+            //Se NON ci sono dettagli fattura nello stato  "NOLIQ", "SospCnst", "SospContz", "SospEsReg",
+            // e ci sono riga in pccdebitstatusdetail con idpcc a null, le cancella perchè non è ammissibile.
+            // Questo succede quando ho posto come stato NoLiq (per esempio) e poi lo correggo a Liq, in questa situazione lui deve cancellare la riga
+            // esistenete o precedentemente creata.
+            //bool IsDone = false;
+            if ((DS.invoicedetail.Select(fdet).Length==0) &&
+                (DS.pccdebitstatusdetail.Select(QHC.IsNull("idpcc")).Length > 0)) {
+                DataRow R = DS.pccdebitstatusdetail.Select(QHC.IsNull("idpcc"))[0];
+                //if ((R.RowState == DataRowState.Unchanged) || (R.RowState == DataRowState.Modified)){
+                if ((R.RowState == DataRowState.Deleted) || (R.RowState == DataRowState.Detached)) {
+                    return;					
+				}
+				else {
+                    R.Delete();
+                    //R.AcceptChanges();
+                }
+            }
+   //         if(creaaggiorna || IsDone) {
+   //             show(this, "Aggiornamento eseguito.\n", "Avviso");
+   //         }
+			//else {
+   //             show(this, "Non ci sono aggiornamenti da eseguire.\n", "Avviso");
+   //         }
+        }
+        private DataRow createPccdebitstatusdetailFromInvDetail(DataRow rInvoice, double imp_sosp_contenzioso, double iva_sosp_contenzioso,
+            double imp_sosp_contestazione, double iva_sosp_contestazione,
+            double imp_sosp_regolareverifica, double iva_sosp_regolareverifica,
+            double imp_nonliquidabile, double iva_nonliquidabile) {
+            DateTime _start = Conn.GetDataContabile();
+            MetaData MetaPccdebitstatusdetail = MetaData.GetMetaData(this, "pccdebitstatusdetail");
+            MetaPccdebitstatusdetail.SetDefaults(DS.pccdebitstatusdetail);
+
+            DataRow R = MetaPccdebitstatusdetail.Get_New_Row(rInvoice, DS.pccdebitstatusdetail);
+            R["idinvkind"] = rInvoice["idinvkind"];
+            R["ninv"] = rInvoice["ninv"];
+            R["yinv"] = rInvoice["yinv"];
+            bool SplitPayment = (rInvoice["flag_enable_split_payment"].ToString() == "S" ? true : false);
+            R["imp_sosp_contenzioso"] = imp_sosp_contenzioso;
+            R["iva_sosp_contenzioso"] = (SplitPayment ? 0 : iva_sosp_contenzioso);
+            if (imp_sosp_contenzioso > 0) {
+                R["start_sosp_contenzioso"] = _start;
+            }
+
+            R["imp_sosp_contestazione"] = imp_sosp_contestazione;
+            R["iva_sosp_contestazione"] = (SplitPayment ? 0 : iva_sosp_contestazione);
+            if (imp_sosp_contestazione > 0) {
+                R["start_sosp_contestazione"] = _start;
+            }
+
+            R["imp_sosp_regolareverifica"] = imp_sosp_regolareverifica;
+            R["iva_sosp_regolareverifica"] = (SplitPayment ? 0 : iva_sosp_regolareverifica);
+            if (imp_sosp_regolareverifica > 0) {
+                R["start_sosp_regolareverifica"] = _start;
+            }
+
+            R["imp_nonliquidabile"] = imp_nonliquidabile;
+            R["iva_nonliquidabile"] = (SplitPayment ? 0 : iva_nonliquidabile);
+            return R;
+        }
     }
 
 }

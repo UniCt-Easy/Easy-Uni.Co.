@@ -2,10 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabinquadramento_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabinquadramento_default_0"><i class="fa fa-user-tie mr-1"></i>Principale</a>
+		<a href="#tabinquadramento_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabinquadramento_default_0"><i class="fa fa-user-tie mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabinquadramento_default_1" class="nav-link" data-toggle="pill" data-target="#tabinquadramento_default_1"><i class="fa fa-file-invoice-dollar mr-1"></i>Tabella stipendiale</a>
+		<a href="#tabinquadramento_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabinquadramento_default_1"><i class="fa fa-file-invoice-dollar mr-1"></i>Tabella stipendiale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabinquadramento_default_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabinquadramento_default_2"><i class="fa fa-file-invoice-dollar mr-1"></i>Complemento allo stipendio</a>
 	</li>
 
 	</ul>
@@ -15,55 +18,48 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="inquadramento_default_title">Denominazione</label>
-					<input id="inquadramento_default_title" type="text" class="form-control" data-tag="inquadramento.title?inquadramentodefaultview.title" data-subentity  />
+					<input id="inquadramento_default_title" type="text" class="form-control" data-tag="inquadramento.title?inquadramentodefaultview.title"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="inquadramento_default_tempdef">Tempo definito</label>
 					<div class="custom-control custom-radio">
-						<input id="inquadramento_default_tempdefSi" type="radio" name="inquadramento_default_tempdef" class="custom-control-input" data-tag="inquadramento.tempdef:S?inquadramentodefaultview.inquadramento_tempdef:Si" data-subentity  ><label for="inquadramento_default_tempdefSi"> Si</label>
-						<input id="inquadramento_default_tempdefNo" type="radio" name="inquadramento_default_tempdef" class="custom-control-input" data-tag="inquadramento.tempdef:N?inquadramentodefaultview.inquadramento_tempdef:No" data-subentity  ><label for="inquadramento_default_tempdefNo"> No</label>
+						<input id="inquadramento_default_tempdefSi" type="radio" name="inquadramento_default_tempdef" class="custom-control-input" data-tag="inquadramento.tempdef:S?inquadramentodefaultview.inquadramento_tempdef:Si"  ><label for="inquadramento_default_tempdefSi"> Si</label>
+						<input id="inquadramento_default_tempdefNo" type="radio" name="inquadramento_default_tempdef" class="custom-control-input" data-tag="inquadramento.tempdef:N?inquadramentodefaultview.inquadramento_tempdef:No"  ><label for="inquadramento_default_tempdefNo"> No</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#inquadramento_default_start").datetimepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="inquadramento_default_start">Inizio validità</label>
-					<input id="inquadramento_default_start" type="text" class="form-control" data-tag="inquadramento.start.g?inquadramentodefaultview.inquadramento_start.g" data-subentity  />
+					<input id="inquadramento_default_start" type="text" class="form-control" data-tag="inquadramento.start.g?inquadramentodefaultview.inquadramento_start.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#inquadramento_default_stop").datetimepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="inquadramento_default_stop">Fine validità</label>
-					<input id="inquadramento_default_stop" type="text" class="form-control" data-tag="inquadramento.stop.g?inquadramentodefaultview.inquadramento_stop.g" data-subentity  />
+					<input id="inquadramento_default_stop" type="text" class="form-control" data-tag="inquadramento.stop.g?inquadramentodefaultview.inquadramento_stop.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="inquadramento_default_costolordoannuo">Costo lordo annuo massimo</label>
-					<input id="inquadramento_default_costolordoannuo" type="text" class="form-control" data-tag="inquadramento.costolordoannuo.fixed.2?inquadramentodefaultview.inquadramento_costolordoannuo" data-subentity  />
+					<input id="inquadramento_default_costolordoannuo" type="text" class="form-control" data-tag="inquadramento.costolordoannuo.fixed.2?inquadramentodefaultview.inquadramento_costolordoannuo"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="inquadramento_default_costolordoannuooneri">Costo lordo e oneri annuo massimo</label>
-					<input id="inquadramento_default_costolordoannuooneri" type="text" class="form-control" data-tag="inquadramento.costolordoannuooneri.fixed.2?inquadramentodefaultview.inquadramento_costolordoannuooneri" data-subentity  />
+					<input id="inquadramento_default_costolordoannuooneri" type="text" class="form-control" data-tag="inquadramento.costolordoannuooneri.fixed.2?inquadramentodefaultview.inquadramento_costolordoannuooneri"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="inquadramento_default_siglaimportazione">Sigla importazione</label>
-					<input id="inquadramento_default_siglaimportazione" type="text" class="form-control" data-tag="inquadramento.siglaimportazione?inquadramentodefaultview.inquadramento_siglaimportazione" data-subentity  />
+					<input id="inquadramento_default_siglaimportazione" type="text" class="form-control" data-tag="inquadramento.siglaimportazione?inquadramentodefaultview.inquadramento_siglaimportazione"  />
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabinquadramento_default_1" role="tabpanel">
-				<div class="gridx" id="grid_stipendio_default" data-tag="stipendio.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_stipendio_default" data-tag="stipendio.default.default" data-custom-control="gridx" data-mdleditinplacecolumns="anzianitamax;anzianitamin;classe;lordonotredicesima;rifnormativo;scatto;start;stop"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+	</div>
+	<div class="tab-pane fade" id="tabinquadramento_default_2" role="tabpanel">
+				<div class="gridx" id="grid_stipendiocomplemento_default" data-tag="stipendiocomplemento.default.default" data-custom-control="gridx" data-mdleditinplacecolumns="anzianitamax;anzianitamin;complementomensile;idstipendiocomplementokind;rifnormativo;start;stop"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,9 +34,6 @@ namespace IntesaSanPaolo {
     public class EServizio {
         private string URL =
             "https://solutionpa-coll.intesasanpaolo.com/IntermediarioPAWebService/WEBSDataProviderInterface";
-
-        private static readonly string Username = "nodoInfogroup";
-        private static readonly string Password = "%r6bv#D@pIn";
 
         public IServizio Create(string user, string password, string url) {
             return Create(user, password, url, false);
@@ -101,13 +98,13 @@ namespace IntesaSanPaolo {
             var hPwd = AddressHeader.CreateAddressHeader("Authorization", "http://easybridge.eu/bridge/", "Basic " +
                                                                               Convert.ToBase64String(
                                                                                   Encoding.ASCII.GetBytes(
-                                                                                      (user ?? Username) + ":" +
-                                                                                      (password ?? Password))));
+                                                                                      (user) + ":" +
+                                                                                      (password))));
             var address = new EndpointAddress(new Uri(url ?? URL), hPwd);
 
             var cred = new ClientCredentials();
-            cred.UserName.UserName = user ?? Username;
-            cred.UserName.Password = password ?? Password;
+            cred.UserName.UserName = user;
+            cred.UserName.Password = password;
 
 
 
@@ -142,7 +139,7 @@ namespace IntesaSanPaolo {
 
             factory.Endpoint.Behaviors.Clear();
             factory.Endpoint.Behaviors.Add(cred); //add required ones
-            factory.Endpoint.Behaviors.Add(new AuthenticationHeaderBehavior(user ?? Username, password ?? Password));
+            factory.Endpoint.Behaviors.Add(new AuthenticationHeaderBehavior(user, password));
             //factory.Endpoint.Behaviors.Add(new CleanNameSpacesBehavior("i"));
             var channel = factory.CreateChannel();
 

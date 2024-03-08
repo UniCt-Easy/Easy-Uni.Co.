@@ -2,10 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabperfprogettoobiettivopersonaleview_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabperfprogettoobiettivopersonaleview_default_0"><i class="fa fa-bullseye mr-1"></i>Principale</a>
+		<a href="#tabperfprogettoobiettivopersonaleview_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabperfprogettoobiettivopersonaleview_default_0"><i class="fa fa-bullseye mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabperfprogettoobiettivopersonaleview_default_1" class="nav-link" data-toggle="pill" data-target="#tabperfprogettoobiettivopersonaleview_default_1"><i class="fa fa-angle-double-up mr-1"></i>Soglie</a>
+		<a href="#tabperfprogettoobiettivopersonaleview_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfprogettoobiettivopersonaleview_default_1"><i class="fa fa-angle-double-up mr-1"></i>Soglie dell'obiettivo</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabperfprogettoobiettivopersonaleview_default_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfprogettoobiettivopersonaleview_default_2"><i class="fa fa-dot-circle-o mr-1"></i>Soglie del progetto</a>
 	</li>
 
 	</ul>
@@ -15,38 +18,49 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfprogettoobiettivopersonaleview_default_progetto_title">Progetto</label>
-					<input id="perfprogettoobiettivopersonaleview_default_progetto_title" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.progetto_title"  />
+					<input id="perfprogettoobiettivopersonaleview_default_progetto_title" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.progetto_title?perfprogettoobiettivopersonaleviewdefaultview.progetto_title" data-subentity  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfprogettoobiettivopersonaleview_default_perfprogetto_struttura_title">Struttura del progetto</label>
-					<input id="perfprogettoobiettivopersonaleview_default_perfprogetto_struttura_title" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.perfprogetto_struttura_title"  />
+					<input id="perfprogettoobiettivopersonaleview_default_perfprogetto_struttura_title" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.perfprogetto_struttura_title?perfprogettoobiettivopersonaleviewdefaultview.perfprogettoobiettivopersonaleview_perfprogetto_struttura_title" data-subentity  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfprogettoobiettivopersonaleview_default_title">Titolo</label>
-					<input id="perfprogettoobiettivopersonaleview_default_title" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.title"  />
+					<input id="perfprogettoobiettivopersonaleview_default_title" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.title?perfprogettoobiettivopersonaleviewdefaultview.perfprogettoobiettivopersonaleview_title" data-subentity  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="perfprogettoobiettivopersonaleview_default_description">Descrizione</label>
-					<textarea class="textarea form-control" id="perfprogettoobiettivopersonaleview_default_description" type="text"  rows="4" data-tag="perfprogettoobiettivopersonaleview.description"></textarea>
+					<textarea class="textarea form-control" id="perfprogettoobiettivopersonaleview_default_description" type="text"  rows="4" data-tag="perfprogettoobiettivopersonaleview.description?perfprogettoobiettivopersonaleviewdefaultview.perfprogettoobiettivopersonaleview_description" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfprogettoobiettivopersonaleview_default_peso">Peso per il progetto</label>
-					<input id="perfprogettoobiettivopersonaleview_default_peso" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.peso.fixed.2"  />
+					<input id="perfprogettoobiettivopersonaleview_default_peso" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.peso.fixed.2?perfprogettoobiettivopersonaleviewdefaultview.perfprogettoobiettivopersonaleview_peso" data-subentity  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfprogettoobiettivopersonaleview_default_completamento">Percentuale di completamento</label>
-					<input id="perfprogettoobiettivopersonaleview_default_completamento" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.completamento.fixed.2"  />
+					<input id="perfprogettoobiettivopersonaleview_default_completamento" type="text" class="form-control" data-tag="perfprogettoobiettivopersonaleview.completamento.fixed.2?perfprogettoobiettivopersonaleviewdefaultview.perfprogettoobiettivopersonaleview_completamento" data-subentity  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfprogettoobiettivopersonaleview_default_year">Identificativo</label>
+					<div>
+						<input id="perfprogettoobiettivopersonaleview_default_year" name="perfprogettoobiettivopersonaleview_default_year" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="year.year" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabperfprogettoobiettivopersonaleview_default_1" role="tabpanel">
-				<div class="gridx" id="grid_perfprogettoobiettivosoglia_default" data-tag="perfprogettoobiettivosoglia.default.default" data-custom-control="gridx"  ></div>
+				<div class="gridx" id="grid_perfprogettoobiettivosoglia_default" data-tag="perfprogettoobiettivosoglia.default.default" data-custom-control="gridx" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabperfprogettoobiettivopersonaleview_default_2" role="tabpanel">
+				<div class="gridx" id="grid_perfprogettosoglia_default" data-tag="perfprogettosoglia.default.default" data-custom-control="gridx" ></div>
 	</div>
 </div>
 </form>

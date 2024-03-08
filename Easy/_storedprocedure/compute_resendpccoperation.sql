@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,7 +34,7 @@ begin
 --	CS-2
 --	CP-3
 -- setuser 'amministrazione'
--- exec compute_resendpccoperation 150
+ --exec compute_resendpccoperation 44
 -- select * from pccexpense
 create table #dati(
 	opkind char(3),
@@ -42,6 +42,9 @@ create table #dati(
 	idinvkind int,  
 	yinv smallint, 
 	ninv int,
+	idsdi_acquisto int,
+	idsdi_acquistoestere int,
+	identificativo_sdi bigint,
 	idmankind varchar(20),
 	yman smallint,
 	nman int,
@@ -76,6 +79,7 @@ create table #dati(
 Insert into #dati(
 	opkind,oporder,
 	idinvkind,	yinv,	ninv,
+	idsdi_acquisto, idsdi_acquistoestere,identificativo_sdi,
 	idreg,	
 	dataemissione,
 	numerodocumento,
@@ -87,6 +91,7 @@ Insert into #dati(
 	 )
 select 'CS',1,
 	I.idinvkind, I.yinv, I.ninv,
+	I.idsdi_acquisto, I.idsdi_acquistoestere, isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi ),
 	I.idreg	,
 	I.docdate , -- dataemissione
 	substring(I.doc,1,20),	-- numerodocumento
@@ -100,8 +105,15 @@ join invoiceview I
 		on P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv
 join invoicekind IK
 	ON IK.idinvkind = I.idinvkind
+left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
+
 where P.idpcc = @idpcc 
-GROUP BY I.idinvkind, I.yinv, I.ninv, 	I.idreg	,	I.docdate , 	substring(I.doc,1,20),	 (I.taxable-I.rounding),(I.total-I.rounding ) ,		P.expiringdate,	I.ipa_acq,I.flag_reverse_charge
+GROUP BY I.idinvkind, I.yinv, I.ninv, 	I.idreg	,	I.docdate , 	
+substring(I.doc,1,20),	 (I.taxable-I.rounding),(I.total-I.rounding ) ,		
+P.expiringdate,	I.ipa_acq,I.flag_reverse_charge,
+I.idsdi_acquisto, I.idsdi_acquistoestere, 
+isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi )
 
 -- OPERAZIONE di Scadenza Contratti Passivi
 insert into #dati(
@@ -157,6 +169,7 @@ where P.idpcc = @idpcc
 INSERT INTO #dati(
 	opkind,oporder,
 	idinvkind,	yinv,	ninv,
+	idsdi_acquisto, idsdi_acquistoestere,identificativo_sdi,
 	idreg,	
 	dataemissione,
 	numerodocumento,
@@ -179,6 +192,7 @@ select
 			else 'COF' end,
 	2,
 	I.idinvkind, I.yinv, I.ninv,
+	I.idsdi_acquisto, I.idsdi_acquistoestere, isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi ),
 	I.idreg	,
 	I.docdate , -- dataemissione
 	substring(I.doc,1,20),	-- numerodocumento
@@ -203,6 +217,9 @@ left outer join expense E
 	on P.idexp = E.idexp
 left outer join fin F
 	on F.idfin = P.idfin
+left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+	left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
+
 where P.idpcc = @idpcc
 
 -- Contabilizzazioni CONTRATTI PASSIVI
@@ -296,6 +313,7 @@ where P.idpcc = @idpcc
 INSERT INTO #dati(
 	opkind,oporder,
 	idinvkind, yinv, ninv,
+	idsdi_acquisto, identificativo_sdi,
 	idreg,	
 	dataemissione,
 	numerodocumento,
@@ -314,6 +332,7 @@ INSERT INTO #dati(
 )
 select 'CP',3,
 	P.idinvkind, P.yinv, P.ninv,
+	I.idsdi_acquisto, sdi.identificativo_sdi,
 	I.idreg	,
 	I.docdate , -- dataemissione
 	substring(I.doc,1,20),	-- numerodocumento
@@ -331,10 +350,13 @@ select 'CP',3,
 	I.ipa_acq
 from pccpaymentview P
 join invoiceview I 	on P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv
+left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
 left outer join payment PY	on PY.kpay = P.kpay
 left outer join expense E	on E.idexp = P.idexp
 left outer join fin F 	on F.idfin = P.idfin
 where P.idpcc = @idpcc
+and I.idsdi_acquistoestere is null -- Dobbiamo escludere le FE di acquisto estere.
+
 
 --- PAGAMENTI di CONTRATTI PASSIVI non Collegabili a Fattura 
 INSERT INTO #dati(
@@ -434,7 +456,7 @@ update #dati set ipa = (select ipa_fe from casualcontract I where #dati.ycon = I
 select 
 	@cf as 'CFAmmin',
 	D.ipa as 'IPA',
-	R.cf as 'CFfornitore',	
+	R.cf as 'CFfornitore',		
 	case when D.idmankind is null and D.ycon is null then 
      case when RR.coderesidence = 'I' then 'IT' + R.p_iva
        when RR.coderesidence = 'J' then R.p_iva
@@ -452,7 +474,7 @@ select
  as 'IdFiscaleIvaFornitore_co',
 	D.opkind as 'azione',
 	-- Dati identificativi Documento
-	null as 'progressivoregistrazione',
+	D.identificativo_sdi as 'progressivoregistrazione',
 	D.numerodocumento,
 	D.dataemissione,
 	D.importototaledocumento,
@@ -520,7 +542,7 @@ RR.coderesidence, R.p_iva , R.foreigncf,
 D.opkind,	D.numerodocumento, D.dataemissione,D.importototaledocumento,
 D.naturadispesa, D.codefin,D.statodeldebito,D.description,D.numimpegno,D.datascadenza,
 D.idmankind,D.ycon,D.ncon,D.cigcode, D.cupcode, D.causale,D.npay,D.paymentdate,D.oporder,
-D.yinv,D.yman, D.nman
+D.yinv,D.yman, D.nman,D.identificativo_sdi
 order by oporder,
  D.numerodocumento, R.cf,
   D.yinv, D.idmankind, D.yman, D.nman, D.ycon, D.ncon

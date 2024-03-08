@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,18 +26,12 @@ using System.Runtime.Serialization;
 namespace tax_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Tipi di ritenuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
-	///<summary>
-	///Tipo Imponibile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable taxablekind 		=> Tables["taxablekind"];
 
@@ -50,42 +44,24 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotiveapplied_cost 		=> Tables["accmotiveapplied_cost"];
 
-	///<summary>
-	///Classificazione Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable taxsorting 		=> Tables["taxsorting"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable maintax 		=> Tables["maintax"];
 
-	///<summary>
-	///Impostazioni EP imposte 
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable taxmotiveyear 		=> Tables["taxmotiveyear"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotive 		=> Tables["accmotive"];
 
-	///<summary>
-	///Tipo Prestazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable service 		=> Tables["service"];
 
-	///<summary>
-	///Associazione delle causali delle voci di bilancio alle prestazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable taxfinmotive 		=> Tables["taxfinmotive"];
 
@@ -169,6 +145,8 @@ private void initClass() {
 	ttax.Columns.Add( new DataColumn("maintaxcode", typeof(int)));
 	ttax.Columns.Add( new DataColumn("insuranceagencycode", typeof(string)));
 	ttax.Columns.Add( new DataColumn("fiscaltaxcodecredit", typeof(string)));
+	ttax.Columns.Add( new DataColumn("fiscaltaxcodef24ord", typeof(string)));
+	ttax.Columns.Add( new DataColumn("fiscaltaxcodecreditf24ord", typeof(string)));
 	Tables.Add(ttax);
 	ttax.PrimaryKey =  new DataColumn[]{ttax.Columns["taxcode"]};
 

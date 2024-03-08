@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -42,30 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterGetFormData
 			
-			beforeFill: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.inserito)
-					parentRow.inserito = 'N';
-				//beforeFillFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-perfrequestobbunatantum_default");
-				var arraydef = [];
-				
-				//beforeFillInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
-					});
-				return def.promise();
-			},
+			//beforeFill
 
 			afterClear: function () {
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfrequestobbunatantum'), this.getDataTable('perfrequestobbunatantumsoglia'));
@@ -82,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.perfrequestobbunatantum.defaults({ 'inserito': 'N' });
 				$("#SendMail").on("click", _.partial(this.fireSendMail, this));
 				$("#SendMail").prop("disabled", true);
 				$("#InsertRequest").on("click", _.partial(this.fireInsertRequest, this));
@@ -109,7 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			
 			insertClick: function (that, grid) {
 				if (!$('#perfrequestobbunatantum_default_idstruttura').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Unit‡ organizzativa');
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Unit√† organizzativa');
 				}
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
@@ -189,7 +150,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							return self.superClass.getRegistryreference(struttura.rows[0].idreg)
 								.then(function (respRow) {
 									responsabile = respRow[0];
-									return that.showMessageOkCancel("Sar‡ inviata una mail al responsabile dell'unit‡ organizzativa all'indirizzo " + responsabile.email + ". Si desidera procedere?")
+									return that.showMessageOkCancel("Sar√† inviata una mail al responsabile dell'unit√† organizzativa all'indirizzo " + responsabile.email + ". Si desidera procedere?")
 								})
 								.then(function (res) {
 									if (!res) {
@@ -203,14 +164,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-									body = "Gentile responsabile dell'unit‡ organizzativa " + struttura.rows[0].title;
+									body = "Gentile responsabile dell'unit√† organizzativa " + struttura.rows[0].title;
 									if (responsabile.idreg != loggato.idreg) {
 										body = body + ",<br>l'utente " + loggato.email + " ha inserito";
 									}
 									else
-										body = body + "<br> Ë stata inserita";
-									body = body + " la richiesta di inserimento del seguente obiettivo una tantum per la Vostra unit‡ organizzativa. <br><br>Titolo obiettivo:<br>" + that.state.currentRow.title + "<br><br>Descrizione:<br>" + that.state.currentRow.description;
-									subject = "Richiesta inserimento obiettivo una tantum per l'unit‡ organizzativa " + struttura.rows[0].title;
+										body = body + "<br> √® stata inserita";
+									body = body + " la richiesta di inserimento del seguente obiettivo una tantum per la Vostra unit√† organizzativa. <br><br>Titolo obiettivo:<br>" + that.state.currentRow.title + "<br><br>Descrizione:<br>" + that.state.currentRow.description;
+									subject = "Richiesta inserimento obiettivo una tantum per l'unit√† organizzativa " + struttura.rows[0].title;
 
 									return self.superClass.sendMail({ emailDest: responsabile.email, htmlBody: body, subject: subject })
 								})
@@ -229,7 +190,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						}
 						else {
 							self.hideWaitingIndicator(waitingHandler);
-							return def.from(self.showMessageOk("Non Ë stato configurato il responsabile della unit‡ organizzativa. Configurare un responsabile nella scheda anagrafica dell'unit‡ organizzativa selezionata"));
+							return def.from(self.showMessageOk("Non √® stato configurato il responsabile della unit√† organizzativa. Configurare un responsabile nella scheda anagrafica dell'unit√† organizzativa selezionata"));
 						}
 
 					});
@@ -259,7 +220,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						ds = dsPerfrequestobbitantum;
 						var filterStruttura = self.q.eq('idstruttura', self.state.currentRow.idstruttura);
 						var filterYear = self.q.eq('year', self.state.currentRow.year);
-						//verificare anche se la valutazione Ë ancora attiva.
+						//verificare anche se la valutazione √® ancora attiva.
 						var filterAnd = self.q.and(filterStruttura, filterYear);
 
 						return getData.runSelectIntoTable(ds.tables.perfvalutazioneuo, filterAnd, null)
@@ -269,7 +230,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							def.resolve();
 
 							self.hideWaitingIndicator(waitingHandler);
-							return self.showMessageOk('Per l\'unit‡ organizzativa selezionata non Ë presente alcuna valutazione nell\'anno selezionato.')
+							return self.showMessageOk('Per l\'unit√† organizzativa selezionata non √® presente alcuna valutazione nell\'anno selezionato.')
 						}
 						// devo riempire perfvalutazionepersonale
 						appMeta.getMeta('perfobiettiviuo').setDefaults(ds.tables.perfobiettiviuo);

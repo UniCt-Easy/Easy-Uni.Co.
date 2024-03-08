@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_stipendiocomplemento_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_stipendiocomplemento_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="stipendiocomplementokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstipendiocomplementokind" type="xs:int" />
+              <xs:element name="stipendiocomplementokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="stipendiocomplementokind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="stipendiocomplementokind_sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="stipendiocomplemento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anzianitamax" type="xs:int" minOccurs="0" />
+              <xs:element name="anzianitamin" type="xs:int" minOccurs="0" />
+              <xs:element name="complementomensile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="idstipendiocomplemento" type="xs:int" />
+              <xs:element name="idstipendiocomplementokind" type="xs:int" minOccurs="0" />
+              <xs:element name="rifnormativo" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stipendiocomplementokinddefaultview" />
+      <xs:field xpath="mstns:idstipendiocomplementokind" />
+    </xs:unique>
+    <xs:unique name="stipendiocomplemento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stipendiocomplemento" />
+      <xs:field xpath="mstns:idinquadramento" />
+      <xs:field xpath="mstns:idposition" />
+      <xs:field xpath="mstns:idstipendiocomplemento" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_stipendiocomplemento_stipendiocomplementokinddefaultview_idstipendiocomplementokind" msdata:parent="stipendiocomplementokinddefaultview" msdata:child="stipendiocomplemento" msdata:parentkey="idstipendiocomplementokind" msdata:childkey="idstipendiocomplementokind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

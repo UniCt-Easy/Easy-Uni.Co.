@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -52,6 +52,7 @@ namespace meta_listview
                 DescribeAColumn(T, "idlist", "#", nPos++);
                 DescribeAColumn(T, "intcode", "Codice", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
+                DescribeAColumn(T, "codicetassonomia", "Codice Tassonomia", nPos++);
                 DescribeAColumn(T, "unit", "Unità di misura", nPos++);
                 DescribeAColumn(T, "package", "Unità di misura per l'acquisto", nPos++);
                 DescribeAColumn(T, "unitsforpackage", "Coeff. di Conversione", nPos++);
@@ -88,8 +89,26 @@ namespace meta_listview
                 DescribeAColumn(T, "package", "Unità di misura per l'acquisto", nPos++);
                 DescribeAColumn(T, "unitsforpackage", "Coeff. di Conversione", nPos++);
                 DescribeAColumn(T, "listclass", "Class.Mercelogica", nPos++);
+                DescribeAColumn(T, "price", "Prezzo unitario", nPos++);
+                HelpForm.SetFormatForColumn(T.Columns["price"], "n");
             }
-        
+
+            if (ListingType == "webdefaultprice") {
+                foreach (DataColumn C in T.Columns) {
+                    DescribeAColumn(T, C.ColumnName, "", -1);
+                }
+                int nPos = 1;
+
+                DescribeAColumn(T, "idlist", "#", nPos++);
+                DescribeAColumn(T, "intcode", "Codice", nPos++);
+                DescribeAColumn(T, "description", "Descrizione", nPos++);
+                DescribeAColumn(T, "unit", "Unità di misura", nPos++);
+                DescribeAColumn(T, "package", "Unità di misura per l'acquisto", nPos++);
+                DescribeAColumn(T, "unitsforpackage", "Coeff. di Conversione", nPos++);
+                DescribeAColumn(T, "listclass", "Class.Mercelogica", nPos++);
+                DescribeAColumn(T, "price", "Prezzo unitario", nPos++);
+                HelpForm.SetFormatForColumn(T.Columns["price"], "n");
+            }
         }
 
     }

@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabgeo_region_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabgeo_region_seg_0"><i class="fa fa-map-marked-alt mr-1"></i>Principale</a>
+		<a href="#tabgeo_region_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabgeo_region_seg_0"><i class="fa fa-map-marked-alt mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabgeo_region_seg_1" class="nav-link" data-toggle="pill" data-target="#tabgeo_region_seg_1"><i class="fa fa-map-marked-alt mr-1"></i>Province</a>
+		<a href="#tabgeo_region_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabgeo_region_seg_1"><i class="fa fa-map-marked-alt mr-1"></i>Province</a>
 	</li>
 
 	</ul>
@@ -42,7 +42,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#geo_region_seg_start").datepicker();
+    $("#geo_region_seg_start").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="geo_region_seg_start">data inizio</label>
@@ -51,7 +51,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#geo_region_seg_stop").datepicker();
+    $("#geo_region_seg_stop").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="geo_region_seg_stop">data fine</label>

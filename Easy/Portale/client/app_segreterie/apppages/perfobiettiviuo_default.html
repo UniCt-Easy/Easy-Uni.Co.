@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabperfobiettiviuo_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabperfobiettiviuo_default_0"><i class="fa fa-bullseye mr-1"></i>Principale</a>
+		<a href="#tabperfobiettiviuo_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabperfobiettiviuo_default_0"><i class="fa fa-bullseye mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabperfobiettiviuo_default_1" class="nav-link" data-toggle="pill" data-target="#tabperfobiettiviuo_default_1"><i class="fa fa-angle-double-up mr-1"></i>Soglie</a>
+		<a href="#tabperfobiettiviuo_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfobiettiviuo_default_1"><i class="fa fa-paperclip mr-1"></i>Allegati</a>
 	</li>
 
 	</ul>
@@ -40,9 +40,21 @@
 					<input id="perfobiettiviuo_default_valorenumerico" type="text" class="form-control" data-tag="perfobiettiviuo.valorenumerico.fixed.2"  />
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="perfobiettiviuo_default_note">Note</label>
+					<textarea class="textarea form-control" id="perfobiettiviuo_default_note" type="text"  rows="4" data-tag="perfobiettiviuo.note"  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfobiettiviuo_default_XXperfobiettiviuosoglia" >Soglie</div>
+				<div class="gridx" id="grid_perfobiettiviuosoglia_default" data-tag="perfobiettiviuosoglia.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+				</div>
+			</div>
 	</div>
 	<div class="tab-pane fade" id="tabperfobiettiviuo_default_1" role="tabpanel">
-				<div class="gridx" id="grid_perfobiettiviuosoglia_default" data-tag="perfobiettiviuosoglia.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_perfobiettiviuoattach_default" data-tag="perfobiettiviuoattach.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

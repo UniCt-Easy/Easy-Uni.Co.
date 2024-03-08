@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -54,7 +54,7 @@ namespace no_table_expbank {
             this.btnIstitutoCassiere = new System.Windows.Forms.Button();
             this.btnGeneraFileReversali = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.labelUltimoFileSalvato = new System.Windows.Forms.Label();
             this.txtFile = new System.Windows.Forms.TextBox();
             this.btnGeneraUltimaDistMandati = new System.Windows.Forms.Button();
@@ -287,7 +287,7 @@ namespace no_table_expbank {
         private System.Windows.Forms.Button btnIstitutoCassiere;
         private System.Windows.Forms.Button btnGeneraFileReversali;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.Label labelUltimoFileSalvato;
         private System.Windows.Forms.TextBox txtFile;
         private System.Windows.Forms.Button btnGeneraUltimaDistMandati;

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -122,9 +122,14 @@ public partial class MetaMaster : System.Web.UI.MasterPage, MetaPageMaster {
 
 
         //ImageButton5.Attributes.Add("onmouseover", "alert('ciao');");
-
-
-
+        
+        object catCfg = Session["system_config_catania_missioni"];
+        string unict = configManager.getCfg("unict");
+        if ((catCfg != null && catCfg.ToString().ToUpper() == "S")
+            || (unict != null && unict.ToUpper() == "S")) {
+            helpLinks.InnerHtml = "<a href=\"GuidaEasyWeb.pdf\" tabindex=\"-1\" onclick=\"window.open(this.href);return false;\" title=\"Manuale\">Documentazione</a> <a href=\"http://afi.unict.it/supporto/missioni\" tabindex=\"-1\" onclick=\"window.open(this.href);return false;\" title=\"Supporto\">Supporto</a>";
+            CPH_InfoUtente.Visible = true;
+        }
     }
 
     public string SavedFocus() {

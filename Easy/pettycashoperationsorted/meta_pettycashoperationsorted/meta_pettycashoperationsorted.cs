@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -110,7 +110,17 @@ namespace meta_pettycashoperationsorted
 			}
 			PrimaryDataTable.ExtendedProperties[MetaData.ExtraParams]= newTable;
 		}
-
+		public override bool IsValid(DataRow R, out string errmess, out string errfield) {
+			if (CfgFn.GetNoNullDecimal(R["idpettycash"]) == 0) {
+				errmess = "Non è stato selezionato il Fondo Economale dell'operazione";
+				errfield = "idpettycash";
+				return false;
+			}
+			if (!base.IsValid(R, out errmess, out errfield)) return false;
+		
+		
+			return true;
+		}
 		public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
 			RowChange.MarkAsAutoincrement(
 				T.Columns["idsubclass"], 

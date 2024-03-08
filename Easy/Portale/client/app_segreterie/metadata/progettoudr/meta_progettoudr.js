@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -60,18 +43,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'seg':
-						table.columns["budget"].caption = "Costo complessivo calcolato per mesi/uomo";
-						table.columns["!budgetore"].caption = "Costo complessivo calcolato per ore/uomo";
-						table.columns["budget"].caption = "Costo complessivo preventivato in mesi/uomo";
-						table.columns["!budgetore"].caption = "Costo complessivo preventivato in ore/uomo";
 						table.columns["assegniricerca"].caption = "Numero assegni di ricerca previsti";
 						table.columns["borsedottorati"].caption = "Numero borse di dottorato previste";
+						table.columns["budget"].caption = "Costo complessivo preventivato in mesi/uomo";
 						table.columns["contrattirtd"].caption = "Numero contratti RTD previsti";
 						table.columns["contributo"].caption = "Contributo richiesto ";
 						table.columns["description"].caption = "Descrizione";
 						table.columns["impegnototale"].caption = "Impegno temporale complessivo preventivato in mesi/uomo";
 						table.columns["impegnototaleore"].caption = "Impegno temporale complessivo preventivato in ore/uomo";
 						table.columns["title"].caption = "Denominazione";
+						table.columns["!budgetore"].caption = "Costo complessivo preventivato in ore/uomo";
 //$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$

@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_costoscontodef() {
 		MetaPage.apply(this, ['costoscontodef', 'more', false]);
-        this.name = 'Indennit‡ / More';
+        this.name = 'Indennit√† / More';
 		this.defaultListType = 'more';
 		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
@@ -41,39 +24,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterGetFormData
 			
-			beforeFill: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.idcostoscontodefkind)
-					parentRow.idcostoscontodefkind = 3;
-				$("#XXfasciaiseedef").prop("disabled", !this.state.isEditState());
-				//beforeFillFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-costoscontodef_more");
-				var arraydef = [];
-				
-				//beforeFillInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
-					});
-				return def.promise();
-			},
+			//beforeFill
 
 			//afterClear
 
-			//afterFill
+			afterFill: function () {
+				this.enableControl($("#XXfasciaiseedef"), this.state.isEditState());
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.costoscontodef.defaults({ 'idcostoscontodefkind': 3 });
 				$("#XXfasciaiseedef").prop("disabled", true);
+				appMeta.metaModel.insertFilter(this.getDataTable("costoscontodefkinddefaultview"), this.q.eq('costoscontodefkind_active', 'Si'));
 				this.state.DS.tables.costoscontodefkinddefaultview.staticFilter(window.jsDataQuery.or(window.jsDataQuery.eq("idcostoscontodefkind", 3), window.jsDataQuery.eq("idcostoscontodefkind",4)));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
@@ -120,7 +85,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				if (!r.getRow) return def.resolve();
 				if (r.getRow().state !== jsDataSet.dataRowState.deleted) return def.resolve();
 
-				// siamo nello stato deleted della riga principiale, forzo la cancellazione delle entit‡ non subentit‡,che diepndono da questa didprog
+				// siamo nello stato deleted della riga principiale, forzo la cancellazione delle entit√† non subentit√†,che diepndono da questa didprog
 				var self = this;
 				var selBuilderArray = [];
 				var tableArray = ["fasciaiseedef", "ratadef"];

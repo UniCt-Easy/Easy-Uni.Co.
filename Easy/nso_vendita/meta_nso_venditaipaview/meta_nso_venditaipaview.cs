@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -46,6 +46,7 @@ namespace meta_nso_venditaipaview
                 foreach (DataColumn C in T.Columns)
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 int nPos = 1;
+                DescribeAColumn(T, "title", "Cliente", nPos++);
                 DescribeAColumn(T, "order_id", "ID", nPos++);
                 DescribeAColumn(T, "order_idemittente", "End Point", nPos++);
                 DescribeAColumn(T, "protocoldate", "Data Ricezione", nPos++);
@@ -63,6 +64,7 @@ namespace meta_nso_venditaipaview
                 DescribeAColumn(T, "idnso_vendita", "Num.File", nPos++);
                 DescribeAColumn(T, "utente_rifiutata", "Utente rifiuto", nPos++);
                 DescribeAColumn(T, "data_rifiutata", "Data rifiuto", nPos++);
+                DescribeAColumn(T, "order_data_scadenza", "Data scadenza ordine", nPos++);
                 DescribeAColumn(T, "rejectreason", "Annotazioni su rifiuto o accettazione", nPos++);
                 DescribeAColumn(T, "utente_accettata", "Utente accettazione", nPos++);
                 DescribeAColumn(T, "data_accettata", "Data accettazione", nPos++);

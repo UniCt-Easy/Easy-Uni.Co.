@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit� degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -28,23 +28,17 @@ public class config_pagopaRow: MetaRow  {
 	public config_pagopaRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	///<summary>
-	///Chiave fittizia
-	///</summary>
-	public Int32? dummykey{ 
-		get {if (this["dummykey"]==DBNull.Value)return null; return  (Int32?)this["dummykey"];}
-		set {if (value==null) this["dummykey"]= DBNull.Value; else this["dummykey"]= value;}
+	public Int32 dummykey{ 
+		get {return  (Int32)this["dummykey"];}
+		set {this["dummykey"]= value;}
 	}
 	public object dummykeyValue { 
 		get{ return this["dummykey"];}
-		set {if (value==null|| value==DBNull.Value) this["dummykey"]= DBNull.Value; else this["dummykey"]= value;}
+		set {this["dummykey"]= value;}
 	}
-	public Int32? dummykeyOriginal { 
-		get {if (this["dummykey",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["dummykey",DataRowVersion.Original];}
+	public Int32 dummykeyOriginal { 
+		get {return  (Int32)this["dummykey",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Per esse3, gomp e sisest, è il codice tipo contratto attivo usato per l'importazione crediti
-	///</summary>
 	public String codicecontrattostudenti{ 
 		get {if (this["codicecontrattostudenti"]==DBNull.Value)return null; return  (String)this["codicecontrattostudenti"];}
 		set {if (value==null) this["codicecontrattostudenti"]= DBNull.Value; else this["codicecontrattostudenti"]= value;}
@@ -56,11 +50,6 @@ public class config_pagopaRow: MetaRow  {
 	public String codicecontrattostudentiOriginal { 
 		get {if (this["codicecontrattostudenti",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codicecontrattostudenti",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Flag usato nell'importazione crediti da esse3 (servizio easystudenti) che se impostato assume che tutti i  crediti siano già trasmessi.
-	///	 N: Il credito importato non si assume già trasmesso
-	///	 S: Il credito importato si assume già trasmesso
-	///</summary>
 	public String flussocrediti_transmitted{ 
 		get {if (this["flussocrediti_transmitted"]==DBNull.Value)return null; return  (String)this["flussocrediti_transmitted"];}
 		set {if (value==null) this["flussocrediti_transmitted"]= DBNull.Value; else this["flussocrediti_transmitted"]= value;}
@@ -72,9 +61,6 @@ public class config_pagopaRow: MetaRow  {
 	public String flussocrediti_transmittedOriginal { 
 		get {if (this["flussocrediti_transmitted",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flussocrediti_transmitted",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id upb per importazione crediti da sisest
-	///</summary>
 	public String codeupb_sisest{ 
 		get {if (this["codeupb_sisest"]==DBNull.Value)return null; return  (String)this["codeupb_sisest"];}
 		set {if (value==null) this["codeupb_sisest"]= DBNull.Value; else this["codeupb_sisest"]= value;}
@@ -86,9 +72,6 @@ public class config_pagopaRow: MetaRow  {
 	public String codeupb_sisestOriginal { 
 		get {if (this["codeupb_sisest",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeupb_sisest",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Per Ubibanca e Unicredit, la tipologia servizio, usato nell'ottenimento dell'avviso di pagamento
-	///</summary>
 	public String tipologiaservizio{ 
 		get {if (this["tipologiaservizio"]==DBNull.Value)return null; return  (String)this["tipologiaservizio"];}
 		set {if (value==null) this["tipologiaservizio"]= DBNull.Value; else this["tipologiaservizio"]= value;}
@@ -100,9 +83,6 @@ public class config_pagopaRow: MetaRow  {
 	public String tipologiaservizioOriginal { 
 		get {if (this["tipologiaservizio",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["tipologiaservizio",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice SIA usato in pagoPA per avviso Unicredit
-	///</summary>
 	public String codicesia{ 
 		get {if (this["codicesia"]==DBNull.Value)return null; return  (String)this["codicesia"];}
 		set {if (value==null) this["codicesia"]= DBNull.Value; else this["codicesia"]= value;}
@@ -114,9 +94,6 @@ public class config_pagopaRow: MetaRow  {
 	public String codicesiaOriginal { 
 		get {if (this["codicesia",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codicesia",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Url servizio pagamento per ottenimento avvisi ubibanca e unicredit, ed è anche l'indirizzo a cui è rediretto l'utente se decide di pagare immediatamente nel portale pagamenti
-	///</summary>
 	public String urlserviziopagamento{ 
 		get {if (this["urlserviziopagamento"]==DBNull.Value)return null; return  (String)this["urlserviziopagamento"];}
 		set {if (value==null) this["urlserviziopagamento"]= DBNull.Value; else this["urlserviziopagamento"]= value;}
@@ -128,9 +105,6 @@ public class config_pagopaRow: MetaRow  {
 	public String urlserviziopagamentoOriginal { 
 		get {if (this["urlserviziopagamento",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["urlserviziopagamento",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Url sito istituzionale per avvisi Ubibanca ed Unicredit
-	///</summary>
 	public String urlsitoistituzionale{ 
 		get {if (this["urlsitoistituzionale"]==DBNull.Value)return null; return  (String)this["urlsitoistituzionale"];}
 		set {if (value==null) this["urlsitoistituzionale"]= DBNull.Value; else this["urlsitoistituzionale"]= value;}
@@ -142,11 +116,6 @@ public class config_pagopaRow: MetaRow  {
 	public String urlsitoistituzionaleOriginal { 
 		get {if (this["urlsitoistituzionale",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["urlsitoistituzionale",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nota privacy che viene scritta in calce quando si crea l'account da websul portale pagamenti
-	///
-	///
-	///</summary>
 	public String titolaredatiprivacy{ 
 		get {if (this["titolaredatiprivacy"]==DBNull.Value)return null; return  (String)this["titolaredatiprivacy"];}
 		set {if (value==null) this["titolaredatiprivacy"]= DBNull.Value; else this["titolaredatiprivacy"]= value;}
@@ -169,16 +138,16 @@ public class config_pagopaRow: MetaRow  {
 	public String codicecontrattorimborsiOriginal { 
 		get {if (this["codicecontrattorimborsi",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codicecontrattorimborsi",DataRowVersion.Original];}
 	}
-	public String lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (String)this["lt"];}
+	public DateTime? lt{ 
+		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
 		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
 		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
 	}
-	public String ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lt",DataRowVersion.Original];}
+	public DateTime? ltOriginal { 
+		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
 	}
 	public String lu{ 
 		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
@@ -194,9 +163,6 @@ public class config_pagopaRow: MetaRow  {
 	#endregion
 
 }
-///<summary>
-///Configurazione pagoPA
-///</summary>
 public class config_pagopaTable : MetaTableBase<config_pagopaRow> {
 	public config_pagopaTable() : base("config_pagopa"){
 		baseColumns = new Dictionary<string, DataColumn>(){
@@ -210,7 +176,7 @@ public class config_pagopaTable : MetaTableBase<config_pagopaRow> {
 			{"urlsitoistituzionale",createColumn("urlsitoistituzionale",typeof(string),true,false)},
 			{"titolaredatiprivacy",createColumn("titolaredatiprivacy",typeof(string),true,false)},
 			{"codicecontrattorimborsi",createColumn("codicecontrattorimborsi",typeof(string),true,false)},
-			{"lt",createColumn("lt",typeof(string),true,false)},
+			{"lt",createColumn("lt",typeof(DateTime),true,false)},
 			{"lu",createColumn("lu",typeof(string),true,false)},
 		};
 	}

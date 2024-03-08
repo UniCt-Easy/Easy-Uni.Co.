@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -110,7 +110,7 @@ namespace no_table_undo_trasf_nuoveanagrafiche_record8000 {
                             " and convert(int,extmatricula) <= " + imatricola_a;
             DataTable T = Meta.Conn.SQLRunner(script, true);
 
-            show("Operazione eseguita");
+            show("Operazione eseguita", "");
         }
 
 

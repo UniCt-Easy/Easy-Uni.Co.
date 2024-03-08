@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -51,7 +51,10 @@ public partial class vistaForm: DataSet {
 	public DataTable estimatekind 		=> Tables["estimatekind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable upb_iva 		=> Tables["upb_iva"];
+	public DataTable upb_iva1 		=> Tables["upb_iva1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable showcasedetail_related 		=> Tables["showcasedetail_related"];
 
 	#endregion
 
@@ -385,61 +388,102 @@ private void initClass() {
 	testimatekind.PrimaryKey =  new DataColumn[]{testimatekind.Columns["idestimkind"]};
 
 
-	//////////////////// UPB_IVA /////////////////////////////////
-	var tupb_iva= new DataTable("upb_iva");
+	//////////////////// UPB_IVA1 /////////////////////////////////
+	var tupb_iva1= new DataTable("upb_iva1");
 	C= new DataColumn("idupb", typeof(string));
 	C.AllowDBNull=false;
-	tupb_iva.Columns.Add(C);
-	tupb_iva.Columns.Add( new DataColumn("active", typeof(string)));
-	tupb_iva.Columns.Add( new DataColumn("assured", typeof(string)));
+	tupb_iva1.Columns.Add(C);
+	tupb_iva1.Columns.Add( new DataColumn("active", typeof(string)));
+	tupb_iva1.Columns.Add( new DataColumn("assured", typeof(string)));
 	C= new DataColumn("codeupb", typeof(string));
 	C.AllowDBNull=false;
-	tupb_iva.Columns.Add(C);
+	tupb_iva1.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	tupb_iva.Columns.Add(C);
+	tupb_iva1.Columns.Add(C);
 	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	tupb_iva.Columns.Add(C);
-	tupb_iva.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
-	tupb_iva.Columns.Add( new DataColumn("granted", typeof(decimal)));
+	tupb_iva1.Columns.Add(C);
+	tupb_iva1.Columns.Add( new DataColumn("expiration", typeof(DateTime)));
+	tupb_iva1.Columns.Add( new DataColumn("granted", typeof(decimal)));
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	tupb_iva.Columns.Add(C);
+	tupb_iva1.Columns.Add(C);
 	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	tupb_iva.Columns.Add(C);
-	tupb_iva.Columns.Add( new DataColumn("paridupb", typeof(string)));
-	tupb_iva.Columns.Add( new DataColumn("previousappropriation", typeof(decimal)));
-	tupb_iva.Columns.Add( new DataColumn("previousassessment", typeof(decimal)));
+	tupb_iva1.Columns.Add(C);
+	tupb_iva1.Columns.Add( new DataColumn("paridupb", typeof(string)));
+	tupb_iva1.Columns.Add( new DataColumn("previousappropriation", typeof(decimal)));
+	tupb_iva1.Columns.Add( new DataColumn("previousassessment", typeof(decimal)));
 	C= new DataColumn("printingorder", typeof(string));
 	C.AllowDBNull=false;
-	tupb_iva.Columns.Add(C);
-	tupb_iva.Columns.Add( new DataColumn("requested", typeof(decimal)));
-	tupb_iva.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tupb_iva1.Columns.Add(C);
+	tupb_iva1.Columns.Add( new DataColumn("requested", typeof(decimal)));
+	tupb_iva1.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
 	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	tupb_iva.Columns.Add(C);
-	tupb_iva.Columns.Add( new DataColumn("txt", typeof(string)));
-	tupb_iva.Columns.Add( new DataColumn("idman", typeof(int)));
-	tupb_iva.Columns.Add( new DataColumn("idunderwriter", typeof(int)));
-	tupb_iva.Columns.Add( new DataColumn("cupcode", typeof(string)));
-	tupb_iva.Columns.Add( new DataColumn("idsor01", typeof(int)));
-	tupb_iva.Columns.Add( new DataColumn("idsor02", typeof(int)));
-	tupb_iva.Columns.Add( new DataColumn("idsor03", typeof(int)));
-	tupb_iva.Columns.Add( new DataColumn("idsor04", typeof(int)));
-	tupb_iva.Columns.Add( new DataColumn("idsor05", typeof(int)));
-	tupb_iva.Columns.Add( new DataColumn("flagactivity", typeof(short)));
-	tupb_iva.Columns.Add( new DataColumn("flagkind", typeof(byte)));
-	tupb_iva.Columns.Add( new DataColumn("newcodeupb", typeof(string)));
-	tupb_iva.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
-	tupb_iva.Columns.Add( new DataColumn("start", typeof(DateTime)));
-	tupb_iva.Columns.Add( new DataColumn("stop", typeof(DateTime)));
-	tupb_iva.Columns.Add( new DataColumn("cigcode", typeof(string)));
-	tupb_iva.Columns.Add( new DataColumn("idepupbkind", typeof(int)));
-	tupb_iva.Columns.Add( new DataColumn("flag", typeof(int)));
-	Tables.Add(tupb_iva);
-	tupb_iva.PrimaryKey =  new DataColumn[]{tupb_iva.Columns["idupb"]};
+	tupb_iva1.Columns.Add(C);
+	tupb_iva1.Columns.Add( new DataColumn("txt", typeof(string)));
+	tupb_iva1.Columns.Add( new DataColumn("idman", typeof(int)));
+	tupb_iva1.Columns.Add( new DataColumn("idunderwriter", typeof(int)));
+	tupb_iva1.Columns.Add( new DataColumn("cupcode", typeof(string)));
+	tupb_iva1.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tupb_iva1.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tupb_iva1.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tupb_iva1.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tupb_iva1.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tupb_iva1.Columns.Add( new DataColumn("flagactivity", typeof(short)));
+	tupb_iva1.Columns.Add( new DataColumn("flagkind", typeof(byte)));
+	tupb_iva1.Columns.Add( new DataColumn("newcodeupb", typeof(string)));
+	tupb_iva1.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
+	tupb_iva1.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tupb_iva1.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tupb_iva1.Columns.Add( new DataColumn("cigcode", typeof(string)));
+	tupb_iva1.Columns.Add( new DataColumn("idepupbkind", typeof(int)));
+	tupb_iva1.Columns.Add( new DataColumn("flag", typeof(int)));
+	Tables.Add(tupb_iva1);
+	tupb_iva1.PrimaryKey =  new DataColumn[]{tupb_iva1.Columns["idupb"]};
+
+
+	//////////////////// SHOWCASEDETAIL_RELATED /////////////////////////////////
+	var tshowcasedetail_related= new DataTable("showcasedetail_related");
+	C= new DataColumn("idshowcase", typeof(int));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("idlist", typeof(int));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("rownum", typeof(int));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("idlist_related", typeof(int));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	tshowcasedetail_related.Columns.Add( new DataColumn("availability", typeof(int)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idivakind", typeof(int)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("title", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("unitprice", typeof(decimal)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idsor1", typeof(int)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idsor2", typeof(int)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idsor3", typeof(int)));
+	Tables.Add(tshowcasedetail_related);
+	tshowcasedetail_related.PrimaryKey =  new DataColumn[]{tshowcasedetail_related.Columns["idshowcase"], tshowcasedetail_related.Columns["idlist"], tshowcasedetail_related.Columns["rownum"]};
 
 
 	#endregion
@@ -466,13 +510,21 @@ private void initClass() {
 	cChild = new []{showcasedetail.Columns["idestimkind"]};
 	Relations.Add(new DataRelation("estimatekind_showcasedetail",cPar,cChild,false));
 
-	cPar = new []{upb_iva.Columns["idupb"]};
+	cPar = new []{upb_iva1.Columns["idupb"]};
 	cChild = new []{showcasedetail.Columns["idupb_iva"]};
 	Relations.Add(new DataRelation("upb_iva_showcasedetail",cPar,cChild,false));
 
 	cPar = new []{listview.Columns["idlist"]};
 	cChild = new []{showcasedetail.Columns["idlist"]};
 	Relations.Add(new DataRelation("listview_showcasedetail",cPar,cChild,false));
+
+	cPar = new []{showcase.Columns["idshowcase"]};
+	cChild = new []{showcasedetail_related.Columns["idshowcase"]};
+	Relations.Add(new DataRelation("showcase_showcasedetail_related",cPar,cChild,false));
+
+	cPar = new []{showcasedetail.Columns["idshowcase"], showcasedetail.Columns["idlist"]};
+	cChild = new []{showcasedetail_related.Columns["idshowcase"], showcasedetail_related.Columns["idlist"]};
+	Relations.Add(new DataRelation("showcasedetail_showcasedetail_related",cPar,cChild,false));
 
 	#endregion
 

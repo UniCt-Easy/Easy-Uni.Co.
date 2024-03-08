@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -89,6 +72,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idpublicaz_progetto_titolobreve', 'Idprogetto', null, 17, null);
 						this.describeAColumn(table, '!idpublicaz_progetto_alias1_titolobreve', 'Idprogetto', null, 17, null);
 						objCalcFieldConfig['!idpublicaz_progetto_alias1_titolobreve'] = { tableNameLookup:'progetto_alias1', columnNameLookup:'titolobreve', columnNamekey:'idpublicaz' };
+						this.describeAColumn(table, '!idpublicaz_progetto_alias2_titolobreve', 'Idprogetto', null, 17, null);
+						objCalcFieldConfig['!idpublicaz_progetto_alias2_titolobreve'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'titolobreve', columnNamekey:'idpublicaz' };
+						this.describeAColumn(table, '!idpublicaz_progetto_alias2_titolobreve', 'Titolo breve o acronimo Idprogetto', null, 17, null);
+						this.describeAColumn(table, '!idpublicaz_progetto_alias2_start', 'Data di inizio Idprogetto', null, 18, null);
+						this.describeAColumn(table, '!idpublicaz_progetto_alias2_stop', 'Data di fine Idprogetto', null, 19, null);
+						objCalcFieldConfig['!idpublicaz_progetto_alias2_start'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'start', columnNamekey:'idpublicaz' };
+						objCalcFieldConfig['!idpublicaz_progetto_alias2_stop'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'stop', columnNamekey:'idpublicaz' };
+						this.describeAColumn(table, '!idpublicaz_progetto_alias2_start', 'Data di inizio Idprogetto', 'g', 18, null);
+						this.describeAColumn(table, '!idpublicaz_progetto_alias2_stop', 'Data di fine Idprogetto', 'g', 19, null);
 //$objCalcFieldConfig_docenti$
 						break;
 //$objCalcFieldConfig$

@@ -90,6 +90,10 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_emisti_import">
+      <HintPath>..\..\emisti_import\meta_emisti_import\bin\Debug\meta_emisti_import.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -111,6 +115,7 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
@@ -159,6 +164,12 @@
     <Compile Include="FrmShowTracciato.Designer.cs">
       <DependentUpon>FrmShowTracciato.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmViewEmistiErrors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmViewEmistiErrors.Designer.cs">
+      <DependentUpon>FrmViewEmistiErrors.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmViewError.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +193,9 @@
     <EmbeddedResource Include="FrmShowTracciato.resx">
       <DependentUpon>FrmShowTracciato.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmViewEmistiErrors.resx">
+      <DependentUpon>FrmViewEmistiErrors.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmViewError.resx">
       <DependentUpon>FrmViewError.cs</DependentUpon>
@@ -221,6 +235,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\emistiParser\emistiParser.csproj">
+      <Project>{D7031847-4D86-4687-B7C4-DE1BD6702DC2}</Project>
+      <Name>emistiParser</Name>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
       <Project>{13E495EF-B62D-494E-AEC7-E06E7826DCE6}</Project>
       <Name>ep_functions</Name>
@@ -237,9 +256,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

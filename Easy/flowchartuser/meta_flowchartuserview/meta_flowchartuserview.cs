@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -86,6 +86,7 @@ namespace meta_flowchartuserview {
                 DescribeAColumn(T, "flowchart", "Organigramma", nPos++);
                 DescribeAColumn(T, "title", "Ruolo", nPos++);
                 DescribeAColumn(T, "username", "Utente", nPos++);
+                DescribeAColumn(T, "stop", "Data Fine", nPos++);
                 if (sorkind01 != "") {
                     DescribeAColumn(T, "sortcode01", sorkind01 , nPos++);
                     DescribeAColumn(T, "sorkind01_withchilds","sottostanti(1)", nPos++);

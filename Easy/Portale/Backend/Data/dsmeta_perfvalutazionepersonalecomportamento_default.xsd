@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_perfvalutazionepersonalecomportamento_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="dsmeta_perfvalutazionepersonalecomportamento_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsmeta_perfvalutazionepersonalecomportamento_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -17,12 +17,12 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="perfvalutazionepersonalecomportamentosoglia" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfvalutazionepersonalecomportamentosoglia" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="description" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idperfsogliakind" type="xs:string" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazionepersonalecomportamento" type="xs:int" />
@@ -35,11 +35,11 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="perfcomportamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfcomportamentodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idperfcomportamento" type="xs:int" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -50,6 +50,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idperfcomportamento" type="xs:int" />
+              <xs:element name="idperfgiudizio" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazionepersonalecomportamento" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
@@ -75,8 +76,8 @@
       <xs:field xpath="mstns:idperfvalutazionepersonalecomportamento" />
       <xs:field xpath="mstns:idperfvalutazionepersonalecomportamentosoglia" />
     </xs:unique>
-    <xs:unique name="perfcomportamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:perfcomportamento" />
+    <xs:unique name="perfcomportamentodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfcomportamentodefaultview" />
       <xs:field xpath="mstns:idperfcomportamento" />
     </xs:unique>
     <xs:unique name="perfvalutazionepersonalecomportamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -91,7 +92,7 @@
       <msdata:Relationship name="FK_perfvalutazionepersonalecomportamentosoglia_perfvalutazionepersonalecomportamento_idperfvalutazionepersonale-idperfvalutazionepersonalecomportamento" msdata:parent="perfvalutazionepersonalecomportamento" msdata:child="perfvalutazionepersonalecomportamentosoglia" msdata:parentkey="idperfvalutazionepersonale idperfvalutazionepersonalecomportamento" msdata:childkey="idperfvalutazionepersonale idperfvalutazionepersonalecomportamento" />
       <msdata:Relationship name="FK_perfvalutazionepersonalecomportamentosoglia_year_year" msdata:parent="year" msdata:child="perfvalutazionepersonalecomportamentosoglia" msdata:parentkey="year" msdata:childkey="year" />
       <msdata:Relationship name="FK_perfvalutazionepersonalecomportamentosoglia_perfsogliakind_idperfsogliakind" msdata:parent="perfsogliakind" msdata:child="perfvalutazionepersonalecomportamentosoglia" msdata:parentkey="idperfsogliakind" msdata:childkey="idperfsogliakind" />
-      <msdata:Relationship name="FK_perfvalutazionepersonalecomportamento_perfcomportamento_idperfcomportamento" msdata:parent="perfcomportamento" msdata:child="perfvalutazionepersonalecomportamento" msdata:parentkey="idperfcomportamento" msdata:childkey="idperfcomportamento" />
+      <msdata:Relationship name="FK_perfvalutazionepersonalecomportamento_perfcomportamentodefaultview_idperfcomportamento" msdata:parent="perfcomportamentodefaultview" msdata:child="perfvalutazionepersonalecomportamento" msdata:parentkey="idperfcomportamento" msdata:childkey="idperfcomportamento" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

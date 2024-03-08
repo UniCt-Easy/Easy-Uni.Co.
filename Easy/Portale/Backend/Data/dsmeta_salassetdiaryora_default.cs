@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -63,6 +63,11 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// ASSETDIARYORASEGSALVIEW /////////////////////////////////
 	var tassetdiaryorasegsalview= new MetaTable("assetdiaryorasegsalview");
+	tassetdiaryorasegsalview.defineColumn("asset_idasset", typeof(int));
+	tassetdiaryorasegsalview.defineColumn("asset_idpiece", typeof(int));
+	tassetdiaryorasegsalview.defineColumn("asset_ninventory", typeof(int));
+	tassetdiaryorasegsalview.defineColumn("asset_rfid", typeof(string));
+	tassetdiaryorasegsalview.defineColumn("assetdiary_idreg", typeof(int));
 	tassetdiaryorasegsalview.defineColumn("assetdiaryora_amount", typeof(decimal));
 	tassetdiaryorasegsalview.defineColumn("assetdiaryora_ct", typeof(DateTime),false);
 	tassetdiaryorasegsalview.defineColumn("assetdiaryora_cu", typeof(string),false);
@@ -70,14 +75,18 @@ private void initClass() {
 	tassetdiaryorasegsalview.defineColumn("assetdiaryora_lu", typeof(string),false);
 	tassetdiaryorasegsalview.defineColumn("assetdiaryora_start", typeof(DateTime));
 	tassetdiaryorasegsalview.defineColumn("assetdiaryora_stop", typeof(DateTime));
+	tassetdiaryorasegsalview.defineColumn("dropdown_title", typeof(string),false);
 	tassetdiaryorasegsalview.defineColumn("idassetdiary", typeof(int),false);
 	tassetdiaryorasegsalview.defineColumn("idassetdiaryora", typeof(int),false);
 	tassetdiaryorasegsalview.defineColumn("idsal", typeof(int));
 	tassetdiaryorasegsalview.defineColumn("idworkpackage", typeof(int),false);
+	tassetdiaryorasegsalview.defineColumn("registry_title", typeof(string));
 	tassetdiaryorasegsalview.defineColumn("sal_start", typeof(DateTime));
 	tassetdiaryorasegsalview.defineColumn("sal_stop", typeof(DateTime));
+	tassetdiaryorasegsalview.defineColumn("workpackage_raggruppamento", typeof(string));
+	tassetdiaryorasegsalview.defineColumn("workpackage_title", typeof(string));
 	Tables.Add(tassetdiaryorasegsalview);
-	tassetdiaryorasegsalview.defineKey("idassetdiaryora");
+	tassetdiaryorasegsalview.defineKey("idassetdiary", "idassetdiaryora", "idworkpackage");
 
 	//////////////////// SALASSETDIARYORA /////////////////////////////////
 	var tsalassetdiaryora= new MetaTable("salassetdiaryora");

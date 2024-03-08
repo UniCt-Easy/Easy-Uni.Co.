@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -452,6 +452,11 @@ namespace upb_default {
 		private Button btnUPBCapofila;
 		public TextBox txtUPBCapofila;
 		private CheckBox SubEntity_chkLimiteSpesa;
+		private TextBox txtAmmortamentiDifferenza;
+		private Button AmmortamentiDareAvere;
+		private TextBox txtAmmortamentiAvere;
+		private TextBox txtAmmortamentiDare;
+		private Label label67;
 
 		delegate string myUPBComparator(string field, object value);
 		myUPBComparator upbComp;
@@ -911,6 +916,11 @@ namespace upb_default {
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.upbBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.txtAmmortamentiDifferenza = new System.Windows.Forms.TextBox();
+			this.AmmortamentiDareAvere = new System.Windows.Forms.Button();
+			this.txtAmmortamentiAvere = new System.Windows.Forms.TextBox();
+			this.txtAmmortamentiDare = new System.Windows.Forms.TextBox();
+			this.label67 = new System.Windows.Forms.Label();
 			this.MetaDataDetail.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
 			this.gboxResponsabile.SuspendLayout();
@@ -986,7 +996,7 @@ namespace upb_default {
 			this.treeView1.Name = "treeView1";
 			this.treeView1.SelectedImageIndex = 0;
 			this.treeView1.ShowPlusMinus = false;
-			this.treeView1.Size = new System.Drawing.Size(326, 553);
+			this.treeView1.Size = new System.Drawing.Size(326, 581);
 			this.treeView1.TabIndex = 0;
 			this.treeView1.Tag = "upb.tree";
 			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
@@ -1018,7 +1028,7 @@ namespace upb_default {
 			this.MetaDataDetail.Multiline = true;
 			this.MetaDataDetail.Name = "MetaDataDetail";
 			this.MetaDataDetail.SelectedIndex = 0;
-			this.MetaDataDetail.Size = new System.Drawing.Size(688, 553);
+			this.MetaDataDetail.Size = new System.Drawing.Size(688, 581);
 			this.MetaDataDetail.TabIndex = 1;
 			// 
 			// tabPrincipale
@@ -2294,7 +2304,7 @@ namespace upb_default {
 			this.tabRiepilogo.Location = new System.Drawing.Point(4, 23);
 			this.tabRiepilogo.Name = "tabRiepilogo";
 			this.tabRiepilogo.Padding = new System.Windows.Forms.Padding(3);
-			this.tabRiepilogo.Size = new System.Drawing.Size(680, 526);
+			this.tabRiepilogo.Size = new System.Drawing.Size(680, 554);
 			this.tabRiepilogo.TabIndex = 5;
 			this.tabRiepilogo.Text = "Riepilogo";
 			this.tabRiepilogo.UseVisualStyleBackColor = true;
@@ -2309,7 +2319,7 @@ namespace upb_default {
 			this.grpRiepilogo.Controls.Add(this.btnCalcolaTutto);
 			this.grpRiepilogo.Location = new System.Drawing.Point(8, 6);
 			this.grpRiepilogo.Name = "grpRiepilogo";
-			this.grpRiepilogo.Size = new System.Drawing.Size(666, 511);
+			this.grpRiepilogo.Size = new System.Drawing.Size(666, 539);
 			this.grpRiepilogo.TabIndex = 1;
 			this.grpRiepilogo.TabStop = false;
 			// 
@@ -2337,7 +2347,7 @@ namespace upb_default {
 			this.tabCtrl.Location = new System.Drawing.Point(10, 50);
 			this.tabCtrl.Name = "tabCtrl";
 			this.tabCtrl.SelectedIndex = 0;
-			this.tabCtrl.Size = new System.Drawing.Size(654, 455);
+			this.tabCtrl.Size = new System.Drawing.Size(654, 483);
 			this.tabCtrl.TabIndex = 61;
 			// 
 			// tabPage1
@@ -4065,6 +4075,11 @@ namespace upb_default {
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.txtAmmortamentiDifferenza);
+			this.tabPage5.Controls.Add(this.AmmortamentiDareAvere);
+			this.tabPage5.Controls.Add(this.txtAmmortamentiAvere);
+			this.tabPage5.Controls.Add(this.txtAmmortamentiDare);
+			this.tabPage5.Controls.Add(this.label67);
 			this.tabPage5.Controls.Add(this.txtAltrevociPassivoDifferenza);
 			this.tabPage5.Controls.Add(this.AltrevociPassivoDareAvere);
 			this.tabPage5.Controls.Add(this.txtAltrevociPassivoAvere);
@@ -4146,192 +4161,192 @@ namespace upb_default {
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage5.Size = new System.Drawing.Size(646, 429);
+			this.tabPage5.Size = new System.Drawing.Size(646, 457);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "EP";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
 			// txtAltrevociPassivoDifferenza
 			// 
-			this.txtAltrevociPassivoDifferenza.Location = new System.Drawing.Point(403, 384);
+			this.txtAltrevociPassivoDifferenza.Location = new System.Drawing.Point(403, 414);
 			this.txtAltrevociPassivoDifferenza.Name = "txtAltrevociPassivoDifferenza";
 			this.txtAltrevociPassivoDifferenza.ReadOnly = true;
 			this.txtAltrevociPassivoDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtAltrevociPassivoDifferenza.TabIndex = 156;
+			this.txtAltrevociPassivoDifferenza.TabIndex = 66;
 			this.txtAltrevociPassivoDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// AltrevociPassivoDareAvere
 			// 
-			this.AltrevociPassivoDareAvere.Location = new System.Drawing.Point(521, 384);
+			this.AltrevociPassivoDareAvere.Location = new System.Drawing.Point(521, 414);
 			this.AltrevociPassivoDareAvere.Name = "AltrevociPassivoDareAvere";
 			this.AltrevociPassivoDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.AltrevociPassivoDareAvere.TabIndex = 155;
+			this.AltrevociPassivoDareAvere.TabIndex = 82;
 			this.AltrevociPassivoDareAvere.Text = "Dettagli";
 			this.AltrevociPassivoDareAvere.UseVisualStyleBackColor = true;
 			this.AltrevociPassivoDareAvere.Click += new System.EventHandler(this.AltrevociPassivoDareAvere_Click);
 			// 
 			// txtAltrevociPassivoAvere
 			// 
-			this.txtAltrevociPassivoAvere.Location = new System.Drawing.Point(280, 384);
+			this.txtAltrevociPassivoAvere.Location = new System.Drawing.Point(280, 414);
 			this.txtAltrevociPassivoAvere.Name = "txtAltrevociPassivoAvere";
 			this.txtAltrevociPassivoAvere.ReadOnly = true;
 			this.txtAltrevociPassivoAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtAltrevociPassivoAvere.TabIndex = 154;
+			this.txtAltrevociPassivoAvere.TabIndex = 65;
 			this.txtAltrevociPassivoAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtAltrevociPassivoDare
 			// 
-			this.txtAltrevociPassivoDare.Location = new System.Drawing.Point(153, 384);
+			this.txtAltrevociPassivoDare.Location = new System.Drawing.Point(153, 414);
 			this.txtAltrevociPassivoDare.Name = "txtAltrevociPassivoDare";
 			this.txtAltrevociPassivoDare.ReadOnly = true;
 			this.txtAltrevociPassivoDare.Size = new System.Drawing.Size(98, 20);
-			this.txtAltrevociPassivoDare.TabIndex = 153;
+			this.txtAltrevociPassivoDare.TabIndex = 64;
 			this.txtAltrevociPassivoDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label55
 			// 
-			this.label55.Location = new System.Drawing.Point(11, 384);
+			this.label55.Location = new System.Drawing.Point(11, 414);
 			this.label55.Name = "label55";
 			this.label55.Size = new System.Drawing.Size(133, 13);
-			this.label55.TabIndex = 152;
+			this.label55.TabIndex = 63;
 			this.label55.Text = "Altre voci del Passivo ";
 			this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtFondiAmmortamentoDifferenza
 			// 
-			this.txtFondiAmmortamentoDifferenza.Location = new System.Drawing.Point(403, 358);
+			this.txtFondiAmmortamentoDifferenza.Location = new System.Drawing.Point(403, 388);
 			this.txtFondiAmmortamentoDifferenza.Name = "txtFondiAmmortamentoDifferenza";
 			this.txtFondiAmmortamentoDifferenza.ReadOnly = true;
 			this.txtFondiAmmortamentoDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtFondiAmmortamentoDifferenza.TabIndex = 151;
+			this.txtFondiAmmortamentoDifferenza.TabIndex = 62;
 			this.txtFondiAmmortamentoDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// FondiAmmortamentoDareAvere
 			// 
-			this.FondiAmmortamentoDareAvere.Location = new System.Drawing.Point(521, 358);
+			this.FondiAmmortamentoDareAvere.Location = new System.Drawing.Point(521, 388);
 			this.FondiAmmortamentoDareAvere.Name = "FondiAmmortamentoDareAvere";
 			this.FondiAmmortamentoDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.FondiAmmortamentoDareAvere.TabIndex = 150;
+			this.FondiAmmortamentoDareAvere.TabIndex = 81;
 			this.FondiAmmortamentoDareAvere.Text = "Dettagli";
 			this.FondiAmmortamentoDareAvere.UseVisualStyleBackColor = true;
 			this.FondiAmmortamentoDareAvere.Click += new System.EventHandler(this.FondiAmmortamentoDareAvere_Click);
 			// 
 			// txtFondiAmmortamentoAvere
 			// 
-			this.txtFondiAmmortamentoAvere.Location = new System.Drawing.Point(280, 358);
+			this.txtFondiAmmortamentoAvere.Location = new System.Drawing.Point(280, 388);
 			this.txtFondiAmmortamentoAvere.Name = "txtFondiAmmortamentoAvere";
 			this.txtFondiAmmortamentoAvere.ReadOnly = true;
 			this.txtFondiAmmortamentoAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtFondiAmmortamentoAvere.TabIndex = 149;
+			this.txtFondiAmmortamentoAvere.TabIndex = 61;
 			this.txtFondiAmmortamentoAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtFondiAmmortamentoDare
 			// 
-			this.txtFondiAmmortamentoDare.Location = new System.Drawing.Point(153, 358);
+			this.txtFondiAmmortamentoDare.Location = new System.Drawing.Point(153, 388);
 			this.txtFondiAmmortamentoDare.Name = "txtFondiAmmortamentoDare";
 			this.txtFondiAmmortamentoDare.ReadOnly = true;
 			this.txtFondiAmmortamentoDare.Size = new System.Drawing.Size(98, 20);
-			this.txtFondiAmmortamentoDare.TabIndex = 148;
+			this.txtFondiAmmortamentoDare.TabIndex = 60;
 			this.txtFondiAmmortamentoDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label54
 			// 
-			this.label54.Location = new System.Drawing.Point(11, 358);
+			this.label54.Location = new System.Drawing.Point(11, 388);
 			this.label54.Name = "label54";
 			this.label54.Size = new System.Drawing.Size(133, 13);
-			this.label54.TabIndex = 147;
+			this.label54.TabIndex = 59;
 			this.label54.Text = "Fondi Ammortamento ";
 			this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtAltrevociAttivoDifferenza
 			// 
-			this.txtAltrevociAttivoDifferenza.Location = new System.Drawing.Point(403, 332);
+			this.txtAltrevociAttivoDifferenza.Location = new System.Drawing.Point(403, 362);
 			this.txtAltrevociAttivoDifferenza.Name = "txtAltrevociAttivoDifferenza";
 			this.txtAltrevociAttivoDifferenza.ReadOnly = true;
 			this.txtAltrevociAttivoDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtAltrevociAttivoDifferenza.TabIndex = 146;
+			this.txtAltrevociAttivoDifferenza.TabIndex = 58;
 			this.txtAltrevociAttivoDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// AltrevociAttivoDareAvere
 			// 
-			this.AltrevociAttivoDareAvere.Location = new System.Drawing.Point(521, 332);
+			this.AltrevociAttivoDareAvere.Location = new System.Drawing.Point(521, 362);
 			this.AltrevociAttivoDareAvere.Name = "AltrevociAttivoDareAvere";
 			this.AltrevociAttivoDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.AltrevociAttivoDareAvere.TabIndex = 145;
+			this.AltrevociAttivoDareAvere.TabIndex = 80;
 			this.AltrevociAttivoDareAvere.Text = "Dettagli";
 			this.AltrevociAttivoDareAvere.UseVisualStyleBackColor = true;
 			this.AltrevociAttivoDareAvere.Click += new System.EventHandler(this.AltrevociAttivoDareAvere_Click);
 			// 
 			// txtAltrevociAttivoAvere
 			// 
-			this.txtAltrevociAttivoAvere.Location = new System.Drawing.Point(280, 332);
+			this.txtAltrevociAttivoAvere.Location = new System.Drawing.Point(280, 362);
 			this.txtAltrevociAttivoAvere.Name = "txtAltrevociAttivoAvere";
 			this.txtAltrevociAttivoAvere.ReadOnly = true;
 			this.txtAltrevociAttivoAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtAltrevociAttivoAvere.TabIndex = 144;
+			this.txtAltrevociAttivoAvere.TabIndex = 57;
 			this.txtAltrevociAttivoAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtAltrevociAttivoDare
 			// 
-			this.txtAltrevociAttivoDare.Location = new System.Drawing.Point(153, 332);
+			this.txtAltrevociAttivoDare.Location = new System.Drawing.Point(153, 362);
 			this.txtAltrevociAttivoDare.Name = "txtAltrevociAttivoDare";
 			this.txtAltrevociAttivoDare.ReadOnly = true;
 			this.txtAltrevociAttivoDare.Size = new System.Drawing.Size(98, 20);
-			this.txtAltrevociAttivoDare.TabIndex = 143;
+			this.txtAltrevociAttivoDare.TabIndex = 56;
 			this.txtAltrevociAttivoDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label53
 			// 
-			this.label53.Location = new System.Drawing.Point(11, 332);
+			this.label53.Location = new System.Drawing.Point(11, 362);
 			this.label53.Name = "label53";
 			this.label53.Size = new System.Drawing.Size(133, 13);
-			this.label53.TabIndex = 142;
+			this.label53.TabIndex = 55;
 			this.label53.Text = "Altre voci dell\'Attivo";
 			this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtDisponibilitàliquideDifferenza
 			// 
-			this.txtDisponibilitàliquideDifferenza.Location = new System.Drawing.Point(403, 306);
+			this.txtDisponibilitàliquideDifferenza.Location = new System.Drawing.Point(403, 336);
 			this.txtDisponibilitàliquideDifferenza.Name = "txtDisponibilitàliquideDifferenza";
 			this.txtDisponibilitàliquideDifferenza.ReadOnly = true;
 			this.txtDisponibilitàliquideDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtDisponibilitàliquideDifferenza.TabIndex = 141;
+			this.txtDisponibilitàliquideDifferenza.TabIndex = 54;
 			this.txtDisponibilitàliquideDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// DisponibilitàliquideDareAvere
 			// 
-			this.DisponibilitàliquideDareAvere.Location = new System.Drawing.Point(521, 306);
+			this.DisponibilitàliquideDareAvere.Location = new System.Drawing.Point(521, 336);
 			this.DisponibilitàliquideDareAvere.Name = "DisponibilitàliquideDareAvere";
 			this.DisponibilitàliquideDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.DisponibilitàliquideDareAvere.TabIndex = 140;
+			this.DisponibilitàliquideDareAvere.TabIndex = 79;
 			this.DisponibilitàliquideDareAvere.Text = "Dettagli";
 			this.DisponibilitàliquideDareAvere.UseVisualStyleBackColor = true;
 			this.DisponibilitàliquideDareAvere.Click += new System.EventHandler(this.DisponibilitàliquideDareAvere_Click);
 			// 
 			// txtDisponibilitàliquideAvere
 			// 
-			this.txtDisponibilitàliquideAvere.Location = new System.Drawing.Point(280, 306);
+			this.txtDisponibilitàliquideAvere.Location = new System.Drawing.Point(280, 336);
 			this.txtDisponibilitàliquideAvere.Name = "txtDisponibilitàliquideAvere";
 			this.txtDisponibilitàliquideAvere.ReadOnly = true;
 			this.txtDisponibilitàliquideAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtDisponibilitàliquideAvere.TabIndex = 139;
+			this.txtDisponibilitàliquideAvere.TabIndex = 53;
 			this.txtDisponibilitàliquideAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtDisponibilitàliquideDare
 			// 
-			this.txtDisponibilitàliquideDare.Location = new System.Drawing.Point(153, 306);
+			this.txtDisponibilitàliquideDare.Location = new System.Drawing.Point(153, 336);
 			this.txtDisponibilitàliquideDare.Name = "txtDisponibilitàliquideDare";
 			this.txtDisponibilitàliquideDare.ReadOnly = true;
 			this.txtDisponibilitàliquideDare.Size = new System.Drawing.Size(98, 20);
-			this.txtDisponibilitàliquideDare.TabIndex = 138;
+			this.txtDisponibilitàliquideDare.TabIndex = 52;
 			this.txtDisponibilitàliquideDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label52
 			// 
-			this.label52.Location = new System.Drawing.Point(11, 306);
+			this.label52.Location = new System.Drawing.Point(11, 336);
 			this.label52.Name = "label52";
 			this.label52.Size = new System.Drawing.Size(133, 13);
-			this.label52.TabIndex = 137;
+			this.label52.TabIndex = 51;
 			this.label52.Text = "Disponibilità liquide";
 			this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
@@ -4346,92 +4361,92 @@ namespace upb_default {
 			// 
 			// txtFondoAccantonamentoDifferenza
 			// 
-			this.txtFondoAccantonamentoDifferenza.Location = new System.Drawing.Point(403, 280);
+			this.txtFondoAccantonamentoDifferenza.Location = new System.Drawing.Point(403, 310);
 			this.txtFondoAccantonamentoDifferenza.Name = "txtFondoAccantonamentoDifferenza";
 			this.txtFondoAccantonamentoDifferenza.ReadOnly = true;
 			this.txtFondoAccantonamentoDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtFondoAccantonamentoDifferenza.TabIndex = 135;
+			this.txtFondoAccantonamentoDifferenza.TabIndex = 50;
 			this.txtFondoAccantonamentoDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRiservaDifferenza
 			// 
-			this.txtRiservaDifferenza.Location = new System.Drawing.Point(403, 254);
+			this.txtRiservaDifferenza.Location = new System.Drawing.Point(403, 284);
 			this.txtRiservaDifferenza.Name = "txtRiservaDifferenza";
 			this.txtRiservaDifferenza.ReadOnly = true;
 			this.txtRiservaDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtRiservaDifferenza.TabIndex = 134;
+			this.txtRiservaDifferenza.TabIndex = 46;
 			this.txtRiservaDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRiscontiPassiviDifferenza
 			// 
-			this.txtRiscontiPassiviDifferenza.Location = new System.Drawing.Point(403, 228);
+			this.txtRiscontiPassiviDifferenza.Location = new System.Drawing.Point(403, 258);
 			this.txtRiscontiPassiviDifferenza.Name = "txtRiscontiPassiviDifferenza";
 			this.txtRiscontiPassiviDifferenza.ReadOnly = true;
 			this.txtRiscontiPassiviDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtRiscontiPassiviDifferenza.TabIndex = 133;
+			this.txtRiscontiPassiviDifferenza.TabIndex = 42;
 			this.txtRiscontiPassiviDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRiscontiAttiviDifferenza
 			// 
-			this.txtRiscontiAttiviDifferenza.Location = new System.Drawing.Point(403, 202);
+			this.txtRiscontiAttiviDifferenza.Location = new System.Drawing.Point(403, 232);
 			this.txtRiscontiAttiviDifferenza.Name = "txtRiscontiAttiviDifferenza";
 			this.txtRiscontiAttiviDifferenza.ReadOnly = true;
 			this.txtRiscontiAttiviDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtRiscontiAttiviDifferenza.TabIndex = 132;
+			this.txtRiscontiAttiviDifferenza.TabIndex = 38;
 			this.txtRiscontiAttiviDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRateiAttiviDifferenza
 			// 
-			this.txtRateiAttiviDifferenza.Location = new System.Drawing.Point(403, 150);
+			this.txtRateiAttiviDifferenza.Location = new System.Drawing.Point(403, 180);
 			this.txtRateiAttiviDifferenza.Name = "txtRateiAttiviDifferenza";
 			this.txtRateiAttiviDifferenza.ReadOnly = true;
 			this.txtRateiAttiviDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtRateiAttiviDifferenza.TabIndex = 131;
+			this.txtRateiAttiviDifferenza.TabIndex = 30;
 			this.txtRateiAttiviDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtContiDebitoDifferenza
 			// 
-			this.txtContiDebitoDifferenza.Location = new System.Drawing.Point(403, 98);
+			this.txtContiDebitoDifferenza.Location = new System.Drawing.Point(403, 128);
 			this.txtContiDebitoDifferenza.Name = "txtContiDebitoDifferenza";
 			this.txtContiDebitoDifferenza.ReadOnly = true;
 			this.txtContiDebitoDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtContiDebitoDifferenza.TabIndex = 130;
+			this.txtContiDebitoDifferenza.TabIndex = 22;
 			this.txtContiDebitoDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtContiCreditoDifferenza
 			// 
-			this.txtContiCreditoDifferenza.Location = new System.Drawing.Point(403, 124);
+			this.txtContiCreditoDifferenza.Location = new System.Drawing.Point(403, 154);
 			this.txtContiCreditoDifferenza.Name = "txtContiCreditoDifferenza";
 			this.txtContiCreditoDifferenza.ReadOnly = true;
 			this.txtContiCreditoDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtContiCreditoDifferenza.TabIndex = 128;
+			this.txtContiCreditoDifferenza.TabIndex = 26;
 			this.txtContiCreditoDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtImmobilizzazioniDifferenza
 			// 
-			this.txtImmobilizzazioniDifferenza.Location = new System.Drawing.Point(403, 46);
+			this.txtImmobilizzazioniDifferenza.Location = new System.Drawing.Point(403, 76);
 			this.txtImmobilizzazioniDifferenza.Name = "txtImmobilizzazioniDifferenza";
 			this.txtImmobilizzazioniDifferenza.ReadOnly = true;
 			this.txtImmobilizzazioniDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtImmobilizzazioniDifferenza.TabIndex = 126;
+			this.txtImmobilizzazioniDifferenza.TabIndex = 14;
 			this.txtImmobilizzazioniDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRateiPassiviDifferenza
 			// 
-			this.txtRateiPassiviDifferenza.Location = new System.Drawing.Point(403, 176);
+			this.txtRateiPassiviDifferenza.Location = new System.Drawing.Point(403, 206);
 			this.txtRateiPassiviDifferenza.Name = "txtRateiPassiviDifferenza";
 			this.txtRateiPassiviDifferenza.ReadOnly = true;
 			this.txtRateiPassiviDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtRateiPassiviDifferenza.TabIndex = 129;
+			this.txtRateiPassiviDifferenza.TabIndex = 34;
 			this.txtRateiPassiviDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRicaviDifferenza
 			// 
-			this.txtRicaviDifferenza.Location = new System.Drawing.Point(403, 72);
+			this.txtRicaviDifferenza.Location = new System.Drawing.Point(403, 102);
 			this.txtRicaviDifferenza.Name = "txtRicaviDifferenza";
 			this.txtRicaviDifferenza.ReadOnly = true;
 			this.txtRicaviDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtRicaviDifferenza.TabIndex = 127;
+			this.txtRicaviDifferenza.TabIndex = 18;
 			this.txtRicaviDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtCostiDifferenza
@@ -4440,7 +4455,7 @@ namespace upb_default {
 			this.txtCostiDifferenza.Name = "txtCostiDifferenza";
 			this.txtCostiDifferenza.ReadOnly = true;
 			this.txtCostiDifferenza.Size = new System.Drawing.Size(98, 20);
-			this.txtCostiDifferenza.TabIndex = 125;
+			this.txtCostiDifferenza.TabIndex = 6;
 			this.txtCostiDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label50
@@ -4463,192 +4478,192 @@ namespace upb_default {
 			// 
 			// FondoAccantonamentoDareAvere
 			// 
-			this.FondoAccantonamentoDareAvere.Location = new System.Drawing.Point(521, 280);
+			this.FondoAccantonamentoDareAvere.Location = new System.Drawing.Point(521, 310);
 			this.FondoAccantonamentoDareAvere.Name = "FondoAccantonamentoDareAvere";
 			this.FondoAccantonamentoDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.FondoAccantonamentoDareAvere.TabIndex = 122;
+			this.FondoAccantonamentoDareAvere.TabIndex = 78;
 			this.FondoAccantonamentoDareAvere.Text = "Dettagli";
 			this.FondoAccantonamentoDareAvere.UseVisualStyleBackColor = true;
 			this.FondoAccantonamentoDareAvere.Click += new System.EventHandler(this.FondoAccantonamentoDareAvere_Click);
 			// 
 			// RiservaDareAvere
 			// 
-			this.RiservaDareAvere.Location = new System.Drawing.Point(521, 254);
+			this.RiservaDareAvere.Location = new System.Drawing.Point(521, 284);
 			this.RiservaDareAvere.Name = "RiservaDareAvere";
 			this.RiservaDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.RiservaDareAvere.TabIndex = 121;
+			this.RiservaDareAvere.TabIndex = 77;
 			this.RiservaDareAvere.Text = "Dettagli";
 			this.RiservaDareAvere.UseVisualStyleBackColor = true;
 			this.RiservaDareAvere.Click += new System.EventHandler(this.RiservaDareAvere_Click);
 			// 
 			// RiscontiPassiviDareAvere
 			// 
-			this.RiscontiPassiviDareAvere.Location = new System.Drawing.Point(521, 228);
+			this.RiscontiPassiviDareAvere.Location = new System.Drawing.Point(521, 258);
 			this.RiscontiPassiviDareAvere.Name = "RiscontiPassiviDareAvere";
 			this.RiscontiPassiviDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.RiscontiPassiviDareAvere.TabIndex = 120;
+			this.RiscontiPassiviDareAvere.TabIndex = 76;
 			this.RiscontiPassiviDareAvere.Text = "Dettagli";
 			this.RiscontiPassiviDareAvere.UseVisualStyleBackColor = true;
 			this.RiscontiPassiviDareAvere.Click += new System.EventHandler(this.RiscontiPassiviDareAvere_Click);
 			// 
 			// RiscontiAttiviDareAvere
 			// 
-			this.RiscontiAttiviDareAvere.Location = new System.Drawing.Point(521, 202);
+			this.RiscontiAttiviDareAvere.Location = new System.Drawing.Point(521, 232);
 			this.RiscontiAttiviDareAvere.Name = "RiscontiAttiviDareAvere";
 			this.RiscontiAttiviDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.RiscontiAttiviDareAvere.TabIndex = 119;
+			this.RiscontiAttiviDareAvere.TabIndex = 75;
 			this.RiscontiAttiviDareAvere.Text = "Dettagli";
 			this.RiscontiAttiviDareAvere.UseVisualStyleBackColor = true;
 			this.RiscontiAttiviDareAvere.Click += new System.EventHandler(this.RiscontiAttiviDareAvere_Click);
 			// 
 			// RateiPassiviDareAvere
 			// 
-			this.RateiPassiviDareAvere.Location = new System.Drawing.Point(521, 176);
+			this.RateiPassiviDareAvere.Location = new System.Drawing.Point(521, 206);
 			this.RateiPassiviDareAvere.Name = "RateiPassiviDareAvere";
 			this.RateiPassiviDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.RateiPassiviDareAvere.TabIndex = 118;
+			this.RateiPassiviDareAvere.TabIndex = 74;
 			this.RateiPassiviDareAvere.Text = "Dettagli";
 			this.RateiPassiviDareAvere.UseVisualStyleBackColor = true;
 			this.RateiPassiviDareAvere.Click += new System.EventHandler(this.RateiPassiviDareAvere_Click);
 			// 
 			// txtFondoAccantonamentoAvere
 			// 
-			this.txtFondoAccantonamentoAvere.Location = new System.Drawing.Point(280, 280);
+			this.txtFondoAccantonamentoAvere.Location = new System.Drawing.Point(280, 310);
 			this.txtFondoAccantonamentoAvere.Name = "txtFondoAccantonamentoAvere";
 			this.txtFondoAccantonamentoAvere.ReadOnly = true;
 			this.txtFondoAccantonamentoAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtFondoAccantonamentoAvere.TabIndex = 117;
+			this.txtFondoAccantonamentoAvere.TabIndex = 49;
 			this.txtFondoAccantonamentoAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRiservaAvere
 			// 
-			this.txtRiservaAvere.Location = new System.Drawing.Point(280, 254);
+			this.txtRiservaAvere.Location = new System.Drawing.Point(280, 284);
 			this.txtRiservaAvere.Name = "txtRiservaAvere";
 			this.txtRiservaAvere.ReadOnly = true;
 			this.txtRiservaAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtRiservaAvere.TabIndex = 116;
+			this.txtRiservaAvere.TabIndex = 45;
 			this.txtRiservaAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRiscontiPassiviAvere
 			// 
-			this.txtRiscontiPassiviAvere.Location = new System.Drawing.Point(280, 228);
+			this.txtRiscontiPassiviAvere.Location = new System.Drawing.Point(280, 258);
 			this.txtRiscontiPassiviAvere.Name = "txtRiscontiPassiviAvere";
 			this.txtRiscontiPassiviAvere.ReadOnly = true;
 			this.txtRiscontiPassiviAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtRiscontiPassiviAvere.TabIndex = 115;
+			this.txtRiscontiPassiviAvere.TabIndex = 41;
 			this.txtRiscontiPassiviAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRiscontiAttiviAvere
 			// 
-			this.txtRiscontiAttiviAvere.Location = new System.Drawing.Point(280, 202);
+			this.txtRiscontiAttiviAvere.Location = new System.Drawing.Point(280, 232);
 			this.txtRiscontiAttiviAvere.Name = "txtRiscontiAttiviAvere";
 			this.txtRiscontiAttiviAvere.ReadOnly = true;
 			this.txtRiscontiAttiviAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtRiscontiAttiviAvere.TabIndex = 114;
+			this.txtRiscontiAttiviAvere.TabIndex = 37;
 			this.txtRiscontiAttiviAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// RateiAttiviDareAvere
 			// 
-			this.RateiAttiviDareAvere.Location = new System.Drawing.Point(521, 150);
+			this.RateiAttiviDareAvere.Location = new System.Drawing.Point(521, 180);
 			this.RateiAttiviDareAvere.Name = "RateiAttiviDareAvere";
 			this.RateiAttiviDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.RateiAttiviDareAvere.TabIndex = 113;
+			this.RateiAttiviDareAvere.TabIndex = 73;
 			this.RateiAttiviDareAvere.Text = "Dettagli";
 			this.RateiAttiviDareAvere.UseVisualStyleBackColor = true;
 			this.RateiAttiviDareAvere.Click += new System.EventHandler(this.RateiAttiviDareAvere_Click);
 			// 
 			// txtRateiAttiviAvere
 			// 
-			this.txtRateiAttiviAvere.Location = new System.Drawing.Point(280, 150);
+			this.txtRateiAttiviAvere.Location = new System.Drawing.Point(280, 180);
 			this.txtRateiAttiviAvere.Name = "txtRateiAttiviAvere";
 			this.txtRateiAttiviAvere.ReadOnly = true;
 			this.txtRateiAttiviAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtRateiAttiviAvere.TabIndex = 112;
+			this.txtRateiAttiviAvere.TabIndex = 29;
 			this.txtRateiAttiviAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtContiDebitoAvere
 			// 
-			this.txtContiDebitoAvere.Location = new System.Drawing.Point(280, 98);
+			this.txtContiDebitoAvere.Location = new System.Drawing.Point(280, 128);
 			this.txtContiDebitoAvere.Name = "txtContiDebitoAvere";
 			this.txtContiDebitoAvere.ReadOnly = true;
 			this.txtContiDebitoAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtContiDebitoAvere.TabIndex = 110;
+			this.txtContiDebitoAvere.TabIndex = 21;
 			this.txtContiDebitoAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// ContiDebitoDareAvere
 			// 
-			this.ContiDebitoDareAvere.Location = new System.Drawing.Point(521, 98);
+			this.ContiDebitoDareAvere.Location = new System.Drawing.Point(521, 128);
 			this.ContiDebitoDareAvere.Name = "ContiDebitoDareAvere";
 			this.ContiDebitoDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.ContiDebitoDareAvere.TabIndex = 111;
+			this.ContiDebitoDareAvere.TabIndex = 71;
 			this.ContiDebitoDareAvere.Text = "Dettagli";
 			this.ContiDebitoDareAvere.UseVisualStyleBackColor = true;
 			this.ContiDebitoDareAvere.Click += new System.EventHandler(this.ContiDebitoDareAvere_Click);
 			// 
 			// ContiCreditoDareAvere
 			// 
-			this.ContiCreditoDareAvere.Location = new System.Drawing.Point(521, 124);
+			this.ContiCreditoDareAvere.Location = new System.Drawing.Point(521, 154);
 			this.ContiCreditoDareAvere.Name = "ContiCreditoDareAvere";
 			this.ContiCreditoDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.ContiCreditoDareAvere.TabIndex = 108;
+			this.ContiCreditoDareAvere.TabIndex = 72;
 			this.ContiCreditoDareAvere.Text = "Dettagli";
 			this.ContiCreditoDareAvere.UseVisualStyleBackColor = true;
 			this.ContiCreditoDareAvere.Click += new System.EventHandler(this.ContiCreditoDareAvere_Click);
 			// 
 			// txtContiCreditoAvere
 			// 
-			this.txtContiCreditoAvere.Location = new System.Drawing.Point(280, 124);
+			this.txtContiCreditoAvere.Location = new System.Drawing.Point(280, 154);
 			this.txtContiCreditoAvere.Name = "txtContiCreditoAvere";
 			this.txtContiCreditoAvere.ReadOnly = true;
 			this.txtContiCreditoAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtContiCreditoAvere.TabIndex = 107;
+			this.txtContiCreditoAvere.TabIndex = 25;
 			this.txtContiCreditoAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// ImmobilizzazioniDareAvere
 			// 
-			this.ImmobilizzazioniDareAvere.Location = new System.Drawing.Point(521, 46);
+			this.ImmobilizzazioniDareAvere.Location = new System.Drawing.Point(521, 76);
 			this.ImmobilizzazioniDareAvere.Name = "ImmobilizzazioniDareAvere";
 			this.ImmobilizzazioniDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.ImmobilizzazioniDareAvere.TabIndex = 104;
+			this.ImmobilizzazioniDareAvere.TabIndex = 69;
 			this.ImmobilizzazioniDareAvere.Text = "Dettagli";
 			this.ImmobilizzazioniDareAvere.UseVisualStyleBackColor = true;
 			this.ImmobilizzazioniDareAvere.Click += new System.EventHandler(this.ImmobilizzazioniDareAvere_Click);
 			// 
 			// txtImmobilizzazioniAvere
 			// 
-			this.txtImmobilizzazioniAvere.Location = new System.Drawing.Point(280, 46);
+			this.txtImmobilizzazioniAvere.Location = new System.Drawing.Point(280, 76);
 			this.txtImmobilizzazioniAvere.Name = "txtImmobilizzazioniAvere";
 			this.txtImmobilizzazioniAvere.ReadOnly = true;
 			this.txtImmobilizzazioniAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtImmobilizzazioniAvere.TabIndex = 103;
+			this.txtImmobilizzazioniAvere.TabIndex = 13;
 			this.txtImmobilizzazioniAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRateiPassiviAvere
 			// 
-			this.txtRateiPassiviAvere.Location = new System.Drawing.Point(280, 176);
+			this.txtRateiPassiviAvere.Location = new System.Drawing.Point(280, 206);
 			this.txtRateiPassiviAvere.Name = "txtRateiPassiviAvere";
 			this.txtRateiPassiviAvere.ReadOnly = true;
 			this.txtRateiPassiviAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtRateiPassiviAvere.TabIndex = 109;
+			this.txtRateiPassiviAvere.TabIndex = 33;
 			this.txtRateiPassiviAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// RicaviDareAvere
 			// 
-			this.RicaviDareAvere.Location = new System.Drawing.Point(521, 72);
+			this.RicaviDareAvere.Location = new System.Drawing.Point(521, 102);
 			this.RicaviDareAvere.Name = "RicaviDareAvere";
 			this.RicaviDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.RicaviDareAvere.TabIndex = 106;
+			this.RicaviDareAvere.TabIndex = 70;
 			this.RicaviDareAvere.Text = "Dettagli";
 			this.RicaviDareAvere.UseVisualStyleBackColor = true;
 			this.RicaviDareAvere.Click += new System.EventHandler(this.RicaviDareAvere_Click);
 			// 
 			// txtRicaviAvere
 			// 
-			this.txtRicaviAvere.Location = new System.Drawing.Point(280, 72);
+			this.txtRicaviAvere.Location = new System.Drawing.Point(280, 102);
 			this.txtRicaviAvere.Name = "txtRicaviAvere";
 			this.txtRicaviAvere.ReadOnly = true;
 			this.txtRicaviAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtRicaviAvere.TabIndex = 105;
+			this.txtRicaviAvere.TabIndex = 17;
 			this.txtRicaviAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// CostiDareAvere
@@ -4656,7 +4671,7 @@ namespace upb_default {
 			this.CostiDareAvere.Location = new System.Drawing.Point(521, 20);
 			this.CostiDareAvere.Name = "CostiDareAvere";
 			this.CostiDareAvere.Size = new System.Drawing.Size(52, 20);
-			this.CostiDareAvere.TabIndex = 102;
+			this.CostiDareAvere.TabIndex = 67;
 			this.CostiDareAvere.Text = "Dettagli";
 			this.CostiDareAvere.UseVisualStyleBackColor = true;
 			this.CostiDareAvere.Click += new System.EventHandler(this.CostiDareAvere_Click);
@@ -4667,187 +4682,187 @@ namespace upb_default {
 			this.txtCostiAvere.Name = "txtCostiAvere";
 			this.txtCostiAvere.ReadOnly = true;
 			this.txtCostiAvere.Size = new System.Drawing.Size(98, 20);
-			this.txtCostiAvere.TabIndex = 101;
+			this.txtCostiAvere.TabIndex = 5;
 			this.txtCostiAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtFondoAccantonamentoDare
 			// 
-			this.txtFondoAccantonamentoDare.Location = new System.Drawing.Point(153, 280);
+			this.txtFondoAccantonamentoDare.Location = new System.Drawing.Point(153, 310);
 			this.txtFondoAccantonamentoDare.Name = "txtFondoAccantonamentoDare";
 			this.txtFondoAccantonamentoDare.ReadOnly = true;
 			this.txtFondoAccantonamentoDare.Size = new System.Drawing.Size(98, 20);
-			this.txtFondoAccantonamentoDare.TabIndex = 95;
+			this.txtFondoAccantonamentoDare.TabIndex = 48;
 			this.txtFondoAccantonamentoDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRiservaDare
 			// 
-			this.txtRiservaDare.Location = new System.Drawing.Point(153, 254);
+			this.txtRiservaDare.Location = new System.Drawing.Point(153, 284);
 			this.txtRiservaDare.Name = "txtRiservaDare";
 			this.txtRiservaDare.ReadOnly = true;
 			this.txtRiservaDare.Size = new System.Drawing.Size(98, 20);
-			this.txtRiservaDare.TabIndex = 94;
+			this.txtRiservaDare.TabIndex = 44;
 			this.txtRiservaDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRiscontiPassiviDare
 			// 
-			this.txtRiscontiPassiviDare.Location = new System.Drawing.Point(153, 228);
+			this.txtRiscontiPassiviDare.Location = new System.Drawing.Point(153, 258);
 			this.txtRiscontiPassiviDare.Name = "txtRiscontiPassiviDare";
 			this.txtRiscontiPassiviDare.ReadOnly = true;
 			this.txtRiscontiPassiviDare.Size = new System.Drawing.Size(98, 20);
-			this.txtRiscontiPassiviDare.TabIndex = 93;
+			this.txtRiscontiPassiviDare.TabIndex = 40;
 			this.txtRiscontiPassiviDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtRiscontiAttiviDare
 			// 
-			this.txtRiscontiAttiviDare.Location = new System.Drawing.Point(153, 202);
+			this.txtRiscontiAttiviDare.Location = new System.Drawing.Point(153, 232);
 			this.txtRiscontiAttiviDare.Name = "txtRiscontiAttiviDare";
 			this.txtRiscontiAttiviDare.ReadOnly = true;
 			this.txtRiscontiAttiviDare.Size = new System.Drawing.Size(98, 20);
-			this.txtRiscontiAttiviDare.TabIndex = 92;
+			this.txtRiscontiAttiviDare.TabIndex = 36;
 			this.txtRiscontiAttiviDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label49
 			// 
-			this.label49.Location = new System.Drawing.Point(11, 280);
+			this.label49.Location = new System.Drawing.Point(11, 310);
 			this.label49.Name = "label49";
 			this.label49.Size = new System.Drawing.Size(133, 13);
-			this.label49.TabIndex = 91;
+			this.label49.TabIndex = 47;
 			this.label49.Text = "Fondo di Accantonamento";
 			this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label48
 			// 
-			this.label48.Location = new System.Drawing.Point(13, 254);
+			this.label48.Location = new System.Drawing.Point(13, 284);
 			this.label48.Name = "label48";
 			this.label48.Size = new System.Drawing.Size(133, 13);
-			this.label48.TabIndex = 90;
+			this.label48.TabIndex = 43;
 			this.label48.Text = "Riserva";
 			this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label47
 			// 
-			this.label47.Location = new System.Drawing.Point(10, 228);
+			this.label47.Location = new System.Drawing.Point(10, 258);
 			this.label47.Name = "label47";
 			this.label47.Size = new System.Drawing.Size(133, 13);
-			this.label47.TabIndex = 89;
+			this.label47.TabIndex = 39;
 			this.label47.Text = "Risconti Passivi";
 			this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label46
 			// 
-			this.label46.Location = new System.Drawing.Point(10, 202);
+			this.label46.Location = new System.Drawing.Point(10, 232);
 			this.label46.Name = "label46";
 			this.label46.Size = new System.Drawing.Size(133, 13);
-			this.label46.TabIndex = 88;
+			this.label46.TabIndex = 35;
 			this.label46.Text = "Risconti Attivi";
 			this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label38
 			// 
-			this.label38.Location = new System.Drawing.Point(13, 150);
+			this.label38.Location = new System.Drawing.Point(13, 180);
 			this.label38.Name = "label38";
 			this.label38.Size = new System.Drawing.Size(133, 13);
-			this.label38.TabIndex = 85;
+			this.label38.TabIndex = 27;
 			this.label38.Text = "Ratei Attivi";
 			this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtRateiAttiviDare
 			// 
-			this.txtRateiAttiviDare.Location = new System.Drawing.Point(153, 150);
+			this.txtRateiAttiviDare.Location = new System.Drawing.Point(153, 180);
 			this.txtRateiAttiviDare.Name = "txtRateiAttiviDare";
 			this.txtRateiAttiviDare.ReadOnly = true;
 			this.txtRateiAttiviDare.Size = new System.Drawing.Size(98, 20);
-			this.txtRateiAttiviDare.TabIndex = 86;
+			this.txtRateiAttiviDare.TabIndex = 28;
 			this.txtRateiAttiviDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtContiDebitoDare
 			// 
-			this.txtContiDebitoDare.Location = new System.Drawing.Point(153, 98);
+			this.txtContiDebitoDare.Location = new System.Drawing.Point(153, 128);
 			this.txtContiDebitoDare.Name = "txtContiDebitoDare";
 			this.txtContiDebitoDare.ReadOnly = true;
 			this.txtContiDebitoDare.Size = new System.Drawing.Size(98, 20);
-			this.txtContiDebitoDare.TabIndex = 83;
+			this.txtContiDebitoDare.TabIndex = 20;
 			this.txtContiDebitoDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label39
 			// 
-			this.label39.Location = new System.Drawing.Point(10, 98);
+			this.label39.Location = new System.Drawing.Point(10, 128);
 			this.label39.Name = "label39";
 			this.label39.Size = new System.Drawing.Size(136, 13);
-			this.label39.TabIndex = 82;
+			this.label39.TabIndex = 19;
 			this.label39.Text = "Conti di Debito";
 			this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label40
 			// 
-			this.label40.Location = new System.Drawing.Point(11, 124);
+			this.label40.Location = new System.Drawing.Point(11, 154);
 			this.label40.Name = "label40";
 			this.label40.Size = new System.Drawing.Size(135, 13);
-			this.label40.TabIndex = 67;
+			this.label40.TabIndex = 23;
 			this.label40.Text = "Conti di Credito";
 			this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtContiCreditoDare
 			// 
-			this.txtContiCreditoDare.Location = new System.Drawing.Point(153, 124);
+			this.txtContiCreditoDare.Location = new System.Drawing.Point(153, 154);
 			this.txtContiCreditoDare.Name = "txtContiCreditoDare";
 			this.txtContiCreditoDare.ReadOnly = true;
 			this.txtContiCreditoDare.Size = new System.Drawing.Size(98, 20);
-			this.txtContiCreditoDare.TabIndex = 78;
+			this.txtContiCreditoDare.TabIndex = 24;
 			this.txtContiCreditoDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label42
 			// 
-			this.label42.Location = new System.Drawing.Point(11, 46);
+			this.label42.Location = new System.Drawing.Point(11, 76);
 			this.label42.Name = "label42";
 			this.label42.Size = new System.Drawing.Size(135, 13);
-			this.label42.TabIndex = 68;
+			this.label42.TabIndex = 11;
 			this.label42.Text = "Immobilizzazioni";
 			this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtImmobilizzazioniDare
 			// 
-			this.txtImmobilizzazioniDare.Location = new System.Drawing.Point(153, 46);
+			this.txtImmobilizzazioniDare.Location = new System.Drawing.Point(153, 76);
 			this.txtImmobilizzazioniDare.Name = "txtImmobilizzazioniDare";
 			this.txtImmobilizzazioniDare.ReadOnly = true;
 			this.txtImmobilizzazioniDare.Size = new System.Drawing.Size(98, 20);
-			this.txtImmobilizzazioniDare.TabIndex = 74;
+			this.txtImmobilizzazioniDare.TabIndex = 12;
 			this.txtImmobilizzazioniDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label43
 			// 
-			this.label43.Location = new System.Drawing.Point(11, 176);
+			this.label43.Location = new System.Drawing.Point(11, 206);
 			this.label43.Name = "label43";
 			this.label43.Size = new System.Drawing.Size(135, 13);
-			this.label43.TabIndex = 69;
+			this.label43.TabIndex = 31;
 			this.label43.Text = "Ratei Passivi";
 			this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtRateiPassiviDare
 			// 
-			this.txtRateiPassiviDare.Location = new System.Drawing.Point(153, 176);
+			this.txtRateiPassiviDare.Location = new System.Drawing.Point(153, 206);
 			this.txtRateiPassiviDare.Name = "txtRateiPassiviDare";
 			this.txtRateiPassiviDare.ReadOnly = true;
 			this.txtRateiPassiviDare.Size = new System.Drawing.Size(98, 20);
-			this.txtRateiPassiviDare.TabIndex = 80;
+			this.txtRateiPassiviDare.TabIndex = 32;
 			this.txtRateiPassiviDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label44
 			// 
-			this.label44.Location = new System.Drawing.Point(11, 72);
+			this.label44.Location = new System.Drawing.Point(11, 102);
 			this.label44.Name = "label44";
 			this.label44.Size = new System.Drawing.Size(135, 13);
-			this.label44.TabIndex = 70;
+			this.label44.TabIndex = 15;
 			this.label44.Text = "Ricavi";
 			this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtRicaviDare
 			// 
-			this.txtRicaviDare.Location = new System.Drawing.Point(153, 72);
+			this.txtRicaviDare.Location = new System.Drawing.Point(153, 102);
 			this.txtRicaviDare.Name = "txtRicaviDare";
 			this.txtRicaviDare.ReadOnly = true;
 			this.txtRicaviDare.Size = new System.Drawing.Size(98, 20);
-			this.txtRicaviDare.TabIndex = 76;
+			this.txtRicaviDare.TabIndex = 16;
 			this.txtRicaviDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label45
@@ -4855,7 +4870,7 @@ namespace upb_default {
 			this.label45.Location = new System.Drawing.Point(8, 20);
 			this.label45.Name = "label45";
 			this.label45.Size = new System.Drawing.Size(135, 13);
-			this.label45.TabIndex = 71;
+			this.label45.TabIndex = 3;
 			this.label45.Text = "Costi";
 			this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
@@ -4865,7 +4880,7 @@ namespace upb_default {
 			this.txtCostiDare.Name = "txtCostiDare";
 			this.txtCostiDare.ReadOnly = true;
 			this.txtCostiDare.Size = new System.Drawing.Size(98, 20);
-			this.txtCostiDare.TabIndex = 72;
+			this.txtCostiDare.TabIndex = 4;
 			this.txtCostiDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// btnCalcolaTutto
@@ -4874,7 +4889,7 @@ namespace upb_default {
 			this.btnCalcolaTutto.Location = new System.Drawing.Point(577, 19);
 			this.btnCalcolaTutto.Name = "btnCalcolaTutto";
 			this.btnCalcolaTutto.Size = new System.Drawing.Size(83, 25);
-			this.btnCalcolaTutto.TabIndex = 66;
+			this.btnCalcolaTutto.TabIndex = 0;
 			this.btnCalcolaTutto.Text = "Calcola totali";
 			this.btnCalcolaTutto.UseVisualStyleBackColor = true;
 			this.btnCalcolaTutto.Click += new System.EventHandler(this.btnCalcolaTutto_Click);
@@ -5339,7 +5354,7 @@ namespace upb_default {
 			// 
 			this.splitter1.Location = new System.Drawing.Point(326, 0);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 553);
+			this.splitter1.Size = new System.Drawing.Size(3, 581);
 			this.splitter1.TabIndex = 2;
 			this.splitter1.TabStop = false;
 			// 
@@ -5348,10 +5363,56 @@ namespace upb_default {
 			this.upbBindingSource.DataMember = "upb";
 			this.upbBindingSource.DataSource = this.DS;
 			// 
+			// txtAmmortamentiDifferenza
+			// 
+			this.txtAmmortamentiDifferenza.Location = new System.Drawing.Point(403, 46);
+			this.txtAmmortamentiDifferenza.Name = "txtAmmortamentiDifferenza";
+			this.txtAmmortamentiDifferenza.ReadOnly = true;
+			this.txtAmmortamentiDifferenza.Size = new System.Drawing.Size(98, 20);
+			this.txtAmmortamentiDifferenza.TabIndex = 10;
+			this.txtAmmortamentiDifferenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// AmmortamentiDareAvere
+			// 
+			this.AmmortamentiDareAvere.Location = new System.Drawing.Point(521, 46);
+			this.AmmortamentiDareAvere.Name = "AmmortamentiDareAvere";
+			this.AmmortamentiDareAvere.Size = new System.Drawing.Size(52, 20);
+			this.AmmortamentiDareAvere.TabIndex = 68;
+			this.AmmortamentiDareAvere.Text = "Dettagli";
+			this.AmmortamentiDareAvere.UseVisualStyleBackColor = true;
+			this.AmmortamentiDareAvere.Click += new System.EventHandler(this.AmmortamentiDareAvere_Click);
+			// 
+			// txtAmmortamentiAvere
+			// 
+			this.txtAmmortamentiAvere.Location = new System.Drawing.Point(280, 46);
+			this.txtAmmortamentiAvere.Name = "txtAmmortamentiAvere";
+			this.txtAmmortamentiAvere.ReadOnly = true;
+			this.txtAmmortamentiAvere.Size = new System.Drawing.Size(98, 20);
+			this.txtAmmortamentiAvere.TabIndex = 9;
+			this.txtAmmortamentiAvere.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// txtAmmortamentiDare
+			// 
+			this.txtAmmortamentiDare.Location = new System.Drawing.Point(153, 46);
+			this.txtAmmortamentiDare.Name = "txtAmmortamentiDare";
+			this.txtAmmortamentiDare.ReadOnly = true;
+			this.txtAmmortamentiDare.Size = new System.Drawing.Size(98, 20);
+			this.txtAmmortamentiDare.TabIndex = 8;
+			this.txtAmmortamentiDare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label67
+			// 
+			this.label67.Location = new System.Drawing.Point(11, 46);
+			this.label67.Name = "label67";
+			this.label67.Size = new System.Drawing.Size(133, 13);
+			this.label67.TabIndex = 7;
+			this.label67.Text = "Ammortamenti";
+			this.label67.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// Frm_upb_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(1014, 553);
+			this.ClientSize = new System.Drawing.Size(1014, 581);
 			this.Controls.Add(this.splitter1);
 			this.Controls.Add(this.MetaDataDetail);
 			this.Controls.Add(this.treeView1);
@@ -6185,7 +6246,8 @@ namespace upb_default {
 			Out.Tables[0].TableName = "Situazione Annuale U.P.B.";
 
 			frmSituazioneViewer view = new frmSituazioneViewer(Out);
-			view.Show();
+            createForm(view, null);
+            view.Show();
 		}
 
 		private void btnSituazionePluriennale_Click(object sender, System.EventArgs e) {
@@ -6202,7 +6264,8 @@ namespace upb_default {
 			Out.Tables[0].TableName = "Situazione Pluriennale U.P.B.";
 
 			frmSituazioneViewer view = new frmSituazioneViewer(Out);
-			view.Show();
+            createForm(view, null);
+            view.Show();
 		}
 
 		private void btnBilPrevisione_Click(object sender, System.EventArgs e) {
@@ -7011,7 +7074,8 @@ namespace upb_default {
 			Out.Tables[0].TableName = "Situazione Annuale Budget U.P.B.";
 
 			frmSituazioneViewer view = new frmSituazioneViewer(Out);
-			view.Show();
+            createForm(view, null);
+            view.Show();
 		}
 
 		private void btnSituazioneBudget_Click(object sender, EventArgs e) {
@@ -7028,7 +7092,8 @@ namespace upb_default {
 			Out.Tables[0].TableName = "Situazione Pluriennale Budget U.P.B.";
 
 			frmSituazioneViewer view = new frmSituazioneViewer(Out);
-			view.Show();
+            createForm(view, null);
+            view.Show();
 
 		}
 
@@ -7123,6 +7188,10 @@ namespace upb_default {
 
 
 		private decimal DettagliScritture(int bitTipoConto, String dare_o_avere) {
+			return DettagliScritture(bitTipoConto, null, dare_o_avere);
+		}
+
+		private decimal DettagliScritture(int bitTipoConto, int? bitTipoContoToExlcude, String dare_o_avere) {
 			decimal valore;
 			DataRow Curr = HelpForm.GetLastSelected(DS.upb);
 			//int esercizioCurr = (int)Meta.GetSys("esercizio"); //TASK 10134 -Alex 
@@ -7131,13 +7200,15 @@ namespace upb_default {
 			filter = QHS.CmpEq("yentry", Meta.GetSys("esercizio"));
 			filter = QHS.AppAnd(filter, upbComp("idupb", Curr["idupb"]));
 			filter = QHS.AppAnd(filter, QHS.BitSet("flagaccountusage", bitTipoConto));
+			if (bitTipoContoToExlcude!=null) filter = QHS.AppAnd(filter, QHS.BitClear("flagaccountusage",(int)bitTipoContoToExlcude));
 
 			string strExpr = "";
 
 			if (dare_o_avere == "A") {
 				strExpr = "SUM(have)";
 				filter = QHS.AppAnd(filter, QHS.CmpGt("have", 0));
-			} else {
+			}
+			else {
 				strExpr = "SUM(give)";
 				filter = QHS.AppAnd(filter, QHS.CmpGt("give", 0));
 			}
@@ -7229,14 +7300,18 @@ namespace upb_default {
 
 		private void CalcolaTotaliScrittureEP() {
 
+			decimal costiDare = DettagliScritture(6, 17 /*escludo ammortamenti, solo costi puri*/, "D");
+			txtCostiDare.Text = (costiDare).ToString("C");
+			decimal costiAvere = DettagliScritture(6, 17/*escludo ammortamenti, solo costi puri*/, "A");
+			txtCostiAvere.Text = (costiAvere).ToString("C");
+			txtCostiDifferenza.Text = (costiDare - costiAvere).ToString("C");
 
-			decimal costiDare = DettagliScritture(6, "D");
-			decimal ammortamentoDare = DettagliScritture(17, "D");
-			txtCostiDare.Text = (costiDare + ammortamentoDare).ToString("C");
-			decimal costiAvere = DettagliScritture(6, "A");
-			decimal ammortamentoAvere = DettagliScritture(17, "A");
-			txtCostiAvere.Text = (costiAvere + ammortamentoAvere).ToString("C");
-			txtCostiDifferenza.Text = (costiDare + ammortamentoDare - costiAvere - ammortamentoAvere).ToString("C");
+
+			decimal AmmortamentiDare = DettagliScritture(17, "D");
+			txtAmmortamentiDare.Text = AmmortamentiDare.ToString("C");
+			decimal AmmortamentiAvere = DettagliScritture(17, "A");
+			txtAmmortamentiAvere.Text = AmmortamentiAvere.ToString("C");
+			txtAmmortamentiDifferenza.Text = (AmmortamentiDare - AmmortamentiAvere).ToString("C");
 
 
 			decimal immobilizzazioniDare = DettagliScritture(8, "D");
@@ -7467,17 +7542,25 @@ namespace upb_default {
 		//}
 
 
-
-
 		private void VisualizzaDettagliScrittureEP(int flagaccountusage) {
+			VisualizzaDettagliScrittureEP(flagaccountusage, null, null);
+		}
 
+		private void VisualizzaDettagliScrittureEP(int flagaccountusage, int? flagaccountusageToExclude1) {
+			VisualizzaDettagliScrittureEP(flagaccountusage, flagaccountusageToExclude1, null);
+		}
+
+		private  void VisualizzaDettagliScrittureEP(int flagaccountusage, int? flagaccountusageToExclude1, int? flagaccountusageToExclude2 ) {
+			// questo metodo permette di impostare delle condizioni filtro su certi bit del flagaccountusage che non devono essere flaggati
+			// ad esempio se su certi conti costi ad ammortamenti sono flaggati insieme, nel calcolo dei costi non devono figurare dato che sono anche ammortamenti
 			string filter = "";
 			string VistaScelta;
 			DataRow Curr = HelpForm.GetLastSelected(DS.upb);
 			if (Curr == null) return;
 			filter = QHS.AppAnd(filter, upbComp("idupb", Curr["idupb"]));
 			filter = QHS.AppAnd(filter, QHS.BitSet("flagaccountusage", flagaccountusage));
-
+			if(flagaccountusageToExclude1!=null) filter = QHS.AppAnd(filter, QHS.BitClear("flagaccountusage", (int)flagaccountusageToExclude1));
+			if (flagaccountusageToExclude2 != null) filter = filter =  QHS.AppAnd(filter, QHS.BitClear("flagaccountusage", (int)flagaccountusageToExclude2));
 			VistaScelta = "entrydetailview";
 
 			MetaData Mentrydetailview = MetaData.GetMetaData(this, VistaScelta);
@@ -7492,11 +7575,9 @@ namespace upb_default {
 		}
 
 
-
-
-
 		private void CostiDareAvere_Click(object sender, EventArgs e) {
-			VisualizzaDettagliScrittureEP(6);
+			// Escludo Ammortamenti, ove fossero flaggati insieme ai costi
+			VisualizzaDettagliScrittureEP(6,17);
 		}
 
 
@@ -7735,6 +7816,10 @@ namespace upb_default {
 				grpCodUE.Enabled = false;
 
 			}
+		}
+
+		private void AmmortamentiDareAvere_Click(object sender, EventArgs e) {
+			VisualizzaDettagliScrittureEP(17);
 		}
 	}
 }

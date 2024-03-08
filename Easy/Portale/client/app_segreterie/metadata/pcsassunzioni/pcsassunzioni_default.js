@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -38,15 +21,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-pcsassunzioni_default");
+				var arraydef = [];
+				
+				arraydef.push(this.managepcsassunzioni__default_idinquadramento());
+				arraydef.push(this.managepcsassunzioni__default_idinquadramento_start());
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.percentuale)
+				if (this.isNull(parentRow.data))
+					parentRow.data = new Date();
+				if (this.isNull(parentRow.numeropersoneassunzione))
+					parentRow.numeropersoneassunzione = 1;
+				if (this.isNull(parentRow.percentuale))
 					parentRow.percentuale = 100;
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#pcsassunzioni_default_idposition_start'), null);
+				} else {
+					this.helpForm.filter($('#pcsassunzioni_default_idposition_start'), this.q.eq('position_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#pcsassunzioni_default_idposition'), null);
+				} else {
+					this.helpForm.filter($('#pcsassunzioni_default_idposition'), this.q.eq('position_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#pcsassunzioni_default_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#pcsassunzioni_default_idstruttura'), this.q.eq('struttura_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -65,7 +87,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#pcsassunzioni_default_idposition_start'), null);
+				this.helpForm.filter($('#pcsassunzioni_default_idposition'), null);
+				this.enableControl($('#pcsassunzioni_default_stipendio'), true);
+				this.helpForm.filter($('#pcsassunzioni_default_idstruttura'), null);
+				this.enableControl($('#pcsassunzioni_default_totale'), true);
+				this.enableControl($('#pcsassunzioni_default_totale1'), true);
+				this.enableControl($('#pcsassunzioni_default_totale2'), true);
+				this.enableControl($('#pcsassunzioni_default_totale3'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#pcsassunzioni_default_stipendio'), false);
@@ -80,9 +115,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			afterLink: function () {
 				var self = this;
 				$('#pcsassunzioni_default_data').on("change", _.partial(this.managedata, self));
-				$('#pcsassunzioni_default_idcontrattokind').on("change", _.partial(this.manageidcontrattokind, self));
-				$('#pcsassunzioni_default_idcontrattokind_start').on("change", _.partial(this.manageidcontrattokind_start, self));
-				//indico al framework che la tabella getcontrattikindview è cached
+				//indico al framework che la tabella getcontrattikindview Ã¨ cached
 				var getcontrattikindviewTable = this.getDataTable("getcontrattikindview");
 				appMeta.metaModel.cachedTable(getcontrattikindviewTable, true);
 				//fireAfterLink
@@ -94,7 +127,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				});
 			},
 
-			//afterRowSelect
+			afterRowSelect: function (t, r) {
+				var def = appMeta.Deferred("afterRowSelect-pcsassunzioni_default");
+				if (t.name === "positiondefaultview_alias1" && r !== null) {
+					this.manageidposition(this);
+					return def.resolve();
+					
+				}
+				if (t.name === "positiondefaultview" && r !== null) {
+					this.manageidposition_start(this);
+					return def.resolve();
+				}
+				//afterRowSelectin
+				return def.resolve();
+			},
 
 			//afterActivation
 
@@ -104,7 +150,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//insertClick
 
-			//beforePost
+			beforePost: function () {
+				var self = this;
+				this.getDataTable('getcontrattikindview').acceptChanges();
+				//innerBeforePost
+			},
 
 			manageTotali: function (p) {
 				if (p.state.currentRow) {
@@ -116,7 +166,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						currDate = p.getDateTimeFromString(currDateString);
 					//---------------------------0----------------------------------
 					var costoMax = p.getCostoMax(p);
-					//se non è assunto nell'anno corrente azzero il costo per quest'anno
+					//se non Ã¨ assunto nell'anno corrente azzero il costo per quest'anno
 					if (currDate)
 						if (currDate.getFullYear() > p.state.callerState.currentRow.year)
 							costoMax = 0
@@ -141,7 +191,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						costoMax = costoMax * rivalutazione1;
 					}
 
-					//se non è assunto nell'anno corrente azzero il costo per quest'anno
+					//se non Ã¨ assunto nell'anno corrente azzero il costo per quest'anno
 					if (currDate)
 						if (currDate.getFullYear() > (p.state.callerState.currentRow.year + 1))
 							costoMax = 0
@@ -168,7 +218,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							rivalutazione2 = (p.state.callerState.currentRow.incrementodocenti2 + 100) / 100;
 						costoMax = costoMax * rivalutazione2;
 					}
-					//se non è assunto nell'anno corrente azzero il costo per quest'anno
+					//se non Ã¨ assunto nell'anno corrente azzero il costo per quest'anno
 					if (currDate)
 						if (currDate.getFullYear() > (p.state.callerState.currentRow.year + 2))
 							costoMax = 0
@@ -199,7 +249,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						costoMax = costoMax * rivalutazione3;
 					}
 
-					//se non è assunto nell'anno corrente azzero il costo per quest'anno
+					//se non Ã¨ assunto nell'anno corrente azzero il costo per quest'anno
 					if (currDate)
 						if (currDate.getFullYear() > (p.state.callerState.currentRow.year + 3))
 							costoMax = 0
@@ -219,8 +269,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			getCostoArrivo: function (p) {
 				var ck = p.state.DS.tables['getcontrattikindview'];
-				var ckArrivo = $('#pcsassunzioni_default_idcontrattokind').val();
-				var CkArrivoRows = ck.select(p.q.eq('idcontrattokind', parseInt(ckArrivo)));
+				var ckArrivo = $('#pcsassunzioni_default_idposition').val();
+				var CkArrivoRows = ck.select(p.q.eq('idposition', parseInt(ckArrivo)));
 				var costoCkArrivo = 0;
 				if (CkArrivoRows.length > 0)
 					if (CkArrivoRows[0].costolordoannuo)
@@ -233,8 +283,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var costoCkArrivo = p.getCostoArrivo(p);
 
 				var ck = p.state.DS.tables['getcontrattikindview'];
-				var ckPartenza = $('#pcsassunzioni_default_idcontrattokind_start').val();
-				var costoCkPartenzaRows = ck.select(p.q.eq('idcontrattokind', parseInt(ckPartenza)));
+				var ckPartenza = $('#pcsassunzioni_default_idposition_start').val();
+				var costoCkPartenzaRows = ck.select(p.q.eq('idposition', parseInt(ckPartenza)));
 				var costoCkPartenza = 0;
 				if (costoCkPartenzaRows.length > 0)
 					if (costoCkPartenzaRows[0].costolordoannuo)
@@ -245,8 +295,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			isDocente: function (p) {
 				var ck = p.state.DS.tables['getcontrattikindview'];
-				var ckArrivo = $('#pcsassunzioni_default_idcontrattokind').val();
-				var CkArrivoRows = ck.select(p.q.eq('idcontrattokind', parseInt(ckArrivo)));
+				var ckArrivo = $('#pcsassunzioni_default_idposition').val();
+				var CkArrivoRows = ck.select(p.q.eq('idposition', parseInt(ckArrivo)));
 				var output = false;
 				if (CkArrivoRows.length > 0)
 					output = CkArrivoRows[0].tempdef == 'S';
@@ -257,12 +307,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				that.manageTotali(that);
 			},
 
-			manageidcontrattokind: function(that) { 
+			manageidposition: function(that) { 
 				that.manageTotali(that);
 			},
 
-			manageidcontrattokind_start: function(that) { 
+			manageidposition_start: function(that) { 
 				that.manageTotali(that);
+			},
+
+			managepcsassunzioni__default_idinquadramento: function () {
+				var def = appMeta.Deferred("beforeFill-managepcsassunzioni__default_idinquadramento");
+				var self = this;
+				var masterRow = _.find(this.state.DS.tables.positiondefaultview_alias1.rows, function (row) {
+					if (self.state.currentRow.idposition)
+						return row.idposition === self.state.currentRow.idposition;
+					else
+						return null;
+				});
+				if (masterRow)
+					this.state.currentRow.idinquadramento = masterRow.idinquadramento;
+				return def.resolve();
+			},
+
+			managepcsassunzioni__default_idinquadramento_start: function () {
+				var def = appMeta.Deferred("beforeFill-managepcsassunzioni__default_idinquadramento_start");
+				var self = this;
+				var masterRow = _.find(this.state.DS.tables.positiondefaultview.rows, function (row) {
+					if (self.state.currentRow.idposition_start)
+						return row.idposition === self.state.currentRow.idposition_start;
+					else
+						return null;
+				});
+				if (masterRow)
+					this.state.currentRow.idinquadramento_start = masterRow.idinquadramento_start;
+				return def.resolve();
 			},
 
 			//buttons

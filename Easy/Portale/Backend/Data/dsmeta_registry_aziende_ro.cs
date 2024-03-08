@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_registry_aziende_ro"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_registry_aziende_ro: DataSet {
+public partial class dsmeta_registry_aziende_ro: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -98,9 +98,6 @@ public class dsmeta_registry_aziende_ro: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry_aziende 		=> (MetaTable)Tables["registry_aziende"];
 
 	#endregion
 
@@ -414,16 +411,26 @@ private void initClass() {
 	tregistry.defineColumn("gender", typeof(string));
 	tregistry.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry.defineColumn("idaccmotivedebit", typeof(string));
+	tregistry.defineColumn("idateco", typeof(int));
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
 	tregistry.defineColumn("idcity", typeof(int));
+	tregistry.defineColumn("idclassconsorsuale", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
+	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
+	tregistry.defineColumn("idnace", typeof(string));
 	tregistry.defineColumn("idnation", typeof(int));
+	tregistry.defineColumn("idnaturagiur", typeof(int));
+	tregistry.defineColumn("idnumerodip", typeof(int));
 	tregistry.defineColumn("idreg", typeof(int),false);
+	tregistry.defineColumn("idreg_istituti", typeof(int));
 	tregistry.defineColumn("idregistryclass", typeof(string));
 	tregistry.defineColumn("idregistrykind", typeof(int));
+	tregistry.defineColumn("idsasd", typeof(int));
+	tregistry.defineColumn("idstruttura", typeof(int));
 	tregistry.defineColumn("idtitle", typeof(string));
+	tregistry.defineColumn("indicebibliometrico", typeof(int));
 	tregistry.defineColumn("ipa_fe", typeof(string));
 	tregistry.defineColumn("ipa_perlapa", typeof(string));
 	tregistry.defineColumn("location", typeof(string));
@@ -433,33 +440,20 @@ private void initClass() {
 	tregistry.defineColumn("multi_cf", typeof(string));
 	tregistry.defineColumn("p_iva", typeof(string));
 	tregistry.defineColumn("pec_fe", typeof(string));
+	tregistry.defineColumn("pic", typeof(string));
 	tregistry.defineColumn("residence", typeof(int),false);
+	tregistry.defineColumn("ricevimento", typeof(string));
 	tregistry.defineColumn("rtf", typeof(Byte[]));
 	tregistry.defineColumn("sdi_defrifamm", typeof(string));
 	tregistry.defineColumn("sdi_norifamm", typeof(string));
+	tregistry.defineColumn("soggiorno", typeof(string));
 	tregistry.defineColumn("surname", typeof(string));
 	tregistry.defineColumn("title", typeof(string),false);
+	tregistry.defineColumn("title_en", typeof(string));
 	tregistry.defineColumn("toredirect", typeof(int));
 	tregistry.defineColumn("txt", typeof(string));
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
-
-	//////////////////// REGISTRY_AZIENDE /////////////////////////////////
-	var tregistry_aziende= new MetaTable("registry_aziende");
-	tregistry_aziende.defineColumn("ct", typeof(DateTime),false);
-	tregistry_aziende.defineColumn("cu", typeof(string),false);
-	tregistry_aziende.defineColumn("idateco", typeof(int));
-	tregistry_aziende.defineColumn("idnace", typeof(string));
-	tregistry_aziende.defineColumn("idnaturagiur", typeof(int));
-	tregistry_aziende.defineColumn("idnumerodip", typeof(int));
-	tregistry_aziende.defineColumn("idreg", typeof(int),false);
-	tregistry_aziende.defineColumn("lt", typeof(DateTime),false);
-	tregistry_aziende.defineColumn("lu", typeof(string),false);
-	tregistry_aziende.defineColumn("pic", typeof(string));
-	tregistry_aziende.defineColumn("title_en", typeof(string));
-	tregistry_aziende.defineColumn("txt_en", typeof(string));
-	Tables.Add(tregistry_aziende);
-	tregistry_aziende.defineKey("idreg");
 
 	#endregion
 
@@ -514,20 +508,20 @@ private void initClass() {
 	Relations.Add(new DataRelation("FK_ccnlregistry_aziende_ccnl_idccnl",cPar,cChild,false));
 
 	cPar = new []{numerodip.Columns["idnumerodip"]};
-	cChild = new []{registry_aziende.Columns["idnumerodip"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_numerodip_idnumerodip",cPar,cChild,false));
+	cChild = new []{registry.Columns["idnumerodip"]};
+	Relations.Add(new DataRelation("FK_registry_numerodip_idnumerodip",cPar,cChild,false));
 
 	cPar = new []{naturagiurdefaultview.Columns["idnaturagiur"]};
-	cChild = new []{registry_aziende.Columns["idnaturagiur"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_naturagiurdefaultview_idnaturagiur",cPar,cChild,false));
+	cChild = new []{registry.Columns["idnaturagiur"]};
+	Relations.Add(new DataRelation("FK_registry_naturagiurdefaultview_idnaturagiur",cPar,cChild,false));
 
 	cPar = new []{nacedefaultview.Columns["idnace"]};
-	cChild = new []{registry_aziende.Columns["idnace"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_nacedefaultview_idnace",cPar,cChild,false));
+	cChild = new []{registry.Columns["idnace"]};
+	Relations.Add(new DataRelation("FK_registry_nacedefaultview_idnace",cPar,cChild,false));
 
 	cPar = new []{atecodefaultview.Columns["idateco"]};
-	cChild = new []{registry_aziende.Columns["idateco"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_atecodefaultview_idateco",cPar,cChild,false));
+	cChild = new []{registry.Columns["idateco"]};
+	Relations.Add(new DataRelation("FK_registry_atecodefaultview_idateco",cPar,cChild,false));
 
 	cPar = new []{geo_city.Columns["idcity"]};
 	cChild = new []{registry.Columns["idcity"]};
@@ -552,10 +546,6 @@ private void initClass() {
 	cPar = new []{registrykind.Columns["idregistrykind"]};
 	cChild = new []{registry.Columns["idregistrykind"]};
 	Relations.Add(new DataRelation("FK_registry_registrykind_idregistrykind",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{registry_aziende.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_registry_idreg",cPar,cChild,false));
 
 	#endregion
 

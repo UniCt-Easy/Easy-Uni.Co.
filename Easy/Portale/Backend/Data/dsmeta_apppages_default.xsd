@@ -3,6 +3,13 @@
   <xs:element name="dsmeta_apppages_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="apptabcolsnumber" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idapptabcolsnumber" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="apptab" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -10,8 +17,20 @@
               <xs:element name="icon" type="xs:string" minOccurs="0" />
               <xs:element name="idapppages" type="xs:int" />
               <xs:element name="idapptab" type="xs:int" />
+              <xs:element name="idapptabcolsnumber" type="xs:int" minOccurs="0" />
               <xs:element name="position" type="xs:int" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="apprelationkey" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idappfielddetail" type="xs:int" minOccurs="0" />
+              <xs:element name="idappfielddetail_par" type="xs:int" minOccurs="0" />
+              <xs:element name="idapppages" type="xs:int" />
+              <xs:element name="idapprelation" type="xs:int" />
+              <xs:element name="idapprelationkey" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -185,7 +204,6 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idmenuweb" type="xs:int" />
-              <xs:element name="idmenuwebparent" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -231,6 +249,8 @@
               <xs:element name="isvalid" type="xs:string" minOccurs="0" />
               <xs:element name="othersapp" type="xs:string" minOccurs="0" />
               <xs:element name="principale" type="xs:string" />
+              <xs:element name="report" type="xs:string" minOccurs="0" />
+              <xs:element name="reportstored" type="xs:string" minOccurs="0" />
               <xs:element name="staticfilter" type="xs:string" minOccurs="0" />
               <xs:element name="tablename" type="xs:string" />
               <xs:element name="testcustom" type="xs:string" minOccurs="0" />
@@ -243,9 +263,19 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apptabcolsnumber" />
+      <xs:field xpath="mstns:idapptabcolsnumber" />
+    </xs:unique>
+    <xs:unique name="apptab_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:apptab" />
       <xs:field xpath="mstns:idapppages" />
       <xs:field xpath="mstns:idapptab" />
+    </xs:unique>
+    <xs:unique name="apprelationkey_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apprelationkey" />
+      <xs:field xpath="mstns:idapppages" />
+      <xs:field xpath="mstns:idapprelation" />
+      <xs:field xpath="mstns:idapprelationkey" />
     </xs:unique>
     <xs:unique name="apptab_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:apptab_alias3" />
@@ -311,7 +341,9 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_apptab_apppages_idapppages" msdata:parent="apppages" msdata:child="apptab" msdata:parentkey="idapppages" msdata:childkey="idapppages" />
+      <msdata:Relationship name="FK_apptab_apptabcolsnumber_idapptabcolsnumber" msdata:parent="apptabcolsnumber" msdata:child="apptab" msdata:parentkey="idapptabcolsnumber" msdata:childkey="idapptabcolsnumber" />
       <msdata:Relationship name="FK_apprelation_apppages_idapppages" msdata:parent="apppages" msdata:child="apprelation" msdata:parentkey="idapppages" msdata:childkey="idapppages" />
+      <msdata:Relationship name="FK_apprelationkey_apprelation_idapppages-idapprelation" msdata:parent="apprelation" msdata:child="apprelationkey" msdata:parentkey="idapppages idapprelation" msdata:childkey="idapppages idapprelation" />
       <msdata:Relationship name="FK_apprelation_apptab_alias3_idapptab" msdata:parent="apptab_alias3" msdata:child="apprelation" msdata:parentkey="idapptab" msdata:childkey="idapptab" />
       <msdata:Relationship name="FK_apprelation_apppages_alias1_idapppages_parent" msdata:parent="apppages_alias1" msdata:child="apprelation" msdata:parentkey="idapppages" msdata:childkey="idapppages_parent" />
       <msdata:Relationship name="FK_apppages_alias1_applicazione_idapplicazione" msdata:parent="applicazione" msdata:child="apppages_alias1" msdata:parentkey="idapplicazione" msdata:childkey="idapplicazione" />

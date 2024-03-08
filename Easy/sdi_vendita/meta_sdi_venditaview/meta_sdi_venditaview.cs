@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -55,7 +55,8 @@ namespace meta_sdi_venditaview {
 				DescribeAColumn(T, "yinv", "Eserc. Doc. Iva", nPos++);
 				DescribeAColumn(T, "ninv", "Num. Doc. Iva", nPos++);
 				DescribeAColumn(T, "invoicedocdate", "Data emissione", nPos++);
-				DescribeAColumn(T, "identificativo_sdi", "Identificativo SdI", nPos++);
+                DescribeAColumn(T, "expiring", "Scadenza", nPos++);
+                DescribeAColumn(T, "identificativo_sdi", "Identificativo SdI", nPos++);
                 DescribeAColumn(T, "sdi_status", "Stato", nPos++);
                 DescribeAColumn(T, "sdi_deliverystatus", "Stato trasmissione", nPos++);
                 DescribeAColumn(T, "issigned", "Firmato", nPos++);

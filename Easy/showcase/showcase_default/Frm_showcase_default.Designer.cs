@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -131,7 +131,7 @@ namespace showcase_default
 			this.txtMagDescrizione.Name = "txtMagDescrizione";
 			this.txtMagDescrizione.Size = new System.Drawing.Size(522, 20);
 			this.txtMagDescrizione.TabIndex = 1;
-			this.txtMagDescrizione.Tag = "store.description?x";
+			this.txtMagDescrizione.Tag = "store.description?showcaseview.store";
 			// 
 			// button1
 			// 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,7 +32,8 @@ using metaeasylibrary;
 using AllDataSet;
 using EasyWebReport;
 using itinerationFunctions;
-
+using AskCurrencyExchange;
+using CurrencyManager;
 
 public partial class itinerationrefund_default_new02 : MetaPage {
     vistaForm_itinerationrefund DS;
@@ -40,6 +41,9 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     CQueryHelper QHC;
     QueryHelper QHS;
     DataRow ParentMissione;
+
+    Manager currencyManager;
+    bool isUnict = false;
 
     public override DataSet GetDataSet() {
         return DS;
@@ -56,15 +60,17 @@ public partial class itinerationrefund_default_new02 : MetaPage {
 
     }
     public override void AfterLink(bool firsttime, bool formToLink) {
+        currencyManager = new Manager(Meta.Conn, new Uri("https://tassidicambio.bancaditalia.it/terzevalute-wf-web/rest/v1.0/"), 1, 1, ReferenceCurrency.EUR, "EasyWeb");
+
         Meta.Name = "Rimborso spese";
         if (formToLink) {
             cmbClassificazione.DataSource = DS.itinerationrefundkind;
             cmbClassificazione.DataValueField = "iditinerationrefundkind";
             cmbClassificazione.DataTextField = "description";
 
-            cmbValuta.DataSource = DS.currency;
-            cmbValuta.DataValueField = "idcurrency";
-            cmbValuta.DataTextField = "description";
+            //cmbValuta.DataSource = DS.currency;
+            //cmbValuta.DataValueField = "idcurrency";
+            //cmbValuta.DataTextField = "description";
 
             cmbArea.DataSource = DS.foreigncountry;
             cmbArea.DataValueField = "idforeigncountry";
@@ -131,12 +137,25 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         txtDataFine.TextChanged += txtDataFine_LeaveTextBoxHandler;
         txtDataFine.AutoPostBack = true;
         txtImportoDocValuta.TextChanged += txtImportoDocValuta_LeaveTextBoxHandler;
+        txtDataDoc.TextChanged += txtDataDoc_LeaveTextBoxHandler;
+        txtDataDoc.AutoPostBack = true;
         // bottone cancellazione allegato
         HwCancAllegato.Visible = false;
+        txtValuta.LeaveTextBoxHandler += txtValuta_LeaveTextBoxHandler;
     }
-
-
-    public void txtCambio_LeaveTextBoxHandler(object sender, EventArgs e) {
+    public void txtValuta_LeaveTextBoxHandler(object sender, EventArgs e) {
+        string testo = txtValuta.Text;
+        string filter = "";
+        if (testo != "") {
+            if (!testo.EndsWith("%")) testo += "%";
+            if (!testo.StartsWith("%")) testo = "%" + testo;
+            filter = QHS.AppAnd( QHS.CmpEq("active","S"), QHS.Like("description", testo));
+        }
+        //Tag = "AutoChoose.txtValuta.default.(active='S')"
+        CommFun.DoMainCommand("choose.currency.lista." + filter);
+       
+    }
+        public void txtCambio_LeaveTextBoxHandler(object sender, EventArgs e) {
         ConvertiFromValuta(txtImportoRichiestoEUR, txtImportoRichiestoValuta);
         ConvertiFromValuta(txtImportoEffettivoEUR, txtImportoEffettivoValuta);
         ConvertiFromValuta(txtImportoDocEUR, txtImportoDocValuta);
@@ -164,7 +183,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     }
 
     public override void AfterActivation(bool firsttime, bool formToLink) {
-        string filter = MissFun.GetQualificaClasseFilter(Cfg.idposition, Cfg.incomeclass);
+        string filter = MissFun.GetQualificaClasseFilter(Cfg.idposition, Cfg.livello, Cfg.incomeclass);
 
         if (filter == null || filter == "")
             return; // || Meta.InsertMode
@@ -240,6 +259,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     }
 
     public override void AfterRowSelect(DataTable T, DataRow R) {
+        
         if (DS.itinerationrefund.Rows.Count == 0)
             return;
         DataRow Curr = DS.itinerationrefund.Rows[0];
@@ -247,6 +267,11 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         if (T.TableName == "currency")
         {
             AggiornaValuta(R);
+            UiHelper.UpdateControls(this, currencyManager, txtCambio, txtCambio_TextChanged, R, txtDataDoc.Text.Split()[0], txtDataFine.Text.Split()[0]);
+        }
+
+        if (T.TableName == "currencyexchange") {
+            UiHelper.UpdateControls(this, currencyManager, txtCambio, txtCambio_TextChanged, R);
         }
 
         if (T.TableName == "itinerationrefundkind")
@@ -291,7 +316,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         DataRow Curr = DS.itinerationrefund.Rows[0];
         AggiornaLimite(Curr);
         RicalcolaAnticipo();
-        RicalcolaImportoEffettivoValuta();
+        //RicalcolaImportoEffettivoValuta();
         if (grpCambio.Visible) {
             txtImportoRichiestoEUR.Attributes.Add("readonly", "readonly");
             txtImportoEffettivoEUR.Attributes.Add("readonly", "readonly");
@@ -362,29 +387,31 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     }
 
 
-    void RicalcolaImportoEffettivoValuta() {
-        if (DS.itinerationrefund.Rows.Count == 0)
-            return;
-        DataRow Curr = DS.itinerationrefund.Rows[0];
-        double importoEuro = CfgFn.GetNoNullDouble(Curr["amount"]);
-        double importoDocEuro = CfgFn.GetNoNullDouble(Curr["docamount"]);
-        double importoRichiestoEuro = CfgFn.GetNoNullDouble(Curr["requiredamount"]);
-        double exchangeRate = CfgFn.GetNoNullDouble(Curr["exchangerate"]);
-        double importoValuta = 0;
-        double importoDocValuta = 0;
-        double importoRichiestoValuta = 0;
-        if (exchangeRate != 0) {
-            importoValuta = importoEuro / exchangeRate;
-            importoDocValuta = importoDocEuro / exchangeRate;
-            importoRichiestoValuta = importoRichiestoEuro / exchangeRate;
-        }
-        double x = CfgFn.Round(Convert.ToDouble(importoValuta), 2);
-        double x1 = CfgFn.Round(Convert.ToDouble(importoDocValuta), 2);
-        double x2 = CfgFn.Round(Convert.ToDouble(importoRichiestoValuta), 2);
-        txtImportoEffettivoValuta.Text = HelpForm.StringValue(x, "x.y.fixed.8...1");
-        txtImportoDocValuta.Text = HelpForm.StringValue(x1, "x.y.fixed.8...1");
-        txtImportoRichiestoValuta.Text = HelpForm.StringValue(x2, "x.y.fixed.8...1");
-    }
+    //void RicalcolaImportoEffettivoValuta() {
+    //    if (DS.itinerationrefund.Rows.Count == 0)
+    //        return;
+    //    CommFun.GetFormData(true);
+    //    DataRow Curr = DS.itinerationrefund.Rows[0];
+    //    double importoEuro = CfgFn.GetNoNullDouble(Curr["amount"]);  
+    //    double importoDocEuro = CfgFn.GetNoNullDouble(Curr["docamount"]); 
+    //    double importoRichiestoEuro = CfgFn.GetNoNullDouble(Curr["requiredamount"]); 
+        
+    //    double exchangeRate = CfgFn.GetNoNullDouble(Curr["exchangerate"]);
+    //    double importoValuta = 0;
+    //    double importoDocValuta = 0;
+    //    double importoRichiestoValuta = 0;
+    //    if (exchangeRate != 0) {
+    //        importoValuta = importoEuro / exchangeRate;
+    //        importoDocValuta = importoDocEuro / exchangeRate;
+    //        importoRichiestoValuta = importoRichiestoEuro / exchangeRate;
+    //    }
+    //    double x = CfgFn.Round(Convert.ToDouble(importoValuta), 2);
+    //    double x1 = CfgFn.Round(Convert.ToDouble(importoDocValuta), 2);
+    //    double x2 = CfgFn.Round(Convert.ToDouble(importoRichiestoValuta), 2);
+    //    txtImportoEffettivoValuta.Text = HelpForm.StringValue(x, "x.y.fixed.8...1");
+    //    txtImportoDocValuta.Text = HelpForm.StringValue(x1, "x.y.fixed.8...1");
+    //    txtImportoRichiestoValuta.Text = HelpForm.StringValue(x2, "x.y.fixed.8...1");
+    //}
 
     void ClearPerc() {
         DataRow Curr = DS.itinerationrefund.Rows[0];
@@ -439,6 +466,17 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             return "";
         string flaggeo = Curr["flag_geo"].ToString().ToUpper();
         string filter = "";
+        switch (Curr["flag_geo"].ToString()) {
+            case "I":
+                filter = QHS.CmpEq("flag_italy", 'S');
+                break;
+            case "U":
+                filter = QHS.CmpEq("flag_eu", 'S');
+                break;
+            case "E":
+                filter = QHS.CmpEq("flag_extraeu", 'S');
+                break;
+        }
         if (rdoItaly.Checked)
             filter = QHS.CmpEq("flag_italy", 'S');
         if (rdoUe.Checked)
@@ -537,7 +575,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
 
         DataRow rRule = tRule.Rows[0];
         string fRuleDetail = QueryCreator.WHERE_KEY_CLAUSE(rRule, DataRowVersion.Current, false);
-        string fPos = MissFun.GetQualificaClasseFilter(Cfg.idposition, Cfg.incomeclass);
+        string fPos = MissFun.GetQualificaClasseFilter(Cfg.idposition, Cfg.livello, Cfg.incomeclass);
         fRuleDetail = GetData.MergeFilters(fRuleDetail, fPos);
 
         DataRow rRefundKind = RefundKind[0];
@@ -763,6 +801,8 @@ public partial class itinerationrefund_default_new02 : MetaPage {
 
 
     public void txtDataFine_LeaveTextBoxHandler(object sender, EventArgs e) {
+        UiHelper.UpdateControls(this, currencyManager, txtCambio, txtCambio_TextChanged, DS.itinerationrefund.Rows[0], txtDataDoc.Text.Split()[0], txtDataFine.Text.Split()[0]);
+
         if (DS.itinerationrefund.Rows.Count == 0)
             return;
         object d = HelpForm.GetObjectFromString(typeof(DateTime), txtDataFine.Text, txtDataFine.Tag.ToString());
@@ -782,6 +822,11 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         ConvertiFromValuta(txtImportoEffettivoEUR, txtImportoEffettivoValuta);
         ConvertiFromValuta(txtImportoDocEUR, txtImportoDocValuta);
     }
+
+    public void txtDataDoc_LeaveTextBoxHandler(object sender, EventArgs e) {
+        UiHelper.UpdateControls(this, currencyManager, txtCambio, txtCambio_TextChanged, DS.itinerationrefund.Rows[0], txtDataDoc.Text.Split()[0], txtDataFine.Text.Split()[0]);
+    }
+
     void AzzeraRimborso() {
         DataRow Curr = DS.itinerationrefund.Rows[0];
         Curr["amount"] = 0;
@@ -892,7 +937,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             AggiornaPerc(RefundKind[0]);
         }
         RicalcolaAnticipo();//Chiamato implicitamente da AggiornaPerc(). Se non cambia la % può cambiare l'importo 
-        RicalcolaImportoEffettivoValuta();
+        //RicalcolaImportoEffettivoValuta();
         //CheckLimiteAnticipo();
 
 
@@ -906,7 +951,9 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     }
 
     protected void Page_Load(object sender, EventArgs e) {
+        this.isUnict = Session["system_config_catania_missioni"] != null && Session["system_config_catania_missioni"].ToString().ToUpper() == "S";
 
+        if (this.isUnict) txtCambio.ReadOnly = true;
     }
     protected void txtDataInizio_TextChanged(object sender, EventArgs e) {
         AggiornaRimborsoForfettario();
@@ -915,4 +962,3 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         AggiornaRimborsoForfettario();
     }
 }
-

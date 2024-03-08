@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,11 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'assetdiaryora_amount', 'Amount', 'fixed.2', 10, null);
-						this.describeAColumn(table, 'assetdiaryora_start', 'Data e ora di inizio', 'g', 80, null);
-						this.describeAColumn(table, 'assetdiaryora_stop', 'Data e ora di fine', 'g', 90, null);
-						this.describeAColumn(table, 'sal_start', 'Data di inizio Stato avanzamento lavori', null, 150, null);
-						this.describeAColumn(table, 'sal_stop', 'Data di fine Stato avanzamento lavori', null, 150, null);
+						this.describeAColumn(table, 'assetdiaryora_amount', 'Importo', 'fixed.2', 1000, null);
+						this.describeAColumn(table, 'assetdiaryora_start', 'Data e ora di inizio', 'g', 8000, null);
+						this.describeAColumn(table, 'assetdiaryora_stop', 'Data e ora di fine', 'g', 9000, null);
+						this.describeAColumn(table, 'sal_start', 'Data di inizio Stato avanzamento lavori', null, 15100, null);
+						this.describeAColumn(table, 'sal_stop', 'Data di fine Stato avanzamento lavori', null, 15400, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

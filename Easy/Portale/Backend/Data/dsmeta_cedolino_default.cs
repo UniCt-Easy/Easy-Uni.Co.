@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,14 +27,14 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_cedolino_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_cedolino_default: DataSet {
+public partial class dsmeta_cedolino_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable year 		=> (MetaTable)Tables["year"];
+	public MetaTable mese 		=> (MetaTable)Tables["mese"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable mese 		=> (MetaTable)Tables["mese"];
+	public MetaTable year 		=> (MetaTable)Tables["year"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable cedolino 		=> (MetaTable)Tables["cedolino"];
@@ -64,12 +64,6 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_cedolino_default.xsd";
 
 	#region create DataTables
-	//////////////////// YEAR /////////////////////////////////
-	var tyear= new MetaTable("year");
-	tyear.defineColumn("year", typeof(int),false);
-	Tables.Add(tyear);
-	tyear.defineKey("year");
-
 	//////////////////// MESE /////////////////////////////////
 	var tmese= new MetaTable("mese");
 	tmese.defineColumn("idmese", typeof(int),false);
@@ -77,40 +71,46 @@ private void initClass() {
 	Tables.Add(tmese);
 	tmese.defineKey("idmese");
 
+	//////////////////// YEAR /////////////////////////////////
+	var tyear= new MetaTable("year");
+	tyear.defineColumn("year", typeof(int),false);
+	Tables.Add(tyear);
+	tyear.defineKey("year");
+
 	//////////////////// CEDOLINO /////////////////////////////////
 	var tcedolino= new MetaTable("cedolino");
 	tcedolino.defineColumn("!previdenza", typeof(decimal));
 	tcedolino.defineColumn("!tesoro", typeof(decimal));
-	tcedolino.defineColumn("!totalece", typeof(decimal));
 	tcedolino.defineColumn("!tredicesima", typeof(decimal));
 	tcedolino.defineColumn("assegno", typeof(decimal));
 	tcedolino.defineColumn("classe", typeof(int));
 	tcedolino.defineColumn("data", typeof(DateTime));
 	tcedolino.defineColumn("idcedolino", typeof(int),false);
-	tcedolino.defineColumn("idcontratto", typeof(int),false);
 	tcedolino.defineColumn("idmese", typeof(int));
 	tcedolino.defineColumn("idreg", typeof(int),false);
+	tcedolino.defineColumn("idregistrylegalstatus", typeof(int),false);
 	tcedolino.defineColumn("iis", typeof(decimal));
 	tcedolino.defineColumn("irap", typeof(decimal));
 	tcedolino.defineColumn("lordo", typeof(decimal));
 	tcedolino.defineColumn("scatto", typeof(int));
 	tcedolino.defineColumn("stipendio", typeof(decimal));
 	tcedolino.defineColumn("totale", typeof(decimal));
+	tcedolino.defineColumn("totalece", typeof(decimal));
 	tcedolino.defineColumn("year", typeof(int));
 	Tables.Add(tcedolino);
-	tcedolino.defineKey("idcedolino", "idcontratto", "idreg");
+	tcedolino.defineKey("idcedolino", "idreg", "idregistrylegalstatus");
 
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{year.Columns["year"]};
-	var cChild = new []{cedolino.Columns["year"]};
-	Relations.Add(new DataRelation("FK_cedolino_year_year",cPar,cChild,false));
-
-	cPar = new []{mese.Columns["idmese"]};
-	cChild = new []{cedolino.Columns["idmese"]};
+	var cPar = new []{mese.Columns["idmese"]};
+	var cChild = new []{cedolino.Columns["idmese"]};
 	Relations.Add(new DataRelation("FK_cedolino_mese_idmese",cPar,cChild,false));
+
+	cPar = new []{year.Columns["year"]};
+	cChild = new []{cedolino.Columns["year"]};
+	Relations.Add(new DataRelation("FK_cedolino_year_year",cPar,cChild,false));
 
 	#endregion
 

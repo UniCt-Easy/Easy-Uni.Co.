@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -28,8 +28,9 @@ GO
 -- exp_situazioneupbaccount 2017, {ts '2017-12-31 00:00:00'}, 'C','%','N','N', '%','S'
 -- exp_situazioneupbaccount 2017, {ts '2017-12-31 00:00:00'}, 'R','%','17000400010001000200010001','N', '%','S','N'
 
--- exp_situazioneupbaccount 2019, {ts '2019-05-27 00:00:00'}, 'C','%','S','N', '%','N','N' -- @multiannual, @showonlyavailable
+-- exp_situazioneupbaccount 2019, {ts '2019-05-27 00:00:00'}, 'C','%','S','N', 33, '%','N','N' -- @multiannual, @showonlyavailable
 -- exp_situazioneupbaccount 2019, {ts '2019-05-27 00:00:00'}, 'C','%','S','N', '%','S','N' -- @multiannual, @showonlyavailable
+-- exp_situazioneupbaccount 2023, {ts '2023-05-27 00:00:00'}, 'C','%','S','N', '%','S','N' -- @multiannual, @showonlyavailable
 CREATE  PROCEDURE  [exp_situazioneupbaccount]
 (
 	@ayear int,
@@ -38,6 +39,7 @@ CREATE  PROCEDURE  [exp_situazioneupbaccount]
 	@idupb varchar(38),
 	@showupb char(1),
 	@showchildupb char(1),
+	@idman int,
 	@codeacc varchar(50),   --- codeacc
 	@multiannual char(1),
 	@showonlyavailable char(1), -- Mostra solo disponibilità
@@ -83,6 +85,7 @@ CREATE TABLE #situazione_upb_account
 (
 	idupb varchar(36),
 	idacc varchar(38),
+	idman int,
 	prevision decimal(19,2),
 	varprev decimal(19,2),
 	prevision2 decimal(19,2),
@@ -118,7 +121,7 @@ IF @budgetpart = 'C'
 
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -127,7 +130,7 @@ IF @budgetpart = 'C'
 		entryamount   
 	)
 
-		select accountyear.idupb, accountyear.idacc, 
+		select accountyear.idupb, accountyear.idacc, upb.idman,
 		isnull(accountyear.prevision,0)  as prevision, 0 as varprev, 
 		isnull(accountyear.prevision2,0) as prevision2, 0 as varprev2, 
 		isnull(accountyear.prevision3,0) as prevision3, 0 as varprev3, 
@@ -143,6 +146,7 @@ IF @budgetpart = 'C'
 		WHERE prevision IS NOT NULL AND accountyear.ayear = @ayear
 			and A.flagaccountusage&320<>0  
 		AND A.nlevel = @nlevel
+		AND (upb.idman = @idman or @idman is null)
 		and  (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
 			AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02) 
 			AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03) 
@@ -154,7 +158,7 @@ ELSE
 
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -164,7 +168,7 @@ ELSE
 	)
 	 
 
-		select accountyear.idupb, accountyear.idacc, 
+		select accountyear.idupb, accountyear.idacc, upb.idman,
 		isnull(accountyear.prevision,0)  as prevision, 0 as varprev, 
 		isnull(accountyear.prevision2,0) as prevision2, 0 as varprev2, 
 		isnull(accountyear.prevision3,0) as prevision3, 0 as varprev3, 
@@ -180,6 +184,7 @@ ELSE
 		WHERE prevision IS NOT NULL AND accountyear.ayear = @ayear
 			and A.flagaccountusage&128<>0  --ricavi
 		AND A.nlevel = @nlevel
+		AND (upb.idman = @idman or @idman is null)
 		and  (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
 			AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02) 
 			AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03) 
@@ -192,7 +197,7 @@ ELSE
 IF @budgetpart = 'C'
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -201,7 +206,7 @@ IF @budgetpart = 'C'
 		entryamount   
 	)
 
-		select D.idupb, D.idacc, 
+		select D.idupb, D.idacc, upb.idman,
 			0 as prevision,  sum(D.amount) as varprev, 
 			0 as prevision2, sum(D.amount2) as varprev2, 
 			0 as prevision3, sum(D.amount3) as varprev3, 
@@ -226,11 +231,12 @@ IF @budgetpart = 'C'
 				and A.flagaccountusage&320<>0  --costi e immobilizzaz.
 					  
 			AND A.nlevel = @nlevel
-			group by D.idupb, D.idacc
+			AND (upb.idman = @idman or @idman is null)
+			group by D.idupb, D.idacc, upb.idman
 ELSE
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -239,7 +245,7 @@ ELSE
 		entryamount   
 	)
 		--VARIAZIONI DI PREVISIONE NORMALI
-		select D.idupb, D.idacc, 
+		select D.idupb, D.idacc, upb.idman,
 			0 as prevision,  sum(D.amount) as varprev, 
 			0 as prevision2, sum(D.amount2) as varprev2, 
 			0 as prevision3, sum(D.amount3) as varprev3, 
@@ -263,14 +269,15 @@ ELSE
 			and  V.idaccountvarstatus = 5 and V.variationkind <> 5  AND V.yvar = @ayear AND V.adate<= @adate  
 				and A.flagaccountusage&128<>0  --ricavi
 			AND A.nlevel = @nlevel
-			group by D.idupb, D.idacc
+			AND (upb.idman = @idman or @idman is null)
+			group by D.idupb, D.idacc, upb.idman
 
 -- IMPORTI INIZALI DI ESERCIZIO PREIMPEGNI 
 -- flagvariation='N'
 IF @budgetpart = 'C'
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -280,7 +287,7 @@ IF @budgetpart = 'C'
 	)
 
 	
-		SELECT EY.idupb, PARENT.idacc, 
+		SELECT EY.idupb, PARENT.idacc, upb.idman,
 				0 as prevision  ,0 as varprev,			0 as prevision2 ,0 as varprev2,			0 as prevision3 ,0 as varprev3,		0 as prevision4 ,0 as varprev4,			0 as prevision5 ,0 as varprev5,
 				SUM(EY.amount ) as preimp_acc, 
 				SUM(case 
@@ -309,13 +316,14 @@ IF @budgetpart = 'C'
 					AND (Parent.idacc like @idacc OR @idacc is null)
 			WHERE E.nphase = 1 AND EY.ayear = @ayear AND E.adate<= @adate AND @budgetpart = 'C'
 				and E.flagvariation='N'
-				group by EY.idupb, PARENT.idacc
+				AND (upb.idman = @idman or @idman is null)
+				group by EY.idupb, PARENT.idacc, upb.idman
 
 -- flagvariation='S'
 IF @budgetpart = 'C'
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -324,11 +332,11 @@ IF @budgetpart = 'C'
 		entryamount   
 	)
 
-		SELECT EY.idupb, PARENT.idacc, 
+		SELECT EY.idupb, PARENT.idacc, upb.idman,
 				0 as prevision  ,0 as varprev,			0 as prevision2 ,0 as varprev2,			0 as prevision3 ,0 as varprev3,		0 as prevision4 ,0 as varprev4,			0 as prevision5 ,0 as varprev5,
 				SUM(-EY.amount ) as preimp_acc, 
 				SUM(case 
-						when E.yepexp < @ayear THEN  EY.amount 
+						when E.yepexp < @ayear THEN  -EY.amount 
 						else 0 END) as preimp_acc_res, 
 				SUM(case
 						when E.yepexp = @ayear then -EY.amount  
@@ -353,7 +361,8 @@ IF @budgetpart = 'C'
 		AND (Parent.idacc like @idacc OR @idacc is null)
 		and E.flagvariation='S'
 		WHERE E.nphase = 1 AND EY.ayear = @ayear AND E.adate<= @adate AND @budgetpart = 'C'
-		group by EY.idupb, PARENT.idacc
+		AND (upb.idman = @idman or @idman is null)
+		group by EY.idupb, PARENT.idacc, upb.idman
 
 
 IF @budgetpart = 'C'	
@@ -361,7 +370,7 @@ IF @budgetpart = 'C'
 	--E.flagvariation='N'
 		INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -369,7 +378,7 @@ IF @budgetpart = 'C'
 		available,	available2,	available3,	available4,	available5,
 		entryamount   
 	)	
-		SELECT EY.idupb, PARENT.idacc, 
+		SELECT EY.idupb, PARENT.idacc, upb.idman,
 				0 as prevision  ,0 as varprev,	0 as prevision2 ,0 as varprev2,	0 as prevision3 ,0 as varprev3,	0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 				SUM(EV.amount) as preimp_acc, 
 	 			SUM(case 
@@ -397,16 +406,17 @@ IF @budgetpart = 'C'
 			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 			AND (upb.idupb like @idupb OR @idupb = '%') 
 			AND (parent.idacc like @idacc OR @idacc is null)
+			AND (upb.idman = @idman or @idman is null)
 		and E.nphase = 1 AND EY.ayear = @ayear AND E.adate <= @adate AND EV.adate<= @adate  AND @budgetpart = 'C' 
 		and E.flagvariation='N'
-		group by EY.idupb, PARENT.idacc
+		group by EY.idupb, PARENT.idacc, upb.idman
  
 
 IF @budgetpart = 'C'
  	--E.flagvariation='S'
 	INSERT INTO #situazione_upb_account
 (
- 	idupb,	idacc,
+ 	idupb,	idacc, idman,
 	prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 	preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 	preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -415,7 +425,7 @@ IF @budgetpart = 'C'
 	entryamount   
 )
 	
-	SELECT EY.idupb, PARENT.idacc, 
+	SELECT EY.idupb, PARENT.idacc,  upb.idman,
 			0 as prevision  ,0 as varprev,	0 as prevision2 ,0 as varprev2,	0 as prevision3 ,0 as varprev3,	0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 			SUM(-EV.amount ) as preimp_acc, 
 	 		SUM(case 
@@ -443,15 +453,16 @@ IF @budgetpart = 'C'
 		AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 		AND (upb.idupb like @idupb OR @idupb = '%') 
 		AND (parent.idacc like @idacc OR @idacc is null)
+		AND (upb.idman = @idman or @idman is null)
 	and E.nphase = 1 AND EY.ayear = @ayear AND E.adate <= @adate AND EV.adate<= @adate  AND @budgetpart = 'C' 
 	and E.flagvariation='S'
-	group by EY.idupb, PARENT.idacc
+	group by EY.idupb, PARENT.idacc, upb.idman
 
 IF @budgetpart = 'C'
 	--IMPORTI INIZIALI DI ESERCIZIO IMPEGNI
 INSERT INTO #situazione_upb_account
 (
- 	idupb,	idacc,
+ 	idupb,	idacc, idman,
 	prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 	preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 	preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -460,7 +471,7 @@ INSERT INTO #situazione_upb_account
 	entryamount   
 )
 	
-	SELECT EY.idupb, PARENT.idacc,  
+	SELECT EY.idupb, PARENT.idacc,  upb.idman,
 	0 as prevision  ,0 as varprev,0 as prevision2 ,0 as varprev2,	0 as prevision3 ,0 as varprev3,	0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 	0 as preimp_acc, 0 as preimp_acc_res,0 as preimp_acc_comp, 0 as preimp_acc2, 	0 as preimp_acc3, 	0 as preimp_acc4, 	0 as preimp_acc5, 
 	SUM(case when E.flagvariation='N' then EY.amount else -EY.amount  end) as imp_acc,
@@ -481,14 +492,15 @@ INSERT INTO #situazione_upb_account
 		AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 		AND (upb.idupb like @idupb OR @idupb = '%') 
 		AND (parent.idacc like @idacc OR @idacc is null)
+		AND (upb.idman = @idman or @idman is null)
 	and E.nphase = 2 AND EY.ayear = @ayear AND E.adate<= @adate  AND @budgetpart = 'C'
-	group by EY.idupb, PARENT.idacc		
+	group by EY.idupb, PARENT.idacc, upb.idman
 
 IF @budgetpart = 'C'
 	--importi variazioni nell'esercizio  IMPEGNI 	
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -497,7 +509,7 @@ IF @budgetpart = 'C'
 		entryamount   
 	)	
 		
-		SELECT EY.idupb, PARENT.idacc, 
+		SELECT EY.idupb, PARENT.idacc, upb.idman,
 				0 as prevision  ,0 as varprev,	0 as prevision2 ,0 as varprev2,	0 as prevision3 ,0 as varprev3,	0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 				0 as preimp_acc, 0 as preimp_acc_res,0 as preimp_acc_comp, 0 as preimp_acc2, 	0 as preimp_acc3, 	0 as preimp_acc4, 	0 as preimp_acc5,  
 				SUM(case when E.flagvariation='N' then EV.amount else -EV.amount  end) as imp_acc,
@@ -519,8 +531,9 @@ IF @budgetpart = 'C'
 			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 			AND (upb.idupb like @idupb OR @idupb = '%') 
 			AND (parent.idacc like @idacc OR @idacc is null)
+			AND (upb.idman = @idman or @idman is null)
 		and E.nphase = 2 AND EY.ayear = @ayear AND E.adate <= @adate AND EV.adate<= @adate  AND @budgetpart = 'C' 
-		group by EY.idupb, PARENT.idacc
+		group by EY.idupb, PARENT.idacc, upb.idman
  /*
    JOIN upb ON upb.idupb = T.idupb  
   WHERE  (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
@@ -535,7 +548,7 @@ IF @budgetpart = 'C'
 IF @budgetpart = 'R'
 INSERT INTO #situazione_upb_account
 (
- 	idupb,	idacc,
+ 	idupb,	idacc, idman,
 	prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 	preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 	preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -544,7 +557,7 @@ INSERT INTO #situazione_upb_account
 	entryamount   
 )
 	--importi iniziali di esercizio PREACCERTAMENTI
-	SELECT AY.idupb, PARENT.idacc, 
+	SELECT AY.idupb, PARENT.idacc, upb.idman,
 			0 as prevision  ,0 as varprev,	0 as prevision2 ,0 as varprev2,	0 as prevision3 ,0 as varprev3,	0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 			SUM(case when A.flagvariation='N' then AY.amount else -AY.amount end) as preimp_acc, 
 	 		SUM(case 
@@ -573,14 +586,15 @@ INSERT INTO #situazione_upb_account
 		AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 		AND (upb.idupb like @idupb OR @idupb = '%') 
 		AND (parent.idacc like @idacc OR @idacc is null)
+		AND (upb.idman = @idman or @idman is null)
 	AND A.nphase = 1 AND AY.ayear = @ayear AND A.adate<= @adate  AND @budgetpart = 'R' 
-					group by AY.idupb, PARENT.idacc
+					group by AY.idupb, PARENT.idacc, upb.idman
 
 
 IF @budgetpart = 'R'
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -590,7 +604,7 @@ IF @budgetpart = 'R'
 	)
 
 		--importi variazioni nell'esercizio  PREACCERTAMENTI
-		SELECT AY.idupb, PARENT.idacc, 
+		SELECT AY.idupb, PARENT.idacc, upb.idman,
 				0 as prevision  ,0 as varprev,	0 as prevision2 ,0 as varprev2,	0 as prevision3 ,0 as varprev3,	0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 				SUM(case when A.flagvariation='N' then AV.amount else -AV.amount end) as preimp_acc, 
 	 			SUM(case 
@@ -620,13 +634,14 @@ IF @budgetpart = 'R'
 			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 			AND (upb.idupb like @idupb OR @idupb = '%') 
 			AND (parent.idacc like @idacc OR @idacc is null)
+			AND (upb.idman = @idman or @idman is null)
 		and A.nphase = 1 AND AY.ayear = @ayear AND A.adate <= @adate AND AV.adate<= @adate  AND @budgetpart = 'R' 
-		group by AY.idupb, PARENT.idacc
+		group by AY.idupb, PARENT.idacc, upb.idman
 
 IF @budgetpart = 'C'
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -635,7 +650,7 @@ IF @budgetpart = 'C'
 		entryamount   
 	)
 		-- coppie che hanno solo scritture
-		select entrydetail.idupb, PARENT.idacc, 
+		select entrydetail.idupb, PARENT.idacc, upb.idman,
 		0 as prevision  ,0 as varprev,0 as prevision2 ,0 as varprev2,0 as prevision3 ,0 as varprev3,0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 		0 as preimp_acc, 0 as preimp_acc_res,0 as preimp_acc_comp, 	0 as preimp_acc2, 	0 as preimp_acc3, 	0 as preimp_acc4, 	0 as preimp_acc5, 
 		0 as imp_acc,	0 as imp_acc2,	0 as imp_acc3,	0 as imp_acc4,	0 as imp_acc5,
@@ -654,15 +669,16 @@ IF @budgetpart = 'C'
 			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 			AND (upb.idupb like @idupb OR @idupb = '%') 
 			AND (parent.idacc like @idacc OR @idacc is null)
+			AND (upb.idman = @idman or @idman is null)
 		and entrydetail.yentry = @ayear
 			and entry.adate<=@adate
 			and  PARENT.flagaccountusage & 320 <>0  
 		and entry.identrykind NOT IN (6,7,11,12)
-		group by  entrydetail.idupb, PARENT.idacc
+		group by  entrydetail.idupb, PARENT.idacc, upb.idman
 ELSE
 	INSERT INTO #situazione_upb_account
 	(
- 		idupb,	idacc,
+ 		idupb,	idacc, idman,
 		prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 		preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 		preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -671,7 +687,7 @@ ELSE
 		entryamount   
 	)
 		-- coppie che hanno solo scritture
-		select entrydetail.idupb, PARENT.idacc, 
+		select entrydetail.idupb, PARENT.idacc, upb.idman,
 		0 as prevision  ,0 as varprev,0 as prevision2 ,0 as varprev2,0 as prevision3 ,0 as varprev3,0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 		0 as preimp_acc, 0 as preimp_acc_res,0 as preimp_acc_comp, 	0 as preimp_acc2, 	0 as preimp_acc3, 	0 as preimp_acc4, 	0 as preimp_acc5, 
 		0 as imp_acc,	0 as imp_acc2,	0 as imp_acc3,	0 as imp_acc4,	0 as imp_acc5,
@@ -690,16 +706,17 @@ ELSE
 			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 			AND (upb.idupb like @idupb OR @idupb = '%') 
 			AND (parent.idacc like @idacc OR @idacc is null)
+			AND (upb.idman = @idman or @idman is null)
 		and entrydetail.yentry = @ayear
 			and entry.adate<=@adate
 			and  PARENT.flagaccountusage & 128 <>0 
 		and entry.identrykind<>11
-		group by  entrydetail.idupb, PARENT.idacc
+		group by  entrydetail.idupb, PARENT.idacc, upb.idman
 
 IF @budgetpart = 'R'
 INSERT INTO #situazione_upb_account
 (
- 	idupb,	idacc,
+ 	idupb,	idacc, idman,
 	prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 	preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 	preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -709,7 +726,7 @@ INSERT INTO #situazione_upb_account
 )
 
 	--importi iniziali di esercizio ACCERTAMENTI
-	SELECT AY.idupb, PARENT.idacc,  
+	SELECT AY.idupb, PARENT.idacc,  upb.idman,
 	0 as prevision  ,0 as varprev,0 as prevision2 ,0 as varprev2,0 as prevision3 ,0 as varprev3,0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 	0 as preimp_acc, 0 as preimp_acc_res,0 as preimp_acc_comp, 	0 as preimp_acc2, 	0 as preimp_acc3, 	0 as preimp_acc4, 	0 as preimp_acc5, 
 	SUM(case when A.flagvariation='N' then AY.amount else -AY.amount end) as imp_acc,
@@ -730,13 +747,14 @@ INSERT INTO #situazione_upb_account
 		AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 		AND (upb.idupb like @idupb OR @idupb = '%') 
 		AND (parent.idacc like @idacc OR @idacc is null)
+		AND (upb.idman = @idman or @idman is null)
 	and A.nphase = 2 AND AY.ayear = @ayear AND A.adate<= @adate AND @budgetpart = 'R'
-	group by AY.idupb, PARENT.idacc		
+	group by AY.idupb, PARENT.idacc, upb.idman
 		
 IF @budgetpart = 'R'
 INSERT INTO #situazione_upb_account
 (
- 	idupb,	idacc,
+ 	idupb,	idacc, idman,
 	prevision,	varprev,	prevision2,	varprev2,	prevision3,	varprev3,	prevision4,	varprev4,	prevision5,	varprev5,
 	preimp_acc, 	preimp_acc_res, 	preimp_acc_comp,	
 	preimp_acc2,	preimp_acc3, 	preimp_acc4, 	preimp_acc5,
@@ -746,7 +764,7 @@ INSERT INTO #situazione_upb_account
 )
 
 	--importi variazioni di esercizio ACCERTAMENTI
-	SELECT AY.idupb, PARENT.idacc,  
+	SELECT AY.idupb, PARENT.idacc,  upb.idman,
 	0 as prevision  ,0 as varprev,0 as prevision2 ,0 as varprev2,0 as prevision3 ,0 as varprev3,0 as prevision4 ,0 as varprev4,	0 as prevision5 ,0 as varprev5,
 	0 as preimp_acc, 0 as preimp_acc_res,0 as preimp_acc_comp, 	0 as preimp_acc2, 	0 as preimp_acc3, 	0 as preimp_acc4, 	0 as preimp_acc5, 
 	SUM(case when A.flagvariation='N' then AV.amount else -AV.amount end) as imp_acc,
@@ -768,8 +786,9 @@ INSERT INTO #situazione_upb_account
 		AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05) 
 		AND (upb.idupb like @idupb OR @idupb = '%') 
 		AND (AY.idacc like @idacc OR @idacc is null)
+		AND (upb.idman = @idman or @idman is null)
 		and  A.nphase = 2 AND AY.ayear = @ayear AND A.adate<= @adate AND AV.adate<= @adate  AND @budgetpart = 'R'
-	group by AY.idupb, PARENT.idacc		
+	group by AY.idupb, PARENT.idacc, upb.idman
 		
 
 DECLARE @StringSelect nvarchar(max)
@@ -817,7 +836,8 @@ Begin
 						' SE.sortcode  as ''Codice Budget Economico'','+	
 						' SE.description  as ''Descrizione Budget Economico'','+	
 						' SI.sortcode  as ''Codice Budget Investimenti'','+	
-						' SI.description  as ''Descrizione Budget Investimenti'','
+						' SI.description  as ''Descrizione Budget Investimenti'',' +
+						' MAN.title as ''Responsabile'','
 
 						IF (@showupb ='S') 
 							BEGIN
@@ -882,14 +902,14 @@ Begin
 						' isnull(sum(T.imp_acc5),0)	  as ''Imp. Corrente ' + @NomeFase_2   + @ayear5Str + ''','+  
 						' isnull(sum(T.prevision5),0)+ isnull(sum(T.varprev5),0) - ' +
 						' isnull(sum(T.preimp_acc5),0)    as ''Budget  Disp. (Budget corrente- ' +  @NomeFase_1  + @ayear5Str + ')''' 
-
+				--TOTALE Budget  Disp. Pluriennale (Budget corrente- Preimpegni Budg. )
 						+','+
 						'   isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0) - isnull(sum(T.preimp_acc),0) '+
 						' + isnull(sum(T.prevision2),0) + isnull(sum(T.varprev2),0) -isnull(sum(T.preimp_acc2),0) '+
 						' + isnull(sum(T.prevision3),0) + isnull(sum(T.varprev3),0) -isnull(sum(T.preimp_acc3),0) '+
 						' + isnull(sum(T.prevision4),0) + isnull(sum(T.varprev4),0) -isnull(sum(T.preimp_acc4),0) '+
 						' + isnull(sum(T.prevision5),0) + isnull(sum(T.varprev5),0) -isnull(sum(T.preimp_acc5),0) '+
-						'  as ''TOTALE Budget  Disp. (Budget corrente- ' + @NomeFase_1 + ')'''+
+						'  as ''TOTALE Budget  Disp. Pluriennale (Budget corrente- ' + @NomeFase_1 + ')'''+
 						','+
 						'  isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0) as  ''TOTALE '+ @Preimp_NomeScritture +''''
 		
@@ -902,7 +922,8 @@ Begin
 						' SE.sortcode  as ''Codice Budget Economico'','+	
 						' SE.description  as ''Descrizione Budget Economico'','+	
 						' SI.sortcode  as ''Codice Budget Investimenti'','+	
-						' SI.description  as ''Descrizione Budget Investimenti'','
+						' SI.description  as ''Descrizione Budget Investimenti'',' +
+						' MAN.title as ''Responsabile'','
 
 						IF (@showupb ='S') 
 							BEGIN
@@ -942,7 +963,7 @@ Begin
 							' + isnull(sum(T.prevision3),0) + isnull(sum(T.varprev3),0) -isnull(sum(T.preimp_acc3),0) '+
 							' + isnull(sum(T.prevision4),0) + isnull(sum(T.varprev4),0) -isnull(sum(T.preimp_acc4),0) '+
 							' + isnull(sum(T.prevision5),0) + isnull(sum(T.varprev5),0) -isnull(sum(T.preimp_acc5),0) '+
-							' as ''TOTALE Budget  Disp. (Budget corrente- ' + @NomeFase_1 + ')'''
+							' as ''TOTALE Budget  Disp. Pluriennale  (Budget corrente- ' + @NomeFase_1 + ')'''
 						+','+
 						'  isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0)  as  ''TOTALE '+ @Preimp_NomeScritture +''''
 
@@ -958,7 +979,8 @@ Begin
 					SET @StringSelect = 
 					' SELECT ' +
 						' account.codeacc AS ''Codice Conto'',' +
-						' account.title as ''Conto'','
+						' account.title as ''Conto'',' +
+						' MAN.title as ''Responsabile'','
 
 						IF (@showupb ='S') 
 							BEGIN
@@ -980,7 +1002,7 @@ Begin
 						' + isnull(sum(T.prevision3),0) + isnull(sum(T.varprev3),0) -isnull(sum(T.preimp_acc3),0) '+
 						' + isnull(sum(T.prevision4),0) + isnull(sum(T.varprev4),0) -isnull(sum(T.preimp_acc4),0) '+
 						' + isnull(sum(T.prevision5),0) + isnull(sum(T.varprev5),0) -isnull(sum(T.preimp_acc5),0) '+
-						'  as ''TOTALE Budget  Disp. (Budget corrente- ' + @NomeFase_1 + ')'''+
+						'  as ''TOTALE Budget  Disp. Pluriennale  (Budget corrente- ' + @NomeFase_1 + ')'''+
 						','+
 						'  isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0) as  ''TOTALE '+ @Preimp_NomeScritture +''''
 		
@@ -989,7 +1011,8 @@ Begin
 				BEGIN
 					SET @StringSelect = ' SELECT ' +
 						' account.codeacc AS ''Codice Conto'',' +
-						' account.title as ''Conto'','
+						' account.title as ''Conto'',' + 
+						' MAN.title as ''Responsabile'','
 
 						IF (@showupb ='S') 
 							BEGIN
@@ -1005,7 +1028,7 @@ Begin
 						' + isnull(sum(T.prevision3),0) + isnull(sum(T.varprev3),0) -isnull(sum(T.preimp_acc3),0) '+
 						' + isnull(sum(T.prevision4),0) + isnull(sum(T.varprev4),0) -isnull(sum(T.preimp_acc4),0) '+
 						' + isnull(sum(T.prevision5),0) + isnull(sum(T.varprev5),0) -isnull(sum(T.preimp_acc5),0) '+
-						' as ''TOTALE Budget  Disp. (Budget corrente- ' + @NomeFase_1 + ')'''
+						' as ''TOTALE Budget  Disp. Pluriennale (Budget corrente- ' + @NomeFase_1 + ')'''
 						+','+
 						' isnull(sum(T.preimp_acc),0) - isnull(sum(T.entryamount),0) as '''+@Preimp_NomeScritture + /* new*/+''''+
 						+','+
@@ -1030,8 +1053,9 @@ DECLARE @StringFrom nvarchar(3000)
 ' JOIN account on account.idacc = T.idacc ' +
 ' LEFT OUTER JOIN sorting SE on account.idsor_economicbudget = SE.idsor '  + 
 ' LEFT OUTER JOIN sorting SI on account.idsor_investmentbudget = SI.idsor '  + 
+' LEFT OUTER JOIN manager MAN on MAN.idman = T.idman' +
 ' GROUP BY	account.ayear, ' +
-			' account.idacc,	account.codeacc, account.title, ' +
+			' account.idacc,	account.codeacc, account.title, MAN.title,' +
 			' SE.sortcode, SE.description, SI.sortcode, SI.description '
 
 IF (@showupb ='S') 
@@ -1043,8 +1067,9 @@ IF (@showupb ='S')
 		' LEFT OUTER JOIN sorting SE on account.idsor_economicbudget = SE.idsor '  + 
 		' LEFT OUTER JOIN sorting SI on account.idsor_investmentbudget = SI.idsor '  + 
 		' LEFT OUTER JOIN epupbkind ON epupbkind.idepupbkind = upb.idepupbkind '+
+		' LEFT OUTER JOIN manager MAN on MAN.idman = T.idman' +
 		' GROUP BY	account.ayear, ' +
-					' account.idacc,	account.codeacc, account.title, ' +
+					' account.idacc,	account.codeacc, account.title, MAN.title,' +
 					' upb.idupb, upb.codeupb, upb.title, SE.sortcode, SE.description, SI.sortcode, SI.description, '+
 					' epupbkind.title, upb.start, upb.stop , upb.expiration,upb.flagactivity, epupbkind.flag '
 	END

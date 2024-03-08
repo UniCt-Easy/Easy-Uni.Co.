@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_ricostruzioneanniaccademici_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_ricostruzioneanniaccademici_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ricostruzioneanniaccademici" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anninonvalidi" type="xs:string" minOccurs="0" />
+              <xs:element name="annoaccademico" type="xs:string" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idricostruzione" type="xs:int" />
+              <xs:element name="servizi" type="xs:string" minOccurs="0" />
+              <xs:element name="serviziorows" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ricostruzioneanniaccademici" />
+      <xs:field xpath="mstns:annoaccademico" />
+      <xs:field xpath="mstns:idricostruzione" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

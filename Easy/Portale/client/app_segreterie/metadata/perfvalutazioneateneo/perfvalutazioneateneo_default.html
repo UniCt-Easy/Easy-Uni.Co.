@@ -7,19 +7,26 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneo_default_year">Anno</label>
-					<select id="perfvalutazioneateneo_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-custom-control="combo" data-tag="perfvalutazioneateneo.year?perfvalutazioneateneodefaultview.year" data-subentity   > </select>
+					<select id="perfvalutazioneateneo_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-sort-member="" data-custom-control="combo" data-tag="perfvalutazioneateneo.year?perfvalutazioneateneodefaultview.year" data-subentity   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneateneo_default_XXperfvalutazioneateneores" >Risultati della performance istituzionale</div>
-				<div class="gridx" id="grid_perfvalutazioneateneores_default" data-tag="perfvalutazioneateneores.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_perfvalutazioneateneores_default" data-tag="perfvalutazioneateneores.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneo_default_performance">Performance</label>
 					<input id="perfvalutazioneateneo_default_performance" type="text" class="form-control" data-tag="perfvalutazioneateneo.performance.fixed.2?perfvalutazioneateneodefaultview.perfvalutazioneateneo_performance" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfvalutazioneateneo_default_calcoloautomatico">Risultato calcolato automaticamente</label>
+					<div class="custom-control custom-radio">
+						<input id="perfvalutazioneateneo_default_calcoloautomaticoSi" type="radio" name="perfvalutazioneateneo_default_calcoloautomatico" class="custom-control-input" data-tag="perfvalutazioneateneo.calcoloautomatico:S?perfvalutazioneateneodefaultview.calcoloautomatico:Si" data-subentity  ><label for="perfvalutazioneateneo_default_calcoloautomaticoSi"> Si</label>
+						<input id="perfvalutazioneateneo_default_calcoloautomaticoNo" type="radio" name="perfvalutazioneateneo_default_calcoloautomatico" class="custom-control-input" data-tag="perfvalutazioneateneo.calcoloautomatico:N?perfvalutazioneateneodefaultview.calcoloautomatico:No" data-subentity  ><label for="perfvalutazioneateneo_default_calcoloautomaticoNo"> No</label>
+					</div>
 				</div>
 			</div>
 </form>

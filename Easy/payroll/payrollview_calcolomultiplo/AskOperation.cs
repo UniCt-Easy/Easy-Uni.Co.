@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,9 +42,9 @@ namespace payrollview_calcolomultiplo
 		public AskOperation(int idCedolino)
 		{
 			InitializeComponent();
-			lblQuestion.Text = "Vuoi generare gli impegni di budget per il cedolino n. " + idCedolino
-				+ "?\nSe si risponde Si, Tutti questa domanda non verrà rifatta per i cedolini successivi per i quali verranno generati gli impengi di budget"
-				+ "\nSe si risponde No, Tutti questa domanda non verrà rifatta per i cedolini successivi per i quali non verranno generati gli impegni di budget";
+			lblQuestion.Text = "Vuoi generare le scritture e/o gli impegni di budget per il cedolino n. " + idCedolino
+				+ "?\nSe si risponde Si, Tutti questa domanda non verrà rifatta per i cedolini successivi per i quali verranno generate le scritture e/o gli impegni di budget"
+				+ "\nSe si risponde No, Tutti questa domanda non verrà rifatta per i cedolini successivi per i quali non verranno generate le scritture e/o gli impegni di budget";
 		}
 
 		/// <summary>

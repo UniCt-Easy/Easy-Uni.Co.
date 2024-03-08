@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -683,6 +683,7 @@ namespace csa_import_inail_maxphase {
 						if (R.Table.Columns[field] == null) continue;
 						NewLastMov[field] = R[field];
 					}
+					
 				}
 			}
 			else {
@@ -930,9 +931,9 @@ namespace csa_import_inail_maxphase {
 				}
 
 				DataRow NewLastRow = MetaL.Get_New_Row(NewMovRow, dsFinancial.Tables[tMainLast]);
-                if (CfgFn.GetNoNullDecimal(R["netto"]) != 0) {
-                    fillLastMovimento(IoE, R, NewLastRow);
-                }
+                
+                fillLastMovimento(IoE, R, NewLastRow);
+                
                 
                 DataRow NewImpMov = ImpMov.NewRow();
 
@@ -1123,12 +1124,13 @@ namespace csa_import_inail_maxphase {
             tracciato = getTracciato(tracciato_sospeso);
             TableTracciato = getTableTracciato(tracciato_sospeso);
             FrmShowTracciato FT = new FrmShowTracciato(tracciato, TableTracciato, "struttura");
+            createForm(FT, null);
             FT.ShowDialog();
         }
 
         string[] tracciato_sospeso =
 		  new string[]{
-							"DENOMINAZIONE_ANAGRAFICA;Anagrafica;Stringa;150",
+							"CODICE_ANAGRAFICA;Cod. Anagrafica (idreg numerico);Intero;8",
 							"N_SOSPESO;Numero sospeso(nbill);Intero;8",
 							"IMPORTO;Importo;Numero;22"
 	   };
@@ -1149,26 +1151,32 @@ namespace csa_import_inail_maxphase {
 		}
 
 
-		Dictionary<string, int> __myidReg = new Dictionary<string, int>();
 
-		private object getAnagrafica(object denominazione_anagrafica) {
-			if ((denominazione_anagrafica == null) || (denominazione_anagrafica == DBNull.Value)) return null;
-			string key = denominazione_anagrafica.ToString();
-			if (__myidReg.ContainsKey(key))
+		// Evito di far scegliere anagrafiche non attive
+		Dictionary<int, DataRow> __myidReg = new Dictionary<int, DataRow>();
+
+		private DataRow GetAnagrafica(object codice_anagrafica) {
+			int key = CfgFn.GetNoNullInt32(codice_anagrafica);
+
+			if ((codice_anagrafica == null) || (codice_anagrafica == DBNull.Value) || (key == 0)) return null;
+			if (__myidReg.ContainsKey(key)) {
+
 				return __myidReg[key];
-			string filtro = QHS.AppAnd(QHS.CmpEq("title", denominazione_anagrafica), QHS.NullOrEq("active", "S"));
-
-			DataTable Registry = Conn.RUN_SELECT("registry", "*", null, filtro, null, true);
+			}
+			string filtro = QHS.AppAnd(QHS.CmpEq("idreg", codice_anagrafica), QHS.NullOrEq("active", "S"));
+			DataTable Registry = Conn.RUN_SELECT("registry", "idreg,title", null, filtro, null, true);
 			if (Registry.Rows.Count == 0) return null;
 			DataRow DefRow = Registry.Rows[0];
-			__myidReg[key] = CfgFn.GetNoNullInt32(DefRow["idreg"]);
+			__myidReg[key] = DefRow;
 			return __myidReg[key];
 		}
+
 		private void fillSospesi() {
 			if (!VerificaFileSospesi(mData)) return;
 			csa_bill_global.Clear();
 			DataTable csa_bill  = mData.Clone();
 			csa_bill.Columns.Add("idreg", typeof(int));
+			csa_bill.Columns.Add("DENOMINAZIONE_ANAGRAFICA", typeof(string));
 			csa_bill.Columns.Remove("importo");
 			csa_bill.Columns.Remove("N_SOSPESO");
 			csa_bill.Columns.Add("amount", typeof(Decimal));
@@ -1176,6 +1184,7 @@ namespace csa_import_inail_maxphase {
 			csa_bill.Columns.Add("motive", typeof(string));
 			csa_bill.Columns.Add("datasospeso", typeof(DateTime));
 
+			csa_bill.Columns["CODICE_ANAGRAFICA"].Caption = "#Cod. Anagrafica";
 			csa_bill.Columns["DENOMINAZIONE_ANAGRAFICA"].Caption = "Anagrafica";
 			csa_bill.Columns["nbill"].Caption = "N. Sospeso";
 			csa_bill.Columns["amount"].Caption = "Importo";
@@ -1187,8 +1196,13 @@ namespace csa_import_inail_maxphase {
 
 				if (CfgFn.GetNoNullDecimal(rFile["importo"]) != 0) {
 					var rSospeso = csa_bill.NewRow();
-					rSospeso["DENOMINAZIONE_ANAGRAFICA"] = rFile["DENOMINAZIONE_ANAGRAFICA"];
-					rSospeso["idreg"] = getAnagrafica(rFile["DENOMINAZIONE_ANAGRAFICA"]);
+					DataRow Reg = GetAnagrafica(rFile["CODICE_ANAGRAFICA"]);
+
+					if (Reg != null) {
+						rSospeso["idreg"] = Reg["idreg"];
+						rSospeso["CODICE_ANAGRAFICA"] = Reg["idreg"];
+						rSospeso["DENOMINAZIONE_ANAGRAFICA"] = Reg["title"];
+					}
 					rSospeso["nbill"] = rFile["N_SOSPESO"];
 					rSospeso["amount"] = CfgFn.GetNoNullDecimal(rFile["IMPORTO"]);
 					rSospeso["motive"] = getMotiveForNbill(rFile["N_SOSPESO"]);
@@ -1241,7 +1255,7 @@ namespace csa_import_inail_maxphase {
 			string ftype = ff[2].ToLower().Trim(); //(intero/numero/stringa/codificato/data)
 			int rownum = 0;
 			foreach (DataRow riga in mData.Select()) {
-				string val = riga[fieldname].ToString().Trim();
+				string val = riga[fieldname].ToString().Trim().ToLower();
 				rownum++;
 				switch (fieldname) {
 
@@ -1256,9 +1270,9 @@ namespace csa_import_inail_maxphase {
 							ok = false;
 						}
 						break;
-					case "denominazione_anagrafica":
-						if ((getAnagrafica(val) == DBNull.Value) || (getAnagrafica(val) == null)) {
-							string err = "Anagrafica non trovata nella decodifica del campo " + fieldname +
+					case "codice_anagrafica":
+						if (GetAnagrafica(val) == null) {
+							string err = "Anagrafica non trovata (o disattiva) nella decodifica del campo " + fieldname +
 											" di tipo " + ftype + " e di valore " +
 							val.Trim() + " alla riga " + rownum;
 							DataRow row = T.NewRow();
@@ -1358,7 +1372,7 @@ namespace csa_import_inail_maxphase {
 			mData.Columns.Clear();
 			switch (kind) {
 				case "S": {
-						mData.Columns.Add("DENOMINAZIONE_ANAGRAFICA", typeof(string));
+						mData.Columns.Add("CODICE_ANAGRAFICA", typeof(string));
 						mData.Columns.Add("N_SOSPESO", typeof(int));
 						mData.Columns.Add("IMPORTO", typeof(decimal));
 						break;

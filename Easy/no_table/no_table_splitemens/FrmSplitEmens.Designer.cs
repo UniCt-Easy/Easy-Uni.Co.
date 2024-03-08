@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -55,8 +55,8 @@ namespace no_table_splitemens
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnLeggi = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.txtDirectory = new System.Windows.Forms.TextBox();
             this.btnDirectory = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -69,6 +69,9 @@ namespace no_table_splitemens
             this.txtSedeINPS = new System.Windows.Forms.TextBox();
             this.btnAnnulla = new System.Windows.Forms.Button();
             this.btnUniEmens = new System.Windows.Forms.Button();
+            this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridFile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -168,12 +171,12 @@ namespace no_table_splitemens
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "xml";
-            this.saveFileDialog1.Title = "Specificare il nome del file da produrre:";
+            //this.saveFileDialog1.DefaultExt = "xml";
+            //this.saveFileDialog1.Title = "Specificare il nome del file da produrre:";
             // 
             // folderBrowserDialog1
             // 
-            this.folderBrowserDialog1.Description = "Indicare la cartella dove sono presenti i file Emens da consolidare:";
+            //this.folderBrowserDialog1.Description = "Indicare la cartella dove sono presenti i file Emens da consolidare:";
             // 
             // txtDirectory
             // 
@@ -328,8 +331,8 @@ namespace no_table_splitemens
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnLeggi;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.TextBox txtDirectory;
         private System.Windows.Forms.Button btnDirectory;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -341,6 +344,9 @@ namespace no_table_splitemens
         private System.Windows.Forms.TextBox txtSedeINPS;
         private System.Windows.Forms.Button btnAnnulla;
         private System.Windows.Forms.Button btnUniEmens;
+        private metadatalibrary.IOpenFileDialog openFileDialog1;
+        private metadatalibrary.ISaveFileDialog saveFileDialog1;
+        private metadatalibrary.IFolderBrowserDialog folderBrowserDialog1;
 
     }
 }

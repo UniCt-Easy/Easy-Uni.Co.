@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -56,8 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'istanzaparent_idreg_studenti', 'Studente Istanza collegata', null, 110, null);
 						this.describeAColumn(table, 'istanzaparent_aa', 'Anno accademico Istanza collegata', null, 110, 9);
 						this.describeAColumn(table, 'istanzaparent_data', 'Data Istanza collegata', 'g', 110, null);
-						this.describeAColumn(table, 'dichiar_aa', 'Anno Accademico Dichiarazione per la quale esonerare una o più attività', null, 510, 9);
-						this.describeAColumn(table, 'dichiar_extension', 'Tabella che estende il record Dichiarazione per la quale esonerare una o più attività', null, 510, 200);
+						this.describeAColumn(table, 'dichiar_aa', 'Anno Accademico Dichiarazione per la quale esonerare una o piÃ¹ attivitÃ ', null, 510, 9);
+						this.describeAColumn(table, 'dichiar_extension', 'Tabella che estende il record Dichiarazione per la quale esonerare una o piÃ¹ attivitÃ ', null, 510, 200);
 						this.describeAColumn(table, 'iscrizione_istanza_abbr_anno', 'Anno di corso Iscrizione da cui convalidare i sostenimenti', null, 540, null);
 						this.describeAColumn(table, 'iscrizione_istanza_abbr_iddidprog', 'Didattica programmata Iscrizione da cui convalidare i sostenimenti', null, 540, null);
 						this.describeAColumn(table, 'iscrizione_istanza_abbr_aa', 'Anno accademico Iscrizione da cui convalidare i sostenimenti', null, 540, 9);

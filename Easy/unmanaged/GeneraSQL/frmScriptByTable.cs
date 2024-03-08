@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -60,10 +60,13 @@ namespace generaSQL//GeneraSQL//
 		private System.Windows.Forms.TextBox txtColonne;
 		private System.Windows.Forms.RadioButton radioButBulkInsert;
 		private System.Windows.Forms.Button btnCambiaChiave;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
-		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+		private System.Windows.Forms.OpenFileDialog _openFileDialog1;
+		private IOpenFileDialog openFileDialog1;
+		private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
+		private ISaveFileDialog saveFileDialog1;
 		private System.Windows.Forms.Button btnScriptSp;
-		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+		private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
+		private IFolderBrowserDialog folderBrowserDialog1;
         private GroupBox groupBox1;
         private Button btnTaxRate;
         private Button btnClassificazioni;
@@ -91,7 +94,8 @@ namespace generaSQL//GeneraSQL//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-
+			saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+			folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
 			//
 			// TODO: Add any constructor code after InitializeComponent call
 			//
@@ -152,10 +156,11 @@ namespace generaSQL//GeneraSQL//
 			this.chkSoloDati = new System.Windows.Forms.CheckBox();
 			this.chkDati = new System.Windows.Forms.CheckBox();
 			this.btnCambiaChiave = new System.Windows.Forms.Button();
-			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+			this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.openFileDialog1 = createOpenFileDialog(this._openFileDialog1);
+			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
 			this.btnScriptSp = new System.Windows.Forms.Button();
-			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.btnDizionarioDati = new System.Windows.Forms.Button();
 			this.btnAudit = new System.Windows.Forms.Button();

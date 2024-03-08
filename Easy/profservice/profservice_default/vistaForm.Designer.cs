@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1606,6 +1606,7 @@ private void initClass() {
 	tinvoicedetail.Columns.Add( new DataColumn("ycon", typeof(int)));
 	tinvoicedetail.Columns.Add( new DataColumn("ncon", typeof(int)));
 	tinvoicedetail.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("rownum_main", typeof(int)));
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.PrimaryKey =  new DataColumn[]{tinvoicedetail.Columns["ninv"], tinvoicedetail.Columns["rownum"], tinvoicedetail.Columns["yinv"], tinvoicedetail.Columns["idinvkind"]};
 

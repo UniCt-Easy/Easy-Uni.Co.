@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,7 +40,7 @@ namespace meta_assetgrantdetailview
         protected override Form GetForm(string FormName) {
 
             if (FormName == "default") {
-                Name = "Risconti applicati";
+                Name = "Risconti/Riserve utilizzati";
                 return GetFormByDllName("assetgrantdetail_default");
             }
 
@@ -58,13 +58,14 @@ namespace meta_assetgrantdetailview
 
                 DescribeAColumn(T, "ydetail", "Anno risconto", nPos++);
                 DescribeAColumn(T, "amount", "Importo risconto", nPos++);
-                DescribeAColumn(T, "ninventory", "Numero inventario", nPos++);
-                DescribeAColumn(T, "codeinv", "Codice classificazione", nPos++);
                 DescribeAColumn(T, "inventory", "Inventario", nPos++);
+                DescribeAColumn(T, "ninventory", "Numero inventario", nPos++);
                 DescribeAColumn(T, "idpiece", "N.Parte", nPos++);
-                DescribeAColumn(T, "codeinvdescription", "Descrizione classificazione", nPos++);
+                DescribeAColumn(T, "codeinv", "Cod. Class. Inv.", nPos++);
+                DescribeAColumn(T, "codeinvdescription", "Class. Inv.", nPos++);
                 DescribeAColumn(T, "inventoryagencydescription", "Ente inventariale", nPos++);
                 DescribeAColumn(T, "idgrant", "Numero contributo", nPos++);
+                DescribeAColumn(T, "flag_financesource", "Tipo finanziamento", nPos++);
                 DescribeAColumn(T, "grantdescription", "Descrizione contributo", nPos++);
 
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -515,6 +515,48 @@ namespace funzioni_configurazione {
 
         }
 
+        decimal getImportoFromStringa(string importo) {
+            if (importo.EndsWith(".") || importo.EndsWith(",")) importo = importo.Substring(0, importo.Length - 1);
+            importo = importo.Replace("€", "");
+            importo = importo.Trim();
+            int dotPos = importo.IndexOf('.');
+            int lastDotPos = importo.LastIndexOf('.');
+            if (lastDotPos != dotPos) {
+                //rimuove la prima occorrenza del punto  se ce ne sono due o più
+                return getImportoFromStringa(importo.Remove(dotPos, 1));
+            }
+
+            int commaPos = importo.IndexOf(',');
+            int lastCommaPos = importo.LastIndexOf(',');
+            if (lastCommaPos != commaPos) {
+                //rimuove la prima occorrenza della virgola  se ce ne sono due o più
+                return getImportoFromStringa(importo.Remove(commaPos, 1));
+            }
+
+
+            if (dotPos < 0 && commaPos < 0) {
+                return Convert.ToDecimal(importo, new CultureInfo("en-US"));
+            }
+            //se ci sono tutti e due, il primo non serve comunque
+            if (dotPos >= 0 && commaPos >= 0) {
+                if (dotPos < commaPos) return getImportoFromStringa(importo.Replace(".", ""));
+                return getImportoFromStringa(importo.Replace(",", ""));
+            }
+
+            //c'è uno solo dei due, normalizza la stringa con solo il punto decimale (che  potrebbe essere anche un punto di separazione delle migliaia)
+            if (commaPos >= 0) return getImportoFromStringa(importo.Replace(',', '.'));
+
+            //A questo punto c'è solo un punto, e dobbiamo decidere se cancellarlo o considerarlo un punto decimale o delle migliaia
+            //Lo consideriamo un punto decimale se seguito da 1 o due cifre numeriche
+            if (dotPos < importo.Length - 3) {
+                //Altrimenti è un punto/virgola delle migliaia e lo togliamo
+                importo = importo.Replace(".", "");
+            }
+
+
+            return Convert.ToDecimal(importo, new CultureInfo("en-US"));
+        }
+
         /// <summary>
         /// Estrae un campo, restituisce null su errori
         /// </summary>
@@ -528,6 +570,7 @@ namespace funzioni_configurazione {
             string ftype = ff[2].ToLower().Trim(); //(intero/numero/stringa/codificato/data)
             string val = S.Trim();
             if (val == "") return DBNull.Value;
+
             try {
                 switch (ftype) {
                     case "intero": {
@@ -538,7 +581,8 @@ namespace funzioni_configurazione {
                     case "stringa":
                         return val.TrimEnd(new char[] { ' ' });
                     case "numero":
-                        return Convert.ToDecimal(val);
+                        //return Convert.ToDecimal(val);
+                        return getImportoFromStringa(val.ToString());
                     case "data":
                         string[] gma = val.ToString().Split('/');
                         return
@@ -935,6 +979,7 @@ namespace funzioni_configurazione {
             for (int i = 0; i < tracciato.Length; i++) {
                 string fieldname;
                 string fmt = tracciato[i];
+
                 object O = CSVGetField(SS[iCol], fmt, out fieldname, out error);
                 if (error != null) {
                     MetaFactory.factory.getSingleton<IMessageShower>().Show(error, "Errore");

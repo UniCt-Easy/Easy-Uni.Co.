@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -345,8 +345,9 @@ namespace bankdispositionsetup_import {
         /// <param name="openFileDialog1"></param>
         /// <param name="txtFile"></param>
         /// <returns></returns>
-		public StreamReader getStreamReader(long quoziente, OpenFileDialog openFileDialog1, TextBox txtFile) {
-			openFileDialog1.FileName = txtFile.Text;
+		public StreamReader getStreamReader(long quoziente, OpenFileDialog _openFileDialog1, TextBox txtFile) {
+            IOpenFileDialog openFileDialog1 = MetaFactory.factory.create<IOpenFileDialog>().init(_openFileDialog1);
+            openFileDialog1.FileName = txtFile.Text;
 			DialogResult dr = openFileDialog1.ShowDialog(form);
 			if (dr == DialogResult.OK) {
 				txtFile.Text = openFileDialog1.FileName;

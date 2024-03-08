@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,7 +34,7 @@ public class dsmeta_afferenza_stru: DataSet {
 	public MetaTable getregistrydocentiamministratividefaultview 		=> (MetaTable)Tables["getregistrydocentiamministratividefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable mansionekind 		=> (MetaTable)Tables["mansionekind"];
+	public MetaTable mansionekinddefaultview 		=> (MetaTable)Tables["mansionekinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable afferenza 		=> (MetaTable)Tables["afferenza"];
@@ -71,12 +71,12 @@ private void initClass() {
 	Tables.Add(tgetregistrydocentiamministratividefaultview);
 	tgetregistrydocentiamministratividefaultview.defineKey("idreg");
 
-	//////////////////// MANSIONEKIND /////////////////////////////////
-	var tmansionekind= new MetaTable("mansionekind");
-	tmansionekind.defineColumn("idmansionekind", typeof(int),false);
-	tmansionekind.defineColumn("title", typeof(string),false);
-	Tables.Add(tmansionekind);
-	tmansionekind.defineKey("idmansionekind");
+	//////////////////// MANSIONEKINDDEFAULTVIEW /////////////////////////////////
+	var tmansionekinddefaultview= new MetaTable("mansionekinddefaultview");
+	tmansionekinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tmansionekinddefaultview.defineColumn("idmansionekind", typeof(int),false);
+	Tables.Add(tmansionekinddefaultview);
+	tmansionekinddefaultview.defineKey("idmansionekind");
 
 	//////////////////// AFFERENZA /////////////////////////////////
 	var tafferenza= new MetaTable("afferenza");
@@ -101,9 +101,9 @@ private void initClass() {
 	var cChild = new []{afferenza.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_afferenza_getregistrydocentiamministratividefaultview_idreg",cPar,cChild,false));
 
-	cPar = new []{mansionekind.Columns["idmansionekind"]};
+	cPar = new []{mansionekinddefaultview.Columns["idmansionekind"]};
 	cChild = new []{afferenza.Columns["idmansionekind"]};
-	Relations.Add(new DataRelation("FK_afferenza_mansionekind_idmansionekind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_afferenza_mansionekinddefaultview_idmansionekind",cPar,cChild,false));
 
 	#endregion
 

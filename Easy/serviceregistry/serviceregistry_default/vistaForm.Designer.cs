@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,90 +26,48 @@ using System.Runtime.Serialization;
 namespace serviceregistry_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Banca dati degli Incarichi - Anagrafe Prestazioni e Pubblicazione sito web istituzionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable serviceregistry 		=> Tables["serviceregistry"];
 
-	///<summary>
-	///Qualifica (per anagrafe prestazioni)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable apmanager 		=> Tables["apmanager"];
 
-	///<summary>
-	///Tipologia Consulente (per anagrafe prestazioni)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable consultingkind 		=> Tables["consultingkind"];
 
-	///<summary>
-	///Tipo Rapporto (per anagrafe prestazioni)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable apcontractkind 		=> Tables["apcontractkind"];
 
-	///<summary>
-	///Attivit√† Economica (per anagrafe prestazioni)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable financialactivity 		=> Tables["financialactivity"];
 
-	///<summary>
-	///Tipologia Conferente (per anagrafe prestazioni)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable apregistrykind 		=> Tables["apregistrykind"];
 
-	///<summary>
-	///Tipologia Incarico (per anagrafe prestazioni)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable apactivitykind 		=> Tables["apactivitykind"];
 
-	///<summary>
-	///Modalit√† di Acquisizione Incarico(per anagrafe prestazioni)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable acquirekind 		=> Tables["acquirekind"];
 
-	///<summary>
-	///Lista Dipartimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable department 		=> Tables["department"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Comuni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable geo_city 		=> Tables["geo_city"];
 
-	///<summary>
-	///Assegnazione Automatica del Pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable servicepayment 		=> Tables["servicepayment"];
 
-	///<summary>
-	///Codice Ente, dati prelevati dal sito perlaPA, usati nell'anagrafe prestazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable serviceagency 		=> Tables["serviceagency"];
 
-	///<summary>
-	///Riferimento  normativo incarico anagrafe prestazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable referencerule 		=> Tables["referencerule"];
 
@@ -137,9 +95,6 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting05 		=> Tables["sorting05"];
 
-	///<summary>
-	///Tipologia Incarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable serviceregistrykind 		=> Tables["serviceregistrykind"];
 
@@ -452,6 +407,10 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tapactivitykind.Columns.Add(C);
 	tapactivitykind.Columns.Add( new DataColumn("active", typeof(string)));
+	tapactivitykind.Columns.Add( new DataColumn("description_consultant", typeof(string)));
+	tapactivitykind.Columns.Add( new DataColumn("description_employee", typeof(string)));
+	tapactivitykind.Columns.Add( new DataColumn("idoggettoincarico_consultant", typeof(string)));
+	tapactivitykind.Columns.Add( new DataColumn("idoggettoincarico_employee", typeof(string)));
 	Tables.Add(tapactivitykind);
 	tapactivitykind.PrimaryKey =  new DataColumn[]{tapactivitykind.Columns["idapactivitykind"], tapactivitykind.Columns["ayear"]};
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -101,8 +101,10 @@ namespace progettocosto_functions {
 			tprogettocosto.Columns.Add(new DataColumn("noperation", typeof(int)));
 			tprogettocosto.Columns.Add(new DataColumn("yoperation", typeof(short)));
 			tprogettocosto.Columns.Add(new DataColumn("idcontrattokind", typeof(int)));
-			tprogettocosto.Columns.Add(new DataColumn("idrendicontattivitaprogetto", typeof(int)));
-			Tables.Add(tprogettocosto);
+            tprogettocosto.Columns.Add(new DataColumn("idrendicontattivitaprogetto", typeof(int)));
+            tprogettocosto.Columns.Add(new DataColumn("idassetdiaryora", typeof(int)));
+            tprogettocosto.Columns.Add(new DataColumn("idsalprogettoassetworkpackagemese", typeof(int)));
+            Tables.Add(tprogettocosto);
 			tprogettocosto.PrimaryKey = new DataColumn[] { tprogettocosto.Columns["idprogettocosto"], tprogettocosto.Columns["idprogetto"] };
 
 

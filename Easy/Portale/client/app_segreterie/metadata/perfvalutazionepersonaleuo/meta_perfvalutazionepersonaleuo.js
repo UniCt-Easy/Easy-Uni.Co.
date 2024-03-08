@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,12 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 20, null);
+						this.describeAColumn(table, 'idstruttura', 'Unit√† organizzativa', null, 10, null);
 						this.describeAColumn(table, 'punteggio', 'Punteggio', 'fixed.2', 30, null);
-						this.describeAColumn(table, 'punteggiopesato', 'Punteggio pesato', 'fixed.2', 40, null);
 						this.describeAColumn(table, 'afferenza', 'Tempo di afferenza', 'fixed.2', 50, null);
-						this.describeAColumn(table, '!idstruttura_struttura_title', 'Denominazione Unit‡ organizzativa', null, 11, null);
-						this.describeAColumn(table, '!idstruttura_struttura_idstrutturakind_title', 'Tipologia Unit‡ organizzativa', null, 11, null);
+						this.describeAColumn(table, '!idstruttura_struttura_title', 'Denominazione Unit√† organizzativa', null, 11, null);
+						this.describeAColumn(table, '!idstruttura_struttura_idstrutturakind_title', 'Tipo Unit√† organizzativa', null, 10, null);
 						objCalcFieldConfig['!idstruttura_struttura_title'] = { tableNameLookup:'struttura', columnNameLookup:'title', columnNamekey:'idstruttura' };
 						objCalcFieldConfig['!idstruttura_struttura_idstrutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idstruttura' };
 //$objCalcFieldConfig_default$
@@ -63,11 +45,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (edittype) {
 					case 'default':
 						table.columns["afferenza"].caption = "Tempo di afferenza";
-						table.columns["idstruttura"].caption = "Struttura";
+						table.columns["idstruttura"].caption = "Unit√† organizzativa";
 						table.columns["peso"].caption = "Peso";
 						table.columns["punteggio"].caption = "Punteggio";
 						table.columns["punteggiopesato"].caption = "Punteggio pesato";
-						table.columns["idstruttura"].caption = "Unit‡ organizzativa";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$

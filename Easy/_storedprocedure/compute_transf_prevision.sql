@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -478,7 +478,16 @@ END
 CLOSE #cursor
 DEALLOCATE #cursor
 
-
+--- Annullo la creazione di eventuali righe su voci di bilancio non operative in finyear per non avere problemi di totalizzazione
+DELETE   FROM finyear WHERE idfin IN (
+SELECT f.idfin from finyear fy
+	JOIN fin f
+		ON fy.idfin = f.idfin
+	JOIN finlevel
+		ON finlevel.ayear = f.ayear	AND finlevel.nlevel = f.nlevel
+		where  f.ayear=@nextayear
+		AND  finlevel.flag&2=0)
+and finyear.ayear = @nextayear
 
 
 END

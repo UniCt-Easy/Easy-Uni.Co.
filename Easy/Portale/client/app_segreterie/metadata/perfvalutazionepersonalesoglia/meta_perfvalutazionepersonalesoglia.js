@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -47,6 +30,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'valorenumerico', 'Valore numerico soglia', 'fixed.2', 110, null);
 //$objCalcFieldConfig_default$
 						break;
+					case 'target':
+						this.describeAColumn(table, 'description', 'Descrizione', null, 10, -1);
+						this.describeAColumn(table, 'percentuale', 'Valore % soglia', 'fixed.2', 20, null);
+						this.describeAColumn(table, 'valorenumerico', 'Valore numerico soglia', 'fixed.2', 30, null);
+//$objCalcFieldConfig_target$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -64,6 +53,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["percentuale"].caption = "Valore % soglia";
 						table.columns["valorenumerico"].caption = "Valore numerico soglia";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'target':
+						table.columns["description"].caption = "Descrizione";
+						table.columns["idperfsogliakind"].caption = "Soglia";
+						table.columns["percentuale"].caption = "Valore % soglia";
+						table.columns["valorenumerico"].caption = "Valore numerico soglia";
+//$innerSetCaptionConfig_target$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -90,7 +86,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "default": {
+						return "percentuale asc ";
+					}
+					case "target": {
+						return "percentuale asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
 			//$describeTree$
         });

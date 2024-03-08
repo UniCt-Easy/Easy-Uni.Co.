@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_struttura() {
 		MetaPage.apply(this, ['struttura', 'perf', false]);
-        this.name = 'Unit‡ organizzative';
+        this.name = 'Unit√† organizzative';
 		this.defaultListType = 'perf';
 		this.isList = true;
 		this.isTree = true;
@@ -53,12 +36,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				appMeta.metaModel.getTemporaryValues(this.getDataTable('strutturaresponsabile'));
 				appMeta.metaModel.getTemporaryValues(this.getDataTable('afferenza'));
 				if (this.state.isEditState()) {
-					this.helpForm.filter($('#struttura_perf_paridstruttura'), this.q.ne('idstruttura', this.state.currentRow.idstruttura));
+   this.helpForm.filter($('#struttura_perf_paridstruttura'), this.q.ne('idstruttura', this.state.currentRow.idstruttura));
 				}
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#struttura_perf_idupb'), null);
 				} else {
 					this.helpForm.filter($('#struttura_perf_idupb'), this.q.eq('upb_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#struttura_perf_paridstruttura'), null);
+				} else {
+					this.helpForm.filter($('#struttura_perf_paridstruttura'), this.q.eq('struttura_active', 'Si'));
 				}
 				//beforeFillFilter
 				
@@ -80,6 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterClear: function () {
 				this.helpForm.filter($('#struttura_perf_idupb'), null);
+				this.helpForm.filter($('#struttura_perf_paridstruttura'), null);
 				//afterClearin
 			},
 
@@ -87,6 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.struttura.defaults({ 'active': 'S' });
 				$("#btn_add_perfstrutturaperfindicatore_idperfindicatore").on("click", _.partial(this.searchAndAssignperfindicatore, self));
 				$("#btn_add_perfstrutturaperfindicatore_idperfindicatore").prop("disabled", true);
 				//fireAfterLink

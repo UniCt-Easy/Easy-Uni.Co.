@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,24 +42,25 @@ namespace meta_assetgrantview
                 int nPos = 1;
 
                 DescribeAColumn(T, "ygrant", "Anno", nPos++);
+                DescribeAColumn(T, "amount", "Importo", nPos++);
                 DescribeAColumn(T, "inventory", "Inventario", nPos++);
                 DescribeAColumn(T, "ninventory", "Numero Inventario", nPos++);
                 DescribeAColumn(T, "idpiece", "Numero parte", nPos++);
-                // DescribeAColumn(T, "idgrant", "Numero contributo", nPos++);
-
                 DescribeAColumn(T, "codeinv", "Cod. Class. Inv.", nPos++);
                 DescribeAColumn(T, "inventorytree", "Class. Inv.", nPos++);
-                //DescribeAColumn(T, "idpiece", "N.parte", nPos++);
-                DescribeAColumn(T, "cost", "Costo iniziale cespite", nPos++);
-                DescribeAColumn(T, "description", "Descrizione", nPos++);
-                DescribeAColumn(T, "doc", "Documento", nPos++);
-                DescribeAColumn(T, "docdate", "Data del Documento", nPos++);
-                DescribeAColumn(T, "amount", "Importo", nPos++);
-                DescribeAColumn(T, "codemotive", "Cod. Causale",  nPos++);
-                DescribeAColumn(T, "motive", "Causale", nPos++);
-                DescribeAColumn(T, "codeunderwriting", "Cod.Finanziamento", nPos++);
-                DescribeAColumn(T, "underwriting", "Finanziamento", nPos++);
-                DescribeAColumn(T, "assetacquiretotal", "Costo iniziale cespite collegato", nPos++);
+                DescribeAColumn(T, "inventoryagency", "Ente inventariale", nPos++);
+                DescribeAColumn(T, "idgrant", "Numero contributo", nPos++);
+                DescribeAColumn(T, "flag_financesource","Tipo finanziamento", nPos++);
+                DescribeAColumn(T, "description", "Descrizione contributo", nPos++);
+                //DescribeAColumn(T, "cost", "Costo iniziale cespite", nPos++);
+                //DescribeAColumn(T, "description", "Descrizione", nPos++);
+                //DescribeAColumn(T, "doc", "Documento", nPos++);
+                //DescribeAColumn(T, "docdate", "Data del Documento", nPos++);
+                //DescribeAColumn(T, "codemotive", "Cod. Causale",  nPos++);
+                //DescribeAColumn(T, "motive", "Causale", nPos++);
+                //DescribeAColumn(T, "codeunderwriting", "Cod.Finanziamento", nPos++);
+                //DescribeAColumn(T, "underwriting", "Finanziamento", nPos++);
+                //DescribeAColumn(T, "assetacquiretotal", "Costo iniziale cespite collegato", nPos++);
                 
             }
         }

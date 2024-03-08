@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,7 +53,7 @@ namespace no_table_trasf_flowchart {
 
             Meta.Conn.CallSP("closeyear_flowchartcopy", new object[] {startayear,
             stopayear}, false, 600);
-			show("Operazione eseguita");
+			show("Operazione eseguita", "");
         }
 
         private void txtEsercizio_Leave (object sender, EventArgs e) {
@@ -67,14 +67,14 @@ namespace no_table_trasf_flowchart {
                 startayear = (int)HelpForm.GetObjectFromString(typeof(int),
                     txtEsercizioInizio.Text.ToString(), "x.y.year");
                 if ((startayear <= 0)) {
-                    MessageBox.Show("L'esercizio iniziale non può essere negativo o nullo");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esercizio iniziale non può essere negativo o nullo");
                     txtEsercizioInizio.Focus();
                     return false;
                 }
                
             }
             catch {
-                MessageBox.Show("E' necessario inserire un esercizio iniziale");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire un esercizio iniziale");
                 txtEsercizioInizio.Focus();
                 return false;
             }
@@ -84,14 +84,14 @@ namespace no_table_trasf_flowchart {
                 stopayear = (int)HelpForm.GetObjectFromString(typeof(int),
                     txtEsercizioFine.Text.ToString(), "x.y.year");
                 if ((stopayear < 0)) {
-                    MessageBox.Show("L'esercizio finale non può essere negativo");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("L'esercizio finale non può essere negativo");
                     txtEsercizioFine.Focus();
                     return false;
                 }
 
             }
             catch {
-                MessageBox.Show("E' necessario inserire un esercizio finale");
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario inserire un esercizio finale");
                 txtEsercizioFine.Focus();
                 return false;
             }

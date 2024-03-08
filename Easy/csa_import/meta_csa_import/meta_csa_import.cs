@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -94,6 +94,7 @@ namespace meta_csa_import
                 DescribeAColumn(T, "ybill_versamenti", "Eserc. Sospeso Versamenti", nPos++);
                 DescribeAColumn(T, "nbill_versamenti", "Num. Sospeso Versamenti", nPos++);
                 DescribeAColumn(T, "refexternaldoc", "Riferimento doc. esterno", nPos++);
+                DescribeAColumn(T, "referencedate", "Data Competenza Stipendi", nPos++);
             }
 			if (ListingType == "versamentiposticipati") {
 				foreach (DataColumn C in T.Columns)

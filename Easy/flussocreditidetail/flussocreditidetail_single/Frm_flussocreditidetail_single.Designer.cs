@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -155,7 +155,9 @@ namespace flussocreditidetail_single {
 			this.textBox11 = new System.Windows.Forms.TextBox();
 			this.label10 = new System.Windows.Forms.Label();
 			this.btnRicevuta = new System.Windows.Forms.Button();
-			this.fileSave = new System.Windows.Forms.SaveFileDialog();
+			this.btnRicevutaEng = new System.Windows.Forms.Button();
+			this._fileSave = new System.Windows.Forms.SaveFileDialog();
+			this.fileSave = createSaveFileDialog(_fileSave);
 			this.DS = new flussocreditidetail_single.dsmeta();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -1245,6 +1247,7 @@ namespace flussocreditidetail_single {
 			this.tabPage2.Controls.Add(this.textBox11);
 			this.tabPage2.Controls.Add(this.label10);
 			this.tabPage2.Controls.Add(this.btnRicevuta);
+			this.tabPage2.Controls.Add(this.btnRicevutaEng);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -1367,7 +1370,7 @@ namespace flussocreditidetail_single {
 			// 
 			// button5
 			// 
-			this.button5.Location = new System.Drawing.Point(658, 19);
+			this.button5.Location = new System.Drawing.Point(658, 33);
 			this.button5.Name = "button5";
 			this.button5.Size = new System.Drawing.Size(197, 23);
 			this.button5.TabIndex = 137;
@@ -1377,7 +1380,7 @@ namespace flussocreditidetail_single {
 			// 
 			// btnCheckIncassi
 			// 
-			this.btnCheckIncassi.Location = new System.Drawing.Point(370, 19);
+			this.btnCheckIncassi.Location = new System.Drawing.Point(370, 33);
 			this.btnCheckIncassi.Name = "btnCheckIncassi";
 			this.btnCheckIncassi.Size = new System.Drawing.Size(197, 23);
 			this.btnCheckIncassi.TabIndex = 136;
@@ -1477,7 +1480,7 @@ namespace flussocreditidetail_single {
 			// 
 			// btnRicevuta
 			// 
-			this.btnRicevuta.Location = new System.Drawing.Point(28, 19);
+			this.btnRicevuta.Location = new System.Drawing.Point(28, 33);
 			this.btnRicevuta.Name = "btnRicevuta";
 			this.btnRicevuta.Size = new System.Drawing.Size(197, 23);
 			this.btnRicevuta.TabIndex = 20;
@@ -1485,10 +1488,20 @@ namespace flussocreditidetail_single {
 			this.btnRicevuta.UseVisualStyleBackColor = true;
 			this.btnRicevuta.Click += new System.EventHandler(this.btnRicevuta_Click);
 			// 
+			// btnRicevutaEng
+			// 
+			this.btnRicevutaEng.Location = new System.Drawing.Point(28, 6);
+			this.btnRicevutaEng.Name = "btnRicevutaEng";
+			this.btnRicevutaEng.Size = new System.Drawing.Size(197, 23);
+			this.btnRicevutaEng.TabIndex = 149;
+			this.btnRicevutaEng.Text = "Scarica l\'avviso di pagamento [ENG]";
+			this.btnRicevutaEng.UseVisualStyleBackColor = true;
+			this.btnRicevutaEng.Click += new System.EventHandler(this.btnRicevutaEng_Click);
+			// 
 			// fileSave
 			// 
-			this.fileSave.DefaultExt = "pdf";
-			this.fileSave.OverwritePrompt = false;
+			//this.fileSave.DefaultExt = "pdf";
+			//this.fileSave.OverwritePrompt = false;
 			// 
 			// DS
 			// 
@@ -1632,8 +1645,10 @@ namespace flussocreditidetail_single {
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnRicevuta;
-        private System.Windows.Forms.SaveFileDialog fileSave;
-        private System.Windows.Forms.Button btnCheckIncassi;
+        private System.Windows.Forms.Button btnRicevutaEng;
+        private System.Windows.Forms.SaveFileDialog _fileSave;
+		private metadatalibrary.ISaveFileDialog fileSave;
+		private System.Windows.Forms.Button btnCheckIncassi;
         private System.Windows.Forms.ComboBox cmbIva;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox5;

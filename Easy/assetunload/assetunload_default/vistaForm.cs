@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,33 +29,18 @@ namespace assetunload_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Buono di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunload 		=> Tables["assetunload"];
 
-	///<summary>
-	///Causali di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunloadmotive 		=> Tables["assetunloadmotive"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Movimenti di entrata collegati a buoni di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunloadincome 		=> Tables["assetunloadincome"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
@@ -65,9 +50,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunloadkindview 		=> Tables["assetunloadkindview"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
@@ -76,6 +58,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetpieceview 		=> Tables["assetpieceview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable costpartition 		=> Tables["costpartition"];
 
 	#endregion
 
@@ -142,6 +127,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tassetunload.Columns.Add(C);
 	tassetunload.Columns.Add( new DataColumn("transmitted", typeof(string)));
+	tassetunload.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tassetunload);
 	tassetunload.PrimaryKey =  new DataColumn[]{tassetunload.Columns["idassetunload"]};
 
@@ -554,6 +540,8 @@ private void initClass() {
 	tassetamortizationunloadview.Columns.Add( new DataColumn("idsor2", typeof(int)));
 	tassetamortizationunloadview.Columns.Add( new DataColumn("idsor3", typeof(int)));
 	tassetamortizationunloadview.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tassetamortizationunloadview.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
+	tassetamortizationunloadview.Columns.Add( new DataColumn("idinv", typeof(int)));
 	Tables.Add(tassetamortizationunloadview);
 	tassetamortizationunloadview.PrimaryKey =  new DataColumn[]{tassetamortizationunloadview.Columns["namortization"]};
 
@@ -694,8 +682,27 @@ private void initClass() {
 	tassetpieceview.Columns.Add( new DataColumn("list", typeof(string)));
 	tassetpieceview.Columns.Add( new DataColumn("historicalvalue", typeof(decimal)));
 	tassetpieceview.Columns.Add( new DataColumn("inventorykind", typeof(string)));
+	tassetpieceview.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tassetpieceview);
 	tassetpieceview.PrimaryKey =  new DataColumn[]{tassetpieceview.Columns["idasset"], tassetpieceview.Columns["idpiece"]};
+
+
+	//////////////////// COSTPARTITION /////////////////////////////////
+	var tcostpartition= new DataTable("costpartition");
+	C= new DataColumn("idcostpartition", typeof(int));
+	C.AllowDBNull=false;
+	tcostpartition.Columns.Add(C);
+	tcostpartition.Columns.Add( new DataColumn("title", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("kind", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("lu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("cu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("costpartitioncode", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("active", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("description", typeof(string)));
+	Tables.Add(tcostpartition);
+	tcostpartition.PrimaryKey =  new DataColumn[]{tcostpartition.Columns["idcostpartition"]};
 
 
 	#endregion
@@ -729,6 +736,10 @@ private void initClass() {
 	cPar = new []{assetunloadkindview.Columns["idassetunloadkind"]};
 	cChild = new []{assetunload.Columns["idassetunloadkind"]};
 	Relations.Add(new DataRelation("assetunloadkindviewassetunload",cPar,cChild,false));
+
+	cPar = new []{costpartition.Columns["idcostpartition"]};
+	cChild = new []{assetunload.Columns["idcostpartition"]};
+	Relations.Add(new DataRelation("costpartition_assetunload",cPar,cChild,false));
 
 	#endregion
 

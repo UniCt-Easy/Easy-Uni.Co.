@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,6 +24,7 @@ using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
 using funzioni_configurazione;
+using System.Threading.Tasks;
 
 namespace paydispositiondetail_default {
     public partial class FrmPayDispositionDetail_default : MetaDataForm {
@@ -316,6 +317,7 @@ namespace paydispositiondetail_default {
 
         private void btnIBANcbi_Click(object sender, EventArgs e) {
             FrmAskIban frm = new FrmAskIban(txtIBAN.Text);
+            createForm(frm, this);
             if (frm.ShowDialog(this) != DialogResult.OK) return;
             if (frm.insertedIBAN == "") {
                 txtIBAN.Text = frm.insertedIBAN;

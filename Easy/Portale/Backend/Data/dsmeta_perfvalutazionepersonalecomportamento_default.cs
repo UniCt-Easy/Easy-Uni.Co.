@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_perfvalutazionepersonalecomportamento_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_perfvalutazionepersonalecomportamento_default: DataSet {
+public partial class dsmeta_perfvalutazionepersonalecomportamento_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -40,7 +40,7 @@ public class dsmeta_perfvalutazionepersonalecomportamento_default: DataSet {
 	public MetaTable perfvalutazionepersonalecomportamentosoglia 		=> (MetaTable)Tables["perfvalutazionepersonalecomportamentosoglia"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable perfcomportamento 		=> (MetaTable)Tables["perfcomportamento"];
+	public MetaTable perfcomportamentodefaultview 		=> (MetaTable)Tables["perfcomportamentodefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfvalutazionepersonalecomportamento 		=> (MetaTable)Tables["perfvalutazionepersonalecomportamento"];
@@ -86,7 +86,7 @@ private void initClass() {
 	var tperfvalutazionepersonalecomportamentosoglia= new MetaTable("perfvalutazionepersonalecomportamentosoglia");
 	tperfvalutazionepersonalecomportamentosoglia.defineColumn("ct", typeof(DateTime),false);
 	tperfvalutazionepersonalecomportamentosoglia.defineColumn("cu", typeof(string),false);
-	tperfvalutazionepersonalecomportamentosoglia.defineColumn("description", typeof(string),false);
+	tperfvalutazionepersonalecomportamentosoglia.defineColumn("description", typeof(string));
 	tperfvalutazionepersonalecomportamentosoglia.defineColumn("idperfsogliakind", typeof(string),false);
 	tperfvalutazionepersonalecomportamentosoglia.defineColumn("idperfvalutazionepersonale", typeof(int),false);
 	tperfvalutazionepersonalecomportamentosoglia.defineColumn("idperfvalutazionepersonalecomportamento", typeof(int),false);
@@ -96,15 +96,16 @@ private void initClass() {
 	tperfvalutazionepersonalecomportamentosoglia.defineColumn("valore", typeof(decimal),false);
 	tperfvalutazionepersonalecomportamentosoglia.defineColumn("valorenumerico", typeof(decimal));
 	tperfvalutazionepersonalecomportamentosoglia.defineColumn("year", typeof(int),false);
+	tperfvalutazionepersonalecomportamentosoglia.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfvalutazionepersonalecomportamentosoglia);
 	tperfvalutazionepersonalecomportamentosoglia.defineKey("idperfvalutazionepersonale", "idperfvalutazionepersonalecomportamento", "idperfvalutazionepersonalecomportamentosoglia");
 
-	//////////////////// PERFCOMPORTAMENTO /////////////////////////////////
-	var tperfcomportamento= new MetaTable("perfcomportamento");
-	tperfcomportamento.defineColumn("idperfcomportamento", typeof(int),false);
-	tperfcomportamento.defineColumn("title", typeof(string));
-	Tables.Add(tperfcomportamento);
-	tperfcomportamento.defineKey("idperfcomportamento");
+	//////////////////// PERFCOMPORTAMENTODEFAULTVIEW /////////////////////////////////
+	var tperfcomportamentodefaultview= new MetaTable("perfcomportamentodefaultview");
+	tperfcomportamentodefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tperfcomportamentodefaultview.defineColumn("idperfcomportamento", typeof(int),false);
+	Tables.Add(tperfcomportamentodefaultview);
+	tperfcomportamentodefaultview.defineKey("idperfcomportamento");
 
 	//////////////////// PERFVALUTAZIONEPERSONALECOMPORTAMENTO /////////////////////////////////
 	var tperfvalutazionepersonalecomportamento= new MetaTable("perfvalutazionepersonalecomportamento");
@@ -112,6 +113,7 @@ private void initClass() {
 	tperfvalutazionepersonalecomportamento.defineColumn("ct", typeof(DateTime),false);
 	tperfvalutazionepersonalecomportamento.defineColumn("cu", typeof(string),false);
 	tperfvalutazionepersonalecomportamento.defineColumn("idperfcomportamento", typeof(int),false);
+	tperfvalutazionepersonalecomportamento.defineColumn("idperfgiudizio", typeof(int));
 	tperfvalutazionepersonalecomportamento.defineColumn("idperfvalutazionepersonale", typeof(int),false);
 	tperfvalutazionepersonalecomportamento.defineColumn("idperfvalutazionepersonalecomportamento", typeof(int),false);
 	tperfvalutazionepersonalecomportamento.defineColumn("lt", typeof(DateTime),false);
@@ -137,9 +139,9 @@ private void initClass() {
 	cChild = new []{perfvalutazionepersonalecomportamentosoglia.Columns["idperfsogliakind"]};
 	Relations.Add(new DataRelation("FK_perfvalutazionepersonalecomportamentosoglia_perfsogliakind_idperfsogliakind",cPar,cChild,false));
 
-	cPar = new []{perfcomportamento.Columns["idperfcomportamento"]};
+	cPar = new []{perfcomportamentodefaultview.Columns["idperfcomportamento"]};
 	cChild = new []{perfvalutazionepersonalecomportamento.Columns["idperfcomportamento"]};
-	Relations.Add(new DataRelation("FK_perfvalutazionepersonalecomportamento_perfcomportamento_idperfcomportamento",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_perfvalutazionepersonalecomportamento_perfcomportamentodefaultview_idperfcomportamento",cPar,cChild,false));
 
 	#endregion
 

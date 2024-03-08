@@ -496,6 +496,8 @@
               <xs:element name="paymethod_allowdeputy" type="xs:string" minOccurs="0" />
               <xs:element name="extracode" type="xs:string" minOccurs="0" />
               <xs:element name="idchargehandling" type="xs:int" minOccurs="0" />
+              <xs:element name="iban" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccdebit" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

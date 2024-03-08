@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,17 +23,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'amm':
-						this.describeAColumn(table, 'contrattokind_title', 'Tipologia di contratto', null, 10, 50);
-						this.describeAColumn(table, 'inquadramento_idcontrattokind', 'Identificativo Inquadramento', null, 20, null);
-						this.describeAColumn(table, 'inquadramento_title', 'Denominazione Inquadramento', null, 20, 2048);
-						this.describeAColumn(table, 'inquadramento_tempdef', 'Tempo definito Inquadramento', null, 20, null);
-						this.describeAColumn(table, 'contratto_start', 'Inizio', null, 30, null);
-						this.describeAColumn(table, 'contratto_stop', 'Fine', null, 40, null);
-						this.describeAColumn(table, 'contratto_parttime', 'Part-time %', 'fixed.2', 50, null);
-						this.describeAColumn(table, 'contratto_tempindet', 'Tempo indeterminato', null, 80, null);
-						this.describeAColumn(table, 'contratto_scatto', 'Scatto', null, 110, null);
-						this.describeAColumn(table, 'contratto_datarivalutazione', 'Data di prossima rivalutazione', null, 130, null);
-						this.describeAColumn(table, 'contratto_percentualesufondiateneo', 'Percentuale su fondi interni', 'fixed.2', 140, null);
+						this.describeAColumn(table, 'contrattokind_title', 'Tipologia di contratto', null, 1200, 50);
+						this.describeAColumn(table, 'inquadramento_title', 'Denominazione Inquadramento', null, 2200, 2048);
+						this.describeAColumn(table, 'inquadramento_tempdef', 'Tempo definito Inquadramento', null, 2300, null);
+						this.describeAColumn(table, 'contratto_start', 'Inizio', null, 3000, null);
+						this.describeAColumn(table, 'contratto_stop', 'Fine', null, 4000, null);
+						this.describeAColumn(table, 'contratto_parttime', 'Part-time %', 'fixed.2', 5000, null);
+						this.describeAColumn(table, 'contratto_tempindet', 'Tempo indeterminato', null, 8000, null);
+						this.describeAColumn(table, 'contratto_scatto', 'Scatto', null, 11000, null);
+						this.describeAColumn(table, 'contratto_datarivalutazione', 'Data di prossima rivalutazione', null, 13000, null);
+						this.describeAColumn(table, 'contratto_percentualesufondiateneo', 'Percentuale su fondi interni', 'fixed.2', 14000, null);
 //$objCalcFieldConfig_amm$
 						break;
 //$objCalcFieldConfig$
@@ -70,7 +52,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "amm": {
+						return "contratto_start asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

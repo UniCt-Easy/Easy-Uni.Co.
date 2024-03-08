@@ -90,6 +90,10 @@
       <Name>meta_assetload</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
+      <Project>{13E495EF-B62D-494E-AEC7-E06E7826DCE6}</Project>
+      <Name>ep_functions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\meta_assetacquire\meta_assetacquire.csproj">
       <Project>{8acc4f04-1e27-4029-a2c5-7354db9fc0f9}</Project>
       <Name>meta_assetacquire</Name>
@@ -261,6 +265,9 @@
     <None Include="vistaForm.xsx">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

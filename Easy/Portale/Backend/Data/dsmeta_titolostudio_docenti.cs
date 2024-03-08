@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,16 +31,16 @@ public class dsmeta_titolostudio_docenti: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registryistitutiview 		=> (MetaTable)Tables["registryistitutiview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable istattitolistudio 		=> (MetaTable)Tables["istattitolistudio"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attach 		=> (MetaTable)Tables["attach"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable annoaccademico 		=> (MetaTable)Tables["annoaccademico"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registryistitutiview 		=> (MetaTable)Tables["registryistitutiview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable istattitolistudio 		=> (MetaTable)Tables["istattitolistudio"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable titolostudio 		=> (MetaTable)Tables["titolostudio"];
@@ -70,21 +70,6 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_titolostudio_docenti.xsd";
 
 	#region create DataTables
-	//////////////////// REGISTRYISTITUTIVIEW /////////////////////////////////
-	var tregistryistitutiview= new MetaTable("registryistitutiview");
-	tregistryistitutiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistryistitutiview.defineColumn("idcity", typeof(int));
-	tregistryistitutiview.defineColumn("idreg", typeof(int),false);
-	Tables.Add(tregistryistitutiview);
-	tregistryistitutiview.defineKey("idreg");
-
-	//////////////////// ISTATTITOLISTUDIO /////////////////////////////////
-	var tistattitolistudio= new MetaTable("istattitolistudio");
-	tistattitolistudio.defineColumn("idistattitolistudio", typeof(int),false);
-	tistattitolistudio.defineColumn("titolo", typeof(string),false);
-	Tables.Add(tistattitolistudio);
-	tistattitolistudio.defineKey("idistattitolistudio");
-
 	//////////////////// ATTACH /////////////////////////////////
 	var tattach= new MetaTable("attach");
 	tattach.defineColumn("attachment", typeof(Byte[]));
@@ -104,6 +89,21 @@ private void initClass() {
 	tannoaccademico.defineColumn("aa", typeof(string),false);
 	Tables.Add(tannoaccademico);
 	tannoaccademico.defineKey("aa");
+
+	//////////////////// REGISTRYISTITUTIVIEW /////////////////////////////////
+	var tregistryistitutiview= new MetaTable("registryistitutiview");
+	tregistryistitutiview.defineColumn("dropdown_title", typeof(string),false);
+	tregistryistitutiview.defineColumn("idreg", typeof(int),false);
+	tregistryistitutiview.defineColumn("registry_active", typeof(string));
+	Tables.Add(tregistryistitutiview);
+	tregistryistitutiview.defineKey("idreg");
+
+	//////////////////// ISTATTITOLISTUDIO /////////////////////////////////
+	var tistattitolistudio= new MetaTable("istattitolistudio");
+	tistattitolistudio.defineColumn("idistattitolistudio", typeof(int),false);
+	tistattitolistudio.defineColumn("titolo", typeof(string),false);
+	Tables.Add(tistattitolistudio);
+	tistattitolistudio.defineKey("idistattitolistudio");
 
 	//////////////////// TITOLOSTUDIO /////////////////////////////////
 	var ttitolostudio= new MetaTable("titolostudio");
@@ -130,21 +130,21 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{registryistitutiview.Columns["idreg"]};
-	var cChild = new []{titolostudio.Columns["idreg_istituti"]};
-	Relations.Add(new DataRelation("FK_titolostudio_registryistitutiview_idreg_istituti",cPar,cChild,false));
-
-	cPar = new []{istattitolistudio.Columns["idistattitolistudio"]};
-	cChild = new []{titolostudio.Columns["idistattitolistudio"]};
-	Relations.Add(new DataRelation("FK_titolostudio_istattitolistudio_idistattitolistudio",cPar,cChild,false));
-
-	cPar = new []{attach.Columns["idattach"]};
-	cChild = new []{titolostudio.Columns["idattach"]};
+	var cPar = new []{attach.Columns["idattach"]};
+	var cChild = new []{titolostudio.Columns["idattach"]};
 	Relations.Add(new DataRelation("FK_titolostudio_attach_idattach",cPar,cChild,false));
 
 	cPar = new []{annoaccademico.Columns["aa"]};
 	cChild = new []{titolostudio.Columns["aa"]};
 	Relations.Add(new DataRelation("FK_titolostudio_annoaccademico_aa",cPar,cChild,false));
+
+	cPar = new []{registryistitutiview.Columns["idreg"]};
+	cChild = new []{titolostudio.Columns["idreg_istituti"]};
+	Relations.Add(new DataRelation("FK_titolostudio_registryistitutiview_idreg_istituti",cPar,cChild,false));
+
+	cPar = new []{istattitolistudio.Columns["idistattitolistudio"]};
+	cChild = new []{titolostudio.Columns["idistattitolistudio"]};
+	Relations.Add(new DataRelation("FK_titolostudio_istattitolistudio_idistattitolistudio",cPar,cChild,false));
 
 	#endregion
 

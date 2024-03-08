@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -714,7 +714,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                     CfgFn.GetNoNullInt32(RigaAutRiten["expiringday"]))
                     periodo--;
                 //else
-                //MessageBox.Show(this, "Avvertimento: la data di scadenza delle liquidazioni relative al periodo precedente è stata superata.\n"+
+                //MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Avvertimento: la data di scadenza delle liquidazioni relative al periodo precedente è stata superata.\n"+
                 //    "Di consequenza, la liquidazione successiva interesserà il periodo CORRENTE.\n" +
                 //    "Per operare sul periodo precedente, è necessario che la data contabile non sia successiva al " +
                 //    RigaAutRiten["expiringday"].ToString()+"/"+
@@ -1694,7 +1694,10 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                 entrata = QHS.FieldIn("idinc", Inc.Select());
             }
             Form F = ShowAutomatismi.Show(Meta, spesa, entrata, varspesa, null);
-            if (F != null) F.ShowDialog(this);
+            if (F != null) {
+                createForm(F, this);
+                F.ShowDialog(this);
+            }
         }
 
         string GetFilterForSelection(DataRow[] Selected, string table, int livello) {
@@ -1818,6 +1821,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                 }
                 Fasi2.AcceptChanges();
                 FrmAskFase F = new FrmAskFase(Fasi2);
+                createForm(F, null);
                 if (F.ShowDialog() != DialogResult.OK) return;
                 selectedfase = Convert.ToInt32(F.cmbFasi.SelectedValue);
             }
@@ -2013,7 +2017,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 						{
 							btnOK.Enabled=false;
 							CanSave=false;
-							MessageBox.Show(this,"Non ci sono ritenute da liquidare","Avvertimento");
+							MetaFactory.factory.getSingleton<IMessageShower>().Show(this,"Non ci sono ritenute da liquidare","Avvertimento");
 							return;
 						}*/
             btnOK.Enabled = true;
@@ -2334,6 +2338,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                             return;
                         }
                         FrmError frm = new FrmError(tErrorLiq, tErrorFin, taxPayKind);
+                        createForm(frm, null);
                         frm.ShowDialog();
                         if (!frm.IgnoraSegnalazione) {
                             deselezionaDettagli();
@@ -2431,7 +2436,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                 tErrorLiq.Rows.Add(rErrorLiq);
                 return false;
             }
-
+            /*
             CurrencyManager cm = (CurrencyManager)
                 dgDettaglioRitenute.BindingContext[dataSource, dgDettaglioRitenute.DataMember];
 
@@ -2507,6 +2512,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                 }
                 return false;
             }
+            */
 
             return true;
         }
@@ -2630,6 +2636,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
             }
             FrmAskBilancio Bil = new FrmAskBilancio(idupb, idfin, importo,
                 Meta.Dispatcher, Conn);
+            createForm(Bil, null);
             if (Bil.ShowDialog() != DialogResult.OK) return;
             if (Bil.Selected == null) return;
             if (Bil.Selected["idfin"] == DBNull.Value) return;

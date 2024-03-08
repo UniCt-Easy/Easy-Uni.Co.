@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_mansionekindcomportamento_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_mansionekindcomportamento_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="year_alias1" msprop:TableForReading="year" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfcomportamentodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfcomportamento" type="xs:int" />
+              <xs:element name="perfcomportamento_ct" type="xs:dateTime" />
+              <xs:element name="perfcomportamento_cu" type="xs:string" />
+              <xs:element name="perfcomportamento_description" type="xs:string" minOccurs="0" />
+              <xs:element name="perfcomportamento_lt" type="xs:dateTime" />
+              <xs:element name="perfcomportamento_lu" type="xs:string" />
+              <xs:element name="perfcomportamento_peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mansionekindcomportamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idmansionekind" type="xs:int" />
+              <xs:element name="idperfcomportamento" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="year_start" type="xs:int" minOccurs="0" />
+              <xs:element name="year_stop" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year_alias1" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="perfcomportamentodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfcomportamentodefaultview" />
+      <xs:field xpath="mstns:idperfcomportamento" />
+    </xs:unique>
+    <xs:unique name="mansionekindcomportamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mansionekindcomportamento" />
+      <xs:field xpath="mstns:idmansionekind" />
+      <xs:field xpath="mstns:idperfcomportamento" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_mansionekindcomportamento_year_alias1_year_stop" msdata:parent="year_alias1" msdata:child="mansionekindcomportamento" msdata:parentkey="year" msdata:childkey="year_stop" />
+      <msdata:Relationship name="FK_mansionekindcomportamento_year_year_start" msdata:parent="year" msdata:child="mansionekindcomportamento" msdata:parentkey="year" msdata:childkey="year_start" />
+      <msdata:Relationship name="FK_mansionekindcomportamento_perfcomportamentodefaultview_idperfcomportamento" msdata:parent="perfcomportamentodefaultview" msdata:child="mansionekindcomportamento" msdata:parentkey="idperfcomportamento" msdata:childkey="idperfcomportamento" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

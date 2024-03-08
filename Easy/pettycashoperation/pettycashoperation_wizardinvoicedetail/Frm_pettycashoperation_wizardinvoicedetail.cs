@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,7 +47,6 @@ namespace pettycashoperation_wizardinvoicedetail{
         DataTable Tpettycashoperation;
         public Frm_pettycashoperation_wizardinvoicedetail()        {
             InitializeComponent();
-            tabController.HideTabsMode = Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
             Info.TableName = "Info";
 
             Info.Columns.Add("idupb", typeof(string));   
@@ -340,10 +339,14 @@ namespace pettycashoperation_wizardinvoicedetail{
                 QueryCreator.quotedstrvalue(cmbTipoFattura.SelectedValue, true) + ")";
             }
             FilterIva = GetData.MergeFilters(FilterIva, filtertipodoc);
-
-            FilterIva += "AND(residual= (taxabletotal + ivatotal) )AND(linkedimpos='0')and(linkedimpon='0')" +
-                    "AND((active is null)OR(active='S'))AND(ycon is null)AND(flag_enable_split_payment='N')";
-
+ 
+            FilterIva += "AND (" +
+                            "((residual= (taxabletotal + ivatotal) )AND(linkedimpos='0')and(linkedimpon='0')" +
+                            "AND((active is null)OR(active='S'))AND(ycon is null) AND (flagintracom ='N'))" +
+                            " OR " +
+                            "((residual= (taxabletotal) )AND(linkedimpos='0')and(linkedimpon='0')" +
+                            "AND((active is null)OR(active='S'))AND(ycon is null) AND (flagintracom <>'N'))" +
+                            ")";
 
             MetaData Invoice = MetaData.GetMetaData(this, "invoiceresidual");
             Invoice.FilterLocked = true;
@@ -467,6 +470,7 @@ namespace pettycashoperation_wizardinvoicedetail{
             if (DS.invoice.Rows.Count == 0) return;
             DataRow Invoice = DS.invoice.Rows[0];
             double tassocambio = CfgFn.GetNoNullDouble(Invoice["exchangerate"]);
+            bool isIntraCom = (Invoice["flagintracom"].ToString().ToUpper() != "N");
 
             if (tassocambio == 0) tassocambio = 1;
             double totiva = 0;
@@ -492,8 +496,14 @@ namespace pettycashoperation_wizardinvoicedetail{
 
                 if (causale == 1)  {
                     totimpo += imponibileEUR;
-                    totiva += ivaEUR;
+                    if (!isIntraCom) {
+                        totiva += ivaEUR;
+                    }
                 }
+
+               
+           
+
                 total = totimpo + totiva;
 
             }
@@ -840,6 +850,7 @@ namespace pettycashoperation_wizardinvoicedetail{
 
             decimal importoRimasto = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtRimasto.Text, "x.y.c"));
             FrmAskInfo F = new FrmAskInfo(filterupb, Meta.Dispatcher, idupb, idman, idfin, importo, importoRimasto, idexp, idpettycash,true, "EditMode");
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK) return ;
             if (F.Dati == null)  return;
             DataRow rDati = F.Dati.Rows[0];
@@ -909,6 +920,7 @@ namespace pettycashoperation_wizardinvoicedetail{
             decimal TotaleFattura = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtTotaleFattura.Text, "x.y.c"));
 
             FrmAskInfo F = new FrmAskInfo(null, Meta.Dispatcher, DBNull.Value, DBNull.Value, DBNull.Value, importoRimasto, importoRimasto, DBNull.Value, idpettycash, true, "InsertMode");
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK) return;
             if (F.Dati == null) return;
             DataRow rDati = F.Dati.Rows[0];
@@ -984,8 +996,8 @@ namespace pettycashoperation_wizardinvoicedetail{
                 importo += CfgFn.GetNoNullDecimal(Curr["amount"]);
             }
 
-            decimal totaleFattura = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtTotaleFattura.Text, "x.y.c"));
-            decimal rimasto = (totaleFattura - importo);
+            decimal totaleFatturaContabilizzabile = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal), txtTotGenerale.Text, "x.y.c"));
+            decimal rimasto = (totaleFatturaContabilizzabile - importo);
             txtRimasto.Text = rimasto.ToString("c"); ;
         }
 
@@ -1014,10 +1026,7 @@ namespace pettycashoperation_wizardinvoicedetail{
             if (!enable) txtDataDoc.Text = "";
         }
 
-        private void tabController_SelectionChanged(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void btnInserisciClassificazioni_Click(object sender, EventArgs e)
         {
@@ -1047,19 +1056,16 @@ namespace pettycashoperation_wizardinvoicedetail{
             this.Dispose();
         }
 
-        private void Frm_pettycashoperation_wizardinvoicedetail_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e){
-
-        }
+     
 
         private void btnCancel_Click_1(object sender, EventArgs e){
             this.Close();
             this.Dispose();
         }
-    }
+
+		private void tabControl_SelectionChanged(object sender, EventArgs e) {
+
+		}
+	}
 
 }

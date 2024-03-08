@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -70,7 +70,8 @@ namespace auditcheck_child//businessrulecontrols//
         private RadioButton radSingleAppend;
         private TextBox txtFolder;
         private Button btnSelezionaFolder;
-        private FolderBrowserDialog folderDlg;
+        private FolderBrowserDialog _folderDlg;
+        private IFolderBrowserDialog folderDlg;
         bool IsAdmin =false;
 
 		public Frm_auditcheck_child()
@@ -79,6 +80,7 @@ namespace auditcheck_child//businessrulecontrols//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
+			folderDlg = createFolderBrowserDialog(_folderDlg);
 			//Inited=false;
 //			DS.ruleenforcement.statementColumn.ExtendedProperties["sqltype"]="text";
 //			DS.ruleenforcement.messageColumn.ExtendedProperties["sqltype"]="text";
@@ -143,7 +145,7 @@ namespace auditcheck_child//businessrulecontrols//
 			this.images = new System.Windows.Forms.ImageList(this.components);
 			this.label3 = new System.Windows.Forms.Label();
 			this.txtSql = new System.Windows.Forms.RichTextBox();
-			this.folderDlg = new System.Windows.Forms.FolderBrowserDialog();
+			this._folderDlg = new System.Windows.Forms.FolderBrowserDialog();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.MetaDataDetail.SuspendLayout();
 			this.gboxSql.SuspendLayout();
@@ -705,7 +707,8 @@ namespace auditcheck_child//businessrulecontrols//
 			if (Curr==null) return;
 		    if (!Meta.GetFormData(true))return;
 			frmSqlEditor F = new frmSqlEditor(Conn,Curr["sqlcmd"].ToString(), Curr["tablename"].ToString());
-		    if (F.ShowDialog() == DialogResult.OK) {
+            createForm(F, null);
+            if (F.ShowDialog() == DialogResult.OK) {
 		        Curr["sqlcmd"]= F.SQLstatement;
                 txtSql.Text = F.SQLstatement;
 		    }

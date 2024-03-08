@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -164,6 +164,9 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable serviceattachmentkind 		=> Tables["serviceattachmentkind"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable costpartition 		=> Tables["costpartition"];
+
 	#endregion
 
 
@@ -262,6 +265,7 @@ private void initClass() {
 	tcasualcontract.Columns.Add( new DataColumn("iddalia_funzionale", typeof(int)));
 	tcasualcontract.Columns.Add( new DataColumn("iddalia_dipartimento", typeof(int)));
 	tcasualcontract.Columns.Add( new DataColumn("flagexcludefromcertificate", typeof(string)));
+	tcasualcontract.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tcasualcontract);
 	tcasualcontract.PrimaryKey =  new DataColumn[]{tcasualcontract.Columns["ycon"], tcasualcontract.Columns["ncon"]};
 
@@ -1934,6 +1938,24 @@ private void initClass() {
 	tserviceattachmentkind.PrimaryKey =  new DataColumn[]{tserviceattachmentkind.Columns["idattachmentkind"]};
 
 
+	//////////////////// COSTPARTITION /////////////////////////////////
+	var tcostpartition= new DataTable("costpartition");
+	C= new DataColumn("idcostpartition", typeof(int));
+	C.AllowDBNull=false;
+	tcostpartition.Columns.Add(C);
+	tcostpartition.Columns.Add( new DataColumn("title", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("kind", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("lu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("cu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("costpartitioncode", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("active", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("description", typeof(string)));
+	Tables.Add(tcostpartition);
+	tcostpartition.PrimaryKey =  new DataColumn[]{tcostpartition.Columns["idcostpartition"]};
+
+
 	#endregion
 
 
@@ -2101,6 +2123,10 @@ private void initClass() {
 	cPar = new []{casualcontract.Columns["ycon"], casualcontract.Columns["ncon"]};
 	cChild = new []{casualcontractattachment.Columns["ycon"], casualcontractattachment.Columns["ncon"]};
 	Relations.Add(new DataRelation("casualcontract_casualcontractattachment",cPar,cChild,false));
+
+	cPar = new []{costpartition.Columns["idcostpartition"]};
+	cChild = new []{casualcontract.Columns["idcostpartition"]};
+	Relations.Add(new DataRelation("casualcontract_costpartition",cPar,cChild,false));
 
 	#endregion
 

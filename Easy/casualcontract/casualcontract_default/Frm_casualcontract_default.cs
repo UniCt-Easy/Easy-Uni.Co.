@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -372,6 +372,11 @@ namespace casualcontract_default { //contrattooccasionale//
 		private Button btnDelAtt;
 		private Button btnEditAtt;
 		private Button btnInsAtt;
+		private Button btnRipartizione;
+		public GroupBox grpRipartizioneCosti;
+		public Button btnCodRipartizione;
+		public TextBox textBox7;
+		public TextBox txtCodiceRipartizione;
 		DataAccess Conn;
 
         public Frm_casualcontract_default() {
@@ -608,6 +613,11 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.btnUPB = new System.Windows.Forms.Button();
 			this.txtDescrUPB = new System.Windows.Forms.TextBox();
 			this.tabAnalitico = new System.Windows.Forms.TabPage();
+			this.grpRipartizioneCosti = new System.Windows.Forms.GroupBox();
+			this.btnCodRipartizione = new System.Windows.Forms.Button();
+			this.textBox7 = new System.Windows.Forms.TextBox();
+			this.txtCodiceRipartizione = new System.Windows.Forms.TextBox();
+			this.btnRipartizione = new System.Windows.Forms.Button();
 			this.gboxclass3 = new System.Windows.Forms.GroupBox();
 			this.btnCodice3 = new System.Windows.Forms.Button();
 			this.txtDenom3 = new System.Windows.Forms.TextBox();
@@ -762,6 +772,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabPage1.SuspendLayout();
 			this.gboxUPB.SuspendLayout();
 			this.tabAnalitico.SuspendLayout();
+			this.grpRipartizioneCosti.SuspendLayout();
 			this.gboxclass3.SuspendLayout();
 			this.gboxclass2.SuspendLayout();
 			this.gboxclass1.SuspendLayout();
@@ -900,8 +911,6 @@ namespace casualcontract_default { //contrattooccasionale//
 			// 
 			// btnTrasfoccasionali
 			// 
-			this.btnTrasfoccasionali.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnTrasfoccasionali.Location = new System.Drawing.Point(732, 66);
 			this.btnTrasfoccasionali.Name = "btnTrasfoccasionali";
 			this.btnTrasfoccasionali.Size = new System.Drawing.Size(131, 64);
@@ -925,8 +934,6 @@ namespace casualcontract_default { //contrattooccasionale//
 			// 
 			// txtDateCompleted
 			// 
-			this.txtDateCompleted.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDateCompleted.Location = new System.Drawing.Point(714, 171);
 			this.txtDateCompleted.Name = "txtDateCompleted";
 			this.txtDateCompleted.Size = new System.Drawing.Size(149, 20);
@@ -935,8 +942,6 @@ namespace casualcontract_default { //contrattooccasionale//
 			// 
 			// btnRicalcola
 			// 
-			this.btnRicalcola.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnRicalcola.Location = new System.Drawing.Point(732, 20);
 			this.btnRicalcola.Name = "btnRicalcola";
 			this.btnRicalcola.Size = new System.Drawing.Size(131, 40);
@@ -1059,7 +1064,6 @@ namespace casualcontract_default { //contrattooccasionale//
 			// 
 			// chkPagabile
 			// 
-			this.chkPagabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkPagabile.Location = new System.Drawing.Point(291, 69);
 			this.chkPagabile.Name = "chkPagabile";
 			this.chkPagabile.Size = new System.Drawing.Size(197, 21);
@@ -1259,8 +1263,6 @@ namespace casualcontract_default { //contrattooccasionale//
 			// 
 			// grpPercipiente
 			// 
-			this.grpPercipiente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpPercipiente.Controls.Add(this.txtPercipiente);
 			this.grpPercipiente.Location = new System.Drawing.Point(8, 96);
 			this.grpPercipiente.Name = "grpPercipiente";
@@ -2916,6 +2918,8 @@ namespace casualcontract_default { //contrattooccasionale//
 			// 
 			// tabAnalitico
 			// 
+			this.tabAnalitico.Controls.Add(this.grpRipartizioneCosti);
+			this.tabAnalitico.Controls.Add(this.btnRipartizione);
 			this.tabAnalitico.Controls.Add(this.gboxclass3);
 			this.tabAnalitico.Controls.Add(this.gboxclass2);
 			this.tabAnalitico.Controls.Add(this.gboxclass1);
@@ -2926,14 +2930,69 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.tabAnalitico.Text = "Analitico";
 			this.tabAnalitico.Visible = false;
 			// 
+			// grpRipartizioneCosti
+			// 
+			this.grpRipartizioneCosti.Controls.Add(this.btnCodRipartizione);
+			this.grpRipartizioneCosti.Controls.Add(this.textBox7);
+			this.grpRipartizioneCosti.Controls.Add(this.txtCodiceRipartizione);
+			this.grpRipartizioneCosti.Location = new System.Drawing.Point(431, 115);
+			this.grpRipartizioneCosti.Name = "grpRipartizioneCosti";
+			this.grpRipartizioneCosti.Size = new System.Drawing.Size(409, 85);
+			this.grpRipartizioneCosti.TabIndex = 52;
+			this.grpRipartizioneCosti.TabStop = false;
+			this.grpRipartizioneCosti.Tag = "AutoChoose.txtCodiceRipartizione.default.(active=\'S\')";
+			this.grpRipartizioneCosti.Text = "Ripartizione dei Costi";
+			// 
+			// btnCodRipartizione
+			// 
+			this.btnCodRipartizione.Location = new System.Drawing.Point(8, 30);
+			this.btnCodRipartizione.Name = "btnCodRipartizione";
+			this.btnCodRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnCodRipartizione.TabIndex = 4;
+			this.btnCodRipartizione.Tag = "choose.costpartition.default.(active=\'S\')";
+			this.btnCodRipartizione.Text = "Codice";
+			this.btnCodRipartizione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// textBox7
+			// 
+			this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox7.Location = new System.Drawing.Point(150, 8);
+			this.textBox7.Multiline = true;
+			this.textBox7.Name = "textBox7";
+			this.textBox7.ReadOnly = true;
+			this.textBox7.Size = new System.Drawing.Size(251, 45);
+			this.textBox7.TabIndex = 3;
+			this.textBox7.TabStop = false;
+			this.textBox7.Tag = "costpartition.title";
+			// 
+			// txtCodiceRipartizione
+			// 
+			this.txtCodiceRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceRipartizione.Location = new System.Drawing.Point(8, 59);
+			this.txtCodiceRipartizione.Name = "txtCodiceRipartizione";
+			this.txtCodiceRipartizione.Size = new System.Drawing.Size(393, 20);
+			this.txtCodiceRipartizione.TabIndex = 2;
+			this.txtCodiceRipartizione.Tag = "costpartition.costpartitioncode?x";
+			// 
+			// btnRipartizione
+			// 
+			this.btnRipartizione.Location = new System.Drawing.Point(439, 217);
+			this.btnRipartizione.Name = "btnRipartizione";
+			this.btnRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnRipartizione.TabIndex = 51;
+			this.btnRipartizione.Text = "Ripartizione";
+			this.btnRipartizione.Click += new System.EventHandler(this.btnRipartizione_Click);
+			// 
 			// gboxclass3
 			// 
 			this.gboxclass3.Controls.Add(this.btnCodice3);
 			this.gboxclass3.Controls.Add(this.txtDenom3);
 			this.gboxclass3.Controls.Add(this.txtCodice3);
-			this.gboxclass3.Location = new System.Drawing.Point(15, 203);
+			this.gboxclass3.Location = new System.Drawing.Point(15, 115);
 			this.gboxclass3.Name = "gboxclass3";
-			this.gboxclass3.Size = new System.Drawing.Size(433, 85);
+			this.gboxclass3.Size = new System.Drawing.Size(409, 85);
 			this.gboxclass3.TabIndex = 6;
 			this.gboxclass3.TabStop = false;
 			this.gboxclass3.Tag = "AutoManage.txtCodice.treeclassmovimenti";
@@ -2958,7 +3017,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtDenom3.Multiline = true;
 			this.txtDenom3.Name = "txtDenom3";
 			this.txtDenom3.ReadOnly = true;
-			this.txtDenom3.Size = new System.Drawing.Size(275, 45);
+			this.txtDenom3.Size = new System.Drawing.Size(251, 45);
 			this.txtDenom3.TabIndex = 3;
 			this.txtDenom3.TabStop = false;
 			this.txtDenom3.Tag = "sorting3.description";
@@ -2969,7 +3028,7 @@ namespace casualcontract_default { //contrattooccasionale//
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.txtCodice3.Location = new System.Drawing.Point(8, 59);
 			this.txtCodice3.Name = "txtCodice3";
-			this.txtCodice3.Size = new System.Drawing.Size(419, 20);
+			this.txtCodice3.Size = new System.Drawing.Size(393, 20);
 			this.txtCodice3.TabIndex = 4;
 			this.txtCodice3.Tag = "sorting3.sortcode?x";
 			// 
@@ -2978,9 +3037,9 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.gboxclass2.Controls.Add(this.btnCodice2);
 			this.gboxclass2.Controls.Add(this.txtDenom2);
 			this.gboxclass2.Controls.Add(this.txtCodice2);
-			this.gboxclass2.Location = new System.Drawing.Point(15, 108);
+			this.gboxclass2.Location = new System.Drawing.Point(431, 3);
 			this.gboxclass2.Name = "gboxclass2";
-			this.gboxclass2.Size = new System.Drawing.Size(433, 89);
+			this.gboxclass2.Size = new System.Drawing.Size(409, 89);
 			this.gboxclass2.TabIndex = 5;
 			this.gboxclass2.TabStop = false;
 			this.gboxclass2.Tag = "AutoManage.txtCodice.treeclassmovimenti";
@@ -3005,7 +3064,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtDenom2.Multiline = true;
 			this.txtDenom2.Name = "txtDenom2";
 			this.txtDenom2.ReadOnly = true;
-			this.txtDenom2.Size = new System.Drawing.Size(275, 52);
+			this.txtDenom2.Size = new System.Drawing.Size(251, 52);
 			this.txtDenom2.TabIndex = 3;
 			this.txtDenom2.TabStop = false;
 			this.txtDenom2.Tag = "sorting2.description";
@@ -3016,7 +3075,7 @@ namespace casualcontract_default { //contrattooccasionale//
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.txtCodice2.Location = new System.Drawing.Point(8, 63);
 			this.txtCodice2.Name = "txtCodice2";
-			this.txtCodice2.Size = new System.Drawing.Size(417, 20);
+			this.txtCodice2.Size = new System.Drawing.Size(393, 20);
 			this.txtCodice2.TabIndex = 2;
 			this.txtCodice2.Tag = "sorting2.sortcode?x";
 			// 
@@ -3027,7 +3086,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.gboxclass1.Controls.Add(this.txtCodice1);
 			this.gboxclass1.Location = new System.Drawing.Point(15, 3);
 			this.gboxclass1.Name = "gboxclass1";
-			this.gboxclass1.Size = new System.Drawing.Size(433, 89);
+			this.gboxclass1.Size = new System.Drawing.Size(409, 89);
 			this.gboxclass1.TabIndex = 4;
 			this.gboxclass1.TabStop = false;
 			this.gboxclass1.Tag = "AutoManage.txtCodice.treeclassmovimenti";
@@ -3052,7 +3111,7 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.txtDenom1.Multiline = true;
 			this.txtDenom1.Name = "txtDenom1";
 			this.txtDenom1.ReadOnly = true;
-			this.txtDenom1.Size = new System.Drawing.Size(264, 52);
+			this.txtDenom1.Size = new System.Drawing.Size(240, 52);
 			this.txtDenom1.TabIndex = 3;
 			this.txtDenom1.TabStop = false;
 			this.txtDenom1.Tag = "sorting1.description";
@@ -3063,7 +3122,7 @@ namespace casualcontract_default { //contrattooccasionale//
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.txtCodice1.Location = new System.Drawing.Point(8, 63);
 			this.txtCodice1.Name = "txtCodice1";
-			this.txtCodice1.Size = new System.Drawing.Size(417, 20);
+			this.txtCodice1.Size = new System.Drawing.Size(393, 20);
 			this.txtCodice1.TabIndex = 2;
 			this.txtCodice1.Tag = "sorting1.sortcode?x";
 			// 
@@ -4371,6 +4430,8 @@ namespace casualcontract_default { //contrattooccasionale//
 			this.gboxUPB.ResumeLayout(false);
 			this.gboxUPB.PerformLayout();
 			this.tabAnalitico.ResumeLayout(false);
+			this.grpRipartizioneCosti.ResumeLayout(false);
+			this.grpRipartizioneCosti.PerformLayout();
 			this.gboxclass3.ResumeLayout(false);
 			this.gboxclass3.PerformLayout();
 			this.gboxclass2.ResumeLayout(false);
@@ -4968,6 +5029,41 @@ namespace casualcontract_default { //contrattooccasionale//
             calcolaTxtDelTabRitenuteAnnue(TassePagate);
 
 
+        }
+
+		private void btnRipartizione_Click(object sender, EventArgs e) {
+
+            if (Meta.IsEmpty)
+				return;
+			
+			if (DS.casualcontract.Rows.Count == 0)
+                return;
+            DataRow RC = DS.casualcontract.Rows[0];
+            if (RC == null)
+                return;
+
+            object idcostpartition = RC["idcostpartition"];
+
+            if (idcostpartition != DBNull.Value) {
+                MetaData ToMeta = Meta.Dispatcher.Get("costpartition");
+                string checkfilter = QHS.CmpEq("idcostpartition", idcostpartition);
+                ToMeta.ContextFilter = checkfilter;
+                Form F = null;
+                if (Meta.linkedForm != null)
+                    F = Meta.linkedForm.ParentForm;
+                bool result = ToMeta.Edit(F, "default", false);
+
+                string listtype = ToMeta.DefaultListType;
+                DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
+                if (R != null)
+                    ToMeta.SelectRow(R, listtype);
+            }
+            else {
+                idcostpartition = EP_functions.importCostPartitionDetail(Meta);
+                if (idcostpartition == null)
+                    return;
+                RC["idcostpartition"] = idcostpartition;
+            }
         }
 
         void RiempiTabImponibili() {

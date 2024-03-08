@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -68,7 +68,7 @@ namespace pcc_wizard_calcolo {
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
             this.lblFinale = new System.Windows.Forms.Label();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.DS = new pcc_wizard_calcolo.vistaForm();
             this.btnAnnulla = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -457,7 +457,7 @@ namespace pcc_wizard_calcolo {
         private System.Windows.Forms.TextBox txtDal;
         private System.Windows.Forms.Button btnSelezionaTutto;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtPercorso;
         private System.Windows.Forms.Button btnCartella;

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -143,6 +143,7 @@ private void initClass() {
 
 	//////////////////// STRUTTURA /////////////////////////////////
 	var tstruttura= new MetaTable("struttura");
+	tstruttura.defineColumn("active", typeof(string));
 	tstruttura.defineColumn("codice", typeof(string));
 	tstruttura.defineColumn("codiceipa", typeof(string));
 	tstruttura.defineColumn("ct", typeof(DateTime),false);
@@ -154,7 +155,7 @@ private void initClass() {
 	tstruttura.defineColumn("idsede", typeof(int),false);
 	tstruttura.defineColumn("idstruttura", typeof(int),false);
 	tstruttura.defineColumn("idstrutturakind", typeof(int),false);
-	tstruttura.defineColumn("idupb", typeof(string),false);
+	tstruttura.defineColumn("idupb", typeof(string));
 	tstruttura.defineColumn("lt", typeof(DateTime),false);
 	tstruttura.defineColumn("lu", typeof(string),false);
 	tstruttura.defineColumn("paridstruttura", typeof(int));

@@ -27,6 +27,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="transmitted" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -122,11 +123,11 @@
               <xs:element name="idmot" type="xs:int" />
               <xs:element name="assetloadmotive" type="xs:string" minOccurs="0" />
               <xs:element name="idinv" type="xs:int" />
-              <xs:element name="codeinv" type="xs:string" minOccurs="0"/>
+              <xs:element name="codeinv" type="xs:string" minOccurs="0" />
               <xs:element name="inventorytree" type="xs:string" minOccurs="0" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="idinventory" type="xs:int" />
-              <xs:element name="inventory" type="xs:string" minOccurs="0"/>
+              <xs:element name="inventory" type="xs:string" minOccurs="0" />
               <xs:element name="idassetloadkind" type="xs:int" minOccurs="0" />
               <xs:element name="assetloadkind" type="xs:string" minOccurs="0" />
               <xs:element name="yassetload" type="xs:short" minOccurs="0" />
@@ -151,7 +152,7 @@
               <xs:element name="idsor1" type="xs:int" minOccurs="0" />
               <xs:element name="idsor2" type="xs:int" minOccurs="0" />
               <xs:element name="idsor3" type="xs:int" minOccurs="0" />
-              <xs:element name="idassetload" type="xs:int" minOccurs="0"/>
+              <xs:element name="idassetload" type="xs:int" minOccurs="0" />
               <xs:element name="idmankind" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_pieceorasset" type="xs:string" minOccurs="0" />
               <xs:element name="idsor01" type="xs:int" minOccurs="0" />
@@ -166,6 +167,7 @@
               <xs:element name="invoicekind" type="xs:string" minOccurs="0" />
               <xs:element name="historicalvalue" type="xs:decimal" minOccurs="0" />
               <xs:element name="cost_discounted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -419,6 +421,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="costpartition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostpartition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="costpartitioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -466,6 +484,10 @@
       <xs:selector xpath=".//mstns:assetamortizationunloadview" />
       <xs:field xpath="mstns:namortization" />
     </xs:unique>
+    <xs:unique name="costpartition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costpartition" />
+      <xs:field xpath="mstns:idcostpartition" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -477,6 +499,7 @@
       <msdata:Relationship name="assetloadmotiveassetload" msdata:parent="assetloadmotive" msdata:child="assetload" msdata:parentkey="idmot" msdata:childkey="idmot" />
       <msdata:Relationship name="assetloadkindassetload" msdata:parent="assetloadkind" msdata:child="assetload" msdata:parentkey="idassetloadkind" msdata:childkey="idassetloadkind" />
       <msdata:Relationship name="registryassetload" msdata:parent="registry" msdata:child="assetload" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="costpartition_assetload" msdata:parent="costpartition" msdata:child="assetload" msdata:parentkey="idcostpartition" msdata:childkey="idcostpartition" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

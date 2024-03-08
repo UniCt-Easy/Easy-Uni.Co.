@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +24,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
+--setuser'amministrazione'
 /****** Object:  StoredProcedure [unify_registry]    Script Date: 23/09/2014 09.23.45 ******/
 SET ANSI_NULLS ON
 GO
@@ -112,8 +112,9 @@ WHERE o.xtype = 'U'
  (
   (
    c.name IN ('idreg', 'iddeputy', 'idsorreg', 'registrymanager', 'idregauto', 'paymentagency', 'refundagency','regionalagency','idreg_distrained','idreg_agency','idreg_csa')
-   AND o.name NOT IN ('registry', 'registryaddress', 'registryreference', 'registrypaymethod', 'registrylegalstatus','registrycvattachment',
-   'registrytaxablestatus', 'registrycf', 'registrypiva', 'registryrole','registrydurc','registrysorting')
+   AND o.name NOT IN ('registry', 'registryaddress', 'registryreference', 'registrypaymethod', 'registrylegalstatus','registrycvattachment','registryattachment', 
+   'registrytaxablestatus', 'registrycf', 'registrypiva', 'registryrole','registrydurc','registrysorting', 
+   'registry_amministrativi','registry_aziende','registry_docenti','registry_istituti', 'registry_istitutiesteri',	'registry_studenti'	 )
   )
   OR (o.name = 'registrypaymethod' AND c.name = 'iddeputy')
  )

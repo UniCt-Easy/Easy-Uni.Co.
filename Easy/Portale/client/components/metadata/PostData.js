@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module PostData
  * @description
@@ -51,15 +34,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} tableName
          * @param {string} editType
          * @param {Array} messages
-         * @returns {Deferred(boolean|DataSet)}
+         * @returns {Promise(boolean|DataSet)}
          */
         saveDataSet:function (ds, tableName, editType, messages) {
             var def = Deferred("saveDataSet");
-
+            let dsToSend = ds.getChanges();
+            //dsToSend.displayData();
             var objConn = {
                 method: methodEnum.saveDataSet,
                 prm: {
-                    ds: getDataUtils.getJsonFromJsDataSet(ds, true),
+                    ds: getDataUtils.getJsonFromJsDataSet(dsToSend, false),
                     tableName: tableName,
                     editType: editType,
                     messages: getDataUtils.getJsonFromMessages(messages)
@@ -71,19 +55,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         try{
                             // recupero oggetto json
                             var obj  = getDataUtils.getJsObjectFromJson(jsonRes);
-
                             // dal json obj recupero i vari pezzi. 1. dataset 2. success 3. canIgnore 4. messages
                             // messages a sua volta sarà un array di oggetti che metterò in obj js di tipo DbProcedureMessage
-                            var dsOut = getDataUtils.getJsDataSetFromJson(obj.dataset);
+
+                            //var dsOut = getDataUtils.getJsDataSetFromJson(obj.dataset);
+                            let dsOut = new jsDataSet.DataSet(obj.dataset.name);
+                            // deserializzo il json proveniente dal server e popolo ds
+                            dsOut.deSerialize(obj.dataset, true);
+
+                            
+
                             var success = obj.success;
-                            var canIgnore = obj.canIgnore;
+                            let _canIgnore = true;
                             var messages = [];
-
-                            // a prescindere se il salvataggio è avvenuto, mergio il ds di output del metodo save con quello di input
-                            var changesCommittedToDB = (obj.messages.length === 0); // se non ci sono msg e quindi è andato bene sono effettivamente da calcellare
-                            getDataUtils.mergeDataSetChanges(ds, dsOut, changesCommittedToDB );
-
-                            // popolo  array di messaggi, creando un opportuno oggetto DbProcedureMessage.
+                            // In qualsiasi caso (anche su fail)  unisco il ds di output del metodo save con quello di input
+                            var changesCommittedToDB = (obj.messages.length === 0); // se non ci sono msg e quindi è andato bene sono effettivamente da cancellare
+                            getDataUtils.mergeDataSetChanges(ds, dsOut, changesCommittedToDB);
+                            // popolo array di messaggi, creando un opportuno oggetto DbProcedureMessage.
                             _.forEach(obj.messages,
                                 function (message) {
                                     var id = message.id;
@@ -93,10 +81,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     var table = message.table;
                                     var canIgnore = message.canIgnore;
                                     var m = new appMeta.DbProcedureMessage(id, description, audit, severity, table, canIgnore);
-                                    messages.push(m)
+                                    messages.push(m);
+                                    if (!canIgnore) {
+                                        _canIgnore=false;
+                                    }
                                 });
-
-                            return def.resolve(ds, messages, success, canIgnore);
+                            return def.resolve(ds, messages, success, _canIgnore);
 
                         } catch (e){
                             console.log(e);
@@ -106,7 +96,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     }, function(err) {
                         return def.reject(false);
                     }
-                )
+                );
 
             return def.promise();
         },
@@ -124,7 +114,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} editType
          * @param {Array} inputMessages
          * @param {MetaPage} metaPage
-         * @returns {Deferred(boolean|DataSet)}
+         * @returns Promise<boolean|DataSet>
          */
         doPost:function (ds, tableName, editType, inputMessages, metaPage) {
             var def  = Deferred("doPost");
@@ -135,8 +125,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 .then(function (dsOut, newMessages, success, canIgnore) {
 	                // se ritorna con successo esco con true
-                    if(success) return def.resolve(true);
-
+                    if(success) {
+                        return def.resolve(true);
+                    }
                     // se ci sono messaggi mostro form con lista degli errori.
                     // l'utente potrà uscire e non salvare , oppure provare ad ignorare e salvare
                     if (newMessages.length > 0) {

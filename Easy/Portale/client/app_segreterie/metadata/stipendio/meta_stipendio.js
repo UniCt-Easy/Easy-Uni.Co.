@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -47,12 +30,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!tredicesima', 'Tredicesima', 'fixed.2', 0, null);
 						this.describeAColumn(table, 'classe', 'Classe', null, 10, null);
 						this.describeAColumn(table, 'scatto', 'Scatto', null, 20, null);
-						this.describeAColumn(table, 'stipendio', 'Stipendio', 'fixed.2', 30, null);
-						this.describeAColumn(table, 'iis', 'Indennit� integrativa speciale', 'fixed.2', 40, null);
-						this.describeAColumn(table, 'assegno', 'Assegno aggiuntivo', 'fixed.2', 50, null);
-						this.describeAColumn(table, 'lordo', 'Retribuzione totale lorda', 'fixed.2', 60, null);
-						this.describeAColumn(table, 'irap', 'IRAP', 'fixed.2', 70, null);
-						this.describeAColumn(table, 'totale', 'Totale costo annuo', 'fixed.2', 110, null);
+						this.describeAColumn(table, 'anzianitamin', 'Anno minimo di anzianità', null, 30, null);
+						this.describeAColumn(table, 'anzianitamax', 'Anno massimo di anzianità', null, 40, null);
+						this.describeAColumn(table, 'start', 'Data inizio validità', null, 50, null);
+						this.describeAColumn(table, 'stop', 'Data fine validità', null, 60, null);
+						this.describeAColumn(table, 'stipendio', 'Stipendio', 'fixed.2', 70, null);
+						this.describeAColumn(table, 'iis', 'Indennità integrativa speciale', 'fixed.2', 80, null);
+						this.describeAColumn(table, 'assegno', 'Assegno aggiuntivo', 'fixed.2', 90, null);
+						this.describeAColumn(table, 'indennitaateneo', 'Indennità di Ateneo', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'elementoperequativo', 'Elemento perequativo', 'fixed.2', 110, null);
+						this.describeAColumn(table, 'indennitaposizioneminima', 'Indennità posizione minima', 'fixed.2', 120, null);
+						this.describeAColumn(table, 'lordonotredicesima', 'Retribuzione lorda senza tredicesima', 'fixed.2', 130, null);
+						this.describeAColumn(table, 'lordo', 'Retribuzione totale lorda', 'fixed.2', 140, null);
+						this.describeAColumn(table, 'irap', 'IRAP', 'fixed.2', 200, null);
+						this.describeAColumn(table, 'totale', 'Totale costo annuo', 'fixed.2', 210, null);
+						this.describeAColumn(table, 'rifnormativo', 'Riferimento normativo', null, 300, 2048);
+						this.describeAColumn(table, 'siglaimportazione', 'Sigla importazione', null, 310, 1024);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -70,11 +63,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["!tesoro"].caption = "Tesoro";
 						table.columns["!totalece"].caption = "Totale a carico ente";
 						table.columns["!tredicesima"].caption = "Tredicesima";
+						table.columns["anzianitamax"].caption = "Anno massimo di anzianità";
+						table.columns["anzianitamin"].caption = "Anno minimo di anzianità";
 						table.columns["assegno"].caption = "Assegno aggiuntivo";
-						table.columns["iis"].caption = "Indennit� integrativa speciale";
+						table.columns["elementoperequativo"].caption = "Elemento perequativo";
+						table.columns["iis"].caption = "Indennità integrativa speciale";
+						table.columns["indennitaateneo"].caption = "Indennità di Ateneo";
+						table.columns["indennitaposizioneminima"].caption = "Indennità posizione minima";
 						table.columns["irap"].caption = "IRAP";
 						table.columns["lordo"].caption = "Retribuzione totale lorda";
+						table.columns["lordonotredicesima"].caption = "Retribuzione lorda senza tredicesima";
+						table.columns["rifnormativo"].caption = "Riferimento normativo";
 						table.columns["siglaimportazione"].caption = "Sigla importazione";
+						table.columns["start"].caption = "Data inizio validità";
+						table.columns["stop"].caption = "Data fine validità";
 						table.columns["totale"].caption = "Totale costo annuo";
 //$innerSetCaptionConfig_default$
 						break;
@@ -103,7 +105,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "default": {
+						return "anzianitamin asc , start asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
 			//$describeTree$
         });

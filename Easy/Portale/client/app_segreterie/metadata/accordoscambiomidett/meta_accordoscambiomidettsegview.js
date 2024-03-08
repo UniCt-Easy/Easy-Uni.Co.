@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -42,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'seg':
 						this.describeAColumn(table, 'registryistitutiesteri_title', 'Istituto estero', null, 10, 101);
 						this.describeAColumn(table, 'isced2013_detailedfield', 'Classificazione ISCED 2013', null, 30, 64);
-						this.describeAColumn(table, 'torkind_title', 'Tipologia Modalit‡ di invio del trascript of record', null, 50, 50);
-						this.describeAColumn(table, 'torkind_description', 'Descrizione Modalit‡ di invio del trascript of record', null, 50, 256);
+						this.describeAColumn(table, 'torkind_title', 'Tipologia Modalit√† di invio del trascript of record', null, 50, 50);
+						this.describeAColumn(table, 'torkind_description', 'Descrizione Modalit√† di invio del trascript of record', null, 50, 256);
 						this.describeAColumn(table, 'accordoscambiomidett_numdocincoming', 'Numero di docenti incoming', null, 60, null);
 						this.describeAColumn(table, 'accordoscambiomidett_numdocoutgoing', 'Numero di docenti outgoing', null, 70, null);
 						this.describeAColumn(table, 'accordoscambiomidett_numpersincoming', 'Numero di personale incoming', null, 80, null);

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -68,6 +68,8 @@ namespace meta_config
             SetDefault(PrimaryTable, "profservice_flagrestart", "S");
             //wageaddition
             SetDefault(PrimaryTable, "wageaddition_flagrestart", "S");
+            //Trasmissione PCC
+            SetDefault(PrimaryTable, "flagpcc", "S");
             //expense
             SetDefault(PrimaryTable, "payment_flag", 0);
             //income

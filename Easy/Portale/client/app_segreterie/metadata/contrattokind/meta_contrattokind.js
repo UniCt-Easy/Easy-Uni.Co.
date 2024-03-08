@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -47,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'costolordoannuo', 'Costo lordo annuo', 'fixed.2', 200, null);
 						this.describeAColumn(table, 'costolordoannuooneri', 'Costo lordo annuo e oneri', 'fixed.2', 210, null);
 						this.describeAColumn(table, 'puntiorganico', 'Punti organico', 'fixed.2', 230, null);
+						this.describeAColumn(table, 'tipopersonale', 'Categoria di personale', null, 260, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -64,8 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["costolordoannuo"].caption = "Costo lordo annuo";
 						table.columns["costolordoannuooneri"].caption = "Costo lordo annuo e oneri";
 						table.columns["elementoperequativo"].caption = "Abilita elemento perequativo";
-						table.columns["indennitadiateneo"].caption = "Abilita indennit‡ di ateneo";
-						table.columns["indennitadiposizione"].caption = "Abilita indennit‡ di posizione";
+						table.columns["indennitadiateneo"].caption = "Abilita indennit√† di ateneo";
+						table.columns["indennitadiposizione"].caption = "Abilita indennit√† di posizione";
 						table.columns["indvacancacontrattuale"].caption = "Abilita ind. vacanca contrattuale";
 						table.columns["oremaxcompitididatempoparziale"].caption = "Ore massime per i compiti didattici a tempo parziale";
 						table.columns["oremaxcompitididatempopieno"].caption = "Ore massime per i compiti didattici a tempo pieno";
@@ -88,8 +72,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["siglaimportazione"].caption = "Sigla importazione";
 						table.columns["tempdef"].caption = "Abilita tempo definito o parziale";
 						table.columns["totaletredicesima"].caption = "Abilita totale tredicesima";
-						table.columns["tredicesimaindennitaintegrativaspeciale"].caption = "Abilita tredicesima indennit‡ integrativa speciale";
+						table.columns["tredicesimaindennitaintegrativaspeciale"].caption = "Abilita tredicesima indennit√† integrativa speciale";
 						table.columns["idcontrattokind"].caption = "Tipologia del contratto";
+						table.columns["tipopersonale"].caption = "Categoria di personale";
+						table.columns["indvacancacontrattuale"].caption = "Abilita ind. vacanza contrattuale";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$

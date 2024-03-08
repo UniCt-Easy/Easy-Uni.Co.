@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,17 +26,17 @@ GO
 CREATE PROCEDURE rpt_statopatrimoniale_coordanal_dm2012_new
 
 --setuser'amministrazione'
-
- --exec rpt_statopatrimoniale_coordanal_dm2012_new 2019, {ts '2019-01-01 00:00:00'}, {ts '2019-12-31 00:00:00'}, '%','N','N', 2033 ,'S',null, null, 'N'
-  --exec rpt_statopatrimoniale_coordanal_dm2012_new 2019, {ts '2019-01-01 00:00:00'}, {ts '2019-12-31 00:00:00'}, '%',					'S','S', null ,'S',	null, null, 'N'
-
+--setuser'amm'
+--exec rpt_statopatrimoniale_coordanal_dm2012_new 2922, {ts '2022-01-01 00:00:00'}, {ts '2022-01-15 00:00:00'}, '%','N','N', 2033 ,'S',null, null, 'N'
+--exec  rpt_statopatrimoniale_coordanal_dm2012_new 2022, {ts '2022-01-01 00:00:00'}, {ts '2022-01-15 00:00:00'}, '%', 'S', 'N', NULL, 'N', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL
+--exec  rpt_statopatrimoniale_coordanal_dm2012_new 2022, {ts '2022-01-01 00:00:00'}, {ts '2022-01-15 00:00:00'}, '%', 'S', 'S', NULL, 'N', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL
+--exec  rpt_statopatrimoniale_coordanal_dm2012_new 2022, {ts '2022-01-01 00:00:00'}, {ts '2022-12-22 00:00:00'}, '%', 'S', 'N', 5468, 'N', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL
 	(
 	@ayear int,
 	@start datetime,
 	@stop datetime,
 	@idupb		varchar(36),
 	@showchildupb	char(1),
-
 	@showcoordanal char(1) , -- Mostra figli
 	@idsor1 int, -- Se valorizzato viene mostrato
 	@showidsor1child char(1), -- Includi figli
@@ -136,7 +136,7 @@ end
 	 ordinestampa int --identity(1,1)
 	 )  
 	
-		CREATE TABLE #IMPORTI_CLASS
+	CREATE TABLE #IMPORTI_CLASS
 	(nlevel int ,				label varchar(200),			codepatrimony varchar(200),		 
 	_curramountAttivo decimal(19,2),	_prevamountAttivo decimal(19,2), 	
 	_curramountPassivo decimal(19,2),	_prevamountPassivo decimal(19,2), 	
@@ -255,27 +255,27 @@ Begin
 		INSERT INTO #STRUTTURA  SELECT 2,'IV DISPONIBILITA'' LIQUIDE',		null,  0,0,0,0,	'A' ,  null,1, _idsor1,'S' ,480 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 1,'1) Depositi bancari e postali',	'B) IV 1)', 0,0,0,0, 'A' ,'TOTALE DISPONIBILITA'' LIQUIDE',1, _idsor1,'S',490   from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 1,'2) Denaro e valori in cassa',		'B) IV 2)', 0,0,0,0, 'A', 'TOTALE DISPONIBILITA'' LIQUIDE',1, _idsor1,'S',500  from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 2,'TOTALE DISPONIBILITA'' LIQUIDE',	null, 0,0,0,0, 'A',  'TOTALE ATTIVO CIRCOLANTE (B)',1 , _idsor1,'S',510 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 3,'TOTALE DISPONIBILITA'' LIQUIDE',	null, 0,0,0,0, 'A',  'TOTALE ATTIVO CIRCOLANTE (B)',1 , _idsor1,'S',510 from  @ANALITICA1
 		----------------------------------------------- TOTALE		B) ATTIVO CIRCOLANTE	------------------------------------------------------------
-		INSERT INTO #STRUTTURA  SELECT 3,'TOTALE ATTIVO CIRCOLANTE (B)', null, 0,0,0,0, 'A' ,'TOTALE ATTIVO', 1, _idsor1,'S' ,520 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 4,'TOTALE ATTIVO CIRCOLANTE (B)', null, 0,0,0,0, 'A' ,'TOTALE ATTIVO', 1, _idsor1,'S' ,520 from  @ANALITICA1
 
 		-----------------------------C) RATEI E RISCONTI ATTIVI ---------------------------------- 
 		INSERT INTO #STRUTTURA  SELECT 0,'C) RATEI E RISCONTI ATTIVI', null, 0,0,0,0, 'A' ,null,null , _idsor1,'S' ,530 from  @ANALITICA1
 
 		IF (@ayear <= 2017) 
 		Begin
-			INSERT INTO #STRUTTURA  SELECT 2,'c1)	Ratei per progetti e ricerche in corso',	'C) c1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, _idsor1,'S', 540 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 1,'c1)	Ratei per progetti e ricerche in corso',	'C) c1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, _idsor1,'S', 540 from  @ANALITICA1
 		end
 		else
 		Begin
-			INSERT INTO #STRUTTURA  SELECT 2,'c1)	Altri ratei e risconti attivi',				'C) c1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, _idsor1,'S',540 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 1,'c1)	Altri ratei e risconti attivi',				'C) c1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, _idsor1,'S',540 from  @ANALITICA1
 		end
-		INSERT INTO #STRUTTURA  SELECT 2,'c2)	Altri ratei e risconti attivi', 'C) c2)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, _idsor1,'S' ,550from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 1,'c2)	Altri ratei e risconti attivi', 'C) c2)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, _idsor1,'S' ,550from  @ANALITICA1
 		---------------------------------------	D)	RATEI ATTIVI PER PROGETTI E RICERCHE IN CORSO	--------------------------------------------------------------------
 		IF (@ayear >= 2018) 
 		Begin
 			INSERT INTO #STRUTTURA  SELECT 0,'D)	RATEI ATTIVI PER PROGETTI E RICERCHE IN CORSO', null, 0,0,0,0, 'A' ,null,null , _idsor1,'S',560 from  @ANALITICA1
-			INSERT INTO #STRUTTURA  SELECT 2,'d 1)	Ratei attivi per progetti e ricerche finanziate e co-finanziate in corso', 'd 1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, _idsor1,'S',560 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 1,'d 1)	Ratei attivi per progetti e ricerche finanziate e co-finanziate in corso', 'd 1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, _idsor1,'S',560 from  @ANALITICA1
 		End
 
 		--------------------------------------TOTALE ATTIVO-----------------------------------
@@ -311,95 +311,89 @@ Begin
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' ,150 from  @ANALITICA1 -- Fittizia
 
 		INSERT INTO #STRUTTURA  SELECT 0,'B)	FONDI PER RISCHI ED ONERI', null, 0,0,0,0,			'P' ,null,null , _idsor1,'S' ,160 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 2,'TOTALE FONDI PER RISCHI ED ONERI (B)', 'B)', 0,0,0,0,	'P' ,'TOTALE PASSIVO',null , _idsor1,'S' ,170 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 4,'TOTALE FONDI PER RISCHI ED ONERI (B)', 'B)', 0,0,0,0,	'P' ,'TOTALE PASSIVO',null , _idsor1,'S' ,170 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0,									'P' ,null, 1, null,'N' ,180 from  @ANALITICA1 -- Fittizia
-		INSERT INTO #STRUTTURA  SELECT 2,'C)	TRATTAMENTO DI FINE RAPPORTO DI LAVORO SUBORDINATO', 'C)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',null , _idsor1,'S',190 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'C)	TRATTAMENTO DI FINE RAPPORTO DI LAVORO SUBORDINATO', 'C)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',null , _idsor1,'S',190 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' , 200 from  @ANALITICA1 -- Fittizia
 		-------------------------------------------------------	DEBITI -------------------------------
-		INSERT INTO #STRUTTURA  SELECT 2,'D)	DEBITI (con separata indicazione, per ciascuna voce, degli importi esigibili oltre l''esercizio successivo)', null, 0,0,0,0, 'P' ,null,null , _idsor1,'S',210 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'D)	DEBITI (con separata indicazione, per ciascuna voce, degli importi esigibili oltre l''esercizio successivo)', null, 0,0,0,0, 'P' ,null,null , _idsor1,'S',210 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' , 220 from  @ANALITICA1 -- Fittizia
 		INSERT INTO #STRUTTURA  SELECT 1,'1) Mutui e Debiti verso banche', 'D) 1)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1   ,	_idsor1,'S' ,230 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)e', 0,0,0,0, 'P', 'D) 1)',1   ,				_idsor1,'N' ,231 from  @ANALITICA1 -- hanno lo stesso ordine stampa perchè solo P verrà visualizzato
 		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)o', 0,0,0,0, 'P', 'D) 1)',1   ,				_idsor1,'P' ,240 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)',	0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , _idsor1,'S',250 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)e',				0,0,0,0, 'P'  , 'D) 2)',1  , _idsor1,'N',251 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)o',				0,0,0,0, 'P'  , 'D) 2)',1  , _idsor1,'P',260 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)e',				0,0,0,0, 'P'  , 'D) 2)',1  , _idsor1,'P',251 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)o',				0,0,0,0, 'P'  , 'D) 2)',1  , _idsor1,'N',260 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'3) Debiti verso Regione e Province Autonome',  'D) 3)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1  , _idsor1,'S',270 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'3) Debiti verso Regione e Province Autonome',  'D) 3)e', 0,0,0,0, 'P',  'D) 3)',1  , _idsor1,'N',271 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'3) Debiti verso Regione e Province Autonome',  'D) 3)o', 0,0,0,0, 'P',  'D) 3)',1  , _idsor1,'P',280 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'3) Debiti verso Regione e Province Autonome',  'D) 3)e', 0,0,0,0, 'P',  'D) 3)',1  , _idsor1,'P',271 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'3) Debiti verso Regione e Province Autonome',  'D) 3)o', 0,0,0,0, 'P',  'D) 3)',1  , _idsor1,'N',280 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'4) Debiti verso altre Amministrazioni locali', 'D) 4)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , _idsor1,'S',290 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'4) Debiti verso altre Amministrazioni locali', 'D) 4)e', 0,0,0,0, 'P' , 'D) 4)',1  , _idsor1,'N' ,291 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'4) Debiti verso altre Amministrazioni locali', 'D) 4)o', 0,0,0,0, 'P' , 'D) 4)',1  , _idsor1,'P',300 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'4) Debiti verso altre Amministrazioni locali', 'D) 4)e', 0,0,0,0, 'P' , 'D) 4)',1  , _idsor1,'P' ,291 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'4) Debiti verso altre Amministrazioni locali', 'D) 4)o', 0,0,0,0, 'P' , 'D) 4)',1  , _idsor1,'N',300 from  @ANALITICA1
 
 		IF (@ayear <= 2017) 
 		begin
 			INSERT INTO #STRUTTURA  SELECT 1,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)',0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , _idsor1,'S' ,310 from  @ANALITICA1
-			INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)e',0,0,0,0, 'P' , 'D) 5)',1  , _idsor1,'N',311 from  @ANALITICA1
-			INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)o',0,0,0,0, 'P' , 'D) 5)',1  , _idsor1,'P',320 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)e',0,0,0,0, 'P' , 'D) 5)',1  , _idsor1,'P',311 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)o',0,0,0,0, 'P' , 'D) 5)',1  , _idsor1,'N',320 from  @ANALITICA1
 		end
 		ELSE
 		begin
 			INSERT INTO #STRUTTURA  SELECT 1,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , _idsor1,'S',310 from  @ANALITICA1
-			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)e', 0,0,0,0, 'P' , 'D) 5)',1  , _idsor1,'N',311 from  @ANALITICA1
-			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)o', 0,0,0,0, 'P' ,'D) 5)',1  , _idsor1,'P' ,320 from  @ANALITICA1
+			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)e', 0,0,0,0, 'P' , 'D) 5)',1  , _idsor1,'P',311 from  @ANALITICA1
+			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)o', 0,0,0,0, 'P' ,'D) 5)',1  , _idsor1,'N' ,320 from  @ANALITICA1
 			 end
 		INSERT INTO #STRUTTURA  SELECT 1,'6) Debiti verso Università',	'D) 6)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , _idsor1,'S',325 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Università',	'D) 6)e', 0,0,0,0, 'P' , 'D) 6)',1  , _idsor1,'N',326 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Università',	'D) 6)o', 0,0,0,0, 'P' , 'D) 6)',1  , _idsor1,'P' ,330 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Università',	'D) 6)e', 0,0,0,0, 'P' , 'D) 6)',1  , _idsor1,'P',326 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Università',	'D) 6)o', 0,0,0,0, 'P' , 'D) 6)',1  , _idsor1,'N' ,330 from  @ANALITICA1
 
 
 		INSERT INTO #STRUTTURA  SELECT 1,'7) Debiti verso studenti',		'D) 7)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1   , _idsor1,'S',340 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'7) Debiti verso studenti',		'D) 7)e', 0,0,0,0, 'P', 'D) 7)',1   , _idsor1,'N' ,341 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'7) Debiti verso studenti',		'D) 7)o', 0,0,0,0, 'P', 'D) 7)',1   , _idsor1,'P',350 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'7) Debiti verso studenti',		'D) 7)e', 0,0,0,0, 'P', 'D) 7)',1   , _idsor1,'P' ,341 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'7) Debiti verso studenti',		'D) 7)o', 0,0,0,0, 'P', 'D) 7)',1   , _idsor1,'N',350 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'8) Acconti',					'D) 8)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , _idsor1,'S',360 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'8) Acconti',					'D) 8)e', 0,0,0,0, 'P' , 'D) 8)',1  , _idsor1,'N' ,361 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'8) Acconti',					'D) 8)o', 0,0,0,0, 'P' , 'D) 8)',1  , _idsor1,'P', 370 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'8) Acconti',					'D) 8)e', 0,0,0,0, 'P' , 'D) 8)',1  , _idsor1,'P' ,361 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'8) Acconti',					'D) 8)o', 0,0,0,0, 'P' , 'D) 8)',1  , _idsor1,'N', 370 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'9) Debiti verso fornitori',	'D) 9)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1   , _idsor1,'S' ,380 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'9) Debiti verso fornitori',	'D) 9)e', 0,0,0,0, 'P' , 'D) 9)',1   , _idsor1,'N' ,381 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'9) Debiti verso fornitori',	'D) 9)o', 0,0,0,0, 'P' , 'D) 9)',1   , _idsor1,'P',390  from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'9) Debiti verso fornitori',	'D) 9)e', 0,0,0,0, 'P' , 'D) 9)',1   , _idsor1,'P' ,381 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'9) Debiti verso fornitori',	'D) 9)o', 0,0,0,0, 'P' , 'D) 9)',1   , _idsor1,'N',390  from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'10) Debiti verso dipendenti',	'D) 10)',  0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , _idsor1,'S',400  from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)e',  0,0,0,0, 'P' , 'D) 10)',1  , _idsor1,'N' ,401 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)o',  0,0,0,0, 'P' , 'D) 10)',1  , _idsor1,'P' ,410 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)e',  0,0,0,0, 'P' , 'D) 10)',1  , _idsor1,'P' ,401 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)o',  0,0,0,0, 'P' , 'D) 10)',1  , _idsor1,'N' ,410 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'11) Debiti verso società o enti controllati', 'D) 11)', 0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , _idsor1,'S' ,420 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso società o enti controllati', 'D) 11)e', 0,0,0,0, 'P'  , 'D) 11)',1  , _idsor1,'N' ,421 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso società o enti controllati', 'D) 11)o', 0,0,0,0, 'P'  , 'D) 11)',1  , _idsor1,'P',430 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso società o enti controllati', 'D) 11)e', 0,0,0,0, 'P'  , 'D) 11)',1  , _idsor1,'P' ,421 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso società o enti controllati', 'D) 11)o', 0,0,0,0, 'P'  , 'D) 11)',1  , _idsor1,'N',430 from  @ANALITICA1
 
 		INSERT INTO #STRUTTURA  SELECT 1,'12) Altri debiti',				'D) 12)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1    , _idsor1,'S',440 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'12) Altri debiti',				'D) 12)e', 0,0,0,0, 'P', 'D) 12)',1    , _idsor1,'N' ,441 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 0,'12) Altri debiti',				'D) 12)o', 0,0,0,0, 'P', 'D) 12)',1    , _idsor1,'P',450 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'12) Altri debiti',				'D) 12)e', 0,0,0,0, 'P', 'D) 12)',1    , _idsor1,'P' ,441 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'12) Altri debiti',				'D) 12)o', 0,0,0,0, 'P', 'D) 12)',1    , _idsor1,'N',450 from  @ANALITICA1
 
-		INSERT INTO #STRUTTURA  SELECT 2,'TOTALE DEBITI (D)', null, 0,0,0,0, 'P' ,'TOTALE PASSIVO',null , _idsor1,'S',460 from  @ANALITICA1
-		INSERT INTO #STRUTTURA  SELECT 2,'TOTALE DEBITI(e)', null, 0,0,0,0, 'P' ,null, 1, _idsor1,'P' ,461 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 4,'TOTALE DEBITI (D)', null, 0,0,0,0, 'P' ,'TOTALE PASSIVO',null , _idsor1,'S',460 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 4,null, null, 0,0,0,0, 'P' ,null, 1, _idsor1,'P' ,461 from  @ANALITICA1
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' , 470 from  @ANALITICA1 -- Fittizia
-		INSERT INTO #STRUTTURA  SELECT 2,'E) RATEI E RISCONTI PASSIVI E CONTRIBUTI AGLI INVESTIMENTI', null, 0,0,0,0, 'A' ,null,1 , _idsor1,'S' ,480 from  @ANALITICA1
+		INSERT INTO #STRUTTURA  SELECT 0,'E) RATEI E RISCONTI PASSIVI E CONTRIBUTI AGLI INVESTIMENTI', null, 0,0,0,0, 'P' ,null,1 , _idsor1,'S' ,480 from  @ANALITICA1
 		IF (@ayear <= 2017) 
 		begin
-			INSERT INTO #STRUTTURA  SELECT 2,'e1) Risconti per progetti e ricerche in corso', 'E) e1)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',1 , _idsor1,'S' ,490 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 1,'e1) Risconti per progetti e ricerche in corso', 'E) e1)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',1 , _idsor1,'S' ,490 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 1,'e2) Contributi agli investimenti', 'E) e2)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, _idsor1,'S',500 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 1,'e3) Altri ratei e risconti passivi', 'E) e3)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, _idsor1,'S' ,510 from  @ANALITICA1
 		end
 		Else
 		begin
 			INSERT INTO #STRUTTURA  SELECT 1,'e1) Contributi agli investimenti', 'E) e1)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',1 , _idsor1,'S',490 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 1,'e2) Altri ratei e risconti passivi', 'E) e2)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, _idsor1,'S',500 from  @ANALITICA1
 		end
- 
-		IF (@ayear <= 2017) 
-		begin
-				INSERT INTO #STRUTTURA  SELECT 1,'e2) Contributi agli investimenti', 'E) e2)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, _idsor1,'S',510 from  @ANALITICA1
-		end
-		Else
-		begin	
-			INSERT INTO #STRUTTURA  SELECT 1,'e2) Altri ratei e risconti passivi', 'E) e2)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, _idsor1,'S',510 from  @ANALITICA1
-		end
-		INSERT INTO #STRUTTURA  SELECT 1,'e3) Altri ratei e risconti passivi', 'E) e3)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, _idsor1,'S' ,520 from  @ANALITICA1
+  
 		if(@ayear >=2018)
 		Begin
-			INSERT INTO #STRUTTURA  SELECT 2,'F)	RISCONTI PASSIVI PER PROGETTI E RICERCHE IN CORSO', null, 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, _idsor1,'S' ,530 from  @ANALITICA1
+			INSERT INTO #STRUTTURA  SELECT 0,'F)	RISCONTI PASSIVI PER PROGETTI E RICERCHE IN CORSO', null, 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, _idsor1,'S' ,530 from  @ANALITICA1
 			INSERT INTO #STRUTTURA  SELECT 1,'f1) Risconti passivi per progetti e ricerche finanziate e co-finanziate in corso', 'f 1)', 0,0,0,0, 'P' ,null, 1, _idsor1,'S',540 from  @ANALITICA1
 		End
 		else
@@ -517,27 +511,27 @@ Begin
 		INSERT INTO #STRUTTURA  SELECT 2,'IV DISPONIBILITA'' LIQUIDE',		null,  0,0,0,0,	'A' ,  null,1, @idsor1,'S' ,480  
 		INSERT INTO #STRUTTURA  SELECT 1,'1) Depositi bancari e postali',	'B) IV 1)', 0,0,0,0, 'A' ,'TOTALE DISPONIBILITA'' LIQUIDE',1, @idsor1,'S',490    
 		INSERT INTO #STRUTTURA  SELECT 1,'2) Denaro e valori in cassa',		'B) IV 2)', 0,0,0,0, 'A', 'TOTALE DISPONIBILITA'' LIQUIDE',1, @idsor1,'S',500   
-		INSERT INTO #STRUTTURA  SELECT 2,'TOTALE DISPONIBILITA'' LIQUIDE',	null, 0,0,0,0, 'A',  'TOTALE ATTIVO CIRCOLANTE (B)',1 , @idsor1,'S',510  
+		INSERT INTO #STRUTTURA  SELECT 3,'TOTALE DISPONIBILITA'' LIQUIDE',	null, 0,0,0,0, 'A',  'TOTALE ATTIVO CIRCOLANTE (B)',1 , @idsor1,'S',510  
 		----------------------------------------------- TOTALE		B) ATTIVO CIRCOLANTE	------------------------------------------------------------
-		INSERT INTO #STRUTTURA  SELECT 3,'TOTALE ATTIVO CIRCOLANTE (B)', null, 0,0,0,0, 'A' ,'TOTALE ATTIVO', 1, @idsor1,'S' ,520  
+		INSERT INTO #STRUTTURA  SELECT 4,'TOTALE ATTIVO CIRCOLANTE (B)', null, 0,0,0,0, 'A' ,'TOTALE ATTIVO', 1, @idsor1,'S' ,520  
 
 		-----------------------------C) RATEI E RISCONTI ATTIVI ---------------------------------- 
 		INSERT INTO #STRUTTURA  SELECT 0,'C) RATEI E RISCONTI ATTIVI', null, 0,0,0,0, 'A' ,null,null , @idsor1,'S' ,530  
 
 		IF (@ayear <= 2017) 
 		Begin
-			INSERT INTO #STRUTTURA  SELECT 2,'c1)	Ratei per progetti e ricerche in corso',	'C) c1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, @idsor1,'S', 540  
+			INSERT INTO #STRUTTURA  SELECT 1,'c1)	Ratei per progetti e ricerche in corso',	'C) c1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, @idsor1,'S', 540  
 		end
 		else
 		Begin
-			INSERT INTO #STRUTTURA  SELECT 2,'c1)	Altri ratei e risconti attivi',				'C) c1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, @idsor1,'S',540  
+			INSERT INTO #STRUTTURA  SELECT 1,'c1)	Altri ratei e risconti attivi',				'C) c1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, @idsor1,'S',540  
 		end
-		INSERT INTO #STRUTTURA  SELECT 2,'c2)	Altri ratei e risconti attivi', 'C) c2)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, @idsor1,'S' ,550 
+		INSERT INTO #STRUTTURA  SELECT 1,'c2)	Altri ratei e risconti attivi', 'C) c2)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, @idsor1,'S' ,550 
 		---------------------------------------	D)	RATEI ATTIVI PER PROGETTI E RICERCHE IN CORSO	--------------------------------------------------------------------
 		IF (@ayear >= 2018) 
 		Begin
 			INSERT INTO #STRUTTURA  SELECT 0,'D)	RATEI ATTIVI PER PROGETTI E RICERCHE IN CORSO', null, 0,0,0,0, 'A' ,null,null , @idsor1,'S',560  
-			INSERT INTO #STRUTTURA  SELECT 2,'d 1)	Ratei attivi per progetti e ricerche finanziate e co-finanziate in corso', 'd 1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, @idsor1,'S',560  
+			INSERT INTO #STRUTTURA  SELECT 1,'d 1)	Ratei attivi per progetti e ricerche finanziate e co-finanziate in corso', 'd 1)', 0,0,0,0, 'A' ,'TOTALE ATTIVO',1, @idsor1,'S',560  
 		End
 
 		--------------------------------------TOTALE ATTIVO-----------------------------------
@@ -573,95 +567,89 @@ Begin
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' ,150   -- Fittizia
 
 		INSERT INTO #STRUTTURA  SELECT 0,'B)	FONDI PER RISCHI ED ONERI', null, 0,0,0,0,			'P' ,null,null , @idsor1,'S' ,160  
-		INSERT INTO #STRUTTURA  SELECT 2,'TOTALE FONDI PER RISCHI ED ONERI (B)', 'B)', 0,0,0,0,	'P' ,'TOTALE PASSIVO',null , @idsor1,'S' ,170  
+		INSERT INTO #STRUTTURA  SELECT 4,'TOTALE FONDI PER RISCHI ED ONERI (B)', 'B)', 0,0,0,0,	'P' ,'TOTALE PASSIVO',null , @idsor1,'S' ,170  
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0,									'P' ,null, 1, null,'N' ,180   -- Fittizia
-		INSERT INTO #STRUTTURA  SELECT 2,'C)	TRATTAMENTO DI FINE RAPPORTO DI LAVORO SUBORDINATO', 'C)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',null , @idsor1,'S',190  
+		INSERT INTO #STRUTTURA  SELECT 0,'C)	TRATTAMENTO DI FINE RAPPORTO DI LAVORO SUBORDINATO', 'C)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',null , @idsor1,'S',190  
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' , 200   -- Fittizia
 		-------------------------------------------------------	DEBITI -------------------------------
-		INSERT INTO #STRUTTURA  SELECT 2,'D)	DEBITI (con separata indicazione, per ciascuna voce, degli importi esigibili oltre l''esercizio successivo)', null, 0,0,0,0, 'P' ,null,null , @idsor1,'S',210  
+		INSERT INTO #STRUTTURA  SELECT 0,'D)	DEBITI (con separata indicazione, per ciascuna voce, degli importi esigibili oltre l''esercizio successivo)', null, 0,0,0,0, 'P' ,null,null , @idsor1,'S',210  
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' , 220   -- Fittizia
 		INSERT INTO #STRUTTURA  SELECT 1,'1) Mutui e Debiti verso banche', 'D) 1)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1   ,	@idsor1,'S' ,230  
-		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)e', 0,0,0,0, 'P', 'D) 1)',1   ,				@idsor1,'N' ,231   -- hanno lo stesso ordine stampa perchè solo P verrà visualizzato
-		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)o', 0,0,0,0, 'P', 'D) 1)',1   ,				@idsor1,'P' ,240  
+		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)e', 0,0,0,0, 'P', 'D) 1)',1   ,				@idsor1,'P' ,231   -- hanno lo stesso ordine stampa perchè solo P verrà visualizzato
+		INSERT INTO #STRUTTURA  SELECT 0,'1) Mutui e Debiti verso banche', 'D) 1)o', 0,0,0,0, 'P', 'D) 1)',1   ,				@idsor1,'N' ,240  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)',	0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , @idsor1,'S',250  
 		INSERT INTO #STRUTTURA  SELECT 0,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)e',				0,0,0,0, 'P'  , 'D) 2)',1  , @idsor1,'N',251  
-		INSERT INTO #STRUTTURA  SELECT 0,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)o',				0,0,0,0, 'P'  , 'D) 2)',1  , @idsor1,'P',260  
+		INSERT INTO #STRUTTURA  SELECT 0,'2) Debiti verso MIUR e altre Amministrazioni centrali',  'D) 2)o',				0,0,0,0, 'N'  , 'D) 2)',1  , @idsor1,'P',260  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'3) Debiti verso Regione e Province Autonome',  'D) 3)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1  , @idsor1,'S',270  
-		INSERT INTO #STRUTTURA  SELECT 0,'3) Debiti verso Regione e Province Autonome',  'D) 3)e', 0,0,0,0, 'P',  'D) 3)',1  , @idsor1,'N',271  
-		INSERT INTO #STRUTTURA  SELECT 0,'3) Debiti verso Regione e Province Autonome',  'D) 3)o', 0,0,0,0, 'P',  'D) 3)',1  , @idsor1,'P',280  
+		INSERT INTO #STRUTTURA  SELECT 0,'3) Debiti verso Regione e Province Autonome',  'D) 3)e', 0,0,0,0, 'P',  'D) 3)',1  , @idsor1,'P',271  
+		INSERT INTO #STRUTTURA  SELECT 0,'3) Debiti verso Regione e Province Autonome',  'D) 3)o', 0,0,0,0, 'P',  'D) 3)',1  , @idsor1,'N',280  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'4) Debiti verso altre Amministrazioni locali', 'D) 4)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , @idsor1,'S',290  
-		INSERT INTO #STRUTTURA  SELECT 0,'4) Debiti verso altre Amministrazioni locali', 'D) 4)e', 0,0,0,0, 'P' , 'D) 4)',1  , @idsor1,'N' ,291  
-		INSERT INTO #STRUTTURA  SELECT 0,'4) Debiti verso altre Amministrazioni locali', 'D) 4)o', 0,0,0,0, 'P' , 'D) 4)',1  , @idsor1,'P',300  
+		INSERT INTO #STRUTTURA  SELECT 0,'4) Debiti verso altre Amministrazioni locali', 'D) 4)e', 0,0,0,0, 'P' , 'D) 4)',1  , @idsor1,'P' ,291  
+		INSERT INTO #STRUTTURA  SELECT 0,'4) Debiti verso altre Amministrazioni locali', 'D) 4)o', 0,0,0,0, 'P' , 'D) 4)',1  , @idsor1,'N',300  
 
 		IF (@ayear <= 2017) 
 		begin
 			INSERT INTO #STRUTTURA  SELECT 1,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)',0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , @idsor1,'S' ,310  
-			INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)e',0,0,0,0, 'P' , 'D) 5)',1  , @idsor1,'N',311  
-			INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)o',0,0,0,0, 'P' , 'D) 5)',1  , @idsor1,'P',320  
+			INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)e',0,0,0,0, 'P' , 'D) 5)',1  , @idsor1,'P',311  
+			INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea e altri Organismi Internazionali', 'D) 5)o',0,0,0,0, 'P' , 'D) 5)',1  , @idsor1,'N',320  
 		end
 		ELSE
 		begin
 			INSERT INTO #STRUTTURA  SELECT 1,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , @idsor1,'S',310  
-			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)e', 0,0,0,0, 'P' , 'D) 5)',1  , @idsor1,'N',311  
-			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)o', 0,0,0,0, 'P' ,'D) 5)',1  , @idsor1,'P' ,320  
+			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)e', 0,0,0,0, 'P' , 'D) 5)',1  , @idsor1,'P',311  
+			 INSERT INTO #STRUTTURA  SELECT 0,'5) Debiti verso l''Unione Europea  e Resto del Mondo', 'D) 5)o', 0,0,0,0, 'P' ,'D) 5)',1  , @idsor1,'N' ,320  
 			 end
 		INSERT INTO #STRUTTURA  SELECT 1,'6) Debiti verso Università',	'D) 6)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , @idsor1,'S',325  
-		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Università',	'D) 6)e', 0,0,0,0, 'P' , 'D) 6)',1  , @idsor1,'N',326  
-		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Università',	'D) 6)o', 0,0,0,0, 'P' , 'D) 6)',1  , @idsor1,'P' ,330  
+		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Università',	'D) 6)e', 0,0,0,0, 'P' , 'D) 6)',1  , @idsor1,'P',326  
+		INSERT INTO #STRUTTURA  SELECT 0,'6) Debiti verso Università',	'D) 6)o', 0,0,0,0, 'P' , 'D) 6)',1  , @idsor1,'N' ,330  
 
 
 		INSERT INTO #STRUTTURA  SELECT 1,'7) Debiti verso studenti',		'D) 7)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1   , @idsor1,'S',340  
-		INSERT INTO #STRUTTURA  SELECT 0,'7) Debiti verso studenti',		'D) 7)e', 0,0,0,0, 'P', 'D) 7)',1   , @idsor1,'N' ,341  
-		INSERT INTO #STRUTTURA  SELECT 0,'7) Debiti verso studenti',		'D) 7)o', 0,0,0,0, 'P', 'D) 7)',1   , @idsor1,'P',350  
+		INSERT INTO #STRUTTURA  SELECT 0,'7) Debiti verso studenti',		'D) 7)e', 0,0,0,0, 'P', 'D) 7)',1   , @idsor1,'P' ,341  
+		INSERT INTO #STRUTTURA  SELECT 0,'7) Debiti verso studenti',		'D) 7)o', 0,0,0,0, 'P', 'D) 7)',1   , @idsor1,'N',350  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'8) Acconti',					'D) 8)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , @idsor1,'S',360  
-		INSERT INTO #STRUTTURA  SELECT 0,'8) Acconti',					'D) 8)e', 0,0,0,0, 'P' , 'D) 8)',1  , @idsor1,'N' ,361  
-		INSERT INTO #STRUTTURA  SELECT 0,'8) Acconti',					'D) 8)o', 0,0,0,0, 'P' , 'D) 8)',1  , @idsor1,'P', 370  
+		INSERT INTO #STRUTTURA  SELECT 0,'8) Acconti',					'D) 8)e', 0,0,0,0, 'P' , 'D) 8)',1  , @idsor1,'P' ,361  
+		INSERT INTO #STRUTTURA  SELECT 0,'8) Acconti',					'D) 8)o', 0,0,0,0, 'P' , 'D) 8)',1  , @idsor1,'N', 370  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'9) Debiti verso fornitori',	'D) 9)', 0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1   , @idsor1,'S' ,380  
-		INSERT INTO #STRUTTURA  SELECT 0,'9) Debiti verso fornitori',	'D) 9)e', 0,0,0,0, 'P' , 'D) 9)',1   , @idsor1,'N' ,381  
-		INSERT INTO #STRUTTURA  SELECT 0,'9) Debiti verso fornitori',	'D) 9)o', 0,0,0,0, 'P' , 'D) 9)',1   , @idsor1,'P',390   
+		INSERT INTO #STRUTTURA  SELECT 0,'9) Debiti verso fornitori',	'D) 9)e', 0,0,0,0, 'P' , 'D) 9)',1   , @idsor1,'P' ,381  
+		INSERT INTO #STRUTTURA  SELECT 0,'9) Debiti verso fornitori',	'D) 9)o', 0,0,0,0, 'P' , 'D) 9)',1   , @idsor1,'N',390   
 
 		INSERT INTO #STRUTTURA  SELECT 1,'10) Debiti verso dipendenti',	'D) 10)',  0,0,0,0, 'P' , 'TOTALE DEBITI (D)',1  , @idsor1,'S',400   
-		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)e',  0,0,0,0, 'P' , 'D) 10)',1  , @idsor1,'N' ,401  
-		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)o',  0,0,0,0, 'P' , 'D) 10)',1  , @idsor1,'P' ,410  
+		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)e',  0,0,0,0, 'P' , 'D) 10)',1  , @idsor1,'P' ,401  
+		INSERT INTO #STRUTTURA  SELECT 0,'10) Debiti verso dipendenti',	'D) 10)o',  0,0,0,0, 'P' , 'D) 10)',1  , @idsor1,'N' ,410  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'11) Debiti verso società o enti controllati', 'D) 11)', 0,0,0,0, 'P'  , 'TOTALE DEBITI (D)',1  , @idsor1,'S' ,420  
-		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso società o enti controllati', 'D) 11)e', 0,0,0,0, 'P'  , 'D) 11)',1  , @idsor1,'N' ,421  
-		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso società o enti controllati', 'D) 11)o', 0,0,0,0, 'P'  , 'D) 11)',1  , @idsor1,'P',430  
+		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso società o enti controllati', 'D) 11)e', 0,0,0,0, 'P'  , 'D) 11)',1  , @idsor1,'P' ,421  
+		INSERT INTO #STRUTTURA  SELECT 0,'11) Debiti verso società o enti controllati', 'D) 11)o', 0,0,0,0, 'P'  , 'D) 11)',1  , @idsor1,'N',430  
 
 		INSERT INTO #STRUTTURA  SELECT 1,'12) Altri debiti',				'D) 12)', 0,0,0,0, 'P', 'TOTALE DEBITI (D)',1    , @idsor1,'S',440  
 		INSERT INTO #STRUTTURA  SELECT 0,'12) Altri debiti',				'D) 12)e', 0,0,0,0, 'P', 'D) 12)',1    , @idsor1,'N' ,441  
 		INSERT INTO #STRUTTURA  SELECT 0,'12) Altri debiti',				'D) 12)o', 0,0,0,0, 'P', 'D) 12)',1    , @idsor1,'P',450  
 
-		INSERT INTO #STRUTTURA  SELECT 2,'TOTALE DEBITI (D)', null, 0,0,0,0, 'P' ,'TOTALE PASSIVO',null , @idsor1,'S',460  
-		INSERT INTO #STRUTTURA  SELECT 2,'TOTALE DEBITI(e)', null, 0,0,0,0, 'P' ,null, 1, @idsor1,'P' ,461  
+		INSERT INTO #STRUTTURA  SELECT 4,'TOTALE DEBITI (D)', null, 0,0,0,0, 'P' ,'TOTALE PASSIVO',null , @idsor1,'S',460  
+		INSERT INTO #STRUTTURA  SELECT 4,null, null, 0,0,0,0, 'P' ,null, 1, @idsor1,'P' ,461  
 		INSERT INTO #STRUTTURA  SELECT 0,null, null, 0,0,0,0, 'P' ,null, 1, null,'N' , 470   -- Fittizia
-		INSERT INTO #STRUTTURA  SELECT 2,'E) RATEI E RISCONTI PASSIVI E CONTRIBUTI AGLI INVESTIMENTI', null, 0,0,0,0, 'A' ,null,1 , @idsor1,'S' ,480  
+		INSERT INTO #STRUTTURA  SELECT 0,'E) RATEI E RISCONTI PASSIVI E CONTRIBUTI AGLI INVESTIMENTI', null, 0,0,0,0, 'P' ,null,1 , @idsor1,'S' ,480  
 		IF (@ayear <= 2017) 
 		begin
-			INSERT INTO #STRUTTURA  SELECT 2,'e1) Risconti per progetti e ricerche in corso', 'E) e1)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',1 , @idsor1,'S' ,490  
+			INSERT INTO #STRUTTURA  SELECT 1,'e1) Risconti per progetti e ricerche in corso', 'E) e1)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',1 , @idsor1,'S' ,490  
+			INSERT INTO #STRUTTURA  SELECT 1,'e2) Contributi agli investimenti', 'E) e2)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, @idsor1,'S',500  
+			INSERT INTO #STRUTTURA  SELECT 1,'e3) Altri ratei e risconti passivi', 'E) e3)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, @idsor1,'S' ,510  
 		end
 		Else
 		begin
 			INSERT INTO #STRUTTURA  SELECT 1,'e1) Contributi agli investimenti', 'E) e1)', 0,0,0,0, 'P' ,'TOTALE PASSIVO',1 , @idsor1,'S',490  
+			INSERT INTO #STRUTTURA  SELECT 1,'e2) Altri ratei e risconti passivi', 'E) e2)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, @idsor1,'S',500  
 		end
  
-		IF (@ayear <= 2017) 
-		begin
-				INSERT INTO #STRUTTURA  SELECT 1,'e2) Contributi agli investimenti', 'E) e2)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, @idsor1,'S',510  
-		end
-		Else
-		begin	
-			INSERT INTO #STRUTTURA  SELECT 1,'e2) Altri ratei e risconti passivi', 'E) e2)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, @idsor1,'S',510  
-		end
-		INSERT INTO #STRUTTURA  SELECT 1,'e3) Altri ratei e risconti passivi', 'E) e3)', 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, @idsor1,'S' ,520  
 		if(@ayear >=2018)
 		Begin
-			INSERT INTO #STRUTTURA  SELECT 2,'F)	RISCONTI PASSIVI PER PROGETTI E RICERCHE IN CORSO', null, 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, @idsor1,'S' ,530  
+			INSERT INTO #STRUTTURA  SELECT 0,'F)	RISCONTI PASSIVI PER PROGETTI E RICERCHE IN CORSO', null, 0,0,0,0, 'P' ,'TOTALE PASSIVO', 1, @idsor1,'S' ,530  
 			INSERT INTO #STRUTTURA  SELECT 1,'f1) Risconti passivi per progetti e ricerche finanziate e co-finanziate in corso', 'f 1)', 0,0,0,0, 'P' ,null, 1, @idsor1,'S',540  
 		End
 		else
@@ -1163,13 +1151,7 @@ Begin
 END
 --select * from #conti_d_ordine
 -----------------------------------------------------------------------
-DECLARE @codeupb	varchar(50)
-DECLARE @title		varchar(150)
- 
-SELECT	@codeupb = codeupb,
-		@title = title
-FROM	upb 
-WHERE	idupb = @idupboriginal
+
 
 
 /*
@@ -1186,15 +1168,21 @@ Begin
 End
 
 
-	 
 
-
+DECLARE @codeupb	varchar(50)
+DECLARE @title		varchar(150)
+ 
+SELECT	@codeupb = codeupb,
+		@title = title
+FROM	upb 
+WHERE	idupb = @idupboriginal
 ;WITH ATTIVO AS (select 
-	SA.nlevel as'nlevelAttivo',
+				isnull(SA.nlevel, S.nlevel) as 'nlevelAttivo',
 		CASE 
 			WHEN isnull(SA.nlevel,S.nlevel) = 1 THEN SPACE(2) + isnull(SA.label, S.label)
 			WHEN isnull(SA.nlevel, S.nlevel) = 2 THEN SPACE(1) + isnull(SA.label, S.label)
-			ELSE isnull(SA.label,S.label)
+			WHEN isnull(SA.nlevel, S.nlevel) = 3 THEN SPACE(1) + isnull(SA.label, S.label)
+			ELSE isnull(SA.label,S.label) --- 0 e 4 senza rientro
 		END  as labelAttivo,
 		isnull(SA.codepatrimony,S.codepatrimony) as codepatrimonyA,
 		isnull(SA.mostra, S.mostra) as mostraA,
@@ -1203,13 +1191,14 @@ End
 		isnull(SA.parent_label, S.parent_label) as'parent_labelAttivo',
 		isnull(SA.segno, S.segno) as segnoA,
 		isnull(SA.ordinestampa, S.ordinestampa) as ordinestampaA,
-		isnull( SA._idsor1,  S._idsor1) as _idsor1
+		isnull( SA._idsor1,  S._idsor1) as _idsor1,
+		isnull( SA.kind,  S.kind) as kind
 		 	FROM #STRUTTURA S
 		left outer JOIN  #IMPORTI_CLASS SA on S.ordinestampa = SA.ordinestampa and  S.kind = SA.kind and  S._idsor1 = SA._idsor1
 		where  S.kind = 'A' and S.label is not null 
 		group by S.nlevel, S.label,  S.codepatrimony,	 S.parent_label,  S.segno,  S.ordinestampa,		 S.mostra ,
-			SA.nlevel, SA.label,  SA.codepatrimony,	 SA.parent_label,  SA.segno,  SA.ordinestampa,		 SA.mostra ,SA._idsor1, S._idsor1
-		
+			SA.nlevel, SA.label,  SA.codepatrimony,	 SA.parent_label,  SA.segno,  SA.ordinestampa,		 SA.mostra ,SA._idsor1, S._idsor1,
+		isnull( SA.kind,  S.kind)
 		 ),
 
 		PASSIVO AS
@@ -1218,7 +1207,8 @@ End
 			CASE 
 				WHEN isnull(SP.nlevel,P.nlevel) = 1 THEN SPACE(2) + isnull(SP.label, P.label)
 				WHEN isnull(SP.nlevel, P.nlevel) = 2 THEN SPACE(1) + isnull(SP.label, P.label)
-				ELSE isnull(SP.label, P.label)
+				WHEN isnull(SP.nlevel, P.nlevel) = 3 THEN SPACE(1) + isnull(SP.label, P.label)
+				ELSE isnull(SP.label, P.label) --0 e 4 senza rientro
 			END  as labelPassivo,
 			isnull(SP.codepatrimony,P.codepatrimony) as codepatrimonyP,
 			isnull(SP.mostra, P.mostra) as mostraP,
@@ -1228,12 +1218,13 @@ End
 			isnull(SP.parent_label,P.parent_label) as 'parent_labelPassivo',
 			isnull(SP.segno, P.segno) as segnoP,
 			isnull(SP.ordinestampa, P.ordinestampa) as ordinestampaP,
-			isnull( SP._idsor1,  P._idsor1) as _idsor1
+			isnull( SP._idsor1,  P._idsor1) as _idsor1,
+			isnull( SP.kind,  P.kind) as kind
 			FROM #STRUTTURA P
 			left outer JOIN  #IMPORTI_CLASS SP on P.ordinestampa = SP.ordinestampa and  P.kind = SP.kind and  P._idsor1 = SP._idsor1
 			where  P.kind = 'P'  and P.label is not null 
 			group by P.nlevel, P.label,  P.codepatrimony,	 P.parent_label,  P.segno,  P.ordinestampa,		 P.mostra ,
-			SP.nlevel, SP.label,  SP.codepatrimony,	 SP.parent_label, SP.segno,  	 SP.ordinestampa,		 SP.mostra, SP._idsor1, P._idsor1)
+			SP.nlevel, SP.label,  SP.codepatrimony,	 SP.parent_label, SP.segno,  	 SP.ordinestampa,		 SP.mostra, SP._idsor1, P._idsor1,isnull( SP.kind,  P.kind))
 SELECT 	@ayear				  AS ayear         ,
 		@idupboriginal		  as idupb         ,
 		@codeupb				  as codeupb	   ,
@@ -1260,7 +1251,21 @@ SELECT 	@ayear				  AS ayear         ,
 		PASSIVO.ordinestampaP,
 		sorting.idsor as idsor,
 		sorting.sortcode as sortcode1,
-		sorting.description as titlecode1
+		sorting.description as titlecode1,
+		-- La riga deve essere nascosta nella sezione dettagli a queste condizioni
+		--1) mostraA e mostraP pari a N o P
+		--2) Tutti gli importi sono pari a zero o nulli
+		isnull( ATTIVO.kind,  PASSIVO.kind) AS kind,
+		CASE 
+				WHEN (ATTIVO.mostraA <> 'S' AND PASSIVO.mostraP<> 'S'  AND 
+					 ISNULL(ATTIVO._curramountAttivo,0) = 0 AND 
+					 ISNULL(ATTIVO._prevamountAttivo,0) = 0 AND 
+					 ISNULL(PASSIVO._curramountPassivo,0) = 0 AND 
+					 ISNULL(PASSIVO._prevamountPassivo,0) = 0 
+				 )
+				 THEN 'S'
+				 ELSE 'N'
+		END as toSuppress
 FROM ATTIVO
 left outer JOIN PASSIVO on ATTIVO.ordinestampaA = PASSIVO.ordinestampaP and PASSIVO._idsor1 = ATTIVO._idsor1
 join sorting

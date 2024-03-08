@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,7 +43,7 @@ SELECT
 	registrylegalstatus.idreg,
 	registrylegalstatus.start, -- data delibera
 	
-	position.description as position,
+	isnull(position.description,'')+ isnull(convert(varchar(2), registrylegalstatus.livello),'') as position,
 	registrylegalstatus.incomeclass, -- classe stipendiale
 	registrylegalstatus.incomeclassvalidity, -- data decorrenza
 	registrylegalstatus.idregistrylegalstatus
@@ -72,4 +72,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-

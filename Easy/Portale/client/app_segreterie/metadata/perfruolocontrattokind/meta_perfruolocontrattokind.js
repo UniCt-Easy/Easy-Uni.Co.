@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,18 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, '!idcontrattokind_contrattokind_active', 'Attivo', null, 11, null);
-						this.describeAColumn(table, '!idcontrattokind_contrattokind_title', 'Tipologia', null, 13, null);
-						this.describeAColumn(table, '!idcontrattokind_contrattokind_oremaxgg', 'Ore di lavoro al giorno massime', null, 13, null);
-						this.describeAColumn(table, '!idcontrattokind_contrattokind_costolordoannuo', 'Costo lordo annuo', 'fixed.2', 30, null);
-						this.describeAColumn(table, '!idcontrattokind_contrattokind_costolordoannuooneri', 'Costo lordo annuo e oneri', 'fixed.2', 31, null);
-						this.describeAColumn(table, '!idcontrattokind_contrattokind_puntiorganico', 'Punti organico', 'fixed.2', 33, null);
-						objCalcFieldConfig['!idcontrattokind_contrattokind_active'] = { tableNameLookup:'contrattokind', columnNameLookup:'active', columnNamekey:'idcontrattokind' };
-						objCalcFieldConfig['!idcontrattokind_contrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idcontrattokind' };
-						objCalcFieldConfig['!idcontrattokind_contrattokind_oremaxgg'] = { tableNameLookup:'contrattokind', columnNameLookup:'oremaxgg', columnNamekey:'idcontrattokind' };
-						objCalcFieldConfig['!idcontrattokind_contrattokind_costolordoannuo'] = { tableNameLookup:'contrattokind', columnNameLookup:'costolordoannuo', columnNamekey:'idcontrattokind' };
-						objCalcFieldConfig['!idcontrattokind_contrattokind_costolordoannuooneri'] = { tableNameLookup:'contrattokind', columnNameLookup:'costolordoannuooneri', columnNamekey:'idcontrattokind' };
-						objCalcFieldConfig['!idcontrattokind_contrattokind_puntiorganico'] = { tableNameLookup:'contrattokind', columnNameLookup:'puntiorganico', columnNamekey:'idcontrattokind' };
+						this.describeAColumn(table, 'idposition', 'Identificativo', null, 10, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -87,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
-						return "idcontrattokind desc";
+						return "idposition desc";
 					}
 					//$getSortingin$
 				}

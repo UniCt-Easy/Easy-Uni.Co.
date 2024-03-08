@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,81 +29,45 @@ namespace estimate_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimate 		=> Tables["estimate"];
 
-	///<summary>
-	///Dettaglio contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimatedetail 		=> Tables["estimatedetail"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
-	///<summary>
-	///Tipo di Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimatekind 		=> Tables["estimatekind"];
 
-	///<summary>
-	///Valuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable currency 		=> Tables["currency"];
 
-	///<summary>
-	/// Tipo Scadenza
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expirationkind 		=> Tables["expirationkind"];
 
-	///<summary>
-	///Classificazione Contratto Attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimatesorting 		=> Tables["estimatesorting"];
 
-	///<summary>
-	///Dettaglio documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicedetail 		=> Tables["invoicedetail"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registrymainview 		=> Tables["registrymainview"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
-	///<summary>
-	///Variazione movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomevar 		=> Tables["incomevar"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb_detail 		=> Tables["upb_detail"];
 
-	///<summary>
-	///Classificazione Movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomesorted 		=> Tables["incomesorted"];
 
@@ -116,9 +80,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingview 		=> Tables["sortingview"];
 
-	///<summary>
-	///Finanziamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwriting 		=> Tables["underwriting"];
 
@@ -137,9 +98,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting05 		=> Tables["sorting05"];
 
-	///<summary>
-	///Elenco aliquote
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ivakind 		=> Tables["ivakind"];
 
@@ -149,9 +107,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimatesortingview 		=> Tables["estimatesortingview"];
 
-	///<summary>
-	///allegato contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimateattachment 		=> Tables["estimateattachment"];
 
@@ -161,9 +116,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable nso_status 		=> Tables["nso_status"];
 
-	///<summary>
-	///NSO Ordine di Vendita
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable nso_vendita 		=> Tables["nso_vendita"];
 
@@ -556,6 +508,47 @@ private void initClass() {
 	tinvoicedetail.Columns.Add( new DataColumn("idfinmotive_iva", typeof(string)));
 	tinvoicedetail.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
 	tinvoicedetail.Columns.Add( new DataColumn("idlist", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("paymentcompetency", typeof(DateTime)));
+	tinvoicedetail.Columns.Add( new DataColumn("yinv_main", typeof(short)));
+	tinvoicedetail.Columns.Add( new DataColumn("ninv_main", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("rownum_main", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("va3type", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idintrastatcode", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("idintrastatmeasure", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("weight", typeof(decimal)));
+	tinvoicedetail.Columns.Add( new DataColumn("intrastatoperationkind", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idintrastatservice", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("idunit", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("idpackage", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("unitsforpackage", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("idintrastatsupplymethod", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("flag", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("exception12", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("intra12operationkind", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("move12", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idinvkind_main", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("leasing", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("usedmodesospesometro", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("resetresidualmandate", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idfetransfer", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("fereferencerule", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("cupcode", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("cigcode", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("idpccdebitstatus", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idpccdebitmotive", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("rounding", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idepacc", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("flagbit", typeof(byte)));
+	tinvoicedetail.Columns.Add( new DataColumn("iduniqueformcode", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idfinmotive", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("ycon", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("ncon", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("codicetipo", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("codicevalore", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("idepexp_pre", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("idtassonomia", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("npackage", typeof(decimal)));
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.PrimaryKey =  new DataColumn[]{tinvoicedetail.Columns["idinvkind"], tinvoicedetail.Columns["ninv"], tinvoicedetail.Columns["rownum"], tinvoicedetail.Columns["yinv"]};
 
@@ -1239,12 +1232,36 @@ private void initClass() {
 
 	//////////////////// IVAKIND /////////////////////////////////
 	var tivakind= new DataTable("ivakind");
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tivakind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tivakind.Columns.Add(C);
 	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
 	tivakind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tivakind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tivakind.Columns.Add(C);
+	C= new DataColumn("rate", typeof(decimal));
+	C.AllowDBNull=false;
+	tivakind.Columns.Add(C);
+	C= new DataColumn("unabatabilitypercentage", typeof(decimal));
+	C.AllowDBNull=false;
+	tivakind.Columns.Add(C);
+	tivakind.Columns.Add( new DataColumn("active", typeof(string)));
+	tivakind.Columns.Add( new DataColumn("idivataxablekind", typeof(int)));
 	C= new DataColumn("idivakind", typeof(int));
 	C.AllowDBNull=false;
 	tivakind.Columns.Add(C);
+	tivakind.Columns.Add( new DataColumn("codeivakind", typeof(string)));
+	tivakind.Columns.Add( new DataColumn("flag", typeof(int)));
+	tivakind.Columns.Add( new DataColumn("annotations", typeof(string)));
+	tivakind.Columns.Add( new DataColumn("idfenature", typeof(string)));
 	Tables.Add(tivakind);
 	tivakind.PrimaryKey =  new DataColumn[]{tivakind.Columns["idivakind"]};
 

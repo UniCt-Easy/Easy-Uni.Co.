@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -103,10 +86,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow['!denominatore0'])
-					parentRow['!denominatore0'] = 0;
-				if (!parentRow['!numeratore0'])
-					parentRow['!numeratore0'] = 0;
 				this.manageanalisiannuale_default_year1();
 				this.manageanalisiannuale_default_year2();
 				this.manageanalisiannuale_default_year3();
@@ -166,12 +145,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('pcsassunzionisimulate'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('pcscessazioniview'));
+				//parte sincrona
+				this.enableControl($('#analisiannuale_default_costopt'), true);
+				this.enableControl($('#analisiannuale_default_spesedocenti0'), true);
+				this.enableControl($('#analisiannuale_default_finanzesternidocenti0'), true);
+				this.enableControl($('#analisiannuale_default_spesedirPTA0'), true);
+				this.enableControl($('#analisiannuale_default_finanzesternidirPTA0'), true);
+				this.enableControl($('#analisiannuale_default_totspesepersonalecaricoateneo0'), true);
+				this.enableControl($('#analisiannuale_default_speseDG0'), true);
+				this.enableControl($('#analisiannuale_default_numeratore0'), true);
+				this.enableControl($('#analisiannuale_default_denominatore0'), true);
+				this.enableControl($('#analisiannuale_default_year1'), true);
+				this.enableControl($('#analisiannuale_default_spesedocenti1'), true);
+				this.enableControl($('#analisiannuale_default_finanzesternidocenti1'), true);
+				this.enableControl($('#analisiannuale_default_spesedirPTA1'), true);
+				this.enableControl($('#analisiannuale_default_finanzesternidirPTA1'), true);
+				this.enableControl($('#analisiannuale_default_totspesepersonalecaricoateneo1'), true);
+				this.enableControl($('#analisiannuale_default_speseDG1'), true);
+				this.enableControl($('#analisiannuale_default_numeratore1'), true);
+				this.enableControl($('#analisiannuale_default_denominatore1'), true);
+				this.enableControl($('#analisiannuale_default_year2'), true);
+				this.enableControl($('#analisiannuale_default_spesedocenti2'), true);
+				this.enableControl($('#analisiannuale_default_finanzesternidocenti2'), true);
+				this.enableControl($('#analisiannuale_default_spesedirPTA2'), true);
+				this.enableControl($('#analisiannuale_default_finanzesternidirPTA2'), true);
+				this.enableControl($('#analisiannuale_default_totspesepersonalecaricoateneo2'), true);
+				this.enableControl($('#analisiannuale_default_speseDG2'), true);
+				this.enableControl($('#analisiannuale_default_numeratore2'), true);
+				this.enableControl($('#analisiannuale_default_denominatore2'), true);
+				this.enableControl($('#analisiannuale_default_year3'), true);
+				this.enableControl($('#analisiannuale_default_spesedocenti3'), true);
+				this.enableControl($('#analisiannuale_default_finanzesternidocenti3'), true);
+				this.enableControl($('#analisiannuale_default_spesedirPTA3'), true);
+				this.enableControl($('#analisiannuale_default_finanzesternidirPTA3'), true);
+				this.enableControl($('#analisiannuale_default_totspesepersonalecaricoateneo3'), true);
+				this.enableControl($('#analisiannuale_default_speseDG3'), true);
+				this.enableControl($('#analisiannuale_default_numeratore3'), true);
+				this.enableControl($('#analisiannuale_default_denominatore3'), true);
+				this.enableControl($('#analisiannuale_default_indicatore0'), true);
+				this.enableControl($('#analisiannuale_default_indicatore1'), true);
+				this.enableControl($('#analisiannuale_default_indicatore2'), true);
+				this.enableControl($('#analisiannuale_default_indicatore3'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('stipendioannuo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('pcsassunzioni'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('pcspuntiorganicoview'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -215,22 +234,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				this.enableControl($('#analisiannuale_default_indicatore1'), false);
 				this.enableControl($('#analisiannuale_default_indicatore2'), false);
 				this.enableControl($('#analisiannuale_default_indicatore3'), false);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('pcsassunzionisimulate'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('pcscessazioniview'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('stipendioannuo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('pcsassunzioni'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('analisiannuale'), this.getDataTable('pcspuntiorganicoview'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.analisiannuale.defaults({ '!denominatore0': 0 });
+				this.state.DS.tables.analisiannuale.defaults({ '!numeratore0': 0 });
+				this.state.DS.tables.analisiannuale.defaults({ 'year': new Date().getFullYear() });
+				this.setDenyNull("analisiannuale","year");
 				$('#analisiannuale_default_idattach_cessazione').on("change", _.partial(this.manageidattach_cessazione, self));
 				$('#analisiannuale_default_importfilecontratti').on("change", _.partial(this.manageimportfilecontratti, self));
 				$('#analisiannuale_default_importstipendi').on("change", _.partial(this.manageimportstipendi, self));
-				this.setDenyNull("analisiannuale","year");
-				//indico al framework che la tabella getcontrattikindview è cached
+				//indico al framework che la tabella getcontrattikindview Ã¨ cached
 				var getcontrattikindviewTable = this.getDataTable("getcontrattikindview");
 				appMeta.metaModel.cachedTable(getcontrattikindviewTable, true);
 				//fireAfterLink
@@ -242,13 +261,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				});
 			},
 
-			afterRowSelect: function (t, r) {
-				var def = appMeta.Deferred("afterRowSelect-analisiannuale_default");
-				$('#analisiannuale_default_year').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#analisiannuale_default_year').prop("readonly", this.state.isEditState() || this.haveChildren());
-				//afterRowSelectin
-				return def.resolve();
-			},
+			//afterRowSelect
 
 			//afterActivation
 
@@ -256,45 +269,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//buttonClickEnd
 
-			insertClick: function (that, grid) {
-				if (!$('#analisiannuale_default_year').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Anno');
-				}
-				//insertClickin
-				return this.superClass.insertClick(that, grid);
-			},
+			//insertClick
 
+			
 			beforePost: function () {
 				var self = this;
+				this.getDataTable('stipendioannuo').acceptChanges();
 				this.getDataTable('pcscessazioniview').acceptChanges();
+				this.getDataTable('pcspeoview').acceptChanges();
 				this.getDataTable('pcspuntiorganicoview').acceptChanges();
+				this.getDataTable('importcontrattistipendiview').acceptChanges();
+				this.getDataTable('getcontrattikindview').acceptChanges();
 				//innerBeforePost
-			},
-
-			manageidattach_cessazione: function(that) { 
-				var files = event.target.files;
-				var file = files[0];
-				var colname = 'idanalisiannuale';
-				var id = that.state.currentRow[colname];
-				appMeta.ImportExcel.importFileIntoTable(that, file, 'sp_import_cessazionicsa', [id], 0, 'pcscessazioniview', colname );
-
-
-			},
-
-			manageimportfilecontratti: function(that) { 
-				var files = event.target.files;
-				var file = files[0];
-				var colname = 'year';
-				var id = that.state.currentRow[colname];
-				appMeta.ImportExcel.importFileIntoTable(that, file, 'sp_import_contratticsa', [id], 0, 'stipendioannuo', colname);
-			},
-
-			manageimportstipendi: function(that) { 
-				var files = event.target.files;
-				var file = files[0];
-				var colname = 'year';
-				var id = that.state.currentRow[colname];
-				appMeta.ImportExcel.importFileIntoTable(that, file, 'sp_import_stipendicsa', [id], 0, 'stipendioannuo', colname );
 			},
 
 			manageanalisiannuale_default_year1: function () {
@@ -318,20 +304,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					return r.importoateneo0;
 				});
+
+				if (!tot) tot = 0;
+
+				var denominatore = (this.state.currentRow.ffo0 ? this.state.currentRow.ffo0 : 0) +
+					(this.state.currentRow.programmazionetriennale0 ? this.state.currentRow.programmazionetriennale0 : 0) +
+					(this.state.currentRow.tasse0 ? this.state.currentRow.tasse0 : 0) -
+					(this.state.currentRow.speseriduzione0 ? this.state.currentRow.speseriduzione0 : 0);
+
+				if (!denominatore) denominatore = 1;
+
 				tot = (tot +
 					(this.state.currentRow.speseDG0 ? this.state.currentRow.speseDG0 : 0) +
 					(this.state.currentRow.fondocontrattazioneintegrativa0 ? this.state.currentRow.fondocontrattazioneintegrativa0 : 0) +
 					(this.state.currentRow.trattamentostipintegrativoCEL0 ? this.state.currentRow.trattamentostipintegrativoCEL0 : 0) +
 					(this.state.currentRow.contrattiincarichiinsegnamento0 ? this.state.currentRow.contrattiincarichiinsegnamento0 : 0) -
 					(this.state.currentRow.finanzesternicontrattiincarichiinsegnamento0 ? this.state.currentRow.finanzesternicontrattiincarichiinsegnamento0 : 0)
-				)
-					/ (
-						(this.state.currentRow.ffo0 ? this.state.currentRow.ffo0 : 0) +
-						(this.state.currentRow.programmazionetriennale0 ? this.state.currentRow.programmazionetriennale0 : 0) +
-						(this.state.currentRow.tasse0 ? this.state.currentRow.tasse0 : 0) -
-						(this.state.currentRow.speseriduzione0 ? this.state.currentRow.speseriduzione0 : 0)
-					)
-				tot = tot * 100;
+				) / denominatore;
+				tot = !this.isNull(tot) ? tot * 100 : 0;
 				analisiannuale_default_indicatore0Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow["!indicatore0"] = tot;
 
@@ -344,32 +334,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					return r.importoateneo1;
 				});
+
+				if (!tot) tot = 0;
+
+				var denominatore = (this.state.currentRow.ffo1 ? this.state.currentRow.ffo1 : 0) +
+					(this.state.currentRow.programmazionetriennale1 ? this.state.currentRow.programmazionetriennale1 : 0) +
+					(this.state.currentRow.tasse1 ? this.state.currentRow.tasse1 : 0) -
+					(this.state.currentRow.speseriduzione1 ? this.state.currentRow.speseriduzione1 : 0);
+
+				if (!denominatore) denominatore = 1;
+
 				tot = (tot +
 					(this.state.currentRow.speseDG1 ? this.state.currentRow.speseDG1 : 0) +
 					(this.state.currentRow.fondocontrattazioneintegrativa1 ? this.state.currentRow.fondocontrattazioneintegrativa1 : 0) +
 					(this.state.currentRow.trattamentostipintegrativoCEL1 ? this.state.currentRow.trattamentostipintegrativoCEL1 : 0) +
 					(this.state.currentRow.contrattiincarichiinsegnamento1 ? this.state.currentRow.contrattiincarichiinsegnamento1 : 0) -
 					(this.state.currentRow.finanzesternicontrattiincarichiinsegnamento1 ? this.state.currentRow.finanzesternicontrattiincarichiinsegnamento1 : 0)
-				)
-					/ (
-						(this.state.currentRow.ffo1 ? this.state.currentRow.ffo1 : 0) +
-						(this.state.currentRow.programmazionetriennale1 ? this.state.currentRow.programmazionetriennale1 : 0) +
-						(this.state.currentRow.tasse1 ? this.state.currentRow.tasse1 : 0) -
-						(this.state.currentRow.speseriduzione1 ? this.state.currentRow.speseriduzione1 : 0)
-					)
-				tot = tot * 100;
+				) / denominatore;
+				tot = !this.isNull(tot) ? tot * 100 : 0;
 				analisiannuale_default_indicatore1Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow["!indicatore1"] = tot;
+
 
 			},
 
 			manageanalisiannuale_default_costopt: function () {
 				var ck = this.state.DS.tables['getcontrattikindview'];
-				var CkArrivoRows = ck.select(this.q.eq('idcontrattokind', 1));
+				var CkArrivoRows = ck.select(this.q.eq('idposition', 1));
 				var costoCkArrivo = 0;
 				if (CkArrivoRows.length > 0)
 					if (CkArrivoRows[0].costolordoannuo)
-						costoCkArrivo = CkArrivoRows[0].costolordoannuo * 12;
+						costoCkArrivo = CkArrivoRows[0].costolordoannuo;
 				this.state.currentRow.costopt = costoCkArrivo;
 				$("#analisiannuale_default_costopt").val(this.fillTextBoxFromNumber(costoCkArrivo));
 			},
@@ -381,31 +376,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					return r.importoateneo2;
 				});
+
+				if (!tot) tot = 0;
+
+				var denominatore = (this.state.currentRow.ffo2 ? this.state.currentRow.ffo2 : 0) +
+					(this.state.currentRow.programmazionetriennale2 ? this.state.currentRow.programmazionetriennale2 : 0) +
+					(this.state.currentRow.tasse2 ? this.state.currentRow.tasse2 : 0) -
+					(this.state.currentRow.speseriduzione2 ? this.state.currentRow.speseriduzione2 : 0);
+
+				if (!denominatore) denominatore = 1;
+
 				tot = (tot +
 					(this.state.currentRow.speseDG2 ? this.state.currentRow.speseDG2 : 0) +
 					(this.state.currentRow.fondocontrattazioneintegrativa2 ? this.state.currentRow.fondocontrattazioneintegrativa2 : 0) +
 					(this.state.currentRow.trattamentostipintegrativoCEL2 ? this.state.currentRow.trattamentostipintegrativoCEL2 : 0) +
 					(this.state.currentRow.contrattiincarichiinsegnamento2 ? this.state.currentRow.contrattiincarichiinsegnamento2 : 0) -
 					(this.state.currentRow.finanzesternicontrattiincarichiinsegnamento2 ? this.state.currentRow.finanzesternicontrattiincarichiinsegnamento2 : 0)
-				)
-					/ (
-						(this.state.currentRow.ffo2 ? this.state.currentRow.ffo2 : 0) +
-						(this.state.currentRow.programmazionetriennale2 ? this.state.currentRow.programmazionetriennale2 : 0) +
-						(this.state.currentRow.tasse2 ? this.state.currentRow.tasse2 : 0) -
-						(this.state.currentRow.speseriduzione2 ? this.state.currentRow.speseriduzione2 : 0)
-					)
-				tot = tot * 100;
+				) / denominatore;
+				tot = !this.isNull(tot) ? tot * 100 : 0;
 				analisiannuale_default_indicatore2Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow["!indicatore2"] = tot;
+
 			},
 
 			manageanalisiannuale_default_spesedocenti0: function () {
 				var analisiannuale_default_spesedocenti0Ctrl = $("#analisiannuale_default_spesedocenti0");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					if (r.isdoc === 'S')
 						return r.importo0; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_spesedocenti0Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.spesedocenti0 = tot;
 
@@ -418,41 +418,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					return r.importoateneo3;
 				});
+
+				if (!tot) tot = 0;
+
+				var denominatore = (this.state.currentRow.ffo3 ? this.state.currentRow.ffo3 : 0) +
+					(this.state.currentRow.programmazionetriennale3 ? this.state.currentRow.programmazionetriennale3 : 0) +
+					(this.state.currentRow.tasse3 ? this.state.currentRow.tasse3 : 0) -
+					(this.state.currentRow.speseriduzione3 ? this.state.currentRow.speseriduzione3 : 0)
+;
+
+				if (!denominatore) denominatore = 1;
+
 				tot = (tot +
 					(this.state.currentRow.speseDG3 ? this.state.currentRow.speseDG3 : 0) +
 					(this.state.currentRow.fondocontrattazioneintegrativa3 ? this.state.currentRow.fondocontrattazioneintegrativa3 : 0) +
 					(this.state.currentRow.trattamentostipintegrativoCEL3 ? this.state.currentRow.trattamentostipintegrativoCEL3 : 0) +
 					(this.state.currentRow.contrattiincarichiinsegnamento3 ? this.state.currentRow.contrattiincarichiinsegnamento3 : 0) -
 					(this.state.currentRow.finanzesternicontrattiincarichiinsegnamento3 ? this.state.currentRow.finanzesternicontrattiincarichiinsegnamento3 : 0)
-				)
-					/ (
-						(this.state.currentRow.ffo3 ? this.state.currentRow.ffo3 : 0) +
-						(this.state.currentRow.programmazionetriennale3 ? this.state.currentRow.programmazionetriennale3 : 0) +
-						(this.state.currentRow.tasse3 ? this.state.currentRow.tasse3 : 0) -
-						(this.state.currentRow.speseriduzione3 ? this.state.currentRow.speseriduzione3 : 0)
-					)
-				tot = tot * 100;
+				) / denominatore;
+				tot = !this.isNull(tot) ? tot * 100 : 0;
 				analisiannuale_default_indicatore3Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow["!indicatore3"] = tot;
+
 			},
 
 			manageanalisiannuale_default_finanzesternidocenti0: function () {
 				var analisiannuale_default_finanzesternidocenti0Ctrl = $("#analisiannuale_default_finanzesternidocenti0");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					if (r.isdoc === 'S')
 						return r.importoesterno0; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_finanzesternidocenti0Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.finanzesternidocenti0 = tot;
 			},
 
 			manageanalisiannuale_default_spesedirPTA0: function () {
 				var analisiannuale_default_spesedirPTA0Ctrl = $("#analisiannuale_default_spesedirPTA0");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
 						return r.importo0; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_spesedirPTA0Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.spesedirPTA0 = tot;
 
@@ -461,10 +468,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_finanzesternidirPTA0: function () {
 				var analisiannuale_default_finanzesternidirPTA0Ctrl = $("#analisiannuale_default_finanzesternidirPTA0");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
 						return r.importoesterno0; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_finanzesternidirPTA0Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.finanzesternidirPTA0 = tot;
 
@@ -472,11 +480,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_totspesepersonalecaricoateneo0: function () {
 				var analisiannuale_default_totspesepersonalecaricoateneo0Ctrl = $("#analisiannuale_default_totspesepersonalecaricoateneo0");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.position_title.contains("Direttore generale")))
 						return r.importoateneo0; //netto
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_totspesepersonalecaricoateneo0Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.totspesepersonalecaricoateneo0 = tot;
 
@@ -484,11 +492,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_speseDG0: function () {
 				var analisiannuale_default_speseDG0Ctrl = $("#analisiannuale_default_speseDG0");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (r.contrattokind_title.contains("Direttore generale"))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (r.position_title.contains("Direttore generale"))
 						return r.importoateneo0; //netto
 				});
+				tot = !this.isNullOrNotANumber(tot) ? tot : 0;
 				analisiannuale_default_speseDG0Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.speseDG0 = tot;
 
@@ -525,11 +533,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_spesedocenti1: function () {
 				var analisiannuale_default_spesedocenti1Ctrl = $("#analisiannuale_default_spesedocenti1");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					if (r.isdoc === 'S')
 						return r.importo1; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_spesedocenti1Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.spesedocenti1 = tot;
 
@@ -537,21 +545,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_finanzesternidocenti1: function () {
 				var analisiannuale_default_finanzesternidocenti1Ctrl = $("#analisiannuale_default_finanzesternidocenti1");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					if (r.isdoc === 'S')
 						return r.importoesterno1; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_finanzesternidocenti1Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.finanzesternidocenti1 = tot;
 			},
 
 			manageanalisiannuale_default_spesedirPTA1: function () {
 				var analisiannuale_default_spesedirPTA1Ctrl = $("#analisiannuale_default_spesedirPTA1");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
 						return r.importo1; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_spesedirPTA1Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.spesedirPTA1 = tot;
 
@@ -559,32 +568,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_finanzesternidirPTA1: function () {
 				var analisiannuale_default_finanzesternidirPTA1Ctrl = $("#analisiannuale_default_finanzesternidirPTA1");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
 						return r.importoesterno1; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_finanzesternidirPTA1Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.finanzesternidirPTA1 = tot;
 			},
 
 			manageanalisiannuale_default_totspesepersonalecaricoateneo1: function () {
 				var analisiannuale_default_totspesepersonalecaricoateneo1Ctrl = $("#analisiannuale_default_totspesepersonalecaricoateneo1");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.position_title.contains("Direttore generale")))
 						return r.importoateneo1; //netto
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_totspesepersonalecaricoateneo1Ctrl.val(this.fillTextBoxFromNumber(tot));
 				this.state.currentRow.totspesepersonalecaricoateneo1 = tot;
 			},
 
 			manageanalisiannuale_default_speseDG1: function () {
 				var analisiannuale_default_speseDG1Ctrl = $("#analisiannuale_default_speseDG1");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (r.contrattokind_title.contains("Direttore generale"))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (r.position_title.contains("Direttore generale"))
 						return r.importoateneo1; //netto
 				});
+				tot = !this.isNullOrNotANumber(tot) ? tot : 0;
 				analisiannuale_default_speseDG1Ctrl.val(tot);
 				this.state.currentRow.speseDG1 = tot;
 			},
@@ -607,32 +617,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_spesedocenti2: function () {
 				var analisiannuale_default_spesedocenti2Ctrl = $("#analisiannuale_default_spesedocenti2");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					if (r.isdoc === 'S')
 						return r.importo2; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_spesedocenti2Ctrl.val(tot);
 				this.state.currentRow.spesedocenti2 = tot;
 			},
 
 			manageanalisiannuale_default_finanzesternidocenti2: function () {
 				var analisiannuale_default_finanzesternidocenti2Ctrl = $("#analisiannuale_default_finanzesternidocenti2");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					if (r.isdoc === 'S')
 						return r.importoesterno2; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_finanzesternidocenti2Ctrl.val(tot);
 				this.state.currentRow.finanzesternidocenti2 = tot;
 			},
 
 			manageanalisiannuale_default_spesedirPTA2: function () {
 				var analisiannuale_default_spesedirPTA2Ctrl = $("#analisiannuale_default_spesedirPTA2");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
 						return r.importo2; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_spesedirPTA2Ctrl.val(tot);
 				this.state.currentRow.spesedirPTA2 = tot;
 
@@ -640,30 +651,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_finanzesternidirPTA2: function () {
 				var analisiannuale_default_finanzesternidirPTA2Ctrl = $("#analisiannuale_default_finanzesternidirPTA2");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
 						return r.importoesterno2; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_finanzesternidirPTA2Ctrl.val(tot);
 				this.state.currentRow.finanzesternidirPTA2 = tot;
 			},
 
 			manageanalisiannuale_default_totspesepersonalecaricoateneo2: function () {
 				var analisiannuale_default_totspesepersonalecaricoateneo2Ctrl = $("#analisiannuale_default_totspesepersonalecaricoateneo2");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.position_title.contains("Direttore generale")))
 						return r.importoateneo2; //netto
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_totspesepersonalecaricoateneo2Ctrl.val(tot);
 				this.state.currentRow.totspesepersonalecaricoateneo2 = tot;
 			},
 
 			manageanalisiannuale_default_speseDG2: function () {
 				var analisiannuale_default_speseDG2Ctrl = $("#analisiannuale_default_speseDG2");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (r.contrattokind_title.contains("Direttore generale"))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (r.position_title.contains("Direttore generale"))
 						return r.importoateneo2; //netto
 				});
+				tot = !this.isNullOrNotANumber(tot) ? tot : 0;
 				analisiannuale_default_speseDG2Ctrl.val(tot);
 				this.state.currentRow.speseDG2 = tot;
 			},
@@ -686,32 +700,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_spesedocenti3: function () {
 				var analisiannuale_default_spesedocenti3Ctrl = $("#analisiannuale_default_spesedocenti3");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					if (r.isdoc === 'S')
 						return r.importo3; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_spesedocenti3Ctrl.val(tot);
 				this.state.currentRow.spesedocenti3 = tot;
 			},
 
 			manageanalisiannuale_default_finanzesternidocenti3: function () {
 				var analisiannuale_default_finanzesternidocenti3Ctrl = $("#analisiannuale_default_finanzesternidocenti3");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
 					if (r.isdoc === 'S')
 						return r.importoesterno3; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_finanzesternidocenti3Ctrl.val(tot);
 				this.state.currentRow.finanzesternidocenti3 = tot;
 			},
 
 			manageanalisiannuale_default_spesedirPTA3: function () {
 				var analisiannuale_default_spesedirPTA3Ctrl = $("#analisiannuale_default_spesedirPTA3");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
 						return r.importo3; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_spesedirPTA3Ctrl.val(tot);
 				this.state.currentRow.spesedirPTA3 = tot;
 
@@ -719,31 +734,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			manageanalisiannuale_default_finanzesternidirPTA3: function () {
 				var analisiannuale_default_finanzesternidirPTA3Ctrl = $("#analisiannuale_default_finanzesternidirPTA3");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
 						return r.importoesterno3; //lordo
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_finanzesternidirPTA3Ctrl.val(tot);
 				this.state.currentRow.finanzesternidirPTA3 = tot;
 			},
 
 			manageanalisiannuale_default_totspesepersonalecaricoateneo3: function () {
 				var analisiannuale_default_totspesepersonalecaricoateneo3Ctrl = $("#analisiannuale_default_totspesepersonalecaricoateneo3");
-				var self = this;
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.contrattokind_title.contains("Direttore generale")))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (!(r.position_title.contains("Direttore generale")))
 						return r.importoateneo3; //netto
 				});
+				tot = !this.isNull(tot) ? tot : 0;
 				analisiannuale_default_totspesepersonalecaricoateneo3Ctrl.val(tot);
 				this.state.currentRow.totspesepersonalecaricoateneo3 = tot;
 			},
 
 			manageanalisiannuale_default_speseDG3: function () {
 				var analisiannuale_default_speseDG3Ctrl = $("#analisiannuale_default_speseDG3");
-				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (r.contrattokind_title.contains("Direttore generale"))
+				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
+					if (r.position_title.contains("Direttore generale"))
 						return r.importoateneo3; //netto
 				});
+				tot = !this.isNullOrNotANumber(tot) ? tot : 0;
 				analisiannuale_default_speseDG3Ctrl.val(tot);
 				this.state.currentRow.speseDG3 = tot;
 			},
@@ -800,15 +817,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				this.state.currentRow["!denominatore3"] = tot;
 			},
 
-			children: ['pcsassunzioni', 'pcsassunzionisimulate', 'pcsbilancio', 'pcscessazioniview', 'pcspuntiorganicoview', 'stipendioannuo'],
-			haveChildren: function () {
-				var self = this;
-				return _.some(this.children, function (child) {
-					if (child !== '')
-						return !!self.getDataTable(child).rows.length;
-					else
-						return false;
-				});
+			manageidattach_cessazione: function(that) { 
+				var files = event.target.files;
+				var file = files[0];
+				var colname = 'idanalisiannuale';
+				var id = that.state.currentRow[colname];
+				appMeta.ImportExcel.importFileIntoTable(that, file, 'sp_import_cessazionicsa', [id], 0, 'pcscessazioniview', colname );
+
+
+			},
+
+			manageimportfilecontratti: function(that) { 
+				var files = event.target.files;
+				var file = files[0];
+				var colname = 'year';
+				var id = that.state.currentRow[colname];
+				appMeta.ImportExcel.importFileIntoTable(that, file, 'sp_import_contratticsa', [id], 0, 'stipendioannuo', colname);
+			},
+
+			manageimportstipendi: function(that) { 
+				var files = event.target.files;
+				var file = files[0];
+				var colname = 'year';
+				var id = that.state.currentRow[colname];
+				appMeta.ImportExcel.importFileIntoTable(that, file, 'sp_import_stipendicsa', [id], 0, 'stipendioannuo', colname );
 			},
 
 			//buttons

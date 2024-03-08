@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -183,6 +183,7 @@ namespace e2e {
             t.deleteEp(rMan);
             t.generateEP(rMan);
             var dsEP = t.getEpData(t.testConn, rMan);
+
             Assert.AreEqual(0, dsEP.Tables["entrydetail"].Rows.Count, $"Non ci sono scritture");
 
             var totImpegni = (decimal)dsEP.Tables["epexpyear"]._Filter(q.eq("ayear", 2018)).GetSum<decimal>("amount");
@@ -279,6 +280,10 @@ namespace e2e {
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
 
             var dsEP = t.getEpData(t.testConn, rMan);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             var tEntrydetail = dsEP.Tables["entrydetail"];
             var tEntry = dsEP.Tables["entry"];
             DataRow[] rEpexp = dsEP.Tables["epexp"]._Filter(q.eq("nphase", 2));
@@ -338,6 +343,10 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rMan);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             var tEntrydetail = dsEP.Tables["entrydetail"];
             var tEntry = dsEP.Tables["entry"];
             DataRow[] rEpexp = dsEP.Tables["epexp"]._Filter(q.eq("nphase", 2));
@@ -466,6 +475,9 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             var tEntrydetail = dsEP.Tables["entrydetail"];
             var tEntry = dsEP.Tables["entry"];
             DataRow[] rEpacc = dsEP.Tables["epacc"]._Filter(q.eq("nphase", 2));
@@ -522,6 +534,7 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rEst);
+
             var countDetScritt = dsEP.Tables["entrydetail"]._Filter(q.like("idrelated", "estim")).Length;
             Assert.AreEqual(0, countDetScritt, $"Non ci sono scritture poichè contratto collegabile a fattura");
 
@@ -545,6 +558,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generateEP(rEst);
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //VERIFICA VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -591,6 +607,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaImpegniScritture(rEst);
             var dsEP = t.getEpData(t.testConn, rEst);
             Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             var tEntrydetail = dsEP.Tables["entrydetail"];
             var tEntry = dsEP.Tables["entry"];
@@ -640,6 +659,7 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generateEP(rEst);
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+
 
             Assert.AreEqual(0, dsEP.Tables["entrydetail"].Rows.Count, $"Non ci sono scritture poichè contratto collegabile a fattura");
             }
@@ -749,6 +769,7 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
 
+
             Assert.AreEqual(0, dsEP.Tables["entrydetail"].Rows.Count, $"Non ci sono scritture poichè contratto collegabile a fattura");
 
             }
@@ -772,6 +793,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generateEP(rMan);
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //VERIFICA VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpexpvar = dsEP.Tables["epexpvar"]._Filter(null);
@@ -875,6 +899,9 @@ namespace e2e {
 
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             var tEntrydetail = dsEP.Tables["entrydetail"];
             var tEntry = dsEP.Tables["entry"];
@@ -1018,6 +1045,7 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rMan);
+
             //VERIFICA VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpexpvar = dsEP.Tables["epexpvar"]._Filter(null);
             Assert.AreEqual(rEpexpvar.Length, 2, "Sono  presenti 2 variazioni");
@@ -1062,6 +1090,10 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rMan);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //VERIFICA VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpexpvar = dsEP.Tables["epexpvar"]._Filter(null);
             Assert.AreEqual(rEpexpvar.Length, 0, "Sono  presenti 0 variazioni");
@@ -1100,6 +1132,9 @@ namespace e2e {
             //CONTROLLO PER REGOLE 
             ProcedureMessageCollection regole = t.generateEP(rMan);
             dsEP = t.getEpData(t.testConn, rMan);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
@@ -1201,6 +1236,10 @@ namespace e2e {
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
 
             dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //VERIFICA VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
             Assert.AreEqual(rEpaccpvar.Length, 0, "Sono  presenti 0 variazioni");
@@ -1335,6 +1374,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generateEP(rEst);
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             var dsEP = t.getEpData(t.testConn, rEst);
             var tEntrydetail = dsEP.Tables["entrydetail"];
@@ -1526,6 +1568,9 @@ namespace e2e {
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
             Assert.AreEqual(rEpaccpvar.Length, 0, "Non Sono  presenti variazioni");
@@ -1642,6 +1687,9 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rMan);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO NUMERO IMPEGNI DI BUDGET    ok
             int countNepexp2020 = dsEP.Tables["epexp"]._Filter(q.eq("nphase", 2) & q.eq("yepexp", 2020)).Length;
@@ -1818,6 +1866,9 @@ namespace e2e {
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rMan);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET   ok
             int countNVarepexp2021 = dsEP.Tables["epexpvar"]._Filter(q.eq("yvar", 2021)).Length;
             Assert.AreEqual(0, countNVarepexp2021, "Non vi sono var. di budget");// Preimpegno e impegno
@@ -1930,6 +1981,9 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rMan);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -2048,6 +2102,9 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rMan);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO NUMERO IMPEGNI DI BUDGET    
             int countNepexp = dsEP.Tables["epexp"]._Filter(q.eq("nphase", 2) & q.eq("yepexp", 2020)).Length;
@@ -2258,6 +2315,9 @@ namespace e2e {
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rMan);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO NUMERO IMPEGNI DI BUDGET    ok
             int countNepexp = dsEP.Tables["epexp"]._Filter(q.eq("nphase", 2) & q.eq("yepexp", 2020)).Length;
             Assert.AreEqual(1, countNepexp, "E' presente un impegno di budget");
@@ -2364,6 +2424,9 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rMan);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO NUMERO IMPEGNI DI BUDGET    ok
             int countNepexp = dsEP.Tables["epexp"]._Filter(q.eq("nphase", 2) & q.eq("yepexp", 2020)).Length;
@@ -2483,6 +2546,9 @@ namespace e2e {
             checkNoRules(regole);
 
             var dsEP = t.getEpData(t.testConn, rMan);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             Assert.AreEqual(0, dsEP.Tables["epexpvar"]._Filter(null).Length / 2, "Non ci sono variazioni ai mov di budget");
 
@@ -2606,6 +2672,9 @@ namespace e2e {
             checkNoRules(regole);
 
             var dsEP = t.getEpData(t.testConn, rMan);
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
 
             Assert.AreEqual(0, dsEP.Tables["epaccvar"]._Filter(null).Length, "Non ci sono variazioni ai mov di budget");
 
@@ -2710,6 +2779,9 @@ namespace e2e {
             //Verifico la causale di costo "Cancelleria toner e inchiostri"
             string attualCodeCosto = rMandateDetail["idaccmotive"] == DBNull.Value ? "" : (string)rMandateDetail["idaccmotive"];
             Assert.AreEqual("000100020008", attualCodeCosto, "Il codice della causale di costo è corrispondente");
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //GENERO LE SCRITTURE E CONTROLLO LE REGOLE CHE MI ASPETTO/NON ASPETTO SCATTINO 
             ProcedureMessageCollection regole = t.generaImpegniScritture(rMan);
@@ -2822,6 +2894,9 @@ namespace e2e {
             string attualCodeCosto = rMandateDetail["idaccmotive"] == DBNull.Value ? "" : (string)rMandateDetail["idaccmotive"];
             Assert.AreEqual("000100020008", attualCodeCosto, "Il codice della causale di costo è corrispondente");
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //GENERO LE SCRITTURE E CONTROLLO LE REGOLE CHE MI ASPETTO/NON ASPETTO SCATTINO 
             ProcedureMessageCollection regole = t.generaImpegniScritture(rMan);
             if (regole != null)
@@ -2928,9 +3003,14 @@ namespace e2e {
             DataRow manDet1 = tMandateDetail.Rows[1];
             DataRow manDet2 = tMandateDetail.Rows[0];
             //GENERO GLI ACCERTAMENTI/IMPEGNI CONTROLLO LE REGOLE CHE MI ASPETTO/NON ASPETTO SCATTINO 
+
             ProcedureMessageCollection regole = t.generaImpegniScritture(rMan);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rMan);
+          
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+            
             Assert.AreEqual(0, dsEP.Tables["epexpvar"]._Filter(null).Length / 2, "Non ci sono variazioni ai mov di budget");
             object idepexp1 = manDet1["idepexp"];
             object idepexp2 = manDet2["idepexp"];
@@ -2938,9 +3018,7 @@ namespace e2e {
             //CONTROLLO NUMERO ACCERTAMENTI DI BUDGET
             int countNepacc = dsEP.Tables["epacc"]._Filter(null).Length;
             Assert.AreEqual(0, countNepacc, "Non ci sono accertamenti di budget");
-
-            //CONTROLLO IMPORTO INIZIALE IMP DI BUDGET ESERCIZIO 2020
-            t.checkImportoInizialeImpBudget(dsEP.Tables["epexp"], 2020, 66746, 2020, 4270m); //credo si possa togliere visto che alla riga 2951 fa lo stesso
+            
             
             //CONTROLLO NUMERO IMPEGNI DI BUDGET
             int countNepexp2021 = dsEP.Tables["epexp"]._Filter(q.eq("nphase", 2) & q.eq("yepexp", 2021) & q.eq("flagvariation", "S")).Length;
@@ -2975,6 +3053,7 @@ namespace e2e {
             //CONTROLLO DATI SCRITTURE IN PARTITA DOPPIA
             var tEntrydetail = dsEP.Tables["entrydetail"];
             var rEntry = dsEP.Tables["entry"].Rows[0];
+            Assert.AreEqual("Test sostituzione anno successivo Fatture da ricevere con causale COSTO", rEntry["description"], "La descrizione della scrittura è corrispondente");
             var date_doc_colleg = new DateTime(2020, 12, 31);
             var date_contab = new DateTime(2021, 02, 09);//(DateTime)manDet1["start"];//new DateTime(2021, 11, 3));//data inizio nuovo dettaglio
             Assert.AreEqual("Test sostituzione anno successivo Fatture da ricevere con causale COSTO", rEntry["description"], "La descrizione della scrittura è corrispondente");
@@ -3036,6 +3115,8 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaImpegniScritture(rMan);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rMan);
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
             Assert.AreEqual(0, dsEP.Tables["epexpvar"]._Filter(null).Length / 2, "Non ci sono variazioni ai mov di budget");
             object idepexp1 = manDet1["idepexp"];//968548 impegno
             object idepacc1 = manDet2["idepacc"];//180484 accertamento
@@ -3146,6 +3227,9 @@ namespace e2e {
             string attualCodeCosto = rMandateDetail["idaccmotive"] == DBNull.Value ? "" : (string)rMandateDetail["idaccmotive"];
             Assert.AreEqual("000100020008", attualCodeCosto, "Il codice della causale di costo è corrispondente");
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rMan);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //GENERO LE SCRITTURE E CONTROLLO LE REGOLE CHE MI ASPETTO/NON ASPETTO SCATTINO 
             ProcedureMessageCollection regole = t.generaImpegniScritture(rMan);
             if (regole != null)
@@ -3241,7 +3325,7 @@ namespace e2e {
         public void Test2_mandate_2020_Annullo2021_CPcommerciale_fattdaricevere_Ricavo() {
             //s)	Annullo anno successivo Fatture da ricevere con causale RICAVO
             var t = new TestHelp(new DateTime(2021, 12, 31), "sample_2", "test_2");
-            q filterMan = q.eq("idmankind", "AUA_CF_C") & q.eq("yman", 2020) & q.eq("nman", 6);
+            q filterMan = q.eq("idmankind", "BIBATS_CF_C") & q.eq("yman", 2020) & q.eq("nman", 1);
             t.binaryReplaceSet(filterMan, t.getTableSet(TestHelp.mainObject.mandate));
             DataTable tMandate = t.testConn.readTable("mandate", filterMan);
             DataRow rMan = tMandate.Rows[0];
@@ -3254,11 +3338,11 @@ namespace e2e {
             //VERIFICO CHE LA CAUSALE DI ANNULLO  (Riccavo - Sopravvenienze attive) 
             DataRow rMandateDetail = tMandateDetail.Rows[0];
             string attualCodeAnn = rMandateDetail["idaccmotiveannulment"] == DBNull.Value ? "" : (string)rMandateDetail["idaccmotiveannulment"];
-            Assert.AreEqual("000800110003", attualCodeAnn, "Il codice della causale d'annullo è corrispondente");
+            Assert.AreEqual("000800050005", attualCodeAnn, "Il codice della causale d'annullo è corrispondente");
 
             //Verifico la causale di costo "Cancelleria toner e inchiostri"
             string attualCodeCosto = rMandateDetail["idaccmotive"] == DBNull.Value ? "" : (string)rMandateDetail["idaccmotive"];
-            Assert.AreEqual("000100020008", attualCodeCosto, "Il codice della causale di costo è corrispondente");
+            Assert.AreEqual("000200030004", attualCodeCosto, "Il codice della causale di costo è corrispondente");
 
             //GENERO LE SCRITTURE E CONTROLLO LE REGOLE CHE MI ASPETTO/NON ASPETTO SCATTINO 
             ProcedureMessageCollection regole = t.generaImpegniScritture(rMan);
@@ -3268,7 +3352,7 @@ namespace e2e {
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET   ok
             int countNVarepexp2021 = dsEP.Tables["epexpvar"]._Filter(q.eq("yvar", 2021)).Length;
-            Assert.AreEqual(2, countNVarepexp2021, "Vi sono 2 var. di budget");// Preimpegno e impegno
+            Assert.AreEqual(0, countNVarepexp2021, "Non ci sono var. di budget");// Preimpegno e impegno
 
             //CONTROLLO NUMERO IMPEGNI DI BUDGET
             int countNepexp2020 = dsEP.Tables["epexp"]._Filter(q.eq("nphase", 2) & q.eq("yepexp", 2020)).Length;
@@ -3279,11 +3363,11 @@ namespace e2e {
             DataRow[] rEpexpeyear20 = dsEP.Tables["epexpyear"]._Filter(q.eq("ayear", 2021));
             DataRow dr20_epexp = rEpexp20[0];
             DataRow dr20_epexpyear = rEpexpeyear20[0];
-            Assert.AreEqual(dr20_epexp["description"], "Test annullo anno successivo Fatture da ricevere con causale RICAVO-Pro rata 2020 80%");
-            Assert.AreEqual(dr20_epexpyear["idacc"], "21000200010002000100060001", "Il n.conto del mov.budget è corrispondente");
-            Assert.AreEqual(dr20_epexpyear["idupb"], "00010003", "L'UPB del mov.budget è corrispondente");
-            Assert.AreEqual(dr20_epexp["idaccmotive"], "000100020008", "La causale del mov.budget è corrispondente");
-            t.checkImportoInizialeImpBudget(dsEP.Tables["epexp"], dr20_epexp["idepexp"], 2021, 3654m);
+            Assert.AreEqual(dr20_epexp["description"], "REPLICA caso di test CP commerciale 2020, annullato nel 2021 con causale di Ricavo, marcato Fatt. da ricevere");
+            Assert.AreEqual(dr20_epexpyear["idacc"], "21000200010004000800040001", "Il n.conto del mov.budget è corrispondente");
+            Assert.AreEqual(dr20_epexpyear["idupb"], "0001000300010012", "L'UPB del mov.budget è corrispondente");
+            Assert.AreEqual(dr20_epexp["idaccmotive"], "000200030004", "La causale del mov.budget è corrispondente");
+            t.checkImportoInizialeImpBudget(dsEP.Tables["epexp"], dr20_epexp["idepexp"], 2021, 0m);
 
             //CONTROLLO NUMERO ACCERTAMENTI DI BUDGET   ok 
             int countNepacc2019 = dsEP.Tables["epacc"]._Filter(q.eq("nphase", 2) & q.eq("yepacc", 2021)).Length;
@@ -3293,49 +3377,49 @@ namespace e2e {
             DataRow[] rEpaccyear21 = dsEP.Tables["epexpyear"]._Filter(q.eq("ayear", 2021));
             DataRow dr21_epacc = rEpacc21[0];
             DataRow dr21_epaccyear = rEpaccyear21[0];
-            Assert.AreEqual(dr21_epacc["description"], "Test annullo anno successivo Fatture da ricevere con causale RICAVO-Pro rata 2020 80%", "La descrizione del mov.budget  è corrispondente");
-            Assert.AreEqual(dr21_epaccyear["idacc"], "21000200010002000100060001", "Il n.conto del mov.budget è corrispondente");
-            Assert.AreEqual(dr21_epaccyear["idupb"], "00010003", "L'UPB del mov.budget è corrispondente");
-            Assert.AreEqual(dr21_epacc["idaccmotive"], "000800110003", "La causale del mov.budget è corrispondente");
-            t.checkImportoInizialeAccBudget(dsEP.Tables["epacc"], dr21_epacc["idepacc"], 2021, 3654m);
+            Assert.AreEqual(dr21_epacc["description"], "REPLICA caso di test CP commerciale 2020, annullato nel 2021 con causale di Ricavo, marcato Fatt. da ricevere", "La descrizione del mov.budget  è corrispondente");
+            Assert.AreEqual(dr21_epaccyear["idacc"], "21000200010004000800040001", "Il n.conto del mov.budget è corrispondente");
+            Assert.AreEqual(dr21_epaccyear["idupb"], "0001000300010012", "L'UPB del mov.budget è corrispondente");
+            Assert.AreEqual(dr21_epacc["idaccmotive"], "000800050005", "La causale del mov.budget è corrispondente");
+            t.checkImportoInizialeAccBudget(dsEP.Tables["epacc"], dr21_epacc["idepacc"], 2021, 1566m);
 
 
             //CONTROLLO DATI SCRITTURE IN PARTITA DOPPIA
             var tEntrydetail = dsEP.Tables["entrydetail"];
             var rEntry = dsEP.Tables["entry"].Rows[0];
             var date_doc_colleg = new DateTime(2020, 12, 31);
-            var date_contab = new DateTime(2021, 02, 22);
-            Assert.AreEqual(rEntry["description"], "Test annullo anno successivo Fatture da ricevere con causale RICAVO-\r\nPro rata 2020 80%", "La descrizione della scrittura è corrispondente");
-            Assert.AreEqual(rEntry["doc"], "C.P. AUA_CF_C 20/6", "La descrizione del documento collegato alla scrittura è corrispondente");
+            var date_contab = new DateTime(2021, 12, 31);
+            Assert.AreEqual(rEntry["description"], "REPLICA caso di test CP commerciale 2020, annullato nel 2021 con causale di Ricavo, marcato Fatt. da ricevere", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "C.P. BIBATS_CF_C 20/1", "La descrizione del documento collegato alla scrittura è corrispondente");
             Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
             Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
             //1 DETTAGLIO SCRITTURA
-            var descr1 = "C.P. AUA_CF_C 20/61- Test annullo anno successivo Fatture da ricevere con causale RICAVO-Pro rata 2020 80%";
+            var descr1 = "C.P. BIBATS_CF_C 20/11- REPLICA caso di test CP commerciale 2020, annullato nel 2021 con causale di Ricavo, marcato Fatt. da ricevere";
             q filterEDetail1 = q.eq("description", descr1);
             var EntryDetail1Rows = tEntrydetail._Filter(filterEDetail1);
             var EntryDetail1 = EntryDetail1Rows[0];
             Assert.AreEqual(EntryDetail1["description"], descr1, "La descrizione del dettaglio della scrittura è corrispondente");
-            Assert.AreEqual(EntryDetail1["idacc"], "21000400040003000100010001", "Il n.conto del dettaglio della scrittura è corrispondente");
-            Assert.AreEqual(EntryDetail1["idupb"], "00010003", "L'UPB del dettaglio della scrittura è corrispondente");
-            Assert.AreEqual(EntryDetail1["idreg"], 9759, "Il cliente del dettaglio della scrittura è corrispondente");
-            Assert.AreEqual(EntryDetail1["idaccmotive"], "000800110003", "La causale del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idacc"], "21000400010008000100050001", "Il n.conto del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idupb"], "0001000300010012", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idreg"], 9347, "Il cliente del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idaccmotive"], "000800050005", "La causale del dettaglio della scrittura è corrispondente");
             //2 DETTAGLIO SCRITTURA
-            var descr2 = "Contratto passivo AUA_CF_C n.6 / 2020 n°1";
+            var descr2 = "Contratto passivo BIBATS_CF_C n.1 / 2020 n°1";
             q filterEDetail2 = q.eq("description", descr2);
             var EntryDetail2Rows = tEntrydetail._Filter(filterEDetail2);
             var EntryDetail2 = EntryDetail2Rows[0];
             Assert.AreEqual(EntryDetail2["description"], descr2, "La descrizione del dettaglio della scrittura è corrispondente");
             Assert.AreEqual(EntryDetail2["idacc"], "21000300040002000100040001", "Il n.conto del dettaglio della scrittura è corrispondente");
-            Assert.AreEqual(EntryDetail2["idupb"], "00010003", "L'UPB del dettaglio della scrittura è corrispondente");
-            Assert.AreEqual(EntryDetail2["idreg"], 9759, "Il cliente del dettaglio della scrittura è corrispondente");
-            Assert.AreEqual(EntryDetail2["idaccmotive"], "000800110003", "La causale del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail2["idupb"], "0001000300010012", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail2["idreg"], 9347, "Il cliente del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail2["idaccmotive"], "000800050005", "La causale del dettaglio della scrittura è corrispondente");
 
             //CONTROLLO DATI SCRITTURE IN PARTITA DOPPIA
             Assert.AreEqual(2, dsEP.Tables["entry"]._Filter(null).Length, "Presente due scritture");
 
             Assert.AreEqual(2, dsEP.Tables["entrydetail"]._Filter(q.eq("nentry", rEntry["nentry"])).Length, "Sono presenti due dettagli relativi alla scrittura");
             var avere = (decimal)dsEP.Tables["entrydetail"]._Filter(q.gt("amount", 0) & q.eq("nentry", rEntry["nentry"])).GetSum<decimal>("amount");
-            Assert.AreEqual(3654.00m, avere, "Avere corrispondente");
+            Assert.AreEqual(1566.00m, avere, "Avere corrispondente");
 
             //CONTROLLO CORRISPONDENZA TRA SCRITTURA E MOVIMENTO DI BUDGET
             Assert.AreEqual(EntryDetail1["idepacc"], dr21_epacc["idepacc"]);
@@ -3461,6 +3545,9 @@ namespace e2e {
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
             Assert.AreEqual(rEpaccpvar.Length, 0, "Non Sono  presenti variazioni");
@@ -3575,6 +3662,9 @@ namespace e2e {
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
             Assert.AreEqual(rEpaccpvar.Length, 0, "Non Sono  presenti variazioni");
@@ -3677,6 +3767,9 @@ namespace e2e {
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
             Assert.AreEqual(2,rEpaccpvar.Length,  "E' presente una variazione");
@@ -3771,6 +3864,9 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET (esercizio 2018)
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -3936,6 +4032,9 @@ namespace e2e {
             if (regole != null)
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET (esercizio 2018)
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -4236,6 +4335,9 @@ namespace e2e {
 				Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
 			var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
 			//CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET (esercizio 2018)
 			DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
 			Assert.AreEqual(2*2, rEpaccpvar.Length, "Sono presenti due varizioni");
@@ -4443,6 +4545,9 @@ namespace e2e {
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
             Assert.AreEqual(rEpaccpvar.Length, 0, "Non sono presenti variazioni");
@@ -4566,6 +4671,9 @@ namespace e2e {
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
             Assert.AreEqual(rEpaccpvar.Length, 0, "Non ci sono variazioni ai mov. di budget");
@@ -4683,6 +4791,9 @@ namespace e2e {
 
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(q.eq("yvar",2019));
@@ -4818,6 +4929,9 @@ namespace e2e {
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
             Assert.AreEqual(rEpaccpvar.Length, 0, "Non ci sono variazioni ai mov. di budget");
@@ -4927,6 +5041,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET DEL 2018
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(q.eq("yvar",2018));
@@ -5043,6 +5160,9 @@ namespace e2e {
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             t.checkImportoTotaleVarAccBudget(dsEP.Tables["epacc"],2018,86561,  -50m,2018);
 
@@ -5149,6 +5269,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET 2018
             t.checkImportoTotaleVarAccBudget(dsEP.Tables["epacc"],2018, 86502, -20m, 2018);
@@ -5265,6 +5388,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             t.checkImportoTotaleVarAccBudget(dsEP.Tables["epacc"],2018, 86550, -200m,2018);
@@ -5394,6 +5520,9 @@ namespace e2e {
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET 2018
             t.checkImportoTotaleVarAccBudget(dsEP.Tables["epacc"],2018, 86509, -15m, 2018);
 
@@ -5516,6 +5645,9 @@ namespace e2e {
                 
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             t.checkImportoTotaleVarAccBudget(dsEP.Tables["epacc"],2018, 86552, -50m, 2018);
 
             //CONTROLLO NUMERO IMPEGNI DI BUDGET
@@ -5635,6 +5767,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             Assert.AreEqual(2*2, dsEP.Tables["epaccvar"]._Filter(null).Length, "Sono presenti due variazioni ai mov di budget");
             //CONTROLLO VARIAZIONI
@@ -6653,6 +6788,9 @@ namespace e2e {
 
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             Assert.AreEqual(2 * 1, dsEP.Tables["epaccvar"]._Filter(null).Length, "E' presente una variazione ai mov di budget");
             //CONTROLLO VARIAZIONE 1 AI MOVIMENTI DI BUDGET 2019
             object idepacc1 = estimDet1["idepacc"];
@@ -6763,6 +6901,9 @@ namespace e2e {
 
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             Assert.AreEqual(0, dsEP.Tables["epaccvar"]._Filter(null).Length, "Non ci sono variazioni ai mov di budget");
 
             object idepacc1 = estimDet1["idepacc"];
@@ -6870,6 +7011,9 @@ namespace e2e {
 
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             Assert.AreEqual(0, dsEP.Tables["epaccvar"]._Filter(null).Length, "Non ci sono variazioni ai mov di budget");
             //207770
             object idepacc1 = estimDet1["idepacc"];
@@ -6965,6 +7109,9 @@ namespace e2e {
             checkNoRules(regole);
 
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             Assert.AreEqual(0, dsEP.Tables["epaccvar"]._Filter(null).Length, "Non ci sono variazioni ai mov di budget");
 
@@ -7550,6 +7697,10 @@ namespace e2e {
 	        if (regole != null)
 		        Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
 	        var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
 	        decimal sumVar = MetaData.SumColumn(dsEP.Tables["epexpvar"], "amount");
 	        Assert.AreEqual(0, sumVar, "Non ci sono variazioni agli impegni di budget o la somma è 0");
 
@@ -7702,6 +7853,9 @@ namespace e2e {
                 Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             Assert.AreEqual(1, dsEP.Tables["epaccvar"]._Filter(null).Length / 2, "E' presente una variazione ai mov di budget");
 
             //CONTROLLO VARIAZIONI
@@ -7798,6 +7952,9 @@ namespace e2e {
 
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono  abilitate");
+
             Assert.AreEqual(0, dsEP.Tables["epaccvar"]._Filter(null).Length/2, "Non ci sono variazioni ai mov di budget");
 
             // 207840
@@ -7876,7 +8033,7 @@ namespace e2e {
             Assert.AreEqual(10382, EntryDetail2["idreg"], "Il cliente del dettaglio della scrittura è corrispondente");
             Assert.AreEqual("000700010001000100030005", EntryDetail2["idaccmotive"], "La causale del dettaglio della scrittura è corrispondente");
             Assert.AreEqual(EntryDetail2["idepacc"], dr2_epacc["idepacc"]);
-            Assert.AreEqual(EntryDetail2["idrelated"], dr1_epacc["idrelated"]);//estim§CA_COLLEGABILE§2018§48§1. Il confronto diventa anch inutile perchè so tratta di un conto di ricavo che non verrà epilogato
+            Assert.AreEqual(EntryDetail2["idrelated"], dr2_epacc["idrelated"]);//estim§CA_COLLEGABILE§2018§48§1. Il confronto diventa anch inutile perchè so tratta di un conto di ricavo che non verrà epilogato
             //CONTROLLO DATI SCRITTURE IN PARTITA DOPPIA
             Assert.AreEqual(1, dsEP.Tables["entry"]._Filter(q.eq("yentry", 2019)).Length, "E' presente una scrittura");
             //CONTROLLO DETTAGLI SCRITTURA ESERCIZIO 2019
@@ -8097,6 +8254,9 @@ namespace e2e {
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             Assert.AreEqual(1*2, dsEP.Tables["epaccvar"]._Filter(null).Length, "E' presente una variazione ai mov di budget");
 			//CONTROLLO VARIAZIONI 2019
 			t.checkImportoTotaleVarAccBudget(dsEP.Tables["epacc"], 2019, 86584, -5952.03m, 2019);
@@ -8193,6 +8353,9 @@ namespace e2e {
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             Assert.AreEqual(1*2, dsEP.Tables["epaccvar"]._Filter(null).Length, "E' presente una variazione ai mov di budget");
 			//CONTROLLO VARIAZIONI 2019
 			t.checkImportoTotaleVarAccBudget(dsEP.Tables["epacc"], 2018, 86585, -2000m, 2019);
@@ -8250,6 +8413,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -8400,6 +8566,7 @@ namespace e2e {
             newRow["flag"] = (Int32)0;
             newRow["idsor_siope"] = (Int32)6776;
             newRow["rownum_main"] = (Int32)1;
+            newRow["idaccmotiveannulment"]= "000600010005000100030008";
 
 
             //SALVO IL DATASET 
@@ -8434,6 +8601,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -8502,6 +8672,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -8589,6 +8762,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -8696,6 +8872,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -8837,6 +9016,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -9018,6 +9200,9 @@ namespace e2e {
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
 
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
+
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
             Assert.AreEqual(1*2,rEpaccpvar.Length,"E' presente una variazione");
@@ -9173,6 +9358,9 @@ namespace e2e {
             ProcedureMessageCollection regole = t.generaAccertamentiScritture(rEst);
             checkNoRules(regole);
             var dsEP = t.getEpData(t.testConn, rEst);
+
+            bool scrittureabilitate = t.abilitaScrittureUT(rEst);
+            Assert.IsTrue(scrittureabilitate, "Le scritture sono abilitate");
 
             //CONTROLLO VARIAZIONI AI MOVIMENTI DI BUDGET
             DataRow[] rEpaccpvar = dsEP.Tables["epaccvar"]._Filter(null);
@@ -10293,7 +10481,16 @@ namespace e2e {
             Assert.AreEqual(EntryDetail1["idreg"], 19713, "Il cliente del dettaglio della scrittura è corrispondente");
             Assert.AreEqual(EntryDetail1["idaccmotive"], "000100020001", "La causale del dettaglio della scrittura è corrispondente");
             Assert.AreEqual(EntryDetail1["amount"], -732m, "L'importo del dettaglio scrittura è corrispondente");
+            // Ci sono due dettagli scrittura uguali, che differiscono solo per l'importo. 
+            var entryDet = tEntrydetail._Filter(q.eq("description",
+                                                 "Fattura ACAIX_AUA n.1 / 2021")
+                                             & q.eq("idreg", 19713));
+            
+            decimal sumDet = (decimal)entryDet.GetSum<decimal>("amount");
+            Assert.AreEqual(732m, sumDet, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {732m}");
+
             //PRIMO DETTAGLIO SCRITTURA
+
             var rDet2 = tEntrydetail._Filter(q.eq("description",
                                                  "Fattura ACAIX_AUA n.1 / 2021")
                                              & q.eq("idreg", 19713)).FirstOrDefault();
@@ -10302,17 +10499,18 @@ namespace e2e {
             Assert.AreEqual(rDet2["idupb"], "0001000300010022", "L'UPB del dettaglio della scrittura è corrispondente");
             Assert.AreEqual(rDet2["idacc"], "21000300040002000400020001", "Il conto del dettaglio della scrittura è corrispondente");
             Assert.AreEqual(rDet2["idaccmotive"], "000100020001", "La causale del dettaglio della scrittura è corrispondente");
-            Assert.AreEqual(rDet2["amount"], 600m, "L'importo del dettaglio scrittura è corrispondente");
+            //Assert.AreEqual(rDet2["amount"], 600m, "L'importo del dettaglio scrittura è corrispondente");
 
             //SECONDO DETTAGLIO SCRITTURA
             var rDet3 = tEntrydetail._Filter(q.eq("description",
                                                  "Fattura ACAIX_AUA n.1 / 2021")
-                                             & q.eq("idreg", 10791)).FirstOrDefault();
+                                             & q.eq("idreg", 19713)).FirstOrDefault();
             Assert.IsNotNull(rDet3, "Trovato dettaglio 3 con conto e descrizione corrispondenti");
             Assert.AreEqual(rDet3["idupb"], "0001000300010022", "L'UPB del dettaglio della scrittura è corrispondente");
             Assert.AreEqual(rDet3["idacc"], "21000300040002000400020001", "Il conto del dettaglio della scrittura è corrispondente");
             Assert.AreEqual(rDet3["idaccmotive"], "000100020001", "La causale del dettaglio della scrittura è corrispondente");
-            Assert.AreEqual(rDet3["amount"], 132m, "L'importo del dettaglio scrittura è corrispondente");
+            
+            //Assert.AreEqual(rDet3["amount"], 132m, "L'importo del dettaglio scrittura è corrispondente");
         }
 
         [TestMethod]
@@ -10391,6 +10589,687 @@ namespace e2e {
             Assert.AreEqual(rDet4["amount"], 132m, "L'importo del dettaglio scrittura è corrispondente");
         }
         #endregion
+
+        [TestMethod]
+        public void Test_FattAcquisto_istituzionale_NonSplitPayment() {
+            /*
+             * Fattura di acquisto istituzionale non split payment
+             * con protocollo in entrate SDIA000000018684 e scrittura 10773/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 275) & q.eq("arrivalprotocolnum", "SDIA000000018684");
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 11, 16);
+            var date_contab = new DateTime(2020, 11, 17);
+            Assert.AreEqual(rEntry["description"], "Incarico professionale prog. PSR INNOSHEEP resp. prof. Ronchi CIG: ZD42D8C4D9 - CUP: F84I17000190009", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "938", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            var descr1 = "Incarico professionale prog. PSR INNOSHEEP resp. prof. Ronchi CIG: ZD42D8C4D9 - CUP: F84I17000190009";
+            q filterEDetail1 = q.eq("description", descr1);
+            var EntryDetail1Rows = tEntrydetail._Filter(filterEDetail1);
+            var EntryDetail1 = EntryDetail1Rows[0];
+            Assert.AreEqual(EntryDetail1["description"], descr1, "La descrizione del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idacc"], "20000200010004000400030001", "Il n.conto del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idupb"], "0001000100221134", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idreg"], 40054, "Il cliente del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idaccmotive"], "000200020003", "La causale del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["amount"], -4300m, "L'importo del dettaglio scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var rDet2 = tEntrydetail._Filter(q.eq("description", "Fattura FEAII_DAFNE n.275 / 2020")
+                                                & q.eq("idacc", "20000300040002000100030001")
+                                                & q.eq("amount", 3524.59m)).FirstOrDefault();
+
+            Assert.IsNotNull(rDet2, "Trovato dettaglio 2 con conto e descrizione corrispondenti");
+            Assert.AreEqual(rDet2["idupb"], "0001000100221134", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 40054, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idaccmotive"], "000200020003", "La causale del dettaglio della scrittura è corrispondente");
+
+            //TERZO DETTAGLIO SCRITTURA
+            var rDet3 = tEntrydetail._Filter(q.eq("description", "Fattura FEAII_DAFNE n.275 / 2020")
+                                                & q.eq("idacc", "20000300040002000100030001")
+                                                & q.eq("amount", 775.41m)).FirstOrDefault();
+
+            Assert.IsNotNull(rDet3, "Trovato dettaglio 3 con conto, descrizione e importo corrispondente");
+            Assert.AreEqual(rDet3["idupb"], "0001000100221134", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idreg"], 40054, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idaccmotive"], "000200020003", "La causale del dettaglio della scrittura è corrispondente");
+		}
+
+        [TestMethod]
+        public void Test_FattAcquisto_istituzionale_SplitPayment() {
+            /*
+             * Fattura di acquisto istituzionale split payment
+             * con protocollo in entrata SDIA000000018622 e scrittura 12002/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 414) & q.eq("arrivalprotocolnum", "SDIA000000018622");
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 11, 11);
+            var date_contab = new DateTime(2020, 12, 10);
+            Assert.AreEqual(rEntry["description"], "ISTITUTO DI VIGILANZA PRIVATA DELLA PROVINCIA DI VITERBO s.r.l. n.cig. 7910747AEE periodo luglio/agosto 2020 fatt. n. 3/0000384 del 11/11/2020", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "3/0000384", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            var descr1 = "ISTITUTO DI VIGILANZA PRIVATA DELLA PROVINCIA DI VITERBO s.r.l. n.cig. 7910747AEE periodo luglio/agosto 2020 fatt. n. 3/0000384 del 11/11/2020";
+            q filterEDetail1 = q.eq("description", descr1);
+            var EntryDetail1Rows = tEntrydetail._Filter(filterEDetail1);
+            var EntryDetail1 = EntryDetail1Rows[0];
+            Assert.AreEqual(EntryDetail1["description"], descr1, "La descrizione del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idacc"], "20000200010004000800020001", "Il n.conto del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idupb"], "0001000300030008", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idreg"], 2336, "Il cliente del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idaccmotive"], "000200030002", "La causale del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["amount"], -91762.82m, "L'importo del dettaglio scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var rDet2 = tEntrydetail._Filter(q.eq("description", "Fattura FEAII_STIS n.414 / 2020")
+                                                & q.eq("idacc", "20000300040002000100010001")
+                                                & q.eq("amount", 16547.39m)).FirstOrDefault();
+
+            Assert.IsNotNull(rDet2, "Trovato dettaglio 2 con conto, descrizione e importo corrispondenti");
+            Assert.AreEqual(rDet2["idupb"], "0001000300030008", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 2336, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idaccmotive"], "000200030002", "La causale del dettaglio della scrittura è corrispondente");
+
+            //TERZO DETTAGLIO SCRITTURA
+            var rDet3 = tEntrydetail._Filter(q.eq("description", "Fattura FEAII_STIS n.414 / 2020")
+                                                & q.eq("idacc", "20000300040002000100010001")
+                                                & q.eq("amount", 75215.43m)).FirstOrDefault();
+
+            Assert.IsNotNull(rDet3, "Trovato dettaglio 3 con conto, descrizione e importo corrispondenti");
+            Assert.AreEqual(rDet3["idupb"], "0001000300030008", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idreg"], 2336, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idaccmotive"], "000200030002", "La causale del dettaglio della scrittura è corrispondente");
+		}
+
+        [TestMethod]
+        public void Test_FattAcquisto_commerciale_SplitPayment() {
+            /*
+             * Fattura di acquisto commerciale split payment
+             * con protocollo in entrata SDIA000000018766 e scrittura 12673/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 100) & q.eq("arrivalprotocolnum", "SDIA000000018766");
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 11, 23);
+            var date_contab = new DateTime(2020, 12, 21);
+            Assert.AreEqual(rEntry["description"], "CENTRO UFFICIO SRL-B.O. 80 FATT.FED 000411 DEL 23/11/2020 MATERIALE DI CANCELLERIA", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "FED 000411", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            // Ci sono più dettagli scrittura uguali, che differiscono solo per l'importo. 
+            var entryDet = tEntrydetail._Filter(q.eq("description", "Fattura FEACI_DIBAF n.100 / 2020")
+                                             & q.eq("idacc", "20000100020002000800020001"));
+            
+            decimal sumDet = (decimal)entryDet.GetSum<decimal>("amount");
+            Assert.AreEqual(-24.01m, sumDet, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {-24.01m}");
+
+            var rDet1 = entryDet[0];
+            Assert.AreEqual(rDet1["idupb"], "0001000100250501", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idreg"], 2426, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idaccmotive"], "000100020008", "La causale del dettaglio della scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var entryDet2 = tEntrydetail._Filter(q.eq("idacc", "20000200010002000100060001"));
+
+            decimal sumDet2 = (decimal)entryDet2.GetSum<decimal>("amount");
+            Assert.AreEqual(-110.51m, sumDet2, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {-110.51m}");
+
+            var rDet2 = entryDet2[0];
+            Assert.AreEqual(rDet2["idupb"], "0001000100250501", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 2426, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idaccmotive"], "000100020008", "La causale del dettaglio della scrittura è corrispondente");
+
+            //TERZO DETTAGLIO SCRITTURA
+            var entryDet3 = tEntrydetail._Filter(q.eq("idacc", "20000300040002000100010001"));
+
+            decimal sumDet3 = (decimal)entryDet3.GetSum<decimal>("amount");
+            Assert.AreEqual(110.26m, sumDet3, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {110.26m}");
+
+            var rDet3 = entryDet3[0];
+            Assert.AreEqual(rDet3["idupb"], "0001000100250501", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idreg"], 2426, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idaccmotive"], "000100020008", "La causale del dettaglio della scrittura è corrispondente");
+
+            //QUARTO DETTAGLIO SCRITTURA
+            var entryDet4 = tEntrydetail._Filter(q.eq("idacc", "20000300040002000500020001"));
+
+            decimal sumDet4 = (decimal)entryDet4.GetSum<decimal>("amount");
+            Assert.AreEqual(24.26m, sumDet4, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {24.26m}");
+
+            var rDet4 = entryDet4[0];
+            Assert.AreEqual(rDet4["idupb"], "0001000100250501", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet4["idreg"], 2426, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet4["idaccmotive"], "000100020008", "La causale del dettaglio della scrittura è corrispondente");
+		}
+
+        [TestMethod]
+        public void Test_FattAcquisto_istituzionale_IntraExtraUE() {
+            /*
+             * Fattura di acquisto istituzionale intra/extra UE
+             * con protocollo in entrata 672 e scrittura 12639/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 22) & q.eq("arrivalprotocolnum", "672");
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 12, 21);
+            var date_contab = new DateTime(2020, 12, 21);
+            Assert.AreEqual(rEntry["description"], "PAGAMENTO INVOICE N. 2676217631 B.O. N. 289", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "2676217631", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            var descr1 = "PUBBLICAZIONE SU RIVISTA OPEN ACCESS";
+            q filterEDetail1 = q.eq("description", descr1);
+            var EntryDetail1Rows = tEntrydetail._Filter(filterEDetail1);
+            var EntryDetail1 = EntryDetail1Rows[0];
+            Assert.AreEqual(EntryDetail1["description"], descr1, "La descrizione del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idacc"], "20000200010004001400030001", "Il n.conto del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idupb"], "0001000100230735", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idreg"], 25446, "Il cliente del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(EntryDetail1["amount"], -1915.40m, "L'importo del dettaglio scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var rDet2 = tEntrydetail._Filter(q.eq("description", "Fattura FCAIU_DEB n.22 / 2020")
+                                                & q.eq("idacc", "20000300040002000100010001")
+                                                & q.eq("amount", 1570.00m)).FirstOrDefault();
+
+            Assert.IsNotNull(rDet2, "Trovato dettaglio 2 con conto, descrizione e importo corrispondenti");
+            Assert.AreEqual(rDet2["idupb"], "0001000100230735", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 25446, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+
+            //TERZO DETTAGLIO SCRITTURA
+            var rDet3 = tEntrydetail._Filter(q.eq("description", "Fattura FCAIU_DEB n.22 / 2020")
+                                                & q.eq("idacc", "20000300040002000500070001")
+                                                & q.eq("amount", 345.40m)).FirstOrDefault();
+
+            Assert.IsNotNull(rDet3, "Trovato dettaglio 3 con conto, descrizione e importo corrispondenti");
+            Assert.AreEqual(rDet3["idupb"], "0001000100230735", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idreg"], 10791, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+		}
+
+        [TestMethod]
+        public void Test_FattAcquisto_commerciale_IntraExtraUE() {
+            /*
+             * Fattura acquisto commerciale intra/extra UE
+             * con protocollo in entrata 497 e scrittura 9614/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 3) & q.eq("arrivalprotocolnum", "497");
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 10, 22);
+            var date_contab = new DateTime(2020, 10, 22);
+            Assert.AreEqual(rEntry["description"], "MATERIALE DI LABORATORIO B.O. N. 19/2017", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "91639164", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            var entryDet = tEntrydetail._Filter(q.gt("amount", 0));
+
+            decimal sumDet = (decimal)entryDet.GetSum<decimal>("amount");
+            Assert.AreEqual(226.84m, sumDet, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {226.84m}");
+
+            var rDet1 = entryDet[0];
+            Assert.AreEqual(rDet1["idupb"], "0001000100230329", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idreg"], 13307, "Anagrafica del dettaglio della scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var entryDet2 = tEntrydetail._Filter(q.gt(0, "amount"));
+
+            decimal sumDet2 = (decimal)entryDet.GetSum<decimal>("amount");
+            Assert.AreEqual(-226.84m, sumDet2, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {-226.84m}");
+
+            var rDet2 = entryDet2[0];
+            Assert.AreEqual(rDet2["idupb"], "0001000100230329", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 13307, "Anagrafica del dettaglio della scrittura è corrispondente");
+		}
+
+        [TestMethod]
+        public void Test_BollaDoganale_istituzionale() {
+            /*
+             * Bolla doganale istituzionale 
+             * ninv = 3, yinv = 2020, idinvkind = 627 e scrittura 5938/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 3) & q.eq("idinvkind", 627);
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 7, 12);
+            var date_contab = new DateTime(2020, 7, 15);
+            Assert.AreEqual(rEntry["description"], "STRUMENTI, APPARECCHI E MACCHINE DI MISURA O DI CONTROLLO", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "20AA39474 - 326830", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            var entryDet = tEntrydetail._Filter(q.eq("idacc", "20000200010002000200010002")
+                                                & q.eq("description", "DAZIO DOGANALE"));
+
+            decimal sumDet = (decimal)entryDet.GetSum<decimal>("amount");
+            Assert.AreEqual(0m, sumDet, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {0m}");
+
+            var rDet1 = entryDet[0];
+            Assert.AreEqual(rDet1["idupb"], "0001000100510070", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idaccmotive"], "000100020016", "La causale del dettaglio della scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var entryDet2 = tEntrydetail._Filter(q.eq("description", "DAZIO DOGANALE")
+                                                & q.eq("idacc", "20000200010010000100010001"));
+
+            var rDet2 = entryDet2[0];
+            Assert.AreEqual(rDet2["idupb"], "0001000100510070", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 24599, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["amount"], -1646.29m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idaccmotive"], "000100020016", "La causale del dettaglio della scrittura è corrispondente");
+
+            //TERZO DETTAGLIO SCRITTURA
+            var entryDet3 = tEntrydetail._Filter(q.eq("description", "Fattura BDOGI_ITEST n.3 / 2020")
+                                                & q.eq("idacc", "20000300040002000700040001"));
+
+            decimal sumDet3 = (decimal)entryDet3.GetSum<decimal>("amount");
+            Assert.AreEqual(1646.29m, sumDet3, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {1646.29m}");
+
+            var rDet3 = entryDet3[0];
+            Assert.AreEqual(rDet3["idupb"], "0001000100510070", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idreg"], 24599, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idaccmotive"], "000100020016", "La causale del dettaglio della scrittura è corrispondente");
+		}
+
+        [TestMethod]
+        public void Test_AutoFattura_Commerciale() {
+            /*
+             * Autofattura commerciale
+             * con protocollo in entrata 1452 e scrittura 12317/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 6) & q.eq("arrivalprotocolnum", "1452");
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 12, 15);
+            var date_contab = new DateTime(2020, 12, 15);
+            Assert.AreEqual(rEntry["description"], "MDPI AG-B.O. 91 DEL 26/11/2020 INVOICE 1017407 DEL 30/11/2020 PUBBLICAZIONE \"FUNCTIONAL INGREDIENTS FROM AGRI-FOOD..\"", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "20/000006", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            var entryDet = tEntrydetail._Filter(q.eq("description", "Spese di pubblicazione articolo scientifico")
+                                                & q.eq("idacc", "20000200010004001400030001"));
+            
+            var rDet1 = entryDet[0];
+            Assert.AreEqual(rDet1["idupb"], "0001000100250708", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idreg"], 24005, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["amount"], -1485.70m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var entryDet2 = tEntrydetail._Filter(q.eq("description", "Fattura ACACX_DIBAF n.6 / 2020")
+                                                & q.eq("idacc", "20000100020002000800020001"));
+
+            var rDet2 = entryDet2[0];
+            Assert.AreEqual(rDet2["idupb"], "0001000100250708", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 24005, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["amount"], -322.88m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+
+            //TERZO DETTAGLIO SCRITTURA
+            var entryDet3 = tEntrydetail._Filter(q.eq("description", "Fattura ACACX_DIBAF n.6 / 2020")
+                                                & q.eq("idacc", "20000300040002000100020001"));
+
+            var rDet3 = entryDet3[0];
+            Assert.AreEqual(rDet3["idupb"], "0001000100250708", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idreg"], 24005, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["amount"], 1482.44m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+
+            //QUARTO DETTAGLIO SCRITTURA
+            var entryDet4 = tEntrydetail._Filter(q.eq("description", "Fattura ACACX_DIBAF n.6 / 2020")
+                                                & q.eq("idacc", "20000300040002000500020001"));
+
+            decimal sumDet = (decimal)entryDet4.GetSum<decimal>("amount");
+            Assert.AreEqual(326.14m, sumDet, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {326.14m}");
+
+            var rDet4 = entryDet4[0];
+            Assert.AreEqual(rDet4["idupb"], "0001000100250708", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet4["idreg"], 24005, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet4["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+		}
+
+        [TestMethod]
+        public void Test_Autofattura_Istituzionale() {
+            /*
+             * Autofattura istituzionale
+             * con protocollo in entrata 1315 e scrittura 12497/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 22) & q.eq("arrivalprotocolnum", "1315");
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 12, 17);
+            var date_contab = new DateTime(2020, 12, 17);
+            Assert.AreEqual(rEntry["description"].ToString().Replace("\r\n", ""), "Manuscript ID (remotesensing-966495). Articolo MDPI Remote Sensing:Tolomio e Casa \"Dynamic crop models and remote sensing irrigationdecision...\"", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "20/000022", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            var entryDet = tEntrydetail._Filter(q.eq("description", "Manuscript ID (remotesensing-966495). Articolo MDPI Remote Sensing:\r\nTolomio e Casa \"Dynamic crop models and remote sensing irrigation\r\ndecision...\"")
+                                                & q.eq("idacc", "20000200010004001400030001"));
+
+            var rDet1 = entryDet[0];
+            Assert.AreEqual(rDet1["idupb"], "0001000100221050", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idreg"], 24005, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["amount"], -1921.61m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var entryDet2 = tEntrydetail._Filter(q.eq("description", "Fattura ACAIX_DAFNE n.22 / 2020")
+                                                & q.eq("idacc", "20000300040002000100020001"));
+
+            var rDet2 = entryDet2[0];
+            Assert.AreEqual(rDet2["idupb"], "0001000100221050", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 24005, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["amount"], 1575.09m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+
+            //TERZO DETTAGLIO SCRITTURA
+            var entryDet3 = tEntrydetail._Filter(q.eq("description", "Fattura ACAIX_DAFNE n.22 / 2020")
+                                                & q.eq("idacc", "20000300040002000500070001"));
+
+            var rDet3 = entryDet3[0];
+            Assert.AreEqual(rDet3["idupb"], "0001000100221050", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idreg"], 10791, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["amount"], 346.52m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idaccmotive"], "000200060005", "La causale del dettaglio della scrittura è corrispondente");
+		}
+
+        [TestMethod]
+        public void Test_NotaDiCredito_FattAcquisto_istituzionale_SplitPayment() {
+            /*
+             * Nota di credito su fattura acquisto istituzionale split payment
+             * con protocollo in entrata SDIA000000018661 e scrittura 11361/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 17) & q.eq("arrivalprotocolnum", "SDIA000000018661");
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 10, 21);
+            var date_contab = new DateTime(2020, 11, 27);
+            Assert.AreEqual(rEntry["description"], "NOTA DI CREDITO DEL 21 OTTOBRE 2020: STORNO FATTURA N. 309 DEL 21 OTTOBRE 2020.", "La descrizione della scrittura è corrispondente");
+            Assert.AreEqual(rEntry["doc"], "1", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            var entryDet = tEntrydetail._Filter(q.eq("description", "SPESE ANTICIPATE PER CONTO, ESCLUSE DA IVA AI SENSI DELL'ART. 15, COM.3")
+                                                & q.eq("idacc", "20000200010004000400030001"));
+
+            var rDet1 = entryDet[0];
+            Assert.AreEqual(rDet1["idupb"], "000100010025", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idreg"], 24024, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["amount"], 254.00m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idaccmotive"], "000200020003", "La causale del dettaglio della scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var entryDet2 = tEntrydetail._Filter(q.eq("description", "COMPENSI E ALTRE SPESE SOGGETTE AD IVA")
+                                                & q.eq("idacc", "20000200010004000400030001"));
+
+            var rDet2 = entryDet2[0];
+            Assert.AreEqual(rDet2["idupb"], "000100010025", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 24024, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["amount"], 746.00m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idaccmotive"], "000200020003", "La causale del dettaglio della scrittura è corrispondente");
+
+            //TERZO DETTAGLIO SCRITTURA
+            var entryDet3 = tEntrydetail._Filter(q.eq("description", "Fattura NEAII_DIBAF n.17 / 2020")
+                                                & q.eq("idacc", "20000300040002000100030001"));
+
+            decimal sumDet = (decimal)entryDet3.GetSum<decimal>("amount");
+            Assert.AreEqual(-1000m, sumDet, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {-1000m}");
+
+            var rDet3 = entryDet3[0];
+            Assert.AreEqual(rDet3["idupb"], "000100010025", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idreg"], 24024, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idaccmotive"], "000200020003", "La causale del dettaglio della scrittura è corrispondente");
+		}
+
+        [TestMethod]
+        public void Test_NotaDiCredito_FattAcquisto_commerciale_SplitPayment() {
+            /*
+             * Nota di credito su fattura acquisto commerciale split payment
+             * con protocollo in entrata SDIA000000017748 e scrittura 7535/2020
+             */
+
+            var t = new TestHelp(new DateTime(2020, 12, 31), "sample_2", "test_2");
+            q filterInv = q.eq("yinv", 2020) & q.eq("ninv", 2) & q.eq("arrivalprotocolnum", "SDIA000000017748");
+            t.binaryReplaceSet(filterInv, t.getTableSet(TestHelp.mainObject.invoice));
+            DataTable tInvoice = t.testConn.readTable("invoice", filterInv);
+            Assert.AreEqual(1, tInvoice.Rows.Count, "La fattura esiste");
+
+            DataRow rInv = tInvoice.Rows[0];
+            t.binaryCopyEp(rInv, false);
+
+            //CONTROLLO PER REGOLE
+            ProcedureMessageCollection regole = t.generateEP(rInv);
+            if (regole != null)
+                Assert.AreEqual(0, regole.Count, "Non scatta nessuna regola");
+            var dsEP = t.getEpData(t.testConn, rInv);
+
+            var tEntrydetail = dsEP.Tables["entrydetail"];
+            var tEntry = dsEP.Tables["entry"];
+            var rEntry = tEntry.Rows[0];
+
+            var date_doc_colleg = new DateTime(2020, 7, 30);
+            var date_contab = new DateTime(2020, 9, 7);
+            Assert.AreEqual(rEntry["description"], "MERCK LIFE SCIENCE SRL nota di credito N°8230112468 parziale su fattura 8230108168 per prezzo errato", "La descrizione della scrittura è corrrispondente");
+            Assert.AreEqual(rEntry["doc"], "8230112468", "La descrizione del documento collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["docdate"], date_doc_colleg, "La data del doc.collegato alla scrittura è corrispondente");
+            Assert.AreEqual(rEntry["adate"], date_contab, "La data contabile della scrittura è corrispondente");
+
+            //DETTAGLIO SCRITTURA
+            var entryDet = tEntrydetail._Filter(q.eq("description", "nEsano p.a. EMPARTA ACS 2,5 L")
+                                                & q.eq("idacc", "20000200010002000300020001"));
+
+            var rDet1 = entryDet[0];
+            Assert.AreEqual(rDet1["idupb"], "000100010025", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idreg"], 37814, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["amount"], 58.73m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet1["idaccmotive"], "000100020011", "La causale del dettaglio della scrittura è corrispondente");
+
+            //SECONDO DETTAGLIO SCRITTURA
+            var entryDet2 = tEntrydetail._Filter(q.eq("description", "Fattura NEACI_DIBAF n.2 / 2020")
+                                                & q.eq("idacc", "20000100020002000800020001"));
+
+            var rDet2 = entryDet2[0];
+            Assert.AreEqual(rDet2["idupb"], "000100010025", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idreg"], 37814, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["amount"], 12.76m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet2["idaccmotive"], "000100020011", "La causale del dettaglio della scrittura è corrispondente");
+
+            //TERZO DETTAGLIO SCRITTURA
+            var entryDet3 = tEntrydetail._Filter(q.eq("description", "Fattura NEACI_DIBAF n.2 / 2020")
+                                                & q.eq("idacc", "20000300040002000100010001"));
+
+            var rDet3 = entryDet3[0];
+            Assert.AreEqual(rDet3["idupb"], "000100010025", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idreg"], 37814, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["amount"], -58.60m, "L'importo del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet3["idaccmotive"], "000100020011", "La causale del dettaglio della scrittura è corrispondente");
+
+            //QUARTO DETTAGLIO SCRITTURA
+            var entryDet4 = tEntrydetail._Filter(q.eq ("description", "Fattura NEACI_DIBAF n.2 / 2020")
+                                                & q.eq("idacc", "20000300040002000500020001"));
+
+            decimal sumDet = (decimal)entryDet4.GetSum<decimal>("amount");
+            Assert.AreEqual(-12.89m, sumDet, $"La somma dei dettagli scrittura collegati al dettaglio fattura è pari a {-12.89m}");
+
+            var rDet4 = entryDet4[0];
+            Assert.AreEqual(rDet4["idupb"], "000100010025", "L'UPB del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet4["idreg"], 37814, "Anagrafica del dettaglio della scrittura è corrispondente");
+            Assert.AreEqual(rDet4["idaccmotive"], "000100020011", "La causale del dettaglio delle scritture è corrispondente");
+		}
 
         public void Test_Regola_Modifica_denominazioneAnagr_collegataMovSpesa()
         {

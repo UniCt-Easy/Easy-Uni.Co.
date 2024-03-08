@@ -187,6 +187,8 @@
               <xs:element name="idchargehandling" type="xs:int" minOccurs="0" />
               <xs:element name="pagopanoticenum" type="xs:string" minOccurs="0" />
               <xs:element name="net" type="xs:decimal" minOccurs="0" />
+              <xs:element name="codetreasurer" type="xs:string" minOccurs="0" />
+              <xs:element name="treasurer" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

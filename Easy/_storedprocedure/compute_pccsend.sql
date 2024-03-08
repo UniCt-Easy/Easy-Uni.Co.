@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@ GO
 
 -- il parametro è la data contabile. Quindi prendiamo tutte le operazioni emesse alla data contabile,
 -- contabilizzate alla data, pagate alla data, scadute ala data...
--- setuser 'amm'
+-- setuser 'amministrazione'
 -- exec compute_pccsend {d '2016-12-31'}, null, null, null, null, null
 CREATE procedure compute_pccsend( 
 	@adate datetime,
@@ -47,6 +47,7 @@ create table #dati(
 	yinv smallint, 
 	ninv int,
 	rownuminv int,
+	identificativo_sdi bigint,
 	idmankind varchar(20),
 	yman smallint,
 	nman int,
@@ -72,7 +73,7 @@ create table #dati(
 	resendingpcc char(1),
 
 	aliquotaiva decimal(19,2),
-	natura varchar(2),
+	natura varchar(4),
 	imponibile decimal(19,2),
 	imposta decimal(19,2),
 	cigcode varchar(15),
@@ -89,19 +90,22 @@ create table #dettfatturacigcup(
 	yinv int, 
 	ninv int,
 	rownum int,
+	identificativo_sdi bigint,
 	cigcode varchar(15),
 	cupcode varchar(15)
 )
 
 -- FATTURE non collegate a C.P.
-	insert into #dettfatturacigcup(idinvkind, yinv, ninv,  rownum, cigcode, cupcode )
-	SELECT ID.idinvkind, ID.yinv, ID.ninv, ID.rownum, ID.cigcode, ID.cupcode
+	insert into #dettfatturacigcup(idinvkind, yinv, ninv,  rownum, identificativo_sdi, cigcode, cupcode )
+	SELECT ID.idinvkind, ID.yinv, ID.ninv, ID.rownum, isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi ), ID.cigcode, ID.cupcode
 	FROM invoice I
 	join invoicekind IK				on I.idinvkind = IK.idinvkind
 	join invoicedetailview ID		on I.idinvkind = ID.idinvkind and I.yinv = ID.yinv	and I.ninv = ID.ninv	
 	join uniqueregister RU			on RU.idinvkind = I.idinvkind and RU.yinv = I.yinv and RU.ninv = I.ninv
 	join registry R					on I.idreg = R.idreg
 	join residence RR				on R.residence=RR.idresidence
+	left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+	left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 	where ID.idmankind is null -- > Fatture non collegate a Ordini
 		and (ID.cigcode is not null OR ID.cupcode is not null)
 		and I.docdate between @1luglio2014 and @adate 
@@ -121,8 +125,8 @@ create table #dettfatturacigcup(
 -- Contabilizzazione docum o solo imponibile.
 -- Se abbiamo una fattura con un dettaglio, associato a CP, contabilizzato come imposta o come solo imponibile, su due bilanci diversi.
 -- se il cig/cup non è nel dettaglio CP, e neanche nella spesa, e neanche sull'upb lo leggiamo dal bilancio che contabilizza l'imponibile
-	insert into #dettfatturacigcup(idinvkind, yinv, ninv, rownum,cigcode, cupcode)
-	SELECT  ID.idinvkind, ID.yinv, ID.ninv, ID.rownum,
+	insert into #dettfatturacigcup(idinvkind, yinv, ninv,rownum, identificativo_sdi, cigcode, cupcode)
+	SELECT  ID.idinvkind, ID.yinv, ID.ninv, ID.rownum,isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
 		isnull(E1.cigcode, ISNULL(MD.cigcode, ISNULL(M.cigcode,ISNULL(U.cigcode,'')))),
 		ISNULL(E1.cupcode, ISNULL(MD.cupcode, ISNULL(U.cupcode, ISNULL(F.cupcode,''))))
 	FROM invoice I
@@ -137,6 +141,8 @@ create table #dettfatturacigcup(
 	left outer join finlast F			on EY1.idfin = F.idfin
 	join registry R						on I.idreg = R.idreg
 	join residence RR					on R.residence=RR.idresidence
+	left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+	left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 	where I.docdate between @1luglio2014 and @adate 
 		-- DOCUM, IMPON, o nessuna contabilizzazione
 		and ( MD.idexp_iva = MD.idexp_taxable or MD.idexp_taxable is not null or ( MD.idexp_iva is null and  MD.idexp_taxable is null ))
@@ -153,8 +159,8 @@ create table #dettfatturacigcup(
 		and (isnull(ID.flagbit,0) & 4) = 0
 
 -- contabilizzazione solo imposta
-	insert into #dettfatturacigcup(idinvkind, yinv, ninv, rownum,cigcode, cupcode)
-	SELECT  ID.idinvkind, ID.yinv, ID.ninv, ID.rownum,
+	insert into #dettfatturacigcup(idinvkind, yinv, ninv, rownum, identificativo_sdi, cigcode, cupcode)
+	SELECT  ID.idinvkind, ID.yinv, ID.ninv, ID.rownum,isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
 		isnull(E1.cigcode, ISNULL(MD.cigcode, ISNULL(M.cigcode,ISNULL(U.cigcode,'')))),
 		ISNULL(E1.cupcode, ISNULL(MD.cupcode, ISNULL(U.cupcode, ISNULL(F.cupcode,''))))
 	FROM invoice I
@@ -169,6 +175,8 @@ create table #dettfatturacigcup(
 	left outer join finlast F				on EY1.idfin = F.idfin
 	join registry R							on I.idreg = R.idreg
 	join residence RR						on R.residence=RR.idresidence
+	left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+	left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 	where I.docdate between @1luglio2014 and @adate 
 		-- IMPOS
 		and  MD.idexp_iva is not null AND  (MD.idexp_taxable IS NULL OR MD.idexp_taxable<>MD.idexp_iva) 
@@ -192,7 +200,7 @@ create table #dettfatturacigcup(
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- FATTURE 
 insert into #dati(
-	idinvkind,  yinv, ninv,rownuminv,
+	idinvkind,  yinv, ninv,rownuminv,identificativo_sdi,
 	idreg,	
 	tipodocumento,
 	dataemissione ,
@@ -224,6 +232,7 @@ insert into #dati(
 
 select 
 	I.idinvkind, I.yinv, I.ninv,ID.rownum,
+	isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
 	I.idreg	,
 -- tipo documento
 	CASE
@@ -308,6 +317,8 @@ left outer join profservice P		on P.idinvkind = I.idinvkind and P.yinv = I.yinv 
 left outer join #dettfatturacigcup DCG			on DCG.ninv = ID.ninv and DCG.yinv = ID.yinv and DCG.idinvkind = ID.idinvkind and DCG.rownum = ID.rownum
 join registry R						on I.idreg = R.idreg
 join residence RR					on R.residence=RR.idresidence
+left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 where I.docdate between @1luglio2014 and @adate 
 	and ( not exists (select * from pccsend P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 	OR 	isnull(I.resendingpcc,'N') = 'S'		)
@@ -346,6 +357,7 @@ create table #dettmandatedetcigcup(
 	left outer join finlast F				on EY.idfin = F.idfin
 	join registry R							on isnull(M.idreg,MD.idreg) = R.idreg
 	join residence RR						on R.residence=RR.idresidence
+
 	where M.docdate between @1luglio2014 and @adate 
 		and isnull(MK.linktoinvoice,'N') = 'N'
 		and ( not exists (select * from pccsend P where P.idmankind = M.idmankind and P.yman = M.yman and P.nman = M.nman)
@@ -445,7 +457,7 @@ from mandateview M
 join mandatedetailview MD			on M.nman = MD.nman and M.yman = MD.yman and M.idmankind = MD.idmankind
 join ivakind						on ivakind.idivakind = MD.idivakind
 join mandatekind MK					ON MK.idmankind = M.idmankind
-join uniqueregister RU				on RU.idmankind = M.idmankind	and RU.yman = M.ymanand RU.nman = M.nman
+join uniqueregister RU				on RU.idmankind = M.idmankind	and RU.yman = M.yman and RU.nman = M.nman
 left outer join #dettmandatedetcigcup DCG	on DCG.nman = MD.nman and DCG.yman = MD.yman and DCG.idmankind = MD.idmankind and DCG.rownum = MD.rownum
 join registry R						on isnull(M.idreg,MD.idreg) = R.idreg
 	join residence RR  on R.residence=RR.idresidence
@@ -555,7 +567,7 @@ join residence RR
 )
 select 
 	nriga,
-	D.idinvkind, D.yinv ,D.ninv,D.rownuminv, IK.description as invoicekind,
+	D.idinvkind, D.yinv ,D.ninv,D.rownuminv, IK.description as invoicekind,D.identificativo_sdi,
 	D.idmankind, D.yman, D.nman , D.rownumman, MK.description as mandatekind,
 	D.ycon, D.ncon,
 	@cf as 'CFAmmin',

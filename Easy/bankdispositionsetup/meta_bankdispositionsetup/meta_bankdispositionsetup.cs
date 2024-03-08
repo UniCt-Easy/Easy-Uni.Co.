@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -51,6 +51,11 @@ namespace meta_bankdispositionsetup//meta_persgenautomovimenti//
                 DefaultListType = "default";
                 Name = "Siope+";
                 return MetaData.GetFormByDllName("bankdispositionsetup_siopeplus");
+            }
+            if (FormName == "cbi") {
+                DefaultListType = "default";
+                Name = "CBI";
+                return MetaData.GetFormByDllName("bankdispositionsetup_cbi");
             }
             if (FormName=="trasmissione"){
 				Name="Esecuzione programma esterno";

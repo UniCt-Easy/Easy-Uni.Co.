@@ -1,39 +1,24 @@
+ï»¿(function () {
 
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+	var MetaPage = window.appMeta.MetaSegreteriePage;
 
-
-(function () {
-	
-    var MetaPage = window.appMeta.MetaSegreteriePage;
-
-    function metaPage_sal() {
+	function metaPage_sal() {
 		MetaPage.apply(this, ['sal', 'default', false]);
-        this.name = 'Stato avanzamento lavori';
+		this.name = 'Stato avanzamento lavori';
 		this.defaultListType = 'default';
+		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
+		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
-    }
+	}
 
-    metaPage_sal.prototype = _.extend(
-        new MetaPage(),
-        {
-            constructor: metaPage_sal,
-            superClass: MetaPage.prototype,
+	metaPage_sal.prototype = _.extend(
+		new MetaPage(),
+		{
+			constructor: metaPage_sal,
+			superClass: MetaPage.prototype,
 
-            getName: function () {
-               return this.name;
+			getName: function () {
+				return this.name;
 			},
 
 			//isValidFunction
@@ -42,40 +27,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-				
+
+				this.setFilters();
 				//afterGetFormDataFilter
-				
+
 				//parte asincrona
 				var def = appMeta.Deferred("afterGetFormData-sal_default");
 				var arraydef = [];
-				
+
 				arraydef.push(this.managesal_default_budgetcalcolato());
 				//afterGetFormDataInside
-				
+
 				$.when.apply($, arraydef)
 					.then(function () {
 						return def.resolve();
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-				
+
+				this.setFilters();
 				parentRow.idprogetto = this.state.callerState.currentRow.idprogetto;
 				this.managesal_default_budgetcalcolato();
 				//beforeFillFilter
-				
+
 				//parte asincrona
 				var def = appMeta.Deferred("beforeFill-sal_default");
 				var arraydef = [];
-				
-				arraydef.push(this.calcDescriptionAssetDiaryes());
 
 				//beforeFillInside
-				
+
 				$.when.apply($, arraydef)
 					.then(function () {
 						return self.superClass.beforeFill.call(self)
@@ -86,19 +71,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#sal_default_budgetcalcolato'), true);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('salprogettoassetworkpackage'), this.getDataTable('salprogettoassetworkpackagemese'));
+				//afterClearin
+
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#sal_default_budgetcalcolato'), false);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('salprogettoassetworkpackage'), this.getDataTable('salprogettoassetworkpackagemese'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
 			afterLink: function () {
 				var self = this;
-				this.setFilters();
-				self.firstSearchFilter  = window.jsDataQuery.eq("idprogetto", this.state.callerState.currentRow.idprogetto);
-					self.startFilter = self.firstSearchFilter;
+				$("#btn_add_salassetdiaryora_idassetdiaryora").on("click", _.partial(this.searchAndAssignassetdiaryora, self));
+				$("#btn_add_salassetdiaryora_idassetdiaryora").prop("disabled", true);
+				$("#btn_add_salrendicontattivitaprogettoora_idrendicontattivitaprogettoora").on("click", _.partial(this.searchAndAssignrendicontattivitaprogettoora, self));
+				$("#btn_add_salrendicontattivitaprogettoora_idrendicontattivitaprogettoora").prop("disabled", true);
+				$("#btn_add_salprogettocosto_idprogettocosto").on("click", _.partial(this.searchAndAssignprogettocosto, self));
+				$("#btn_add_salprogettocosto_idprogettocosto").prop("disabled", true);
+				var f1 = window.jsDataQuery.eq("idprogetto", this.state.callerState.currentRow.idprogetto);
+				self.firstSearchFilter = f1;
+				self.startFilter = self.firstSearchFilter;
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -111,13 +110,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterActivation
 
-			//rowSelected
+			rowSelected: function (dataRow) {
+				$("#btn_add_salassetdiaryora_idassetdiaryora").prop("disabled", false);
+				$("#btn_add_salrendicontattivitaprogettoora_idrendicontattivitaprogettoora").prop("disabled", false);
+				$("#btn_add_salprogettocosto_idprogettocosto").prop("disabled", false);
+				//firerowSelected
+			},
 
-			//buttonClickEnd
+
+			buttonClickEnd: function (currMetaPage, cmd) {
+				//fireRelButtonClickEnd
+				cmd = cmd.toLowerCase();
+				if (cmd === "mainsetsearch") {
+					$("#btn_add_salassetdiaryora_idassetdiaryora").prop("disabled", true);
+					$("#btn_add_salrendicontattivitaprogettoora_idrendicontattivitaprogettoora").prop("disabled", true);
+					$("#btn_add_salprogettocosto_idprogettocosto").prop("disabled", true);
+					//firebuttonClickEnd
+				}
+				return this.superClass.buttonClickEnd(currMetaPage, cmd);
+			},
+
 
 			//insertClick
 
-			
+
 			beforePost: function () {
 				var self = this;
 
@@ -157,100 +173,99 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			setFilters: function () {
-				var metaPage = window.appMeta.currentMetaPage;
+				var metaPage = window.appMeta.currApp.currentMetaPage;
 				var q = window.jsDataQuery;
-				metaPage.state.DS.tables.assetdiaryora.staticFilter(q.isIn('idassetdiary',
-					_.map(metaPage.state.callerState.DS.tables.assetdiary.rows, function (row) {
-						return row['idassetdiary'];
-					})));
-				metaPage.state.DS.tables.rendicontattivitaprogettoora.staticFilter(q.isIn('idrendicontattivitaprogetto',
-					_.map(metaPage.state.callerState.DS.tables.rendicontattivitaprogetto.rows, function (row) {
-						return row['idrendicontattivitaprogetto'];
-					})));
-				metaPage.state.DS.tables.progettocosto.staticFilter(q.eq("idprogetto", metaPage.idprogetto));
+				var self = this;
+
+				if (metaPage.state.callerState.DS.tables.length) {
+					metaPage.state.DS.tables.assetdiaryora.staticFilter(q.isIn('idassetdiary',
+						_.map(metaPage.state.callerState.DS.tables.assetdiary.rows, function (row) {
+							return row['idassetdiary'];
+						})));
+					metaPage.state.DS.tables.rendicontattivitaprogettoora.staticFilter(q.and[q.isIn('idrendicontattivitaprogetto',
+						_.map(self.getDataTable('rendicontattivitaprogetto').rows, function (row) {
+							return row['idrendicontattivitaprogetto'];
+						})), q.le('data', this.state.currentRow.stop ? this.state.currentRow.stop : new Date()), q.ge('data', this.state.currentRow.start ? this.state.currentRow.start : new Date())]);
+				}
+				metaPage.state.DS.tables.progettocosto.staticFilter(q.eq("idprogetto", metaPage.state.callerState.currentRow.idprogetto));
 			},
 
-			calcDescriptionAssetDiaryes: function () {
-				var def = appMeta.Deferred("calcDescriptionAssetDiaryes-sal_default");
-				var self = this;
-				var q = self.q;
+			searchAndAssignassetdiaryora: function (that) {
+				var q = window.jsDataQuery;
 
-				_.forEach(this.getDataTable("rendicontattivitaprogettoora").rows, function (r) {
-					var progettoTitle = self.state.callerState.currentRow.titolobreve;
-					var workpageTitle = "";
-					var rendicontattivitaprogettoTitle = self.state.currentRow.description;
-
-					var workpackageRows = self.state.callerPage.getDataTable('workpackage')
-						.select(q.eq('idworkpackage', r.idworkpackage));
-					if (workpackageRows.length) {
-						workpageTitle = workpackageRows[0].title;
-					}
-
-					var rendicontattivitaprogettoRows = self.state.callerPage.getDataTable('rendicontattivitaprogetto')
-						.select(q.eq('idrendicontattivitaprogetto', r.idrendicontattivitaprogetto));
-					if (rendicontattivitaprogettoRows.length) {
-						rendicontattivitaprogettoTitle = rendicontattivitaprogettoRows[0].description;
-					}
-
-					var p = [];
-					p.push([progettoTitle, null, 'Progetto']);
-					p.push([workpageTitle, null, 'Workpackage']);
-					p.push([rendicontattivitaprogettoTitle, null, 'Attività']);
-					r['!titleancestor'] = self.stringify(p, 'string');
-				});
-
-				var filter = q.isIn('idreg', _.map(self.state.callerPage.getDataTable('assetdiary').rows, function (row) {
-					return row['idreg'];
-				}));
-				appMeta.getData.runSelect('getregistrydocentiamministratividefaultview', 'idreg,dropdown_title', filter, null)
-					.then(function (dtOperatori) {
-						_.forEach(self.getDataTable("assetdiaryora").rows, function (r) {
-
-							var progettoTitle = self.state.callerState.currentRow.titolobreve;
-							var workpageTitle = "";
-							var operatoreTitle = "";
-							var beneStrumentaleTitle = "";
-
-							var workpackageRows = self.state.callerPage.getDataTable('workpackage')
-								.select(q.eq('idworkpackage', r.idworkpackage));
-							if (workpackageRows.length) {
-								workpageTitle = workpackageRows[0].title;
-							}
-
-							var assetdiaryRows = self.state.callerPage.getDataTable('assetdiary')
-								.select(q.eq('idassetdiary', r.idassetdiary));
-							if (assetdiaryRows.length) {
-								var operatoreRows = dtOperatori.select(q.eq('idreg', assetdiaryRows[0].idreg));
-								if (operatoreRows.length) {
-									operatoreTitle = operatoreRows[0].dropdown_title;
-								}
-
-								var assetRow = self.state.callerPage.getDataTable('asset')
-									.select(q.and([q.eq('idasset', assetdiaryRows[0].idasset), q.eq('idpiece', assetdiaryRows[0].idpiece)]));
-								if (assetRow.length) {
-									var assetacquireRows = self.state.callerPage.getDataTable('assetacquire')
-										.select(q.eq('nassetacquire', assetRow[0].nassetacquire));
-									if (assetacquireRows.length) {
-										beneStrumentaleTitle = assetacquireRows[0].description;
-									}
-								}
-							}
-
-							var p = [];
-							p.push([progettoTitle, null, 'Progetto']);
-							p.push([workpageTitle, null, 'Workpackage']);
-							p.push([operatoreTitle, null, 'Operatore']);
-							p.push([beneStrumentaleTitle, null, 'Bene']);
-
-							r['!title'] = self.stringify(p, 'string');
+				return appMeta.getData.runSelect("assetdiary", "idassetdiary", q.eq("idprogetto", that.state.currentRow.idprogetto), null)
+					.then(function (dtAttivita) {
+						var attivita = _.map(dtAttivita.rows, function (row) {
+							return row['idassetdiary'];
 						});
-						return def.resolve();
+						var f = q.and(
+							q.isIn('idassetdiary', attivita),
+							q.le('assetdiaryora_start', that.state.currentRow.stop ? that.state.currentRow.stop : new Date()),
+							q.ge('assetdiaryora_stop', that.state.currentRow.start ? that.state.currentRow.start : new Date())
+						);
+						return that.searchAndAssign({
+							tableName: "assetdiaryora",
+							listType: "segsal",
+							idControl: "txt_salassetdiaryora_idassetdiaryora",
+							tagSearch: "assetdiaryorasegsalview.dropdown_title",
+							columnNameText: "idassetdiary",
+							columnSource: "idassetdiaryora",
+							columnToFill: "idassetdiaryora",
+							tableToFill: "salassetdiaryora",
+							filter: f
+						});
 					});
-				return def.promise();
+			},
+
+			searchAndAssignrendicontattivitaprogettoora: function (that) {
+				var q = window.jsDataQuery;
+
+				return appMeta.getData.runSelect("rendicontattivitaprogetto", "idrendicontattivitaprogetto", q.eq("idprogetto", that.state.currentRow.idprogetto), null)
+					.then(function (dtAttivita) {
+						var attivita = _.map(dtAttivita.rows, function (row) {
+							return row['idrendicontattivitaprogetto'];
+						});
+						var f = q.and(
+							q.isIn('idrendicontattivitaprogetto', attivita),
+							q.le('rendicontattivitaprogettoora_data', that.state.currentRow.stop ? that.state.currentRow.stop : new Date()),
+							q.ge('rendicontattivitaprogettoora_data', that.state.currentRow.start ? that.state.currentRow.start : new Date())
+						);
+						return that.searchAndAssign({
+							tableName: "rendicontattivitaprogettoora",
+							listType: "segsal",
+							idControl: "txt_salrendicontattivitaprogettoora_idrendicontattivitaprogettoora",
+							tagSearch: "rendicontattivitaprogettoorasegsalview.dropdown_title",
+							columnNameText: "!titleancestor",
+							columnSource: "idrendicontattivitaprogettoora",
+							columnToFill: "idrendicontattivitaprogettoora",
+							tableToFill: "salrendicontattivitaprogettoora",
+							filter: f
+						});
+					});
+			},
+
+			searchAndAssignprogettocosto: function (that) {
+				var q = window.jsDataQuery;
+				var f = q.and(
+					q.eq('idprogetto', that.state.currentRow.idprogetto),
+					q.le('progettocosto_docdate', that.state.currentRow.stop ? that.state.currentRow.stop : new Date()),
+					q.ge('progettocosto_docdate', that.state.currentRow.start ? that.state.currentRow.start : new Date())
+				);
+				return that.searchAndAssign({
+					tableName: "progettocosto",
+					listType: "segsal",
+					idControl: "txt_salprogettocosto_idprogettocosto",
+					tagSearch: "progettocostosegsalview.dropdown_title",
+					columnNameText: "idprogettotipocosto",
+					columnSource: "idprogettocosto",
+					columnToFill: "idprogettocosto",
+					tableToFill: "salprogettocosto",
+					filter: f
+				});
 			},
 
 			managesal_default_budgetcalcolato: function () {
-				var self = window.appMeta.currentMetaPage;
+				var self = window.appMeta.currApp.currentMetaPage;
 				var progettocostoRows = self.getDataTable("progettocosto").select(
 					self.q.eq('idsal', self.state.currentRow.idsal)
 				);
@@ -261,7 +276,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			//buttons
-        });
+		});
 
 	window.appMeta.addMetaPage('sal', 'default', metaPage_sal);
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_statopatrimoniale_tree]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -33,9 +32,11 @@ CREATE PROCEDURE [rpt_statopatrimoniale_tree]
 )
 AS BEGIN
 
+DECLARE @ayearprec int
+SET @ayearprec = (@ayear -1) 
 CREATE TABLE #patrimonylookup (oldidpatrimony varchar(31), newidpatrimony varchar(31))
 INSERT #patrimonylookup
-EXECUTE closeyear_fillpatrimonylookup @ayear
+EXECUTE closeyear_fillpatrimonylookup @ayearprec
 
 -- Conto Economico Anno Precedente
 DECLARE @firstdayPY datetime
@@ -140,7 +141,7 @@ case
 	when patrimony.patpart ='A' and patrimony.codepatrimony like 'A)%' then 'A) CREDITI V/SOCI PER VERSAMENTI ANCORA DOVUTI'
 	when patrimony.patpart ='A' and patrimony.codepatrimony like 'B)%' then 'B) IMMOBILIZZAZIONI'
 	when patrimony.patpart ='A' AND  patrimony.codepatrimony like 'C)%' then 'C) ATTIVO CIRCOLANTE'
-	when patrimony.patpart ='A' AND  patrimony.codepatrimony like 'D)%' then 'D) RATEI E RISCONTRI'
+	when patrimony.patpart ='A' AND  patrimony.codepatrimony like 'D)%' then 'D) RATEI E RISCONTI'
 
 
 	when patrimony.patpart ='P' and patrimony.codepatrimony like 'A)%' then 'A) PATRIMONIO NETTO'

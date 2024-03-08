@@ -30,6 +30,8 @@
               <xs:element name="assetkind" type="xs:string" minOccurs="0" />
               <xs:element name="flagvisiblekind" type="xs:unsignedByte" minOccurs="0" />
               <xs:element name="idtassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="tassonomia" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -358,6 +360,78 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="showcasedetail_related">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idshowcase" type="xs:int" />
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="idlist_related" type="xs:int" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="availability" type="xs:int" minOccurs="0" />
+              <xs:element name="idivakind" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="unitprice" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_intcode" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_listclass" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_tassonomia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="listview_related">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="intcode" type="xs:string" />
+              <xs:element name="intbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="validitystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="package" type="xs:string" minOccurs="0" />
+              <xs:element name="idunit" type="xs:int" minOccurs="0" />
+              <xs:element name="unit" type="xs:string" minOccurs="0" />
+              <xs:element name="unitsforpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="has_expiry" type="xs:string" />
+              <xs:element name="idlistclass" type="xs:string" />
+              <xs:element name="codelistclass" type="xs:string" />
+              <xs:element name="listclass" type="xs:string" />
+              <xs:element name="pic" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="timesupply" type="xs:int" minOccurs="0" />
+              <xs:element name="nmaxorder" type="xs:decimal" minOccurs="0" />
+              <xs:element name="authrequired" type="xs:string" minOccurs="0" />
+              <xs:element name="assetkind" type="xs:string" minOccurs="0" />
+              <xs:element name="assetkinddescr" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="flagvisiblekind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="codeinv" type="xs:string" minOccurs="0" />
+              <xs:element name="inventorytree" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="insinfo" type="xs:string" minOccurs="0" />
+              <xs:element name="descrforuser" type="xs:string" minOccurs="0" />
+              <xs:element name="ntoreorder" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="tassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -401,6 +475,16 @@
       <xs:selector xpath=".//mstns:sorting2" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
+    <xs:unique name="showcasedetail_related_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:showcasedetail_related" />
+      <xs:field xpath="mstns:idshowcase" />
+      <xs:field xpath="mstns:idlist" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
+    <xs:unique name="listview_related_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:listview_related" />
+      <xs:field xpath="mstns:idlist" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -413,6 +497,8 @@
       <msdata:Relationship name="sorting1_showcasedetail" msdata:parent="sorting1" msdata:child="showcasedetail" msdata:parentkey="idsor" msdata:childkey="idsor1" />
       <msdata:Relationship name="sorting2_showcasedetail" msdata:parent="sorting2" msdata:child="showcasedetail" msdata:parentkey="idsor" msdata:childkey="idsor2" />
       <msdata:Relationship name="sorting3_showcasedetail" msdata:parent="sorting3" msdata:child="showcasedetail" msdata:parentkey="idsor" msdata:childkey="idsor3" />
+      <msdata:Relationship name="showcasedetail_showcasedetail_related" msdata:parent="showcasedetail" msdata:child="showcasedetail_related" msdata:parentkey="idshowcase idlist" msdata:childkey="idshowcase idlist" />
+      <msdata:Relationship name="listview_related_showcasedetail_related" msdata:parent="listview_related" msdata:child="showcasedetail_related" msdata:parentkey="idlist" msdata:childkey="idlist_related" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

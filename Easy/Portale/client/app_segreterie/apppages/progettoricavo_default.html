@@ -8,13 +8,13 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettoricavo_default_idworkpackage">Workpackage</label>
 					<div>
-						<input id="progettoricavo_default_idworkpackage" name="progettoricavo_default_idworkpackage" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="workpackagesegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="progettoricavo_default_idworkpackage" name="progettoricavo_default_idworkpackage" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="workpackagesegview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettoricavo_default_idprogettotipocosto">Voce di ricavo</label>
 					<div>
-						<input id="progettoricavo_default_idprogettotipocosto" name="progettoricavo_default_idprogettotipocosto" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="progettotipocosto.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="progettoricavo_default_idprogettotipocosto" name="progettoricavo_default_idprogettotipocosto" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="progettotipocosto.title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>
@@ -24,26 +24,21 @@
 					<input id="progettoricavo_default_amount" type="text" class="form-control" data-tag="progettoricavo.amount.fixed.2"  />
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#progettoricavo_default_docdate").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="progettoricavo_default_docdate">Data del documento collegato</label>
-					<input id="progettoricavo_default_docdate" type="text" class="form-control" data-tag="progettoricavo.docdate"  />
+					<input id="progettoricavo_default_docdate" type="text" class="form-control" data-tag="progettoricavo.docdate"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettoricavo_default_idrendicontattivitaprogetto">Attività svolta</label>
 					<div>
-						<input id="progettoricavo_default_idrendicontattivitaprogetto" name="progettoricavo_default_idrendicontattivitaprogetto" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="rendicontattivitaprogettosegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="progettoricavo_default_idrendicontattivitaprogetto" name="progettoricavo_default_idrendicontattivitaprogetto" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="rendicontattivitaprogettosegview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettoricavo_default_idrelated">Chiave economico patrimoniale</label>
 					<div>
-						<input id="progettoricavo_default_idrelated" name="progettoricavo_default_idrelated" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="entrydetail.description" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="progettoricavo_default_idrelated" name="progettoricavo_default_idrelated" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="entrydetail.description" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>
@@ -51,12 +46,14 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettoricavo_default_idsal">Stato avanzamento lavori</label>
 					<div>
-						<input id="progettoricavo_default_idsal" name="progettoricavo_default_idsal" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="saldefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="progettoricavo_default_idsal" name="progettoricavo_default_idsal" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="saldefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="progettoricavo_default_idcontrattokind">Tipo di contratto</label>
-					<select id="progettoricavo_default_idcontrattokind" class="custom-select d-block w-100"  data-source-name="contrattokinddefaultview" data-value-member="idcontrattokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progettoricavo.idcontrattokind"   > </select>
+					<label class="col-form-label col-md-12" for="progettoricavo_default_idposition">Tipo di contratto</label>
+					<div>
+						<input id="progettoricavo_default_idposition" name="progettoricavo_default_idposition" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="positiondefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -67,7 +64,7 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettoricavo_default_idinc">incasso</label>
 					<div>
-						<input id="progettoricavo_default_idinc" name="progettoricavo_default_idinc" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="incomedefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="progettoricavo_default_idinc" name="progettoricavo_default_idinc" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="incomedefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>

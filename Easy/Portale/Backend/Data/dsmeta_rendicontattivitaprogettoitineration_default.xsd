@@ -9,6 +9,7 @@
               <xs:element name="description" type="xs:string" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="iditineration" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_active" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_adate" type="xs:dateTime" />
               <xs:element name="itineration_additionalannotations" type="xs:string" minOccurs="0" />
@@ -16,6 +17,10 @@
               <xs:element name="itineration_admincarkmcost" type="xs:decimal" minOccurs="0" />
               <xs:element name="itineration_advanceapplied" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_advancepercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_advancepercentagecourse" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_advancepercentagefood" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_advancepercentageliving" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_advancepercentagetravel" type="xs:decimal" minOccurs="0" />
               <xs:element name="itineration_applierannotations" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_authdoc" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_authdocdate" type="xs:dateTime" minOccurs="0" />
@@ -35,9 +40,11 @@
               <xs:element name="itineration_footkmcost" type="xs:decimal" minOccurs="0" />
               <xs:element name="itineration_grossfactor" type="xs:decimal" minOccurs="0" />
               <xs:element name="itineration_idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="itineration_idaccmotivedebit" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_idaccmotivedebit_crg" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_idaccmotivedebit_datacrg" type="xs:dateTime" minOccurs="0" />
               <xs:element name="itineration_idauthmodel" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idcostpartition" type="xs:int" minOccurs="0" />
               <xs:element name="itineration_iddalia_dipartimento" type="xs:int" minOccurs="0" />
               <xs:element name="itineration_iddalia_funzionale" type="xs:int" minOccurs="0" />
               <xs:element name="itineration_iddaliaposition" type="xs:int" minOccurs="0" />
@@ -45,6 +52,7 @@
               <xs:element name="itineration_idforeigncountry" type="xs:int" minOccurs="0" />
               <xs:element name="itineration_iditineration_ref" type="xs:int" minOccurs="0" />
               <xs:element name="itineration_iditinerationstatus" type="xs:int" minOccurs="0" />
+              <xs:element name="itineration_idman" type="xs:int" minOccurs="0" />
               <xs:element name="itineration_idreg" type="xs:int" />
               <xs:element name="itineration_idregistrylegalstatus" type="xs:int" minOccurs="0" />
               <xs:element name="itineration_idregistrypaymethod" type="xs:int" minOccurs="0" />
@@ -53,7 +61,6 @@
               <xs:element name="itineration_idsor1" type="xs:int" minOccurs="0" />
               <xs:element name="itineration_idsor2" type="xs:int" minOccurs="0" />
               <xs:element name="itineration_idsor3" type="xs:int" minOccurs="0" />
-              <xs:element name="itineration_idupb" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_location" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_lt" type="xs:dateTime" />
               <xs:element name="itineration_lu" type="xs:string" />
@@ -69,6 +76,7 @@
               <xs:element name="itineration_stop" type="xs:dateTime" />
               <xs:element name="itineration_stoptime" type="xs:dateTime" minOccurs="0" />
               <xs:element name="itineration_supposedamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itineration_supposedcourse" type="xs:decimal" minOccurs="0" />
               <xs:element name="itineration_supposedfood" type="xs:decimal" minOccurs="0" />
               <xs:element name="itineration_supposedliving" type="xs:decimal" minOccurs="0" />
               <xs:element name="itineration_supposedtravel" type="xs:decimal" minOccurs="0" />
@@ -80,6 +88,7 @@
               <xs:element name="itineration_vehicle_motive" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_webwarn" type="xs:string" minOccurs="0" />
               <xs:element name="itineration_yitineration" type="xs:int" />
+              <xs:element name="upb_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

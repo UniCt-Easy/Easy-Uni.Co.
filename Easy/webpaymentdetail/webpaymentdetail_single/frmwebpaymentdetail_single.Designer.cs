@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,6 +53,8 @@ namespace webpaymentdetail_single {
 			this.txtCodice1 = new System.Windows.Forms.TextBox();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.grpDettaglio = new System.Windows.Forms.GroupBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.txtFineCompetanza = new System.Windows.Forms.TextBox();
 			this.label13 = new System.Windows.Forms.Label();
 			this.txtInizioCompetanza = new System.Windows.Forms.TextBox();
@@ -95,7 +97,7 @@ namespace webpaymentdetail_single {
 			this.gboxclass3.Controls.Add(this.btnCodice3);
 			this.gboxclass3.Controls.Add(this.txtDenom3);
 			this.gboxclass3.Controls.Add(this.txtCodice3);
-			this.gboxclass3.Location = new System.Drawing.Point(17, 423);
+			this.gboxclass3.Location = new System.Drawing.Point(15, 426);
 			this.gboxclass3.Name = "gboxclass3";
 			this.gboxclass3.Size = new System.Drawing.Size(303, 103);
 			this.gboxclass3.TabIndex = 96;
@@ -118,7 +120,7 @@ namespace webpaymentdetail_single {
 			this.txtDenom3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom3.Location = new System.Drawing.Point(128, 19);
+			this.txtDenom3.Location = new System.Drawing.Point(125, 15);
 			this.txtDenom3.Multiline = true;
 			this.txtDenom3.Name = "txtDenom3";
 			this.txtDenom3.ReadOnly = true;
@@ -153,11 +155,11 @@ namespace webpaymentdetail_single {
 			this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom2.Location = new System.Drawing.Point(129, 19);
+			this.txtDenom2.Location = new System.Drawing.Point(136, 15);
 			this.txtDenom2.Multiline = true;
 			this.txtDenom2.Name = "txtDenom2";
 			this.txtDenom2.ReadOnly = true;
-			this.txtDenom2.Size = new System.Drawing.Size(158, 53);
+			this.txtDenom2.Size = new System.Drawing.Size(169, 56);
 			this.txtDenom2.TabIndex = 3;
 			this.txtDenom2.TabStop = false;
 			this.txtDenom2.Tag = "sorting2.description";
@@ -169,7 +171,7 @@ namespace webpaymentdetail_single {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCodice2.Location = new System.Drawing.Point(9, 75);
 			this.txtCodice2.Name = "txtCodice2";
-			this.txtCodice2.Size = new System.Drawing.Size(280, 20);
+			this.txtCodice2.Size = new System.Drawing.Size(296, 20);
 			this.txtCodice2.TabIndex = 3;
 			this.txtCodice2.Tag = "sorting2.sortcode";
 			// 
@@ -178,7 +180,7 @@ namespace webpaymentdetail_single {
 			this.gboxclass1.Controls.Add(this.btnCodice1);
 			this.gboxclass1.Controls.Add(this.txtDenom1);
 			this.gboxclass1.Controls.Add(this.txtCodice1);
-			this.gboxclass1.Location = new System.Drawing.Point(15, 316);
+			this.gboxclass1.Location = new System.Drawing.Point(12, 324);
 			this.gboxclass1.Name = "gboxclass1";
 			this.gboxclass1.Size = new System.Drawing.Size(305, 103);
 			this.gboxclass1.TabIndex = 94;
@@ -201,7 +203,7 @@ namespace webpaymentdetail_single {
 			this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom1.Location = new System.Drawing.Point(128, 19);
+			this.txtDenom1.Location = new System.Drawing.Point(131, 19);
 			this.txtDenom1.Multiline = true;
 			this.txtDenom1.Name = "txtDenom1";
 			this.txtDenom1.ReadOnly = true;
@@ -234,6 +236,8 @@ namespace webpaymentdetail_single {
 			// 
 			// grpDettaglio
 			// 
+			this.grpDettaglio.Controls.Add(this.label2);
+			this.grpDettaglio.Controls.Add(this.textBox1);
 			this.grpDettaglio.Controls.Add(this.txtFineCompetanza);
 			this.grpDettaglio.Controls.Add(this.label13);
 			this.grpDettaglio.Controls.Add(this.txtInizioCompetanza);
@@ -254,15 +258,35 @@ namespace webpaymentdetail_single {
 			this.grpDettaglio.Controls.Add(this.label15);
 			this.grpDettaglio.Controls.Add(this.txtStore);
 			this.grpDettaglio.Controls.Add(this.label16);
-			this.grpDettaglio.Location = new System.Drawing.Point(12, 12);
+			this.grpDettaglio.Location = new System.Drawing.Point(12, 5);
 			this.grpDettaglio.Name = "grpDettaglio";
-			this.grpDettaglio.Size = new System.Drawing.Size(625, 298);
+			this.grpDettaglio.Size = new System.Drawing.Size(625, 313);
 			this.grpDettaglio.TabIndex = 97;
 			this.grpDettaglio.TabStop = false;
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(12, 101);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(62, 13);
+			this.label2.TabIndex = 117;
+			this.label2.Text = "Descrizione";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox1.Location = new System.Drawing.Point(10, 117);
+			this.textBox1.Multiline = true;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(609, 36);
+			this.textBox1.TabIndex = 116;
+			this.textBox1.Tag = "webpaymentdetail.description";
+			// 
 			// txtFineCompetanza
 			// 
-			this.txtFineCompetanza.Location = new System.Drawing.Point(201, 270);
+			this.txtFineCompetanza.Location = new System.Drawing.Point(201, 285);
 			this.txtFineCompetanza.Name = "txtFineCompetanza";
 			this.txtFineCompetanza.Size = new System.Drawing.Size(137, 20);
 			this.txtFineCompetanza.TabIndex = 115;
@@ -271,7 +295,7 @@ namespace webpaymentdetail_single {
 			// label13
 			// 
 			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(197, 253);
+			this.label13.Location = new System.Drawing.Point(197, 268);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(89, 13);
 			this.label13.TabIndex = 114;
@@ -279,16 +303,16 @@ namespace webpaymentdetail_single {
 			// 
 			// txtInizioCompetanza
 			// 
-			this.txtInizioCompetanza.Location = new System.Drawing.Point(21, 270);
+			this.txtInizioCompetanza.Location = new System.Drawing.Point(10, 285);
 			this.txtInizioCompetanza.Name = "txtInizioCompetanza";
-			this.txtInizioCompetanza.Size = new System.Drawing.Size(137, 20);
+			this.txtInizioCompetanza.Size = new System.Drawing.Size(148, 20);
 			this.txtInizioCompetanza.TabIndex = 113;
 			this.txtInizioCompetanza.Tag = "webpaymentdetail.competencystart";
 			// 
 			// label14
 			// 
 			this.label14.AutoSize = true;
-			this.label14.Location = new System.Drawing.Point(17, 253);
+			this.label14.Location = new System.Drawing.Point(14, 268);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(93, 13);
 			this.label14.TabIndex = 112;
@@ -296,7 +320,7 @@ namespace webpaymentdetail_single {
 			// 
 			// txtIva
 			// 
-			this.txtIva.Location = new System.Drawing.Point(382, 218);
+			this.txtIva.Location = new System.Drawing.Point(382, 242);
 			this.txtIva.Name = "txtIva";
 			this.txtIva.Size = new System.Drawing.Size(162, 20);
 			this.txtIva.TabIndex = 111;
@@ -305,7 +329,7 @@ namespace webpaymentdetail_single {
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(378, 200);
+			this.label1.Location = new System.Drawing.Point(378, 224);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(22, 13);
 			this.label1.TabIndex = 110;
@@ -315,17 +339,17 @@ namespace webpaymentdetail_single {
 			// 
 			this.txtListClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtListClass.Location = new System.Drawing.Point(197, 149);
+			this.txtListClass.Location = new System.Drawing.Point(202, 174);
 			this.txtListClass.Multiline = true;
 			this.txtListClass.Name = "txtListClass";
-			this.txtListClass.Size = new System.Drawing.Size(210, 48);
+			this.txtListClass.Size = new System.Drawing.Size(417, 48);
 			this.txtListClass.TabIndex = 109;
 			this.txtListClass.Tag = "listclass.title";
 			// 
 			// label21
 			// 
 			this.label21.AutoSize = true;
-			this.label21.Location = new System.Drawing.Point(199, 133);
+			this.label21.Location = new System.Drawing.Point(199, 156);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(102, 13);
 			this.label21.TabIndex = 108;
@@ -333,7 +357,7 @@ namespace webpaymentdetail_single {
 			// 
 			// txtPrice
 			// 
-			this.txtPrice.Location = new System.Drawing.Point(202, 218);
+			this.txtPrice.Location = new System.Drawing.Point(202, 242);
 			this.txtPrice.Name = "txtPrice";
 			this.txtPrice.Size = new System.Drawing.Size(162, 20);
 			this.txtPrice.TabIndex = 107;
@@ -342,7 +366,7 @@ namespace webpaymentdetail_single {
 			// label20
 			// 
 			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(198, 200);
+			this.label20.Location = new System.Drawing.Point(201, 226);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(39, 13);
 			this.label20.TabIndex = 106;
@@ -350,16 +374,16 @@ namespace webpaymentdetail_single {
 			// 
 			// txtNumber
 			// 
-			this.txtNumber.Location = new System.Drawing.Point(23, 218);
+			this.txtNumber.Location = new System.Drawing.Point(10, 242);
 			this.txtNumber.Name = "txtNumber";
-			this.txtNumber.Size = new System.Drawing.Size(162, 20);
+			this.txtNumber.Size = new System.Drawing.Size(175, 20);
 			this.txtNumber.TabIndex = 105;
 			this.txtNumber.Tag = "webpaymentdetail.number";
 			// 
 			// label17
 			// 
 			this.label17.AutoSize = true;
-			this.label17.Location = new System.Drawing.Point(17, 200);
+			this.label17.Location = new System.Drawing.Point(14, 225);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(47, 13);
 			this.label17.TabIndex = 104;
@@ -367,7 +391,7 @@ namespace webpaymentdetail_single {
 			// 
 			// txtCodeListClass
 			// 
-			this.txtCodeListClass.Location = new System.Drawing.Point(23, 149);
+			this.txtCodeListClass.Location = new System.Drawing.Point(14, 175);
 			this.txtCodeListClass.Name = "txtCodeListClass";
 			this.txtCodeListClass.Size = new System.Drawing.Size(162, 20);
 			this.txtCodeListClass.TabIndex = 103;
@@ -376,7 +400,7 @@ namespace webpaymentdetail_single {
 			// label18
 			// 
 			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(19, 131);
+			this.label18.Location = new System.Drawing.Point(15, 157);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(130, 13);
 			this.label18.TabIndex = 102;
@@ -384,16 +408,16 @@ namespace webpaymentdetail_single {
 			// 
 			// txtIntCode
 			// 
-			this.txtIntCode.Location = new System.Drawing.Point(18, 72);
+			this.txtIntCode.Location = new System.Drawing.Point(10, 70);
 			this.txtIntCode.Name = "txtIntCode";
-			this.txtIntCode.Size = new System.Drawing.Size(166, 20);
+			this.txtIntCode.Size = new System.Drawing.Size(172, 20);
 			this.txtIntCode.TabIndex = 101;
 			this.txtIntCode.Tag = "list.intcode";
 			// 
 			// label19
 			// 
 			this.label19.AutoSize = true;
-			this.label19.Location = new System.Drawing.Point(14, 54);
+			this.label19.Location = new System.Drawing.Point(14, 52);
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(73, 13);
 			this.label19.TabIndex = 100;
@@ -403,17 +427,17 @@ namespace webpaymentdetail_single {
 			// 
 			this.txtList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtList.Location = new System.Drawing.Point(197, 72);
+			this.txtList.Location = new System.Drawing.Point(197, 67);
 			this.txtList.Multiline = true;
 			this.txtList.Name = "txtList";
-			this.txtList.Size = new System.Drawing.Size(210, 58);
+			this.txtList.Size = new System.Drawing.Size(422, 39);
 			this.txtList.TabIndex = 99;
 			this.txtList.Tag = "list.description";
 			// 
 			// label15
 			// 
 			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(193, 54);
+			this.label15.Location = new System.Drawing.Point(193, 51);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(37, 13);
 			this.label15.TabIndex = 98;
@@ -423,9 +447,9 @@ namespace webpaymentdetail_single {
 			// 
 			this.txtStore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtStore.Location = new System.Drawing.Point(11, 29);
+			this.txtStore.Location = new System.Drawing.Point(11, 26);
 			this.txtStore.Name = "txtStore";
-			this.txtStore.Size = new System.Drawing.Size(396, 20);
+			this.txtStore.Size = new System.Drawing.Size(608, 20);
 			this.txtStore.TabIndex = 97;
 			this.txtStore.Tag = "store.description";
 			// 
@@ -442,17 +466,17 @@ namespace webpaymentdetail_single {
 			// 
 			this.txtAnnotazioni.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtAnnotazioni.Location = new System.Drawing.Point(334, 443);
+			this.txtAnnotazioni.Location = new System.Drawing.Point(326, 444);
 			this.txtAnnotazioni.Multiline = true;
 			this.txtAnnotazioni.Name = "txtAnnotazioni";
-			this.txtAnnotazioni.Size = new System.Drawing.Size(303, 83);
+			this.txtAnnotazioni.Size = new System.Drawing.Size(305, 83);
 			this.txtAnnotazioni.TabIndex = 95;
 			this.txtAnnotazioni.Tag = "webpaymentdetail.annotations?webpayment_prenotazioniview.annotations";
 			// 
 			// label9
 			// 
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(340, 425);
+			this.label9.Location = new System.Drawing.Point(340, 428);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(62, 13);
 			this.label9.TabIndex = 94;
@@ -463,10 +487,11 @@ namespace webpaymentdetail_single {
 			this.gboxclass2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxclass2.Controls.Add(this.button1);
+			this.gboxclass2.Controls.Add(this.txtDenom2);
 			this.gboxclass2.Controls.Add(this.txtCodice2);
-			this.gboxclass2.Location = new System.Drawing.Point(326, 316);
+			this.gboxclass2.Location = new System.Drawing.Point(326, 324);
 			this.gboxclass2.Name = "gboxclass2";
-			this.gboxclass2.Size = new System.Drawing.Size(311, 106);
+			this.gboxclass2.Size = new System.Drawing.Size(311, 101);
 			this.gboxclass2.TabIndex = 98;
 			this.gboxclass2.TabStop = false;
 			this.gboxclass2.Tag = "AutoManage.txtCodice2.treeclassmovimenti";
@@ -511,7 +536,7 @@ namespace webpaymentdetail_single {
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(656, 580);
+			this.ClientSize = new System.Drawing.Size(658, 579);
 			this.Controls.Add(this.gboxclass2);
 			this.Controls.Add(this.grpDettaglio);
 			this.Controls.Add(this.gboxclass3);
@@ -579,6 +604,8 @@ namespace webpaymentdetail_single {
 		public System.Windows.Forms.Button button1;
 		private System.Windows.Forms.TextBox textBox2;
 		public System.Windows.Forms.TextBox textBox3;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox textBox1;
 	}
 }
 

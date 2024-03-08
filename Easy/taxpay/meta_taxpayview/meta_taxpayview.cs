@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -72,15 +72,34 @@ namespace meta_taxpayview//meta_liquidazioneritenutaview//
                 DescribeAColumn(T, "adate", "Data cont.", nPos++);
                 FilterRows(T);
             }
-        
-		}
+            if (listtype == "liqcollegataF24ord") {
+                foreach (DataColumn C in T.Columns) {
+                    DescribeAColumn(T, C.ColumnName, "", -1);
+                }
+                int nPos = 1;
+                DescribeAColumn(T, "taxref", "Cod. ritenuta", nPos++);
+                DescribeAColumn(T, "taxkind", "Ritenuta", nPos++);
+                DescribeAColumn(T, "fiscaltaxcodef24ord", "Cod. Tributo F24", nPos++);
+                DescribeAColumn(T, "ytaxpay", "Eserc. liq.", nPos++);
+                DescribeAColumn(T, "ntaxpay", "Num. liq.", nPos++);
+                DescribeAColumn(T, "start", "Data inizio", nPos++);
+                DescribeAColumn(T, "stop", "Data fine", nPos++);
+                DescribeAColumn(T, "description", "Descrizione", nPos++);
+                DescribeAColumn(T, "amount", "Importo", nPos++);
+                DescribeAColumn(T, "adate", "Data cont.", nPos++);
+                FilterRows(T);
+            }
+        }
 
         public override bool FilterRow(DataRow R, string list_type) {
             if (list_type == "liqcollegata") {
                 if (R["idf24ep"] == DBNull.Value) return false;
                 return true;
             }
-
+            if (list_type == "liqcollegataF24ord") {
+                if (R["idf24ordinario"] == DBNull.Value) return false;
+                return true;
+            }
             return true;
         }
 

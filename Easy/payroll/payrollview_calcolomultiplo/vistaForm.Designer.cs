@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@ using System.Runtime.Serialization;
 namespace payrollview_calcolomultiplo {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -116,6 +116,7 @@ private void initClass() {
 	tpayroll.Columns.Add( new DataColumn("!eserccontratto", typeof(int)));
 	tpayroll.Columns.Add( new DataColumn("!numcontratto", typeof(string)));
 	tpayroll.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tpayroll);
 	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 
@@ -172,6 +173,7 @@ private void initClass() {
 	tparasubcontract.Columns.Add( new DataColumn("idaccmotivedebit", typeof(string)));
 	tparasubcontract.Columns.Add( new DataColumn("idaccmotivedebit_crg", typeof(string)));
 	tparasubcontract.Columns.Add( new DataColumn("idaccmotivedebit_datacrg", typeof(DateTime)));
+	tparasubcontract.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tparasubcontract);
 	tparasubcontract.PrimaryKey =  new DataColumn[]{tparasubcontract.Columns["idcon"]};
 
@@ -258,10 +260,7 @@ private void initClass() {
 	C= new DataColumn("idsor05", typeof(int));
 	C.ReadOnly=true;
 	tpayrollview.Columns.Add(C);
-	tpayrollview.Columns.Add( new DataColumn("ymov_lastphase", typeof(short)));
-	tpayrollview.Columns.Add( new DataColumn("nmov_lastphase", typeof(int)));
-	tpayrollview.Columns.Add( new DataColumn("ypay", typeof(short)));
-	tpayrollview.Columns.Add( new DataColumn("npay", typeof(int)));
+	tpayrollview.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tpayrollview);
 	tpayrollview.PrimaryKey =  new DataColumn[]{tpayrollview.Columns["idpayroll"]};
 

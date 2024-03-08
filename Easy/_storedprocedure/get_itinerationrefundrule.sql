@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,6 +47,7 @@ BEGIN
 -- first get idreg, idposition and incomeclass
 DECLARE @idreg int
 DECLARE @idposition int
+declare @livello int
 DECLARE @incomeclass int
 DECLARE @flag_geo char
 DECLARE @starttime smalldatetime
@@ -54,6 +55,7 @@ DECLARE @iditinerationrefundkindgroup int
 declare @nhour int
 
 SELECT 	@idreg=itineration.idreg,
+	@livello = registrylegalstatus.livello,
 	@idposition=registrylegalstatus.idposition,
 	@incomeclass=registrylegalstatus.incomeclass 
  	from itineration 
@@ -87,8 +89,9 @@ SELECT  @flag_geo=flag_geo, @starttime = itinerationrefund.starttime,
 	from itinerationrefundruledetail 
 	inner join itinerationrefundrule on 
 		itinerationrefundrule.iditinerationrefundrule = itinerationrefundruledetail.iditinerationrefundrule 
-	where itinerationrefundruledetail.idposition=@idposition and isnull(@incomeclass,0) 
-	between itinerationrefundruledetail.minincomeclass and itinerationrefundruledetail.maxincomeclass and 
+	where itinerationrefundruledetail.idposition=@idposition 
+	and ( itinerationrefundruledetail.livello = @livello or @livello is null )
+	and isnull(@incomeclass,0) 	between itinerationrefundruledetail.minincomeclass and itinerationrefundruledetail.maxincomeclass and 
 	(
 		(@flag_geo='I' and isnull(flag_italy,'')='S') or 
 		(@flag_geo='U' and isnull(flag_eu,'')='S') or 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,11 +27,17 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_apppages_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_apppages_default: DataSet {
+public partial class dsmeta_apppages_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable apptabcolsnumber 		=> (MetaTable)Tables["apptabcolsnumber"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable apptab 		=> (MetaTable)Tables["apptab"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable apprelationkey 		=> (MetaTable)Tables["apprelationkey"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable apptab_alias3 		=> (MetaTable)Tables["apptab_alias3"];
@@ -97,16 +103,33 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_apppages_default.xsd";
 
 	#region create DataTables
+	//////////////////// APPTABCOLSNUMBER /////////////////////////////////
+	var tapptabcolsnumber= new MetaTable("apptabcolsnumber");
+	tapptabcolsnumber.defineColumn("idapptabcolsnumber", typeof(int),false);
+	Tables.Add(tapptabcolsnumber);
+	tapptabcolsnumber.defineKey("idapptabcolsnumber");
+
 	//////////////////// APPTAB /////////////////////////////////
 	var tapptab= new MetaTable("apptab");
 	tapptab.defineColumn("header", typeof(string));
 	tapptab.defineColumn("icon", typeof(string));
 	tapptab.defineColumn("idapppages", typeof(int),false);
 	tapptab.defineColumn("idapptab", typeof(int),false);
+	tapptab.defineColumn("idapptabcolsnumber", typeof(int));
 	tapptab.defineColumn("position", typeof(int));
 	tapptab.defineColumn("title", typeof(string));
 	Tables.Add(tapptab);
 	tapptab.defineKey("idapppages", "idapptab");
+
+	//////////////////// APPRELATIONKEY /////////////////////////////////
+	var tapprelationkey= new MetaTable("apprelationkey");
+	tapprelationkey.defineColumn("idappfielddetail", typeof(int));
+	tapprelationkey.defineColumn("idappfielddetail_par", typeof(int));
+	tapprelationkey.defineColumn("idapppages", typeof(int),false);
+	tapprelationkey.defineColumn("idapprelation", typeof(int),false);
+	tapprelationkey.defineColumn("idapprelationkey", typeof(int),false);
+	Tables.Add(tapprelationkey);
+	tapprelationkey.defineKey("idapppages", "idapprelation", "idapprelationkey");
 
 	//////////////////// APPTAB_ALIAS3 /////////////////////////////////
 	var tapptab_alias3= new MetaTable("apptab_alias3");
@@ -272,7 +295,6 @@ private void initClass() {
 	var tmenuwebdefaultview= new MetaTable("menuwebdefaultview");
 	tmenuwebdefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tmenuwebdefaultview.defineColumn("idmenuweb", typeof(int),false);
-	tmenuwebdefaultview.defineColumn("idmenuwebparent", typeof(int));
 	Tables.Add(tmenuwebdefaultview);
 	tmenuwebdefaultview.defineKey("idmenuweb");
 
@@ -316,6 +338,8 @@ private void initClass() {
 	tapppages.defineColumn("isvalid", typeof(string));
 	tapppages.defineColumn("othersapp", typeof(string));
 	tapppages.defineColumn("principale", typeof(string),false);
+	tapppages.defineColumn("report", typeof(string));
+	tapppages.defineColumn("reportstored", typeof(string));
 	tapppages.defineColumn("staticfilter", typeof(string));
 	tapppages.defineColumn("tablename", typeof(string),false);
 	tapppages.defineColumn("testcustom", typeof(string));
@@ -333,9 +357,17 @@ private void initClass() {
 	var cChild = new []{apptab.Columns["idapppages"]};
 	Relations.Add(new DataRelation("FK_apptab_apppages_idapppages",cPar,cChild,false));
 
+	cPar = new []{apptabcolsnumber.Columns["idapptabcolsnumber"]};
+	cChild = new []{apptab.Columns["idapptabcolsnumber"]};
+	Relations.Add(new DataRelation("FK_apptab_apptabcolsnumber_idapptabcolsnumber",cPar,cChild,false));
+
 	cPar = new []{apppages.Columns["idapppages"]};
 	cChild = new []{apprelation.Columns["idapppages"]};
 	Relations.Add(new DataRelation("FK_apprelation_apppages_idapppages",cPar,cChild,false));
+
+	cPar = new []{apprelation.Columns["idapppages"], apprelation.Columns["idapprelation"]};
+	cChild = new []{apprelationkey.Columns["idapppages"], apprelationkey.Columns["idapprelation"]};
+	Relations.Add(new DataRelation("FK_apprelationkey_apprelation_idapppages-idapprelation",cPar,cChild,false));
 
 	cPar = new []{apptab_alias3.Columns["idapptab"]};
 	cChild = new []{apprelation.Columns["idapptab"]};

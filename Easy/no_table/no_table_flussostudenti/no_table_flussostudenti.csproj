@@ -54,6 +54,9 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_config">
+      <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
+    </Reference>
     <Reference Include="meta_ivaregister">
       <HintPath>..\..\ivaregister\meta_ivaregister\bin\Debug\meta_ivaregister.dll</HintPath>
       <Private>True</Private>
@@ -69,12 +72,6 @@
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="meta_config">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_config</Name>
-      <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="meta_estimatedetail">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_estimatedetail</Name>

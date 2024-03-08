@@ -82,6 +82,7 @@
   <ItemGroup>
     <Reference Include="gestioneclassificazioni">
       <HintPath>..\..\unmanaged\gestioneclassificazioni\bin\Debug\gestioneclassificazioni.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
@@ -166,6 +167,9 @@
     <None Include="vistaForm.xsx">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

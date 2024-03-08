@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,7 +42,8 @@ namespace report_default //modulereportparameter//
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog _openFileDialog1;
+        private IOpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox txtFile;
         private System.Windows.Forms.Button btnFile;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -76,7 +77,8 @@ namespace report_default //modulereportparameter//
         private RadioButton radioButton3;
         private Button btnReportAnalisys;
         private Button btnGeneraScript;
-        private SaveFileDialog saveFileDialog1;
+        private SaveFileDialog _saveFileDialog1;
+        private ISaveFileDialog saveFileDialog1;
         private CheckBox chkScriptSP;
         private CheckBox checkBox8;
         private System.ComponentModel.IContainer components;
@@ -88,6 +90,8 @@ namespace report_default //modulereportparameter//
             InitializeComponent();
             DS.reportparameter.ExtendedProperties["sort_by"] = "number";
             DS.reportparameter.ExtendedProperties["gridmaster"] = "report";
+            openFileDialog1.Filter = "File di Crystal Report|*.rpt|Tutti i file|*.*";
+            openFileDialog1.Title = "Selezione Report";
             //HelpForm.SetDenyNull(DS.modulereport.timeoutColumn,true);
             // verificare il comportamento della ExtProp "gridmaster"
 
@@ -156,9 +160,11 @@ namespace report_default //modulereportparameter//
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbGroupName = new System.Windows.Forms.ComboBox();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog1 = createOpenFileDialog(this._openFileDialog1);            
             this.images = new System.Windows.Forms.ImageList(this.components);
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.saveFileDialog1 = createSaveFileDialog(this._saveFileDialog1);
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.DS = new report_default.vistaForm();
             this.MetaDataDetail.SuspendLayout();
@@ -563,8 +569,8 @@ namespace report_default //modulereportparameter//
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.Filter = "File di Crystal Report|*.rpt|Tutti i file|*.*";
-            this.openFileDialog1.Title = "Selezione Report";
+            //this.openFileDialog1.Filter = "File di Crystal Report|*.rpt|Tutti i file|*.*";
+            //this.openFileDialog1.Title = "Selezione Report";
             // 
             // images
             // 
@@ -844,6 +850,7 @@ namespace report_default //modulereportparameter//
             
             FrmShowParams p = new FrmShowParams(sbParam.ToString(), sbFormula.ToString(), sbSP.ToString(),Conn, getSPName(ReportDoc));
             ReportDoc.Close();
+            createForm(p, this);
             p.Show(this);
             
         }

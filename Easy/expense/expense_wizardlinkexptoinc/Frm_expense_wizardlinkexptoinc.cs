@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1424,7 +1424,7 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
 			if ((newTab<0)||(newTab>txtNumIncome.TabPages.Count))return;
 			if (!CustomChangeTab(oldTab,newTab))return;
 			if (newTab==txtNumIncome.TabPages.Count){
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     newTab = 1;
                     ResetWizard();
@@ -1481,7 +1481,7 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
 
 		bool GetExpense(){
 			if (txtNmovExpense.Text.Trim()==""){
-				MessageBox.Show("Selezionare un movimento di spesa per procedere");
+				show("Selezionare un movimento di spesa per procedere");
 				return false;
 			}
             string filter = GetFilterExpense(true);
@@ -1502,7 +1502,7 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
 
         bool GetIncome () {
             if (txtNmovIncome.Text.Trim() == "") {
-                MessageBox.Show("Selezionare un movimento di entrata per procedere");
+                show("Selezionare un movimento di entrata per procedere");
                 return false;
             }
             string filter = GetFilterIncome(true);
@@ -1548,17 +1548,40 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
 	            isStipendi = Meta.GetUsr("stipendi").ToString().ToUpper() == "'S'";
             }
 
-            if (!IsAdmin) {
-	            object idAutokindRefPs = Conn.DO_READ_VALUE("autokind", QHS.CmpEq("code", "REFPS"), "idautokind"); //3
+
+			// Catania utilizza i propri automatismi su expense nel range 100-250, deve essere possibile vincolarli a incassi
+			// anche senza avere la funzione di organigramma Admin
+ 
+			if (!IsAdmin) {
+	            object idAutokindRefPs = Conn.DO_READ_VALUE("autokind", QHS.CmpEq("code", "REFPS"), "idautokind"); //3 Reintegro fondo economale
 	            if (isStipendi) {
-		            MyFilter = QHS.AppAnd(MyFilter,
+					// Se l'utente ha abilitata la funzione organigramma Gestione stipendi autokind deve essere
+					// 1) nullo
+					// 2) o compreso tra 100 e 250 (riservati Catania)
+					// 3) oppure pari Reintegro Fondo economale
+					// 4) o automatismi CSA
+					MyFilter = QHS.AppAnd(MyFilter,
 			            QHS.DoPar(
-				            QHS.AppOr(QHS.IsNull("autokind"), QHS.CmpEq("autokind",idAutokindRefPs),QHS.CmpEq("autokind", 30), QHS.CmpEq("autokind", 31))
+				            QHS.AppOr(QHS.IsNull("autokind"), 
+									  QHS.Between("autokind",100,250), 
+									  QHS.CmpEq("autokind",idAutokindRefPs),
+							          QHS.CmpEq("autokind", 30), QHS.CmpEq("autokind", 31)
+									  )
 			            )
 		            );
 	            }
-	            else {
-		            MyFilter = QHS.AppAnd(MyFilter, QHS.NullOrEq("autokind",idAutokindRefPs));
+				// Se l'utente non ha abilitata la funzione organigramma Gestione stipendi autokind deve essere
+				// 1) nullo
+				// 2) oppure compreso tra 100 e 250  (riservati Catania)
+				// 3) oppure pari a Reintegro Fondo economale 
+				else {
+		            MyFilter = QHS.AppAnd(MyFilter, QHS.DoPar(QHS.AppOr
+															 (QHS.IsNull("autokind"), 
+															  QHS.Between("autokind", 100, 250), 
+															  QHS.CmpEq("autokind", idAutokindRefPs)
+															  )  
+													)
+							   );
 	            }
 
             }
@@ -1770,18 +1793,18 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
 
         bool doAssocia () {
             if (DS.expense.Rows.Count == 0) {
-                MessageBox.Show("Non è stato selezionato un movimento di spesa");
+                show("Non è stato selezionato un movimento di spesa");
                 return false;
             }
             if (DS.income.Rows.Count == 0) {
-                MessageBox.Show("Non è stato selezionato un movimento di entrata");
+                show("Non è stato selezionato un movimento di entrata");
                 return false;
             }
           
             DataRow CurrIncome = DS.income.Rows[0];
             DataRow CurrExpense = DS.expense.Rows[0];
 
-            if (MessageBox.Show(this, "Si desidera associare l'incasso al pagamento selezionato?", "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
+            if (show(this, "Si desidera associare l'incasso al pagamento selezionato?", "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
                 
                 object incomeflag = Conn.DO_READ_VALUE("incomelast", QHS.CmpEq("idinc", CurrIncome["idinc"]), "flag");
                 int flag = CfgFn.GetNoNullInt32(incomeflag);
@@ -1798,7 +1821,7 @@ namespace expense_wizardlinkexptoinc {//spesawizardelimina//
             PostData Post = Meta.Get_PostData();
             Post.InitClass(DS, Conn);
             bool res = Post.DO_POST();
-            if (res) MessageBox.Show("Operazione effettuata.");
+            if (res) show("Operazione effettuata.");
             if (!res) CurrIncome.RejectChanges();
             return res;
         }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -246,7 +246,8 @@ namespace admpay_assessment_detail {
             var f = new FrmAskInfo(Meta, "E", true).SetUPB("0001").EnableManagerSelection(false);
             if (importo > 0) f.EnableFilterAvailable(importo);
 
-            f.allowSelectPhase("Seleziona la fase del movimento a cui collegare il pagamento degli stipendi");            
+            f.allowSelectPhase("Seleziona la fase del movimento a cui collegare il pagamento degli stipendi");
+            createForm(f, this);
             if (f.ShowDialog(this) != DialogResult.OK) return;
             var selectedfase = Convert.ToInt32(f.GetFaseMovimento());
             string filter = "";
@@ -325,6 +326,7 @@ namespace admpay_assessment_detail {
                 QHS.CmpEq("ayear", Meta.GetSys("esercizio")) + "))";
             if (chkListTitle.Checked) {
                 FrmAskDescr FR = new FrmAskDescr(0);
+                createForm(FR, this);
                 DialogResult D = FR.ShowDialog(this);
                 if (D != DialogResult.OK) return;
                 filter = GetData.MergeFilters(filter, QHS.Like("title", "%" + FR.txtDescrizione.Text + "%"));

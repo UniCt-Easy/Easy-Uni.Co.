@@ -16,8 +16,8 @@
               <xs:element name="caricoente" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontratto" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
               <xs:element name="idstipendioannuo" type="xs:int" />
               <xs:element name="irap" type="xs:decimal" minOccurs="0" />
               <xs:element name="lordo" type="xs:decimal" minOccurs="0" />
@@ -36,8 +36,8 @@
     </xs:unique>
     <xs:unique name="stipendioannuo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:stipendioannuo" />
-      <xs:field xpath="mstns:idcontratto" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
       <xs:field xpath="mstns:idstipendioannuo" />
       <xs:field xpath="mstns:year" />
     </xs:unique>

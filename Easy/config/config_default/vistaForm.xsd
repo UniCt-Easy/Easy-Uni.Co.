@@ -205,6 +205,8 @@
               <xs:element name="risconta_ammortamenti_futuri" type="xs:string" minOccurs="0" />
               <xs:element name="idacc_unabatable_estera" type="xs:string" minOccurs="0" />
               <xs:element name="idsor_siopeivavendita" type="xs:int" minOccurs="0" />
+              <xs:element name="matricolainpsf24" type="xs:string" minOccurs="0" />
+              <xs:element name="flagpcc" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1994,6 +1996,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="listingorder" type="xs:int" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

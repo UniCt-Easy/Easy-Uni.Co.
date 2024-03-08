@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,10 +31,19 @@ public class dsmeta_perfprogettoobiettivopersonaleview_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfsogliakind_alias1 		=> (MetaTable)Tables["perfsogliakind_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfprogettosoglia 		=> (MetaTable)Tables["perfprogettosoglia"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfsogliakind 		=> (MetaTable)Tables["perfsogliakind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettoobiettivosoglia 		=> (MetaTable)Tables["perfprogettoobiettivosoglia"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable year 		=> (MetaTable)Tables["year"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettoobiettivopersonaleview 		=> (MetaTable)Tables["perfprogettoobiettivopersonaleview"];
@@ -64,6 +73,29 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_perfprogettoobiettivopersonaleview_default.xsd";
 
 	#region create DataTables
+	//////////////////// PERFSOGLIAKIND_ALIAS1 /////////////////////////////////
+	var tperfsogliakind_alias1= new MetaTable("perfsogliakind_alias1");
+	tperfsogliakind_alias1.defineColumn("idperfsogliakind", typeof(string),false);
+	tperfsogliakind_alias1.ExtendedProperties["TableForReading"]="perfsogliakind";
+	Tables.Add(tperfsogliakind_alias1);
+	tperfsogliakind_alias1.defineKey("idperfsogliakind");
+
+	//////////////////// PERFPROGETTOSOGLIA /////////////////////////////////
+	var tperfprogettosoglia= new MetaTable("perfprogettosoglia");
+	tperfprogettosoglia.defineColumn("ct", typeof(DateTime),false);
+	tperfprogettosoglia.defineColumn("cu", typeof(string),false);
+	tperfprogettosoglia.defineColumn("description", typeof(string));
+	tperfprogettosoglia.defineColumn("idperfprogetto", typeof(int),false);
+	tperfprogettosoglia.defineColumn("idperfprogettosoglia", typeof(int),false);
+	tperfprogettosoglia.defineColumn("idperfsogliakind", typeof(string));
+	tperfprogettosoglia.defineColumn("lt", typeof(DateTime),false);
+	tperfprogettosoglia.defineColumn("lu", typeof(string),false);
+	tperfprogettosoglia.defineColumn("percentuale", typeof(decimal));
+	tperfprogettosoglia.defineColumn("valorenumerico", typeof(decimal));
+	tperfprogettosoglia.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tperfprogettosoglia);
+	tperfprogettosoglia.defineKey("idperfprogetto", "idperfprogettosoglia");
+
 	//////////////////// PERFSOGLIAKIND /////////////////////////////////
 	var tperfsogliakind= new MetaTable("perfsogliakind");
 	tperfsogliakind.defineColumn("idperfsogliakind", typeof(string),false);
@@ -87,6 +119,12 @@ private void initClass() {
 	Tables.Add(tperfprogettoobiettivosoglia);
 	tperfprogettoobiettivosoglia.defineKey("idperfprogetto", "idperfprogettoobiettivo", "idperfprogettoobiettivosoglia");
 
+	//////////////////// YEAR /////////////////////////////////
+	var tyear= new MetaTable("year");
+	tyear.defineColumn("year", typeof(int),false);
+	Tables.Add(tyear);
+	tyear.defineKey("year");
+
 	//////////////////// PERFPROGETTOOBIETTIVOPERSONALEVIEW /////////////////////////////////
 	var tperfprogettoobiettivopersonaleview= new MetaTable("perfprogettoobiettivopersonaleview");
 	tperfprogettoobiettivopersonaleview.defineColumn("completamento", typeof(decimal));
@@ -101,20 +139,33 @@ private void initClass() {
 	tperfprogettoobiettivopersonaleview.defineColumn("peso", typeof(decimal));
 	tperfprogettoobiettivopersonaleview.defineColumn("progetto_title", typeof(string));
 	tperfprogettoobiettivopersonaleview.defineColumn("title", typeof(string));
+	tperfprogettoobiettivopersonaleview.defineColumn("year", typeof(int),false);
 	Tables.Add(tperfprogettoobiettivopersonaleview);
-	tperfprogettoobiettivopersonaleview.defineKey("idperfprogettoobiettivo", "idperfvalutazioneuo", "idstruttura");
+	tperfprogettoobiettivopersonaleview.defineKey("idperfprogetto", "idperfprogettoobiettivo", "idperfvalutazioneuo", "idstruttura", "year");
 
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{perfprogettoobiettivopersonaleview.Columns["idperfprogetto"], perfprogettoobiettivopersonaleview.Columns["idperfprogettoobiettivo"]};
-	var cChild = new []{perfprogettoobiettivosoglia.Columns["idperfprogetto"], perfprogettoobiettivosoglia.Columns["idperfprogettoobiettivo"]};
+	var cPar = new []{perfprogettoobiettivopersonaleview.Columns["idperfprogetto"]};
+	var cChild = new []{perfprogettosoglia.Columns["idperfprogetto"]};
+	Relations.Add(new DataRelation("FK_perfprogettosoglia_perfprogettoobiettivopersonaleview_idperfprogetto",cPar,cChild,false));
+
+	cPar = new []{perfsogliakind_alias1.Columns["idperfsogliakind"]};
+	cChild = new []{perfprogettosoglia.Columns["idperfsogliakind"]};
+	Relations.Add(new DataRelation("FK_perfprogettosoglia_perfsogliakind_alias1_idperfsogliakind",cPar,cChild,false));
+
+	cPar = new []{perfprogettoobiettivopersonaleview.Columns["idperfprogetto"], perfprogettoobiettivopersonaleview.Columns["idperfprogettoobiettivo"]};
+	cChild = new []{perfprogettoobiettivosoglia.Columns["idperfprogetto"], perfprogettoobiettivosoglia.Columns["idperfprogettoobiettivo"]};
 	Relations.Add(new DataRelation("FK_perfprogettoobiettivosoglia_perfprogettoobiettivopersonaleview_idperfprogetto-idperfprogettoobiettivo",cPar,cChild,false));
 
 	cPar = new []{perfsogliakind.Columns["idperfsogliakind"]};
 	cChild = new []{perfprogettoobiettivosoglia.Columns["idperfsogliakind"]};
 	Relations.Add(new DataRelation("FK_perfprogettoobiettivosoglia_perfsogliakind_idperfsogliakind",cPar,cChild,false));
+
+	cPar = new []{year.Columns["year"]};
+	cChild = new []{perfprogettoobiettivopersonaleview.Columns["year"]};
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivopersonaleview_year_year",cPar,cChild,false));
 
 	#endregion
 

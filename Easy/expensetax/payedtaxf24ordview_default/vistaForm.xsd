@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaritenuteapplicate.xsd" xmlns:mstns="http://tempuri.org/vistaritenuteapplicate.xsd" xmlns="http://tempuri.org/vistaritenuteapplicate.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tax">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="taxref" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="taxkind" type="xs:short" minOccurs="0" />
+              <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
+              <xs:element name="flagunabatable" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="payedtaxf24ordview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="city" type="xs:string" minOccurs="0" />
+              <xs:element name="country" type="xs:string" minOccurs="0" />
+              <xs:element name="nation" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="payed_city" type="xs:string" minOccurs="0" />
+              <xs:element name="payed_fiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="idexp" type="xs:int" />
+              <xs:element name="nbracket" type="xs:int" />
+              <xs:element name="abatements" type="xs:decimal" minOccurs="0" />
+              <xs:element name="nphase" type="xs:unsignedByte" />
+              <xs:element name="phase" type="xs:string" />
+              <xs:element name="ymov" type="xs:short" />
+              <xs:element name="nmov" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="expensedescription" type="xs:string" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="idser" type="xs:int" minOccurs="0" />
+              <xs:element name="codeser" type="xs:string" minOccurs="0" />
+              <xs:element name="service" type="xs:string" minOccurs="0" />
+              <xs:element name="certificatekind" type="xs:string" minOccurs="0" />
+              <xs:element name="servicestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="servicestop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="taxref" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="taxkind" type="xs:short" />
+              <xs:element name="taxcategory" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="taxablegross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="taxablenet" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employnumerator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employdenominator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employtax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adminrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="adminnumerator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="admindenominator" type="xs:decimal" minOccurs="0" />
+              <xs:element name="admintax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="competencydate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datetaxpay" msdata:ReadOnly="true" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ytaxpay" type="xs:short" minOccurs="0" />
+              <xs:element name="ntaxpay" type="xs:int" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="department" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="fiscaltaxcodecreditf24ord" type="xs:string" minOccurs="0" />
+              <xs:element name="fiscaltaxcodef24ord" type="xs:string" minOccurs="0" />
+              <xs:element name="idf24ordinario" type="xs:int" minOccurs="0" />
+              <xs:element name="ayear" type="xs:int" minOccurs="0" />
+              <xs:element name="nmonth" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24ordinario">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idf24ordinario" type="xs:int" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nmonth" type="xs:int" />
+              <xs:element name="paymentdate" type="xs:dateTime" />
+              <xs:element name="taxpay_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="taxpay_stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="monthname">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" type="xs:int" />
+              <xs:element name="cfvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tax" />
+      <xs:field xpath="mstns:taxcode" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="payedtaxf24ordview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payedtaxf24ordview" />
+      <xs:field xpath="mstns:idexp" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:nbracket" />
+    </xs:unique>
+    <xs:unique name="f24ordinario_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24ordinario" />
+      <xs:field xpath="mstns:idf24ordinario" />
+    </xs:unique>
+    <xs:unique name="monthname_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:monthname" />
+      <xs:field xpath="mstns:code" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="registrypayedtaxview" msdata:parent="registry" msdata:child="payedtaxf24ordview" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="taxpayedtaxview" msdata:parent="tax" msdata:child="payedtaxf24ordview" msdata:parentkey="taxcode" msdata:childkey="taxcode" />
+      <msdata:Relationship name="f24ordinario_payedtaxf24ordview" msdata:parent="f24ordinario" msdata:child="payedtaxf24ordview" msdata:parentkey="idf24ordinario" msdata:childkey="idf24ordinario" />
+      <msdata:Relationship name="monthname_payedtaxf24ordview" msdata:parent="monthname" msdata:child="payedtaxf24ordview" msdata:parentkey="code" msdata:childkey="nmonth" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

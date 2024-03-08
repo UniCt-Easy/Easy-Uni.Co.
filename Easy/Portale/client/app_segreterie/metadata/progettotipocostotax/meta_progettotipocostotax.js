@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -50,6 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!taxcode_tax_description', 'Descrizione', null, 32, null);
 						this.describeAColumn(table, '!taxcode_tax_taxref', 'Codice ritenuta', null, 34, null);
 						this.describeAColumn(table, '!taxcode_tax_active', 'Attivo', null, 33, null);
+						this.describeAColumn(table, '!taxcode_tax_fiscaltaxcodecreditf24ord', 'Fiscaltaxcodecreditf24ord', null, 36, null);
+						this.describeAColumn(table, '!taxcode_tax_fiscaltaxcodef24ord', 'Fiscaltaxcodef24ord', null, 37, null);
+						objCalcFieldConfig['!taxcode_tax_fiscaltaxcodecreditf24ord'] = { tableNameLookup:'tax', columnNameLookup:'fiscaltaxcodecreditf24ord', columnNamekey:'taxcode' };
+						objCalcFieldConfig['!taxcode_tax_fiscaltaxcodef24ord'] = { tableNameLookup:'tax', columnNameLookup:'fiscaltaxcodef24ord', columnNamekey:'taxcode' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

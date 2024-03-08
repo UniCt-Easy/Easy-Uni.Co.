@@ -11,11 +11,11 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="mansionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="mansionekinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idmansionekind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -41,8 +41,8 @@
       <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
-    <xs:unique name="mansionekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:mansionekind" />
+    <xs:unique name="mansionekinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mansionekinddefaultview" />
       <xs:field xpath="mstns:idmansionekind" />
     </xs:unique>
     <xs:unique name="afferenza_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -55,7 +55,7 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_afferenza_getregistrydocentiamministratividefaultview_idreg" msdata:parent="getregistrydocentiamministratividefaultview" msdata:child="afferenza" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_afferenza_mansionekind_idmansionekind" msdata:parent="mansionekind" msdata:child="afferenza" msdata:parentkey="idmansionekind" msdata:childkey="idmansionekind" />
+      <msdata:Relationship name="FK_afferenza_mansionekinddefaultview_idmansionekind" msdata:parent="mansionekinddefaultview" msdata:child="afferenza" msdata:parentkey="idmansionekind" msdata:childkey="idmansionekind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

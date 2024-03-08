@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,14 +27,17 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_progettoudrmembro_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_progettoudrmembro_seg: DataSet {
+public partial class dsmeta_progettoudrmembro_seg: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable rendicontattivitaprogettourdmemboview 		=> (MetaTable)Tables["rendicontattivitaprogettourdmemboview"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettoudrmembrokinddefaultview 		=> (MetaTable)Tables["progettoudrmembrokinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable getregistrydocentiamministratividefaultview 		=> (MetaTable)Tables["getregistrydocentiamministratividefaultview"];
+	public MetaTable getregistrydocentiamministrativimacroareaview 		=> (MetaTable)Tables["getregistrydocentiamministrativimacroareaview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettoudrmembro 		=> (MetaTable)Tables["progettoudrmembro"];
@@ -64,27 +67,55 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_progettoudrmembro_seg.xsd";
 
 	#region create DataTables
+	//////////////////// RENDICONTATTIVITAPROGETTOURDMEMBOVIEW /////////////////////////////////
+	var trendicontattivitaprogettourdmemboview= new MetaTable("rendicontattivitaprogettourdmemboview");
+	trendicontattivitaprogettourdmemboview.defineColumn("idprogetto", typeof(int),false);
+	trendicontattivitaprogettourdmemboview.defineColumn("idprogettoudr", typeof(int),false);
+	trendicontattivitaprogettourdmemboview.defineColumn("idprogettoudrmembro", typeof(int),false);
+	trendicontattivitaprogettourdmemboview.defineColumn("idreg", typeof(int),false);
+	trendicontattivitaprogettourdmemboview.defineColumn("oreanno", typeof(int));
+	trendicontattivitaprogettourdmemboview.defineColumn("oreannoimpegnate", typeof(int));
+	trendicontattivitaprogettourdmemboview.defineColumn("oreannorendicontate", typeof(int));
+	trendicontattivitaprogettourdmemboview.defineColumn("oreattivita", typeof(int));
+	trendicontattivitaprogettourdmemboview.defineColumn("oremaxanno", typeof(int),false);
+	trendicontattivitaprogettourdmemboview.defineColumn("stipendioannuo", typeof(decimal));
+	trendicontattivitaprogettourdmemboview.defineColumn("stipendiorendicontato", typeof(decimal));
+	trendicontattivitaprogettourdmemboview.defineColumn("year", typeof(int),false);
+	Tables.Add(trendicontattivitaprogettourdmemboview);
+	trendicontattivitaprogettourdmemboview.defineKey("idprogetto", "idprogettoudr", "idprogettoudrmembro", "idreg", "oremaxanno", "year");
+
 	//////////////////// PROGETTOUDRMEMBROKINDDEFAULTVIEW /////////////////////////////////
 	var tprogettoudrmembrokinddefaultview= new MetaTable("progettoudrmembrokinddefaultview");
 	tprogettoudrmembrokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tprogettoudrmembrokinddefaultview.defineColumn("idprogettoudrmembrokind", typeof(int),false);
 	tprogettoudrmembrokinddefaultview.defineColumn("progettoudrmembrokind_active", typeof(string));
+	tprogettoudrmembrokinddefaultview.defineColumn("progettoudrmembrokind_ct", typeof(DateTime),false);
+	tprogettoudrmembrokinddefaultview.defineColumn("progettoudrmembrokind_cu", typeof(string),false);
+	tprogettoudrmembrokinddefaultview.defineColumn("progettoudrmembrokind_description", typeof(string));
+	tprogettoudrmembrokinddefaultview.defineColumn("progettoudrmembrokind_lt", typeof(DateTime),false);
+	tprogettoudrmembrokinddefaultview.defineColumn("progettoudrmembrokind_lu", typeof(string),false);
+	tprogettoudrmembrokinddefaultview.defineColumn("progettoudrmembrokind_sortcode", typeof(int));
+	tprogettoudrmembrokinddefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tprogettoudrmembrokinddefaultview);
 	tprogettoudrmembrokinddefaultview.defineKey("idprogettoudrmembrokind");
 
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
-	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");
-	tgetregistrydocentiamministratividefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_cf", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_contratto", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_forename", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_istituto", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_ssd", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_struttura", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("idreg", typeof(int),false);
-	tgetregistrydocentiamministratividefaultview.defineColumn("surname", typeof(string));
-	Tables.Add(tgetregistrydocentiamministratividefaultview);
-	tgetregistrydocentiamministratividefaultview.defineKey("idreg");
+	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIMACROAREAVIEW /////////////////////////////////
+	var tgetregistrydocentiamministrativimacroareaview= new MetaTable("getregistrydocentiamministrativimacroareaview");
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_areadidattica", typeof(string));
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_categoria", typeof(string),false);
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_cf", typeof(string));
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_contratto", typeof(string));
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_extmatricula", typeof(string));
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_forename", typeof(string));
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_istituto", typeof(string));
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_macroareadidattica", typeof(string));
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_ssd", typeof(string));
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("getregistrydocentiamministrativi_struttura", typeof(string));
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("idreg", typeof(int),false);
+	tgetregistrydocentiamministrativimacroareaview.defineColumn("surname", typeof(string));
+	Tables.Add(tgetregistrydocentiamministrativimacroareaview);
+	tgetregistrydocentiamministrativimacroareaview.defineKey("idreg");
 
 	//////////////////// PROGETTOUDRMEMBRO /////////////////////////////////
 	var tprogettoudrmembro= new MetaTable("progettoudrmembro");
@@ -92,6 +123,8 @@ private void initClass() {
 	tprogettoudrmembro.defineColumn("costoorario", typeof(decimal));
 	tprogettoudrmembro.defineColumn("ct", typeof(DateTime));
 	tprogettoudrmembro.defineColumn("cu", typeof(string));
+	tprogettoudrmembro.defineColumn("fondiprogetto", typeof(string));
+	tprogettoudrmembro.defineColumn("giornipreventivati", typeof(int));
 	tprogettoudrmembro.defineColumn("idprogetto", typeof(int),false);
 	tprogettoudrmembro.defineColumn("idprogettoudr", typeof(int),false);
 	tprogettoudrmembro.defineColumn("idprogettoudrmembro", typeof(int),false);
@@ -102,6 +135,8 @@ private void initClass() {
 	tprogettoudrmembro.defineColumn("lu", typeof(string));
 	tprogettoudrmembro.defineColumn("orepreventivate", typeof(int));
 	tprogettoudrmembro.defineColumn("ricavoorario", typeof(decimal));
+	tprogettoudrmembro.defineColumn("start", typeof(DateTime));
+	tprogettoudrmembro.defineColumn("stop", typeof(DateTime));
 	Tables.Add(tprogettoudrmembro);
 	tprogettoudrmembro.defineKey("idprogetto", "idprogettoudr", "idprogettoudrmembro");
 
@@ -109,13 +144,17 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{progettoudrmembrokinddefaultview.Columns["idprogettoudrmembrokind"]};
-	var cChild = new []{progettoudrmembro.Columns["idprogettoudrmembrokind"]};
+	var cPar = new []{rendicontattivitaprogettourdmemboview.Columns["idprogetto"], rendicontattivitaprogettourdmemboview.Columns["idprogettoudr"], rendicontattivitaprogettourdmemboview.Columns["idprogettoudrmembro"]};
+	var cChild = new []{progettoudrmembro.Columns["idprogetto"], progettoudrmembro.Columns["idprogettoudr"], progettoudrmembro.Columns["idprogettoudrmembro"]};
+	Relations.Add(new DataRelation("FK_progettoudrmembro_rendicontattivitaprogettourdmemboview_idprogetto-idprogettoudr-idprogettoudrmembro",cPar,cChild,false));
+
+	cPar = new []{progettoudrmembrokinddefaultview.Columns["idprogettoudrmembrokind"]};
+	cChild = new []{progettoudrmembro.Columns["idprogettoudrmembrokind"]};
 	Relations.Add(new DataRelation("FK_progettoudrmembro_progettoudrmembrokinddefaultview_idprogettoudrmembrokind",cPar,cChild,false));
 
-	cPar = new []{getregistrydocentiamministratividefaultview.Columns["idreg"]};
+	cPar = new []{getregistrydocentiamministrativimacroareaview.Columns["idreg"]};
 	cChild = new []{progettoudrmembro.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_progettoudrmembro_getregistrydocentiamministratividefaultview_idreg",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_progettoudrmembro_getregistrydocentiamministrativimacroareaview_idreg",cPar,cChild,false));
 
 	#endregion
 

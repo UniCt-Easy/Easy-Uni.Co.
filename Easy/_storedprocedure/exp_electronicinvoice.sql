@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+ 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoice]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoice]
 GO
@@ -25,11 +26,19 @@ SET ANSI_NULLS ON
 GO
 --setuser 'amministrazione'
 --setuser 'amm'
-CREATE procedure exp_electronicinvoice(@yelectronicinvoice smallint, @nelectronicinvoice int) as
+CREATE procedure exp_electronicinvoice(@yelectronicinvoice smallint=null, @nelectronicinvoice int=null, @yinv int=null,	@ninv int=null,	@idinvkind int=null) as
 begin
 declare @idreg int
-select @idreg = idreg from electronicinvoice where yelectronicinvoice = @yelectronicinvoice and nelectronicinvoice = @nelectronicinvoice
--- exec exp_electronicinvoice 2019, 127
+if(@nelectronicinvoice is not null)
+Begin
+	select @idreg = idreg from electronicinvoice where yelectronicinvoice = @yelectronicinvoice and nelectronicinvoice = @nelectronicinvoice
+end
+else
+begin
+	select @idreg = idreg from invoice where yinv = @yinv and ninv = @ninv and idinvkind = @idinvkind
+end
+-- exec exp_electronicinvoice null, null, 2022, 164, 254
+
 
 declare @cf varchar(11)
 declare @p_iva varchar(11)
@@ -41,16 +50,16 @@ select @cf = case when upper(substring(cf,1,2)) ='IT' then substring(cf,3,(len(c
 			end
 	from license
 
-	DECLARE @phonenumber varchar(12)
-	DECLARE @comune varchar(60)
-	DECLARE @provincia varchar(2)
-	DECLARE @indirizzo varchar(60)
-	DECLARE @cap varchar(5)
+	DECLARE @phonenumber varchar(30)	-- license.phonenumber = 30
+	DECLARE @comune varchar(65)			-- geo_city.title = 65, license.location = 50
+	DECLARE @provincia varchar(2)		-- license.country = 2
+	DECLARE @indirizzo varchar(100)		-- license.address1 = 50 + license.address2 = 50
+	DECLARE @cap varchar(5)				-- license.cap = 5
 	SELECT
 		@phonenumber = substring(ltrim(rtrim(license.phonenumber)),1,12),
 		@comune = SUBSTRING(isnull(geo_city.title, license.location), 1, 60),
 		@provincia = license.country,
-		@indirizzo = isnull(license.address1,'') + SUBSTRING(isnull(license.address2,''), 1, 10),
+		@indirizzo = isnull(license.address1,'') + isnull(license.address2,''),
 		@cap = license.cap
 	FROM license
 	left outer join geo_city 
@@ -58,7 +67,7 @@ select @cf = case when upper(substring(cf,1,2)) ='IT' then substring(cf,3,(len(c
 
 ----------------- Calcola la Sede del Cliente ------------------------------------------
 DECLARE @dateindi datetime
-SELECT @dateindi = CONVERT(datetime, '31-12-'+ CONVERT(varchar(4),@yelectronicinvoice), 105)
+SELECT @dateindi = CONVERT(datetime, '31-12-'+ CONVERT(varchar(4),isnull(@yelectronicinvoice, @yinv) ), 105)
 
 DECLARE @codenostand varchar(20)
 SET @codenostand = '07_SW_FAT'
@@ -83,9 +92,9 @@ CREATE TABLE #SedeCliente
 (
 	idaddresskind int,
     idreg int,
-	address varchar(60),	
-	location varchar(60),
-	cap varchar(5),		
+	address varchar(100),	-- registryaddress.address = 100
+	location varchar(65),	-- geo_city.title = 65, registryaddress.location = 50
+	cap varchar(20),		-- registryaddress.cap = 20		
 	province varchar(2),
 	nation varchar(2)
 )
@@ -103,20 +112,20 @@ CREATE TABLE #StabileOrganizzazione
 (
 	idaddresskind int,
     idreg int,
-	address varchar(60),	
-	location varchar(60),
-	cap varchar(5),		
+	address varchar(100),	-- registryaddress.address = 100
+	location varchar(65),	-- geo_city.title = 65, registryaddress.location = 50
+	cap varchar(20),		-- registryaddress.cap = 20
 	province varchar(2),
 	nation varchar(2)
 )
 --select  * from geo_nation
 
-INSERT INTO #StabileOrganizzazione(idaddresskind, idreg, address,	location, cap, province, nation)
+INSERT INTO #StabileOrganizzazione(idaddresskind, idreg, address, location, cap, province, nation)
 SELECT 
 	idaddresskind,
 	idreg, 
-	substring(address,1,60),
-	SUBSTRING(isnull(geo_city.title, registryaddress.location), 1, 60),
+	address,
+	isnull(geo_city.title, registryaddress.location),
 	case when geo_city.idcity is null then '00000' else registryaddress.cap end,
 	geo_country.province,
 	ISNULL(geo_nation_agency.value,'IT')
@@ -127,7 +136,7 @@ LEFT OUTER JOIN geo_nation_agency
 	 ON geo_nation_agency.idnation = registryaddress.idnation 
 	 AND geo_nation_agency.idagency = 6 -- ente ISO   
 	 AND geo_nation_agency.idcode = 1 -- codifica nazioni ISO
-	 AND geo_nation_agency.version = 1
+	 --AND geo_nation_agency.version = 1
 	 AND geo_nation_agency.stop IS NULL
 WHERE registryaddress.active <>'N' 
 	AND registryaddress.start = 
@@ -143,9 +152,9 @@ INSERT INTO #SedeCliente(idaddresskind, idreg, address,	location, cap, province,
 SELECT 
 	idaddresskind,
 	idreg, 
-	substring(address,1,60),
-	SUBSTRING(isnull(geo_city.title, registryaddress.location), 1, 60),
-	case when geo_city.idcity is null then '00000' else registryaddress.cap end,
+	address,
+	isnull(geo_city.title, registryaddress.location),
+	case when geo_city.idcity is null then '00000' else ltrim(rtrim(registryaddress.cap)) end,
 	case when geo_nation_agency.value is null then geo_country.province else 'EE' end,
 	ISNULL(geo_nation_agency.value,'IT')
 FROM registryaddress
@@ -157,7 +166,7 @@ LEFT OUTER JOIN geo_nation_agency
 	 ON geo_nation_agency.idnation = registryaddress.idnation 
 	 AND geo_nation_agency.idagency = 6 -- ente ISO   
 	 AND geo_nation_agency.idcode = 1 -- codifica nazioni ISO
-	 AND geo_nation_agency.version = 1
+	 --AND geo_nation_agency.version = 1
 	 AND geo_nation_agency.stop IS NULL
 WHERE registryaddress.active <>'N' 
 	AND registryaddress.start = 
@@ -217,9 +226,21 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 --	<CEDENTE PRESTATORE> è l' Università
 	@cf as 'IdTrasmittenteCodice',
 	-- n 1 del 2014 => 1400000001
-	substring(convert(varchar(4),@yelectronicinvoice),3,2)+ replicate('0',8-len(convert(varchar(8),@nelectronicinvoice ))) + convert(varchar(8),@nelectronicinvoice )
+	case when (@yelectronicinvoice is not null) then 
+		substring(convert(varchar(4), @yelectronicinvoice ),3,2)+ replicate('0',8-len(convert(varchar(8),@nelectronicinvoice ))) + convert(varchar(8),@nelectronicinvoice )
+		else 
+			substring(convert(varchar(4),@yinv),3,2)
+			+ replicate('0',4-len(convert(varchar(4),@ninv ))) + convert(varchar(4),@ninv )
+			+ replicate('0',4-len(convert(varchar(4),@idinvkind))) + convert(varchar(4),@idinvkind)
+	end
 	as 'ProgressivoInvio',
-	replicate('0',5-len(convert(varchar(5),@nelectronicinvoice ))) + convert(varchar(5),@nelectronicinvoice )
+	case when (@yelectronicinvoice is not null) then 
+				replicate('0',5-len(convert(varchar(5),@nelectronicinvoice ))) + convert(varchar(5),@nelectronicinvoice )
+				else 
+			substring(convert(varchar(4),@yinv),3,2)
+			+ replicate('0',4-len(convert(varchar(4),@ninv ))) + convert(varchar(4),@ninv )
+			+ replicate('0',4-len(convert(varchar(4),@idinvkind))) + convert(varchar(4),@idinvkind)
+	end
 	as 'ProgressivoFile',
 	--R.ipa_fe as 'CodiceDestinatario',  // per i privati , in assenza di codice destinatario, valorizzare la stringa con 7 zeri. Se non residente in Italia valorizzare la stringa con 7 X
 	case when I.ipa_ven_cliente IS NOT NULL then I.ipa_ven_cliente 
@@ -233,7 +254,7 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 	I.email_ven_cliente, 
 	I.pec_ven_cliente, 
 	@p_iva as 'IdFiscaleIvaCodiceDip',
-	E.departmentname_fe as 'DenominazioneDip',
+	isnull(E.departmentname_fe,  T.departmentname_fe) as 'DenominazioneDip',
 	case when isnull(I.flagdeferred,'N')='S' then 'RF16'else 'RF01' end as 'RegimeFiscale',
 	@indirizzo as 'indirizzoDip',
 	@cap as 'capDip',
@@ -244,21 +265,17 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 -- Se I-Italia, leggiamo la piva
 -- Se J-UE, leggiamo la p.iva, che sarà valorizzata con la p.iva estera
 -- Se X-Extra UE, leggiamo foreigncf, che sarà valorizzato con il codice identificativo estero
-
+--substring(R.foreigncf,1,2)
 --<CESSIONARIO COMMITTENTE>  è il cliente inserito in fattura		-- FARE UN CHECK PER CONTROLLARE CHE questa select dia l'info del paese
 	case when RR.coderesidence = 'I' then 'IT' 
 		 when RR.coderesidence = 'J' then #SedeCliente.nation
---		 when RR.coderesidence = 'J' and ASCII(SUBSTRING(R.p_iva,1,1)) BETWEEN 48 AND 57 /* 0..9 */ then #SedeCliente.nation
---		 when RR.coderesidence = 'J' then substring(R.p_iva,1,2)
 		 when RR.coderesidence = 'X' then #SedeCliente.nation
---		 when RR.coderesidence = 'X' and ASCII(SUBSTRING(R.foreigncf,1,1)) BETWEEN 48 AND 57 /* 0..9*/then #SedeCliente.nation
---		 when RR.coderesidence = 'X' then substring(R.foreigncf,1,2)
 		 else null
 		 end
 	as 'IdFiscaleIvaPaeseCliente'	,
-	case when RR.coderesidence = 'I' then R.p_iva
-		 when RR.coderesidence = 'J' then R.p_iva
-		 when RR.coderesidence = 'X' then substring(R.foreigncf,1,28)
+	case when RR.coderesidence = 'I' then  Replace(R.p_iva,'IT','')
+		 when RR.coderesidence = 'J' then  Replace(isnull(R.p_iva,'0000000'), #SedeCliente.nation,'')
+		 when RR.coderesidence = 'X' then  Replace(isnull(substring(R.foreigncf,1,28),'0000000'),  #SedeCliente.nation,'')
 		 else null
 		 end
 	as 'IdFiscaleIvaCodiceCliente'	,
@@ -309,7 +326,7 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 	'EUR' as 'divisa',
 	I.adate	as'data',
 	--I.doc as 'numero',
-	'dip' + replicate('0',5-len(convert(varchar(5),I.idinvkind ))) + convert(varchar(5),I.idinvkind )+ '-'+I.doc as 'numero',
+	'dip' + replicate('0',5-len(convert(varchar(5),I.idinvkind ))) + convert(varchar(5),I.idinvkind )+ '-' +substring(I.doc,1, 11) as 'numero',
 	I.docdate as 'datadocumento',
 	-- Sulla fattura, sull'intera fattura non sul dettaglio, è previsto o uno sconto o una maggiorazione. Per questo potremmo fare un altro check, che verifichi non vi siano sia sconti che maggiorazioni 
 	-- nella stessa fattura, perchè non possiamo trasmettere nello stesso file un dettaglio scontato e un dettaglio maggiorato.Anche se il concetto di maggiorazione credo non venga usato proprio...
@@ -329,8 +346,7 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 	I.total as 'ImportoTotaleDocumento',
 	I.description as 'Causale',
 --	<DatiFattureCollegate>	
-	null as 'RiferimentoNumeroLinea',-- linea di dettaglio della fattura a cui si fa riferimento (se il riferimento è all'intera fattura, non viene valorizzato) 
-									-- Non lo valorizziamo perchè noi nel dettaglio spefichiamo la fattura madre, e non anche la riga di dettaglio
+	--ID.rownum_main as 'RiferimentoNumeroLinea',-- linea di dettaglio della fattura a cui si fa riferimento (se il riferimento è all'intera fattura, non viene valorizzato)-- VIENE VALORIZZATO NELLA SP DI detail
 	(select TOP 1 substring(M.doc,1,20) from invoice M 
 			join invoicedetail id2
 				on M.idinvkind = id2.idinvkind_main and M.yinv = id2.yinv_main and M.ninv = id2.ninv_main
@@ -370,7 +386,7 @@ ROW_NUMBER() OVER(PARTITION BY  I.ipa_ven_cliente, I.rifamm_ven_cliente,  I.emai
 	end as 'iban',
 	I.idstampkind,
 	case when (R.flagbankitaliaproceeds='S' AND I.idfepaymethod in ('MP05','MP15')) 
-		then 'CODICE DI TESORERIA PER IL GIROCONTO: '+(select substring(iban_f24,len(iban_f24)-6,7 ) from config where ayear = @yelectronicinvoice)
+		then 'CODICE DI TESORERIA PER IL GIROCONTO: '+(select substring(iban_f24,len(iban_f24)-6,7 ) from config where ayear = @yinv)
 		else null
 	end as 'CodicePagamento',
 	@rea_provinceoffice as rea_provinceoffice,
@@ -383,10 +399,16 @@ join invoicekind IK				ON IK.idinvkind = I.idinvkind
 join registry R					on I.idreg = R.idreg
 join residence RR				on RR.idresidence = R.residence
 join registryclass RC			on RC.idregistryclass = R.idregistryclass
-join electronicinvoiceview E	on I.nelectronicinvoice = E.nelectronicinvoice and I.yelectronicinvoice = E.yelectronicinvoice
 JOIN #SedeCliente				ON #SedeCliente.idreg = I.idreg
 LEFT OUTER JOIN #StabileOrganizzazione				ON #StabileOrganizzazione.idreg = I.idreg
-where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yelectronicinvoice
+left outer join electronicinvoiceview E	on I.nelectronicinvoice = E.nelectronicinvoice and I.yelectronicinvoice = E.yelectronicinvoice
+LEFT OUTER JOIN treasurer T on I.idtreasurer_acq_estere = T.idtreasurer
+where (E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yelectronicinvoice
+		or
+		 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind
+		 and ((I.idreg_sostituto is not null and I.p_iva_sostituto is not null) or I.idreg_sostituto is null))
+
+
 end
 
 GO
@@ -412,5 +434,3 @@ GO
 	<DataScadenzaPagamento>
 */
 
-
- 

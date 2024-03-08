@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -261,7 +261,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(702, 23);
             this.label16.TabIndex = 19;
-            this.label16.Text = "Vengono mostrati tutti i cedolini non trasferibili con la causa della sua non tra" +
+            this.label16.Text = "Vengono mostrati tutti i cedolini non trasferibili con la causa della loro non tra" +
     "sferibilità";
             // 
             // label6

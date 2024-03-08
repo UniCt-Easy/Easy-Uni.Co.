@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_registrylegalstatus_amm" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_registrylegalstatus_amm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="inquadramentodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="positiondefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="position_active" type="xs:string" minOccurs="0" />
+              <xs:element name="position_assegnoaggiuntivo" type="xs:string" minOccurs="0" />
+              <xs:element name="position_codeposition" type="xs:string" />
+              <xs:element name="position_costolordoannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="position_costolordoannuooneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="position_ct" type="xs:dateTime" />
+              <xs:element name="position_cu" type="xs:string" />
+              <xs:element name="position_description" type="xs:string" />
+              <xs:element name="position_elementoperequativo" type="xs:string" minOccurs="0" />
+              <xs:element name="position_foreignclass" type="xs:string" minOccurs="0" />
+              <xs:element name="position_indennitadiateneo" type="xs:string" minOccurs="0" />
+              <xs:element name="position_indennitadiposizione" type="xs:string" minOccurs="0" />
+              <xs:element name="position_indvacancacontrattuale" type="xs:string" minOccurs="0" />
+              <xs:element name="position_livello" type="xs:string" minOccurs="0" />
+              <xs:element name="position_lt" type="xs:dateTime" />
+              <xs:element name="position_lu" type="xs:string" />
+              <xs:element name="position_maxincomeclass" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxcompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxcompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxdidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxgg" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxtempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxtempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremincompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremincompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremindidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremindidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremintempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremintempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_orestraordinariemax" type="xs:int" minOccurs="0" />
+              <xs:element name="position_parttime" type="xs:string" minOccurs="0" />
+              <xs:element name="position_printingorder" type="xs:int" minOccurs="0" />
+              <xs:element name="position_puntiorganico" type="xs:decimal" minOccurs="0" />
+              <xs:element name="position_siglaesportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="position_siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tipoente" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tipopersonale" type="xs:string" minOccurs="0" />
+              <xs:element name="position_totaletredicesima" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tredicesimaindennitaintegrativaspeciale" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrylegalstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_anni" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_giorni" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_mesi" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_class" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_compartment" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_role" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="datarivalutazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="incomeclass" type="xs:int" minOccurs="0" />
+              <xs:element name="incomeclassvalidity" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="livello" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="parttime" type="xs:decimal" minOccurs="0" />
+              <xs:element name="percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="tempindet" type="xs:string" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inquadramentodefaultview" />
+      <xs:field xpath="mstns:idinquadramento" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="positiondefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:positiondefaultview" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="registrylegalstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrylegalstatus" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_registrylegalstatus_inquadramentodefaultview_idinquadramento" msdata:parent="inquadramentodefaultview" msdata:child="registrylegalstatus" msdata:parentkey="idinquadramento" msdata:childkey="idinquadramento" />
+      <msdata:Relationship name="FK_inquadramentodefaultview_positiondefaultview_idposition" msdata:parent="positiondefaultview" msdata:child="inquadramentodefaultview" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="FK_registrylegalstatus_positiondefaultview_idposition" msdata:parent="positiondefaultview" msdata:child="registrylegalstatus" msdata:parentkey="idposition" msdata:childkey="idposition" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

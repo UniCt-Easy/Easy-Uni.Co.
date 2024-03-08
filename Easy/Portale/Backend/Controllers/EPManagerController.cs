@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -54,11 +54,11 @@ namespace Backend.Controllers {
         /// <param name="prms">getNRatei</param>
         /// <returns></returns>
         [HttpPost, Route("getNRatei")]
-        public IHttpActionResult getNRatei(getNRateiParameters prms) {
+        public IHttpActionResult getNRatei([FromBody] getNRateiParameters prms) {
             var dt = prms.dt;
             var rownum = prms.rownum;
             var dispatcher = HttpContext.Current.getDataDispatcher();
-            var dtSerialized = DataSetSerializer.jTokenToTable(JObject.Parse(dt), dispatcher);
+            var dtSerialized = DataSetSerializer.jTokenToTable(JObject.Parse(dt),false, dispatcher,"ratei");
             var drParent = dtSerialized.Rows[0];
             string idrelated = EP_functions.GetIdForDocument(drParent);
             var QHS = dispatcher.conn.GetQueryHelper();

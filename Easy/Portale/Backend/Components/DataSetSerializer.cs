@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,13 +38,13 @@ namespace Backend.Components {
 
         private static readonly string c_data_format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'";
 
-        private static readonly string StatePropertyName = "__state__";
-        private static readonly string Statecurrent = "Current";
-        private static readonly string Stateoriginal = "Original";
-        private static readonly string SchemaPropertyName = "schema";
-        private static readonly string KeyPropertyName = "key";
-        private static readonly string DataPropertyName = "data";
-        private static readonly string MessagesPropertyName = "messages";
+        //private static readonly string StatePropertyName = "__state__";
+        //private static readonly string Statecurrent = "Current";
+        //private static readonly string Stateoriginal = "Original";
+        //private static readonly string SchemaPropertyName = "schema";
+        //private static readonly string KeyPropertyName = "key";
+        //private static readonly string DataPropertyName = "data";
+        //private static readonly string MessagesPropertyName = "messages";
         private static readonly string AuditPropertyName = "audit";
         private static readonly string SeverityPropertyName = "severity";
         private static readonly string DescriptionPropertyName = "description";
@@ -109,7 +109,7 @@ namespace Backend.Components {
                 else {
                     // TODO capire meglio se stringa vuota va considerato null
                     //  if (rowValue == null || rowValue.ToString().Length == 0) {
-                    if (rowValue == null) {
+                    if (rowValue == null || rowValue.Type == JTokenType.Null) {
                         row[field] = DBNull.Value;
                     }
                     else {
@@ -148,34 +148,42 @@ namespace Backend.Components {
                         continue;
                     }
 
-                    getRowData(currRow, objRow["old"]);
-
-
-                    table.Rows.Add(currRow);
-
-
-                    currRow.AcceptChanges(); // mette i valori originali, quindi è nello stato Unchanged
-
-                    if (currRowState == "deleted") {
-                        currRow.Delete();
+                    if (currRowState == "modified") {
+                        getRowData(currRow, objRow["curr"]);
+                        getRowData(currRow, objRow["old"]);
+                        table.Rows.Add(currRow);
+                        currRow.AcceptChanges();  // mette i valori originali, quindi è nello stato Unchanged
+                    }
+                    if (currRowState == "unchanged" ) {
+                        getRowData(currRow, objRow["curr"]);
+                        table.Rows.Add(currRow);
+                        currRow.AcceptChanges();
                         continue;
                     }
 
+                    if (currRowState == "deleted") {
+                        getRowData(currRow, objRow["curr"]);
+                        table.Rows.Add(currRow);
+                        currRow.AcceptChanges();
+                        currRow.Delete();
+                        continue;
+                    }
+                    
                     if (currRowState == "modified") {
                         getRowData(currRow, objRow["curr"]);
-                        // i null non viaggiano da client a server.consiedero null quelli che erano in old e non sono in curr 
+                        // i null non viaggiano da client a server. Considero null quelli che erano in old e non sono in curr 
                         checkNullInModifiedRow(currRow, objRow["old"], objRow["curr"]);
                     }
                 }
             }
             catch (Exception e) {
                 throw new Exception("DataSetSerializer.addRows: Table " + table.TableName + " has errors: " +
-                                    e.Message);
+                                    e.Message+" processing "+sRows);
             }
         }
 
         /// <summary>
-        /// 
+        /// Mette i valori correnti a null ove c'è un valore in objRowOld ma non c'è in objRowCurr
         /// </summary>
         /// <param name="row">row to check, it must be in modified state</param>
         /// <param name="objRowOld">obj of old field with value</param>
@@ -251,6 +259,9 @@ namespace Backend.Components {
                     case "allowDbNull":
                         c.AllowDBNull = (bool) value;
                         break;
+                    case "allowNull":
+                        c.AllowDBNull = (bool)value;
+                        break;
                     case "isDenyNull":
                         HelpForm.SetDenyNull(c, (bool) value);
                         //c.ExtendedProperties.Add("DenyNull", (Boolean)value);
@@ -273,7 +284,7 @@ namespace Backend.Components {
                         else {
                             var dispatcher = HttpContext.Current.getDataDispatcher();
                             c.ExtendedProperties.Add(IsTempColumn,
-                                DataUtils.metaExpressionFromJsDataQueryJson(value.ToString(), dispatcher));
+                                DataUtils.metaExpressionFromJsDataQueryJson(value, dispatcher));
                         }
 
                         break;
@@ -406,7 +417,7 @@ namespace Backend.Components {
             }*/
 
             // TODO capire meglio lato client come serializzare l'ordine
-            // dei selettorie  dei selector mask
+            // dei selettori e  dei selector mask
             for (var i = 0; i < selectors.Count; i++) {
                 ulong mask = 1;
                 if (selectorsMask.Count > 0 && i < selectorsMask.Count) {
@@ -426,146 +437,201 @@ namespace Backend.Components {
         /// <param name="table"></param>
         private static void addColumnDefaults(JToken defaults, DataTable table) {
             var obj = (JObject) JsonConvert.DeserializeObject(defaults.ToString());
-            obj.Properties()._forEach(col => {
-                if (col.Value.Type != JTokenType.Null) {
-					if (table.Columns[col.Name] == null)
-						throw new Exception("Colonna " + col.Name + 
-							" non trovata durante il set dei valori di default. Contorollare i set default.");
-                    table.Columns[col.Name].DefaultValue = col.Value;
-                }
-            });
+            try {
+                obj.Properties()._forEach(col => {
+                    if (col.HasValues && col.Value.Type != JTokenType.Null &&
+							col.Value.GetType()!= typeof(JObject)) {
+                        if (table.Columns[col.Name] == null)
+                            throw new Exception("Colonna " + col.Name +
+                                " non trovata durante il set dei valori di default della tabella " + table.TableName + ". Contorollare i set default.");
+                        table.Columns[col.Name].DefaultValue = col.Value;
+                    }
+                });
+            }
+            catch (Exception ex) {
+                throw new Exception("Eccezione durante il set dei valori di default della tabella " + table.TableName + ". Contorollare i set default. " + ex.Message);
+            }
         }
 
         /// <summary>
         /// Deserializes a DataTable
         /// </summary>
         /// <param name="dataTable">JToken with table data</param>
+        /// <param name="deserializeStructure"></param>
+        /// <param name="dispatcher"></param>
+        /// <param name="name"></param>
         /// <returns>The DataTable</returns>
-        public static MetaTable jTokenToTable(JToken dataTable, Dispatcher dispatcher) {
-            var name = dataTable["name"].ToString();
-            var table = new MetaTable(name);
+        public static MetaTable jTokenToTable(JToken dataTable, bool deserializeStructure, Dispatcher dispatcher, string name) {
+            //var name = dataTable["name"].ToString();
+           
 			try {
-				var jObj = (JObject)JsonConvert.DeserializeObject(dataTable.ToString());
+                var jObj = (JObject)dataTable; //JsonConvert.DeserializeObject(dataTable.ToString());
+                if (name == null) {
+                    name = jObj["name"].ToString();
+                }
+                var table = new MetaTable(name);
+                
+                if (deserializeStructure) {
+                    // deserializzo gli oggetti colonna, ogni oggetto colonna  a sua volta (il col.Value) è un oggetto con varie proprietà
+                    if (jObj["columns"] != null) {
+                        var obj = (JObject)jObj["columns"] ; //JsonConvert.DeserializeObject(jObj["columns"].ToString());
+                        obj.Properties()._forEach(col => {
+                            table.Columns.Add(getColumn(col.Name, col.Value));
+                            }
+                        );
+                    }
 
-				// deserializzo gli oggetti colonna, ogni oggetto colonna  a sua volta (il col.Value) è un oggetto con varie proprietà
-				if (jObj["columns"] != null) {
-					var obj = (JObject)JsonConvert.DeserializeObject(jObj["columns"].ToString());
-					obj.Properties()._forEach(col => table.Columns.Add(getColumn(col.Name, col.Value)));
-				}
+                    // deserializzo gli oggetti autoIncrementColumns per ogni colonna
+                    if (jObj["autoIncrementColumns"] != null)
+                        addAutoIncrementProperties(jObj["autoIncrementColumns"], table);
 
-				// deserializzo gli oggetti autoIncrementColumns per ogni colonna
-				if (jObj["autoIncrementColumns"] != null) addAutoIncrementProperties(jObj["autoIncrementColumns"], table);
+                    //  Deserializza la proprietà di default.
+                    //  Per ogni DataColumn del DataTable, nella proprietà DefaultValue, mette il valore della proprietà 
+                    //  di pari nome nell'oggetto default del jsDataTable, saltando quelle null 
+                    if (jObj["defaults"] != null)
+                        addColumnDefaults(jObj["defaults"], table);
 
-				//  Deserializza la proprietà di default.
-				//  Per ogni DataColumn del DataTable, nella proprietà DefaultValue, mette il valore della proprietà 
-				//  di pari nome nell'oggetto default del jsDataTable, saltando quelle null 
-				if (jObj["defaults"] != null) addColumnDefaults(jObj["defaults"], table);
+                    // Aggiungo key dopo le columns
+                    if (jObj["key"] != null)
+                        addKeys(jObj["key"], table);
 
-				// Aggiungo key dopo le columns
-				if (jObj["key"] != null) addKeys(jObj["key"], table);
+                    // staticFilter
+                    if (jObj["staticFilter"] != null) {
+                        // recupero stringa
+                        var staticFilter = jObj["staticFilter"]; //?.ToString();
+                        // torno la metaexpression
+                        var meFilter = DataUtils.metaExpressionFromJsDataQueryJson(staticFilter, dispatcher);
+                        //DataUtils.getfilterFromJsDataQuery(staticFilter, dispatcher);
+                        // trasformo sempre in stringa. 
+                        table.ExtendedProperties["filter"] = meFilter?.toSql(dispatcher.conn.GetQueryHelper(), dispatcher.conn);
+                        table.ExtendedProperties["filterMetaExpression"] = meFilter;
+                        //table.ExtendedProperties["filterMetaExpr"] = jObj["staticFilter"];
+                    }
 
-				// aggiungo righe
-				if (jObj["rows"] != null) addRows(jObj["rows"], table);
+                    // tableForReading
+                    var tableName = name;
+                    if (jObj["tableForReading"] != null)
+                        tableName = jObj["tableForReading"]?.ToString();
+                    if (tableName != name && tableName != null)
+                        DataAccess.SetTableForReading(table, tableName);
 
-
-				// staticFilter
-				if (jObj["staticFilter"] != null) {
-					// recupero stringa
-					var staticFilter = jObj["staticFilter"]?.ToString();
-					// torno la metaexpression
-					var meFilter = DataUtils.metaExpressionFromJsDataQueryJson(staticFilter, dispatcher);
-					//DataUtils.getfilterFromJsDataQuery(staticFilter, dispatcher);
-					// trasformo sempre in stringa. 
-					table.ExtendedProperties["filter"] = meFilter?.toSql(dispatcher.conn.GetQueryHelper(), dispatcher.conn);
-					table.ExtendedProperties["filterMetaExpression"] = meFilter;
-					//table.ExtendedProperties["filterMetaExpr"] = jObj["staticFilter"];
-				}
-
-				// tableForReading
-				var tableName = name;
-				if (jObj["tableForReading"] != null) tableName = jObj["tableForReading"]?.ToString();
-				DataAccess.SetTableForReading(table, tableName);
-
-				// tableForWriting
-				tableName = null;
-				if (jObj["tableForWriting"] != null) tableName = jObj["tableForWriting"]?.ToString();
-				QueryCreator.SetTableForPosting(table, tableName);
-
-
-				// isCached. inizializzo proprietà tabella
-				GetData.UnCacheTable(table);
-				if (jObj["isCached"] != null) {
-					if (jObj["isCached"].ToString() == "0") GetData.CacheTable(table);
-
-					if (jObj["isCached"].ToString() == "1") GetData.LockRead(table);
-				}
-
-				// isTemporaryTable
-				PostData.MarkAsRealTable(table);
-				if (jObj["isTemporaryTable"] != null) {
-					if ((Boolean)jObj["isTemporaryTable"]) {
-						PostData.MarkAsTemporaryTable(table, false);
-					}
-					else {
-						PostData.MarkAsRealTable(table);
-					}
-				}
-
-				// skypSecurity è settato/ritornato dalle funz in setSkipSecurity/isSkipSecurity su metaModel
-				// va bene anche così, ma capire se si possono utilizzare i emtodi in MetaModel
-				if (jObj["skipSecurity"] != null) {
-					if ((Boolean)jObj["skipSecurity"]) {
-						table.ExtendedProperties["SkipSecurity"] = true;
-					}
-					else {
-						table.ExtendedProperties["SkipSecurity"] = (object)null;
-					}
-				}
-
-				// skipInsertCopy
-				if (jObj["skipInsertCopy"] != null) {
-					if ((Boolean)jObj["skipInsertCopy"]) {
-						QueryCreator.setSkipInsertCopy(table, true);
-					}
-					else {
-						QueryCreator.setSkipInsertCopy(table, false);
-					}
-				}
-
-				// realTable. utilizzo delle ext prop RealTableName perchè poi quelleutili realTable e viewTable saranno tabelle vere e proprie prese dal dataset
-				if (jObj["realTable"] != null) {
-					table.ExtendedProperties["RealTableName"] = (string)jObj["realTable"];
-				}
-
-				// viewTable
-				if (jObj["viewTable"] != null) {
-					table.ExtendedProperties["ViewTableName"] = (string)jObj["viewTable"];
-				}
-
-				// denyClear
-				if (jObj["denyClear"] != null) {
-					if ((String)jObj["denyClear"] == "y") {
-						table.setDenyClear();
-					}
-					else {
-						table.setAllowClear();
-					}
-				}
-				else {
-					table.setAllowClear();
-				}
+                    // tableForWriting
+                    tableName = null;
+                    if (jObj["tableForWriting"] != null)
+                        tableName = jObj["tableForWriting"]?.ToString();
+                    if (tableName != name && tableName != null)
+                        QueryCreator.SetTableForPosting(table, tableName);
 
 
-				// orderBy 
-				if (jObj["orderBy"] != null) table.setSorting((string)jObj["orderBy"]);
+                    // isCached. inizializzo proprietà tabella
+                    GetData.UnCacheTable(table);
+                    if (jObj["isCached"] != null) {
+                        if (jObj["isCached"].ToString() == "0")
+                            GetData.CacheTable(table);
+
+                        if (jObj["isCached"].ToString() == "1")
+                            GetData.LockRead(table);
+                    }
+
+                    // isTemporaryTable
+                    PostData.MarkAsRealTable(table);
+                    if (jObj["isTemporaryTable"] != null) {
+                        if ((Boolean)jObj["isTemporaryTable"]) {
+                            PostData.MarkAsTemporaryTable(table, false);
+                        }
+                        else {
+                            PostData.MarkAsRealTable(table);
+                        }
+                    }
+
+                    // skypSecurity è settato/ritornato dalle funz in setSkipSecurity/isSkipSecurity su metaModel
+                    // va bene anche così, ma capire se si possono utilizzare i emtodi in MetaModel
+                    if (jObj["skipSecurity"] != null) {
+                        if ((Boolean)jObj["skipSecurity"]) {
+                            table.ExtendedProperties["SkipSecurity"] = true;
+                        }
+                        else {
+                            table.ExtendedProperties["SkipSecurity"] = (object)null;
+                        }
+                    }
+
+                    // skipInsertCopy
+                    if (jObj["skipInsertCopy"] != null) {
+                        if ((Boolean)jObj["skipInsertCopy"]) {
+                            QueryCreator.setSkipInsertCopy(table, true);
+                        }
+                        else {
+                            QueryCreator.setSkipInsertCopy(table, false);
+                        }
+                    }
+
+                    // realTable. utilizzo delle ext prop RealTableName perchè poi quelleutili realTable e viewTable saranno tabelle vere e proprie prese dal dataset
+                    if (jObj["realTable"] != null) {
+                        table.ExtendedProperties["RealTableName"] = (string)jObj["realTable"];
+                    }
+
+                    // viewTable
+                    if (jObj["viewTable"] != null) {
+                        table.ExtendedProperties["ViewTableName"] = (string)jObj["viewTable"];
+                    }
+
+                    // denyClear
+                    if (jObj["denyClear"] != null) {
+                        if ((String)jObj["denyClear"] == "y") {
+                            table.setDenyClear();
+                        }
+                        else {
+                            table.setAllowClear();
+                        }
+                    }
+                    else {
+                        table.setAllowClear();
+                    }
+
+
+                    // orderBy 
+                    if (jObj["orderBy"] != null)
+                        table.setSorting((string)jObj["orderBy"]);
+                }
+
+                // aggiungo righe
+                if (jObj["rows"] != null) addRows(jObj["rows"], table);
+
+
+				
 
 				return table;
 			}
 			catch (Exception e) {
-				throw new Exception("Errore nella serializzazione della taella: " + table.TableName + "; " + e.Message);
+				throw new Exception("Errore nella deserializzazione della tabella: " + name + "; " + e.Message);
 			}
         }
 
+        /// <summary>
+        /// Deserializes rows into a DataTable
+        /// </summary>
+        /// <param name="dataTable">JToken with table data</param>
+        /// <param name="table"></param>
+        /// <returns>The DataTable</returns>
+        public static DataTable jTokenIntoTable(JToken dataTable, DataTable table) {
+            //var name = dataTable["name"].ToString();
+
+            try {
+                var jObj = (JObject)JsonConvert.DeserializeObject(dataTable.ToString());
+
+                // deserializzo gli oggetti autoIncrementColumns per ogni colonna
+                if (jObj["autoIncrementColumns"] != null)
+                    addAutoIncrementProperties(jObj["autoIncrementColumns"], table);
+
+                // aggiungo righe
+                if (jObj["rows"] != null)
+                    addRows(jObj["rows"], table);
+                return table;
+            }
+            catch (Exception e) {
+                throw new Exception("Errore nella deserializzazione della tabella: " + table.TableName + "; " + e.Message,e);
+            }
+        }
 
         /// <summary>
         /// Returns a RelationObj, with the info of the relation
@@ -579,9 +645,10 @@ namespace Backend.Components {
             var stringSeparators = new[] {","};
 
             var obj = (JObject) JsonConvert.DeserializeObject(relation.ToString());
-            var parentCols = obj["parentCols"].ToString()
-                .Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
-            var childCols = obj["childCols"].ToString().Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
+            var parentCols = obj["parentCols"].ToString().Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
+            var childC = obj["parentCols"].ToString();
+            if (obj["childCols"]!=null) childC = obj["childCols"].ToString();
+            var childCols = childC.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
             var parentTable = dataSet.Tables[obj["parentTable"].ToString()];
             var childTable = dataSet.Tables[obj["childTable"].ToString()];
 
@@ -592,12 +659,38 @@ namespace Backend.Components {
             dataSet.Relations.Add(name, parentColumns, childColumns, false);
         }
 
+
+        /// <summary>
+        /// Create a DataSet from a JSON string
+        /// </summary>
+        /// <param name="jObj"></param>
+        /// <param name="dataSet">DataSet</param>
+        /// <returns></returns>
+        public static void deserializeIntoDataSet(JToken jObj, DataSet dataSet) {
+
+
+            // trasformo in JObject
+
+            if (jObj["name"] != null)
+                dataSet.DataSetName = (string)jObj["name"];
+
+            // Recupero tabelle con colonne e righe
+            if (jObj["tables"] != null) {
+                var obj = (JObject)JsonConvert.DeserializeObject(jObj["tables"].ToString());
+                obj.Properties()._forEach(t => jTokenIntoTable(t.Value, dataSet.Tables[t.Name]));
+                        //                dataSet.Tables.Add(jTokenToTable(t.Value, dispatcher, t.Name)));;
+            }
+         
+
+        }
+
+
         /// <summary>
         /// Create a DataSet from a JSON string
         /// </summary>
         /// <param name="jObj"></param>
         /// <returns></returns>
-        public static DataSet deserialize(JObject jObj, Dispatcher dispatcher) {
+        public static DataSet deserialize(JToken jObj, bool deserializeStructure, Dispatcher dispatcher) {
 
 
             // trasformo in JObject
@@ -607,18 +700,20 @@ namespace Backend.Components {
 
             // Recupero tabelle con colonne e righe
             if (jObj["tables"] != null) {
-                var obj = (JObject) JsonConvert.DeserializeObject(jObj["tables"].ToString());
-                obj.Properties()._forEach(t => dataSet.Tables.Add(jTokenToTable(t.Value, dispatcher)));
+                var obj = (JObject) jObj["tables"];
+                obj.Properties()._forEach(t => dataSet.Tables.Add(jTokenToTable(t.Value, deserializeStructure, dispatcher, t.Name)));
             }
 
-            // Recupero relazioni
-            if (jObj["relations"] != null) {
-                var obj = (JObject) JsonConvert.DeserializeObject(jObj["relations"].ToString());
-                obj.Properties()._forEach(r => createRelationFromJToken(r.Name, r.Value, dataSet));
-            }
+            if (deserializeStructure) {
+                // Recupero relazioni
+                if (jObj["relations"] != null) {
+                    var obj = (JObject)JsonConvert.DeserializeObject(jObj["relations"].ToString());
+                    obj.Properties()._forEach(r => createRelationFromJToken(r.Name, r.Value, dataSet));
+                }
 
-            // alla fine della deserializzazione popola realTable and viewTable, che sono oggetti di tipo DataTable
-            populatesViewAndRealTableProperties(dataSet);
+                // alla fine della deserializzazione popola realTable and viewTable, che sono oggetti di tipo DataTable
+                populatesViewAndRealTableProperties(dataSet);
+            }
 
             return dataSet;
         }
@@ -665,21 +760,22 @@ namespace Backend.Components {
         /// <returns>The Dictionary with useful properties and ExtendedProperties of DataColumn</returns>
         private static JObject getColumnProperties(DataColumn dc) {
             var dictcolProp = new JObject();
+            
+            if (dc.Caption != null && dc.Caption!=dc.ColumnName) dictcolProp.Add("caption", dc.Caption);
 
-            if (dc.Caption != null) dictcolProp.Add("caption", dc.Caption);
-
-            if (dc.ColumnName != null) dictcolProp.Add("name", dc.ColumnName);
+            //if (dc.ColumnName != null) dictcolProp.Add("name", dc.ColumnName);
 
             if (dc.DataType != null) dictcolProp.Add("ctype", dc.DataType.ToString().Replace("System.", ""));
 
-            dictcolProp.Add("allowDbNull", dc.AllowDBNull);
+            if (!dc.AllowDBNull) dictcolProp.Add("allowNull", false);
+            if (dc.ExtendedProperties["allowZero"] != null) {
+                if ((Boolean)dc.ExtendedProperties["allowZero"] == false)
+                    dictcolProp.Add("allowZero", getJTokenFromObject(false));
+            }
 
-            dictcolProp.Add("isDenyNull", HelpForm.IsDenyNull(dc));
+            if (HelpForm.IsDenyNull(dc) && dc.AllowDBNull) dictcolProp.Add("isDenyNull", true);
+            if (HelpForm.IsDenyZero(dc)) dictcolProp.Add("isDenyZero", true);
 
-            dictcolProp.Add("isDenyZero", HelpForm.IsDenyZero(dc));
-
-            if (dc.ExtendedProperties["allowZero"] != null)
-                dictcolProp.Add("allowZero", getJTokenFromObject(dc.ExtendedProperties["allowZero"]));
 
             if (dc.ExtendedProperties["ListColPos"] != null)
                 dictcolProp.Add("listColPos", getJTokenFromObject(dc.ExtendedProperties["ListColPos"]));
@@ -692,14 +788,14 @@ namespace Backend.Components {
 
             // potrei fare dictcolProp.Add("format", HelpForm.GetFormatForColumn(dc)); ma controllo solo la ext prop
             // altrimenti vado in conflitto con la logica implementata dal client per i default.
-            if (dc.ExtendedProperties["format"] != null)
+            if (dc.ExtendedProperties["format"] != null && dc.ExtendedProperties["format"].ToString()!="")
                 dictcolProp.Add("format", getJTokenFromObject(dc.ExtendedProperties["format"]));
 
             // expression potrebbe essere o una stringa del tipo 1. table.columnName, o 2. una MetaExpression.
             // Serve per calcolare il valore di un campo, secpondo il campo di un altra tabella come nel caso 1 oppure
             // tramite il calcolo di una funz come nel caso 2.
             var expr = dc.ExtendedProperties[IsTempColumn];
-            if (expr != null) {
+            if (expr != null && expr.ToString()!="") {
                 if (expr is MetaExpression) dictcolProp.Add("expression", MetaExpressionSerializer.serialize(expr));
 
                 if (expr is string) dictcolProp.Add("expression", getJTokenFromObject(expr));
@@ -709,8 +805,10 @@ namespace Backend.Components {
             if (dc.ExtendedProperties["sqltype"] != null)
                 dictcolProp.Add("sqltype", getJTokenFromObject(dc.ExtendedProperties["sqltype"]));
 
-
-            dictcolProp.Add("forPosting", QueryCreator.PostingColumnName(dc));
+            if (QueryCreator.PostingColumnName(dc) != dc.ColumnName) {
+                dictcolProp.Add("forPosting", QueryCreator.PostingColumnName(dc));
+            }
+            
 
             if (dc.ExtendedProperties["ViewSource"] != null)
                 dictcolProp.Add("viewSource", getJTokenFromObject(dc.ExtendedProperties["ViewSource"]));
@@ -831,65 +929,85 @@ namespace Backend.Components {
         /// Take a DataSet and return a json string serialized with jsDataSet convention
         /// </summary>
         /// <param name="ds">Dataset to serialize in json format</param>
+        /// <param name="serializeStructure">if true also serializes table and column properties</param>
         /// <returns>The json string, representation of the ds DataSet with jsDataSet convention</returns>
-        public static JObject serialize(DataSet ds) {
+        public static JObject serialize(DataSet ds, bool serializeStructure) {
 
             var myTables = new JObject();
 
             // eseguo loop sulle tabelle
             foreach (DataTable t in ds.Tables) {
-                var tCurr = serializeDataTable(t);
+                var tCurr = serializeDataTable(t, serializeStructure,false);
                 myTables.Add(t.TableName, tCurr);
 
             }
             // Fine loop sulle Tabelle
 
 
-            // *********************************** Popolo struttura per Relazioni **********************************************
-            var myRelations = ds.Relations.Cast<DataRelation>()._Reduce(
-                (dict, rel) => {
-                    dict.Add(rel.RelationName, new JObject {
-                        {"parentTable", rel.ParentTable.TableName},
-                        {"parentCols", getColumnNamesJoinString(rel.ParentColumns)},
-                        {"childTable", rel.ChildTable.TableName},
-                        {"childCols", getColumnNamesJoinString(rel.ChildColumns)}
-                    });
-                    return dict;
-                },
-                new JObject()
-            );
+           
 
             // ********************************** Costruisco oggetto finale da farne il json **************************************
             // inserisco gli oggetti costruiti in maniera opportuna, per poter serializzare il json nel formato aspettato dal client
             var root = new JObject {
                 {"name", ds.DataSetName},
-                {"relations", myRelations},
-                {"tables", myTables}
             };
-            // ********************************************************************************************************************
 
-            return root;
+            // ********************************************************************************************************************
+            if (serializeStructure) {
+              
+                // *********************************** Popolo struttura per Relazioni **********************************************
+                var myRelations = ds.Relations.Cast<DataRelation>()._Reduce(
+                    (dict, rel) => {
+                        var parentCols = getColumnNamesJoinString(rel.ParentColumns);
+                        var childCols = getColumnNamesJoinString(rel.ChildColumns);
+                        var relObj= new JObject {
+                        {"parentTable", rel.ParentTable.TableName},
+                        {"parentCols", parentCols},
+                        {"childTable", rel.ChildTable.TableName}
+                        };
+                        if (parentCols != childCols) {
+                            relObj["childCols"] = childCols;
+                        }
+
+                        dict.Add(rel.RelationName, relObj);
+                        return dict;
+                    },
+                    new JObject()
+                );
+                root.Add("relations", myRelations);
+            }
+			root.Add("tables", myTables);
+			return root;
         }
 
         public static JArray serializeRows(IEnumerable<DataRow> rows) {
             var jRow = rows.Cast<DataRow>()._Map(r => {
                 var rDic = new JObject {["state"] = r.RowState.ToString().ToLowerInvariant()};
-                if (r.RowState == DataRowState.Deleted || r.RowState == DataRowState.Modified
-                                                       || r.RowState == DataRowState.Unchanged
-                ) {
+                if (r.RowState == DataRowState.Modified) {
                     rDic["old"] = r.Table.Columns.Cast<DataColumn>()._Reduce((dict, col) => {
                         var value = getRowColumnValue(r[col.ColumnName, DataRowVersion.Original]);
-                        if (value != DBNull.Value) dict[col.ColumnName] = getJTokenFromObject(value);
+                        if (r[col, DataRowVersion.Original].Equals(r[col, DataRowVersion.Current])) return dict;
+                        dict[col.ColumnName] = getJTokenFromObject(value);
                         return dict;
                     }, new JObject());
                 }
 
                 if (r.RowState == DataRowState.Added || r.RowState == DataRowState.Modified
-                    //   ||r.RowState == DataRowState.Unchanged
+                        || r.RowState == DataRowState.Unchanged 
                 ) {
                     rDic["curr"] = r.Table.Columns.Cast<DataColumn>()._Reduce((dict, col) => {
                         var value = getRowColumnValue(r[col.ColumnName]);
                         if (value != DBNull.Value) dict[col.ColumnName] = getJTokenFromObject(value);
+                        return dict;
+                    }, new JObject());
+                }
+
+                if (r.RowState == DataRowState.Deleted
+               ) {
+                    rDic["curr"] = r.Table.Columns.Cast<DataColumn>()._Reduce((dict, col) => {
+                        var value = getRowColumnValue(r[col.ColumnName,DataRowVersion.Original]);
+                        if (value != DBNull.Value)
+                            dict[col.ColumnName] = getJTokenFromObject(value);
                         return dict;
                     }, new JObject());
                 }
@@ -909,8 +1027,34 @@ namespace Backend.Components {
         /// Take a DataTable and return a json string serialized with js DataTable convention
         /// </summary>
         /// <param name="dt">DataTable to serialize in json format</param>
+        /// <param name="serializeStructure">if true serialize also column and table properties</param>
+        /// <param name="withName"></param>
         /// <returns>The json string, representation of the ds DataTable with js DataTable convention</returns>
-        public static JObject serializeDataTable(DataTable dt) {
+        public static JObject serializeDataTable(DataTable dt, bool serializeStructure, bool withName) {
+            var rows = serializeRows(dt.Rows.Cast<DataRow>());
+
+
+            // ***************************************** Serializzo lo staticFilter come jsDataQuery **************************
+            JObject staticFilter = null;
+            if (dt.ExtendedProperties["filterMetaExpression"] != null) {
+                staticFilter = MetaExpressionSerializer.serialize(dt.ExtendedProperties["filterMetaExpression"]);
+            }
+
+            //********************************* Costrusice entry per la tabella attuale ***************************************
+
+            var tCurr = new JObject {
+                //{"name", dt.TableName},
+                {"key", string.Join(",", dt.PrimaryKey.Select(dc => dc.ColumnName).ToArray())},
+                { "rows", rows},
+                };
+
+            if (withName) {
+                tCurr.Add("name",dt.TableName);
+			}
+            if (!serializeStructure) {
+                return tCurr;
+			}
+            
             // dictionary di colonne, chiave nome colonna + dict di properties (fisse  + eventuali extendedProperties)
             var myColumns = new JObject();
             var myAutoIncrementColumns = new JObject();
@@ -938,7 +1082,10 @@ namespace Backend.Components {
 
                 }
             }
+            tCurr.Add("columns", myColumns);
 
+            bool anyAutoIncrement= false;
+            bool anyDefault=false;
             foreach (DataColumn c in dt.Columns) {
                 myColumns.Add(c.ColumnName, getColumnProperties(c));
 
@@ -946,59 +1093,65 @@ namespace Backend.Components {
                 if (RowChange.IsAutoIncrement(c)) {
                     myAutoIncrementColumns.Add(c.ColumnName,
                         getColumnDictAutoincrementProperties(c, listOfSelector, listOfSelectorMask));
+                    anyAutoIncrement=true;
                 }
 
                 // ************** Aggiunge la serializzazione del set di default per le colonne del datatable ***********
                 // distunguo caso sia una data, in quel caso formatto nel formato aspettato
                 object defValue = c.DefaultValue;
-                if (defValue is DateTime) {
-                    defValue = ((DateTime) defValue).ToString(c_data_format);
-                }
+                if (defValue !=null && defValue !=DBNull.Value) {
+                    if (defValue is DateTime) {
+                        defValue = ((DateTime)defValue).ToString(c_data_format);
+                    }
 
-                myDefaults.Add(c.ColumnName, getJTokenFromObject(defValue));
+                    myDefaults.Add(c.ColumnName, getJTokenFromObject(defValue));
+                    anyDefault=true;
+                }
             }
 
             // ******************************************************* Popolo righe *******************************************
-            var rows = serializeRows(dt.Rows.Cast<DataRow>());
+        
+            if (DataAccess.GetTableForReading(dt) != dt.TableName) {
+                tCurr.Add("tableForReading", DataAccess.GetTableForReading(dt));
+			}
+            if (dt.tableForPosting() != dt.TableName) {
+                tCurr.Add("tableForWriting", getJTokenFromObject(dt.tableForPosting()));
+            }
+			if (dt.ExtendedProperties["cached"] != null) {
+                tCurr.Add("isCached", getJTokenFromObject(dt.ExtendedProperties["cached"]));
+            }
+            if (PostData.IsTemporaryTable(dt)) {
+                tCurr.Add("isTemporaryTable", true);
+            }            
 
-
-            // ***************************************** Serializzo lo staticFilter come jsDataQuery **************************
-            JObject staticFilter = null;
-            if (dt.ExtendedProperties["filterMetaExpression"] != null) {
-                staticFilter = MetaExpressionSerializer.serialize(dt.ExtendedProperties["filterMetaExpression"]);
-            }  
-
-            //********************************* Costrusice entry per la tabella attuale ***************************************
-
-            var tCurr = new JObject {
-                {"name", dt.TableName},
-                {"key", string.Join(",", dt.PrimaryKey.Select(dc => dc.ColumnName).ToArray())},
-                {"columns", myColumns},
-                {"rows", rows},
-                {"tableForReading", DataAccess.GetTableForReading(dt)},
-                {"tableForWriting", QueryCreator.PostingTableName(dt)},
-                {"isCached", getJTokenFromObject(dt.ExtendedProperties["cached"])},
-                {"isTemporaryTable", PostData.IsTemporaryTable(dt)},
-                {"autoIncrementColumns", myAutoIncrementColumns},
-                {"staticFilter", staticFilter},
-                {"skipSecurity", (dt.ExtendedProperties["SkipSecurity"] != null)},
-                {"skipInsertCopy", QueryCreator.SkipInsertCopy(dt)}, {
-                    "realTable",
-                    (dt.ExtendedProperties["RealTable"] != null
-                        ? ((DataTable) dt.ExtendedProperties["RealTable"]).TableName
-                        : "")
-                }, {
-                    "viewTable",
-                    (dt.ExtendedProperties["ViewTable"] != null
-                        ? ((DataTable) dt.ExtendedProperties["ViewTable"]).TableName
-                        : "")
-                }, {
-                    "denyClear",
-                    (dt.ExtendedProperties["DenyClear"] != null ? (String) dt.ExtendedProperties["DenyClear"] : null)
-                },
-                {"defaults", myDefaults},
-                {"orderBy", dt.getSorting()}
-            };
+            if (anyAutoIncrement) {
+                tCurr.Add("autoIncrementColumns", myAutoIncrementColumns);
+            }
+            if (anyDefault) {
+                tCurr.Add("defaults", myDefaults);
+            }
+            if (staticFilter != null) {
+                tCurr.Add("staticFilter", staticFilter);
+            }
+            if (dt.ExtendedProperties["SkipSecurity"] != null) {
+                if ((bool) dt.ExtendedProperties["SkipSecurity"]) tCurr.Add("skipSecurity", true);
+            }
+            if (QueryCreator.SkipInsertCopy(dt)) {
+                tCurr.Add("skipInsertCopy", true);
+            }
+            if (dt.ExtendedProperties["RealTable"] != null) {
+                tCurr.Add("realTable", ((DataTable)dt.ExtendedProperties["RealTable"]).TableName);
+            }
+            if (dt.ExtendedProperties["ViewTable"] != null) {
+                tCurr.Add("viewTable", ((DataTable)dt.ExtendedProperties["ViewTable"]).TableName);
+            }
+            if (dt.ExtendedProperties["DenyClear"] != null) {
+                tCurr.Add("denyClear", (String)dt.ExtendedProperties["DenyClear"]);
+            }
+            var sorting = dt.getSorting();
+            if (sorting != null && sorting!="") {
+                tCurr.Add("orderBy", sorting);
+            }
 
             return tCurr;
 

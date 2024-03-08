@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,7 +37,7 @@ CREATE  PROCEDURE [rpt_docvendita]
 	@autoinvoice char(1)
 )
 AS BEGIN
---	exec rpt_docvendita 2019, 'I', 4, 13, 13, 'N', 'P','N'
+--	exec rpt_docvendita 2023, 'I', 7, 16, 16, 'N', 'P','N'
 IF @ayear = 0
 BEGIN
 	SET @ayear='1900'
@@ -62,6 +62,8 @@ CREATE TABLE #sellingdoc
 	cc varchar(30),	
 	iban varchar(50),
 	bic varchar(15),
+	paymethod varchar(50),
+	idfepaymethod varchar(10),
 	header_treasurer varchar(150),
 	ref_desc varchar(150),
 	description varchar(150),
@@ -284,6 +286,8 @@ INSERT INTO #sellingdoc
 	cc,	
 	iban,
 	bic,
+	paymethod,
+	idfepaymethod,
 	header_treasurer,
 	printingcode_real,
 	flagbankitaliaproceeds,
@@ -354,6 +358,8 @@ SELECT
 	T.cc,	
 	T.iban,
 	T.bic,
+	M.description,
+	M.idfepaymethod,
 	T.header,
 	invoicekind.printingcode,
 	ISNULL(R.flagbankitaliaproceeds,'N'),
@@ -361,11 +367,14 @@ SELECT
 	D.cupcode,
 	D.cigcode
 FROM #invoicedetail D
-JOIN invoice I				ON isnull(I.idinvkind_real, I.idinvkind) = D.idinvkind	AND isnull(I.yinv_real, I.yinv) = D.yinv	AND isnull(I.ninv_real, I.ninv) = D.ninv
-JOIN invoicekind			ON I.idinvkind = invoicekind.idinvkind
-JOIN registry R				ON R.idreg = I.idreg
-LEFT OUTER JOIN treasurerview T		ON I.idtreasurer = T.idtreasurer and T.ayear = @ayear
-WHERE I.yinv = @ayear		AND I.ninv IN (SELECT num from #printingdoc)	AND I.idinvkind = @idinvkind
+JOIN invoice I					ON isnull(I.idinvkind_real, I.idinvkind) = D.idinvkind	AND isnull(I.yinv_real, I.yinv) = D.yinv	AND isnull(I.ninv_real, I.ninv) = D.ninv
+JOIN invoicekind				ON I.idinvkind = invoicekind.idinvkind
+JOIN registry R					ON R.idreg = I.idreg
+LEFT OUTER JOIN treasurerview T	ON I.idtreasurer = T.idtreasurer and T.ayear = @ayear and I.idfepaymethod in ('MP05', 'MP19', 'MP20', 'MP21')
+LEFT OUTER JOIN fepaymethod M	ON I.idfepaymethod = M.idfepaymethod
+WHERE I.yinv = @ayear
+	AND I.ninv IN (SELECT num from #printingdoc)
+	AND I.idinvkind = @idinvkind
 
 DECLARE @dateindi datetime
 SELECT @dateindi = CONVERT(datetime, '31-12-'+ CONVERT(varchar(4),@ayear), 105)
@@ -568,6 +577,8 @@ SELECT
 	#sellingdoc.cc AS cc,
 	#sellingdoc.iban AS iban,
 	#sellingdoc.bic AS bic,
+	#sellingdoc.paymethod as paymethod,
+	#sellingdoc.idfepaymethod,
 	#sellingdoc.header_treasurer as header_treasurer,
 	case 
 -- isnull(R.p_iva, isnull(R.cf, R.foreigncf))
@@ -622,7 +633,7 @@ SELECT
 FROM #sellingdoc
 JOIN ivakind IK
 	ON IK.idivakind = #sellingdoc.idivakind
-JOIN ivataxablekind ITK
+LEFT OUTER JOIN ivataxablekind ITK
 	ON IK.idivataxablekind = ITK.idivataxablekind	
 LEFT OUTER JOIN #address_sellingdoc
 	ON #address_sellingdoc.idreg = #sellingdoc.idreg
@@ -641,8 +652,4 @@ END
 
 GO
 
-SET QUOTED_IDENTIFIER OFF 
-GO
-SET ANSI_NULLS ON 
-GO
 

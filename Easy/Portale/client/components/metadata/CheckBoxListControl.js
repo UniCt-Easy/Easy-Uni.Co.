@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module CheckBoxListControl
  * @description
@@ -132,12 +115,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @method addEvents
          * @public
          * @description SYNC
-         * If "subscribe" subscribes the  ROW_SELECT event and invokes the callback "selectRowCallBack()"
          * @param {Html node} el
          * @param {MetaPage} metaPage
-         * @param {boolean} subscribe
          */
-        addEvents: function(el, metaPage, subscribe) {
+        addEvents: function(el, metaPage) {
             this.metaPage = metaPage;
         },
 
@@ -672,7 +653,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // ho calcolato nuove colonne nell'header e le inserisco
             this.addHeaders();
 
-            // creo strtuutra di righe raggruppate. passo 1 come livello di raggruppamento, poi nella ricorsione aumenterò
+            // creo struttura di righe raggruppate. passo 1 come livello di raggruppamento, poi nella ricorsione aumenterò
             this.createRows(rows);
 
             // aggiungo eventi alle righe
@@ -694,7 +675,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // inserisco l'header. Se cìè gruppo colonna gruppo + tutte quelle che non sono raggruppate
             var cols = self.orderedCols;
 
-            // calcolo array dell ecolonne su cui è impostato l'oridnamento iniziale
+            // calcolo array delle colonne su cui è impostato l'oridnamento iniziale
             var sorting = this.dataTable.orderBy();
             var colSorting = {};
             if (sorting){
@@ -708,10 +689,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             _.forEach(cols,
                 function(c, index) {
-                    var thid = appMeta.utils.getUnivoqueId();
+                    var thid = appMeta.utils.getUniqueId();
                     var $th = $('<th id="' + thid + '" style="border-bottom:1pt solid black;">');
-                    // lego la colonna al th per il drop e successivo spostamento della colonna
+                    // leggo la colonna al th per il drop e successivo spostamento della colonna
                     $th.data("mdlcolumn", c);
+
                     var cnamevalue  =  c.caption || c.name;
                     if (c.name === self.mdlwcheckboxColumn) cnamevalue = "";
                     self.addChildElement($tr, $th, cnamevalue);
@@ -722,12 +704,89 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         self.$checkboxAll.data("mdlallcheckbozes", true);
                         $th.append(self.$checkboxAll);
                         $th.width("30px");
+                    } else { // Se colonna aggiungo listener per ordinamento
+                        $th.on("click", _.partial(self.sortColumnClick, self, c));
                     }
+
+                    if (!self.isNotSort) {
+                        // se è ordinata per default metto icona bianca
+                        if (colSorting[c.name]) {
+                           if (c.mdlw_sort === "desc") {
+                              $th.text($th.text() + "   ↓");
+                           } else {
+                              $th.text($th.text() + "   ↑");
+                           }
+                        }
+                     }
                 });
 
             $($thead).appendTo(this.mytable);
         },
 
+        /**
+          * @method sortColumnClick
+          * @private
+          * @description SYNC
+          * Execute the sort of the rows on the user-click.
+          * @param {CheckBoxListControl} that
+          * @param {DataColumn} column
+          */
+        sortColumnClick: function (that, column) {
+            // ordino la collection attuale delle rgihe
+            column.mdlw_sort = column.mdlw_sort ? (column.mdlw_sort === 'asc' ? 'desc' : 'asc') : 'asc';
+            let def = Deferred('sortColumnClick');
+            // nel caso di elenco con paginazione dovrei rilanciare la query sul backend per calcolare la nuova paginazione
+            if (that.metaPage.sortPaginationChange) {
+                let newSort = column.name + " " + column.mdlw_sort;
+                return that.metaPage.sortPaginationChange(newSort)
+                    .then(function (sortDone) {
+                    if (!sortDone) {
+                        that.sortAfterClick(that, column);
+                    }
+                    return def.resolve();
+                });
+            }
+            else {
+               that.sortAfterClick(that, column);
+               return def.resolve();
+            }
+        },
+
+        sortAfterClick: function (that, column) {
+            _.forEach(that.gridRows,
+                function(r, i){ 
+                    let htmlCheckBox = $(r.getRow().table.linkedGrid.el).find('table>tr:eq('+i+')').find("input[type=checkbox]");
+                    r.isChecked = $(htmlCheckBox).is(":checked"); //Segno le righe con la check impostata, per poi poterle ripristinare
+                }
+            );
+
+            that.gridRows = _.orderBy(that.gridRows, function (row) {
+                let value = row[column.name];
+                if (value) {
+                    if (value instanceof Date) return value.getTime();
+                    if (!isNaN(value)) return value;
+                    return value.toLowerCase ? value.toLowerCase() : value;
+                }
+                return value;
+            }, [column.mdlw_sort]);
+   
+            // assegno anche al dt nuovo ordinamento temporaneo, se non si tratta di colonna calcolata
+            if (!appMeta.metaModel.temporaryColumn(column)) {
+                that.dataTable.orderBy(column.name + " " + column.mdlw_sort);
+            }
+   
+            // ridisegno grid con le righe ordinate
+            that.redrawGrid();
+
+            _.forEach(that.gridRows,
+                function(r, i){ 
+                    let htmlCheckBox = $(r.getRow().table.linkedGrid.el).find('table>tr:eq('+i+')').find("input[type=checkbox]");
+                    htmlCheckBox.prop('checked', r.isChecked);
+                    delete r.isChecked; //Rimuovo proprietà temporanea
+                }
+            );
+        },
+         
         /**
          * @method selUnsAll
          * @private

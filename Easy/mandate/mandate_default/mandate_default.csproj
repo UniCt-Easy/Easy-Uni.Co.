@@ -80,6 +80,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CurrencyManager">
+      <HintPath>..\..\dll\CurrencyManager.dll</HintPath>
+    </Reference>
+    <Reference Include="HelpWeb">
+      <HintPath>..\..\dll\HelpWeb.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
     </Reference>
@@ -119,6 +125,10 @@
     <ProjectReference Include="..\..\mandatekind\meta_mandatekind\meta_mandatekind.csproj">
       <Project>{dd5878d5-ab66-4c16-bd3b-a37866c756c7}</Project>
       <Name>meta_mandatekind</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\AskCurrencyExchange\AskCurrencyExchange.csproj">
+      <Project>{8B5DB11A-7740-45BD-BDC5-75AAA63C3A8E}</Project>
+      <Name>AskCurrencyExchange</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
       <Name>ep_functions</Name>
@@ -259,7 +269,7 @@
     <Compile Include="Frm_mandate_default.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="vistaForm.Designer.cs">
+    <Compile Include="vistaForm.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaForm.xsd</DependentUpon>
@@ -322,8 +332,8 @@
     </EmbeddedResource>
     <Content Include="vistaForm.xsd">
       <Generator>HDSGene</Generator>
-      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>vistaForm.cs</LastGenOutput>
     </Content>
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>

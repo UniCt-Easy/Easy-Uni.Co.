@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * Custom Control for the tree of a table with autorelation
  * @module TreeControl
@@ -133,7 +116,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          var dtTree = metapage.getDataTable(treeTableName);
          var idParentVirtual = 9999999;
 
-
          var arrayEq = _.map(metapage.getPrimaryDataTable().key(), function (columnName) {
             return q.eq(columnName, currentRow[columnName]);
          });
@@ -148,11 +130,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          }
        
          // se non è sul dataset vedo sul db
-         return appMeta.getData.runSelect(treeTableName, '*', rootCondition)
+          return appMeta.getData.runSelect(prms.tableForReading, '*', rootCondition)
             .then(function (table) {
                // non esiste già rootcondition, creo la riga
                if (!table.rows.length) {
-                  var meta = appMeta.getMeta(treeTableName);
+                  var meta = appMeta.getMeta(prms.tableForReading);
                   var objDefaults = {};
                   objDefaults[parIdTreeColumnName] = idParentVirtual;
                   objDefaults[prms.rootColumnNameTitle] = prms.rootTitle;
@@ -181,7 +163,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * Builds the upload control and appends to the parent
        */
       buildTemplateHtml: function () {
-         var uniqueid = appMeta.utils.getUnivoqueId();
+         var uniqueid = appMeta.utils.getUniqueId();
          this.idBtnAdd = "btn_add_node" + uniqueid;
          this.idBtnEdit = "btn_edit_node" + uniqueid;
          this.idBtnDel = "btn_del_node" + uniqueid;
@@ -480,7 +462,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        */
       getControl: function () {
          // TODO. LA GET NON DOVREBBE ESSER NECESSARIA, IL BIND VIENE FATTO SULLA UPLOAD STESSA, QUANDO ESEGUO L'ASSEGNAZIONE
-         // DEL VALORE DELL'ID ATTACH TORNATO DAL SERVER
+         // DEL VALORE DELL'ID ATTACH RICEVUTO DAL SERVER
       },
 
       /**
@@ -549,7 +531,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             self.timeoutId = setTimeout(function () {
                self.selectNodeEv(data.node, true);
-            }, appMeta.dbClickTimeout);
+            }, appMeta.currApp.dbClickTimeout);
 
 
          });

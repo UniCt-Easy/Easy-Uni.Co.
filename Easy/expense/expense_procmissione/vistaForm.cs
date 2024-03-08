@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -504,7 +504,7 @@ private void initClass() {
 
 	//////////////////// ITINERATION /////////////////////////////////
 	var titineration= new itinerationTable();
-	titineration.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","cu","ct","lu","lt","completed","idaccmotive","idsor1","idsor2","idsor3","idupb","iditineration","idaccmotivedebit","idaccmotivedebit_crg","applierannotations","idaccmotivedebit_datacrg","idman","idsor01","idsor02","idsor03","idsor04","idsor05","idsor_siope");
+	titineration.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","cu","ct","lu","lt","completed","idaccmotive","idsor1","idsor2","idsor3","idupb","iditineration","idaccmotivedebit","idaccmotivedebit_crg","applierannotations","idaccmotivedebit_datacrg","idman","idsor01","idsor02","idsor03","idsor04","idsor05","idsor_siope","datecompleted");
 	Tables.Add(titineration);
 	titineration.defineKey("iditineration");
 

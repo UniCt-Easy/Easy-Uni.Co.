@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,6 +25,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 
+-- setuser 'amministrazione'
 
 CREATE    PROCEDURE[rpt_sit_residui_per_anno_dett2]
 	@ayear 		int,
@@ -47,6 +48,9 @@ DECLARE @regphase int
 DECLARE @namephase varchar(150)
 DECLARE @Txt1 VARCHAR(MAX)
 SET @Txt1=''		
+
+DECLARE @txt_max_len int
+SET @txt_max_len = 1000
 
 CREATE TABLE #report_residual
 (
@@ -759,7 +763,10 @@ AS
 					ymov as 'Anno Mov.',
 					nmov as 'Numero Mov.',
 					#report_residual.description as 'Descrizione Movimento finanziario',
-					#report_residual.txt as 'Versanti',
+					case 
+						when len(#report_residual.txt) <= @txt_max_len then #report_residual.txt
+						else substring(#report_residual.txt, 1, charindex('/', #report_residual.txt, @txt_max_len)) + ', ed altri'
+					end as 'Versanti',
 					SUM(ISNULL(initial_residual,0.0)) 	as 'Pre Accertamento al 01/01',
 					SUM(ISNULL(var_residual,0.0)) 		as 'Variazioni Pre Acc.',
 					SUM(ISNULL(initial_fase2,0.0)) 	as 'Accertamento al 01/01',
@@ -800,7 +807,10 @@ AS
 					ymov as 'Anno Mov.',
 					nmov as 'Numero Mov.',  
 					#report_residual.description as 'Descrizione Movimento finanziario',
-					#report_residual.txt as 'Versanti',
+					case
+						when len(#report_residual.txt) <= @txt_max_len then #report_residual.txt
+						else substring(#report_residual.txt, 1, charindex('/', #report_residual.txt, @txt_max_len)) + ', ed altri'
+					end as 'Versanti',
 					initial_residual as 'Pre Accertamento al 01/01',
 					var_residual as 'Variazioni Accertamento',
 					initial_fase2 as 'Accertamento al 01/01',
@@ -835,7 +845,10 @@ AS
 					ymov as 'Anno Mov.',
 					nmov as 'Numero Mov.',
 					#report_residual.description as 'Descrizione Movimento finanziario',
-					#report_residual.txt as 'Fornitori',
+					case
+						when len(#report_residual.txt) <= @txt_max_len then #report_residual.txt
+						else substring(#report_residual.txt, 1, charindex('/', #report_residual.txt, @txt_max_len)) + ', ed altri'
+					end as 'Fornitori',
 					SUM(ISNULL(initial_residual,0.0)) 	as 'Pre Impegno al 01/01',
 					SUM(ISNULL(var_residual,0.0)) 		as 'Variazioni su Pre Impegno',
 					SUM(ISNULL(initial_fase2,0.0)) 	as 'Importo Impegno al 01/01',
@@ -875,7 +888,10 @@ AS
 					ymov as 'Anno Mov.',
 					nmov as 'Numero Mov.',idexp1, 
 					#report_residual.description as 'Descrizione Movimento finanziario',
-					#report_residual.txt as 'Fornitori',
+					case
+						when len(#report_residual.txt) <= @txt_max_len then #report_residual.txt
+						else substring(#report_residual.txt, 1, charindex('/', #report_residual.txt, @txt_max_len)) + ', ed altri'
+					end as 'Fornitori',
 					initial_residual as 'Pre-Impegno al 01/01',
 					var_residual as 'Variazioni su Pre-Impegno',
 					initial_fase2 as 'Impegno al 01/01',

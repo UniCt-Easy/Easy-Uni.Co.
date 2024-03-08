@@ -7,7 +7,7 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="-47" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:provisiondetail" ZOrder="7" X="70" Y="70" Height="238" Width="153" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="234" />
-    <Shape ID="DesignTable:provision" ZOrder="6" X="402" Y="229" Height="304" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="300" />
+    <Shape ID="DesignTable:provision" ZOrder="6" X="402" Y="229" Height="304" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="300" />
     <Shape ID="DesignTable:registry" ZOrder="4" X="678" Y="295" Height="304" Width="164" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="300" />
     <Shape ID="DesignTable:accmotiveapplied" ZOrder="2" X="396" Y="29" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
   </Shapes>
@@ -16,11 +16,15 @@
       <RoutePoints>
         <Point>
           <X>678</X>
-          <Y>413</Y>
+          <Y>541</Y>
         </Point>
         <Point>
-          <X>552</X>
-          <Y>413</Y>
+          <X>535</X>
+          <Y>541</Y>
+        </Point>
+        <Point>
+          <X>535</X>
+          <Y>533</Y>
         </Point>
       </RoutePoints>
     </Connector>

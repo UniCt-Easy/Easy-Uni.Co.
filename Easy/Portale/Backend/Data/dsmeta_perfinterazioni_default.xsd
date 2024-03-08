@@ -16,10 +16,15 @@
             <xs:sequence>
               <xs:element name="commenti" type="xs:string" minOccurs="0" />
               <xs:element name="commentival" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idperfinterazionekind" type="xs:int" />
               <xs:element name="idperfinterazioni" type="xs:int" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="utente" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

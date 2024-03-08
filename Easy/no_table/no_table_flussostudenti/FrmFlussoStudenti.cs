@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -67,15 +67,18 @@ namespace no_table_flussostudenti {
 			totali
 		}
 		public IOpenFileDialog openInputFileDlg;
+		public IFolderBrowserDialog folderBrowserDialog1;
 
 		public Frmflussostudenti() {
 			InitializeComponent();
+			openInputFileDlg = createOpenFileDialog(_openInputFileDlg);			
+			folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+
 			var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
 				"flussostudenti/prog/temp");
 			if (Directory.Exists(dir)) {
 				saveOutputFileDlg.InitialDirectory = dir;
-			}
-			openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
+			}			
 		}
 
 		private ISecurity _security;
@@ -225,7 +228,9 @@ namespace no_table_flussostudenti {
 					tExcel.Columns.Add("cognome_studente", typeof(string));
 					tExcel.Columns.Add("memorizza_causale_anagrafica", typeof(string));
 					tExcel.Columns.Add("codice_causale_finanziaria_iva", typeof(string));
-					break;
+					tExcel.Columns.Add("codice_listino", typeof(string));
+
+						break;
 				}
 
 				//Non usato al momento
@@ -255,7 +260,8 @@ namespace no_table_flussostudenti {
 					tExcel.Columns.Add("data_incasso", typeof(DateTime));
 					tExcel.Columns.Add("codice_bollettino_univoco", typeof(string));
 					tExcel.Columns.Add("importo", typeof(decimal));
-					break;
+					tExcel.Columns.Add("iuv", typeof(string));
+						break;
 				}
 			}
 
@@ -296,9 +302,12 @@ namespace no_table_flussostudenti {
 			object mysender = ((MenuItem) sender).Parent.GetContextMenu()?.SourceControl;
 			foreach (var ib in _allButton) {
 				if (ib.Btn != mysender) continue;
-				new FrmShowTracciato(getTracciato(ib.Tracciato), getTableTracciato(ib.Tracciato), "struttura")
-					.ShowDialog();
-				return;
+
+                FrmShowTracciato F = new FrmShowTracciato(getTracciato(ib.Tracciato), getTableTracciato(ib.Tracciato), "struttura");
+                createForm(F, null);
+                F.ShowDialog();
+
+                return;
 			}
 		}
 
@@ -337,8 +346,11 @@ namespace no_table_flussostudenti {
 			var rec = reader.GetCurrRecord();
 
 			reader.Close();
-			new FrmShowTracciato(rec, tableTracciato, "primo record").ShowDialog();
-		}
+
+            FrmShowTracciato F = new FrmShowTracciato(rec, tableTracciato, "primo record");
+            createForm(F, null);
+            F.ShowDialog();
+        }
 
 
 
@@ -537,7 +549,8 @@ namespace no_table_flussostudenti {
 					dt.Columns["cognome_studente"].Caption = "Cognome studente";
 					dt.Columns["memorizza_causale_anagrafica"].Caption = "Memorizza causale anagrafica";
 					dt.Columns["codice_causale_finanziaria_iva"].Caption = "Causale finanziaria IVA";
-					break;
+					dt.Columns["codice_listino"].Caption = "Codice Listino";
+						break;
 				}
 
 				case "faseuno_essetre": {
@@ -562,7 +575,8 @@ namespace no_table_flussostudenti {
 					dt.Columns["numero_sospeso_attivo"].Caption = " Numero Sospeso Attivo";
 					dt.Columns["data_incasso"].Caption = "Data Contabile";
 					dt.Columns["codice_bollettino_univoco"].Caption = "Cod. Bollettino Univoco";
-					break;
+					dt.Columns["iuv"].Caption = "Identificativo Univoco di Versamento";
+						break;
 				}
 			}
 		}
@@ -586,7 +600,8 @@ namespace no_table_flussostudenti {
 			"nome_studente;Nome Studente (ai fini di creare un'anagrafica specifica);Stringa;50",
 			"cognome_studente;Cognome Studente (ai fini di creare un'anagrafica specifica);Stringa;50",
 			"memorizza_causale_anagrafica;Memorizza la causale di credito dell'anagrafica;Codificato;1;S|N",
-			"codice_causale_finanziaria_iva;Codice Causale Finanziaria per IVA;Stringa;50"
+			"codice_causale_finanziaria_iva;Codice Causale Finanziaria per IVA;Stringa;50",
+			"codice_listino;Codice Listino;Stringa;50"
 		};
 
 		//string[] _tracciatoFlussostudentiFaseunoEssetre =
@@ -613,7 +628,8 @@ namespace no_table_flussostudenti {
 			"numero_sospeso_attivo; Numero Sospeso Attivo; Intero;10",
 			"data_incasso; Data Incasso;Data;10",
 			"codice_bollettino_univoco;Codice Bollettino Univoco;Stringa;50",
-			"importo;Importo Totale;Numero;22"
+			"importo;Importo Totale;Numero;22",
+			"iuv;Identificativo Univoco di Versamento;Stringa;100"
 		};
 
 
@@ -1009,6 +1025,9 @@ namespace no_table_flussostudenti {
 					// ok = false;
 				}
 
+				var oCodiceListino = getVal(20, "codice_listino", r, "faseuno", out errore);
+				if (errore != "") err = err + " " + errore; // non bloccante
+
 				var idupb = getIdUpb(oCodiceUpb, out errore);
 				if (idupb == DBNull.Value && errore != "") {
 					err += " " + errore;
@@ -1075,6 +1094,11 @@ namespace no_table_flussostudenti {
 					ok = false;
 				}
 
+				var idList = GetIdListForCodelist(oCodiceListino, out errore);
+				if ((idList == null) && (errore != "")) {
+					err += " " + errore;
+					ok = false;
+				}
 
 				r["riga"] = nrigacorrente;
 				//R["codice_fiscale_studente"] = o_codice_fiscale_studente;
@@ -1134,10 +1158,12 @@ namespace no_table_flussostudenti {
 			}
 
 			if (estimateSkipped.Count > 0) {
-				var w = new wndDisplay("Contratti attivi da rivedere",
+                wndDisplay w = new wndDisplay("Contratti attivi da rivedere",
 					"Per i seguenti contratti attivi non sono state generati movimenti di budget e/o scritture E/P",
 					estimateSkipped);
-				w.Show(this);
+
+                createForm(w, this);
+                w.Show(this);
 				return true;
 			}
 
@@ -1179,10 +1205,12 @@ namespace no_table_flussostudenti {
 			}
 
 			if (invoiceSkipped.Count > 0) {
-				var w = new wndDisplay("Fatture da rivedere",
+                wndDisplay w = new wndDisplay("Fatture da rivedere",
 					"Per le seguenti fatture non sono state generati movimenti di budget e/o scritture E/P",
 					invoiceSkipped);
-				w.Show(this);
+
+                createForm(w, this);
+                w.Show(this);
 				return;
 			}
 
@@ -1544,7 +1572,7 @@ namespace no_table_flussostudenti {
 			if (dtToImport.Select().Length > 0) {
 				var view = new DataView(dtToImport) {Sort = "data_incasso,numero_sospeso_attivo"};
 
-				var newTable = view.ToTable(true, "data_incasso", "numero_sospeso_attivo");
+				var newTable = view.ToTable(true, "data_incasso", "numero_sospeso_attivo","iuv");
 				// Ciclo per la creazione di una riga in Flusso Incassi
 				
 				foreach (var rFlusso in newTable.Select()) {
@@ -1667,6 +1695,7 @@ namespace no_table_flussostudenti {
 			DS.invoicedetail.Clear();
 			DS.ivaregister.Clear();
 			DS.registry.Clear();
+			DS.list.Clear();
 			// riempie il Dataset con le righe de i crediti e dei dettagli
 			// a partire dalla tabella temporanea mData 
 
@@ -1681,7 +1710,7 @@ namespace no_table_flussostudenti {
 				string errore;
 				foreach (DataRow rr in dtToImport.Rows) {
 					var oCodiceFiscaleStudente = rr["codice_fiscale_studente"];
-
+			
 					if ((oCodiceFiscaleStudente == null) || (oCodiceFiscaleStudente == DBNull.Value)) {
 						DS.registry.Clear();
 						show(this, "Codice fiscale studente non valorizzato", "Errore");
@@ -1705,6 +1734,15 @@ namespace no_table_flussostudenti {
 						DS.registry.Clear();
 						show(errore, "Errore in creazione nuova anagrafica");
 						return;
+					}
+
+
+					var oCodiceListino = rr["codice_listino"];
+					var idList = GetIdListForCodelist(oCodiceListino, out errore);
+					if ((idList == null) && (errore != "")) {
+						DS.list.Clear();
+						show(errore, "Errore");
+						//return;
 					}
 				}
 
@@ -1739,6 +1777,8 @@ namespace no_table_flussostudenti {
 					show(errore, "");
 					return;
 				}
+
+
 
 				rNewFlussoCrediti["datacreazioneflusso"] = _security.GetSys("datacontabile");
 				rNewFlussoCrediti["flusso"] = DBNull.Value;
@@ -1816,6 +1856,15 @@ namespace no_table_flussostudenti {
 						continue;
 					}
 
+					var oCodiceListino = rigaTracciatoCrediti["codice_listino"];
+					var idList = GetIdListForCodelist(oCodiceListino, out errore);
+					//La presenza di errore o assenza campo listino non deve bloccare l'elaborazione dei dati, perchè il campo non è obbligatorio
+					 
+					//if ((idList == null) && (errore != "")) {
+					//	show(errore, "Errore");
+					//	return;
+					//}
+
 					if (oOperazione.ToString() == "I") {
 						#region inserimento nuovo dettaglio credito in base alla riga del tracciato
 
@@ -1850,7 +1899,7 @@ namespace no_table_flussostudenti {
 						rNewFlussocreditiDetail["competencystop"] = competencystop;
 						rNewFlussocreditiDetail["description"] = description;
 						rNewFlussocreditiDetail["cf"] = oCodiceFiscaleStudente.ToString().ToUpper();
-
+						rNewFlussocreditiDetail["idlist"] = idList; 
 						rNewFlussocreditiDetail["idreg"] = oIdreg;
 						rNewFlussocreditiDetail["idupb"] = idupb;
 						rNewFlussocreditiDetail["ct"] = DateTime.Now;
@@ -1894,7 +1943,7 @@ namespace no_table_flussostudenti {
 							//copia alcuni campi dalla riga originale da annullare
 							foreach (var field in new[] {
 								"importoversamento", "idestimkind", "yestim", "nestim", "rownum", "idinvkind", "yinv",
-								"ninv", "invrownum","tax"
+								"ninv", "invrownum","tax","idlist"
 							}) {
 								// ReSharper disable once PossibleNullReferenceException
 								rNewFlussocreditiDetail[field] = rToAnnull[field];
@@ -1958,8 +2007,13 @@ namespace no_table_flussostudenti {
 				filterEntrata = _qhs.FieldIn("idinc", rr, "idinc");
 			}
 
-			ShowAutomatismi.Show(_meta as MetaData, null, filterEntrata, null, null)?.ShowDialog(this);
-		}
+			Form F = ShowAutomatismi.Show(_meta as MetaData, null, filterEntrata, null, null);
+            if (F != null)
+            {
+                createForm(F, null);
+                F.ShowDialog();
+            }
+        }
 
 		void copyRelation(DataSet dest, DataRelation sourceRel) {
 			if (dest.Relations.Contains(sourceRel.RelationName)) return;
@@ -2367,7 +2421,8 @@ namespace no_table_flussostudenti {
 			            "numero_sospeso_attivo; Numero Sospeso Attivo; Intero;10",
 			            "data_incasso; Data Incasso;Data;8",
 			            "codice_bollettino_univoco;Codice Bollettino Univoco;Stringa;50",
-			            "importo;Importo Totale;Numero;22"
+			            "importo;Importo Totale;Numero;22",
+						"iuv;Identificativo Univoco di Versamento;Stringa;100"
 			 * */
 
 			var ok = true;
@@ -2387,6 +2442,8 @@ namespace no_table_flussostudenti {
 				var oCodiceBollettinoUnivoco = getVal(4, "codice_bollettino_univoco", r, "fasedue", out errore);
 				if (errore != "") err = err + " " + errore;
 				var oImporto = getVal(5, "importo", r, "fasedue", out errore);
+				if (errore != "") err = err + " " + errore;
+				var oIdentificativoUnivocoVersamenti = getVal(6, "iuv", r, "fasedue", out errore);
 				if (errore != "") err = err + " " + errore;
 
 
@@ -2749,6 +2806,7 @@ namespace no_table_flussostudenti {
 			DS.income.Clear();
 			DS.incomeestimate.Clear();
 			DS.incomeinvoice.Clear();
+			DS.incomelastestimatedetail.Clear();
 			righeContrattoAttivo.Clear();
 			initPBar("Inizializzazione creazione contratti da flusso screditi",5);
 
@@ -2881,6 +2939,7 @@ namespace no_table_flussostudenti {
 				var competencystop = rCreditiDetail.competencystop;
 				var description = rCreditiDetail.description;
 				var nform = rCreditiDetail.nform;
+				var idlist = rCreditiDetail.idlist;
 
 				var number = CfgFn.GetNoNullDecimal(rCreditiDetail["number"]);
 				if (number == 0) number = 1;
@@ -2995,6 +3054,7 @@ namespace no_table_flussostudenti {
 				rNewDetail.number = number;
 				rNewDetail.toinvoice = "N"; // sono di tipo non fatturabile 
 				rNewDetail.nform = nform; // numero bollettino solo a titolo informativo
+				rNewDetail.idlist = idlist;
 
 				if (idaccmotiverevenue == null) {
 					errore =
@@ -3058,6 +3118,7 @@ namespace no_table_flussostudenti {
 		/// </summary>
 		/// <returns></returns>
 		private bool fillAnnulment(object _from, object _to) {
+		 
 			QueryCreator.MarkEvent("Inizio fillAnnulment");
 			initPBar("Inizializzazione Elaborazione annullamento crediti",1);
 			// Ciclo per l'annullamento dei dettagli
@@ -3093,10 +3154,14 @@ namespace no_table_flussostudenti {
 			string whereUPB = ""; //filtro sulla sicurezza
 			if (secUpb != null & secUpb!="") {
 				var qSec = MetaExpressionParser.From(secUpb);
-				qSec.cascadeSetTable("upb");
-				joinUPB = " JOIN UPB ON flussocreditidetail.idupb=UPB.idupb ";
-				whereUPB = " AND " + qSec.toSql(_qhs, _conn);
+				if (qSec!=null) {
+					qSec.cascadeSetTable("upb");
+	
+					joinUPB = " JOIN UPB ON flussocreditidetail.idupb=UPB.idupb ";
+					whereUPB = " AND " + qSec.toSql(_qhs, _conn);
+				}
 			}
+
 			string joinFlussoCreditidetail = ""; //join che sarà fatto tra flussocreditidetail e Estimatedetail 
 			joinFlussoCreditidetail = " JOIN flussocreditidetail ON flussocreditidetail.idestimkind=estimatedetail.idestimkind " +
 				" and flussocreditidetail.yestim=estimatedetail.yestim and flussocreditidetail.nestim=estimatedetail.nestim " +
@@ -3241,7 +3306,7 @@ namespace no_table_flussostudenti {
 							$"Il dettaglio {estimateDetailRow.idestimkind} {estimateDetailRow.yestim} {estimateDetailRow.nestim} riga {estimateDetailRow.rownum}" +
 							$" {estimateDetailRow.detaildescription} non può essere annullato perchè già incassato",
 							"Errore");
-						continue;
+						 continue;
 					}
 
 					estimateDetailRow["stop"] = stop;
@@ -3252,24 +3317,39 @@ namespace no_table_flussostudenti {
 					//    var maxNvar = _conn.DO_READ_VALUE("incomevar", fltmovI, "max(nvar)");
 					//    nvar = CfgFn.GetNoNullInt32(maxNvar) + 1;
 					//}
+					// Ciclo per creare le variazioni 
 
-					MetaData.SetDefault(DS.incomevar, "idinc", idincTaxable);
-					var var = metaIncomeVar.Get_New_Row(null, DS.incomevar);
-					metaIncomeVar.SetDefaults(DS.incomevar);
-					var["yvar"] = esercizio;
-					//var["nvar"] = nvar;
-					var["adate"] = _security.GetDataContabile();
-					var["idinc"] = idincTaxable;
-					var["autokind"] = 11; // annullamento totale
-					var["amount"] = -amount;
-					var["description"] = $"Annul. bollettino univoco numero {iduniqueformcode}";
+					var fltmovIParent = _qhs.CmpEq("idchild", idincTaxable);
+					DataTable IncomeLink = _conn.RUN_SELECT("incomelink", "idparent", null,
+						fltmovIParent, null, true);
 
-					// Vario anche le classificazioni impostate allineandole con l'importo corrente
-					_conn.RUN_SELECT_INTO_TABLE(DS.incomesorted, null, fltmovI, null, true);
-					var rSorted = DS.incomesorted.Select(_qhc.CmpEq("idinc", idincTaxable));
-					foreach (var rSor in rSorted) {
-						rSor["amount"] = CfgFn.GetNoNullDecimal(rSor["amount"]) - amount;
-					}
+					string lista = _qhs.DistinctVal(IncomeLink.Select(), "idparent");
+					var movimentifin = IncomeLink.Select();
+				 
+					if (IncomeLink.Rows.Count >0)
+						_conn.RUN_SELECT_INTO_TABLE(DS.income, null, _qhs.FieldInList("idinc", lista), null, false);
+						_conn.RUN_SELECT_INTO_TABLE(DS.incomesorted, null, _qhs.FieldInList("idinc", lista), null, false);
+
+						foreach (object idinc in movimentifin._Pick("idparent").ToArray()) {
+							var fltmovIdinc = _qhs.CmpEq("idinc", idinc);
+							MetaData.SetDefault(DS.incomevar, "idinc", idinc);
+							var var = metaIncomeVar.Get_New_Row(null, DS.incomevar);
+							metaIncomeVar.SetDefaults(DS.incomevar);
+							var["yvar"] = esercizio;
+							//var["nvar"] = nvar;
+							var["adate"] = _security.GetDataContabile();
+							var["idinc"] = idinc;
+							if (idinc == idincTaxable)  var["autokind"] = 11; // annullamento totale
+							var["amount"] = -amount;
+							var["description"] = $"Annul. bollettino univoco numero {iduniqueformcode}";
+
+							// Vario anche le classificazioni impostate allineandole con l'importo corrente
+							_conn.RUN_SELECT_INTO_TABLE(DS.incomesorted, null, fltmovIdinc, null, true);
+							var rSorted = DS.incomesorted.Select(_qhc.CmpEq("idinc", idinc));
+							foreach (var rSor in rSorted) {
+								rSor["amount"] = CfgFn.GetNoNullDecimal(rSor["amount"]) - amount;
+							}
+						}
 				}
 
 				rCreditoAnnullo["flag"] = CfgFn.GetNoNullInt32(rCreditoAnnullo["flag"]) | 1;
@@ -3773,6 +3853,11 @@ namespace no_table_flussostudenti {
 					Application.DoEvents();
 					string erroreSiope;
 					var rigaList = DS.list.get(_conn, q.eq("idlist", rCreditiDetail["idlist"]))._First();
+					if ((rCreditiDetail["idlist"]!=DBNull.Value)&&(rigaList == null))
+					{
+						show("Voce di listino inesistente in dett. flusso crediti n° " + rCreditiDetail["idflusso"] + "/ dett. " + rCreditiDetail["iddetail"], @"Errore"); //?? mostrare errore e interrompere  
+						return -1;
+					}
 
 					var idinvkind = CfgFn.GetNoNullInt32(rCreditiDetail["idinvkind"]);
 					var invoiceRow = groupedInvoiceByidinvkindRow[idinvkind];
@@ -3904,6 +3989,23 @@ namespace no_table_flussostudenti {
 				return false;
 		}
 
+		private bool GetGestisceImpegniBudget() {
+			if (DS.config.Rows.Count > 0) {
+				DataRow rSetup = DS.config.Rows[0];
+				if (rSetup["flagepexp"] == DBNull.Value)
+					return false;
+				return (rSetup["flagepexp"].ToString() == "S");
+			}
+			else
+				return false;
+		}
+		private bool GestisceScritture() {
+			 
+	    	if (epMain.attivo)
+					return true;
+			else
+				return false;
+		}
 		#endregion
 
 
@@ -4135,6 +4237,7 @@ namespace no_table_flussostudenti {
 			DS.incomeyear.Clear();
 			DS.incomesorted.Clear();
 			DS.incomeinvoice.Clear();
+			DS.incomelastestimatedetail.Clear();
 		}
 
 		bool creaFatture(bool soloConSospesi) {
@@ -4344,20 +4447,31 @@ namespace no_table_flussostudenti {
 			}
 
 			//Estrai i dettagli crediti  corrispondenti ai dett.incassi, o per iuv o per iduniqueformcode - escludendo i crediti annullati e gli annullamenti
-			string sqlGetCrediti = $"SELECT  {colonneDettCrediti} from flussocreditidetail " +
-			                       joinUpbSql +
-			                       "WHERE EXISTS(SELECT * FROM  flussoincassidetail " +
-			                       " JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso " +
-			                       "WHERE " +
-			                       " (flussoincassidetail.iuv = flussocreditidetail.iuv OR flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode) " +
-			                       " AND " + filterNonElaborati.toSql(_qhs) +
-			                       ")" +
-			                       //Non legge i crediti di fatture collegate agli stessi iuv dei contratti
-			                       //" AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null "+
-			                       //LEGGE TUTTO, poi ragioniamo a valle su come procedere
-			                       " AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null " +
+			string sqlGetCrediti = $@"SELECT {colonneDettCrediti}
+										FROM flussocreditidetail
+										{joinUpbSql}
+										WHERE (
+											EXISTS (
+												SELECT *
+												FROM flussoincassidetail
+												JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
+												WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
+												AND {filterNonElaborati.toSql(_qhs)}
+											)
+											OR
+											EXISTS (
+												SELECT *
+												FROM flussoincassidetail
+												JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
+												WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
+												AND {filterNonElaborati.toSql(_qhs)}
+											)
+										)
+										AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null
+										{condUpbSql}";
 
-			                       condUpbSql;
+
+
 			DS.flussocreditidetail._sqlGetFromDb(_conn, sqlGetCrediti, 0);
 			incPBar();
 
@@ -4367,20 +4481,35 @@ namespace no_table_flussostudenti {
 					select "estimatedetail." + c).ToArray());
 
 			//Estrae i dettagli contratti associati ai crediti in considerazione, prendendo tutti quelli aventi gli stessi iduniqueformcode esclusi i dett. annullati
-			string sqlGetDetContratti =
-				$" SELECT {colonneDettContratti} from estimatedetail where iduniqueformcode in (" +
-				$"SELECT flussocreditidetail.iduniqueformcode from flussocreditidetail " +
-				joinUpbSql +
-				"WHERE EXISTS (SELECT * FROM  flussoincassidetail " +
-				" JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso " +
-				" WHERE " +
-				" (flussoincassidetail.iuv = flussocreditidetail.iuv OR flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode) " +
-				" AND " + filterNonElaborati.toSql(_qhs) +
-				")" +
-				" AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null " +
-				" AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null " +
-				condUpbSql +
-				") and stop is null";
+			string sqlGetDetContratti = $@"SELECT {colonneDettContratti}
+											FROM estimatedetail
+											WHERE iduniqueformcode in (
+												SELECT flussocreditidetail.iduniqueformcode
+												FROM flussocreditidetail
+												{joinUpbSql}
+												WHERE (
+													EXISTS (
+														SELECT *
+														FROM  flussoincassidetail
+														JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
+														WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
+														AND {filterNonElaborati.toSql(_qhs)}
+													)
+													OR
+													EXISTS (
+														SELECT *
+														FROM  flussoincassidetail
+														JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
+														WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
+														AND {filterNonElaborati.toSql(_qhs)}
+													)
+												)
+												AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null
+												AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null
+												{condUpbSql}
+											)
+											and stop is null";
+
 			//La sicurezza l'abbiamo già filtrata sui crediti, non c'è bisogno di filtrarla anche sul dettaglio contratto
 			DS.estimatedetail._sqlGetFromDb(_conn, sqlGetDetContratti, 0);
 			incPBar();
@@ -4392,71 +4521,111 @@ namespace no_table_flussostudenti {
 					select "estimate." + c).ToArray());
 
 			//Estrae i dettagli contratti associati ai crediti in considerazione, prendendo tutti quelli aventi gli stessi iduniqueformcode esclusi i dett. annullati
-			string sqlGetContratti =
-				$" SELECT {colonneContratti} from estimate " +
-				" where exists (select * from estimatedetail where "+
-				$" estimate.idestimkind=estimatedetail.idestimkind  "+
-				" and estimate.yestim = estimatedetail.yestim " +
-				" and estimate.nestim = estimatedetail.nestim " +
-				$" AND iduniqueformcode in (" +
-				$"SELECT flussocreditidetail.iduniqueformcode from flussocreditidetail " +
-				joinUpbSql +
-				"WHERE EXISTS (SELECT * FROM  flussoincassidetail " +
-				" JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso " +
-				" WHERE " +
-				" (flussoincassidetail.iuv = flussocreditidetail.iuv OR flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode) " +
-				" AND " + filterNonElaborati.toSql(_qhs) +
-				")" +
-				" AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null " +
-				" AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null " +
-				condUpbSql +
-				") and estimatedetail.stop is null )";
+			string sqlGetContratti = $@"SELECT {colonneContratti}
+									FROM estimate
+									WHERE
+										EXISTS (
+											SELECT * FROM estimatedetail
+											WHERE estimate.idestimkind=estimatedetail.idestimkind
+											AND estimate.yestim = estimatedetail.yestim
+											AND estimate.nestim = estimatedetail.nestim
+											AND iduniqueformcode IN (
+												SELECT flussocreditidetail.iduniqueformcode
+												FROM flussocreditidetail
+												{joinUpbSql}
+												WHERE (
+													EXISTS (
+														SELECT *
+														FROM flussoincassidetail
+														JOIN flussoincassi ON flussoincassi.idflusso = flussoincassidetail.idflusso
+														WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
+														AND {filterNonElaborati.toSql(_qhs)}
+													)
+													OR
+													EXISTS (
+														SELECT *
+														FROM flussoincassidetail
+														JOIN flussoincassi ON flussoincassi.idflusso = flussoincassidetail.idflusso
+														WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
+														AND {filterNonElaborati.toSql(_qhs)}
+													)
+												)
+												AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null
+												AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null
+												{condUpbSql}
+											)
+											AND estimatedetail.stop is null
+										)";
 			//La sicurezza l'abbiamo già filtrata sui crediti, non c'è bisogno di filtrarla anche sul dettaglio contratto
 			DS.estimate._sqlSafeMergeFromDb(_conn, sqlGetContratti, 0);
 			incPBar();
 
 
+			string sqlIncassi = $@"SELECT idinc, available
+							FROM incometotal 
+							JOIN estimatedetail ON incometotal.idinc= estimatedetail.idinc_taxable OR incometotal.idinc= estimatedetail.idinc_iva
+							WHERE incometotal.ayear = {esercizio} 
+							AND iduniqueformcode IN (
+								SELECT flussocreditidetail.iduniqueformcode
+								FROM flussocreditidetail {joinUpbSql}
+								WHERE (
+									EXISTS (
+										SELECT *
+										FROM flussoincassidetail
+										JOIN flussoincassi ON flussoincassi.idflusso = flussoincassidetail.idflusso
+										WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
+										AND {filterNonElaborati.toSql(_qhs)} 
+									)
+									OR
+									EXISTS (
+										SELECT *
+										FROM flussoincassidetail
+										JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
+										WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
+										AND {filterNonElaborati.toSql(_qhs)} 
+									)
+								)
+								AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null
+								AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null
+								{condUpbSql}
+							)
+							AND stop is null";
 
-			var Incassi = _conn.SQLRunner($@"
-				SELECT  idinc, available
-						from incometotal 
-							join estimatedetail on incometotal.idinc= estimatedetail.idinc_taxable or incometotal.idinc= estimatedetail.idinc_iva
-							where incometotal.ayear = {esercizio} 
-								and iduniqueformcode in (
-							SELECT flussocreditidetail.iduniqueformcode from flussocreditidetail {joinUpbSql}
-								WHERE EXISTS (SELECT * FROM  flussoincassidetail
-												JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
-												WHERE
-												(flussoincassidetail.iuv = flussocreditidetail.iuv OR flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
-												  AND {filterNonElaborati.toSql(_qhs)} 
-												)
-												AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null
-												AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null
-												{condUpbSql}
-												) and stop is null
-
-			",false,0);
+			var Incassi = _conn.SQLRunner(sqlIncassi, false,0);
 			incPBar();
 
 			
 
-			string sqlGetDateContratti =
-				$" SELECT estimate.adate,estimate.idestimkind, estimate.yestim,estimate.nestim from " +
-				$" estimate join estimatedetail on estimate.idestimkind=estimatedetail.idestimkind and estimate.yestim=estimatedetail.yestim and "+
-				$"    estimate.nestim=estimatedetail.nestim "+
-				$"  where estimatedetail.iduniqueformcode in (" +
-				$"SELECT flussocreditidetail.iduniqueformcode from flussocreditidetail " +
-				joinUpbSql +
-				"WHERE EXISTS (SELECT * FROM  flussoincassidetail " +
-				" JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso " +
-				" WHERE " +
-				" (flussoincassidetail.iuv = flussocreditidetail.iuv OR flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode) " +
-				" AND " + filterNonElaborati.toSql(_qhs) +
-				")" +
-				" AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null " +
-				" AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null " +
-				condUpbSql +
-				") and estimatedetail.stop is null";
+			string sqlGetDateContratti = $@"SELECT estimate.adate, estimate.idestimkind, estimate.yestim,estimate.nestim
+										FROM estimate
+										JOIN estimatedetail ON estimate.idestimkind = estimatedetail.idestimkind AND estimate.yestim = estimatedetail.yestim AND estimate.nestim = estimatedetail.nestim
+										WHERE estimatedetail.iduniqueformcode in (
+											SELECT flussocreditidetail.iduniqueformcode
+											FROM flussocreditidetail
+											{joinUpbSql}
+											WHERE (
+												EXISTS (
+													SELECT *
+													FROM  flussoincassidetail
+													JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
+													WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
+													AND {filterNonElaborati.toSql(_qhs)}
+												)
+												OR
+												EXISTS (
+													SELECT *
+													FROM  flussoincassidetail
+													JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
+													WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
+													AND {filterNonElaborati.toSql(_qhs)}
+												)
+											)
+											AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null
+											AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null
+											{condUpbSql}
+										)
+										AND estimatedetail.stop is null";
+
 			//La sicurezza l'abbiamo già filtrata sui crediti, non c'è bisogno di filtrarla anche sul dettaglio contratto
 			DataTable dateContratti = _conn.SQLRunner(sqlGetDateContratti,false,0);
 			incPBar();
@@ -4497,8 +4666,9 @@ namespace no_table_flussostudenti {
 					txtMsg.Add(m.error ? "Errore:" + m.msg : "Avviso:" + m.msg);
 				}
 
-				var disp = new wndDisplay("Messaggi ottenuti nella creazione degli incassi", "", txtMsg);
-				disp.ShowDialog(this);
+                wndDisplay disp = new wndDisplay("Messaggi ottenuti nella creazione degli incassi", "", txtMsg);
+                createForm(disp, this);
+                disp.ShowDialog(this);
 			}
 
 			return res;
@@ -4633,6 +4803,8 @@ namespace no_table_flussostudenti {
 			var incL = _dispatcher.Get("incomelast");
 			var incLD  = _dispatcher.Get("incomelastestimatedetail");
 
+			bool monofase = (fasemassima == 1);
+
 			inc.SetDefaults(DS.income);
 			incY.SetDefaults(DS.incomeyear);
 			incL.SetDefaults(DS.incomelast);
@@ -4742,6 +4914,8 @@ namespace no_table_flussostudenti {
 
 							var currUpb = rEstimDet.idupb;
 							var currUpbIva = rEstimDet.idupb_iva;
+							var idinc_Taxable = rEstimDet.idinc_taxable;
+							var idinc_Iva = rEstimDet.idinc_iva;
 							//Se è valorizzata la Causale finanziaria IVA ma non è valorizzato l'UPB iva,
 							// valorizzo l'upb iva al fine di generare un incasso separato per l'IVA [16307]
 							if ((rEstimDet.idfinmotive_iva !=null) && (currUpb!=null)&&(currUpbIva == null)){
@@ -4763,6 +4937,8 @@ namespace no_table_flussostudenti {
 										continue; //upb e upb_iva devono essere entrambi  valorizzati
 									break;
 							}
+
+							
 
 							decimal imponibile = CfgFn.GetNoNullDecimal(rEstimDet.taxable);
 							decimal sconto = CfgFn.GetNoNullDecimal(rEstimDet.discount);
@@ -4789,8 +4965,36 @@ namespace no_table_flussostudenti {
 
 							if (amountBase == 0) continue;
 
+							// per i db monofase i dettagli contratto attivo incassati in una tornata precedente
+							// devono essere dati per incassati 
+							// per evitare di incassarli due volte
+							if (monofase) {
+								switch (tipoElaborazione) {
+									case TipoElaborazioneIncassi.totali:
+										if (idinc_Taxable != null) { 
+											sumIncassiContrattiAttivi += amountBase;
+											continue; //
+										}
+										break;
+									case TipoElaborazioneIncassi.imponibile:
+										if (idinc_Taxable != null) {
+											sumIncassiContrattiAttivi += amountBase;
+										continue;
+										}
+										break;
+									case TipoElaborazioneIncassi.iva:
+										if (idinc_Iva != null) {
+											sumIncassiContrattiAttivi += amountBase;
+										continue;
+										}
+										break;
+								}
+
+							}
+
 							var collegabileafattura = getCollegabileAFattura(rEstimDet.idestimkind);
-							// Non dobbiamo incassare dettagli contratti attivi di tipo collegabile a fattura perchè in tal caso dobbiamo incassare la fattura
+							// Non dobbiamo incassare dettagli contratti attivi di tipo collegabile a fattura
+							// perchè in tal caso dobbiamo incassare la fattura
 							if (collegabileafattura) {
 								continue;
 							}
@@ -4877,12 +5081,12 @@ namespace no_table_flussostudenti {
 									}
 									if (available != DBNull.Value && available != null) {
 										if (CfgFn.GetNoNullDecimal(available) < amountBase) {
-											messages.Add(new messaggio() {
-													error = false,
-													msg =
-														$"Il bollettino {codiceBollettino} risulta collegato ad un accertamento già incassato. Disponibile: {available} incasso: {amountBase}"
-												}
-											);
+											//messages.Add(new messaggio() {
+											//		error = false,
+											//		msg =
+											//			$"Il bollettino {codiceBollettino} risulta collegato ad un accertamento già incassato. Disponibile: {available} incasso: {amountBase}"
+											//	}
+											//);
 
 											//show($"Il bollettino {codiceBollettino} risulta collegato ad un accertamento già incassato. Disponibile: {available} incasso: {amountBase}", "Avviso");
 											continue;
@@ -4999,6 +5203,7 @@ namespace no_table_flussostudenti {
 								parentR = newEntrataRow;
 							} // Fasi
 
+				
 							//Aggiunge le informazioni di ultima fase
 							var newLastMov = incL.Get_New_Row(parentR, impLast) as incomelastRow;
 							// aggiunge le informazioni sul numero bolletta se sono state specificate nel flusso 
@@ -5279,18 +5484,21 @@ namespace no_table_flussostudenti {
 					//    saranno generate tutte le fasi finanziarie  
 
 					// ciclo flusso invoicedetai
-					foreach (var rInvoiceDet in rowsInvoicedet) {
-						string idrelated = BudgetFunction.ComposeObjects(
-							new[] {
-								"inv",
-								rInvoiceDet["idinvkind"],
-								rInvoiceDet["yinv"],
-								rInvoiceDet["ninv"]
-							});
-						if (_conn.count("entry", q.eq("idrelated", idrelated)) == 0) {
-							continue;
-						}
-
+				
+						foreach (var rInvoiceDet in rowsInvoicedet) {
+							if (GestisceScritture()) {
+								string idrelated = BudgetFunction.ComposeObjects(
+									new[] {
+										"inv",
+										rInvoiceDet["idinvkind"],
+										rInvoiceDet["yinv"],
+										rInvoiceDet["ninv"]
+									});
+								if (_conn.count("entry", q.eq("idrelated", idrelated)) == 0) {
+									continue;
+								}
+							}
+					 
 						decimal imponibile = CfgFn.GetNoNullDecimal(rInvoiceDet.taxable);
 						decimal quantitaConfezioni = CfgFn.GetNoNullDecimal(rInvoiceDet.npackage);
 						decimal sconto = CfgFn.GetNoNullDecimal(rInvoiceDet.discount);
@@ -5379,13 +5587,15 @@ namespace no_table_flussostudenti {
 									break;
 								case TipoElaborazioneIncassi.imponibile:
 									if (currUpb == null || (iva>0 && currUpbIva == null)) {
-										continue; // imponibile  o iva è ammesso solo se c'è currUPB e anche upbIva
+										continue; // imponibile  o iva è ammesso solo se c'è currUPB e anche upbIva o causale finanziaria iva
 									}
 									if (estimDet.idinc_taxable != null && estimDet.idinc_taxable==estimDet.idinc_iva) {
 										show(
 											$" Nel dettaglio fattura{rInvoiceDet.detaildescription} codice bollettino {rInvoiceDet.iduniqueformcode} " +
-											$" NON bisogna specificare l'upb dell'iva per coerenza con il contratto attivo collegato",
-											"Errore"); // imponibile  o iva è ammesso solo se c'è currUPB
+											$" la causale di contabilizzazione del Contratto Attivo, " +
+											$" non è coerente con la valorizzazione della Causale Finanziaria IVA. " +
+											$" Si deve cancellare la Causale finanziaria IVA dal dettaglio Fattura.",
+											"Errore"); // imponibile  o iva è ammesso solo se c'è currUPB e anche upbIva o causale finanziaria iva
 										continue;
 									}
 									
@@ -5713,7 +5923,16 @@ namespace no_table_flussostudenti {
 
 		}
 
+		private bool ResiduiAttiviTrasferiti() {
+			int PrevYear = esercizio - 1;
+			string filtroPrev = qhs.CmpEq("ayear", PrevYear);
 
+			DataTable EsercizioPrev = conn.RUN_SELECT("accountingyear", "*", null, filtroPrev, null, false);
+			if (EsercizioPrev.Rows.Count == 0) return true;// vuol dire che non c'è un esercizio precedente. Siamo in un db nuovo
+			DataRow Prev = EsercizioPrev.Rows[0];
+			bool ra_trasferiti = ((CfgFn.GetNoNullInt32(Prev["flag"]) & 0x0F) >= 4);
+			return ra_trasferiti;
+		}
 		private void elaboraFlussoCrediti(object _from, object _to) {
 			//riempie estimate, estimate
 			QueryCreator.MarkEvent("Inizio elaboraFlussoCrediti");
@@ -5722,11 +5941,14 @@ namespace no_table_flussostudenti {
 				show(this, @"Errore nella creazione dei contratti attivi");
 				return;
 			}
-
-			var resA = fillAnnulment(_from, _to);
-			if (!resA) {
-				show(this, @"Errore nell'elaborazione degli annullamenti");
-				return;
+			if (ResiduiAttiviTrasferiti()) {
+				var resA = fillAnnulment(_from, _to);
+				if (!resA) {
+					show(this, @"Errore nell'elaborazione degli annullamenti");
+					return;
+				}
+			}else {
+				show("Per elaborare gli annullamenti è necessario aver trasferito i Residui Attivi.");
 			}
 
 			if (!DS.HasChanges()) {
@@ -5932,7 +6154,7 @@ namespace no_table_flussostudenti {
 
 			DS.estimate.Clear();
 			DS.estimatedetail.Clear();
-
+			DS.incomelastestimatedetail.Clear();
 			DS.ivaregister.Clear();
 
 			DS.incomeinvoice.Clear();
@@ -5959,7 +6181,7 @@ namespace no_table_flussostudenti {
 			DS.incomesorted.Clear();
 			DS.flussoincassi.Clear();
 			DS.flussoincassidetail.Clear();
-
+			DS.incomelastestimatedetail.Clear();
 			DataRow[] SelectedRows = GetGridSelectedRows(dgrDettContrattiAttivi);
 			var resFin = true;
 
@@ -6019,18 +6241,41 @@ namespace no_table_flussostudenti {
 		private void btnAssociaEventualiBollette_Click(object sender, EventArgs e) {
 			DS.flussoincassi.Clear();
 			
-			var sqlBill = $"select bill.nbill, bill.adate, flussoincassi.causale from bill " +
+			var sqlBill = $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
 			              $" join flussoincassi on " +
-						  $" (bill.motive like '%'+flussoincassi.causale+'%' AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR "+
-						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%')"+
+						  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
+						  $"AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR "+
+						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
+						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR " +
+						  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
 			              $" WHERE flussoincassi.ayear= {esercizio} and flussoincassi.nbill is null " +
 			              $" AND bill.billkind='C' and bill.ybill={esercizio} " +
-			              $" AND bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ";
+			              $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
+						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
+						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')"+
+						  $" UNION " +	
+						  $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
+						  $" join flussoincassi on " +
+						  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
+						  $"AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR " +
+						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
+						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR" +
+						  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
+						  $" WHERE flussoincassi.ayear= {esercizio} " +
+						  $" AND bill.billkind='C' and bill.ybill={esercizio} + 1 " +
+						  $" and MONTH(bill.adate) = 1 and DAY(bill.adate) <= 5 " +
+	  					  $" and MONTH(flussoincassi.dataincasso)= 12 and DAY(flussoincassi.dataincasso) >= 25 " +
+						  $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
+						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
+						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')";
+
 			DataTable billFromCausali = _conn.SQLRunner(sqlBill,false,0);
-			if (billFromCausali.Rows.Count == 0) return;
-			var rows = DS.flussoincassi.getFromDb(_conn, q.eq("ayear", esercizio) & q.isNull("nbill"));
+			if (billFromCausali.Rows.Count == 0)
+				return;
+			var rows = DS.flussoincassi.getFromDb(_conn, q.eq("ayear", esercizio)/* & q.isNull("nbill")*/);
 			Dictionary<string,int> nBillPerCausale = new Dictionary<string, int>();
 			Dictionary<string,object> dataIncassoPerCausale = new Dictionary<string, object>();
+			Dictionary<string, int> annoBillPerCausale = new Dictionary<string, int>();
 			foreach (DataRow r in billFromCausali.Rows) {
 				string causale = r["causale"].ToString();
 				int nbill = CfgFn.GetNoNullInt32(r["nbill"]);
@@ -6040,7 +6285,13 @@ namespace no_table_flussostudenti {
 				if (!dataIncassoPerCausale.ContainsKey(causale)) {
 					dataIncassoPerCausale[causale] = r["adate"];
 				}
+				int ybill = CfgFn.GetNoNullInt32(r["ybill"]);
+				if (!annoBillPerCausale.ContainsKey(causale)) {
+					annoBillPerCausale[causale] = ybill;
+                }
 			}
+			
+
 
 			//var noChange = true;
 			foreach (var r1 in rows) {
@@ -6053,6 +6304,9 @@ namespace no_table_flussostudenti {
 				if (dataIncassoPerCausale.TryGetValue(causale, out object adate)) {
 					if (adate!=DBNull.Value) r1.dataincassoValue = adate;
 				}
+				if (annoBillPerCausale.TryGetValue(causale, out int yBill)) {
+					r1.ayear = (short)yBill;
+                }
 			}
 
 
@@ -6162,6 +6416,29 @@ namespace no_table_flussostudenti {
 			__UpbTitles[str_idupb] = title.ToString();
 			return title.ToString();
 		}
+
+
+		Dictionary<string, object> __List = new Dictionary<string, object>();
+		object GetIdListForCodelist(object codelist, out string errori) {
+			errori = "";
+			if (codelist == DBNull.Value) {
+
+				return DBNull.Value;
+			}
+	 
+			string str_codelist = codelist.ToString();
+			if (__List.ContainsKey(str_codelist))
+				return __List[str_codelist];
+			object idlist = _conn.DO_READ_VALUE("list", _qhs.CmpEq("intcode", codelist), "idlist");
+			if (idlist == null) {
+				errori = " Codice Listino " + codelist.ToString() + " non trovato";
+				return DBNull.Value;
+			}
+
+			__List[str_codelist] = idlist ;
+			return idlist;
+		}
+
 
 		//13720
 		Dictionary<string, string> __EstimatekindTitles = new Dictionary<string, string>();
@@ -6340,10 +6617,12 @@ namespace no_table_flussostudenti {
 			}
 
 			if (estimateSkipped.Count > 0) {
-				var w = new wndDisplay("Contratti attivi da rivedere",
+                wndDisplay w = new wndDisplay("Contratti attivi da rivedere",
 					"Per i seguenti contratti attivi non sono state generati movimenti di budget e/o scritture E/P",
 					estimateSkipped);
-				w.Show(this);
+
+                createForm(w, this);
+                w.Show(this);
 			}
 
 
@@ -6382,7 +6661,7 @@ namespace no_table_flussostudenti {
 
 				//Il salvataggio azzera anche i movimenti finanziari
 				if (doSave(out dSupdated)) {
-					show("Gli incassi per i contratti attivi sono stati salvati.");
+					show("Gli incassi per i contratti attivi sono stati salvati.", "Avviso");
 				}
 				else {
 					show("Errore nel salvataggio degli incassi per i contratti attivi", "Errore");
@@ -6609,6 +6888,21 @@ namespace no_table_flussostudenti {
 				//  nuova riga di annullo che creiamo, deve avere la data fine validità stop
 				//  la vecchia riga del credito esistente deve avere la data di annullo 
 				rToAnnull.annulmentValue = oDataContabile; //Imposta il campo ANNULLATO nel dettaglio credito esistente  
+
+				var InvoicedetailsToUnlink = DS.invoicedetail.get(_conn,
+				q.eq("iduniqueformcode", oCodiceBollettinoUnivoco) & 
+				q.eq("idinvkind", rToAnnull.idinvkind) &
+				q.eq("yinv", rToAnnull.yinv) &
+				q.eq("ninv", rToAnnull.ninv) &
+				q.eq("rownum", rToAnnull.invrownum));
+
+
+				// task 17307 azzero sulla riga da annullare e sulla copia i riferimenti alla fattura
+				rToAnnull.idinvkind = null; //Imposta il campo a null nel dettaglio credito esistente 
+				rToAnnull.yinv = null; //Imposta il campo null nel dettaglio credito esistente 
+				rToAnnull.ninv = null; //Imposta il campo null nel dettaglio credito esistente 
+				rToAnnull.invrownum = null; //Imposta il campo null nel dettaglio credito esistente 
+				
 				var rNewFlussocreditiDetail =
 					metaFlussoCreditiDetail.Get_New_Row(rNewFlussoCrediti, DS.flussocreditidetail) as
 						flussocreditidetailRow;
@@ -6641,7 +6935,8 @@ namespace no_table_flussostudenti {
 					"p_iva", 
 					"idreg",//oIdreg;
 					"idupb",//idupb;
-					"idupb_iva"
+					"idupb_iva",
+					"codicetassonomia"
 				})
 				{
 					rNewFlussocreditiDetail[field] = rToAnnull[field];
@@ -6654,6 +6949,10 @@ namespace no_table_flussostudenti {
 				rNewFlussocreditiDetail["lt"] = DateTime.Now;
 				rNewFlussocreditiDetail["lu"] = "import_flussostudenti";
 
+				foreach (var rInvDetail in InvoicedetailsToUnlink) {
+					rInvDetail.iduniqueformcode = null;
+				}
+					
 			}
 
 			#endregion

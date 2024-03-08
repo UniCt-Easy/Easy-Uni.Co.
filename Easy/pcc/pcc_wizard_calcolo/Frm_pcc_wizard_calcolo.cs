@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -60,8 +60,11 @@ namespace pcc_wizard_calcolo {
         private string NomeCompletoFileCSV = "";
         private string NomeFile = "";
 
+        IFolderBrowserDialog folderBrowserDialog1;
+
         public Frm_pcc_wizard_calcolo() {
             InitializeComponent();
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             tabController.HideTabsMode =
                 Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
         }
@@ -897,7 +900,7 @@ namespace pcc_wizard_calcolo {
                     filter = QHC.MCmp(R, "CFAmmin", "IPA", "CFfornitore",
                         "IdFiscaleIvaFornitore", "importototaledocumento",
                         "azione", "progressivoregistrazione",
-                        "numerodocumento", "dataemissione",
+                        "numerodocumento", "dataemissione", 
                         "numeroprotocolloentrata", "dataricezione", "note",
                         "datarifiuto", "descrizione", "naturadispesa_co", "bilancio_co",
                         "statodeldebito", "causale", "descrizione_co", "impegno_co",
@@ -1044,6 +1047,7 @@ namespace pcc_wizard_calcolo {
         private void AggiungiRigaOperazioni(DataRow Ri, DataTable Operazioni) {
             DataRow R = Operazioni.NewRow();
             R["idinvkind"] = Ri["idinvkind"];
+          
             R["yinv"] = Ri["yinv"];
             R["ninv"] = Ri["ninv"];
             R["invrownum"] = Ri["invrownum"];
@@ -1068,7 +1072,7 @@ namespace pcc_wizard_calcolo {
             R["IdFiscaleIvaFornitore"] = Ri["IdFiscaleIvaFornitore"];
             // Dati Fattuta
             R["azione"] = Ri["azione"];
-            //R["progressivoregistrazione"] = Ri["progressivoregistrazione"]; -- essendo null, potrebbe anche non essere assegnato
+            R["progressivoregistrazione"] = Ri["identificativo_sdi"]; 
             R["numerodocumento"] = Ri["numerodocumento"];
             R["dataemissione"] = Ri["dataemissione"];
             R["importototaledocumento"] = Ri["importototaledocumento"];
@@ -1283,7 +1287,9 @@ namespace pcc_wizard_calcolo {
                 return null;
             string filterFattura = QHS.AppAnd(QHS.CmpEq("idinvkind", Ri["idinvkind"]),
                         QHS.CmpEq("yinv", Ri["yinv"]), QHS.CmpEq("ninv", Ri["ninv"]));
-            string flag_enable_split_payment = Conn.DO_READ_VALUE("invoice", filterFattura, "flag_enable_split_payment").ToString();
+            string flag_enable_split_payment = "N";
+            if (Ri["idinvkind"] !=DBNull.Value)
+                    flag_enable_split_payment = Conn.DO_READ_VALUE("invoice", filterFattura, "flag_enable_split_payment").ToString();
 
             for (int j = 0; j < selectedrows.Length; j++) {
                 Rj = selectedrows[j];
@@ -1406,7 +1412,9 @@ namespace pcc_wizard_calcolo {
             Tpccsend.Columns["invoicekind"].Caption = "TipoFattura";
             Tpccsend.Columns["yinv"].Caption = "Es.Fattura";
             Tpccsend.Columns["ninv"].Caption = "Num.Fattura";
+        
             Tpccsend.Columns["rownuminv"].Caption = "Dett.Fattura";
+            Tpccsend.Columns["identificativo_sdi"].Caption = "Identificativo SDI";
             Tpccsend.Columns["mandatekind"].Caption = "ContrattoPassivo";
             Tpccsend.Columns["yman"].Caption = "Es.ContrattoPassivo";
             Tpccsend.Columns["nman"].Caption = "Num.ContrattoPassivo";
@@ -1503,6 +1511,7 @@ namespace pcc_wizard_calcolo {
             Tpccsendoperation.Columns["datacontabiledocumento"].Caption = "";
             Tpccsendoperation.Columns["DenominazioneFornitore"].Caption = "Fornitore";
             Tpccsendoperation.Columns["CFfornitore"].Caption = "CFfornitore";
+            Tpccsendoperation.Columns["identificativo_sdi"].Caption = "Identificativo SDI";
             Tpccsendoperation.Columns["IdFiscaleIvaFornitore"].Caption = "IdFiscaleIvaFornitore";
             Tpccsendoperation.Columns["invoicekind"].Caption = "TipoFattura";
             Tpccsendoperation.Columns["yinv"].Caption = "Es.Fattura";

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1218,11 +1218,33 @@ namespace TestHelper {
 			ep.afterPost(true);
 			var res = ep.EPRules;
 
-
+			
 			return res;
 
 		}
 
+		public bool abilitaScrittureUT(DataRow r) {
+			string metaTableName = r.Table.TableName;
+			Meta_EasyDispatcher md = new Meta_EasyDispatcher(testConn);
+			var meta = md.Get(metaTableName);
+
+			var ds = SampleDataSet(r);
+			var getd = new GetData();
+			getd.InitClass(ds, testConn, metaTableName);
+
+			//riempie il dataset
+			ds.Tables[metaTableName]._getFromDb(testConn, q.keyCmp(r));
+			getd.DO_GET(false, null);
+			meta.ds = ds;
+
+			r = ds.Tables[metaTableName]._Filter(q.keyCmp(r))._First();
+
+			EP_Manager ep = new EP_Manager(meta, null, null, null, null, null, null, null, null, metaTableName);
+			var res = ep.abilitaScritture(r);
+
+
+			return res;
+		}
 
 		ProcedureMessageCollection generaCancellaImpegniScritture(DataRow r, bool cancella, bool autoignore) {
 			string metaTableName = r.Table.TableName;

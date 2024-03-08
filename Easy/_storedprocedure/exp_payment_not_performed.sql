@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,6 +24,9 @@ GO
 SET ANSI_NULLS ON 
 GO
 
+--setuser 'amm'
+--setuser 'amministrazione'
+-- exec exp_payment_not_performed {d '2023-12-19'}, 2023
 
 -- ELENCO MANDATI NON ESITATI
 CREATE                          PROCEDURE [exp_payment_not_performed]
@@ -37,13 +40,15 @@ SELECT  P.ypay AS 'Esercizio Mandato',
 	E.nmov AS 'Num. Movimento',
 	E.description AS Descrizione,
 	E.registry AS Percipiente,
-	E.curramount AS Importo
+	E.curramount AS Importo,
+	t.description as 'Cassiere'
 FROM expenseview E
 JOIN payment P
 	ON E.ypay = P.ypay
 	AND E.npay = P.npay
 JOIN paymenttransmission PT
 	ON PT.kpaymenttransmission = P.kpaymenttransmission
+left join treasurer t on t.idtreasurer = P.idtreasurer
 WHERE (E.ayear IS NULL OR p.ypay = @ayear)
 	AND PT.transmissiondate <= @date
 	AND

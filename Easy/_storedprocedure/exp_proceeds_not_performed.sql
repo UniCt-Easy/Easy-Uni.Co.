@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +24,9 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
+--setuser 'amm'
+--setuser 'amministrazione'
+-- exec exp_proceeds_not_performed {ts '2023-12-19 00:00:00'},2023
 
 
 CREATE                               PROCEDURE [exp_proceeds_not_performed]
@@ -38,13 +40,15 @@ SELECT  P.ypro AS 'Esercizio Reversale',
 	I.nmov AS 'Num.Movimento',
 	I.description AS Descrizione,
 	I.registry AS Versante,
-	I.curramount AS Importo
+	I.curramount AS Importo,
+	t.description as 'Cassiere'
 FROM incomeview I
 JOIN proceeds P
 	ON I.ypro = P.ypro
 	AND I.npro = P.npro
 JOIN proceedstransmission pt
 	ON pt.kproceedstransmission = p.kproceedstransmission
+left join treasurer t on t.idtreasurer = P.idtreasurer
 WHERE (I.ayear IS NULL OR p.ypro=@ayear)
 	AND pt.transmissiondate <= @date
 	AND

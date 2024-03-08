@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,6 +36,7 @@ namespace f24ep_default {
 
         public FrmF24ep_default() {
             InitializeComponent();
+            saveFileDialog1.DefaultExt = "T24";
             string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "f24ep/prog/temp");
             if (Directory.Exists(dir)) {
                 saveFileDialog1.InitialDirectory = dir;
@@ -305,6 +306,7 @@ namespace f24ep_default {
             if (!t.Columns.Contains("importoadebito"))
             {// ERRORE
                 SubF24 fErr = new SubF24(t);
+                createForm(fErr, null);
                 DialogResult drErr = fErr.ShowDialog();
             }
             else

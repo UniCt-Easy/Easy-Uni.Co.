@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_progettosegreportview_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_progettosegreportview_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="progettosegreportview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="borse_assegni" type="xs:int" minOccurs="0" />
+              <xs:element name="classconsorsuale" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_interno" type="xs:int" />
+              <xs:element name="contrattokind" type="xs:string" minOccurs="0" />
+              <xs:element name="currency_codecurrency" type="xs:string" minOccurs="0" />
+              <xs:element name="duratakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="idprogettoreport" type="xs:int" />
+              <xs:element name="keywords" type="xs:string" minOccurs="0" />
+              <xs:element name="macroarea" type="xs:string" minOccurs="0" />
+              <xs:element name="macroareastruttura" type="xs:string" minOccurs="0" />
+              <xs:element name="partner" type="xs:string" minOccurs="0" />
+              <xs:element name="partnerkind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="partners" type="xs:int" minOccurs="0" />
+              <xs:element name="personale_fondi_progetto_donne" type="xs:int" minOccurs="0" />
+              <xs:element name="personale_fondi_progetto_ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="personale_fondi_progetto_uomini_donne" type="xs:int" minOccurs="0" />
+              <xs:element name="progetto_bandoriferimentotxt" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_budget" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_budgetcalcolato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_budgetcalcolatodate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="progetto_capofilatxt" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_codiceidentificativo" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_contributo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_contributoente" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_contributoenterichiesto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_contributorichiesto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_costoapprovatoateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_costoapprovatoateneocalcolato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_cup" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_description" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_durata" type="xs:int" minOccurs="0" />
+              <xs:element name="progetto_finanziamento" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_finanziatoretxt" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_progfinanziamentotxt" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="progetto_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="progetto_title" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_totalbudget" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_totalcontributo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progettoactivitykind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="progettokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="progettostatuskind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idreg" type="xs:int" />
+              <xs:element name="registry_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="registryamm_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="registryamm_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="registryamm_idreg" type="xs:int" />
+              <xs:element name="registryamm_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="registryaziende_fin_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registryaziende_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registryprogfin_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registryprogfinbando_scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registryprogfinbando_title" type="xs:string" minOccurs="0" />
+              <xs:element name="ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="strumentofin_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura" type="xs:string" minOccurs="0" />
+              <xs:element name="team_unict_progetto_dipartimenti" type="xs:string" minOccurs="0" />
+              <xs:element name="team_unict_progetto_donne" type="xs:int" minOccurs="0" />
+              <xs:element name="team_unict_progetto_macroaree" type="xs:string" minOccurs="0" />
+              <xs:element name="team_unict_progetto_ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="team_unict_progetto_uomini_donne" type="xs:int" minOccurs="0" />
+              <xs:element name="titolobreve" type="xs:string" minOccurs="0" />
+              <xs:element name="ulteriorecup" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettosegreportview" />
+      <xs:field xpath="mstns:codice_interno" />
+      <xs:field xpath="mstns:idprogettoreport" />
+      <xs:field xpath="mstns:registry_idreg" />
+      <xs:field xpath="mstns:registryamm_idreg" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

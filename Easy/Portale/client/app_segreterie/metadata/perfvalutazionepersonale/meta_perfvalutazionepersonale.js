@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+﻿(function () {
 
    var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -43,15 +26,73 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                case 'default':
 						this.describeAColumn(table, 'year', 'Anno solare', null, 30, null);
 						this.describeAColumn(table, 'risultato', 'Percentuale risultato', 'fixed.2', 40, null);
-						this.describeAColumn(table, 'pesoperfuo', 'Peso della valutazione della performance dell�unit� organizzativa', 'fixed.2', 90, null);
-						this.describeAColumn(table, 'percperfuo', 'Percentuale di completamento dell�unit� organizzativa', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'pesoperfuo', 'Peso della valutazione della performance dell’unità organizzativa', 'fixed.2', 90, null);
+						this.describeAColumn(table, 'percperfuo', 'Percentuale di completamento dell’unità organizzativa', 'fixed.2', 100, null);
 						this.describeAColumn(table, 'pesocomportamenti', 'Peso della valutazione della performance dei comportamenti attesi', 'fixed.2', 120, null);
 						this.describeAColumn(table, 'perccomportamenti', 'Percentuale di completamento dei comportamenti attesi', 'fixed.2', 130, null);
-						this.describeAColumn(table, 'pesoobiettivi', 'Peso della valutazione della performance degli obiettivi individuali', 'fixed.2', 150, null);
-						this.describeAColumn(table, 'percobiettivi', 'Percentuale di completamento degli obiettivi individuali', 'fixed.2', 160, null);
+						this.describeAColumn(table, 'pesoobiettivi', 'Peso della valutazione della performance degli obiettivi individuali', 'fixed.2', 170, null);
+						this.describeAColumn(table, 'percobiettivi', 'Percentuale di completamento degli obiettivi individuali', 'fixed.2', 180, null);
+						this.describeAColumn(table, 'percateneo', 'Percentuale performance strategica', 'fixed.2', 230, null);
+						this.describeAColumn(table, 'pesoateneo', 'Peso performance strategica', 'fixed.2', 240, null);
+						this.describeAColumn(table, 'motivazione', 'Motivazione Valutazione', null, 250, -1);
 //$objCalcFieldConfig_default$
                   break;
-               //$objCalcFieldConfig$
+               					case 'tuscia':
+						this.describeAColumn(table, 'year', 'Anno solare', null, 30, null);
+						this.describeAColumn(table, 'risultato', 'Percentuale risultato', 'fixed.2', 40, null);
+						this.describeAColumn(table, 'pesoperfuo', 'Peso della valutazione della performance dell’unità organizzativa', 'fixed.2', 90, null);
+						this.describeAColumn(table, 'percperfuo', 'Percentuale di completamento dell’unità organizzativa', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'pesocomportamenti', 'Peso della valutazione della performance dei comportamenti attesi', 'fixed.2', 120, null);
+						this.describeAColumn(table, 'perccomportamenti', 'Percentuale di completamento dei comportamenti attesi', 'fixed.2', 130, null);
+						this.describeAColumn(table, 'pesoobiettivi', 'Peso della valutazione della performance degli obiettivi individuali', 'fixed.2', 170, null);
+						this.describeAColumn(table, 'percobiettivi', 'Percentuale di completamento degli obiettivi individuali', 'fixed.2', 180, null);
+//$objCalcFieldConfig_tuscia$
+						break;
+					case 'onlyprestazionali':
+						this.describeAColumn(table, 'year', 'Anno solare', null, 30, null);
+						this.describeAColumn(table, 'pesoperfuo', 'Peso della valutazione della performance dell’unità organizzativa', 'fixed.2', 90, null);
+						this.describeAColumn(table, 'percperfuo', 'Percentuale di completamento dell’unità organizzativa', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'pesoobiettivi', 'Peso della valutazione della performance degli obiettivi individuali', 'fixed.2', 170, null);
+						this.describeAColumn(table, 'percobiettivi', 'Percentuale di completamento degli obiettivi individuali', 'fixed.2', 180, null);
+//$objCalcFieldConfig_onlyprestazionali$
+						break;
+					case 'onlycomportamentali':
+						this.describeAColumn(table, 'year', 'Anno solare', null, 30, null);
+						this.describeAColumn(table, 'pesocomportamenti', 'Peso della valutazione della performance dei comportamenti attesi', 'fixed.2', 120, null);
+						this.describeAColumn(table, 'perccomportamenti', 'Percentuale di completamento dei comportamenti attesi', 'fixed.2', 130, null);
+//$objCalcFieldConfig_onlycomportamentali$
+						break;
+					case 'tusciasint':
+						this.describeAColumn(table, '!ateneoponderato', 'Strategici: Valutazione ponderata', 'fixed.2', 0, null);
+						this.describeAColumn(table, '!compponderato', 'Comportamentali: Valutazione ponderata', 'fixed.2', 0, null);
+						this.describeAColumn(table, '!obiettiviponderato', 'Individuali: Valutazione ponderata', 'fixed.2', 0, null);
+						this.describeAColumn(table, '!uoponderato', 'Organizzativi: Valutazione ponderata', 'fixed.2', 0, null);
+						this.describeAColumn(table, 'year', 'Anno solare', null, 30, null);
+						this.describeAColumn(table, 'risultato', 'Valutazione complessiva', 'fixed.2', 40, null);
+						this.describeAColumn(table, 'pesoperfuo', 'Organizzativi: Peso', 'fixed.2', 90, null);
+						this.describeAColumn(table, 'percperfuo', 'Organizzativi: Valutazione', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'pesocomportamenti', 'Comportamentali: Peso', 'fixed.2', 120, null);
+						this.describeAColumn(table, 'perccomportamenti', 'Comportamentali: Valutazione', 'fixed.2', 130, null);
+						this.describeAColumn(table, 'pesoobiettivi', 'Individuali: Peso', 'fixed.2', 170, null);
+						this.describeAColumn(table, 'percobiettivi', 'Individuali: Valutazione', 'fixed.2', 180, null);
+//$objCalcFieldConfig_tusciasint$
+						break;
+					case 'campaniasint':
+						this.describeAColumn(table, 'risultato', 'Percentuale risultato', 'fixed.2', 40, null);
+//$objCalcFieldConfig_campaniasint$
+						break;
+					case 'campania':
+						this.describeAColumn(table, 'year', 'Anno solare', null, 30, null);
+						this.describeAColumn(table, 'risultato', 'Percentuale risultato', 'fixed.2', 40, null);
+						this.describeAColumn(table, 'pesoperfuo', 'Peso della valutazione della performance organizzativa', 'fixed.2', 90, null);
+						this.describeAColumn(table, 'percperfuo', 'Percentuale di completamento della performance organizzativa', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'pesocomportamenti', 'Peso della valutazione della performance dei comportamenti attesi', 'fixed.2', 120, null);
+						this.describeAColumn(table, 'perccomportamenti', 'Percentuale di completamento dei comportamenti attesi', 'fixed.2', 130, null);
+						this.describeAColumn(table, 'pesoobiettivi', 'Peso della valutazione della performance degli obiettivi individuali', 'fixed.2', 170, null);
+						this.describeAColumn(table, 'percobiettivi', 'Percentuale di completamento degli obiettivi individuali', 'fixed.2', 180, null);
+//$objCalcFieldConfig_campania$
+						break;
+//$objCalcFieldConfig$
             }
             table['customObjCalculateFields'] = objCalcFieldConfig;
             appMeta.metaModel.computeRowsAs(table, listType, this.superClass.calculateFields);
@@ -62,50 +103,164 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          setCaption: function (table, edittype) {
             switch (edittype) {
                case 'default':
-                  table.columns["idperfschedastatus"].caption = "Stato";
-                  table.columns["idreg"].caption = "Valutato";
-                  table.columns["idreg_val"].caption = "Valutatore";
-                  table.columns["risultato"].caption = "Percentuale risultato";
-                  table.columns["year"].caption = "Anno solare";
-                  table.columns["perccomportamenti"].caption = "Percentuale di completamento dei comportamenti attesi";
-                  table.columns["percobiettivi"].caption = "Percentuale di completamento degli obiettivi individuali";
-                  table.columns["percperfuo"].caption = "Percentuale di completamento dell�unit� organizzativa";
-                  table.columns["pesocomportamenti"].caption = "Peso della valutazione della performance dei comportamenti attesi";
-                  table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi individuali";
-                  table.columns["pesoperfuo"].caption = "Peso della valutazione della performance dell�unit� organizzativa";
-                  						table.columns["idperfschedastatus"].caption = "Stato";
+						table.columns["idafferenza"].caption = "Afferenza";
+						table.columns["idperfschedastatus"].caption = "Stato";
 						table.columns["idreg"].caption = "Valutato";
-						table.columns["idreg_val"].caption = "Valutatore";
+						table.columns["idreg_appr"].caption = "Approvatore";
+						table.columns["idreg_comp"].caption = "Rilevatore obiettivi individuali";
+						table.columns["idreg_compcomp"].caption = "Rilevatore comportamenti";
+						table.columns["idreg_create"].caption = "Inserisce obiettivi individuali";
+						table.columns["idreg_val"].caption = "Valutatore obiettivi individuali";
+						table.columns["idreg_valcomp"].caption = "Valutatore comportamenti";
+						table.columns["motivazione"].caption = "Motivazione Valutazione";
+						table.columns["percateneo"].caption = "Percentuale performance strategica";
 						table.columns["perccomportamenti"].caption = "Percentuale di completamento dei comportamenti attesi";
 						table.columns["percobiettivi"].caption = "Percentuale di completamento degli obiettivi individuali";
-						table.columns["percperfuo"].caption = "Percentuale di completamento dell�unit� organizzativa";
+						table.columns["percperfuo"].caption = "Percentuale di completamento dell’unità organizzativa";
+						table.columns["pesoateneo"].caption = "Peso performance strategica";
 						table.columns["pesocomportamenti"].caption = "Peso della valutazione della performance dei comportamenti attesi";
 						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi individuali";
-						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance dell�unit� organizzativa";
+						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance dell’unità organizzativa";
 						table.columns["risultato"].caption = "Percentuale risultato";
 						table.columns["year"].caption = "Anno solare";
-						
-						table.columns["idreg_appr"].caption = "Approvatore";
-						table.columns["idafferenza"].caption = "Afferenza";
 //$innerSetCaptionConfig_default$
                   break;
-               //$innerSetCaptionConfig$
+               					case 'tuscia':
+						table.columns["idreg_comp"].caption = "Compilatore obiettivi individuali";
+						table.columns["idreg_compcomp"].caption = "Compilatore comportamenti";
+//$innerSetCaptionConfig_tuscia$
+						break;
+					case 'onlyprestazionali':
+						table.columns["idafferenza"].caption = "Afferenza";
+						table.columns["idperfschedastatus"].caption = "Stato";
+						table.columns["idreg"].caption = "Valutato";
+						table.columns["idreg_appr"].caption = "Approvatore";
+						table.columns["idreg_comp"].caption = "Compilatore obiettivi individuali";
+						table.columns["idreg_compcomp"].caption = "Compilatore comportamenti";
+						table.columns["idreg_create"].caption = "Inserisce obiettivi individuali";
+						table.columns["idreg_val"].caption = "Valutatore obiettivi individuali";
+						table.columns["idreg_valcomp"].caption = "Valutatore comportamenti";
+						table.columns["perccomportamenti"].caption = "Percentuale di completamento dei comportamenti attesi";
+						table.columns["percobiettivi"].caption = "Percentuale di completamento degli obiettivi individuali";
+						table.columns["percperfuo"].caption = "Percentuale di completamento dell’unità organizzativa";
+						table.columns["pesocomportamenti"].caption = "Peso della valutazione della performance dei comportamenti attesi";
+						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi individuali";
+						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance dell’unità organizzativa";
+						table.columns["risultato"].caption = "Percentuale risultato";
+						table.columns["year"].caption = "Anno solare";
+//$innerSetCaptionConfig_onlyprestazionali$
+						break;
+					case 'onlycomportamentali':
+						table.columns["idafferenza"].caption = "Afferenza";
+						table.columns["idperfschedastatus"].caption = "Stato";
+						table.columns["idreg"].caption = "Valutato";
+						table.columns["idreg_appr"].caption = "Approvatore";
+						table.columns["idreg_comp"].caption = "Compilatore obiettivi individuali";
+						table.columns["idreg_compcomp"].caption = "Compilatore comportamenti";
+						table.columns["idreg_create"].caption = "Inserisce obiettivi individuali";
+						table.columns["idreg_val"].caption = "Valutatore obiettivi individuali";
+						table.columns["idreg_valcomp"].caption = "Valutatore comportamenti";
+						table.columns["perccomportamenti"].caption = "Percentuale di completamento dei comportamenti attesi";
+						table.columns["percobiettivi"].caption = "Percentuale di completamento degli obiettivi individuali";
+						table.columns["percperfuo"].caption = "Percentuale di completamento dell’unità organizzativa";
+						table.columns["pesocomportamenti"].caption = "Peso della valutazione della performance dei comportamenti attesi";
+						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi individuali";
+						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance dell’unità organizzativa";
+						table.columns["risultato"].caption = "Percentuale risultato";
+						table.columns["year"].caption = "Anno solare";
+//$innerSetCaptionConfig_onlycomportamentali$
+						break;
+					case 'tusciasint':
+						table.columns["!ateneoponderato"].caption = "Strategici: Valutazione ponderata";
+						table.columns["!compponderato"].caption = "Comportamentali: Valutazione ponderata";
+						table.columns["!obiettiviponderato"].caption = "Individuali: Valutazione ponderata";
+						table.columns["!uoponderato"].caption = "Organizzativi: Valutazione ponderata";
+						table.columns["idafferenza"].caption = "Afferenza";
+						table.columns["idperfschedastatus"].caption = "Stato";
+						table.columns["idreg"].caption = "Valutato";
+						table.columns["idreg_appr"].caption = "Approvatore";
+						table.columns["idreg_comp"].caption = "Compilatore obiettivi individuali";
+						table.columns["idreg_compcomp"].caption = "Compilatore comportamenti";
+						table.columns["idreg_create"].caption = "Inserisce obiettivi individuali";
+						table.columns["idreg_val"].caption = "Valutatore obiettivi individuali";
+						table.columns["idreg_valcomp"].caption = "Valutatore comportamenti";
+						table.columns["percateneo"].caption = "Strategici: Valutazione";
+						table.columns["perccomportamenti"].caption = "Comportamentali: Valutazione";
+						table.columns["percobiettivi"].caption = "Individuali: Valutazione";
+						table.columns["percperfuo"].caption = "Organizzativi: Valutazione";
+						table.columns["pesoateneo"].caption = "Strategici: Peso";
+						table.columns["pesocomportamenti"].caption = "Comportamentali: Peso";
+						table.columns["pesoobiettivi"].caption = "Individuali: Peso";
+						table.columns["pesoperfuo"].caption = "Organizzativi: Peso";
+						table.columns["risultato"].caption = "Percentuale risultato";
+						table.columns["year"].caption = "Anno solare";
+						table.columns["risultato"].caption = "Valutazione complessiva";
+//$innerSetCaptionConfig_tusciasint$
+						break;
+					case 'campaniasint':
+						table.columns["idafferenza"].caption = "Afferenza";
+						table.columns["idperfschedastatus"].caption = "Stato";
+						table.columns["idreg"].caption = "Valutato";
+						table.columns["idreg_appr"].caption = "Approvatore";
+						table.columns["idreg_comp"].caption = "Compilatore obiettivi individuali";
+						table.columns["idreg_compcomp"].caption = "Compilatore comportamenti";
+						table.columns["idreg_create"].caption = "Inserisce obiettivi individuali";
+						table.columns["idreg_val"].caption = "Valutatore obiettivi individuali";
+						table.columns["idreg_valcomp"].caption = "Valutatore comportamenti";
+						table.columns["perccomportamenti"].caption = "Percentuale di completamento dei comportamenti attesi";
+						table.columns["percobiettivi"].caption = "Percentuale di completamento degli obiettivi individuali";
+						table.columns["percperfuo"].caption = "Percentuale di completamento dell’unità organizzativa";
+						table.columns["pesocomportamenti"].caption = "Peso della valutazione della performance dei comportamenti attesi";
+						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi individuali";
+						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance dell’unità organizzativa";
+						table.columns["risultato"].caption = "Percentuale risultato";
+						table.columns["year"].caption = "Anno solare";
+//$innerSetCaptionConfig_campaniasint$
+						break;
+					case 'campania':
+						table.columns["idafferenza"].caption = "Afferenza";
+						table.columns["idperfschedastatus"].caption = "Stato";
+						table.columns["idreg"].caption = "Valutato";
+						table.columns["idreg_appr"].caption = "Approvatore";
+						table.columns["idreg_comp"].caption = "Compilatore obiettivi individuali";
+						table.columns["idreg_compcomp"].caption = "Compilatore comportamenti";
+						table.columns["idreg_create"].caption = "Inserisce obiettivi individuali";
+						table.columns["idreg_val"].caption = "Valutatore obiettivi individuali";
+						table.columns["idreg_valcomp"].caption = "Valutatore comportamenti";
+						table.columns["perccomportamenti"].caption = "Percentuale di completamento dei comportamenti attesi";
+						table.columns["percobiettivi"].caption = "Percentuale di completamento degli obiettivi individuali";
+						table.columns["percperfuo"].caption = "Percentuale di completamento della performance organizzativa";
+						table.columns["pesocomportamenti"].caption = "Peso della valutazione della performance dei comportamenti attesi";
+						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi individuali";
+						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance organizzativa";
+						table.columns["risultato"].caption = "Percentuale risultato";
+						table.columns["year"].caption = "Anno solare";
+						table.columns["percperfuo"].caption = "Percentuale di completamento della performance organizzativa";
+						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance organizzativa";
+						table.columns["percperfuo"].caption = "Percentuale di completamento della performance organizzativa";
+						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance organizzativa";
+						table.columns["percperfuo"].caption = "Percentuale di completamento della performance organizzativa";
+						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance organizzativa";
+//$innerSetCaptionConfig_campania$
+						break;
+//$innerSetCaptionConfig$
             }
-         },
-         isValid: function (r) {
+		  },
 
-            //Aggiungere calcolo media
-            var self = this;
-            if ((r.current.pesoperfuo + r.current.pesocomportamenti + r.current.pesoobiettivi) > 100) {
-               return self.getPromiseIsValidObject("Attenzione la somma dei pesi non corrisponde al 100%", "risultato", "risultato", r);
-            }
+         //isValid: function (r) {
 
-            return this.superClass.isValid.call(this, r);
+         //   //Aggiungere calcolo media
+         //   var self = this;
+         //   if ((r.current.pesoperfuo + r.current.pesocomportamenti + r.current.pesoobiettivi) > 100) {
+         //      return self.getPromiseIsValidObject("Attenzione la somma dei pesi non corrisponde al 100%", "risultato", "risultato", r);
+         //   }
 
-            //altre tabelle dataset
-            //var ds = r.table.dataset;
+         //   return this.superClass.isValid.call(this, r);
 
-         },
+         //   //altre tabelle dataset
+         //   //var ds = r.table.dataset;
+
+         //},
 
          getNewRow: function (parentRow, dt, editType) {
             var def = appMeta.Deferred("getNewRow-meta_perfvalutazionepersonale");

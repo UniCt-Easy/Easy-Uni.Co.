@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,8 +24,9 @@ GO
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_missione_anticipo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_missione_anticipo]
 GO
+--select idregistrylegalstatus, * from itineration where yitineration = 2014
 --setuser 'amministrazione'
---rpt_missione_anticipo 2018,194
+-- rpt_missione_anticipo 2014,1
 CREATE   PROCEDURE [rpt_missione_anticipo]
 
 	@yitineration smallint, 
@@ -37,6 +38,7 @@ CREATE TABLE #rls
 (
 	idreg int,
 	idposition varchar(20),
+	livello int,
 	incomeclass int
 )
 
@@ -48,9 +50,8 @@ SELECT @it_start = start, @idreg = idreg, @idregistrylegalstatus = idregistryleg
 	FROM itineration 
 	WHERE yitineration = @yitineration AND nitineration = @nitineration
 
-
-INSERT INTO #rls (idreg, idposition, incomeclass)
-SELECT @idreg, RLS.idposition, RLS.incomeclass
+INSERT INTO #rls (idreg, idposition, livello, incomeclass)
+SELECT @idreg, RLS.idposition, RLS.livello, RLS.incomeclass 
 FROM registrylegalstatus RLS
 WHERE RLS.idreg = @idreg AND RLS.idregistrylegalstatus = @idregistrylegalstatus
 
@@ -61,6 +62,7 @@ SET @curr_fgn =
 	FROM foreigngroupruledetail det
 	JOIN #rls
 		ON det.idposition = #rls.idposition
+		and det.livello = #rls.livello
 		AND #rls.incomeclass BETWEEN det.minincomeclass AND det.maxincomeclass
 	JOIN foreigngrouprule f
 		ON f.idforeigngrouprule = det.idforeigngrouprule
@@ -78,7 +80,7 @@ SELECT
 	itineration.start,
 	itineration.stop,
 	itineration.adate,
-	position.description as position,
+	isnull(position.description,'')+ isnull(convert(varchar(2), #rls.livello),'') as position,
 	#rls.incomeclass AS currentclass,
 	@curr_fgn AS foreigngroupnumber,
 	(select sum(I.totadvance) from itineration I where ISNULL(I.iditineration_ref,I.iditineration)= @iditineration) as totadvance,
@@ -103,3 +105,4 @@ GO
 SET ANSI_NULLS ON 
 GO
 
+ 

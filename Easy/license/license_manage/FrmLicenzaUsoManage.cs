@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -719,7 +719,8 @@ namespace license_manage//licenzausomanage//
 
 		private void menuItem1_Click(object sender, System.EventArgs e) {
 			Frm_Password f = new Frm_Password(1);
-			if (f.ShowDialog()!=DialogResult.OK) return;
+            createForm(f, null);
+            if (f.ShowDialog()!=DialogResult.OK) return;
 			ManagerEnabled=true;
 			btnRecalc.Visible=true;
 			
@@ -780,7 +781,7 @@ namespace license_manage//licenzausomanage//
 			if (!DontSend) CheckFlags.SendToInternet(Meta.Conn,DS);
 			
 		
-			//MessageBox.Show( CfgFn.GetNoNullInt32(resp).ToString());			
+			//MetaFactory.factory.getSingleton<IMessageShower>().Show( CfgFn.GetNoNullInt32(resp).ToString());			
 
 
 		}

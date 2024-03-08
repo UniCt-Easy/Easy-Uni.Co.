@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -54,9 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idsasd_sasd_title'] = { tableNameLookup:'sasd', columnNameLookup:'title', columnNamekey:'idsasd' };
 						this.describeAColumn(table, '!idsasdgruppo_sasdgruppo_title', 'Gruppo', null, 41, null);
 						objCalcFieldConfig['!idsasdgruppo_sasdgruppo_title'] = { tableNameLookup:'sasdgruppo', columnNameLookup:'title', columnNamekey:'idsasdgruppo' };
-						this.describeAColumn(table, '!idtipoattform_tipoattform_title', 'Tipo di attivit‡ formativa', null, 11, null);
+						this.describeAColumn(table, '!idtipoattform_tipoattform_title', 'Tipo di attivit√† formativa', null, 11, null);
 						objCalcFieldConfig['!idtipoattform_tipoattform_title'] = { tableNameLookup:'tipoattform', columnNameLookup:'title', columnNamekey:'idtipoattform' };
-						this.describeAColumn(table, '!idtipoattform_2_tipoattform_title', 'Tipo della seconda attivit‡ formativa', null, 21, null);
+						this.describeAColumn(table, '!idtipoattform_2_tipoattform_title', 'Tipo della seconda attivit√† formativa', null, 21, null);
 						objCalcFieldConfig['!idtipoattform_2_tipoattform_title'] = { tableNameLookup:'tipoattform_alias1', columnNameLookup:'title', columnNamekey:'idtipoattform_2' };
 //$objCalcFieldConfig_classe$
 						break;
@@ -77,8 +60,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["idambitoareadisc"].caption = "Ambito o area disciplinare";
 						table.columns["idsasd"].caption = "SASD";
 						table.columns["idsasdgruppo"].caption = "Gruppo";
-						table.columns["idtipoattform"].caption = "Tipo di attivit‡ formativa";
-						table.columns["idtipoattform_2"].caption = "Tipo della seconda attivit‡ formativa";
+						table.columns["idtipoattform"].caption = "Tipo di attivit√† formativa";
+						table.columns["idtipoattform_2"].caption = "Tipo della seconda attivit√† formativa";
 						table.columns["obblig"].caption = "Obbligatorio";
 						table.columns["profess"].caption = "Professionalizzante";
 //$innerSetCaptionConfig_classe$

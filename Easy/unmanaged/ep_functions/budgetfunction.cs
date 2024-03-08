@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -176,7 +176,8 @@ namespace ep_functions {
                         new object[] {
                             "grant",
                             R["yload", toConsider],
-                            R["kind", toConsider]
+                            R["kind", toConsider],
+                            R["idgrantload", toConsider]
 
                         });
                 case "assetgrant":
@@ -187,6 +188,7 @@ namespace ep_functions {
                             "grant",
                             ygrant,
                             "D",
+                            R["idgrantload", toConsider],
                             R["idasset", toConsider],
                             R["idpiece", toConsider]
                         });
@@ -208,6 +210,7 @@ namespace ep_functions {
                             "grant",
                             R["ydetail", toConsider],
                             "U",
+                            R["idgrantload", toConsider],
                             R["idasset", toConsider],
                             R["idpiece", toConsider]
                         });
@@ -549,6 +552,7 @@ namespace ep_functions {
                 obj1[0] = "grantload";
                 obj1[1] = Convert.ToInt32(arr1[1]); //yload
                 obj1[2] = arr1[2]; //kind
+                obj1[3] = Convert.ToInt32(arr1[3]); //idgrantload
             }
 
             if (pref == "upbcommessa" && arr1.Length >= 3) {
@@ -560,15 +564,17 @@ namespace ep_functions {
             if (pref == "grant" && arr1.Length == 5 && arr1[2].ToString() == "D") {
                 obj1[0] = "assetgrant";
                 obj1[1] = Convert.ToInt32(arr1[1]); //ygrant
-                obj1[2] = Convert.ToInt32(arr1[3]); //idasset
-                obj1[3] = Convert.ToInt32(arr1[4]); //idpiece
+                obj1[2] = Convert.ToInt32(arr1[3]); //idgrantload
+                obj1[3] = Convert.ToInt32(arr1[4]); //idasset
+                obj1[4] = Convert.ToInt32(arr1[5]); //idpiece
             }
 
-            if (pref == "grant" && arr1.Length == 5 && arr1[2].ToString() == "U") {
+                if (pref == "grant" && arr1.Length == 5 && arr1[2].ToString() == "U") {
                 obj1[0] = "assetgrantdetail";
                 obj1[1] = Convert.ToInt32(arr1[1]); //ygrant
-                obj1[2] = Convert.ToInt32(arr1[3]); //idasset
-                obj1[3] = Convert.ToInt32(arr1[4]); //idpiece
+                obj1[2] = Convert.ToInt32(arr1[3]); //idgrantload
+                obj1[3] = Convert.ToInt32(arr1[4]); //idasset
+                obj1[4] = Convert.ToInt32(arr1[5]); //idpiece
             }
 
             if (pref == "cascon") {
@@ -673,9 +679,9 @@ namespace ep_functions {
 
             switch (myTable) {
                 case "grantload":
-                    return CreateFilter(QHS, obj1, "yload", "kind");
+                    return CreateFilter(QHS, obj1, "yload", "kind", "idgrantload");
                 case "assetgrant":
-                    return CreateFilter(QHS, obj1, "ygrant", "idasset", "idpiece");
+                    return CreateFilter(QHS, obj1, "ygrant", "idgrantload", "idasset", "idpiece");
                 case "assetacquire":
                     return CreateFilter(QHS, obj1, "nassetacquire");
                 case "upbcommessa":
@@ -688,7 +694,7 @@ namespace ep_functions {
                 case "assetload":
                     return CreateFilter(QHS, obj1, "idassetload");
                 case "assetgrantdetail":
-                    return CreateFilter(QHS, obj1, "ydetail", "idasset", "idpiece");
+                    return CreateFilter(QHS, obj1, "ydetail", "idgrantload","idasset", "idpiece");
                 case "invoice":
                     return CreateFilter(QHS, obj1, "idinvkind", "yinv", "ninv");
                 case "invoicedetail":
@@ -2606,7 +2612,8 @@ namespace ep_functions {
         internal bool associaMovimentiParent() {
             if (D.Tables["epexp"].Rows.Count > 0) {
                 FrmImpegniBudget fbudg = new FrmImpegniBudget(Disp, D, false);
-                DialogResult res = fbudg.ShowDialog();
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fbudg, null);
+				DialogResult res = fbudg.ShowDialog();
                 if (res != DialogResult.OK)
                     return false;
                 foreach (DataRow r in fbudg.Automatismi.Rows) {
@@ -2620,7 +2627,8 @@ namespace ep_functions {
 
             if (D.Tables["epacc"].Rows.Count > 0) {
                 FrmImpegniBudget fbudg = new FrmImpegniBudget(Disp, D, true);
-                DialogResult res = fbudg.ShowDialog();
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fbudg, null);
+				DialogResult res = fbudg.ShowDialog();
                 if (res != DialogResult.OK)
                     return false;
                 foreach (DataRow r in fbudg.Automatismi.Rows) {

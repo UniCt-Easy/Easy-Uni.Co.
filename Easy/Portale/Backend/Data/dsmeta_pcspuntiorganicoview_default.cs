@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_pcspuntiorganicoview_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_pcspuntiorganicoview_default: DataSet {
+public partial class dsmeta_pcspuntiorganicoview_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -60,7 +60,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// PCSPUNTIORGANICOVIEW /////////////////////////////////
 	var tpcspuntiorganicoview= new MetaTable("pcspuntiorganicoview");
-	tpcspuntiorganicoview.defineColumn("contrattokind_title", typeof(string),false);
+	tpcspuntiorganicoview.defineColumn("idanalisiannuale", typeof(int),false);
 	tpcspuntiorganicoview.defineColumn("importo0", typeof(decimal));
 	tpcspuntiorganicoview.defineColumn("importo1", typeof(decimal));
 	tpcspuntiorganicoview.defineColumn("importo2", typeof(decimal));
@@ -74,6 +74,7 @@ private void initClass() {
 	tpcspuntiorganicoview.defineColumn("importoesterno2", typeof(decimal));
 	tpcspuntiorganicoview.defineColumn("importoesterno3", typeof(decimal));
 	tpcspuntiorganicoview.defineColumn("isdoc", typeof(string),false);
+	tpcspuntiorganicoview.defineColumn("position_title", typeof(string),false);
 	tpcspuntiorganicoview.defineColumn("puntimeno0", typeof(decimal));
 	tpcspuntiorganicoview.defineColumn("puntimeno1", typeof(decimal));
 	tpcspuntiorganicoview.defineColumn("puntimeno2", typeof(decimal));
@@ -84,7 +85,7 @@ private void initClass() {
 	tpcspuntiorganicoview.defineColumn("puntipiu3", typeof(decimal));
 	tpcspuntiorganicoview.defineColumn("year", typeof(int),false);
 	Tables.Add(tpcspuntiorganicoview);
-	tpcspuntiorganicoview.defineKey("contrattokind_title", "year");
+	tpcspuntiorganicoview.defineKey("idanalisiannuale", "position_title", "year");
 
 	#endregion
 

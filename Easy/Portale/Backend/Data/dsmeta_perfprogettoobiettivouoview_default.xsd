@@ -3,6 +3,29 @@
   <xs:element name="dsmeta_perfprogettoobiettivouoview_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfsogliakind_alias1" msprop:TableForReading="perfsogliakind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idperfsogliakind" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettosoglia" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettosoglia" type="xs:int" />
+              <xs:element name="idperfsogliakind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="perfsogliakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -39,12 +62,22 @@
               <xs:element name="peso" type="xs:decimal" minOccurs="0" />
               <xs:element name="progetto_title" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="year" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfsogliakind_alias1" />
+      <xs:field xpath="mstns:idperfsogliakind" />
+    </xs:unique>
+    <xs:unique name="perfprogettosoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettosoglia" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettosoglia" />
+    </xs:unique>
+    <xs:unique name="perfsogliakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfsogliakind" />
       <xs:field xpath="mstns:idperfsogliakind" />
     </xs:unique>
@@ -56,6 +89,7 @@
     </xs:unique>
     <xs:unique name="perfprogettoobiettivouoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfprogettoobiettivouoview" />
+      <xs:field xpath="mstns:idperfprogetto" />
       <xs:field xpath="mstns:idperfprogettoobiettivo" />
       <xs:field xpath="mstns:idperfvalutazioneuo" />
       <xs:field xpath="mstns:idstruttura" />
@@ -63,6 +97,8 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_perfprogettosoglia_perfprogettoobiettivouoview_idperfprogetto" msdata:parent="perfprogettoobiettivouoview" msdata:child="perfprogettosoglia" msdata:parentkey="idperfprogetto" msdata:childkey="idperfprogetto" />
+      <msdata:Relationship name="FK_perfprogettosoglia_perfsogliakind_alias1_idperfsogliakind" msdata:parent="perfsogliakind_alias1" msdata:child="perfprogettosoglia" msdata:parentkey="idperfsogliakind" msdata:childkey="idperfsogliakind" />
       <msdata:Relationship name="FK_perfprogettoobiettivosoglia_perfprogettoobiettivouoview_idperfprogetto-idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivouoview" msdata:child="perfprogettoobiettivosoglia" msdata:parentkey="idperfprogetto idperfprogettoobiettivo" msdata:childkey="idperfprogetto idperfprogettoobiettivo" />
       <msdata:Relationship name="FK_perfprogettoobiettivosoglia_perfsogliakind_idperfsogliakind" msdata:parent="perfsogliakind" msdata:child="perfprogettoobiettivosoglia" msdata:parentkey="idperfsogliakind" msdata:childkey="idperfsogliakind" />
     </xs:appinfo>

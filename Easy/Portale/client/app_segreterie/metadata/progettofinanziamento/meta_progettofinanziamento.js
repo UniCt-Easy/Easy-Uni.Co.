@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,10 +24,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'contributoente', 'Contributo totale richiesto dall\'ateneo all�ente finanziatore', 'fixed.2', 10, null);
+						this.describeAColumn(table, 'contributoente', 'Contributo totale richiesto dall\'ateneo all’ente finanziatore', 'fixed.2', 10, null);
 						this.describeAColumn(table, 'contributo', 'Cofinanziamento richiesto all\'ateneo', 'fixed.2', 20, null);
 						this.describeAColumn(table, 'data', 'Data', null, 40, null);
 //$objCalcFieldConfig_default$
+						break;
+					case 'catania':
+						this.describeAColumn(table, 'contributoente', 'Contributo all’ateneo approvato dall’ente finanziatore', 'fixed.2', 10, null);
+						this.describeAColumn(table, 'contributo', 'Cofinanziamento approvato', 'fixed.2', 20, null);
+						this.describeAColumn(table, 'data', 'Data', null, 40, null);
+//$objCalcFieldConfig_catania$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -58,8 +47,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (edittype) {
 					case 'default':
 						table.columns["contributo"].caption = "Cofinanziamento richiesto all'ateneo";
-						table.columns["contributoente"].caption = "Contributo totale richiesto dall'ateneo all�ente finanziatore";
+						table.columns["contributoente"].caption = "Contributo totale richiesto dall'ateneo all’ente finanziatore";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'catania':
+						table.columns["contributo"].caption = "Cofinanziamento approvato";
+						table.columns["contributoente"].caption = "Contributo all’ateneo approvato dall’ente finanziatore";
+//$innerSetCaptionConfig_catania$
 						break;
 //$innerSetCaptionConfig$
 				}

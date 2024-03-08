@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -51,6 +34,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idiscrizione_from_iscrizione_iddidprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idiscrizione_from' };
 						objCalcFieldConfig['!idiscrizione_from_iscrizione_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idiscrizione_from' };
 						objCalcFieldConfig['!idiscrizione_from_iscrizione_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idiscrizione_from' };
+						this.describeAColumn(table, '!idiscrizione_from_iscrizione_anno_cognome', 'Cognome Iscrizione di partenza', null, 510, null);
+						this.describeAColumn(table, '!idiscrizione_from_iscrizione_anno_inquadramento', 'Inquadramento Iscrizione di partenza', null, 510, null);
+						this.describeAColumn(table, '!idiscrizione_from_iscrizione_anno_matricola', 'Matricola Iscrizione di partenza', null, 510, null);
+						this.describeAColumn(table, '!idiscrizione_from_iscrizione_anno_nome', 'Nome Iscrizione di partenza', null, 510, null);
+						this.describeAColumn(table, '!idiscrizione_from_iscrizione_anno_ruolo', 'Ruolo Iscrizione di partenza', null, 510, null);
+						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno_cognome'] = { tableNameLookup:'importcontrattistipendiview', columnNameLookup:'cognome', columnNamekey:'idiscrizione_from' };
+						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno_inquadramento'] = { tableNameLookup:'importcontrattistipendiview', columnNameLookup:'inquadramento', columnNamekey:'idiscrizione_from' };
+						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno_matricola'] = { tableNameLookup:'importcontrattistipendiview', columnNameLookup:'matricola', columnNamekey:'idiscrizione_from' };
+						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno_nome'] = { tableNameLookup:'importcontrattistipendiview', columnNameLookup:'nome', columnNamekey:'idiscrizione_from' };
+						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno_ruolo'] = { tableNameLookup:'importcontrattistipendiview', columnNameLookup:'ruolo', columnNamekey:'idiscrizione_from' };
 //$objCalcFieldConfig_seganagstu$
 						break;
 //$objCalcFieldConfig$

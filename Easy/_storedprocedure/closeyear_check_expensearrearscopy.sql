@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,8 +25,9 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
-
+-- setuser 'amm'
+-- setuser 'amministrazione'
+-- exec closeyear_check_expensearrearscopy 2021
 
 CREATE    PROCEDURE [closeyear_check_expensearrearscopy]
 (
@@ -168,6 +169,30 @@ AND (SELECT COUNT(finlast.idfin)
 	WHERE finlast.idfin = b1.idfin
 	  AND b1.nlevel >= @minusablelevel
 	  AND finlast.idfin is not null) = 0
+
+ -- Cedolini calcolati ed impegnati nell'esercizio X o negli esercizi precedenti ma non pagati, sia competenza che residui
+ INSERT INTO #errors
+ SELECT 'Cedolino ' + convert(varchar(20), ce.idpayroll) + ' del contratto n. ' + convert(varchar(20), co.ncon) + ' dell''anno ' + convert(varchar(4), co.ycon) + 
+ ' calcolato ed impegnato nell''esercizio  o in esercizi precedenti' + convert(varchar(4), @ayear) + ' ma non pagato.' +
+ ' Decontabilizzare il cedolino e trasferirlo nell''esercizio successivo per ricalcolarlo.'
+ 
+ FROM payroll ce 
+	JOIN parasubcontract co						ON co.idcon = ce.idcon
+    JOIN parasubcontractyear im					ON co.idcon = im.idcon
+	join registry R on co.idreg = R.idreg
+	WHERE ce.flagbalance = 'n'
+		AND ce.fiscalyear = @ayear
+		AND ce.disbursementdate is not null -- erogati
+		and year(ce.disbursementdate) <= @ayear
+		AND not EXISTS (SELECT payroll.idpayroll 
+				from payroll 
+				join expensepayroll on payroll.idpayroll = expensepayroll.idpayroll
+				join expenselink ON expenselink.idparent = expensepayroll.idexp
+				join expenselast on expenselast.idexp = expenselink.idchild
+				--join payment on payment.kpay=expenselast.kpay
+				where CE.idpayroll = payroll.idpayroll -- and payment.kpaymenttransmission is not null
+				)
+
 SELECT * FROM #errors
 END
 

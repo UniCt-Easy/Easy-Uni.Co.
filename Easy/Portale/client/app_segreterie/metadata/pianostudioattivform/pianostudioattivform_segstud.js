@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_pianostudioattivform() {
 		MetaPage.apply(this, ['pianostudioattivform', 'segstud', true]);
-        this.name = 'Attivit‡ formative pianificate';
+        this.name = 'Attivit√† formative pianificate';
 		this.defaultListType = 'segstud';
 		//pageHeaderDeclaration
     }
@@ -77,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			insertClick: function (that, grid) {
 				if (!$('#pianostudioattivform_segstud_idattivform_scelta').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Attivit‡ formativa che lo studente svolger‡');
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Attivit√† formativa che lo studente svolger√†');
 				}
 				//insertClickin
 				return this.superClass.insertClick(that, grid);

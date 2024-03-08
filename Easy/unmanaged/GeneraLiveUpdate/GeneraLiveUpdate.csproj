@@ -86,7 +86,7 @@
     </ProjectReference>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -110,7 +110,7 @@
     <ProjectReference Include="..\LiveUpdate\LiveUpdate.csproj">
       <Name>LiveUpdate</Name>
       <Project>{3401638F-C463-4187-A1F6-2081DA19D58D}</Project>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
     <Reference Include="Xceed.Compression.v5.6">
       <HintPath>..\..\dll\Xceed.Compression.v5.6.dll</HintPath>
@@ -132,7 +132,7 @@
     </Reference>
     <Reference Include="Xceed.Zip.v5.6">
       <HintPath>..\..\dll\Xceed.Zip.v5.6.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -207,6 +207,9 @@
             <xs:sequence>
               <xs:element name="active" type="xs:string" />
               <xs:element name="idnumerodip" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
@@ -228,11 +231,29 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="accmotivedefaultview_alias1" msprop:TableForReading="accmotivedefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accmotive_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="atecodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idateco" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotivedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accmotive_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -256,17 +277,52 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="coderesidence" type="xs:string" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="idresidence" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="registryclassaziendeview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="description" type="xs:string" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idregistryclass" type="xs:string" />
               <xs:element name="registryclass_active" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_ct" type="xs:dateTime" />
+              <xs:element name="registryclass_cu" type="xs:string" />
+              <xs:element name="registryclass_flagbadgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagbadgecode_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagCF" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagcf_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagcfbutton" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagextmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagextmatricula_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagfiscalresidence" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagfiscalresidence_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagforeigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagforeigncf_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flaghuman" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flaginfofromcfbutton" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagmaritalstatus_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagmaritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagmaritalsurname_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagothers" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagothers_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagp_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagp_iva_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagqualification" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagqualification_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagresidence" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagresidence_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_flagtitle_forced" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_lt" type="xs:dateTime" />
+              <xs:element name="registryclass_lu" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -309,16 +365,26 @@
               <xs:element name="gender" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idateco" type="xs:int" minOccurs="0" />
               <xs:element name="idcategory" type="xs:string" minOccurs="0" />
               <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
               <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
               <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="location" type="xs:string" minOccurs="0" />
@@ -328,32 +394,18 @@
               <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
-              <xs:element name="residence" type="xs:int" />
+              <xs:element name="pic" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" minOccurs="0" />
+              <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
               <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="soggiorno" type="xs:string" minOccurs="0" />
               <xs:element name="surname" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
               <xs:element name="toredirect" type="xs:int" minOccurs="0" />
               <xs:element name="txt" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="registry_aziende" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="idateco" type="xs:int" minOccurs="0" />
-              <xs:element name="idnace" type="xs:string" minOccurs="0" />
-              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
-              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="pic" type="xs:string" minOccurs="0" />
-              <xs:element name="title_en" type="xs:string" minOccurs="0" />
-              <xs:element name="txt_en" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -429,9 +481,17 @@
       <xs:selector xpath=".//mstns:nacedefaultview" />
       <xs:field xpath="mstns:idnace" />
     </xs:unique>
+    <xs:unique name="accmotivedefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotivedefaultview_alias1" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
     <xs:unique name="atecodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:atecodefaultview" />
       <xs:field xpath="mstns:idateco" />
+    </xs:unique>
+    <xs:unique name="accmotivedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotivedefaultview" />
+      <xs:field xpath="mstns:idaccmotive" />
     </xs:unique>
     <xs:unique name="geo_city_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:geo_city" />
@@ -461,10 +521,6 @@
       <xs:selector xpath=".//mstns:registry" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
-    <xs:unique name="registry_aziende_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry_aziende" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -480,17 +536,18 @@
       <msdata:Relationship name="FK_registryaddress_address_idaddresskind" msdata:parent="address" msdata:child="registryaddress" msdata:parentkey="idaddress" msdata:childkey="idaddresskind" />
       <msdata:Relationship name="FK_ccnlregistry_aziende_registry_idreg_aziende" msdata:parent="registry" msdata:child="ccnlregistry_aziende" msdata:parentkey="idreg" msdata:childkey="idreg_aziende" />
       <msdata:Relationship name="FK_ccnlregistry_aziende_ccnl_idccnl" msdata:parent="ccnl" msdata:child="ccnlregistry_aziende" msdata:parentkey="idccnl" msdata:childkey="idccnl" />
-      <msdata:Relationship name="FK_registry_aziende_numerodip_idnumerodip" msdata:parent="numerodip" msdata:child="registry_aziende" msdata:parentkey="idnumerodip" msdata:childkey="idnumerodip" />
-      <msdata:Relationship name="FK_registry_aziende_naturagiurdefaultview_idnaturagiur" msdata:parent="naturagiurdefaultview" msdata:child="registry_aziende" msdata:parentkey="idnaturagiur" msdata:childkey="idnaturagiur" />
-      <msdata:Relationship name="FK_registry_aziende_nacedefaultview_idnace" msdata:parent="nacedefaultview" msdata:child="registry_aziende" msdata:parentkey="idnace" msdata:childkey="idnace" />
-      <msdata:Relationship name="FK_registry_aziende_atecodefaultview_idateco" msdata:parent="atecodefaultview" msdata:child="registry_aziende" msdata:parentkey="idateco" msdata:childkey="idateco" />
+      <msdata:Relationship name="FK_registry_numerodip_idnumerodip" msdata:parent="numerodip" msdata:child="registry" msdata:parentkey="idnumerodip" msdata:childkey="idnumerodip" />
+      <msdata:Relationship name="FK_registry_naturagiurdefaultview_idnaturagiur" msdata:parent="naturagiurdefaultview" msdata:child="registry" msdata:parentkey="idnaturagiur" msdata:childkey="idnaturagiur" />
+      <msdata:Relationship name="FK_registry_nacedefaultview_idnace" msdata:parent="nacedefaultview" msdata:child="registry" msdata:parentkey="idnace" msdata:childkey="idnace" />
+      <msdata:Relationship name="FK_registry_accmotivedefaultview_alias1_idaccmotivecredit" msdata:parent="accmotivedefaultview_alias1" msdata:child="registry" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivecredit" />
+      <msdata:Relationship name="FK_registry_atecodefaultview_idateco" msdata:parent="atecodefaultview" msdata:child="registry" msdata:parentkey="idateco" msdata:childkey="idateco" />
+      <msdata:Relationship name="FK_registry_accmotivedefaultview_idaccmotivedebit" msdata:parent="accmotivedefaultview" msdata:child="registry" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivedebit" />
       <msdata:Relationship name="FK_registry_geo_city_idcity" msdata:parent="geo_city" msdata:child="registry" msdata:parentkey="idcity" msdata:childkey="idcity" />
       <msdata:Relationship name="FK_registry_geo_nation_idnation" msdata:parent="geo_nation" msdata:child="registry" msdata:parentkey="idnation" msdata:childkey="idnation" />
       <msdata:Relationship name="FK_registry_residence_residence" msdata:parent="residence" msdata:child="registry" msdata:parentkey="idresidence" msdata:childkey="residence" />
       <msdata:Relationship name="FK_registry_registryclassaziendeview_idregistryclass" msdata:parent="registryclassaziendeview" msdata:child="registry" msdata:parentkey="idregistryclass" msdata:childkey="idregistryclass" />
       <msdata:Relationship name="FK_registry_category_idcategory" msdata:parent="category" msdata:child="registry" msdata:parentkey="idcategory" msdata:childkey="idcategory" />
       <msdata:Relationship name="FK_registry_registrykind_idregistrykind" msdata:parent="registrykind" msdata:child="registry" msdata:parentkey="idregistrykind" msdata:childkey="idregistrykind" />
-      <msdata:Relationship name="FK_registry_aziende_registry_idreg" msdata:parent="registry" msdata:child="registry_aziende" msdata:parentkey="idreg" msdata:childkey="idreg" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

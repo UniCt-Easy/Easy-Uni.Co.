@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,183 +19,184 @@ using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace parasubcontract_nontrasferibile {
-[Serializable()][DesignerCategoryAttribute("code")][System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-[System.Xml.Serialization.XmlRootAttribute("vistaForm")][System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Contratto
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable parasubcontract		{get { return Tables["parasubcontract"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable parasubcontractview		{get { return Tables["parasubcontractview"];}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable parasubcontract 		=> Tables["parasubcontract"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable parasubcontractview 		=> Tables["parasubcontractview"];
+
 	#endregion
 
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataTableCollection Tables {get {return base.Tables;}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
 
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 public vistaForm(){
 	BeginInit();
-	InitClass();
+	initClass();
 	EndInit();
 }
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
-[DebuggerNonUserCodeAttribute()]
-private void InitClass() {
+[DebuggerNonUserCode]
+private void initClass() {
 	DataSetName = "vistaForm";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaForm.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
-	DataTable T;
 	DataColumn C;
 	//////////////////// PARASUBCONTRACT /////////////////////////////////
-	T= new DataTable("parasubcontract");
-	C= new DataColumn("idcon", typeof(String));
+	var tparasubcontract= new DataTable("parasubcontract");
+	C= new DataColumn("idcon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ycon", typeof(Int32));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ncon", typeof(String));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idreg", typeof(Int32));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("duty", typeof(String)));
-	T.Columns.Add( new DataColumn("idpayrollkind", typeof(String)));
-	C= new DataColumn("idser", typeof(Int32));
+	tparasubcontract.Columns.Add(C);
+	tparasubcontract.Columns.Add( new DataColumn("duty", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("idpayrollkind", typeof(string)));
+	C= new DataColumn("idser", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("employed", typeof(String));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("employed", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("payrollccinfo", typeof(String));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("payrollccinfo", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tparasubcontract.Columns.Add(C);
 	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tparasubcontract.Columns.Add(C);
 	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("monthlen", typeof(Int32));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("monthlen", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("grossamount", typeof(Decimal));
+	tparasubcontract.Columns.Add(C);
+	C= new DataColumn("grossamount", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idpat", typeof(Int32)));
-	T.Columns.Add( new DataColumn("matricula", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idmatriculabook", typeof(String)));
-	T.Columns.Add( new DataColumn("cu", typeof(String)));
-	T.Columns.Add( new DataColumn("ct", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("lu", typeof(String)));
-	T.Columns.Add( new DataColumn("lt", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("requested_doc", typeof(Int32)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idcon"]};
+	tparasubcontract.Columns.Add(C);
+	tparasubcontract.Columns.Add( new DataColumn("idpat", typeof(int)));
+	tparasubcontract.Columns.Add( new DataColumn("matricula", typeof(int)));
+	tparasubcontract.Columns.Add( new DataColumn("idmatriculabook", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("cu", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tparasubcontract.Columns.Add( new DataColumn("lu", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tparasubcontract.Columns.Add( new DataColumn("requested_doc", typeof(int)));
+	tparasubcontract.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
+	Tables.Add(tparasubcontract);
+	tparasubcontract.PrimaryKey =  new DataColumn[]{tparasubcontract.Columns["idcon"]};
 
 
 	//////////////////// PARASUBCONTRACTVIEW /////////////////////////////////
-	T= new DataTable("parasubcontractview");
-	C= new DataColumn("ayear", typeof(Int32));
+	var tparasubcontractview= new DataTable("parasubcontractview");
+	C= new DataColumn("ayear", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idcon", typeof(String));
+	tparasubcontractview.Columns.Add(C);
+	C= new DataColumn("idcon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ycon", typeof(Int32));
+	tparasubcontractview.Columns.Add(C);
+	C= new DataColumn("ycon", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ncon", typeof(String));
+	tparasubcontractview.Columns.Add(C);
+	C= new DataColumn("ncon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idreg", typeof(Int32));
+	tparasubcontractview.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("registry", typeof(String));
+	tparasubcontractview.Columns.Add(C);
+	C= new DataColumn("registry", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("matricula", typeof(Int32)));
-	T.Columns.Add( new DataColumn("duty", typeof(String)));
-	T.Columns.Add( new DataColumn("idpayrollkind", typeof(String)));
-	T.Columns.Add( new DataColumn("payroll", typeof(String)));
-	C= new DataColumn("idser", typeof(Int32));
+	tparasubcontractview.Columns.Add(C);
+	tparasubcontractview.Columns.Add( new DataColumn("matricula", typeof(int)));
+	tparasubcontractview.Columns.Add( new DataColumn("duty", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("idpayrollkind", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("payroll", typeof(string)));
+	C= new DataColumn("idser", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("service", typeof(String));
+	tparasubcontractview.Columns.Add(C);
+	C= new DataColumn("service", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idresidence", typeof(Int32)));
-	T.Columns.Add( new DataColumn("city", typeof(String)));
-	T.Columns.Add( new DataColumn("idcountry", typeof(Int32)));
-	T.Columns.Add( new DataColumn("country", typeof(String)));
-	C= new DataColumn("employed", typeof(String));
+	tparasubcontractview.Columns.Add(C);
+	tparasubcontractview.Columns.Add( new DataColumn("idresidence", typeof(int)));
+	tparasubcontractview.Columns.Add( new DataColumn("city", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("idcountry", typeof(int)));
+	tparasubcontractview.Columns.Add( new DataColumn("country", typeof(string)));
+	C= new DataColumn("employed", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("payrollccinfo", typeof(String));
+	tparasubcontractview.Columns.Add(C);
+	C= new DataColumn("payrollccinfo", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tparasubcontractview.Columns.Add(C);
 	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tparasubcontractview.Columns.Add(C);
 	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("monthlen", typeof(Int32));
+	tparasubcontractview.Columns.Add(C);
+	C= new DataColumn("monthlen", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("grossamount", typeof(Decimal));
+	tparasubcontractview.Columns.Add(C);
+	C= new DataColumn("grossamount", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("activitycode", typeof(String)));
-	T.Columns.Add( new DataColumn("activity", typeof(String)));
-	T.Columns.Add( new DataColumn("idotherinsurance", typeof(String)));
-	T.Columns.Add( new DataColumn("otherinsurance", typeof(String)));
-	T.Columns.Add( new DataColumn("idpat", typeof(Int32)));
-	T.Columns.Add( new DataColumn("patcode", typeof(String)));
-	T.Columns.Add( new DataColumn("pat", typeof(String)));
-	T.Columns.Add( new DataColumn("idmatriculabook", typeof(String)));
-	T.Columns.Add( new DataColumn("matriculabook", typeof(String)));
-	T.Columns.Add( new DataColumn("regionaltax", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("countrytax", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("citytax", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("ratequantity", typeof(Int32)));
-	T.Columns.Add( new DataColumn("startmonth", typeof(Int32)));
-	T.Columns.Add( new DataColumn("suspendedregionaltax", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("suspendedcountrytax", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("suspendedcitytax", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("notaxappliance", typeof(String)));
-	T.Columns.Add( new DataColumn("applybrackets", typeof(String)));
-	T.Columns.Add( new DataColumn("highertax", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("taxablecud", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("cuddays", typeof(Int16)));
-	T.Columns.Add( new DataColumn("taxablecontract", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("ndays", typeof(Int32)));
-	T.Columns.Add( new DataColumn("taxablepension", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("fiscaldeduction", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("notaxdeduction", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("taxablegross", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("taxablenet", typeof(Decimal)));
-	T.Columns.Add( new DataColumn("startcompetency", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("stopcompetency", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("!causa", typeof(String)));
-	Tables.Add(T);
+	tparasubcontractview.Columns.Add(C);
+	tparasubcontractview.Columns.Add( new DataColumn("activitycode", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("activity", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("idotherinsurance", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("otherinsurance", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("idpat", typeof(int)));
+	tparasubcontractview.Columns.Add( new DataColumn("patcode", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("pat", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("idmatriculabook", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("matriculabook", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("regionaltax", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("countrytax", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("citytax", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("ratequantity", typeof(int)));
+	tparasubcontractview.Columns.Add( new DataColumn("startmonth", typeof(int)));
+	tparasubcontractview.Columns.Add( new DataColumn("suspendedregionaltax", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("suspendedcountrytax", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("suspendedcitytax", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("notaxappliance", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("applybrackets", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("highertax", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("taxablecud", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("cuddays", typeof(short)));
+	tparasubcontractview.Columns.Add( new DataColumn("taxablecontract", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("ndays", typeof(int)));
+	tparasubcontractview.Columns.Add( new DataColumn("taxablepension", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("fiscaldeduction", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("notaxdeduction", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("taxablegross", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("taxablenet", typeof(decimal)));
+	tparasubcontractview.Columns.Add( new DataColumn("startcompetency", typeof(DateTime)));
+	tparasubcontractview.Columns.Add( new DataColumn("stopcompetency", typeof(DateTime)));
+	tparasubcontractview.Columns.Add( new DataColumn("!causa", typeof(string)));
+	tparasubcontractview.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
+	Tables.Add(tparasubcontractview);
 
 	#endregion
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,7 +38,9 @@ namespace meta_estimate//meta_Contratto di Vendita//
 		public override void SetDefaults(DataTable PrimaryTable){
 			base.SetDefaults(PrimaryTable);
 			SetDefault(PrimaryTable, "yestim", GetSys("esercizio"));
-			SetDefault(PrimaryTable, "docdate", GetSys("datacontabile"));
+            if (PrimaryTable.Columns["docdate"].DefaultValue == DBNull.Value) {
+                SetDefault(PrimaryTable, "docdate", GetSys("datacontabile"));
+            }
 			SetDefault(PrimaryTable, "adate", GetSys("datacontabile"));
 			SetDefault(PrimaryTable, "officiallyprinted", "N");
             SetDefault(PrimaryTable, "idcurrency", Conn.DO_READ_VALUE("currency", QHS.CmpEq("codecurrency", "EUR"), "idcurrency"));
@@ -97,7 +99,7 @@ namespace meta_estimate//meta_Contratto di Vendita//
 		}			
 
 		protected override void InsertCopyColumn(DataColumn C, DataRow Source, DataRow Dest) {
-			if ((C.ColumnName == "yestim") || (C.ColumnName == "nestim"))return;
+			if ((C.ColumnName == "yestim") || (C.ColumnName == "nestim") || (C.ColumnName == "idnso_vendita")) return;
 			base.InsertCopyColumn (C, Source, Dest);
 		}
 
@@ -176,6 +178,20 @@ namespace meta_estimate//meta_Contratto di Vendita//
                         }
                     }
                 }
+            }
+
+            int yestim = CfgFn.GetNoNullInt32(R["yestim"]);
+
+            if (
+                    !DateTime.TryParse(R["adate"].ToString(), out DateTime adate) ||
+                    yestim == 0 ||
+                    adate.Year != yestim
+                ) {
+
+                errmess = "L'anno della data contabile non è coerente con l'anno dell'esercizio";
+                errfield = "adate";
+
+                return false;
             }
 
             if (!base.IsValid(R, out errmess, out errfield)) return false;

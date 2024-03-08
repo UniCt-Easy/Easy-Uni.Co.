@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-12">
             <cc1:hwButton ID="B1" runat="server" Text="Ordina per stato" Tag="maindosearch.webdefaultstatuses" class="btn btn-primary" />
-            <cc1:hwButton ID="B2" runat="server" Text="Storico Buoni Approvati" Tag="approvati" class="btn btn-primary" OnClick="B2_Click" />
+            <cc1:hwButton ID="B2" runat="server" Text="Storico Buoni  Approvati" Tag="approvati" class="btn btn-primary" OnClick="B2_Click" />
             <!-- da rivedere la posizione    -->
         </div>
     </div>
@@ -40,114 +40,65 @@
     <div class="tab-content">
         <div id="tabmain" class="tab-pane fade in active">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-12">
                     <div class="row">
-
-                        <div class="col-md-12">
-                            <label for="idmankind">Tipo contratto</label>
+                        <div class="col-md-6 mt-md-3">
+                            <label for="DrpStatus">Stato Corrente</label>
+                            <cc1:hwDropDownList ID="DrpStatus" CssClass="form-control" Tag="mandate.idmandatestatus?mandateview.idmandatestatus" runat="server" AutoPostBack="True" TabIndex="40"></cc1:hwDropDownList>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-6 col-md-4 mt-md-5 mt-3">
+                            <label for="btnAvanzaStato"></label>
+                            <asp:Button runat="server" ID="btnAvanzaStato" class="btn btn-primary" Tag="" Text="" ToEnable="True" Visible="False" />
+                        </div>
+                        <div class="col-6 col-md-2 mt-md-5 mt-3 text-right">
+                            <cc1:hwButton ID="btnStampaOrdine"  runat="server" Tag="stampaordine" class="btn btn-primary" Text="Stampa Ordine" Visible="False"></cc1:hwButton>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="idmankind">Tipo contratto</label>
                             <cc1:hwDropDownList ID="idmankind" Tag="mandate.idmankind" runat="server" CssClass="form-control" AutoPostBack="True" TabIndex="10"></cc1:hwDropDownList><br />
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="yman">Esercizio</label>
-                                </div>
-                                <div class="col-md-12">
-                                    <cc1:hwTextBox ID="yman" runat="server" CssClass="form-control" Tag="mandate.yman.year" TabIndex="20"></cc1:hwTextBox>
-                                </div>
-                            </div>
+                        <div class="col-6 col-md-3">
+                            <label for="yman">Esercizio</label>
+                            <cc1:hwTextBox ID="yman" runat="server" CssClass="form-control" Tag="mandate.yman.year" TabIndex="20"></cc1:hwTextBox>
                         </div>
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="nman">Numero</label>
-                                </div>
-                                <div class="col-md-12">
-                                    <cc1:hwTextBox ID="nman" runat="server" CssClass="input-md form-control" Tag="mandate.nman" TabIndex="30"></cc1:hwTextBox>
-                                </div>
-                            </div>
+                        <div class="col-6 col-md-3">
+                            <label for="nman">Numero</label>
+                            <cc1:hwTextBox ID="nman" runat="server" CssClass="input-md form-control" Tag="mandate.nman" TabIndex="30"></cc1:hwTextBox>
                         </div>
                     </div>
-                    
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <fieldset>
                                 <legend>Responsabile del fondo</legend>
                                 <div class="row">
                                     <div class="col-md-12 autochoose">
                                         <cc1:hwPanel GroupingText="" CssClass="gbox scheduler-border form-group" ID="grpResponsabile" runat="server" Tag="AutoChoose.txtResponsabile.lista.(financeactive='S')">
-                                            <cc1:hwButton ID="btnResponsabile" runat="server" Text="Responsabile" class="btn btn-primary" Tag="choose.manager.lista" />
+                                            <cc1:hwButton ID="btnResponsabile" runat="server" Text="Responsabile" class="btn btn-primary" Tag="choose.manager.lista.(active='S')" />
                                             <cc1:hwTextBox TabIndex="20" ID="txtResponsabile" CssClass="form-control input-md" Tag="manager.title?x" runat="server"></cc1:hwTextBox>
                                         </cc1:hwPanel>
                                     </div>
                                 </div>
                             </fieldset>
                         </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="description">Descrizione</label>
-                                    <cc1:hwTextBox CssClass="input-md form-control" TextMode="MultiLine" Rows="3" runat="server" ID="description" Tag="mandate.description" TabIndex="90"></cc1:hwTextBox>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label for="description">Descrizione</label>
+                            <cc1:hwTextBox CssClass="input-md form-control" TextMode="MultiLine" Rows="3" runat="server" ID="description" Tag="mandate.description" TabIndex="90"></cc1:hwTextBox>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="cigcode">Codice Identificativo di Gara(CIG)</label>
-                                </div>
-                                <div class="col-md-12">
-                                    <cc1:hwTextBox CssClass="form-control" ID="cigcode" runat="server" TabIndex="140" Tag="mandate.cigcode"></cc1:hwTextBox>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label for="cigcode">Codice Identificativo di Gara(CIG)</label>
+                            <cc1:hwTextBox CssClass="form-control" ID="cigcode" runat="server" TabIndex="140" Tag="mandate.cigcode"></cc1:hwTextBox>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="adate" class="control-label">Data contabile</label>
+                            <cc1:hwTextBox TabIndex="230" CssClass="form-control" ID="adate" runat="server" Tag="mandate.adate"></cc1:hwTextBox>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="adate" class="control-label">Data contabile</label>
-                                </div>
-                                <div class="col-md-12">
-                                    <cc1:hwTextBox TabIndex="230" CssClass="form-control" ID="adate" runat="server" Tag="mandate.adate"></cc1:hwTextBox>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="DrpStatus">Stato Corrente</label>
-                        </div>
-                        <div class="col-md-12">
-                            <cc1:hwDropDownList ID="DrpStatus" CssClass="form-control" Tag="mandate.idmandatestatus?mandateview.idmandatestatus" runat="server" AutoPostBack="True" TabIndex="40"></cc1:hwDropDownList>
-                        </div>
-                        <div class="col-md-12 mt-3 mb-4">
-                            <label for="btnAvanzaStato"></label>
-                            <asp:Button runat="server" ID="btnAvanzaStato" class="btn btn-primary" Tag="" Text="" ToEnable="True" Visible="False" />
-                        </div>
-                        <div class="col-md-12 mt-3 mb-4">
-					        <cc1:hwButton ID="btnStampaOrdine"  runat="server" Tag="stampaordine" class="btn btn-primary" Text="Stampa Ordine" Visible="False"></cc1:hwButton>
-			            </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <cc1:hwPanel GroupingText="Fornitore" CssClass="stdfieldset form-group" ID="HwPanel2" runat="server" Tag="AutoChoose.txtCredDeb.lista.(active='S')">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -156,40 +107,21 @@
                                 </div>
                             </cc1:hwPanel>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="applierannotations">Note del richiedente</label>
-                                </div>
-                                <div class="col-md-12">
-                                    <cc1:hwTextBox TabIndex="130" ID="applierannotations" runat="server" CssClass="form-control"
-                                        Rows="3"
+                        <div class="col-md-6 mt-md-2">
+                            <label for="applierannotations">Note del richiedente</label>
+                            <cc1:hwTextBox TabIndex="130" ID="applierannotations" runat="server" CssClass="form-control"
+                                        Rows="5"
                                         Tag="mandate.applierannotations" TextMode="MultiLine"></cc1:hwTextBox>
-                                </div>
-                            </div>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="txtregistryreference">Riferimento</label>
-                                </div>
-                                <div class="col-md-12">
-                                    <cc1:hwTextBox TabIndex="120" ID="txtregistryreference" runat="server" CssClass="form-control"
-                                        Rows="3"
+                        <div class="col-md-6 mt-5">
+                            <label for="txtregistryreference">Riferimento</label>
+                            <cc1:hwTextBox TabIndex="120" ID="txtregistryreference" runat="server" CssClass="form-control"
+                                        Rows="4"
                                         Tag="mandate.registryreference" TextMode="MultiLine"></cc1:hwTextBox>
-                                </div>
-                            </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6 mt-3">
                             <fieldset>
                                 <legend></legend>
                                 <div class="row">
@@ -224,13 +156,9 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                
-
                             </fieldset>
                         </div>
                     </div>
-
                 </div>
             </div>
 			

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,10 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'description', 'Motivazione', null, 10, 150);
-						this.describeAColumn(table, 'itineration_location', 'Localit‡ di destinazione', null, 20, 65);
-						this.describeAColumn(table, 'itineration_start', 'data inizio', null, 40, null);
-						this.describeAColumn(table, 'itineration_stop', 'data fine', null, 50, null);
+						this.describeAColumn(table, 'description', 'Motivazione', null, 1000, 150);
+						this.describeAColumn(table, 'itineration_location', 'Localit√† di destinazione', null, 2000, 65);
+						this.describeAColumn(table, 'itineration_start', 'Data inizio', 'g', 4000, null);
+						this.describeAColumn(table, 'itineration_stop', 'Data fine', 'g', 5000, null);
+						this.describeAColumn(table, 'upb_title', 'UPB', null, 54200, 150);
+						this.describeAColumn(table, 'itineration_nitineration', 'Numero', null, 58000, null);
+						this.describeAColumn(table, 'itineration_yitineration', 'Anno esercizio', null, 80000, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

@@ -27,6 +27,7 @@
               <xs:element name="netfee" type="xs:decimal" minOccurs="0" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -53,6 +54,7 @@
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -90,6 +92,7 @@
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

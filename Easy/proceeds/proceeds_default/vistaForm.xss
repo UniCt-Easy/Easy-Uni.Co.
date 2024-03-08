@@ -10,51 +10,11 @@
     <Shape ID="DesignTable:treasurer" ZOrder="11" X="293" Y="70" Height="231" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
     <Shape ID="DesignTable:incomephase" ZOrder="10" X="542" Y="70" Height="129" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
     <Shape ID="DesignTable:proceeds_bankview" ZOrder="9" X="293" Y="371" Height="214" Width="179" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
-    <Shape ID="DesignTable:incomelastview" ZOrder="8" X="293" Y="655" Height="231" Width="154" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
+    <Shape ID="DesignTable:incomelastview" ZOrder="8" X="293" Y="655" Height="257" Width="155" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
     <Shape ID="DesignTable:config" ZOrder="7" X="762" Y="70" Height="231" Width="202" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
     <Shape ID="DesignTable:stamphandling" ZOrder="2" X="14" Y="448" Height="180" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="176" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:treasurerproceeds" ZOrder="6" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>293</X>
-          <Y>185</Y>
-        </Point>
-        <Point>
-          <X>228</X>
-          <Y>185</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:FK_stamphandling_proceeds" ZOrder="1" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>119</X>
-          <Y>448</Y>
-        </Point>
-        <Point>
-          <X>119</X>
-          <Y>301</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:proceedsproceeds_bankview" ZOrder="5" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>211</X>
-          <Y>301</Y>
-        </Point>
-        <Point>
-          <X>211</X>
-          <Y>388</Y>
-        </Point>
-        <Point>
-          <X>293</X>
-          <Y>388</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
     <Connector ID="DesignRelation:proceeds_bankviewincomelastview" ZOrder="4" LineWidth="11">
       <RoutePoints>
         <Point>
@@ -80,6 +40,46 @@
         <Point>
           <X>293</X>
           <Y>672</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:proceedsproceeds_bankview" ZOrder="5" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>211</X>
+          <Y>301</Y>
+        </Point>
+        <Point>
+          <X>211</X>
+          <Y>388</Y>
+        </Point>
+        <Point>
+          <X>293</X>
+          <Y>388</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:treasurerproceeds" ZOrder="6" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>293</X>
+          <Y>185</Y>
+        </Point>
+        <Point>
+          <X>228</X>
+          <Y>185</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:FK_stamphandling_proceeds" ZOrder="1" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>119</X>
+          <Y>448</Y>
+        </Point>
+        <Point>
+          <X>119</X>
+          <Y>301</Y>
         </Point>
       </RoutePoints>
     </Connector>

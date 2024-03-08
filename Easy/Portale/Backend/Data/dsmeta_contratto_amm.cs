@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,21 +30,6 @@ namespace Backend.Data {
 public class dsmeta_contratto_amm: DataSet {
 
 	#region Table members declaration
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable year_alias1 		=> (MetaTable)Tables["year_alias1"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable stipendioannuo 		=> (MetaTable)Tables["stipendioannuo"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable year 		=> (MetaTable)Tables["year"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable mese 		=> (MetaTable)Tables["mese"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable cedolino 		=> (MetaTable)Tables["cedolino"];
-
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inquadramentodefaultview 		=> (MetaTable)Tables["inquadramentodefaultview"];
 
@@ -79,67 +64,6 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_contratto_amm.xsd";
 
 	#region create DataTables
-	//////////////////// YEAR_ALIAS1 /////////////////////////////////
-	var tyear_alias1= new MetaTable("year_alias1");
-	tyear_alias1.defineColumn("year", typeof(int),false);
-	tyear_alias1.ExtendedProperties["TableForReading"]="year";
-	Tables.Add(tyear_alias1);
-	tyear_alias1.defineKey("year");
-
-	//////////////////// STIPENDIOANNUO /////////////////////////////////
-	var tstipendioannuo= new MetaTable("stipendioannuo");
-	tstipendioannuo.defineColumn("caricoente", typeof(decimal));
-	tstipendioannuo.defineColumn("ct", typeof(DateTime));
-	tstipendioannuo.defineColumn("cu", typeof(string));
-	tstipendioannuo.defineColumn("idcontratto", typeof(int),false);
-	tstipendioannuo.defineColumn("idreg", typeof(int),false);
-	tstipendioannuo.defineColumn("idstipendioannuo", typeof(int),false);
-	tstipendioannuo.defineColumn("irap", typeof(decimal));
-	tstipendioannuo.defineColumn("lordo", typeof(decimal));
-	tstipendioannuo.defineColumn("lt", typeof(DateTime));
-	tstipendioannuo.defineColumn("lu", typeof(string));
-	tstipendioannuo.defineColumn("totale", typeof(decimal));
-	tstipendioannuo.defineColumn("year", typeof(int),false);
-	Tables.Add(tstipendioannuo);
-	tstipendioannuo.defineKey("idcontratto", "idreg", "idstipendioannuo", "year");
-
-	//////////////////// YEAR /////////////////////////////////
-	var tyear= new MetaTable("year");
-	tyear.defineColumn("year", typeof(int),false);
-	Tables.Add(tyear);
-	tyear.defineKey("year");
-
-	//////////////////// MESE /////////////////////////////////
-	var tmese= new MetaTable("mese");
-	tmese.defineColumn("idmese", typeof(int),false);
-	tmese.defineColumn("title", typeof(string));
-	Tables.Add(tmese);
-	tmese.defineKey("idmese");
-
-	//////////////////// CEDOLINO /////////////////////////////////
-	var tcedolino= new MetaTable("cedolino");
-	tcedolino.defineColumn("!previdenza", typeof(decimal));
-	tcedolino.defineColumn("!tesoro", typeof(decimal));
-	tcedolino.defineColumn("!totalece", typeof(decimal));
-	tcedolino.defineColumn("!tredicesima", typeof(decimal));
-	tcedolino.defineColumn("assegno", typeof(decimal));
-	tcedolino.defineColumn("classe", typeof(int));
-	tcedolino.defineColumn("data", typeof(DateTime));
-	tcedolino.defineColumn("idcedolino", typeof(int),false);
-	tcedolino.defineColumn("idcontratto", typeof(int),false);
-	tcedolino.defineColumn("idmese", typeof(int));
-	tcedolino.defineColumn("idreg", typeof(int),false);
-	tcedolino.defineColumn("iis", typeof(decimal));
-	tcedolino.defineColumn("irap", typeof(decimal));
-	tcedolino.defineColumn("lordo", typeof(decimal));
-	tcedolino.defineColumn("scatto", typeof(int));
-	tcedolino.defineColumn("stipendio", typeof(decimal));
-	tcedolino.defineColumn("totale", typeof(decimal));
-	tcedolino.defineColumn("year", typeof(int));
-	tcedolino.defineColumn("!idmese_mese_title", typeof(string));
-	Tables.Add(tcedolino);
-	tcedolino.defineKey("idcedolino", "idcontratto", "idreg");
-
 	//////////////////// INQUADRAMENTODEFAULTVIEW /////////////////////////////////
 	var tinquadramentodefaultview= new MetaTable("inquadramentodefaultview");
 	tinquadramentodefaultview.defineColumn("dropdown_title", typeof(string),false);
@@ -184,6 +108,7 @@ private void initClass() {
 	tcontrattokinddefaultview.defineColumn("contrattokind_siglaimportazione", typeof(string));
 	tcontrattokinddefaultview.defineColumn("contrattokind_sortcode", typeof(int),false);
 	tcontrattokinddefaultview.defineColumn("contrattokind_tempdef", typeof(string));
+	tcontrattokinddefaultview.defineColumn("contrattokind_tipopersonale", typeof(string));
 	tcontrattokinddefaultview.defineColumn("contrattokind_totaletredicesima", typeof(string));
 	tcontrattokinddefaultview.defineColumn("contrattokind_tredicesimaindennitaintegrativaspeciale", typeof(string));
 	tcontrattokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
@@ -194,24 +119,28 @@ private void initClass() {
 
 	//////////////////// CONTRATTO /////////////////////////////////
 	var tcontratto= new MetaTable("contratto");
+	tcontratto.defineColumn("anni", typeof(int));
 	tcontratto.defineColumn("classe", typeof(int));
 	tcontratto.defineColumn("ct", typeof(DateTime),false);
 	tcontratto.defineColumn("cu", typeof(string),false);
 	tcontratto.defineColumn("datarivalutazione", typeof(DateTime));
 	tcontratto.defineColumn("estremibando", typeof(string));
+	tcontratto.defineColumn("giorni", typeof(int));
 	tcontratto.defineColumn("idcontratto", typeof(int),false);
-	tcontratto.defineColumn("idcontrattokind", typeof(int),false);
+	tcontratto.defineColumn("idcontrattokind", typeof(int));
 	tcontratto.defineColumn("idinquadramento", typeof(int));
 	tcontratto.defineColumn("idreg", typeof(int),false);
+	tcontratto.defineColumn("istituzione", typeof(string));
 	tcontratto.defineColumn("lt", typeof(DateTime),false);
 	tcontratto.defineColumn("lu", typeof(string),false);
+	tcontratto.defineColumn("mesi", typeof(int));
 	tcontratto.defineColumn("parttime", typeof(decimal));
 	tcontratto.defineColumn("percentualesufondiateneo", typeof(decimal));
 	tcontratto.defineColumn("scatto", typeof(int));
-	tcontratto.defineColumn("start", typeof(DateTime),false);
+	tcontratto.defineColumn("start", typeof(DateTime));
 	tcontratto.defineColumn("stop", typeof(DateTime));
-	tcontratto.defineColumn("tempdef", typeof(string),false);
-	tcontratto.defineColumn("tempindet", typeof(string),false);
+	tcontratto.defineColumn("tempdef", typeof(string));
+	tcontratto.defineColumn("tempindet", typeof(string));
 	Tables.Add(tcontratto);
 	tcontratto.defineKey("idcontratto", "idreg");
 
@@ -219,28 +148,8 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{contratto.Columns["idcontratto"], contratto.Columns["idreg"]};
-	var cChild = new []{stipendioannuo.Columns["idcontratto"], stipendioannuo.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_stipendioannuo_contratto_idcontratto-idreg",cPar,cChild,false));
-
-	cPar = new []{year_alias1.Columns["year"]};
-	cChild = new []{stipendioannuo.Columns["year"]};
-	Relations.Add(new DataRelation("FK_stipendioannuo_year_alias1_year",cPar,cChild,false));
-
-	cPar = new []{contratto.Columns["idcontratto"], contratto.Columns["idreg"]};
-	cChild = new []{cedolino.Columns["idcontratto"], cedolino.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_cedolino_contratto_idcontratto-idreg",cPar,cChild,false));
-
-	cPar = new []{year.Columns["year"]};
-	cChild = new []{cedolino.Columns["year"]};
-	Relations.Add(new DataRelation("FK_cedolino_year_year",cPar,cChild,false));
-
-	cPar = new []{mese.Columns["idmese"]};
-	cChild = new []{cedolino.Columns["idmese"]};
-	Relations.Add(new DataRelation("FK_cedolino_mese_idmese",cPar,cChild,false));
-
-	cPar = new []{inquadramentodefaultview.Columns["idinquadramento"]};
-	cChild = new []{contratto.Columns["idinquadramento"]};
+	var cPar = new []{inquadramentodefaultview.Columns["idinquadramento"]};
+	var cChild = new []{contratto.Columns["idinquadramento"]};
 	Relations.Add(new DataRelation("FK_contratto_inquadramentodefaultview_idinquadramento",cPar,cChild,false));
 
 	cPar = new []{contrattokinddefaultview.Columns["idcontrattokind"]};

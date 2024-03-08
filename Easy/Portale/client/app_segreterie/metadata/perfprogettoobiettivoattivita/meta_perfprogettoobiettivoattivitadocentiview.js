@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -42,14 +25,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return this.superClass.describeColumns(table, listType);
 					case 'docenti':
 						this.describeAColumn(table, 'perfprogetto_title', 'Progetto Strategico', null, 1200, 1024);
-						this.describeAColumn(table, 'perfprogettoobiettivo_title', 'Obiettivo strategico', null, 2200, 1024);
-						this.describeAColumn(table, 'perfprogettoobiettivoattivitaparent_title', 'Attivit‡ madre', null, 3400, 1024);
+						this.describeAColumn(table, 'perfprogettoobiettivo_title', 'Obiettivo strategico', null, 2100, 1024);
+						this.describeAColumn(table, 'perfprogettoobiettivoattivitaparent_title', 'Attivit√† madre', null, 3400, 1024);
 						this.describeAColumn(table, 'title', 'Titolo', null, 4000, 1024);
 						this.describeAColumn(table, 'perfprogettoobiettivoattivita_datainizioprevista', 'Data inizio prevista', 'g', 5000, null);
 						this.describeAColumn(table, 'perfprogettoobiettivoattivita_datafineprevista', 'Data fine prevista', 'g', 6000, null);
 						this.describeAColumn(table, 'perfprogettoobiettivoattivita_datainizioeffettiva', 'Data inizio effettiva', 'g', 7000, null);
 						this.describeAColumn(table, 'perfprogettoobiettivoattivita_datafineeffettiva', 'Data fine effettiva', 'g', 8000, null);
 						this.describeAColumn(table, 'perfprogettoobiettivoattivita_completamento', 'Percentuale di completamento', 'fixed.2', 9000, null);
+						this.describeAColumn(table, 'account_title', 'Denominazione Voce di costo', null, 18100, 150);
+						this.describeAColumn(table, 'account_ayear', 'Esercizio Voce di costo', null, 18200, null);
+						this.describeAColumn(table, 'account_codeacc', 'Codice conto Voce di costo', null, 18300, 50);
+						this.describeAColumn(table, 'upb_title', 'Unit√† previsionale di base (UPB)', null, 19200, 150);
 //$objCalcFieldConfig_docenti$
 						break;
 //$objCalcFieldConfig$

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@ SET ANSI_NULLS ON
 GO
 
 -- setuser 'amministrazione'
--- get_ivapay 2018,3
+-- get_ivapay 2021,37
 
 CREATE  PROCEDURE [get_ivapay]
 	@yivapay int,
@@ -153,7 +153,13 @@ AS BEGIN
 					and flagintracom='N' 
 					and flagsplit='S' 
 					and  flagactivity=1  --istituzionale
+-- per le fatture con recupero iva estera deve usare l'upb Ateneo [17163]
+	update #invoice set idupb='0001' where 
+					registerclass='A' and kind = 'A'
+					and flagintracom<>'N'  and (flagbit & 64) <> 0
+					and  flagactivity=1  --istituzionale
 
+					
 	SELECT #invoice.*,ivaregisterkind.codeivaregisterkind, ivaregisterkind.description,
 				ID.idepexp,ID.idepacc
 	 FROM #invoice
@@ -173,4 +179,5 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
+
 

@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module DropDownGridControl
  * @description
@@ -39,6 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    function DropDownGridControl(el, helpForm, table, primaryTable, listType) {
       this.listManager = null;
       this.timeoutId = 0; // timer che permette di lanciare la query se tra 2 keyup passa più di mezzo secondo
+       
+      $(el).prop("autocomplete","off");
+      //$(el).attr("data-subentity"); non dovrebbe essere necessaria vista la presenza del tag di ricerca ?x
 
       this.helpForm = helpForm;
       this.DS = table.dataset;
@@ -48,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       this.tag = $(el).data("tag");
       this.el = el;
       this.listingType = $(el).data("listtype");
-      this.columnList = helpForm.existsDataAttribute(el, "columnlist") ? $(el).data("columnlist") : null;
+      //this.columnList = helpForm.existsDataAttribute(el, "columnlist") ? $(el).data("columnlist") : null;
       this.isStandardFill = true;
       var dataParent = $(el).data("parent");
       // numero di caratteri per cui scatta la query
@@ -58,13 +44,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       this.rootElement = $("#" + dataParent).length ? $("#" + dataParent) : $(el).parent();
       this.lastText = this.getLastText();
       $(el).addClass(appMeta.cssDefault.autoChoose);
+      
       var startFilter = helpForm.getFilterFormDataAttribute(el);
       var kind = 'AutoChoose';
       this.startField = helpForm.getColumnName(this.tag);
       var col = this.dataTable.columns[this.startField];
       $(el).attr("maxlength", metaModel.getMaxLen(col));
 
-      this.ai = new appMeta.MetaData.AutoInfo(this.rootElement, this.listingType, startFilter, this.startField, table.name, kind);
+      this.ai = new appMeta.AutoInfo(this.rootElement, this.listingType, startFilter, this.startField, table.name, kind);
       $(el).on("keyup", _.partial(this.keyUpDelay, this.msDelay, this));
       $(el).on("blur", _.partial(this.lostfocus, this));
       // aggiunge il text invisibile, che verrà utilizzato in ricerca tramite id sulla tabella referenziata,
@@ -72,13 +59,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       // comunque abilitato in inserimento.
       this.txtHiddenForId = helpForm.addInvisibleTextBox(this.ai);
       $(el).data("tag", helpForm.getStandardTag(this.tag) + "?x");
-      this.applyGrafichs();
+      this.applyGrapichs();
    }
 
    DropDownGridControl.prototype = {
       constructor: DropDownGridControl,
 
-      applyGrafichs: function () {
+      applyGrapichs: function () {
          var $parent = $(this.el).parent();
          $parent.addClass("oneRow");
          this.$buttonSearch = $('<button type="button" class="btn btn-outline-secondary">');
@@ -147,7 +134,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          this.rowSelected = false;
          var dataTablePaged, totPage, totRows;
          // eseguo chiamata al ws
-         return getData.getPagedTable(that.tableNameForReading, 1, appMeta.config.listManager_nRowPerPage, filter, that.listingType, sort)
+         return that.metaPage.getFormData(true).then(function () {
+              return getData.getPagedTable(that.tableNameForReading, 1, appMeta.config.listManager_nRowPerPage, filter, that.listingType, sort)
+          })
             .then(function (dt, totp, totr) {
                dataTablePaged = dt;
                totPage = totp;
@@ -188,16 +177,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       },
 
       /**
-       * Slect the row on the underline control
+       * Select the row on the underline control
        * @param {DataRow} dtrow
        * @returns {Deferred}
        */
       putRowInControl: function (dtrow) {
          var self = this;
-         // res tornato è un ObjectRow
+         // res restituito è un ObjectRow
          return self.metaPage.state.meta.checkSelectRow(self.dataTable, dtrow)
-            .then(function (dataRow) {
-               return self.metaPage.selectOneCompleted(dataRow, self.dataTable, self.rootElement)
+             .then(function (dataRow) {
+                 return self.metaPage.selectOneCompleted(dataRow, self.dataTable, self.rootElement)
+                 //return self.metaPage.rowSelect(self.rootElement, self.dataTable, dataRow.current);
             })
             .then(function (selected) {
                self.rowSelected = selected;
@@ -229,7 +219,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var field = that.ai.childField;
             var col = childTable.columns[field];
             if (that.metaPage.state.isEditState() &&
-               (metaModel.denyNull(col) || metaModel.denyZero(col) || !metaModel.allowDbNull(col) || !metaModel.allowZero(col))) {
+               (metaModel.denyNull(col) || metaModel.denyZero(col) || !metaModel.allowNull(col) || !metaModel.allowZero(col))) {
                return that.metaPage.showMessageOk("Questo campo è obbligatorio, seleziona un valore!")
                   .then(function () {
                      that.helpForm.applyFocus(that.el);
@@ -253,7 +243,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          }, ms || 0);
       },
 
-      // QUI INZIANO METODI DI INTERFACCIA Del CUSTOM CONTROL
+      // QUI INIZIANO METODI DI INTERFACCIA Del CUSTOM CONTROL
 
       /**
        * @method fillControl
@@ -267,9 +257,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          this.helpForm.setControl(el || this.el, dataTable, value, this.startField);
          this.lastText = this.getLastText();
 
-         // -> *** Le PROSSIMe RIGHE SERVONO A CORREGERE il caso in cui una subpage
-         // abbia un dropdowngrid e una select che dipende da lei. Quindi nell'afetRowSelect di pagina programmatore gestisce
-         // il filtraggio. (vecchio esempio missioni itinaration o itinerationsegview di rendicontattivitaprogetto) ma che al momento non è
+         // -> *** Le PROSSIME RIGHE SERVONO A CORREGGERE il caso in cui una subpage
+         // abbia un dropdowngrid e una select che dipende da lei. Quindi nell'afterRowSelect di pagina programmatore gestisce
+         // il filtraggio. (vecchio esempio missioni itineration o itinerationsegview di rendicontattivitaprogetto) ma che al momento non è
          // più implementato.) . quindi è stato disattivato, poichè genera un altro tipo di errore più grave
          // in pagina principale (es: progetto seg) in cui al salvataggio poi gli eventi non fanno popolare la combo slave.
          // -> *** LO LASCIAMO QUINDI COMMENTATO FINCHE' NON ABBIAMO UN CASO REALE DOVE PROVARE ENTRMABE I BUG.

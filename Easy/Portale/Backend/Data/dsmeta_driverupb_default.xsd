@@ -114,10 +114,6 @@
       <xs:selector xpath=".//mstns:upbcoanview" />
       <xs:field xpath="mstns:idupb" />
     </xs:unique>
-    <xs:unique name="accountusablecoanview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:accountusablecoanview" />
-      <xs:field xpath="mstns:idacc" />
-    </xs:unique>
     <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:year" />
       <xs:field xpath="mstns:year" />

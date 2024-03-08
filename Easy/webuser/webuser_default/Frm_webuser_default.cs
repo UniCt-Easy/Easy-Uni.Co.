@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -198,7 +198,7 @@ namespace webuser_default
             }
             object denominazioneEnte = conn.DO_READ_VALUE("generalreportparameter", q.CmpEq("idparam", "DenominazioneUniversita"), "paramvalue");
             if (denominazioneEnte == null || denominazioneEnte.ToString() == "") {
-                show("Inserire la denominazione universit‡ nei parametri di tutte le stampe", "Errore");
+                show("Inserire la denominazione universit√† nei parametri di tutte le stampe", "Errore");
             }
             string iDEnte = hds.registerEnte(denominazioneEnte.ToString(), p_iva.ToString());
             if (iDEnte.StartsWith("Errori")) {
@@ -276,4 +276,3 @@ namespace webuser_default
         }
     }
 }
-

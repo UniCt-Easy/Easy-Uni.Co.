@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -50,14 +50,20 @@ namespace meta_allowanceruledetail {
         public override void DescribeColumns(DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
             if (ListingType == "default") {
-                DescribeAColumn(T, "idallowancerule", "Id.regola");
-                DescribeAColumn(T, "iddetail", "Id.dettaglio");
-                DescribeAColumn(T, "idposition", "");
-                DescribeAColumn(T, "!qualifica", "Qualifica", "position.description");
-                DescribeAColumn(T, "minincomeclass", "Min.classe stip.");
-                DescribeAColumn(T, "maxincomeclass", "Max.classe stip.");
-                DescribeAColumn(T, "amount", "Importo");
-                DescribeAColumn(T, "advancepercentage", "Perc.anticipo");
+                foreach (DataColumn C in T.Columns)
+                {
+                    DescribeAColumn(T, C.ColumnName, "", -1);
+                }
+                int nPos = 1;
+                DescribeAColumn(T, "idallowancerule", "Id.regola", nPos++);
+                DescribeAColumn(T, "iddetail", "Id.dettaglio", nPos++);
+                DescribeAColumn(T, "idposition", "", nPos++);
+                DescribeAColumn(T, "!qualifica", "Qualifica", "position.description", nPos++);
+                DescribeAColumn(T, "livello", "Livello", nPos++);
+                DescribeAColumn(T, "minincomeclass", "Min.classe stip.", nPos++);
+                DescribeAColumn(T, "maxincomeclass", "Max.classe stip.", nPos++);
+                DescribeAColumn(T, "amount", "Importo", nPos++);
+                DescribeAColumn(T, "advancepercentage", "Perc.anticipo", nPos++);
                 HelpForm.SetFormatForColumn(T.Columns["advancepercentage"], "p");
             }
             return;

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -43,20 +26,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'default':
 						this.describeAColumn(table, '!previdenza', 'Opera di previdenza', 'fixed.2', 0, null);
 						this.describeAColumn(table, '!tesoro', 'Tesoro', 'fixed.2', 0, null);
-						this.describeAColumn(table, '!totalece', 'Totale a carico ente', 'fixed.2', 0, null);
 						this.describeAColumn(table, '!tredicesima', 'Tredicesima', 'fixed.2', 0, null);
-						this.describeAColumn(table, 'classe', 'Classe', null, 10, null);
-						this.describeAColumn(table, 'scatto', 'Scatto', null, 20, null);
-						this.describeAColumn(table, 'stipendio', 'Stipendio', 'fixed.2', 30, null);
-						this.describeAColumn(table, 'iis', 'Indennit‡ integrativa speciale', 'fixed.2', 40, null);
-						this.describeAColumn(table, 'assegno', 'Assegno aggiuntivo', 'fixed.2', 50, null);
-						this.describeAColumn(table, 'lordo', 'Retribuzione totale lorda', 'fixed.2', 60, null);
-						this.describeAColumn(table, 'irap', 'IRAP', 'fixed.2', 70, null);
-						this.describeAColumn(table, 'totale', 'Totale costo annuo', 'fixed.2', 110, null);
-						this.describeAColumn(table, 'data', 'Data', null, 150, null);
-						this.describeAColumn(table, 'year', 'Anno', null, 170, null);
-						this.describeAColumn(table, '!idmese_mese_title', 'Mese', null, 161, null);
+						this.describeAColumn(table, 'year', 'Anno', null, 10, null);
+						this.describeAColumn(table, 'idmese', 'Mese', null, 20, null);
+						this.describeAColumn(table, 'classe', 'Classe', null, 30, null);
+						this.describeAColumn(table, 'scatto', 'Scatto', null, 40, null);
+						this.describeAColumn(table, 'stipendio', 'Stipendio', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'iis', 'Indennit√† integrativa speciale', 'fixed.2', 110, null);
+						this.describeAColumn(table, 'assegno', 'Assegno aggiuntivo', 'fixed.2', 120, null);
+						this.describeAColumn(table, 'lordo', 'Retribuzione totale lorda', 'fixed.2', 130, null);
+						this.describeAColumn(table, 'totalece', 'Totale a carico ente', 'fixed.2', 140, null);
+						this.describeAColumn(table, 'irap', 'IRAP', 'fixed.2', 150, null);
+						this.describeAColumn(table, 'totale', 'Totale', 'fixed.2', 160, null);
+						this.describeAColumn(table, 'data', 'Data', null, 170, null);
+						this.describeAColumn(table, '!idmese_mese_title', 'Mese', null, 21, null);
 						objCalcFieldConfig['!idmese_mese_title'] = { tableNameLookup:'mese', columnNameLookup:'title', columnNamekey:'idmese' };
+						this.describeAColumn(table, '!idcontratto_contratto_start', 'Inizio Idcontratto', null, 52, null);
+						this.describeAColumn(table, '!idcontratto_contratto_stop', 'Fine Idcontratto', null, 53, null);
+						this.describeAColumn(table, '!idcontratto_contratto_idcontrattokind_title', 'Tipologia di contratto Idcontratto', null, 50, null);
+						objCalcFieldConfig['!idcontratto_contratto_start'] = { tableNameLookup:'contratto', columnNameLookup:'start', columnNamekey:'idcontratto' };
+						objCalcFieldConfig['!idcontratto_contratto_stop'] = { tableNameLookup:'contratto', columnNameLookup:'stop', columnNamekey:'idcontratto' };
+						objCalcFieldConfig['!idcontratto_contratto_idcontrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idcontratto' };
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -72,15 +62,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'default':
 						table.columns["!previdenza"].caption = "Opera di previdenza";
 						table.columns["!tesoro"].caption = "Tesoro";
-						table.columns["!totalece"].caption = "Totale a carico ente";
 						table.columns["!tredicesima"].caption = "Tredicesima";
 						table.columns["assegno"].caption = "Assegno aggiuntivo";
 						table.columns["data"].caption = "Data";
 						table.columns["idmese"].caption = "Mese";
-						table.columns["iis"].caption = "Indennit‡ integrativa speciale";
+						table.columns["iis"].caption = "Indennit√† integrativa speciale";
 						table.columns["irap"].caption = "IRAP";
 						table.columns["lordo"].caption = "Retribuzione totale lorda";
-						table.columns["totale"].caption = "Totale costo annuo";
+						table.columns["totale"].caption = "Totale";
+						table.columns["totalece"].caption = "Totale a carico ente";
 						table.columns["year"].caption = "Anno";
 //$innerSetCaptionConfig_default$
 						break;
@@ -109,7 +99,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "default": {
+						return "year asc , idmese asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
 			//$describeTree$
         });

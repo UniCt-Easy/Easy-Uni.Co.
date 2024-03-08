@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -79,9 +79,6 @@ public partial class dsmeta: DataSet {
 	public MetaTable accmotiveappliedannulment 		=> (MetaTable)Tables["accmotiveappliedannulment"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable revenuepartition 		=> (MetaTable)Tables["revenuepartition"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb_iva 		=> (upbTable)Tables["upb_iva"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -107,6 +104,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable finmotive_iva_income 		=> (MetaTable)Tables["finmotive_iva_income"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable costpartition 		=> (MetaTable)Tables["costpartition"];
 
 	#endregion
 
@@ -153,7 +153,7 @@ private void initClass() {
 
 	//////////////////// INVOICEDETAIL /////////////////////////////////
 	var tinvoicedetail= new invoicedetailTable();
-	tinvoicedetail.addBaseColumns("idinvkind","ninv","rownum","yinv","annotations","competencystart","competencystop","ct","cu","detaildescription","discount","idaccmotive","idivakind","idmankind","idsor1","idsor2","idsor3","idupb","lt","lu","manrownum","nman","number","tax","taxable","unabatable","yman","idestimkind","yestim","nestim","estimrownum","idgroup","idfinmotive_iva");
+	tinvoicedetail.addBaseColumns("idinvkind","ninv","rownum","yinv","annotations","competencystart","competencystop","ct","cu","detaildescription","discount","idaccmotive","idivakind","idmankind","idsor1","idsor2","idsor3","idupb","lt","lu","manrownum","nman","number","tax","taxable","unabatable","yman","idestimkind","yestim","nestim","estimrownum","idgroup","idfinmotive_iva","npackage","idfetransfer","cupcode","cigcode");
 	tinvoicedetail.defineColumn("!tipodocumento", typeof(string));
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.defineKey("idinvkind", "ninv", "rownum", "yinv");
@@ -269,21 +269,6 @@ private void initClass() {
 	taccmotiveappliedannulment.defineColumn("flagamm", typeof(string));
 	Tables.Add(taccmotiveappliedannulment);
 	taccmotiveappliedannulment.defineKey("idaccmotive");
-
-	//////////////////// REVENUEPARTITION /////////////////////////////////
-	var trevenuepartition= new MetaTable("revenuepartition");
-	trevenuepartition.defineColumn("idrevenuepartition", typeof(int),false);
-	trevenuepartition.defineColumn("title", typeof(string));
-	trevenuepartition.defineColumn("kind", typeof(string));
-	trevenuepartition.defineColumn("lt", typeof(DateTime));
-	trevenuepartition.defineColumn("lu", typeof(string));
-	trevenuepartition.defineColumn("ct", typeof(DateTime));
-	trevenuepartition.defineColumn("cu", typeof(string));
-	trevenuepartition.defineColumn("revenuepartitioncode", typeof(string));
-	trevenuepartition.defineColumn("active", typeof(string));
-	trevenuepartition.defineColumn("description", typeof(string));
-	Tables.Add(trevenuepartition);
-	trevenuepartition.defineKey("idrevenuepartition");
 
 	//////////////////// UPB_IVA /////////////////////////////////
 	var tupb_iva= new upbTable();
@@ -444,6 +429,21 @@ private void initClass() {
 	Tables.Add(tfinmotive_iva_income);
 	tfinmotive_iva_income.defineKey("idfinmotive");
 
+	//////////////////// COSTPARTITION /////////////////////////////////
+	var tcostpartition= new MetaTable("costpartition");
+	tcostpartition.defineColumn("idcostpartition", typeof(int),false);
+	tcostpartition.defineColumn("title", typeof(string));
+	tcostpartition.defineColumn("kind", typeof(string));
+	tcostpartition.defineColumn("lt", typeof(DateTime));
+	tcostpartition.defineColumn("lu", typeof(string));
+	tcostpartition.defineColumn("ct", typeof(DateTime));
+	tcostpartition.defineColumn("cu", typeof(string));
+	tcostpartition.defineColumn("costpartitioncode", typeof(string));
+	tcostpartition.defineColumn("active", typeof(string));
+	tcostpartition.defineColumn("description", typeof(string));
+	Tables.Add(tcostpartition);
+	tcostpartition.defineKey("idcostpartition");
+
 	#endregion
 
 
@@ -487,7 +487,6 @@ private void initClass() {
 	cChild = new []{estimatedetail.Columns["idaccmotiveannulment"]};
 	Relations.Add(new DataRelation("accmotiveappliedannulment_estimatedetail",cPar,cChild,false));
 
-	this.defineRelation("revenuepartition_estimatedetail","revenuepartition","estimatedetail","idrevenuepartition");
 	this.defineRelation("finmotive_income_estimatedetail","finmotive_income","estimatedetail","idfinmotive");
 	cPar = new []{sorting_siope.Columns["idsor"]};
 	cChild = new []{estimatedetail.Columns["idsor_siope"]};
@@ -501,6 +500,10 @@ private void initClass() {
 	cPar = new []{finmotive_iva_income.Columns["idfinmotive"]};
 	cChild = new []{estimatedetail.Columns["idfinmotive_iva"]};
 	Relations.Add(new DataRelation("finmotive_iva_income_estimatedetail",cPar,cChild,false));
+
+	cPar = new []{costpartition.Columns["idcostpartition"]};
+	cChild = new []{estimatedetail.Columns["idrevenuepartition"]};
+	Relations.Add(new DataRelation("costpartition_estimatedetail",cPar,cChild,false));
 
 	#endregion
 

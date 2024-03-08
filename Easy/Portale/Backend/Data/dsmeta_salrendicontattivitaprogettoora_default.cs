@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -67,6 +67,9 @@ private void initClass() {
 	trendicontattivitaprogettoorasegsalview.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
 	trendicontattivitaprogettoorasegsalview.defineColumn("idrendicontattivitaprogettoora", typeof(int),false);
 	trendicontattivitaprogettoorasegsalview.defineColumn("idworkpackage", typeof(int),false);
+	trendicontattivitaprogettoorasegsalview.defineColumn("registry_title", typeof(string));
+	trendicontattivitaprogettoorasegsalview.defineColumn("rendicontattivitaprogetto_description", typeof(string));
+	trendicontattivitaprogettoorasegsalview.defineColumn("rendicontattivitaprogetto_idreg", typeof(int));
 	trendicontattivitaprogettoorasegsalview.defineColumn("rendicontattivitaprogettoora_ct", typeof(DateTime),false);
 	trendicontattivitaprogettoorasegsalview.defineColumn("rendicontattivitaprogettoora_cu", typeof(string),false);
 	trendicontattivitaprogettoorasegsalview.defineColumn("rendicontattivitaprogettoora_data", typeof(DateTime));
@@ -76,8 +79,10 @@ private void initClass() {
 	trendicontattivitaprogettoorasegsalview.defineColumn("rendicontattivitaprogettoora_ore", typeof(int));
 	trendicontattivitaprogettoorasegsalview.defineColumn("sal_start", typeof(DateTime));
 	trendicontattivitaprogettoorasegsalview.defineColumn("sal_stop", typeof(DateTime));
+	trendicontattivitaprogettoorasegsalview.defineColumn("workpackage_raggruppamento", typeof(string));
+	trendicontattivitaprogettoorasegsalview.defineColumn("workpackage_title", typeof(string));
 	Tables.Add(trendicontattivitaprogettoorasegsalview);
-	trendicontattivitaprogettoorasegsalview.defineKey("idrendicontattivitaprogettoora");
+	trendicontattivitaprogettoorasegsalview.defineKey("idrendicontattivitaprogetto", "idrendicontattivitaprogettoora", "idworkpackage");
 
 	//////////////////// SALRENDICONTATTIVITAPROGETTOORA /////////////////////////////////
 	var tsalrendicontattivitaprogettoora= new MetaTable("salrendicontattivitaprogettoora");

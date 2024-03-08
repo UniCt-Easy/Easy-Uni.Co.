@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -227,6 +227,9 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable parasubcontractattachment 		=> (MetaTable)Tables["parasubcontractattachment"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable costpartition 		=> (MetaTable)Tables["costpartition"];
+
 	#endregion
 
 
@@ -254,7 +257,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// PARASUBCONTRACT /////////////////////////////////
 	var tparasubcontract= new parasubcontractTable();
-	tparasubcontract.addBaseColumns("idcon","ycon","ncon","idreg","duty","idpayrollkind","idser","employed","payrollccinfo","start","stop","monthlen","grossamount","idpat","matricula","idmatriculabook","cu","ct","lu","lt","txt","rtf","idupb","idsor1","idsor2","idsor3","idaccmotive","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","idsor01","idsor02","idsor03","idsor04","idsor05","iddaliaposition","idsor_siope","requested_doc","iddaliarecruitmentmotive","iddalia_dipartimento","iddalia_funzionale");
+	tparasubcontract.addBaseColumns("idcon","ycon","ncon","idreg","duty","idpayrollkind","idser","employed","payrollccinfo","start","stop","monthlen","grossamount","idpat","matricula","idmatriculabook","cu","ct","lu","lt","txt","rtf","idupb","idsor1","idsor2","idsor3","idaccmotive","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","idsor01","idsor02","idsor03","idsor04","idsor05","iddaliaposition","idsor_siope","requested_doc","iddaliarecruitmentmotive","iddalia_dipartimento","iddalia_funzionale","idcostpartition");
 	Tables.Add(tparasubcontract);
 	tparasubcontract.defineKey("idcon");
 
@@ -549,7 +552,7 @@ private void initClass() {
 
 	//////////////////// PAYROLL /////////////////////////////////
 	var tpayroll= new payrollTable();
-	tpayroll.addBaseColumns("idpayroll","disbursementdate","flagcomputed","npayroll","flagbalance","start","stop","idresidence","workingdays","feegross","netfee","idcon","currentrounding","lu","lt","cu","ct","enabletaxrelief","fiscalyear","flagsummarybalance","idupb");
+	tpayroll.addBaseColumns("idpayroll","disbursementdate","flagcomputed","npayroll","flagbalance","start","stop","idresidence","workingdays","feegross","netfee","idcon","currentrounding","lu","lt","cu","ct","enabletaxrelief","fiscalyear","flagsummarybalance","idupb","idcostpartition");
 	tpayroll.defineColumn("!codeupb", typeof(string));
 	Tables.Add(tpayroll);
 	tpayroll.defineKey("idpayroll");
@@ -1125,6 +1128,7 @@ private void initClass() {
 	tparasubcontractview.defineColumn("codeupb", typeof(string));
 	tparasubcontractview.defineColumn("requested_doc", typeof(int));
 	tparasubcontractview.defineColumn("sortcode1", typeof(string));
+	tparasubcontractview.defineColumn("idcostpartition", typeof(int));
 	Tables.Add(tparasubcontractview);
 	tparasubcontractview.defineKey("ayear", "idcon");
 
@@ -1250,6 +1254,21 @@ private void initClass() {
 	Tables.Add(tparasubcontractattachment);
 	tparasubcontractattachment.defineKey("idcon", "idattachment");
 
+	//////////////////// COSTPARTITION /////////////////////////////////
+	var tcostpartition= new MetaTable("costpartition");
+	tcostpartition.defineColumn("idcostpartition", typeof(int),false);
+	tcostpartition.defineColumn("title", typeof(string));
+	tcostpartition.defineColumn("kind", typeof(string));
+	tcostpartition.defineColumn("lt", typeof(DateTime));
+	tcostpartition.defineColumn("lu", typeof(string));
+	tcostpartition.defineColumn("ct", typeof(DateTime));
+	tcostpartition.defineColumn("cu", typeof(string));
+	tcostpartition.defineColumn("costpartitioncode", typeof(string));
+	tcostpartition.defineColumn("active", typeof(string));
+	tcostpartition.defineColumn("description", typeof(string));
+	Tables.Add(tcostpartition);
+	tcostpartition.defineKey("idcostpartition");
+
 	#endregion
 
 
@@ -1367,6 +1386,7 @@ private void initClass() {
 	this.defineRelation("dalia_funzionale_parasubcontract","dalia_funzionale","parasubcontract","iddalia_funzionale");
 	this.defineRelation("serviceattachmentkind_parasubcontractattachment","serviceattachmentkind","parasubcontractattachment","idattachmentkind");
 	this.defineRelation("parasubcontract_parasubcontractattachment","parasubcontract","parasubcontractattachment","idcon");
+	this.defineRelation("costpartition_parasubcontract","costpartition","parasubcontract","idcostpartition");
 	#endregion
 
 }

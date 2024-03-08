@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -469,12 +469,22 @@ namespace meta_invoice//meta_documentoiva//
                             return false;
                         }
                     }
-                    if (R["idintrastatkind"] == DBNull.Value){
-                        errmess = "Il campo 'natura della transazione' è obbligatorio";
-                        errfield = "idintrastatkind";
-                        return false;
+
+                     if ((dd.Year >= 2022) &&
+                            ((R["idintrastatkind"] == DBNull.Value) || CfgFn.GetNoNullInt32(R["idintrastatkind"]) < 10) /*vuol dire che c'è un codice vecchio*/
+                            ){
+                            errmess = "Valorizzare la Natura della transazione Colonna A e Colonna B nella scheda Intrastat della FATTURA";
+                            errfield = "idintrastatkind";
+                            return false;
+                        }
+                        if ((dd.Year < 2022) &&
+                               ((R["idintrastatkind"] == DBNull.Value) || CfgFn.GetNoNullInt32(R["idintrastatkind"]) >= 10) /*vuol dire che c'è un codice nuovo, è un caso alquanto improbabile*/
+                               ) {
+                            errmess = "Valorizzare la Natura della transazione nella scheda Intrastat della FATTURA";
+                            errfield = "idintrastatkind";
+                            return false;
+                        }
                     }
-                }
 
                 if (ExistsServizi){
                     if (R["docdate"] == DBNull.Value){

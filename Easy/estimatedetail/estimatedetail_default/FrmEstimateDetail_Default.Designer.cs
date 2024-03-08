@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -182,7 +182,7 @@ namespace estimatedetail_default {
 			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.txtCodiceCausaleEntrataIva = new System.Windows.Forms.TextBox();
 			this.button4 = new System.Windows.Forms.Button();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.grpTassonomia = new System.Windows.Forms.GroupBox();
 			this.cmbTassonomia = new System.Windows.Forms.ComboBox();
 			this.btnTassonomia = new System.Windows.Forms.Button();
 			this.textBox9 = new System.Windows.Forms.TextBox();
@@ -228,7 +228,7 @@ namespace estimatedetail_default {
 			this.tabPage1.SuspendLayout();
 			this.gboxCausaleBilancioEntrata.SuspendLayout();
 			this.groupBox3.SuspendLayout();
-			this.groupBox1.SuspendLayout();
+			this.grpTassonomia.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// grpRegistry
@@ -1111,7 +1111,7 @@ namespace estimatedetail_default {
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(88, 23);
 			this.button3.TabIndex = 4;
-			this.button3.Tag = "choose.revenuepartition.default.(active=\'S\')";
+			this.button3.Tag = "choose.costpartition.default.(active=\'S\')";
 			this.button3.Text = "Codice";
 			this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
@@ -1126,7 +1126,7 @@ namespace estimatedetail_default {
 			this.textBox1.Size = new System.Drawing.Size(198, 69);
 			this.textBox1.TabIndex = 3;
 			this.textBox1.TabStop = false;
-			this.textBox1.Tag = "revenuepartition.title";
+			this.textBox1.Tag = "costpartition.title";
 			// 
 			// txtCodiceRipartizione
 			// 
@@ -1136,7 +1136,7 @@ namespace estimatedetail_default {
 			this.txtCodiceRipartizione.Name = "txtCodiceRipartizione";
 			this.txtCodiceRipartizione.Size = new System.Drawing.Size(320, 20);
 			this.txtCodiceRipartizione.TabIndex = 2;
-			this.txtCodiceRipartizione.Tag = "revenuepartition.revenuepartitioncode?x";
+			this.txtCodiceRipartizione.Tag = "costpartition.costpartitioncode?x";
 			// 
 			// gboxclass3
 			// 
@@ -1667,7 +1667,7 @@ namespace estimatedetail_default {
 			// 
 			this.tabPage1.Controls.Add(this.gboxCausaleBilancioEntrata);
 			this.tabPage1.Controls.Add(this.groupBox3);
-			this.tabPage1.Controls.Add(this.groupBox1);
+			this.tabPage1.Controls.Add(this.grpTassonomia);
 			this.tabPage1.Controls.Add(this.textBox9);
 			this.tabPage1.Controls.Add(this.textBox8);
 			this.tabPage1.Controls.Add(this.textBox7);
@@ -1780,21 +1780,20 @@ namespace estimatedetail_default {
 			this.button4.Tag = "manage.finmotive_iva_income.tree";
 			this.button4.Text = "Causale";
 			// 
-			// groupBox1
+			// grpTassonomia
 			// 
-			this.groupBox1.Controls.Add(this.cmbTassonomia);
-			this.groupBox1.Controls.Add(this.btnTassonomia);
-			this.groupBox1.Location = new System.Drawing.Point(10, 289);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(394, 77);
-			this.groupBox1.TabIndex = 6;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Tag = "";
-			this.groupBox1.Text = "Tassonomia PagoPA";
+			this.grpTassonomia.Controls.Add(this.cmbTassonomia);
+			this.grpTassonomia.Controls.Add(this.btnTassonomia);
+			this.grpTassonomia.Location = new System.Drawing.Point(10, 289);
+			this.grpTassonomia.Name = "grpTassonomia";
+			this.grpTassonomia.Size = new System.Drawing.Size(394, 77);
+			this.grpTassonomia.TabIndex = 6;
+			this.grpTassonomia.TabStop = false;
+			this.grpTassonomia.Tag = "";
+			this.grpTassonomia.Text = "Tassonomia PagoPA";
 			// 
 			// cmbTassonomia
 			// 
-			this.cmbTassonomia.Enabled = false;
 			this.cmbTassonomia.FormattingEnabled = true;
 			this.cmbTassonomia.Location = new System.Drawing.Point(6, 50);
 			this.cmbTassonomia.Name = "cmbTassonomia";
@@ -1808,9 +1807,9 @@ namespace estimatedetail_default {
 			this.btnTassonomia.Name = "btnTassonomia";
 			this.btnTassonomia.Size = new System.Drawing.Size(124, 23);
 			this.btnTassonomia.TabIndex = 1;
+			this.btnTassonomia.Tag = " choose.tassonomia_pagopa.default";
 			this.btnTassonomia.Text = "Tassonomia PagoPA";
 			this.btnTassonomia.UseVisualStyleBackColor = true;
-			this.btnTassonomia.Visible = false;
 			// 
 			// textBox9
 			// 
@@ -1988,7 +1987,7 @@ namespace estimatedetail_default {
 			this.gboxCausaleBilancioEntrata.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
-			this.groupBox1.ResumeLayout(false);
+			this.grpTassonomia.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -2140,7 +2139,7 @@ namespace estimatedetail_default {
         private System.Windows.Forms.Label label26;
 		private System.Windows.Forms.GroupBox gboxIncassato;
 		private System.Windows.Forms.TextBox txtIncassato;
-		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.GroupBox grpTassonomia;
 		private System.Windows.Forms.ComboBox cmbTassonomia;
 		private System.Windows.Forms.Button btnTassonomia;
 		private System.Windows.Forms.GroupBox groupBox3;

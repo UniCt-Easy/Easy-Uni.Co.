@@ -143,9 +143,6 @@
     <None Include="vistaForm.xss">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
-    <None Include="vistaForm.xsx">
-      <DependentUpon>vistaForm.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

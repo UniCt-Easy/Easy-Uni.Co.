@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,7 +34,7 @@ namespace bankdispositionsetup_siopeplus {
 
         public static void MostraErrori(IWin32Window owner, List<string> errori) {
             var newForm = new FrmErrori(errori);
-
+            MetaFactory.factory.getSingleton<IFormCreationListener>().create(newForm, (Form)owner);
             newForm.ShowDialog(owner);
         }
     }

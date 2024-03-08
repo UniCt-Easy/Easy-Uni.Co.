@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -57,7 +57,7 @@ CREATE TABLE #sit_cespiti
 	state varchar(150),
 	currentvalue decimal(28,2),
 	originalamount decimal (19,2),
-	payment varchar(100)
+	payment varchar(500)
 )
 
 	------------------------------------------------------------

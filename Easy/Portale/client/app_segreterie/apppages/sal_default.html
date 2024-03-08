@@ -1,76 +1,118 @@
 ﻿<!--header-->
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
-			<li class="nav-item">
-		<a href="#tabsal_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabsal_default_0"><i class="fa fa-calendar-check mr-1"></i>Principale</a>
-	</li>
-	<li class="nav-item">
-		<a href="#tabsal_default_1" class="nav-link" data-toggle="pill" data-target="#tabsal_default_1"><i class="fa fa-calendar-day mr-1"></i>Ore dei diari d'uso del SAL</a>
-	</li>
-	<li class="nav-item">
-		<a href="#tabsal_default_2" class="nav-link" data-toggle="pill" data-target="#tabsal_default_2"><i class="fa fa-tools mr-1"></i>Ore di attività del SAL</a>
-	</li>
-	<li class="nav-item">
-		<a href="#tabsal_default_3" class="nav-link" data-toggle="pill" data-target="#tabsal_default_3"><i class="fa fa-money-check-alt mr-1"></i>Dettaglio dei costi del SAL</a>
-	</li>
+		<li class="nav-item">
+			<a href="#tabsal_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabsal_default_0"><i class="fa fa-calendar-check mr-1"></i>Principale</a>
+		</li>
+		<li class="nav-item">
+			<a href="#tabsal_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabsal_default_1"><i class="fa fa-calendar-day mr-1"></i>Ore dei diari d'uso del SAL</a>
+		</li>
+		<li class="nav-item">
+			<a href="#tabsal_default_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabsal_default_2"><i class="fa fa-tools mr-1"></i>Ore di attività del SAL</a>
+		</li>
+		<li class="nav-item">
+			<a href="#tabsal_default_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabsal_default_3"><i class="fa fa-money-check-alt mr-1"></i>Dettaglio dei costi del SAL</a>
+		</li>
+		<li class="nav-item">
+			<a href="#tabsal_default_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabsal_default_4"><i class="fa fa-wrench mr-1"></i>Uso dei beni strumentali</a>
+		</li>
 
 	</ul>
 	<form>
-<div class="tab-content mt-2">
-	<div class="tab-pane fade active show" id="tabsal_default_0" role="tabpanel">
-			<div class="row">
-				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#sal_default_start").datepicker();
-  } );
-  </script>
-					<label class="col-form-label col-md-12" for="sal_default_start">Data di inizio</label>
-					<input id="sal_default_start" type="text" class="form-control" data-tag="sal.start?saldefaultview.start" data-subentity  />
+		<div class="tab-content mt-2">
+			<div class="tab-pane fade active show" id="tabsal_default_0" role="tabpanel">
+				<div class="row">
+					<div class="col-md-6">
+						<script>
+							$(function () {
+								$("#sal_default_start").datepicker({ dateFormat: 'dd/mm/yy' });
+							});
+						</script>
+						<label class="col-form-label col-md-12" for="sal_default_start">Data di inizio</label>
+						<input id="sal_default_start" type="text" class="form-control" data-tag="sal.start?saldefaultview.start" data-subentity />
+					</div>
+					<div class="col-md-6">
+						<script>
+							$(function () {
+								$("#sal_default_stop").datepicker({ dateFormat: 'dd/mm/yy' });
+							});
+						</script>
+						<label class="col-form-label col-md-12" for="sal_default_stop">Data di fine</label>
+						<input id="sal_default_stop" type="text" class="form-control" data-tag="sal.stop?saldefaultview.sal_stop" data-subentity />
+					</div>
 				</div>
-				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#sal_default_stop").datepicker();
-  } );
-  </script>
-					<label class="col-form-label col-md-12" for="sal_default_stop">Data di fine</label>
-					<input id="sal_default_stop" type="text" class="form-control" data-tag="sal.stop?saldefaultview.sal_stop" data-subentity  />
+				<div class="row">
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="sal_default_budget">Budget preventivato</label>
+						<input id="sal_default_budget" type="text" class="form-control" data-tag="sal.budget.fixed.2?saldefaultview.sal_budget" data-subentity />
+					</div>
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="sal_default_budgetcalcolato">Budget calcolato</label>
+						<input id="sal_default_budgetcalcolato" type="text" class="form-control" data-tag="sal.!budgetcalcolato.fixed.2?saldefaultview.!budgetcalcolato" data-subentity />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<script>
+							$(function () {
+								$("#sal_default_datablocco").datepicker({ dateFormat: 'dd/mm/yy' });
+							});
+						</script>
+						<label class="col-form-label col-md-12" for="sal_default_datablocco">Data di Blocco</label>
+						<input id="sal_default_datablocco" type="text" class="form-control" data-tag="sal.datablocco?saldefaultview.sal_datablocco" data-subentity />
+					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="sal_default_budget">Budget preventivato</label>
-					<input id="sal_default_budget" type="text" class="form-control" data-tag="sal.budget.fixed.2?saldefaultview.sal_budget" data-subentity  />
+			<div class="tab-pane fade" id="tabsal_default_1" role="tabpanel">
+				<div class="custom_lng_div" data-langkey="tablabelsal_default_1">Inserire parte del nome del workpackage per filtrare i risultati.</div>
+				<div class="row">
+					<div class="col-md-9">
+						<input id="txt_salassetdiaryora_idassetdiaryora" type="text" class="form-control" placeholder="..." aria-label="Search" />
+					</div>
+					<div class="col-md-3">
+						<button id="btn_add_salassetdiaryora_idassetdiaryora" type="button" class="btn btn-primary p-2 mt-1">
+							<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Ore dei diari d'uso del SAL
+						</button>
+					</div>
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="sal_default_budgetcalcolato">Budget calcolato</label>
-					<input id="sal_default_budgetcalcolato" type="text" class="form-control" data-tag="sal.!budgetcalcolato.fixed.2?saldefaultview.!budgetcalcolato" data-subentity  />
-				</div>
+				<hr>
+				<div class="gridx" id="grid_salassetdiaryora_default" data-tag="salassetdiaryora.default.default" data-custom-control="gridx" data-mdlbuttondelete data-mdlbuttonedit></div>
 			</div>
-			<div class="row">
-				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#sal_default_datablocco").datepicker();
-  } );
-  </script>
-					<label class="col-form-label col-md-12" for="sal_default_datablocco">Data di Blocco</label>
-					<input id="sal_default_datablocco" type="text" class="form-control" data-tag="sal.datablocco?saldefaultview.sal_datablocco" data-subentity  />
+			<div class="tab-pane fade" id="tabsal_default_2" role="tabpanel">
+				<div class="custom_lng_div" data-langkey="tablabelsal_default_2">Inserire parte del nome del workpackage per filtrare i risultati.</div>
+				<div class="row">
+					<div class="col-md-9">
+						<input id="txt_salrendicontattivitaprogettoora_idrendicontattivitaprogettoora" type="text" class="form-control" placeholder="..." aria-label="Search" />
+					</div>
+					<div class="col-md-3">
+						<button id="btn_add_salrendicontattivitaprogettoora_idrendicontattivitaprogettoora" type="button" class="btn btn-primary p-2 mt-1">
+							<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Ore di attività del SAL
+						</button>
+					</div>
 				</div>
+				<hr>
+				<div class="gridx" id="grid_salrendicontattivitaprogettoora_default" data-tag="salrendicontattivitaprogettoora.default.default" data-custom-control="gridx" data-mdlbuttondelete data-mdlbuttonedit></div>
 			</div>
-	</div>
-	<div class="tab-pane fade" id="tabsal_default_1" role="tabpanel">
-		<div id="grid_salassetdiaryora_default" data-tag="assetdiaryora.segsal.segsal" data-custom-control="checklist"  ></div>
-	</div>
-	<div class="tab-pane fade" id="tabsal_default_2" role="tabpanel">
-		<div id="grid_salrendicontattivitaprogettoora_default" data-tag="rendicontattivitaprogettoora.segsal.segsal" data-custom-control="checklist"  ></div>
-	</div>
-	<div class="tab-pane fade" id="tabsal_default_3" role="tabpanel">
-		<div id="grid_salprogettocosto_default" data-tag="progettocosto.segsal.segsal" data-custom-control="checklist"  ></div>
-	</div>
-</div>
-</form>
+			<div class="tab-pane fade" id="tabsal_default_3" role="tabpanel">
+				<div class="custom_lng_div" data-langkey="tablabelsal_default_3">Inserire parte del nome del workpackage per filtrare i risultati.</div>
+				<div class="row">
+					<div class="col-md-9">
+						<input id="txt_salprogettocosto_idprogettocosto" type="text" class="form-control" placeholder="..." aria-label="Search" />
+					</div>
+					<div class="col-md-3">
+						<button id="btn_add_salprogettocosto_idprogettocosto" type="button" class="btn btn-primary p-2 mt-1">
+							<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Dettaglio dei costi del SAL
+						</button>
+					</div>
+				</div>
+				<hr>
+				<div class="gridx" id="grid_salprogettocosto_default" data-tag="salprogettocosto.default.default" data-custom-control="gridx" data-mdlbuttondelete data-mdlbuttonedit></div>
+			</div>
+			<div class="tab-pane fade" id="tabsal_default_4" role="tabpanel">
+				<div class="gridx" id="grid_salprogettoassetworkpackage_default" data-tag="salprogettoassetworkpackage.default.default" data-custom-control="gridx" data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete></div>
+			</div>
+		</div>
+	</form>
 
 </div>
 <!--footer-->

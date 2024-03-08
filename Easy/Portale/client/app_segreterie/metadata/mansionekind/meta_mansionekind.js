@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -43,9 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'default':
 						this.describeAColumn(table, 'title', 'Titolo', null, 20, 2048);
 						this.describeAColumn(table, 'pesoateneo', 'Peso della valutazione della performance organizzativa di ateneo', 'fixed.2', 70, null);
-						this.describeAColumn(table, 'pesouo', 'Peso della valutazione della performance dell’unità organizzativa', 'fixed.2', 80, null);
+						this.describeAColumn(table, 'pesouo', 'Peso della valutazione della performance dellâ€™unitÃ  organizzativa', 'fixed.2', 80, null);
 						this.describeAColumn(table, 'pesocomp', 'Peso della valutazione della performance dei comportamenti', 'fixed.2', 90, null);
 						this.describeAColumn(table, 'pesoindividuale', 'Peso della valutazione della performance individuale', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'generascheda', 'Ha la scheda di valutazione', null, 110, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -59,11 +43,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
-						table.columns["title"].caption = "Titolo";
+						table.columns["generascheda"].caption = "Ha la scheda di valutazione";
 						table.columns["pesoateneo"].caption = "Peso della valutazione della performance organizzativa di ateneo";
-						table.columns["pesoindividuale"].caption = "Peso della valutazione della performance individuale";
-						table.columns["pesouo"].caption = "Peso della valutazione della performance dell’unità organizzativa";
 						table.columns["pesocomp"].caption = "Peso della valutazione della performance dei comportamenti";
+						table.columns["pesoindividuale"].caption = "Peso della valutazione della performance individuale";
+						table.columns["pesouo"].caption = "Peso della valutazione della performance dellâ€™unitÃ  organizzativa";
+						table.columns["title"].caption = "Titolo";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$

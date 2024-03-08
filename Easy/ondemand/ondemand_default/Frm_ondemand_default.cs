@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -113,8 +113,8 @@ namespace ondemand_default//ondemand//
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.DS = new /*Rana:ondemand.*/vistaForm();
-			this.DSclient = new /*Rana:ondemand.*/vistaindex();
+			this.DS = new ondemand_default.vistaForm();
+			this.DSclient = new ondemand_default.vistaindex();
 			this.Tab = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.btnUncheckSelect = new System.Windows.Forms.Button();
@@ -145,6 +145,7 @@ namespace ondemand_default//ondemand//
 			// 
 			this.DS.DataSetName = "vistaForm";
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
 			// 
 			// DSclient
 			// 
@@ -211,7 +212,7 @@ namespace ondemand_default//ondemand//
 			// txtDescNew
 			// 
 			this.txtDescNew.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescNew.Location = new System.Drawing.Point(8, 328);
 			this.txtDescNew.Multiline = true;
 			this.txtDescNew.Name = "txtDescNew";
@@ -219,7 +220,6 @@ namespace ondemand_default//ondemand//
 			this.txtDescNew.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.txtDescNew.Size = new System.Drawing.Size(528, 88);
 			this.txtDescNew.TabIndex = 6;
-			this.txtDescNew.Text = "";
 			// 
 			// btnEsegui
 			// 
@@ -254,14 +254,16 @@ namespace ondemand_default//ondemand//
 			// listNew
 			// 
 			this.listNew.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.listNew.HideSelection = false;
 			this.listNew.Location = new System.Drawing.Point(8, 8);
 			this.listNew.Name = "listNew";
 			this.listNew.Size = new System.Drawing.Size(528, 288);
 			this.listNew.TabIndex = 2;
-			this.listNew.Click += new System.EventHandler(this.VisualizzaDescrizione);
+			this.listNew.UseCompatibleStateImageBehavior = false;
 			this.listNew.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.ColumnClick);
+			this.listNew.Click += new System.EventHandler(this.VisualizzaDescrizione);
 			// 
 			// tabPage2
 			// 
@@ -286,7 +288,7 @@ namespace ondemand_default//ondemand//
 			// txtDescOld
 			// 
 			this.txtDescOld.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescOld.Location = new System.Drawing.Point(8, 328);
 			this.txtDescOld.Multiline = true;
 			this.txtDescOld.Name = "txtDescOld";
@@ -294,19 +296,20 @@ namespace ondemand_default//ondemand//
 			this.txtDescOld.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.txtDescOld.Size = new System.Drawing.Size(664, 88);
 			this.txtDescOld.TabIndex = 7;
-			this.txtDescOld.Text = "";
 			// 
 			// listOld
 			// 
 			this.listOld.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.listOld.HideSelection = false;
 			this.listOld.Location = new System.Drawing.Point(8, 8);
 			this.listOld.Name = "listOld";
 			this.listOld.Size = new System.Drawing.Size(664, 288);
 			this.listOld.TabIndex = 2;
-			this.listOld.Click += new System.EventHandler(this.VisualizzaDescrizione);
+			this.listOld.UseCompatibleStateImageBehavior = false;
 			this.listOld.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.ColumnClick);
+			this.listOld.Click += new System.EventHandler(this.VisualizzaDescrizione);
 			// 
 			// tabPage3
 			// 
@@ -331,7 +334,7 @@ namespace ondemand_default//ondemand//
 			// txtDescFull
 			// 
 			this.txtDescFull.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescFull.Location = new System.Drawing.Point(8, 328);
 			this.txtDescFull.Multiline = true;
 			this.txtDescFull.Name = "txtDescFull";
@@ -339,33 +342,37 @@ namespace ondemand_default//ondemand//
 			this.txtDescFull.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.txtDescFull.Size = new System.Drawing.Size(664, 88);
 			this.txtDescFull.TabIndex = 8;
-			this.txtDescFull.Text = "";
 			// 
 			// listFull
 			// 
 			this.listFull.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.listFull.HideSelection = false;
 			this.listFull.Location = new System.Drawing.Point(8, 8);
 			this.listFull.Name = "listFull";
 			this.listFull.Size = new System.Drawing.Size(664, 288);
 			this.listFull.TabIndex = 1;
-			this.listFull.Click += new System.EventHandler(this.VisualizzaDescrizione);
+			this.listFull.UseCompatibleStateImageBehavior = false;
 			this.listFull.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.ColumnClick);
+			this.listFull.Click += new System.EventHandler(this.VisualizzaDescrizione);
 			// 
-			// frmondemand
+			// Frm_ondemand_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(688, 454);
 			this.Controls.Add(this.Tab);
-			this.Name = "frmondemand";
+			this.Name = "Frm_ondemand_default";
 			this.Text = "frmondemand";
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DSclient)).EndInit();
 			this.Tab.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
+			this.tabPage1.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
+			this.tabPage3.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -424,8 +431,8 @@ namespace ondemand_default//ondemand//
 				if (!ReportDir.EndsWith(@"\")) ReportDir+=@"\";
 				siti[0] = DSconfig.Tables["configtable"].Rows[0]["httpupdatepath"].ToString();
 				siti[1] = DSconfig.Tables["configtable"].Rows[0]["httpupdatepath2"].ToString();
-				siti[2] = DSconfig.Tables["configtable"].Rows[0]["httpupdatepath3"].ToString();
-				siti[3] = "http://www.temposrl.com/easy2/";
+				//siti[2] = DSconfig.Tables["configtable"].Rows[0]["httpupdatepath3"].ToString();
+				siti[2] = "http://www.temposrl.com/easy2/";
 				return true;
 			}
 			catch (Exception E) {

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,7 +53,7 @@ namespace iva_prorata_default {//iva_prorata//
         private Button btnCalcolaProrata;
         private string tag_perc = "tabella.campo.fixed.2..%.100";
         MetaData Meta;
-
+        DataAccess Conn;
 		public Frm_iva_prorata_default() {
 			InitializeComponent();
 		}
@@ -72,19 +72,23 @@ namespace iva_prorata_default {//iva_prorata//
 
 		public void MetaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
+            Conn = Meta.Conn;
+            QueryHelper QHS = Conn.GetQueryHelper();
             string filterEsercizio = Meta.QHC.CmpEq("ayear", Meta.GetSys("esercizio"));
 			GetData.SetStaticFilter(DS.iva_prorata,filterEsercizio);
 
             bool IsAdmin = false;
+            object idcustomuser = Conn.GetSys("idcustomuser");
+ 
+            string filterall = QHS.CmpEq("idcustomuser", idcustomuser);
+            if (Conn.RUN_SELECT_COUNT("flowchartuser", filterall, false) == 0) IsAdmin = true; //fuori dall'organigramma
 
-            if (Meta.GetUsr("consolidamento") != null)
-                IsAdmin = (Meta.GetUsr("consolidamento").ToString() == "S");
-            if (Meta.GetSys("IsSystemAdmin") != null)
-              IsAdmin = IsAdmin ||  (bool)Meta.GetSys("IsSystemAdmin");
-
-            if (!IsAdmin) btnCopyAll.Visible = false;
-          if (!IsAdmin) btnCalcolaProrata.Visible = false;
-          if (!IsAdmin) btnVisualizzaProrata.Visible = false;
+            if (Meta.GetUsr("liquidazioneiva") != null)
+                IsAdmin = IsAdmin|| (Meta.GetUsr("liquidazioneiva").ToString().ToUpper().Contains("S"));
+ 
+            btnCopyAll.Visible = IsAdmin;
+            btnCalcolaProrata.Visible = IsAdmin;
+            btnVisualizzaProrata.Visible = IsAdmin;
 
 		}
 
@@ -374,6 +378,7 @@ namespace iva_prorata_default {//iva_prorata//
             DataSet D = new DataSet();
             D.Tables.Add(tSituation);
             frmSituazioneViewer view = new frmSituazioneViewer(D);
+            createForm(view, null);
             view.Show();
         }
 

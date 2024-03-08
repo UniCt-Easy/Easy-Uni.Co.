@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -47,9 +30,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //$objCalcFieldConfig_seg$
 						break;
 					case 'default':
-						this.describeAColumn(table, 'description', 'Descrizione', null, 20, 50);
-						this.describeAColumn(table, 'active', 'Attivo', null, 30, null);
-						this.describeAColumn(table, 'codeposition', 'Codice', null, 40, 20);
+						this.describeAColumn(table, 'active', 'Attivo', null, 10, null);
+						this.describeAColumn(table, 'title', 'Titolo', null, 20, 50);
+						this.describeAColumn(table, 'oremaxgg', 'Ore di lavoro al giorno massime', null, 30, null);
+						this.describeAColumn(table, 'costolordoannuo', 'Costo lordo annuo', 'fixed.2', 200, null);
+						this.describeAColumn(table, 'costolordoannuooneri', 'Costo lordo annuo e oneri', 'fixed.2', 210, null);
+						this.describeAColumn(table, 'puntiorganico', 'Punti organico', 'fixed.2', 230, null);
+						this.describeAColumn(table, 'tipopersonale', 'Categoria di personale', null, 260, null);
+						this.describeAColumn(table, 'codeposition', 'Codice qualifica', null, 270, 20);
 //$objCalcFieldConfig_default$
 						break;
 					case 'perf':
@@ -88,16 +76,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //$innerSetCaptionConfig_seg$
 						break;
 					case 'default':
-						table.columns["active"].caption = "Attivo";
-						table.columns["codeposition"].caption = "Codice";
-						table.columns["ct"].caption = "data creazione";
-						table.columns["cu"].caption = "nome utente creazione";
-						table.columns["description"].caption = "Descrizione";
-						table.columns["foreignclass"].caption = "Classe di appartenenza per Miss.all'estero";
-						table.columns["idposition"].caption = "Id posiz. giuridica (tabella position)";
-						table.columns["lt"].caption = "data ultima modifica";
-						table.columns["lu"].caption = "nome ultimo utente modifica";
-						table.columns["maxincomeclass"].caption = "Classe Stip. Max";
+						table.columns["assegnoaggiuntivo"].caption = "Abilita assegno aggiuntivo";
+						table.columns["codeposition"].caption = "Codice qualifica";
+						table.columns["costolordoannuo"].caption = "Costo lordo annuo";
+						table.columns["costolordoannuooneri"].caption = "Costo lordo annuo e oneri";
+						table.columns["elementoperequativo"].caption = "Abilita elemento perequativo";
+						table.columns["idposition"].caption = "Tipologia del contratto";
+						table.columns["indennitadiateneo"].caption = "Abilita indennità di ateneo";
+						table.columns["indennitadiposizione"].caption = "Abilita indennità di posizione";
+						table.columns["indvacancacontrattuale"].caption = "Abilita ind. vacanza contrattuale";
+						table.columns["livello"].caption = "Abilita scatti stipendio";
+						table.columns["oremaxcompitididatempoparziale"].caption = "Ore massime per i compiti didattici a tempo parziale";
+						table.columns["oremaxcompitididatempopieno"].caption = "Ore massime per i compiti didattici a tempo pieno";
+						table.columns["oremaxdidatempoparziale"].caption = "Ore massime per didattica frontale a tempo parziale";
+						table.columns["oremaxdidatempopieno"].caption = "Ore massime per didattica frontale a tempo pieno";
+						table.columns["oremaxgg"].caption = "Ore di lavoro al giorno massime";
+						table.columns["oremaxtempoparziale"].caption = "Ore massime a tempo parziale";
+						table.columns["oremaxtempopieno"].caption = "Ore massime a tempo pieno";
+						table.columns["oremincompitididatempoparziale"].caption = "Ore minime per i compiti didattici a tempo parziale";
+						table.columns["oremincompitididatempopieno"].caption = "Ore minime per i compiti didattici a tempo pieno";
+						table.columns["oremindidatempoparziale"].caption = "Ore minime di didattica frontale a tempo parziale";
+						table.columns["oremindidatempopieno"].caption = "Ore minime di didattica frontale a tempo pieno";
+						table.columns["oremintempoparziale"].caption = "Ore minime a tempo parziale";
+						table.columns["oremintempopieno"].caption = "Ore minime a tempo pieno";
+						table.columns["orestraordinariemax"].caption = "Ore massime di straordinario rendicontabili";
+						table.columns["parttime"].caption = "Abilita part-time";
+						table.columns["puntiorganico"].caption = "Punti organico";
+						table.columns["siglaesportazione"].caption = "Sigla esportazione";
+						table.columns["siglaimportazione"].caption = "Sigla importazione";
+						table.columns["tempdef"].caption = "Abilita tempo definito o parziale";
+						table.columns["tipopersonale"].caption = "Categoria di personale";
+						table.columns["totaletredicesima"].caption = "Abilita totale tredicesima";
+						table.columns["tredicesimaindennitaintegrativaspeciale"].caption = "Abilita tredicesima indennità integrativa speciale";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$
@@ -125,7 +135,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "default": {
+						return "active desc, title asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

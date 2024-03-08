@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -46,10 +29,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'orepreventivate', 'Ore/uomo preventivate', null, 50, null);
 						this.describeAColumn(table, '!orerendicontate', 'Ore rendicontate', null, 60, null);
 						this.describeAColumn(table, 'impegno', 'Mesi/uomo preventivati', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'giornipreventivati', 'Giorni/uomo preventivati', null, 110, null);
+						this.describeAColumn(table, 'start', 'Dal', null, 130, null);
+						this.describeAColumn(table, 'stop', 'Al', null, 140, null);
+						this.describeAColumn(table, 'fondiprogetto', 'Assunto con fondi del progetto', null, 150, null);
 						this.describeAColumn(table, '!idprogettoudrmembrokind_progettoudrmembrokind_title', 'Ruolo', null, 21, null);
 						objCalcFieldConfig['!idprogettoudrmembrokind_progettoudrmembrokind_title'] = { tableNameLookup:'progettoudrmembrokind', columnNameLookup:'title', columnNamekey:'idprogettoudrmembrokind' };
-						this.describeAColumn(table, '!idreg_registry_title', 'Membro', null, 11, null);
-						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg' };
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_surname', 'Cognome Membro', null, 11, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_forename', 'Nome Membro', null, 12, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_extmatricula', 'Matricola Membro', null, 13, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_contratto', 'Contratto Membro', null, 14, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_macroareadidattica', 'Macroarea Membro', null, 15, null);
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_surname'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'surname', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_forename'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'forename', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'extmatricula', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'contratto', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_macroareadidattica'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'macroareadidattica', columnNamekey:'idreg' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -70,6 +65,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["impegno"].caption = "Mesi/uomo preventivati";
 						table.columns["orepreventivate"].caption = "Ore/uomo preventivate";
 						table.columns["ricavoorario"].caption = "Ricavo orario";
+						table.columns["fondiprogetto"].caption = "Assunto con fondi del progetto";
+						table.columns["giornipreventivati"].caption = "Giorni/uomo preventivati";
+						table.columns["start"].caption = "Dal";
+						table.columns["stop"].caption = "Al";
 //$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$

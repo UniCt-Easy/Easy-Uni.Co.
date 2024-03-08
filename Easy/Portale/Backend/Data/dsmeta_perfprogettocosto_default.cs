@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,13 +37,13 @@ public class dsmeta_perfprogettocosto_default: DataSet {
 	public MetaTable getcostoview 		=> (MetaTable)Tables["getcostoview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable year 		=> (MetaTable)Tables["year"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable upbdefaultview 		=> (MetaTable)Tables["upbdefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable accmotivedefaultview 		=> (MetaTable)Tables["accmotivedefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable year 		=> (MetaTable)Tables["year"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettocosto 		=> (MetaTable)Tables["perfprogettocosto"];
@@ -100,6 +100,7 @@ private void initClass() {
 	tperfprogettocostobudgetview.defineColumn("underwritingkind", typeof(string));
 	tperfprogettocostobudgetview.defineColumn("underwritingkind_desc", typeof(string));
 	tperfprogettocostobudgetview.defineColumn("yvar", typeof(int),false);
+	tperfprogettocostobudgetview.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfprogettocostobudgetview);
 	tperfprogettocostobudgetview.defineKey("nvar", "rownum", "yvar");
 
@@ -122,33 +123,31 @@ private void initClass() {
 	tgetcostoview.defineColumn("transactiondate", typeof(DateTime));
 	tgetcostoview.defineColumn("transmissiondate", typeof(DateTime));
 	tgetcostoview.defineColumn("ymov", typeof(int),false);
+	tgetcostoview.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tgetcostoview);
 	tgetcostoview.defineKey("idaccmotive", "idexp", "idupb", "ymov");
+
+	//////////////////// UPBDEFAULTVIEW /////////////////////////////////
+	var tupbdefaultview= new MetaTable("upbdefaultview");
+	tupbdefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tupbdefaultview.defineColumn("idupb", typeof(string),false);
+	tupbdefaultview.defineColumn("upb_active", typeof(string));
+	Tables.Add(tupbdefaultview);
+	tupbdefaultview.defineKey("idupb");
+
+	//////////////////// ACCMOTIVEDEFAULTVIEW /////////////////////////////////
+	var taccmotivedefaultview= new MetaTable("accmotivedefaultview");
+	taccmotivedefaultview.defineColumn("accmotive_active", typeof(string));
+	taccmotivedefaultview.defineColumn("dropdown_title", typeof(string),false);
+	taccmotivedefaultview.defineColumn("idaccmotive", typeof(string),false);
+	Tables.Add(taccmotivedefaultview);
+	taccmotivedefaultview.defineKey("idaccmotive");
 
 	//////////////////// YEAR /////////////////////////////////
 	var tyear= new MetaTable("year");
 	tyear.defineColumn("year", typeof(int),false);
 	Tables.Add(tyear);
 	tyear.defineKey("year");
-
-	//////////////////// UPBDEFAULTVIEW /////////////////////////////////
-	var tupbdefaultview= new MetaTable("upbdefaultview");
-	tupbdefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tupbdefaultview.defineColumn("idtreasurer", typeof(int));
-	tupbdefaultview.defineColumn("idunderwriter", typeof(int));
-	tupbdefaultview.defineColumn("idupb", typeof(string),false);
-	tupbdefaultview.defineColumn("idupb_capofila", typeof(string));
-	tupbdefaultview.defineColumn("paridupb", typeof(string));
-	Tables.Add(tupbdefaultview);
-	tupbdefaultview.defineKey("idupb");
-
-	//////////////////// ACCMOTIVEDEFAULTVIEW /////////////////////////////////
-	var taccmotivedefaultview= new MetaTable("accmotivedefaultview");
-	taccmotivedefaultview.defineColumn("dropdown_title", typeof(string),false);
-	taccmotivedefaultview.defineColumn("idaccmotive", typeof(string),false);
-	taccmotivedefaultview.defineColumn("paridaccmotive", typeof(string));
-	Tables.Add(taccmotivedefaultview);
-	taccmotivedefaultview.defineKey("idaccmotive");
 
 	//////////////////// PERFPROGETTOCOSTO /////////////////////////////////
 	var tperfprogettocosto= new MetaTable("perfprogettocosto");
@@ -179,10 +178,6 @@ private void initClass() {
 	cChild = new []{getcostoview.Columns["idaccmotive"], getcostoview.Columns["idupb"]};
 	Relations.Add(new DataRelation("FK_getcostoview_perfprogettocosto_idaccmotive-idupb",cPar,cChild,false));
 
-	cPar = new []{year.Columns["year"]};
-	cChild = new []{perfprogettocosto.Columns["year"]};
-	Relations.Add(new DataRelation("FK_perfprogettocosto_year_year",cPar,cChild,false));
-
 	cPar = new []{upbdefaultview.Columns["idupb"]};
 	cChild = new []{perfprogettocosto.Columns["idupb"]};
 	Relations.Add(new DataRelation("FK_perfprogettocosto_upbdefaultview_idupb",cPar,cChild,false));
@@ -190,6 +185,10 @@ private void initClass() {
 	cPar = new []{accmotivedefaultview.Columns["idaccmotive"]};
 	cChild = new []{perfprogettocosto.Columns["idaccmotive"]};
 	Relations.Add(new DataRelation("FK_perfprogettocosto_accmotivedefaultview_idaccmotive",cPar,cChild,false));
+
+	cPar = new []{year.Columns["year"]};
+	cChild = new []{perfprogettocosto.Columns["year"]};
+	Relations.Add(new DataRelation("FK_perfprogettocosto_year_year",cPar,cChild,false));
 
 	#endregion
 

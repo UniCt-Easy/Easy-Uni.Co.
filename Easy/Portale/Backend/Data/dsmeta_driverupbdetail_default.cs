@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_driverupbdetail_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_driverupbdetail_default: DataSet {
+public partial class dsmeta_driverupbdetail_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -67,17 +67,8 @@ private void initClass() {
 	//////////////////// REGISTRYCOANVIEW /////////////////////////////////
 	var tregistrycoanview= new MetaTable("registrycoanview");
 	tregistrycoanview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrycoanview.defineColumn("idaccmotivecredit", typeof(string));
-	tregistrycoanview.defineColumn("idaccmotivedebit", typeof(string));
-	tregistrycoanview.defineColumn("idcategory", typeof(string));
-	tregistrycoanview.defineColumn("idcentralizedcategory", typeof(string));
-	tregistrycoanview.defineColumn("idcity", typeof(int));
-	tregistrycoanview.defineColumn("idnation", typeof(int));
 	tregistrycoanview.defineColumn("idreg", typeof(int),false);
-	tregistrycoanview.defineColumn("idregistryclass", typeof(string));
-	tregistrycoanview.defineColumn("idtitle", typeof(string));
 	tregistrycoanview.defineColumn("registry_active", typeof(string));
-	tregistrycoanview.defineColumn("residence", typeof(int),false);
 	Tables.Add(tregistrycoanview);
 	tregistrycoanview.defineKey("idreg");
 

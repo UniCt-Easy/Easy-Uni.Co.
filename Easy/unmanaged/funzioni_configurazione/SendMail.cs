@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -17,12 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Data;
-using System.Configuration;
 using System.Net.Mail;
 using System.Collections.Generic;
 using metadatalibrary;
-using metaeasylibrary;
-using funzioni_configurazione;
 using System.IO;
 using System.Net;
 using System.Xml;
@@ -70,6 +67,9 @@ namespace funzioni_configurazione
 
         public bool UseSMTPLoginAsFromField = false;
         public string ErrorMessage;
+
+        public bool LogMessage = true;
+        public string LogHiddenMessageBody = string.Empty;
 
         private List<Attachment> attach = new List<Attachment>();
 
@@ -181,13 +181,24 @@ namespace funzioni_configurazione
                 return false;
             }
             System.Net.Mail.MailMessage message = null;
-            
+
+            Uri uri = null;
+
+            string rightpart = EffectiveFrom;
+
+        
+           int position = EffectiveFrom.ToString().IndexOf("@");
+           if (position > 0)
+                    rightpart = EffectiveFrom.ToString().Substring(position + 1);
+   
             try {          
                 message = new System.Net.Mail.MailMessage(
                     EffectiveFrom,
                     To.Replace(';', ','),
                     Subject,
                     MessageBody + "\r\n" + SMTPSignature);
+
+                    message.Headers.Add("Message-Id", String.Format("<{0}@{1}>", Guid.NewGuid().ToString(), rightpart));
             }
             catch (Exception e) {
                 ErrorMessage = "Errore nell'invio del messaggio " + " DA: " + EffectiveFrom +"\r\n" + "A: " + To.Replace(';', ',') + 
@@ -347,7 +358,7 @@ namespace funzioni_configurazione
             DataTable logemail = new DataTable();
             EntityDispatcher Disp = new EntityDispatcher(Conn);
 
-            logemail.Columns.Add("id", typeof(System.Int16), "");
+            logemail.Columns.Add("id", typeof(System.Int32), "");
             logemail.Columns.Add("sender", typeof(System.String), "");
             logemail.Columns.Add("receiver", typeof(System.String), "");
             logemail.Columns.Add("cc", typeof(System.String), "");
@@ -373,7 +384,7 @@ namespace funzioni_configurazione
             Rlogemail["receiver"] = To;
             Rlogemail["cc"] = Cc;
             Rlogemail["bcc"] = Bcc;
-            Rlogemail["message"] = MessageBody;
+            Rlogemail["message"] = LogMessage ? MessageBody : LogHiddenMessageBody;
             Rlogemail["errorMessage"] = errorMessage;
             Rlogemail["sent"] = send;
             Rlogemail["subject"] = Subject;
@@ -384,9 +395,9 @@ namespace funzioni_configurazione
             //Rlogemail["lu"] = "assistenza" + postfix; //da mettere l'utente corrente e non assistenza
             Rlogemail["lt"] = DateTime.Now;
             
-            Easy_PostData MyPostData = new Easy_PostData();
+            PostData MyPostData = new PostData();
 			MyPostData.InitClass(DS, Conn);
-			MyPostData.DO_POST();            
+			MyPostData.DO_POST();
             
             Rlogemail.AcceptChanges();
 		}

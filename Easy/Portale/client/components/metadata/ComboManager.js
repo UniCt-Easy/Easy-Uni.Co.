@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-/**
+Ôªø/**
  * @class ComboManager
  * @description
  * Manages a select html control
@@ -41,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      *  {string} data-displayMember
      *  {string} [data-no-blank] : if present a blank row is not wanted
      *  {string} [data-master]  : name of Master table which this combo depends on
-     * @param {Html element} el
+     * @param {element} el
      * @param {HelpForm} helpForm
      */
     function ComboManager(el, helpForm) {
@@ -61,10 +44,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         this.valueMember = $(el).data("valueMember");
         if (!this.valueMember)  logger.log(logType.ERROR, "No value member specified in combobox " + this.el);
 		this.displayMember = $(el).data("displayMember") || this.valueMember;
-		//di base la combo Ë ordinata per il displayMember
+
+		//di base la combo √® ordinata per il displayMember
 		this.sortMember = $(el).data("sortMember") || this.displayMember;
 
-        var tag = helpForm.getStandardTag($(el).data("tag"));
+        let tag = helpForm.getStandardTag($(el).data("tag"));
         if (!tag) logger.log(logType.ERROR, "Bad data-tag specified in combobox " + this.el);
 
         if (this.dataTable) {
@@ -95,7 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         this.colType = col.ctype;
 
         this.tag = helpForm.completeTag(tag, col); //may come back useful?
-        this.isDenyNull = metaModel.denyNull(col) || !metaModel.allowDbNull(col);
+        this.isDenyNull = metaModel.denyNull(col) || !metaModel.allowNull(col);
 
         this.noBlank = !!$(el).data("noblank");
         this.firstDataRow = this.noBlank ? 0 : 1;
@@ -103,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //name of Master table which this combo depends on
         this.comboMaster = $(el).data("master") || null;
         this.initVarsForMaster();
-         $(this.el).select2({minimumResultsForSearch: appMeta.config.minimumResultsForSearch});
+        $(this.el).select2({minimumResultsForSearch: appMeta.config.minimumResultsForSearch});
         this.isStandardFill = true; // segue la fillControl del framework
         this.rowChangeDisabled = false;
         return this;
@@ -119,13 +103,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Returns a sqlFun that represents the clause to filter the data in the form.
          * The clause is built reading the column to filter from the tag, and the value from the control itself.
-         * @param {html node} el
+         * @param {node} el
          * @param {DataColumn} col
          * @param {string} tagSearch
          * @returns {sqlFun}
          */
         getSearchControl:function(el, col, tagSearch) {
-            if ($(el).val() === undefined || $(el).val() === null) return null; // se non c'Ë selezione esco null
+            if ($(el).val() === undefined || $(el).val() === null) return null; // se non c'√® selezione esco null
             var index = this.el.selectedIndex;
             if (index < this.firstDataRow) return null;
             var searchcol = this.helpForm.getColumnName(tagSearch);
@@ -154,14 +138,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Add the events to the table control
-         * @param {html element} el
+         * @param {element} el
          * @param {MetaPage} metaPage
          */
         addEvents: function(el, metaPage) {
             this.metaPage = metaPage;
             //genera eventualmente una RowSelect sulla metaPage
-            $(this.el).on("select2:select", _.partial(this.controlChanged, this));
-            if (metaPage) metaPage.eventManager.subscribe(appMeta.EventEnum.ROW_SELECT, this.selectRowCallBack, this);
+            $(this.el).on("change", _.partial(this.controlChanged, this)); //select2:select
+            if (metaPage) {
+                metaPage.eventManager.subscribe(appMeta.EventEnum.ROW_SELECT, this.selectRowCallBack, this);
+            }
         },
 
         /**
@@ -173,10 +159,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         controlChanged: function (that) {
-            if (that.rowChangeDisabled) return false;
+            if (that.rowChangeDisabled) {
+                return false;
+            }
             return that.setRow(that.getCurrentRow().row, undefined)
                 .then(function () {
-                    return that.metaPage.eventManager.trigger(appMeta.EventEnum.afterComboChanged, that)
+                    return that.metaPage.eventManager.trigger(appMeta.EventEnum.afterComboChanged, that);
             });
         },
 
@@ -190,8 +178,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         setRow: function (row, propagate) {
-            var def = Deferred("setRow");
-            if (row === this.currentRow) return def.resolve(true);
+             var def = Deferred("setRow");
+            if (row === this.currentRow) {
+                return def.resolve(true);
+            }
             if (propagate === undefined) propagate = true;
             this.currentRow = row;
             if (this.metaPage && propagate) {
@@ -212,19 +202,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         setIndex: function(index, propagate) {
             var def = Deferred("setIndex");
+
             if (index < this.firstDataRow) {
+
+                this.rowChangeDisabled = true;
                 $(this.el).val(null).trigger('change');
                 this.el.selectedIndex = index; //may or may not raise an onChange
+                this.rowChangeDisabled = false;
+
                 return def.from(this.setRow(null, propagate)); //assure that row is properly selected
             }
 
             if (index >= this.comboRows.length + this.firstDataRow) {
                 index = this.comboRows.length + this.firstDataRow - 1;
             }
-
-            $(this.el).val(this.comboRows[index - this.firstDataRow][this.valueMember]);
+            let selectedIndex = index - this.firstDataRow;
+            $(this.el).val(this.comboRows[selectedIndex][this.valueMember]);
+            this.rowChangeDisabled = true;
             $(this.el).trigger('change');
-            return def.from(this.setRow(this.comboRows[index - this.firstDataRow], propagate)); // assure that row is properly selected
+            this.rowChangeDisabled = false;
+            // assure that row is properly selected
+            return def.from(this.setRow(this.comboRows[index - this.firstDataRow], propagate));
         },
 
         /**
@@ -244,7 +242,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 def.from(this.setIndex(this.blankLineIndex, propagate));
             } else {
                 var index = _.findIndex(this.comboRows, function(r) {
-                        return r[that.valueMember] == value;
+                        return r[that.valueMember] === value;
                     });
                 if (index >= 0) {
                     def.from( this.setIndex(index + this.firstDataRow, propagate));
@@ -286,8 +284,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 this.masterFilter = q.constant(false); //svuota la combo
                 if (rowChanged) {
                     this.masterFilter = q.mcmp( this.comboParentRel.childCols,
-                        _.map( self.comboParentRel.parentCols, function (col) {
-                            return rowChanged[col];
+                        _.map(self.comboParentRel.parentCols, function (col) {
+                            if (rowChanged.current)
+                                return rowChanged.current[col];
+                            else
+                                return rowChanged[col];
+
                         }));
                     //this.masterFilter.isTrue = true;
                 }
@@ -307,10 +309,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         /**
-         * @method fillControl
+         * @method waitMasterDetail
          * @public
          * @description ASYNC
-         * Put a loading indciator for the detail combo
+         * Put a loading indicator for the detail combo
          * @param {boolean} wait
          */
         waitMasterDetail:function (wait) {
@@ -341,17 +343,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description ASYNC
          * Executes the fill of the combo (Seelct html).
-         * @param {html node} comboBox
+         * @param {node} comboBox
          * @param {object} val
          */
         fillControl: function (comboBox, val) {
             var def = Deferred("ComboManager.fillControl");
-            if (this.helpForm.comboBoxToRefill) this.checkComboBoxSource(val);
-            // se c'Ë una sola riga dati ed Ë deny null+insert, scegli quella punto e basta
+            if (this.helpForm.comboBoxToRefill) {
+                this.checkComboBoxSource(val);
+            }
+            // se c'√® una sola riga dati ed √® deny null+insert, scegli quella punto e basta
             if (this.comboRows.length === 1 && this.isDenyNull && this.pageState.isInsertState()) return  def.from(this.setIndex(this.firstDataRow));
             return def.from(this.setValue(val));
         },
-
 
         /**
          * @method clearControl
@@ -361,13 +364,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         clearControl: function () {
+            if (this.helpForm.comboBoxToRefill) {
+                this.checkComboBoxSource(null);
+            }
             return Deferred("clearControl").from(this.setIndex(this.blankLineIndex));
         },
 
         /**
          * Reads data from the control - actually does nothing on a combo
          * @method getControl
-         * @param {html element} el
+         * @param {element} el
          * @param {ObjectRow} r       row to fill
          * @param {string} field    field to fill
          */
@@ -407,10 +413,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Fills the html combo options with comboRows content
          */
         fillComboBoxOptions: function() {
-            var comboBox = this.el;
+            let comboBox = this.el;
             $(comboBox).empty();
             this.rowChangeDisabled = true;
-            // se non c'Ë l'ozione noBlank,
+            // se non c'√® l'opzione noBlank,
             //    inserisco opzione vuota - quindi la riga vuota "rompe" l'associazione indice combo - indice in comboRows
             if (!this.noBlank) {
                 var emptyOption = document.createElement("option");
@@ -422,7 +428,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             _.forEach(
                 this.comboRows,
                 function(dataRow) {
-                    var opt = document.createElement("option");
+                    let opt = document.createElement("option");
                     opt.textContent = dataRow[that.displayMember];
                     opt.value = dataRow[that.valueMember];
                     comboBox.appendChild(opt); //$(comboBox).append(el);
@@ -440,29 +446,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {object} oldValue
          */
         checkComboBoxSource: function(oldValue) {
-            if (!this.valueMember) return ;
+            if (!this.valueMember) return;            
             // esegue fill della combo a partire dai valori di configurazione
             var t = this.dataTable;
 
-            if (!metaModel.temporaryTable(t)) {
-                this.comboRows = t.select(this.masterFilter); //non Ë una tabella gestita dal framework
-				this.comboRows = _.sortBy(this.comboRows, [this.sortMember]);
-                return;
-            }
+            //if (metaModel.temporaryTable(t)) {
+            //    this.comboRows = t.select(this.masterFilter); //non √® una tabella gestita dal framework
+            //    this.comboRows = _.sortBy(this.comboRows, [this.sortMember]);
+            //    this.fillComboBoxOptions(); //tutte le righe
+            //    return;
+            //}
 
-            //Se T non ha filtro per l'inserimento non deve fare nulla, pi˘ di quello non si puÚ avere
+            //Se T non ha filtro per l'inserimento non deve fare nulla, pi√π di quello non si pu√≤ avere
             if (!metaModel.insertFilter(t)) {
                 this.comboRows = t.select(this.masterFilter);
 				this.comboRows = _.sortBy(this.comboRows, [this.sortMember]);
+
                 this.fillComboBoxOptions(); //tutte le righe
                 return;
             }
 
-            //Esaminiamo ora il caso in cui T HA filtro per insert. In questo caso puÚ accadere che
+            //Esaminiamo ora il caso in cui T HA filtro per insert. In questo caso pu√≤ accadere che
             //  DataSetName = mkytemp_insert o mkytemp_special
             if (this.pageState.isSearchState()) {
-                this.comboRows = t.select(this.helpForm.mergeFilters(metaModel.searchFilter(t), this.masterFilter));
-				this.comboRows = _.sortBy(this.comboRows, [this.sortMember]);
+                let filter = this.helpForm.mergeFilters(metaModel.searchFilter(t), this.masterFilter);
+                this.comboRows = t.select(filter);
+                 this.comboRows = _.sortBy(this.comboRows, [this.sortMember]);
                 this.fillComboBoxOptions(); //ripristina le voci di search
                 return;
             }
@@ -474,14 +483,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return;
             }
 
-            //Modo Ë EDIT.
+            //Modo √® EDIT.
             var oldvaluefilter = (oldValue === null) ? null : q.eq(this.valueMember, oldValue);
             var f1 = this.helpForm.mergeFilters(oldvaluefilter, metaModel.insertFilter(t));
             var filterAnd = this.helpForm.mergeFilters(f1,  this.masterFilter);
-            if (filterAnd.isTrue || (t.select(filterAnd).length > 0)) { //il filtro in insert ha gi‡ la riga che serve
-                this.comboRows = t.select(filterAnd);
+            if (filterAnd.isTrue || (t.select(filterAnd).length > 0)) { //il filtro in insert ha gi√† la riga che serve    
+                this.comboRows = t.select(metaModel.insertFilter(t));
 				this.comboRows = _.sortBy(this.comboRows, [this.sortMember]);
-                this.fillComboBoxOptions(); // le voci di insert gi‡ bastano
+                this.fillComboBoxOptions(); // le voci di insert gi√† bastano
                 return;
             }
             var filterOr = q.or(oldvaluefilter, metaModel.insertFilter(t));
@@ -514,17 +523,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description ASYNC
          * Execute a prefill of the combobox
-         * @param {Html node} el
+         * @param {node} el
          * @param {Object} param {tableWantedName:tableWantedName, filter:filter, selList:selList}
          * @returns {Deferred}
          */
         preFill: function(el, param) {
             var def = Deferred("preFill");
-
             if(this.dataSourceName && param.tableWantedName && param.tableWantedName !== this.dataSourceName ) return def.resolve().promise();
-
             this.initVarsForMaster();
-
             return def.from(this.filteredPreFillCombo(param.filter, param.selList)).promise();
         },
 
@@ -554,16 +560,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * is marked as temp_row.  More, the table have not to be a CHILD table itself ASYNC
          * @param {jsDataQuery} filter. It is the filter to apply
          * @param {SelectBuilder[]} selList
+         * @param {sqlFun} filterMaster
          * @returns {Deferred}
          */
         filteredPreFillCombo: function (filter, selList, filterMaster) {
             var def = Deferred("filteredPreFillCombo");
             var t = this.dataTable;
-            if (metaModel.temporaryTable(t)) return def.resolve(t);
+
+            if (metaModel.temporaryTable(t)) {
+                return def.resolve(t);
+            }
 
             //Checks that the table is a child of another table and the filter is empty
             if ((filter === null || filter === undefined || !filterMaster) && this.comboMaster) {
-                //The list will be built depending of the selected row of the other table
+                //The list will be built depending on the selected row of the other table
                 //Don't read anything for now. table will be read when a filter is given
                 return def.resolve(false);
             }
@@ -578,13 +588,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 .then(function(sel) {
                     if (selList && sel) {
                         // gli oggetti onRead() vengono richiamati alla fine della multiRunSelect
-                        sel.onRead = function() {
+                        sel.onRead = function () {
                             that.comboRows = t.select();
 							that.comboRows = _.sortBy(that.comboRows, [that.sortMember]);
                             return that.fillComboBoxTable(true);
                         };
                         return Deferred('filteredPreFillCombo - delayed').resolve(true);
                     }
+
                     //Table has been read
                     that.comboRows = t.select();
 					that.comboRows = _.sortBy(that.comboRows, [that.sortMember]);
@@ -595,6 +606,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         }
     };
 
-    window.appMeta.CustomControl("combo", ComboManager);
-
+    window.appMeta.CustomControl("combo", ComboManager);    
 }());

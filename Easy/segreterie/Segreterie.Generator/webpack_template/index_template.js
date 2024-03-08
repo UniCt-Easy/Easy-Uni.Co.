@@ -1,10 +1,12 @@
+require('../components/metadata/jsDataQuery.js');
+require('../components/metadata/jsDataSet.js');
 require('../components/metadata/MetaApp.js');
 require('../$template$/metadata/Meta$currentApp$App.js');
 require('../components/metadata/Enum.js');
+require('../components/metadata/LocalResource.js');
 require('../components/i18n/LocalResourceIt.js');
 require('../components/i18n/LocalResourceFr.js');
 require('../components/i18n/LocalResourceEn.js');
-require('../components/metadata/LocalResource.js');
 require('../components/metadata/Config.js');
 require('../components/metadata/Logger.js');
 require('../components/metadata/DbProcedureMessage.js');
@@ -61,13 +63,14 @@ require('../components/metadata/TreeNodeUnLeveled.js');
 require('../components/metadata/TreeNodeLeveled.js');
 require('../components/metadata/TreeNodeUnLeveled_Dispatcher.js');
 require('../components/metadata/TreeNodeLeveled_Dispatcher.js');
+require('../components/metadata/PdfExport.js');
 
 require('../components/metadata/tree/SimpleUnLeveled_TreeNode.js');
 require('../components/metadata/tree/SimpleUnLeveled_TreeNode_Dispatcher.js');
 require('../components/metadata/tree/SimpleUnLeveled_TreeViewManager.js');
 require('../components/metadata/tree/TreeControl.js');
 
-require('../app_segreterie/cambioruolo.js');
+require('../$template$/cambioruolo.js');
 
 require('../$template$/assets/i18n/LocalResourceIt.js');
 require('../$template$/assets/i18n/LocalResourceEn.js');
@@ -75,10 +78,14 @@ require('../$template$/Localization.js');
 
 require('../componentsEasy/metadata/MetaEasyPage.js');
 require('../componentsEasy/metadata/MetaEasyData.js');
+
+//----put here personalized code----------
+require('../$template$/metadata/ImportExcel.js');
+//----------------------------------------
+
 require('../$template$/metadata/Meta$currentApp$Page.js');
 require('../$template$/metadata/Meta$currentApp$Data.js');
 
-require('../$template/metadata/ImportExcel.js');
 
 require('../$template$/metadata/Toast.js');
 require('../$template$/metadata/scheduler/scheduleConfig.js');

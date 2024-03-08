@@ -1,44 +1,108 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+/*globals ObjectRow,DataRelation,define,self,jsDataSet,jsDataQuery,metaModel,appMeta,sqlFun,_ */
 
 /**
  * @module getDataUtils
  * @description
- * Collection of utility functions for GetData
+ * Collection of utility functions about used by GetData
  */
-(function () {
 
-    var getDataUtils = {};
-    var q = window.jsDataQuery;
-    var logger = appMeta.logger;
-    var logType = appMeta.logTypeEnum;
-    var dataRowState = jsDataSet.dataRowState;
+(function (q,logger,logType,jsDataSet,_) {
+
+
+    /** Detect free variable `global` from Node.js. */
+    let freeGlobal = typeof global === 'object' && global && global.Object === Object && global;
+    /** Detect free variable `self`. */
+    let freeSelf = typeof self === 'object' && self && self.Object === Object && self;
+    /** Used as a reference to the global object. */
+    let root = freeGlobal || freeSelf || Function('return this')();
+    /** Detect free variable `exports`. */
+    let freeExports = typeof exports === 'object' && exports && !exports.nodeType && exports;
+    /** Detect free variable `module`. */
+    let freeModule = freeExports && typeof module === 'object' && module && !module.nodeType && module;
+    //noinspection JSUnresolvedVariable
+    /** Detect free variable `global` from Node.js or Browserified code and use it as `root`. (thanks lodash)*/
+    let moduleExports = freeModule && freeModule.exports === freeExports;
+
+
+    let getDataUtils = {};
+    let dataRowState = jsDataSet.dataRowState;
+
+    const dateFormat =  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+    // vecchio formato senza millisecondi /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+
+    function dataTransformFromJSON(key, value) {
+        if (typeof value === "string" && dateFormat.test(value)) {
+             // console.log("date found:"+value);
+            return  new Date(value);
+        }
+        return value;
+    }
+    function dataTransformToJSON(key, value) {
+         // console.log("executing  dataTransformToJSON BASE of " + value);
+        return value;
+    }
+
+    getDataUtils.dataTransformFromJSON = dataTransformFromJSON;
+    getDataUtils.dataTransformToJSON = dataTransformToJSON;
+
+    const adjustInputJson = (obj) => {
+        // console.log("adjustInputJson BASE calling adjustJson with obj of type ", typeof obj);
+
+        if (obj && typeof obj === 'string') {
+            console.log("converting string in object, should not happen");
+            return getDataUtils.dataTransformFromJSON(null, obj);
+        }
+
+        for (let k in obj) {
+            let val = obj[k];
+            //console.log("converting property:", k);
+            if (val && typeof val === 'string') {
+                //console.log("converting string in property ",k,":",val);
+                obj[k] = getDataUtils.dataTransformFromJSON(k, val);
+                //console.log("new value: ", obj[k], " of type " + typeof (obj[k]));
+                continue;
+            }
+            if (Array.isArray(val)) {
+                //console.log("converting array: ",k);
+                val.forEach((el, index) => {
+                    if (el && typeof el === 'string') {
+                        //console.log("converting string in array ",k,":",el);
+                        val[index] = getDataUtils.dataTransformFromJSON(null, el);
+                        //console.log("new value: ", val[index], " of type " + typeof (val[index]));
+                    }
+                    else {
+                        adjustInputJson(el);
+                    }
+                });
+                continue;
+            }
+            if (val && typeof val === 'object') {
+                adjustInputJson(val)
+            }
+        }
+    }
 
     /**
      * @function getJsObjectFromJson
      * @public
      * @description SYNC
      * Given a json representation of the DataSet/DataTable returns a javascript object
-     * @param {Json string} json
+     *  this manages translation of date objects
+     * @param {string} json
      * @returns {object} an object (DataTable or DataSet)
      */
     getDataUtils.getJsObjectFromJson = function (json) {
+        // console.log("getDataUtils.getJsObjectFromJson BASE");
         // riconverto la stringa json proveniente dal server
-        return JSON.parse(json);
+        if (typeof json === 'string') {
+            //console.log("json is a string");
+            //console.log("getJsObjectFromJson:",json.substring(0,100));
+            return JSON.parse(json, getDataUtils.dataTransformFromJSON);
+        }
+        //console.log("getJsObjectFromJson BASE: json is an object - adjusting from JSON");
+        adjustInputJson(json);
+        return json;
+        //return JSON.parse(json);
     };
 
     /**
@@ -46,16 +110,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @public
      * @description SYNC
      * Given a json representation of the DataTable returns a Js DataTable
-     * @param {Json string} jsonJsDataTable
+     * @param {string} jsonJsDataTable JSon string
      * @returns {DataTable} the datatable
      */
     getDataUtils.getJsDataTableFromJson = function (jsonJsDataTable) {
 
         // riconverto la stringa json proveniente dal server
-        var objParsed =  getDataUtils.getJsObjectFromJson(jsonJsDataTable);
+        let objParsed =  getDataUtils.getJsObjectFromJson(jsonJsDataTable);
 
         // creo nuovo jsDataSet da popolare
-        var dt = new jsDataSet.DataTable(objParsed.name);
+        let dt = new jsDataSet.DataTable(objParsed.name);
         // deserializzo il json proveniente dal server e popolo ds
         dt.deSerialize(objParsed, true);
 
@@ -67,16 +131,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @public
      * @description SYNC
      * Given a json representation of the DataSet returns a JsDataSet
-     * @param {Json string} jsonJsDataSet
-     * @returns {DataSet} the datatset
+     * @param {object} jsonJsDataSet JSon object
+     * @returns {DataSet} the dataset
      */
     getDataUtils.getJsDataSetFromJson = function (jsonJsDataSet) {
+        //console.log("getDataUtils.getJsDataSetFromJson BASE")
         // riconverto la stringa json proveniente dal server
-        var objParsed = getDataUtils.getJsObjectFromJson(jsonJsDataSet);
+        //console.log("getJsDataSetFromJson, typeof(jsonJsDataSet) is:", typeof (jsonJsDataSet));
+        let objParsed = getDataUtils.getJsObjectFromJson(jsonJsDataSet);
+
         // creo nuovo jsDataSet da popolare
-        var ds = new jsDataSet.DataSet(objParsed.name);
+        let ds = new jsDataSet.DataSet(objParsed.name);
         // deserializzo il json proveniente dal server e popolo ds
         ds.deSerialize(objParsed, true);
+        
+        //ds.displayData();
         return ds;
     };
 
@@ -87,13 +156,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Given a jsDataSet returns the json string. First it calls the methods serialize() of jsDataSet and then returns the json representation of the dataset object
      * @param {DataSet} ds
      * @param {boolean} serializeStructure. If true it serialize data and structure
-     * @returns {string] the json string
+     * @returns {object} the json 
      */
     getDataUtils.getJsonFromJsDataSet = function (ds, serializeStructure) {
+        //return JSON.stringify(ds.serialize(serializeStructure));
+
         var objser = ds.serialize(serializeStructure);
-        var jsonToSend = JSON.stringify(objser);
-        return jsonToSend;
+        // _.forEach(objser.tables, function (objdt) {
+        //     getDataUtils.convertDateTimeToUTC(objdt, false);
+        // });
+        //var jsonToSend = JSON.stringify(objser);
+        return objser; // jsonToSend;
+
     };
+
 
     /**
      * @function getJsonFromJsDataSet
@@ -101,12 +177,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @description SYNC
      * Serializes a DataTable with the data and structure
      * @param {DataTable} dt
-     * @returns {string} the json string
+     * @returns {object} the json string
      */
     getDataUtils.getJsonFromDataTable = function (dt) {
-        var objser = dt.serialize(true);
-        var jsonToSend = JSON.stringify(objser);
-        return jsonToSend;
+        let objser = dt.serialize(true);
+        objser.name = dt.name;
+        //return JSON.stringify(objser);
+        return objser;
     };
 
     /**
@@ -114,26 +191,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @public
      * @description SYNC
      * Given an array of message object returns the json string
-     * @param {[]} messages
+     * @param {string[]} messages
+     * @return {object}
      */
     getDataUtils.getJsonFromMessages = function (messages) {
         if (!messages) return;
         if (messages.length === 0) return;
-        var jsonToSend = JSON.stringify(messages);
-        return jsonToSend;
+        return messages; // JSON.stringify(messages);
     };
 
     /**
      * @function getJsDataQueryFromJson
-     * @public
      * @description SYNC
      * Given a json representation of the JsDataQuery returns a JsDataQuery
-     * @param {Json string} jsonJsDataQuery
-     * @returns {jsDataQuery} the jsDataQuery representation of the json
+     * @public
+     * @param {string} jsonJsDataQuery Json string
+     * @returns {sqlFun} the jsDataQuery representation of the json
      */
     getDataUtils.getJsDataQueryFromJson = function (jsonJsDataQuery) {
         // riconverto la stringa json proveniente dal server
-        var objParsed = getDataUtils.getJsObjectFromJson(jsonJsDataQuery);
+        let objParsed = getDataUtils.getJsObjectFromJson(jsonJsDataQuery);        
         return q.fromObject(objParsed);
     };
 
@@ -143,12 +220,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @description SYNC
      * Given jsDataQuery returns the json string. first it converts jsDataQuery into js object and to a json string
      * @param {jsDataQuery} dataQuery
-     * @returns {string} the json string
+     * @returns {object} the json object
      */
     getDataUtils.getJsonFromJsDataQuery = function (dataQuery) {
-        var objser = q.toObject(dataQuery);
-        var jsonToSend =  JSON.stringify(objser);
-        return jsonToSend;
+        return q.toObject(dataQuery);// JSON.stringify(q.toObject(dataQuery));
     };
 
     /**
@@ -161,9 +236,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
     getDataUtils.getDataRelationSerialized = function (rel) {
         if (!rel) return "";
-        var objser = rel.serialize();
-        var jsonToSend =  JSON.stringify(objser);
-        return jsonToSend;
+        return rel.serialize(); // JSON.stringify(rel.serialize());
     };
 
     /**
@@ -175,10 +248,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @returns {DataTable}
      */
     getDataUtils.cloneDataTable = function (dt) {
-        var dsClone = getDataUtils.cloneDataSet(dt.dataset);
-        var dt =  getDataUtils.getJsDataTableFromJson(appMeta.getDataUtils.getJsonFromDataTable(dt));
-        dt.dataset = dsClone;
-        return dt;
+        let dsClone = getDataUtils.cloneDataSet(dt.dataset);
+        return dsClone.tables[dt.name];
+        //let t =  getDataUtils.getJsDataTableFromJson(getDataUtils.getJsonFromDataTable(dt));
+        //dt.dataset = dsClone;
+        //return t;
     };
 
     /**
@@ -190,7 +264,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @returns {DataSet}
      */
     getDataUtils.cloneDataSet = function (ds) {
-        return getDataUtils.getJsDataSetFromJson(appMeta.getDataUtils.getJsonFromJsDataSet(ds, true));
+        return getDataUtils.getJsDataSetFromJson(getDataUtils.getJsonFromJsDataSet(ds, true));
     };
 
     /**
@@ -206,7 +280,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         _.forEach(dsSource.tables, function (tSource) {
             // se il mio dsTarget contiene la tabella allora effettuo merge delle righe
             if (dsDest.tables[tSource.name]){
-                // se non ci sono inutile fare il check esistenza. così si va più rapidi
+                // se non ci sono inutile fare il check esistenza
                 if (!dsDest.tables[tSource.name].rows.length) {
                     getDataUtils.mergeRowsIntoTable(dsDest.tables[tSource.name], tSource.rows, false);
                 } else {
@@ -214,9 +288,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
 
             }else{
-                logger.log(logType.ERROR, "La tabella " + tSource.name + " non esiste sul dataset " + dsDest.name);
+				//TODO: richiamare localresource per internazionalizzare il messaggio
+                logger.log(logType.ERROR, "Table " + tSource.name + " does not exists in dataset " + dsDest.name);
             }
-        })
+        });
     };
 
     /**
@@ -234,64 +309,76 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 // se il mio dsTarget contiene la tabella allora effettuo merge delle righe
                 if (dsDest.tables[tSource.name]) {
                     // Questo non basta, vedi righe successive. dsDest.tables[tSource.name].merge(tSource);
-                    // ciclo sulle righe originali del dest attraverso un contatore. ragiono al livello posizionale.
+                    // ciclo sulle righe originali del dest attraverso un contatore. Ragiono a livello posizionale.
                     // 1. se riga è modified faccio merge. i 2 indici source e dest allineati
                     // 2. se riga è added inserisco riga corrispondente, aumento gli indici
                     // 3. deleted . faccio acceptChanges() così la riga viene detachata, rimango fermo sugli indici. solo se la transazione è ok
 
                     // recupero tabella di destinazione
-                    var tDest = dsDest.tables[tSource.name];
+                    let tDest = dsDest.tables[tSource.name];
 
-                    // Indice delle righe del source, và con l'indice del dest cioè quello di partenza, ma se la riga del source è deleted non viene aumentato
-                    // poichè il js nelle iterazioni successive deve copiare per le mod e add quella con lo stesso indice.
-                    // var rSourceIndex = 0; // NON SERVE, tengo solo l'indicedella dest.
-                    var rDestIndex = 0;
+                    // Indice delle righe del source, va con l'indice del dest cioè quello di partenza, ma se la riga del source è deleted non viene aumentato
+                    // poiché il js nelle iterazioni successive deve copiare per le mod e add quella con lo stesso indice.
+                    var rSourceIndex = 0; // NON SERVE, tengo solo l'indice della dest.
+                        // Nino: serve, non stiamo inviando le righe unchanged
+                    let rDestIndex = 0;
 
                     try {
                         for(rDestIndex; rDestIndex < tDest.rows.length;) {
+
                             // ottengo la i-esima riga dest. a seconda dello stato effettuo operazioni,
-                            var rowDest = tDest.rows[rDestIndex];
-                            var currState = rowDest.getRow().state;
+                            let rowDest = tDest.rows[rDestIndex];
+                            let currState = rowDest.getRow().state;
 
                             if (currState === dataRowState.unchanged){
-                                // non fai nulla nel caso unchanged
+                                // sul db di origine non fai nulla se in destinazione è unchanged
                                 rDestIndex++;
                                 continue;
                             }
                             if (currState === dataRowState.modified){
-                                // 1. se riga è modified faccio merge. i 2 indici source e dest allineati
-                                rowDest.getRow().makeSameAs(tSource.rows[rDestIndex].getRow());
-                                // aumento contatore delle righe del source
+                                // 1. se riga è modified faccio merge. I due indici source e dest allineati
+                                rowDest.getRow().makeSameAs(tSource.rows[rSourceIndex].getRow());
                                 rDestIndex++;
+                                rSourceIndex++;
                                 continue;
                             }
                             if (currState === dataRowState.added){
                                 // 2. se riga è added inserisco riga corrispondente, aumento gli indici
-                                rowDest.getRow().makeSameAs(tSource.rows[rDestIndex].getRow());
+
+                                rowDest.getRow().makeSameAs(tSource.rows[rSourceIndex].getRow());
                                 // aumento contatore delle righe del source
                                 rDestIndex++;
+                                rSourceIndex++;
+
                                 continue;
                             }
                             if (currState === dataRowState.deleted){
                                 // potrei aver preso degli errori e quindi il commit non è stato fatto, dovrò aumentare il contatore senza cancellare la riga
                                 if (changesCommittedToDB) {
-                                    // NON aumento contatore delle righe del source! poichè era deleted, quindi sul source non la trovo
-                                    // poichè il server avrà fatto acceptChanges()
-                                    // qui io voglio che diventi detached e quindi a sua volta eseguo acceptChanges() sulla riga. Verrà tolto il metodo getRow()
+                                    // NON aumento contatore delle righe del source! poiché era deleted, quindi sul source non la trovo
+                                    // poiché il server avrà fatto acceptChanges()
+                                    // qui io voglio che diventi detached e quindi a sua volta eseguo acceptChanges() sulla riga.
+                                    // Verrà tolto il metodo getRow()
                                     rowDest.getRow().acceptChanges();
                                     continue;
                                 } else{
                                     rDestIndex++;
+                                    rSourceIndex++;
                                     continue;
                                 }
                             }
                         }
-                    } catch (e){
+                    } catch (e) {
+                        console.log("Dataset disallineati dopo il salvataggio " + e.message);
                         logger.log(logType.ERROR, "Dataset disallineati dopo il salvataggio " + e.message);
                     }
 
-                } else {
-                    logger.log(logType.ERROR, "La tabella " + tSource.name + " non esiste sul dataset " + dsDest.name);
+                }
+                else {
+                    if (tSource.rows.length > 0) {
+                        console.log("La tabella " + tSource.name + " non esiste sul dataset di destinazione " + dsDest.name);
+                        logger.log(logType.ERROR, "La tabella " + tSource.name + " non esiste sul dataset di destinazione " + dsDest.name);
+                    }
                 }
             });
     };
@@ -312,7 +399,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     tDest.add({}).makeSameAs(r.getRow());
                     return true;
                 }
-                var oldRow = tDest.existingRow(r);
+                let oldRow = tDest.existingRow(r);
                 if (oldRow) {
                     oldRow.getRow().makeSameAs(r.getRow());
                 } else {
@@ -331,7 +418,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @returns {DataRelation} the auto child relation
      */
     getDataUtils.getAutoChildRelation = function (dt) {
-        var autoChildRel = null;
+        let autoChildRel = null;
         if (!dt) return null;
         _.forEach(dt.childRelations(), function (rel) {
             if (rel.parentTable === dt.name && rel.childTable === dt.name) {
@@ -353,7 +440,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @returns {DataRelation} the auto parent relation
      */
     getDataUtils.getAutoParentRelation = function (dt) {
-        var autoParentRel = null;
+        let autoParentRel = null;
         if (!dt) return null;
         _.forEach(dt.parentRelations(), function (rel) {
             if (rel.parentTable === dt.name) {
@@ -364,7 +451,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         });
 
         return autoParentRel;
-    },
+    };
 
 
     /**
@@ -377,10 +464,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @returns {boolean} true or false depending if there are null values on row in cols
      */
     getDataUtils.containsNull = function (row, cols) {
-        var res = _.some(cols, function (c) {
+        return _.some(cols, function (c) {
             return row[c.name] === null || row[c.name] === "";
         });
-        return res;
     };
     
     /**
@@ -388,19 +474,68 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @private
      * @description SYNC
      * Returns true if it is the same row. It compares the columns field key
-     * @param {DataTable} dt
+     * @param {DataTable} table
      * @param {ObjectRow} r1
      * @param {ObjectRow} r2
      * @returns {boolean} true if r1 and r2 are the same row
      */
     getDataUtils.isSameRow = function (table, r1, r2) {
         if (!r1 || !r2) return false;
-        var res =  _.every(table.key(), function (k) {
+        return _.every(table.key(), function (k) {
             return r1[k] === r2[k];
-        });
-        return res; // torno true se non trovo val differenti sulla chiave
+        }); // torno true se non trovo val differenti sulla chiave
     };
 
-    appMeta.getDataUtils = getDataUtils;
-}());
+
+
+    // Some AMD build optimizers like r.js check for condition patterns like the following:
+    //noinspection JSUnresolvedVariable
+    if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+        // Expose lodash to the global object when an AMD loader is present to avoid
+        // errors in cases where lodash is loaded by a script tag and not intended
+        // as an AMD module. See http://requirejs.org/docs/errors.html#mismatch for
+        // more details.
+        // Export for a browser or Rhino.
+        if (root.appMeta) {
+            root.appMeta.getDataUtils = getDataUtils;
+        }
+        else {
+            root.getDataUtils = getDataUtils;
+        }
+
+        // Define as an anonymous module so, through path mapping, it can be
+        // referenced as the "underscore" module.
+        //noinspection JSUnresolvedFunction
+        define(function () {
+            return getDataUtils;
+        });
+    }
+    // Check for `exports` after `define` in case a build optimizer adds an `exports` object.
+    else if (freeExports && freeModule) {
+        // Export for Node.js or RingoJS.
+        if (moduleExports) {
+            (freeModule.exports = getDataUtils).getDataUtils = getDataUtils;
+        }
+        // Export for Narwhal or Rhino -require.
+        else {
+            freeExports.getDataUtils = getDataUtils;
+        }
+    }
+    else {
+        // Export for a browser or Rhino.
+        if (root.appMeta){
+            root.appMeta.getDataUtils = getDataUtils;
+        }
+        else {
+            root.getDataUtils=getDataUtils;
+        }
+
+    }
+
+}((typeof jsDataQuery === 'undefined') ? require('./jsDataQuery') : jsDataQuery,
+    (typeof appMeta === 'undefined') ? require('./Logger').logger : appMeta.logger,
+    (typeof appMeta === 'undefined') ? require('./Logger').logTypeEnum : appMeta.logTypeEnum,
+    (typeof appMeta === 'undefined') ? require('./jsDataSet') : jsDataSet,
+    (typeof _ === 'undefined') ? require('lodash') : _
+));
 

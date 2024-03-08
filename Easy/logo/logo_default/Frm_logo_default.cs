@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -52,7 +52,8 @@ namespace logo_default//logolista//
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.DataGrid dglogo;
 		private System.Windows.Forms.PictureBox pbox;
-		private System.Windows.Forms.OpenFileDialog opendlg;
+		private System.Windows.Forms.OpenFileDialog _opendlg;
+		private IOpenFileDialog opendlg;
 		private MetaData Meta;
 
 		
@@ -63,7 +64,7 @@ namespace logo_default//logolista//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-
+			opendlg.Title = "Scegli il file contenente il logo";
 			//
 			// TODO: Add any constructor code after InitializeComponent call
 			//
@@ -115,7 +116,8 @@ namespace logo_default//logolista//
 			this.elimina = new System.Windows.Forms.ToolBarButton();
 			this.Salva = new System.Windows.Forms.ToolBarButton();
 			this.aggiorna = new System.Windows.Forms.ToolBarButton();
-			this.opendlg = new System.Windows.Forms.OpenFileDialog();
+			this._opendlg = new System.Windows.Forms.OpenFileDialog();
+			this.opendlg = createOpenFileDialog(this._opendlg);
 			this.dglogo = new System.Windows.Forms.DataGrid();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.MetaDataDetail.SuspendLayout();
@@ -295,7 +297,7 @@ namespace logo_default//logolista//
 			// 
 			// opendlg
 			// 
-			this.opendlg.Title = "Scegli il file contenente il logo";
+			//this.opendlg.Title = "Scegli il file contenente il logo";
 			// 
 			// dglogo
 			// 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,8 +31,12 @@ namespace sortingkind_creascriptclass {
     public partial class FrmSortingKind_CreaScriptClass : MetaDataForm {
         string Header = "--JTR";
         MetaData Meta;
+
+        ISaveFileDialog saveFileDialog1;
+
         public FrmSortingKind_CreaScriptClass() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
         }
 
         public void MetaData_AfterLink() {

@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module GridControlX
  * @description
@@ -71,8 +54,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          this.tag = $(this.el).data("tag");
          $(this.el).css("overflow-x", "auto");
 
-         // colore per licona della colonna ordinata
+         // colore per l'icona della colonna ordinata
          this.colorOrder = "white";
+
+         if (this.helpForm.existsDataAttribute(this.el, "mdleditinplacecolumns")) {
+            this.editInPlaceColumns = $(this.el).data("mdleditinplacecolumns").split(";");
+         }
+         this.editType = this.helpForm.getField(this.tag, 2);
 
          // gestione bottoni editing direttamente su griglia
          this.isInsertBtnVisible = this.helpForm.existsDataAttribute(this.el, "mdlbuttoninsert");
@@ -85,6 +73,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
          this.createConditionalColumns();
 
+         // memorizza dict con i nomi di colonna che sono json oppure nipoti
+         // e che hanno quindi una costruzione differente della cella
+         this.jsonOrNipoti = {};
+
          this.isTreeNavigator = this.helpForm.existsDataAttribute(this.el, "treenavigator");
 
          this.meta = appMeta.getMeta(this.dataTable.tableForReading());
@@ -92,7 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
          this.defDescribedColumn = this.meta.describeColumns(this.dataTable, this.listType);
 
-         this.editType = this.helpForm.getField(this.tag, 2);
+
 
          this.orderedCols = {};
 
@@ -102,13 +94,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           * @type {boolean}
           */
          this.forceSelectRow = false;
+         this.doubleClickToExit = false;
 
          this.currentRow = null; // DataRow selezionato, null se non c'è riga selezionata
 
          this.gridParentRel = null;
 
          this.gridMaster = $(this.el).data("master");
-         var gridParentRels = [];
+         let gridParentRels = [];
 
          if (this.primaryTable) {
             if (this.gridMaster) {
@@ -124,20 +117,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          // elenco ordinato righe nel grid (solo quelle del grid, nell'ordine in cui vi si trovano)
          this.gridRows = [];
          this.$btnexportExcel = null;
-         // se mono select,  cerca sempre di selezionare la prima riga utile o l'ultima selezionata
+         // Se mono select, cerca sempre di selezionare la prima riga utile o l'ultima selezionata
          // forza il disegno delle icone per il groping sull'header, senza drag n drop
          this.forceBtnGroupOnHeader = false;
          this.aggrFunctionArr = ['sum', 'avg', 'max', 'min'];
       },
 
+      doubleClickEnabled: function(){
+        return this.doubleClickToExit ||  this.isEditBtnVisible ;
+      },
       /**
        * Creates the dictionary with the info for the conditional columns.
        * user data-attribute is: "col1,v1,d1;col2,v2,d2"; where vi is the value for the column coli to replace with di
        */
       calcInputGrouping: function () {
-         var groupedColumnsInput = $(this.el).data("mdlgroupedcolumns");
-         var calcAggegateColumnsInput = $(this.el).data("mdlaggregatecolumns");
-         var self = this;
+         let groupedColumnsInput = $(this.el).data("mdlgroupedcolumns");
+         let calcAggegateColumnsInput = $(this.el).data("mdlaggregatecolumns");
+         let self = this;
          // popolo array delle colonne da raggruppare
          if (groupedColumnsInput) {
             this.groupedColumnsInput = groupedColumnsInput.split(";");
@@ -157,7 +153,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             _.forEach(this.orderedCols, function (c) {
                if (_.includes(self.calcAggegateColumnsInput, c.name)) {
-                  self.confAgg[utils.getUnivoqueId() + c.name + "sum"] = { fname: "sum", value: true, column: c };
+                  self.confAgg[utils.getUniqueId() + c.name + "sum"] = { fname: "sum", value: true, column: c };
                }
             });
          }
@@ -182,11 +178,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        */
       addMyEvents: function () {
 
-         var self = this;
+         let self = this;
 
          // questo selettore evita di agganciare glie venti sull'header
          this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr)").on("click", _.partial(this.rowClickEv, this));
          this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr)").on("dblclick", _.partial(this.rowDblClickEv, this));
+         if (this.editInPlaceColumns) {
+            this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr) > td:not(.mdlw_tdclickable)").on("click", _.partial(this.cellEdit, this));
+         }
 
          // aggiugno eventi per bottoni recursiveCollapse e recursiveExpand in caso di grouping
 
@@ -223,8 +222,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          // questo selettore evita di agganciare glie venti sull'header
          this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped])").off("click", _.partial(this.rowClickEv, this));
          this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped])").off("dblclick", _.partial(this.rowDblClickEv, this));
+         if (this.editInPlaceColumns) {
+            this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr) > td:not(.mdlw_tdclickable)").off("click", _.partial(this.cellEdit, this));
+         }
 
-         var self = this;
+         let self = this;
 
          // rimuove eventi per bottoni recursiveCollapse e recursiveExpand in caso di grouping
 
@@ -252,16 +254,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @method addEvents
        * @public
        * @description SYNC
-       * If "subscribe" subscribes the  ROW_SELECT event and invokes the callback "selectRowCallBack()"
-       * @param {Html node} el
+       * @param {element} el
        * @param {MetaPage} metaPage
-       * @param {boolean} subscribe
        */
-      addEvents: function (el, metaPage, subscribe) {
-         subscribe = (subscribe === undefined) ? true : subscribe;
+      addEvents: function (el, metaPage) {
          this.metaPage = metaPage;
          // this.addMyEvents(); aggiunti solo sulla addRow
-         if (metaPage && subscribe) {
+         if (metaPage && metaPage.eventManager) {  //era && subscribe
+            //when in a listManager, metaPage is the listManager and does not have an eventManager
             metaPage.eventManager.subscribe(appMeta.EventEnum.ROW_SELECT, this.selectRowCallBack, this);
          }
       },
@@ -270,8 +270,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @method selectRowCallBack
        * @private
        * @description ASYNC
-       * It is the callback triggered after a ROW_SELCT event on metapage. If the parameter table is the gridmaster it fill the grid, and select the row "row"
-       * @param {html node|object} sender
+       * It is the callback triggered after a ROW_SELECT event on metapage. If the parameter table is the gridmaster
+       *    it fills the grid, and selects the row "row"
+       * @param {element|object} sender
        * @param {DataTable} table
        * @param {ObjectRow} row
        * @returns {Deferred}
@@ -302,7 +303,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @public
        * @description ASYNC
        * Fills the grid
-       * @param {html node} el
+       * @param {element} el
        * @returns {Deferred}
        */
       fillControl: function (el) {
@@ -315,14 +316,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @public
        * @description ASYNC
        * Fills the grid in the case it is not a tree navigator
-       * @param {html node} el
+       * @param {element} el
        * @returns {*|Deferred}
        */
       fillControlNotTreeNavigator: function (el) {
          el = el || this.el;
-         var helpForm = this.helpForm;
-         var filter = null;
-         var currParent = null;
+         let helpForm = this.helpForm;
+         let filter = null;
+         let currParent = null;
          if (this.primaryTable) {
             currParent = helpForm.lastSelected(this.primaryTable);
 
@@ -331,7 +332,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // N.B: questo oggetto è un jsDataQuery.
             // Deve essere configurato sul metodo AfterLink o meglio beforefill della metaPage estesa tramite il seguente codice:
             // Esempio: $("#ID_ELEMENTO_GRIGLIA").data("customParentRelation", myJsDataQuery);
-            var customParentRel = $(el).data("customParentRelation");
+            let customParentRel = $(el).data("customParentRelation");
             if (customParentRel) {
                filter = customParentRel;
             }
@@ -361,19 +362,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @description ASYNC
        * Executes the fill of the custom control
        * @method  fillControl
-       * @param {html node} el
+       * @param {element} el
        * @param {jsDataQuery} filter
+       * @param {boolean} propagate if true the event has to be propagated to the page
        * @returns {Deferred}
        */
       innerFillControl: function (el, filter, propagate) {
 
-         var def = Deferred("innerFillControl");
+         let def = Deferred("innerFillControl");
 
          if (!this.dataTable) return def.resolve();
-         var self = this;
+         let self = this;
 
          // rimane aperto dal costruttore e qui mi aspetto venga fatta la then, quando appunto torna il metodo
-         var res = this.defDescribedColumn
+         let res = this.defDescribedColumn
             .then(function () {
 
                self.orderedCols = self.getOrderedColumns(self.dataTable);
@@ -399,12 +401,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                // ridisegno grid con le righe raggruppate
                self.redrawGridForGrouping(self);
 
+               self.assignColumnsStyle();
+
                // azioni dopo la selezione dell'indice giusto sulla griglia
                return self.setRow(self.currentRow, propagate);
 
             });
 
          return def.from(res).promise();
+
+      },
+
+      assignColumnsStyle:function() {
+         let self= this;
+          $(self.mytable).find('td, th').each(function (curr) {
+              let mdlcolumnname = $(curr).data("mdlcolumnname");
+            if (!mdlcolumnname || self.jsonOrNipoti[mdlcolumnname]) {
+               // $(curr).addClass("mdl-cell-size-default");
+            } else {
+                $(curr).addClass("mdl-cell-size-calc");
+            }
+         });
 
       },
 
@@ -442,7 +459,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       getOrderedColumns: function (dataTable) {
          if (!dataTable) return [];
 
-         var cols = _.sortBy(
+         let cols = _.sortBy(
             _.filter(dataTable.columns,
                function (c) {
                   if (!c.caption) return false;
@@ -462,23 +479,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @description SYNC
        * Sorts and returns the rows of the DataTable "t"
        * @param {DataTable} t
-       * @param {DataQuery} filter
+       * @param {sqlFun} filter
        * @returns {ObjectRow[]}
        */
       getSortedRows: function (t, filter) {
          // se ho cambiato sort tramite click su header  lo memorizzo sulla prop orderBy, quindi qui la rileggo
-         var sorting = t.orderBy() || this.getSorting(t);
-         var rows = t.select(filter);
+         let sorting = t.orderBy() || this.getSorting(t);
+         let rows = t.select(filter);
          if (!sorting) return _.orderBy(rows, t.key());
-         var parts = sorting.split(",");
+         let parts = sorting.split(",");
          rows = _.orderBy(rows, t.key());
 
-         var sortingObject = _.reduce(parts,
+         let sortingObject = _.reduce(parts,
             function (result, part) {
-               var sortElem = part.trim().split(" ");
-               var field = sortElem[0];
+               let sortElem = part.trim().split(" ");
+               let field = sortElem[0];
                result.names.push(function (row) {
-                  var value = row[field];
+                  let value = row[field];
                   if (value) {
                      if (value instanceof Date) return value.getTime();
                      if (!isNaN(value)) return value;
@@ -493,7 +510,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                }
                return result;
             },
-            { names: [], sorting: [] });
+             { names: [], sorting: [] });
          return _.orderBy(rows, sortingObject.names, sortingObject.sorting);
 
       },
@@ -509,7 +526,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @returns {string} the sorting
        */
       getSorting: function (dt) {
-         var sorting = this.meta.getSorting(this.listType);
+         let sorting = this.meta.getSorting(this.listType);
          return (sorting ? sorting : dt.orderBy());
       },
 
@@ -519,18 +536,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @description ASYNC
        * Sets the row "row" as current row
        * @param {ObjectRow} row
-       * @param {boolean} propagate
+       * @param {boolean} propagate if true calls metaPage.rowSelect
        * @returns{Deferred}
        */
       setRow: function (row, propagate) {
-         var def = Deferred("setRow");
-         var self = this;
+         let def = Deferred("setRow");
+         let self = this;
          if (this.setRowRunning) {
             this.setRowRunning = false;
             return def.resolve(true);
          }
 
-         if (row === this.currentRow) return def.resolve(true);
+         if (row === this.currentRow) {
+            return def.resolve(true);
+         }
          this.changeCssRowSelected(row);
          if (propagate === undefined) propagate = true;
 
@@ -540,10 +559,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          if (this.metaPage && propagate) {
             this.setRowRunning = true;
             return this.metaPage.rowSelect(this.el, this.dataTable, row)
-               .then(function () {
-                  self.setRowRunning = false;
-                  return def.resolve(true);
-               })
+            .then(function () {
+               self.setRowRunning = false;
+               return def.resolve(true);
+            });
          }
          return def.resolve(true);
       },
@@ -571,7 +590,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       changeCssRowSelected: function (currentRow) {
          //trovo tr linkato a questa riga
          // imposto lo stile
-         var self = this;
+         let self = this;
          $("tr", this.mytable).css('background-color', '');
          _.forEach($("tr", this.mytable), function (currTr) {
             if (getDataUtils.isSameRow(self.dataTable, $(currTr).data("mdldatarowlinked"), currentRow)) {
@@ -589,17 +608,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * put a generic column "group"
        */
       getColsToInsert: function () {
-         var cols = [];
-         var self = this;
+         let cols = [];
+         let self = this;
          if (this.columnsGrouped && this.columnsGrouped.length > 0) {
             // in prima posizione quella gruppo
             cols[0] = new jsDataSet.DataColumn("Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", "String");
             cols[0].isFirsGrouping = true;
             _.forEach(this.orderedCols, function (c) {
-               if (!_.some(self.columnsGrouped, { name: c.name })) cols.push(c)
+               if (!_.some(self.columnsGrouped, { name: c.name })) cols.push(c);
             });
             return cols;
-         } else {
+         }
+         else {
             return this.orderedCols;
          }
       },
@@ -610,7 +630,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @description SYNC
        * Adds the html cells to html row and the row to the html table. Cell values are read from dataRow
        * @param {ObjectRow} dataRow
-       * @param {number} gridRowCount index of the row in the grid
        * @param {number} idHidden boolean. called by grouping it wil be true, because the row are collapsed
        * @param {string} tridParent the id of parent row in grouped mode
        */
@@ -618,9 +637,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          if (!dataRow) return;
 
          // se c'è raggruppamento passo id della riga parent
-         var dataParent = "";
+         let dataParent = "";
          if (tridParent) { dataParent = "data-parenttr=" + tridParent; }
-         var $tr = $('<tr ' + dataParent + ' >');
+         let $tr = $('<tr ' + dataParent + ' >');
 
          // quando faccio il grouping partono nascoste
          if (idHidden && !this.groupedColumnsInput) $tr.hide();
@@ -644,9 +663,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * Adds the html cells to html row and the row to the html table. Cell values are read from dataRow
        */
       addTableEmptyRow: function () {
-         var numColumnToAdd = 4; // Possiamo dare un numero maggiore di colspan (che non hanno effetto) piuttosto che minore
-         var colsnum = this.orderedCols.length + numColumnToAdd;
-         var $tr = $('<tr><td align="center" class="norow" colspan=' + colsnum + '>' + localResource.gridEmpty + '</td></tr>');
+         let numColumnToAdd = 4; // Possiamo dare un numero maggiore di colspan (che non hanno effetto) piuttosto che minore
+         let colsNum = this.orderedCols.length + numColumnToAdd;
+         let $tr = $('<tr><td align="center" class="norow" colspan=' + colsNum + '>' + localResource.gridEmpty + '</td></tr>');
          this.mytable.append($tr);
       },
 
@@ -655,14 +674,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @private
        * @description SYNC
        * Adds the value inside the cell for a specific <tr> element
-       * @param {html node} $tr
+       * @param {element} $tr
        * @param {ObjectRow} dataRow
        */
       addValuesCells: function ($tr, dataRow) {
-         var self = this;
+         let self = this;
          _.forEach(this.getColsToInsert(), function (c) {
             self.addStandardCell($tr, dataRow, c);
          });
+      },
+
+
+      addToJsonOrNipoti:function(cname) {
+         cname = cname.replace("!", "");
+         this.jsonOrNipoti[cname] = cname;
       },
 
       /**
@@ -670,31 +695,73 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @private
        * @description SYNC
        * Add standard cell value
-       * @param $tr
+       * @param {element} $tr
        * @param {ObjectRow} objRow
        * @param {DataColumn} column
        */
       addStandardCell: function ($tr, objRow, column) {
-         var value = this.getFormattedValue(objRow, column);
-         var columnStyle = cssDefault.getColumnsAlignmentCssClass(column.ctype);
+         let getCompressButton = function(){
+            return '<button data-mdlbuttontype="expandBtn" data-mdlexpanded="false" type="button" '+ // Adding the button
+                        `style="cursor:zoom-in;margin-left:2%; border-radius: 15%;"`+ // Inline styles, cursor is toggled
+                        '>' +
+                           '<i class="fas fa-chevron-down"></i>' +
+                        '</button>';
+         };
+         let value = this.getFormattedValue(objRow, column);
+         let columnStyle = cssDefault.getColumnsAlignmentCssClass(column.ctype);
          // a seconda se è un json o stringa semplice formatto la cella
-         var jsonObj = this.getJson(value);
-         var $td = $('<td style="user-select: none" nowrap data-mdlcolumnname="' + column.name.replace("!", "") + '" >');
+         let jsonObj = this.getJson(value);
+         let $td = $('<td style="user-select: none" nowrap data-mdlcolumnname="' +
+                     column.name.replace("!", "") + '" >');
+         let originalText = '';
+
          if (!!jsonObj) {
-            var $tableCell = $('<table class="table table-in-cell">');
+
+            this.addToJsonOrNipoti(column.name);
+            let $tableCell = $('<table class="table table-in-cell">'),
+               that = this;
             _.forEach(Object.keys(jsonObj), function (k) {
-               var $tr1 = $('<tr class="table-in-cell-tr">');
+               let $tr1 = $('<tr class="table-in-cell-tr">');
+               originalText = '';
                if (typeof jsonObj[k] === 'object') {
-                  for (var key in jsonObj[k]) {
-                     var $td3 = $('<td>');
-                     $td3.html(key + ": " + jsonObj[k][key]);
+                  for (let key in jsonObj[k]) {
+                     originalText = '';
+                     let $td3 = $('<td class="mdl-cell-size-calc">'),
+                        value = jsonObj[k][key];
+                     
+                     if(value.length > 200) { // Value cut down to 200 chars if too long
+                        originalText = value;
+                        value = value.substring(0, 197) + '...'; // Adding 3 dots at the end of the text
+                        value += getCompressButton();
+                     }
+                     
+                     $td3.html(key + ": " + value);
                      $tr1.append($td3);
+                     if (originalText) {
+                        let $button = $td3.children("button[data-mdlbuttontype='expandBtn']"); //Using the data-mdlbuttontype="expandBtn" attribute to identify the button
+                        $button.attr("data-tag-originalText",originalText); //Saving the full text
+                        $button.click(that.toggleExpandCell ); //Registering the click
+                     }
                   }
                } else {
-                  var $td3 = $('<td>');
+                  let $td3 = $('<td class="mdl-cell-size-calc">'),
+                     value = jsonObj[k];
+                  
+                  if(value.length > 200) { // Value cut down to 200 chars if too long
+                     originalText = value;
+                     value = value.substring(0, 197) + '...'; // Adding 3 dots at the end of the text
+                     value += getCompressButton();
+                  }
+
                   $td3.html(k + ": " + jsonObj[k]);
                   $tr1.append($td3);
-               };
+                  
+                  if (originalText) {
+                     let $button = $td3.children("button[data-mdlbuttontype='expandBtn']"); //Using the data-mdlbuttontype="expandBtn" attribute to identify the button
+                     $button.attr("data-tag-originalText",originalText); //Saving the full text
+                     $button.click(that.toggleExpandCell ); //Registering the click
+                  }
+               }
 
                $tableCell.append($tr1);
             });
@@ -703,9 +770,55 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          } else {
             // applico lo stile
             $td.addClass(columnStyle);
+
+            if(value.length > 200) { // Value cut down to 200 chars if too long
+               originalText = value;
+
+               value = value.substring(0, 197) + '...'; // Adding 3 dots at the end of the text
+               value += getCompressButton();
+            }
             this.addChildElement($tr, $td, value);
+
+            if (originalText) { // Registering the click function to toggle the compression of the text
+
+               let $button = $td.children("button[data-mdlbuttontype='expandBtn']"); //Using the data-mdlbuttontype="expandBtn" attribute to identify the button
+               $button.attr("data-tag-originalText",originalText); //Saving the full text
+               $button.click(this.toggleExpandCell ); //Registering the click
+            }
          }
          if (column.tohide) $td.hide();
+      },
+
+      /**
+       * @method toggleExpandCell
+       * @private
+       * @description SYNC
+       * Toggles the display of the whole text or the truncated one
+       * @param {jQueryEvent} ev click event on the toggle button
+       */
+      toggleExpandCell: function (ev) {
+
+         let $button = $(ev.delegateTarget); //Using the delegateTraget since the target could be the icon or the button
+         let $td = $button.parent(),
+             $icon = $button.find('svg'),
+             isExpanded = ( $button.attr("data-mdlexpanded") === 'true' );
+         
+         ev.stopPropagation(); // Prevents the click from propagating to the list below and selecting the row
+
+         let originalText = $button.attr("data-tag-originalText");
+         $td.contents().first()[0].textContent = //Replacing the text (always the first node) with the complete text or the cut one
+            isExpanded ?
+               originalText.substring(0, 197) + '...'
+            :
+               originalText;
+
+         $button.css("cursor", isExpanded ? 'zoom-in' : 'zoom-out');
+         
+         if($icon.length > 0) {
+            $icon.attr("data-icon", isExpanded ? 'chevron-down' : 'chevron-up') //Switching the icon
+         }
+
+         $button.attr("data-mdlexpanded", !isExpanded); //Switching the flag
       },
 
       /**
@@ -713,12 +826,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @private
        * @description SYNC
        * Adds the button edit or delete inside the cell for a specific <tr> element
-       * @param {html node} $tr
+       * @param {element} $tr
        */
       addEditingCells: function ($tr) {
-         var self = this;
+         let self = this;
          // aggiungo cella per bottoni di editing se serve
-         var $tdBtnEditing = $('<td class="mdlw_tdclickable">');
+         let $tdBtnEditing = $('<td class="mdlw_tdclickable">');
          if (this.isInsertBtnVisible || this.isEditBtnVisible) {
             self.addChildElement($tr, $tdBtnEditing, '');
          }
@@ -729,8 +842,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             self.addChildElement($btnedit, $iconEdit, '');
          }
 
-         var addedTdDeleted = false;
-         var $tdBtnDeleting = $('<td data-mdldeletebtn class="mdlw_tdclickable">');
+         let addedTdDeleted = false;
+         let $tdBtnDeleting = $('<td class="mdlw_tdclickable">');
          if ((this.isDeleteBtnVisible && this.isEditBtnVisible) ||
             (this.isDeleteBtnVisible && (!this.isEditBtnVisible && !this.isInsertBtnVisible))) {
             self.addChildElement($tr, $tdBtnDeleting, '');
@@ -740,20 +853,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          // se non sono visibili i bottoni di editing significa che non ho aggiunto header e quindi serve cella vuota per bottone di export
          // sul grid prer non avere il bottone appeso a destra
          if (!this.isEditBtnVisible && !this.isDeleteBtnVisible && !this.isUnlinkBtnVisible) {
-            var $tdBtnEditing = $('<td class="mdlw_tdclickable">');
+            let $tdBtnEditing = $('<td class="mdlw_tdclickable">');
             self.addChildElement($tr, $tdBtnEditing, '');
          }
 
          if (this.isDeleteBtnVisible) {
-            var $btndelete = $('<div data-mdldeletebtn style="text-align:center;"></div>');
-            var $iconDelete = $('<i class="fa fa-trash"></i>');
+            let $btndelete = $('<div data-mdldeletebtn style="text-align:center;"></div>');
+            let $iconDelete = $('<i class="fa fa-trash"></i>');
             if (addedTdDeleted) self.addChildElement($tdBtnDeleting, $btndelete, '');
             if (!addedTdDeleted) self.addChildElement($tdBtnEditing, $btndelete, '');
             self.addChildElement($btndelete, $iconDelete, '');
          }
 
-         var addedTdUnlink = false;
-         var $tdBtnUnlink = $('<td class="mdlw_tdclickable">');
+         let addedTdUnlink = false;
+         let $tdBtnUnlink = $('<td class="mdlw_tdclickable">');
          if ((this.isUnlinkBtnVisible && this.isEditBtnVisible) ||
             (this.isUnlinkBtnVisible && this.isDeleteBtnVisible) ||
             (this.isUnlinkBtnVisible && (!this.isEditBtnVisible && !this.isDeleteBtnVisible && !this.isInsertBtnVisible))) {
@@ -762,8 +875,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          }
 
          if (this.isUnlinkBtnVisible) {
-            var $btnunlink = $('<div data-mdlunlinkbtn style="text-align:center;"></div>');
-            var $iconUnlink = $('<i class="fa fa-unlink"></i>');
+            let $btnunlink = $('<div data-mdlunlinkbtn style="text-align:center;"></div>');
+            let $iconUnlink = $('<i class="fa fa-unlink"></i>');
             if (addedTdUnlink) self.addChildElement($tdBtnUnlink, $btnunlink, '');
             if (!addedTdUnlink) self.addChildElement($tdBtnEditing, $btnunlink, '');
             self.addChildElement($btnunlink, $iconUnlink, '');
@@ -771,7 +884,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       },
 
       /**
-       * @method editClick
+       * @method insertClick
        * @private
        * @description SYNC
        * Manages the click on add button. it calls the specific method of metapage
@@ -788,14 +901,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * Manages the click on edit button. it calls the specific method of metapage
        * @param {GridControlX} that
        */
-      editClick: function (that) {
-         var tr = $(this).closest("tr");
-         // prima di invocare il metodo sulla metaPage richiamo il click, così eseguo lo stesso codice di quando il bottone era fuori il gird
-         // stando attento a passare i giusti parametri. quindi l'ogg di inovazione eè il tr stesso e 1o prm GridControl
+      editClick: function (that){
+         let tr = $(this).closest("tr");
+         // Prima di invocare il metodo sulla metaPage richiamo il click, così eseguo lo stesso codice di
+         //  quando il bottone era fuori il grid stando attento a passare i giusti parametri.
+         // Quindi l'oggetto di invocazione è il tr stesso e 1o prm GridControl
+
+         //in oltre controllo se il bottone è disabilitato e poi
+         //disabilito il bottone qualora venisse premuto in modo compulsivo
+         if ($(this).prop("disabled")) return;
+         $(this).prop("disabled", true);
+
+         let self = this;
          that.rowClick.call(tr, that)
-            .then(function () {
-               return that.metaPage.editClick(that.metaPage, that)
-            })
+         .then(function (){
+            return that.metaPage.editClick(that.metaPage, that);
+         })
+         .then(function (){
+            //riabilito il bottone alla fine della operazione
+            $(self).prop("disabled", false);
+            return true;
+         });
       },
 
       /**
@@ -806,13 +932,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @param {GridControlX} that
        */
       deleteClick: function (that) {
-         var tr = $(this).closest("tr");
-         // prima di invocare il metodo sulla metaPage richiamo il click, così eseguo lo stesso codice di quando il bottone era fuori il gird
-         // stando attento a passare i giusti parametri. quindi l'ogg di inovazione eè il tr stesso e 1o prm GridControl
-         that.rowClick.call(tr, that)
-            .then(function () {
-               return that.metaPage.deleteClick(that.metaPage, that)
-            })
+         let tr = $(this).closest("tr");
+         // Prima di invocare il metodo sulla metaPage richiamo il click, così eseguo lo stesso
+         //  codice di quando il bottone era fuori il grid stando attento a passare i giusti parametri.
+         // Quindi l'oggetto dell'invocazione è il tr stesso e 1o prm GridControl
+
+          //in oltre controllo se il bottone è disabilitato e poi 
+          //disabilito il bottone qualora venisse premuto in modo compulsivo
+          if ($(this).prop("disabled")) return;
+          $(this).prop("disabled", true);
+
+          let self = this;
+          that.rowClick.call(tr, that)
+          .then(function () {
+                return that.metaPage.deleteClick(that.metaPage, that);
+          }).then(function () {
+                //riabilito il bottone alla fine della operazione
+                $(self).prop("disabled", false);
+                return true;
+          });
       },
 
       /**
@@ -823,13 +961,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @param {GridControlX} that
        */
       unlinkClick: function (that) {
-         var tr = $(this).closest("tr");
-         // prima di invocare il metodo sulla metaPage richiamo il click, così eseguo lo stesso codice di quando il bottone era fuori il gird
-         // stando attento a passare i giusti parametri. quindi l'ogg di invocazione eè il tr stesso e 1o prm GridControl
+         let tr = $(this).closest("tr");
+         // Prima di invocare il metodo sulla metaPage richiamo il click, così eseguo lo stesso codice di
+         //  quando il bottone era fuori il grid stando attento a passare i giusti parametri.
+         // Quindi l'oggeto di invocazione è il tr stesso e 1o prm GridControl
          that.rowClick.call(tr, that)
             .then(function () {
-               return that.metaPage.unlinkClick(that.metaPage, that)
-            })
+               return that.metaPage.unlinkClick(that.metaPage, that);
+            });
       },
 
       /**
@@ -837,13 +976,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @private
        * @description SYNC
        * Sets "child" content and append child node to "parent"
-       * @param {html node} parent jquery html element
-       * @param {html node} child jquery html element
+       * @param {element} parent jquery html element
+       * @param {element} child jquery html element
        * @param {string} value the string value
        */
       addChildElement: function (parent, child, value) {
          value = value || "";
-         var display_txt = value.replace(/\n/g, "<br />");
+         let display_txt = value.replace(/\n/g, "<br />");
          $(child).html(display_txt).appendTo(parent);
       },
 
@@ -857,15 +996,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @returns {*|string}
        */
       getFormattedValue: function (r, c) {
-         var field = c.name;
-         var fmt = this.helpForm.getFormatForColumn(c);
-         var tag = "x.y." + fmt;
-         var pObj = new appMeta.TypedObject(c.ctype, r[field]);
-         var self = this;
+         let field = c.name;
+         let fmt = this.helpForm.getFormatForColumn(c);
+         let tag = "x.y." + fmt;
+         let pObj = new appMeta.TypedObject(c.ctype, r[field]);
+         let self = this;
          // vedo se si tratta di stringhe condizionali
          if (this.conditionallookupArray[c.name.toLowerCase()]) {
             if (r[field] === null || r[field] === undefined) return "";
-            var lookups = _.filter(self.conditionallookupArray[c.name], function (el) {
+            let lookups = _.filter(self.conditionallookupArray[c.name], function (el) {
                return el.valuemember.toString().toLowerCase() == r[field].toString().toLowerCase();
             });
             if (lookups.length) return lookups[0].displaymember;
@@ -888,15 +1027,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          this.conditionallookupArray = {};
 
          if (this.conditionallookup) {
-            var self = this;
-            var columnObjs = this.conditionallookup.split(";");
+            let self = this;
+            let columnObjs = this.conditionallookup.split(";");
             _.forEach(columnObjs, function (co) {
-               var els = co.split(",");
+               let els = co.split(",");
                if (els.length !== 3) logger.log(logType.WARNING, "wrong conditional formatting on grid: " + self.dataTable.name);
-               var cname = els[0].toLowerCase();
-               if (!self.conditionallookupArray[cname]) self.conditionallookupArray[els[0]] = [];
+               let cname = els[0].toLowerCase();
+                if (!self.conditionallookupArray[cname]) self.conditionallookupArray[cname] = [];
                self.conditionallookupArray[cname].push({ valuemember: els[1], displaymember: els[2] });
-            })
+            });
          }
       },
 
@@ -948,7 +1087,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        */
       allowDropColumnHeader: function (that, ev) {
          ev.preventDefault();
-         var isEmpty = that.isGridEmpty();
+         let isEmpty = that.isGridEmpty();
          if (ev.dataTransfer) {
             if (ev.target.getAttribute("type") === dragEnum.HEADER_COLUMN && !isEmpty)
                ev.dataTransfer.dropEffect = "all"; // drop it like it's hot
@@ -968,7 +1107,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        */
       allowDropDroppedColumn: function (that, ev) {
          ev.preventDefault();
-         var isEmpty = that.isGridEmpty();
+         let isEmpty = that.isGridEmpty();
          if (ev.dataTransfer) {
             if ((ev.target.getAttribute("type") === dragEnum.DROPPED_COLUMN) || (ev.target.getAttribute("type") === dragEnum.HEADER_COLUMN) && !isEmpty)
                ev.dataTransfer.dropEffect = "all"; // drop it like it's hot
@@ -984,7 +1123,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       isGridEmpty: function () {
          if (!this.dataTable) return true;
          if (!this.dataTable.rows.length) return true;
-         return false
+         return false;
       },
 
       /**
@@ -999,10 +1138,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          ev.preventDefault();
          // inizializzo oggetto per le colonne raggruppate
          if (!that.columnsGrouped) that.columnsGrouped = [];
-         var type = ev.originalEvent.dataTransfer.getData("type");
+         let type = ev.originalEvent.dataTransfer.getData("type");
          if (type === dragEnum.HEADER_COLUMN) {
             // dal drag recupero info
-            var column = JSON.parse(ev.originalEvent.dataTransfer.getData("column"));
+            let column = JSON.parse(ev.originalEvent.dataTransfer.getData("column"));
             // nuova colonna da raggruppare
             that.columnsGrouped.push(column);
             // mostro indicatore attesa
@@ -1023,7 +1162,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        */
       showWaitingGrouping: function () {
          if (!this.waitingGrouping) {
-            // creo eleemnto div con lo spinner di attesa
+            // creo elemento div con lo spinner di attesa
             this.waitingGrouping = $('<div>');
             $(this.el).append(this.waitingGrouping.append($('<span class="fa fa-cog fa-spin fa-3x w-100">')));
          }
@@ -1050,15 +1189,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @param {DataColumn} column
        */
       putDroppingRectColumn: function (column) {
-         var $div = $('<span draggable="true" id="' + utils.getUnivoqueId() + '" class="gx-column-drop-cell">');
+         let $div = $('<span draggable="true" id="' + utils.getUniqueId() + '" class="gx-column-drop-cell">');
          $div.on("dragstart", _.partial(this.dragColumnDropped, this, column));
-         var $span = $('<span id="' + utils.getUnivoqueId() + '" style="cursor: pointer; padding-left: 5px">');
+         let $span = $('<span id="' + utils.getUniqueId() + '" style="cursor: pointer; padding-left: 5px">');
          $div.text(column.caption);
          this.$groupingArea.append($div);
          $div.append($span);
          // inserisco iconcina per togliere drop
          $span.on("click", _.partial(this.undropColumn, this, column));
-         var $confIcon = $('<i class="fas fa-window-close" style="color:grey">');
+         let $confIcon = $('<i class="fas fa-window-close" style="color:grey">');
          $span.append($confIcon);
       },
 
@@ -1101,21 +1240,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @param {jQueryEvent} ev
        */
       dropDroppedColumn: function (that, ev) {
-         var type = ev.originalEvent.dataTransfer.getData("type");
+         let type = ev.originalEvent.dataTransfer.getData("type");
          if (type === dragEnum.DROPPED_COLUMN) {
             // del drag recupero info
-            var column = JSON.parse(ev.originalEvent.dataTransfer.getData("column"));
-            var idobj = ev.originalEvent.dataTransfer.getData("idobj");
+            let column = JSON.parse(ev.originalEvent.dataTransfer.getData("column"));
+            let idobj = ev.originalEvent.dataTransfer.getData("idobj");
             that.undropColumn(that, column);
          }
 
          // swap delle colonne, cambia ordine
          else if (type === dragEnum.HEADER_COLUMN) {
             // del drag recupero info
-            var column = JSON.parse(ev.originalEvent.dataTransfer.getData("column"));
+            let column = JSON.parse(ev.originalEvent.dataTransfer.getData("column"));
             // recupero la colonna su cui ho droppato dall prop "mdlcolumn"
             if ($(ev.target).data("mdlcolumn")) {
-               var currcolumn = $(ev.target).data("mdlcolumn");
+               let currcolumn = $(ev.target).data("mdlcolumn");
                that.calculatesNewColumnsOrder(currcolumn, column);
                // N.B Per performance Non ridisegno la grid, ma dentro la calculatesNewColumnsOrder() effettuo lo swap delel celle
                // quindi non faccio prox istruzione, che nel caso ci sono molte righe è pesante
@@ -1133,16 +1272,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @param {DataColumn} cMoved
        */
       calculatesNewColumnsOrder: function (cToReplace, cMoved) {
-         var index = 0;
-         var self = this;
+         let index = 0;
+         let self = this;
          // after: se vengo da un indice minore, metto la colonna dopo(after) la colonna su cui "droppo"
          // se invece vengo da un indice maggiore , metto la colonna prima(before) la colonna su cui "droppo"
-         var after = false;
+         let after = false;
          // per robustezza allineo i nuovi indici delle colonne, oltre a spsotare gli oggetti html, attraverso swapCols()
          _.forEach(this.orderedCols, function (currc) {
             if (currc.name === cToReplace.name) {
                // trova nella collection la cMoved cioè quella spostata
-               var colNew = _.find(self.orderedCols, function (c) {
+               let colNew = _.find(self.orderedCols, function (c) {
                   return c.name === cMoved.name
                });
                // inverto gli indici
@@ -1183,26 +1322,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
          /**
           * inverte gli elementi HTML "a" e "b"
-          * @param {HTML element} a
-          * @param {HTML element} b
+          * @param {element} a
+          * @param {element} b
           */
-         var swapCell = function (a, b) {
+         let swapCell = function (a, b) {
             if (after) $(b).after($(a));
             if (!after) $(b).before($(a));
          };
 
          /**
-          * @param {HTML element} $row the jquery "tr"
+          * @param {element} $row the jquery "tr"
           * @param {string} eltype can be "td" or "th"
           */
-         var findAndSwapCell = function ($row, eltype) {
-            var $elments = $row.find(eltype);
+         let findAndSwapCell = function ($row, eltype) {
+            let $elments = $row.find(eltype);
             $elments.each(function () {
-               var columnname = $(this).data("mdlcolumnname");
+               let columnname = $(this).data("mdlcolumnname");
                // osserva se è il td mosso
                if (cMoved.name.replace("!", "") === columnname) {
-                  // trova il td da rimpiazzare su questa riga. cicla su tutti i td e confronta il nome della colonna
-                  var $elReplace = _.filter($row.find(eltype), function (currEl) {
+                  // Trova il td da rimpiazzare su questa riga. cicla su tutti i td e confronta il nome della colonna
+                  let $elReplace = _.filter($row.find(eltype), function (currEl) {
                      return $(currEl).data("mdlcolumnname") === cToReplace.name.replace("!", "");
                   });
                   // eseguo lo swap delle 2 celle
@@ -1214,11 +1353,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          // per ogni riga eseguo swap delle celle
          this.mytable.find("tr")
             .each(function () {
-               var $currRow = $(this);
+               let $currRow = $(this);
                // esegue swap dei td e dei th
                findAndSwapCell($currRow, "td");
                findAndSwapCell($currRow, "th");
-            })
+            });
       },
 
       /**
@@ -1240,10 +1379,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * that can be an array or another object {g:<object>,f:<object>} where f {value: <number>, column:<string>}
        * @param {ObjectRow[]} rows. the array of the rows to group belonging the DataColumn array
        * @param {DataColumn[]} columns. the array of DataColumn grouped by user.
-       * @returns {Array!Object}
+       * @returns {Array|Object}
        */
       calcObjGrouped: function (rows, columns) {
-         var self = this;
+         let self = this;
          // se non ho colonne torno direttamente le righe
          if (!columns || !columns.length) return rows;
          // prendo nome della colonna
@@ -1255,7 +1394,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // è fatta la funz di aggegazione, l'altra il valore scalare {value: <number>, column:<string>}
             // Esempio  sum:{value:_.sumBy (values,  "idreg"), column:"idreg"}
             function (values) {
-               var res = { group: self.calcObjGrouped(values, columns.slice(1)) };
+               let res = { group: self.calcObjGrouped(values, columns.slice(1)) };
                self.applyAggregateFunctions(res, values);
                // vado in ricorsione, togliendo la colonna su cui ho già raggruppato
                return res;
@@ -1275,7 +1414,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          // confAgg è calcolato sulla rpessione del bottone conferma nella form di scelta delle opzioni nella funz confirmConfAggr()
          _.forOwn(this.confAgg, function (objAggrValue, key) {
             if (!objAggrValue.value) return true;   // se è stato selezionato dall'utente nel configuratore allora inserisco nell'oggetto finale, che sarà visualizzato
-            var aggrobj;
+            let aggrobj;
             switch (objAggrValue.fname) {
                case 'sum':
                   // i valori nulli li considero zero nel calcolo
@@ -1299,11 +1438,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   break;
                case 'max':
                   // min e max tornano l'intera riga, non lo scalare con il valore. quindi prendo il cname
-                  var max = _.maxBy(values, objAggrValue.column.name) ? _.maxBy(values, objAggrValue.column.name)[objAggrValue.column.name] : 0;
+                  let max = _.maxBy(values, objAggrValue.column.name) ? _.maxBy(values, objAggrValue.column.name)[objAggrValue.column.name] : 0;
                   aggrobj = { value: max };
                   break;
                case 'min':
-                  var min = _.minBy(values, objAggrValue.column.name) ? _.minBy(values, objAggrValue.column.name)[objAggrValue.column.name] : 0;
+                  let min = _.minBy(values, objAggrValue.column.name) ? _.minBy(values, objAggrValue.column.name)[objAggrValue.column.name] : 0;
                   aggrobj = { value: min };
                   break;
             }
@@ -1340,8 +1479,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * Adds the button to open the form for the configurations of the aggregation functions on the columns on the grouped view
        */
       addConfigAggColumnBtn: function () {
-         var $confIcon = $('<i class="fas fa-cog">');
-         var $span = $('<div class="icoTrascina">');
+         let $confIcon = $('<i class="fas fa-cog">');
+         let $span = $('<div class="icoTrascina">');
          $span.on("click", _.partial(this.openConfigAggr, this));
          this.addChildElement(this.$groupingArea, $span, '');
          this.addChildElement($span, $confIcon, '');
@@ -1356,28 +1495,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       openConfigAggr: function (that) {
 
          if (!that.dialogConfAggrId) {
-            that.dialogConfAggrId = "dialog" + utils.getUnivoqueId();
-            var divConfAggr = that.buildHtmlConfigAggr(that.dialogConfAggrId);
+            that.dialogConfAggrId = "dialog" + utils.getUniqueId();
+            let divConfAggr = that.buildHtmlConfigAggr(that.dialogConfAggrId);
 
             // lo appendo al mio rootElement esterno
             $(that.el).append(divConfAggr);
             $("#" + that.dialogConfAggrId).dialog({
                show: "slide", modal: true, autoOpen: true,
                title: localResource.configAggrTitle,
-               width: appMeta.getScreenWidth() * 0.85,
-               height: appMeta.getScreenHeight() * 0.7,
+               width: appMeta.currApp.getScreenWidth() * 0.85,
+               height: appMeta.currApp.getScreenHeight() * 0.7,
                close: _.partial(that.hideConfigAggr, that),
                position: { my: "center bottom", at: "center bottom" , of: window}
             });
 
             // handler per la chiusura della form di configurazione delle funz. di aggragazione da calcolare
-            var btnconfirmid = "#btn_confirm_id" + that.dialogConfAggrId;
+            let btnconfirmid = "#btn_confirm_id" + that.dialogConfAggrId;
             $(btnconfirmid).on("click", _.partial(that.confirmConfAggr, that));
 
             // handler per il salvataggio del layout della griglia
             //var btnsavelayouid = "#btn_savelayout_id" + that.dialogConfAggrId;
             //$(btnsavelayouid).on("click", _.partial(that.saveLayout, that ));
-            var btnsavelayout = $(divConfAggr).find("#btn_savelayout_id");
+            let btnsavelayout = $(divConfAggr).find("#btn_savelayout_id");
             $(btnsavelayout).on("click", _.partial(that.saveLayout, that));
          }
 
@@ -1396,36 +1535,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        */
       buildHtmlConfigAggr: function (iddialog) {
          // Per ogni colonna numerica inserisco opzioni
-         var self = this;
+         let self = this;
 
          /*****/
-         var $root = $('<div id="' + iddialog + '">');
+         let $root = $('<div id="' + iddialog + '">');
 
          // recupero template
-         var templateFileHtmlPath = appMeta.basePath + appMeta.config.path_gridOption_Template;
-         var htmlCodeTemplate = appMeta.getData.cachedSyncGetHtml(templateFileHtmlPath);
+         let templateFileHtmlPath =  appMeta.basePath+ appMeta.config.path_gridOption_Template;
+         let htmlCodeTemplate = appMeta.getData.cachedSyncGetHtml(templateFileHtmlPath);
          $root.append(htmlCodeTemplate);
 
          // elemnti tab del template, tab1 dove c'è lista colonne, tab2 gestione labottoni salva layout
-         var $tab1 = $root.find("#gridoption_tab1");
-         var $tab2 = $root.find("#gridoption_tab2");
+         let $tab1 = $root.find("#gridoption_tab1");
+         let $tab2 = $root.find("#gridoption_tab2");
 
          // localizzo label su tab
          $root.find("a[data-target='#gridoption_tab1']").text(localResource.gridoption_tab1);
-         $root.find("a[data-target='#gridoption_tab2']").text(localResource.gridoption_tab2);
+         // $root.find("a[data-target='#gridoption_tab2']").text(localResource.gridoption_tab2);
+
+         let btnconfirmid = "btn_confirm_id" + iddialog;
+         let $btn = $('<button class="btn btn-primary mb-2" id="' + btnconfirmid + '">');
+         $($tab1).append($btn);
+         $btn.text(localResource.confirm);
 
          // costrusico griglia delle opzioni colonne
-         var $table = $('<table class="table" border="1">');
-         var $thead = $("<thead>");
-         var $tr = $("<tr>");
+         let $table = $('<table class="table" border="1">');
+         let $thead = $("<thead>");
+         let $tr = $("<tr>");
          $($tab1).append($table);
          $($table).append($thead);
          $($thead).append($tr);
 
          // costruisco colonne, mette funzioni di aggregazione, il valore checkbox solo se sono  numeriche
-         var headercols = _.concat([localResource.column, localResource.visible], this.aggrFunctionArr);
+         let headercols = _.concat([localResource.column, localResource.visible], this.aggrFunctionArr);
          _.forEach(headercols, function (col) {
-            var $th = $('<th>');
+            let $th = $('<th>');
             var caption = _.includes(self.aggrFunctionArr, col) ? self.getStringFromAggregationFunction(col) : col;
             self.addChildElement($tr, $th, caption);
          });
@@ -1439,12 +1583,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   $td.addClass(appMeta.cssDefault.alignStringColumn);
                   self.addChildElement($tr, $td, col.caption);
                } else if (hc === localResource.visible) {
-                  var $checkbox = $('<input type="checkbox" id="' + currid + '" class="big-checkbox">');
+                  let $checkbox = $('<input type="checkbox" id="' + currid + '" class="big-checkbox">');
                   $($td).append($checkbox);
                   $checkbox.prop("checked", true); // tutte visibili all'inizio
                   $($tr).append($td);
                } else if (appMeta.metaModel.isColumnNumeric(col)) {
-                  var $checkbox = $('<input type="checkbox" id="' + currid + '" class="big-checkbox">');
+                  let $checkbox = $('<input type="checkbox" id="' + currid + '" class="big-checkbox">');
                   $($td).append($checkbox);
                   $($tr).append($td);
                } else {
@@ -1455,10 +1599,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             $($table).append($tr);
          });
 
-         var btnconfirmid = "btn_confirm_id" + iddialog;
-         var $btn = $('<button class="btn" id="' + btnconfirmid + '">');
-         $($tab1).append($btn);
-         $btn.text(localResource.confirm);
+
 
          /*var btnlayoutid = "btn_savelayout_id" + iddialog;
          var $btnSaveLayout = $('<button class="btn ml-3" id="' + btnlayoutid +'">');
@@ -1477,15 +1618,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        */
       saveLayout: function (that) {
          return;
-         var cname, ccaption, cvis, csort, cgroup, caggr;
+         let cname, ccaption, cvis, csort, cgroup, caggr;
 
-         var dsCustomView_TableName = "customview";
-         var dsCustomView_EditType = "default";
+         let dsCustomView_TableName = "customview";
+         let dsCustomView_EditType = "default";
 
-         var newListType = "system";
-         var objectName = that.dataSourceName;
+         let newListType = "system";
+         let objectName = that.dataSourceName;
 
-         var waitingHandler = that.metaPage.showWaitingIndicator(localResource.modalLoader_wait_for_save_layout);
+         let waitingHandler = that.metaPage.showWaitingIndicator(localResource.modalLoader_wait_for_save_layout);
          // recupero ds vuoto
          getData.getDataSet(dsCustomView_TableName, dsCustomView_EditType)
             .then(function (ds) {
@@ -1504,7 +1645,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   caggr = that.computesColConfAggr(col);
 
                   // creo una riga per ogni colonna su "customviewcolumn"
-                  var rowCustomViewColumn = ds.tables.customviewcolumn.newRow();
+                  let rowCustomViewColumn = ds.tables.customviewcolumn.newRow();
                   rowCustomViewColumn["objectname"] = objectName;
                   rowCustomViewColumn["viewname"] = newListType;
                   rowCustomViewColumn["listcolpos"] = index + 1;
@@ -1613,15 +1754,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @param {GridControlX} that
        */
       confirmConfAggr: function (that) {
-
-
          // Funzione ausiliaria utilizzata per nascondere/visualizzare colonne
          // trova sulla riga la cella linkata a quella, colonna. eltype può essere "th" o "td"
-         var showHideCell = function ($currRow, col, eltype) {
+         let showHideCell = function ($currRow, col, eltype) {
             $currRow.find(eltype)
                .each(function () {
-                  var $el = $(this);
-                  var columnname = $el.data("mdlcolumnname");
+                  let $el = $(this);
+                  let columnname = $el.data("mdlcolumnname");
                   // osserva se è il td di cui devo gestire la visibilità o meno
                   if (col.name.replace("!", "") === columnname) {
                      if (col.tohide) {
@@ -1630,7 +1769,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         $el.show();
                      }
                   }
-               })
+               });
          };
 
          // Ciclo su tutte le colonne e per ogni funz di aggregazione, leggo il valore del check
@@ -1643,7 +1782,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             that.computesColConfAggr(col);
 
-            var bvalueVis = that.computesColVis(col);
+            let bvalueVis = that.computesColVis(col);
 
             // solo se effettivamente cambia
             if (col.tohide !== !bvalueVis) {
@@ -1678,14 +1817,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @returns {string}
        */
       computesColConfAggr: function (col) {
-         var functStr = "0000";
-         var self = this;
+         let functStr = "0000";
+         let self = this;
 
          if (appMeta.metaModel.isColumnNumeric(col)) {
             functStr = "";
             _.forEach(this.aggrFunctionArr, function (fname) {
-               var currid = self.dialogConfAggrId + col.name.replace("!", "") + fname;
-               var bvalue = !!$('#' + currid).is(":checked");
+               let currid = self.dialogConfAggrId + col.name.replace("!", "") + fname;
+               let bvalue = !!$('#' + currid).is(":checked");
                self.confAgg[currid] = { fname: fname, value: bvalue, column: col };
                functStr += bvalue ? "1" : "0"; // costrusico stringa perla strnga di config del layout
             });
@@ -1702,8 +1841,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @returns {boolean} true if column is visible
        */
       computesColVis: function (col) {
-         var curridVis = this.dialogConfAggrId + col.name.replace("!", "") + localResource.visible;
-         var bvalueVis = ($('#' + curridVis) && $('#' + curridVis).length) ? !!$('#' + curridVis).is(":checked") : true;
+         let curridVis = this.dialogConfAggrId + col.name.replace("!", "") + localResource.visible;
+         let bvalueVis = ($('#' + curridVis) && $('#' + curridVis).length) ? !!$('#' + curridVis).is(":checked") : true;
          return bvalueVis;
       },
 
@@ -1716,11 +1855,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @returns {string}
        */
       buildAggregationStringByGroupedObject: function (obj) {
-         var stringRes = "";
+         let stringRes = "";
          // scorri obj, non considerando la chiave group, le altre saranno le funz di aggegazione.
          // torno stringa come per esempio: sum("salario") = 5551 - avg("salario") = 2980 - max("salario") = 2990
          // obj è l'oggetto costruto nella funzione applyAggregateFunctions()
-         var self = this;
+         let self = this;
          _.forOwn(obj, function (value, key) {
             if (key !== 'group') stringRes += ", " + self.getStringFromAggregationFunction(value.fname) + "(" + value.column + ") = " + value.value;
          });
@@ -1776,17 +1915,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @returns {string} the built html
        */
       getHtmlGridGrouped: function (obj, groupLev, tridParent) {
-         var self = this;
-         // colsInHeader serve per calcolare lo span, cioè quante celle prende la riga di gruppo, così da avere graficamente una griglia sempre compatta
-         var numColumnToAdd = 2; // +2 perchè aggiungo "group" + export
+         let self = this;
+         // colsInHeader serve per calcolare lo span, cioè quante celle prende la riga di gruppo,
+         //  così da avere graficamente una griglia sempre compatta
+         let numColumnToAdd = 2; // +2 perchè aggiungo "group" + export
          if (this.isInsertBtnVisible) numColumnToAdd = 3;
-         var colsInHeader = this.columnsGrouped ? this.orderedCols.length - this.columnsGrouped.length + numColumnToAdd : this.orderedCols.length;
+         let colsInHeader = this.columnsGrouped ?
+             this.orderedCols.length - this.columnsGrouped.length + numColumnToAdd :
+             this.orderedCols.length;
          // variabili per costruire array con i pezzi di stringa a html variabili da tornare alla funzione che poi ne effettuerà la join
-         // E' un ottimizzazione rispettoa  dusare concatenzazione di stringhe, oppure ad utilizzare append ogni volta dfi jquery
+         // E' un ottimizzazione rispetto a  dusare concatenzazione di stringhe, oppure ad utilizzare append
+         //  ogni volta dfi jquery
 
          if (this.$divLbl) this.$divLbl.hide();
 
-         var arrTr = [];
+         let arrTr = [];
          // scorre gli oggetti, se è un array allora metto le righe , altrimenti aggiungo riga di raggruppamento e vado in ricorsione sugli oggetti contenuti
          _.forOwn(obj, function (el, key) {
 
@@ -1794,44 +1937,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (key === 'undefined' || key === 'null') key = '';
 
             // calcolo righe nel gruppo per inserirlo sulla label
-            var numRowsInGroup = _.isArray(el.group) ? el.group.length : _.keys(el.group).length;
+            let numRowsInGroup = _.isArray(el.group) ? el.group.length : _.keys(el.group).length;
 
             // calcolo valore da mostrare "<nome colonna> (num righe)", eventualmente shiftato a seconda del livello del gruppo
-            var aggregationRes = self.buildAggregationStringByGroupedObject(el);
-            var totGroup = self.isTotnotvisible ? " " : "<span class='gridGroupTot'> (" + numRowsInGroup + ")</span> ";
-            var keyString = self.getGroupedRowGrid(key);
-            var tdGroupValue = "&nbsp;&nbsp;" + keyString + totGroup + "<span style='color:darkblue'>" + aggregationRes + "</span>";
+            let aggregationRes = self.buildAggregationStringByGroupedObject(el);
+            let totGroup = self.isTotnotvisible ? " " : "<span class='gridGroupTot'> (" + numRowsInGroup + ")</span> ";
+            let keyString = self.getGroupedRowGrid(key);
+            let tdGroupValue = "&nbsp;&nbsp;" + keyString + totGroup + "<span style='color:darkblue'>" + aggregationRes + "</span>";
 
             // costrusico oggetto tr con le info per effettare poi il recursiveCollapse/recursiveExpand
-            var trid = utils.getUnivoqueId();
-            var dataParent = "";
+            let trid = utils.getUniqueId();
+            let dataParent = "";
             if (tridParent) { dataParent = "data-parenttr=" + tridParent; }
             // aggiungo mdlgrouped per indicare che è una riga di grouping, servirà per non far scattare l'evento di selezione su quelle righe
 
-            var $tr = $('<tr id="' + trid + '" ' + dataParent + ' data-mdlgrouped >');
+            let $tr = $('<tr id="' + trid + '" ' + dataParent + ' data-mdlgrouped >');
 
-            var classCss = (groupLev === 1) ? "gx-td-grouped-cell gx-td-grouped-cell-first" : "gx-td-grouped-cell gx-td-grouped-cell-notfirst";
-            var $td = $('<td class="' + classCss + '" colspan="' + colsInHeader + '">');
+            let classCss = (groupLev === 1) ? "gx-td-grouped-cell gx-td-grouped-cell-first" : "gx-td-grouped-cell gx-td-grouped-cell-notfirst";
+            let $td = $('<td class="' + classCss + '" colspan="' + colsInHeader + '">');
 
             // solo le righe di livello 1 sono visibili, oppure nel caso ci siano colonne di gruppo in input
             self.addChildElement($tr, $td, tdGroupValue);
-            if (groupLev !== 1 && !self.groupedColumnsInput) $tr.hide();
+            // if (groupLev !== 1 && !self.groupedColumnsInput) $tr.hide();
 
             // inserisco icona per espandere
             // a seconda del gruppo metto scostamento a sinistra per costruire una struttura a livelli
-            var paddingleft = (groupLev - 1) * 10;
+            let paddingleft = (groupLev - 1) * 10;
 
-            var $expandIcon = $('<i class="far fa-plus-square">');
-            var currid = "exp_" + trid;
-            var $span = $('<div id="' + currid + '" style="padding-left:' + paddingleft + 'px; float:left; cursor: pointer;">');
+            let $expandIcon = $('<i class="far fa-plus-square">');
+            let currid = "exp_" + trid;
+            let $span = $('<div id="' + currid + '" style="padding-left:' + paddingleft + 'px; float:left; cursor: pointer;">');
             self.addChildElement($td, $span, '');
             self.addChildElement($span, $expandIcon, '');
             $span.hide();
 
             // inserisco icona per collassare , parte nascosta
-            var $expandIcon = $('<i class="far fa-minus-square">');
-            var currid = "col_" + trid;
-            var $span = $('<div id="' + currid + '" style="padding-left:' + paddingleft + 'px; float:left; cursor: pointer;">');
+            $expandIcon = $('<i class="far fa-minus-square">');
+            currid = "col_" + trid;
+            $span = $('<div id="' + currid + '" style="padding-left:' + paddingleft + 'px; float:left; cursor: pointer;">');
 
             self.addChildElement($td, $span, '');
             self.addChildElement($span, $expandIcon, '');
@@ -1852,7 +1995,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             } else {
                // è un obj quindi aumento il livello e vado in ricorsione sugli oggetti annidati
-               var lev = groupLev + 1;
+               let lev = groupLev + 1;
                arrTr = arrTr.concat(self.createRowsFromObjgrouped(el.group, lev, trid));
             }
          });
@@ -1868,8 +2011,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @returns {string} the built html of rows
        */
       getHtmlGridNotGrouped: function (rows) {
-         var self = this;
-         var arrTr = [];
+         let self = this;
+         let arrTr = [];
          // rimetto la scritta poichè non c'è grouping
          if (this.$divLbl) this.$divLbl.show();
          _.forEach(rows, function (r) {
@@ -1896,7 +2039,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          _.forEach(that.mytable
             .not('.table-in-cell-tr')
             .find("tr[data-parenttr]:not(:has(>th))"), function (tr) {
-               var dataParent = $(tr).data('parenttr');
+            let dataParent = $(tr).data('parenttr');
                if (dataParent && parseInt(dataParent) === parseInt(idTrParent)) {
                   var currTrId = $(tr).attr("id");
                   $(tr).css('display', '');
@@ -1904,7 +2047,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      that.recursiveExpand(that, currTrId);
                   }
                }
-            })
+            });
       },
 
       /**
@@ -1922,9 +2065,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          _.forEach(that.mytable
             .not('.table-in-cell-tr')
             .find("tr[data-parenttr]:not(:has(>th))"), function (tr) {
-               var dataParent = $(tr).data('parenttr');
+               let dataParent = $(tr).data('parenttr');
                if (dataParent && parseInt(dataParent) === parseInt(idTrParent)) {
-                  var currTrId = $(tr).attr("id");
+                  let currTrId = $(tr).attr("id");
                   $(tr).css('display', 'none');
                   if (currTrId) {
                      that.recursiveCollapse(that, currTrId);
@@ -1942,30 +2085,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        */
       redrawGridForGrouping: function (that) {
          // per ora funziona con un raggruppamento solo
-
-         var rows = that.gridRows;
+         let rows = that.gridRows;
 
          // rimuovo tutto, ricreo un mytable, per questioni di performance appendo al nuovo mytable al termine
          if (that.mytable) that.mytable.parent().remove();
          that.mytable = $('<table class="table" border="1" style="position:relative">');
+
          // calcolo raggruppamento per quella specifica colonna.
          // torna ob con chiave colonna , e valore array di rows
          // col1: [a,b,c]
          // col2: [d,e,f]
-         //console.log("pre group " + appMeta.logger.getTimeMs());
-         var objGrouped = that.calcObjGrouped(rows, that.columnsGrouped);
-         //console.log("post group " + appMeta.logger.getTimeMs());
+         let objGrouped = that.calcObjGrouped(rows, that.columnsGrouped);
 
          // ho calcolato nuove colonne nell'header e le inserisco
          that.addHeaders();
 
          // creo strtuutra di righe raggruppate. passo 1 come livello di raggruppamento, poi nella ricorsione aumenterò
-         // console.log("pre render " + appMeta.logger.getTimeMs());
          // appendo al mytable tutta als tringa html
          that.mytable.append(that.createRowsFromObjgrouped(objGrouped, 1, null));
-         // console.log("post render " + appMeta.logger.getTimeMs());
 
-         var $tableCont = $('<div class="tableCont">');
+         let $tableCont = $('<div class="tableCont">');
          $tableCont.append(that.mytable);
 
          $(that.el).prepend($tableCont);
@@ -1981,8 +2120,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * Adds the header on the html grid
        */
       addHeaders: function () {
-         var $thead = $("<thead>");
-         var $tr = $("<tr>");
+         let $thead = $("<thead>");
+         let $tr = $("<tr>");
          $($tr).appendTo($thead);
          this.addEditingGridButtonHeader($tr);
          this.addTablecolumns($tr);
@@ -1999,12 +2138,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          var self = this;
 
          // inserisco l'header. Se c'è gruppo colonna gruppo + tutte quelle che non sono raggruppate
-         var cols = self.getColsToInsert();
+         let cols = self.getColsToInsert();
          // calcolo array dell ecolonne su cui è impostato l'oridnamento iniziale
-         var sorting = this.dataTable.orderBy();
-         var colSorting = {};
+         let sorting = this.dataTable.orderBy();
+         let colSorting = {};
          if (sorting) {
-            var parts = sorting.split(",");
+            let parts = sorting.split(",");
             // metto indicatore di sort sull'icona della colonna giusta
             _.forEach(parts, function (p) {
                // "colname asc" o r "colname desc" quindi splitto sullo spazio
@@ -2014,15 +2153,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
          _.forEach(cols,
             function (c, index) {
-               var thid = appMeta.utils.getUnivoqueId();
-               var $th;
+               let thid = appMeta.utils.getUniqueId();
+               let $th;
 
                // se si tratta dellaprima colonna nel grouping allora non la faccio draggable nè mettò l'ordinamento
                if (c.isFirsGrouping) {
                   $th = $('<th id="' + thid + '">');
-               } else {
+               }
+               else {
                   // aggiungo data-mdlcolumnname, serve per individuare la colonna da invertire quando le sposto con drag n drop
-                  $th = $('<th draggable="true" id="' + thid + '" data-mdlcolumnname="' + c.name.replace("!", "") + '">');
+                  $th = $('<th draggable="true" id="' + thid + '" data-mdlcolumnname="' + c.name.replace("!", "") + '" class="mdl-cell-size-calc">');
                   $th.on("dragstart", _.partial(self.dragHeaderColumn, self, c));
                   $th.on("click", _.partial(self.sortColumnClick, self, c));
                }
@@ -2030,13 +2170,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                // lego la colonna al th per ildrop e successivo spostamento della colonna
                $th.data("mdlcolumn", c);
                // tohide è calcolato in base alle opzioni del popup
-               var capiton = (c.caption || c.name);
-               self.addChildElement($tr, $th, capiton);
+               let caption = (c.caption || c.name);
+               self.addChildElement($tr, $th, caption);
                if (c.tohide) $th.hide();
 
                // se devo mettere sort e se non è la prima colonna del grouping
                if (!self.isNotSort && !c.isFirsGrouping) {
-                  var $sortIcon;
                   // se è ordinata per default metto icona bianca
                   if (colSorting[c.name]) {
                      if (c.mdlw_sort === "desc") {
@@ -2047,11 +2186,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   }
                }
 
-               // sul mobile inserisco bottoncino su header per il grouping.
-               // non aggiungo se è la colonna notevole gruppo, e se è impostato che non deve essere visibile il grouping
+               // Sul mobile inserisco bottoncino su header per il grouping.
+               // Non aggiungo se è la colonna notevole gruppo, e se è impostato che non deve essere visibile il grouping
                if ((appMeta.isMobile || self.forceBtnGroupOnHeader) && !c.isFirsGrouping && !this.excludeGroup) {
-                  var $groupIcon = $('<i class="fas fa-poll-h" style="color:grey; margin-left: 6px">');
-                  var $span = $('<div style="padding:5px; float:right; cursor: pointer; display: contents">');
+                  let $groupIcon = $('<i class="fas fa-poll-h" style="color:grey; margin-left: 6px">');
+                  let $span = $('<div style="padding:5px; float:right; cursor: pointer; display: contents">');
                   $span.on("click", _.partial(self.dropColumnEv, self, c));
                   self.addChildElement($th, $span, '');
                   self.addChildElement($span, $groupIcon, '');
@@ -2068,14 +2207,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * Adds the columns for the editing button
        */
       addEditingGridButtonHeader: function ($tr) {
-         var self = this;
+         let self = this;
          this.isExportBtnAdded = false;
          // funzione ausiliaria per aggiungere bottone di export sul giusto elemento <th>
-         var insertBtnGeneric = function (th, that) {
+         let insertBtnGeneric = function (th, that) {
             // solamente se non è stato già aggiunto
             if (!that.isExportBtnAdded) {
                that.isExportBtnAdded = true;
-               var $excelIcon = $('<i class="far fa-file-excel">');
+               let $excelIcon = $('<i class="far fa-file-excel">');
                that.$btnexportExcel = $('<a href="#" style="float:left; cursor: pointer; padding-right: 5px;"></a>');
                // that.$btnexportExcel = $('<div style="text-align:center;"></div>');
                that.$btnexportExcel.on("click", _.partial(that.gridHtmlToExcel, that));
@@ -2166,18 +2305,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       sortColumnClick: function (that, column) {
          // ordino la collection attuale delle rgihe
          column.mdlw_sort = column.mdlw_sort ? (column.mdlw_sort === 'asc' ? 'desc' : 'asc') : 'asc';
-         var def = Deferred('sortColumnClick');
-         // nel caso di elenco con paginazione dovtei rilanciare la query sul backend per calcolare la nuov apaginazione
+         let def = Deferred('sortColumnClick');
+         // nel caso di elenco con paginazione dovrei rilanciare la query sul backend per calcolare la nuova paginazione
          if (that.metaPage.sortPaginationChange) {
-            var newSort = column.name + " " + column.mdlw_sort;
+            let newSort = column.name + " " + column.mdlw_sort;
             return that.metaPage.sortPaginationChange(newSort)
                .then(function (sortDone) {
                   if (!sortDone) {
                      that.sortAfterClick(that, column);
                   }
                   return def.resolve();
-               })
-         } else {
+               });
+         }
+         else {
             that.sortAfterClick(that, column);
             return def.resolve();
          }
@@ -2185,7 +2325,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
       sortAfterClick: function (that, column) {
          that.gridRows = _.orderBy(that.gridRows, function (row) {
-            var value = row[column.name];
+            let value = row[column.name];
             if (value) {
                if (value instanceof Date) return value.getTime();
                if (!isNaN(value)) return value;
@@ -2194,13 +2334,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             return value;
          }, [column.mdlw_sort]);
 
-         // assegno anche al dt nuovo ordinamento temporaneo
-         that.dataTable.orderBy(column.name + " " + column.mdlw_sort);
+         // assegno anche al dt nuovo ordinamento temporaneo, se non si tratta di colonna calcolata
+         if (!appMeta.metaModel.temporaryColumn(column)) {
+            that.dataTable.orderBy(column.name + " " + column.mdlw_sort);
+         }
 
          // reset indicatore colonna ordinata
          _.forEach(that.orderedCols, function (c) {
-            var csortId = "#" + that.getIdColumnSort(c.name);
-            if ($(csortId).length > 0) $(csortId).css("color", "black")
+            let csortId = "#" + that.getIdColumnSort(c.name);
+            if ($(csortId).length > 0) $(csortId).css("color", "black");
          });
 
          // ridisegno grid con le righe raggruppate
@@ -2237,25 +2379,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * "this" is the tr html element that launches the event
        * @param {GridControl} that
        */
-      rowClickEv: function (that) { //this è l'element
-         //console.log("rowClickEv");
-         var self = this;
+      rowClickEv: function (that) {
+         //this è l'element
+         let self = this;
          // inserisco meccanismo con timeout per evitare che scatti CLICK + DBL_CLICK insieme
          if (that.timeoutId) {
             clearTimeout(that.timeoutId);
             that.timeoutId = null;
             Stabilizer.decreaseNesting("rowClickEv.timeout");
-            //console.log("decreasing for Timeout");
          }
-         //console.log("increasing for Timeout");
          Stabilizer.increaseNesting("rowClickEv");
          that.timeoutId = setTimeout(function () {
-            //    console.log("Grid faccio rowClickEv");
             that.timeoutId = null;
             that.rowClick.call(self, that);
-            //console.log("decreasing for Timeout");
             Stabilizer.decreaseNesting("rowClickEv.timeout");
-         }, appMeta.dbClickTimeout);
+         }, appMeta.currApp.dbClickTimeout);
       },
 
       /**
@@ -2268,10 +2406,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        */
       rowDblClickEv: function (that) {
          if (this.timeoutId) {
-            //  console.log("stoppo rowClickEv");
             clearTimeout(this.timeoutId);
             this.timeoutId = null;
-            //console.log("decreasing for Timeout");
             Stabilizer.decreaseNesting("rowDblClickEv");
          }
 
@@ -2282,50 +2418,196 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @method rowClick
        * @private
        * @description ASYNC
-       * Manages a row click event
+       * Manages a row click event - calls setRow
        * "this" is the tr html element that launches the event
        * @param {GridControlX} that
        * @param {boolean} propagate
        * @returns {Deferred}
        */
       rowClick: function (that, propagate) {
-         var self = this;
-         // distinguo ildoppio click s è o meno gestito come treeNavigator
-         var r = $(this).data("mdldatarowlinked");
-         var def = Deferred("rowClick");
+         let self = this;
+         // distinguo il doppio click se è o meno gestito come treeNavigator
+         let r = $(this).data("mdldatarowlinked");
+         let def = Deferred("rowClick");
          if (!r) return def.resolve(true);
-         if (r === that.currentRow) return def.resolve(true); //Riga già selezionata
+         if (r === that.currentRow) {
+            return def.from(that.cellEditable(this));
+         } //Riga già selezionata
 
          if (that.metaPage) {
-            that.metaPage.canSelect(that.dataTable, r)
-               .then(function (result) {
-                  if (result) {
-                     if (that.isTreeNavigator) return def.from(that.navigatorClick.call(self, that));
-                     return def.resolve(that.setRow(r, propagate));
-                  }
-                  return def.resolve(false);
-               });
-         } else {
-            return def.from(that.setRow(r, propagate));
+            return that.metaPage.canSelect(that.dataTable, r)
+                .then(function (result) {
+                   if (result) {
+                      if (that.isTreeNavigator) return def.from(that.navigatorClick.call(self, that));
+                      that.currentTrRow = this;
+                      return def.resolve(that.setRow(r, propagate));
+                   }
+                   return def.resolve(false);
+                });
+         }
+         return def.from(that.setRow(r, propagate));
+      },
+
+      selectOption:function(colname, row, that, preText, ev) {
+         that.setValueOnDataRow(row, colname, $(this).val());
+         // esco dall'editing
+         var displayText = $(this).find('option:selected').html();
+         that.resetEditableTd(displayText);
+      },
+
+      cellEdit: function (that) {
+         // clicco su una cella se c'era valorizzato il td corrente
+         if (that.tdEditing) {
+            // rimetto il valore originale
+            var text = $(that.tdEditing).data("mdlpretext");
+            $(that.tdEditing).html(text);
+            $(that.tdEditing).data("mdlediting", false);
+         }
+         // sul td corrente diventa quello editabile
+         var preText = $(this).html();
+         $(this).data("mdlpretext", preText);
+         that.tdEditing = this;
+      },
+
+      cellEditable: function () {
+         let def = Deferred("cellEditable");
+         let self = this;
+
+         // se sto già in editi sulq uel td esco
+         let editing = this.helpForm.existsDataAttribute(this.tdEditing, "mdlediting");
+         if (editing && $(this.tdEditing).data('mdlediting')) {
+            return def.resolve();
+         }
+         // se non è un grid con editInPalce esco
+         if (!this.editInPlaceColumns) {
+            return def.resolve();
          }
 
-         return def;
+         // recupero riga e colonna del td da editare
+         let colname = $(this.tdEditing).data('mdlcolumnname');
+         let row = $(this.tdEditing).closest('tr').data('mdldatarowlinked');
+
+         // se non fa parte di quelle che ho input da editare
+         if (!self.editInPlaceColumns.includes(colname)) {
+            return def.resolve();
+         }
+         // variabile che indica che la cella è in fase di editing
+         $(this.tdEditing).data("mdlediting", true);
+
+         let preText = $(this.tdEditing).html();
+         $(this.tdEditing).data("mdlpretext", preText);
+         // creo input editabile
+         let id = appMeta.utils.getUniqueId();
+
+         // osservo se devo visualizzare select
+         if (self.conditionallookupArray[colname]) {
+
+            let selectObj = $("<select id=" + id + "/>");
+            _.forEach(self.conditionallookupArray[colname], function (option) {
+               let emptyOption = document.createElement("option");
+               emptyOption.textContent = option.displaymember;
+               emptyOption.value = option.valuemember;
+               selectObj.append(emptyOption);
+            });
+            $(this.tdEditing).html("");
+            selectObj.width($(this.tdEditing).width())
+                .height($(this.tdEditing).height())
+                .css({border: "0px", fontSize: "17px"})
+                .val(preText)
+                .appendTo($(this.tdEditing));
+
+            selectObj.change( _.partial(self.selectOption, colname, row, self, preText));
+
+            selectObj.click(function () {
+               return false;
+            });
+
+         } else {
+            var inputObj = $("<input type='text' id=" + id + "/>");
+            $(this.tdEditing).html("");
+            inputObj.width($(this.tdEditing).width())
+                .height($(this.tdEditing).height())
+                .css({border: "0px", fontSize: "17px"})
+                .val(preText)
+                .appendTo($(this.tdEditing))
+                .trigger("focus")
+                .trigger("select");
+
+            // se premo qualceh tasto inovco evento. su invio effettuo modifica del valore sulla riga
+            inputObj.on("keyup", _.partial(self.keyupeditinplace, colname, row, self, preText));
+
+            inputObj.click(function () {
+               return false;
+            });
+            // se è una colonna data, inserisco calendario
+            var dc = self.dataTable.columns[colname];
+            if (dc.ctype === 'DateTime') {
+               inputObj.datepicker({
+                  showOn: "focus",
+                  onClose: function () {
+                     this.focus();
+                  }
+               });
+               inputObj.datepicker('show');
+            }
+         }
+
+         return def.resolve();
+      },
+
+      keyupeditinplace: function (colname, row, that, preText, ev) {
+         if (13 === ev.which) { // press ENTER-key
+            var text = $(this).val();
+            // recuperato il valore dalla input lo inserisco sia come testo del grid che come valore sulla riga
+            that.setValueOnDataRow(row, colname, text);
+            // esco dall'editing
+            that.resetEditableTd(text)
+
+            if(that.metaPage.editInPlace)
+                that.metaPage.editInPlace(that.metaPage, that, colname, row);
+         }
+
+         if (27 === ev.which) {  // press ESC-key
+            that.resetEditableTd(preText)
+         }
+      },
+
+      resetEditableTd: function (text) {
+         var self = this;
+         setTimeout(function () {
+            $(self.tdEditing).html(text);
+            $(self.tdEditing).data('mdlediting', false);
+            self.tdEditing = null;
+         }, 200);
+      },
+
+      /**
+       *
+       * @param {ObjectRow} row
+       * @param {string} colname
+       * @param {string} text
+       */
+      setValueOnDataRow: function (row, colname, text) {
+         var tag = this.dataSourceName + "." + colname;
+         this.helpForm.getString(text, colname, row, tag, true);
       },
 
       /**
        * @method rowDblClick
        * @private
        * @description ASYNC
-       * Manages a row double click event
+       * Manages a row double click event - calls navigatorDblClick
+       *    or rowClick and then metaPage.rowDblClick
        * "this" is the tr html element that launches the event
        * "that.metaPage" can be MetaPage, ListManager
-       * @param {GridControl} that
+       * @param {GridControlX} that
        */
       rowDblClick: function (that) {
-         // chiamo il rowClick con il this che è il tr che cliccato, + il that che è il Gridcontrol. Poi invoco il rowDblClick su MetaPage
-         var self = this;
+         // chiamo il rowClick con il this che è il tr che cliccato, + il that che è il GridControl.
+         // Poi invoco il rowDblClick su MetaPage
+         let rowClicked = this;
 
-         // distinguo ildoppio click s è o meno gestito come treeNavigator
+         // distinguo il doppio click s è o meno gestito come treeNavigator
 
          if (that.isTreeNavigator) {
             return Deferred("rowDblClick")
@@ -2338,11 +2620,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
          return Deferred("rowDblClick")
             .from(that.rowClick
-               .call(this, that, false)
+               .call(rowClicked, that, true)
                .then(function () {
                   // solamente se è definito
-                  if (that.metaPage.rowDblClick && that.isEditBtnVisible) {
-                     var row = $(self).data("mdldatarowlinked"); // self era il this ovvero , l'elemento cliccato
+                  //In alcuni test case non è definita metaPage per cui controlliamo che ci sia
+                  if (that.metaPage && that.metaPage.rowDblClick && that.doubleClickEnabled()) {
+                        //prima era incondizionato && that.isEditBtnVisible
+                     // rowClicked era il this ovvero l'elemento cliccato
+                     let row = $(rowClicked).data("mdldatarowlinked");
                      that.metaPage.rowDblClick(that, that.dataTable, row);
                   }
                }));
@@ -2357,23 +2642,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @returns {Deferred}
        */
       navigatorClick: function (that) {
-         console.log("navigatorClick");
-         var def = Deferred('navigatorClick');
-         var treemanager = that.dataTable.treemanager;
+         let def = Deferred('navigatorClick');
+         let treemanager = that.dataTable.treemanager;
          if (!treemanager) return def.resolve();
 
          var parent = that.dataTable.parentnode;
          if (!parent) {
-            var curr = treemanager.selectedNode();
+            let curr = treemanager.selectedNode();
             parent = curr;
          }
-         var rSel = $(this).data("mdldatarowlinked");
-         var waitingHandler = that.metaPage.showWaitingIndicator(localResource.modalLoader_wait_tree_node_search);
+         let rSel = $(this).data("mdldatarowlinked");
+         let waitingHandler = that.metaPage.showWaitingIndicator(localResource.modalLoader_wait_tree_node_search);
          return treemanager.selectNodeByRow(rSel, false)
             .then(function () {
                that.dataTable.parentnode = treemanager.getParent(treemanager.selectedNode());
                that.setLastSelectedRowOnTree(treemanager.treeTable, rSel);   // N.B era that.helpForm.lastSelected(rSel.getRow().table, rSel); // la riga sul grid è una copia, non ha ilgetrow, prendo quella sul tree
-               that.setRow(rSel, false); // seleziono anche indce su griglia corrente come facevail click semplice
+               that.setRow(rSel, false); // seleziono anche indice su griglia corrente come faceva il click semplice
                that.metaPage.hideWaitingIndicator(waitingHandler);
                return def.resolve();
             })
@@ -2388,7 +2672,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * Finds the same row on table and set on this table the lastSelected
        */
       setLastSelectedRowOnTree: function (table, row) {
-         var rowFound;
+         let rowFound;
          // per ogni riga del treemanger prendo quella che corrisponde e la linko. è lei che ha il getRow. qui sul grid ho una copia
          _.forEach(table.rows, function (currRow) {
             if (getDataUtils.isSameRow(table, row, currRow)) {
@@ -2408,7 +2692,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * Navigates the tree and the grid childs. if it is a leaf it fires a mainSelect on the metaPage
        */
       navigatorDblClick: function () {
-         console.log("navigatorDblClick");
          var self = this;
          var def = Deferred('navigatorDblClick');
          var treemanager = this.dataTable.treemanager;
@@ -2458,11 +2741,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @returns {Deferred}
        */
       fillControlTreeNavigator: function () {
-         var def = Deferred('fillControlTreeNavigator');
-         var self = this;
+         let def = Deferred('fillControlTreeNavigator');
+         let self = this;
 
          // 1. recupero il treeManager se esiste
-         var treemanager = this.dataTable.treemanager;
+         let treemanager = this.dataTable.treemanager;
          if (!treemanager) return def.resolve();
 
          treemanager.setNavigator(this);
@@ -2471,8 +2754,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          // sul dt clonato della griglia farò tutte le operazioni che voglio.
          if (!this.firstFillDone) {
             this.firstFillDone = true;
-            var dst = new jsDataSet.DataSet("temp");
-            var dtt = dst.newTable(this.dataTable.name);
+            let dst = new jsDataSet.DataSet("temp");
+            let dtt = dst.newTable(this.dataTable.name);
             dtt = getDataUtils.cloneDataTable(this.dataTable);
             this.dataSourceName = dtt.name;
             this.dataTable = dtt;
@@ -2481,15 +2764,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             this.dataTable.parentnode = null;
          }
 
-         var mydt = this.dataTable;
-         var prevParent = mydt.parentnode;
+         let mydt = this.dataTable;
+         let prevParent = mydt.parentnode;
 
-         var selectedNode = treemanager.selectedNode();
+         let selectedNode = treemanager.selectedNode();
          if (!selectedNode) return def.resolve();
-         var dtRowNode = null;
-         var isRoot = treemanager.isRoot(selectedNode);
-         var isLeaf = treemanager.isLeaf(selectedNode);
-         var hasDummyChild = treemanager.hasDummyChild(selectedNode);
+         let dtRowNode = null;
+         let isRoot = treemanager.isRoot(selectedNode);
+         let isLeaf = treemanager.isLeaf(selectedNode);
+         let hasDummyChild = treemanager.hasDummyChild(selectedNode);
 
          if (!isRoot && (isLeaf || hasDummyChild)) {
 
@@ -2509,9 +2792,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          this.clearHtmlGrid();
 
          _.forEach(selectedNode.children, function (childNodeId) {
-            var currNodeChild = treemanager.getNodeById(childNodeId);
-            var r = currNodeChild.original.dataRow;
-            var newRow = mydt.newRow();
+            let currNodeChild = treemanager.getNodeById(childNodeId);
+            let r = currNodeChild.original.dataRow;
+            let newRow = mydt.newRow();
             _.forEach(mydt.columns, function (col) {
                newRow[col.name] = r[col.name];
             });
@@ -2539,15 +2822,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @method selectGridRowByRow
        * @private
        * @description ASYNC
-       * Selects the row on the grid based on the datarow parameter. If the row is in the grid it selcts it
+       * Selects the row on the grid based on the datarow parameter. If the row is in the grid it selects it
        * @param {DataTable} table
        * @param {ObjectRow} objrow
        * @param {boolean} propagate if true it call a rowSelct on metaPage
        * @returns {Deferred}
        */
       selectGridRowByRow: function (table, objrow, propagate) {
-         // passo la table su cui effettuare il confronto prendendo el chaivi, poichè
-         // tale datarow è attachata alla griglia, e potrebbe non avere la getRow, poichè nella costruzione ne faccio la clear
+         // passo la table su cui effettuare il confronto prendendo le chiavi, poichè
+         // tale datarow è attachata alla griglia, e potrebbe non avere la getRow,
+         //    poiché nella costruzione ne faccio la clear
          // sarà sempre quella del tree la riga che comanda
          var def = Deferred('selectGridRowByRow');
          // trova la riga nella collection
@@ -2594,15 +2878,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
       /**
-       * @method gridHtmlToExcel
+       * @method replaceSpecialCharacters
        * @private
        * @description SYNC
        * replaces some special character into html code. Used in html export
        * @param {string} s
        */
-      replaceSpecialCharatcters: function (s) {
+      replaceSpecialCharacters: function (s) {
          var html = s;
-         var fReplcace = function (htmlprm, char, code) { while (htmlprm.indexOf(char) != -1) htmlprm = htmlprm.replace(char, code); return htmlprm };
+         var fReplcace = function (htmlprm, char, code) {
+            return htmlprm.split(char).join(code);
+         };
          html = fReplcace(html, 'á', '&aacute;');
          html = fReplcace(html, 'é', '&eacute;');
          html = fReplcace(html, 'í', '&iacute;');
@@ -2617,7 +2903,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          html = fReplcace(html, '“', '&ldquo;');
          html = fReplcace(html, '”', '&rdquo;');
          html = fReplcace(html, '‘', '&lsquo;');
-         html = fReplcace(html, '’', '&rsquo;');
+         html = fReplcace(html, '’', '&rsquo;'); 
+         html = fReplcace(html, 'È', '&Egrave;');
+         html = fReplcace(html, '•', '*');
+         html = fReplcace(html, '<br>', '\r\n');
          return html;
       },
 
@@ -2628,48 +2917,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * Executes and export to excel
        */
       gridHtmlToExcel: function (that) {
-         // devo togliere fisicamente le colonne nascoste, poichè html() prende anche i display:none , e quindi
-         // comparirebbero nel report anche le coloonne nascoste. quindi creo un clone del grid ed effettuo le operazioni necessarie sul nuovo oggetto
-         var gridcloned = $(that.mytable)[0].cloneNode(true);
+         // Devo togliere fisicamente le colonne nascoste, poichè html() prende anche i display:none , e quindi
+         //  comparirebbero nel report anche le coloonne nascoste.
+         // Quindi creo un clone del grid ed effettuo le operazioni necessarie sul nuovo oggetto
+         let gridcloned = $(that.mytable)[0].cloneNode(true);
          $(gridcloned).find("tr").each(function (i, tr) {
 
-               var fRemoveDisplayNone = function (eltype) {
-                  $(tr).find(eltype).each(
-                     function (i, el) {
+            var fRemoveDisplayNone = function (eltype) {
+               $(tr).find(eltype).each(
+                   function (i, el) {
 
-                        if ($(el).css("display") === "none") {
-                           $(el).remove();
-                        }
-                     });
-               };
-               fRemoveDisplayNone("td");
-               fRemoveDisplayNone("th");
+                      if ($(el).css("display") === "none") {
+                         $(el).remove();
+                      }
+                   });
+            };
+            fRemoveDisplayNone("td");
+            fRemoveDisplayNone("th");
 
-               // Rimuove le colonne con i bottoni di edit
-               var fRemoveByIndex = function (eltype, index) {
-                  $(tr).find(eltype).each(function (i, el) {
-                         if (i <= index) {
-                            $(el).remove();
-                         }
-                      });
-               };
+            // Rimuove le colonne con i bottoni di edit
+            let fRemoveByIndex = function (eltype, index) {
+               $(tr).not( ".table-in-cell-tr" ).find(eltype).each(function (i, el) {
+                  if (i <= index) {
+                     $(el).remove();
+                  }
+               });
+            };
 
-               // rimuove le colonne di editing
-               if ((that.isEditBtnVisible || that.isInsertBtnVisible) && that.isDeleteBtnVisible) {
-                  fRemoveByIndex("td", 1);
-                  fRemoveByIndex("th", 1);
-               } else {
-                  // altrimenti ne rimuovo almeno una, perchè è quella con il bottone excel stessa. dove poi sotto abbiamo edit o delete
-                  fRemoveByIndex("td", 0);
-                  fRemoveByIndex("th", 0);
-               }
+            // rimuove le colonne di editing
+            if ((that.isEditBtnVisible || that.isInsertBtnVisible) && that.isDeleteBtnVisible) {
+               fRemoveByIndex("td", 1);
+               fRemoveByIndex("th", 1);
+            } else {
+               // altrimenti ne rimuovo almeno una, perchè è quella con il bottone excel stessa. dove poi sotto abbiamo edit o delete
+               fRemoveByIndex("td", 0);
+               fRemoveByIndex("th", 0);
+            }
 
-            });
+         });
 
-         var gridhtml = that.replaceSpecialCharatcters($(gridcloned).html());
+         // Prima di tutto verifico se ci sono colonne compresse (troncate a 250 caratteri)
+         let compressButtons = $(gridcloned).find("button[data-mdlbuttontype='expandBtn']");
+         compressButtons.each( function() { // Ripristino eventualmente il testo originale e rimuovo il bottone prima di mandarlo in stampa
+            let $btn = $(this);
+            let $parentRow = $btn.parent();
+
+            //Ripristino il testo originale
+            $parentRow.contents().first()[0].textContent = $btn.attr("data-tag-originalText");
+            $btn.remove(); //Rimuovo il bottone dalla lista da stampare
+         });
+
+         let gridhtml = that.replaceSpecialCharacters($(gridcloned).html());
 
          // creo excel direttamente dal table
-         var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
+         let tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
          tab_text = tab_text + '<head><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>';
          tab_text = tab_text + '<x:Name>' + that.tag + '</x:Name>';
          tab_text = tab_text + '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
@@ -2679,9 +2980,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          tab_text = tab_text + gridhtml;
          tab_text = tab_text + '</table></body></html>';
 
-         var ua = window.navigator.userAgent;
-         var msie = ua.indexOf("MSIE ");
-         var fileName = moment().format('D_MMM_YYYY_HHmm') + "_" + that.dataTable.name + "_" + that.listType + ".xls";
+         let ua = window.navigator.userAgent;
+         let msie = ua.indexOf("MSIE ");
+         let fileName = moment().format('D_MMM_YYYY_HHmm') + "_" + that.dataTable.name + "_" + that.listType + ".xls";
          // IE
          if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
             if (window.navigator.msSaveBlob) {
@@ -2691,10 +2992,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          }
          // Chrome + Firefox
          else {
-            var data_type = 'data:application/vnd.ms-excel';
+            let data_type = 'data:application/vnd.ms-excel';
             that.$btnexportExcel.attr('href', data_type + ', ' + encodeURIComponent(tab_text));
             that.$btnexportExcel.attr('download', fileName);
          }
+
       },
 
       /**
@@ -2702,7 +3004,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        * @public
        * @description ASYNC
        * Executes a prefill of the control
-       * @param {Html node} el
+       * @param {element} el
        * @param {Object} param {tableWantedName:tableWantedName, filter:filter, selList:selList}
        * @returns {Deferred}
        */
@@ -2751,6 +3053,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             return JSON.parse(str);
          } catch (e) {
             return false;
+         }
+      },
+
+      enableDisableAllGridControls:function (enable) {
+         if (enable) {
+            $(this.el).css("pointer-events", "unset")
+         } else {
+            $(this.el).css("pointer-events", "none")
          }
       }
 

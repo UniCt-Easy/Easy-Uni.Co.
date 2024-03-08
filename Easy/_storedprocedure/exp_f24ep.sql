@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
---  exec exp_f24ep 43
+--  exec exp_f24ep 117
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_f24ep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_f24ep]
 GO
@@ -23,6 +23,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
+ 
+--setuser'amministrazione'
 --setuser'amm'
 CREATE procedure exp_f24ep(@idf24ep int) as
 begin
@@ -271,8 +273,8 @@ begin
 	-- correzioni di dettagli ritenute con i loro importi relativi alle ritenute originali,
 	-- anche se aggregate ad altre ritenute nella liquidazione
 	 
-	INSERT INTO  #versamenti
-	(maintaxcode, taxcode,idcity, idfiscaltaxregion,geoappliance, idexp, idreg, ytaxpay, ntaxpay, importoadebito,importoacredito,
+	 INSERT INTO  #versamenti
+	(maintaxcode, taxcode,idcity, geoappliance,idfiscaltaxregion, idexp, idreg, ytaxpay, ntaxpay, importoadebito,importoacredito,
 	 datatrasmissione, annotrasmissione, meseriferimento,iniziocompetenza,finecompetenza, anno)
 	 SELECT   maintaxcode = taxpay.taxcode, tax.taxcode,expensetaxcorrige.idcity, tax.geoappliance,
 	 expensetaxcorrige.idfiscaltaxregion,
@@ -306,7 +308,7 @@ begin
 	 --paymenttransmission.transmissiondate, year(paymenttransmission.transmissiondate), 
 	 --month(paymenttransmission.transmissiondate),expenselast.servicestart,expenselast.servicestop,
 	 --isnull(expensetaxcorrige.ayear,year(paymenttransmission.transmissiondate)),expense.idreg
- 
+	--select * from #versamenti where importoacredito <> 0
 	 update #versamenti set meseriferimento=12 where anno<year(datatrasmissione)
 	 update #versamenti set anno=year(datatrasmissione)-1 where anno<year(datatrasmissione)
 	 --select taxcode, meseriferimento, sum(importoadebito), sum(importoacredito) from #versamenti group by taxcode, meseriferimento
@@ -331,12 +333,12 @@ begin
 		CASE WHEN (importoacredito <> 0 AND tax.fiscaltaxcodecredit IS NOT NULL ) THEN tax.fiscaltaxcodecredit ELSE tax.fiscaltaxcode END,
 		kind =  CASE WHEN (importoacredito <> 0 AND tax.fiscaltaxcodecredit IS NOT NULL ) THEN 'C' ELSE 'D' END
 		FROM tax WHERE  tax.taxcode = #versamenti.taxcode  
-
+		--select * from #versamenti 
  
 		UPDATE #versamenti SET importoadebito = importoadebito - importoacredito, importoacredito = 0 WHERE kind = 'D'
 		UPDATE #versamenti SET importoacredito = importoacredito - importoadebito, importoadebito = 0 WHERE kind = 'C'  --- bonus fiscale ha solo un codice a credito
-
-		--select * from #versamenti
+		--select * from #versamenti  where fiscaltaxcode = '380E'
+		--select * from #versamenti 
 --- aggrego i dati estratti per codice ritenuta, segno importo e flag "compensa"
 --select * from #versamenti
 	CREATE	TABLE #tot_versamenti (
@@ -981,3 +983,6 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
+--exec exp_f24ep 117
+--V	S	NULL	R	380E	05	NULL	0009	2023	23739.62	0.00
+--V	S	NULL	R	380E	05	NULL	0009	2023	23876.72	137.10

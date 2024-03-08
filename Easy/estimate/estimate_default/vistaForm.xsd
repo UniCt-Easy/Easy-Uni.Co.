@@ -249,6 +249,47 @@
               <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
               <xs:element name="idlist" type="xs:int" minOccurs="0" />
+              <xs:element name="paymentcompetency" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="yinv_main" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv_main" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
+              <xs:element name="va3type" type="xs:string" minOccurs="0" />
+              <xs:element name="idintrastatcode" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatmeasure" type="xs:int" minOccurs="0" />
+              <xs:element name="weight" type="xs:decimal" minOccurs="0" />
+              <xs:element name="intrastatoperationkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idintrastatservice" type="xs:int" minOccurs="0" />
+              <xs:element name="idunit" type="xs:int" minOccurs="0" />
+              <xs:element name="idpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="unitsforpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatsupplymethod" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="exception12" type="xs:string" minOccurs="0" />
+              <xs:element name="intra12operationkind" type="xs:string" minOccurs="0" />
+              <xs:element name="move12" type="xs:string" minOccurs="0" />
+              <xs:element name="idinvkind_main" type="xs:int" minOccurs="0" />
+              <xs:element name="leasing" type="xs:string" minOccurs="0" />
+              <xs:element name="usedmodesospesometro" type="xs:string" minOccurs="0" />
+              <xs:element name="resetresidualmandate" type="xs:string" minOccurs="0" />
+              <xs:element name="idfetransfer" type="xs:string" minOccurs="0" />
+              <xs:element name="fereferencerule" type="xs:string" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
+              <xs:element name="idpccdebitstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idpccdebitmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="rounding" type="xs:string" minOccurs="0" />
+              <xs:element name="idepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="flagbit" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="iduniqueformcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="ycon" type="xs:int" minOccurs="0" />
+              <xs:element name="ncon" type="xs:int" minOccurs="0" />
+              <xs:element name="codicetipo" type="xs:string" minOccurs="0" />
+              <xs:element name="codicevalore" type="xs:string" minOccurs="0" />
+              <xs:element name="idepexp_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="npackage" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -724,8 +765,20 @@
         <xs:element name="ivakind">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
               <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rate" type="xs:decimal" />
+              <xs:element name="unabatabilitypercentage" type="xs:decimal" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idivataxablekind" type="xs:int" minOccurs="0" />
               <xs:element name="idivakind" type="xs:int" />
+              <xs:element name="codeivakind" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idfenature" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

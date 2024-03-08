@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -22,6 +22,7 @@ using System.Web;
 using metaeasylibrary;
 using metadatalibrary;
 using HelpWeb;
+using System.Linq;
 
 namespace meta_accmotiveapplied {
 	/// <summary>
@@ -32,6 +33,7 @@ namespace meta_accmotiveapplied {
 			base(Conn, Dispatcher, "accmotiveapplied") {
 			EditTypes.Add("tree");
 			ListingTypes.Add("tree");
+			ListingTypes.Add("ai");
 		}
 
        
@@ -93,10 +95,30 @@ namespace meta_accmotiveapplied {
 			return null;
 		}
 
+		public override string GetSorting(string ListingType) {
+			string sorting;
+			if (ListingType == "ai") {
+				//sorting = "!priority ASC, codemotive";
+				sorting = "";
+				return sorting;
+			}
+			return base.GetSorting(ListingType);
+		}
+
+		public override void CalculateFields(DataRow R, string list_type) {
+			if (list_type == "ai") {
+				//if (!R.Table.Columns.Contains("!priority")) {
+				//	R.Table.Columns.Add("!priority", typeof(string));
+				//}
+				//R.Table.Select()._forEach((row, index) => row["!priority"] = (index + 1).ToString());
+				//R["!priority"] = 1;
+			}
+		}
+
 		public override void DescribeColumns(DataTable T, string ListingType){
 			base.DescribeColumns(T, ListingType);
 
-			if(ListingType=="tree") {
+			if (ListingType=="tree") {
 				foreach(DataColumn C in T.Columns) DescribeAColumn(T, C.ColumnName, "",-1);
 				DescribeAColumn(T, "codemotive", "Cod. Causale",1);
 				DescribeAColumn(T, "motive", "Causale",2);
@@ -105,8 +127,23 @@ namespace meta_accmotiveapplied {
 				foreach (DataColumn C in T.Columns) DescribeAColumn(T, C.ColumnName, "", -1);
 				DescribeAColumn(T, "codemotive", "Cod. Causale", 1);
 				DescribeAColumn(T, "motive", "Causale", 2);
-				}
 			}
+
+			if (ListingType=="ai") {
+				if (!T.Columns.Contains("!priority")) {
+					T.Columns.Add("!priority", typeof(string));
+				}
+
+				foreach (DataColumn C in T.Columns) DescribeAColumn(T, C.ColumnName, "",-1);
+				int i = 1;
+				DescribeAColumn(T, "!priority", "A.I.", i++); ;
+				DescribeAColumn(T, "codemotive", "Cod. Causale", i++);
+				DescribeAColumn(T, "motive", "Causale", i++);
+				//DescribeAColumn(T, "sortcode", "Cod.", i++);
+				//DescribeAColumn(T, "description", "Descrizione", i++);
+				ComputeRowsAs(T, "ai");
+			}
+		}
 
         public override void WebDescribeTree(hwTreeView tree, DataTable T, string ListingType)
         {

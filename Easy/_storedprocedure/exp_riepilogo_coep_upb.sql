@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,8 +24,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
---setuser 'amm'
---exp_riepilogo_coep_upb  2017, {ts '2017-01-01 00:00:00'},{ts '2017-12-31 00:00:00'},'%','S','N',null
+--setuser 'amministrazione'
+--exp_riepilogo_coep_upb  2021, {ts '2021-01-01 00:00:00'},{ts '2021-12-31 00:00:00'},'%','S','N','C10701', 'N'
 
 CREATE  PROCEDURE [exp_riepilogo_coep_upb]
 (
@@ -131,8 +131,8 @@ select entrydetail.idupb,
 		sum(case when(( account.flagaccountusage & 32)<> 0 and amount<0) then -amount else 0 end), -- 'Dare(Credito)'
 		sum(case when(( account.flagaccountusage & 32)<> 0 and amount>0) then amount else 0 end), -- 'Avere(Credito)'
 
-		sum(case when(( account.flagaccountusage & 64)<> 0 and amount<0) then -amount else 0 end), -- 'Dare(Costi)'
-		sum(case when(( account.flagaccountusage & 64)<> 0 and amount>0) then amount else 0 end), -- 'Avere(Costi)'
+		sum(case when(( account.flagaccountusage & 64)<> 0 and (account.flagaccountusage & 131072)= 0 /*escludo quelli che hanno anche flag  ammortamento*/ and amount<0) then -amount else 0 end), -- 'Dare(Costi)'
+		sum(case when(( account.flagaccountusage & 64)<> 0 and (account.flagaccountusage & 131072)= 0 /*escludo quelli che hanno anche flag  ammortamento*/ and amount>0) then amount else 0 end), -- 'Avere(Costi)'
 
 		sum(case when(( account.flagaccountusage & 128)<> 0 and amount<0) then -amount else 0 end), -- 'Dare(Ricavi)'
 		sum(case when(( account.flagaccountusage & 128)<> 0 and amount>0) then amount else 0 end), -- 'Avere(Ricavi)'
@@ -174,8 +174,9 @@ from entrydetail
  join entry on entry.yentry =  entrydetail.yentry and  entry.nentry =  entrydetail.nentry
   join account  on entrydetail.idacc = account.idacc 
   left outer join upb on upb.idupb=entrydetail.idupb
-where entry.identrykind not in (6,11,12)	
-	AND ((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
+where 
+	entry.identrykind not in (6,11,12)	AND 
+	((account.flag&4)= 0)	-- ESCLUDO I CONTI D'ORDINE 
 	AND (@filteraccount IS NULL OR SUBSTRING(account.codeacc, 1,@lenfilteracc) = @filteraccount)
 	AND (@flag_noassestamentoprogp='N' or entry.identrykind NOT IN (8,13) ) -- s  no assestamento progetti pluriennali
 	AND account.ayear = @ayear

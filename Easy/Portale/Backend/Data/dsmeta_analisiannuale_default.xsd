@@ -12,7 +12,7 @@
               <xs:element name="costolordoannuo_stip" type="xs:decimal" minOccurs="0" />
               <xs:element name="costomese" type="xs:decimal" minOccurs="0" />
               <xs:element name="costoora" type="xs:decimal" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxdidatempopieno" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxgg" type="xs:int" minOccurs="0" />
@@ -23,6 +23,29 @@
               <xs:element name="parttime" type="xs:string" minOccurs="0" />
               <xs:element name="tempdef" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="importcontrattistipendiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anno" type="xs:int" />
+              <xs:element name="cognome" type="xs:string" minOccurs="0" />
+              <xs:element name="datafine" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizio" type="xs:dateTime" />
+              <xs:element name="datarivalutazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="idstipendio" type="xs:int" minOccurs="0" />
+              <xs:element name="idstipendioannuo" type="xs:int" />
+              <xs:element name="inquadramento" type="xs:string" minOccurs="0" />
+              <xs:element name="lordo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="nome" type="xs:string" minOccurs="0" />
+              <xs:element name="oneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ruolo" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -44,10 +67,10 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="pcspuntiorganicoview" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="pcspuntiorganicoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="contrattokind_title" type="xs:string" />
+              <xs:element name="idanalisiannuale" type="xs:int" />
               <xs:element name="importo0" type="xs:decimal" minOccurs="0" />
               <xs:element name="importo1" type="xs:decimal" minOccurs="0" />
               <xs:element name="importo2" type="xs:decimal" minOccurs="0" />
@@ -61,6 +84,7 @@
               <xs:element name="importoesterno2" type="xs:decimal" minOccurs="0" />
               <xs:element name="importoesterno3" type="xs:decimal" minOccurs="0" />
               <xs:element name="isdoc" type="xs:string" />
+              <xs:element name="position_title" type="xs:string" />
               <xs:element name="puntimeno0" type="xs:decimal" minOccurs="0" />
               <xs:element name="puntimeno1" type="xs:decimal" minOccurs="0" />
               <xs:element name="puntimeno2" type="xs:decimal" minOccurs="0" />
@@ -73,25 +97,41 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="strutturakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="pcspeoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idstrutturakind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="idinquadramento_start" type="xs:int" minOccurs="0" />
+              <xs:element name="idpcspeoview" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="idposition_start" type="xs:int" />
+              <xs:element name="idstipendio" type="xs:int" />
+              <xs:element name="idstipendio_start" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="nominativo" type="xs:string" />
+              <xs:element name="numeropersoneassunzione" type="xs:int" />
+              <xs:element name="percentuale" type="xs:int" />
+              <xs:element name="stipendio" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totale1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totale2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totale3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="year" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="struttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="struttura_alias2" msprop:TableForReading="struttura" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="idstrutturakind" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sasd" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="sasd_alias1" msprop:TableForReading="sasd" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="codice" type="xs:string" />
@@ -100,35 +140,40 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="contrattokind_alias3" msprop:TableForReading="contrattokind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="position_alias4" msprop:TableForReading="position" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="contrattokind_alias2" msprop:TableForReading="contrattokind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="position_alias3" msprop:TableForReading="position" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="pcsassunzioni" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="codicessd" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="finanziamento" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
-              <xs:element name="idcontrattokind_start" type="xs:int" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="idinquadramento_start" type="xs:int" minOccurs="0" />
               <xs:element name="idpcsassunzioni" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition_start" type="xs:int" minOccurs="0" />
               <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="idstipendio" type="xs:int" minOccurs="0" />
+              <xs:element name="idstipendio_start" type="xs:int" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="legge" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
@@ -142,8 +187,8 @@
               <xs:element name="totale2" type="xs:decimal" minOccurs="0" />
               <xs:element name="totale3" type="xs:decimal" minOccurs="0" />
               <xs:element name="year" type="xs:int" />
-              <xs:element name="_x0021_idcontrattokind_contrattokind_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idcontrattokind_start_contrattokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idposition_position_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idposition_start_position_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idsasd_sasd_codice" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idsasd_sasd_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idstruttura_struttura_title" type="xs:string" minOccurs="0" />
@@ -151,10 +196,37 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="inquadramento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="year" type="xs:int" />
+              <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position_alias2" msprop:TableForReading="position" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrylegalstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="parttime" type="xs:decimal" minOccurs="0" />
+              <xs:element name="percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -170,47 +242,14 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="inquadramento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="idinquadramento" type="xs:int" />
-              <xs:element name="tempdef" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="contrattokind_alias1" msprop:TableForReading="contrattokind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="contratto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idcontratto" type="xs:int" />
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="parttime" type="xs:decimal" minOccurs="0" />
-              <xs:element name="percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
-              <xs:element name="start" type="xs:dateTime" />
-              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="stipendioannuo" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="caricoente" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontratto" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
               <xs:element name="idstipendioannuo" type="xs:int" />
               <xs:element name="irap" type="xs:decimal" minOccurs="0" />
               <xs:element name="lordo" type="xs:decimal" minOccurs="0" />
@@ -218,49 +257,91 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="totale" type="xs:decimal" minOccurs="0" />
               <xs:element name="year" type="xs:int" />
-              <xs:element name="_x0021_idcontratto_contratto_percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
-              <xs:element name="_x0021_idcontratto_contratto_start" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="_x0021_idcontratto_contratto_stop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="_x0021_idcontratto_contratto_parttime" type="xs:decimal" minOccurs="0" />
-              <xs:element name="_x0021_idcontratto_contratto_idcontrattokind_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idcontratto_contratto_idinquadramento_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idcontratto_contratto_idinquadramento_tempdef" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_registry_extmatricula" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_registry_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_registry_cf" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_registry_p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idregistrylegalstatus_registrylegalstatus_percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idregistrylegalstatus_registrylegalstatus_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idregistrylegalstatus_registrylegalstatus_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idregistrylegalstatus_registrylegalstatus_parttime" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idregistrylegalstatus_registrylegalstatus_idposition_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idregistrylegalstatus_registrylegalstatus_idinquadramento_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idregistrylegalstatus_registrylegalstatus_idinquadramento_tempdef" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="pcscessazioniview" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="pcscessazioniview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idanalisiannuale" type="xs:int" />
               <xs:element name="idpcscessazioniview" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="contrattokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="strutturakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="active" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idstrutturakind" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="pcsassunzionisimulate" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="struttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idstrutturakind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sasd" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codice" type="xs:string" />
+              <xs:element name="idsasd" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position_alias1" msprop:TableForReading="position" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pcsassunzionisimulate" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="finanziamento" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
-              <xs:element name="idcontrattokind_start" type="xs:int" minOccurs="0" />
+              <xs:element name="idanalisiannuale" type="xs:int" />
               <xs:element name="idpcsassunzionisimulate" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition_start" type="xs:int" minOccurs="0" />
               <xs:element name="idsasd" type="xs:int" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="legge" type="xs:string" minOccurs="0" />
@@ -275,7 +356,12 @@
               <xs:element name="totale2" type="xs:decimal" minOccurs="0" />
               <xs:element name="totale3" type="xs:decimal" minOccurs="0" />
               <xs:element name="year" type="xs:int" />
-              <xs:element name="_x0021_idcontrattokind_contrattokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idposition_position_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idposition_start_position_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsasd_sasd_codice" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsasd_sasd_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idstruttura_struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idstruttura_struttura_idstrutturakind_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -354,6 +440,7 @@
               <xs:element name="tasse1" type="xs:decimal" minOccurs="0" />
               <xs:element name="tasse2" type="xs:decimal" minOccurs="0" />
               <xs:element name="tasse3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="totspesepersonalecaricoateneo0" type="xs:decimal" minOccurs="0" />
               <xs:element name="totspesepersonalecaricoateneo1" type="xs:decimal" minOccurs="0" />
               <xs:element name="totspesepersonalecaricoateneo2" type="xs:decimal" minOccurs="0" />
@@ -370,7 +457,14 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getcontrattikindview" />
-      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="importcontrattistipendiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:importcontrattistipendiview" />
+      <xs:field xpath="mstns:anno" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+      <xs:field xpath="mstns:idstipendioannuo" />
     </xs:unique>
     <xs:unique name="pcsbilancio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pcsbilancio" />
@@ -380,8 +474,64 @@
     </xs:unique>
     <xs:unique name="pcspuntiorganicoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pcspuntiorganicoview" />
-      <xs:field xpath="mstns:contrattokind_title" />
+      <xs:field xpath="mstns:idanalisiannuale" />
+      <xs:field xpath="mstns:position_title" />
       <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="pcspeoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pcspeoview" />
+      <xs:field xpath="mstns:idpcspeoview" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="struttura_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:struttura_alias2" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="sasd_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sasd_alias1" />
+      <xs:field xpath="mstns:idsasd" />
+    </xs:unique>
+    <xs:unique name="position_alias4_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position_alias4" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="position_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position_alias3" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="pcsassunzioni_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pcsassunzioni" />
+      <xs:field xpath="mstns:idpcsassunzioni" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="inquadramento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inquadramento" />
+      <xs:field xpath="mstns:idinquadramento" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="position_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position_alias2" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="registrylegalstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrylegalstatus" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="stipendioannuo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stipendioannuo" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+      <xs:field xpath="mstns:idstipendioannuo" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="pcscessazioniview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pcscessazioniview" />
+      <xs:field xpath="mstns:idpcscessazioniview" />
     </xs:unique>
     <xs:unique name="strutturakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:strutturakind" />
@@ -395,58 +545,17 @@
       <xs:selector xpath=".//mstns:sasd" />
       <xs:field xpath="mstns:idsasd" />
     </xs:unique>
-    <xs:unique name="contrattokind_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind_alias3" />
-      <xs:field xpath="mstns:idcontrattokind" />
+    <xs:unique name="position_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position_alias1" />
+      <xs:field xpath="mstns:idposition" />
     </xs:unique>
-    <xs:unique name="contrattokind_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind_alias2" />
-      <xs:field xpath="mstns:idcontrattokind" />
-    </xs:unique>
-    <xs:unique name="pcsassunzioni_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:pcsassunzioni" />
-      <xs:field xpath="mstns:idpcsassunzioni" />
-      <xs:field xpath="mstns:year" />
-    </xs:unique>
-    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:year" />
-      <xs:field xpath="mstns:year" />
-    </xs:unique>
-    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
-    <xs:unique name="inquadramento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:inquadramento" />
-      <xs:field xpath="mstns:idcontrattokind" />
-      <xs:field xpath="mstns:idinquadramento" />
-    </xs:unique>
-    <xs:unique name="contrattokind_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind_alias1" />
-      <xs:field xpath="mstns:idcontrattokind" />
-    </xs:unique>
-    <xs:unique name="contratto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contratto" />
-      <xs:field xpath="mstns:idcontratto" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
-    <xs:unique name="stipendioannuo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:stipendioannuo" />
-      <xs:field xpath="mstns:idcontratto" />
-      <xs:field xpath="mstns:idreg" />
-      <xs:field xpath="mstns:idstipendioannuo" />
-      <xs:field xpath="mstns:year" />
-    </xs:unique>
-    <xs:unique name="pcscessazioniview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:pcscessazioniview" />
-      <xs:field xpath="mstns:idpcscessazioniview" />
-    </xs:unique>
-    <xs:unique name="contrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
+    <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
     </xs:unique>
     <xs:unique name="pcsassunzionisimulate_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pcsassunzionisimulate" />
+      <xs:field xpath="mstns:idanalisiannuale" />
       <xs:field xpath="mstns:idpcsassunzionisimulate" />
       <xs:field xpath="mstns:year" />
     </xs:unique>
@@ -458,23 +567,28 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_analisiannuale_importcontrattistipendiview_year" msdata:parent="importcontrattistipendiview" msdata:child="analisiannuale" msdata:parentkey="anno" msdata:childkey="year" />
       <msdata:Relationship name="FK_pcsbilancio_analisiannuale_idanalisiannuale-year" msdata:parent="analisiannuale" msdata:child="pcsbilancio" msdata:parentkey="idanalisiannuale year" msdata:childkey="idanalisiannuale year" />
-      <msdata:Relationship name="FK_pcspuntiorganicoview_analisiannuale_year" msdata:parent="analisiannuale" msdata:child="pcspuntiorganicoview" msdata:parentkey="year" msdata:childkey="year" />
+      <msdata:Relationship name="FK_analisiannuale_pcspuntiorganicoview_idanalisiannuale-year" msdata:parent="pcspuntiorganicoview" msdata:child="analisiannuale" msdata:parentkey="idanalisiannuale year" msdata:childkey="idanalisiannuale year" />
+      <msdata:Relationship name="FK_analisiannuale_pcspeoview_year" msdata:parent="pcspeoview" msdata:child="analisiannuale" msdata:parentkey="year" msdata:childkey="year" />
       <msdata:Relationship name="FK_pcsassunzioni_analisiannuale_year" msdata:parent="analisiannuale" msdata:child="pcsassunzioni" msdata:parentkey="year" msdata:childkey="year" />
-      <msdata:Relationship name="FK_pcsassunzioni_struttura_idstruttura" msdata:parent="struttura" msdata:child="pcsassunzioni" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
-      <msdata:Relationship name="FK_struttura_strutturakind_idstrutturakind" msdata:parent="strutturakind" msdata:child="struttura" msdata:parentkey="idstrutturakind" msdata:childkey="idstrutturakind" />
-      <msdata:Relationship name="FK_pcsassunzioni_sasd_idsasd" msdata:parent="sasd" msdata:child="pcsassunzioni" msdata:parentkey="idsasd" msdata:childkey="idsasd" />
-      <msdata:Relationship name="FK_pcsassunzioni_contrattokind_alias3_idcontrattokind_start" msdata:parent="contrattokind_alias3" msdata:child="pcsassunzioni" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind_start" />
-      <msdata:Relationship name="FK_pcsassunzioni_contrattokind_alias2_idcontrattokind" msdata:parent="contrattokind_alias2" msdata:child="pcsassunzioni" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
-      <msdata:Relationship name="FK_analisiannuale_year_year" msdata:parent="year" msdata:child="analisiannuale" msdata:parentkey="year" msdata:childkey="year" />
+      <msdata:Relationship name="FK_pcsassunzioni_struttura_alias2_idstruttura" msdata:parent="struttura_alias2" msdata:child="pcsassunzioni" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_struttura_alias2_strutturakind_idstrutturakind" msdata:parent="strutturakind" msdata:child="struttura_alias2" msdata:parentkey="idstrutturakind" msdata:childkey="idstrutturakind" />
+      <msdata:Relationship name="FK_pcsassunzioni_sasd_alias1_idsasd" msdata:parent="sasd_alias1" msdata:child="pcsassunzioni" msdata:parentkey="idsasd" msdata:childkey="idsasd" />
+      <msdata:Relationship name="FK_pcsassunzioni_position_alias4_idposition_start" msdata:parent="position_alias4" msdata:child="pcsassunzioni" msdata:parentkey="idposition" msdata:childkey="idposition_start" />
+      <msdata:Relationship name="FK_pcsassunzioni_position_alias3_idposition" msdata:parent="position_alias3" msdata:child="pcsassunzioni" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_stipendioannuo_analisiannuale_year" msdata:parent="analisiannuale" msdata:child="stipendioannuo" msdata:parentkey="year" msdata:childkey="year" />
+      <msdata:Relationship name="FK_stipendioannuo_registrylegalstatus_idregistrylegalstatus" msdata:parent="registrylegalstatus" msdata:child="stipendioannuo" msdata:parentkey="idregistrylegalstatus" msdata:childkey="idregistrylegalstatus" />
+      <msdata:Relationship name="FK_registrylegalstatus_inquadramento_idinquadramento" msdata:parent="inquadramento" msdata:child="registrylegalstatus" msdata:parentkey="idinquadramento" msdata:childkey="idinquadramento" />
+      <msdata:Relationship name="FK_registrylegalstatus_position_alias2_idposition" msdata:parent="position_alias2" msdata:child="registrylegalstatus" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_stipendioannuo_registry_idreg" msdata:parent="registry" msdata:child="stipendioannuo" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_stipendioannuo_contratto_idcontratto" msdata:parent="contratto" msdata:child="stipendioannuo" msdata:parentkey="idcontratto" msdata:childkey="idcontratto" />
-      <msdata:Relationship name="FK_contratto_inquadramento_idinquadramento" msdata:parent="inquadramento" msdata:child="contratto" msdata:parentkey="idinquadramento" msdata:childkey="idinquadramento" />
-      <msdata:Relationship name="FK_contratto_contrattokind_alias1_idcontrattokind" msdata:parent="contrattokind_alias1" msdata:child="contratto" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
-      <msdata:Relationship name="FK_pcscessazioniview_analisiannuale_idanalisiannuale" msdata:parent="analisiannuale" msdata:child="pcscessazioniview" msdata:parentkey="idanalisiannuale" msdata:childkey="idanalisiannuale" />
-      <msdata:Relationship name="FK_pcsassunzionisimulate_analisiannuale_year" msdata:parent="analisiannuale" msdata:child="pcsassunzionisimulate" msdata:parentkey="year" msdata:childkey="year" />
-      <msdata:Relationship name="FK_pcsassunzionisimulate_contrattokind_idcontrattokind" msdata:parent="contrattokind" msdata:child="pcsassunzionisimulate" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
+      <msdata:Relationship name="FK_analisiannuale_pcscessazioniview_idanalisiannuale" msdata:parent="pcscessazioniview" msdata:child="analisiannuale" msdata:parentkey="idanalisiannuale" msdata:childkey="idanalisiannuale" />
+      <msdata:Relationship name="FK_pcsassunzionisimulate_analisiannuale_idanalisiannuale-year" msdata:parent="analisiannuale" msdata:child="pcsassunzionisimulate" msdata:parentkey="idanalisiannuale year" msdata:childkey="idanalisiannuale year" />
+      <msdata:Relationship name="FK_pcsassunzionisimulate_struttura_idstruttura" msdata:parent="struttura" msdata:child="pcsassunzionisimulate" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_struttura_strutturakind_idstrutturakind" msdata:parent="strutturakind" msdata:child="struttura" msdata:parentkey="idstrutturakind" msdata:childkey="idstrutturakind" />
+      <msdata:Relationship name="FK_pcsassunzionisimulate_sasd_idsasd" msdata:parent="sasd" msdata:child="pcsassunzionisimulate" msdata:parentkey="idsasd" msdata:childkey="idsasd" />
+      <msdata:Relationship name="FK_pcsassunzionisimulate_position_alias1_idposition_start" msdata:parent="position_alias1" msdata:child="pcsassunzionisimulate" msdata:parentkey="idposition" msdata:childkey="idposition_start" />
+      <msdata:Relationship name="FK_pcsassunzionisimulate_position_idposition" msdata:parent="position" msdata:child="pcsassunzionisimulate" msdata:parentkey="idposition" msdata:childkey="idposition" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

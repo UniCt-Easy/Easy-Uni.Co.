@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,6 +30,9 @@ namespace Backend.Data {
 public class dsmeta_perfvalutazioneateneo_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfvalutazioneateneoresattach 		=> (MetaTable)Tables["perfvalutazioneateneoresattach"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfvalutazioneateneoresvalidatori 		=> (MetaTable)Tables["perfvalutazioneateneoresvalidatori"];
 
@@ -73,6 +76,17 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_perfvalutazioneateneo_default.xsd";
 
 	#region create DataTables
+	//////////////////// PERFVALUTAZIONEATENEORESATTACH /////////////////////////////////
+	var tperfvalutazioneateneoresattach= new MetaTable("perfvalutazioneateneoresattach");
+	tperfvalutazioneateneoresattach.defineColumn("idattach", typeof(int),false);
+	tperfvalutazioneateneoresattach.defineColumn("idperfvalutazioneateneo", typeof(int),false);
+	tperfvalutazioneateneoresattach.defineColumn("idperfvalutazioneateneores", typeof(int),false);
+	tperfvalutazioneateneoresattach.defineColumn("idperfvalutazioneateneoresattach", typeof(int),false);
+	tperfvalutazioneateneoresattach.defineColumn("title", typeof(string),false);
+	tperfvalutazioneateneoresattach.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tperfvalutazioneateneoresattach);
+	tperfvalutazioneateneoresattach.defineKey("idattach", "idperfvalutazioneateneo", "idperfvalutazioneateneores", "idperfvalutazioneateneoresattach");
+
 	//////////////////// PERFVALUTAZIONEATENEORESVALIDATORI /////////////////////////////////
 	var tperfvalutazioneateneoresvalidatori= new MetaTable("perfvalutazioneateneoresvalidatori");
 	tperfvalutazioneateneoresvalidatori.defineColumn("ct", typeof(DateTime),false);
@@ -113,6 +127,7 @@ private void initClass() {
 	tperfvalutazioneateneores.defineColumn("indicatore", typeof(string));
 	tperfvalutazioneateneores.defineColumn("lt", typeof(DateTime),false);
 	tperfvalutazioneateneores.defineColumn("lu", typeof(string),false);
+	tperfvalutazioneateneores.defineColumn("Note", typeof(string));
 	tperfvalutazioneateneores.defineColumn("percentualeraggiunta", typeof(decimal));
 	tperfvalutazioneateneores.defineColumn("peso", typeof(decimal));
 	tperfvalutazioneateneores.defineColumn("target", typeof(string));
@@ -130,6 +145,7 @@ private void initClass() {
 
 	//////////////////// PERFVALUTAZIONEATENEO /////////////////////////////////
 	var tperfvalutazioneateneo= new MetaTable("perfvalutazioneateneo");
+	tperfvalutazioneateneo.defineColumn("calcoloautomatico", typeof(string));
 	tperfvalutazioneateneo.defineColumn("ct", typeof(DateTime),false);
 	tperfvalutazioneateneo.defineColumn("cu", typeof(string),false);
 	tperfvalutazioneateneo.defineColumn("idperfvalutazioneateneo", typeof(int),false);
@@ -147,6 +163,10 @@ private void initClass() {
 	var cPar = new []{perfvalutazioneateneo.Columns["idperfvalutazioneateneo"]};
 	var cChild = new []{perfvalutazioneateneores.Columns["idperfvalutazioneateneo"]};
 	Relations.Add(new DataRelation("FK_perfvalutazioneateneores_perfvalutazioneateneo_idperfvalutazioneateneo",cPar,cChild,false));
+
+	cPar = new []{perfvalutazioneateneores.Columns["idperfvalutazioneateneo"], perfvalutazioneateneores.Columns["idperfvalutazioneateneores"]};
+	cChild = new []{perfvalutazioneateneoresattach.Columns["idperfvalutazioneateneo"], perfvalutazioneateneoresattach.Columns["idperfvalutazioneateneores"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneateneoresattach_perfvalutazioneateneores_idperfvalutazioneateneo-idperfvalutazioneateneores",cPar,cChild,false));
 
 	cPar = new []{perfvalutazioneateneores.Columns["idperfmission"], perfvalutazioneateneores.Columns["idperfvalutazioneateneo"], perfvalutazioneateneores.Columns["idperfvalutazioneateneores"]};
 	cChild = new []{perfvalutazioneateneoresvalidatori.Columns["idperfmission"], perfvalutazioneateneoresvalidatori.Columns["idperfvalutazioneateneo"], perfvalutazioneateneoresvalidatori.Columns["idperfvalutazioneateneores"]};

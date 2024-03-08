@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,8 +23,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
- 
---- exec rpt_contrattoattivo 2017, 'I', 'TESTEP', 3, 3, NULL, {ts '2017-09-19 00:00:00'}, 'N', 'N', NULL, NULL, NULL, NULL, NULL
+ -- setuser 'amm'
+--- exec rpt_contrattoattivo 2022, 'I', 'SOLOTEST', 1, 1, NULL, {ts '2022-11-24 00:00:00'}, 'N', 'N', NULL, NULL, NULL, NULL, NULL
 CREATE  PROCEDURE [rpt_contrattoattivo]
 (
 	@ayear int,
@@ -77,7 +77,10 @@ CREATE TABLE #estimatedetail
 	codemotive varchar(50),
 	accmotive varchar(150),
 	upb varchar(800),
-	idgroup int
+	idgroup int,
+	rownum_main int,
+	stop datetime,
+	adate datetime
 )
 CREATE TABLE #printingdoc (num int)
 IF @printkind = 'A' 
@@ -141,7 +144,10 @@ INSERT INTO #estimatedetail
 	codeupb,
 	description_upb,
 	codemotive,	accmotive,
-	idgroup 
+	idgroup,
+	rownum_main,
+	stop,
+	adate
 )
 SELECT 
 	I.nestim,
@@ -196,7 +202,10 @@ SUM(
 	U.codeupb,
 	U.title,
 	accmotive.codemotive, accmotive.title,
-	D.idgroup
+	D.idgroup,
+	D.rownum_main,
+	D.stop,
+	I.adate
 FROM estimatedetail D
 JOIN estimate I
 	ON I.idestimkind = D.idestimkind
@@ -217,7 +226,8 @@ WHERE I.yestim = @ayear
 GROUP BY I.nestim,I.docdate,D.idgroup,I.idreg,D.idreg,I.paymentexpiring,I.idexpirationkind,
 	I.registryreference,I.idcurrency,I.exchangerate,D.idivakind,D.detaildescription,
 	D.number,D.discount,D.annotations,I.description,I.doc,I.deliveryexpiration,I.deliveryaddress,
-	U.codeupb,U.title, D.competencystart, D.competencystop,I.idman,accmotive.codemotive, accmotive.title
+	U.codeupb,U.title, D.competencystart, D.competencystop,	D.rownum_main,
+	D.stop, I.idman,accmotive.codemotive, accmotive.title, I.adate
 
 	
 -- Concatena i vari codici UPB 
@@ -390,7 +400,8 @@ SELECT
 	@estimkindnote as estimatekindnote,
 	#estimatedetail.upb,
 	#estimatedetail.codemotive,	
-	#estimatedetail.accmotive 
+	#estimatedetail.accmotive,
+	#estimatedetail.adate
 FROM #estimatedetail
 JOIN estimatekind  
 	ON estimatekind.idestimkind  = @idestimkind
@@ -410,6 +421,7 @@ LEFT OUTER JOIN currency
 	ON currency.idcurrency = #estimatedetail.idcurrency
 LEFT OUTER JOIN expirationkind 
 	ON expirationkind.idexpirationkind = #estimatedetail.idexpirationkind
+where ( #estimatedetail.rownum_main is null and #estimatedetail.stop is null)
 GROUP BY estimatekind.header,
 	estimatekind.address,
 	#estimatedetail.nestim,	#estimatedetail.docdate,	#estimatedetail.idreg,	R.title ,	R_detail.title,
@@ -423,8 +435,11 @@ GROUP BY estimatekind.header,
 	#estimatedetail.notes,    #estimatedetail.estimatedesc,	#estimatedetail.doc,
 	#estimatedetail.upb,
 	#estimatedetail.codemotive,	
-	#estimatedetail.accmotive 
-ORDER BY #estimatedetail.nestim, #estimatedetail.upb ASC
+	#estimatedetail.accmotive,
+	#estimatedetail.rownum_main,
+	#estimatedetail.stop ,
+	#estimatedetail.adate
+	ORDER BY #estimatedetail.nestim, #estimatedetail.upb ASC
 END
 
 

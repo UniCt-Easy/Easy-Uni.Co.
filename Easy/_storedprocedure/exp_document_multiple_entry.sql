@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,34 +35,40 @@ CREATE PROCEDURE [exp_document_multiple_entry]
 )
 AS 
 BEGIN
--- setuser'amm'
--- exec [exp_document_multiple_entry] 2018
+-- setuser'amministrazione'
+-- exec [exp_document_multiple_entry] 2023
  
  select E.nentry as 'n.',
 		E.adate as 'data',
 		E.description as 'descrizione',
-		ED.detaildescription as 'descrizione dett.',
+		ED.description as 'descrizione dett.',
 		E.doc as 'documento',
 		E.docdate as 'data documento',
 		ED.amount as 'importo',
-		ED.codeacc as 'codice conto',
-		ED.account as 'conto',
-		ED.codeupb as 'codice upb',
-		ED.upb,
+		A.codeacc as 'codice conto',
+		A.title as 'conto',
+		upb.codeupb as 'codice upb',
+		upb.title as 'upb',
 		ED.idrelated as 'idrelated dettaglio'
 
 
-		
+
 
 	 from entry E 
-	 join entrydetailview ED on E.yentry=ED.yentry and E.nentry=ED.nentry
+	 join entrydetail ED on E.yentry=ED.yentry and E.nentry=ED.nentry
+	 join account A on A.idacc = ED.idacc
+	 join upb on upb.idupb = ED.idupb
 	where	ED.idrelated is not null 	
 			AND (@idsor01 IS NULL OR E.idsor01 = @idsor01)
 			AND (@idsor02 IS NULL OR E.idsor02 = @idsor02)
 			AND (@idsor03 IS NULL OR E.idsor03 = @idsor03)
 			AND (@idsor04 IS NULL OR E.idsor04 = @idsor04)
 			AND (@idsor05 IS NULL OR E.idsor05 = @idsor05)
-			and (select count(*) from entrydetail ED2 where ED2.idrelated = ED.idrelated) >1 
+			and (select count(*) from entry E2 
+				join entrydetail ED2 on  E2.yentry=ED2.yentry and E2.nentry=ED2.nentry
+				where E2.idrelated = E.idrelated
+				and ED2.idrelated = ED.idrelated
+				and E2.nentry <> E.nentry) >1 
 			and E.yentry=@ayear
 END 
 

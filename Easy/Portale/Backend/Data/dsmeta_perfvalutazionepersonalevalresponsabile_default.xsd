@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfvalutazionepersonalevalresponsabile_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfvalutazionepersonalevalresponsabile_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfvalutazionepersonalecampaniasintview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="afferenza_idmansionekind" type="xs:int" minOccurs="0" />
+              <xs:element name="afferenza_idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="afferenza_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="afferenza_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idafferenza" type="xs:int" />
+              <xs:element name="idperfvalutazionepersonale" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="mansionekind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="perfschedastatus_title" type="xs:string" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_ct" type="xs:dateTime" />
+              <xs:element name="perfvalutazionepersonale_cu" type="xs:string" />
+              <xs:element name="perfvalutazionepersonale_idperfschedastatus" type="xs:int" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_idreg_appr" type="xs:int" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_idreg_comp" type="xs:int" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_idreg_compcomp" type="xs:int" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_idreg_create" type="xs:int" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_idreg_val" type="xs:int" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_idreg_valcomp" type="xs:int" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_lt" type="xs:dateTime" />
+              <xs:element name="perfvalutazionepersonale_lu" type="xs:string" />
+              <xs:element name="perfvalutazionepersonale_percateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_perccomportamenti" type="xs:decimal" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_percobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_percperfuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_pesoateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_pesocomportamenti" type="xs:decimal" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_pesoobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_pesoperfuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="perfvalutazionepersonale_risultato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registryappr_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registrycomp_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registrycompcomp_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registrycreate_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registryval_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registryvalcomp_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazionepersonalevalresponsabile" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfvalutazionepersonale" type="xs:int" />
+              <xs:element name="idperfvalutazionepersonale_responsabile" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazionepersonalecampaniasintview" />
+      <xs:field xpath="mstns:idafferenza" />
+      <xs:field xpath="mstns:idperfvalutazionepersonale" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="perfvalutazionepersonalevalresponsabile_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazionepersonalevalresponsabile" />
+      <xs:field xpath="mstns:idperfvalutazionepersonale" />
+      <xs:field xpath="mstns:idperfvalutazionepersonale_responsabile" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfvalutazionepersonalevalresponsabile_perfvalutazionepersonalecampaniasintview_idperfvalutazionepersonale_responsabile" msdata:parent="perfvalutazionepersonalecampaniasintview" msdata:child="perfvalutazionepersonalevalresponsabile" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale_responsabile" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

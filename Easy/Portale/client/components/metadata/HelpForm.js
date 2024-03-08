@@ -1,50 +1,53 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
+Ôªø/*global $,_,appMeta,jsDataSet,JSONViewer */
 /**
  * @module HelpForm
  * @description
  * Contains all utility methods to manage events and interactions on a web form
  */
+
+
 (function() {
-    var app = window.appMeta;
-    var TypedObject = app.TypedObject;
-    var metaModel = app.metaModel;
-    var dataRowState = jsDataSet.dataRowState;
-    var DataColumn = jsDataSet.DataColumn
-    var q = window.jsDataQuery;
-    var Deferred = appMeta.Deferred;
-    var jsObjFromString = appMeta.jsObjFromString;
-    var stringFromJsObj = appMeta.stringFromJsObj;
-    var locale = appMeta.localResource;
-    var logger = appMeta.logger;
-    var logType = appMeta.logTypeEnum;
-    var utils = appMeta.utils;
-    var numberDecimalSeparator = appMeta.numberDecimalSeparator;
-    var numberGroupSeparator = appMeta.numberGroupSeparator;
-    var currencyDecimalSeparator = appMeta.currencyDecimalSeparator;
-    var currencyGroupSeparator = appMeta.currencyGroupSeparator;
-    var currencySymbol = appMeta.currencySymbol;
-    var getDataUtils = appMeta.getDataUtils;
-    var cssDefault = appMeta.cssDefault;
-    if (typeof String.prototype.endsWith !== 'function') {
-        String.prototype.endsWith = function(suffix) {
-            return this.indexOf(suffix, this.length - suffix.length) !== -1;
-        };
+    "use strict";
+
+    const app = window.appMeta;
+    const TypedObject = app.TypedObject;
+    const metaModel = app.metaModel;
+    const dataRowState = jsDataSet.dataRowState;
+    const DataColumn = jsDataSet.DataColumn;
+    const q = window.jsDataQuery;
+    const Deferred = appMeta.Deferred;
+    const jsObjFromString = appMeta.jsObjFromString;
+    const stringFromJsObj = appMeta.stringFromJsObj;
+    const locale = appMeta.localResource;
+    const logger = appMeta.logger;
+    const logType = appMeta.logTypeEnum;
+    const utils = appMeta.utils;
+    const numberDecimalSeparator = appMeta.numberDecimalSeparator;
+    const numberGroupSeparator = appMeta.numberGroupSeparator;
+    const currencyDecimalSeparator = appMeta.currencyDecimalSeparator;
+    const currencyGroupSeparator = appMeta.currencyGroupSeparator;
+    const currencySymbol = appMeta.currencySymbol;
+    const getDataUtils = appMeta.getDataUtils;
+    const cssDefault = appMeta.cssDefault;
+    // if (typeof String.prototype.endsWith !== 'function') {
+    //     String.prototype.endsWith = function(suffix) {
+    //         return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    //     };
+    // }
+
+    // torna la stringa con i data attributes meno che data-tag che gi√† ho considerato nella funz chiamante getControlTag()
+    function getDataAttributes(node) {
+        const re_dataAttr = /^data\-(.+)$/;
+        let res = "";
+
+        $.each($(node).get(0).attributes, function(_, attr) {
+            if (re_dataAttr.test(attr.nodeName) && attr.nodeName !== "data-tag") {
+                const key = attr.nodeName.match(re_dataAttr)[1];
+                res = res + key + ": " + attr.nodeValue + ", ";
+            }
+        });
+
+        return res ? "<strong>data-attr*= </strong>" + res : "";
     }
 
     /**
@@ -52,8 +55,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @description
      * Creates a new instance of HelpForm class
      * @constructor
-     * @param {PageState} pageState
-     * @param {string} primaryTable
+     * @param {MetaPageState} pageState
+     * @param {string} primaryTableName
      * @param {string} rootElement
      */
     function HelpForm(pageState, primaryTableName, rootElement) {
@@ -64,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         this.DS = pageState.DS;
 
         /**
-         * @type {PageState}
+         * @type {MetaPageState}
          */
         this.pageState = pageState;
 
@@ -113,52 +116,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Loops over the html elements and adds the events handler
          * @method addEvents
          * @param {MetaPage} metaPage
+         * @return Promise
          */
         addEvents: function (metaPage) {
             this.metaPage = metaPage;
-            $(this.rootElement).off("click"); // rimuovo e poi rimetto. perchË ad ogni apertura il rooteleemnt Ë lo stesso per ogni pagina
-            $(this.rootElement).on("click", _.partial(this.showDebugDialog, this.metaPage));
-            this.iterateOverTag("tag", "addEvent");
-            this.iterateOverCustomTag("addEvents", metaPage);
+            $(this.rootElement).off("click"); // rimuovo e poi rimetto. perch√® ad ogni apertura il root element √® lo stesso per ogni pagina
+            $(this.rootElement).on("click", _.partial(this.showDebugDialog, this.metaPage, this));
+            return this.iterateOverTag("tag", "addEvent")
+                .then(()=>{return this.iterateOverCustomTag("addEvents", metaPage);});
         },
+
 
         /**
          * click + shift+ctrl show a dialog to show some debug useful info
          * @param mp
+         * @param {MetaPage} that
+         * @param {event} ev
          */
-        showDebugDialog:function (mp, ev) {
-            var isCtrl = ev.ctrlKey;
-            var isShift = ev.shiftKey;
+        showDebugDialog:function (mp, that, ev) {
+            const isCtrl = ev.ctrlKey;
+            const isShift = ev.shiftKey;
 
-            if (isCtrl && isShift && appMeta.security.isAdmin()) {
+            if (isCtrl && isShift && appMeta.security.isAdmin() && !that.debugOpen) {
+                that.debugOpen = true;
 
-                // torna la stringa con i data attributes meno che data-tag che gi‡ ho considerato nella funz chiamante getControlTag()
-                function getDataAttributes(node) {
-                    var  re_dataAttr = /^data\-(.+)$/, res = "";
-
-                    $.each($(node).get(0).attributes, function(index, attr) {
-                        if (re_dataAttr.test(attr.nodeName) && attr.nodeName !== "data-tag") {
-                            var key = attr.nodeName.match(re_dataAttr)[1];
-                            res = res + key + ": " + attr.nodeValue + ", ";
-                        }
-                    });
-
-                    return res ? "<strong>data-attr*= </strong>" + res : "";
-                }
 
                 // torna le info sui controlli che hanno il data-tag
-                getControlTag = function () {
-                    var res = "";
-                    var count = 1;
+                let getControlTag = function () {
+                    let res = "";
+                    let count = 1;
                     $(mp.rootElement + "  [data-tag]")
                         .each(function () {
-                            var attrid  = $(this).attr('id');
+                            const attrid = $(this).attr('id');
                             if (attrid && attrid.includes("!")){
                                 res = res + " <strong>" + count +
-                                    " </strong> id: " + attrid
+                                    " </strong> id: " + attrid;
                             } else {
-                                var labelFor = $('label[for='+ attrid  +']');
-                                var labelText = labelFor.length ? labelFor.text() : "";
+                                const labelFor = $('label[for=' + attrid + ']');
+                                const labelText = labelFor.length ? labelFor.text() : "";
                                 res = res + " <strong>" + count +
                                     " </strong> id: " + attrid +
                                     " " + (labelText ? "<strong>label: </strong>" + labelText : "") + // se ha label metto "label:"
@@ -167,27 +162,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                             count += 1;
                         });
-                    return res
+                    return res;
                 };
 
                 // ritorna info su var di ambiente notevoli
-                getUserInfo = function () {
-                    var res = "";
-                    getVar  = function (myvar) {return myvar || "" ;};
-                    res = res + "<strong>idcustomuser: </strong>" +  getVar(appMeta.security.usrEnv.userweb)  + "<BR>" +
+                let getUserInfo = function () {
+                    let res = "";
+                    let getVar  = function (myvar) {return myvar || "" ;};
+                    res = res + "<strong>userweb: </strong>" +  getVar(appMeta.security.usrEnv.userweb)  + "<BR>" +
+                        "<strong>idcustomuser: </strong>" +  getVar(appMeta.security.sysEnv.idcustomuser)  + "<BR>" +
                         "<strong>Database: </strong>" + getVar(appMeta.security.sysEnv.database) + "<BR>" +
                         "<strong>server: </strong>" + getVar(appMeta.security.sysEnv.server) + "<BR>" +
                         "<strong>user: </strong>" + getVar(appMeta.security.sysEnv.user) + "<BR>" +
                         "<strong>idreg: </strong>" + getVar(appMeta.security.usrEnv.idreg) + "<BR>" +
+                        "<strong>idman: </strong>" + getVar(appMeta.security.usrEnv.idman) + "<BR>" +
                         "<strong>forename: </strong>" + getVar(appMeta.security.usrEnv.forename) + "<BR>" +
                         "<strong>surname: </strong>" + getVar(appMeta.security.usrEnv.surname) + "<BR>" +
                         "<strong>groupList: </strong>" + getVar(appMeta.security.usrEnv.usergrouplist) + "<BR>";
 
-                    return res
+                    return res;
                 };
 
                 // environment
-                getEnv = function () {
+                let getEnv = function () {
                     if (appMeta.config.env === appMeta.config.envEnum.PROD) {
                         return "PROD";
                     }
@@ -197,14 +194,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 };
 
                 // righe cambiate
-                var modrows = _.reduce(mp.state.DS.tables, function (res, table, key) {
-                    var rowsChanged = table.getChanges();
-                    if (rowsChanged.length > 0) {
-                        res += 'table: <strong>' +  table.name + '</strong> has ' + rowsChanged.length + ' rows changed:<BR>';
-                        var del = 0;
-                        var mod = 0;
-                        var add = 0;
-                        _.forEach(rowsChanged, function (o) {
+                const modrows = _.reduce(mp.state.DS.tables, function (res, table, key){
+                    const rowsChanged = table.getChanges();
+                    if (rowsChanged.length > 0){
+                        res += 'table: <strong>' + table.name + '</strong> has ' + rowsChanged.length + ' rows changed:<BR>';
+                        let del = 0;
+                        let mod = 0;
+                        let add = 0;
+                        _.forEach(rowsChanged, function (o){
                             if (o.getRow().state === dataRowState.deleted){
                                 del++;
                             }
@@ -220,60 +217,89 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return res;
                 }, "");
 
-                // creo oggetti univoci, cosÏ siamo sicuri di vedere ogni volta dati freschi
-                var jsondsid = "jsondsid" + utils.getUnivoqueId();
-                var dialogid = "dialogid" + utils.getUnivoqueId();
-                var htmlInfo = '<strong>MDLW version: </strong>' + appMeta.config.MDLW_VERSION;
+                // creo oggetti univoci, cos√¨ siamo sicuri di vedere ogni volta dati freschi
+                const jsondsid = "jsondsid" + utils.getUniqueId();
+                const dialogid = "dialogid" + utils.getUniqueId();
+                let htmlInfo = '<strong>MDLW version: </strong>' + appMeta.config.MDLW_VERSION;
                 htmlInfo += "<BR><strong>Env: </strong>" + getEnv();
                 htmlInfo += "<BR><strong>MetaPage: </strong>" + mp.primaryTableName + " - " + mp.editType;
                 htmlInfo += "<BR><strong>Default listtype: </strong>" + mp.defaultListType;
                 htmlInfo += "<BR><strong>base path: </strong>" + appMeta.basePath;
                 htmlInfo += '<BR><strong>Dataset: </strong><div id="'+ jsondsid +'"></div>';
-                htmlInfo += '<BR><strong>Righe gi‡ bindate sul dataset in modifica: </strong><BR>' + modrows;
+                htmlInfo += '<BR><strong>Righe gi√† bindate sul dataset in modifica: </strong><BR>' + modrows;
                 htmlInfo += '<BR><strong>User info: </strong><BR>' + getUserInfo();
                 htmlInfo += '<BR><strong>Controls tag: </strong><BR>' + getControlTag();
 
-                var dialogrootelement = $('<div id="' + dialogid + '">');
+                // form per settare e provare stile
+                htmlInfo += "<div class=\"col-5 col-md-5\">\n" +
+                "      <BR><strong>Seleziona tema: </strong><BR>\n" +
+                "      <select id=\"selecttheme\" name=\"sheetFormat\">\n" +
+                "         <option value=\"blue\">blue (default)</option>\n" +
+                "         <option value=\"red\">red</option>\n" +
+                "         <option value=\"yellow\">yellow</option>\n" +
+                "       </select>\n" +
+                "   </div>\n" +
+                "<button id=\"btnSetTheme\" type=\"button\" class=\"btn btn-primary p-2 mt-2\" >\n" +
+                "<i class=\"fa fa-file-pdf mr-1\" ></i>Set tema\n" +
+                "</button>";
+
+                const dialogrootelement = $('<div id="' + dialogid + '">');
                 $(mp.rootElement).append(dialogrootelement);
 
                 $("#" + dialogid).dialog({
                     modal: true,
                     autoResize:true,
-                    width: appMeta.getScreenWidth() * 0.85,
+                    width: appMeta.currApp.getScreenWidth() * 0.85,
                     title: 'Debug window',
                     open: function () {
                         // attacco html
                         $(this).html(htmlInfo);
 
-                        // ora sul div attaco il json viewer
-                        var jsonViewer = new JSONViewer();
+                        $("#btnSetTheme").on("click", _.partial(that.setTheme, that ));
+
+                        // ora sul div attacco il json viewer
+                        const jsonViewer = new JSONViewer();
                         $("#"+jsondsid).append(jsonViewer.getContainer());
-                        var json = getDataUtils.getJsonFromJsDataSet(mp.state.DS, true);
-                        jsonViewer.showJSON(JSON.parse(json), null, 1);
+                        const json = getDataUtils.getJsonFromJsDataSet(mp.state.DS, true);
+                        //jsonViewer.showJSON(JSON.parse(json), null, 1);
+                        jsonViewer.showJSON(json, null, 1);
                     },
                     close: function(event, ui) {
                         $(this).dialog("close");
+                        that.debugOpen = false;
                         dialogrootelement.remove();
                     },
                     position: { my: "center bottom", at: "center center", of: window }
                 });
             }
         },
+
+        setTheme:function (that) {
+            const theme = that.sheetFormat = $('#selecttheme').val();
+            if (appMeta.appMainConfig.setTheme) {
+                appMeta.appMainConfig.setTheme(theme);
+            }
+        },
+
         /**
          * @method addEvent
          * @private
          * @description SYNC
          * Adds to the page, the events necessary to enable framework enhancements.
          * For example it manages the format of the data in the input text, when it receives the focus or loses the focus
-         * @param {html node} el
+         * @param {node} el
+         * @return Promise
          */
         addEvent: function(el) {
-            var controller = $(el).data("customController");
-            if (controller) return;
+            const controller = $(el).data("customController");
+            if (controller) {
+                return;
+            }
 
-            var eltag = $(el).data("tag");
-            var ctype = this.getCtypeTagFromElTag(eltag);
-            var tagName = el.tagName;
+            const eltag = $(el).data("tag");
+
+            const ctype = this.getCtypeTagFromElTag(eltag);
+            const tagName = el.tagName;
             switch (tagName.toUpperCase()) {
                 case "INPUT":
                     switch ($(el).attr("type").toUpperCase()) {
@@ -290,6 +316,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 case "Double":
                                 case "Float":
                                 case "Single":
+                                    // console.log("adding events to ",el.tagName);
                                     $(el).on("focus", _.partial(this.enterNumTextBox, this));
                                     $(el).on("blur", this.generalLeaveTextBox);
                                     break;
@@ -338,14 +365,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 case "TABLE":
                     break;
                 case "BUTTON":
+
                     this.setButtonHandler(el, eltag);
                     break;
             }
         },
 
         isCustomControl:function (el) {
-            var ctrlName = $(el).data("customControl");
-            return !!ctrlName
+            const ctrlName = $(el).data("customControl");
+            return !!ctrlName;
         },
 
         /**
@@ -354,38 +382,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Manages the logic to add to control for automode. For example during the text leave event framework should launch a manage() or choose() method on metapage.
          * "el" has tag: AutoChoose.TextBoxName.ListType.StartFilter or AutoManage.TextBoxName.EditType.StartFilter
-         * @param {Html element} el.  Div or Span containing the autochoose or automanage text
+         * @param {element} el.  Div or Span containing the autochoose or automanage text
          * @param {string} tag
          */
         setAutoMode:function (el, tag) {
 
             if (!tag) return;
             $(el).addClass(cssDefault.autoChoose); //  G.BackColor = formcolors.AutoChooseBackColor(); deleghiamo la cosa al css
-            var tablename = null;
-            var kind = this.getField(tag, 0);
-            var type = this.getField(tag, 2);
-            var startFilter = this.getFilterFormDataAttribute(el);  // N.B il filtro Ë impostato dall'esterno, tramite la MetaPage.registerFilter()
+            let tablename = null;
+            let kind = this.getField(tag, 0);
+            let type = this.getField(tag, 2);
+
+            // N.B il filtro √® impostato dall'esterno, tramite la MetaPage.registerFilter()
+            const startFilter = this.getFilterFormDataAttribute(el);
 
             //Gets start value - start field from control named textboxname
-            var startf = null;
-            var currTextBox;
-            var tname = this.getField(tag, 1);
-            var self = this;
+            let startf = null;
+            let currTextBox;
+            let tname = this.getField(tag, 1);
+            let self = this;
             if (tname) {
                 $(el).find("input[type=text], textarea")
                     .each(function() {
                         if ($(this).attr("name") !== tname) return true;
-                        var currTag = $(this).data("tag");
+                        const currTag = $(this).data("tag");
                         if (!currTag) return false;
-                        var standardTag = self.getStandardTag(currTag);
+                        const standardTag = self.getStandardTag(currTag);
                         if (!standardTag) return false;
-                        var ttag = self.getStandardTag(standardTag);
+                        const ttag = self.getStandardTag(standardTag);
 
                         tablename = self.getFieldLower(ttag, 0);
                         if (!tablename) return false;
                         if (!self.DS.tables[tablename]) return false;
 
-                        var tcol = self.getColumnName(ttag);
+                        const tcol = self.getColumnName(ttag);
                         if (!tcol) return false;
                         startf = tcol;
                         //startv = $(this).text(); ??
@@ -395,20 +425,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
 
             if (currTextBox) {
-                var ai = new appMeta.MetaData.AutoInfo(el, type, startFilter, startf, tablename, kind);
-                var unlinked = (!this.pageState.AE[tname]);
+                const ai = new appMeta.AutoInfo(el, type, startFilter, startf, tablename, kind);
+                const unlinked = (!this.pageState.AE[tname]);
                 this.pageState.AE[tname] = ai;
                 currTextBox.data(self.autoInfoDataTag, ai);//in data-autoinfo memorizzo l'autoinfo del textbox
 
                 if (unlinked) {
                     currTextBox.on("focus", _.partial(this.textBoxGotFocus, this));
                     // nel caso di 2 autochoose consecutive scatta la perdita di focus sulla seconda se premo tab sulla 1a.
-                    // e quindi scatta autochoose solo se premo tab  oppure click del mouse dell'utnete da 1 altra parte, non automaticamente
-                    // quindi tolgo possibilit‡ di ricevere focus tramite tab
+                    // e quindi scatta autochoose solo se premo tab  oppure click del mouse dell'utente da 1 altra parte, non automaticamente
+                    // quindi tolgo possibilit√† di ricevere focus tramite tab
                     currTextBox.attr('tabindex', '-1');
                     currTextBox.on("blur", _.partial(this.textBoxLostFocus, this ));
-                    // aggiunge il text invisibile, che verr‡ utilizzato in ricerca tramite id sulla tabella referenziata,
-                    // inoltre aggiungo al tag ?x in modo tale che se non c'Ë un search tag il campo verr‡
+                    // aggiunge il text invisibile, che verr√† utilizzato in ricerca tramite id sulla tabella referenziata,
+                    // inoltre aggiungo al tag ?x in modo tale che se non c'√® un search tag il campo verr√†
                     // comunque abilitato in inserimento.
                     if (this.addInvisibleTextBox(ai)) {
                         $(currTextBox).data("tag", this.getStandardTag($(currTextBox).data("tag")) + "?x");
@@ -429,9 +459,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         mainChildRelation:function(parentTable) {
             if (!parentTable) return null;
-            var foundRelExtraEntity = null;
-            var foundMainRel = null;
-            var self = this;
+            let foundRelExtraEntity = null;
+            let foundMainRel = null;
+            const self = this;
 
             // loop sulle child relazioni, se trovo quella con tabella principale la restituisco
             // altrimenti prendo una plusibile inserita tra le extra entities
@@ -464,13 +494,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {boolean}
          */
         addInvisibleTextBox: function (ai) {
-            var parentTable = ai.table;
-            var tParentTable = this.DS.tables[parentTable];
+            const parentTable = ai.table;
+            const tParentTable = this.DS.tables[parentTable];
             if (!tParentTable) return false;
 
-            var rel = this.mainChildRelation(tParentTable); //tParentTable.childRelations()[0];
+            const rel = this.mainChildRelation(tParentTable); //tParentTable.childRelations()[0];
             if (!rel) return false;
-            var childTable = rel.childTable;
+            const childTable = rel.childTable;
             if (rel.childCols.length > 1) return false;
 
             ai.parentTable = tParentTable;   //it is  a DataTable
@@ -478,12 +508,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             ai.childField = rel.childCols[0];
             ai.parentField = rel.parentCols[0];
 
-            var txtName = "InvisibleTxt" + parentTable + "_" + childTable;
+            const txtName = "InvisibleTxt" + parentTable + "_" + childTable;
             if (childTable !== this.primaryTable.name) {
                 //txtName = "SubEntity" + txtName;
                 this.addExtraEntity(childTable);
             }
-            var txt = $("<input hidden readonly>").attr({
+            const txt = $("<input hidden readonly>").attr({
                 type: "text",
                 id: txtName,
                 "data-tag": parentTable + "." + ai.parentField + "?" + childTable + "." + ai.childField
@@ -497,14 +527,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          * @method lastValidText
-         * @private
+         * @internal
          * @description SYNC
          * Gets or sets the last valid text in autochoose/automanage textbox
-         * @param {html input|string} text
+         * @param {element|string} text
          * @returns {string}
          */
         lastValidText: function(txt) {
-            if (txt === undefined) return this.pageState.lastTextNoFound;
+            if (txt === undefined) {
+                return this.pageState.lastTextNoFound;
+            }
             if (typeof txt === "string") {
                 this.pageState.lastTextNoFound = txt;
                 return txt;
@@ -518,7 +550,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns a concatenation <id of textbox>#<value of textbox>
-         * @param {html input} textBox
+         * @param {element} textBox
          * @returns {string}
          */
         evaluateLastValidText: function (textBox) {
@@ -534,13 +566,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         textBoxGotFocus: function (that) {
-            if ($(this).prop("readonly")) return;
+             if ($(this).prop("readonly")) return;
             if ($(this).prop("disabled")) return;
             if (that.insideTextBoxLeave) return; // does nothing where another textbox is still leaving focus
             that.lastValidText(this); // set lastTextNoFound
 
-            //lancio evento SOLO PER TESTARE!
-            //that.metaPage.eventManager.trigger(appMeta.EventEnum.textBoxGotFocus, that, "textBoxGotFocus");
+            
+            that.metaPage.eventManager.trigger(appMeta.EventEnum.textBoxGotFocus, that, "textBoxGotFocus");
+
             return  Deferred('textBoxGotFocus').resolve();
         },
 
@@ -552,14 +585,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {HelpForm} that
          * @returns {Deferred}
          */
-        textBoxLostFocus: function(that, ev) {
-            var def = Deferred('textBoxLostFocus' + $(this).attr("id"));
+        textBoxLostFocus: function (that, ev) {
+            const def = Deferred('textBoxLostFocus' + $(this).attr("id"));
             if (that.insideTextBoxLeave) return def.resolve(false);
-            var textBox = this;
+
+            const textBox = this;
             if ($(textBox).prop("readonly")) return def.resolve(false);
             if ($(textBox).prop("disabled")) return def.resolve(false);
 
-            var savedLastTextNoFound = that.lastValidText();
+            const savedLastTextNoFound = that.lastValidText();
 
             if (savedLastTextNoFound === $(textBox).attr("id") + "#" + $(textBox).val()) return def.resolve(false);
             /*{
@@ -570,24 +604,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 })
 
             }*/
-            var ai = $(textBox).data(that.autoInfoDataTag);
+            const ai = $(textBox).data(that.autoInfoDataTag);
             if (!ai) return def.resolve(false);
             if (ai.busy) return def.resolve(false);
             ai.busy = true;
-            var saved = that.pageState.closeDisabled;
+            const saved = that.pageState.closeDisabled;
             that.pageState.closeDisabled = true;
-            var filter;
-            var oldTag = $(textBox).data("tag");
-            that.metaPage.titleAutochoose = $("label[for='" + $(textBox).attr('id') + "']").length > 0 ? $("label[for='" + $(textBox).attr('id') + "']").text() : ai.startfield; // salvo in var campo su cui ho fatto autochoose, la msoterÚ sullsitmanger
+            let filter;
+            let oldTag = $(textBox).data("tag");
+
+            //// salvo in var campo su cui ho fatto autochoose, la metter√≤ sul listmanger
+            let queryLabel = $("label[for='" + $(textBox).attr('id') + "']");
+            that.metaPage.titleAutochoose =
+                queryLabel.length > 0 ?
+                    queryLabel.text() :
+                    ai.startfield;
+
             if (ai.kind === "AutoManage") {
                 $(textBox).data("tag", null); // removes temporarily the tag from the textbox
                 filter = that.iterateGetSpecificSearchCondition(ai.G, ai.table);
                 $(textBox).data("tag", oldTag); //restores the tag
-            } else {
-                var oldVal = $(textBox).val();
-                var txtBoxTag = that.getStandardTag(oldTag);
+            }
+            else {
+                let oldVal = $(textBox).val();
+                let txtBoxTag = that.getStandardTag(oldTag);
                 $(textBox).data("tag", txtBoxTag);
-                var cType = that.getCtypeTagFromElTag(txtBoxTag);
+                let cType = that.getCtypeTagFromElTag(txtBoxTag);
                 if (cType === "String" && !oldVal.endsWith("%")) $(textBox).val(oldVal + "%"); // temporarily appends a % to create a like filter
 
                 filter = that.iterateGetSpecificSearchCondition(ai.G, ai.table); //ex AI.G
@@ -595,70 +637,72 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 $(textBox).data("tag", oldTag); //restores the tag
             }
 
-            var startValue = $(textBox).val().trim();
-            var selected = false;
+            const startValue = $(textBox).val().trim();
+            let selected = false;
 
-            var res = utils._if(startValue === "")
+            const res = utils._if(startValue === "")
                 ._then(function () {
                     return that.metaPage.choose("choose." + ai.table + ".unknown.clear", null, ai.G).then(function () {
                         selected = true;
                         return true;
-                    })
+                    });
                 })
-                .then(function () {
-
-                    var newStr = that.evaluateLastValidText(textBox);
+                .then(() => {
+                    const newStr = that.evaluateLastValidText(textBox);
                     if (newStr === that.lastValidText()) {
                         ai.busy = false;
                         that.pageState.closeDisabled = saved;
                         return def.resolve(true);
                     }
                     that.lastValidText(textBox);
-                    that.insideTexBoxLeave = true;
+                    //that.insideTexBoxLeave = true;
 
-                    filter  = that.mergeFilters(filter, ai.startFilter);
+                    filter = that.mergeFilters(filter, ai.startFilter);
 
                     //do a choose.table.listtype.filter
 
                     return utils._if((!selected) && (ai.kind === "AutoChoose"))
                         ._then(function () {
                             return that.metaPage.choose("choose." + ai.table + "." + ai.type, filter, null)
-                                .then(function(result) {
+                                .then(function (result) {
                                     selected = result;
                                     return true;
                                 });
-                        }).then(function () {
-                            return utils._if((!selected) && (ai.kind === "AutoManage"))
-                                ._then(function () {
-                                    return that.metaPage.manage("manage." + ai.table + "." + ai.type,
-                                        ai.startfield,
-                                        startValue,
-                                        filter,
-                                        ai.G)
-                                        .then(function(result) {
-                                            selected = result;
-                                            return true;
-                                        });
-                                })
-                                .then(function () {
-                                    if (selected) {
-                                        that.lastValidText(textBox);
-
-                                    } else {
-                                        that.lastValidText(savedLastTextNoFound);
-                                        that.applyFocus(textBox);
-                                    }
-                                    that.insideTexBoxLeave = false;
-                                    ai.busy = false;
-                                    that.pageState.closeDisabled = saved;
-                                    return def.resolve(true);
-                                })
                         })
+                        .run();
+                })
+                .then(() => {
+                    return utils._if((!selected) && (ai.kind === "AutoManage"))
+                        ._then(function () {
+                            return that.metaPage.manage("manage." + ai.table + "." + ai.type,
+                                ai.startfield,
+                                startValue,
+                                filter,
+                                ai.G)
+                                .then(function (result) {
+                                    selected = result;
+                                    return true;
+                                });
+                        })
+                        .run();
+                })
+                .then(() => {
+                    if (selected) {
+                        that.lastValidText(textBox);
+                    }
+                    else {
+                        that.lastValidText(savedLastTextNoFound);
+                        return that.applyFocus(textBox);
+                    }
+                })
+                .then(() => {
+                    //that.insideTexBoxLeave = false;
+                    ai.busy = false;
+                    that.pageState.closeDisabled = saved;
+                    return def.resolve(true);
                 });
 
-
             return def.from(res).promise();
-
         },
 
         /**
@@ -666,11 +710,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Adds the events to the control button. Each button could have a tag. Depending on this tag it adds different handler to the click event
-         * @param {html button} el
+         * @param {button} el
          * @param {string} tag
          */
         setButtonHandler:function (el, tag) {
-            if (!tag) tag = "";
+            if (!tag) {
+                tag = "";
+            }
             tag = tag.toLowerCase();
 
             if (tag.startsWith("edit")){
@@ -699,7 +745,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             // Convenzione per cui ove prima ci fosse stata una parte di tag contenente un filtro,
             // questo va estratto da un data attribute del button, data-filter
-            var filter = this.getFilterFormDataAttribute(el);
+            const filter = this.getFilterFormDataAttribute(el);
 
             // per i bottoni che trovo bindo il metodo doMainCommand() su metaPage
             $(el).on("click", _.partial(this.metaPage.doMainCommandClick, this.metaPage, tag , filter));
@@ -711,7 +757,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns the data-attribute "filter" of the control "el"
-         * @param {html element} el , should be a button or textbox
+         * @param {element} el , should be a button or textbox
          * @returns {jsDataQuery}
          */
         getFilterFormDataAttribute:function (el) {
@@ -723,11 +769,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Gets the grid contained in the same parent container of "el", undefined if the grid doesn't exist
-         * @param {Html node} el usually a button
+         * @param {node} el usually a button
          * @returns {GridControl}
          */
         getLinkedGrid:function (el) {
-            var g;
+            let g;
             $(el).parent()
                 .children()
                 .each(function() {
@@ -743,14 +789,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          * @method getCurrentRow
-         * @private
+         * @internal
          * @description SYNC
          * Gets the current row from ComboBox, Grids and tree-views. Return false on errors
-         * @param {Html node} el
+         * @param {element} el
          * @returns {Object} {table:DataTable, row:ObjectRow}
          */
         getCurrentRow: function(el) {
-            var controller = $(el).data("customController");
+            const controller = $(el).data("customController");
             if (controller) {
                 if (controller.getCurrentRow) {
                     return controller.getCurrentRow();
@@ -769,24 +815,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {ObjectRow|null}
          */
         findExternalRow: function(t, r) {
-            if (!r) return r;
-            var found = t.select(t.keyFilter(r));
+            if (!r) {
+                return r;
+            }
+            const found = t.select(t.keyFilter(r));
             if (found.length === 0) return null;
             return found[0];
         },
 
         /**
          * @method iterateFillRelatedControls
-         * @private
+         * @internal
          * @description SYNC
          * Fills parent's child controls related to a specified DataTable "changedTable"
-         * @param {Html node} parent
-         * @param {Html node} changedControl
+         * @param {node} parent
+         * @param {node} changedControl
          * @param {DataTable} changedTable
          * @param {ObjectRow} changedRow
          */
         iterateFillRelatedControls: function(parent, changedControl, changedTable, changedRow) {
-            var that = this;
+            const that = this;
             $(parent).children().each(function() { //only travels a single level down the DOM tree
                 if (this !== changedControl) {
                     if (that.isManagedCollection(this)) {
@@ -802,16 +850,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          * @method iterateSetDataRowRelated
-         * @private
+         * @internal
          * @description SYNC
          * Fills a collection of controls in order to display a specified row.
          * Only controls linked to the right table are affected. All others are left unchanged.
-         * @param {Html node} parent
+         * @param {node} parent
          * @param {DataTable} changedTable
          * @param {ObjectRow} changedRow Row to display
          */
         iterateSetDataRowRelated: function(parent, changedTable, changedRow) {
-            var that = this;
+            const that = this;
             $(parent).children().each(function() {
                 if (that.isManagedCollection(this)) {
                     // smette di iterare
@@ -829,7 +877,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Fills parent's child controls related to a specified changedTable
-         * @param {Html node} el
+         * @param {node} el
          * @param {DataTable} changedTable
          * @param {ObjectRow} changedRow
          */
@@ -866,31 +914,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Sets the value of a control "el" based on its tag and on dataset content, only if there is a db relation with the input row "changedRow"
-         * @param {Html element} el
+         * @param {element} el
          * @param {DataTable} changedTable
          * @param {ObjectRow} changedRow
          **/
         fillRelatedToRowControlGeneral: function( el, changedTable, changedRow) {
-            var changedTableName = changedTable.name;
-            var eltag = $(el).data("tag");
+            const changedTableName = changedTable.name;
+            const eltag = $(el).data("tag");
 
-            var tag = this.getStandardTag(eltag);
+            const tag = this.getStandardTag(eltag);
             if (!tag) return;
 
-            var tagTableName = this.getTableName(tag);
+            const tagTableName = this.getTableName(tag);
             if (!tagTableName) return;
 
-            var tagTable = this.DS.tables[tagTableName];
+            const tagTable = this.DS.tables[tagTableName];
             if (!tagTable) return;
 
-            var tagColumnName = this.getColumnName(tag);
+            const tagColumnName = this.getColumnName(tag);
             if (!tagColumnName) return;
 
-            var col = tagTable.columns[tagColumnName];
+            const col = tagTable.columns[tagColumnName];
             if (!col) return;
 
-            // memorizzer‡ il valore da fillare
-            var val = changedRow ? changedRow[tagColumnName] : null;
+            // memorizzer√† il valore da fillare
+            let val = changedRow ? changedRow[tagColumnName] : null;
 
             // CASO STESSA TABELLA
             if (changedTableName === tagTableName) {
@@ -899,10 +947,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
 
             // TROVO EVENTUALE RELAZIONE
-            var rfound = this.DS.getParentChildRelation(tagTableName, changedTableName);
+            let rfound = this.DS.getParentChildRelation(tagTableName, changedTableName);
             if (!rfound) return;
             if (rfound.length === 0) return;
-            var relationFound = rfound[0]; // Ë sempre relazione del dataset this.DS
+            const relationFound = rfound[0]; // √® sempre relazione del dataset this.DS
 
             if (!changedRow) {
                 if (!this.checkToClear(tagTable, tagColumnName, rfound)) return;
@@ -911,9 +959,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
 
             // RECUPERO PARENT ROW
-            var parentRow = null;
+            let parentRow = null;
 
-            var parents = relationFound.getParents(changedRow);
+            const parents = relationFound.getParents(changedRow);
             if (parents.length === 1) parentRow = parents[0];
 
             if (!parentRow) return;
@@ -947,11 +995,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns true if "el" is a "valueSigned" control.
-         * @param {Html element} el
+         * @param {element} el
          * @returns {boolean}
          */
         isManagedCollection: function (el) {
-            var tag = this.getStandardTag($(el).data("tag"));
+            const tag = this.getStandardTag($(el).data("tag"));
             if (!tag) return false;
             return $(el).data("valueSigned") !== undefined;
         },
@@ -961,11 +1009,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns true if the control "el" is an html button
-         * @param {Html element} el
+         * @param {element} el
          * @returns {boolean}
          */
         isButtonControl:function (el) {
-            var tagName = el.tagName;
+            const tagName = el.tagName;
             return (tagName.toUpperCase() === "BUTTON");
         },
 
@@ -980,12 +1028,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         enterNumTextBox: function(that) {
             if ($(this).prop("disabled")) return;
             if ($(this).prop("readonly")) return;
-            var val = $(this).val();
+            let val = $(this).val();
             val = val.trim();
             if (val === "") return;
-            var completeTag = $(this).data("tag"); //that.getCompleteTagFromElTag($(this).data("tag"));
-            var fieldType = that.getFieldLower(completeTag, 2);
-            var s = val;
+            const completeTag = $(this).data("tag"); //that.getCompleteTagFromElTag($(this).data("tag"));
+            const fieldType = that.getFieldLower(completeTag, 2);
+            let s = val;
             if (fieldType === "n") {
                 s = s.replace(numberGroupSeparator, "");
                 $(this).val(s.trim());
@@ -993,15 +1041,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
             if (fieldType === "c") {
                 s = s.replace(currencySymbol, "");
-                s = s.replace(currencyGroupSeparator, "");
+                s = s.replace(currencyGroupSeparator, "").trim();
                 $(this).val(s.trim());
                 return;
             }
 
             if (fieldType === "fixed") {
-                var prefix = that.getFieldLower(completeTag, 4);
+                let prefix = that.getFieldLower(completeTag, 4);
                 if (prefix === null) prefix = "";
-                var suffix = that.getFieldLower(completeTag, 5);
+                let suffix = that.getFieldLower(completeTag, 5);
                 if (suffix === null) suffix = "";
                 if (prefix !== "") s = s.replace(prefix, "");
                 if (suffix !== "") s = s.replace(suffix, "");
@@ -1020,11 +1068,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         generalLeaveTextBox: function() {
             if ($(this).prop("disabled")) return;
             if ($(this).prop("readonly")) return;
-            var val = $(this).val();
+            let val = $(this).val();
             val = val.trim();
             if (val === "") return;
-            var completeTag = $(this).data("tag");
-            var ctype = $(this).data("mdlColType");
+            const completeTag = $(this).data("tag");
+            const ctype = $(this).data("mdlColType");
             $(this).val(new TypedObject(ctype, val, completeTag).stringValue(completeTag));
         },
 
@@ -1039,11 +1087,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if ($(this).prop("disabled")) return;
             if ($(this).prop("readonly")) return;
 
-            var val = $(this).val();
+            let val = $(this).val();
             val = val.trim();
             if (val === "") return;
-            var completeTag = $(this).data("tag");
-            var ctype = $(this).data("mdlColType");
+            const completeTag = $(this).data("tag");
+            const ctype = $(this).data("mdlColType");
             try {
                 $(this).val(new TypedObject(ctype, val, completeTag).stringValue(completeTag));
                 return;
@@ -1052,8 +1100,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 //throw "Unable to set value on textbox on leave Event:"+e;
             }
 
-            var len = val.length;
-            var obj = null;
+            let len = val.length;
+            let obj = null;
             while (len > 0) {
                 try {
                     obj = new TypedObject(ctype, val, completeTag);
@@ -1082,21 +1130,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         getCurrParentRow: function(primary, parent) {
             if (!primary) return null;
             if (!parent) return null;
-            var primaryRow = primary.getRow();
-            var rels = parent.dataset.getParentChildRelation(parent.name, primaryRow.table.name);
+            const primaryRow = primary.getRow();
+            const rels = parent.dataset.getParentChildRelation(parent.name, primaryRow.table.name);
             if (rels.length === 0) {
                 if (primaryRow.table.rows.length === 1 && parent.rows.length === 1) return parent.rows[0];
                 return null;
             }
-            var rel = rels[0];
-            var parents = rel.getParents(primary);
+            const rel = rels[0];
+            const parents = rel.getParents(primary);
             if (parents.length === 1) return parents[0];
             return null;
         },
 
         /**
          * @method getCurrParentRow
-         * @private
+         * @internal
          * @description SYNC
          * Gets a child of a "row" located in a specified table "child"
          * @param {ObjectRow} parentRow
@@ -1106,21 +1154,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         getCurrChildRow: function(parentRow, childTable) {
             if (!parentRow) return null;
             if (!childTable) return null;
-            var rels = this.DS.getParentChildRelation(parentRow.getRow().table.name, childTable.name);
-            var rFound = rels ? (rels[0]) : null;
+            const rels = this.DS.getParentChildRelation(parentRow.getRow().table.name, childTable.name);
+            const rFound = rels ? (rels[0]) : null;
             if (!rFound) {
                 if (parentRow.getRow().table.rows.length === 1) {
                     if (childTable.rows.length === 1) return childTable.rows[0];
                 }
                 if (childTable.parentRelations().length !== 1) return null;
-                var childRel = childTable.parentRelations()[0];
-                var parentTable = childRel.parentTable;
-                var currParent = this.getCurrChildRow(parentRow, this.DS.tables[parentTable]);
-                var currChilds = currParent ? currParent.getRow().getChildRows(childRel.name) : null;
-                return  currChilds ? (currChilds.length === 1 ? currChilds[0] : null) : null
+                const childRel = childTable.parentRelations()[0];
+                const parentTable = childRel.parentTable;
+                const currParent = this.getCurrChildRow(parentRow, this.DS.tables[parentTable]);
+                const currChildren = currParent ? currParent.getRow().getChildRows(childRel.name) : null;
+                return  currChildren ? (currChildren.length === 1 ? currChildren[0] : null) : null;
             }
-            var childs = parentRow.getRow().getChildRows(rFound.name);
-            return childs.length == 1 ? childs[0] : null;
+            let childs = parentRow.getRow().getChildRows(rFound.name);
+            return childs.length === 1 ? childs[0] : null;
         },
 
         /**
@@ -1132,7 +1180,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *  data-subentity if present indicates that the table is a subentity
          */
         getControls: function() {
-            this.iterateOverTag("tag", "getControl");
+            return this.iterateOverTag("tag", "getControl");
         },
 
         /**
@@ -1140,20 +1188,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Clears a control "el". Clear the value of the control.
-         * @param {html node} el
+         * @param {node} el
          */
         clearControl: function (el) {
-            var ctrl = $(el).data("customController");
+            const ctrl = $(el).data("customController");
             if (ctrl) {
                 ctrl.clearControl(el);
                 return;
             }
 
-            var eltag = $(el).data("tag");
-            var tag = this.getStandardTag(eltag);
+            const eltag = $(el).data("tag");
+            const tag = this.getStandardTag(eltag);
             if (!tag) return;
 
-            var tagName = el.tagName;
+            const tagName = el.tagName;
 
             this.reEnable(el);
 
@@ -1198,8 +1246,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Clears all the controls manged by the framework
+         * @return Promise
          */
-        clearControls: function() {
+        clearControls: function () {
             return this.iterateOverTag("tag", "clearControl");
         },
 
@@ -1218,11 +1267,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Disables a control "el" and marks it as "toEnable" so it will be re-enabled by reEnable() method
-         * @param {html node} el
+         * @param {node} el
          * @param {boolean} hideContent
          */
         disableControl: function(el, hideContent) {
-            var tagName = el.tagName.toUpperCase();
+            const tagName = el.tagName.toUpperCase();
             if (tagName === "LABEL") return;
 
             if (tagName === "DIV" || tagName === "SPAN") {
@@ -1273,19 +1322,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Enables again a control "el" that has been previously disabled by the framework
          * @method reEnable
          * @private
-         * @param {html element} el
+         * @param {element} el
          */
         reEnable: function(el) {
-            var eltag = $(el).data("tag");
-            var tag = this.getStandardTag(eltag);
+            const eltag = $(el).data("tag");
+            const tag = this.getStandardTag(eltag);
             if (!tag) return;
-            // se non Ë presente questo attributo non devo rieffettuare le'nable
+            // se non √® presente questo attributo non devo rieffettuare le'nable
             if (!$(el).data("mdlTagToEnable")) return;
-            var tagName = el.tagName;
+            const tagName = el.tagName;
 
             //remove readonly
             if (tagName.toUpperCase() === "INPUT" || tagName.toUpperCase() === "TEXTAREA") {
-                var inputType = $(el).attr("type").toUpperCase();
+                let inputType = $(el).attr("type").toUpperCase();
                 if (inputType === "PASSWORD") {
                     $(el).attr("type", "text");
                     inputType = "TEXT";
@@ -1298,7 +1347,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             } else {
                 this.enableControl(el);
 
-                var self = this;
+                const self = this;
                 // loop sui child interni che hanno mdlTagToEnable impostato a true
                 $(el).children().filter(function() {
                     return ($(this).data('mdlTagToEnable') === true);
@@ -1313,7 +1362,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /**
          * @method fillControls
          * @public
-         * @description SYNC
+         * @description ASYNC
          * Executes the fill of all html controls with the data-tag configured, contained in the root tag.
          *  Also enables/disables controls and sets their appearance accordingly to the form state
          * @returns {Deferred}
@@ -1328,20 +1377,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Enables or disables a control accordingly to form state and to the linked field
-         * @param {html node} c
+         * @param {node} c
          * @param {DataTable} table
          * @param {Object} column
          */
         enableDisable: function(c, table, column) {
-            var tagName = c.tagName.toUpperCase();
-            var eltag = $(c).data("tag");
+            const tagName = c.tagName.toUpperCase();
+            const eltag = $(c).data("tag");
             if (tagName === "LABEL") return;
             if (this.pageState.isSearchState()) {
                 this.reEnable(c);
                 return;
             }
 
-            var currRow = this.lastSelected(this.primaryTable);
+            const currRow = this.lastSelected(this.primaryTable);
             if (this.pageState.isEditState() && currRow === null) {
                 //If there is no primary table row disable all controls
                 this.disableControl(c, false);
@@ -1369,7 +1418,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         return;
                     }
 
-                    var rel = getDataUtils.getAutoChildRelation(this.primaryTable);
+                    const rel = getDataUtils.getAutoChildRelation(this.primaryTable);
                     if (rel){
                         if (_.includes(rel.childCols, column.name)){
                             this.disableControl(c, false);
@@ -1385,10 +1434,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             }
             //Table is not primary
-            var t1 = this.getStandardTag(eltag);
-            var t2 = this.getSearchTag(eltag);
+            const t1 = this.getStandardTag(eltag);
+            const t2 = this.getSearchTag(eltag);
 
-            var subentity = this.existsDataAttribute(c, "subentity"); //flag che indica se la tabella Ë una subentit‡
+            const subentity = this.existsDataAttribute(c, "subentity"); //flag che indica se la tabella √® una subentit√†
 
             if (t1 === t2) {
                 if (!subentity) {
@@ -1397,7 +1446,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return;
                 }
 
-                var currChild = this.getCurrChildRow(currRow, table);
+                const currChild = this.getCurrChildRow(currRow, table);
                 if (currChild === null) {
                     this.disableControl(c, false);
                     return;
@@ -1425,21 +1474,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          * @method fillControl
-         * @private
+         * @internal
          * @description ASYNC
          * Executes the fill of a control "el" with the data-tag configured.
          *  Also enable/disable the control and set its appearance accordingly to form state
-         * @param {html element} el
+         * @param {element} el
          * @param {object} value
          */
         fillControl: function(el, value) {
             // check sul tag. anche se in questo punto del codice, l'elemtno html dovrebbe avere il tag
 
-            var eltag = $(el).data("tag");
-            var tag = this.getStandardTag(eltag);
-            var def = Deferred("fillControl " + tag);
+            const eltag = $(el).data("tag");
+            const tag = this.getStandardTag(eltag);
+            const def = Deferred("fillControl " + tag);
             if (!tag) return def.resolve();
-            var self = this;
+            const self = this;
 
             if (this.isButtonControl(el)) {
                 this.setEnableGridButtons(el, eltag);
@@ -1447,18 +1496,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.resolve();
             }
 
-            var tableName = this.getTableName(tag);
+            const tableName = this.getTableName(tag);
             if (!tableName) return def.resolve();
-            var datatable = this.DS.tables[tableName];
+            const datatable = this.DS.tables[tableName];
             if (!datatable) return def.resolve();
 
 
-            // il caso "GridControl" o "TreeViewMaanger" o derivati non esegue calcolo del value, poichË non necessita di un value, inoltre il tag Ë differente
-            // quindi nel caso grid si creerebbero casi inconsisteni
-            var ctrl = $(el).data("customController");
-            var isStandardFill = ctrl ? ctrl.isStandardFill : true;
+            // il caso "GridControl" o "TreeViewMaanger" o derivati non esegue calcolo del value,
+            //  poich√© non necessita di un value, inoltre il tag √® differente
+            // quindi nel caso grid si creerebbero casi inconsistenti
+            const ctrl = $(el).data("customController");
+            const isStandardFill = ctrl ? ctrl.isStandardFill : true;
 
-            var column, dataColumn ;
+            let column, dataColumn;
 
             if (isStandardFill){
                 column = this.getColumnName(tag);
@@ -1469,12 +1519,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
 
             if (value === undefined && isStandardFill) {
-                var r = null;
-                var currPrimary = this.lastSelected(this.primaryTable);
+                let r;
+                let currPrimary = this.lastSelected(this.primaryTable);
 
                 if (currPrimary) {
                     if(currPrimary.getRow){
-                        var currPrimaryRow = currPrimary.getRow();
+                        const currPrimaryRow = currPrimary.getRow();
                         if (currPrimaryRow.state === dataRowState.deleted) currPrimary = null;
                     }else{
                         currPrimary = null;
@@ -1482,7 +1532,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
 
                 if ((currPrimary === null) || (tableName === this.primaryTableName)) {
-                    // se non Ë tabella principale  e la tabella principale Ë vuota, assumi vuoto
+                    // se non √® tabella principale  e la tabella principale √® vuota, assumi vuoto
                     r = currPrimary;
                 } else {
                     // tabella secondaria
@@ -1492,18 +1542,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     r = this.getCurrChildRow(currPrimary, this.DS.tables[tableName]) ||
                         this.getCurrParentRow(currPrimary, this.DS.tables[tableName]);
                     if (r === null) {
-                        var nFound = 0;
-                        var dataRowFound = null;
+                        let nFound = 0;
+                        let dataRowFound = null;
                         //check if it is parent of an extra entity row
                         _.forOwn(
                             this.pageState.extraEntities,
                             function(extraName) { //consideriamo extraName come facente funzione della currPrimary
-                                var extraRel = self.DS.getParentChildRelation(self.primaryTableName, extraName);
+                                const extraRel = self.DS.getParentChildRelation(self.primaryTableName, extraName);
                                 if (extraRel.length === 0) return true; //continue
-                                var childRow = currPrimary.getRow().getChildRows(extraRel[0].name);
+                                const childRow = currPrimary.getRow().getChildRows(extraRel[0].name);
                                 if (childRow.length !== 1) return true; //continue
-                                var toConsider = childRow[0]; //fa le veci della currPrimary
-                                var r1 = self.getCurrParentRow(toConsider, self.DS.tables[tableName]);
+                                const toConsider = childRow[0]; //fa le veci della currPrimary
+                                const r1 = self.getCurrParentRow(toConsider, self.DS.tables[tableName]);
                                 if (r1 !== null) {
                                     nFound++;
                                     dataRowFound = r1;
@@ -1511,7 +1561,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 if (nFound > 1) return false; //break;
                                 return true;
                             });
-                        // non possono esserci pi˘ di una, significa c'Ë qualcosa di sbagliato
+                        // non possono esserci pi√π di una, significa c'√® qualcosa di sbagliato
                         if (nFound === 1) {
                             r = dataRowFound;
                         }
@@ -1522,10 +1572,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 value = (r === null) ? null : r[column];
             }
 
-            var that = this;
+            const that = this;
 
             if (ctrl) {
-                return def.from(ctrl.fillControl(el, value)
+                return def.from(
+                    ctrl.fillControl(el, value)
                     .then(function () {
                         if(isStandardFill) that.enableDisable(el, datatable, dataColumn);
                         return true;
@@ -1539,17 +1590,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          * @method fillSpecificRowControls
-         * @private
+         * @internal
          * @description ASYNC
          * Fills "currRootElement" children controls related to all fields of a dataRow
-         * @param {Html node} currRootElement
+         * @param {node} currRootElement
          * @param {DataTable} table
          * @param {DataRow} dataRow Row from which values have to be taken
-         * @returns {Deferred}
+         * @returns {Promise}
          */
         fillSpecificRowControls:function(currRootElement, table, dataRow) {
-            var self = this;
-            var allCtrlPromise = [];
+            const self = this;
+            const allCtrlPromise = [];
             $(currRootElement)
                 .find("[data-tag]")
                 .each(function () {
@@ -1560,7 +1611,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             return;
                         }
 
-                        allCtrlPromise.push(self["fillSpecificRowControl"](this, table, dataRow));//"this" is the html element
+                        allCtrlPromise.push(self.fillSpecificRowControl(this, table, dataRow));//"this" is the html element
                 });
             return Deferred("fillSpecificRowControls").from($.when.apply($, allCtrlPromise));
 
@@ -1571,27 +1622,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description ASYNC
          * Fills "el" control related to all fields of a row
-         * @param {Html node} el
+         * @param {element} el
          * @param {DataTable} table
          * @param {DataRow} dataRow
          * @returns {Deferred}
          */
         fillSpecificRowControl:function (el, table, dataRow) {
-            var def = Deferred("fillSpecificRowControl");
-            var eltag = $(el).data("tag");
-            var tag = this.getStandardTag(eltag);
+            const def = Deferred("fillSpecificRowControl");
+            const eltag = $(el).data("tag");
+            const tag = this.getStandardTag(eltag);
             if (!tag) return def.resolve();
 
-            var tagTable = this.getTableName(tag);
+            const tagTable = this.getTableName(tag);
             if (!tagTable) return def.resolve();
             if (tagTable !== table.name) return def.resolve();
 
-            var column = this.getColumnName(tag);
+            const column = this.getColumnName(tag);
             if (!column) return def.resolve();
 
-            var fieldValue = null;
+            let fieldValue = null;
+            let dataColumn;
             if (dataRow){
-                var dataColumn  = dataRow.table.columns[column];
+                dataColumn  = dataRow.table.columns[column];
                 if (!dataColumn) return def.resolve();
 
                 fieldValue =  dataRow.current[column];
@@ -1604,37 +1656,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          * @method fillParentControls
-         * @private
+         * @internal
          * @description ASYNC
-         * Fills a collection of controls related to a specified parent Table "parentTable"
-         * @param {HtmlElement} el
+         * Fills a controls collection related to a specified parent Table "parentTable"
+         * @param {element} el
          * @param {DataTable} parentTable
          * @param {DataRow} parentRow
          */
         fillParentControls:function (el, parentTable, parentRow) {
-            var def = Deferred("fillParentControls");
-            var self = this;
+            let def = Deferred("fillParentControls");
+            let self = this;
             //Search relation between PrimaryTable and ParentRow.Table
-            var rfound = null;
+            let rFound = null;
             _.forEach(this.primaryTable.parentRelations(), function (rel) {
                 if (rel.parentTable === parentTable.name) {
-                    rfound = rel;
+                    rFound = rel;
                     return false;
                 }
-            })
+            });
 
-            if (rfound === null)  return def.resolve(false);
+            if (rFound === null)  return def.resolve(false);
 
-            var allCtrlPromise = [];
-            _.forEach(rfound.parentCols, function (colParentName, index) {
-                var colChildName = rfound.childCols[index];
+            let allCtrlPromise = [];
+            _.forEach(rFound.parentCols, function (colParentName, index) {
+                const colChildName = rFound.childCols[index];
                 if (parentRow) {
-                    allCtrlPromise.push(self.fillSpecificControls(el, self.primaryTable, colChildName, parentRow.current[colParentName]));
+                    allCtrlPromise.push(self.fillSpecificControls(el, self.primaryTable,
+                            colChildName, parentRow.current[colParentName]));
                 }
                 else {
-                    allCtrlPromise.push(self.fillSpecificControls(el, self.primaryTable, colChildName, null));
+                    allCtrlPromise.push(self.fillSpecificControls(el, self.primaryTable,
+                            colChildName, null));
                 }
-            })
+            });
 
             return def.from($.when.apply($, allCtrlPromise));
         },
@@ -1644,16 +1698,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description ASYNC
          * Loops on all children controls of "el", managed by framework, and fills them with "fieldValue"
-         * @param {Html node} el
+         * @param {element} el
          * @param {DataTable} table
          * @param {string} colName
          * @param {string} fieldValue
-         * @returns {Deferred}
+         * @returns Deferred
          */
         fillSpecificControls:function (el, table, colName, fieldValue) {
-            var def = Deferred("fillSpecificControls");
-            var self = this;
-            var allCtrlPromise = [];
+            const def = Deferred("fillSpecificControls");
+            const self = this;
+            const allCtrlPromise = [];
             $(el)
                 .find("[data-tag]")
                 .each(function () {
@@ -1664,7 +1718,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         return;
                     }
 
-                    allCtrlPromise.push(self["fillSpecificControl"](this, table, colName, fieldValue));// "this" is the html element
+                    allCtrlPromise.push(self.fillSpecificControl(this, table, colName, fieldValue));// "this" is the html element
                 });
             return def.from($.when.apply($, allCtrlPromise));
         },
@@ -1674,35 +1728,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description ASYNC
          * Fills "el" control with "fieldValue"
-         * @param {Html node} el
+         * @param {element} el
          * @param {DataTable} table
          * @param {string} colName
          * @param {string} fieldValue
          * @returns {Deferred}
          */
         fillSpecificControl:function (el, table, colName, fieldValue) {
-            var def = Deferred("fillSpecificControl");
-            var eltag = $(el).data("tag");
-            var tag = this.getStandardTag(eltag);
+            const def = Deferred("fillSpecificControl");
+            const elTag = $(el).data("tag");
+            const tag = this.getStandardTag(elTag);
             if (!tag) return def.resolve();
 
-            var tagTable = this.getTableName(tag);
+            const tagTable = this.getTableName(tag);
             if (!tagTable) return def.resolve();
             if (tagTable !== table.name) return def.resolve();
 
-            var columnTag = this.getColumnName(tag);
+            const columnTag = this.getColumnName(tag);
             if (!columnTag) return def.resolve();
             if ((colName) && (colName !== columnTag))  return def.resolve();
 
 
-            var dataColumn  = table.columns[columnTag];
-            var ctrl = $(el).data("customController");
+            const dataColumn = table.columns[columnTag];
+            const ctrl = $(el).data("customController");
             if (ctrl){
-                var self = this;
-                this.fillControl(el, fieldValue).then(function () {
-                    self.enableDisable(el, table, dataColumn);
-                })
-            } else {
+                const self = this;
+                return def.from(this.fillControl(el, fieldValue)
+                    .then(function () {
+                        self.enableDisable(el, table, dataColumn);
+                    }));
+            } 
+            else {
                 this.setControl(el, table, fieldValue, dataColumn);
                 this.enableDisable(el, table, dataColumn);
             }
@@ -1716,18 +1772,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * If "el" is a button linked to a grid managed by framewrok it enables it.
-         * @param {html button} el
+         * @param {element} el
          * @param {string} tag
          */
         setEnableGridButtons:function (el, tag) {
             if (!tag) return;
-            var cmd = this.getFieldLower(tag, 0);
-            var g = this.getLinkedGrid(el);
+            const cmd = this.getFieldLower(tag, 0);
+            const g = this.getLinkedGrid(el);
             if (!g) return;
             if (!g.tag) return;
-            var tableName = this.getTableName(g.tag);
+            const tableName = this.getTableName(g.tag);
             if (!tableName) return;
-            var someCurrData = (this.lastSelected(this.primaryTable) !== null);
+            const someCurrData = (this.lastSelected(this.primaryTable) !== null);
             if (cmd === ("edit") ||
                 cmd === ("insert") ||
                 cmd === ("delete") ||
@@ -1742,7 +1798,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Enables/Disables a button
-         * @param {Html button} btn
+         * @param {element} btn
          * @param {boolean} enable
          */
         enableButton:function (btn, enable) {
@@ -1758,13 +1814,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Enables/Disables a button "btn" depending on form status information
-         * @param {html button} btn
+         * @param {button} btn
          * @param {string} tag
          */
         setMainButtons:function (btn, tag) {
             if (!tag) return;
-            var cmd = this.getFieldLower(tag, 0);
-            var someCurrData = (this.lastSelected(this.primaryTable) !== null);
+            const cmd = this.getFieldLower(tag, 0);
+            const someCurrData = (this.lastSelected(this.primaryTable) !== null);
             switch (cmd) {
                 case "mainselect":
                 case "mainsetsearch":
@@ -1777,7 +1833,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return;
                 case "mainsave":
                 case "maindelete":
-                    var toEnable = (!this.pageState.isSearchState()) && someCurrData;
+                    const toEnable = (!this.pageState.isSearchState()) && someCurrData;
                     this.enableButton(btn, toEnable); //TO CHECK FOR MAINDOSEARCH IN LIST FORMS
                     return;
                 case "maininsertcopy":
@@ -1791,12 +1847,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         return;
                     }
 
-                    var tablename = this.getField(tag, 1);
+                    const tablename = this.getField(tag, 1);
                     if (!tablename) {
                         this.enableButton(btn, false);
                         return;
                     }
-                    var chooseTable = this.DS.tables[tablename];
+                    const chooseTable = this.DS.tables[tablename];
                     if (!chooseTable) {
                         this.enableButton(btn, false);
                         return;
@@ -1822,17 +1878,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Sets the value "value" on the control "el"
-         * @param {html node} el
+         * @param {element} el
          * @param {DataTable} table
          * @param {object} value
-         * @param {object(Column)} column
+         * @param {DataColumn} [column]
          */
         setControl: function (el, table, value, column) {
             if (value === null) {
                 this.clearControl(el);
             } else {
-                var columnType = column ? column.ctype : undefined;
-                var tagName = el.tagName;
+                const columnType = column ? column.ctype : undefined;
+                const tagName = el.tagName;
 
                 // 2) distinguo a seconda del tipo e popolo la riga trovata
                 switch (tagName.toUpperCase()) {
@@ -1843,22 +1899,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             case "PASSWORD":
                             case "TEXTAREA":
                                 this.setText(el, value, columnType);
-                                var hasFocus = $(el).is(':focus');
-                                if (hasFocus) this.lastValidText(el);
+                                if ($(el).is(':focus')) this.lastValidText(el);
                                 break;
                             case "CHECKBOX":
                                 this.setCheckBox(el, value, columnType);
                                 break;
                             case "RADIO":
-                                this.setRadioButton(el, value, columnType);
+                                this.setRadioButton(el, value);
                                 break;
                         }
 
                         break;
                     case "TEXTAREA":
                         this.setText(el, value, columnType);
-                        var hasFocus = $(el).is(':focus');
-                        if (hasFocus) this.lastValidText(el);
+                        if ($(el).is(':focus')) this.lastValidText(el);
                         break;
 
                     case "DIV":
@@ -1880,13 +1934,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Fills the label of control "el" with value "value"
-         * @param {HTML element} el
+         * @param {element} el
          * @param {object} value
          * @param {string} colType
          */
         setLabel: function(el, value, colType) {
             colType = colType || $.data(el, "mdlColType");
-            var lblvalue = new TypedObject(colType, value).stringValue(null);
+            const lblvalue = new TypedObject(colType, value).stringValue(null);
             $(el).html(lblvalue);
         },
 
@@ -1895,13 +1949,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Fills the signed group control "el"
-         * @param {html div| html span} el
+         * @param { div|  span} el
          * @param {object} val
          * @param {string} colType
          */
         fillValueSignedGroup: function(el, val, colType) {
             this.reEnable(el);
-            var textBox = this.searchValueTextBox(el);
+            const textBox = this.searchValueTextBox(el);
             if (!textBox) return;
 
             if (val === null || val === undefined) {
@@ -1910,11 +1964,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
             colType = colType || $.data(el, "mdlColType");
 
-            var sign = (parseInt(val) > 0);
-            if (!sign) val.value = - val.value;
+            const sign = (parseInt(val) > 0);
+            if (!sign) val = -val;
             $(textBox).val(new TypedObject(colType, val).stringValue(null));
             this.setSignForValueSigned(el, sign);
-
         },
 
         /**
@@ -1922,17 +1975,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Loops on radio button in groupbox "el" and sets the correct radio state based on "sign" value
-         * @param {Groupbox node} el
+         * @param {element} el - Groupbox
          * @param {boolean} sign
          */
         setSignForValueSigned: function(el, sign) {
             //recupera tutti i radio btn
-            var arrRadioBtn = $(el).find("input[type=radio]");
-            // cicla sui radio button e setta lo stato checked a seconda di quale radio Ë selezionato e se si tratta di quello con il segno "-"
+            const arrRadioBtn = $(el).find("input[type=radio]");
+            // cicla sui radio button e setta lo stato checked a seconda di quale radio √® selezionato e se si tratta di quello con il segno "-"
             _.forEach(
                 arrRadioBtn,
                 function(rb) {
-                    var tag = $(rb).data("tag");
+                    const tag = $(rb).data("tag");
                     if (tag) {
                         if (tag.toString() === "-") rb.checked = !sign;
                         if (tag.toString() === "+") rb.checked = sign;
@@ -1945,13 +1998,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Sets the text with the value "value" of the text control "el"
-         * @param {html node} el
+         * @param {element} el
          * @param {object} value
          * @param {undefined | string} colType
          */
         setText: function(el, value, colType) {
             colType = colType || $(el).data("mdlColType");
-            var tag = this.getStandardTag($(el).data("tag"));
+            const tag = this.getStandardTag($(el).data("tag"));
             $(el).val(new TypedObject(colType, value, tag).stringValue(tag));
         },
 
@@ -1960,7 +2013,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Sets the checkbox "el" based on value "value" (value read from dataset)
-         * @param {html node} el
+         * @param {element} el
          * @param {object} value
          * @param {string} colType
          */
@@ -1968,12 +2021,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             colType = colType || $(el).data("mdlColType");
 
             //va anche ragionato e potremmo stabilire che in fase di fill lo mettiamo sempre a false
-            //$(el).data("threestate", metaModel.allowDbNull(col) && !metaModel.denyNull(col));
+            //$(el).data("threestate", metaModel.allowNull(col) && !metaModel.denyNull(col));
 
-            var tag = this.getStandardTag($(el).data("tag"));
-            var pos = tag.indexOf(':');
+            const tag = this.getStandardTag($(el).data("tag"));
+            const pos = tag.indexOf(':');
             if (pos === -1) return;
-            var values = tag.substring(pos + 1).trim();
+            let values = tag.substring(pos + 1).trim();
             if (value === null || value === undefined) {
                 $(el).prop("checked", false);
                 $(el).data("mdlindeterminate", true);
@@ -1982,30 +2035,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
 
             if (values.indexOf(":") === -1) {
-                var negato = false;
+                let negato = false;
                 if (values.startsWith("#")) {
                     negato = true;
                     values = values.substring(1);
                 }
-                var nbit = parseInt(values);
-                var aval = 1;
+                const nbit = parseInt(values);
+                let aval = 1;
                 aval = aval << (nbit);
-                var currval = value;
-                var x = parseInt(currval);
-                var valore = ((x & aval) === aval);
+                const currval = value;
+                const x = parseInt(currval);
+                let valore = ((x & aval) === aval);
                 if (negato) valore = !valore;
                 $(el).prop("indeterminate", false);
                 el.checked = valore;
             }
             else {
-                var yValue = values.split(":", 2)[0].trim();
+                const yValue = values.split(":", 2)[0].trim();
                 //var nValue = values.split(":", 2)[1].trim();
                 // confronto le stringhe esatte
-                var rowvalue = stringFromJsObj(colType, value);
+                const rowvalue = stringFromJsObj(colType, value);
 
                 // double conversion is necessary if we want to allow date or floating numbers as values
-                var rowYvalue = stringFromJsObj(colType, jsObjFromString(colType, yValue));
-                $(el).prop("indeterminate", false); // forzo a false poichË se fosse true, ad esempio nelal clear poi anche se faccio .checked lo lascia indeterminate!!
+                const rowYvalue = stringFromJsObj(colType, jsObjFromString(colType, yValue));
+                $(el).prop("indeterminate", false); // forzo a false poich√® se fosse true, ad esempio nelal clear poi anche se faccio .checked lo lascia indeterminate!!
                 el.checked = (rowvalue === rowYvalue);
             }
 
@@ -2016,36 +2069,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Sets the radio button "el" based on value "value" (value read from dataset)
-         * @param {html node} el
+         * @param {element} el
          * @param {object} value
          */
         setRadioButton: function(el, value) {
-            var tag = this.getStandardTag($(el).data("tag"));
-            var pos = tag.indexOf(":");
-            var cvalue = tag.substring(pos + 1).trim();
+            let tag = this.getStandardTag($(el).data("tag"));
+            let pos = tag.indexOf(":");
+            let cvalue = tag.substring(pos + 1).trim();
             if (!cvalue.startsWith(":")) {
-                var rowvalue = "";
+                let rowvalue = "";
                 if (value !== null && value !== undefined) rowvalue = value.toString();
-                if (rowvalue === cvalue)
-                    el.checked = true;
-                else
-                    el.checked = false;
+                el.checked = rowvalue === cvalue;
             }
             else {
                 //E' un campo bit,
                 cvalue = cvalue.substring(1);
-                var negato = false;
+                let negato = false;
                 if (cvalue.startsWith("#")) {
                     cvalue = cvalue.substring(1);
                     negato = true;
                 }
 
-                var nbit = parseInt(cvalue);
-                var aval = 1 << (nbit);
-                var currval = value;
+                const nbit = parseInt(cvalue);
+                const aval = 1 << (nbit);
+                let currval = value;
                 if (currval === null) currval = 0;
-                var x = parseInt(currval);
-                var valore = ((x & aval) === aval);
+                const x = parseInt(currval);
+                let valore = ((x & aval) === aval);
                 if (negato) valore = !valore;
 
                 el.checked = valore;
@@ -2060,16 +2110,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         chkBoxClick: function() {
             // "this" will be the control
-            // La normale gestione del checkbox Ë stata GIA applicata dal browser quindi ragioniamo A POSTERIORI
+            // La normale gestione del checkbox √® stata GIA applicata dal browser quindi ragioniamo A POSTERIORI
             // per correggere il comportamento ove non ci sta bene quello standard
-            var threestate = $(this).data("threestate");
+            const threestate = $(this).data("threestate");
             if (threestate) {
                 if ($(this).data("mdlindeterminate")) {
                     $(this).data("mdlindeterminate", false);
                     $(this).prop("checked", false);
                 } else {
                     if (!$(this).prop("checked")) {
-                        //da true Ë passato a false: doveva invece passare a indeterminate
+                        //da true √® passato a false: doveva invece passare a indeterminate
                         $(this).data("mdlindeterminate", true);
                         $(this).prop("checked", true);
                         $(this).prop("indeterminate", true);
@@ -2083,16 +2133,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Fixes control "el" properties to make it work with the framework
-         * @param {html Control} c
+         * @param {element} el
          */
         preScanControl: function(el) { //ex adjustTableForDisplay
-            var tag = this.getStandardTag($(el).data("tag"));
+            let tag = this.getStandardTag($(el).data("tag"));
             if (!tag) return;
-            var tagName = el.tagName.toUpperCase(); // INPUT/TABLE/SELECT...
+            const tagName = el.tagName.toUpperCase(); // INPUT/TABLE/SELECT...
             if (tagName === "BUTTON" ||
-                tagName === "SPAN") return; //avoids warning on not existing tables for buttons tag
+                tagName === "SPAN"||
+                tagName === "DIV"
 
-            var table = this.getTableName(tag);
+            ) return; //avoids warning on not existing tables for buttons tag
+
+            let table = this.getTableName(tag);
 
             if (!table) {
                 console.log("Element with tag " + tag + " of a "+tagName+"has not a valid Table in (Standard)Tag (" + table + ")");
@@ -2103,17 +2156,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 table = this.primaryTableName;
                 tag = tag.replace("TreeNavigator", table);
             }
-            var t = this.DS.tables[table];
+            const t = this.DS.tables[table];
             if (!t) {
                 console.log("Table  " + table + " of a "+tagName+ "  in (Standard)Tag (" + tag + ") does not exist in the dataset");
                 return;
             }
 
-            var subentity = this.existsDataAttribute(el, "subentity"); //flag che indica se la tabella Ë una subentit‡
+            const subentity = this.existsDataAttribute(el, "subentity"); //flag che indica se la tabella √® una subentit√†
             if (table !== this.primaryTableName && subentity) this.addExtraEntity(table);
 
-            var col;
-            var field;
+            let col;
+            let field;
             switch (tagName.toUpperCase()) {
                 case "INPUT":
                     field = this.getColumnName(tag);
@@ -2129,10 +2182,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     }
 
                     $.data(el, "mdlColType", col.ctype);
-                    var elType = $(el).attr("type").toUpperCase();
+                    const elType = $(el).attr("type").toUpperCase();
                     switch (elType) {
                         case "CHECKBOX":
-                            $(el).data("threestate", metaModel.allowDbNull(col) && !metaModel.denyNull(col));
+                            $(el).data("threestate", metaModel.allowNull(col) && !metaModel.denyNull(col));
                             $(el).on("click", this.chkBoxClick);
                             break;
                         case "TEXT":
@@ -2143,12 +2196,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             this.setStandardTag(el, tag);
                             $(el).attr("maxlength", metaModel.getMaxLen(col));
 
-                            var ctype = this.getCtypeTagFromElTag(tag);
-                            var fieldStyle = cssDefault.getColumnsAlignmentCssClass(ctype);
+                            let ctype = this.getCtypeTagFromElTag(tag);
+                            let fieldStyle = cssDefault.getColumnsAlignmentCssClass(ctype);
                             $(el).addClass(fieldStyle);
 
-
-                            // sui controlli data tolgo possibilit‡ di ricevere focus, con tab, per evitare
+                            // sui controlli data tolgo possibilit√† di ricevere focus, con tab, per evitare
                             // che si apra il calendarietto in automatico
                             if (ctype === "DateTime") $(el).attr('tabindex', '-1');
                             break;
@@ -2179,17 +2231,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     this.setStandardTag(el, tag);
                     $(el).attr("maxlength", metaModel.getMaxLen(col));
 
-                    var ctype = this.getCtypeTagFromElTag(tag);
-
-                    // sui controlli data tolgo possibilit‡ di ricevere focus, con tab, per evitare
+                    let ctype = this.getCtypeTagFromElTag(tag);
+                    // sui controlli data tolgo possibilit√† di ricevere focus, con tab, per evitare
                     // che si apra il calendarietto in automatico
                     if (ctype === "DateTime") $(el).attr('tabindex', '-1');
                     break;
             }
 
-
             //N.B: ---> Questo dovrebbe esser fatto nella prefillCustomControl che quindi chiama la prefill Del treeViewManager
-            // A sua volta lÏ dentro viene fatta la describeTree deferred
+            // A sua volta l√¨ dentro viene fatta la describeTree deferred
             /**
              if (typeof(hwTreeView).IsAssignableFrom(C.GetType())) {
                 MetaT.WebDescribeTree((hwTreeView)C, T, MetaT.ListingType(GridTag, 1));
@@ -2204,19 +2254,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Creates an instance of customController attaching it to an html element "el", if this is indicated by customControl data tag
-         * @param {html node} el
+         * @param {node} el
          */
         preScanCustomControl: function(el) {
-            var ctrlName = $(el).data("customControl");
-            var CustomController = app.CustomControl(ctrlName);
-            if (!CustomController) return;
+            const ctrlName = $(el).data("customControl");
+            const CustomController = app.CustomControl(ctrlName);
+            if (!CustomController) {
+                return;
+            }
 
             // recupero tableName dal tag
-            var tag = $(el).data("tag");
-            var tableName = this.getTableName(tag);
-            var table = this.DS.tables[tableName];
-            var primaryTable = this.primaryTable;
-            var cc = new CustomController(el, this, table, primaryTable);
+            const tag = $(el).data("tag");
+            const tableName = this.getTableName(tag);
+            const table = this.DS.tables[tableName];
+            const primaryTable = this.primaryTable;
+            const cc = new CustomController(el, this, table, primaryTable);
             if (cc.init) cc.init();
             $(el).data("customController", cc);
         },
@@ -2226,11 +2278,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Instantiates a customContainer Controller for control "el" if it has data-attribute "customContainer"
-         * @param {html node} el
+         * @param {node} el
          */
         preScanCustomContainer: function(el) {
-            var ctrlName = $(el).data("customContainer");
-            var CustomContainerController = app.CustomContainer(ctrlName);
+            const ctrlName = $(el).data("customContainer");
+            const CustomContainerController = app.CustomContainer(ctrlName);
             if (!CustomContainerController) return;
             $(el).data("containerController", new CustomContainerController(el, this));
         },
@@ -2244,7 +2296,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} tableWantedName
          * @param {jsDataQuery} filter
          * @param {SelectBuilder[]} selList
-         * @returns {Deferred}
+         * @returns Promise
          */
         preFillControls:function (tableWantedName, filter, selList) {
             return Deferred("preFillControls")
@@ -2254,14 +2306,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /**
          * @method preScanControls
          * @public
-         * @description SYNC
+         * @description ASYNC
          * Instantiates all customController for any html elements that requires it
+         * @returns Promise
          */
         preScanControls: function () {
-            this.iterateOverTag("tag", "preScanControl");
-            this.iterateOverTag("custom-control", "preScanCustomControl");
-            this.iterateOverTag("custom-container", "preScanCustomContainer");
-        },
+            return this.iterateOverTag("tag", "preScanControl")
+                .then(()=>this.iterateOverTag("custom-control", "preScanCustomControl"))
+                .then(()=>this.iterateOverTag("custom-container", "preScanCustomContainer"));
+                //.then(()=>console.log("preScanControls done"));
+       },
 
         /**
          * @method iterateOverTag
@@ -2271,54 +2325,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} tag
          * @param {function} task
          * @param {object} optParam
-         * @returns {Deferred}
+         * @returns Promise
          */
         iterateOverTag: function(tag, task, optParam) {
-            var self = this;
-            var allCtrlPromise = [];
+            let self = this;
+            let allCtrlPromise = [];
             $(this.rootElement)
                 .find(" [data-" + tag + "]")
-                .each(function () {
+                .each(function () { //"this" is the html element
                     if ($(this).parents("[data-custom-control]").length > 0) return true;
 
                     if ($(this).parents("[data-value-signed]").length > 0) return true;
 
-                    allCtrlPromise.push(self[task](this, optParam)); //"this" is the html element
+                    allCtrlPromise.push(self[task](this, optParam));
                 });
 
-            return Deferred("iterateOverTag").from($.when.apply($,allCtrlPromise));
+            return Deferred("iterateOverTag:"+task).from($.when.apply($,allCtrlPromise)).promise();
         },
 
         /**
          * @method fillControlsGroup
          * @public
          * @description ASYNC
-         * @param {string} parentel. the id of the parent html element . Ex "#myid"
+         * @param {string} [parentel] the id of the parent html element . Ex "#myid"
          * @returns {Deferred}
          */
 
         fillControlsGroup:function(parentel) {
-            var self = this;
-            var chain = $.when();
-            var allCtrlPromise = [];
+            const self = this;
+            let chain = $.when();
+            const allCtrlPromise = [];
 
             $(parentel)
                 .find("[data-tag]")
                 .each(function () {
+                    //"this" is the html element
                     if ($(this).parents("[data-custom-control]").length > 0) return true;
                     if ($(this).parents("[data-value-signed]").length > 0) return true;
-                    if (self.controlsmaster && this.tagName.toUpperCase() === 'SELECT') {
-                        var that = this;
+                    if (self.controlsmaster && (this.tagName.toUpperCase() === 'SELECT' || $(this).data("customController") )) {
+                        const that = this;
                         chain = chain.then(function () {
                             return self.fillControl(that);
                         });
                     } else {
-                        allCtrlPromise.push(self.fillControl(this)); //"this" is the html element
+                        allCtrlPromise.push(self.fillControl(this));
                     }
                 });
 
+
             allCtrlPromise.push(chain);
-            return Deferred("fillControlsGroup").from($.when.apply($, allCtrlPromise))
+            return Deferred("fillControlsGroup").from($.when.apply($, allCtrlPromise));
         },
 
         /**
@@ -2331,12 +2387,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {object} optParam
          */
         iterateOverCustomTag: function (task, optParam) {
-            var allCtrlPromise = [];
+            let allCtrlPromise = [];
             $(this.rootElement + " [data-custom-control] ")
-                .each(function(index, el) {
-                    var ctrl = $(el).data("customController");
+                .each(function(_, el) {
+                    const ctrl = $(el).data("customController");
                     if (!ctrl) return;
-                    if (!task in ctrl) return;
+                    if (!(task in ctrl)) return;
                     allCtrlPromise.push(ctrl[task](el, optParam));
                 });
             return Deferred("iterateOverCustomTag").from($.when.apply($, allCtrlPromise));
@@ -2344,41 +2400,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /**
          * @method getControl
-         * @private
+         * @internal
          * @description SYNC
          * Given an html element "el" reads its value and puts it into the main dataset
-         * @param {html node} el
+         * @param {node} el
          */
         getControl: function(el) {
-            var ctrl = $(el).data("customController");
+            let ctrl = $(el).data("customController");
 
-            var subentity = this.existsDataAttribute(el, "subentity"); //flag che indica se la tabella Ë una subentit‡
-            var eltag = $(el).data("tag");
-            var tagName = el.tagName; // prende il tipo, quindi se Ë text, checkbox, date, number, radio etc..
+            let subentity = this.existsDataAttribute(el, "subentity"); //flag che indica se la tabella √® una subentit√†
+            let eltag = $(el).data("tag");
+            let tagName = el.tagName; // prende il tipo, quindi se √® text, checkbox, date, number, radio etc..
 
             // check preliminare sul tipo di controllo
             if (tagName.toUpperCase() === "LABEL" || tagName.toUpperCase() === "BUTTON") return;
 
 
-            var tag = this.getStandardTag(eltag); // recupero il tag, serve per prendere tabella e colonna
-            var table = this.getTableName(tag); // this.getField(tag, 0);
+            let tag = this.getStandardTag(eltag); // recupero il tag, serve per prendere tabella e colonna
+            let table = this.getTableName(tag); // this.getField(tag, 0);
             if (!table) return;
-            if (!this.DS.tables[table]) return;
+            if (!this.DS.tables[table]){
+                if (table !== "AutoChoose") console.log("table "+table+" not found")
+                return;
+            }
 
             // checkboxlist per ora
             if (ctrl && ctrl.isCustomGetcontrol) return ctrl.getControl();
 
-            var column = this.getColumnName(tag);
+            const column = this.getColumnName(tag);
             if (!column) return;
             if (!this.DS.tables[table].columns[column]) return;
 
             // 1) retrieve table row from dataset
-            var objrow = null;
+            let objrow = null;
             if (table === this.primaryTableName) {
                 objrow = this.lastSelected(this.primaryTable);
             } else {
                 if (subentity) {
-                    var currPrimary = this.lastSelected(this.primaryTable);
+                    let currPrimary = this.lastSelected(this.primaryTable);
                     if (currPrimary !== null) {
                         objrow = this.getCurrChildRow(currPrimary, this.DS.tables[table]);
                     }
@@ -2440,14 +2499,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Returns column name from a tag that is in the format table.field[:val1:val2]
          * @param  {string} tag
-         * @returns {string} field name
+         * @returns {string|null} field name
          */
         getColumnName: function(tag) {
             tag = this.getLookup(tag);
-            var table = this.getTableName(tag);
+            let table = this.getTableName(tag);
             if (!table) return null;
-            var column = this.getField(tag, 1);
-            if (column == null) return null;
+            let column = this.getField(tag, 1);
+            if (!column) return null;
             return column;
         },
 
@@ -2462,11 +2521,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {string} "table.field"
          */
         getLookup: function(tag) {
-            if (tag == null) return null;
-            var s = tag.trim();
-            var pos = s.indexOf(":");
+            if (!tag) return null;
+            let s = tag.trim();
+            let pos = s.indexOf(":");
             if (pos === -1) return s;
-            var tablecolumn = s.substring(0, pos).trim();
+            let tablecolumn = s.substring(0, pos).trim();
             return tablecolumn.indexOf(".") === -1 ? null : tablecolumn;
         },
 
@@ -2475,14 +2534,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Reads value from a TextBox and puts it in a row field
-         * @param {html node} el
+         * @param {node} el
          * @param {string} fieldname
          * @param {ObjectRow} datarow
          * @param {string} eltag
          */
         getText: function(el, fieldname, datarow, eltag) {
-            var tag = this.getStandardTag(eltag);
-            var value = $(el).val();
+            const tag = this.getStandardTag(eltag);
+            const value = $(el).val();
             this.getString(value, fieldname, datarow, tag, true);
         },
 
@@ -2491,14 +2550,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Reads value from a TextBox and puts it in a row field
-         * @param {html node} el
+         * @param {node} el
          * @param {string} fieldname
          * @param {ObjectRow} datarow
          * @param {string} eltag
          */
         getTextArea: function(el, fieldname, datarow, eltag) {
-            var tag = this.getStandardTag(eltag);
-            var value = $(el).val();
+            let tag = this.getStandardTag(eltag);
+            let value = $(el).val();
             this.getString(value, fieldname, datarow, tag);
         },
 
@@ -2507,35 +2566,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Gets value from a CheckBox and puts it in a row field
-         * @param {html node} el
+         * @param {node} el
          * @param {string} fieldname
          * @param {ObjectRow} datarow
          * @param {string} eltag
          */
         getCheckBox: function(el, fieldname, datarow, eltag) {
-            var tag = this.getStandardTag(eltag);
-            var checked = !el.checked ? false : el.checked;
-            var pos = tag.indexOf(":");
+            let tag = this.getStandardTag(eltag);
+            let checked = !el.checked ? false : el.checked;
+            let pos = tag.indexOf(":");
             if (pos === -1) return;
             // predno la parte di stringa valueYes
-            var values = tag.substring(pos + 1).trim();
+            let values = tag.substring(pos + 1).trim();
             // vedo se manca il valueNo
             if (values.indexOf(":") === -1) {
                 if ($(el).prop("indeterminate")) return;
 
-                var negato = false;
+                let negato = false;
                 if (values.startsWith("#")) {
                     negato = true;
                     values = values.substring(1);
                 }
 
-                var nbit = parseInt(values);
-                var val = 1;
+                let nbit = parseInt(values);
+                let val = 1;
                 val = val << (nbit);
-                var currval = datarow[fieldname];
+                let currval = datarow[fieldname];
                 if (currval === null) currval = 0;
-                var x = parseInt(currval);
-                var valore = checked;
+                let x = parseInt(currval);
+                let valore = checked;
                 if (negato) valore = !valore;
                 if (valore)
                     x = x | val;
@@ -2546,22 +2605,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
 
             // limito il num di split a 2
-            var yValue = values.split(":", 2)[0].trim();
-            var nValue = values.split(":", 2)[1].trim();
+            let yValue = values.split(":", 2)[0].trim();
+            let nValue = values.split(":", 2)[1].trim();
 
-            var newvalue;
-            var dRow = datarow.getRow();
-            var rowvalue = stringFromJsObj(dRow.table.columns[fieldname].ctype, datarow[fieldname]);
+            let newvalue;
+            let dRow = datarow.getRow();
+            let rowvalue = stringFromJsObj(dRow.table.columns[fieldname].ctype, datarow[fieldname]);
             if ($(el).prop("indeterminate")) {
                 datarow[fieldname] = null;
             } else {
 
                 newvalue = checked ? yValue : nValue;
 
-                // aggiorno solamente se Ë differente
+                // aggiorno solamente se √® differente
                 if (newvalue !== rowvalue) {
-                    var selectedValueJsObj = jsObjFromString(dRow.table.columns[fieldname].ctype, newvalue);
-                    datarow[fieldname] = selectedValueJsObj;
+                    datarow[fieldname] = jsObjFromString(dRow.table.columns[fieldname].ctype, newvalue);
                 }
             }
         },
@@ -2571,32 +2629,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Gets value selected from a html radiobutton and puts it in a row field
-         * @param {html element}el
+         * @param {element}el
          * @param {string} fieldName
          * @param {ObjectRow} objectRow
          * @param {string} eltag
          */
         getRadioButton: function(el, fieldName, objectRow, eltag) {
-            var tag = this.getStandardTag(eltag);
-            var pos = tag.indexOf(":");
+            let tag = this.getStandardTag(eltag);
+            let pos = tag.indexOf(":");
             if (pos === -1) return;
-            var cvalue = tag.substring(pos + 1).trim();
+            let cvalue = tag.substring(pos + 1).trim();
 
             if (cvalue.startsWith(":")) {
-                var negato = false;
+                let negato = false;
                 cvalue = cvalue.substring(1);
                 if (cvalue.startsWith("#")) {
                     cvalue = cvalue.substring(1);
                     negato = true;
                 }
 
-                var nbit = parseInt(cvalue);
-                var val = 1;
+                const nbit = parseInt(cvalue);
+                let val = 1;
                 val = val << (nbit);
-                var currval = objectRow[fieldName];
+                let currval = objectRow[fieldName];
                 if (currval === null) currval = 0;
-                var x = currval;
-                var valore = el.checked;
+                let x = currval;
+                let valore = el.checked;
                 if (negato) valore = !valore;
                 if (valore)
                     x = x | val;
@@ -2607,8 +2665,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             } else {
                 if (el.checked) {
-                    var dRow = objectRow.getRow();
-                    var rowvalue = stringFromJsObj(dRow.table.columns[fieldName].ctype, objectRow[fieldName]);
+                    const dRow = objectRow.getRow();
+                    const rowvalue = stringFromJsObj(dRow.table.columns[fieldName].ctype, objectRow[fieldName]);
                     if (rowvalue !== cvalue)
                         objectRow[fieldName] = jsObjFromString(dRow.table.columns[fieldName].ctype, cvalue);
                 }
@@ -2621,25 +2679,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Gets a value in a ValueSigned groupbox and puts it in a row field
-         * @param {html element} el
+         * @param {element} el
          * @param {string} fieldname
          * @param {ObjectRow} objectRow
          */
         getValueSignedGroup: function(el, fieldname, objectRow) {
-            var t = this.searchValueTextBox(el);
+            let t = this.searchValueTextBox(el);
             if (t === null) return;
-            var val = $(t).val();
-            var dRow = objectRow.getRow();
-            var obj = new TypedObject(dRow.table.columns[fieldname].ctype, val);
+            let val = $(t).val();
+            let dRow = objectRow.getRow();
+            let obj = new TypedObject(dRow.table.columns[fieldname].ctype, val);
             if (obj.value === null) {
                 this.getString("", fieldname, objectRow, null);
                 return;
             }
-            var sign = this.getSignForValueSigned(el);
-            if (!sign) obj.value = (-1) * obj.value; // se Ë negativo rendo il valore pos
+            let sign = this.getSignForValueSigned(el);
+            if (!sign) obj.value = (-1) * obj.value; // se √® negativo rendo il valore pos
             // da qui in poi fa le operazioni per settare il valore sul dataset
-            var tag = this.getStandardTag($(t).data("tag"));
-            var s = obj.stringValue(tag);
+            let tag = this.getStandardTag($(t).data("tag"));
+            let s = obj.stringValue(tag);
             this.getString(s, fieldname, objectRow, tag);
         },
 
@@ -2653,12 +2711,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         getSignForValueSigned: function(el) {
             //recupera tutti i radio btn
-            var arrRadioBtn = $(el).find("input[type=radio]");
+            const arrRadioBtn = $(el).find("input[type=radio]");
 
-            // ciclas sui radio button e torna true eo false a seconda di quale radio Ë selezionato e se si tratta di quello con il segno "-"
-            for (var i = 0; i < arrRadioBtn.length; i++) {
-                var rb = arrRadioBtn[i];
-                var tag = $(rb).data("tag");
+            // ciclas sui radio button e torna true eo false a seconda di quale radio √® selezionato e se si tratta di quello con il segno "-"
+            for (let i = 0; i < arrRadioBtn.length; i++) {
+                const rb = arrRadioBtn[i];
+                const tag = $(rb).data("tag");
                 if (!tag) continue;
                 if (tag.toString() === "-") {
                     if (rb.checked) return false;
@@ -2672,12 +2730,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @method searchValueTextBox
          * @private
          * @description SYNC
-         * Retiurns the textbox input in a value signed group control "el". If there are more textboxes it assumes the first.
-         * @param {html node} el  value sign group
-         * @return  {html node}
+         * Returns the textbox input in a value signed group control "el". If there are more textboxes it assumes the first.
+         * @param {element} el  value sign group
+         * @return  {element}
          */
         searchValueTextBox: function(el) {
-            var arrTxtInput = $(el).find("input[type=text]:first");
+            const arrTxtInput = $(el).find("input[type=text]:first");
             if (arrTxtInput && arrTxtInput.length > 0) {
                 return arrTxtInput[0];
             }
@@ -2703,26 +2761,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} tag
          */
         getString: function(s, fieldname, dataRow, tag, replaceCRLF) {
-            var dRow = dataRow.getRow();
+            const dRow = dataRow.getRow();
             tag = this.completeTag(tag, dRow.table.columns[fieldname]);
 
-            var pObjOrig = new  TypedObject(dRow.table.columns[fieldname].ctype, dataRow[fieldname], tag);
+            const pObjOrig = new TypedObject(dRow.table.columns[fieldname].ctype, dataRow[fieldname], tag);
 
             // appMeta.getDataUtils.normalizeDataWithoutOffsetTimezone(new  TypedObject(dRow.table.columns[fieldname].ctype, "18/05/2019 00:00", tag).value)
 
-            // se Ë date e non datetime, quindi non ci sono ore e minuti per effettuare il check in ,maniera corretta
-            // potrei far diventare il valore un datetime con 00:00 e poi lo normalizzo, cosÏ per averlo come quello del datarow
+            // se √® date e non datetime, quindi non ci sono ore e minuti per effettuare il check in ,maniera corretta
+            // potrei far diventare il valore un datetime con 00:00 e poi lo normalizzo, cos√¨ per averlo come quello del datarow
             // appMeta.getDataUtils.normalizeDataWithoutOffsetTimezone(new  TypedObject(dRow.table.columns[fieldname].ctype, "18/05/2019 00:00", tag).value)
             // Oppure confronto solo la parte del giorno non il getTime(). UTILIZZO questo procedimento in (***)
 
-            var pObjToEvaluate = new  TypedObject(dRow.table.columns[fieldname].ctype, s, tag);
+            const pObjToEvaluate = new TypedObject(dRow.table.columns[fieldname].ctype, s, tag);
             if (!!pObjOrig.value && !!pObjToEvaluate.value){
               if (pObjToEvaluate.value instanceof  Date){
                   // (***) se un tipo Date a database confronto solo il giorno dd/mm/yyyy
                   if (s.length === 10){
                       if (pObjToEvaluate.value.getTime() ===  pObjOrig.value.setHours(0,0,0,0)) return;
                   } else {
-                      // confronto tra date, verifico se Ë la stessa
+                      // confronto tra date, verifico se √® la stessa
                       if (pObjToEvaluate.value.getTime() ===  pObjOrig.value.getTime()) return;
                   }
               } else {
@@ -2735,14 +2793,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               }
             }
 
-            // eseguo questo check cosÏ s se Ë stringa vuota e il valore attuale Ë comunque nullo non effetto l'assegnazione, la quale
-            // farebbe scattare la riga a stato modified, quando invece non lo Ë
+            // eseguo questo check cos√¨ s se √® stringa vuota e il valore attuale √® comunque nullo non effetto l'assegnazione, la quale
+            // farebbe scattare la riga a stato modified, quando invece non lo √®
             if (!pObjOrig.value && !pObjToEvaluate.value && pObjToEvaluate.value !== 0 && pObjOrig.value !== 0 ){
-                return
+                return;
             }
-            var value = null;
+            let value = null;
             if (s!== undefined && s !== null) {
-                // far‡ lo shift della data solo in caso di JSON.stringfy per evitare di inviare al server date traslate del timeoffset
+                // far√† lo shift della data solo in caso di JSON.stringfy per evitare di inviare al server date traslate del timeoffset
                 // Vedi funz normalizeDate su getDataUtils()
                 value = new TypedObject(dRow.table.columns[fieldname].ctype, s, tag).value;
             }
@@ -2760,7 +2818,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @return {string}
          */
         completeTag: function(tag, c) {
-            var fmt = this.getField(tag, 2);
+            let fmt = this.getField(tag, 2);
             if (fmt) return tag;
             fmt = this.getFormatForColumn(c);
             if (!fmt) return tag;
@@ -2793,8 +2851,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         checkTag: function(tag) {
             if (!tag) return false;
             tag = tag.trim();
-            var table = this.getTableName(tag);
-            var column = this.getColumnName(tag);
+            let table = this.getTableName(tag);
+            let column = this.getColumnName(tag);
             if ((table === null) || (column === null)) return false;
             return true;
         },
@@ -2805,23 +2863,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Returns the ctype of the column associated to the "tag" of the element
          * @param {string} tag
-         * @returns {string}
+         * @returns {string|null}
          */
         getCtypeTagFromElTag: function(tag) {
-            var sTag = this.getStandardTag(tag);
+            const sTag = this.getStandardTag(tag);
             if (!sTag) return null;
 
             //check preliminari
-            var table = this.getTableName(sTag);
+            const table = this.getTableName(sTag);
             if (table === null) return null;
             if (!this.DS.tables[table]) return null;
 
-            var column = this.getColumnName(sTag);
+            const column = this.getColumnName(sTag);
             if (column === null) return null;
             if (!this.DS.tables[table].columns[column]) return null;
 
-            var ctype = this.DS.tables[table].columns[column].ctype;
-            return ctype;
+            return this.DS.tables[table].columns[column].ctype;
         },
 
         /**
@@ -2853,8 +2910,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         getStandardTag: function(tag) {
             if (!tag) return null;
-            var s = tag.toString().trim();
-            var pos = s.indexOf("?");
+            const s = tag.toString().trim();
+            const pos = s.indexOf("?");
             if (pos === -1) return this.blankToNull(s);
             return this.blankToNull(s.substring(0, pos));
         },
@@ -2864,17 +2921,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Sets standard tag of control "el" from a tag object
-         * @param {html node} el
+         * @param {node} el
          * @param  {string} tag
          */
         setStandardTag: function(el, tag) {
-            var eltag = $(el).data("tag");
+            const eltag = $(el).data("tag");
             if (!eltag) {
                 $(el).data("tag", tag);
                 return;
             }
-            var s = eltag.toString().trim();
-            var pos = s.indexOf("?");
+            const s = eltag.toString().trim();
+            const pos = s.indexOf("?");
             if (pos === -1) {
                 $(el).data("tag", tag);
             } else {
@@ -2892,8 +2949,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         getSearchTag: function(tag) {
             if (!tag) return null;
-            var s = tag.toString().trim();
-            var pos = s.indexOf("?");
+            const s = tag.toString().trim();
+            const pos = s.indexOf("?");
             if (pos === -1) return this.blankToNull(s);
             return this.blankToNull(s.substring(pos + 1));
         },
@@ -2930,17 +2987,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Gets/Sets last selected row "row" in table "datatable", if it exists
          * @param {DataTable} datatable
-         * @param [{ObjectRow}] row
+         * @param {ObjectRow} [row]
          * @returns {ObjectRow}
          */
         lastSelected: function(datatable, row) {
             if (row || row === null) {
                 datatable.lastSelectedRow = row;
-                // nel caso si tratti di primary table, mantnego sincronizzata il currentRow sullo stato.
+                // nel caso si tratti di primary table, mantengo sincronizzata il currentRow sullo stato.
                 if (datatable.name === this.primaryTableName) this.pageState.currentRow = row;
                 return row;
             } else {
-                var r = datatable.lastSelectedRow;
+                const r = datatable.lastSelectedRow;
                 if (r === null || r === undefined) return null;
                 if (!r.getRow) return null; // nel caso detached getRow viene tolto. La riga successiva la lasciamo per robustezza
                 if (r.getRow().state === dataRowState.detached) return null;
@@ -2978,7 +3035,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         getField: function(tag, tagNumber) {
             if (tag === null || tag === "" || tag === undefined) return null;
-            var tagArray = tag.split(".");
+            const tagArray = tag.split(".");
             if (tagNumber >= tagArray.length) return null;
             return tagArray[tagNumber];
         },
@@ -2996,8 +3053,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         getLastField:function(s, nfield) {
             if (!s) return null;
             s = s.trim();
-            var n = 0;
-            var pos = -1;
+            let n = 0;
+            let pos = -1;
             while (n < nfield) {
                 pos = s.indexOf(".", pos + 1);
                 n++;
@@ -3011,13 +3068,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Loops on "container" control children, managed by the framework, and builds the search clause for a specific "tableName"
-         * @param {html node} container
+         * @param {node} container
          * @param {string} tableName
          * @returns {jsDataQuery}
          */
         iterateGetSpecificSearchCondition:function(container, tableName) {
-            var conditions = [];
-            var self = this;
+            const conditions = [];
+            const self = this;
             container = container || this.rootElement;
             $(container)
                 .find("[data-tag]")
@@ -3030,7 +3087,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         return;
                     }
 
-                    var clause = self.getSpecificSearchCondition(this, tableName);
+                    const clause = self.getSpecificSearchCondition(this, tableName);
                     if (clause !== null ){
                         conditions.push(clause);
                     }
@@ -3052,8 +3109,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {jsDataQuery}
          */
         iterateGetSearchCondition:function() {
-            var conditions = [];
-             var self = this;
+            const conditions = [];
+            const self = this;
             $(this.rootElement)
                 .find("[data-tag]")
                 .each(function() {
@@ -3066,7 +3123,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         return;
                     }
 
-                    var clause = self.getSearchCondition(this);
+                    const clause = self.getSearchCondition(this);
                     if (clause !== null ){
                         conditions.push(clause);
                     }
@@ -3085,26 +3142,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns Search condition on a specific table
-         * @param {Html node} el
+         * @param {element} el
          * @param {string} specTable name of table to search
          * @returns {jsDataQuery}
          */
         getSpecificSearchCondition:function (el, specTable) {
             if ($(el).attr("disabled")) return null;
             if ($(el).attr("readonly")) return null;
-            var eltag = $(el).data("tag");
-            var tag = this.getStandardTag(eltag);
+            const eltag = $(el).data("tag");
+            const tag = this.getStandardTag(eltag);
             if (!tag) return null;
 
-            var table = this.getTableName(tag);  //we assume this as search table
+            const table = this.getTableName(tag);  //we assume this as search table
             if (!table) return null;
 
             if (table !== specTable) return null;
 
-            var searchTable = this.DS.tables[table];
-            var column = this.getColumnName(tag);
+            const searchTable = this.DS.tables[table];
+            const column = this.getColumnName(tag);
             if (column === null) return null;
-            var col = searchTable.columns[column];
+            const col = searchTable.columns[column];
             if (!col) return null;
 
             return this.getSearchFromControl(el, col, tag);
@@ -3115,36 +3172,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Returns the search clause for the control "el"
-         * @param {Html node} el
+         * @param {element} el
          * @return {jsDataQuery}
          */
         getSearchCondition:function (el) {
-            var eltag = $(el).data("tag");
-            var tagSearch = this.getSearchTag(eltag);
-            var tagStandard = this.getStandardTag(eltag);
+            let eltag = $(el).data("tag");
+            let tagSearch = this.getSearchTag(eltag);
+            let tagStandard = this.getStandardTag(eltag);
             if (!tagSearch) return null;
-            var mainCType = $(el).data("mdlColType");
+            const mainCType = $(el).data("mdlColType");
 
             // osservo se il custom control ha una sua getSearchCondition()
             if ($(el).data("customController")){
-                var getSearchCondition = $(el).data("customController")["getSearchCondition"];
+                const getSearchCondition = $(el).data("customController").getSearchCondition;
                 if (getSearchCondition) return getSearchCondition($(el).data("customController"));
             }
 
-            var tableSearchName = this.getTableName(tagSearch); //SEARCH TABLE
-            var tableStandardName = this.getTableName(tagStandard); //EDIT TABLE
+            let tableSearchName = this.getTableName(tagSearch); //SEARCH TABLE
+            let tableStandardName = this.getTableName(tagStandard); //EDIT TABLE
 
             if ((tableSearchName === tableStandardName) &&
-                (tableSearchName !== this.primaryTableName)
-                && !this.hasSpecificSearchTag(eltag)) return null;
-            var searchTable = this.DS.tables[tableSearchName];
-            var columnSearch = this.getColumnName(tagSearch);
+                (tableSearchName !== this.primaryTableName) &&
+                 !this.hasSpecificSearchTag(eltag)) return null;
+            let searchTable = this.DS.tables[tableSearchName];
+            let columnSearch = this.getColumnName(tagSearch);
             if (columnSearch === null) return null;
-            var maincol = this.getColumnName(tagStandard);
-            var col = null;
-            if (maincol) {
-                if (this.primaryTable.columns[maincol])
-                    col = this.primaryTable.columns[maincol];
+            let mainCol = this.getColumnName(tagStandard);
+            let col = null;
+            if (mainCol) {
+                if (this.primaryTable.columns[mainCol])
+                    col = this.primaryTable.columns[mainCol];
             }
             if (!col) col = this.getSuitableColumnForSearchTag(tagSearch, mainCType);
             if (searchTable) {
@@ -3164,15 +3221,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @return {DataColumn} DataColumn
          */
         getSuitableColumnForSearchTag:function (tagSearch, cType) {
-            var colname = this.getColumnName(tagSearch);
+            let colname = this.getColumnName(tagSearch);
             if (!colname ) colname = "temp";
-            var fmt = this.getFieldLower(tagSearch, 2);
+            let fmt = this.getFieldLower(tagSearch, 2);
             if (!fmt) fmt = "";
             fmt = fmt.toUpperCase();
             if ((fmt === "")) {
-                var tabname = this.getTableName(tagSearch);
+                const tabname = this.getTableName(tagSearch);
                 if ( this.DS.tables[tabname]) {
-                    var t = this.DS.tables[tabname];
+                    const t = this.DS.tables[tabname];
                     if (t.columns[colname]) return t.columns[colname];
                 }
                 // not_TO_DO IMPLEMENTARE PROSSIMA RIGA. Fare prima classe Dataccess
@@ -3195,23 +3252,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns the search clause for the control "el"
-         * @param {Html node} el
+         * @param {element} el
          * @param {DataColumn} col
          * @param {String} tagSearch
          * @returns {jsDataQuery}
          */
         getSearchFromControl:function (el, col, tagSearch) {
-            var tagName = el.tagName;
+            let tagName = el.tagName;
 
-            // 1. Caso: controllo custom
-            var ctrl = $(el).data("customController");
+            // 1¬∞ Caso: controllo custom
+            const ctrl = $(el).data("customController");
             if (ctrl){
-                if (ctrl["getSearchControl"]) return ctrl["getSearchControl"](el, col, tagSearch);
+                if (ctrl.getSearchControl) return ctrl.getSearchControl(el, col, tagSearch);
                 logger.log(logType.WARNING, "control " + ctrl.constructor.name + " has not getSearchControl() method");
                 return null;
             }
 
-            // 2. Caso: controlli base
+            // 2¬∞ Caso: controlli base
             switch (tagName.toUpperCase()) {
                 case "INPUT":
                     switch ($(el).attr("type").toUpperCase()) {
@@ -3228,7 +3285,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     break;
                 case "TEXTAREA":
                     return this.getSearchText(el, col, tagSearch);
-                    break;
                 case "DIV":
                 case "SPAN":
                     if (this.isManagedCollection(el)) return this.getSearchFromManagedCollection(el);
@@ -3243,30 +3299,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns the search clause for the textbox control "el"
-         * @param {html node} el
+         * @param {element} el
          * @param {DataColumn} col
          * @param {String} tagSearch
          * @returns {jsDataQuery}
          */
         getSearchText:function (el, col,  tagSearch) {
-            var val = $(el).val();
+            const val = $(el).val();
             if (val === "") return null;
-            var searchcol = this.getColumnName(tagSearch);
-            var tag = this.completeTag(tagSearch, col);
+            const searchcol = this.getColumnName(tagSearch);
+            const tag = this.completeTag(tagSearch, col);
 
-            var obj =  new TypedObject(col.ctype, val, tag);
-            var sqltype = col.sqltype;
+            const obj = new TypedObject(col.ctype, val, tag);
+            const sqltype = col.sqltype;
 
             if ((obj.value !== null) && (sqltype === "text")) {
-                var s = obj.value.toString();
+                let s = obj.value.toString();
                 if (s.indexOf("%") === -1) s += "%";
                 obj.value = s;
             }
 
             if (obj.value === null) return null;
-            var fmt = this.getFieldLower(tag, 2);
-            if ((col.ctype === "DateTime") && (this.isOnlyTimeStyle(fmt)) && ( !(obj.getTime() === new Date("1000-01-01").getTime()))) {
-                /* TODO QUESTO Ë un CASO particolare. Poi lo vediamo
+            const fmt = this.getFieldLower(tag, 2);
+            if ((col.ctype === "DateTime") && (this.isOnlyTimeStyle(fmt)) && ( (obj.getTime() !== new Date("1000-01-01").getTime()))) {
+                /* TODO QUESTO √® un CASO particolare. Poi lo vediamo
                  var c1 = q.eq("(DATEPART(hh," + searchcol + ")",  obj.value.getHours());
                  var c2 = q.eq("(DATEPART(hh," + searchcol + ")",  obj.value.getMinutes());
                  var c3 = q.eq("(DATEPART(hh," + searchcol + ")",  obj.value.getSeconds());
@@ -3292,16 +3348,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         compareLikeFields: function (fieldname, val, type) {
             if (type === "String") {
-                var s = stringFromJsObj(type, val); // solo per eccesso di sicurezza. E' gi‡ stringa se il type Ë string
+                const s = stringFromJsObj(type, val); // solo per eccesso di sicurezza. E' gi√† stringa se il type √® string
 
-                // se Ë configurato a livello di app sempre "like", altrimenti vedo se utente ha messo carattere "%"
+                // se √® configurato a livello di app sempre "like", altrimenti vedo se utente ha messo carattere "%"
                 if (appMeta.config.enableSearchLikeOnTextBox) {
                     return q.like(fieldname, "%" + s + "%");
                 } else if (s.indexOf("%") >= 0){
                     return q.like(fieldname, s);
                 }
             }
-            if (type === "DateTime") val = getDataUtils.normalizeDataWithoutOffsetTimezone(val, true);
+            //if (type === "DateTime") val = getDataUtils.normalizeDataWithoutOffsetTimezone(val, true);
             return q.eq(fieldname, val);
         },
 
@@ -3310,7 +3366,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns the search clause for the checkbox control "el"
-         * @param {Html node} el
+         * @param {element} el
          * @param {DataColumn} col
          * @param {String} tagSearch
          * @return {jsDataQuery}
@@ -3318,12 +3374,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         getSearchCheckBox:function (el, col, tagSearch) {
             if ($(el).prop("indeterminate")) return null;
 
-            var checked = !!el.checked;
+            let checked = !!el.checked;
 
-            var searchcol = this.getColumnName(tagSearch);
-            var pos = tagSearch.indexOf(":");
+            const searchcol = this.getColumnName(tagSearch);
+            const pos = tagSearch.indexOf(":");
             if (pos === -1) return null;
-            var values = tagSearch.substring(pos + 1).trim();
+            let values = tagSearch.substring(pos + 1).trim();
 
             if (values.indexOf(":") === -1) {
                 if (values.startsWith("#")) {
@@ -3331,16 +3387,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     values = values.substring(1);
                 }
 
-                var nBit = parseInt(values);
+                const nBit = parseInt(values);
                 return checked ? q.bitClear(searchcol, 0) : q.bitSet(searchcol, nBit);
             }
 
-            var yValue = values.split(":", 2)[0].trim();
-            var nValue = values.split(":", 2)[1].trim();
+            const yValue = values.split(":", 2)[0].trim();
+            const nValue = values.split(":", 2)[1].trim();
 
-            var newvalue = checked ? yValue : nValue;
+            const newvalue = checked ? yValue : nValue;
 
-            var obj =  new TypedObject(col.ctype, newvalue, tagSearch);
+            const obj = new TypedObject(col.ctype, newvalue, tagSearch);
             return this.compareLikeFields(searchcol, obj.value, obj.typeName);
         },
 
@@ -3349,32 +3405,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns the search clause for the radioButton control "el"
-         * @param {Html node} el
+         * @param {element} el
          * @param {DataColumn} col
          * @param {String} tagSearch
          * @return {jsDataQuery}
          */
         getSearchRadioButton:function (el, col, tagSearch) {
-            var searchcol = this.getColumnName(tagSearch);
-            var pos = tagSearch.indexOf(":");
-            var cValue = tagSearch.substring(pos + 1).trim();
+            const searchcol = this.getColumnName(tagSearch);
+            const pos = tagSearch.indexOf(":");
+            let cValue = tagSearch.substring(pos + 1).trim();
             if (!cValue.startsWith(":")) {
                 if (el.checked) {
-                    var obj =  new TypedObject(col.ctype, cValue, null);
+                    const obj = new TypedObject(col.ctype, cValue, null);
                     if (obj.value === null) return null;
                     return this.compareLikeFields(searchcol, obj.value, obj.typeName);
                 }
             }
             else {
                 cValue = cValue.substring(1);
-                var negato = false;
+                let negato = false;
 
                 if (cValue.startsWith("#")) {
                     negato = true;
                     cValue = cValue.substring(1);
                 }
 
-                var nBit = parseInt(cValue);
+                const nBit = parseInt(cValue);
                 if (el.checked) return negato ? q.bitClear(searchcol, nBit) : q.bitSet(searchcol, nBit);
 
             }
@@ -3387,11 +3443,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns the search clause for the managed collection control "el". (usually it is a valueSigned)
-         * @param {Html node} el
+         * @param {element} el
          * @return {jsDataQuery}
          */
         getSearchFromManagedCollection:function (el) {
-            var eltag = $(el).data("tag");
+            const eltag = $(el).data("tag");
             if (!eltag) return null;
             if ($(el).data("valueSigned") !== undefined) return this.getSearchFromValueSigned(el);
             return null;
@@ -3402,35 +3458,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Returns the search clause for the valueSigned control "el"
-         * @param {Html node} el
+         * @param {element} el
          * @return {v}
          */
         getSearchFromValueSigned:function (el) {
-            var eltag = $(el).data("tag");
-            var tag = this.getSearchTag(eltag);
+            let eltag = $(el).data("tag");
+            let tag = this.getSearchTag(eltag);
             if (!tag) return null;
 
-            var textbox = this.searchValueTextBox(el);
-            var val = $(textbox).val();
+            const textbox = this.searchValueTextBox(el);
+            const val = $(textbox).val();
             if (!textbox) return null;
             if (!val) return null;
 
-            var tn = this.getTableName(tag);
-            var cn = this.getColumnName(tag);
+            let tn = this.getTableName(tag);
+            let cn = this.getColumnName(tag);
             if (!cn) return null;
 
-            var colname = cn;
-            var coltype = "String";
-            var ttn = this.DS.tables[tn];
-            var col;
+            let colname = cn;
+            let coltype = "String";
+            let ttn = this.DS.tables[tn];
+            let col;
             if (ttn) {
                 col = ttn.columns[cn];
                 if (col) coltype = col.ctype;
             }
 
-            var obj = new TypedObject(coltype, val, tag);
+            let obj = new TypedObject(coltype, val, tag);
             if (!obj.value) return null;
-            var sign = this.getSignForValueSigned(el);
+            let sign = this.getSignForValueSigned(el);
             if (!sign) obj.value = (-1) * obj.value;
 
             return this.compareLikeFields(colname, obj.value, obj.typeName);
@@ -3447,10 +3503,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         hasSpecificSearchTag:function (tag) {
             if (!tag) return false;
-            var s = tag.toString().trim();
-            var pos = s.indexOf("?");
-            if (pos === -1) return false;
-            return true;
+            const s = tag.toString().trim();
+            const pos = s.indexOf("?");
+            return pos !== -1;
+
         },
 
         /**
@@ -3510,26 +3566,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * If the control is in a tab nested control, it selects also the correct tabs
          * @param {string} errField
          * @param {string} tableName
+         * @return Deferred
          */
         focusField:function (errField, tableName) {
-            var inputTag = errField;
+            let def = appMeta.Deferred();
+            let inputTag = errField;
             if (errField.indexOf('.') < 0) inputTag = tableName + "." + errField;
-            var self = this;
+
+            let self = this;
+            let someThingFound=false;
             $(this.rootElement)
                 .find("[data-tag]")
                 .each(function() {
-                    // "this" Ë il controllo
-                    var currTag = $(this).data("tag");
-                    var standardTag = self.getStandardTag(currTag);
+                    // "this" √® il controllo
+                    let currTag = $(this).data("tag");
+
+                    let standardTag = self.getStandardTag(currTag);
                     if (standardTag){
-                        var t = self.getField(currTag, 0);
-                        var f = self.getField(currTag, 1);
+                        let t = self.getTableName(standardTag);
+                        let f = self.getColumnName(standardTag);
                         if ( t && f) {
                             currTag = t + "." + f;
-                            if (currTag === inputTag) self.applyFocus(this);
+                            if (currTag === inputTag) {
+                                def.from(self.applyFocus(this));
+                                someThingFound=true;
+                                return false;
+                            }
                         }
                     }
                 });
+            if (!someThingFound){
+
+                def.resolve(false);
+            }
+            return def.promise();
         },
 
         /**
@@ -3537,36 +3607,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Applies the focus on the "ctrl" control and also focus its parent containers recursively
-         * @param {Html node} ctrl
+         * @param {node} ctrl
+         * returns {Deferred}
          */
         applyFocus:function(ctrl){
-            // costruisco un array di parents, arrivando fino al root elements.Lo ordino da quello pi˘ esterno
-            var arrayParentContainers = [];
+            // costruisco un array di parents, arrivando fino al root elements.Lo ordino da quello pi√π esterno
+            const arrayParentContainers = [];
             $(ctrl)
                 .parentsUntil(this.rootElement)
-                .addBack() // capire performance, se Ë conventiente fare la reverse con lodash
+                .addBack() // capire performance, se √® conveniente fare la reverse con lodash
                 .each(function () {
-                    // se Ë un parent customContainer aggiungo all'array ausiliario
+                     // se √® un parent customContainer aggiungo all'array ausiliario
                     // il this dentro il ciclo diventa il controllo corrente
                     if ($(this).data("customContainer") !== undefined) {
                         arrayParentContainers.push(this);
                     }
                 });
 
-            // ciclo sui parents , da quello pi˘ esterno e metto focus man mano sui figli che trovo. Se non esistono altri container,
-            // metto focus sul controllo iniziale
+            /* Deferred */
+            let currChain = Deferred().resolve(true);
+            // Ciclo sui parents, da quello pi√π esterno e metto focus man mano sui figli che trovo.
+            // Se non esistono altri container, metto focus sul controllo iniziale
             _.forEach(arrayParentContainers,
                 function(currContainer, index) {
-                    // se arrivo all'ultimo elemento, signifca che Ë parents diretto del controllo in questione
-                    var elementToFocus = (index === arrayParentContainers.length - 1)
-                        ? $(ctrl)
-                        : _.nth(arrayParentContainers, index + 1);
-                    var cc = $(currContainer).data("containerController");
-                    cc.focusContainer(elementToFocus);
+                    // se arrivo all'ultimo elemento, significa che √® parent diretto del controllo in questione
+                    let elementToFocus = (index === arrayParentContainers.length - 1)?
+                         $(ctrl):
+                         _.nth(arrayParentContainers, index + 1);
+                    let cc = $(currContainer).data("containerController");
+                    currChain = currChain.then(()=>{
+                        return cc.focusContainer(elementToFocus);
+                    });
                 });
 
             // metto focus su controllo
-            $(ctrl).focus();
+
+            currChain = currChain.then(()=>{
+                $(ctrl).focus();
+            });
+
+            return currChain.promise();
         },
 
         /**
@@ -3574,9 +3654,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Gets/Sets a jsDataQuery "filter" for a control in filter data-attribute, (jquery style)
-         * @param {Html node} control
+         * @param {node} control
          * @param {jsDataQuery} filter
-         * @retuns {jsDataQuery} filter
+         * @returns {jsDataQuery} filter
          */
         filter: function (control, filter) {
             if (filter === undefined) return  $(control).data("filter");
@@ -3594,21 +3674,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} relName relation to use between PrimaryTable and T
          */
         makeChildPrimaryORSubentity:function( r,  t,  relName) {
-            var self = this;
-            var primary = this.lastSelected(this.primaryTable);
+            let self = this;
+            let primary = this.lastSelected(this.primaryTable);
             if (!primary) return;
 
             if (this.makeChild(r, t, primary.getRow(), relName)) return;
 
             _.forEach( this.pageState.extraEntities, function (extraName) {
-                var rels = self.DS.getParentChildRelation(self.primaryTableName, extraName);
+                let rels = self.DS.getParentChildRelation(self.primaryTableName, extraName);
                 if (rels && rels.length > 0 ){
-                    var childRows = primary.getRow().getChildRows(rels[0].name);
+                    const childRows = primary.getRow().getChildRows(rels[0].name);
                     if (childRows.length === 1) {
                         if (self.makeChild(r, t, childRows[0].getRow(), null)) return false; // esco se fa makeChild
                     }
                 }
-            })
+            });
         },
 
         /**
@@ -3624,10 +3704,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {boolean} true if relName exists and makes childRow as parentRow, false otherwise
          */
         makeChild:function (parentRow, parentTable, childRow, relName) {
-            var parentRel;
-            var self = this;
+            let parentRel;
+            const self = this;
             if (!relName){
-                var madechild = false;
+                let madechild = false;
                 _.forEach(childRow.table.parentRelations(), function (rel) {
                     if (self.makeChild(parentRow, parentTable,childRow, rel.name )) madechild = true;
                 });
@@ -3639,7 +3719,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             if (!parentRel) return false;
             // il metodo di jsdatase ci pensa lui a fare la copia o il clear.
-            var parentObjectRow = parentRow ? parentRow.current : null;
+            const parentObjectRow = parentRow ? parentRow.current : null;
             parentRel.makeChild(parentObjectRow, childRow.current);
             return true;
         },
@@ -3657,7 +3737,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         childRelation:function(parent, child, relName){
 
-            var relFound;
+            let relFound;
 
             _.forEach(child.parentRelations(), function (rel) {
                 if ((rel) && (rel.name!==relName)) return true; // continuo nel froEach di lodash
@@ -3677,7 +3757,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
             });
 
-            return relFound
+            return relFound;
 
         },
 
@@ -3770,18 +3850,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {*|JQueryPromise<{}>|String}
          */
         setTreeByStart:function (treeManager, startCondition, startValueWanted, startFieldWanted) {
-            var def = Deferred("setTreeByStart");
-            var tag = $(treeManager.elTree).data("tag");
-            var tname = this.getField(tag, 0);
-            var t = this.pageState.DS.tables[tname];
+            const def = Deferred("setTreeByStart");
+            const tag = $(treeManager.elTree).data("tag");
+            const tname = this.getField(tag, 0);
+            const t = this.pageState.DS.tables[tname];
             if (!t) return def.resolve(false);
-            var self = this;
+            const self = this;
             return treeManager.startWithField(startCondition, startValueWanted, startFieldWanted)
                 .then(function (selected) {
                     if (!selected) return def.resolve(false);
                     self.lastSelected(t, selected);
                     return def.resolve(true);
-                })
+                });
         },
 
         /**
@@ -3793,7 +3873,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         myClear : function (dt) {
             if (dt.rows.length === 0) return;
-            var grid = dt.linkedGrid; // settato efentualmente sul construttuore del Gridcontrol
+            const grid = dt.linkedGrid; // settato efentualmente sul construttuore del Gridcontrol
             if (grid) if (dt.rows.length > 1 && grid.DS === dt.dataset) grid.currentIndex = 0;
             dt.clear();
         },
@@ -3803,11 +3883,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Returns true if data-attr is configured on control el
-         * @param {Html node} el
+         * @param {node} el
          * @param {string} attr
          * @returns {boolean}
          */
-            existsDataAttribute:function(el, attr){
+         existsDataAttribute:function(el, attr){
             return (typeof $(el).data(attr) === "undefined") ? false : true;
         }
 

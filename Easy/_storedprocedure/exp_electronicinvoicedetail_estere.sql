@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,7 +30,7 @@ CREATE procedure exp_electronicinvoicedetail_estere(
 	@ninv int,
 	@idinvkind int) as
 begin
--- exec exp_electronicinvoicedetail_estere 2021, 5, 2 
+-- exec exp_electronicinvoicedetail_estere1 2021, 5, 2 
 
 select 
 	ID.idinvkind, ID.yinv, ID.ninv,
@@ -38,23 +38,24 @@ select
 	ID.detaildescription as 'Descrizione',
 	ISNULL(ID.npackage, ID.number) as 'quantita',
 	ID.idfetransfer as 'TipoCessionePrestazione',
-	case when (ivakind.flag & 512 = 0 ) then sum(ID.taxable)
-		 when  (ivakind.flag & 512 <> 0 ) then sum( isnull(ID.taxable,0) + isnull(ID.tax,0) )
-	end	as 'PrezzoUnitario',
+	/* prezzo unitario in euro  = imponibile unitario scontato euro esclusa IVA*/
+	SUM(CONVERT(decimal(19,2),
+		ROUND(ID.taxable * 
+		  CONVERT(DECIMAL(19,10),I.exchangerate) *
+		  (1 - CONVERT(DECIMAL(19,6),ISNULL(ID.discount, 0.0)) 
+		  )
+		 ,2
+		))
+		) 
+		as 'PrezzoUnitario',
 	case  
 		when ID.discount>0 then 'SC'
 		when ID.discount<0 then 'MG'
 		else null
 	end as 'tipoScontoMaggiorazioneDettaglio',
 	CONVERT(decimal(19,2), 100*ID.discount) as 'scontoDettaglio',	
-	
-	
-	case when (ivakind.flag & 512 = 0 ) then sum(ID.taxable_euro)
-		when (ivakind.flag & 512 <> 0 ) then sum(ID.taxable_euro) + isnull(sum(ID.tax),0) 
-	end	as 'PrezzoTotale',
-	case when (ivakind.flag & 512 = 0 ) then CONVERT(decimal(19,2),ivakind.rate*100)
-		when (ivakind.flag & 512 <> 0 ) then 0
-	end as 'AliquotaIVA',
+	SUM(ID.taxable_euro) as 'PrezzoTotale',
+    CONVERT(decimal(19,2),ivakind.rate*100) as 'AliquotaIVA',
 	case when SUM(isnull(ID.tax,0)) = 0 then ivakind.idfenature else null end as 'Natura',
 	--<DatiBeniServizi><DatiRiepilogo>
 	-- calcoliamo nel form

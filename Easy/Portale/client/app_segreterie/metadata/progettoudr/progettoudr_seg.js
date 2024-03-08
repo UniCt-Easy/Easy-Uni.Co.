@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_progettoudr() {
 		MetaPage.apply(this, ['progettoudr', 'seg', true]);
-        this.name = 'Unit‡ di personale';
+        this.name = 'Unit√† di personale';
 		this.defaultListType = 'seg';
 		//pageHeaderDeclaration
     }
@@ -64,9 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.budget)
+				if (this.isNull(parentRow.budget))
 					parentRow.budget = 0;
-				if (!parentRow['!budgetore'])
+				if (this.isNull(parentRow['!budgetore']))
 					parentRow['!budgetore'] = 0;
 				this.manageprogettoudr_seg_budget();
 				//beforeFillFilter
@@ -87,7 +70,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#progettoudr_seg_budget'), true);
+				this.enableControl($('#progettoudr_seg_budgetore'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#progettoudr_seg_budget'), false);
@@ -96,7 +86,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$('#grid_progettoudrmembro_seg').data('mdlconditionallookup', 'fondiprogetto,S,Si;fondiprogetto,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -143,7 +142,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					var filterNull = self.q.isNotNull('costomese');
 					var contratti = getcontratti.select(self.q.and(filterDate, self.q.eq('idreg', rudrmembro.idreg), filterNull));
 					if (contratti.length > 0) {
-						//di base metto costo mensile del contratto ...
+						//di base metto costo mensile del registrylegalstatus ...
 						if (contratti[0].costomese)
 							costomese = contratti[0].costomese;
 						if (contratti[0].oremaxgg)
@@ -151,14 +150,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						if (contratti[0].costolordoannuo)
 							costoora = (contratti[0].costolordoannuo / contratti[0].oremax);
 					}
-					//se Ë definito un costo orario specifico per questo membro in questo progetto ...
+					//se √® definito un costo orario specifico per questo membro in questo progetto ...
 					if (rudrmembro.costoorario) {
-						//...lo moltiplico per le ore che puÚ lavorare al giorno per 30 giorni 
+						//...lo moltiplico per le ore che pu√≤ lavorare al giorno per 30 giorni 
 						costomese = rudrmembro.costoorario * (oreLavorabiliAnno / 12);
 						costoora = rudrmembro.costoorario;
 					}
 					else {
-						//...altrimenti prendo in considerazione il costo mensile da contratto
+						//...altrimenti prendo in considerazione il costo mensile da registrylegalstatus
 
 						// se sono definite sulla tipologia di progetto lo calcolo in base alle quelle ore...
 						if (progettokinds.length > 0 && contratti.length > 0)
@@ -166,31 +165,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								costomese = (contratti[0].costolordoannuo / 12);
 								costoora = (contratti[0].costolordoannuo / oreLavorabiliAnno);
 							}
-						//... altrimenti lascio quello calcolato dalle ore della tipologia di contratto che ho inserito all'inizio
+						//... altrimenti lascio quello calcolato dalle ore della tipologia di registrylegalstatus che ho inserito all'inizio
 					}
 					// ... infine lo moltiplico per i mesi di impegno del menbro nel progetto e lo sommo al budget
 					self.state.currentRow.budget += costomese * (rudrmembro.impegno ?? 0);
 					self.state.currentRow['!budgetore'] += costoora * (rudrmembro.orepreventivate ?? 0);
 
 					//----------------ore rendicontate
-					var projectPage = self.state.callerPage;
-					var membroRow = rudrmembro;
-					var q = self.q;
-					var rendicontattivitaprogettoRows = projectPage.getDataTable("rendicontattivitaprogetto")
-						.select(q.eq("idreg", membroRow.idreg));
-					if (rendicontattivitaprogettoRows.length > 0) {
-						var rendicontattivitaprogettooraRows = projectPage.getDataTable("rendicontattivitaprogettoora")
-							.select(q.isIn("idrendicontattivitaprogetto", _.map(
-								rendicontattivitaprogettoRows, function (row) {
-									return row.idrendicontattivitaprogetto;
-								})));
-						if (rendicontattivitaprogettooraRows.length > 0) {
-							membroRow['!orerendicontate'] = _.sumBy(rendicontattivitaprogettooraRows, function (r) {
-								if (r.ore) return r.ore;
-								return 0;
-							});
-						}
-					}
+				//	var membroRow = rudrmembro;
+				//	var q = self.q;
+				//	var rendicontattivitaprogettoRows = self.getDataTable("rendicontattivitaprogetto")
+				//		.select(q.eq("idreg", membroRow.idreg));
+				//	if (rendicontattivitaprogettoRows.length > 0) {
+				//		var rendicontattivitaprogettooraRows = self.getDataTable("rendicontattivitaprogettoora")
+				//			.select(q.isIn("idrendicontattivitaprogetto", _.map(
+				//				rendicontattivitaprogettoRows, function (row) {
+				//					return row.idrendicontattivitaprogetto;
+				//				})));
+				//		if (rendicontattivitaprogettooraRows.length > 0) {
+				//			membroRow['!orerendicontate'] = _.sumBy(rendicontattivitaprogettooraRows, function (r) {
+				//				if (r.ore) return r.ore;
+				//				return 0;
+				//			});
+				//		}
+				//	}
 				});
 				this.state.currentRow.budget = _.ceil(this.state.currentRow.budget, 2);
 				this.state.currentRow['!budgetore'] = _.ceil(this.state.currentRow['!budgetore'], 2);

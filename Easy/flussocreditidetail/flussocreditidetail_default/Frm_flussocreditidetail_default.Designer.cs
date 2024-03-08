@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -142,6 +142,7 @@ namespace flussocreditidetail_default {
 			this.label21 = new System.Windows.Forms.Label();
 			this.btnCheckIncassi = new System.Windows.Forms.Button();
 			this.btnRicevuta = new System.Windows.Forms.Button();
+			this.btnRicevutaEng = new System.Windows.Forms.Button();
 			this.txtAnnotations = new System.Windows.Forms.TextBox();
 			this.label17 = new System.Windows.Forms.Label();
 			this.txtUnivoco = new System.Windows.Forms.TextBox();
@@ -164,7 +165,8 @@ namespace flussocreditidetail_default {
 			this.grpFlusso = new System.Windows.Forms.GroupBox();
 			this.textBox13 = new System.Windows.Forms.TextBox();
 			this.label23 = new System.Windows.Forms.Label();
-			this.fileSave = new System.Windows.Forms.SaveFileDialog();
+			this._fileSave = new System.Windows.Forms.SaveFileDialog();
+			this.fileSave = createSaveFileDialog(_fileSave);
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.gboxCausaleIVA.SuspendLayout();
@@ -1218,6 +1220,7 @@ namespace flussocreditidetail_default {
 			this.tabPage2.Controls.Add(this.label21);
 			this.tabPage2.Controls.Add(this.btnCheckIncassi);
 			this.tabPage2.Controls.Add(this.btnRicevuta);
+			this.tabPage2.Controls.Add(this.btnRicevutaEng);
 			this.tabPage2.Controls.Add(this.txtAnnotations);
 			this.tabPage2.Controls.Add(this.label17);
 			this.tabPage2.Controls.Add(this.txtUnivoco);
@@ -1359,6 +1362,16 @@ namespace flussocreditidetail_default {
 			this.btnRicevuta.Text = "Scarica l\'avviso di pagamento";
 			this.btnRicevuta.UseVisualStyleBackColor = true;
 			this.btnRicevuta.Click += new System.EventHandler(this.btnRicevuta_Click);
+			// 
+			// btnRicevutaEng
+			// 
+			this.btnRicevutaEng.Location = new System.Drawing.Point(28, 6);
+			this.btnRicevutaEng.Name = "btnRicevutaEng";
+			this.btnRicevutaEng.Size = new System.Drawing.Size(197, 23);
+			this.btnRicevutaEng.TabIndex = 154;
+			this.btnRicevutaEng.Text = "Scarica l\'avviso di pagamento [ENG]";
+			this.btnRicevutaEng.UseVisualStyleBackColor = true;
+			this.btnRicevutaEng.Click += new System.EventHandler(this.btnRicevutaEng_Click);
 			// 
 			// txtAnnotations
 			// 
@@ -1568,8 +1581,8 @@ namespace flussocreditidetail_default {
 			// 
 			// fileSave
 			// 
-			this.fileSave.DefaultExt = "pdf";
-			this.fileSave.OverwritePrompt = false;
+			//this.fileSave.DefaultExt = "pdf";
+			//this.fileSave.OverwritePrompt = false;
 			// 
 			// Frm_flussocreditidetail_default
 			// 
@@ -1738,8 +1751,10 @@ namespace flussocreditidetail_default {
         private System.Windows.Forms.ComboBox cmbTipoCA;
         private System.Windows.Forms.Button btnCheckIncassi;
         private System.Windows.Forms.Button btnRicevuta;
-        private System.Windows.Forms.SaveFileDialog fileSave;
-        private System.Windows.Forms.TextBox textBox18;
+        private System.Windows.Forms.Button btnRicevutaEng;
+        private System.Windows.Forms.SaveFileDialog _fileSave;
+		private metadatalibrary.ISaveFileDialog fileSave;
+		private System.Windows.Forms.TextBox textBox18;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textBox17;
         private System.Windows.Forms.Label label21;

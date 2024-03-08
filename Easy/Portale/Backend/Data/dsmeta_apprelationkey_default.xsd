@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_apprelationkey_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_apprelationkey_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="appfielddetaildefaultview_alias1" msprop:TableForReading="appfielddetaildefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="appfielddetail_afteractivationprefill" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_afterrowselectprefill" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_calculatedfieldfunction" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_charnumber" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_defaultvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_eventtext" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_eventtype" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_forcedropdown" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_forcekey" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_hidden" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_idappfielddetail_sortmember" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_idapptab" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_ischeckbox" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_islinkingobj" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_isnullable" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_listtype" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_master" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_max" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_min" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_position" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_radiovalues" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_readonlyfield" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_specialcontrol" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_sqltype" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_tablefilter" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_testvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_text" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_textarea" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_title" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_uniqueonrow" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_val1" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_val2" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_visible" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetailsortmember_columnname" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetailsortmember_title" type="xs:string" minOccurs="0" />
+              <xs:element name="apptab_title" type="xs:string" minOccurs="0" />
+              <xs:element name="columnname" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idappfielddetail" type="xs:int" />
+              <xs:element name="idapppages" type="xs:int" />
+              <xs:element name="sqltype_datasettype" type="xs:string" minOccurs="0" />
+              <xs:element name="sqltype_sqltype" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="appfielddetaildefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="appfielddetail_afteractivationprefill" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_afterrowselectprefill" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_calculatedfieldfunction" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_charnumber" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_defaultvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_eventtext" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_eventtype" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_forcedropdown" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_forcekey" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_hidden" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_idappfielddetail_sortmember" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_idapptab" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_ischeckbox" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_islinkingobj" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_isnullable" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_listtype" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_master" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_max" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_min" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_position" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_radiovalues" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_readonlyfield" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_specialcontrol" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_sqltype" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_tablefilter" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_testvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_text" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_textarea" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_title" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_uniqueonrow" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetail_val1" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_val2" type="xs:int" minOccurs="0" />
+              <xs:element name="appfielddetail_visible" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetailsortmember_columnname" type="xs:string" minOccurs="0" />
+              <xs:element name="appfielddetailsortmember_title" type="xs:string" minOccurs="0" />
+              <xs:element name="apptab_title" type="xs:string" minOccurs="0" />
+              <xs:element name="columnname" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idappfielddetail" type="xs:int" />
+              <xs:element name="idapppages" type="xs:int" />
+              <xs:element name="sqltype_datasettype" type="xs:string" minOccurs="0" />
+              <xs:element name="sqltype_sqltype" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="apprelationkey" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idappfielddetail" type="xs:int" minOccurs="0" />
+              <xs:element name="idappfielddetail_par" type="xs:int" minOccurs="0" />
+              <xs:element name="idapppages" type="xs:int" />
+              <xs:element name="idapprelation" type="xs:int" />
+              <xs:element name="idapprelationkey" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:appfielddetaildefaultview_alias1" />
+      <xs:field xpath="mstns:idappfielddetail" />
+      <xs:field xpath="mstns:idapppages" />
+    </xs:unique>
+    <xs:unique name="appfielddetaildefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:appfielddetaildefaultview" />
+      <xs:field xpath="mstns:idappfielddetail" />
+      <xs:field xpath="mstns:idapppages" />
+    </xs:unique>
+    <xs:unique name="apprelationkey_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apprelationkey" />
+      <xs:field xpath="mstns:idapppages" />
+      <xs:field xpath="mstns:idapprelation" />
+      <xs:field xpath="mstns:idapprelationkey" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_apprelationkey_appfielddetaildefaultview_alias1_idappfielddetail_par" msdata:parent="appfielddetaildefaultview_alias1" msdata:child="apprelationkey" msdata:parentkey="idappfielddetail" msdata:childkey="idappfielddetail_par" />
+      <msdata:Relationship name="FK_apprelationkey_appfielddetaildefaultview_idappfielddetail" msdata:parent="appfielddetaildefaultview" msdata:child="apprelationkey" msdata:parentkey="idappfielddetail" msdata:childkey="idappfielddetail" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

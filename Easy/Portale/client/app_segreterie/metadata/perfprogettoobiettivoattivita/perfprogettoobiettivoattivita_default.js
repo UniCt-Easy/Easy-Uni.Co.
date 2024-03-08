@@ -1,28 +1,12 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_perfprogettoobiettivoattivita() {
 		MetaPage.apply(this, ['perfprogettoobiettivoattivita', 'default', true]);
-        this.name = 'Attivit‡';
+        this.name = 'Attivit√†';
 		this.defaultListType = 'default';
+		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
     }
 
@@ -89,12 +73,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var parentRow = self.state.currentRow;
 				
 				this.manageperfprogettoobiettivoattivita_default_completamento();
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#perfprogettoobiettivoattivita_default_idupb'), null);
+				} else {
+					this.helpForm.filter($('#perfprogettoobiettivoattivita_default_idupb'), this.q.eq('upb_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
 				var def = appMeta.Deferred("beforeFill-perfprogettoobiettivoattivita_default");
 				var arraydef = [];
-				
+
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -107,16 +96,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#perfprogettoobiettivoattivita_default_idupb'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
-			//afterFill
+			afterFill: function () {
+				this.enableControl($("#XXperfprogettoattivitainterazione"), this.state.isEditState());
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
 			afterLink: function () {
 				var self = this;
-				this.setFilterPerfprogettoobiettivoattivita_default_idreg();
+				
+				$("#XXperfprogettoattivitainterazione").prop("disabled", true);
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
+					arraydef.push(self.setFilterPerfprogettoobiettivoattivita_default_idreg());
 					//fireAfterLinkAsinc
 					return $.when.apply($, arraydef);
 				});
@@ -128,26 +129,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//rowSelected
 
-			//buttonClickEnd
+			buttonClickEnd: function (currMetaPage, cmd) {
+				if ($("#XXperfprogettoattivitainterazione").length) {
+					$("#XXperfprogettoattivitainterazione").prop("disabled", !currMetaPage.state.isEditState());
+				}
+				//fireRelButtonClickEnd
+				cmd = cmd.toLowerCase();
+				if (cmd === "mainsetsearch") {
+					//firebuttonClickEnd
+				}
+				return this.superClass.buttonClickEnd(currMetaPage, cmd);
+			},
+
 
 			//insertClick
 
 			//beforePost
 
 			setFilterPerfprogettoobiettivoattivita_default_idreg: function () {
-            var self = this;
-            var filter = self.q.isIn('idreg',
-               _.map(self.state.callerState.callerPage.getDataTable("perfprogettouomembro").rows, function (r) { return r.idreg; })
-            );
-				self.state.DS.tables.getregistrydocentiamministratividefaultview.staticFilter(filter);            
-         },
+				var def = appMeta.Deferred('setFilterPerfprogettoobiettivoattivita_default_idreg');
+				var self = this;
+				if (self.state.callerState.callerPage) {
+					var filter = self.q.isIn('idreg',
+						_.map(self.state.callerState.callerPage.getDataTable("perfprogettouomembro").rows, function (r) { return r.idreg; })
+					);
+					self.state.DS.tables.getregistrydocentiamministratividefaultview.staticFilter(filter);
+					return def.resolve();
+				} else {
+					var filterMembro = this.q.eq("idperfprogetto", self.state.currentRow.idperfprogetto);
+					return appMeta.getData.runSelect("perfprogettouomembro", "idreg", filterMembro)
+						.then(function (dtMembro) {
+							var filter = self.q.isIn('idreg',
+								_.map(dtMembro.rows, function (r) { return r.idreg; })
+							);
+							self.state.DS.tables.getregistrydocentiamministratividefaultview.staticFilter(filter);
+							return def.resolve();
+						});
+				}
+			},
 
 			manageperfprogettoobiettivoattivita_default_completamento: function () {
-//campo calcolato
-            this.enableControl($('#perfprogettoobiettivoattivita_default_completamento'), false);
-            if (this.state.formState === "insert" || this.getChildren("perfprogettoobiettivoattivita", this.state.currentRow.idperfprogettoobiettivoattivita, "paridperfprogettoobiettivoattivita", true).length == 0) {
-               this.enableControl($('#perfprogettoobiettivoattivita_default_completamento'), true);
-            }
+				//campo calcolato
+				this.enableControl($('#perfprogettoobiettivoattivita_default_completamento'), false);
+				if (this.state.formState === "insert" || this.getChildren("perfprogettoobiettivoattivita", this.state.currentRow.idperfprogettoobiettivoattivita, "paridperfprogettoobiettivoattivita", true).length == 0) {
+				   this.enableControl($('#perfprogettoobiettivoattivita_default_completamento'), true);
+				}
 			},
 
 			//buttons

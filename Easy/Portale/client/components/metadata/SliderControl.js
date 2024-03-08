@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * Custom Control for the slider with max and min
  * @module UploadControl
@@ -24,13 +7,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 (function() {
 
     var Deferred = appMeta.Deferred;
-    var Attachment = appMeta.Attachment;
-    var localResource = appMeta.localResource;
-    var $q = window.jsDataQuery;
 
     /**
      *
-     * @param {html node} el
+     * @param {element} el
      * @param {HelpForm} helpForm
      * @param {DataTable} table
      * @param {DataTable} primaryTable
@@ -61,20 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         // dal tag prendo la colonna della tabella su cui verrà inserito l'id dell'attachment calcolato lato server
         this.columnName = helpForm.getField(tag, 1);
 
-        /****
-         Deve essere presente su DS di pagina una tabella attach, che ha idattach e filename, il controllo upload
-         sarà referenziato ad una colonna della riga di questo form in cui c'è il valore "idattach". L'assunzione è che colonna inizi per "idattach"
-         Tale valore sarà bindato con l'id calcolato dal server, che è già salvato quindi.
-         Quindi il valore è importate chiarire che è bindato sulla riga principale del form dove è ospitato il controllo
-         In questo modo avremo il collegamento tra l'allegato nella specifica tabella e la tabella attach, dove verranno gestiti anche i contatori,
-         che serviranno per l'algoritmo di pulizia degli allegati, come ad esempio quelli che una volta caricati non verranno più confermati
-         ****/
-
-        // init tabella in cui inserire l'allegato il cui riferimento sarà sulla tab  del ds che vogliamo(corrisponde tab principale qui)
-
-        // devo trovare la tabella attacch che potrebbe utilizzare un alias, quindi non posso andare per nome diretto
-        // mai in base alla relazione
-
         // costrusice la grafica del controllo
         this.buildTemplateHtml();
     }
@@ -93,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Builds the upload control and appends to the parent
          */
         buildTemplateHtml:function () {
-            var uniqueid = appMeta.utils.getUnivoqueId();
+            var uniqueid = appMeta.utils.getUniqueId();
             this.idLbValue = "range_lbl" + uniqueid;
             this.idRange = "range_" + uniqueid;
             var htmlCodeTemplate = '';
@@ -178,7 +144,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /**
          * @method addEvents
          * @public
-         * @description ASYNC
          * @param {html node} el
          * @param {MetaPage} metaPage
          * @param {boolean} subscribe

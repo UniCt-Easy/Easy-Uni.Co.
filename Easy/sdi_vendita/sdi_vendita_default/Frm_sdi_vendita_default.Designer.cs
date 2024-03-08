@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -110,8 +110,10 @@ namespace sdi_vendita_default {
             this.label4 = new System.Windows.Forms.Label();
             this.btnXMLMC = new System.Windows.Forms.Button();
             this.btnXMLNS = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPrincipale.SuspendLayout();
@@ -924,8 +926,8 @@ namespace sdi_vendita_default {
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "xml";
-            this.saveFileDialog1.SupportMultiDottedExtensions = true;
+            //this.saveFileDialog1.DefaultExt = "xml";
+            //this.saveFileDialog1.SupportMultiDottedExtensions = true;
             // 
             // openFileDialog1
             // 
@@ -1008,7 +1010,7 @@ namespace sdi_vendita_default {
         private System.Windows.Forms.TextBox txtIpa_ven_emittente;
         private System.Windows.Forms.Button btnToProtocol;
         private System.Windows.Forms.Button btnGeneraFile;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtProtocollo;
         private System.Windows.Forms.TextBox txtNumDocumento;
@@ -1033,5 +1035,7 @@ namespace sdi_vendita_default {
         public VistaForm DS;
 		private System.Windows.Forms.Button btnVisualizzaSempl;
         private System.Windows.Forms.Button btnInvioMail;
+        private metadatalibrary.IOpenFileDialog openFileDialog1;
+        private metadatalibrary.ISaveFileDialog saveFileDialog1;
     }
 }

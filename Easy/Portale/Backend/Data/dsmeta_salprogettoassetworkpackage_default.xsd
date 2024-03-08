@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_salprogettoassetworkpackage_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_salprogettoassetworkpackage_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mese" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmese" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="salprogettoassetworkpackagemese" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idmese" type="xs:int" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idsal" type="xs:int" />
+              <xs:element name="idsalprogettoassetworkpackage" type="xs:int" />
+              <xs:element name="idsalprogettoassetworkpackagemese" type="xs:int" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idmese_mese_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetsegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="asset_amortizationquota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="asset_ct" type="xs:dateTime" />
+              <xs:element name="asset_cu" type="xs:string" />
+              <xs:element name="asset_flag" type="xs:int" />
+              <xs:element name="asset_idasset_prev" type="xs:int" minOccurs="0" />
+              <xs:element name="asset_idassetunload" type="xs:int" minOccurs="0" />
+              <xs:element name="asset_idcurrlocation" type="xs:int" minOccurs="0" />
+              <xs:element name="asset_idcurrman" type="xs:int" minOccurs="0" />
+              <xs:element name="asset_idcurrsubman" type="xs:int" minOccurs="0" />
+              <xs:element name="asset_idinventoryamortization" type="xs:int" minOccurs="0" />
+              <xs:element name="asset_idpiece_prev" type="xs:int" minOccurs="0" />
+              <xs:element name="asset_lifestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="asset_lt" type="xs:dateTime" />
+              <xs:element name="asset_lu" type="xs:string" />
+              <xs:element name="asset_multifield" type="xs:string" minOccurs="0" />
+              <xs:element name="asset_ninventory" type="xs:int" minOccurs="0" />
+              <xs:element name="asset_rfid" type="xs:string" minOccurs="0" />
+              <xs:element name="asset_rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="asset_transmitted" type="xs:string" minOccurs="0" />
+              <xs:element name="asset_txt" type="xs:string" minOccurs="0" />
+              <xs:element name="assetacquire_description" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idinventory" type="xs:int" minOccurs="0" />
+              <xs:element name="idpiece" type="xs:int" />
+              <xs:element name="inventory_description" type="xs:string" minOccurs="0" />
+              <xs:element name="inventorytree_codeinv" type="xs:string" minOccurs="0" />
+              <xs:element name="inventorytree_description" type="xs:string" minOccurs="0" />
+              <xs:element name="inventorytree_idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="nassetacquire" type="xs:int" minOccurs="0" />
+              <xs:element name="upb_codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="workpackagesegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idworkpackage" type="xs:int" />
+              <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_idstrutturakind" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="workpackage_acronimo" type="xs:string" minOccurs="0" />
+              <xs:element name="workpackage_ct" type="xs:dateTime" />
+              <xs:element name="workpackage_cu" type="xs:string" />
+              <xs:element name="workpackage_description" type="xs:string" minOccurs="0" />
+              <xs:element name="workpackage_idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="workpackage_lt" type="xs:dateTime" />
+              <xs:element name="workpackage_lu" type="xs:string" />
+              <xs:element name="workpackage_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="workpackage_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="workpackage_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="asset" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="amortizationquota" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="flag" type="xs:int" />
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idasset_prev" type="xs:int" minOccurs="0" />
+              <xs:element name="idassetunload" type="xs:int" minOccurs="0" />
+              <xs:element name="idcurrlocation" type="xs:int" minOccurs="0" />
+              <xs:element name="idcurrman" type="xs:int" minOccurs="0" />
+              <xs:element name="idcurrsubman" type="xs:int" minOccurs="0" />
+              <xs:element name="idinventory" type="xs:int" minOccurs="0" />
+              <xs:element name="idinventoryamortization" type="xs:int" minOccurs="0" />
+              <xs:element name="idpiece" type="xs:int" />
+              <xs:element name="idpiece_prev" type="xs:int" minOccurs="0" />
+              <xs:element name="lifestart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="multifield" type="xs:string" minOccurs="0" />
+              <xs:element name="nassetacquire" type="xs:int" minOccurs="0" />
+              <xs:element name="ninventory" type="xs:int" minOccurs="0" />
+              <xs:element name="rfid" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="transmitted" type="xs:string" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="salprogettoassetworkpackage" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idpiece" type="xs:int" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idsal" type="xs:int" />
+              <xs:element name="idsalprogettoassetworkpackage" type="xs:int" />
+              <xs:element name="idworkpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="useassetdiary" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="mese_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mese" />
+      <xs:field xpath="mstns:idmese" />
+    </xs:unique>
+    <xs:unique name="salprogettoassetworkpackagemese_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:salprogettoassetworkpackagemese" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idsal" />
+      <xs:field xpath="mstns:idsalprogettoassetworkpackage" />
+      <xs:field xpath="mstns:idsalprogettoassetworkpackagemese" />
+    </xs:unique>
+    <xs:unique name="assetsegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetsegview" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idpiece" />
+    </xs:unique>
+    <xs:unique name="workpackagesegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:workpackagesegview" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idworkpackage" />
+    </xs:unique>
+    <xs:unique name="asset_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:asset" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idpiece" />
+    </xs:unique>
+    <xs:unique name="salprogettoassetworkpackage_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:salprogettoassetworkpackage" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idpiece" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idsal" />
+      <xs:field xpath="mstns:idsalprogettoassetworkpackage" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_salprogettoassetworkpackagemese_salprogettoassetworkpackage_idprogetto-idsal-idsalprogettoassetworkpackage" msdata:parent="salprogettoassetworkpackage" msdata:child="salprogettoassetworkpackagemese" msdata:parentkey="idprogetto idsal idsalprogettoassetworkpackage" msdata:childkey="idprogetto idsal idsalprogettoassetworkpackage" />
+      <msdata:Relationship name="FK_salprogettoassetworkpackagemese_year_year" msdata:parent="year" msdata:child="salprogettoassetworkpackagemese" msdata:parentkey="year" msdata:childkey="year" />
+      <msdata:Relationship name="FK_salprogettoassetworkpackagemese_mese_idmese" msdata:parent="mese" msdata:child="salprogettoassetworkpackagemese" msdata:parentkey="idmese" msdata:childkey="idmese" />
+      <msdata:Relationship name="FK_salprogettoassetworkpackage_assetsegview_idasset-idpiece" msdata:parent="assetsegview" msdata:child="salprogettoassetworkpackage" msdata:parentkey="idasset idpiece" msdata:childkey="idasset idpiece" />
+      <msdata:Relationship name="FK_salprogettoassetworkpackage_workpackagesegview_idworkpackage" msdata:parent="workpackagesegview" msdata:child="salprogettoassetworkpackage" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
+      <msdata:Relationship name="FK_salprogettoassetworkpackage_asset_idpiece" msdata:parent="asset" msdata:child="salprogettoassetworkpackage" msdata:parentkey="idpiece" msdata:childkey="idpiece" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

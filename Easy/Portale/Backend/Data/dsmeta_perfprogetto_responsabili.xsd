@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfprogetto_responsabili" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_perfprogetto_responsabili" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfprogettouomembro" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="agile" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idafferenza" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettouo" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettouo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_struttura" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettouo" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettostatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogettostatus" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettostatuschanges" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="changedate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="changeuser" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettostatus" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfprogettostatuschanges" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idperfprogettostatus_perfprogettostatus_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivoattivita_alias2" msprop:TableForReading="perfprogettoobiettivoattivita" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="datafineprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizioprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivo_alias2" msprop:TableForReading="perfprogettoobiettivo" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivoattivitaattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idperfprogettoobiettivo_perfprogettoobiettivo_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_datainizioprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_datafineprevista" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivosoglia" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivosoglia" type="xs:int" />
+              <xs:element name="idperfsogliakind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivoattivitaattach_alias1" msprop:TableForReading="perfprogettoobiettivoattivitaattach" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivoattivita_alias3" msprop:TableForReading="perfprogettoobiettivoattivita" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="datafineeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datafineprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizioeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizioprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridperfprogettoobiettivoattivita" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getregistrydocentiamministrativi" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_alias2" msprop:TableForReading="registry" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="title" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idtitle" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoavanzamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="avanzamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoavanzamento" type="xs:int" />
+              <xs:element name="idreg_amministrativi" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_amministrativi_ver" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idreg_amministrativi_registry_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_amministrativi_registry_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_amministrativi_registry_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_amministrativi_registry_idtitle_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_amministrativi_ver_registry_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_amministrativi_ver_registry_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_amministrativi_ver_registry_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_amministrativi_ver_registry_idtitle_description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoaccountprevisionview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="account" type="xs:string" minOccurs="0" />
+              <xs:element name="availableprevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="codeacc" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="currentprevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idacc" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridperfprogettoobiettivoattivita" type="xs:int" minOccurs="0" />
+              <xs:element name="perfprogetto_title" type="xs:string" minOccurs="0" />
+              <xs:element name="perfprogettoobiettivo_title" type="xs:string" minOccurs="0" />
+              <xs:element name="perfprogettoobiettivoattivita_title" type="xs:string" minOccurs="0" />
+              <xs:element name="prevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="upb" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrydefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="didprogsuddannokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="didprogsuddannokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="didprogsuddannokind_lt" type="xs:dateTime" />
+              <xs:element name="didprogsuddannokind_lu" type="xs:string" />
+              <xs:element name="didprogsuddannokind_sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="iddidprogsuddannokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettostatusdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfprogettostatus" type="xs:int" />
+              <xs:element name="perfprogettostatus_active" type="xs:string" minOccurs="0" />
+              <xs:element name="perfprogettostatus_ct" type="xs:dateTime" />
+              <xs:element name="perfprogettostatus_cu" type="xs:string" />
+              <xs:element name="perfprogettostatus_description" type="xs:string" minOccurs="0" />
+              <xs:element name="perfprogettostatus_lt" type="xs:dateTime" />
+              <xs:element name="perfprogettostatus_lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="benefici" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="datafineeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datafineprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizioeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizioprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="iddidprogsuddannokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettostatus" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_respprogetto" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="risultato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettouomembro" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettouo" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="perfprogettouo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettouo" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettouo" />
+    </xs:unique>
+    <xs:unique name="perfprogettostatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettostatus" />
+      <xs:field xpath="mstns:idperfprogettostatus" />
+    </xs:unique>
+    <xs:unique name="perfprogettostatuschanges_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettostatuschanges" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettostatuschanges" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivoattivita_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivoattivita_alias2" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivo_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivo_alias2" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+    </xs:unique>
+    <xs:unique name="attach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivoattivitaattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivoattivitaattach" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivosoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivosoglia" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivosoglia" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivoattivitaattach_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivoattivitaattach_alias1" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivoattivita_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivoattivita_alias3" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
+    </xs:unique>
+    <xs:unique name="getregistrydocentiamministrativi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministrativi" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+    </xs:unique>
+    <xs:unique name="registry_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_alias2" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="title_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:title" />
+      <xs:field xpath="mstns:idtitle" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="perfprogettoavanzamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoavanzamento" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoavanzamento" />
+    </xs:unique>
+    <xs:unique name="perfprogettoaccountprevisionview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoaccountprevisionview" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
+    </xs:unique>
+    <xs:unique name="registrydefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrydefaultview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="didprogsuddannokinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:didprogsuddannokinddefaultview" />
+      <xs:field xpath="mstns:iddidprogsuddannokind" />
+    </xs:unique>
+    <xs:unique name="perfprogettostatusdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettostatusdefaultview" />
+      <xs:field xpath="mstns:idperfprogettostatus" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="perfprogetto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogetto" />
+      <xs:field xpath="mstns:idperfprogetto" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfprogettouo_perfprogetto_idperfprogetto" msdata:parent="perfprogetto" msdata:child="perfprogettouo" msdata:parentkey="idperfprogetto" msdata:childkey="idperfprogetto" />
+      <msdata:Relationship name="FK_perfprogettouomembro_perfprogettouo_idperfprogetto-idperfprogettouo" msdata:parent="perfprogettouo" msdata:child="perfprogettouomembro" msdata:parentkey="idperfprogetto idperfprogettouo" msdata:childkey="idperfprogetto idperfprogettouo" />
+      <msdata:Relationship name="FK_perfprogettostatuschanges_perfprogetto_idperfprogetto" msdata:parent="perfprogetto" msdata:child="perfprogettostatuschanges" msdata:parentkey="idperfprogetto" msdata:childkey="idperfprogetto" />
+      <msdata:Relationship name="FK_perfprogettostatuschanges_perfprogettostatus_idperfprogettostatus" msdata:parent="perfprogettostatus" msdata:child="perfprogettostatuschanges" msdata:parentkey="idperfprogettostatus" msdata:childkey="idperfprogettostatus" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitaattach_perfprogetto_idperfprogetto" msdata:parent="perfprogetto" msdata:child="perfprogettoobiettivoattivitaattach" msdata:parentkey="idperfprogetto" msdata:childkey="idperfprogetto" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitaattach_perfprogettoobiettivoattivita_alias2_idperfprogettoobiettivoattivita" msdata:parent="perfprogettoobiettivoattivita_alias2" msdata:child="perfprogettoobiettivoattivitaattach" msdata:parentkey="idperfprogettoobiettivoattivita" msdata:childkey="idperfprogettoobiettivoattivita" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitaattach_perfprogettoobiettivo_alias2_idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivo_alias2" msdata:child="perfprogettoobiettivoattivitaattach" msdata:parentkey="idperfprogettoobiettivo" msdata:childkey="idperfprogettoobiettivo" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitaattach_attach_idattach" msdata:parent="attach" msdata:child="perfprogettoobiettivoattivitaattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
+      <msdata:Relationship name="FK_perfprogettoobiettivo_perfprogetto_idperfprogetto" msdata:parent="perfprogetto" msdata:child="perfprogettoobiettivo" msdata:parentkey="idperfprogetto" msdata:childkey="idperfprogetto" />
+      <msdata:Relationship name="FK_perfprogettoobiettivosoglia_perfprogettoobiettivo_idperfprogetto-idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivo" msdata:child="perfprogettoobiettivosoglia" msdata:parentkey="idperfprogetto idperfprogettoobiettivo" msdata:childkey="idperfprogetto idperfprogettoobiettivo" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivita_alias3_perfprogettoobiettivo_idperfprogetto-idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivo" msdata:child="perfprogettoobiettivoattivita_alias3" msdata:parentkey="idperfprogetto idperfprogettoobiettivo" msdata:childkey="idperfprogetto idperfprogettoobiettivo" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitaattach_alias1_perfprogettoobiettivoattivita_alias3_idperfprogetto-idperfprogettoobiettivo-idperfprogettoobiettivoattivita" msdata:parent="perfprogettoobiettivoattivita_alias3" msdata:child="perfprogettoobiettivoattivitaattach_alias1" msdata:parentkey="idperfprogetto idperfprogettoobiettivo idperfprogettoobiettivoattivita" msdata:childkey="idperfprogetto idperfprogettoobiettivo idperfprogettoobiettivoattivita" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivita_alias3_perfprogettoobiettivoattivita_alias3_idperfprogettoobiettivoattivita" msdata:parent="perfprogettoobiettivoattivita_alias3" msdata:child="perfprogettoobiettivoattivita_alias3" msdata:parentkey="idperfprogettoobiettivoattivita" msdata:childkey="paridperfprogettoobiettivoattivita" />
+      <msdata:Relationship name="FK_perfprogettoobiettivo_getregistrydocentiamministrativi_idreg" msdata:parent="getregistrydocentiamministrativi" msdata:child="perfprogettoobiettivo" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_perfprogettoavanzamento_perfprogetto_idperfprogetto" msdata:parent="perfprogetto" msdata:child="perfprogettoavanzamento" msdata:parentkey="idperfprogetto" msdata:childkey="idperfprogetto" />
+      <msdata:Relationship name="FK_perfprogettoavanzamento_registry_alias2_idreg_amministrativi_ver" msdata:parent="registry_alias2" msdata:child="perfprogettoavanzamento" msdata:parentkey="idreg" msdata:childkey="idreg_amministrativi_ver" />
+      <msdata:Relationship name="FK_registry_alias2_title_idtitle" msdata:parent="title" msdata:child="registry_alias2" msdata:parentkey="idtitle" msdata:childkey="idtitle" />
+      <msdata:Relationship name="FK_perfprogettoavanzamento_registry_idreg_amministrativi" msdata:parent="registry" msdata:child="perfprogettoavanzamento" msdata:parentkey="idreg" msdata:childkey="idreg_amministrativi" />
+      <msdata:Relationship name="FK_registry_title_idtitle" msdata:parent="title" msdata:child="registry" msdata:parentkey="idtitle" msdata:childkey="idtitle" />
+      <msdata:Relationship name="FK_perfprogetto_perfprogettoaccountprevisionview_idperfprogetto" msdata:parent="perfprogettoaccountprevisionview" msdata:child="perfprogetto" msdata:parentkey="idperfprogetto" msdata:childkey="idperfprogetto" />
+      <msdata:Relationship name="FK_perfprogetto_registrydefaultview_idreg_respprogetto" msdata:parent="registrydefaultview" msdata:child="perfprogetto" msdata:parentkey="idreg" msdata:childkey="idreg_respprogetto" />
+      <msdata:Relationship name="FK_perfprogetto_didprogsuddannokinddefaultview_iddidprogsuddannokind" msdata:parent="didprogsuddannokinddefaultview" msdata:child="perfprogetto" msdata:parentkey="iddidprogsuddannokind" msdata:childkey="iddidprogsuddannokind" />
+      <msdata:Relationship name="FK_perfprogetto_perfprogettostatusdefaultview_idperfprogettostatus" msdata:parent="perfprogettostatusdefaultview" msdata:child="perfprogetto" msdata:parentkey="idperfprogettostatus" msdata:childkey="idperfprogettostatus" />
+      <msdata:Relationship name="FK_perfprogetto_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="perfprogetto" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

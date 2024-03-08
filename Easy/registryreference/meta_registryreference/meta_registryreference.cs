@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -141,6 +141,7 @@ namespace meta_registryreference//meta_contatto//
 				DescribeAColumn(T, "msnnumber", "MSN No.", nPos++);
 				DescribeAColumn(T, "email", "Indirizzo EMail", nPos++);
 				DescribeAColumn(T, "pec", "Indirizzo Pec", nPos++);
+				DescribeAColumn(T, "activeweb", "Attivo per il Web", nPos++);
 				//DescribeAColumn(T, "userweb", "utente", nPos++);
 				//DescribeAColumn(T, "passwordweb", "", nPos++);
 				DescribeAColumn(T, "flagdefault", "Predefinito", nPos++);

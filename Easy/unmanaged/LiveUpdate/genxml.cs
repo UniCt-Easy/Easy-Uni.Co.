@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -152,7 +152,7 @@ namespace LiveUpdate//LiveUpdate//
             ds = new DsDLLIndex();
             DataTable dt = ds.DLL;
 		    
-		    List<string> ext = new List<string>(new string[] {".cer",".exe", ".dat", ".pdf", ".sql", ".mht", ".xml", ".xslt", ".xsd",".dll",".rdl",".pfx"});
+		    List<string> ext = new List<string>(new string[] {".cer",".exe", ".dat", ".pdf", ".sql", ".mht", ".xml", ".xslt", ".xsd",".dll",".rdl",".pfx", ".p12"});
             DirectoryInfo d = new DirectoryInfo(DestDir);
 
             try {
@@ -378,10 +378,10 @@ namespace LiveUpdate//LiveUpdate//
 	                                string[] oldversion = filesToSkip[RelativeName].ToString().Split('.');
 	                                //se il file ha come oldversion l'etichetta NUOVO 
 	                                //vuol dire che non è presente sul sito web e che non deve
-	                                //essere distribuito
+	                                //essere distribuito, inclusi i file che sono esclusi dall'inizio come configurazione
 	                                if (oldversion[0] == "NUOVO") continue;
-	                                //scrivo la vecchia versione
-	                                dr["dllname"] = destFolder==""? f3.Name:RelativeName;
+									//scrivo la vecchia versione
+									dr["dllname"] = destFolder==""? f3.Name:RelativeName;
 	                                dr["major"] = oldversion[0];
 	                                dr["minor"] = oldversion[1];
 	                                dr["build"] = oldversion[2];

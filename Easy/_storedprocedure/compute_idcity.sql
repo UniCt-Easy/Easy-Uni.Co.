@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,12 +30,12 @@ GO
 
 
 CREATE                                         procedure [compute_idcity] (
-	@denominazione varchar(150), 
-	@sigla_provincia varchar(2), 
-	@nome_provincia varchar(50), 
-	@cap varchar(20), 
-	@data SMALLDATETIME,
-	@flagstorico CHAR(1),
+	@denominazione varchar(150)=null, 
+	@sigla_provincia varchar(2)=null, 
+	@nome_provincia varchar(50)=null, -- non viene usato
+	@cap varchar(20)=null,  
+	@data SMALLDATETIME=null, 
+	@flagstorico CHAR(1)=null,  -- non viene usato
 	@idcomune int output
 ) as 
 begin
@@ -89,7 +89,10 @@ begin
 			END
 		END
 	END
-	select @idcomune = idcity from geo_cap where cap=@cap
+	if @cap is not null
+		Begin
+			select @idcomune = idcity from geo_cap where cap=@cap
+		End
 end
 
 

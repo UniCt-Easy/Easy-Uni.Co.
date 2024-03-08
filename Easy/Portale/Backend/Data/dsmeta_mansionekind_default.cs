@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,17 +27,23 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_mansionekind_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_mansionekind_default: DataSet {
+public partial class dsmeta_mansionekind_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable year 		=> (MetaTable)Tables["year"];
+	public MetaTable year_alias2 		=> (MetaTable)Tables["year_alias2"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attach 		=> (MetaTable)Tables["attach"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfpositionattach 		=> (MetaTable)Tables["perfpositionattach"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable year_alias1 		=> (MetaTable)Tables["year_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable year 		=> (MetaTable)Tables["year"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfcomportamento 		=> (MetaTable)Tables["perfcomportamento"];
@@ -73,11 +79,12 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_mansionekind_default.xsd";
 
 	#region create DataTables
-	//////////////////// YEAR /////////////////////////////////
-	var tyear= new MetaTable("year");
-	tyear.defineColumn("year", typeof(int),false);
-	Tables.Add(tyear);
-	tyear.defineKey("year");
+	//////////////////// YEAR_ALIAS2 /////////////////////////////////
+	var tyear_alias2= new MetaTable("year_alias2");
+	tyear_alias2.defineColumn("year", typeof(int),false);
+	tyear_alias2.ExtendedProperties["TableForReading"]="year";
+	Tables.Add(tyear_alias2);
+	tyear_alias2.defineKey("year");
 
 	//////////////////// ATTACH /////////////////////////////////
 	var tattach= new MetaTable("attach");
@@ -107,6 +114,19 @@ private void initClass() {
 	Tables.Add(tperfpositionattach);
 	tperfpositionattach.defineKey("idmansionekind", "idperfpositionattach");
 
+	//////////////////// YEAR_ALIAS1 /////////////////////////////////
+	var tyear_alias1= new MetaTable("year_alias1");
+	tyear_alias1.defineColumn("year", typeof(int),false);
+	tyear_alias1.ExtendedProperties["TableForReading"]="year";
+	Tables.Add(tyear_alias1);
+	tyear_alias1.defineKey("year");
+
+	//////////////////// YEAR /////////////////////////////////
+	var tyear= new MetaTable("year");
+	tyear.defineColumn("year", typeof(int),false);
+	Tables.Add(tyear);
+	tyear.defineKey("year");
+
 	//////////////////// PERFCOMPORTAMENTO /////////////////////////////////
 	var tperfcomportamento= new MetaTable("perfcomportamento");
 	tperfcomportamento.defineColumn("ct", typeof(DateTime),false);
@@ -115,6 +135,7 @@ private void initClass() {
 	tperfcomportamento.defineColumn("idperfcomportamento", typeof(int),false);
 	tperfcomportamento.defineColumn("lt", typeof(DateTime),false);
 	tperfcomportamento.defineColumn("lu", typeof(string),false);
+	tperfcomportamento.defineColumn("peso", typeof(decimal));
 	tperfcomportamento.defineColumn("title", typeof(string));
 	Tables.Add(tperfcomportamento);
 	tperfcomportamento.defineKey("idperfcomportamento");
@@ -127,8 +148,11 @@ private void initClass() {
 	tmansionekindcomportamento.defineColumn("idperfcomportamento", typeof(int),false);
 	tmansionekindcomportamento.defineColumn("lt", typeof(DateTime),false);
 	tmansionekindcomportamento.defineColumn("lu", typeof(string),false);
+	tmansionekindcomportamento.defineColumn("year_start", typeof(int));
+	tmansionekindcomportamento.defineColumn("year_stop", typeof(int));
 	tmansionekindcomportamento.defineColumn("!idperfcomportamento_perfcomportamento_title", typeof(string));
 	tmansionekindcomportamento.defineColumn("!idperfcomportamento_perfcomportamento_description", typeof(string));
+	tmansionekindcomportamento.defineColumn("!idperfcomportamento_perfcomportamento_peso", typeof(decimal));
 	Tables.Add(tmansionekindcomportamento);
 	tmansionekindcomportamento.defineKey("idmansionekind", "idperfcomportamento");
 
@@ -136,6 +160,7 @@ private void initClass() {
 	var tmansionekind= new MetaTable("mansionekind");
 	tmansionekind.defineColumn("ct", typeof(DateTime),false);
 	tmansionekind.defineColumn("cu", typeof(string),false);
+	tmansionekind.defineColumn("generascheda", typeof(string));
 	tmansionekind.defineColumn("idmansionekind", typeof(int),false);
 	tmansionekind.defineColumn("lt", typeof(DateTime),false);
 	tmansionekind.defineColumn("lu", typeof(string),false);
@@ -155,9 +180,9 @@ private void initClass() {
 	var cChild = new []{perfpositionattach.Columns["idmansionekind"]};
 	Relations.Add(new DataRelation("FK_perfpositionattach_mansionekind_idmansionekind",cPar,cChild,false));
 
-	cPar = new []{year.Columns["year"]};
+	cPar = new []{year_alias2.Columns["year"]};
 	cChild = new []{perfpositionattach.Columns["year"]};
-	Relations.Add(new DataRelation("FK_perfpositionattach_year_year",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_perfpositionattach_year_alias2_year",cPar,cChild,false));
 
 	cPar = new []{attach.Columns["idattach"]};
 	cChild = new []{perfpositionattach.Columns["idattach"]};
@@ -166,6 +191,14 @@ private void initClass() {
 	cPar = new []{mansionekind.Columns["idmansionekind"]};
 	cChild = new []{mansionekindcomportamento.Columns["idmansionekind"]};
 	Relations.Add(new DataRelation("FK_mansionekindcomportamento_mansionekind_idmansionekind",cPar,cChild,false));
+
+	cPar = new []{year_alias1.Columns["year"]};
+	cChild = new []{mansionekindcomportamento.Columns["year_stop"]};
+	Relations.Add(new DataRelation("FK_mansionekindcomportamento_year_alias1_year_stop",cPar,cChild,false));
+
+	cPar = new []{year.Columns["year"]};
+	cChild = new []{mansionekindcomportamento.Columns["year_start"]};
+	Relations.Add(new DataRelation("FK_mansionekindcomportamento_year_year_start",cPar,cChild,false));
 
 	cPar = new []{perfcomportamento.Columns["idperfcomportamento"]};
 	cChild = new []{mansionekindcomportamento.Columns["idperfcomportamento"]};

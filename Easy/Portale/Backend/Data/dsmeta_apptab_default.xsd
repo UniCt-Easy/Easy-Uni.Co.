@@ -3,6 +3,13 @@
   <xs:element name="dsmeta_apptab_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="apptabcolsnumber" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idapptabcolsnumber" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="apptab" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -10,6 +17,7 @@
               <xs:element name="icon" type="xs:string" minOccurs="0" />
               <xs:element name="idapppages" type="xs:int" />
               <xs:element name="idapptab" type="xs:int" />
+              <xs:element name="idapptabcolsnumber" type="xs:int" minOccurs="0" />
               <xs:element name="position" type="xs:int" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -18,9 +26,18 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apptabcolsnumber" />
+      <xs:field xpath="mstns:idapptabcolsnumber" />
+    </xs:unique>
+    <xs:unique name="apptab_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:apptab" />
       <xs:field xpath="mstns:idapppages" />
       <xs:field xpath="mstns:idapptab" />
     </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_apptab_apptabcolsnumber_idapptabcolsnumber" msdata:parent="apptabcolsnumber" msdata:child="apptab" msdata:parentkey="idapptabcolsnumber" msdata:childkey="idapptabcolsnumber" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

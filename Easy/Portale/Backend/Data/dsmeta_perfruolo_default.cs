@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,20 +27,26 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_perfruolo_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_perfruolo_default: DataSet {
+public partial class dsmeta_perfruolo_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable mansionekind 		=> (MetaTable)Tables["mansionekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfruolomansionekind 		=> (MetaTable)Tables["perfruolomansionekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable position 		=> (MetaTable)Tables["position"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfruolocontrattokind 		=> (MetaTable)Tables["perfruolocontrattokind"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfobiettivokind 		=> (MetaTable)Tables["perfobiettivokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfruoloperfobiettivokind 		=> (MetaTable)Tables["perfruoloperfobiettivokind"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable contrattokind 		=> (MetaTable)Tables["contrattokind"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable perfruolocontrattokind 		=> (MetaTable)Tables["perfruolocontrattokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfruolo 		=> (MetaTable)Tables["perfruolo"];
@@ -70,6 +76,92 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_perfruolo_default.xsd";
 
 	#region create DataTables
+	//////////////////// MANSIONEKIND /////////////////////////////////
+	var tmansionekind= new MetaTable("mansionekind");
+	tmansionekind.defineColumn("ct", typeof(DateTime),false);
+	tmansionekind.defineColumn("cu", typeof(string),false);
+	tmansionekind.defineColumn("generascheda", typeof(string));
+	tmansionekind.defineColumn("idmansionekind", typeof(int),false);
+	tmansionekind.defineColumn("lt", typeof(DateTime),false);
+	tmansionekind.defineColumn("lu", typeof(string),false);
+	tmansionekind.defineColumn("pesoateneo", typeof(decimal));
+	tmansionekind.defineColumn("pesocomp", typeof(decimal));
+	tmansionekind.defineColumn("pesoindividuale", typeof(decimal));
+	tmansionekind.defineColumn("pesouo", typeof(decimal));
+	tmansionekind.defineColumn("title", typeof(string),false);
+	Tables.Add(tmansionekind);
+	tmansionekind.defineKey("idmansionekind");
+
+	//////////////////// PERFRUOLOMANSIONEKIND /////////////////////////////////
+	var tperfruolomansionekind= new MetaTable("perfruolomansionekind");
+	tperfruolomansionekind.defineColumn("ct", typeof(DateTime),false);
+	tperfruolomansionekind.defineColumn("cu", typeof(string),false);
+	tperfruolomansionekind.defineColumn("idmansionekind", typeof(int),false);
+	tperfruolomansionekind.defineColumn("idperfruolo", typeof(string),false);
+	tperfruolomansionekind.defineColumn("lt", typeof(DateTime),false);
+	tperfruolomansionekind.defineColumn("lu", typeof(string),false);
+	Tables.Add(tperfruolomansionekind);
+	tperfruolomansionekind.defineKey("idmansionekind", "idperfruolo");
+
+	//////////////////// POSITION /////////////////////////////////
+	var tposition= new MetaTable("position");
+	tposition.defineColumn("active", typeof(string));
+	tposition.defineColumn("assegnoaggiuntivo", typeof(string));
+	tposition.defineColumn("codeposition", typeof(string),false);
+	tposition.defineColumn("costolordoannuo", typeof(decimal));
+	tposition.defineColumn("costolordoannuooneri", typeof(decimal));
+	tposition.defineColumn("ct", typeof(DateTime),false);
+	tposition.defineColumn("cu", typeof(string),false);
+	tposition.defineColumn("description", typeof(string),false);
+	tposition.defineColumn("elementoperequativo", typeof(string));
+	tposition.defineColumn("foreignclass", typeof(string));
+	tposition.defineColumn("idposition", typeof(int),false);
+	tposition.defineColumn("indennitadiateneo", typeof(string));
+	tposition.defineColumn("indennitadiposizione", typeof(string));
+	tposition.defineColumn("indvacancacontrattuale", typeof(string));
+	tposition.defineColumn("livello", typeof(string));
+	tposition.defineColumn("lt", typeof(DateTime),false);
+	tposition.defineColumn("lu", typeof(string),false);
+	tposition.defineColumn("maxincomeclass", typeof(int));
+	tposition.defineColumn("oremaxcompitididatempoparziale", typeof(int));
+	tposition.defineColumn("oremaxcompitididatempopieno", typeof(int));
+	tposition.defineColumn("oremaxdidatempoparziale", typeof(int));
+	tposition.defineColumn("oremaxdidatempopieno", typeof(int));
+	tposition.defineColumn("oremaxgg", typeof(int));
+	tposition.defineColumn("oremaxtempoparziale", typeof(int));
+	tposition.defineColumn("oremaxtempopieno", typeof(int));
+	tposition.defineColumn("oremincompitididatempoparziale", typeof(int));
+	tposition.defineColumn("oremincompitididatempopieno", typeof(int));
+	tposition.defineColumn("oremindidatempoparziale", typeof(int));
+	tposition.defineColumn("oremindidatempopieno", typeof(int));
+	tposition.defineColumn("oremintempoparziale", typeof(int));
+	tposition.defineColumn("oremintempopieno", typeof(int));
+	tposition.defineColumn("orestraordinariemax", typeof(int));
+	tposition.defineColumn("parttime", typeof(string));
+	tposition.defineColumn("printingorder", typeof(int));
+	tposition.defineColumn("puntiorganico", typeof(decimal));
+	tposition.defineColumn("siglaesportazione", typeof(string));
+	tposition.defineColumn("siglaimportazione", typeof(string));
+	tposition.defineColumn("tempdef", typeof(string));
+	tposition.defineColumn("tipoente", typeof(string));
+	tposition.defineColumn("tipopersonale", typeof(string));
+	tposition.defineColumn("title", typeof(string));
+	tposition.defineColumn("totaletredicesima", typeof(string));
+	tposition.defineColumn("tredicesimaindennitaintegrativaspeciale", typeof(string));
+	Tables.Add(tposition);
+	tposition.defineKey("idposition");
+
+	//////////////////// PERFRUOLOCONTRATTOKIND /////////////////////////////////
+	var tperfruolocontrattokind= new MetaTable("perfruolocontrattokind");
+	tperfruolocontrattokind.defineColumn("ct", typeof(DateTime));
+	tperfruolocontrattokind.defineColumn("cu", typeof(string));
+	tperfruolocontrattokind.defineColumn("idperfruolo", typeof(string),false);
+	tperfruolocontrattokind.defineColumn("idposition", typeof(int),false);
+	tperfruolocontrattokind.defineColumn("lt", typeof(DateTime));
+	tperfruolocontrattokind.defineColumn("lu", typeof(string));
+	Tables.Add(tperfruolocontrattokind);
+	tperfruolocontrattokind.defineKey("idperfruolo", "idposition");
+
 	//////////////////// PERFOBIETTIVOKIND /////////////////////////////////
 	var tperfobiettivokind= new MetaTable("perfobiettivokind");
 	tperfobiettivokind.defineColumn("active", typeof(string));
@@ -94,66 +186,15 @@ private void initClass() {
 	Tables.Add(tperfruoloperfobiettivokind);
 	tperfruoloperfobiettivokind.defineKey("idperfobiettivokind", "idperfruolo");
 
-	//////////////////// CONTRATTOKIND /////////////////////////////////
-	var tcontrattokind= new MetaTable("contrattokind");
-	tcontrattokind.defineColumn("active", typeof(string),false);
-	tcontrattokind.defineColumn("assegnoaggiuntivo", typeof(string));
-	tcontrattokind.defineColumn("costolordoannuo", typeof(decimal));
-	tcontrattokind.defineColumn("costolordoannuooneri", typeof(decimal));
-	tcontrattokind.defineColumn("ct", typeof(DateTime),false);
-	tcontrattokind.defineColumn("cu", typeof(string),false);
-	tcontrattokind.defineColumn("description", typeof(string));
-	tcontrattokind.defineColumn("elementoperequativo", typeof(string));
-	tcontrattokind.defineColumn("idcontrattokind", typeof(int),false);
-	tcontrattokind.defineColumn("indennitadiateneo", typeof(string));
-	tcontrattokind.defineColumn("indennitadiposizione", typeof(string));
-	tcontrattokind.defineColumn("indvacancacontrattuale", typeof(string));
-	tcontrattokind.defineColumn("lt", typeof(DateTime),false);
-	tcontrattokind.defineColumn("lu", typeof(string),false);
-	tcontrattokind.defineColumn("oremaxcompitididatempoparziale", typeof(int));
-	tcontrattokind.defineColumn("oremaxcompitididatempopieno", typeof(int));
-	tcontrattokind.defineColumn("oremaxdidatempoparziale", typeof(int));
-	tcontrattokind.defineColumn("oremaxdidatempopieno", typeof(int));
-	tcontrattokind.defineColumn("oremaxgg", typeof(int));
-	tcontrattokind.defineColumn("oremaxtempoparziale", typeof(int));
-	tcontrattokind.defineColumn("oremaxtempopieno", typeof(int));
-	tcontrattokind.defineColumn("oremincompitididatempoparziale", typeof(int));
-	tcontrattokind.defineColumn("oremincompitididatempopieno", typeof(int));
-	tcontrattokind.defineColumn("oremindidatempoparziale", typeof(int));
-	tcontrattokind.defineColumn("oremindidatempopieno", typeof(int));
-	tcontrattokind.defineColumn("oremintempoparziale", typeof(int));
-	tcontrattokind.defineColumn("oremintempopieno", typeof(int));
-	tcontrattokind.defineColumn("orestraordinariemax", typeof(int));
-	tcontrattokind.defineColumn("parttime", typeof(string));
-	tcontrattokind.defineColumn("puntiorganico", typeof(decimal));
-	tcontrattokind.defineColumn("scatto", typeof(string));
-	tcontrattokind.defineColumn("siglaesportazione", typeof(string));
-	tcontrattokind.defineColumn("siglaimportazione", typeof(string));
-	tcontrattokind.defineColumn("sortcode", typeof(int),false);
-	tcontrattokind.defineColumn("tempdef", typeof(string));
-	tcontrattokind.defineColumn("title", typeof(string),false);
-	tcontrattokind.defineColumn("totaletredicesima", typeof(string));
-	tcontrattokind.defineColumn("tredicesimaindennitaintegrativaspeciale", typeof(string));
-	Tables.Add(tcontrattokind);
-	tcontrattokind.defineKey("idcontrattokind");
-
-	//////////////////// PERFRUOLOCONTRATTOKIND /////////////////////////////////
-	var tperfruolocontrattokind= new MetaTable("perfruolocontrattokind");
-	tperfruolocontrattokind.defineColumn("ct", typeof(DateTime));
-	tperfruolocontrattokind.defineColumn("cu", typeof(string));
-	tperfruolocontrattokind.defineColumn("idcontrattokind", typeof(int),false);
-	tperfruolocontrattokind.defineColumn("idperfruolo", typeof(string),false);
-	tperfruolocontrattokind.defineColumn("lt", typeof(DateTime));
-	tperfruolocontrattokind.defineColumn("lu", typeof(string));
-	Tables.Add(tperfruolocontrattokind);
-	tperfruolocontrattokind.defineKey("idcontrattokind", "idperfruolo");
-
 	//////////////////// PERFRUOLO /////////////////////////////////
 	var tperfruolo= new MetaTable("perfruolo");
 	tperfruolo.defineColumn("aggiorna", typeof(string));
+	tperfruolo.defineColumn("approva", typeof(string));
 	tperfruolo.defineColumn("crea", typeof(string));
 	tperfruolo.defineColumn("ct", typeof(DateTime),false);
 	tperfruolo.defineColumn("cu", typeof(string),false);
+	tperfruolo.defineColumn("escluso", typeof(string));
+	tperfruolo.defineColumn("generascheda", typeof(string));
 	tperfruolo.defineColumn("idperfruolo", typeof(string),false);
 	tperfruolo.defineColumn("leggi", typeof(string));
 	tperfruolo.defineColumn("lt", typeof(DateTime),false);
@@ -168,20 +209,28 @@ private void initClass() {
 
 	#region DataRelation creation
 	var cPar = new []{perfruolo.Columns["idperfruolo"]};
-	var cChild = new []{perfruoloperfobiettivokind.Columns["idperfruolo"]};
-	Relations.Add(new DataRelation("FK_perfruoloperfobiettivokind_perfruolo_idperfruolo",cPar,cChild,false));
+	var cChild = new []{perfruolomansionekind.Columns["idperfruolo"]};
+	Relations.Add(new DataRelation("FK_perfruolomansionekind_perfruolo_idperfruolo",cPar,cChild,false));
 
-	cPar = new []{perfobiettivokind.Columns["idperfobiettivokind"]};
-	cChild = new []{perfruoloperfobiettivokind.Columns["idperfobiettivokind"]};
-	Relations.Add(new DataRelation("FK_perfruoloperfobiettivokind_perfobiettivokind_idperfobiettivokind",cPar,cChild,false));
+	cPar = new []{mansionekind.Columns["idmansionekind"]};
+	cChild = new []{perfruolomansionekind.Columns["idmansionekind"]};
+	Relations.Add(new DataRelation("FK_perfruolomansionekind_mansionekind_idmansionekind",cPar,cChild,false));
 
 	cPar = new []{perfruolo.Columns["idperfruolo"]};
 	cChild = new []{perfruolocontrattokind.Columns["idperfruolo"]};
 	Relations.Add(new DataRelation("FK_perfruolocontrattokind_perfruolo_idperfruolo",cPar,cChild,false));
 
-	cPar = new []{contrattokind.Columns["idcontrattokind"]};
-	cChild = new []{perfruolocontrattokind.Columns["idcontrattokind"]};
-	Relations.Add(new DataRelation("FK_perfruolocontrattokind_contrattokind_idcontrattokind",cPar,cChild,false));
+	cPar = new []{position.Columns["idposition"]};
+	cChild = new []{perfruolocontrattokind.Columns["idposition"]};
+	Relations.Add(new DataRelation("FK_perfruolocontrattokind_position_idposition",cPar,cChild,false));
+
+	cPar = new []{perfruolo.Columns["idperfruolo"]};
+	cChild = new []{perfruoloperfobiettivokind.Columns["idperfruolo"]};
+	Relations.Add(new DataRelation("FK_perfruoloperfobiettivokind_perfruolo_idperfruolo",cPar,cChild,false));
+
+	cPar = new []{perfobiettivokind.Columns["idperfobiettivokind"]};
+	cChild = new []{perfruoloperfobiettivokind.Columns["idperfobiettivokind"]};
+	Relations.Add(new DataRelation("FK_perfruoloperfobiettivokind_perfobiettivokind_idperfobiettivokind",cPar,cChild,false));
 
 	#endregion
 

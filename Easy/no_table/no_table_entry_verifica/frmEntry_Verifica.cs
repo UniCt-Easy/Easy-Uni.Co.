@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -257,10 +257,38 @@ namespace no_table_entry_verifica {
 
         private void generaCPassivi_Click(object sender, EventArgs e) {
             string cmd = txtComando.Text;
-            string filter = QHS.CmpLe("yman", esercizio);
+            string filterCurr = QHS.CmpEq("yman", esercizio);
+
+            string filterPrev = QHS.CmpLt("yman", esercizio);
+
             DataTable t = new DataTable();
             if (cmd.Trim() == "") {
-                t = Conn.RUN_SELECT("mandate", "idmankind,yman,nman", "adate", filter, null, false);
+                t = Conn.RUN_SELECT("mandate", "*", "adate", filterCurr, null, false);
+
+                string filterCPCurr = QHS.AppAnd(filterCurr,
+                QHS.AppAnd(QHS.AppOr(QHS.IsNull("start"),
+                QHS.AppAnd(QHS.CmpGe("start", $"{esercizio}/01/01"), QHS.CmpLe("start", $"{esercizio}/12/31")))));
+
+                DataTable T1 = Conn.RUN_SELECT("mandatedetail", "*", null, filterCPCurr, null, false);
+
+                string filterCPPrev = QHS.AppAnd(filterPrev,
+                QHS.CmpGe("start", $"{esercizio}/01/01"), QHS.CmpLe("start", $"{esercizio}/12/31"));
+                DataTable T2 = Conn.RUN_SELECT("mandatedetail", "*", null, filterCPPrev, null, false);
+
+                if ((T2 != null) && T2.Rows.Count > 0)
+                    T1.Merge(T2);
+                if (T1.Rows.Count == 0) return;
+
+                DataTable tPrev = new DataTable();
+                foreach (DataRow r in T2.Select()) {
+                    string filterKey = QHS.MCmp(r, "idmankind", "yman", "nman");
+                    DataRow[] MandateRow = t.Select(filterKey);
+                    if (MandateRow.Length > 0) continue;
+                    DataTable tMandate = Conn.RUN_SELECT("mandate", "*", null, filterKey, null, false);
+                    if (tMandate != null && tMandate.Rows.Count > 0)
+                        t.Merge(tMandate);
+                }
+
             }
             else {
                 t = Meta.Conn.SQLRunner(cmd, false, 300);
@@ -271,22 +299,92 @@ namespace no_table_entry_verifica {
             }
 
             generaCPassivi.Visible = false;
-            int n = t.Rows.Count;
+            int n = t.Select(filterCurr).Length;
             progBar.Maximum = n;
             progBar.Value = 0;
-            foreach (DataRow r in t.Select(filter)) {
-                DataSet D = new DataSet("mandateDS");
-                DataTable T = Conn.RUN_SELECT("mandate", "*", null, QHS.CmpKey(r), null, false);
-                if (T.Rows.Count == 0) continue;
-                DataRow rv = T.Rows[0];
-                D.Tables.Add(T);
-                DataTable T1 = Conn.RUN_SELECT("mandatedetail", "*", null, QHS.CmpKey(r), null, false);
-                D.Tables.Add(T1);
-                txtCurrent.Text = "Contratto passivo tipo " + r["idmankind"] + ") n." + r["nman"];
-                rigeneraScrittura(T.Rows[0], "mandate");
+            // Elaborazione riga per riga
+            foreach (DataRow r in t.Select(filterCurr)) {
+                txtCurrent.Text = "Contratto passivo tipo " + r["idmankind"] + " n°" + r["nman"] + '/' + r["yman"];
                 progBar.Increment(1);
                 progBar.Update();
+
+                DataSet D = new DataSet("mandateDS");
+                DataTable T = Conn.RUN_SELECT("mandate", "*", null, QHS.MCmp(r, "idmankind", "yman", "nman"), null, false);
+                if (T.Rows.Count == 0) {
+                    txtCurrent.Text = "";
+                    continue;
+                }
+
+                D.Tables.Add(T);
+                DataRow rv = T.Rows[0];
+                string adate = rv["adate"].ToString();
+                DateTime.TryParse(adate, out DateTime result);
+                // filtro per selezionare i dettagli contratti passivi dell'esercizio corrente
+                // Se la data contabile del cp è dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
+                // Altrimenti prendo i dettagli con start valorizzato con l'anno corrente
+                string filterCP = "";
+                // select * from mandatedetail
+                // where idmankind = r["idmankind"] and yman = r["yman"] and nman = r["yman"]
+                // and (start is null or (start >= esercizio/01/01 and start <= esercizio/12/31))
+                // and stop is null
+                filterCP = QHS.AppAnd(QHS.MCmp(r, "idmankind", "yman", "nman"),
+                QHS.AppAnd(QHS.AppOr(QHS.IsNull("start"),
+                QHS.AppAnd(QHS.CmpGe("start", $"{esercizio}/01/01"), QHS.CmpLe("start", $"{esercizio}/12/31")))));
+
+                DataTable TDett = Conn.RUN_SELECT("mandatedetail", "*", null, filterCP, null, false);
+                if (TDett.Rows.Count == 0) {
+                    txtCurrent.Text = "";
+                    continue;
+                }
+                D.Tables.Add(TDett);
+
+                rigeneraScrittura(T.Rows[0], "mandate");
             }
+
+
+            int n1 = t.Select(filterPrev).Length;
+            progBar.Maximum = n1;
+            progBar.Value = 0;
+            foreach (DataRow r in t.Select(filterPrev)) {
+
+                txtCurrent.Text = "Contratto passivo anni prec. tipo " + r["idmankind"] + " n°" + r["nman"] + '/' + r["yman"];
+                progBar.Increment(1);
+                progBar.Update();
+
+                DataSet D = new DataSet("mandateDS");
+                DataTable T = Conn.RUN_SELECT("mandate", "*", null, QHS.MCmp(r, "idmankind", "yman", "nman"), null, false);
+                if (T.Rows.Count == 0) {
+                    txtCurrent.Text = "";
+                    continue;
+                }
+
+                D.Tables.Add(T);
+                DataRow rv = T.Rows[0];
+                string adate = rv["adate"].ToString();
+                DateTime.TryParse(adate, out DateTime result);
+                // filtro per selezionare i dettagli contratti passivi dell'esercizio corrente
+                // Se la data contabile del cp è dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
+                // Altrimenti prendo i dettagli con start valorizzato con l'anno corrente
+                string filterCP = "";
+
+                // select * from mandatedetail
+                // where idmankind = r["idmankind"] and yman = r["yman"] and nman = r["nman"]
+                // and start >= esercizio/01/01 and start <= esercizio/12/31
+                // and stop is null
+                filterCP = QHS.MCmp(r, "idmankind", "yman", "nman") ;
+
+
+                DataTable TDett = Conn.RUN_SELECT("mandatedetail", "*", null, filterCP, null, false);
+                if (TDett.Rows.Count == 0) {
+                    txtCurrent.Text = "";
+                    continue;
+                }
+                D.Tables.Add(TDett);
+
+                rigeneraScrittura(T.Rows[0], "mandate");
+
+            }
+
             txtCurrent.Text = "";
             progBar.Value = 0;
             progBar.Update();
@@ -302,8 +400,9 @@ namespace no_table_entry_verifica {
             D.Tables.Add(T);
             DataTable T1 = Conn.RUN_SELECT("estimatedetail", "*", null, QHS.MCmp(r, "idestimkind", "yestim", "nestim"),
                 null, false);
+            if (T1.Rows.Count == 0) return;
             D.Tables.Add(T1);
-            txtCurrent.Text = "Contratto attivo tipo " + r["idestimkind"] + ") n." + r["nestim"];
+            txtCurrent.Text = "Contratto attivo tipo " + r["idestimkind"] + ") n." + r["nestim"] + '/'+ r["estim"];
             rigeneraScrittura(T.Rows[0], "estimate");
             progBar.Increment(1);
             progBar.Update();
@@ -318,6 +417,7 @@ namespace no_table_entry_verifica {
             D.Tables.Add(T);
             DataTable T1 = Conn.RUN_SELECT("mandatedetail", "*", null, QHS.MCmp(r, "idmankind", "yman", "nman"),
                 null, false);
+            if (T1.Rows.Count == 0) return;
             D.Tables.Add(T1);
             txtCurrent.Text = "Contratto passivo tipo " + r["idmankind"] + ") n." + r["nman"];
             rigeneraScrittura(T.Rows[0], "mandate");
@@ -327,11 +427,48 @@ namespace no_table_entry_verifica {
 
         private void generaCAttivi_Click(object sender, EventArgs e) {
             string cmd = txtComando.Text;
-            string filter = QHS.CmpLe("yestim", esercizio);
+         
             DataTable t = new DataTable();
+            generaCAttivi.Visible = false;
+  
+
+
+            string filterCurr = QHS.CmpEq("yestim", esercizio);
+
+			//QHS.AppAnd(QHS.CmpEq("yestim", esercizio),
+			//QHS.CmpEq("idestimkind", "CA_ESSE3_Competenza"),
+			//QHS.CmpNe("nestim", 32));
+
+			string filterPrev = QHS.CmpLt("yestim", esercizio);
+
             if (cmd.Trim() == "") {
-                t = Conn.RUN_SELECT("estimate", "idestimkind,yestim,nestim", "adate", filter, null, false);
+           
+                t = Conn.RUN_SELECT("estimate", "*", "adate", filterCurr, null, false);
+               
+                string filterCACurr = QHS.AppAnd(filterCurr,
+                QHS.AppAnd(QHS.AppOr(QHS.IsNull("start"),
+                QHS.AppAnd(QHS.CmpGe("start", $"{esercizio}/01/01"), QHS.CmpLe("start", $"{esercizio}/12/31")))));
+
+                DataTable T1 = Conn.RUN_SELECT("estimatedetail", "*", null, filterCACurr, null, false);
+
+                string filterCAPrev = QHS.AppAnd(filterPrev,
+                QHS.CmpGe("start", $"{esercizio}/01/01"), QHS.CmpLe("start", $"{esercizio}/12/31"));
+                DataTable T2 = Conn.RUN_SELECT("estimatedetail", "*", null, filterCAPrev, null, false);
+                if ((T2 != null) && T2.Rows.Count > 0)  
+                    T1.Merge(T2);
+                    if (T1.Rows.Count == 0) return ;
+
+                DataTable tPrev = new DataTable();
+                foreach (DataRow r in T2.Select()) {
+                    string filterKey = QHS.MCmp(r, "idestimkind", "yestim", "nestim");
+                    DataRow[] EstimateRow = t.Select(filterKey);
+                    if (EstimateRow.Length > 0) continue;
+                    DataTable tEstimate = Conn.RUN_SELECT("estimate", "*", null, filterKey, null, false);
+                    if (tEstimate != null && tEstimate.Rows.Count > 0)
+                    t.Merge(tEstimate);
+                }
             }
+
             else {
                 t = Meta.Conn.SQLRunner(cmd, false, 300);
                 if ((t == null) || (t.Rows.Count == 0)) return;
@@ -339,20 +476,99 @@ namespace no_table_entry_verifica {
                     !(t.Columns.Contains("nestim"))) return;
                 t.TableName = "estimate";
             }
-            generaCAttivi.Visible = false;
-            int n = t.Rows.Count;
+            int n = t.Select(filterCurr).Length;
             progBar.Maximum = n;
             progBar.Value = 0;
-            foreach (DataRow r in t.Select(filter)) {
-                rigeneraContrattoAttivo(r);
+
+            // Elaborazione riga per riga
+            foreach (DataRow r in t.Select(filterCurr)) {
+				txtCurrent.Text = "Contratto attivo tipo " + r["idestimkind"] + " n°" + r["nestim"] + '/' + r["yestim"];
+				progBar.Increment(1);
+				progBar.Update();
+
+				DataSet D = new DataSet("estimateDS");
+				DataTable T = Conn.RUN_SELECT("estimate", "*", null, QHS.MCmp(r, "idestimkind", "yestim", "nestim"), null, false);
+				if (T.Rows.Count == 0) {
+					txtCurrent.Text = "";
+					continue;
+				}
+
+				D.Tables.Add(T);
+				DataRow rv = T.Rows[0];
+				string adate = rv["adate"].ToString();
+				DateTime.TryParse(adate, out DateTime result);
+				// filtro per selezionare i dettagli contratti passivi dell'esercizio corrente
+				// Se la data contabile del cp è dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
+				// Altrimenti prendo i dettagli con start valorizzato con l'anno corrente
+				string filterCA = "";
+				// select * from estimatedetail
+				// where idestimkind = r["idestimkind"] and yestim = r["yestim"] and nestim = r["nestim"]
+				// and (start is null or (start >= esercizio/01/01 and start <= esercizio/12/31))
+				// and stop is null
+				filterCA = QHS.AppAnd(QHS.MCmp(r, "idestimkind", "yestim", "nestim"),
+				QHS.AppAnd(QHS.AppOr(QHS.IsNull("start"),
+				QHS.AppAnd(QHS.CmpGe("start", $"{esercizio}/01/01"), QHS.CmpLe("start", $"{esercizio}/12/31")))));
+
+				DataTable TDett = Conn.RUN_SELECT("estimatedetail", "*", null, filterCA, null, false);
+				if (TDett.Rows.Count == 0) {
+					txtCurrent.Text = "";
+					continue;
+				}
+				D.Tables.Add(TDett);
+
+				rigeneraScrittura(T.Rows[0], "estimate");
+			}
+
+            int n1 = t.Select(filterPrev).Length;
+            progBar.Maximum = n1;
+            progBar.Value = 0;
+            foreach (DataRow r in t.Select(filterPrev)) {
+           
+                txtCurrent.Text = "Contratto attivo anni prec. tipo " + r["idestimkind"] + " n°" + r["nestim"] + '/' + r["yestim"];
+                progBar.Increment(1);
+                progBar.Update();
+
+                DataSet D = new DataSet("estimateDS");
+                DataTable T = Conn.RUN_SELECT("estimate", "*", null, QHS.MCmp(r, "idestimkind", "yestim", "nestim"), null, false);
+                if (T.Rows.Count == 0) {
+                    txtCurrent.Text = "";
+                    continue;
+                }
+
+                D.Tables.Add(T);
+                DataRow rv = T.Rows[0];
+                string adate = rv["adate"].ToString();
+                DateTime.TryParse(adate, out DateTime result);
+                // filtro per selezionare i dettagli contratti passivi dell'esercizio corrente
+                // Se la data contabile del cp è dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
+                // Altrimenti prendo i dettagli con start valorizzato con l'anno corrente
+                string filterCA = "";
+      
+                // select * from estimatedetail
+                // where idestimkind = r["idestimkind"] and yestim = r["yestim"] and nestim = r["nestim"]
+                // and start >= esercizio/01/01 and start <= esercizio/12/31
+                // and stop is null
+                filterCA = QHS.MCmp(r, "idestimkind", "yestim", "nestim");
+                 
+
+                DataTable TDett = Conn.RUN_SELECT("estimatedetail", "*", null, filterCA, null, false);
+                if (TDett.Rows.Count == 0) {
+                    txtCurrent.Text = "";
+                    continue;
+                }
+                D.Tables.Add(TDett);
+
+                rigeneraScrittura(T.Rows[0], "estimate");
+
             }
+
             txtCurrent.Text = "";
             progBar.Value = 0;
             progBar.Update();
             generaCAttivi.Visible = true;
         }
 
-        void rigeneraFattura(DataRow r, DataTable invkind) {
+    void rigeneraFattura(DataRow r, DataTable invkind) {
             DataSet D = new DataSet("invoiceDS");
             DataTable T = getTable("invoice", QHS.MCmp(r, "idinvkind", "yinv", "ninv"), null);
             if (T.Rows.Count == 0) return;
@@ -381,9 +597,7 @@ namespace no_table_entry_verifica {
                     return;
                 }
             }
-
-
-            txtCurrent.Text = $"Fattura  tipo {r["codeinvkind"]}({r["invoicekind"]}) n.{r["ninv"]}";
+            txtCurrent.Text = $"Fattura tipo {r["codeinvkind"]}({r["invoicekind"]}) n.{r["ninv"]}";
             rigeneraScrittura(T.Rows[0], "invoice",true);
             D.Tables.Remove(invkind);
             progBar.Increment(1);
@@ -468,6 +682,7 @@ namespace no_table_entry_verifica {
                 if (!(t.Columns.Contains("ycon")) || !(t.Columns.Contains("ncon")) ||
                     !(t.Columns.Contains("datecompleted"))) return;
                 t.TableName = "casualcontract";
+                t.PrimaryKey = new DataColumn[] { t.Columns["ycon"], t.Columns["ncon"] };
             }
             btnGeneraOccasionale.Visible = false;
             int n = t.Rows.Count;
@@ -503,6 +718,7 @@ namespace no_table_entry_verifica {
                 if (!(t.Columns.Contains("yitineration")) || !(t.Columns.Contains("iditineration")) ||
                     !(t.Columns.Contains("nitineration")) || !(t.Columns.Contains("datecompleted"))) return;
                 t.TableName = "itineration";
+                t.PrimaryKey = new DataColumn[] { t.Columns["yitineration"], t.Columns["nitineration"] };
             }
 
             btnGeneraMissioni.Visible = false;
@@ -539,6 +755,7 @@ namespace no_table_entry_verifica {
                 if ((t == null) || (t.Rows.Count == 0)) return;
                 if (!(t.Columns.Contains("ycon")) || !(t.Columns.Contains("ncon"))) return;
                 t.TableName = "wageaddition";
+                t.PrimaryKey = new DataColumn[] { t.Columns["ycon"], t.Columns["ncon"] };
             }
             btnGeneraDipendente.Visible = false;
             int n = t.Rows.Count;
@@ -588,6 +805,7 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheck1.Text, t);
+                createForm(f, this);
                 f.Show(this);
             }
             else {
@@ -618,6 +836,7 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheck2.Text, t);
+                createForm(f, this);
                 f.Show(this);
             }
             else {
@@ -649,6 +868,7 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheck3.Text, t);
+                createForm(f, this);
                 f.Show(this);
             }
             else {
@@ -678,6 +898,7 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheck4.Text, t);
+                createForm(f, this);
                 f.Show(this);
             }
             else {
@@ -730,6 +951,7 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, message, t);
+                createForm(f, this);
                 f.Show(this);
             }
             else {
@@ -771,6 +993,7 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi1.Text, t);
+                createForm(f, this);
                 f.Show(this);
             }
             else {
@@ -803,6 +1026,7 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi2.Text, t);
+                createForm(f, this);
                 f.Show(this);
             }
             else {
@@ -840,6 +1064,7 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi5.Text, t);
+                createForm(f, this);
                 f.Show(this);
             }
             else {
@@ -872,6 +1097,7 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi6.Text, t);
+                createForm(f, this);
                 f.Show(this);
             }
             else {
@@ -906,7 +1132,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi8.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -938,7 +1165,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi9.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -975,7 +1203,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi10.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1011,7 +1240,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi7.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1047,7 +1277,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi4.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1083,7 +1314,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi3.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1124,7 +1356,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtGene6.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1161,7 +1394,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtGene5.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1196,7 +1430,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheck6.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1231,7 +1466,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheck5.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1259,7 +1495,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtInvoice7.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1296,7 +1533,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCompensi11.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1393,7 +1631,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtInvoice8.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1437,7 +1676,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtInvoice9.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1467,7 +1707,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtInvoice10.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1508,7 +1749,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnUpbCAttivi1.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1535,7 +1777,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnUpbCAttivi2.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1562,7 +1805,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnUpbCPassivi1.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1589,7 +1833,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnUpbCPassivi2.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1632,7 +1877,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheckCreditoContratti.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1674,7 +1920,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheckDebitoContratti.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1697,7 +1944,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtInvoice11.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1724,7 +1972,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtInvoice12.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1752,7 +2001,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtInvoice12.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1797,7 +2047,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtGene7.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1815,7 +2066,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtGene8.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -1837,7 +2089,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtGene13.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2008,7 +2261,8 @@ namespace no_table_entry_verifica {
         //        DataSet d = new DataSet();
         //        d.Tables.Add(t);
         //        frmErrorView f = new frmErrorView(Meta.myHelpForm, btnAssestamentoBudget.Text, t);
-        //        f.Show(this);
+        //        createForm(f, this);
+		//        f.Show(this);
         //    }
         //    else {
         //        show(this, "Nessun problema riscontrato", "Avviso");
@@ -2070,7 +2324,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnContrattiNoMovBudget.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2085,7 +2340,8 @@ namespace no_table_entry_verifica {
                 return;
             }
             frmErrorView f = new frmErrorView(Meta.myHelpForm, btnCompensiNoMovBudget.Text, ds.Tables[0]);
-            f.Show(this);
+            createForm(f, this);
+			f.Show(this);
         }
 
         private void btnFattureNonCollegateOrdini_Click(object sender, EventArgs e) {
@@ -2115,7 +2371,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnFattureNonCollegateOrdini.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2154,7 +2411,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnNoteDiCredito.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2191,7 +2449,8 @@ namespace no_table_entry_verifica {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnOpFondoEconomaleNoEntry.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2245,7 +2504,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnImpBudgetDoppiati.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2269,7 +2529,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnPrevBudgetSforata.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2299,7 +2560,8 @@ WHERE
                 t.TableName = "epexp";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnScrittureCostoSenzaImpBudget.Text, t,
                     Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2326,7 +2588,8 @@ WHERE
                 t.TableName = "epexp";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnImpBudgetDispNegativo.Text, t, Meta.Dispatcher,
                     "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2394,7 +2657,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnIncoerenzeImportoContrPassivoFattura.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2451,7 +2715,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnIncoerenzeAliquotaContrPassivoFattura.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2467,7 +2732,8 @@ WHERE
             }
             frmErrorView f = new frmErrorView(Meta.myHelpForm, btnDettContrPassiviIncoerentiImpBudget.Text,
                 ds.Tables[0]);
-            f.Show(this);
+            createForm(f, this);
+			f.Show(this);
         }
 
         private void btnPagamentiNonCollegatiDoc_Click(object sender, EventArgs e) {
@@ -2478,7 +2744,8 @@ WHERE
                 return;
             }
             frmErrorView f = new frmErrorView(Meta.myHelpForm, btnPagamentiNonCollegatiDoc.Text, ds.Tables[0]);
-            f.Show(this);
+            createForm(f, this);
+			f.Show(this);
         }
 
         private void btnIncassiNonCollegatiDoc_Click(object sender, EventArgs e) {
@@ -2489,7 +2756,8 @@ WHERE
                 return;
             }
             frmErrorView f = new frmErrorView(Meta.myHelpForm, btnIncassiNonCollegatiDoc.Text, ds.Tables[0]);
-            f.Show(this);
+            createForm(f, this);
+			f.Show(this);
         }
 
         private void btnDettContrPassiviCompetenza_Click(object sender, EventArgs e) {
@@ -2509,7 +2777,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnDettContrPassiviCompetenza.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2534,7 +2803,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnDettFattureCompetenza.Text, t);
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2564,7 +2834,8 @@ WHERE
                 t.TableName = "epacc";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnScrittureRicavoSenzaAccBudget.Text, t,
                     Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2748,7 +3019,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamentiBudgetNoEstimate.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2785,7 +3057,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamentiBudgetNoInvoice.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2817,7 +3090,8 @@ WHERE
                 t.TableName = "epacc"; DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamentiBudgetEstimate.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2881,7 +3155,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamentiIncoerentiIdrelated.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2923,7 +3198,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "epacc";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamentiBudget_1.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -2966,7 +3242,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "epacc";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamenti_3.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3002,6 +3279,7 @@ WHERE
 				d.Tables.Add(t);
 				t.TableName = "epexp";
 				frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamenti_3.Text, t, Meta.Dispatcher, "default");
+				createForm(f, this);
 				f.Show(this);
 			} else {
 				show(this, "Nessun problema riscontrato", "Avviso");
@@ -3020,7 +3298,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "account";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtNoBudgetSuspect.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3040,7 +3319,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "account";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtBudgetSuspect.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3242,7 +3522,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "epexp";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtImpegniResiduiErrati.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3271,7 +3552,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "epacc";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamentiResiduiErrati.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3327,7 +3609,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCostoContoDiverso.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3385,7 +3668,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtRicavoContoDiverso.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3462,7 +3746,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtEPAcc_conIdrelatedSenzaCA.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3494,7 +3779,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtEPAcc_conIdrelatedSenzaFatt.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3521,7 +3807,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtEntryVarDataWrong.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3549,7 +3836,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtEntryDataWrong.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3576,7 +3864,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtEntryWrongDatePassivi.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3604,7 +3893,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtEntryWrongDatePassiviVar.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3625,7 +3915,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtDoublePreAcc.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3646,7 +3937,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtDoublePreimp.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -3941,7 +4233,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "invoicedetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtFattureCPassiviContoIncoerente.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4021,7 +4314,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtImpegniIncoerentiIdrelated.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4088,7 +4382,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtMancaAnagrafica.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4139,7 +4434,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheckMancaUPB.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4187,7 +4483,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCreditiSuImpegni.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4253,7 +4550,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtDebitiSuAccertamenti.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4399,7 +4697,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheckMovBudget.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4650,7 +4949,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "expense";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheckMovBudget.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4720,7 +5020,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "income";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheckMovBudget.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4754,7 +5055,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtCheckDebitiEpilogoDare.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4786,7 +5088,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtEpilogoAvereNoteCredito.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4818,7 +5121,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtEpilogoAvereCrediti.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4850,7 +5154,8 @@ WHERE
                 d.Tables.Add(t);
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtEpilogoDareCreditiNoteDebito.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4919,7 +5224,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, txtDoublePreimp.Text, t, Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4986,6 +5292,7 @@ WHERE
 				d.Tables.Add(t);
 				t.TableName = "epexp";
 				frmErrorView f = new frmErrorView(Meta.myHelpForm, txtImpegniContoIncoerentePadre.Text, t, Meta.Dispatcher, "default");
+				createForm(f, this);
 				f.Show(this);
 			} else {
 				show(this, "Nessun problema riscontrato", "Avviso");
@@ -5012,6 +5319,7 @@ WHERE
 				d.Tables.Add(t);
 				t.TableName = "epexp";
 				frmErrorView f = new frmErrorView(Meta.myHelpForm, txtImpegniUpbIncoerentePadre.Text, t, Meta.Dispatcher, "default");
+				createForm(f, this);
 				f.Show(this);
 			} else {
 				show(this, "Nessun problema riscontrato", "Avviso");
@@ -5038,6 +5346,7 @@ WHERE
 				d.Tables.Add(t);
 				t.TableName = "epacc";
 				frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamentiUpbIncoerentePadre.Text, t, Meta.Dispatcher, "default");
+				createForm(f, this);
 				f.Show(this);
 			} else {
 				show(this, "Nessun problema riscontrato", "Avviso");
@@ -5064,6 +5373,7 @@ WHERE
 				d.Tables.Add(t);
 				t.TableName = "epacc";
 				frmErrorView f = new frmErrorView(Meta.myHelpForm, txtAccertamentiContoIncoerentePadre.Text, t, Meta.Dispatcher, "default");
+				createForm(f, this);
 				f.Show(this);
 			} else {
 				show(this, "Nessun problema riscontrato", "Avviso");
@@ -5132,15 +5442,23 @@ WHERE
                 t.TableName = "entrydetail";
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, btnGen13.Text + " "+ txtBoxGen13.Text, t,
                     Meta.Dispatcher, "default");
-                f.Show(this);
+                createForm(f, this);
+				f.Show(this);
             }
             else {
                 show(this, "Nessun problema riscontrato nell'esercizio corrente.", "Avviso");
             }
         }
 
+		private void btnCopy_Click(object sender, EventArgs e) {
+            if (!Meta.DrawStateIsDone) return;
+            string valore = txtCurrent.Text;
+            Clipboard.SetDataObject(valore);
+            toolTipBtnCopiaAppunti.Show(valore + " Copiato!",btnCopy,1000);
+        }
 
-        //paytrans§2016§100
-    }
+
+		//paytrans§2016§100
+	}
 
 }

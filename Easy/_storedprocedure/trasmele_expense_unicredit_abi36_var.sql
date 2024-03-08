@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +24,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
- 
+ --setuser 'Demo'
 
 CREATE        PROCEDURE [trasmele_expense_unicredit_abi36_var]
 (
@@ -32,13 +32,15 @@ CREATE        PROCEDURE [trasmele_expense_unicredit_abi36_var]
 	@n int
 )
 AS BEGIN
-
+--[trasmele_expense_unicredit_abi36_var] 2023,42
 --------------------------------------------------------------
 ---  STORED PROCEDURE PER LA TRASMISSIONE DEI MANDATI PER  ---
 ------------------------ BANCA UNICREDIT ABI 36---------------
 --------------------------------------------------------------
-DECLARE @ABI_bancodisardegna varchar(5) = '01015'
-
+DECLARE @abi_bancodisardegna varchar(5) = '01015'
+DECLARE @ABI_bpbari varchar(5) = '05424'
+DECLARE @codetreasurer_bpbari varchar(20) = 'BPB_PNRR'
+DECLARE @codetreasurer_bpbfacil varchar(20) = 'BPB_FACIL'
 DECLARE @len_numericdata int
 SET @len_numericdata = 7
 
@@ -78,6 +80,12 @@ SET @len_bank =50
 DECLARE @idtreasurer int
 DECLARE @kpaymenttransmission int
 
+ 
+declare @CAB_bpbari_PNRR varchar(20)
+SET  @CAB_bpbari_PNRR ='04297'
+ 
+DECLARE @istreasurer_pnrr char(1) = 'N'
+
 SELECT @idtreasurer = idtreasurer, @kpaymenttransmission = kpaymenttransmission FROM paymenttransmission
 WHERE ypaymenttransmission = @y
 	AND npaymenttransmission = @n
@@ -111,6 +119,42 @@ FROM license
 
 DECLARE @lenCC_vincolato int
 SET @lenCC_vincolato = 7
+
+DECLARE @treasurer_description varchar(150)
+DECLARE @treasurer_idbank varchar(20)
+DECLARE @treasurer_trasmcode varchar(7)
+DECLARE @treasurer_codetreasurer varchar(20)
+ 
+declare @CAB varchar(20)
+
+
+SELECT @treasurer_idbank = idbank,
+	@treasurer_trasmcode = trasmcode,
+	@treasurer_description = description,
+	@treasurer_codetreasurer = codetreasurer,
+	@CAB = idcab
+FROM treasurer WHERE idtreasurer = @idtreasurer
+
+if (isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbari or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbfacil
+	)
+BEGIN
+		SET @istreasurer_pnrr = 'S'
+END
+
+-- Per la banca popolare di bari - pnrr il tag conto_evidenza deve essere di due caratteri
+-- quindi se trasmcode è maggiore di due caratteri restituisco un errore
+-- altrimenti valorizzo lenCC_vincolato a 2 invece di 7
+if (isnull(@treasurer_idbank, '') = @ABI_bpbari and   ISNULL(@istreasurer_pnrr,'N') = 'S')
+BEGIN
+	IF (DATALENGTH(CONVERT(varchar(7),ISNULL(@treasurer_trasmcode,'0'))) > 2)
+	BEGIN
+		SELECT 'Il codice conto tesoreria del tesoriere ' + (@treasurer_description) + ' deve essere di due caratteri.' as Errore
+		RETURN
+	END
+
+	SET @lenCC_vincolato = 2
+END
 
 DECLARE @cc_vincolato varchar(7)
  
@@ -596,7 +640,8 @@ CREATE TABLE #payment
 	cigcodemandate varchar(10),
 	autokind int,
 	totalann char(1),
-	opkind varchar(20)
+	opkind varchar(20),
+	expiration datetime
 )
 
 -- Tabella per il delegato
@@ -741,7 +786,8 @@ INSERT INTO #payment
     cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, txt ,
 	chargehandling,
 	exemption_charge_payment_kind,
-	exemption_charge_motive
+	exemption_charge_motive,
+	expiration
 )
 SELECT t.ypaymenttransmission, t.npaymenttransmission,d.kpay, d.ypay, d.npay, s.idexp,  
 	s.ymov, s.nmov, s.nphase, eph.description, 
@@ -760,6 +806,7 @@ SELECT t.ypaymenttransmission, t.npaymenttransmission,d.kpay, d.ypay, d.npay, s.
 		 ELSE ISNULL(tb.handlingbankcode,'')  -- causale esenzione bollo 
 	END,  
 	CASE
+		WHEN  (@ABI_code = @ABI_bpbari and ISNULL(@istreasurer_pnrr,'N') = 'S') THEN 'VINCOLATA'
 		WHEN ((el.paymethod_flag & 256) <> 0) THEN 'LIBERA' -- (girofondi ordinari TABELLA A)
 		WHEN ((el.paymethod_flag & 512) <> 0) THEN 'VINCOLATA' --(girofondi vincolati TABELLA A)
 		WHEN ((el.paymethod_flag & 1024) <> 0) THEN 'LIBERA' --(girofondi ordinari TABELLA B) 
@@ -797,18 +844,17 @@ SELECT t.ypaymenttransmission, t.npaymenttransmission,d.kpay, d.ypay, d.npay, s.
 	null,
 	null,
 	CASE
-		  WHEN (@ABI_code = @abi_bancodisardegna AND pd.idpaydisposition is not null)  
+		  WHEN ( pd.idpaydisposition is not null)  
 		  THEN ISNULL(pd.title,ISNULL(pd.surname,'') + ' ' +  ISNULL(pd.forename,'') ) 
 		  ELSE ISNULL(c.title,'')
 	END,
 	CASE
-		  WHEN (@ABI_code = @abi_bancodisardegna AND pd.idpaydisposition is not null)  
+		  WHEN ( pd.idpaydisposition is not null)  
 		  THEN ISNULL(pd.cf,'')   
 		  ELSE c.cf
 	END,
 	CASE
-		WHEN (@ABI_code = @abi_bancodisardegna 
-			  AND pd.idpaydisposition is not null )
+		WHEN ( pd.idpaydisposition is not null )
 			  THEN ISNULL(pd.p_iva,'')  
 		ELSE CASE
 				WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL
@@ -854,13 +900,11 @@ SELECT t.ypaymenttransmission, t.npaymenttransmission,d.kpay, d.ypay, d.npay, s.
 	ISNULL(el.refexternaldoc,''),
 	CONVERT(varchar(7),el.nbill),
 	el.idpay, --6 
-	CASE WHEN (@ABI_code = @abi_bancodisardegna 
-		 AND pd.idpaydisposition is not null )
+	CASE WHEN ( pd.idpaydisposition is not null )
 			  THEN pd.idpaydisposition 
 	ELSE NULL
 	END,
-	CASE WHEN (@ABI_code = @abi_bancodisardegna 
-		 AND pd.idpaydisposition is not null )
+	CASE WHEN (pd.idpaydisposition is not null )
 			  THEN pd.iddetail 
 	ELSE 0
 	END,
@@ -874,7 +918,8 @@ SELECT t.ypaymenttransmission, t.npaymenttransmission,d.kpay, d.ypay, d.npay, s.
 	ltrim(rtrim(substring(s.txt, 1, 200))),
 	chargehandling.handlingbankcode,
 	chargehandling.payment_kind,
-	chargehandling.motive
+	chargehandling.motive,
+	s.expiration
 FROM expense s
 JOIN expenselast el
 	ON S.idexp = el.idexp
@@ -1131,10 +1176,8 @@ AND (p.idpaydisposition IS   NULL AND -- i mandati stipendi ad anagrafiche cumul
 	 -- i girofondi in B.I. non possono essere associati a ritenute
 	 (p.girofondo <> 'S')
 	 )
-	AND ((e.autokind = 6) -- Recupero
-	OR (e.autokind = 14) --automatismo generico
-	OR (e.autokind = 4 AND e.idreg = p.idreg) -- Ritenuta
-	OR (e.autokind in (20,21,30,31) AND e.idreg = p.idreg)) -- AUTOMATISMI DA CSA
+	AND (e.autokind in (4,6,7,14,20,21,30,31) )
+	AND ((e.idreg = p.idreg) or (e.autokind = 14)/*automatismo generico, non è richiesta la stessa anagrafica*/)
 	AND ie.ayear = @y
 UPDATE #tax SET curramount = curramount + ISNULL((select SUM(amount) FROM incomevar WHERE incomevar.idinc = #tax.idinc AND incomevar.autokind NOT IN (10,11) ),0)
 
@@ -1862,8 +1905,8 @@ CREATE TABLE #trace
 	impignorabili char(1),
 	frazionabile char(1),
 	gestione_provvisoria char(1),
-	data_esecuzione_pagamento datetime, 
-	data_scadenza_pagamento datetime,
+	data_esecuzione_pagamento varchar(20), 
+	data_scadenza_pagamento varchar(20),
 	destinazione varchar(20),
 	numero_conto_banca_italia_ente_ricevente varchar(10),
 	tipo_contabilita_ente_ricevente varchar(20),
@@ -2194,8 +2237,8 @@ SELECT
 				   null,
 				   null,
 				   null,
-				   null,
-				   null,
+				   CONVERT(VARCHAR(10),expiration,20),--data esecuzione pagamento,
+				   null,--  ---data scadenza pagamento,
 				   destinazione, -- destinazione
 				   CASE 
 						WHEN (idpaymethodTRS = '09') THEN 1777 
@@ -2366,7 +2409,7 @@ LEFT JOIN #deputy
 		ABI, CAB, cc, cin_iban, cin,codice_paese, bank, iban,biccode,id_end_to_end,code, proprietary,
 		paymentdescr,nbill, stamphandling, stamp_charge, exemption_stamp_motive, 
 		refexternaldoc,expenselast_paymentdescr, chargehandling,exemption_charge_payment_kind,
-		exemption_charge_motive
+		exemption_charge_motive,expiration
 	ORDER BY  #payment.ndoc, #payment.idpay	
 
 --- NON DEVONO ESSERE INSERITE LE CLASSIFICAZIONI SIOPE PER TASK 15681

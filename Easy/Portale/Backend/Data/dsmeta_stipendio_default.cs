@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_stipendio_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_stipendio_default: DataSet {
+public partial class dsmeta_stipendio_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -64,24 +64,34 @@ private void initClass() {
 	tstipendio.defineColumn("!tesoro", typeof(decimal));
 	tstipendio.defineColumn("!totalece", typeof(decimal));
 	tstipendio.defineColumn("!tredicesima", typeof(decimal));
+	tstipendio.defineColumn("anzianitamax", typeof(int));
+	tstipendio.defineColumn("anzianitamin", typeof(int));
 	tstipendio.defineColumn("assegno", typeof(decimal));
 	tstipendio.defineColumn("classe", typeof(int));
 	tstipendio.defineColumn("ct", typeof(DateTime));
 	tstipendio.defineColumn("cu", typeof(string));
-	tstipendio.defineColumn("idcontrattokind", typeof(int),false);
+	tstipendio.defineColumn("elementoperequativo", typeof(decimal));
+	tstipendio.defineColumn("idcontrattokind", typeof(int));
 	tstipendio.defineColumn("idinquadramento", typeof(int),false);
+	tstipendio.defineColumn("idposition", typeof(int),false);
 	tstipendio.defineColumn("idstipendio", typeof(int),false);
 	tstipendio.defineColumn("iis", typeof(decimal));
+	tstipendio.defineColumn("indennitaateneo", typeof(decimal));
+	tstipendio.defineColumn("indennitaposizioneminima", typeof(decimal));
 	tstipendio.defineColumn("irap", typeof(decimal));
 	tstipendio.defineColumn("lordo", typeof(decimal));
+	tstipendio.defineColumn("lordonotredicesima", typeof(decimal));
 	tstipendio.defineColumn("lt", typeof(DateTime));
 	tstipendio.defineColumn("lu", typeof(string));
+	tstipendio.defineColumn("rifnormativo", typeof(string));
 	tstipendio.defineColumn("scatto", typeof(int));
 	tstipendio.defineColumn("siglaimportazione", typeof(string));
+	tstipendio.defineColumn("start", typeof(DateTime));
 	tstipendio.defineColumn("stipendio", typeof(decimal));
+	tstipendio.defineColumn("stop", typeof(DateTime));
 	tstipendio.defineColumn("totale", typeof(decimal));
 	Tables.Add(tstipendio);
-	tstipendio.defineKey("idcontrattokind", "idinquadramento", "idstipendio");
+	tstipendio.defineKey("idinquadramento", "idposition", "idstipendio");
 
 	#endregion
 

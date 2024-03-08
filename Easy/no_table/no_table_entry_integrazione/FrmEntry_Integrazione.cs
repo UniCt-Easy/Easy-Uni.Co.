@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,10 +45,15 @@ namespace no_table_entry_integrazione {
             conn = Meta.Conn;
             QHS = Meta.Conn.GetQueryHelper();
             //tAccountLookUp = DataAccess.CreateTableByName(Meta.Conn, "accountlookup", "oldidacc, newidacc");
-            DataTable tAccountLookUp = conn.RUN_SELECT("accountlookupview","oldidacc,newidacc", null, QHS.CmpEq("newayear", conn.GetSys("esercizio")), null, false);
+            DataTable tAccountLookUp = conn.RUN_SELECT("accountlookupview", "oldidacc,newidacc, isnull(newflagregistry, 'S') as newflagregistry ", null, QHS.CmpEq("newayear", conn.GetSys("esercizio")), null, false);
             foreach (DataRow r in tAccountLookUp.Rows) {
                 lookupAccount[r["oldidacc"].ToString()] = r["newidacc"].ToString();
+                // inserisco solo i conti con flagregistry a N, ovvero per i quali non devo impostare l'anagrafica
+                if (r["newflagregistry"].ToString() == "N") 
+                    flagNoRegistryAccount[r["newidacc"].ToString()] = r["newflagregistry"].ToString();
             }
+           
+           
             DataTable tPlAccount = conn.RUN_SELECT( "placcount", "idplaccount, placcpart",null,QHS.CmpEq("ayear",conn.GetEsercizio()),null,false);
             foreach (DataRow r in tPlAccount.Rows) {
                 plAccountLookup[r["idplaccount"].ToString()] = r["placcpart"].ToString();
@@ -286,16 +291,21 @@ namespace no_table_entry_integrazione {
 
                 DataRow rEntry = parentRow[identrykind];
                 nChild[identrykind] = nChild[identrykind] + 1;
-                
+ 
 
                 // Dettaglio COSTO - RICAVO (Non ho il problema di controllare l'esistenza di una riga pregressa
                 // perché per come è costruita la tabella le righe sono tutte diverse tra di loro
                 DataRow rEntryDetailCR = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
                 rEntryDetailCR["amount"] = -importoDettaglio;
                 rEntryDetailCR["idacc"] = idaccountDare;
+                
                 foreach (string field in new string[] {"idreg", "idupb", "idepexp", "idepacc", "idsor1", "idsor2", "idsor3",
                     "idaccmotive", "competencystart", "competencystop","idrelated"}) {
                     rEntryDetailCR[field] = curr[field];
+                    // Azzero anche l'impostazione sull'anagrafica se non deve essere posta sul dettaglio scrittura, anche se credo sia impossibile per
+                    // i conti di costo o ricavo
+                    if (flagNoRegistryAccount.ContainsKey(idaccountDare.ToString()))
+                        rEntryDetailCR["idreg"] = DBNull.Value;
                 }
 
                 DataRow rEntryDetailRis = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
@@ -304,6 +314,14 @@ namespace no_table_entry_integrazione {
                 foreach (string field in new string[] {"idreg", "idupb", "idepexp", "idepacc", "idsor1", "idsor2", "idsor3",
                     "idaccmotive", "competencystart", "competencystop","idrelated"}) {
                     rEntryDetailRis[field] = curr[field];
+                    // azzero le coordinate analitiche sui conti di risconto o rateo
+                    if ((idaccountAvere == riscontoChoosen) || (idaccountAvere == idRateoAttivo)){
+                        foreach (string idsor in new string[] { "idsor1", "idsor2", "idsor3" }) 
+                        rEntryDetailRis[idsor] = DBNull.Value;
+                        // Azzero anche l'impostazione sull'anagrafica se non deve essere posta sul dettaglio scrittura
+                        if (flagNoRegistryAccount.ContainsKey(idaccountAvere.ToString()))
+                            rEntryDetailRis["idreg"] = DBNull.Value;
+                    }
                 }
 
 
@@ -318,6 +336,7 @@ namespace no_table_entry_integrazione {
                 return true;
             }
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn,tEntryDetailSource);
+            createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
                 show(this, "Operazione Annullata!","Avviso");
@@ -359,6 +378,8 @@ namespace no_table_entry_integrazione {
         }
 
         private Dictionary<string, string> lookupAccount = new Dictionary<string, string>();
+
+        private Dictionary<string, string> flagNoRegistryAccount = new Dictionary<string, string>();
         private object attualizzaAccount(object oldidacc) {
             if (oldidacc == DBNull.Value) return DBNull.Value;
             if (lookupAccount.ContainsKey(oldidacc.ToString())) return lookupAccount[oldidacc.ToString()];
@@ -373,11 +394,23 @@ namespace no_table_entry_integrazione {
         private DataTable ottieniDettagliScrittura() {
             int lastAyear = (int)Meta.GetSys("esercizio") - 1;
             DateTime dec31 = new DateTime(lastAyear, 12, 31);
-
+            //bool costo = (flagaccountusage & 64) != 0;
+            //bool ricavo = (flagaccountusage & 128) != 0;
+            //bool immobilizzazione = (flagaccountusage & 256) != 0;
             string queryED = "SELECT d.*,e.identrykind,"+
                              "A.codeacc, A.title as account, ACCM.codemotive, ACCM.title as accmotive,reg.title as registry,U.codeupb, " +
                              "A.flagaccountusage,"+
-                             "UY.idacc_accruals,UY.idacc_deferredcost FROM entrydetail d "
+                             "UY.idacc_accruals,UY.idacc_deferredcost," +
+                             // leggo / riporto le coordinate analitiche solo per le scritture di tipo
+                             // 3 Risconto Rettifica
+                             // 8 Assestamento Commessa Completata
+                             "case when e.identrykind in (3,8)  AND ((A.flagaccountusage & (64 + 256)  <> 0) OR (A.flagaccountusage & 128 <> 0))    " +
+                             "   then D.idsor1 else null end as idsor1," +  // costo o immobilizzazione o ricavo    " +
+                             "case when e.identrykind in (3,8)  AND ((A.flagaccountusage & (64 + 256) <> 0) OR (A.flagaccountusage & 128 <> 0))    " +
+                             "  then D.idsor2 else null end as idsor2, " +  // costo o immobilizzazione o ricavo    " +
+                             "case when e.identrykind in (3,8)  AND ((A.flagaccountusage & (64 + 256)  <> 0) OR (A.flagaccountusage & 128 <> 0))    " +
+                             "   then D.idsor3 else null end as idsor3  " +  // costo o immobilizzazione o ricavo    " +
+                             "FROM entrydetail d "
             + " JOIN entry e ON " + QHS.AppAnd(QHS.CmpEq("e.yentry", QHS.Field("d.yentry")),
             QHS.CmpEq("e.nentry", QHS.Field("d.nentry")))+
                              " join upb U on U.idupb = D.idupb "+

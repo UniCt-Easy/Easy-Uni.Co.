@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -46,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'active', 'Attivo', null, 60, null);
 						this.describeAColumn(table, 'address', 'Indirizzo', null, 70, 100);
 						this.describeAColumn(table, 'flagforeign', 'Estero', null, 80, null);
-						this.describeAColumn(table, 'location', 'Localit‡', null, 100, 50);
+						this.describeAColumn(table, 'location', 'Localit√†', null, 100, 50);
 						this.describeAColumn(table, 'cap', 'CAP', null, 110, 20);
 						this.describeAColumn(table, 'annotations', 'Annotazioni', null, 130, 400);
 						this.describeAColumn(table, '!idaddresskind_address_description', 'Tipologia', null, 11, null);
@@ -59,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						break;
 					case 'user':
 						this.describeAColumn(table, 'address', 'Indirizzo', null, 70, 100);
-						this.describeAColumn(table, 'location', 'Localit‡', null, 100, 50);
+						this.describeAColumn(table, 'location', 'Localit√†', null, 100, 50);
 						this.describeAColumn(table, 'cap', 'CAP', null, 110, 20);
 						this.describeAColumn(table, '!idcity_geo_city_title', 'Comune', null, 91, null);
 						objCalcFieldConfig['!idcity_geo_city_title'] = { tableNameLookup:'geo_city_alias1', columnNameLookup:'title', columnNamekey:'idcity' };
@@ -81,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["idaddresskind"].caption = "Tipologia";
 						table.columns["idcity"].caption = "Comune";
 						table.columns["idnation"].caption = "Nazione";
-						table.columns["location"].caption = "Localit‡";
+						table.columns["location"].caption = "Localit√†";
 //$innerSetCaptionConfig_user$
 						break;
 					case 'seg':

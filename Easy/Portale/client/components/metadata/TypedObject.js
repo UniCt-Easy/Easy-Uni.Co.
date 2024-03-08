@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-/**
+Ôªø/**
  * @module TypedObject
  * @description
  * Contains utility methods to manage the conversion beetwen db and javascript types. It manages also the correct display format for each type
@@ -26,7 +9,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     var numberGroupSeparator = ".";         // Separatore delle migliaia
     var currencyDecimalSeparator = ",";     // Separatore decimale currency
     var currencyGroupSeparator = ".";       // Separatore Migliaia Currency
-    var currencySymbol = String.fromCharCode(8364); // Simbolo di currency (Ä)
+    var currencySymbol = String.fromCharCode(8364); // Simbolo di currency (‚Ç¨)
 
     /**
      * @constructor TypedObject
@@ -64,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var cc;
             switch (typeName) {
                 case "String":
+                case "string":
                     this.value = s;
                     return this;
                 case "Char":
@@ -73,6 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 case "Double":
                 case "Single":
                 case "Decimal":
+                case "number":
                     if (s === "") return this;
                     var d;
                     if (fmt === null || isStandardNumericFormatStyle(fmt)) {
@@ -109,6 +94,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 //DateTime right now just implements the "d" format
                 case "DateTime":
+                case "date":
                     if (s === "") return this;
                     // Convert S into a Date
                     // Not sure if it has to work this way... maybe the If can be removed...
@@ -120,9 +106,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
                 //The following formats wi11 always return an int datatype...
+                case "int":
                 case "Byte":
                 case "Int16":
                 case "Int32":
+
 
                     if (s === "") return this;
                     var i = parseInt(s);
@@ -165,7 +153,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         stringValue: function (tag) {
             /*
-             StringValue Ë la funzione duale di TypedObject(). A partire da pObject,
+             StringValue √® la funzione duale di TypedObject(). A partire da pObject,
              che consta di due membri (TypeName e Obj descritti nella funzione precedente)
              fornisce in output una stringa formattata secondo pTag.
              */
@@ -173,7 +161,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (this.value === null || this.value === undefined) return "";
 
             var fmt = getFormatfromTag(tag);
-
             if (this.typeName === "DateTime") {
                 if (isStandardDateFormatStyle(fmt)) {
                     return fromDateToString(this.value,fmt);
@@ -211,6 +198,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return news;
                 }
             }
+
+            if (fmt === "skipNChar") {
+                let toSkip = getField(tag, 3);
+                return this.value.toString().substring(toSkip, this.value.toString().length);
+            }
+
             return this.value.toString();
         }
     }
@@ -264,7 +257,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     function fromDateToString(value, pStdDateFormat) {
         /*
          Funzione duale della precedente. Dato un pObject (presumibilmente di tipo Date Javascript)
-         ed un formato data pStdDateFormat (i formati supportati al momento sono ìdî e ìgî di cui sopra),
+         ed un formato data pStdDateFormat (i formati supportati al momento sono ‚Äúd‚Äù e ‚Äúg‚Äù di cui sopra),
          ritorna una stringa formattata secondo pStdDateFormat.
          */
 
@@ -300,7 +293,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // html input=date. accetta valori di data solo nel formato yyyy-MM-dd
             case "dd":
             {
-                // fo rinput date html5. it accepts yyyy-MM-dd
+                // for input date html5. it accepts yyyy-MM-dd
                 strDay = day.toString();
                 if (strDay.length === 1)
                     strDay = "0" + strDay;
@@ -364,8 +357,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     function fromNumberToString (pNumber, pPrecision, pNumberStyle) {
         /*
          Dato un pNumber (numero Javascript), una precisione pPrecision ed un pNumberStyle,
-         lo converte dal formato Javascript in stringa. Ad es. 1234673.33 verr‡ convertito
-         in 1.234.673,33. Se pNumberStyle vale ìCurrencyî, aggiunge anche il simbolo di valuta.
+         lo converte dal formato Javascript in stringa. Ad es. 1234673.33 verr√† convertito
+         in 1.234.673,33. Se pNumberStyle vale ‚ÄúCurrency‚Äù, aggiunge anche il simbolo di valuta.
          Questa funzione viene richiamata da StringValue.
          */
 
@@ -448,6 +441,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     function stringFromJsObj  (pType, val) {
         switch (pType) {
             case "String":
+            case "string":
                 return val;
             case "Char":
                 return val.charAt(0).toString();
@@ -455,12 +449,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             case "Double":
             case "Single":
                 return val.toString();
+            case "int":
             case "Int16":
             case "Int32":
             case "Int64":
             case "Byte":
                 return val.toString();
             case "DateTime":
+            case "Date":
                 return fromDateToString(val, "d");
             default:
                 return val.toString();
@@ -472,7 +468,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @public
      * @description SYNC
      * Given the string "s" and the column type "pType", returns the appropriate js object
-     * @param pType column types: ìStringî, ìCharî, ìDoubleî, ìSingleî, ìDecimalî, ìDateTimeî, ìByteî, ìInt16î, ìInt32î
+     * @param pType column types: ‚ÄúString‚Äù, ‚ÄúChar‚Äù, ‚ÄúDouble‚Äù, ‚ÄúSingle‚Äù, ‚ÄúDecimal‚Äù, ‚ÄúDateTime‚Äù, ‚ÄúByte‚Äù, ‚ÄúInt16‚Äù, ‚ÄúInt32‚Äù
      * @param s string to convert
      * @returns {any}
      */
@@ -482,20 +478,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         switch (pType) {
             case "String":
+            case "string":
                 return s;
             case "Char":
                 return s.charAt(0);
             case "Decimal":
+            case "number":
             case "Double":
             case "Single":
                 return parseFloat(s);
+            case "int":
             case "Int16":
             case "Int32":
             case "Int64":
             case "Byte":
                 return parseInt(s);
             case "DateTime":
-                // utilizzo la funz. gi‡ implementata passando d
+            case "Date":
+                // utilizzo la funz. gi√† implementata passando d
                 return fromStringToDate(s, "d");
             default:
                 return s;
@@ -514,8 +514,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     function toJsNumber (s, pNumberStyle) {
         /*
          Data una string pString ed un pNumberStyle (che specifica se si tratti di currency o altro),
-         rimuove il simbolo di valuta ìÄî, il separatore delle migliaia ì.î e rimpiazza la virgola con il punto.
-         Restituisce la stringa cosÏ ottenuta. Viene richiamata dalla GetObjectFromString.
+         rimuove il simbolo di valuta ‚Äú‚Ç¨‚Äù, il separatore delle migliaia ‚Äú.‚Äù e rimpiazza la virgola con il punto.
+         Restituisce la stringa cos√¨ ottenuta. Viene richiamata dalla GetObjectFromString.
          Utilizza le variabili globali CurrencySymbol, CurrencyGroupSeparator e CurrencyDecimalSeparator.
          */
 
@@ -634,8 +634,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          Converte una stringa pString, ritornando una data Javascript,
          avendo in input pStdDateFormat come formato data. Al momento i
          formati data supportati (i.e. pStdDateFormat) sono 2:
-         -	ìdî: DD/MM/YYYY;
-         -	ìgî: DD/MM/YYYY HH:MM (o HH.MM).
+         -	‚Äúd‚Äù: DD/MM/YYYY;
+         -	‚Äúg‚Äù: DD/MM/YYYY HH:MM (o HH.MM).
          */
 
         if (pString == null)
@@ -791,7 +791,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
     function isStandardDateFormatStyle (fmt) {
         /*
-         Ritorna true se il formato data fmt Ë standard. False altrimenti.
+         Ritorna true se il formato data fmt √® standard. False altrimenti.
          */
         switch (fmt) {
             case "d":

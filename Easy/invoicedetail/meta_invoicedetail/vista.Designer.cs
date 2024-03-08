@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -930,6 +930,17 @@ public class invoicedetailRow: MetaRow  {
 	public String idfinmotive_ivaOriginal { 
 		get {if (this["idfinmotive_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idfinmotive_iva",DataRowVersion.Original];}
 	}
+	public Int32? rownum_main{ 
+		get {if (this["rownum_main"]==DBNull.Value)return null; return  (Int32?)this["rownum_main"];}
+		set {if (value==null) this["rownum_main"]= DBNull.Value; else this["rownum_main"]= value;}
+	}
+	public object rownum_mainValue { 
+		get{ return this["rownum_main"];}
+		set {if (value==null|| value==DBNull.Value) this["rownum_main"]= DBNull.Value; else this["rownum_main"]= value;}
+	}
+	public Int32? rownum_mainOriginal { 
+		get {if (this["rownum_main",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["rownum_main",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -1018,6 +1029,7 @@ public class invoicedetailTable : MetaTableBase<invoicedetailRow> {
 			{"idepexp_pre",createColumn("idepexp_pre",typeof(int),true,false)},
 			{"idtassonomia",createColumn("idtassonomia",typeof(int),true,false)},
 			{"idfinmotive_iva",createColumn("idfinmotive_iva",typeof(string),true,false)},
+			{"rownum_main",createColumn("rownum_main",typeof(int),true,false)},
 		};
 	}
 }

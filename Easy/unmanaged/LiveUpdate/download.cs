@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -144,7 +144,8 @@ namespace LiveUpdate{//LiveUpdate//
                 Environment.Version.Build.Equals(30319) &&
                 Environment.Version.Revision >= 34000;
 
-            return result;
+            return result || Thread.CurrentThread.Name == "Main Form Blazor Thread" || Thread.CurrentThread.Name == "BlazorUpdateDll" 
+				|| Thread.CurrentThread.Name == "LUBlazor" || Thread.CurrentThread.Name == "UpdateDBBlazor";
         }
 
         /// <summary>
@@ -275,7 +276,7 @@ namespace LiveUpdate{//LiveUpdate//
 
 					//creo thread                    
 					Thread T=new Thread(new ThreadStart(ti.Process));
-				    T.Name = "LU";
+				    T.Name = (Thread.CurrentThread.Name ?? "").Contains("Blazor") ? "LUBlazor" : "LU";
                     AllThread[i] = T;
 
 					//lancio il thread
@@ -423,25 +424,35 @@ namespace LiveUpdate{//LiveUpdate//
 		}
 
 		public static string[] CleanupUrlsArray(string[] presumedUrls) {
-			List<Uri> urls = new List<Uri>();
-			for (int i = 0; i < presumedUrls.Length; i++) {
-				Uri tmpUrl;
+			//List<Uri> urls = new List<Uri>();
+			//for (int i = 0; i < presumedUrls.Length; i++) {
+			//	Uri tmpUrl;
 
+			//	try {
+			//		tmpUrl = new Uri(presumedUrls[i]);
+			//	}
+			//	catch (Exception e) {
+			//		continue;
+			//	}
+
+			//	if (tmpUrl.Scheme == Uri.UriSchemeHttp || tmpUrl.Scheme == Uri.UriSchemeHttps)
+			//		urls.Add(tmpUrl);
+			//}
+
+			//string[] realUrls = new string[urls.Count];
+			//urls._forEach((url, index) => { realUrls[index] = url.ToString(); });
+
+			//return realUrls;
+
+			return presumedUrls.ToList().FindAll(pu => {
 				try {
-					tmpUrl = new Uri(presumedUrls[i]);
+					new Uri(pu);
 				}
 				catch (Exception e) {
-					continue;
+					return false;
 				}
-
-				if (tmpUrl.Scheme == Uri.UriSchemeHttp || tmpUrl.Scheme == Uri.UriSchemeHttps)
-					urls.Add(tmpUrl);
-			}
-
-			string[] realUrls = new string[urls.Count];
-			urls._forEach((url, index) => { realUrls[index] = url.ToString(); });
-
-			return realUrls;
+				return true;
+			}).ToArray();
 		}
 
 		public static void CleanupUpdateConfig(DataRow r, string[] liveUpdateEndpoints) {
@@ -469,7 +480,10 @@ namespace LiveUpdate{//LiveUpdate//
 
         public string serviceName;
 	    public Http(string[] addresses, string cachepath,string serviceName) {
-	        try {
+			//ServicePointManager.Expect100Continue = true;
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+			try {
 	            this.serviceName = serviceName;
 	            if (!cachepath.EndsWith("\\")) cachepath+="\\";				//D:\\easy\\output\\
 	            this.cachepath = cachepath;			
@@ -517,6 +531,9 @@ namespace LiveUpdate{//LiveUpdate//
 		/// <param name="paths">Collection di siti o cartelle locali</param>
 		/// <param name="cachepath">Percorso cartella di destinazione locale</param>
 		public Http(string[] addresses, string cachepath) {
+			//ServicePointManager.Expect100Continue = true;
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
 			try {
 
 			    if (!cachepath.EndsWith("\\")) cachepath+="\\";				//D:\\easy\\output\\
@@ -755,7 +772,8 @@ namespace LiveUpdate{//LiveUpdate//
                 Environment.Version.Build.Equals(30319) &&
                 Environment.Version.Revision >= 34000;
 
-            return result;
+            return result || Thread.CurrentThread.Name == "Main Form Blazor Thread" || Thread.CurrentThread.Name == "BlazorUpdateDll" 
+				|| Thread.CurrentThread.Name == "LUBlazor" || Thread.CurrentThread.Name == "UpdateDBBlazor";
         }
 
         private bool versione4 = false;
@@ -1056,7 +1074,8 @@ namespace LiveUpdate{//LiveUpdate//
 		/// </summary>
 		private bool DLLAggiornata(DataRow dllNuova,
             DataRow dllVecchia) {
-            if (dllVecchia == null) return true;
+			//if (dllNuova["dllname"].ToString().Contains("RestSharp")) return true;
+			if (dllVecchia == null) return true;
             int oldmajor = Getint(dllVecchia["major"]);
             int newmajor = Getint(dllNuova["major"]);
             if (newmajor > oldmajor) return true;
@@ -2648,6 +2667,7 @@ namespace LiveUpdate{//LiveUpdate//
 			FrmMeter FM= new FrmMeter();
 			FM.labInfo.Text=title;
 			FM.pBar.Maximum=CmdList.Count;
+			MetaFactory.factory.getSingleton<IFormCreationListener>().create(FM, null);
 			FM.Show();
             error = null;
 			//System.Windows.Forms.Application.DoEvents();
@@ -2685,6 +2705,7 @@ namespace LiveUpdate{//LiveUpdate//
 			FrmMeter FM= new FrmMeter();
 			FM.labInfo.Text=title;
 			FM.pBar.Maximum=CmdList.Count;
+			MetaFactory.factory.getSingleton<IFormCreationListener>().create(FM, null);
 			FM.Show();
 			//System.Windows.Forms.Application.DoEvents();
 	        for (int i = 0; i < CmdList.Count; i++) {
@@ -2695,7 +2716,9 @@ namespace LiveUpdate{//LiveUpdate//
                 }
 	            if (!RunScriptCmd(Conn, sql, out error)) {
 	                ok = false;
-	                DialogResult dr = new FrmError(title, Conn.LastError).ShowDialog(FM);
+					FrmError f = new FrmError(title, Conn.LastError);
+					MetaFactory.factory.getSingleton<IFormCreationListener>().create(f, FM);
+					DialogResult dr = f.ShowDialog(FM);
 	                if (dr != DialogResult.Yes) {
 	                    FM.Close();
 	                    return false;

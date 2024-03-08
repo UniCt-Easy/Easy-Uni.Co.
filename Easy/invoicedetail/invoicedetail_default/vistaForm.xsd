@@ -16,6 +16,9 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="idivataxablekind" type="xs:int" minOccurs="0" />
+              <xs:element name="codeivakind" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
               <xs:element name="idfenature" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -102,6 +105,7 @@
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
               <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
               <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -261,6 +265,7 @@
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="linktoinvoice" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -286,6 +291,7 @@
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="linktoinvoice" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -721,6 +727,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="listingorder" type="xs:int" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -889,6 +896,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="finmotive_iva_income">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfinmotive" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="codemotive" type="xs:string" />
+              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="tassonomia_pagopa">
           <xs:complexType>
             <xs:sequence>
@@ -904,21 +926,6 @@
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="motivoriscossione" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="finmotive_iva_income">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idfinmotive" type="xs:string" />
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="codemotive" type="xs:string" />
-              <xs:element name="paridfinmotive" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1080,13 +1087,13 @@
       <xs:selector xpath=".//mstns:sorting_siopes" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
-    <xs:unique name="tassonomia_pagopa_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:tassonomia_pagopa" />
-      <xs:field xpath="mstns:idtassonomia" />
-    </xs:unique>
     <xs:unique name="finmotive_iva_income_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:finmotive_iva_income" />
       <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:unique name="tassonomia_pagopa_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tassonomia_pagopa" />
+      <xs:field xpath="mstns:idtassonomia" />
     </xs:unique>
   </xs:element>
   <xs:annotation>
@@ -1124,8 +1131,8 @@
       <msdata:Relationship name="finmotive_income_invoicedetail" msdata:parent="finmotive_income" msdata:child="invoicedetail" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive" />
       <msdata:Relationship name="sorting_siope_invoicedetail" msdata:parent="sorting_siopee" msdata:child="invoicedetail" msdata:parentkey="idsor" msdata:childkey="idsor_siope" />
       <msdata:Relationship name="sorting_siopes_invoicedetail" msdata:parent="sorting_siopes" msdata:child="invoicedetail" msdata:parentkey="idsor" msdata:childkey="idsor_siope" />
-      <msdata:Relationship name="tassonomia_pagopa_invoicedetail" msdata:parent="tassonomia_pagopa" msdata:child="invoicedetail" msdata:parentkey="idtassonomia" msdata:childkey="idtassonomia" />
       <msdata:Relationship name="finmotive_iva_invoicedetail" msdata:parent="finmotive_iva_income" msdata:child="invoicedetail" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive_iva" />
+      <msdata:Relationship name="tassonomia_pagopa_invoicedetail" msdata:parent="tassonomia_pagopa" msdata:child="invoicedetail" msdata:parentkey="idtassonomia" msdata:childkey="idtassonomia" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,7 +42,7 @@ namespace no_table_cud {
         private void InitializeComponent() {
             this.btnGeneraCud = new System.Windows.Forms.Button();
             this.DS = new no_table_cud.vistaForm();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.txtCartella = new System.Windows.Forms.TextBox();
             this.btnCartella = new System.Windows.Forms.Button();
             this.btnProblemi = new System.Windows.Forms.Button();
@@ -143,7 +143,7 @@ namespace no_table_cud {
 
         private System.Windows.Forms.Button btnGeneraCud;
         public vistaForm DS;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.TextBox txtCartella;
         private System.Windows.Forms.Button btnCartella;
         private System.Windows.Forms.Button btnProblemi;

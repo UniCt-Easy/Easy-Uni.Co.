@@ -120,6 +120,12 @@
       <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
     <None Include="vistaForm.xsx">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>

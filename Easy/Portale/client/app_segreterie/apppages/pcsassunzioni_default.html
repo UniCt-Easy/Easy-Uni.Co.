@@ -1,4 +1,6 @@
-﻿<!--header-->
+﻿<div class="p-2 custom_lng_div" data-langkey="pageheader883" >I dati inseriti in questa interfaccia servono indicare le future assunzioni e progressioni economiche verticali.
+I dati inseriti saranno utilizzati in tutte le simulazioni del medesimo anno.</div>
+
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 		
@@ -6,61 +8,70 @@
 	<form>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="pcsassunzioni_default_idcontrattokind_start">Qualifica/Categoria di partenza</label>
-					<select id="pcsassunzioni_default_idcontrattokind_start" class="custom-select d-block w-100"  data-source-name="contrattokinddefaultview" data-value-member="idcontrattokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="pcsassunzioni.idcontrattokind_start"   > </select>
+					<label class="col-form-label col-md-12" for="pcsassunzioni_default_idposition_start">Qualifica/Categoria di partenza</label>
+					<div>
+						<input id="pcsassunzioni_default_idposition_start" name="pcsassunzioni_default_idposition_start" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="positiondefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="pcsassunzioni_default_idcontrattokind">Qualifica/Categoria</label>
-					<select id="pcsassunzioni_default_idcontrattokind" class="custom-select d-block w-100"  data-source-name="contrattokinddefaultview_alias1" data-value-member="idcontrattokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="pcsassunzioni.idcontrattokind"   > </select>
+					<label class="col-form-label col-md-12" for="pcsassunzioni_default_codicessd">Codicessd</label>
+					<input id="pcsassunzioni_default_codicessd" type="text" class="form-control" data-tag="pcsassunzioni.codicessd"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#pcsassunzioni_default_data").datetimepicker();
-  } );
-  </script>
-					<label class="col-form-label col-md-12" for="pcsassunzioni_default_data">Data assunzione presunta</label>
-					<input id="pcsassunzioni_default_data" type="text" class="form-control" data-tag="pcsassunzioni.data.g"  />
+					<label class="col-form-label col-md-12" for="pcsassunzioni_default_idposition">Qualifica/Categoria</label>
+					<div>
+						<input id="pcsassunzioni_default_idposition" name="pcsassunzioni_default_idposition" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="positiondefaultview_alias1.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
 				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzioni_default_data">Data assunzione presunta</label>
+					<input id="pcsassunzioni_default_data" type="text" class="form-control" data-tag="pcsassunzioni.data.g"   data-dateTimePickerFormat="dd/mm/yy"/>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="pcsassunzioni_default_stipendio">Stipendio tabellare più basso</label>
 					<input id="pcsassunzioni_default_stipendio" type="text" class="form-control" data-tag="pcsassunzioni.stipendio.fixed.2"  />
 				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzioni_default_percentuale">Indicare la percentuale di stipendio da considerare.</label>
+					<input id="pcsassunzioni_default_percentuale" type="text" class="form-control" data-tag="pcsassunzioni.percentuale.fixed.2"  />
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="pcsassunzioni_default_numeropersoneassunzione">Numero di persone su nuova assunzione</label>
+					<input id="pcsassunzioni_default_numeropersoneassunzione" type="text" class="form-control" data-tag="pcsassunzioni.numeropersoneassunzione.fixed.2"  />
+				</div>
+				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="pcsassunzioni_default_idsasd">SSD</label>
 					<div>
-						<input id="pcsassunzioni_default_idsasd" name="pcsassunzioni_default_idsasd" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sasddefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="pcsassunzioni_default_idsasd" name="pcsassunzioni_default_idsasd" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sasddefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="pcsassunzioni_default_nominativo">Nominativo</label>
 					<input id="pcsassunzioni_default_nominativo" type="text" class="form-control" data-tag="pcsassunzioni.nominativo"  />
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="pcsassunzioni_default_idstruttura">Dipartimento</label>
 					<div>
-						<input id="pcsassunzioni_default_idstruttura" name="pcsassunzioni_default_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="pcsassunzioni_default_idstruttura" name="pcsassunzioni_default_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="pcsassunzioni_default_legge">Legge/Decreto</label>
 					<input id="pcsassunzioni_default_legge" type="text" class="form-control" data-tag="pcsassunzioni.legge"  />
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="pcsassunzioni_default_finanziamento">Finanziamento</label>
 					<input id="pcsassunzioni_default_finanziamento" type="text" class="form-control" data-tag="pcsassunzioni.finanziamento"  />
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="pcsassunzioni_default_percentuale">Indicare la percentuale di stipendio da considerare.</label>
-					<input id="pcsassunzioni_default_percentuale" type="text" class="form-control" data-tag="pcsassunzioni.percentuale.fixed.2"  />
 				</div>
 			</div>
 			<div class="row">
@@ -81,12 +92,6 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="pcsassunzioni_default_totale3">Totale anno in analisi +3</label>
 					<input id="pcsassunzioni_default_totale3" type="text" class="form-control" data-tag="pcsassunzioni.totale3.fixed.2"  />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="pcsassunzioni_default_numeropersoneassunzione">Numero di persone su nuova assunzione</label>
-					<input id="pcsassunzioni_default_numeropersoneassunzione" type="text" class="form-control" data-tag="pcsassunzioni.numeropersoneassunzione.fixed.2"  />
 				</div>
 			</div>
 </form>

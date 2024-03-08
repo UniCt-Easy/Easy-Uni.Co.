@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,10 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'segsal':
-						this.describeAColumn(table, 'rendicontattivitaprogettoora_data', 'Data', null, 30, null);
-						this.describeAColumn(table, 'rendicontattivitaprogettoora_ore', 'Numero di ore', null, 70, null);
-						this.describeAColumn(table, 'sal_start', 'Data di inizio Stato di avanzamento lavori', null, 130, null);
-						this.describeAColumn(table, 'sal_stop', 'Data di fine Stato di avanzamento lavori', null, 130, null);
+						this.describeAColumn(table, 'workpackage_raggruppamento', 'Raggruppamento Workpackage', null, 1100, 2048);
+						this.describeAColumn(table, 'workpackage_title', 'Titolo Workpackage', null, 1200, 2048);
+						this.describeAColumn(table, 'rendicontattivitaprogettoora_data', 'Data', null, 3000, null);
+						this.describeAColumn(table, 'registry_title', 'Denominazione Partecipante Attività', null, 6230, 101);
+						this.describeAColumn(table, 'rendicontattivitaprogetto_description', 'Descrizione Attività', null, 6300, -1);
+						this.describeAColumn(table, 'rendicontattivitaprogettoora_ore', 'Numero di ore', null, 7000, null);
+						this.describeAColumn(table, 'sal_start', 'Data di inizio Stato di avanzamento lavori', null, 13100, null);
+						this.describeAColumn(table, 'sal_stop', 'Data di fine Stato di avanzamento lavori', null, 13400, null);
 //$objCalcFieldConfig_segsal$
 						break;
 //$objCalcFieldConfig$

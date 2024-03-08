@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using System.Data;
 using metadatalibrary;
 using metaeasylibrary;
+using System.Linq;
 using funzioni_configurazione;
 
 namespace meta_itinerationauthagency
@@ -54,15 +55,19 @@ namespace meta_itinerationauthagency
                     R["!status"] = "Da Esaminare";
                 }
             }
-         }
-
-        public override string GetSorting(string ListingType)
-        {
-            if (ListingType == "webdefault") return "!priority asc";
-            return base.GetSorting(ListingType);
+ 
+            if (R.Table.Columns.Contains("!priority")) {
+                //R.Table.Select()._forEach((row, index) => row["!priority"] = index + 1);
+                R.Table.Select().OrderBy(row => row["!priority"])._forEach((row, index) => row["!priorityorder"] = index + 1);
+            }
         }
 
-        public override void DescribeColumns (DataTable T, string ListingType) {
+        public override string GetSorting(string ListingType) {
+			if (ListingType == "webdefault") return "!priority asc";
+			return base.GetSorting(ListingType);
+		}
+
+		public override void DescribeColumns (DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
             if (ListingType == "default") {
                 foreach (DataColumn C in T.Columns) {
@@ -70,11 +75,14 @@ namespace meta_itinerationauthagency
                 }
                 int nPos = 1;
                 DescribeAColumn(T, "iditineration", ".#", nPos++);
+      
+                DescribeAColumn(T, "!priorityorder", "Priorita", nPos++);
                 DescribeAColumn(T, "!title", "Denominazione", "authagency.title", nPos++);
                 DescribeAColumn(T, "!description", "Descrizione", "authagency.description", nPos++);
                 DescribeAColumn(T, "!status", "Stato Aut.", nPos++);
                 DescribeAColumn(T, "flagstatus", ".Stato", nPos++);
                 DescribeAColumn(T, "annotationsrejectapproval", "Annotazioni Rifiuto/Approvazione", nPos++);
+                DescribeAColumn(T, "!priority", ".Priorita", "authagency.priority", -1);
                 ComputeRowsAs(T, "default");
             }
 
@@ -85,11 +93,13 @@ namespace meta_itinerationauthagency
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 }
                 int nPos = 1;
+       
+                DescribeAColumn(T, "!priorityorder", "Priorita", nPos++);
                 DescribeAColumn(T, "!title", "Denominazione", "authagency.title", nPos++);
                 DescribeAColumn(T, "!description", "Descrizione", "authagency.description", nPos++);
                 DescribeAColumn(T, "!status", "Stato Aut.", nPos++);
-                //DescribeAColumn(T, "!priority", "Priorità", "authagency.priority", nPos++);
-                ComputeRowsAs(T, "default");
+                DescribeAColumn(T, "!priority", ".Priorita", "authagency.priority", -1);
+                ComputeRowsAs(T, "webdefault");
             }
 
 

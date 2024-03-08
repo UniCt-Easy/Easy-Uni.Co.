@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -332,7 +332,7 @@ namespace dbuser_config {
 				string filtroDip = "(iddbdepartment=" + QueryCreator.quotedstrvalue(r["iddbdepartment"], false) + ")";
 				DataRow[] rAmm = tDipAmmin.Select(filtroDip);
 				if (rAmm.Length == 0) {
-					MessageBox.Show(this, "Non si dispone dei diritti di amministratore sul dipartimento '" + r["iddbdepartment"] + "'");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non si dispone dei diritti di amministratore sul dipartimento '" + r["iddbdepartment"] + "'");
 					r.RejectChanges();
 				}
 			}

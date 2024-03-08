@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 (function () {
     var Deferred = appMeta.Deferred;
     var getDataUtils = appMeta.getDataUtils;
@@ -28,8 +11,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     ImportExcel.prototype = {
         constructor: ImportExcel,
 
-        // idsParent ci sta alla prima posizione la chaive dell' oggetto principale
-        importFileIntoTable:function(metaPage, file, spName, idsParent, headerRowPosition, tableName, parentKey ) {
+        //pagina, file, nome della procedura, array chiavi del padre, numero di riga dell'header del file di import, nome tabella in griglia da ricaricare, nome chiave del padre
+        // idsParent ci sta alla prima posizione la chaive dell'oggetto principale
+        importFileIntoTable: function (metaPage, file, spName, idsParent, headerRowPosition, tableName, parentKey, tableNameSon, additionalparam ) {
             var reader = new FileReader();
             var self = this;
 
@@ -64,33 +48,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     defval: "",
                                     raw: false,
                                     rawNumbers: true,
-                                    dateNF: "dd/mm/yyyy",
+                                    dateNF: "dd/mm/yyyy hh:mm",
                                     range: headerRowPosition
                                 });
-                                self.importExcel(metaPage, result, spName, idsParent)
-                                   .then(function () {
-                                           waitingHandler =  metaPage.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
-                                           return appMeta.getData.runSelectIntoTable(metaPage.state.DS.tables[tableName], metaPage.q.eq(parentKey, id));
-                                       }).then(function() {
+                                self.importExcel(metaPage, result, spName, idsParent, additionalparam)
+                                    .then(function () {
+                                        waitingHandler = metaPage.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+                                        return appMeta.getData.runSelectIntoTable(metaPage.state.DS.tables[tableName], metaPage.q.eq(parentKey, id));
+                                    })
+                                    .then(function () {
+                                        if (tableNameSon) {
+                                            let tableToRefresh = tableNameSon.split(',');
+                                            let selBuilderArray = [];
+                                            _.forEach(tableToRefresh, function (tname) {
+                                                selBuilderArray.push({ filter: metaPage.q.eq(parentKey, id), top: null, tableName: tname, table: metaPage.state.DS.tables[tname] });
+                                            });
+                                            appMeta.getData.multiRunSelect(selBuilderArray)
+
+                                            //return appMeta.getData.runSelectIntoTable(metaPage.state.DS.tables[tableNameSon], metaPage.q.eq(parentKey, id));
+                                        }
+                                        else
+                                            return true;
+                                    })
+                                    .then(function () {
                                            return metaPage.freshForm(false, false);
-                                       }).then(function() {
+                                    })
+                                    .then(function () {
                                           metaPage.hideWaitingIndicator(waitingHandler);
                                           mydef.resolve()
-                                       });
+                                    });
                             };
                         })(def);
 
                         reader.readAsArrayBuffer(file);
 
                     } else {
-                        def.resolve();
+                        return def.resolve();
                     }
                 });
 
-            def.promise()
+            return def.promise()
         },
 
-        importExcel:function(metaPage, items, spName, idsParent) {
+        importExcel: function (metaPage, items, spName, idsParent, additionalparam) {
             var def = Deferred("importExcel");
             var ds = new jsDataSet.DataSet("temp");
             var tSource = ds.newTable("_temp" + new Date().getTime());
@@ -98,6 +98,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var normalizeColumnName = function(cname) {
                 return cname
                     .replace(/\./g, "")
+                    .replace(/\:/g, "")
+                    .replace(/\(/g, "")
+                    .replace(/\)/g, "")
                     .replace(/\//g, "")
                     .replace(/ /g, "")
                     .toLowerCase()
@@ -144,7 +147,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     {
                         spName: spName,
                         ds: getDataUtils.getJsonFromJsDataSet(ds, true),
-                        idsParent:idsParent
+                        idsParent: idsParent,
+                        additionalparam: additionalparam
                     }).then(function (msg) {
                         metaPage.hideWaitingIndicator(waitingHandler);
                         def.from(metaPage.showMessageOk(msg));

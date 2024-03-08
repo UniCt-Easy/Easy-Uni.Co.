@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -42,30 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterGetFormData
 			
-			beforeFill: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.inserito)
-					parentRow.inserito = 'N';
-				//beforeFillFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-perfrequestobbindividuale_default");
-				var arraydef = [];
-				
-				//beforeFillInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
-					});
-				return def.promise();
-			},
+			//beforeFill
 
 			afterClear: function () {
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfrequestobbindividuale'), this.getDataTable('perfrequestobbindividualesoglia'));
@@ -82,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.perfrequestobbindividuale.defaults({ 'inserito': 'N' });
 				$("#SendMail").on("click", _.partial(this.fireSendMail, this));
 				$("#SendMail").prop("disabled", true);
 				$("#InsertRequest").on("click", _.partial(this.fireInsertRequest, this));
@@ -196,16 +157,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						}
 						else {
 							self.hideWaitingIndicator(waitingHandler);
-							return def.from(self.showMessageOk("Non Ë stato possibile individuare l'unit‡ organizzativa di appartenenza del valuato. Indicare l'unit‡ organizzativa per la richiesta di inserimento dell'obiettivo individuale"));
+							return def.from(self.showMessageOk("Non √® stato possibile individuare l'unit√† organizzativa di appartenenza del valuato. Indicare l'unit√† organizzativa per la richiesta di inserimento dell'obiettivo individuale"));
 						}
 					}).then(function (respRow) {
 						if (respRow != null) {
 							responsabile = respRow[0];
-							return that.showMessageOkCancel("Sar‡ inviata una mail al responsabile dell'unit‡ organizzativa all'indirizzo  " + respRow[0].email + ". Procedere?");
+							return that.showMessageOkCancel("Sar√† inviata una mail al responsabile dell'unit√† organizzativa all'indirizzo  " + respRow[0].email + ". Procedere?");
 						}
 						else {
 							self.hideWaitingIndicator(waitingHandler);
-							return def.from(self.showMessageOk("Non Ë stato possibile individuare il responsabile dell'unit‡ organizzativa. Configurare un responsabile nella scheda anagrafica dell'unit‡ organizzativa " + struttura.title + "."));
+							return def.from(self.showMessageOk("Non √® stato possibile individuare il responsabile dell'unit√† organizzativa. Configurare un responsabile nella scheda anagrafica dell'unit√† organizzativa " + struttura.title + "."));
 						}
 					}).then(function (res) {
 						if (!res) {
@@ -220,11 +181,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 					}).then(function (valutatoRow) {
 
-						body = "Gentile responsabile dell'unit‡ organizzativa " + struttura.title + ",";
+						body = "Gentile responsabile dell'unit√† organizzativa " + struttura.title + ",";
 						if (responsabile.idreg != loggato.idreg) {
 							body = body + ",<br>l'utente " + loggato.email + " ha inserito";
 						}
-						else body = body + "<br> Ë stata inserita ";
+						else body = body + "<br> √® stata inserita ";
 						body = body + " la richiesta di inserimento del seguente obiettivo individuale per il valutato " + valutatoRow[0].email + ".<br><br>Titolo obiettivo:<br>" + that.state.currentRow.title + "<br><br>Descrizione:<br>" + that.state.currentRow.description;
 
 						subject = "Richiesta inserimento obiettivo individuale per il valutato " + valutatoRow[0].email;
@@ -268,7 +229,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						ds = dsPerfrequestobbindividuale;
 						var filterIdreg = self.q.eq('idreg', self.state.currentRow.idreg);
 						var filterYear = self.q.eq('year', self.state.currentRow.year);
-						//verificare anche se la valutazione Ë ancora attiva.
+						//verificare anche se la valutazione √® ancora attiva.
 						var filterAnd = self.q.and(filterIdreg, filterYear);
 
 						return getData.runSelectIntoTable(ds.tables.perfvalutazionepersonale, filterAnd, null)
@@ -278,7 +239,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							def.resolve();
 
 							self.hideWaitingIndicator(waitingHandler);
-							return self.showMessageOk('Per il valutato non Ë presente alcuna valutazione nell\'anno selezionato.')
+							return self.showMessageOk('Per il valutato non √® presente alcuna valutazione nell\'anno selezionato.')
 						}
 						// devo riempire perfvalutazionepersonale
 						appMeta.getMeta('perfvalutazionepersonaleobiettivo').setDefaults(ds.tables.perfvalutazionepersonaleobiettivo);

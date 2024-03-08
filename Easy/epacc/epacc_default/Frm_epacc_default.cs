@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -89,7 +89,7 @@ namespace epacc_default {
         private Button btnIndModifica;
         private Button btnIndInserisci;
         private CheckBox chkFlagVariazione;
-        private GroupBox groupBox2;
+        private GroupBox gBoxImporti;
         private Label labdisponibile;
         public TextBox txtTotaleDisp;
         public TextBox txtCurrDisp5;
@@ -150,6 +150,8 @@ namespace epacc_default {
         private void InitializeComponent() {
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
 			this.btnSpalmaPrevisioni = new System.Windows.Forms.Button();
 			this.btnGeneraAccertamentoBudget = new System.Windows.Forms.Button();
 			this.btnEditDocument = new System.Windows.Forms.Button();
@@ -157,7 +159,7 @@ namespace epacc_default {
 			this.txtCausale = new System.Windows.Forms.TextBox();
 			this.txtCodiceCausale = new System.Windows.Forms.TextBox();
 			this.btnCausale = new System.Windows.Forms.Button();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.gBoxImporti = new System.Windows.Forms.GroupBox();
 			this.labdisponibile = new System.Windows.Forms.Label();
 			this.txtTotaleDisp = new System.Windows.Forms.TextBox();
 			this.txtCurrDisp5 = new System.Windows.Forms.TextBox();
@@ -236,13 +238,11 @@ namespace epacc_default {
 			this.btnEditVar = new System.Windows.Forms.Button();
 			this.btnInsertVar = new System.Windows.Forms.Button();
 			this.GridVariazioni = new System.Windows.Forms.DataGrid();
-			this.textBox3 = new System.Windows.Forms.TextBox();
-			this.label7 = new System.Windows.Forms.Label();
 			this.DS = new epacc_default.dsmeta();
 			this.tabControl1.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
 			this.gBoxCausale.SuspendLayout();
-			this.groupBox2.SuspendLayout();
+			this.gBoxImporti.SuspendLayout();
 			this.gboxResponsabile.SuspendLayout();
 			this.gboxFasePrec.SuspendLayout();
 			this.grpFasi.SuspendLayout();
@@ -281,7 +281,7 @@ namespace epacc_default {
 			this.tabPrincipale.Controls.Add(this.btnGeneraAccertamentoBudget);
 			this.tabPrincipale.Controls.Add(this.btnEditDocument);
 			this.tabPrincipale.Controls.Add(this.gBoxCausale);
-			this.tabPrincipale.Controls.Add(this.groupBox2);
+			this.tabPrincipale.Controls.Add(this.gBoxImporti);
 			this.tabPrincipale.Controls.Add(this.chkFlagVariazione);
 			this.tabPrincipale.Controls.Add(this.gboxResponsabile);
 			this.tabPrincipale.Controls.Add(this.gboxFasePrec);
@@ -305,6 +305,25 @@ namespace epacc_default {
 			this.tabPrincipale.TabIndex = 0;
 			this.tabPrincipale.Text = "Principale";
 			this.tabPrincipale.UseVisualStyleBackColor = true;
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(760, 221);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.ReadOnly = true;
+			this.textBox3.Size = new System.Drawing.Size(104, 20);
+			this.textBox3.TabIndex = 77;
+			this.textBox3.Tag = "epaccview.totalcredit";
+			this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(685, 224);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(61, 13);
+			this.label7.TabIndex = 76;
+			this.label7.Text = "Crediti totali";
 			// 
 			// btnSpalmaPrevisioni
 			// 
@@ -376,42 +395,42 @@ namespace epacc_default {
 			this.btnCausale.Tag = "manage.accmotive.tree";
 			this.btnCausale.Text = "Causale";
 			// 
-			// groupBox2
+			// gBoxImporti
 			// 
-			this.groupBox2.Controls.Add(this.labdisponibile);
-			this.groupBox2.Controls.Add(this.txtTotaleDisp);
-			this.groupBox2.Controls.Add(this.txtCurrDisp5);
-			this.groupBox2.Controls.Add(this.txtCurrDisp4);
-			this.groupBox2.Controls.Add(this.txtCurrDisp3);
-			this.groupBox2.Controls.Add(this.txtCurrDisp2);
-			this.groupBox2.Controls.Add(this.txtCurrDisp);
-			this.groupBox2.Controls.Add(this.label13);
-			this.groupBox2.Controls.Add(this.txtTotaleCorr);
-			this.groupBox2.Controls.Add(this.label12);
-			this.groupBox2.Controls.Add(this.txtTotale);
-			this.groupBox2.Controls.Add(this.labAnno5);
-			this.groupBox2.Controls.Add(this.txtImpCorr5);
-			this.groupBox2.Controls.Add(this.label8);
-			this.groupBox2.Controls.Add(this.txtImpCorr4);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno5);
-			this.groupBox2.Controls.Add(this.labAnno4);
-			this.groupBox2.Controls.Add(this.txtImpCorr3);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno4);
-			this.groupBox2.Controls.Add(this.labAnno3);
-			this.groupBox2.Controls.Add(this.txtImpCorr2);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno3);
-			this.groupBox2.Controls.Add(this.labAnno2);
-			this.groupBox2.Controls.Add(this.txtImpCorr);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno2);
-			this.groupBox2.Controls.Add(this.labAnno1);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno1);
-			this.groupBox2.Location = new System.Drawing.Point(24, 248);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(840, 125);
-			this.groupBox2.TabIndex = 34;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Tag = "";
-			this.groupBox2.Text = "Importi";
+			this.gBoxImporti.Controls.Add(this.labdisponibile);
+			this.gBoxImporti.Controls.Add(this.txtTotaleDisp);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp5);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp4);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp3);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp2);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp);
+			this.gBoxImporti.Controls.Add(this.label13);
+			this.gBoxImporti.Controls.Add(this.txtTotaleCorr);
+			this.gBoxImporti.Controls.Add(this.label12);
+			this.gBoxImporti.Controls.Add(this.txtTotale);
+			this.gBoxImporti.Controls.Add(this.labAnno5);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr5);
+			this.gBoxImporti.Controls.Add(this.label8);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr4);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno5);
+			this.gBoxImporti.Controls.Add(this.labAnno4);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr3);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno4);
+			this.gBoxImporti.Controls.Add(this.labAnno3);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr2);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno3);
+			this.gBoxImporti.Controls.Add(this.labAnno2);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno2);
+			this.gBoxImporti.Controls.Add(this.labAnno1);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno1);
+			this.gBoxImporti.Location = new System.Drawing.Point(24, 248);
+			this.gBoxImporti.Name = "gBoxImporti";
+			this.gBoxImporti.Size = new System.Drawing.Size(840, 125);
+			this.gBoxImporti.TabIndex = 34;
+			this.gBoxImporti.TabStop = false;
+			this.gBoxImporti.Tag = "";
+			this.gBoxImporti.Text = "Importi";
 			// 
 			// labdisponibile
 			// 
@@ -1227,25 +1246,6 @@ namespace epacc_default {
 			this.GridVariazioni.TabIndex = 0;
 			this.GridVariazioni.Tag = "epaccvar.default.detail";
 			// 
-			// textBox3
-			// 
-			this.textBox3.Location = new System.Drawing.Point(760, 221);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.ReadOnly = true;
-			this.textBox3.Size = new System.Drawing.Size(104, 20);
-			this.textBox3.TabIndex = 77;
-			this.textBox3.Tag = "epaccview.totalcredit";
-			this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(685, 224);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(61, 13);
-			this.label7.TabIndex = 76;
-			this.label7.Text = "Crediti totali";
-			// 
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
@@ -1264,8 +1264,8 @@ namespace epacc_default {
 			this.tabPrincipale.PerformLayout();
 			this.gBoxCausale.ResumeLayout(false);
 			this.gBoxCausale.PerformLayout();
-			this.groupBox2.ResumeLayout(false);
-			this.groupBox2.PerformLayout();
+			this.gBoxImporti.ResumeLayout(false);
+			this.gBoxImporti.PerformLayout();
 			this.gboxResponsabile.ResumeLayout(false);
 			this.gboxResponsabile.PerformLayout();
 			this.gboxFasePrec.ResumeLayout(false);
@@ -1496,7 +1496,8 @@ namespace epacc_default {
             txtEsercizio.ReadOnly =!isEmpty;
             txtNumero.ReadOnly = !isEmpty;
             chkFlagVariazione.Enabled = true;
-        }
+			EnableDisableImporti();
+		}
 
         public void MetaData_BeforeFill() {
             AddRemoveTabs(false);
@@ -1511,7 +1512,7 @@ namespace epacc_default {
             if (CfgFn.GetNoNullInt32(DS.epacc.Rows[0]["nphase"]) == 1) DS.epacc.Rows[0]["paridepacc"] = DBNull.Value;
             CalcolaImportoTotaleExtProp();
             GestioneFasi();
-            GetData.CalculateTable(DS.epaccsorting);
+			GetData.CalculateTable(DS.epaccsorting);
         }
         void CreateepaccYearRow() {
             if (DS.Tables["epaccyear"].Rows.Count == 0) {
@@ -1573,7 +1574,8 @@ namespace epacc_default {
                 T.Visible = radPreaccertamento.Checked;
             }
             AbilitaDisabilitaSalvataggio();
-        }
+			EnableDisableImporti();
+		}
 
         private void AbilitaDisabilitaNotaVariazione() {
             if ((isEmpty) || (editMode)) {
@@ -1692,7 +1694,32 @@ namespace epacc_default {
             }
             controller.FreshToolBar();
         }
-        void CalcolaTotale(bool read) {
+
+		void EnableDisableImporti() {
+			if (!isEmpty) {
+				DataRow r = DS.epaccyear.Rows[0];
+				DataRow rMov = DS.epacc.Rows[0];
+				//Se siamo nell'esercizio successivo a quello di creazione, disabilita TUTTO ed esce
+				if (CfgFn.GetNoNullInt32(r["ayear"]) > CfgFn.GetNoNullInt32(rMov["yepacc"])) {
+					gBoxImporti.Enabled = false;
+					return;
+				}
+				//Se siamo nell'esercizio di creazione, disabilita tutti gli importi se esiste la riga di imputazione nell'esercizio successivo.
+				string filterEpAccYearSucc = qhs.AppAnd(qhs.CmpEq("idepacc", r["idepacc"]), qhs.CmpEq("ayear", esercizio + 1));
+				int rowsfound = conn.RUN_SELECT_COUNT("epaccyear", filterEpAccYearSucc, true);
+
+				if ((CfgFn.GetNoNullInt32(r["ayear"]) == CfgFn.GetNoNullInt32(rMov["yepacc"]))
+					&& rowsfound > 0) {
+					gBoxImporti.Enabled = false; return;
+				}
+			}
+			else {
+				// In ricerca, abilita tutto.
+				gBoxImporti.Enabled = true;
+			}
+		}
+
+		void CalcolaTotale(bool read) {
             if (isEmpty)
                 return;
             if (DS.epaccyear.Rows.Count == 0)
@@ -2102,8 +2129,9 @@ namespace epacc_default {
 			foreach (string field in new[] {"amount", "amount2", "amount3", "amount4", "amount5"}) {
 				total += CfgFn.GetNoNullDecimal(r[field]);
 			}
-			var f = new FrmAskDataInizioFine(false);
-			var res = f.ShowDialog(this);
+            FrmAskDataInizioFine f = new FrmAskDataInizioFine(false);
+            createForm(f, this);
+            var res = f.ShowDialog(this);
 			if (res != DialogResult.OK) return;
 			DateTime inizio = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
 				f.txtDataInizio.Text.ToString(), "x.y");

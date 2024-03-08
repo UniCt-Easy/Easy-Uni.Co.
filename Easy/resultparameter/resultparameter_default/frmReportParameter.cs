@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,8 +19,6 @@ using System;
 using System.Drawing;
 using System.Collections;
 using System.Data;
-using System.Data.SqlClient;
-using System.ComponentModel;
 using System.Windows.Forms;
 using metadatalibrary;
 using metaeasylibrary;
@@ -32,12 +30,14 @@ using CrystalDecisions.CrystalReports.Engine;
 using System.Text;
 using System.Drawing.Printing;
 using System.Linq;
-using security_function;
 using funzioni_configurazione;
-using System.Net;
 using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Threading;
+using HubConnector;
+using ReportGenClient;
 
-namespace resultparameter_default{//Report//
+namespace resultparameter_default {//Report//
 	/// <summary>
 	/// Summary description for frmReportParameter.
 	/// </summary>
@@ -93,6 +93,7 @@ namespace resultparameter_default{//Report//
 		bool OnePrintObbligatorio = false;
 		QueryHelper QHS;
 		private Button btnGuidaMht;
+		private Button btnApri;
 		CQueryHelper QHC;
 
 		public frmReportParameter() {
@@ -100,6 +101,13 @@ namespace resultparameter_default{//Report//
 			InsertMode = false;
 			ComboToPreset = new ArrayList();
 			isInited = true;
+
+			bool forceHubService = File.Exists("forceHubService.txt");
+			bool isBlazor = Thread.CurrentThread.Name == "Main Form Blazor Thread";
+
+			bool useHubService = forceHubService || isBlazor;
+			btnApri.Visible = useHubService;
+			btnStampa.Visible = btnPreview.Visible = btnAcrobat.Visible = !useHubService;
 		}
 		DataAccess Conn;
 
@@ -871,7 +879,7 @@ namespace resultparameter_default{//Report//
 			//					"le stampe. Per una corretta stampa del documento è richiesto scaricare "+
 			//					"l'aggiornamento di Crystal Report cliccando sul bottone 'Scarica patch' in "+
 			//					"basso a destra o contattare il Centro Assistenza e richiederne l'installazione.";
-			//				MessageBox.Show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+			//				MetaFactory.factory.getSingleton<IMessageShower>().Show(msg,"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 			//			}
 		}
 
@@ -906,21 +914,21 @@ namespace resultparameter_default{//Report//
 			MostraNascontiBtnGuida();
 		}
 
-		public void MostraNascontiBtnGuida() { 
+		public void MostraNascontiBtnGuida() {
 			string currdir = AppDomain.CurrentDomain.BaseDirectory;
 			string filename = ReportName + ".mht";
 			string fullPath = currdir + filename;
-			if (!File.Exists(filename)) btnGuidaMht.Visible = false; 
-			else btnGuidaMht.Visible=true;
+			if (!File.Exists(filename)) btnGuidaMht.Visible = false;
+			else btnGuidaMht.Visible = true;
 		}
 
-		protected override void Dispose( bool disposing ) {
-			if( disposing ) {
-				if(components != null) {
+		protected override void Dispose(bool disposing) {
+			if (disposing) {
+				if (components != null) {
 					components.Dispose();
 				}
 			}
-			base.Dispose( disposing );
+			base.Dispose(disposing);
 		}
 
 		#region Windows Form Designer generated code
@@ -940,6 +948,7 @@ namespace resultparameter_default{//Report//
 			this.btnAcrobat = new System.Windows.Forms.Button();
 			this.chkClose = new System.Windows.Forms.CheckBox();
 			this.btnGuidaMht = new System.Windows.Forms.Button();
+			this.btnApri = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.reportVista1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
@@ -1050,10 +1059,22 @@ namespace resultparameter_default{//Report//
 			this.btnGuidaMht.UseVisualStyleBackColor = true;
 			this.btnGuidaMht.Click += new System.EventHandler(this.button1_Click);
 			// 
+			// btnApri
+			// 
+			this.btnApri.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnApri.Location = new System.Drawing.Point(642, 72);
+			this.btnApri.Name = "btnApri";
+			this.btnApri.Size = new System.Drawing.Size(104, 23);
+			this.btnApri.TabIndex = 11;
+			this.btnApri.Text = "Apri";
+			this.btnApri.Visible = false;
+			this.btnApri.Click += new System.EventHandler(this.btnApri_Click);
+			// 
 			// frmReportParameter
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(756, 297);
+			this.Controls.Add(this.btnApri);
 			this.Controls.Add(this.btnGuidaMht);
 			this.Controls.Add(this.chkClose);
 			this.Controls.Add(this.btnAcrobat);
@@ -1083,453 +1104,452 @@ namespace resultparameter_default{//Report//
 			this.Dispose();
 		}
 
-	    private bool isInited = false;
+		private bool isInited = false;
 		private void frmReportParameter_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-		    if (!isInited) {
-                show("Attendere il completamento dell'apertura della maschera prima di chiuderla", "Errore");
-                e.Cancel = true;
-		        return;
-		    }
+			if (!isInited) {
+				show("Attendere il completamento dell'apertura della maschera prima di chiuderla", "Errore");
+				e.Cancel = true;
+				return;
+			}
 			DS.AcceptChanges();
 			//			this.Close();
 			//			this.Dispose();
-		
+
 		}
 
-		enum formatostampa {video, pdf};
+		enum formatostampa { video, pdf };
 
 		private void frmReportParameter_Validating(object sender, System.ComponentModel.CancelEventArgs e) {
 			DS.AcceptChanges();
 		}
 
 		private void btnStampa_Click(object sender, System.EventArgs e) {
-			Stampa(false,formatostampa.video);
+			Stampa(false, formatostampa.video);
 		}
 
 		private void btnPreview_Click(object sender, System.EventArgs e) {
-            object print_rs = Conn.DO_READ_VALUE("report", QHS.CmpEq("reportname", ReportName), "print_rs" );
-            if (print_rs.ToString().ToUpper() == "S") {
-                StampaReportingServices(true, formatostampa.video, sender, e);
-            }
-            else {
-                Stampa(true, formatostampa.video);
-            }
-        }
+			object print_rs = Conn.DO_READ_VALUE("report", QHS.CmpEq("reportname", ReportName), "print_rs");
+			if (print_rs.ToString().ToUpper() == "S") {
+				StampaReportingServices(true, formatostampa.video, sender, e);
+			}
+			else {
+				Stampa(true, formatostampa.video);
+			}
+		}
 
-        private void StampaReportingServices(bool Preview, formatostampa FMT, object sender, EventArgs e) {
-            if (Meta.IsEmpty) return;
-            if (DS.Tables["resultparameter"].Rows.Count==0)return;
-            if (!Meta.GetFormData(false)) return;
-            object test = Conn.DO_SYS_CMD("select getdate()", true);
-            if (test == null) {
-                show("La connessione al database è andata persa, occore ricollegarsi", "Errore");
-                return;
-            }
-            DataSet DSCopy = DS.Copy();
-            DataRow Params = DSCopy.Tables["resultparameter"].Rows[0];
-            bool oneprint = false;
-            bool denyprint = false;
-            string flagoriginal = "";
-            if (DS.Tables["resultparameter"].Columns.Contains("official"))
-                flagoriginal = Params["official"].ToString().ToUpper();
-            bool StampaUfficiale = false;
-            if (flagoriginal == "S") StampaUfficiale = true;
-
-            if (DS.Tables["resultparameter"].Columns.Contains("oneprint")) {
-                if (Params["oneprint"].ToString().ToUpper() == "S") oneprint = true;
-            }
-
-            if (oneprint && StampaUfficiale && Preview) {
-                show("Non sarà possibile stampare l'anteprima poiché " +
-                    "è richiesta una stampa ufficiale", "Attenzione",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                denyprint = true;
-            }
-
-            btnStampa.Enabled = false;
-            btnPreview.Enabled = false;
-            btnAcrobat.Enabled = false;
-            btnParamUfficiali.Enabled = false;
-            Cursor.Current = Cursors.WaitCursor;
-
-            ModuleReport = reportVista1.Tables["report"].Rows[0];
-
-            //Hashtable usata solo per EseguiSpDoUpdate
-            //Hashtable ReportParams= new Hashtable();			
-            foreach (DataColumn C in myPrymaryTable.Columns) {
-                if (C.ColumnName == DummyPrimaryKey) continue;
-                bool Convert = (bool)C.ExtendedProperties["ConvertNullToPerc"];
-                Type tipo = Params.Table.Columns[C.ColumnName].DataType;
-                if (Convert && (tipo == typeof(string)) && (Params[C.ColumnName].ToString() == ""))
-                    Params[C.ColumnName] = "%"; 
-            }
-
-            DS.AcceptChanges();
-
-            string elencoparametri = "";
-            foreach (DataColumn c in Params.Table.Columns) {
-                elencoparametri += c.ColumnName + "=" + Params[c.ColumnName].ToString() + ";";
-            }
-
-            //FrmReportingServices fRptServ = new FrmReportingServices((Easy_DataAccess)myDA, Params, ModuleReport, Meta, Preview);
-            //if (Preview) {
-            //    fRptServ.Show(this);
-            //}
-            //fRptServ.FrmReportingServices_Load(sender, e);
-            BuildWebReportView(Params);
-            if (chkClose.Checked) {
-                Close();
-            }
-            else {
-                btnStampa.Enabled = true;
-                btnAcrobat.Enabled = true;
-                btnPreview.Enabled = true;
-                btnParamUfficiali.Enabled = true;
-            }
-            Cursor.Current = Cursors.Default;
-        }
-
-        bool Called = false;
-        private void BuildWebReportView(DataRow Params) {
-            if (Called) return;
-            Called = true;
-
-            // carico l'url del server di Reporting Services -----------------------------------------
-            DataTable config_reportingservices = Conn.RUN_SELECT("config_reportingservices", "*", null, null, null, false);
-
-            string myQuerystring = "";
-
-            foreach (DataColumn c in Params.Table.Columns) {
-                if (c.ColumnName == "reportname") {
-                    continue;
-                }
-                if (myQuerystring != "") myQuerystring += "&";
-                myQuerystring += c.ColumnName + "=" + Params[c.ColumnName].ToString();
-            }
-
-
-            string CodeDepartment = Meta.security.GetSys("database").ToString();
-
-            var b = DataAccess.CryptString(myQuerystring);
-            var logparamCript = QueryCreator.ByteArrayToString(b);
-            //------------------------------------------------
-            string url = config_reportingservices.Rows[0]["urlwebreportviewer"].ToString();
-            if (!url.EndsWith("/")) url += "/";
-
-            var wb = new WebClient();
-            var data = new NameValueCollection {
-                ["id"] = Guid.NewGuid().ToString(),
-                ["codeDepartment"] = CodeDepartment,
-                ["reportName"] = Params["reportname"].ToString(),
-                ["parameters"] = logparamCript
-            };
-
-            //url = "https://localhost:44317/";
-
-            var response = wb.UploadValues(url + "GetReportInfo.aspx", "POST", data);
-            string responseInString = Encoding.UTF8.GetString(response);
-            if (responseInString.ToUpperInvariant().StartsWith("OK")) {
-                var sInfo = url + "ShowReport.aspx?id=" + data["id"];
-                runProcess(sInfo, true);
-            }
-            else {
-                show($"Errore nell'accesso al server dei report {url} ", "Errore");
-            }
-
-            this.Close();
-            this.Dispose();
-        }
-
-
-        private void Stampa(bool Preview, formatostampa FMT) {
-		    if (Meta.IsEmpty) return;
-            if (DS.Tables["resultparameter"].Rows.Count==0)return;
-			if(!Meta.GetFormData(false))return;
-		    object test = Conn.DO_SYS_CMD("select getdate()",true);
-		    if (test==null) {
-		        show("La connessione al database è andata persa, occore ricollegarsi", "Errore");
-		        return;
-		    }
+		private void StampaReportingServices(bool Preview, formatostampa FMT, object sender, EventArgs e) {
+			if (Meta.IsEmpty) return;
+			if (DS.Tables["resultparameter"].Rows.Count == 0) return;
+			if (!Meta.GetFormData(false)) return;
+			object test = Conn.DO_SYS_CMD("select getdate()", true);
+			if (test == null) {
+				show("La connessione al database è andata persa, occore ricollegarsi", "Errore");
+				return;
+			}
 			DataSet DSCopy = DS.Copy();
 			DataRow Params = DSCopy.Tables["resultparameter"].Rows[0];
-            bool oneprint = false;
-            bool denyprint = false;
-            string flagoriginal = "";
-            if (DS.Tables["resultparameter"].Columns.Contains("official"))
-                flagoriginal = Params["official"].ToString().ToUpper();
-            bool stampaUfficiale = flagoriginal == "S";
+			bool oneprint = false;
+			bool denyprint = false;
+			string flagoriginal = "";
+			if (DS.Tables["resultparameter"].Columns.Contains("official"))
+				flagoriginal = Params["official"].ToString().ToUpper();
+			bool StampaUfficiale = false;
+			if (flagoriginal == "S") StampaUfficiale = true;
 
-
-            if (DS.Tables["resultparameter"].Columns.Contains("oneprint")) {
-                if (Params["oneprint"].ToString().ToUpper() == "S") oneprint = true;
-            }
-
-
-            if (oneprint && stampaUfficiale && FMT == formatostampa.pdf) {
-                show("Non è possibile creare il file pdf se è richiesta una stampa ufficiale protetta", "Attenzione",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-
-            if (oneprint && stampaUfficiale && Preview) {
-                show($"Non sarà possibile stampare l'anteprima poiché è richiesta una stampa ufficiale", "Attenzione",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                denyprint = true;
-            }
-
-			if (RefillCustomReportParam) {
-//				myDA.RUN_SELECT_INTO_TABLE(reportVista1.customreportparameter,
-//					null, "(officialname="+QueryCreator.quotedstrvalue(ReportName, true)+")",
-//					null, true);
+			if (DS.Tables["resultparameter"].Columns.Contains("oneprint")) {
+				if (Params["oneprint"].ToString().ToUpper() == "S") oneprint = true;
 			}
 
-			btnStampa.Enabled=false;
-			btnPreview.Enabled=false;
-            btnAcrobat.Enabled = false;
-			btnParamUfficiali.Enabled=false;
+			if (oneprint && StampaUfficiale && Preview) {
+				show("Non sarà possibile stampare l'anteprima poiché " +
+					"è richiesta una stampa ufficiale", "Attenzione",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				denyprint = true;
+			}
 
+			btnStampa.Enabled = false;
+			btnPreview.Enabled = false;
+			btnAcrobat.Enabled = false;
+			btnParamUfficiali.Enabled = false;
 			Cursor.Current = Cursors.WaitCursor;
-			
+
 			ModuleReport = reportVista1.Tables["report"].Rows[0];
 
 			//Hashtable usata solo per EseguiSpDoUpdate
 			//Hashtable ReportParams= new Hashtable();			
-			foreach (DataColumn C in myPrymaryTable.Columns){
+			foreach (DataColumn C in myPrymaryTable.Columns) {
 				if (C.ColumnName == DummyPrimaryKey) continue;
-				bool Convert = (bool) C.ExtendedProperties["ConvertNullToPerc"];
-                Type tipo = Params.Table.Columns[C.ColumnName].DataType;
-                if (Convert && (tipo == typeof(string)) && (Params[C.ColumnName].ToString() == ""))
-                    Params[C.ColumnName] = "%"; //ReportParams[C.ColumnName] ="%";
-				//else
-				//	ReportParams[C.ColumnName]= Params[C];
+				bool Convert = (bool)C.ExtendedProperties["ConvertNullToPerc"];
+				Type tipo = Params.Table.Columns[C.ColumnName].DataType;
+				if (Convert && (tipo == typeof(string)) && (Params[C.ColumnName].ToString() == ""))
+					Params[C.ColumnName] = "%";
 			}
 
 			DS.AcceptChanges();
 
-            string elencoparametri = "";
-            foreach (DataColumn c in Params.Table.Columns) {
-                elencoparametri += c.ColumnName + "=" + Params[c.ColumnName].ToString() + ";";
-            }
+			string elencoparametri = "";
+			foreach (DataColumn c in Params.Table.Columns) {
+				elencoparametri += c.ColumnName + "=" + Params[c.ColumnName].ToString() + ";";
+			}
 
-            Form MyParent = this.MdiParent;
-           
+			//FrmReportingServices fRptServ = new FrmReportingServices((Easy_DataAccess)myDA, Params, ModuleReport, Meta, Preview);
+			//if (Preview) {
+			//    fRptServ.Show(this);
+			//}
+			//fRptServ.FrmReportingServices_Load(sender, e);
+			BuildWebReportView(Params);
+			if (chkClose.Checked) {
+				Close();
+			}
+			else {
+				btnStampa.Enabled = true;
+				btnAcrobat.Enabled = true;
+				btnPreview.Enabled = true;
+				btnParamUfficiali.Enabled = true;
+			}
+			Cursor.Current = Cursors.Default;
+		}
 
-			string papersize= ModuleReport["papersize"].ToString();
+		bool Called = false;
+		private void BuildWebReportView(DataRow Params) {
+			if (Called) return;
+			Called = true;
 
-			string tempdir= System.IO.Path.GetTempPath();
-			if (!tempdir.EndsWith("\\")) tempdir+="\\";
-			var tempfilename= tempdir+Guid.NewGuid();
-			bool askUfficiale=false;
-			if (FMT == formatostampa.pdf){
-				string errmess;
-				var r = Easy_DataAccess.GetReport(myDA,ModuleReport,Params, out errmess);
-				if (r==null){
-					Cursor.Current = Cursors.Default;
-					show(MyParent,errmess);
-                    btnStampa.Enabled = true;
-                    btnPreview.Enabled = true;
-                    btnAcrobat.Enabled = true;
-                    btnParamUfficiali.Enabled = true;
-                    return;
+			// carico l'url del server di Reporting Services -----------------------------------------
+			DataTable config_reportingservices = Conn.RUN_SELECT("config_reportingservices", "*", null, null, null, false);
+
+			string myQuerystring = "";
+
+			foreach (DataColumn c in Params.Table.Columns) {
+				if (c.ColumnName == "reportname") {
+					continue;
 				}
-				
-				PrintDocument pdoc= new PrintDocument();
+				if (myQuerystring != "") myQuerystring += "&";
+				myQuerystring += c.ColumnName + "=" + Params[c.ColumnName].ToString();
+			}
+
+
+			string CodeDepartment = Meta.security.GetSys("database").ToString();
+
+			var b = DataAccess.CryptString(myQuerystring);
+			var logparamCript = QueryCreator.ByteArrayToString(b);
+			//------------------------------------------------
+			string url = config_reportingservices.Rows[0]["urlwebreportviewer"].ToString();
+			if (!url.EndsWith("/")) url += "/";
+
+			var wb = new System.Net.WebClient();
+			var data = new NameValueCollection {
+				["id"] = Guid.NewGuid().ToString(),
+				["codeDepartment"] = CodeDepartment,
+				["reportName"] = Params["reportname"].ToString(),
+				["parameters"] = logparamCript
+			};
+
+			var response = wb.UploadValues(url + "GetReportInfo.aspx", "POST", data);
+			string responseInString = Encoding.UTF8.GetString(response);
+			if (responseInString.ToUpperInvariant().StartsWith("OK")) {
+				var sInfo = url + "ShowReport.aspx?id=" + data["id"];
+				runProcess(sInfo, true);
+			}
+			else {
+				show($"Errore nell'accesso al server dei report {url} ", "Errore");
+			}
+
+			this.Close();
+			this.Dispose();
+		}
+
+
+		private void Stampa(bool Preview, formatostampa FMT) {
+			if (Meta.IsEmpty) return;
+			if (DS.Tables["resultparameter"].Rows.Count == 0) return;
+			if (!Meta.GetFormData(false)) return;
+			object test = Conn.DO_SYS_CMD("select getdate()", true);
+			if (test == null) {
+				show("La connessione al database è andata persa, occore ricollegarsi", "Errore");
+				return;
+			}
+			DataSet DSCopy = DS.Copy();
+			DataRow Params = DSCopy.Tables["resultparameter"].Rows[0];
+			bool oneprint = false;
+			bool denyprint = false;
+			string flagoriginal = "";
+			if (DS.Tables["resultparameter"].Columns.Contains("official"))
+				flagoriginal = Params["official"].ToString().ToUpper();
+			bool stampaUfficiale = flagoriginal == "S";
+
+
+			if (DS.Tables["resultparameter"].Columns.Contains("oneprint")) {
+				if (Params["oneprint"].ToString().ToUpper() == "S") oneprint = true;
+			}
+
+
+			if (oneprint && stampaUfficiale && FMT == formatostampa.pdf) {
+				show("Non è possibile creare il file pdf se è richiesta una stampa ufficiale protetta", "Attenzione",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
+
+
+			if (oneprint && stampaUfficiale && Preview) {
+				show($"Non sarà possibile stampare l'anteprima poiché è richiesta una stampa ufficiale", "Attenzione",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				denyprint = true;
+			}
+
+			if (RefillCustomReportParam) {
+				//				myDA.RUN_SELECT_INTO_TABLE(reportVista1.customreportparameter,
+				//					null, "(officialname="+QueryCreator.quotedstrvalue(ReportName, true)+")",
+				//					null, true);
+			}
+
+			btnStampa.Enabled = false;
+			btnPreview.Enabled = false;
+			btnAcrobat.Enabled = false;
+			btnParamUfficiali.Enabled = false;
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			ModuleReport = reportVista1.Tables["report"].Rows[0];
+
+			//Hashtable usata solo per EseguiSpDoUpdate
+			//Hashtable ReportParams= new Hashtable();			
+			foreach (DataColumn C in myPrymaryTable.Columns) {
+				if (C.ColumnName == DummyPrimaryKey) continue;
+				bool Convert = (bool)C.ExtendedProperties["ConvertNullToPerc"];
+				Type tipo = Params.Table.Columns[C.ColumnName].DataType;
+				if (Convert && (tipo == typeof(string)) && (Params[C.ColumnName].ToString() == ""))
+					Params[C.ColumnName] = "%"; //ReportParams[C.ColumnName] ="%";
+												//else
+												//	ReportParams[C.ColumnName]= Params[C];
+			}
+
+			DS.AcceptChanges();
+
+			string elencoparametri = "";
+			foreach (DataColumn c in Params.Table.Columns) {
+				elencoparametri += c.ColumnName + "=" + Params[c.ColumnName].ToString() + ";";
+			}
+
+			Form MyParent = this.MdiParent;
+
+
+			string papersize = ModuleReport["papersize"].ToString();
+
+			string tempdir = System.IO.Path.GetTempPath();
+			if (!tempdir.EndsWith("\\")) tempdir += "\\";
+			var tempfilename = tempdir + Guid.NewGuid();
+			bool askUfficiale = false;
+			if (FMT == formatostampa.pdf) {
+				string errmess;
+				var r = Easy_DataAccess.GetReport(myDA, ModuleReport, Params, out errmess);
+				if (r == null) {
+					Cursor.Current = Cursors.Default;
+					show(MyParent, errmess);
+					btnStampa.Enabled = true;
+					btnPreview.Enabled = true;
+					btnAcrobat.Enabled = true;
+					btnParamUfficiali.Enabled = true;
+					return;
+				}
+
+				PrintDocument pdoc = new PrintDocument();
 				string selectedprinter;
-				if (papersize.ToUpper()=="A3"){
-					selectedprinter= FrmViewReport.GetA3PrinterName();
-				    if (selectedprinter == null) {
-                        Cursor.Current = Cursors.Default;
-                        show("Non è stata trovata alcuna stampante installata che supporti il formato A3", "Errore");
-                        return;
-				    }
-				    try {
-				        r.PrintOptions.PrinterName = selectedprinter; //PDIAL.PrinterSettings.PrinterName;
-				    }
-				    catch {
-                        Cursor.Current = Cursors.Default;
-                        show("La stampante di nome "+selectedprinter+" non appare essere correttamente installata.", "Errore");
-                        return;
-                    }
-				    ReportDispatcherClass.SetDefaultOrientation(ref r, ModuleReport);
+				if (papersize.ToUpper() == "A3") {
+					selectedprinter = FrmViewReport.GetA3PrinterName();
+					if (selectedprinter == null) {
+						Cursor.Current = Cursors.Default;
+						show("Non è stata trovata alcuna stampante installata che supporti il formato A3", "Errore");
+						return;
+					}
+					try {
+						r.PrintOptions.PrinterName = selectedprinter; //PDIAL.PrinterSettings.PrinterName;
+					}
+					catch {
+						Cursor.Current = Cursors.Default;
+						show("La stampante di nome " + selectedprinter + " non appare essere correttamente installata.", "Errore");
+						return;
+					}
+					ReportDispatcherClass.SetDefaultOrientation(ref r, ModuleReport);
 				}
 
 				r.ExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
 				r.ExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
 				tempfilename += ".pdf";
 
-			    DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions {DiskFileName = tempfilename};
-			    r.ExportOptions.DestinationOptions = diskOpts;
+				DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions { DiskFileName = tempfilename };
+				r.ExportOptions.DestinationOptions = diskOpts;
 
 				try {
-                    r.Export();
-                    runProcess(tempfilename, true);
-                }
-				catch (Exception e){
-                    Cursor.Current = Cursors.Default;
-                    if (e.ToString().Contains("0x8000030E")) {
-				        show(this,
-				            "E' necessario disinstallare l'aggiornamento di windows KB3102429 per poter effettuare la stampa.\nSeguono istruzioni su come procedere.",
-				            "Avviso");                        
-                        runProcess("disinstalla_kb3102429.pdf", true);
-                        return;
-                    }
-
-				    if (e.ToString().Contains("Impossibile aprire la connessione.")) {
-				        show(this, "Errore nel collegamento al db", "Errore");
-				        return;
-				    }
-				    Meta.LogError("Errore nell'apertura della stampa pdf.\n\rParametri:\n\r" + elencoparametri, e);
-				    QueryCreator.ShowException("Errore nell'apertura del file pdf", e);				    
-                    return;
+					r.Export();
+					runProcess(tempfilename, true);
 				}
-				askUfficiale=true;
-				
-			}
-			if (FMT == formatostampa.video){
-				try {
-					FrmViewReport fRep = new FrmViewReport(ModuleReport, myDA, Params,Meta);
-                    if (fRep.errore) return;
-                    fRep.oneprint=oneprint;
-                    fRep.denyprint = denyprint;
-                    if (oneprint || denyprint) {
-                        fRep.crViewer.ShowExportButton = false;
-                        fRep.toolBar.Buttons.RemoveAt(8);
-                        fRep.toolBar.Buttons.RemoveAt(5);
-                    }
-                    if (Meta.destroyed) return;
-                    if (Meta.formController.isClosing) return;
+				catch (Exception e) {
+					Cursor.Current = Cursors.Default;
+					if (e.ToString().Contains("0x8000030E")) {
+						show(this,
+							"E' necessario disinstallare l'aggiornamento di windows KB3102429 per poter effettuare la stampa.\nSeguono istruzioni su come procedere.",
+							"Avviso");
+						runProcess("disinstalla_kb3102429.pdf", true);
+						return;
+					}
 
-                    //Imposto tutte le proprietà del report
-                    if (fRep.ShowReport()) {
-					    if (fRep.errore) return;
-					    if (Meta.destroyed) return;
-					    if (Meta.formController.isClosing) return;
-					    if (MyParent == null || MyParent.IsDisposed) return;
+					if (e.ToString().Contains("Impossibile aprire la connessione.")) {
+						show(this, "Errore nel collegamento al db", "Errore");
+						return;
+					}
+					Meta.LogError("Errore nell'apertura della stampa pdf.\n\rParametri:\n\r" + elencoparametri, e);
+					QueryCreator.ShowException("Errore nell'apertura del file pdf", e);
+					return;
+				}
+				askUfficiale = true;
+
+			}
+			if (FMT == formatostampa.video) {
+				try {
+					FrmViewReport fRep = new FrmViewReport(ModuleReport, myDA, Params, Meta);
+					if (fRep.errore) return;
+					fRep.oneprint = oneprint;
+					fRep.denyprint = denyprint;
+					if (oneprint || denyprint) {
+						fRep.crViewer.ShowExportButton = false;
+						fRep.toolBar.Buttons.RemoveAt(8);
+						fRep.toolBar.Buttons.RemoveAt(5);
+					}
+					if (Meta.destroyed) return;
+					if (Meta.formController.isClosing) return;
+
+					//Imposto tutte le proprietà del report
+					if (fRep.ShowReport()) {
+						if (fRep.errore) return;
+						if (Meta.destroyed) return;
+						if (Meta.formController.isClosing) return;
+						if (MyParent == null || MyParent.IsDisposed) return;
 						//se sono in Anteprima visualizzo il form
 						if (Preview) {
-							fRep.MdiParent= MyParent;
-							fRep.StartPosition= FormStartPosition.CenterParent;
+							fRep.MdiParent = MyParent;
+							fRep.StartPosition = FormStartPosition.CenterParent;
+							createForm(fRep, null);
 							fRep.Show();
 						}
 						else {
-                            //altrimenti chiamo direttamente la stampa
-                            bool printres = fRep.StampaReport();
+							//altrimenti chiamo direttamente la stampa
+							bool printres = fRep.StampaReport();
 							if (!printres) {
 								Cursor.Current = Cursors.Default;
-                                btnStampa.Enabled = true;
-                                btnPreview.Enabled = true;
-                                btnAcrobat.Enabled = true;
-                                btnParamUfficiali.Enabled = true;
-                                return;
+								btnStampa.Enabled = true;
+								btnPreview.Enabled = true;
+								btnAcrobat.Enabled = true;
+								btnParamUfficiali.Enabled = true;
+								return;
 							}
-							askUfficiale=true;
+							askUfficiale = true;
 							//Se la stampa è ufficiale (official="S") verifico se bisogna
 							//eseguire una stored procedure aggiuntiva di aggiornamento
 						}
 					}
 				}
-				catch (Exception E){
-                    Cursor.Current = Cursors.Default;
-                    Meta.LogError("Errore nella creazione della stampa\n\rParametri:" + elencoparametri, E);
-                    QueryCreator.ShowException("Errore nella creazione della stampa", E);
-                    return;
+				catch (Exception E) {
+					Cursor.Current = Cursors.Default;
+					Meta.LogError("Errore nella creazione della stampa\n\rParametri:" + elencoparametri, E);
+					QueryCreator.ShowException("Errore nella creazione della stampa", E);
+					return;
 				}
 			}
 
-			if (askUfficiale && (!denyprint) &&stampaUfficiale){			
-				string sp_doupdate=ModuleReport["sp_doupdate"].ToString();
-				if (sp_doupdate!="") {
-                    if (oneprint) {
-                        EseguiSpDoUpdate(sp_doupdate, Params);
-                    }
-                    else {
-                        string msg = "Premere OK se il documento è stato stampato correttamente e\r" +
-                            "se si vuole aggiornare la data di stampa del documento.";
-                        DialogResult res = show(msg, "Stampa",
-                            MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                        if (res == DialogResult.OK) EseguiSpDoUpdate(sp_doupdate, Params);
-                    }
-				}			  
+			if (askUfficiale && (!denyprint) && stampaUfficiale) {
+				string sp_doupdate = ModuleReport["sp_doupdate"].ToString();
+				if (sp_doupdate != "") {
+					if (oneprint) {
+						EseguiSpDoUpdate(sp_doupdate, Params);
+					}
+					else {
+						string msg = "Premere OK se il documento è stato stampato correttamente e\r" +
+							"se si vuole aggiornare la data di stampa del documento.";
+						DialogResult res = show(msg, "Stampa",
+							MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+						if (res == DialogResult.OK) EseguiSpDoUpdate(sp_doupdate, Params);
+					}
+				}
 			}
 			//if (tempfilename!=null) File.Delete(tempfilename);
-			
-            
-            if (chkClose.Checked) {
-                Close();
-            }
-            else {
-                btnStampa.Enabled = true;
-                btnAcrobat.Enabled = true;
-                btnPreview.Enabled = true;
-                btnParamUfficiali.Enabled = true;
-            }
-            Cursor.Current = Cursors.Default;
 
-        }
 
-        /// <summary>
-        /// Per le stampe ufficiali esegue una stored procedure di aggiornamento
-        /// </summary>
-        /// <param name="sp_doupdate">campo sp_doupdate della tabella modulereport</param>
-        /// <param name="param">valori dei parametri del report</param>
-        private void EseguiSpDoUpdate(string sp_doupdate, DataRow RepParams) {
+			if (chkClose.Checked) {
+				Close();
+			}
+			else {
+				btnStampa.Enabled = true;
+				btnAcrobat.Enabled = true;
+				btnPreview.Enabled = true;
+				btnParamUfficiali.Enabled = true;
+			}
+			Cursor.Current = Cursors.Default;
+
+		}
+
+		/// <summary>
+		/// Per le stampe ufficiali esegue una stored procedure di aggiornamento
+		/// </summary>
+		/// <param name="sp_doupdate">campo sp_doupdate della tabella modulereport</param>
+		/// <param name="param">valori dei parametri del report</param>
+		private void EseguiSpDoUpdate(string sp_doupdate, DataRow RepParams) {
 			try {
-				int pos_open=sp_doupdate.IndexOf("(");
-				int pos_close=sp_doupdate.IndexOf(")");
-				string sp_name=sp_doupdate.Substring(0,pos_open).ToLower().Trim();
-				string fields=sp_doupdate.Substring(pos_open+1,pos_close-pos_open-1);
-				string[] paramname=fields.Split(',');
-				object[] list=new object[paramname.Length];
-				int i=0;
+				int pos_open = sp_doupdate.IndexOf("(");
+				int pos_close = sp_doupdate.IndexOf(")");
+				string sp_name = sp_doupdate.Substring(0, pos_open).ToLower().Trim();
+				string fields = sp_doupdate.Substring(pos_open + 1, pos_close - pos_open - 1);
+				string[] paramname = fields.Split(',');
+				object[] list = new object[paramname.Length];
+				int i = 0;
 				foreach (string s in paramname) {
-					list[i++]=RepParams[s.Trim().ToLower()];
+					list[i++] = RepParams[s.Trim().ToLower()];
 				}
-				Meta.Conn.CallSP(sp_name,list,false);
+				Meta.Conn.CallSP(sp_name, list, false);
 			}
 			catch (Exception E) {
-				QueryCreator.ShowException("Impossibile aggiornare la data di stampa del documento",E);
+				QueryCreator.ShowException("Impossibile aggiornare la data di stampa del documento", E);
 			}
 		}
 
-		public void MetaData_AfterGetFormData(){
+		public void MetaData_AfterGetFormData() {
 			DS.AcceptChanges();
 		}
 		private void btnParamUfficiali_Click(object sender, System.EventArgs e) {
 			MetaData MetaCustReportParam = MetaData.GetMetaData(this, "reportadditionalparam");
-            DateTime aday = (DateTime) myDA.GetSys("datacontabile");
-            string filter = QHS.AppAnd(QHS.CmpEq("reportname", ReportName),
-                 QHS.NullOrLe("start", aday), QHS.NullOrGt("stop", aday));
+			DateTime aday = (DateTime)myDA.GetSys("datacontabile");
+			string filter = QHS.AppAnd(QHS.CmpEq("reportname", ReportName),
+				 QHS.NullOrLe("start", aday), QHS.NullOrGt("stop", aday));
 
-            MetaCustReportParam.StartFilter=filter;
-			MetaCustReportParam.ExtraParameter=ReportName;
-           
-            MetaCustReportParam.Edit(this.MdiParent, "default", true);
-			RefillCustomReportParam =true;
+			MetaCustReportParam.StartFilter = filter;
+			MetaCustReportParam.ExtraParameter = ReportName;
+
+			MetaCustReportParam.Edit(this.MdiParent, "default", true);
+			RefillCustomReportParam = true;
 		}
 
 
 		#region Risoluzione Problemi tramite web
 
 		private bool VerificaVoceMenu() {
-			if (ModuleReport==null) {
-				string msg="Alla voce di menu non è associato nessun report.\r"+
+			if (ModuleReport == null) {
+				string msg = "Alla voce di menu non è associato nessun report.\r" +
 					"E' necessario eseguire un aggiornamento Menu";
 				ShowMsg(msg);
 				return false;
 			}
-			AddCheckReportLog("Dati di modulereport - reportname ["+
-				ModuleReport["reportname"].ToString()+"] - modulename ["+
-				ModuleReport["modulename"].ToString()+"]");
+			AddCheckReportLog("Dati di modulereport - reportname [" +
+				ModuleReport["reportname"].ToString() + "] - modulename [" +
+				ModuleReport["modulename"].ToString() + "]");
 			return true;
 		}
 
 		private bool LeggiConfigurazione() {
 			siti = new string[4];
 			try {
-				string currdir=AppDomain.CurrentDomain.BaseDirectory;
+				string currdir = AppDomain.CurrentDomain.BaseDirectory;
 				if (!currdir.EndsWith("\\")) currdir += "\\";
-				currdir+="updateconfig.xml";
+				currdir += "updateconfig.xml";
 				DataSet DS = new DataSet();
 				DS.ReadXml(currdir);
 				ReportDir = DS.Tables["configtable"].Rows[0]["localreportdir"].ToString();
@@ -1540,7 +1560,7 @@ namespace resultparameter_default{//Report//
 				return true;
 			}
 			catch (Exception E) {
-				ShowMsg("Impossibile leggere dal file di configurazione,",E.Message);
+				ShowMsg("Impossibile leggere dal file di configurazione,", E.Message);
 				return false;
 			}
 		}
@@ -1552,15 +1572,15 @@ namespace resultparameter_default{//Report//
 		/// <returns></returns>
 		private string DownloadFile(string filename) {
 			try {
-				if (http==null) http=new Http(siti,AppDomain.CurrentDomain.BaseDirectory);
+				if (http == null) http = new Http(siti, AppDomain.CurrentDomain.BaseDirectory);
 				if (!http.IsAvailable()) return http.GetLastError();
-				string zipname = filename+".zip";
-				if (!http.DownloadFile(zipname,"zip/"+zipname))
+				string zipname = filename + ".zip";
+				if (!http.DownloadFile(zipname, "zip/" + zipname))
 					return http.GetLastError();
-				string zipdir=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"zip");
-				XZip.ExtractFiles(Path.Combine(zipdir,zipname),zipdir,filename,true,true);
+				string zipdir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "zip");
+				XZip.ExtractFiles(Path.Combine(zipdir, zipname), zipdir, filename, true, true);
 				return null;
-			} 
+			}
 			catch (Exception E) {
 				return E.Message;
 			}
@@ -1568,25 +1588,25 @@ namespace resultparameter_default{//Report//
 
 		private string DownloadReport(string rpt_path, string filename, string[] siti) {
 			try {
-				if (http==null) http=new Http(siti,AppDomain.CurrentDomain.BaseDirectory);
+				if (http == null) http = new Http(siti, AppDomain.CurrentDomain.BaseDirectory);
 				if (!http.IsAvailable()) return http.GetLastError();
-				string zipname=filename+".zip";
-		        string zipdir=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"zip");
+				string zipname = filename + ".zip";
+				string zipdir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "zip");
 
-				DeleteFile(Path.Combine(zipdir,zipname));
-				
-				if (!http.DownloadFile("report/"+zipname,"zip/"+zipname)) return http.GetLastError();
-				XZip.ExtractFiles(Path.Combine(zipdir,zipname),rpt_path,filename,true,false);
+				DeleteFile(Path.Combine(zipdir, zipname));
+
+				if (!http.DownloadFile("report/" + zipname, "zip/" + zipname)) return http.GetLastError();
+				XZip.ExtractFiles(Path.Combine(zipdir, zipname), rpt_path, filename, true, false);
 				return null;
-			} 
+			}
 			catch (Exception E) {
 				return E.Message;
 			}
 		}
 
-		void DeleteFile(string filename){
+		void DeleteFile(string filename) {
 			if (File.Exists(filename)) {
-				File.SetAttributes(filename,FileAttributes.Archive);
+				File.SetAttributes(filename, FileAttributes.Archive);
 				File.Delete(filename);
 			}
 
@@ -1596,23 +1616,23 @@ namespace resultparameter_default{//Report//
 		/// </summary>
 		private string DownloadSP(DataAccess Conn, string spname) {
 			try {
-				if (http==null) http=new Http(siti,AppDomain.CurrentDomain.BaseDirectory);
+				if (http == null) http = new Http(siti, AppDomain.CurrentDomain.BaseDirectory);
 				if (!http.IsAvailable()) return http.GetLastError();
-				string sqlname = spname+".sql";
-				string zipname = sqlname+".zip";
-			    string zipdir=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"zip");
-				DeleteFile(Path.Combine(zipdir,zipname));
-				DeleteFile(Path.Combine(zipdir,sqlname));
+				string sqlname = spname + ".sql";
+				string zipname = sqlname + ".zip";
+				string zipdir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "zip");
+				DeleteFile(Path.Combine(zipdir, zipname));
+				DeleteFile(Path.Combine(zipdir, sqlname));
 
-				if (!http.DownloadFile("sp/"+zipname,"zip/"+zipname))
+				if (!http.DownloadFile("sp/" + zipname, "zip/" + zipname))
 					return http.GetLastError();
-				XZip.ExtractFiles(Path.Combine(zipdir,zipname),zipdir,sqlname,true,false);
-				StringBuilder sb=XFile.LeggiTestoScript(Path.Combine(zipdir,sqlname));
-				if (XDatabase.RUN_SCRIPT(Conn,sb))
+				XZip.ExtractFiles(Path.Combine(zipdir, zipname), zipdir, sqlname, true, false);
+				StringBuilder sb = XFile.LeggiTestoScript(Path.Combine(zipdir, sqlname));
+				if (XDatabase.RUN_SCRIPT(Conn, sb))
 					return null;
 				else
 					return Conn.LastError;
-			} 
+			}
 			catch (Exception E) {
 				return E.Message;
 			}
@@ -1623,83 +1643,83 @@ namespace resultparameter_default{//Report//
 		/// presente nel file reportindex.xml presente sul sito
 		/// </summary>
 		/// <param name="filename">nome del file</param>
-		private bool IsReportToUpdate(string ReportDir,string filename) {
+		private bool IsReportToUpdate(string ReportDir, string filename) {
 			try {
-				DataSet DSrep=new DataSet();
-				DSrep.ReadXml(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"zip","reportindex.xml"));
-				if (DSrep.Tables.Count==0) return false;
-				DataTable T=DSrep.Tables[0];
-				if (T.Rows.Count==0) return false;
-				DataRow[] rows=T.Select("dllname='"+filename+"'");
-				if (rows.Length==0) return false;
-				int remote_major=Convert.ToInt32(rows[0]["major"]);
-				int remote_minor=Convert.ToInt32(rows[0]["minor"]);
-				FileInfo FI=new FileInfo(ReportDir+@"\"+filename);
+				DataSet DSrep = new DataSet();
+				DSrep.ReadXml(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "zip", "reportindex.xml"));
+				if (DSrep.Tables.Count == 0) return false;
+				DataTable T = DSrep.Tables[0];
+				if (T.Rows.Count == 0) return false;
+				DataRow[] rows = T.Select("dllname='" + filename + "'");
+				if (rows.Length == 0) return false;
+				int remote_major = Convert.ToInt32(rows[0]["major"]);
+				int remote_minor = Convert.ToInt32(rows[0]["minor"]);
+				FileInfo FI = new FileInfo(ReportDir + @"\" + filename);
 				DateTime upd = FI.LastWriteTime;
-				int local_major=XDateTime.DateToInt(upd);
-				int local_minor=XDateTime.TimeToInt(upd);
-				if ((remote_major > local_major) || 
-					((remote_major==local_major) && (remote_minor > local_minor))) 
+				int local_major = XDateTime.DateToInt(upd);
+				int local_minor = XDateTime.TimeToInt(upd);
+				if ((remote_major > local_major) ||
+					((remote_major == local_major) && (remote_minor > local_minor)))
 					return true;
-				DSrep=null;
+				DSrep = null;
 			}
 			catch (Exception E) {
-				QueryCreator.MarkEvent("IsReportToUpdate() Error: "+ E.Message);
+				QueryCreator.MarkEvent("IsReportToUpdate() Error: " + E.Message);
 			}
 			return false;
 		}
 
 		private bool VerificaEsistenzaFile() {
-			if (ReportDir=="") {
+			if (ReportDir == "") {
 				ShowMsg("Non è stata specificata la cartella di configurazione dei report");
 				return false;
 			}
 			if (!Directory.Exists(ReportDir)) {
-				ShowMsg("La cartella di configurazione dei report ["+ReportDir+"] è inesistente");
+				ShowMsg("La cartella di configurazione dei report [" + ReportDir + "] è inesistente");
 				return false;
 			}
-			string filename=ModuleReport["filename"].ToString();
-			bool solalettura=XDir.IsReadOnly(ReportDir);
-			AddCheckReportLog("Cartella report ["+ReportDir+"] - Filename ["+filename+"] - Sola lettura ["+solalettura.ToString()+"]");
+			string filename = ModuleReport["filename"].ToString();
+			bool solalettura = XDir.IsReadOnly(ReportDir);
+			AddCheckReportLog("Cartella report [" + ReportDir + "] - Filename [" + filename + "] - Sola lettura [" + solalettura.ToString() + "]");
 
 			if (solalettura) {
-				if (!File.Exists(ReportDir+@"\"+filename)) {
-					ShowMsg("Il report "+filename+" non esiste nella cartella "+ReportDir+
-						"\rImpossibile proseguire con il controllo poiché l'utente\r"+
+				if (!File.Exists(ReportDir + @"\" + filename)) {
+					ShowMsg("Il report " + filename + " non esiste nella cartella " + ReportDir +
+						"\rImpossibile proseguire con il controllo poiché l'utente\r" +
 						"non ha i diritti per aggiornare la cartella dei report.");
 					return false;
 				}
 				//cartella report sola lettura, posso solo confrontare la versione
-				string s=DownloadFile("reportindex.xml");
+				string s = DownloadFile("reportindex.xml");
 				//se c'è stato un errore durante il download, continuo con il check
 				//visto che il file del report esiste.
-				if (s!=null) return true;
+				if (s != null) return true;
 				//Download OK, verifico se il file è aggiornato o meno.
-				if (IsReportToUpdate(ReportDir,filename)) {
-					show("Il report "+filename+" non è aggiornato. Impossibile proseguire\r"+
+				if (IsReportToUpdate(ReportDir, filename)) {
+					show("Il report " + filename + " non è aggiornato. Impossibile proseguire\r" +
 						"con il controllo poiché l'utente non ha i diritti per aggiornare la cartella dei report.",
-						"Attenzione",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+						"Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 					return false;
 				}
 			}
 			else {
 				//cartella in scrittura, se il file non esiste scarico senza chiedere consenso
-				if (!File.Exists(ReportDir+@"\"+filename)) {
-					ShowMsg("Il report "+filename+" non esiste nella cartella "+ReportDir+" - E' in corso il trasferimento.");
-					string s=DownloadReport(ReportDir,filename,siti);
-					if (s!=null) {
-						ShowMsg("Impossibile aggiornare il report",QueryCreator.GetPrintable(s));
+				if (!File.Exists(ReportDir + @"\" + filename)) {
+					ShowMsg("Il report " + filename + " non esiste nella cartella " + ReportDir + " - E' in corso il trasferimento.");
+					string s = DownloadReport(ReportDir, filename, siti);
+					if (s != null) {
+						ShowMsg("Impossibile aggiornare il report", QueryCreator.GetPrintable(s));
 						return false;
 					}
 					return true;
 				}
 				//altrimenti chiedo all'utente se aggiornare o meno
-				DialogResult res=show("Aggiorno il report?","Info",
-					MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-				if (res==DialogResult.Yes) {
-					string s=DownloadReport(ReportDir,filename,siti);
-					if (s!=null) {
-						ShowMsg("Impossibile aggiornare il report",QueryCreator.GetPrintable(s));
+				DialogResult res = show("Aggiorno il report?", "Info",
+					MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (res == DialogResult.Yes) {
+					string s = DownloadReport(ReportDir, filename, siti);
+					if (s != null) {
+						ShowMsg("Impossibile aggiornare il report", QueryCreator.GetPrintable(s));
 						//il report esiste ma non può essere scaricato, vado avanti con il check
 					}
 				}
@@ -1709,35 +1729,35 @@ namespace resultparameter_default{//Report//
 
 		private bool VerificaStoredProcedure() {
 			//acquisizione dati input
-			if(!Meta.GetFormData(false)) return false;
+			if (!Meta.GetFormData(false)) return false;
 
 			DataRow Params = DS.Tables["resultparameter"].Rows[0];
 
 			//Leggo valori input
-			Hashtable ReportParams= new Hashtable();			
-			foreach (DataColumn C in myPrymaryTable.Columns){
+			Hashtable ReportParams = new Hashtable();
+			foreach (DataColumn C in myPrymaryTable.Columns) {
 				if (C.ColumnName == DummyPrimaryKey) continue;
 				if (!C.ExtendedProperties.Contains("ConvertNullToPerc")) {
-					ReportParams[C.ColumnName]= Params[C];
+					ReportParams[C.ColumnName] = Params[C];
 					continue;
 				}
-				bool Convert = (bool) C.ExtendedProperties["ConvertNullToPerc"];
-				if (Convert && (Params[C].ToString()=="")) 
-					ReportParams[C.ColumnName] ="%";
+				bool Convert = (bool)C.ExtendedProperties["ConvertNullToPerc"];
+				if (Convert && (Params[C].ToString() == ""))
+					ReportParams[C.ColumnName] = "%";
 				else
-					ReportParams[C.ColumnName]= Params[C];
+					ReportParams[C.ColumnName] = Params[C];
 			}
 
 			//se sono qui il file esiste nella cartella dei report
-			string filename=ModuleReport["filename"].ToString();
-			string fullname=ReportDir+@"\"+filename;
+			string filename = ModuleReport["filename"].ToString();
+			string fullname = ReportDir + @"\" + filename;
 
-			ReportDocument rpt=new ReportDocument();
+			ReportDocument rpt = new ReportDocument();
 			try {
-				rpt.Load(fullname,OpenReportMethod.OpenReportByTempCopy);
+				rpt.Load(fullname, OpenReportMethod.OpenReportByTempCopy);
 			}
 			catch (Exception E) {
-				ShowMsg("Errore lettura report "+fullname,E.Message);
+				ShowMsg("Errore lettura report " + fullname, E.Message);
 				return false;
 			}
 
@@ -1745,27 +1765,27 @@ namespace resultparameter_default{//Report//
 				ShowMsg("Report non trovato " + fullname, "Errore");
 				return false;
 			}
-            //bool update=(MessageBox.Show("Aggiorno le stored procedure del report?","Info",
-            //    MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes);
-		    bool update = false;
+			//bool update=(MetaFactory.factory.getSingleton<IMessageShower>().Show("Aggiorno le stored procedure del report?","Info",
+			//    MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes);
+			bool update = false;
 
-			DataAccess ConnClone=Meta.Conn.Duplicate();
+			DataAccess ConnClone = Meta.Conn.Duplicate();
 			//check sp report
-			if (!CheckSP(ConnClone,rpt,ReportParams,update,false)) return false;
+			if (!CheckSP(ConnClone, rpt, ReportParams, update, false)) return false;
 
 			//check sp subreport, se esistono
 			ReportDefinition repDef = rpt.ReportDefinition;
 			foreach (Section sec in repDef.Sections) {
 				foreach (ReportObject repObj in sec.ReportObjects) {
 					if (repObj.Kind != ReportObjectKind.SubreportObject) continue;
-					SubreportObject subRep = (SubreportObject) repObj;
+					SubreportObject subRep = (SubreportObject)repObj;
 					ReportDocument SubReport = subRep.OpenSubreport(subRep.SubreportName);
-					if (!CheckSP(ConnClone,SubReport,ReportParams,update,true)) return false;
+					if (!CheckSP(ConnClone, SubReport, ReportParams, update, true)) return false;
 				}
 			}
 			ConnClone.Close();
 			rpt.Close();
-			rpt=null;
+			rpt = null;
 			return true;
 		}
 
@@ -1776,29 +1796,29 @@ namespace resultparameter_default{//Report//
 		/// <param name="Params">Hashtable parametri input</param>
 		/// <param name="update">Se True scarica la sp dal sito</param>
 		/// <param name="IsSubreport">True se la sp si riferisce ad un subreport</param>
-		private bool CheckSP(DataAccess Conn, ReportDocument rpt,Hashtable Params,bool update,bool IsSubreport) {
-			CrystalDecisions.CrystalReports.Engine.Tables crTables=rpt.Database.Tables;
+		private bool CheckSP(DataAccess Conn, ReportDocument rpt, Hashtable Params, bool update, bool IsSubreport) {
+			CrystalDecisions.CrystalReports.Engine.Tables crTables = rpt.Database.Tables;
 
-			foreach(CrystalDecisions.CrystalReports.Engine.Table crTable in crTables) {
+			foreach (CrystalDecisions.CrystalReports.Engine.Table crTable in crTables) {
 				//ricavo il nome della tabella
 				string location = crTable.Location;
 				int lastdotpos = location.LastIndexOf(".");
-				if (lastdotpos==-1) lastdotpos= location.LastIndexOf("(");
+				if (lastdotpos == -1) lastdotpos = location.LastIndexOf("(");
 				int lastsemicolpos = location.LastIndexOf(";");
-				location = location.Substring(lastdotpos+1, lastsemicolpos-lastdotpos-1);
-				
-				AddCheckReportLog("Stored procedure ["+location+"] - Subreport ["+IsSubreport.ToString()+"]");
+				location = location.Substring(lastdotpos + 1, lastsemicolpos - lastdotpos - 1);
+
+				AddCheckReportLog("Stored procedure [" + location + "] - Subreport [" + IsSubreport.ToString() + "]");
 				if (update) {
-					string s=DownloadSP(Conn,location);
-					if (s!=null) {
-						ShowMsg("Impossibile aggiornare la stored procedure "+location,
+					string s = DownloadSP(Conn, location);
+					if (s != null) {
+						ShowMsg("Impossibile aggiornare la stored procedure " + location,
 							QueryCreator.GetPrintable(s));
 					}
 				}
-				
+
 				if (IsSubreport) continue;
 
-				if (!ExecSP(Conn,location,Params)) return false;
+				if (!ExecSP(Conn, location, Params)) return false;
 			}
 			return true;
 		}
@@ -1810,44 +1830,44 @@ namespace resultparameter_default{//Report//
 		/// <param name="spname">nome stored procedure</param>
 		/// <param name="Params">parametri input</param>
 		private bool ExecSP(DataAccess Conn, string spname, Hashtable ReportParams) {
-			string myname= Meta.GetSys("userdb").ToString();
-			object[] rowset = new object[] {spname,1,myname,null};
-			DataSet  DSsp=Conn.CallSP("sp_procedure_params_rowset",rowset,true,-1);
-			if (DSsp==null || DSsp.Tables.Count==0 || DSsp.Tables[0].Rows.Count==0) {
+			string myname = Meta.GetSys("userdb").ToString();
+			object[] rowset = new object[] { spname, 1, myname, null };
+			DataSet DSsp = Conn.CallSP("sp_procedure_params_rowset", rowset, true, -1);
+			if (DSsp == null || DSsp.Tables.Count == 0 || DSsp.Tables[0].Rows.Count == 0) {
 				ShowMsg("Impossibile ottenere informazioni per la stored procedure"
-					+spname, QueryCreator.GetPrintable(Conn.LastError));
+					+ spname, QueryCreator.GetPrintable(Conn.LastError));
 				return false;
 			}
-			int nparamsp=DSsp.Tables[0].Rows.Count-1;
-			DataRow[] rows=DSsp.Tables[0].Select("ORDINAL_POSITION > 0","ORDINAL_POSITION ASC");
+			int nparamsp = DSsp.Tables[0].Rows.Count - 1;
+			DataRow[] rows = DSsp.Tables[0].Select("ORDINAL_POSITION > 0", "ORDINAL_POSITION ASC");
 
 			object[] list = new object[nparamsp];
-			for (int i=0; i<nparamsp; i++) {
-				list[i]=null;
+			for (int i = 0; i < nparamsp; i++) {
+				list[i] = null;
 			}
-			DSsp=Conn.CallSP(spname,list,true,-1);
-			if (DSsp==null) {
-				ShowMsg("La chiamata alla stored procedure '"+spname+
+			DSsp = Conn.CallSP(spname, list, true, -1);
+			if (DSsp == null) {
+				ShowMsg("La chiamata alla stored procedure '" + spname +
 					"' con dati NULL viene eseguita con errori",
 					QueryCreator.GetPrintable(Conn.LastError));
 				return false;
 			}
 
-			int j=0;
+			int j = 0;
 			foreach (DataRow R in rows) {
-				string param=R["PARAMETER_NAME"].ToString().ToLower().Substring(1);
-				if (ReportParams[param]!=null)
-					list[j++]=ReportParams[param];
+				string param = R["PARAMETER_NAME"].ToString().ToLower().Substring(1);
+				if (ReportParams[param] != null)
+					list[j++] = ReportParams[param];
 				else
-					list[j++]=null;
+					list[j++] = null;
 			}
-			DSsp=Conn.CallSP(spname,list,true,-1);
-			if (DSsp==null) {
-				ShowMsg("La chiamata alla stored procedure '"+spname+"' viene eseguita con errori",
+			DSsp = Conn.CallSP(spname, list, true, -1);
+			if (DSsp == null) {
+				ShowMsg("La chiamata alla stored procedure '" + spname + "' viene eseguita con errori",
 					QueryCreator.GetPrintable(Conn.LastError));
 				return false;
 			}
-			return true;			
+			return true;
 		}
 
 		/// <summary>
@@ -1868,26 +1888,26 @@ namespace resultparameter_default{//Report//
 				ShowInfo();
 				return;
 			}
-			string desc=ModuleReport["description"].ToString();
+			string desc = ModuleReport["description"].ToString();
 			show("Non è stato rilevato nessun problema relativo la stampa "
-				+desc+"\r\rInformazioni:\r\r"+GetCheckReportLog(), "Info",
-				MessageBoxButtons.OK,MessageBoxIcon.Information);
+				+ desc + "\r\rInformazioni:\r\r" + GetCheckReportLog(), "Info",
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void ShowInfo() {
-			show("Informazioni relative la stampa\r\r"+GetCheckReportLog(), "Info",
-				MessageBoxButtons.OK,MessageBoxIcon.Information);
+			show("Informazioni relative la stampa\r\r" + GetCheckReportLog(), "Info",
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
-		
+
 		private void ShowMsg(string shortmsg) {
-			ShowMsg(shortmsg,null);
+			ShowMsg(shortmsg, null);
 		}
-		private void ShowMsg(string shortmsg,string longmsg) {
-			QueryCreator.ShowError(this,shortmsg,longmsg);
+		private void ShowMsg(string shortmsg, string longmsg) {
+			QueryCreator.ShowError(this, shortmsg, longmsg);
 		}
 
 		private static void AddCheckReportLog(string log) {
-			m_CheckReportLog+=log+"\r";
+			m_CheckReportLog += log + "\r";
 		}
 
 		private static string GetCheckReportLog() {
@@ -1895,38 +1915,38 @@ namespace resultparameter_default{//Report//
 		}
 
 		private static void ClearCheckReportLog() {
-			m_CheckReportLog="";
+			m_CheckReportLog = "";
 		}
 
 		private void btnPatch_Click(object sender, System.EventArgs e) {
-			string msg="Dopo aver scaricato l'aggiornamento chiudere il programma, "+
-				"estrarre il file CrystalPatch01.zip\r"+
-				"(con un programma tipo WinZip) in una "+
-				"qualsiasi cartella e fare doppio click sul file Setup.exe\r"+
-				"Dopo l'installazione riaprire il programma e riprovare a stampare.\r\r"+
-				"Premere OK per scaricare l'aggiornamento.\r\r"+
+			string msg = "Dopo aver scaricato l'aggiornamento chiudere il programma, " +
+				"estrarre il file CrystalPatch01.zip\r" +
+				"(con un programma tipo WinZip) in una " +
+				"qualsiasi cartella e fare doppio click sul file Setup.exe\r" +
+				"Dopo l'installazione riaprire il programma e riprovare a stampare.\r\r" +
+				"Premere OK per scaricare l'aggiornamento.\r\r" +
 				"Per qualsiasi problema non esitate a contattare il Centro Assistenza.";
-			DialogResult dr=show(msg,"Informazioni download Crystal Report Patch",
-				MessageBoxButtons.OKCancel,MessageBoxIcon.Information);
-			if (dr==DialogResult.OK)
-                runProcess("http://liceasy.ath.cx/CrystalPatch01.zip", true);
+			DialogResult dr = show(msg, "Informazioni download Crystal Report Patch",
+				MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+			if (dr == DialogResult.OK)
+				runProcess("http://liceasy.ath.cx/CrystalPatch01.zip", true);
 		}
 		#endregion
 
 
 		private void btnAcrobat_Click(object sender, System.EventArgs e) {
-            object print_rs = Conn.DO_READ_VALUE("report", QHS.CmpEq("reportname", ReportName), "print_rs");
-            if (print_rs.ToString().ToUpper() == "S") {
-                StampaReportingServices(false, formatostampa.video, sender, e);
-            }
-            else {
-                Stampa(false, formatostampa.pdf);
-            }
+			object print_rs = Conn.DO_READ_VALUE("report", QHS.CmpEq("reportname", ReportName), "print_rs");
+			if (print_rs.ToString().ToUpper() == "S") {
+				StampaReportingServices(false, formatostampa.video, sender, e);
+			}
+			else {
+				Stampa(false, formatostampa.pdf);
+			}
 		}
 
-        private void BtnReportingServices_Click(object sender, EventArgs e) {
-            
-        }
+		private void BtnReportingServices_Click(object sender, EventArgs e) {
+
+		}
 
 		private void button1_Click(object sender, EventArgs e) {
 			string currdir = AppDomain.CurrentDomain.BaseDirectory;
@@ -1935,9 +1955,228 @@ namespace resultparameter_default{//Report//
 			if (!File.Exists(filename)) return;
 			Help.ShowHelp(this, filename);
 		}
-	}// Fine classe frmreportParameter
 
-	public class GestioneClass {
+		private void btnApri_Click(object sender, EventArgs e) {
+			btnApri.Enabled = false;
+			if (Meta.IsEmpty) return;
+			if (DS.Tables["resultparameter"].Rows.Count == 0) return;
+			if (!Meta.GetFormData(false)) return;
+			object test = Conn.DO_SYS_CMD("select getdate()", true);
+			if (test == null) {
+				show("La connessione al database è andata persa, occore ricollegarsi", "Errore");
+				return;
+			}
+			DataSet DSCopy = DS.Copy();
+			DataRow Params = DSCopy.Tables["resultparameter"].Rows[0];
+			bool oneprint = false;
+			bool denyprint = false;
+			string flagoriginal = "";
+			if (DS.Tables["resultparameter"].Columns.Contains("official"))
+				flagoriginal = Params["official"].ToString().ToUpper();
+			bool stampaUfficiale = flagoriginal == "S";
+
+
+			if (DS.Tables["resultparameter"].Columns.Contains("oneprint")) {
+				if (Params["oneprint"].ToString().ToUpper() == "S") oneprint = true;
+			}
+
+			if (oneprint && stampaUfficiale) {
+				show("Non è possibile creare il file pdf se è richiesta una stampa ufficiale protetta", "Attenzione",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
+
+			if (RefillCustomReportParam) {
+				//				myDA.RUN_SELECT_INTO_TABLE(reportVista1.customreportparameter,
+				//					null, "(officialname="+QueryCreator.quotedstrvalue(ReportName, true)+")",
+				//					null, true);
+			}
+
+			btnStampa.Enabled = false;
+			btnPreview.Enabled = false;
+			btnAcrobat.Enabled = false;
+			btnParamUfficiali.Enabled = false;
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			ModuleReport = reportVista1.Tables["report"].Rows[0];
+
+			//Hashtable usata solo per EseguiSpDoUpdate
+			//Hashtable ReportParams= new Hashtable();			
+			foreach (DataColumn C in myPrymaryTable.Columns) {
+				if (C.ColumnName == DummyPrimaryKey) continue;
+				bool Convert = (bool)C.ExtendedProperties["ConvertNullToPerc"];
+				Type tipo = Params.Table.Columns[C.ColumnName].DataType;
+				if (Convert && (tipo == typeof(string)) && (Params[C.ColumnName].ToString() == ""))
+					Params[C.ColumnName] = "%"; //ReportParams[C.ColumnName] ="%";
+												//else
+												//	ReportParams[C.ColumnName]= Params[C];
+			}
+
+			DS.AcceptChanges();
+
+			string elencoparametri = "";
+			foreach (DataColumn c in Params.Table.Columns) {
+				elencoparametri += c.ColumnName + "=" + Params[c.ColumnName].ToString() + ";";
+			}
+
+			bool done = false;
+
+			// Leggo la configurazione del servizio da chiamare da DB reportgenclient
+
+			// se web client
+			DataTable dt = conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'webclient'");
+			if (dt != null)
+			{
+				if (dt.Rows.Count > 0)
+				{
+					string ServiceUrl = dt.Rows[0][0].ToString();
+					string ServiceParam = dt.Rows[0][1].ToString();
+
+					CallReportGenClient(Params, ServiceUrl, ServiceParam);
+
+					done = true;
+				}
+			}
+
+			if (!done)
+			{
+				// altrimenti cerco SignalR
+				dt = conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'signalr'");
+				if (dt != null)
+				{
+					if (dt.Rows.Count > 0)
+					{
+						string ServiceUrl = dt.Rows[0][0].ToString();
+						string ServiceParam = dt.Rows[0][1].ToString();
+
+						CallReportGenSignal(Params, ServiceUrl, ServiceParam);
+
+						done = true;
+					}
+				}
+			}
+			
+			if (chkClose.Checked)
+			{
+				Close();
+			}
+			else
+			{
+				btnApri.Enabled = true;
+				btnParamUfficiali.Enabled = true;
+			}
+
+			Cursor.Current = Cursors.Default;
+		}
+
+		// =====================================================================================
+		//									 WEB CLIENT
+		// =====================================================================================
+		private void CallReportGenClient(DataRow Params, string ServiceUrl, string ServiceParam)
+		{
+			byte[] reportContents;
+
+			// Timeout di default 120
+			int timeout = 120;
+
+			// Provo a leggerlo dalla configurazione
+			int.TryParse(ServiceParam, out timeout);
+
+			try
+			{
+				WebClient client = new WebClient(ServiceUrl, timeout); // mettere in configurazione
+				reportContents = client.Generate(ModuleReport, Params);
+			}
+			catch (Exception ex)
+			{
+				ShowMsg(string.Join(": ", "errore durante la chiamata al server dei report", ex.Message));
+				return;
+			}
+
+			try
+			{
+				string tmpFileName = Path.GetTempFileName();
+				File.WriteAllBytes(tmpFileName, reportContents);
+
+				string outFileName = Path.ChangeExtension(tmpFileName, "pdf");
+				File.Move(tmpFileName, outFileName);
+
+				MetaFactory.factory.getSingleton<IProcessRunner>().start(outFileName);
+			}
+			catch (Exception ex)
+			{
+				ShowMsg(string.Join(": ", "impossibile ottenere il contenuto del file del report", ex.Message));
+				return;
+			}
+		}
+
+		// =====================================================================================
+		//										SIGNALR
+		// =====================================================================================
+		private void CallReportGenSignal(DataRow Params, string ServiceUrl, string ServiceParam)
+		{
+			byte[] reportContentsSignalR = { };
+
+			string[] HubParams = ServiceParam.Split(',');
+
+			string HubServiceUrl = ServiceUrl;			// https://localhost:44396/
+			string HubName = HubParams[0];				// HubReport
+			string HubMethod = HubParams[1];			// Send
+			string FunctionCaller = HubParams[2];		// ReceivePdf
+			string FunctionError = HubParams[3];		// ReceiveError			
+
+			// Controllo Url del servizio
+			if (string.IsNullOrEmpty(HubServiceUrl) || string.IsNullOrEmpty(HubName) || string.IsNullOrEmpty(HubMethod) || string.IsNullOrEmpty(FunctionCaller) || string.IsNullOrEmpty(FunctionError))
+			{
+				ShowMsg("Servizio non configurato");
+				btnApri.Enabled = true;
+				return;
+			}
+
+			try
+			{
+				// =====================================================================================
+				// Delegate, Metodo chiamato da HubConnection ricevuto il pdf
+				// =====================================================================================
+				ActionCaller actionCaller = (byte[] pdfByte) => {
+					string tmpFileName = Path.GetTempFileName();
+					File.WriteAllBytes(tmpFileName, pdfByte);
+
+					string outFileName = Path.ChangeExtension(tmpFileName, "pdf");
+					File.Move(tmpFileName, outFileName);
+
+					MetaFactory.factory.getSingleton<IProcessRunner>().start(outFileName);
+
+					btnApri.Enabled = true;
+				};
+
+				// =====================================================================================
+				// Delegate, Metodo chiamato da HubConnection in caso di errore
+				// =====================================================================================
+				ActionError actionError = (string msg) => {
+					show(string.Join(": ", "impossibile ottenere il contenuto del file del report", msg));
+					btnApri.Enabled = true;
+				};
+
+				// Istanza di HubConnection
+				HubConn hubConn = HubConn.GetInstance(actionCaller, actionError, HubServiceUrl, HubName, FunctionCaller, FunctionError);
+
+				// Se connesso Genero
+				if (hubConn.isConnected())
+					hubConn.Generate(HubMethod, ModuleReport, Params);
+				else
+					show("Non è possibile stabilire la connessione con " + HubServiceUrl);
+			}
+			catch (Exception ex)
+			{
+				show(string.Join(": ", "impossibile ottenere il contenuto del file del report", ex.Message));
+			}
+		}
+
+    }// Fine classe frmreportParameter
+
+    public class GestioneClass {
         public static bool UsesAttribues(DataAccess Conn) {
             foreach (string s in new string[] { "idsortingkind01", "idsortingkind02", "idsortingkind03",
                             "idsortingkind04", "idsortingkind05" }) {

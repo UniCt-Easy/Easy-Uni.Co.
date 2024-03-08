@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -41,14 +41,14 @@ namespace assetacquire_export {
         /// </summary>
         private void InitializeComponent() {
             this.btnEsporta = new System.Windows.Forms.Button();
-            this.saveFile = new System.Windows.Forms.SaveFileDialog();
+            this._saveFile = new System.Windows.Forms.SaveFileDialog();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblTabella = new System.Windows.Forms.Label();
             this.cmbEnte = new System.Windows.Forms.ComboBox();
             this.DS = new assetacquire_export.vistaForm();
             this.label3 = new System.Windows.Forms.Label();
             this.chkAnagrafica = new System.Windows.Forms.CheckBox();
-            this.folderDlg = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderDlg = new System.Windows.Forms.FolderBrowserDialog();
             this.btnPath = new System.Windows.Forms.Button();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -145,14 +145,14 @@ namespace assetacquire_export {
         #endregion
 
         private System.Windows.Forms.Button btnEsporta;
-        private System.Windows.Forms.SaveFileDialog saveFile;
+        private System.Windows.Forms.SaveFileDialog _saveFile;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label lblTabella;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbEnte;
         private System.Windows.Forms.CheckBox chkAnagrafica;
         public vistaForm DS;
-        private System.Windows.Forms.FolderBrowserDialog folderDlg;
+        private System.Windows.Forms.FolderBrowserDialog _folderDlg;
         private System.Windows.Forms.Button btnPath;
         private System.Windows.Forms.TextBox txtPath;
     }

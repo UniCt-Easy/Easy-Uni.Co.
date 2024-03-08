@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -92,6 +92,8 @@ namespace itinerationrefundkindgroup_default//Gruppoestero//
             this.listView1 = new System.Windows.Forms.ListView();
             this.MetaDataDetail = new System.Windows.Forms.GroupBox();
             this.txtCodice = new System.Windows.Forms.TextBox();
+            this.txtDescrizione = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.images = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -106,8 +108,6 @@ namespace itinerationrefundkindgroup_default//Gruppoestero//
             this.Salva = new System.Windows.Forms.ToolBarButton();
             this.aggiorna = new System.Windows.Forms.ToolBarButton();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.txtDescrizione = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.GridRiduzioni = new System.Windows.Forms.DataGrid();
             this.DS = new itinerationrefundkindgroup_default.vistaForm();
             this.groupBox1.SuspendLayout();
@@ -118,9 +118,9 @@ namespace itinerationrefundkindgroup_default//Gruppoestero//
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.listView1);
             this.groupBox1.Location = new System.Drawing.Point(351, 62);
             this.groupBox1.Name = "groupBox1";
@@ -131,9 +131,10 @@ namespace itinerationrefundkindgroup_default//Gruppoestero//
             // 
             // listView1
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(15, 24);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(364, 294);
@@ -143,9 +144,10 @@ namespace itinerationrefundkindgroup_default//Gruppoestero//
             // 
             // MetaDataDetail
             // 
-            this.MetaDataDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.MetaDataDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.MetaDataDetail.Controls.Add(this.txtCodice);
+            this.MetaDataDetail.Controls.Add(this.checkBox6);
             this.MetaDataDetail.Controls.Add(this.txtDescrizione);
             this.MetaDataDetail.Controls.Add(this.label1);
             this.MetaDataDetail.Controls.Add(this.label2);
@@ -157,13 +159,28 @@ namespace itinerationrefundkindgroup_default//Gruppoestero//
             // 
             // txtCodice
             // 
-            this.txtCodice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
             this.txtCodice.Location = new System.Drawing.Point(10, 27);
             this.txtCodice.Name = "txtCodice";
             this.txtCodice.Size = new System.Drawing.Size(104, 20);
             this.txtCodice.TabIndex = 1;
             this.txtCodice.Tag = "itinerationrefundkindgroup.iditinerationrefundkindgroup";
+            // 
+            // txtDescrizione
+            // 
+            this.txtDescrizione.Location = new System.Drawing.Point(11, 67);
+            this.txtDescrizione.Name = "txtDescrizione";
+            this.txtDescrizione.Size = new System.Drawing.Size(293, 20);
+            this.txtDescrizione.TabIndex = 2;
+            this.txtDescrizione.Tag = "itinerationrefundkindgroup.description";
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(9, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 19);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Codice";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
@@ -295,33 +312,12 @@ namespace itinerationrefundkindgroup_default//Gruppoestero//
             // 
             // checkBox6
             // 
-            this.checkBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBox6.Location = new System.Drawing.Point(22, 350);
+            this.checkBox6.Location = new System.Drawing.Point(11, 93);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(216, 36);
             this.checkBox6.TabIndex = 3;
             this.checkBox6.Tag = "itinerationrefundkindgroup.allowalways:S:N";
             this.checkBox6.Text = "Consenti sempre la riduzione";
-            // 
-            // txtDescrizione
-            // 
-            this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtDescrizione.Location = new System.Drawing.Point(11, 67);
-            this.txtDescrizione.Name = "txtDescrizione";
-            this.txtDescrizione.Size = new System.Drawing.Size(293, 20);
-            this.txtDescrizione.TabIndex = 2;
-            this.txtDescrizione.Tag = "itinerationrefundkindgroup.description";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(9, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Codice";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // GridRiduzioni
             // 
@@ -345,7 +341,6 @@ namespace itinerationrefundkindgroup_default//Gruppoestero//
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(761, 406);
             this.Controls.Add(this.GridRiduzioni);
-            this.Controls.Add(this.checkBox6);
             this.Controls.Add(this.MetaDataToolBar);
             this.Controls.Add(this.MetaDataDetail);
             this.Controls.Add(this.groupBox1);

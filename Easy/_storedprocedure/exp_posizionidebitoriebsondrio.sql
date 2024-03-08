@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[exp_posizionidebitoriebsondrio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 DROP PROCEDURE [exp_posizionidebitoriebsondrio]
 GO
-
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -28,7 +27,7 @@ GO
 -- =========================================================================
 -- Prepara gli avvisi di pagamento da caricare sul WS della Banca di Sondrio
 -- =========================================================================
--- exp_posizionidebitoriebsondrio 22197,2021
+-- exp_posizionidebitoriebsondrio 525,2022
 
 CREATE PROCEDURE exp_posizionidebitoriebsondrio
 	@idflusso INT,
@@ -36,8 +35,24 @@ CREATE PROCEDURE exp_posizionidebitoriebsondrio
 AS
 BEGIN
 	SET NOCOUNT ON;
+	
 	DECLARE @len_email int
 	SET @len_email = 70
+	
+	DECLARE @codicetassonomia varchar(100)
+	
+	SET @codicetassonomia = (SELECT top 1 codicetassonomia
+	FROM flussocreditidetail a
+	WHERE idflusso = @idflusso 
+	ORDER BY importoversamento DESC,
+	(
+		SELECT COUNT(idflusso)
+		FROM flussocreditidetail b
+		WHERE b.idflusso = @idflusso and b.codicetassonomia = a.codicetassonomia
+		GROUP BY b.codicetassonomia
+	) DESC,
+	iddetail)
+	
 	CREATE TABLE #advice
 	(
 		idflusso int,
@@ -71,10 +86,10 @@ BEGIN
 				sum(isnull(f1.importoversamento,0)+isnull(f1.tax,0)),	min(f1.expirationdate), --min(f1.competencystart), min(f1.competencystop), 				
 				f1.iduniqueformcode,
 		-- barcodevalue, qrcodevalue, codiceavviso,
-			min(f1.idunivoco) ,  f1.codicetassonomia 
+			min(f1.idunivoco) ,  @codicetassonomia
 			FROM flussocreditidetail F1
 			WHERE  f1.annulment is null and f1.idflusso=@idflusso AND (f1.iuv IS NULL OR ((f1.flag & 2)<>0)) --  and
-		group by f1.idflusso, f1.iduniqueformcode,f1.idreg,  f1.codicetassonomia 
+		group by f1.idflusso, f1.iduniqueformcode,f1.idreg  --,  f1.codicetassonomia 
 
 		--	select * from #advice
 		;
@@ -177,6 +192,7 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode,codicetassonomia) as (
 			select distinct coalesce(
 			invoicekind.description+' n.'+convert(varchar(10),f2.ninv)+'/'+convert(varchar(4),f2.yinv),
 			estimatekind.description+' n.'+convert(varchar(10),f2.nestim)+'/'+convert(varchar(4),f2.yestim),
+			substring(list.description,1,50),
 			'bollettino n.'+isnull(f2.nform,f2.iduniqueformcode)
 						, f2.description 
 			),
@@ -186,6 +202,7 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode,codicetassonomia) as (
 			from flussocreditidetail  f2
 			left outer join invoicekind on f2.idinvkind  = invoicekind.idinvkind
 			left outer join estimatekind on f2.idestimkind  = estimatekind.idestimkind
+			left outer join list on f2.idlist = list.idlist
 			WHERE f2.idflusso=@idflusso 
 				
 			)	
@@ -196,12 +213,12 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode,codicetassonomia) as (
 		-- Informazioni debitore
 		REG.idreg, 
 		CASE
-			WHEN REG.p_iva is not null then 'G'
-			ELSE 'F' 
+			WHEN  LEN(LTRIM(RTRIM(REG.CF))) = 16 THEN 'F'
+			ELSE 'G' 
 		END AS tipo,
 		CASE
-			WHEN REG.p_iva is not null then REG.p_iva
-			ELSE REG.cf
+			WHEN LEN(LTRIM(RTRIM(REG.CF))) IN (16,11) THEN LTRIM(RTRIM(REG.CF))
+			ELSE LTRIM(RTRIM(REG.p_iva))
 		END AS codice,
 		REG.forename,REG.surname,
 		REG.title AS anagrafica, ADDR.indirizzo, ADDR.cap, ADDR.citta, ADDR.provincia, ADDR.nazione, SUBSTRING(REF.email,1,@len_email) as email , NULL as pec,

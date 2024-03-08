@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -23,6 +6,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		MetaPage.apply(this, ['perfprogettoobiettivo', 'default', true]);
         this.name = 'Obiettivi';
 		this.defaultListType = 'default';
+		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
     }
 
@@ -72,10 +56,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				
 				arraydef.push(this.insertSoglie());
 				arraydef.push(this.manageperfprogettoobiettivo_default_completamento());
-				var ctrlTree =  $('#perfprogettoobiettivoattivita_default_tree').data("customController");
+				var ctrlTree =  $('#perfprogettoobiettivoattivita_alias3_default_tree').data("customController");
 					arraydef.push(ctrlTree.findAndSetRoot({
 						rootTitle: 'Titolo: '+  (this.state.currentRow.title?  this.state.currentRow.title +'; ' : ''),
-					   rootColumnNameTitle: 'title'
+				        rootColumnNameTitle: 'title',
+						tableForReading: 'perfprogettoobiettivoattivita'
 				}));
 				//beforeFillInside
 				
@@ -89,15 +74,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#perfprogettoobiettivo_default_completamento'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
+				this.enableControl($("#XXperfprogettoobiettivointerazione"), this.state.isEditState());
 				this.enableControl($('#perfprogettoobiettivo_default_completamento'), false);
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$("#XXperfprogettoobiettivointerazione").prop("disabled", true);
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -105,7 +106,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//rowSelected
 
-			//buttonClickEnd
+			buttonClickEnd: function (currMetaPage, cmd) {
+				if ($("#XXperfprogettoobiettivointerazione").length) {
+					$("#XXperfprogettoobiettivointerazione").prop("disabled", !currMetaPage.state.isEditState());
+				}
+				//fireRelButtonClickEnd
+				cmd = cmd.toLowerCase();
+				if (cmd === "mainsetsearch") {
+					//firebuttonClickEnd
+				}
+				return this.superClass.buttonClickEnd(currMetaPage, cmd);
+			},
+
 
 			//insertClick
 
@@ -130,7 +142,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			manageperfprogettoobiettivo_default_completamento: function () {
 				//campo calcolato
 				var def = appMeta.Deferred("beforeFill-manageperfprogettoobiettivo_default_completamento");								
-				this.state.currentRow.completamento = this.calculatePercTree(9999999).completamento;								
+				this.state.currentRow.completamento = this.calculatePercTree(9999999, "perfprogettoobiettivoattivita_alias3").completamento;								
 				def.resolve();
 			},
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -222,7 +222,7 @@ private void initClass() {
 	tregistry_alias1.defineColumn("annotation", typeof(string));
 	tregistry_alias1.defineColumn("authorization_free", typeof(string));
 	tregistry_alias1.defineColumn("badgecode", typeof(string));
-	tregistry_alias1.defineColumn("birthdate", typeof(DateTime));
+	tregistry_alias1.defineColumn("birthdate", typeof(DateTime),false);
 	tregistry_alias1.defineColumn("ccp", typeof(string));
 	tregistry_alias1.defineColumn("cf", typeof(string));
 	tregistry_alias1.defineColumn("ct", typeof(DateTime),false);
@@ -233,16 +233,16 @@ private void initClass() {
 	tregistry_alias1.defineColumn("flag_pa", typeof(string));
 	tregistry_alias1.defineColumn("flagbankitaliaproceeds", typeof(string));
 	tregistry_alias1.defineColumn("foreigncf", typeof(string));
-	tregistry_alias1.defineColumn("forename", typeof(string));
-	tregistry_alias1.defineColumn("gender", typeof(string));
+	tregistry_alias1.defineColumn("forename", typeof(string),false);
+	tregistry_alias1.defineColumn("gender", typeof(string),false);
 	tregistry_alias1.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry_alias1.defineColumn("idaccmotivedebit", typeof(string));
 	tregistry_alias1.defineColumn("idcategory", typeof(string));
 	tregistry_alias1.defineColumn("idcentralizedcategory", typeof(string));
-	tregistry_alias1.defineColumn("idcity", typeof(int));
+	tregistry_alias1.defineColumn("idcity", typeof(int),false);
 	tregistry_alias1.defineColumn("idexternal", typeof(int));
 	tregistry_alias1.defineColumn("idmaritalstatus", typeof(string));
-	tregistry_alias1.defineColumn("idnation", typeof(int));
+	tregistry_alias1.defineColumn("idnation", typeof(int),false);
 	tregistry_alias1.defineColumn("idreg", typeof(int),false);
 	tregistry_alias1.defineColumn("idregistryclass", typeof(string));
 	tregistry_alias1.defineColumn("idregistrykind", typeof(int));
@@ -260,7 +260,7 @@ private void initClass() {
 	tregistry_alias1.defineColumn("rtf", typeof(Byte[]));
 	tregistry_alias1.defineColumn("sdi_defrifamm", typeof(string));
 	tregistry_alias1.defineColumn("sdi_norifamm", typeof(string));
-	tregistry_alias1.defineColumn("surname", typeof(string));
+	tregistry_alias1.defineColumn("surname", typeof(string),false);
 	tregistry_alias1.defineColumn("title", typeof(string),false);
 	tregistry_alias1.defineColumn("toredirect", typeof(int));
 	tregistry_alias1.defineColumn("txt", typeof(string));
@@ -287,7 +287,7 @@ private void initClass() {
 	tregistry.defineColumn("annotation", typeof(string));
 	tregistry.defineColumn("authorization_free", typeof(string));
 	tregistry.defineColumn("badgecode", typeof(string));
-	tregistry.defineColumn("birthdate", typeof(DateTime));
+	tregistry.defineColumn("birthdate", typeof(DateTime),false);
 	tregistry.defineColumn("ccp", typeof(string));
 	tregistry.defineColumn("cf", typeof(string));
 	tregistry.defineColumn("ct", typeof(DateTime),false);
@@ -298,13 +298,13 @@ private void initClass() {
 	tregistry.defineColumn("flag_pa", typeof(string));
 	tregistry.defineColumn("flagbankitaliaproceeds", typeof(string));
 	tregistry.defineColumn("foreigncf", typeof(string));
-	tregistry.defineColumn("forename", typeof(string));
-	tregistry.defineColumn("gender", typeof(string));
+	tregistry.defineColumn("forename", typeof(string),false);
+	tregistry.defineColumn("gender", typeof(string),false);
 	tregistry.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry.defineColumn("idaccmotivedebit", typeof(string));
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
-	tregistry.defineColumn("idcity", typeof(int));
+	tregistry.defineColumn("idcity", typeof(int),false);
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
 	tregistry.defineColumn("idnation", typeof(int));
@@ -325,7 +325,7 @@ private void initClass() {
 	tregistry.defineColumn("rtf", typeof(Byte[]));
 	tregistry.defineColumn("sdi_defrifamm", typeof(string));
 	tregistry.defineColumn("sdi_norifamm", typeof(string));
-	tregistry.defineColumn("surname", typeof(string));
+	tregistry.defineColumn("surname", typeof(string),false);
 	tregistry.defineColumn("title", typeof(string),false);
 	tregistry.defineColumn("toredirect", typeof(int));
 	tregistry.defineColumn("txt", typeof(string));
@@ -376,7 +376,6 @@ private void initClass() {
 	var taoodefaultview= new MetaTable("aoodefaultview");
 	taoodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	taoodefaultview.defineColumn("idaoo", typeof(int),false);
-	taoodefaultview.defineColumn("idsede", typeof(int));
 	Tables.Add(taoodefaultview);
 	taoodefaultview.defineKey("idaoo");
 
@@ -384,25 +383,14 @@ private void initClass() {
 	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
 	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
-	tstrutturadefaultview.defineColumn("idupb", typeof(string));
-	tstrutturadefaultview.defineColumn("paridstruttura", typeof(int));
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 
 	//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
 	var tregistrydefaultview= new MetaTable("registrydefaultview");
 	tregistrydefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydefaultview.defineColumn("idaccmotivecredit", typeof(string));
-	tregistrydefaultview.defineColumn("idaccmotivedebit", typeof(string));
-	tregistrydefaultview.defineColumn("idcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcentralizedcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcity", typeof(int));
-	tregistrydefaultview.defineColumn("idnation", typeof(int));
 	tregistrydefaultview.defineColumn("idreg", typeof(int),false);
-	tregistrydefaultview.defineColumn("idregistryclass", typeof(string));
-	tregistrydefaultview.defineColumn("idtitle", typeof(string));
 	tregistrydefaultview.defineColumn("registry_active", typeof(string));
-	tregistrydefaultview.defineColumn("residence", typeof(int),false);
 	Tables.Add(tregistrydefaultview);
 	tregistrydefaultview.defineKey("idreg");
 

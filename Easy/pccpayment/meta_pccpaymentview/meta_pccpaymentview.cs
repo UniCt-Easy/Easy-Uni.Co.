@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,11 +43,11 @@ namespace meta_pccpaymentview {
                 DescribeAColumn(T, "invoicekind", "Tipo documento", nPos++);
                 DescribeAColumn(T, "yinv", "Esercizio", nPos++);
                 DescribeAColumn(T, "ninv", "Numero", nPos++);
-                DescribeAColumn(T, "mandatekind", "Tipo Contratto Passivo", nPos++);
-                DescribeAColumn(T, "yman", "Esercizio", nPos++);
-                DescribeAColumn(T, "nman", "Numero", nPos++);
-                DescribeAColumn(T, "ycon", "Esercizio Cotratto Occasionale", nPos++);
-                DescribeAColumn(T, "ncon", "Numero Contratto Occasionale", nPos++);
+                //DescribeAColumn(T, "mandatekind", "Tipo Contratto Passivo", nPos++);
+                //DescribeAColumn(T, "yman", "Esercizio", nPos++);
+                //DescribeAColumn(T, "nman", "Numero", nPos++);
+                //DescribeAColumn(T, "ycon", "Esercizio Cotratto Occasionale", nPos++);
+                //DescribeAColumn(T, "ncon", "Numero Contratto Occasionale", nPos++);
                 DescribeAColumn(T, "registry", "Fornitore", nPos++);
                 DescribeAColumn(T, "IdFiscaleIvaFornitore", "Id Fiscale Iva", nPos++);
                 DescribeAColumn(T, "CFfornitore", "Codice Fiscale", nPos++);
@@ -56,9 +56,7 @@ namespace meta_pccpaymentview {
                 DescribeAColumn(T, "ImportoTotaleDocumento", "Importo Totale Documento", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "amount", "Importo Pagato", nPos++);
-                DescribeAColumn(T, "expensekind", "Natura di spesa", nPos++);                
-                DescribeAColumn(T, "codefin", "Cod.Bilancio", nPos++);
-                DescribeAColumn(T, "expensephase", "Fase spesa", nPos++);
+                DescribeAColumn(T, "paytransmissiondate", "Data Trasmissione Mandato", nPos++);
                 DescribeAColumn(T, "ymov", "Eserc.", nPos++);
                 DescribeAColumn(T, "nmov", "Num.", nPos++);   
                 DescribeAColumn(T, "npay", "Num.Mandato", nPos++);
@@ -67,6 +65,7 @@ namespace meta_pccpaymentview {
                 DescribeAColumn(T, "noperation", "Num.Op.", nPos++); 
                 DescribeAColumn(T, "cigcode", "Codice CIG", nPos++);
                 DescribeAColumn(T, "cupcode", "Codice CUP", nPos++);
+                DescribeAColumn(T, "expensekind", "Natura di spesa", nPos++);
             }
         }
 

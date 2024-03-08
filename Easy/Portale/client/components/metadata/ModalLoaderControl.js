@@ -1,32 +1,17 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
+/*global _,$,appMeta */
 /**
  * @module ModalLoaderControl
  * @description
  * Manages the graphics for a waiting modal control
  */
-(function() {
-
+(function () {
+    
+    "use strict";
     /**
      * @constructor ModalLoaderControl
      * @description
-     * Initializes an html waiting modal control
-     * @param {Html node} rootElement
+     * Initializes a html waiting modal control
+     * @param {element} rootElement
      */
     function ModalLoaderControl(rootElement) {
         // gestisco le modali come unica risorsa condivisa. quindi metto in una lista, poi
@@ -40,12 +25,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         
         constructor: ModalLoaderControl,
 
+        clear: function () {
+            this.waitIndicatorList = [];
+        },
         /**
          *
          */
        addProgressBar:function() {
-            var p = '<div class="waitProgress" id="waitProgressId"> <div class="waitBar" id="waitBarId"></div> </div>';
-            $(appMeta.rootToolbar).after($(p));
+           let p = '<div class="waitProgress" id="waitProgressId"> <div class="blockBar" ></div><div class="waitBar" id="waitBarId"></div> </div>';
+           $(appMeta.currApp.rootToolbar).after($(p));
         },
 
         /**
@@ -78,36 +66,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Sets the message and shows the modal control
          * @param {string} msg
          * @param {boolean} isBar
+         * @return Promise
          */
         showControl:function (msg, isBar) {
             if (!this.initiated){
                 this.initiated = true;
                 this.rootElement = this.rootElement || document.body;
                 $(this.rootElement).append(this.getHtmlModal());
+                //console.log("html appended");
                 this.$el = $("#modalLoader_control_id");
 
                 this.addProgressBar();
+                return appMeta.Deferred().resolve(true);
             }
 
-            if (isBar) return this.pbarMove();
+            if (isBar){
+                return this.pbarMove();
+            }
             this.setMessage(msg);
+            if (this.$el === undefined) return;
             if (this.$el.hasClass('in')) return;
             this.$el.modal("show");
+            return appMeta.Deferred().resolve(true);
+            //console.log("html showed");
         },
 
+
+
         /**
-         * Show and move the progress bar
+         * @method pbarMove
+         * @description Show and move the progress bar
+         * @return Promise
          */
         pbarMove:function() {
             $("#waitProgressId").css("visibility", "visible");
-            var bar =  $("#waitBarId");
-            var width = 5;
-            var id = setInterval(frame, 10);
+            let bar =  $("#waitBarId");
+            let width = 5;
+            let id = setInterval(frame, 10);
             function frame() {
                 if (width >= 95) return clearInterval(id);
                 width++;
                 bar.width(width + "%");
             }
+            return appMeta.Deferred().resolve(true);
         },
 
         /**
@@ -115,10 +116,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description SYNC
          * Hides the loader
+         * @return Promise
          */
-        hideControl:function () {
-            if (this.$el) this.$el.modal("hide");
+        hideControl: function () {
+            let result = appMeta.Deferred().resolve(true);
+            if (this.$el) {
+                //console.log("hiding " + JSON.stringify(this.$el));
+                if (this.$el.is(":visible")) {
+                    //console.log("ModalLoaderControl.hideControl seems visible -", $(".modal:visible").length);
+                    result = appMeta.Deferred()
+                    //console.log("hiding with id " + JSON.stringify(this.$el));
+                    $("#modalLoader_control_id").one("hidden.bs.modal", function () {
+                        //console.log("ModalLoaderControl.hideControl hiding done -", $(".modal:visible").length);
+                        result.resolve(true);
+                    })
+                }
+                else {
+                    //console.log("ModalLoaderControl.hideControl $el was not visible - ", $(".modal:visible").length);
+                }
+                //this.$el.modal("hide");
+                $(this.$el).modal("hide");
+                //this.$el = undefined;
+            }
+            else {
+                //console.log("ModalLoaderControl.hideControl  not hiding - ", $(".modal").length);
+            }
             $("#waitProgressId").css("visibility", "hidden");
+            //console.log("hide succeeded");
+            return result;
         },
 
         /**
@@ -128,8 +153,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Set the text message on the control
          * @param {string} msg          
          */
-        setMessage:function(msg){
-            this.$el.find(".modalLoader_control_text").text(msg);
+        setMessage: function (msg) {
+            if (this.$el) this.$el.find(".modalLoader_control_text").text(msg);
         },
 
         /**
@@ -150,11 +175,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Shows a modal loader indicator. It is not possible to close the modal by user
          * @param {string} msg. the message to show in the box
-         * @returns {number} the ahndler of the modal. It is used on hideWaitIndicator to remove the message form the list
+         * @param {boolean} [isBar]
+         * @returns {number} the handler of the modal. It is used on hideWaitIndicator to remove the message form the list
          */
         show:function (msg, isBar) {
-            var handlerMax = this.waitIndicatorList.length ?  _.maxBy(this.waitIndicatorList, 'handler').handler : 0;
-            var handler = handlerMax + 1;
+            let handlerMax = this.waitIndicatorList.length ?  _.maxBy(this.waitIndicatorList, 'handler').handler : 0;
+            let handler = handlerMax + 1;
             this.waitIndicatorList.push({ handler:handler, msg:msg });
 
             // mostro il controllo con il messaggio attuale
@@ -170,6 +196,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Hides a modal loader indicator. (Shown with funct. showWaitingIndicator).
          * If handler is undefiend or null or 0 it forces the hide
          * @param {number} handler. the handler of the modal to hide. in handler is undefined it force hide
+         * @return Promise
          */
         hide:function (handler) {
             // tolgo elemento dalla lista{
@@ -185,13 +212,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // mostro l'ultimo messaggio se esiste
             var waitIndicatorListLength = this.waitIndicatorList.length;
             if (waitIndicatorListLength){
-                var wo = this.waitIndicatorList[waitIndicatorListLength - 1];
+                let wo = this.waitIndicatorList[waitIndicatorListLength - 1];
                 // mostro il controllo con l'ultimo messaggio calcolato
-                this.showControl(wo.msg);
+                //console.log("ModalLoaderControl.hide calls showed control");
+                return this.showControl(wo.msg);
             }
 
             // nascondo fisicamente la modale solo se esiste, e la lista dei messaggi Ã¨ vuota
-            if (!this.waitIndicatorList.length) this.hideControl();
+            if (!this.waitIndicatorList.length) {
+                //console.log("ModalLoaderControl.hide calls hideControl");
+                return this.hideControl();
+            }
+
+            return Deferred().resolve(true);
         }
     };
 

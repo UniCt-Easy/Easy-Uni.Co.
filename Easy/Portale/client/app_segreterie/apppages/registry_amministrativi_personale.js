@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -27,7 +10,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		this.canInsert = false;
 		this.canInsertCopy = false;
 		this.canCancel = false;
-		this.canShowLast = false;
 		this.firstSearchFilter = window.jsDataQuery.constant(true);
 		//pageHeaderDeclaration
     }
@@ -44,39 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//isValidFunction
 
-			afterGetFormData: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				//afterGetFormDataFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("afterGetFormData-registry_amministrativi_amministrativi_personale");
-				var arraydef = [];
-				
-				arraydef.push(this.manageregistry_amministrativi_personale_idcontrattokind());
-				//afterGetFormDataInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return def.resolve();
-					});
-				return def.promise();
-			},
+			//afterGetFormData
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.active)
-					parentRow.active = 'S';
-				if (!parentRow.idcentralizedcategory)
-					parentRow.idcentralizedcategory = "01";
-				if (!parentRow.residence)
-					parentRow.residence = 1;
-				parentRow.extension = "amministrativi";
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_amministrativi_personale_idtitle'), null);
 				} else {
@@ -95,23 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				//beforeFillFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-registry_amministrativi_amministrativi_personale");
+				var def = appMeta.Deferred("beforeFill-registry_amministrativi_personale");
 				var arraydef = [];
 				
-				var dt = this.state.DS.tables["registry_amministrativi"];
-				if (dt.rows.length === 0) {
-					var meta = appMeta.getMeta("registry_amministrativi");
-					meta.setDefaults(dt);
-					var defregistry_amministrativi = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
-						function (currentRowamministrativi) {
-							//defaultExtendingObject
-							return true;
-						}
-					);
-					arraydef.push(defregistry_amministrativi);
-				}
-
-				arraydef.push(this.manageregistry_amministrativi_personale_idcontrattokind());
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -125,20 +67,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#registry_amministrativi_personale_extmatricula'), true);
+				this.enableControl($('#registry_amministrativi_personale_idtitle'), true);
 				this.helpForm.filter($('#registry_amministrativi_personale_idtitle'), null);
+				this.enableControl($('#registry_amministrativi_personale_surname'), true);
+				this.enableControl($('#registry_amministrativi_personale_forename'), true);
+				this.enableControl($('#registry_amministrativi_personale_birthdate'), true);
+				this.enableControl($('#registry_amministrativi_personale_idcity'), true);
+				this.enableControl($('#registry_amministrativi_personale_idnation'), true);
+				this.enableControl($('#registry_amministrativi_personale_genderM'), true);
+				this.enableControl($('#registry_amministrativi_personale_genderF'), true);
+				this.enableControl($('#registry_amministrativi_personale_cf'), true);
+				this.enableControl($('#registry_amministrativi_personale_foreigncf'), true);
+				this.enableControl($('#registry_amministrativi_personale_badgecode'), true);
+				this.enableControl($('#registry_amministrativi_personale_idmaritalstatus'), true);
+				this.enableControl($('#registry_amministrativi_personale_activeSi'), true);
+				this.enableControl($('#registry_amministrativi_personale_activeNo'), true);
+				this.enableControl($('#registry_amministrativi_personale_idregistryclass'), true);
 				this.helpForm.filter($('#registry_amministrativi_personale_idregistryclass'), null);
+				this.enableControl($('#registry_amministrativi_personale_annotation'), true);
+				this.enableControl($('#registry_amministrativi_personale_idcategory'), true);
 				this.helpForm.filter($('#registry_amministrativi_personale_idcategory'), null);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
+				this.enableControl($('#registry_amministrativi_personale_idregistrykind'), true);
+				this.enableControl($('#registry_amministrativi_personale_p_iva'), true);
+				this.enableControl($('#registry_amministrativi_personale_residence'), true);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			
 			afterLink: function () {
 				var self = this;
 				this.configureDependencies();
+				this.state.DS.tables.registry.defaults({ 'active': 'S' });
+				this.state.DS.tables.registry.defaults({ 'extension': 'amministrativi' });
+				this.state.DS.tables.registry.defaults({ 'idcentralizedcategory': "01" });
+				this.state.DS.tables.registry.defaults({ 'residence': 1 });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar54').fullCalendar('rerenderEvents');
+					$('#calendar60').fullCalendar('rerenderEvents');
 				});
+				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));
+				$('#grid_registrylegalstatus_amm').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;tempindet,S,Si;tempindet,N,No;');
+				$('#grid_progettotimesheet_datipersonali').data('mdlconditionallookup', 'multilinetype,S,Si;multilinetype,N,No;output,P,PDF;output,F,PDF firmato;output,X,Excel;');
+				$('#grid_timbratura_default').data('mdlconditionallookup', 'convalida,S,Si;convalida,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -178,9 +152,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterFill: function () {
+				this.enableControl($('#registry_amministrativi_personale_extmatricula'), false);
 				this.enableControl($('#registry_amministrativi_personale_idtitle'), false);
-				this.enableControl($('#registry_amministrativi_personale_forename'), false);
 				this.enableControl($('#registry_amministrativi_personale_surname'), false);
+				this.enableControl($('#registry_amministrativi_personale_forename'), false);
 				this.enableControl($('#registry_amministrativi_personale_birthdate'), false);
 				this.enableControl($('#registry_amministrativi_personale_idcity'), false);
 				this.enableControl($('#registry_amministrativi_personale_idnation'), false);
@@ -198,12 +173,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				this.enableControl($('#registry_amministrativi_personale_idregistrykind'), false);
 				this.enableControl($('#registry_amministrativi_personale_p_iva'), false);
 				this.enableControl($('#registry_amministrativi_personale_residence'), false);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
 				//afterFillin
 
 				var self = this;
 				if (!this.isEmpty()) {
-					// carica tutte le attivit‡ dell'utente. seve per visualizzarle sul calendario
+					// carica tutte le attivit√† dell'utente. seve per visualizzarle sul calendario
 					var filter = self.q.and(
 						self.q.eq("idreg", this.state.currentRow.idreg),
 						self.q.eq("idsospensione",0)
@@ -213,22 +187,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					});
 				}
 				return MetaPage.prototype.afterFill.call(this);
-			},
-
-			manageregistry_amministrativi_personale_idcontrattokind: function () {
-				var def = appMeta.Deferred("beforeFill-manageregistry_docenti_idcontrattokind");
-				var self = this;
-				var currcontratto;
-				_.forEach(this.state.DS.tables.contratto.rows, function (row) {
-					if (!currcontratto)
-						currcontratto = row;
-					else
-						if (currcontratto.start < row.start)
-							currcontratto = row;
-				});
-				if (currcontratto)
-					this.state.DS.tables.registry_amministrativi.rows[0].idcontrattokind = currcontratto.idcontrattokind;
-				return def.resolve();
 			},
 
 			//buttons

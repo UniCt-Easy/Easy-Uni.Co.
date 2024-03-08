@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,30 +31,18 @@ using metadatalibrary;
 namespace pagoPaService {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Incassi comunicatici dal nodo pagamenti o simili
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public flussoincassiTable flussoincassi 		=> (flussoincassiTable)Tables["flussoincassi"];
 
-	///<summary>
-	///dettaglio flusso incassi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public flussoincassidetailTable flussoincassidetail 		=> (flussoincassidetailTable)Tables["flussoincassidetail"];
 
-	///<summary>
-	///Dettaglio flusso crediti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public flussocreditidetailTable flussocreditidetail 		=> (flussocreditidetailTable)Tables["flussocreditidetail"];
 
-	///<summary>
-	///Crediti da comunicare al nodo pagamenti o simili, anche usata per i crediti che ci vengono comunicati dalle segreterie studenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public flussocreditiTable flussocrediti 		=> (flussocreditiTable)Tables["flussocrediti"];
 

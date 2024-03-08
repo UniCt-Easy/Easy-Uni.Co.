@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_blacklist]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_blacklist]
 GO
+
+--setuser 'amm'
 
 SET QUOTED_IDENTIFIER ON 
 GO
@@ -77,6 +79,7 @@ CREATE TABLE #NoteDiCredito
 	idinvkind_main int,
 	yinv_main int,
 	ninv_main int,
+	rownum_main int,
 	-- sezione ammontare complessivo
 	imponibileBeni decimal(19,2),
 	ivaBeni decimal(19,2),
@@ -157,6 +160,7 @@ INSERT INTO #NoteDiCredito
 	idinvkind_main,
 	yinv_main,
 	ninv_main,
+	rownum_main,
 	adate,
 	imponibileBeni,
 	ivaBeni,
@@ -176,6 +180,7 @@ SELECT
 	null,
 	ID.yinv_main,
 	ID.ninv_main,
+	ID.rownum_main,
 	I.adate,
 	CASE 
 		WHEN ID.flag_invoicedetail = 0 -- beni

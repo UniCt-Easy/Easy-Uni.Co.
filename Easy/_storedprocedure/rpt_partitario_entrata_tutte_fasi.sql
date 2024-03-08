@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,6 +42,7 @@ CREATE PROCEDURE rpt_partitario_entrata_tutte_fasi
 	@idsor05 int	
 AS
 BEGIN
+--setuser'amministrazione'
 --exec rpt_partitario_entrata_tutte_fasi 2011, 'R', '%', 3, {ts '2011-01-01 00:00:00'}, {ts '2011-12-31 00:00:00'}, 'N', 'N', 'S', 'N', NULL , NULL, NULL, NULL,NULL, NULL
 CREATE TABLE #previousincome
 (
@@ -153,8 +154,8 @@ CREATE TABLE #income
 	annotations varchar(400),
 
 	available decimal(19,2),
-	hierarchy varchar (50),
-	tothierarchy varchar (50)
+	hierarchy varchar (200),
+	tothierarchy varchar (200)
 )
 
 DECLARE @firstday datetime

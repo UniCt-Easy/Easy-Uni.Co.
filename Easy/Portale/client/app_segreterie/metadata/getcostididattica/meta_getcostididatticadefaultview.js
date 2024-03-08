@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,18 +23,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'getcostididattica_corsostudio', 'Corso di studio', null, 10, 1024);
-						this.describeAColumn(table, 'getcostididattica_sede', 'Sede', null, 20, 1024);
-						this.describeAColumn(table, 'aa', 'AA erogata', null, 30, 9);
-						this.describeAColumn(table, 'aaprogrammata', 'AA programmata', null, 40, 9);
-						this.describeAColumn(table, 'getcostididattica_curriculum', 'Curriculum', null, 50, 256);
-						this.describeAColumn(table, 'getcostididattica_insegnamento', 'Insegnamento', null, 60, 256);
-						this.describeAColumn(table, 'getcostididattica_modulo', 'Modulo', null, 70, 256);
-						this.describeAColumn(table, 'getcostididattica_affidamento', 'Affidamento', null, 80, 1075);
-						this.describeAColumn(table, 'getcostididattica_docente', 'Docente', null, 90, 101);
-						this.describeAColumn(table, 'getcostididattica_ruolo', 'Ruolo', null, 100, 50);
-						this.describeAColumn(table, 'getcostididattica_costoorariodacontratto', 'Costo orario da ruolo', null, 110, 2);
-						this.describeAColumn(table, 'getcostididattica_costo', 'Costo', 'fixed.2', 120, null);
+						this.describeAColumn(table, 'getcostididattica_corsostudio', 'Corso di studio', null, 1000, 1024);
+						this.describeAColumn(table, 'getcostididattica_sede', 'Sede', null, 2000, 1024);
+						this.describeAColumn(table, 'aa', 'AA erogata', null, 3000, 9);
+						this.describeAColumn(table, 'aaprogrammata', 'AA programmata', null, 4000, 9);
+						this.describeAColumn(table, 'getcostididattica_curriculum', 'Curriculum', null, 5000, 256);
+						this.describeAColumn(table, 'getcostididattica_insegnamento', 'Insegnamento', null, 6000, 256);
+						this.describeAColumn(table, 'getcostididattica_modulo', 'Modulo', null, 7000, 256);
+						this.describeAColumn(table, 'getcostididattica_affidamento', 'Affidamento', null, 8000, 1075);
+						this.describeAColumn(table, 'getcostididattica_docente', 'Docente', null, 9000, 101);
+						this.describeAColumn(table, 'getcostididattica_ruolo', 'Ruolo', null, 10000, 50);
+						this.describeAColumn(table, 'getcostididattica_costoorariodacontratto', 'Costo orario da ruolo', null, 11000, 2);
+						this.describeAColumn(table, 'getcostididattica_costo', 'Costo', 'fixed.2', 12000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -63,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//$setCaptions$
 
 			primaryKey: function () {
-				return ["aa", "idsede", "iddidprog", "idaffidamento", "idcorsostudio", "iddidprogcurr", "idcontrattokind"];
+				return ["aa", "idsede", "iddidprog", "idaffidamento", "idcorsostudio", "iddidprogcurr", "idposition"];
 			},
 
 

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -51,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idsasd_sasd_title'] = { tableNameLookup:'sasd', columnNameLookup:'title', columnNamekey:'idsasd' };
 						this.describeAColumn(table, '!idsasdgruppo_sasdgruppo_title', 'Gruppo', null, 51, null);
 						objCalcFieldConfig['!idsasdgruppo_sasdgruppo_title'] = { tableNameLookup:'sasdgruppo', columnNameLookup:'title', columnNamekey:'idsasdgruppo' };
-						this.describeAColumn(table, '!idtipoattform_tipoattform_title', 'Denominazione Tipo di attivit‡ formativa', null, 31, null);
-						this.describeAColumn(table, '!idtipoattform_tipoattform_description', 'Descrizione Tipo di attivit‡ formativa', null, 32, null);
+						this.describeAColumn(table, '!idtipoattform_tipoattform_title', 'Denominazione Tipo di attivit√† formativa', null, 31, null);
+						this.describeAColumn(table, '!idtipoattform_tipoattform_description', 'Descrizione Tipo di attivit√† formativa', null, 32, null);
 						objCalcFieldConfig['!idtipoattform_tipoattform_title'] = { tableNameLookup:'tipoattform', columnNameLookup:'title', columnNamekey:'idtipoattform' };
 						objCalcFieldConfig['!idtipoattform_tipoattform_description'] = { tableNameLookup:'tipoattform', columnNameLookup:'description', columnNamekey:'idtipoattform' };
 						this.describeAColumn(table, '!affidamentocaratteristicaora', 'Ore', null, 90, null);
@@ -69,8 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idsasd_sasd_title'] = { tableNameLookup:'sasd', columnNameLookup:'title', columnNamekey:'idsasd' };
 						this.describeAColumn(table, '!idsasdgruppo_sasdgruppo_title', 'Gruppo', null, 51, null);
 						objCalcFieldConfig['!idsasdgruppo_sasdgruppo_title'] = { tableNameLookup:'sasdgruppo', columnNameLookup:'title', columnNamekey:'idsasdgruppo' };
-						this.describeAColumn(table, '!idtipoattform_tipoattform_title', 'Denominazione Tipo di attivit‡ formativa', null, 31, null);
-						this.describeAColumn(table, '!idtipoattform_tipoattform_description', 'Descrizione Tipo di attivit‡ formativa', null, 32, null);
+						this.describeAColumn(table, '!idtipoattform_tipoattform_title', 'Denominazione Tipo di attivit√† formativa', null, 31, null);
+						this.describeAColumn(table, '!idtipoattform_tipoattform_description', 'Descrizione Tipo di attivit√† formativa', null, 32, null);
 						objCalcFieldConfig['!idtipoattform_tipoattform_title'] = { tableNameLookup:'tipoattform', columnNameLookup:'title', columnNamekey:'idtipoattform' };
 						objCalcFieldConfig['!idtipoattform_tipoattform_description'] = { tableNameLookup:'tipoattform', columnNameLookup:'description', columnNamekey:'idtipoattform' };
 						this.describeAColumn(table, '!affidamentocaratteristicaora', 'Ore', null, 60, null);
@@ -91,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["idambitoareadisc"].caption = "Ambito o area disciplinare";
 						table.columns["idsasd"].caption = "SASD";
 						table.columns["idsasdgruppo"].caption = "Gruppo";
-						table.columns["idtipoattform"].caption = "Tipo di attivit‡ formativa";
+						table.columns["idtipoattform"].caption = "Tipo di attivit√† formativa";
 						table.columns["json"].caption = "Caratteristiche";
 						table.columns["profess"].caption = "Professionalizzante";
 						table.columns["title"].caption = "Caratteristiche";

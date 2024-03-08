@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,19 +23,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
+--setuser 'amm'
 
 CREATE      PROCEDURE [exp_bilprevisionesorting]
 (
 	@ayear int,--> anno del bilancio di previsione
 	@finpart char(1),
 	@idsorkindfin int,
+	@useupb char(1),
     @idsorkindupb int
 
 )
 AS BEGIN
 
-
+-- exec exp_bilprevisionesorting 2012,'S', 23, 'S', 6
+-- exec exp_bilprevisionesorting 2012,'S', 23, 'N', null
 --  exec exp_bilprevisionesorting 2012,'S', 23, 6
 
 DECLARE	@finpart_bit  tinyint  -- Parte del bilancio ( Entrata / Spesa)
@@ -64,46 +66,70 @@ CREATE TABLE #data
 	currentarrears decimal(19,2)
 )
 
-insert into #data (
-	codeupb,
-	upb,
-	codefin,
-	fin,
+if (@useupb = 'S')
+Begin
+	insert into #data (
+		codeupb,
+		upb,
+		codefin,
+		fin,
 	
-	initialprevision,
-	previousprevision,
-	secondaryprevision,
-	currentarrears)
-SELECT 
-	isnull(sorUpb.sortcode,	upb.codeupb),
-	isnull(sorUpb.description,	upb.title),
-	isnull(sorFin.sortcode,	fin.codefin),
-	isnull(sorFin.description, fin.title),
-	ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.prevision),0),
-	ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.previousprevision),0), 
-	ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.secondaryprev),0) ,
-	ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.currentarrears),0)
-FROM finyear 
-JOIN fin  
-	ON finyear.idfin = fin.idfin
-JOIN upb 
-	ON finyear.idupb = upb.idupb
-JOIN finlast 
-	ON fin.idfin = finlast.idfin
-LEFT OUTER JOIN finsorting FS
-	ON FS.idfin = fin.idfin	 AND FS.idsor in (select idsor from sorting where idsorkind = @idsorkindfin)
-LEFT OUTER JOIN sorting sorFin
-	ON sorFin.idsor = FS.idsor				
-LEFT OUTER JOIN upbsorting US 
-	ON US.idupb = upb.idupb	AND US.idsor in (select idsor from sorting where idsorkind = @idsorkindupb)
-LEFT OUTER JOIN sorting sorUpb
-	ON sorUpb.idsor = US.idsor				
-WHERE fin.ayear = @ayear
-		AND ((fin.flag & 1)= @finpart_bit) 
-		AND ( sorFin.idsorkind = @idsorkindfin	OR @idsorkindfin is null)
-		AND ( sorUpb.idsorkind = @idsorkindupb	OR @idsorkindupb is null)
-group by  isnull(sorUpb.sortcode,	upb.codeupb), isnull(sorUpb.description,	upb.title),
-	isnull(sorFin.sortcode,	fin.codefin), isnull(sorFin.description, fin.title)
+		initialprevision,
+		previousprevision,
+		secondaryprevision,
+		currentarrears)
+	SELECT 
+		isnull(sorUpb.sortcode,	upb.codeupb),
+		isnull(sorUpb.description,	upb.title),
+		isnull(sorFin.sortcode,	fin.codefin),
+		isnull(sorFin.description, fin.title),
+		ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.prevision),0),
+		ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.previousprevision),0), 
+		ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.secondaryprev),0) ,
+		ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.currentarrears),0)
+	FROM finyear 
+	JOIN fin  ON finyear.idfin = fin.idfin
+	JOIN upb  ON finyear.idupb = upb.idupb
+	JOIN finlast ON fin.idfin = finlast.idfin
+	LEFT OUTER JOIN finsorting FS ON FS.idfin = fin.idfin	 AND FS.idsor in (select idsor from sorting where idsorkind = @idsorkindfin)
+	LEFT OUTER JOIN sorting sorFin 	ON sorFin.idsor = FS.idsor				
+	LEFT OUTER JOIN upbsorting US ON US.idupb = upb.idupb	AND US.idsor in (select idsor from sorting where idsorkind = @idsorkindupb)
+	LEFT OUTER JOIN sorting sorUpb	ON sorUpb.idsor = US.idsor				
+	WHERE fin.ayear = @ayear
+			AND ((fin.flag & 1)= @finpart_bit) 
+			AND ( sorFin.idsorkind = @idsorkindfin	OR @idsorkindfin is null)
+			AND ( sorUpb.idsorkind = @idsorkindupb	OR @idsorkindupb is null)
+	group by  isnull(sorUpb.sortcode,	upb.codeupb), isnull(sorUpb.description,	upb.title),
+		isnull(sorFin.sortcode,	fin.codefin), isnull(sorFin.description, fin.title)
+end
+else
+begin
+	insert into #data (
+		codefin,
+		fin,
+	
+		initialprevision,
+		previousprevision,
+		secondaryprevision,
+		currentarrears)
+	SELECT 
+		S_ALL.sortcode,	
+		S_ALL.description, 
+		ISNULL(SUM(isnull(FS.quota,1)*finyear.prevision),0),
+		ISNULL(SUM(isnull(FS.quota,1)*finyear.previousprevision),0), 
+		ISNULL(SUM(isnull(FS.quota,1)*finyear.secondaryprev),0) ,
+		ISNULL(SUM(isnull(FS.quota,1)*finyear.currentarrears),0)
+	FROM sorting S_ALL
+		join sortinglink SL on SL.idparent= S_ALL.idsor
+		JOIN sorting sorFin	on SL.idchild = sorFin.idsor
+		left outer JOIN finsorting FS ON sorFin.idsor = FS.idsor	
+		left outer JOIN fin	ON FS.idfin = fin.idfin	 AND fin.ayear = @ayear AND ((fin.flag & 1)= @finpart_bit) 	
+		LEFT OUTER JOIN finlast	 ON fin.idfin = finlast.idfin
+		left outer join  finyear ON finyear.idfin = fin.idfin
+		WHERE 			
+			S_ALL.idsorkind= @idsorkindfin
+	group by  S_ALL.sortcode, S_ALL.description
+end
 
 
 DECLARE @SQL_string nvarchar(4000) --> Variabile che immagazzina la stringa di comando SQL
@@ -150,8 +176,12 @@ IF( @fin_kind = 3)
 Begin
 	SET @SQL_string = N'SELECT '+
 				''''+@finpart + ''' as ''E/S'','+
-				' codeupb as '+ @Col_codeupb + ','+
-				' upb as '+ @Col_upb + ','+
+				case
+					when (@useupb = 'S')
+					then ' codeupb as '+ @Col_codeupb + ','+
+						' upb as '+ @Col_upb + ','
+					else '' 
+				end +
 				' codefin as '+ @Col_codefin + ','+
 				' fin as '+@Col_fin + ','+
 				' ISNULL(SUM(currentarrears),0) AS ''Residui presunti dell''''anno '+ @ayearPrecChar+''',
@@ -169,14 +199,24 @@ Begin
 				isnull(SUM(initialprevision),0) as ''Totale Prev.Competenza '+@ayearChar+''',
 				ISNULL(SUM(secondaryprevision),0) AS ''Previsioni di cassa per l''''anno '+@ayearChar+'''
 				FROM #data
-				GROUP BY codeupb, upb, codefin, fin'
+				GROUP BY ' + 
+				case 
+					when (@useupb = 'S')
+					then 'codeupb, upb, codefin, fin'
+					else 'codefin, fin
+					ORDER BY codefin'
+				end
 End
 ELSE
 Begin
 	SET @SQL_string = N'SELECT '+
 				''''+@finpart + ''' as ''E/S'','+
-				' codeupb as '+ @Col_codeupb + ','+
-				' upb as Descrizione ,'+
+				case
+					when (@useupb = 'S')
+					then ' codeupb as '+ @Col_codeupb + ','+
+						' upb as Descrizione ,'
+					else ''
+				end +
 				' codefin as '+ @Col_codefin + ','+
 				' fin as Descrizione ,'+
 				' ISNULL(SUM(previousprevision),0) AS ''Prev. definitive '+ @ayearPrecChar+''',
@@ -192,7 +232,13 @@ Begin
 				End as ''Var. Diminuzione''	,
 				isnull(SUM(initialprevision),0) as ''Totali '+@ayearChar+'''
 				FROM #data
-				GROUP BY codeupb, upb, codefin, fin'
+				GROUP BY ' + 
+				case
+					when (@useupb = 'S')
+					then 'codeupb, upb, codefin, fin'
+					else 'codefin, fin
+					ORDER BY codefin'
+				end
 End
 print @SQL_string
 EXEC sp_executesql @SQL_string

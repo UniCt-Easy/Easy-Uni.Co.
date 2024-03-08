@@ -2,13 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabregistry_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabregistry_default_0"><i class="fa fa-users mr-1"></i>Principale</a>
+		<a href="#tabregistry_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabregistry_default_0"><i class="fa fa-users mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabregistry_default_2" class="nav-link" data-toggle="pill" data-target="#tabregistry_default_2"><i class="fa fa-map-marked-alt mr-1"></i>Indirizzi</a>
+		<a href="#tabregistry_default_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_default_2"><i class="fa fa-map-marked-alt mr-1"></i>Indirizzi</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabregistry_default_1" class="nav-link" data-toggle="pill" data-target="#tabregistry_default_1"><i class="fa fa-users mr-1"></i>Altri Dati</a>
+		<a href="#tabregistry_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_default_1"><i class="fa fa-users mr-1"></i>Altri Dati</a>
 	</li>
 
 	</ul>
@@ -86,7 +86,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#registry_default_birthdate").datepicker();
+    $("#registry_default_birthdate").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="registry_default_birthdate">Data di nascita</label>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,6 +47,8 @@ namespace meta_itinerationrefund//meta_missionespesa//
 			ListingTypes.Add("aidadvance");
 			EditTypes.Add("aidbalance");
 			ListingTypes.Add("aidbalance");
+			ListingTypes.Add("refundbalance_ref");
+			
 			//$EditTypes$
 			//----------------------------------instm-------------------------------end
 
@@ -122,6 +124,12 @@ namespace meta_itinerationrefund//meta_missionespesa//
 				return false;
 			}
 
+			if (R["exchangerate"] == DBNull.Value || CfgFn.GetNoNullDouble(R["exchangerate"]) == 0) {
+				errfield = "exchangerate";
+				errmess = "E' necessario impostare il tasso di cambio";
+				return false;
+			}
+
 			string filter = QHS.CmpEq("iditinerationrefundkind", R["iditinerationrefundkind"]);
 			DataTable Titinerationrefundkind = Conn.RUN_SELECT("itinerationrefundkind", "iditinerationrefundkindgroup", null, filter, null, null, true);
 			if (Titinerationrefundkind.Rows.Count > 0) {
@@ -160,6 +168,8 @@ namespace meta_itinerationrefund//meta_missionespesa//
 						DescribeAColumn(T, "!classificazione", "Classificazione", "itinerationrefundkind_advance.description", nPos++);
 						DescribeAColumn(T, "amount", "Accordato (EURO)", nPos++);
 						DescribeAColumn(T, "requiredamount", "Richiesto", nPos++);
+						DescribeAColumn(T, "docdate", "Data", nPos++);
+						//if (T.Columns.Contains("docdate")) T.Columns["docdate"].ExtendedProperties["format"] = "g";
 						break;
 					}
 				case "balance": {
@@ -167,6 +177,8 @@ namespace meta_itinerationrefund//meta_missionespesa//
 						DescribeAColumn(T, "!classificazione", "Classificazione", "itinerationrefundkind_balance.description", nPos++);
 						DescribeAColumn(T, "amount", "Accordato (EURO)", nPos++);
 						DescribeAColumn(T, "requiredamount", "Richiesto", nPos++);
+						DescribeAColumn(T, "docdate", "Data", nPos++);
+						//if (T.Columns.Contains("docdate")) T.Columns["docdate"].ExtendedProperties["format"] = "g";
 						break;
 					}
 				case "instmuseradvance": {
@@ -183,6 +195,14 @@ namespace meta_itinerationrefund//meta_missionespesa//
 						if (T.Columns.Contains("starttime")) T.Columns["starttime"].ExtendedProperties["format"] = "g";
 						DescribeAColumn(T, "requiredamount", "Importo", nPos++);
 						DescribeAColumn(T, "!idcurrency_currency_description", "Valuta", nPos++);
+						break;
+					}
+				case "refundbalance_ref": {
+						DescribeAColumn(T, "nrefund", "Num.Spesa", nPos++);
+						DescribeAColumn(T, "!classificazione", "Classificazione", "itinerationrefundkind_ref.description", nPos++);
+						DescribeAColumn(T, "amount", "Accordato (EURO)", nPos++);
+						DescribeAColumn(T, "requiredamount", "Richiesto", nPos++);
+						DescribeAColumn(T, "docdate", "Data", nPos++);
 						break;
 					}
 					//$DescribeAColumn$

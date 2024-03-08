@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,7 +45,7 @@ namespace meta_paymenttransmission//meta_trasmdocpagamento//
 			if (FormName=="default")
 			{
 				DefaultListType="lista";
-				Name = "Distinta di trasmissione";
+				Name = "Distinta di trasmissione - Pagamento";
 				return MetaData.GetFormByDllName("paymenttransmission_default");//PinoRana
 			}
 

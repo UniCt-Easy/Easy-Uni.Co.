@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -281,6 +281,7 @@ namespace estimate_default {
 			this.txtNewDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtNewDescrizione.Location = new System.Drawing.Point(80, 205);
+			this.txtNewDescrizione.MaxLength = 150;
 			this.txtNewDescrizione.Multiline = true;
 			this.txtNewDescrizione.Name = "txtNewDescrizione";
 			this.txtNewDescrizione.Size = new System.Drawing.Size(512, 40);
@@ -532,12 +533,12 @@ namespace estimate_default {
 			// btnCopy
 			// 
 			this.btnCopy.Location = new System.Drawing.Point(146, 20);
-			this.btnCopy.Visible = false;
 			this.btnCopy.Name = "btnCopy";
 			this.btnCopy.Size = new System.Drawing.Size(319, 23);
 			this.btnCopy.TabIndex = 37;
 			this.btnCopy.Text = "Ricopia le informazioni del dettaglio da annullare nel nuovo";
 			this.btnCopy.UseVisualStyleBackColor = true;
+			this.btnCopy.Visible = false;
 			this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
 			// 
 			// groupBox8

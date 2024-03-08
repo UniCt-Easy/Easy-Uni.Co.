@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_registro_ammortamenti_ente_con_simulazione_ba]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_registro_ammortamenti_ente_con_simulazione_ba]
 GO
@@ -23,8 +24,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
--- setuser 'amministrazione'
--- exec rpt_registro_ammortamenti_ente_con_simulazione_ba 2021, 741, {d '2021-12-16'},'N', 9001014, 9001014
+--	setuser 'amministrazione'
+--	exec rpt_registro_ammortamenti_ente_con_simulazione_ba 2022, 741, {d '2022-12-31'},'N', 9001014, 9001014
+--	exec rpt_registro_ammortamenti_ente_con_simulazione_ba 2022, 741, {d '2022-12-31'},'N', 9001162, 9001162
+--  exec rpt_registro_ammortamenti_ente_con_simulazione_ba 2022, 741, {ts '2021-11-29 00:00:00'}, 'N', 9001162, 9001162, null, NULL
+--	exec "BARI_2019_TEST"."amministrazione"."rpt_registro_ammortamenti_ente_con_simulazione_ba";1 2021, 741, {ts '2021-12-31 00:00:00'}, 'N', 9001033, 9001033, '%', NULL
+--	exec "BARI_2019_TEST"."amministrazione"."rpt_registro_ammortamenti_ente_con_simulazione_ba";1 2022, 1, {ts '2022-12-31 00:00:00'}, 'S', 9051745, 9051745, '%', NULL
+--	exec "BARI_2019_TEST"."amministrazione"."rpt_registro_ammortamenti_ente_con_simulazione_ba";1 2022, 741, {ts '2022-12-31 00:00:00'}, 'N', 9001033, 9001033, '%', NULL
+--	exec "BARI_2019_TEST"."amministrazione"."simulation_asset_ammortization_on_the_date1";1 2022,  {d '2022-12-31'},1,9051745, 9051745
+
 CREATE    PROCEDURE [rpt_registro_ammortamenti_ente_con_simulazione_ba]
 (
 	@year int,
@@ -77,6 +85,7 @@ CREATE TABLE #assetamortization
 	startvalue decimal(19,2),
 	finalvalue decimal(19,2),
 	namortization int,
+	originalamortizationquota float,
 	amortizationquota float,
 	assetvalue decimal(19,2),
 	adate smalldatetime,
@@ -85,7 +94,8 @@ CREATE TABLE #assetamortization
 	lifestart date,
 	asset_location varchar(200),
 	upb varchar(150),
-	asset_submanager varchar(150)
+	asset_submanager varchar(150),
+	tipoammortamento char(1) -- Mensile o Annuale
 )
 
 CREATE TABLE #simula_assetamortization
@@ -108,6 +118,7 @@ print 'INSERT INTO #assetamortization'
 -- INSERIMENTO DEGLI AMMORTAMENTI REALI
 if( @mostrabenitotammortizzati ='N')
 Begin
+
 	INSERT INTO #assetamortization
 	(	
 		idasset,
@@ -127,6 +138,7 @@ Begin
 		yassetload,  
 		nassetload,
 		namortization,
+		originalamortizationquota,
 		amortizationquota,
 		assetvalue,
 		adate,
@@ -135,7 +147,8 @@ Begin
 		lifestart,
 		asset_location,
 		upb,
-		asset_submanager
+		asset_submanager,
+		tipoammortamento
 	)
 	SELECT  
 		cespite_o_accessorio.idasset,
@@ -161,6 +174,7 @@ Begin
 		buono_carico.yassetload,
 		buono_carico.nassetload,
 		assetamortization.namortization,
+		ISNULL(cespite_o_accessorio.amortizationquota,t1.amortizationquota),
 		assetamortization.amortizationquota,
 		assetamortization.assetvalue,
 		CASE 
@@ -205,7 +219,9 @@ Begin
 		cespite_o_accessorio.lifestart,
 		l.description,
 		u.title,
-		m.title
+		m.title,
+		--tipoammortamento
+		case when (inventoryamortization.flag & 1 = 0) then 'A'else 'M'end
 	FROM assetacquire as carico
 	JOIN asset as cespite_o_accessorio			ON carico.nassetacquire = cespite_o_accessorio.nassetacquire
 	LEFT JOIN assetload buono_carico			ON buono_carico.idassetload = carico.idassetload
@@ -219,6 +235,9 @@ Begin
 	JOIN inventorytree							ON inventorytree.idinv = inventorytreelink.idparent
 	JOIN assetamortization						ON assetamortization.idasset = cespite_o_accessorio.idasset	AND assetamortization.idpiece = cespite_o_accessorio.idpiece 
 	JOIN inventoryamortization					ON assetamortization.idinventoryamortization = inventoryamortization.idinventoryamortization
+	LEFT OUTER JOIN inventorysortingamortizationyear  t1 
+												ON t1.idinv = caricocespite.idinv  AND inventoryamortization.idinventoryamortization = t1.idinventoryamortization 
+												AND t1.ayear = year(assetamortization.adate)
 	LEFT JOIN assetunload						ON assetamortization.idassetunload = assetunload.idassetunload
 	LEFT JOIN assetload							ON assetamortization.idassetload = assetload.idassetload	
 	LEFT JOIN location l     					ON l.idlocation = cespite_o_accessorio.idcurrlocation
@@ -251,10 +270,11 @@ Begin
 	AND (cespite_o_accessorio.ninventory <= @ninvstop or @ninvstop is null)
 	AND (u.idupb like @idupb)
 	AND (m.idman = @idsubman OR @idsubman is null)
-	--select * from #assetamortization
+
 end
 else
 Begin
+
 	INSERT INTO #assetamortization
 	(	
 		idasset,
@@ -274,6 +294,7 @@ Begin
 		yassetload,  
 		nassetload,
 		namortization,
+		originalamortizationquota,
 		amortizationquota,
 		assetvalue,
 		adate,
@@ -282,7 +303,8 @@ Begin
 		lifestart,
 		asset_location,
 		upb,
-		asset_submanager
+		asset_submanager,
+		tipoammortamento
 	)
 	SELECT  
 		cespite_o_accessorio.idasset,
@@ -308,6 +330,7 @@ Begin
 		buono_carico.yassetload,
 		buono_carico.nassetload,
 		assetamortization.namortization,
+		ISNULL(cespite_o_accessorio.amortizationquota,t1.amortizationquota),
 		assetamortization.amortizationquota,
 		assetamortization.assetvalue,
 		CASE 
@@ -352,7 +375,9 @@ Begin
 		cespite_o_accessorio.lifestart,
 		l.description,
 		u.title,
-		m.title
+		m.title,
+		--tipoammortamento
+		case when (inventoryamortization.flag & 1 = 0) then 'A'else 'M'end
 	FROM assetacquire as carico
 	JOIN asset as cespite_o_accessorio			ON carico.nassetacquire = cespite_o_accessorio.nassetacquire
 	LEFT OUTER JOIN assetload buono_carico		ON buono_carico.idassetload = carico.idassetload
@@ -366,6 +391,9 @@ Begin
 	JOIN inventorytree							ON inventorytree.idinv = inventorytreelink.idparent
 	JOIN assetamortization						ON assetamortization.idasset = cespite_o_accessorio.idasset	AND assetamortization.idpiece = cespite_o_accessorio.idpiece 
 	JOIN inventoryamortization					ON assetamortization.idinventoryamortization = inventoryamortization.idinventoryamortization
+	LEFT OUTER JOIN inventorysortingamortizationyear  t1 
+												ON t1.idinv = caricocespite.idinv  AND inventoryamortization.idinventoryamortization = t1.idinventoryamortization 
+												AND t1.ayear = year(assetamortization.adate)
 	LEFT OUTER JOIN assetunload					ON assetamortization.idassetunload = assetunload.idassetunload
 	LEFT OUTER JOIN assetload					ON assetamortization.idassetload = assetload.idassetload
 	LEFT JOIN location l						ON l.idlocation = cespite_o_accessorio.idcurrlocation
@@ -404,7 +432,7 @@ End
 	--SELECT '#assetamortization',* FROM #assetamortization
 -- ORDER BY carico.nassetacquire
 -- se desidero effettuare la simulazione alla data chiamo la sp che simula il valore attuale del cespite e le quote ricalcolate alla data
---select * from #assetamortization SARA
+
  
 if (@simulation_on_to_adate IS NOT NULL)
 BEGIN
@@ -423,8 +451,7 @@ BEGIN
 		idinventoryamortization
 	)
 	exec simulation_asset_ammortization_on_the_date @year, @simulation_on_to_adate, @idinventory, @ninvstart, @ninvstop
-	--SELECT '#simula_assetamortization',* FROM #simula_assetamortization
-	--select * from #simula_assetamortization
+
 	
 	INSERT INTO #assetamortization
 	(	
@@ -445,6 +472,7 @@ BEGIN
 		yassetload,  
 		nassetload,
 		namortization,
+		originalamortizationquota,								
 		amortizationquota,								
 		assetvalue,
 		adate,																		
@@ -453,7 +481,8 @@ BEGIN
 		lifestart,
 		asset_location,
 		upb,
-		asset_submanager
+		asset_submanager,
+		tipoammortamento
 	)
 		SELECT  
 		cespite_o_accessorio.idasset,
@@ -479,7 +508,8 @@ BEGIN
 		buono_carico.yassetload,
 		buono_carico.nassetload,
 		#simula_assetamortization.namortization,
-		#simula_assetamortization.actual_amortizationquota,
+		#simula_assetamortization.amortizationquota, -- originalamortizationquota
+		#simula_assetamortization.actual_amortizationquota, --amortizationquota
 		#simula_assetamortization.assetvalue_on_the_date,
 		@simulation_on_to_adate,
 		CASE	
@@ -520,7 +550,9 @@ BEGIN
 		cespite_o_accessorio.lifestart,
 		l.description,
 		u.title,
-		m.title
+		m.title,
+		--tipoammortamento
+		case when (inventoryamortization.flag & 1 = 0) then 'A'else 'M'end
 	FROM assetacquire as carico
 	JOIN asset as cespite_o_accessorio			ON carico.nassetacquire = cespite_o_accessorio.nassetacquire
 	LEFT OUTER JOIN assetload buono_carico		ON buono_carico.idassetload = carico.idassetload
@@ -549,7 +581,8 @@ BEGIN
 	AND (cespite_o_accessorio.ninventory <= @ninvstop or @ninvstop is null)
 	AND (u.idupb like @idupb)
 	AND (m.idman = @idsubman OR @idsubman is null)	
-	END
+END
+
 print 'end if'
 set @ss2= getdate()
 print datediff(ms,@ss1,@ss2)
@@ -562,6 +595,7 @@ ISNULL(
 	ISNULL(#assetamortization.amortizationquota,0),2))
 , 0.0)
 WHERE #assetamortization.real_or_simulation IN ('R', 'S')
+
 
 
 ----------------------------------------------------------
@@ -946,11 +980,17 @@ SET startvalue = finalvalue - amortizationvalue
 set @ss2= getdate()
 print datediff(ms,@ss1,@ss2)
 
-if(	@idupb='%')
-update #assetamortization set upb= null
+--if(	@idupb='%')
+--update #assetamortization set upb= null
 
-if(@idsubman is null)
-update #assetamortization set asset_submanager= null
+--if(@idsubman is null)
+--update #assetamortization set asset_submanager= null
+--UPDATE #assetamortization
+--SET tipoammortamento = (SELECT top(1)
+--		case when (assetamortization.flag & 1 = 0)then  'A'else 'M'end
+--	FROM assetamortization
+--	WHERE assetamortization.idasset = #assetamortization.idasset AND assetamortization.idpiece = 1 order by assetamortization.adate desc)
+--WHERE #assetamortization.idpiece = 1 AND #assetamortization.real_or_simulation IN('R','S')
 
 if (@mostrabenitotammortizzati='S')
 begin
@@ -982,6 +1022,7 @@ begin
 		startvalue,
 		finalvalue,
 		namortization,
+		originalamortizationquota,
 		amortizationquota,
 		assetvalue,
 		adate,
@@ -990,7 +1031,8 @@ begin
 		lifestart,
 		asset_location,
 		upb,
-		asset_submanager
+		asset_submanager,
+		tipoammortamento
 	FROM #assetamortization
 	JOIN inventorytree
 		on #assetamortization.idinv = inventorytree.idinv
@@ -998,6 +1040,7 @@ begin
 
 RETURN
 end
+
 SELECT 
 	idasset,
 	idpiece,
@@ -1020,6 +1063,7 @@ SELECT
 	startvalue,
 	finalvalue,
 	namortization,
+	originalamortizationquota,
 	amortizationquota,
 	assetvalue,
 	adate,
@@ -1028,7 +1072,8 @@ SELECT
 	lifestart,
 	asset_location,
 	upb,
-	asset_submanager
+	asset_submanager,
+	tipoammortamento
 FROM #assetamortization
 JOIN inventorytree
 	on #assetamortization.idinv = inventorytree.idinv

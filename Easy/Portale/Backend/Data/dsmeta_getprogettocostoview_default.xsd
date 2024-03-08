@@ -10,7 +10,6 @@
               <xs:element name="ammissibilita" type="xs:decimal" minOccurs="0" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
               <xs:element name="cf" type="xs:string" minOccurs="0" />
-              <xs:element name="contrattokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
@@ -22,6 +21,7 @@
               <xs:element name="payment_adate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="pettycash_description" type="xs:string" minOccurs="0" />
               <xs:element name="pettycash_pettycode" type="xs:string" minOccurs="0" />
+              <xs:element name="position_title" type="xs:string" minOccurs="0" />
               <xs:element name="progettotipocosto_title" type="xs:string" minOccurs="0" />
               <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
               <xs:element name="registry_title" type="xs:string" minOccurs="0" />

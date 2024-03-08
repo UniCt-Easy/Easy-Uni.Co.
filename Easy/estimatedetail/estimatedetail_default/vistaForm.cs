@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -75,9 +75,6 @@ public partial class vistaForm: DataSet {
 	public DataTable accmotiveannulment 		=> Tables["accmotiveannulment"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public DataTable revenuepartition 		=> Tables["revenuepartition"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb_iva 		=> Tables["upb_iva"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -100,6 +97,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finmotive_iva_income 		=> Tables["finmotive_iva_income"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable costpartition 		=> Tables["costpartition"];
 
 	#endregion
 
@@ -271,7 +271,10 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tivakind.Columns.Add(C);
 	tivakind.Columns.Add( new DataColumn("active", typeof(string)));
+	tivakind.Columns.Add( new DataColumn("codeivakind", typeof(string)));
 	tivakind.Columns.Add( new DataColumn("flag", typeof(int)));
+	tivakind.Columns.Add( new DataColumn("annotations", typeof(string)));
+	tivakind.Columns.Add( new DataColumn("idfenature", typeof(string)));
 	Tables.Add(tivakind);
 	tivakind.PrimaryKey =  new DataColumn[]{tivakind.Columns["idivakind"]};
 
@@ -332,6 +335,10 @@ private void initClass() {
 	tinvoicedetail.Columns.Add( new DataColumn("idgroup", typeof(int)));
 	tinvoicedetail.Columns.Add( new DataColumn("!tipodocumento", typeof(string)));
 	tinvoicedetail.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
+	tinvoicedetail.Columns.Add( new DataColumn("npackage", typeof(decimal)));
+	tinvoicedetail.Columns.Add( new DataColumn("idfetransfer", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("cupcode", typeof(string)));
+	tinvoicedetail.Columns.Add( new DataColumn("cigcode", typeof(string)));
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.PrimaryKey =  new DataColumn[]{tinvoicedetail.Columns["idinvkind"], tinvoicedetail.Columns["yinv"], tinvoicedetail.Columns["ninv"], tinvoicedetail.Columns["rownum"]};
 
@@ -833,24 +840,6 @@ private void initClass() {
 	taccmotiveannulment.PrimaryKey =  new DataColumn[]{taccmotiveannulment.Columns["idaccmotive"]};
 
 
-	//////////////////// REVENUEPARTITION /////////////////////////////////
-	var trevenuepartition= new DataTable("revenuepartition");
-	C= new DataColumn("idrevenuepartition", typeof(int));
-	C.AllowDBNull=false;
-	trevenuepartition.Columns.Add(C);
-	trevenuepartition.Columns.Add( new DataColumn("title", typeof(string)));
-	trevenuepartition.Columns.Add( new DataColumn("kind", typeof(string)));
-	trevenuepartition.Columns.Add( new DataColumn("lt", typeof(DateTime)));
-	trevenuepartition.Columns.Add( new DataColumn("lu", typeof(string)));
-	trevenuepartition.Columns.Add( new DataColumn("ct", typeof(DateTime)));
-	trevenuepartition.Columns.Add( new DataColumn("cu", typeof(string)));
-	trevenuepartition.Columns.Add( new DataColumn("revenuepartitioncode", typeof(string)));
-	trevenuepartition.Columns.Add( new DataColumn("active", typeof(string)));
-	trevenuepartition.Columns.Add( new DataColumn("description", typeof(string)));
-	Tables.Add(trevenuepartition);
-	trevenuepartition.PrimaryKey =  new DataColumn[]{trevenuepartition.Columns["idrevenuepartition"]};
-
-
 	//////////////////// UPB_IVA /////////////////////////////////
 	var tupb_iva= new DataTable("upb_iva");
 	C= new DataColumn("idupb", typeof(string));
@@ -1176,6 +1165,24 @@ private void initClass() {
 	tfinmotive_iva_income.PrimaryKey =  new DataColumn[]{tfinmotive_iva_income.Columns["idfinmotive"]};
 
 
+	//////////////////// COSTPARTITION /////////////////////////////////
+	var tcostpartition= new DataTable("costpartition");
+	C= new DataColumn("idcostpartition", typeof(int));
+	C.AllowDBNull=false;
+	tcostpartition.Columns.Add(C);
+	tcostpartition.Columns.Add( new DataColumn("title", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("kind", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("lu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("cu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("costpartitioncode", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("active", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("description", typeof(string)));
+	Tables.Add(tcostpartition);
+	tcostpartition.PrimaryKey =  new DataColumn[]{tcostpartition.Columns["idcostpartition"]};
+
+
 	#endregion
 
 
@@ -1244,10 +1251,6 @@ private void initClass() {
 	cChild = new []{estimatedetail.Columns["idaccmotiveannulment"]};
 	Relations.Add(new DataRelation("accmotiveannulment_estimatedetail",cPar,cChild,false));
 
-	cPar = new []{revenuepartition.Columns["idrevenuepartition"]};
-	cChild = new []{estimatedetail.Columns["idrevenuepartition"]};
-	Relations.Add(new DataRelation("revenuepartition_estimatedetail",cPar,cChild,false));
-
 	cPar = new []{finmotive_income.Columns["idfinmotive"]};
 	cChild = new []{estimatedetail.Columns["idfinmotive"]};
 	Relations.Add(new DataRelation("finmotive_income_estimatedetail",cPar,cChild,false));
@@ -1263,6 +1266,10 @@ private void initClass() {
 	cPar = new []{finmotive_iva_income.Columns["idfinmotive"]};
 	cChild = new []{estimatedetail.Columns["idfinmotive_iva"]};
 	Relations.Add(new DataRelation("finmotive_iva_income_estimatedetail",cPar,cChild,false));
+
+	cPar = new []{costpartition.Columns["idcostpartition"]};
+	cChild = new []{estimatedetail.Columns["idrevenuepartition"]};
+	Relations.Add(new DataRelation("costpartition_estimatedetail",cPar,cChild,false));
 
 	#endregion
 

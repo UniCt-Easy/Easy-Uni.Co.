@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -649,6 +649,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
                 if (!calcolaTutto) {
                     int idCedolino = CfgFn.GetNoNullInt32(CurrCedolino["idpayroll"]);
                     AskOperation ao = new AskOperation(idCedolino);
+                    createForm(ao, null);
                     DialogResult dr = ao.ShowDialog();
                     if (dr != DialogResult.OK) continue;
                     switch (ao.operazioneScelta) {

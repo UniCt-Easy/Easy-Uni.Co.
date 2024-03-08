@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -143,7 +143,7 @@ namespace accountingyear_default//esercizio_creazione//
 
 		void CalcolaMessaggiHelp(){
 			int eserciziosucc= esercizio+1;
-			txtFase4.Text="Da effettuarsi dopo l'1/1/"+eserciziosucc.ToString();
+			txtFase4.Text="Il trasferimento ha ad oggetto TUTTE le configurazioni e non solo alcune e va effettuato SOLO QUANDO si è certi di non dover più modificare le configurazioni sull'esercizio in corso";//"Da effettuarsi dopo l'1/1/"+eserciziosucc.ToString();
 			txtFase5.Text="Da effettuarsi dopo essere sicuri di non dover più inserire/modificare/eliminare accertamenti del "+
 					esercizio.ToString()+".";
 			txtFase6.Text="Da effettuarsi dopo essere sicuri di non dover più inserire/modificare/eliminare impegni del "+
@@ -739,25 +739,26 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			this.txtFase5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtFase5.Location = new System.Drawing.Point(325, 149);
+			this.txtFase5.Location = new System.Drawing.Point(325, 166);
 			this.txtFase5.Multiline = true;
 			this.txtFase5.Name = "txtFase5";
 			this.txtFase5.ReadOnly = true;
-			this.txtFase5.Size = new System.Drawing.Size(511, 40);
+			this.txtFase5.Size = new System.Drawing.Size(511, 21);
 			this.txtFase5.TabIndex = 17;
 			this.txtFase5.TabStop = false;
-			this.txtFase5.Text = "Da effettuarsi dopo l\'1/1";
 			// 
 			// txtFase4
 			// 
 			this.txtFase4.Location = new System.Drawing.Point(325, 117);
+			this.txtFase4.Multiline = true;
 			this.txtFase4.Name = "txtFase4";
 			this.txtFase4.ReadOnly = true;
-			this.txtFase4.Size = new System.Drawing.Size(511, 23);
+			this.txtFase4.Size = new System.Drawing.Size(511, 43);
 			this.txtFase4.TabIndex = 16;
 			this.txtFase4.TabStop = false;
-			this.txtFase4.Text = "Da effettuarsi dopo che la struttura del bilancio e del piano dei conti siano DEF" +
-    "INITIVE";
+			this.txtFase4.Text = "Il trasferimento ha ad oggetto TUTTE le configurazioni e non solo alcune e va eff" +
+    "ettuato SOLO QUANDO si è certi di non dover più modificare le configurazioni sul" +
+    "l\'esercizio in corso\r\n";
 			// 
 			// txtFase3
 			// 
@@ -802,7 +803,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnFase5
 			// 
 			this.btnFase5.Enabled = false;
-			this.btnFase5.Location = new System.Drawing.Point(244, 147);
+			this.btnFase5.Location = new System.Drawing.Point(244, 164);
 			this.btnFase5.Name = "btnFase5";
 			this.btnFase5.Size = new System.Drawing.Size(75, 23);
 			this.btnFase5.TabIndex = 9;
@@ -860,7 +861,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// lblFase5
 			// 
 			this.lblFase5.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.lblFase5.Location = new System.Drawing.Point(4, 148);
+			this.lblFase5.Location = new System.Drawing.Point(4, 165);
 			this.lblFase5.Name = "lblFase5";
 			this.lblFase5.Size = new System.Drawing.Size(216, 16);
 			this.lblFase5.TabIndex = 3;
@@ -1487,7 +1488,8 @@ namespace accountingyear_default//esercizio_creazione//
             }
 
 
-                SaveFileDialog sf =new SaveFileDialog();
+            SaveFileDialog _sf = new SaveFileDialog();
+            ISaveFileDialog sf = createSaveFileDialog(_sf);
 			sf.Title="Selezionare il file in cui verranno memorizzati "+
 				"gli impedimenti";
 			if (sf.ShowDialog()!=DialogResult.OK) return;
@@ -1508,7 +1510,8 @@ namespace accountingyear_default//esercizio_creazione//
 		}
 
 		private void btnFineSave_Click(object sender, System.EventArgs e) {
-			SaveFileDialog sf=new SaveFileDialog();
+			SaveFileDialog _sf = new SaveFileDialog();
+			ISaveFileDialog sf = createSaveFileDialog(_sf);
 			sf.Title="Selezionare il file in cui verranno memorizzati i messaggi.";
 			if (sf.ShowDialog()!=DialogResult.OK) return;
 			string fullname=sf.FileName;
@@ -1523,7 +1526,8 @@ namespace accountingyear_default//esercizio_creazione//
         private void btnManuale_Click(object sender, EventArgs e) {
             string t = "Data su cui calcolare il bilancio di previsione:";
             AskDate frm = new AskDate(t, Meta.Conn);
-            DialogResult dr = frm.ShowDialog();
+			createForm(frm, null);
+			DialogResult dr = frm.ShowDialog();
             if ((dr != DialogResult.OK) || (frm.txtData.Text == "")){
                 show(this, "Non è stata impostata la data su cui calcolare il bilancio di previsione",
                     "Operazione Interrotta");
@@ -1546,6 +1550,7 @@ namespace accountingyear_default//esercizio_creazione//
             if (tResult.Rows.Count != 0) {
                 string title = "Elenco voci di bilancio con previsione superiore ai figli";
                 FrmError fErr = new FrmError(title, tResult);
+				createForm(fErr, null);
                 DialogResult drErr = fErr.ShowDialog();
                 if (drErr != DialogResult.OK) {
                     show(this, "Si è deciso di interrompere la procedura");
@@ -1577,6 +1582,7 @@ namespace accountingyear_default//esercizio_creazione//
         private void btnAssestaManuale_Click(object sender, EventArgs e) {
             string t = "Data su cui calcolare lo storno sulle previsioni:";
             AskDate frm = new AskDate(t, Meta.Conn);
+			createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if ((dr != DialogResult.OK) || (frm.txtData.Text == "")) {
                 show(this, "Non è stata impostata la data su cui calcolare il bilancio di previsione",
@@ -1599,6 +1605,7 @@ namespace accountingyear_default//esercizio_creazione//
             if ((dsE != null) && (dsE.Tables.Count > 0)) {
                 string title = "Elenco voci di bilancio di ENTRATA con previsione disponibile";
                 FrmError fErr = new FrmError(title, dsE.Tables[0]);
+				createForm(fErr, null);
                 DialogResult drErr = fErr.ShowDialog();
                 if (drErr != DialogResult.OK) {
                     show(this, "Si è deciso di interrompere la procedura");
@@ -1620,6 +1627,7 @@ namespace accountingyear_default//esercizio_creazione//
             if ((dsS != null) && (dsS.Tables.Count > 0)) {
                 string title = "Elenco voci di bilancio di SPESA con previsione disponibile";
                 FrmError fErr = new FrmError(title, dsS.Tables[0]);
+				createForm(fErr, null);
                 DialogResult drErr = fErr.ShowDialog();
                 if (drErr != DialogResult.OK) {
                     show(this, "Si è deciso di interrompere la procedura");
@@ -1664,6 +1672,7 @@ namespace accountingyear_default//esercizio_creazione//
 
             string t = "Data alla quale considerare le variazioni iniziali di previsione:";
             AskDateAndMore frm = new AskDateAndMore(t, Meta.Conn);
+			createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if ((dr != DialogResult.OK) || (frm.txtData.Text == ""))
             {
@@ -1718,6 +1727,7 @@ namespace accountingyear_default//esercizio_creazione//
 
                 string title = "Elenco voci di bilancio - UPB con limite di previsione superato";
                 FrmError fErr = new FrmError(title, T);
+				createForm(fErr, null);
                 DialogResult drErr = fErr.ShowDialog();
           
                 show(this, "Previsioni Non Copiate.", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

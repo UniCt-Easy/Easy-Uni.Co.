@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module GridControlXChild
  * @description
@@ -33,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @constructor GridControl
      * @description
      * Initializes the html grid control
-     * @param {Html node} el
+     * @param {element} el
      * @param {HelpForm} helpForm
      * @param {DataTable} table. this is the table corresponding to the tableName configured in the tag at the position 0
      * (see function HelpForm.preScanCustomControl for the initialization)
@@ -104,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              * @description ASYNC
              * Open the page for childTable + childTableListType.
              * @param {GridControlXChild} that
-             * @param {ObjectRow} row
+             * @param {ObjectRow} rowChild
              * @param {Object} calcChildObj  = { tablename:String, edittype:String, columnlookup:String, columncalc:String}
              */
             addForChildcolumnsEv:function(that, rowChild, calcChildObj) {
@@ -217,6 +200,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var $addIcon = $('<i class="far fa-plus-square">');
                 var $span = $('<div class="grid-child-add-button">');
 
+                this.addToJsonOrNipoti(column.name);
+
                 if (this.isAddToShow) {
                     $span.on("click", _.partial(self.addForChildcolumnsEv, self, objRow, calcChildObj));
                     this.addChildElement($td, $span, '');
@@ -228,6 +213,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 // recupero le righe figlie di cui mostrare il campo "columnlookup"
                 var childRows = objRow.getRow().getChildInTable(calcChildObj.tablename);
+
+                //recupero l'ordinamento
+                var meta = appMeta.getMeta(appMeta.currApp.currentMetaPage.state.DS.tables[calcChildObj.tablename].postingTable());
+                var listType = (calcChildObj.listType || calcChildObj.edittype);
+                var sorting = meta.getSorting(listType);
+                if (sorting) {
+                    var col = sorting.split(' ')[0];
+                    childRows = _.sortBy(childRows, [function (o) { return o[col]; }])
+                }
 
                 _.forEach(childRows, function (childRow, indexChildRows) {
 
@@ -245,7 +239,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     var widthEditcolumns = "30px";
                     // inserisco label, prendendo dalla proprietà configurata "columnlookup". la stringa
                     // potrebbe essere un json. in quel caso mostro in forma tabellare con 1 colonne + 2 dei bottoni
-                    var addRowToInternalGrid = function(index, $currTable, str, that) {
+                    var addRowToInternalGrid = function(index, $currTable, caption, value, field, tname, that) {
                         var $tr1 = $('<tr class="table-in-cell-tr">');
 
                         var $tdDelete =  $('<td>');
@@ -262,24 +256,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             if (index === 0) $tdEdit.append($spanEditIcon);
                         }
 
-                        var $td3 =  $('<td>');
+                        var $td3 =  $('<td class="mdl-cell-child-size-calc">');
+                        var str = self.getTextEditingChildCell(caption, value);
                         var display_txt = str ? str.replace(/\n/g, "<br />") : '';
                         $td3.html(display_txt);
                         $tr1.append($td3);
+
+                        if (self.isChildcolToEdit(field, tname)) {
+                            $td3.on("click", _.partial(self.clickChildCellForEditChild, self, childRow, caption, value, field, tname, calcChildObj));
+                        }
 
                         $currTable.append($tr1);
                     };
 
                     // a seconda se è un json o stringa semplice formatto la cella
                    //  var jsonObj = self.getJson(childRow[calcChildObj.columnlookup]);
-                    var jsonObj = self.buildObjCell(calcChildObj.tablename, childRow);
+                    var jsonObj = self.buildObjCellChild(calcChildObj.tablename, childRow);
 
                     if (!!jsonObj) {
                         _.forEach(Object.keys(jsonObj), function (k, index) {
-                            addRowToInternalGrid(index, $tableCell,k + ": " + jsonObj[k], self)
+                            var caption = jsonObj[k].caption;
+                            var value = jsonObj[k].value;
+                            var tname = jsonObj[k].tname;
+                            var field = jsonObj[k].field;
+                            addRowToInternalGrid(index, $tableCell, caption, value, field, tname, self)
                         });
                     } else {
-                        addRowToInternalGrid(0, $tableCell, childRow[calcChildObj.columnlookup], self)
+                        addRowToInternalGrid(0, $tableCell, '', childRow[calcChildObj.columnlookup], calcChildObj.columnlookup , calcChildObj.tablename, self)
                     }
 
                     // aggiungo su html bottone delete e stringa
@@ -298,12 +301,111 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             },
 
             /**
-             * Return an obj, with key = value
+             * @param field
+             * @param tname
+             * @returns {boolean}
+             */
+            isChildcolToEdit:function(field, tname)  {
+                // Abilitare quando faremo edit in place delle colonne nipoti
+                return false;
+            },
+
+            clickChildCellForEditChild:function(that, childrow, caption, value, field, tname, obj) {
+
+                if (that.tdChildEditing) {
+                    $(that.tdChildEditing).html(that.tdChildEditing.oldValue);
+                    $(that.tdChildEditing).data("mdlediting", false);
+                    that.tdChildEditing = null;
+                    return;
+                }
+
+                that.tdChildEditing = this;
+                $(that.tdChildEditing).html(caption);
+                that.tdChildEditing.oldValue = that.getTextEditingChildCell(caption, value);
+
+                // creo input editabile
+                var id = appMeta.utils.getUniqueId();
+
+                var inputObj = $("<input type='text' id=" + id + "/>");
+
+                inputObj.width($(this).width())
+                    .height($(this).height())
+                    .css({border: "0px", fontSize: "17px"})
+                    .val(value)
+                    .appendTo($(this))
+                    .trigger("focus")
+                    .trigger("select");
+
+                // se premo qualceh tasto inovco evento. su invio effettuo modifica del valore sulla riga
+                inputObj.on("keyup", _.partial(that.keyupeditinplaceChild, tname, field, caption, value, childrow, that));
+
+                inputObj.click(function () {
+                    return false;
+                });
+
+                // se è una colonna data, inserisco calendario
+               /* var dc = self.dataTable.columns[colname];
+                if (dc.ctype === 'DateTime') {
+                    inputObj.datepicker({
+                        showOn: "focus",
+                        onClose: function () {
+                            this.focus();
+                        }
+                    });
+                }*/
+            },
+
+            getTextEditingChildCell:function(caption, value) {
+                return caption ? caption + ': ' + value : value
+            },
+
+            keyupeditinplaceChild: function (tname, colname, caption, value, row, that, ev) {
+                if (13 === ev.which) { // press ENTER-key
+                    var text = $(this).val();
+
+                    // recuperato il valore dalla input lo inserisco sia come testo del grid che come valore sulla riga
+                    that.setValueOnDataRowChild(tname, row, colname, text);
+                    // esco dall'editing
+                    that.resetEditableTdChild(that.getTextEditingChildCell(caption, text))
+                }
+
+                if (27 === ev.which) {  // press ESC-key
+                    that.resetEditableTdChild(that.getTextEditingChildCell(caption, value))
+                }
+            },
+
+            resetEditableTdChild: function (text) {
+                var self = this;
+                setTimeout(function () {
+                    $(self.tdChildEditing).html(text);
+                    $(self.tdChildEditing).data('mdlediting', false);
+                    self.tdChildEditing = null;
+                }, 200)
+            },
+
+            /**
+             *
+             * @param {ObjectRow} row
+             * @param {string} colname
+             * @param {string} text
+             */
+            setValueOnDataRowChild: function (tname, row, colname, text) {
+                var tag = tname + "." + colname;
+                this.helpForm.getString(text, colname, row, tag, true);
+            },
+
+            /**
+             * Return an obj, with key =  {
+             *      field;
+                    tname;
+                    value;
+                    caption;
+                    }
              * @param tname
              * @param row
              * @returns {*}
              */
-            buildObjCell:function(tname, row) {
+            buildObjCellChild:function(tname, row) {
 
                 var formattedDate = function(d) {
                         if (!d) {
@@ -335,7 +437,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 var DS = this.table.dataset;
                // la describeColumns ha descritto le colonne
-                return _.chain(_.sortBy(DS.tables[tname].columns, 'listColPos'))
+                return _.chain(
+                    //ordina le colonne per il listColPos che sta nella describeColumns
+                    _.sortBy(DS.tables[tname].columns, 'listColPos'))
+                    //toglie tutte quelle non descritte nella describeColumns
                     .filter(function (field) {
                         return (field.listColPos && field.listColPos !== -1);
                     })
@@ -343,7 +448,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         return field.name;
                     })
                     .filter(function (field) {
-                        return !!row[field];
+                        return row[field] !== undefined && row[field] !== null && row[field] !== '';
                     })
                     // in base alle colonne  costruisce l'oggetto per popolare le celle nipoti
                     .reduce(function (acc, field) {
@@ -351,13 +456,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             return acc;
                         }
                         var dc = row.getRow().table.columns[field];
-                        acc[dc.caption] = row[field];
+
+                        var objInfo = {};
+                        objInfo.field = field;
+                        objInfo.tname = tname;
+                        objInfo.value = row[field];
+                        objInfo.caption = dc.caption;
+
                         if (dc.ctype === 'DateTime') {
-                            acc[dc.caption] = formattedDate(row[field]);
+                            objInfo.value = formattedDate(row[field]);
                         }
                         if (dc.sqltype === 'char' && dc.maxstringlen === 1) {
-                            acc[dc.caption] = formattedBoolean(row[field]);
+                            objInfo.value = formattedBoolean(row[field]);
                         }
+
+                        acc[field] = objInfo;
                         return acc;
                     }, {})
                     .value();

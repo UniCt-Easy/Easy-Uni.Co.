@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,36 +26,21 @@ using System.Runtime.Serialization;
 namespace payroll_trasf_cedolino {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsCedolino"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsCedolino: DataSet {
+public partial class dsCedolino: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payroll 		=> Tables["payroll"];
 
-	///<summary>
-	///Ritenuta Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolltax 		=> Tables["payrolltax"];
 
-	///<summary>
-	///Scaglione di un cedolino parasubordinato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolltaxbracket 		=> Tables["payrolltaxbracket"];
 
-	///<summary>
-	///Dettaglio Deduzioni Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolldeduction 		=> Tables["payrolldeduction"];
 
-	///<summary>
-	///Dettaglio Detrazioni Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrollabatement 		=> Tables["payrollabatement"];
 
@@ -68,27 +53,15 @@ public class dsCedolino: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable cedolinoerogato 		=> Tables["cedolinoerogato"];
 
-	///<summary>
-	///Contratto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable parasubcontract 		=> Tables["parasubcontract"];
 
-	///<summary>
-	///informazioni annuali sul contratto parasubordinato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable parasubcontractyear 		=> Tables["parasubcontractyear"];
 
-	///<summary>
-	///Tipo Prestazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable service 		=> Tables["service"];
 
-	///<summary>
-	///Storni Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolltaxcorrige 		=> Tables["payrolltaxcorrige"];
 
@@ -183,6 +156,7 @@ private void initClass() {
 	tpayroll.Columns.Add( new DataColumn("flagsummarybalance", typeof(string)));
 	tpayroll.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tpayroll.Columns.Add( new DataColumn("!codeupb", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tpayroll);
 	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 
@@ -487,6 +461,7 @@ private void initClass() {
 	tparasubcontract.Columns.Add( new DataColumn("idsor2", typeof(int)));
 	tparasubcontract.Columns.Add( new DataColumn("idsor3", typeof(int)));
 	tparasubcontract.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tparasubcontract.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tparasubcontract);
 	tparasubcontract.PrimaryKey =  new DataColumn[]{tparasubcontract.Columns["idcon"]};
 
@@ -865,6 +840,10 @@ private void initClass() {
 	cPar = new []{upb_cedolinoannosuccessivo.Columns["idupb"]};
 	cChild = new []{cedolinoannosuccessivo.Columns["idupb"]};
 	Relations.Add(new DataRelation("upb_cedolinoannosuccessivo_cedolinoannosuccessivo",cPar,cChild,false));
+
+	cPar = new []{parasubcontract.Columns["idcon"]};
+	cChild = new []{cedolinoannosuccessivo.Columns["idcon"]};
+	Relations.Add(new DataRelation("parasubcontract_cedolinoannosuccessivo",cPar,cChild,false));
 
 	#endregion
 

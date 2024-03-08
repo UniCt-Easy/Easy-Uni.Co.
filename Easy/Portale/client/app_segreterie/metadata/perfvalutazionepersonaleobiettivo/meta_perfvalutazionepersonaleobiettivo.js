@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -44,10 +27,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'title', 'Titolo', null, 10, 2048);
 						this.describeAColumn(table, 'description', 'Descrizione', null, 20, -1);
 						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 30, null);
-						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 40, null);
-						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 60, null);
-						this.describeAColumn(table, '!perfvalutazionepersonalesoglia', 'Soglie definite per l�obiettivo individuale', null, 50, null);
+						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 60, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 70, null);
+						this.describeAColumn(table, 'note', 'Note', null, 140, -1);
+						this.describeAColumn(table, '!perfvalutazionepersonalesoglia', 'Soglie', null, 50, null);
 //$objCalcFieldConfig_default$
+						break;
+					case 'tuscia':
+						this.describeAColumn(table, 'title', 'Obiettivo', null, 10, 2048);
+						this.describeAColumn(table, 'description', 'Indicatore', null, 20, -1);
+						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 60, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 70, null);
+						this.describeAColumn(table, 'note', 'Note', null, 140, -1);
+						this.describeAColumn(table, '!perfvalutazionepersonalesoglia', 'Target', null, 50, null);
+//$objCalcFieldConfig_tuscia$
+						break;
+					case 'conattivita':
+						this.describeAColumn(table, 'title', 'Titolo', null, 10, 2048);
+						this.describeAColumn(table, 'description', 'Descrizione', null, 20, -1);
+						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 60, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 70, null);
+						this.describeAColumn(table, 'note', 'Note', null, 140, -1);
+						this.describeAColumn(table, '!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_title', 'Titolo Attività collegata', null, 153, null);
+						this.describeAColumn(table, '!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_idperfprogetto_title', 'Identificativo Attività collegata', null, 150, null);
+						this.describeAColumn(table, '!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_idperfprogettoobiettivo_title', 'Identificativo Attività collegata', null, 150, null);
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_title'] = { tableNameLookup:'perfprogettoobiettivoattivita', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivoattivita' };
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_idperfprogetto_title'] = { tableNameLookup:'perfprogetto', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivoattivita' };
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_idperfprogettoobiettivo_title'] = { tableNameLookup:'perfprogettoobiettivo', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivoattivita' };
+						this.describeAColumn(table, '!perfvalutazionepersonalesoglia', 'Soglie', null, 50, null);
+//$objCalcFieldConfig_conattivita$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -66,6 +76,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["title"].caption = "Titolo";
 						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'tuscia':
+						table.columns["completamento"].caption = "Percentuale di completamento";
+						table.columns["description"].caption = "Indicatore";
+						table.columns["peso"].caption = "Peso";
+						table.columns["title"].caption = "Obiettivo";
+						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
+//$innerSetCaptionConfig_tuscia$
+						break;
+					case 'conattivita':
+						table.columns["completamento"].caption = "Percentuale di completamento";
+						table.columns["description"].caption = "Descrizione";
+						table.columns["peso"].caption = "Peso";
+						table.columns["title"].caption = "Titolo";
+						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
+						table.columns["idperfprogettoobiettivoattivita"].caption = "Attività collegata";
+//$innerSetCaptionConfig_conattivita$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -95,6 +122,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "title asc ";
+					}
+					case "tuscia": {
+						return "title asc ";
+					}
+					case "conattivita": {
 						return "title asc ";
 					}
 					//$getSortingin$

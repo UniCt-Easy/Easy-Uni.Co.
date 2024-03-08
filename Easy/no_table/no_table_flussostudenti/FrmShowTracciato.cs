@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -86,7 +86,8 @@ namespace no_table_flussostudenti {
             DataTable T = ((DataSet)DDS).Tables[DDT];
             if (T == null) return;
 
-            OpenFileDialog FD = new OpenFileDialog();
+            OpenFileDialog _FD = new OpenFileDialog();
+            IOpenFileDialog FD = createOpenFileDialog(_FD);
             FD.Title = "Seleziona il file da creare";
             FD.AddExtension = true;
             FD.DefaultExt = "CSV";

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -61,7 +61,8 @@ namespace avcptrasmission_default {
             this.label10 = new System.Windows.Forms.Label();
             this.btnGenera = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
-            this.folderAsk = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderAsk = new System.Windows.Forms.FolderBrowserDialog();
+            this.folderAsk = createFolderBrowserDialog(_folderAsk);
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabInformazioni = new System.Windows.Forms.TabPage();
             this.tabAvvisi = new System.Windows.Forms.TabPage();
@@ -270,8 +271,8 @@ namespace avcptrasmission_default {
             // 
             // folderAsk
             // 
-            this.folderAsk.Description = "Selezione della cartella dove creare i file. File eventualmente già presenti sara" +
-    "nno sovrascritti.";
+    //        this.folderAsk.Description = "Selezione della cartella dove creare i file. File eventualmente già presenti sara" +
+    //"nno sovrascritti.";
             // 
             // tabMain
             // 
@@ -385,7 +386,8 @@ namespace avcptrasmission_default {
         private System.Windows.Forms.Button btnGenera;
         private System.Windows.Forms.TextBox textBox7;
         public vistaForm DS;
-        private System.Windows.Forms.FolderBrowserDialog folderAsk;
+        private System.Windows.Forms.FolderBrowserDialog _folderAsk;
+        private metadatalibrary.IFolderBrowserDialog folderAsk;
         private System.Windows.Forms.TabControl tabMain;
         private System.Windows.Forms.TabPage tabInformazioni;
         private System.Windows.Forms.TabPage tabAvvisi;

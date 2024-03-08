@@ -107,9 +107,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="meta_csapositionlookup.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="meta_csapositionlookup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

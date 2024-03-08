@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,6 +25,7 @@ using metadatalibrary;
 using funzioni_configurazione;//funzioni_configurazione
 using System.Data;
 using q = metadatalibrary.MetaExpression;
+using ep_functions;
 
 namespace assetacquire_default { //caricobeneinventario//
 
@@ -152,6 +153,11 @@ namespace assetacquire_default { //caricobeneinventario//
         private Label label17;
 		private Label label18;
 		private TextBox txtRatificationDate;
+		public GroupBox grpRipartizione;
+		public Button btnCodRipartizione;
+		public TextBox txtCostpartitionTitle;
+		public TextBox txtCostpartitionCode;
+		private Button btnRipartizione;
 		private System.Windows.Forms.Button btnNumInventario;
         //private string TagDetail="assetpiece.dettaglio";
         public Frm_assetacquire_default() {
@@ -252,1445 +258,1510 @@ namespace assetacquire_default { //caricobeneinventario//
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_assetacquire_default));
-            this.tabCaricoBeni = new System.Windows.Forms.TabControl();
-            this.tabPageOperazioni = new System.Windows.Forms.TabPage();
-            this.gboxListino = new System.Windows.Forms.GroupBox();
-            this.chkListDescription = new System.Windows.Forms.CheckBox();
-            this.btnListino = new System.Windows.Forms.Button();
-            this.txtListino = new System.Windows.Forms.TextBox();
-            this.txtDescrizioneListino = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.chkTransmitted = new System.Windows.Forms.CheckBox();
-            this.chkIspieceAcquire = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cboCausale = new System.Windows.Forms.ComboBox();
-            this.DS = new assetacquire_default.dsmeta();
-            this.grpClassif = new System.Windows.Forms.GroupBox();
-            this.txtDescClassif = new System.Windows.Forms.TextBox();
-            this.txtIdClassif = new System.Windows.Forms.TextBox();
-            this.btnClassif = new System.Windows.Forms.Button();
-            this.grpCredDeb = new System.Windows.Forms.GroupBox();
-            this.txtCredDeb = new System.Windows.Forms.TextBox();
-            this.chkIncludi = new System.Windows.Forms.CheckBox();
-            this.txtDataContabile = new System.Windows.Forms.TextBox();
-            this.txtDescrizione = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtNumCaricoBene = new System.Windows.Forms.TextBox();
-            this.grpTipoCarico = new System.Windows.Forms.GroupBox();
-            this.grpRigaFattura = new System.Windows.Forms.GroupBox();
-            this.cmbTipoFattura = new System.Windows.Forms.ComboBox();
-            this.btnCollegaRigaFattura = new System.Windows.Forms.Button();
-            this.txtNumRigaFattura = new System.Windows.Forms.TextBox();
-            this.txtNumFattura = new System.Windows.Forms.TextBox();
-            this.txtEsercFattura = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.grpBuonoInv = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtRatificationDate = new System.Windows.Forms.TextBox();
-            this.btnbuonocarico = new System.Windows.Forms.Button();
-            this.cmbCodiceBuono = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtNumBuono = new System.Windows.Forms.TextBox();
-            this.txtEserBuono = new System.Windows.Forms.TextBox();
-            this.label = new System.Windows.Forms.Label();
-            this.grpRiga = new System.Windows.Forms.GroupBox();
-            this.cmbTipoOrdine = new System.Windows.Forms.ComboBox();
-            this.btnCollegaRiga = new System.Windows.Forms.Button();
-            this.txtNumriga = new System.Windows.Forms.TextBox();
-            this.txtNumordine = new System.Windows.Forms.TextBox();
-            this.txtEsercordine = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.radioPosseduto = new System.Windows.Forms.RadioButton();
-            this.radioNuovo = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPageInventario = new System.Windows.Forms.TabPage();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtImpTotale = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtImpostaTotale = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtImpConIVA = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtAbatable = new System.Windows.Forms.TextBox();
-            this.btnSuggerimento = new System.Windows.Forms.Button();
-            this.gboxCespiti = new System.Windows.Forms.GroupBox();
-            this.btnModificaBene = new System.Windows.Forms.Button();
-            this.btnCopiaBene = new System.Windows.Forms.Button();
-            this.gridBene = new System.Windows.Forms.DataGrid();
-            this.grpValore = new System.Windows.Forms.GroupBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.txtImposta = new System.Windows.Forms.TextBox();
-            this.txtSconto = new System.Windows.Forms.TextBox();
-            this.txtQuantita = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtImponibile = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.grpInventario = new System.Windows.Forms.GroupBox();
-            this.btnNumInventario = new System.Windows.Forms.Button();
-            this.txtNumIniz = new System.Windows.Forms.TextBox();
-            this.cboInventario = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.chkAuto = new System.Windows.Forms.CheckBox();
-            this.tabPageUtilizzo = new System.Windows.Forms.TabPage();
-            this.btnInserisciQuota = new System.Windows.Forms.Button();
-            this.btnEliminaQuota = new System.Windows.Forms.Button();
-            this.btnModificaQuota = new System.Windows.Forms.Button();
-            this.gridQuota = new System.Windows.Forms.DataGrid();
-            this.tabPageEP = new System.Windows.Forms.TabPage();
-            this.gboxUPB = new System.Windows.Forms.GroupBox();
-            this.txtUPB = new System.Windows.Forms.TextBox();
-            this.txtDescrUPB = new System.Windows.Forms.TextBox();
-            this.btnUPBCode = new System.Windows.Forms.Button();
-            this.grpAnalitico = new System.Windows.Forms.GroupBox();
-            this.gboxclass3 = new System.Windows.Forms.GroupBox();
-            this.btnCodice3 = new System.Windows.Forms.Button();
-            this.txtDenom3 = new System.Windows.Forms.TextBox();
-            this.txtCodice3 = new System.Windows.Forms.TextBox();
-            this.gboxclass2 = new System.Windows.Forms.GroupBox();
-            this.btnCodice2 = new System.Windows.Forms.Button();
-            this.txtDenom2 = new System.Windows.Forms.TextBox();
-            this.txtCodice2 = new System.Windows.Forms.TextBox();
-            this.gboxclass1 = new System.Windows.Forms.GroupBox();
-            this.btnCodice1 = new System.Windows.Forms.Button();
-            this.txtDenom1 = new System.Windows.Forms.TextBox();
-            this.txtCodice1 = new System.Windows.Forms.TextBox();
-            this.tabCaricoBeni.SuspendLayout();
-            this.tabPageOperazioni.SuspendLayout();
-            this.gboxListino.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.grpClassif.SuspendLayout();
-            this.grpCredDeb.SuspendLayout();
-            this.grpTipoCarico.SuspendLayout();
-            this.grpRigaFattura.SuspendLayout();
-            this.grpBuonoInv.SuspendLayout();
-            this.grpRiga.SuspendLayout();
-            this.tabPageInventario.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.gboxCespiti.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBene)).BeginInit();
-            this.grpValore.SuspendLayout();
-            this.grpInventario.SuspendLayout();
-            this.tabPageUtilizzo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridQuota)).BeginInit();
-            this.tabPageEP.SuspendLayout();
-            this.gboxUPB.SuspendLayout();
-            this.grpAnalitico.SuspendLayout();
-            this.gboxclass3.SuspendLayout();
-            this.gboxclass2.SuspendLayout();
-            this.gboxclass1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // tabCaricoBeni
-            // 
-            this.tabCaricoBeni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_assetacquire_default));
+			this.tabCaricoBeni = new System.Windows.Forms.TabControl();
+			this.tabPageOperazioni = new System.Windows.Forms.TabPage();
+			this.gboxListino = new System.Windows.Forms.GroupBox();
+			this.chkListDescription = new System.Windows.Forms.CheckBox();
+			this.btnListino = new System.Windows.Forms.Button();
+			this.txtListino = new System.Windows.Forms.TextBox();
+			this.txtDescrizioneListino = new System.Windows.Forms.TextBox();
+			this.label16 = new System.Windows.Forms.Label();
+			this.chkTransmitted = new System.Windows.Forms.CheckBox();
+			this.chkIspieceAcquire = new System.Windows.Forms.CheckBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.cboCausale = new System.Windows.Forms.ComboBox();
+			this.DS = new assetacquire_default.dsmeta();
+			this.grpClassif = new System.Windows.Forms.GroupBox();
+			this.txtDescClassif = new System.Windows.Forms.TextBox();
+			this.txtIdClassif = new System.Windows.Forms.TextBox();
+			this.btnClassif = new System.Windows.Forms.Button();
+			this.grpCredDeb = new System.Windows.Forms.GroupBox();
+			this.txtCredDeb = new System.Windows.Forms.TextBox();
+			this.chkIncludi = new System.Windows.Forms.CheckBox();
+			this.txtDataContabile = new System.Windows.Forms.TextBox();
+			this.txtDescrizione = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtNumCaricoBene = new System.Windows.Forms.TextBox();
+			this.grpTipoCarico = new System.Windows.Forms.GroupBox();
+			this.grpRigaFattura = new System.Windows.Forms.GroupBox();
+			this.cmbTipoFattura = new System.Windows.Forms.ComboBox();
+			this.btnCollegaRigaFattura = new System.Windows.Forms.Button();
+			this.txtNumRigaFattura = new System.Windows.Forms.TextBox();
+			this.txtNumFattura = new System.Windows.Forms.TextBox();
+			this.txtEsercFattura = new System.Windows.Forms.TextBox();
+			this.label17 = new System.Windows.Forms.Label();
+			this.grpBuonoInv = new System.Windows.Forms.GroupBox();
+			this.label18 = new System.Windows.Forms.Label();
+			this.txtRatificationDate = new System.Windows.Forms.TextBox();
+			this.btnbuonocarico = new System.Windows.Forms.Button();
+			this.cmbCodiceBuono = new System.Windows.Forms.ComboBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label15 = new System.Windows.Forms.Label();
+			this.txtNumBuono = new System.Windows.Forms.TextBox();
+			this.txtEserBuono = new System.Windows.Forms.TextBox();
+			this.label = new System.Windows.Forms.Label();
+			this.grpRiga = new System.Windows.Forms.GroupBox();
+			this.cmbTipoOrdine = new System.Windows.Forms.ComboBox();
+			this.btnCollegaRiga = new System.Windows.Forms.Button();
+			this.txtNumriga = new System.Windows.Forms.TextBox();
+			this.txtNumordine = new System.Windows.Forms.TextBox();
+			this.txtEsercordine = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.radioPosseduto = new System.Windows.Forms.RadioButton();
+			this.radioNuovo = new System.Windows.Forms.RadioButton();
+			this.label1 = new System.Windows.Forms.Label();
+			this.tabPageInventario = new System.Windows.Forms.TabPage();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label11 = new System.Windows.Forms.Label();
+			this.txtImpTotale = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.txtImpostaTotale = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtImpConIVA = new System.Windows.Forms.TextBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.txtAbatable = new System.Windows.Forms.TextBox();
+			this.btnSuggerimento = new System.Windows.Forms.Button();
+			this.gboxCespiti = new System.Windows.Forms.GroupBox();
+			this.btnModificaBene = new System.Windows.Forms.Button();
+			this.btnCopiaBene = new System.Windows.Forms.Button();
+			this.gridBene = new System.Windows.Forms.DataGrid();
+			this.grpValore = new System.Windows.Forms.GroupBox();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.txtImposta = new System.Windows.Forms.TextBox();
+			this.txtSconto = new System.Windows.Forms.TextBox();
+			this.txtQuantita = new System.Windows.Forms.TextBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.label8 = new System.Windows.Forms.Label();
+			this.txtImponibile = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.grpInventario = new System.Windows.Forms.GroupBox();
+			this.btnNumInventario = new System.Windows.Forms.Button();
+			this.txtNumIniz = new System.Windows.Forms.TextBox();
+			this.cboInventario = new System.Windows.Forms.ComboBox();
+			this.label13 = new System.Windows.Forms.Label();
+			this.chkAuto = new System.Windows.Forms.CheckBox();
+			this.tabPageUtilizzo = new System.Windows.Forms.TabPage();
+			this.btnInserisciQuota = new System.Windows.Forms.Button();
+			this.btnEliminaQuota = new System.Windows.Forms.Button();
+			this.btnModificaQuota = new System.Windows.Forms.Button();
+			this.gridQuota = new System.Windows.Forms.DataGrid();
+			this.tabPageEP = new System.Windows.Forms.TabPage();
+			this.gboxUPB = new System.Windows.Forms.GroupBox();
+			this.txtUPB = new System.Windows.Forms.TextBox();
+			this.txtDescrUPB = new System.Windows.Forms.TextBox();
+			this.btnUPBCode = new System.Windows.Forms.Button();
+			this.grpAnalitico = new System.Windows.Forms.GroupBox();
+			this.grpRipartizione = new System.Windows.Forms.GroupBox();
+			this.btnCodRipartizione = new System.Windows.Forms.Button();
+			this.txtCostpartitionTitle = new System.Windows.Forms.TextBox();
+			this.txtCostpartitionCode = new System.Windows.Forms.TextBox();
+			this.btnRipartizione = new System.Windows.Forms.Button();
+			this.gboxclass3 = new System.Windows.Forms.GroupBox();
+			this.btnCodice3 = new System.Windows.Forms.Button();
+			this.txtDenom3 = new System.Windows.Forms.TextBox();
+			this.txtCodice3 = new System.Windows.Forms.TextBox();
+			this.gboxclass2 = new System.Windows.Forms.GroupBox();
+			this.btnCodice2 = new System.Windows.Forms.Button();
+			this.txtDenom2 = new System.Windows.Forms.TextBox();
+			this.txtCodice2 = new System.Windows.Forms.TextBox();
+			this.gboxclass1 = new System.Windows.Forms.GroupBox();
+			this.btnCodice1 = new System.Windows.Forms.Button();
+			this.txtDenom1 = new System.Windows.Forms.TextBox();
+			this.txtCodice1 = new System.Windows.Forms.TextBox();
+			this.tabCaricoBeni.SuspendLayout();
+			this.tabPageOperazioni.SuspendLayout();
+			this.gboxListino.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.grpClassif.SuspendLayout();
+			this.grpCredDeb.SuspendLayout();
+			this.grpTipoCarico.SuspendLayout();
+			this.grpRigaFattura.SuspendLayout();
+			this.grpBuonoInv.SuspendLayout();
+			this.grpRiga.SuspendLayout();
+			this.tabPageInventario.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.gboxCespiti.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridBene)).BeginInit();
+			this.grpValore.SuspendLayout();
+			this.grpInventario.SuspendLayout();
+			this.tabPageUtilizzo.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridQuota)).BeginInit();
+			this.tabPageEP.SuspendLayout();
+			this.gboxUPB.SuspendLayout();
+			this.grpAnalitico.SuspendLayout();
+			this.grpRipartizione.SuspendLayout();
+			this.gboxclass3.SuspendLayout();
+			this.gboxclass2.SuspendLayout();
+			this.gboxclass1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// tabCaricoBeni
+			// 
+			this.tabCaricoBeni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabCaricoBeni.Controls.Add(this.tabPageOperazioni);
-            this.tabCaricoBeni.Controls.Add(this.tabPageInventario);
-            this.tabCaricoBeni.Controls.Add(this.tabPageUtilizzo);
-            this.tabCaricoBeni.Controls.Add(this.tabPageEP);
-            this.tabCaricoBeni.HotTrack = true;
-            this.tabCaricoBeni.Location = new System.Drawing.Point(0, 0);
-            this.tabCaricoBeni.Name = "tabCaricoBeni";
-            this.tabCaricoBeni.SelectedIndex = 0;
-            this.tabCaricoBeni.Size = new System.Drawing.Size(899, 554);
-            this.tabCaricoBeni.TabIndex = 0;
-            this.tabCaricoBeni.SelectedIndexChanged += new System.EventHandler(this.tabCaricoBeni_SelectionChanged);
-            // 
-            // tabPageOperazioni
-            // 
-            this.tabPageOperazioni.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabCaricoBeni.Controls.Add(this.tabPageOperazioni);
+			this.tabCaricoBeni.Controls.Add(this.tabPageInventario);
+			this.tabCaricoBeni.Controls.Add(this.tabPageUtilizzo);
+			this.tabCaricoBeni.Controls.Add(this.tabPageEP);
+			this.tabCaricoBeni.HotTrack = true;
+			this.tabCaricoBeni.Location = new System.Drawing.Point(0, 0);
+			this.tabCaricoBeni.Name = "tabCaricoBeni";
+			this.tabCaricoBeni.SelectedIndex = 0;
+			this.tabCaricoBeni.Size = new System.Drawing.Size(899, 554);
+			this.tabCaricoBeni.TabIndex = 0;
+			this.tabCaricoBeni.SelectedIndexChanged += new System.EventHandler(this.tabCaricoBeni_SelectionChanged);
+			// 
+			// tabPageOperazioni
+			// 
+			this.tabPageOperazioni.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPageOperazioni.Controls.Add(this.gboxListino);
-            this.tabPageOperazioni.Controls.Add(this.label16);
-            this.tabPageOperazioni.Controls.Add(this.chkTransmitted);
-            this.tabPageOperazioni.Controls.Add(this.chkIspieceAcquire);
-            this.tabPageOperazioni.Controls.Add(this.groupBox2);
-            this.tabPageOperazioni.Controls.Add(this.grpClassif);
-            this.tabPageOperazioni.Controls.Add(this.grpCredDeb);
-            this.tabPageOperazioni.Controls.Add(this.chkIncludi);
-            this.tabPageOperazioni.Controls.Add(this.txtDataContabile);
-            this.tabPageOperazioni.Controls.Add(this.txtDescrizione);
-            this.tabPageOperazioni.Controls.Add(this.label6);
-            this.tabPageOperazioni.Controls.Add(this.label5);
-            this.tabPageOperazioni.Controls.Add(this.txtNumCaricoBene);
-            this.tabPageOperazioni.Controls.Add(this.grpTipoCarico);
-            this.tabPageOperazioni.Controls.Add(this.label1);
-            this.tabPageOperazioni.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOperazioni.Name = "tabPageOperazioni";
-            this.tabPageOperazioni.Size = new System.Drawing.Size(891, 528);
-            this.tabPageOperazioni.TabIndex = 3;
-            this.tabPageOperazioni.Text = "Principale";
-            // 
-            // gboxListino
-            // 
-            this.gboxListino.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabPageOperazioni.Controls.Add(this.gboxListino);
+			this.tabPageOperazioni.Controls.Add(this.label16);
+			this.tabPageOperazioni.Controls.Add(this.chkTransmitted);
+			this.tabPageOperazioni.Controls.Add(this.chkIspieceAcquire);
+			this.tabPageOperazioni.Controls.Add(this.groupBox2);
+			this.tabPageOperazioni.Controls.Add(this.grpClassif);
+			this.tabPageOperazioni.Controls.Add(this.grpCredDeb);
+			this.tabPageOperazioni.Controls.Add(this.chkIncludi);
+			this.tabPageOperazioni.Controls.Add(this.txtDataContabile);
+			this.tabPageOperazioni.Controls.Add(this.txtDescrizione);
+			this.tabPageOperazioni.Controls.Add(this.label6);
+			this.tabPageOperazioni.Controls.Add(this.label5);
+			this.tabPageOperazioni.Controls.Add(this.txtNumCaricoBene);
+			this.tabPageOperazioni.Controls.Add(this.grpTipoCarico);
+			this.tabPageOperazioni.Controls.Add(this.label1);
+			this.tabPageOperazioni.Location = new System.Drawing.Point(4, 22);
+			this.tabPageOperazioni.Name = "tabPageOperazioni";
+			this.tabPageOperazioni.Size = new System.Drawing.Size(891, 528);
+			this.tabPageOperazioni.TabIndex = 3;
+			this.tabPageOperazioni.Text = "Principale";
+			// 
+			// gboxListino
+			// 
+			this.gboxListino.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxListino.Controls.Add(this.chkListDescription);
-            this.gboxListino.Controls.Add(this.btnListino);
-            this.gboxListino.Controls.Add(this.txtListino);
-            this.gboxListino.Controls.Add(this.txtDescrizioneListino);
-            this.gboxListino.Location = new System.Drawing.Point(450, 239);
-            this.gboxListino.Name = "gboxListino";
-            this.gboxListino.Size = new System.Drawing.Size(431, 123);
-            this.gboxListino.TabIndex = 6;
-            this.gboxListino.TabStop = false;
-            this.gboxListino.Tag = "";
-            // 
-            // chkListDescription
-            // 
-            this.chkListDescription.Location = new System.Drawing.Point(11, 13);
-            this.chkListDescription.Name = "chkListDescription";
-            this.chkListDescription.Size = new System.Drawing.Size(277, 20);
-            this.chkListDescription.TabIndex = 1;
-            this.chkListDescription.TabStop = false;
-            this.chkListDescription.Text = "Fitra per Descrizione/Class.Merceologica";
-            // 
-            // btnListino
-            // 
-            this.btnListino.BackColor = System.Drawing.SystemColors.Control;
-            this.btnListino.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListino.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnListino.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListino.ImageIndex = 0;
-            this.btnListino.Location = new System.Drawing.Point(6, 71);
-            this.btnListino.Name = "btnListino";
-            this.btnListino.Size = new System.Drawing.Size(104, 23);
-            this.btnListino.TabIndex = 1;
-            this.btnListino.TabStop = false;
-            this.btnListino.Tag = "";
-            this.btnListino.Text = "Listino";
-            this.btnListino.UseVisualStyleBackColor = false;
-            this.btnListino.Click += new System.EventHandler(this.btnListino_Click);
-            // 
-            // txtListino
-            // 
-            this.txtListino.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.gboxListino.Controls.Add(this.chkListDescription);
+			this.gboxListino.Controls.Add(this.btnListino);
+			this.gboxListino.Controls.Add(this.txtListino);
+			this.gboxListino.Controls.Add(this.txtDescrizioneListino);
+			this.gboxListino.Location = new System.Drawing.Point(450, 239);
+			this.gboxListino.Name = "gboxListino";
+			this.gboxListino.Size = new System.Drawing.Size(431, 123);
+			this.gboxListino.TabIndex = 6;
+			this.gboxListino.TabStop = false;
+			this.gboxListino.Tag = "";
+			// 
+			// chkListDescription
+			// 
+			this.chkListDescription.Location = new System.Drawing.Point(11, 13);
+			this.chkListDescription.Name = "chkListDescription";
+			this.chkListDescription.Size = new System.Drawing.Size(277, 20);
+			this.chkListDescription.TabIndex = 1;
+			this.chkListDescription.TabStop = false;
+			this.chkListDescription.Text = "Fitra per Descrizione/Class.Merceologica";
+			// 
+			// btnListino
+			// 
+			this.btnListino.BackColor = System.Drawing.SystemColors.Control;
+			this.btnListino.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnListino.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnListino.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btnListino.ImageIndex = 0;
+			this.btnListino.Location = new System.Drawing.Point(6, 71);
+			this.btnListino.Name = "btnListino";
+			this.btnListino.Size = new System.Drawing.Size(104, 23);
+			this.btnListino.TabIndex = 1;
+			this.btnListino.TabStop = false;
+			this.btnListino.Tag = "";
+			this.btnListino.Text = "Listino";
+			this.btnListino.UseVisualStyleBackColor = false;
+			this.btnListino.Click += new System.EventHandler(this.btnListino_Click);
+			// 
+			// txtListino
+			// 
+			this.txtListino.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtListino.Location = new System.Drawing.Point(6, 100);
-            this.txtListino.Name = "txtListino";
-            this.txtListino.Size = new System.Drawing.Size(409, 20);
-            this.txtListino.TabIndex = 6;
-            this.txtListino.Tag = "listview.intcode?assetacquireview.intcode";
-            this.txtListino.TextChanged += new System.EventHandler(this.txtListino_TextChanged);
-            this.txtListino.Enter += new System.EventHandler(this.txtListino_Enter);
-            // 
-            // txtDescrizioneListino
-            // 
-            this.txtDescrizioneListino.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtListino.Location = new System.Drawing.Point(6, 100);
+			this.txtListino.Name = "txtListino";
+			this.txtListino.Size = new System.Drawing.Size(409, 20);
+			this.txtListino.TabIndex = 6;
+			this.txtListino.Tag = "listview.intcode?assetacquireview.intcode";
+			this.txtListino.TextChanged += new System.EventHandler(this.txtListino_TextChanged);
+			this.txtListino.Enter += new System.EventHandler(this.txtListino_Enter);
+			// 
+			// txtDescrizioneListino
+			// 
+			this.txtDescrizioneListino.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrizioneListino.Location = new System.Drawing.Point(134, 37);
-            this.txtDescrizioneListino.Multiline = true;
-            this.txtDescrizioneListino.Name = "txtDescrizioneListino";
-            this.txtDescrizioneListino.ReadOnly = true;
-            this.txtDescrizioneListino.Size = new System.Drawing.Size(281, 57);
-            this.txtDescrizioneListino.TabIndex = 9;
-            this.txtDescrizioneListino.TabStop = false;
-            this.txtDescrizioneListino.Tag = "";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label16.Location = new System.Drawing.Point(274, 500);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(606, 23);
-            this.label16.TabIndex = 11;
-            this.label16.Text = "Nota: l\'inclusione di un bene in un buono di carico è condizione necessaria per p" +
+			this.txtDescrizioneListino.Location = new System.Drawing.Point(134, 37);
+			this.txtDescrizioneListino.Multiline = true;
+			this.txtDescrizioneListino.Name = "txtDescrizioneListino";
+			this.txtDescrizioneListino.ReadOnly = true;
+			this.txtDescrizioneListino.Size = new System.Drawing.Size(281, 57);
+			this.txtDescrizioneListino.TabIndex = 9;
+			this.txtDescrizioneListino.TabStop = false;
+			this.txtDescrizioneListino.Tag = "";
+			// 
+			// label16
+			// 
+			this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label16.Location = new System.Drawing.Point(274, 500);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(606, 23);
+			this.label16.TabIndex = 11;
+			this.label16.Text = "Nota: l\'inclusione di un bene in un buono di carico è condizione necessaria per p" +
     "oterlo poi ammortizzare.";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label16.Click += new System.EventHandler(this.label16_Click);
-            // 
-            // chkTransmitted
-            // 
-            this.chkTransmitted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkTransmitted.AutoSize = true;
-            this.chkTransmitted.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTransmitted.Location = new System.Drawing.Point(351, 475);
-            this.chkTransmitted.Name = "chkTransmitted";
-            this.chkTransmitted.Size = new System.Drawing.Size(77, 17);
-            this.chkTransmitted.TabIndex = 9;
-            this.chkTransmitted.Tag = "assetacquire.transmitted:S:N";
-            this.chkTransmitted.Text = "Trasmesso";
-            this.chkTransmitted.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTransmitted.UseVisualStyleBackColor = true;
-            // 
-            // chkIspieceAcquire
-            // 
-            this.chkIspieceAcquire.Location = new System.Drawing.Point(16, 5);
-            this.chkIspieceAcquire.Name = "chkIspieceAcquire";
-            this.chkIspieceAcquire.Size = new System.Drawing.Size(168, 16);
-            this.chkIspieceAcquire.TabIndex = 1;
-            this.chkIspieceAcquire.Tag = "assetacquire.flag:2";
-            this.chkIspieceAcquire.Text = "Carico di un ACCESSORIO ";
-            this.chkIspieceAcquire.CheckStateChanged += new System.EventHandler(this.chkIspieceAcquire_CheckStateChanged);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.cboCausale);
-            this.groupBox2.Location = new System.Drawing.Point(8, 299);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(425, 47);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Causale di Carico";
-            // 
-            // cboCausale
-            // 
-            this.cboCausale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.label16.Click += new System.EventHandler(this.label16_Click);
+			// 
+			// chkTransmitted
+			// 
+			this.chkTransmitted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.chkTransmitted.AutoSize = true;
+			this.chkTransmitted.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.chkTransmitted.Location = new System.Drawing.Point(351, 475);
+			this.chkTransmitted.Name = "chkTransmitted";
+			this.chkTransmitted.Size = new System.Drawing.Size(77, 17);
+			this.chkTransmitted.TabIndex = 9;
+			this.chkTransmitted.Tag = "assetacquire.transmitted:S:N";
+			this.chkTransmitted.Text = "Trasmesso";
+			this.chkTransmitted.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.chkTransmitted.UseVisualStyleBackColor = true;
+			// 
+			// chkIspieceAcquire
+			// 
+			this.chkIspieceAcquire.Location = new System.Drawing.Point(16, 5);
+			this.chkIspieceAcquire.Name = "chkIspieceAcquire";
+			this.chkIspieceAcquire.Size = new System.Drawing.Size(168, 16);
+			this.chkIspieceAcquire.TabIndex = 1;
+			this.chkIspieceAcquire.Tag = "assetacquire.flag:2";
+			this.chkIspieceAcquire.Text = "Carico di un ACCESSORIO ";
+			this.chkIspieceAcquire.CheckStateChanged += new System.EventHandler(this.chkIspieceAcquire_CheckStateChanged);
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.cboCausale);
+			this.groupBox2.Location = new System.Drawing.Point(8, 299);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(425, 47);
+			this.groupBox2.TabIndex = 5;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Causale di Carico";
+			// 
+			// cboCausale
+			// 
+			this.cboCausale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboCausale.DataSource = this.DS.assetloadmotive;
-            this.cboCausale.DisplayMember = "description";
-            this.cboCausale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboCausale.Location = new System.Drawing.Point(8, 15);
-            this.cboCausale.Name = "cboCausale";
-            this.cboCausale.Size = new System.Drawing.Size(409, 21);
-            this.cboCausale.TabIndex = 14;
-            this.cboCausale.Tag = "assetacquire.idmot.(active=\'S\')";
-            this.cboCausale.ValueMember = "idmot";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            // 
-            // grpClassif
-            // 
-            this.grpClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.cboCausale.DataSource = this.DS.assetloadmotive;
+			this.cboCausale.DisplayMember = "description";
+			this.cboCausale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboCausale.Location = new System.Drawing.Point(8, 15);
+			this.cboCausale.Name = "cboCausale";
+			this.cboCausale.Size = new System.Drawing.Size(409, 21);
+			this.cboCausale.TabIndex = 14;
+			this.cboCausale.Tag = "assetacquire.idmot.(active=\'S\')";
+			this.cboCausale.ValueMember = "idmot";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			// 
+			// grpClassif
+			// 
+			this.grpClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpClassif.Controls.Add(this.txtDescClassif);
-            this.grpClassif.Controls.Add(this.txtIdClassif);
-            this.grpClassif.Controls.Add(this.btnClassif);
-            this.grpClassif.Location = new System.Drawing.Point(450, 365);
-            this.grpClassif.Name = "grpClassif";
-            this.grpClassif.Size = new System.Drawing.Size(433, 103);
-            this.grpClassif.TabIndex = 7;
-            this.grpClassif.TabStop = false;
-            this.grpClassif.Tag = "AutoManage.txtIdClassif.tree";
-            this.grpClassif.Text = "Classificazione inventariale";
-            // 
-            // txtDescClassif
-            // 
-            this.txtDescClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.grpClassif.Controls.Add(this.txtDescClassif);
+			this.grpClassif.Controls.Add(this.txtIdClassif);
+			this.grpClassif.Controls.Add(this.btnClassif);
+			this.grpClassif.Location = new System.Drawing.Point(450, 365);
+			this.grpClassif.Name = "grpClassif";
+			this.grpClassif.Size = new System.Drawing.Size(433, 103);
+			this.grpClassif.TabIndex = 7;
+			this.grpClassif.TabStop = false;
+			this.grpClassif.Tag = "AutoManage.txtIdClassif.tree";
+			this.grpClassif.Text = "Classificazione inventariale";
+			// 
+			// txtDescClassif
+			// 
+			this.txtDescClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescClassif.Location = new System.Drawing.Point(134, 12);
-            this.txtDescClassif.Multiline = true;
-            this.txtDescClassif.Name = "txtDescClassif";
-            this.txtDescClassif.ReadOnly = true;
-            this.txtDescClassif.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescClassif.Size = new System.Drawing.Size(296, 54);
-            this.txtDescClassif.TabIndex = 19;
-            this.txtDescClassif.TabStop = false;
-            this.txtDescClassif.Tag = "inventorytreeview.description";
-            // 
-            // txtIdClassif
-            // 
-            this.txtIdClassif.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescClassif.Location = new System.Drawing.Point(134, 12);
+			this.txtDescClassif.Multiline = true;
+			this.txtDescClassif.Name = "txtDescClassif";
+			this.txtDescClassif.ReadOnly = true;
+			this.txtDescClassif.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDescClassif.Size = new System.Drawing.Size(296, 54);
+			this.txtDescClassif.TabIndex = 19;
+			this.txtDescClassif.TabStop = false;
+			this.txtDescClassif.Tag = "inventorytreeview.description";
+			// 
+			// txtIdClassif
+			// 
+			this.txtIdClassif.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIdClassif.Location = new System.Drawing.Point(8, 73);
-            this.txtIdClassif.Name = "txtIdClassif";
-            this.txtIdClassif.Size = new System.Drawing.Size(423, 20);
-            this.txtIdClassif.TabIndex = 1;
-            this.txtIdClassif.Tag = "inventorytreeview.codeinv?assetacquireview.codeinv";
-            // 
-            // btnClassif
-            // 
-            this.btnClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClassif.Image = ((System.Drawing.Image)(resources.GetObject("btnClassif.Image")));
-            this.btnClassif.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClassif.Location = new System.Drawing.Point(11, 44);
-            this.btnClassif.Name = "btnClassif";
-            this.btnClassif.Size = new System.Drawing.Size(120, 23);
-            this.btnClassif.TabIndex = 17;
-            this.btnClassif.TabStop = false;
-            this.btnClassif.Tag = "manage.inventorytreeview.tree";
-            this.btnClassif.Text = "Classificazione";
-            // 
-            // grpCredDeb
-            // 
-            this.grpCredDeb.Controls.Add(this.txtCredDeb);
-            this.grpCredDeb.Location = new System.Drawing.Point(8, 252);
-            this.grpCredDeb.Name = "grpCredDeb";
-            this.grpCredDeb.Size = new System.Drawing.Size(425, 46);
-            this.grpCredDeb.TabIndex = 4;
-            this.grpCredDeb.TabStop = false;
-            this.grpCredDeb.Tag = "AutoChoose.txtCredDeb.lista.(active=\'S\')";
-            this.grpCredDeb.Text = "Cedente";
-            // 
-            // txtCredDeb
-            // 
-            this.txtCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtIdClassif.Location = new System.Drawing.Point(8, 73);
+			this.txtIdClassif.Name = "txtIdClassif";
+			this.txtIdClassif.Size = new System.Drawing.Size(423, 20);
+			this.txtIdClassif.TabIndex = 1;
+			this.txtIdClassif.Tag = "inventorytreeview.codeinv?assetacquireview.codeinv";
+			// 
+			// btnClassif
+			// 
+			this.btnClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnClassif.Image = ((System.Drawing.Image)(resources.GetObject("btnClassif.Image")));
+			this.btnClassif.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btnClassif.Location = new System.Drawing.Point(11, 44);
+			this.btnClassif.Name = "btnClassif";
+			this.btnClassif.Size = new System.Drawing.Size(120, 23);
+			this.btnClassif.TabIndex = 17;
+			this.btnClassif.TabStop = false;
+			this.btnClassif.Tag = "manage.inventorytreeview.tree";
+			this.btnClassif.Text = "Classificazione";
+			// 
+			// grpCredDeb
+			// 
+			this.grpCredDeb.Controls.Add(this.txtCredDeb);
+			this.grpCredDeb.Location = new System.Drawing.Point(8, 252);
+			this.grpCredDeb.Name = "grpCredDeb";
+			this.grpCredDeb.Size = new System.Drawing.Size(425, 46);
+			this.grpCredDeb.TabIndex = 4;
+			this.grpCredDeb.TabStop = false;
+			this.grpCredDeb.Tag = "AutoChoose.txtCredDeb.lista.(active=\'S\')";
+			this.grpCredDeb.Text = "Cedente";
+			// 
+			// txtCredDeb
+			// 
+			this.txtCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCredDeb.Location = new System.Drawing.Point(8, 16);
-            this.txtCredDeb.Name = "txtCredDeb";
-            this.txtCredDeb.Size = new System.Drawing.Size(409, 20);
-            this.txtCredDeb.TabIndex = 12;
-            this.txtCredDeb.Tag = "registry.title?assetacquireview.registry";
-            // 
-            // chkIncludi
-            // 
-            this.chkIncludi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkIncludi.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkIncludi.Location = new System.Drawing.Point(696, 476);
-            this.chkIncludi.Name = "chkIncludi";
-            this.chkIncludi.Size = new System.Drawing.Size(184, 19);
-            this.chkIncludi.TabIndex = 10;
-            this.chkIncludi.Tag = "assetacquire.flag:0";
-            this.chkIncludi.Text = "Includere in Buono di Carico";
-            this.chkIncludi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataContabile
-            // 
-            this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtDataContabile.Location = new System.Drawing.Point(103, 471);
-            this.txtDataContabile.Name = "txtDataContabile";
-            this.txtDataContabile.Size = new System.Drawing.Size(80, 20);
-            this.txtDataContabile.TabIndex = 8;
-            this.txtDataContabile.Tag = "assetacquire.adate";
-            // 
-            // txtDescrizione
-            // 
-            this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtCredDeb.Location = new System.Drawing.Point(8, 16);
+			this.txtCredDeb.Name = "txtCredDeb";
+			this.txtCredDeb.Size = new System.Drawing.Size(409, 20);
+			this.txtCredDeb.TabIndex = 12;
+			this.txtCredDeb.Tag = "registry.title?assetacquireview.registry";
+			// 
+			// chkIncludi
+			// 
+			this.chkIncludi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.chkIncludi.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.chkIncludi.Location = new System.Drawing.Point(696, 476);
+			this.chkIncludi.Name = "chkIncludi";
+			this.chkIncludi.Size = new System.Drawing.Size(184, 19);
+			this.chkIncludi.TabIndex = 10;
+			this.chkIncludi.Tag = "assetacquire.flag:0";
+			this.chkIncludi.Text = "Includere in Buono di Carico";
+			this.chkIncludi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataContabile
+			// 
+			this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtDataContabile.Location = new System.Drawing.Point(103, 471);
+			this.txtDataContabile.Name = "txtDataContabile";
+			this.txtDataContabile.Size = new System.Drawing.Size(80, 20);
+			this.txtDataContabile.TabIndex = 8;
+			this.txtDataContabile.Tag = "assetacquire.adate";
+			// 
+			// txtDescrizione
+			// 
+			this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtDescrizione.Location = new System.Drawing.Point(8, 374);
-            this.txtDescrizione.Multiline = true;
-            this.txtDescrizione.Name = "txtDescrizione";
-            this.txtDescrizione.Size = new System.Drawing.Size(425, 91);
-            this.txtDescrizione.TabIndex = 6;
-            this.txtDescrizione.Tag = "assetacquire.description";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.Location = new System.Drawing.Point(9, 473);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(88, 16);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Data contabile:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(9, 353);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(128, 16);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Descrizione:";
-            // 
-            // txtNumCaricoBene
-            // 
-            this.txtNumCaricoBene.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumCaricoBene.Location = new System.Drawing.Point(811, 3);
-            this.txtNumCaricoBene.Name = "txtNumCaricoBene";
-            this.txtNumCaricoBene.Size = new System.Drawing.Size(72, 20);
-            this.txtNumCaricoBene.TabIndex = 2;
-            this.txtNumCaricoBene.Tag = "assetacquire.nassetacquire";
-            // 
-            // grpTipoCarico
-            // 
-            this.grpTipoCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrizione.Location = new System.Drawing.Point(8, 374);
+			this.txtDescrizione.Multiline = true;
+			this.txtDescrizione.Name = "txtDescrizione";
+			this.txtDescrizione.Size = new System.Drawing.Size(425, 91);
+			this.txtDescrizione.TabIndex = 6;
+			this.txtDescrizione.Tag = "assetacquire.description";
+			// 
+			// label6
+			// 
+			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label6.Location = new System.Drawing.Point(9, 473);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(88, 16);
+			this.label6.TabIndex = 7;
+			this.label6.Text = "Data contabile:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(9, 353);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(128, 16);
+			this.label5.TabIndex = 6;
+			this.label5.Text = "Descrizione:";
+			// 
+			// txtNumCaricoBene
+			// 
+			this.txtNumCaricoBene.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtNumCaricoBene.Location = new System.Drawing.Point(811, 3);
+			this.txtNumCaricoBene.Name = "txtNumCaricoBene";
+			this.txtNumCaricoBene.Size = new System.Drawing.Size(72, 20);
+			this.txtNumCaricoBene.TabIndex = 2;
+			this.txtNumCaricoBene.Tag = "assetacquire.nassetacquire";
+			// 
+			// grpTipoCarico
+			// 
+			this.grpTipoCarico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpTipoCarico.Controls.Add(this.grpRigaFattura);
-            this.grpTipoCarico.Controls.Add(this.grpBuonoInv);
-            this.grpTipoCarico.Controls.Add(this.grpRiga);
-            this.grpTipoCarico.Controls.Add(this.radioPosseduto);
-            this.grpTipoCarico.Controls.Add(this.radioNuovo);
-            this.grpTipoCarico.Location = new System.Drawing.Point(8, 27);
-            this.grpTipoCarico.Name = "grpTipoCarico";
-            this.grpTipoCarico.Size = new System.Drawing.Size(875, 212);
-            this.grpTipoCarico.TabIndex = 3;
-            this.grpTipoCarico.TabStop = false;
-            this.grpTipoCarico.Text = "Tipo carico";
-            // 
-            // grpRigaFattura
-            // 
-            this.grpRigaFattura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpTipoCarico.Controls.Add(this.grpRigaFattura);
+			this.grpTipoCarico.Controls.Add(this.grpBuonoInv);
+			this.grpTipoCarico.Controls.Add(this.grpRiga);
+			this.grpTipoCarico.Controls.Add(this.radioPosseduto);
+			this.grpTipoCarico.Controls.Add(this.radioNuovo);
+			this.grpTipoCarico.Location = new System.Drawing.Point(8, 27);
+			this.grpTipoCarico.Name = "grpTipoCarico";
+			this.grpTipoCarico.Size = new System.Drawing.Size(875, 212);
+			this.grpTipoCarico.TabIndex = 3;
+			this.grpTipoCarico.TabStop = false;
+			this.grpTipoCarico.Text = "Tipo carico";
+			// 
+			// grpRigaFattura
+			// 
+			this.grpRigaFattura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpRigaFattura.Controls.Add(this.cmbTipoFattura);
-            this.grpRigaFattura.Controls.Add(this.btnCollegaRigaFattura);
-            this.grpRigaFattura.Controls.Add(this.txtNumRigaFattura);
-            this.grpRigaFattura.Controls.Add(this.txtNumFattura);
-            this.grpRigaFattura.Controls.Add(this.txtEsercFattura);
-            this.grpRigaFattura.Controls.Add(this.label17);
-            this.grpRigaFattura.Location = new System.Drawing.Point(8, 90);
-            this.grpRigaFattura.Name = "grpRigaFattura";
-            this.grpRigaFattura.Size = new System.Drawing.Size(749, 48);
-            this.grpRigaFattura.TabIndex = 5;
-            this.grpRigaFattura.TabStop = false;
-            this.grpRigaFattura.Text = "Riga della fattura (Tipo  / Eserc. /  Num.  / Gruppo)";
-            // 
-            // cmbTipoFattura
-            // 
-            this.cmbTipoFattura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpRigaFattura.Controls.Add(this.cmbTipoFattura);
+			this.grpRigaFattura.Controls.Add(this.btnCollegaRigaFattura);
+			this.grpRigaFattura.Controls.Add(this.txtNumRigaFattura);
+			this.grpRigaFattura.Controls.Add(this.txtNumFattura);
+			this.grpRigaFattura.Controls.Add(this.txtEsercFattura);
+			this.grpRigaFattura.Controls.Add(this.label17);
+			this.grpRigaFattura.Location = new System.Drawing.Point(8, 90);
+			this.grpRigaFattura.Name = "grpRigaFattura";
+			this.grpRigaFattura.Size = new System.Drawing.Size(749, 48);
+			this.grpRigaFattura.TabIndex = 5;
+			this.grpRigaFattura.TabStop = false;
+			this.grpRigaFattura.Text = "Riga della fattura (Tipo  / Eserc. /  Num.  / Gruppo)";
+			// 
+			// cmbTipoFattura
+			// 
+			this.cmbTipoFattura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoFattura.DataSource = this.DS.invoicekind;
-            this.cmbTipoFattura.DisplayMember = "description";
-            this.cmbTipoFattura.Location = new System.Drawing.Point(162, 19);
-            this.cmbTipoFattura.Name = "cmbTipoFattura";
-            this.cmbTipoFattura.Size = new System.Drawing.Size(390, 21);
-            this.cmbTipoFattura.TabIndex = 2;
-            this.cmbTipoFattura.Tag = "assetacquire.idinvkind";
-            this.cmbTipoFattura.ValueMember = "idinvkind";
-            // 
-            // btnCollegaRigaFattura
-            // 
-            this.btnCollegaRigaFattura.Location = new System.Drawing.Point(8, 19);
-            this.btnCollegaRigaFattura.Name = "btnCollegaRigaFattura";
-            this.btnCollegaRigaFattura.Size = new System.Drawing.Size(128, 23);
-            this.btnCollegaRigaFattura.TabIndex = 1;
-            this.btnCollegaRigaFattura.TabStop = false;
-            this.btnCollegaRigaFattura.Tag = "";
-            this.btnCollegaRigaFattura.Text = "Riga fattura";
-            this.btnCollegaRigaFattura.Click += new System.EventHandler(this.btnCollegaRigaFattura_Click);
-            // 
-            // txtNumRigaFattura
-            // 
-            this.txtNumRigaFattura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumRigaFattura.Location = new System.Drawing.Point(674, 19);
-            this.txtNumRigaFattura.Name = "txtNumRigaFattura";
-            this.txtNumRigaFattura.Size = new System.Drawing.Size(48, 20);
-            this.txtNumRigaFattura.TabIndex = 5;
-            this.txtNumRigaFattura.Tag = "assetacquire.invrownum";
-            // 
-            // txtNumFattura
-            // 
-            this.txtNumFattura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumFattura.Location = new System.Drawing.Point(612, 20);
-            this.txtNumFattura.Name = "txtNumFattura";
-            this.txtNumFattura.Size = new System.Drawing.Size(56, 20);
-            this.txtNumFattura.TabIndex = 4;
-            this.txtNumFattura.Tag = "assetacquire.ninv";
-            // 
-            // txtEsercFattura
-            // 
-            this.txtEsercFattura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEsercFattura.Location = new System.Drawing.Point(558, 19);
-            this.txtEsercFattura.Name = "txtEsercFattura";
-            this.txtEsercFattura.Size = new System.Drawing.Size(48, 20);
-            this.txtEsercFattura.TabIndex = 3;
-            this.txtEsercFattura.Tag = "assetacquire.yinv.year";
-            // 
-            // label17
-            // 
-            this.label17.Location = new System.Drawing.Point(120, 18);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(136, 16);
-            this.label17.TabIndex = 0;
-            this.label17.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // grpBuonoInv
-            // 
-            this.grpBuonoInv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbTipoFattura.DataSource = this.DS.invoicekind;
+			this.cmbTipoFattura.DisplayMember = "description";
+			this.cmbTipoFattura.Location = new System.Drawing.Point(162, 19);
+			this.cmbTipoFattura.Name = "cmbTipoFattura";
+			this.cmbTipoFattura.Size = new System.Drawing.Size(390, 21);
+			this.cmbTipoFattura.TabIndex = 2;
+			this.cmbTipoFattura.Tag = "assetacquire.idinvkind";
+			this.cmbTipoFattura.ValueMember = "idinvkind";
+			// 
+			// btnCollegaRigaFattura
+			// 
+			this.btnCollegaRigaFattura.Location = new System.Drawing.Point(8, 19);
+			this.btnCollegaRigaFattura.Name = "btnCollegaRigaFattura";
+			this.btnCollegaRigaFattura.Size = new System.Drawing.Size(128, 23);
+			this.btnCollegaRigaFattura.TabIndex = 1;
+			this.btnCollegaRigaFattura.TabStop = false;
+			this.btnCollegaRigaFattura.Tag = "";
+			this.btnCollegaRigaFattura.Text = "Riga fattura";
+			this.btnCollegaRigaFattura.Click += new System.EventHandler(this.btnCollegaRigaFattura_Click);
+			// 
+			// txtNumRigaFattura
+			// 
+			this.txtNumRigaFattura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtNumRigaFattura.Location = new System.Drawing.Point(674, 19);
+			this.txtNumRigaFattura.Name = "txtNumRigaFattura";
+			this.txtNumRigaFattura.Size = new System.Drawing.Size(48, 20);
+			this.txtNumRigaFattura.TabIndex = 5;
+			this.txtNumRigaFattura.Tag = "assetacquire.invrownum";
+			// 
+			// txtNumFattura
+			// 
+			this.txtNumFattura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtNumFattura.Location = new System.Drawing.Point(612, 20);
+			this.txtNumFattura.Name = "txtNumFattura";
+			this.txtNumFattura.Size = new System.Drawing.Size(56, 20);
+			this.txtNumFattura.TabIndex = 4;
+			this.txtNumFattura.Tag = "assetacquire.ninv";
+			// 
+			// txtEsercFattura
+			// 
+			this.txtEsercFattura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtEsercFattura.Location = new System.Drawing.Point(558, 19);
+			this.txtEsercFattura.Name = "txtEsercFattura";
+			this.txtEsercFattura.Size = new System.Drawing.Size(48, 20);
+			this.txtEsercFattura.TabIndex = 3;
+			this.txtEsercFattura.Tag = "assetacquire.yinv.year";
+			// 
+			// label17
+			// 
+			this.label17.Location = new System.Drawing.Point(120, 18);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(136, 16);
+			this.label17.TabIndex = 0;
+			this.label17.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// grpBuonoInv
+			// 
+			this.grpBuonoInv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpBuonoInv.Controls.Add(this.label18);
-            this.grpBuonoInv.Controls.Add(this.txtRatificationDate);
-            this.grpBuonoInv.Controls.Add(this.btnbuonocarico);
-            this.grpBuonoInv.Controls.Add(this.cmbCodiceBuono);
-            this.grpBuonoInv.Controls.Add(this.label4);
-            this.grpBuonoInv.Controls.Add(this.label15);
-            this.grpBuonoInv.Controls.Add(this.txtNumBuono);
-            this.grpBuonoInv.Controls.Add(this.txtEserBuono);
-            this.grpBuonoInv.Controls.Add(this.label);
-            this.grpBuonoInv.Location = new System.Drawing.Point(4, 142);
-            this.grpBuonoInv.Name = "grpBuonoInv";
-            this.grpBuonoInv.Size = new System.Drawing.Size(859, 64);
-            this.grpBuonoInv.TabIndex = 4;
-            this.grpBuonoInv.TabStop = false;
-            this.grpBuonoInv.Text = "Buono di Carico (se l\'accessorio è stato già incluso in un buono come parte di un" +
+			this.grpBuonoInv.Controls.Add(this.label18);
+			this.grpBuonoInv.Controls.Add(this.txtRatificationDate);
+			this.grpBuonoInv.Controls.Add(this.btnbuonocarico);
+			this.grpBuonoInv.Controls.Add(this.cmbCodiceBuono);
+			this.grpBuonoInv.Controls.Add(this.label4);
+			this.grpBuonoInv.Controls.Add(this.label15);
+			this.grpBuonoInv.Controls.Add(this.txtNumBuono);
+			this.grpBuonoInv.Controls.Add(this.txtEserBuono);
+			this.grpBuonoInv.Controls.Add(this.label);
+			this.grpBuonoInv.Location = new System.Drawing.Point(4, 142);
+			this.grpBuonoInv.Name = "grpBuonoInv";
+			this.grpBuonoInv.Size = new System.Drawing.Size(859, 64);
+			this.grpBuonoInv.TabIndex = 4;
+			this.grpBuonoInv.TabStop = false;
+			this.grpBuonoInv.Text = "Buono di Carico (se l\'accessorio è stato già incluso in un buono come parte di un" +
     " cespite è normale che questi campi siano vuoti)";
-            // 
-            // label18
-            // 
-            this.label18.Location = new System.Drawing.Point(769, 21);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(75, 16);
-            this.label18.TabIndex = 13;
-            this.label18.Text = "Data ratifica";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtRatificationDate
-            // 
-            this.txtRatificationDate.Location = new System.Drawing.Point(771, 37);
-            this.txtRatificationDate.Name = "txtRatificationDate";
-            this.txtRatificationDate.Size = new System.Drawing.Size(72, 20);
-            this.txtRatificationDate.TabIndex = 12;
-            this.txtRatificationDate.Tag = "assetload.ratificationdate?assetacquireview.ratificationdate";
-            // 
-            // btnbuonocarico
-            // 
-            this.btnbuonocarico.Location = new System.Drawing.Point(8, 34);
-            this.btnbuonocarico.Name = "btnbuonocarico";
-            this.btnbuonocarico.Size = new System.Drawing.Size(91, 23);
-            this.btnbuonocarico.TabIndex = 4;
-            this.btnbuonocarico.TabStop = false;
-            this.btnbuonocarico.Text = "Buono di carico";
-            this.btnbuonocarico.UseVisualStyleBackColor = true;
-            this.btnbuonocarico.Click += new System.EventHandler(this.btnbuonocarico_Click);
-            // 
-            // cmbCodiceBuono
-            // 
-            this.cmbCodiceBuono.DataSource = this.DS.assetloadkind;
-            this.cmbCodiceBuono.DisplayMember = "description";
-            this.cmbCodiceBuono.Location = new System.Drawing.Point(107, 36);
-            this.cmbCodiceBuono.Name = "cmbCodiceBuono";
-            this.cmbCodiceBuono.Size = new System.Drawing.Size(525, 21);
-            this.cmbCodiceBuono.TabIndex = 1;
-            this.cmbCodiceBuono.Tag = "assetload.idassetloadkind.(active=\'S\')?assetacquireview.idassetloadkind";
-            this.cmbCodiceBuono.ValueMember = "idassetloadkind";
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(104, 17);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 16);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Tipo Buono";
-            // 
-            // label15
-            // 
-            this.label15.Location = new System.Drawing.Point(691, 21);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(75, 16);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Numero";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtNumBuono
-            // 
-            this.txtNumBuono.Location = new System.Drawing.Point(693, 37);
-            this.txtNumBuono.Name = "txtNumBuono";
-            this.txtNumBuono.Size = new System.Drawing.Size(72, 20);
-            this.txtNumBuono.TabIndex = 3;
-            this.txtNumBuono.Tag = "assetload.nassetload?assetacquireview.nassetload";
-            // 
-            // txtEserBuono
-            // 
-            this.txtEserBuono.Location = new System.Drawing.Point(639, 37);
-            this.txtEserBuono.Name = "txtEserBuono";
-            this.txtEserBuono.Size = new System.Drawing.Size(48, 20);
-            this.txtEserBuono.TabIndex = 2;
-            this.txtEserBuono.Tag = "assetload.yassetload.year?assetacquireview.yassetload";
-            // 
-            // label
-            // 
-            this.label.Location = new System.Drawing.Point(636, 21);
-            this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(56, 16);
-            this.label.TabIndex = 0;
-            this.label.Text = "Esercizio";
-            this.label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // grpRiga
-            // 
-            this.grpRiga.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// label18
+			// 
+			this.label18.Location = new System.Drawing.Point(769, 21);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(75, 16);
+			this.label18.TabIndex = 13;
+			this.label18.Text = "Data ratifica";
+			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtRatificationDate
+			// 
+			this.txtRatificationDate.Location = new System.Drawing.Point(771, 37);
+			this.txtRatificationDate.Name = "txtRatificationDate";
+			this.txtRatificationDate.Size = new System.Drawing.Size(72, 20);
+			this.txtRatificationDate.TabIndex = 12;
+			this.txtRatificationDate.Tag = "assetload.ratificationdate?assetacquireview.ratificationdate";
+			// 
+			// btnbuonocarico
+			// 
+			this.btnbuonocarico.Location = new System.Drawing.Point(8, 34);
+			this.btnbuonocarico.Name = "btnbuonocarico";
+			this.btnbuonocarico.Size = new System.Drawing.Size(91, 23);
+			this.btnbuonocarico.TabIndex = 4;
+			this.btnbuonocarico.TabStop = false;
+			this.btnbuonocarico.Text = "Buono di carico";
+			this.btnbuonocarico.UseVisualStyleBackColor = true;
+			this.btnbuonocarico.Click += new System.EventHandler(this.btnbuonocarico_Click);
+			// 
+			// cmbCodiceBuono
+			// 
+			this.cmbCodiceBuono.DataSource = this.DS.assetloadkind;
+			this.cmbCodiceBuono.DisplayMember = "description";
+			this.cmbCodiceBuono.Location = new System.Drawing.Point(107, 36);
+			this.cmbCodiceBuono.Name = "cmbCodiceBuono";
+			this.cmbCodiceBuono.Size = new System.Drawing.Size(525, 21);
+			this.cmbCodiceBuono.TabIndex = 1;
+			this.cmbCodiceBuono.Tag = "assetload.idassetloadkind.(active=\'S\')?assetacquireview.idassetloadkind";
+			this.cmbCodiceBuono.ValueMember = "idassetloadkind";
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(104, 17);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(64, 16);
+			this.label4.TabIndex = 11;
+			this.label4.Text = "Tipo Buono";
+			// 
+			// label15
+			// 
+			this.label15.Location = new System.Drawing.Point(691, 21);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(75, 16);
+			this.label15.TabIndex = 4;
+			this.label15.Text = "Numero";
+			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtNumBuono
+			// 
+			this.txtNumBuono.Location = new System.Drawing.Point(693, 37);
+			this.txtNumBuono.Name = "txtNumBuono";
+			this.txtNumBuono.Size = new System.Drawing.Size(72, 20);
+			this.txtNumBuono.TabIndex = 3;
+			this.txtNumBuono.Tag = "assetload.nassetload?assetacquireview.nassetload";
+			// 
+			// txtEserBuono
+			// 
+			this.txtEserBuono.Location = new System.Drawing.Point(639, 37);
+			this.txtEserBuono.Name = "txtEserBuono";
+			this.txtEserBuono.Size = new System.Drawing.Size(48, 20);
+			this.txtEserBuono.TabIndex = 2;
+			this.txtEserBuono.Tag = "assetload.yassetload.year?assetacquireview.yassetload";
+			// 
+			// label
+			// 
+			this.label.Location = new System.Drawing.Point(636, 21);
+			this.label.Name = "label";
+			this.label.Size = new System.Drawing.Size(56, 16);
+			this.label.TabIndex = 0;
+			this.label.Text = "Esercizio";
+			this.label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// grpRiga
+			// 
+			this.grpRiga.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpRiga.Controls.Add(this.cmbTipoOrdine);
-            this.grpRiga.Controls.Add(this.btnCollegaRiga);
-            this.grpRiga.Controls.Add(this.txtNumriga);
-            this.grpRiga.Controls.Add(this.txtNumordine);
-            this.grpRiga.Controls.Add(this.txtEsercordine);
-            this.grpRiga.Controls.Add(this.label2);
-            this.grpRiga.Location = new System.Drawing.Point(8, 43);
-            this.grpRiga.Name = "grpRiga";
-            this.grpRiga.Size = new System.Drawing.Size(749, 48);
-            this.grpRiga.TabIndex = 2;
-            this.grpRiga.TabStop = false;
-            this.grpRiga.Text = "Riga del contratto passivo (Tipo  / Eserc. /  Num.  / Gruppo)";
-            // 
-            // cmbTipoOrdine
-            // 
-            this.cmbTipoOrdine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpRiga.Controls.Add(this.cmbTipoOrdine);
+			this.grpRiga.Controls.Add(this.btnCollegaRiga);
+			this.grpRiga.Controls.Add(this.txtNumriga);
+			this.grpRiga.Controls.Add(this.txtNumordine);
+			this.grpRiga.Controls.Add(this.txtEsercordine);
+			this.grpRiga.Controls.Add(this.label2);
+			this.grpRiga.Location = new System.Drawing.Point(8, 43);
+			this.grpRiga.Name = "grpRiga";
+			this.grpRiga.Size = new System.Drawing.Size(749, 48);
+			this.grpRiga.TabIndex = 2;
+			this.grpRiga.TabStop = false;
+			this.grpRiga.Text = "Riga del contratto passivo (Tipo  / Eserc. /  Num.  / Gruppo)";
+			// 
+			// cmbTipoOrdine
+			// 
+			this.cmbTipoOrdine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoOrdine.DataSource = this.DS.mandatekind;
-            this.cmbTipoOrdine.DisplayMember = "description";
-            this.cmbTipoOrdine.Location = new System.Drawing.Point(162, 19);
-            this.cmbTipoOrdine.Name = "cmbTipoOrdine";
-            this.cmbTipoOrdine.Size = new System.Drawing.Size(390, 21);
-            this.cmbTipoOrdine.TabIndex = 2;
-            this.cmbTipoOrdine.Tag = "assetacquire.idmankind";
-            this.cmbTipoOrdine.ValueMember = "idmankind";
-            // 
-            // btnCollegaRiga
-            // 
-            this.btnCollegaRiga.Location = new System.Drawing.Point(8, 19);
-            this.btnCollegaRiga.Name = "btnCollegaRiga";
-            this.btnCollegaRiga.Size = new System.Drawing.Size(128, 23);
-            this.btnCollegaRiga.TabIndex = 1;
-            this.btnCollegaRiga.TabStop = false;
-            this.btnCollegaRiga.Tag = "";
-            this.btnCollegaRiga.Text = "Riga contratto passivo";
-            this.btnCollegaRiga.Click += new System.EventHandler(this.btnCollegaRiga_Click);
-            // 
-            // txtNumriga
-            // 
-            this.txtNumriga.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumriga.Location = new System.Drawing.Point(674, 19);
-            this.txtNumriga.Name = "txtNumriga";
-            this.txtNumriga.Size = new System.Drawing.Size(48, 20);
-            this.txtNumriga.TabIndex = 5;
-            this.txtNumriga.Tag = "assetacquire.rownum";
-            this.txtNumriga.Leave += new System.EventHandler(this.txtNumriga_Leave);
-            // 
-            // txtNumordine
-            // 
-            this.txtNumordine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumordine.Location = new System.Drawing.Point(612, 19);
-            this.txtNumordine.Name = "txtNumordine";
-            this.txtNumordine.Size = new System.Drawing.Size(56, 20);
-            this.txtNumordine.TabIndex = 4;
-            this.txtNumordine.Tag = "assetacquire.nman";
-            this.txtNumordine.Leave += new System.EventHandler(this.txtNumordine_Leave);
-            // 
-            // txtEsercordine
-            // 
-            this.txtEsercordine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEsercordine.Location = new System.Drawing.Point(558, 19);
-            this.txtEsercordine.Name = "txtEsercordine";
-            this.txtEsercordine.Size = new System.Drawing.Size(48, 20);
-            this.txtEsercordine.TabIndex = 3;
-            this.txtEsercordine.Tag = "assetacquire.yman.year";
-            this.txtEsercordine.Leave += new System.EventHandler(this.txtEsercordine_Leave);
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(120, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(136, 16);
-            this.label2.TabIndex = 0;
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // radioPosseduto
-            // 
-            this.radioPosseduto.Location = new System.Drawing.Point(223, 18);
-            this.radioPosseduto.Name = "radioPosseduto";
-            this.radioPosseduto.Size = new System.Drawing.Size(643, 24);
-            this.radioPosseduto.TabIndex = 3;
-            this.radioPosseduto.Tag = "assetacquire.flag::1";
-            this.radioPosseduto.Text = "Cespite posseduto (da usare se si stanno inserendo buoni di carico di anni preced" +
+			this.cmbTipoOrdine.DataSource = this.DS.mandatekind;
+			this.cmbTipoOrdine.DisplayMember = "description";
+			this.cmbTipoOrdine.Location = new System.Drawing.Point(162, 19);
+			this.cmbTipoOrdine.Name = "cmbTipoOrdine";
+			this.cmbTipoOrdine.Size = new System.Drawing.Size(390, 21);
+			this.cmbTipoOrdine.TabIndex = 2;
+			this.cmbTipoOrdine.Tag = "assetacquire.idmankind";
+			this.cmbTipoOrdine.ValueMember = "idmankind";
+			// 
+			// btnCollegaRiga
+			// 
+			this.btnCollegaRiga.Location = new System.Drawing.Point(8, 19);
+			this.btnCollegaRiga.Name = "btnCollegaRiga";
+			this.btnCollegaRiga.Size = new System.Drawing.Size(128, 23);
+			this.btnCollegaRiga.TabIndex = 1;
+			this.btnCollegaRiga.TabStop = false;
+			this.btnCollegaRiga.Tag = "";
+			this.btnCollegaRiga.Text = "Riga contratto passivo";
+			this.btnCollegaRiga.Click += new System.EventHandler(this.btnCollegaRiga_Click);
+			// 
+			// txtNumriga
+			// 
+			this.txtNumriga.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtNumriga.Location = new System.Drawing.Point(674, 19);
+			this.txtNumriga.Name = "txtNumriga";
+			this.txtNumriga.Size = new System.Drawing.Size(48, 20);
+			this.txtNumriga.TabIndex = 5;
+			this.txtNumriga.Tag = "assetacquire.rownum";
+			this.txtNumriga.Leave += new System.EventHandler(this.txtNumriga_Leave);
+			// 
+			// txtNumordine
+			// 
+			this.txtNumordine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtNumordine.Location = new System.Drawing.Point(612, 19);
+			this.txtNumordine.Name = "txtNumordine";
+			this.txtNumordine.Size = new System.Drawing.Size(56, 20);
+			this.txtNumordine.TabIndex = 4;
+			this.txtNumordine.Tag = "assetacquire.nman";
+			this.txtNumordine.Leave += new System.EventHandler(this.txtNumordine_Leave);
+			// 
+			// txtEsercordine
+			// 
+			this.txtEsercordine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtEsercordine.Location = new System.Drawing.Point(558, 19);
+			this.txtEsercordine.Name = "txtEsercordine";
+			this.txtEsercordine.Size = new System.Drawing.Size(48, 20);
+			this.txtEsercordine.TabIndex = 3;
+			this.txtEsercordine.Tag = "assetacquire.yman.year";
+			this.txtEsercordine.Leave += new System.EventHandler(this.txtEsercordine_Leave);
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(120, 18);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(136, 16);
+			this.label2.TabIndex = 0;
+			this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// radioPosseduto
+			// 
+			this.radioPosseduto.Location = new System.Drawing.Point(223, 18);
+			this.radioPosseduto.Name = "radioPosseduto";
+			this.radioPosseduto.Size = new System.Drawing.Size(643, 24);
+			this.radioPosseduto.TabIndex = 3;
+			this.radioPosseduto.Tag = "assetacquire.flag::1";
+			this.radioPosseduto.Text = "Cespite posseduto (da usare se si stanno inserendo buoni di carico di anni preced" +
     "enti l\'adozione del software)";
-            this.radioPosseduto.CheckedChanged += new System.EventHandler(this.radioPosseduto_CheckedChanged);
-            // 
-            // radioNuovo
-            // 
-            this.radioNuovo.Location = new System.Drawing.Point(8, 18);
-            this.radioNuovo.Name = "radioNuovo";
-            this.radioNuovo.Size = new System.Drawing.Size(213, 17);
-            this.radioNuovo.TabIndex = 1;
-            this.radioNuovo.Tag = "assetacquire.flag::#1";
-            this.radioNuovo.Text = "Nuova acquisizione";
-            this.radioNuovo.CheckedChanged += new System.EventHandler(this.radioNuovo_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(683, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Numero carico cespite";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tabPageInventario
-            // 
-            this.tabPageInventario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.radioPosseduto.CheckedChanged += new System.EventHandler(this.radioPosseduto_CheckedChanged);
+			// 
+			// radioNuovo
+			// 
+			this.radioNuovo.Location = new System.Drawing.Point(8, 18);
+			this.radioNuovo.Name = "radioNuovo";
+			this.radioNuovo.Size = new System.Drawing.Size(213, 17);
+			this.radioNuovo.TabIndex = 1;
+			this.radioNuovo.Tag = "assetacquire.flag::#1";
+			this.radioNuovo.Text = "Nuova acquisizione";
+			this.radioNuovo.CheckedChanged += new System.EventHandler(this.radioNuovo_CheckedChanged);
+			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label1.Location = new System.Drawing.Point(683, 9);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(120, 16);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Numero carico cespite";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// tabPageInventario
+			// 
+			this.tabPageInventario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPageInventario.Controls.Add(this.textBox2);
-            this.tabPageInventario.Controls.Add(this.groupBox3);
-            this.tabPageInventario.Controls.Add(this.groupBox1);
-            this.tabPageInventario.Controls.Add(this.gboxCespiti);
-            this.tabPageInventario.Controls.Add(this.grpValore);
-            this.tabPageInventario.Controls.Add(this.grpInventario);
-            this.tabPageInventario.Location = new System.Drawing.Point(4, 22);
-            this.tabPageInventario.Name = "tabPageInventario";
-            this.tabPageInventario.Size = new System.Drawing.Size(891, 528);
-            this.tabPageInventario.TabIndex = 4;
-            this.tabPageInventario.Text = "Inventario";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabPageInventario.Controls.Add(this.textBox2);
+			this.tabPageInventario.Controls.Add(this.groupBox3);
+			this.tabPageInventario.Controls.Add(this.groupBox1);
+			this.tabPageInventario.Controls.Add(this.gboxCespiti);
+			this.tabPageInventario.Controls.Add(this.grpValore);
+			this.tabPageInventario.Controls.Add(this.grpInventario);
+			this.tabPageInventario.Location = new System.Drawing.Point(4, 22);
+			this.tabPageInventario.Name = "tabPageInventario";
+			this.tabPageInventario.Size = new System.Drawing.Size(891, 528);
+			this.tabPageInventario.TabIndex = 4;
+			this.tabPageInventario.Text = "Inventario";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(224, 159);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(649, 39);
-            this.textBox2.TabIndex = 2;
-            this.textBox2.Text = resources.GetString("textBox2.Text");
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.textBox2.Location = new System.Drawing.Point(224, 159);
+			this.textBox2.Multiline = true;
+			this.textBox2.Name = "textBox2";
+			this.textBox2.ReadOnly = true;
+			this.textBox2.Size = new System.Drawing.Size(699, 39);
+			this.textBox2.TabIndex = 2;
+			this.textBox2.Text = resources.GetString("textBox2.Text");
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Location = new System.Drawing.Point(8, 149);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(871, 55);
-            this.groupBox3.TabIndex = 3;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Valore storico, ai fini degli ammortamenti";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(8, 22);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(85, 20);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Tag = "assetacquire.historicalvalue";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox3.Controls.Add(this.textBox1);
+			this.groupBox3.Location = new System.Drawing.Point(8, 149);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(871, 55);
+			this.groupBox3.TabIndex = 3;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Valore storico, ai fini degli ammortamenti";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(8, 22);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(85, 20);
+			this.textBox1.TabIndex = 1;
+			this.textBox1.Tag = "assetacquire.historicalvalue";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.txtImpTotale);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.txtImpostaTotale);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtImpConIVA);
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Controls.Add(this.txtAbatable);
-            this.groupBox1.Controls.Add(this.btnSuggerimento);
-            this.groupBox1.Location = new System.Drawing.Point(8, 210);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(874, 64);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Totali";
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(8, 16);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(88, 16);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "Imponibile";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtImpTotale
-            // 
-            this.txtImpTotale.Location = new System.Drawing.Point(8, 32);
-            this.txtImpTotale.Name = "txtImpTotale";
-            this.txtImpTotale.ReadOnly = true;
-            this.txtImpTotale.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtImpTotale.Size = new System.Drawing.Size(96, 20);
-            this.txtImpTotale.TabIndex = 5;
-            this.txtImpTotale.TabStop = false;
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(128, 16);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(88, 16);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "IVA ";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtImpostaTotale
-            // 
-            this.txtImpostaTotale.Location = new System.Drawing.Point(128, 32);
-            this.txtImpostaTotale.Name = "txtImpostaTotale";
-            this.txtImpostaTotale.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtImpostaTotale.Size = new System.Drawing.Size(96, 20);
-            this.txtImpostaTotale.TabIndex = 6;
-            this.txtImpostaTotale.Tag = "assetacquire.tax";
-            this.txtImpostaTotale.TextChanged += new System.EventHandler(this.txtImpostaTotale_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(248, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 16);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Totale";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtImpConIVA
-            // 
-            this.txtImpConIVA.Location = new System.Drawing.Point(248, 32);
-            this.txtImpConIVA.Name = "txtImpConIVA";
-            this.txtImpConIVA.ReadOnly = true;
-            this.txtImpConIVA.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtImpConIVA.Size = new System.Drawing.Size(96, 20);
-            this.txtImpConIVA.TabIndex = 8;
-            this.txtImpConIVA.TabStop = false;
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(376, 16);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(104, 16);
-            this.label14.TabIndex = 9;
-            this.label14.Text = "IVA detraibile";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtAbatable
-            // 
-            this.txtAbatable.Location = new System.Drawing.Point(376, 32);
-            this.txtAbatable.Name = "txtAbatable";
-            this.txtAbatable.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtAbatable.Size = new System.Drawing.Size(80, 20);
-            this.txtAbatable.TabIndex = 10;
-            this.txtAbatable.Tag = "assetacquire.abatable";
-            // 
-            // btnSuggerimento
-            // 
-            this.btnSuggerimento.Location = new System.Drawing.Point(488, 16);
-            this.btnSuggerimento.Name = "btnSuggerimento";
-            this.btnSuggerimento.Size = new System.Drawing.Size(161, 40);
-            this.btnSuggerimento.TabIndex = 7;
-            this.btnSuggerimento.Text = "Suggerimento su come effettuare il carico";
-            this.btnSuggerimento.Click += new System.EventHandler(this.btnSuggerimento_Click);
-            // 
-            // gboxCespiti
-            // 
-            this.gboxCespiti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox1.Controls.Add(this.label11);
+			this.groupBox1.Controls.Add(this.txtImpTotale);
+			this.groupBox1.Controls.Add(this.label9);
+			this.groupBox1.Controls.Add(this.txtImpostaTotale);
+			this.groupBox1.Controls.Add(this.label3);
+			this.groupBox1.Controls.Add(this.txtImpConIVA);
+			this.groupBox1.Controls.Add(this.label14);
+			this.groupBox1.Controls.Add(this.txtAbatable);
+			this.groupBox1.Controls.Add(this.btnSuggerimento);
+			this.groupBox1.Location = new System.Drawing.Point(8, 210);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(874, 64);
+			this.groupBox1.TabIndex = 4;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Totali";
+			// 
+			// label11
+			// 
+			this.label11.Location = new System.Drawing.Point(8, 16);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(88, 16);
+			this.label11.TabIndex = 5;
+			this.label11.Text = "Imponibile";
+			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtImpTotale
+			// 
+			this.txtImpTotale.Location = new System.Drawing.Point(8, 32);
+			this.txtImpTotale.Name = "txtImpTotale";
+			this.txtImpTotale.ReadOnly = true;
+			this.txtImpTotale.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.txtImpTotale.Size = new System.Drawing.Size(96, 20);
+			this.txtImpTotale.TabIndex = 5;
+			this.txtImpTotale.TabStop = false;
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(128, 16);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(88, 16);
+			this.label9.TabIndex = 3;
+			this.label9.Text = "IVA ";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtImpostaTotale
+			// 
+			this.txtImpostaTotale.Location = new System.Drawing.Point(128, 32);
+			this.txtImpostaTotale.Name = "txtImpostaTotale";
+			this.txtImpostaTotale.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.txtImpostaTotale.Size = new System.Drawing.Size(96, 20);
+			this.txtImpostaTotale.TabIndex = 6;
+			this.txtImpostaTotale.Tag = "assetacquire.tax";
+			this.txtImpostaTotale.TextChanged += new System.EventHandler(this.txtImpostaTotale_TextChanged);
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(248, 16);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(88, 16);
+			this.label3.TabIndex = 7;
+			this.label3.Text = "Totale";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtImpConIVA
+			// 
+			this.txtImpConIVA.Location = new System.Drawing.Point(248, 32);
+			this.txtImpConIVA.Name = "txtImpConIVA";
+			this.txtImpConIVA.ReadOnly = true;
+			this.txtImpConIVA.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.txtImpConIVA.Size = new System.Drawing.Size(96, 20);
+			this.txtImpConIVA.TabIndex = 8;
+			this.txtImpConIVA.TabStop = false;
+			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(376, 16);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(104, 16);
+			this.label14.TabIndex = 9;
+			this.label14.Text = "IVA detraibile";
+			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtAbatable
+			// 
+			this.txtAbatable.Location = new System.Drawing.Point(376, 32);
+			this.txtAbatable.Name = "txtAbatable";
+			this.txtAbatable.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.txtAbatable.Size = new System.Drawing.Size(80, 20);
+			this.txtAbatable.TabIndex = 10;
+			this.txtAbatable.Tag = "assetacquire.abatable";
+			// 
+			// btnSuggerimento
+			// 
+			this.btnSuggerimento.Location = new System.Drawing.Point(488, 16);
+			this.btnSuggerimento.Name = "btnSuggerimento";
+			this.btnSuggerimento.Size = new System.Drawing.Size(161, 40);
+			this.btnSuggerimento.TabIndex = 7;
+			this.btnSuggerimento.Text = "Suggerimento su come effettuare il carico";
+			this.btnSuggerimento.Click += new System.EventHandler(this.btnSuggerimento_Click);
+			// 
+			// gboxCespiti
+			// 
+			this.gboxCespiti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxCespiti.Controls.Add(this.btnModificaBene);
-            this.gboxCespiti.Controls.Add(this.btnCopiaBene);
-            this.gboxCespiti.Controls.Add(this.gridBene);
-            this.gboxCespiti.Location = new System.Drawing.Point(8, 280);
-            this.gboxCespiti.Name = "gboxCespiti";
-            this.gboxCespiti.Size = new System.Drawing.Size(879, 242);
-            this.gboxCespiti.TabIndex = 5;
-            this.gboxCespiti.TabStop = false;
-            this.gboxCespiti.Text = "Cespiti inventariabili";
-            // 
-            // btnModificaBene
-            // 
-            this.btnModificaBene.Location = new System.Drawing.Point(104, 20);
-            this.btnModificaBene.Name = "btnModificaBene";
-            this.btnModificaBene.Size = new System.Drawing.Size(75, 23);
-            this.btnModificaBene.TabIndex = 15;
-            this.btnModificaBene.Tag = "edit.dettaglio";
-            this.btnModificaBene.Text = "Modifica";
-            this.btnModificaBene.Click += new System.EventHandler(this.btnModificaBene_Click);
-            // 
-            // btnCopiaBene
-            // 
-            this.btnCopiaBene.Location = new System.Drawing.Point(16, 20);
-            this.btnCopiaBene.Name = "btnCopiaBene";
-            this.btnCopiaBene.Size = new System.Drawing.Size(75, 23);
-            this.btnCopiaBene.TabIndex = 14;
-            this.btnCopiaBene.Tag = "";
-            this.btnCopiaBene.Text = "Copia";
-            this.btnCopiaBene.Click += new System.EventHandler(this.btnCopiaBene_Click);
-            // 
-            // gridBene
-            // 
-            this.gridBene.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxCespiti.Controls.Add(this.btnModificaBene);
+			this.gboxCespiti.Controls.Add(this.btnCopiaBene);
+			this.gboxCespiti.Controls.Add(this.gridBene);
+			this.gboxCespiti.Location = new System.Drawing.Point(8, 280);
+			this.gboxCespiti.Name = "gboxCespiti";
+			this.gboxCespiti.Size = new System.Drawing.Size(879, 245);
+			this.gboxCespiti.TabIndex = 5;
+			this.gboxCespiti.TabStop = false;
+			this.gboxCespiti.Text = "Cespiti inventariabili";
+			// 
+			// btnModificaBene
+			// 
+			this.btnModificaBene.Location = new System.Drawing.Point(104, 20);
+			this.btnModificaBene.Name = "btnModificaBene";
+			this.btnModificaBene.Size = new System.Drawing.Size(75, 23);
+			this.btnModificaBene.TabIndex = 15;
+			this.btnModificaBene.Tag = "edit.dettaglio";
+			this.btnModificaBene.Text = "Modifica";
+			this.btnModificaBene.Click += new System.EventHandler(this.btnModificaBene_Click);
+			// 
+			// btnCopiaBene
+			// 
+			this.btnCopiaBene.Location = new System.Drawing.Point(16, 20);
+			this.btnCopiaBene.Name = "btnCopiaBene";
+			this.btnCopiaBene.Size = new System.Drawing.Size(75, 23);
+			this.btnCopiaBene.TabIndex = 14;
+			this.btnCopiaBene.Tag = "";
+			this.btnCopiaBene.Text = "Copia";
+			this.btnCopiaBene.Click += new System.EventHandler(this.btnCopiaBene_Click);
+			// 
+			// gridBene
+			// 
+			this.gridBene.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridBene.CaptionVisible = false;
-            this.gridBene.DataMember = "";
-            this.gridBene.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridBene.Location = new System.Drawing.Point(11, 49);
-            this.gridBene.Name = "gridBene";
-            this.gridBene.Size = new System.Drawing.Size(860, 187);
-            this.gridBene.TabIndex = 16;
-            this.gridBene.Tag = "asset.dettaglio.dettaglio";
-            // 
-            // grpValore
-            // 
-            this.grpValore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.gridBene.CaptionVisible = false;
+			this.gridBene.DataMember = "";
+			this.gridBene.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridBene.Location = new System.Drawing.Point(11, 49);
+			this.gridBene.Name = "gridBene";
+			this.gridBene.Size = new System.Drawing.Size(860, 190);
+			this.gridBene.TabIndex = 16;
+			this.gridBene.Tag = "asset.dettaglio.dettaglio";
+			// 
+			// grpValore
+			// 
+			this.grpValore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpValore.Controls.Add(this.textBox3);
-            this.grpValore.Controls.Add(this.txtImposta);
-            this.grpValore.Controls.Add(this.txtSconto);
-            this.grpValore.Controls.Add(this.txtQuantita);
-            this.grpValore.Controls.Add(this.label12);
-            this.grpValore.Controls.Add(this.label10);
-            this.grpValore.Controls.Add(this.label8);
-            this.grpValore.Controls.Add(this.txtImponibile);
-            this.grpValore.Controls.Add(this.label7);
-            this.grpValore.Location = new System.Drawing.Point(8, 80);
-            this.grpValore.Name = "grpValore";
-            this.grpValore.Size = new System.Drawing.Size(871, 63);
-            this.grpValore.TabIndex = 2;
-            this.grpValore.TabStop = false;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpValore.Controls.Add(this.textBox3);
+			this.grpValore.Controls.Add(this.txtImposta);
+			this.grpValore.Controls.Add(this.txtSconto);
+			this.grpValore.Controls.Add(this.txtQuantita);
+			this.grpValore.Controls.Add(this.label12);
+			this.grpValore.Controls.Add(this.label10);
+			this.grpValore.Controls.Add(this.label8);
+			this.grpValore.Controls.Add(this.txtImponibile);
+			this.grpValore.Controls.Add(this.label7);
+			this.grpValore.Location = new System.Drawing.Point(8, 80);
+			this.grpValore.Name = "grpValore";
+			this.grpValore.Size = new System.Drawing.Size(871, 63);
+			this.grpValore.TabIndex = 2;
+			this.grpValore.TabStop = false;
+			// 
+			// textBox3
+			// 
+			this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(409, 13);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(456, 40);
-            this.textBox3.TabIndex = 6;
-            this.textBox3.Text = "In caso di cespiti provenienti da altri inventari, inserire il valore residuo al " +
+			this.textBox3.Location = new System.Drawing.Point(409, 13);
+			this.textBox3.Multiline = true;
+			this.textBox3.Name = "textBox3";
+			this.textBox3.ReadOnly = true;
+			this.textBox3.Size = new System.Drawing.Size(699, 40);
+			this.textBox3.TabIndex = 6;
+			this.textBox3.Text = "In caso di cespiti provenienti da altri inventari, inserire il valore residuo al " +
     "momento del trasferimento, comprensivo di iva, tutto nella casella imponibile.";
-            // 
-            // txtImposta
-            // 
-            this.txtImposta.Location = new System.Drawing.Point(312, 32);
-            this.txtImposta.Name = "txtImposta";
-            this.txtImposta.Size = new System.Drawing.Size(80, 20);
-            this.txtImposta.TabIndex = 4;
-            this.txtImposta.Tag = "assetacquire.taxrate.fixed.4..%.100";
-            this.txtImposta.TextChanged += new System.EventHandler(this.txtImposta_TextChanged);
-            this.txtImposta.Leave += new System.EventHandler(this.txtImposta_Leave);
-            // 
-            // txtSconto
-            // 
-            this.txtSconto.Location = new System.Drawing.Point(112, 32);
-            this.txtSconto.Name = "txtSconto";
-            this.txtSconto.Size = new System.Drawing.Size(80, 20);
-            this.txtSconto.TabIndex = 2;
-            this.txtSconto.Tag = "assetacquire.discount.fixed.4..%.100";
-            this.txtSconto.TextChanged += new System.EventHandler(this.txtSconto_TextChanged);
-            this.txtSconto.Leave += new System.EventHandler(this.txtSconto_Leave);
-            // 
-            // txtQuantita
-            // 
-            this.txtQuantita.Location = new System.Drawing.Point(216, 32);
-            this.txtQuantita.Name = "txtQuantita";
-            this.txtQuantita.Size = new System.Drawing.Size(80, 20);
-            this.txtQuantita.TabIndex = 3;
-            this.txtQuantita.Tag = "assetacquire.number";
-            this.txtQuantita.TextChanged += new System.EventHandler(this.txtQuantita_TextChanged);
-            this.txtQuantita.Leave += new System.EventHandler(this.txtQuantita_Leave);
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(112, 16);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(80, 16);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "Sconto";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(216, 16);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(66, 16);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Quantità";
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(312, 16);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(72, 16);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Aliquota IVA";
-            // 
-            // txtImponibile
-            // 
-            this.txtImponibile.Location = new System.Drawing.Point(16, 32);
-            this.txtImponibile.Name = "txtImponibile";
-            this.txtImponibile.Size = new System.Drawing.Size(80, 20);
-            this.txtImponibile.TabIndex = 1;
-            this.txtImponibile.Tag = "assetacquire.taxable";
-            this.txtImponibile.TextChanged += new System.EventHandler(this.txtImponibile_TextChanged);
-            this.txtImponibile.Leave += new System.EventHandler(this.txtImponibile_Leave);
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(16, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(64, 16);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Imponibile";
-            // 
-            // grpInventario
-            // 
-            this.grpInventario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// txtImposta
+			// 
+			this.txtImposta.Location = new System.Drawing.Point(312, 32);
+			this.txtImposta.Name = "txtImposta";
+			this.txtImposta.Size = new System.Drawing.Size(80, 20);
+			this.txtImposta.TabIndex = 4;
+			this.txtImposta.Tag = "assetacquire.taxrate.fixed.4..%.100";
+			this.txtImposta.TextChanged += new System.EventHandler(this.txtImposta_TextChanged);
+			this.txtImposta.Leave += new System.EventHandler(this.txtImposta_Leave);
+			// 
+			// txtSconto
+			// 
+			this.txtSconto.Location = new System.Drawing.Point(112, 32);
+			this.txtSconto.Name = "txtSconto";
+			this.txtSconto.Size = new System.Drawing.Size(80, 20);
+			this.txtSconto.TabIndex = 2;
+			this.txtSconto.Tag = "assetacquire.discount.fixed.4..%.100";
+			this.txtSconto.TextChanged += new System.EventHandler(this.txtSconto_TextChanged);
+			this.txtSconto.Leave += new System.EventHandler(this.txtSconto_Leave);
+			// 
+			// txtQuantita
+			// 
+			this.txtQuantita.Location = new System.Drawing.Point(216, 32);
+			this.txtQuantita.Name = "txtQuantita";
+			this.txtQuantita.Size = new System.Drawing.Size(80, 20);
+			this.txtQuantita.TabIndex = 3;
+			this.txtQuantita.Tag = "assetacquire.number";
+			this.txtQuantita.TextChanged += new System.EventHandler(this.txtQuantita_TextChanged);
+			this.txtQuantita.Leave += new System.EventHandler(this.txtQuantita_Leave);
+			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(112, 16);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(80, 16);
+			this.label12.TabIndex = 6;
+			this.label12.Text = "Sconto";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label10
+			// 
+			this.label10.Location = new System.Drawing.Point(216, 16);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(66, 16);
+			this.label10.TabIndex = 4;
+			this.label10.Text = "Quantità";
+			// 
+			// label8
+			// 
+			this.label8.Location = new System.Drawing.Point(312, 16);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(72, 16);
+			this.label8.TabIndex = 2;
+			this.label8.Text = "Aliquota IVA";
+			// 
+			// txtImponibile
+			// 
+			this.txtImponibile.Location = new System.Drawing.Point(16, 32);
+			this.txtImponibile.Name = "txtImponibile";
+			this.txtImponibile.Size = new System.Drawing.Size(80, 20);
+			this.txtImponibile.TabIndex = 1;
+			this.txtImponibile.Tag = "assetacquire.taxable";
+			this.txtImponibile.TextChanged += new System.EventHandler(this.txtImponibile_TextChanged);
+			this.txtImponibile.Leave += new System.EventHandler(this.txtImponibile_Leave);
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(16, 16);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(64, 16);
+			this.label7.TabIndex = 0;
+			this.label7.Text = "Imponibile";
+			// 
+			// grpInventario
+			// 
+			this.grpInventario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpInventario.Controls.Add(this.btnNumInventario);
-            this.grpInventario.Controls.Add(this.txtNumIniz);
-            this.grpInventario.Controls.Add(this.cboInventario);
-            this.grpInventario.Controls.Add(this.label13);
-            this.grpInventario.Controls.Add(this.chkAuto);
-            this.grpInventario.Location = new System.Drawing.Point(8, 0);
-            this.grpInventario.Name = "grpInventario";
-            this.grpInventario.Size = new System.Drawing.Size(871, 75);
-            this.grpInventario.TabIndex = 1;
-            this.grpInventario.TabStop = false;
-            this.grpInventario.Text = "Inventario";
-            // 
-            // btnNumInventario
-            // 
-            this.btnNumInventario.Location = new System.Drawing.Point(19, 45);
-            this.btnNumInventario.Name = "btnNumInventario";
-            this.btnNumInventario.Size = new System.Drawing.Size(85, 24);
-            this.btnNumInventario.TabIndex = 4;
-            this.btnNumInventario.TabStop = false;
-            this.btnNumInventario.Text = "N. iniziale";
-            this.btnNumInventario.Click += new System.EventHandler(this.btnNumInventario_Click);
-            // 
-            // txtNumIniz
-            // 
-            this.txtNumIniz.Location = new System.Drawing.Point(110, 45);
-            this.txtNumIniz.Name = "txtNumIniz";
-            this.txtNumIniz.Size = new System.Drawing.Size(88, 20);
-            this.txtNumIniz.TabIndex = 2;
-            this.txtNumIniz.Tag = "assetacquire.startnumber";
-            // 
-            // cboInventario
-            // 
-            this.cboInventario.DataSource = this.DS.inventory;
-            this.cboInventario.DisplayMember = "description";
-            this.cboInventario.Location = new System.Drawing.Point(112, 16);
-            this.cboInventario.Name = "cboInventario";
-            this.cboInventario.Size = new System.Drawing.Size(328, 21);
-            this.cboInventario.TabIndex = 1;
-            this.cboInventario.Tag = "assetacquire.idinventory.(active=\'S\')?assetacquireview.idinventory";
-            this.cboInventario.ValueMember = "idinventory";
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(16, 16);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(88, 16);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "Inventario";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // chkAuto
-            // 
-            this.chkAuto.Checked = true;
-            this.chkAuto.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAuto.Location = new System.Drawing.Point(251, 45);
-            this.chkAuto.Name = "chkAuto";
-            this.chkAuto.Size = new System.Drawing.Size(347, 24);
-            this.chkAuto.TabIndex = 3;
-            this.chkAuto.Text = "Assegnazione in automatico del numero di inventario";
-            this.chkAuto.CheckedChanged += new System.EventHandler(this.chkAuto_CheckedChanged);
-            // 
-            // tabPageUtilizzo
-            // 
-            this.tabPageUtilizzo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpInventario.Controls.Add(this.btnNumInventario);
+			this.grpInventario.Controls.Add(this.txtNumIniz);
+			this.grpInventario.Controls.Add(this.cboInventario);
+			this.grpInventario.Controls.Add(this.label13);
+			this.grpInventario.Controls.Add(this.chkAuto);
+			this.grpInventario.Location = new System.Drawing.Point(8, 0);
+			this.grpInventario.Name = "grpInventario";
+			this.grpInventario.Size = new System.Drawing.Size(871, 75);
+			this.grpInventario.TabIndex = 1;
+			this.grpInventario.TabStop = false;
+			this.grpInventario.Text = "Inventario";
+			// 
+			// btnNumInventario
+			// 
+			this.btnNumInventario.Location = new System.Drawing.Point(19, 45);
+			this.btnNumInventario.Name = "btnNumInventario";
+			this.btnNumInventario.Size = new System.Drawing.Size(85, 24);
+			this.btnNumInventario.TabIndex = 4;
+			this.btnNumInventario.TabStop = false;
+			this.btnNumInventario.Text = "N. iniziale";
+			this.btnNumInventario.Click += new System.EventHandler(this.btnNumInventario_Click);
+			// 
+			// txtNumIniz
+			// 
+			this.txtNumIniz.Location = new System.Drawing.Point(110, 45);
+			this.txtNumIniz.Name = "txtNumIniz";
+			this.txtNumIniz.Size = new System.Drawing.Size(88, 20);
+			this.txtNumIniz.TabIndex = 2;
+			this.txtNumIniz.Tag = "assetacquire.startnumber";
+			// 
+			// cboInventario
+			// 
+			this.cboInventario.DataSource = this.DS.inventory;
+			this.cboInventario.DisplayMember = "description";
+			this.cboInventario.Location = new System.Drawing.Point(112, 16);
+			this.cboInventario.Name = "cboInventario";
+			this.cboInventario.Size = new System.Drawing.Size(328, 21);
+			this.cboInventario.TabIndex = 1;
+			this.cboInventario.Tag = "assetacquire.idinventory.(active=\'S\')?assetacquireview.idinventory";
+			this.cboInventario.ValueMember = "idinventory";
+			// 
+			// label13
+			// 
+			this.label13.Location = new System.Drawing.Point(16, 16);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(88, 16);
+			this.label13.TabIndex = 1;
+			this.label13.Text = "Inventario";
+			this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// chkAuto
+			// 
+			this.chkAuto.Checked = true;
+			this.chkAuto.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkAuto.Location = new System.Drawing.Point(251, 45);
+			this.chkAuto.Name = "chkAuto";
+			this.chkAuto.Size = new System.Drawing.Size(347, 24);
+			this.chkAuto.TabIndex = 3;
+			this.chkAuto.Text = "Assegnazione in automatico del numero di inventario";
+			this.chkAuto.CheckedChanged += new System.EventHandler(this.chkAuto_CheckedChanged);
+			// 
+			// tabPageUtilizzo
+			// 
+			this.tabPageUtilizzo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPageUtilizzo.Controls.Add(this.btnInserisciQuota);
-            this.tabPageUtilizzo.Controls.Add(this.btnEliminaQuota);
-            this.tabPageUtilizzo.Controls.Add(this.btnModificaQuota);
-            this.tabPageUtilizzo.Controls.Add(this.gridQuota);
-            this.tabPageUtilizzo.Location = new System.Drawing.Point(4, 22);
-            this.tabPageUtilizzo.Name = "tabPageUtilizzo";
-            this.tabPageUtilizzo.Size = new System.Drawing.Size(891, 528);
-            this.tabPageUtilizzo.TabIndex = 5;
-            this.tabPageUtilizzo.Text = "Utilizzo";
-            // 
-            // btnInserisciQuota
-            // 
-            this.btnInserisciQuota.Location = new System.Drawing.Point(8, 16);
-            this.btnInserisciQuota.Name = "btnInserisciQuota";
-            this.btnInserisciQuota.Size = new System.Drawing.Size(75, 24);
-            this.btnInserisciQuota.TabIndex = 0;
-            this.btnInserisciQuota.Tag = "insert.dettaglioquota";
-            this.btnInserisciQuota.Text = "Inserisci";
-            // 
-            // btnEliminaQuota
-            // 
-            this.btnEliminaQuota.Location = new System.Drawing.Point(8, 80);
-            this.btnEliminaQuota.Name = "btnEliminaQuota";
-            this.btnEliminaQuota.Size = new System.Drawing.Size(75, 24);
-            this.btnEliminaQuota.TabIndex = 2;
-            this.btnEliminaQuota.Tag = "delete";
-            this.btnEliminaQuota.Text = "Elimina";
-            // 
-            // btnModificaQuota
-            // 
-            this.btnModificaQuota.Location = new System.Drawing.Point(8, 48);
-            this.btnModificaQuota.Name = "btnModificaQuota";
-            this.btnModificaQuota.Size = new System.Drawing.Size(75, 24);
-            this.btnModificaQuota.TabIndex = 1;
-            this.btnModificaQuota.Tag = "edit.dettaglioquota";
-            this.btnModificaQuota.Text = "Modifica";
-            // 
-            // gridQuota
-            // 
-            this.gridQuota.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabPageUtilizzo.Controls.Add(this.btnInserisciQuota);
+			this.tabPageUtilizzo.Controls.Add(this.btnEliminaQuota);
+			this.tabPageUtilizzo.Controls.Add(this.btnModificaQuota);
+			this.tabPageUtilizzo.Controls.Add(this.gridQuota);
+			this.tabPageUtilizzo.Location = new System.Drawing.Point(4, 22);
+			this.tabPageUtilizzo.Name = "tabPageUtilizzo";
+			this.tabPageUtilizzo.Size = new System.Drawing.Size(192, 74);
+			this.tabPageUtilizzo.TabIndex = 5;
+			this.tabPageUtilizzo.Text = "Utilizzo";
+			// 
+			// btnInserisciQuota
+			// 
+			this.btnInserisciQuota.Location = new System.Drawing.Point(8, 16);
+			this.btnInserisciQuota.Name = "btnInserisciQuota";
+			this.btnInserisciQuota.Size = new System.Drawing.Size(75, 24);
+			this.btnInserisciQuota.TabIndex = 0;
+			this.btnInserisciQuota.Tag = "insert.dettaglioquota";
+			this.btnInserisciQuota.Text = "Inserisci";
+			// 
+			// btnEliminaQuota
+			// 
+			this.btnEliminaQuota.Location = new System.Drawing.Point(8, 80);
+			this.btnEliminaQuota.Name = "btnEliminaQuota";
+			this.btnEliminaQuota.Size = new System.Drawing.Size(75, 24);
+			this.btnEliminaQuota.TabIndex = 2;
+			this.btnEliminaQuota.Tag = "delete";
+			this.btnEliminaQuota.Text = "Elimina";
+			// 
+			// btnModificaQuota
+			// 
+			this.btnModificaQuota.Location = new System.Drawing.Point(8, 48);
+			this.btnModificaQuota.Name = "btnModificaQuota";
+			this.btnModificaQuota.Size = new System.Drawing.Size(75, 24);
+			this.btnModificaQuota.TabIndex = 1;
+			this.btnModificaQuota.Tag = "edit.dettaglioquota";
+			this.btnModificaQuota.Text = "Modifica";
+			// 
+			// gridQuota
+			// 
+			this.gridQuota.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.gridQuota.CaptionVisible = false;
-            this.gridQuota.DataMember = "";
-            this.gridQuota.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridQuota.Location = new System.Drawing.Point(88, 16);
-            this.gridQuota.Name = "gridQuota";
-            this.gridQuota.Size = new System.Drawing.Size(788, 500);
-            this.gridQuota.TabIndex = 3;
-            this.gridQuota.Tag = "assetusage.dettaglioquota.dettaglioquota";
-            // 
-            // tabPageEP
-            // 
-            this.tabPageEP.Controls.Add(this.gboxUPB);
-            this.tabPageEP.Controls.Add(this.grpAnalitico);
-            this.tabPageEP.Location = new System.Drawing.Point(4, 22);
-            this.tabPageEP.Name = "tabPageEP";
-            this.tabPageEP.Size = new System.Drawing.Size(891, 528);
-            this.tabPageEP.TabIndex = 6;
-            this.tabPageEP.Text = "   E/P   ";
-            // 
-            // gboxUPB
-            // 
-            this.gboxUPB.Controls.Add(this.txtUPB);
-            this.gboxUPB.Controls.Add(this.txtDescrUPB);
-            this.gboxUPB.Controls.Add(this.btnUPBCode);
-            this.gboxUPB.Location = new System.Drawing.Point(18, 3);
-            this.gboxUPB.Name = "gboxUPB";
-            this.gboxUPB.Size = new System.Drawing.Size(459, 104);
-            this.gboxUPB.TabIndex = 9;
-            this.gboxUPB.TabStop = false;
-            this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
-            // 
-            // txtUPB
-            // 
-            this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.gridQuota.CaptionVisible = false;
+			this.gridQuota.DataMember = "";
+			this.gridQuota.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridQuota.Location = new System.Drawing.Point(88, 16);
+			this.gridQuota.Name = "gridQuota";
+			this.gridQuota.Size = new System.Drawing.Size(788, 46);
+			this.gridQuota.TabIndex = 3;
+			this.gridQuota.Tag = "assetusage.dettaglioquota.dettaglioquota";
+			// 
+			// tabPageEP
+			// 
+			this.tabPageEP.Controls.Add(this.gboxUPB);
+			this.tabPageEP.Controls.Add(this.grpAnalitico);
+			this.tabPageEP.Location = new System.Drawing.Point(4, 22);
+			this.tabPageEP.Name = "tabPageEP";
+			this.tabPageEP.Size = new System.Drawing.Size(192, 74);
+			this.tabPageEP.TabIndex = 6;
+			this.tabPageEP.Text = "   E/P   ";
+			// 
+			// gboxUPB
+			// 
+			this.gboxUPB.Controls.Add(this.txtUPB);
+			this.gboxUPB.Controls.Add(this.txtDescrUPB);
+			this.gboxUPB.Controls.Add(this.btnUPBCode);
+			this.gboxUPB.Location = new System.Drawing.Point(8, 3);
+			this.gboxUPB.Name = "gboxUPB";
+			this.gboxUPB.Size = new System.Drawing.Size(459, 104);
+			this.gboxUPB.TabIndex = 9;
+			this.gboxUPB.TabStop = false;
+			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
+			// 
+			// txtUPB
+			// 
+			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUPB.Location = new System.Drawing.Point(8, 77);
-            this.txtUPB.Name = "txtUPB";
-            this.txtUPB.Size = new System.Drawing.Size(445, 20);
-            this.txtUPB.TabIndex = 5;
-            this.txtUPB.Tag = "upb.codeupb?x";
-            // 
-            // txtDescrUPB
-            // 
-            this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtUPB.Location = new System.Drawing.Point(8, 77);
+			this.txtUPB.Name = "txtUPB";
+			this.txtUPB.Size = new System.Drawing.Size(445, 20);
+			this.txtUPB.TabIndex = 5;
+			this.txtUPB.Tag = "upb.codeupb?x";
+			// 
+			// txtDescrUPB
+			// 
+			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrUPB.Location = new System.Drawing.Point(141, 9);
-            this.txtDescrUPB.Multiline = true;
-            this.txtDescrUPB.Name = "txtDescrUPB";
-            this.txtDescrUPB.ReadOnly = true;
-            this.txtDescrUPB.Size = new System.Drawing.Size(312, 62);
-            this.txtDescrUPB.TabIndex = 4;
-            this.txtDescrUPB.TabStop = false;
-            this.txtDescrUPB.Tag = "upb.title";
-            // 
-            // btnUPBCode
-            // 
-            this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
-            this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
-            this.btnUPBCode.Name = "btnUPBCode";
-            this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
-            this.btnUPBCode.TabIndex = 2;
-            this.btnUPBCode.TabStop = false;
-            this.btnUPBCode.Tag = "manage.upb.tree";
-            this.btnUPBCode.Text = "UPB:";
-            this.btnUPBCode.UseVisualStyleBackColor = false;
-            // 
-            // grpAnalitico
-            // 
-            this.grpAnalitico.Controls.Add(this.gboxclass3);
-            this.grpAnalitico.Controls.Add(this.gboxclass2);
-            this.grpAnalitico.Controls.Add(this.gboxclass1);
-            this.grpAnalitico.Location = new System.Drawing.Point(18, 113);
-            this.grpAnalitico.Name = "grpAnalitico";
-            this.grpAnalitico.Size = new System.Drawing.Size(459, 313);
-            this.grpAnalitico.TabIndex = 7;
-            this.grpAnalitico.TabStop = false;
-            this.grpAnalitico.Text = "Analitico";
-            // 
-            // gboxclass3
-            // 
-            this.gboxclass3.Controls.Add(this.btnCodice3);
-            this.gboxclass3.Controls.Add(this.txtDenom3);
-            this.gboxclass3.Controls.Add(this.txtCodice3);
-            this.gboxclass3.Location = new System.Drawing.Point(8, 219);
-            this.gboxclass3.Name = "gboxclass3";
-            this.gboxclass3.Size = new System.Drawing.Size(433, 85);
-            this.gboxclass3.TabIndex = 9;
-            this.gboxclass3.TabStop = false;
-            this.gboxclass3.Tag = "AutoManage.txtCodice.treeclassmovimenti";
-            this.gboxclass3.Text = "Classificazione 3";
-            // 
-            // btnCodice3
-            // 
-            this.btnCodice3.Location = new System.Drawing.Point(8, 30);
-            this.btnCodice3.Name = "btnCodice3";
-            this.btnCodice3.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice3.TabIndex = 4;
-            this.btnCodice3.Tag = "manage.sorting3.tree";
-            this.btnCodice3.Text = "Codice";
-            this.btnCodice3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom3
-            // 
-            this.txtDenom3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDescrUPB.Location = new System.Drawing.Point(141, 9);
+			this.txtDescrUPB.Multiline = true;
+			this.txtDescrUPB.Name = "txtDescrUPB";
+			this.txtDescrUPB.ReadOnly = true;
+			this.txtDescrUPB.Size = new System.Drawing.Size(312, 62);
+			this.txtDescrUPB.TabIndex = 4;
+			this.txtDescrUPB.TabStop = false;
+			this.txtDescrUPB.Tag = "upb.title";
+			// 
+			// btnUPBCode
+			// 
+			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
+			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
+			this.btnUPBCode.Name = "btnUPBCode";
+			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
+			this.btnUPBCode.TabIndex = 2;
+			this.btnUPBCode.TabStop = false;
+			this.btnUPBCode.Tag = "manage.upb.tree";
+			this.btnUPBCode.Text = "UPB:";
+			this.btnUPBCode.UseVisualStyleBackColor = false;
+			// 
+			// grpAnalitico
+			// 
+			this.grpAnalitico.Controls.Add(this.grpRipartizione);
+			this.grpAnalitico.Controls.Add(this.btnRipartizione);
+			this.grpAnalitico.Controls.Add(this.gboxclass3);
+			this.grpAnalitico.Controls.Add(this.gboxclass2);
+			this.grpAnalitico.Controls.Add(this.gboxclass1);
+			this.grpAnalitico.Location = new System.Drawing.Point(8, 113);
+			this.grpAnalitico.Name = "grpAnalitico";
+			this.grpAnalitico.Size = new System.Drawing.Size(880, 412);
+			this.grpAnalitico.TabIndex = 7;
+			this.grpAnalitico.TabStop = false;
+			this.grpAnalitico.Text = "Analitico";
+			// 
+			// grpRipartizione
+			// 
+			this.grpRipartizione.Controls.Add(this.btnCodRipartizione);
+			this.grpRipartizione.Controls.Add(this.txtCostpartitionTitle);
+			this.grpRipartizione.Controls.Add(this.txtCostpartitionCode);
+			this.grpRipartizione.Location = new System.Drawing.Point(453, 20);
+			this.grpRipartizione.Name = "grpRipartizione";
+			this.grpRipartizione.Size = new System.Drawing.Size(421, 89);
+			this.grpRipartizione.TabIndex = 58;
+			this.grpRipartizione.TabStop = false;
+			this.grpRipartizione.Tag = "AutoChoose.txtCostpartitionCode.default.(active=\'S\')";
+			this.grpRipartizione.Text = "Ripartizione dei Costi";
+			// 
+			// btnCodRipartizione
+			// 
+			this.btnCodRipartizione.Location = new System.Drawing.Point(8, 37);
+			this.btnCodRipartizione.Name = "btnCodRipartizione";
+			this.btnCodRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnCodRipartizione.TabIndex = 4;
+			this.btnCodRipartizione.Tag = "choose.costpartition.default.(active=\'S\')";
+			this.btnCodRipartizione.Text = "Codice";
+			this.btnCodRipartizione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtCostpartitionTitle
+			// 
+			this.txtCostpartitionTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCostpartitionTitle.Location = new System.Drawing.Point(150, 8);
+			this.txtCostpartitionTitle.Multiline = true;
+			this.txtCostpartitionTitle.Name = "txtCostpartitionTitle";
+			this.txtCostpartitionTitle.ReadOnly = true;
+			this.txtCostpartitionTitle.Size = new System.Drawing.Size(263, 52);
+			this.txtCostpartitionTitle.TabIndex = 3;
+			this.txtCostpartitionTitle.TabStop = false;
+			this.txtCostpartitionTitle.Tag = "costpartition.title";
+			// 
+			// txtCostpartitionCode
+			// 
+			this.txtCostpartitionCode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCostpartitionCode.Location = new System.Drawing.Point(8, 63);
+			this.txtCostpartitionCode.Name = "txtCostpartitionCode";
+			this.txtCostpartitionCode.Size = new System.Drawing.Size(405, 20);
+			this.txtCostpartitionCode.TabIndex = 2;
+			this.txtCostpartitionCode.Tag = "costpartition.costpartitioncode?x";
+			// 
+			// btnRipartizione
+			// 
+			this.btnRipartizione.Location = new System.Drawing.Point(461, 157);
+			this.btnRipartizione.Name = "btnRipartizione";
+			this.btnRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnRipartizione.TabIndex = 57;
+			this.btnRipartizione.Text = "Ripartizione";
+			this.btnRipartizione.Click += new System.EventHandler(this.btnRipartizione_Click);
+			// 
+			// gboxclass3
+			// 
+			this.gboxclass3.Controls.Add(this.btnCodice3);
+			this.gboxclass3.Controls.Add(this.txtDenom3);
+			this.gboxclass3.Controls.Add(this.txtCodice3);
+			this.gboxclass3.Location = new System.Drawing.Point(8, 233);
+			this.gboxclass3.Name = "gboxclass3";
+			this.gboxclass3.Size = new System.Drawing.Size(425, 85);
+			this.gboxclass3.TabIndex = 9;
+			this.gboxclass3.TabStop = false;
+			this.gboxclass3.Tag = "AutoManage.txtCodice.treeclassmovimenti";
+			this.gboxclass3.Text = "Classificazione 3";
+			// 
+			// btnCodice3
+			// 
+			this.btnCodice3.Location = new System.Drawing.Point(8, 30);
+			this.btnCodice3.Name = "btnCodice3";
+			this.btnCodice3.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice3.TabIndex = 4;
+			this.btnCodice3.Tag = "manage.sorting3.tree";
+			this.btnCodice3.Text = "Codice";
+			this.btnCodice3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom3
+			// 
+			this.txtDenom3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom3.Location = new System.Drawing.Point(133, 14);
-            this.txtDenom3.Multiline = true;
-            this.txtDenom3.Name = "txtDenom3";
-            this.txtDenom3.ReadOnly = true;
-            this.txtDenom3.Size = new System.Drawing.Size(292, 39);
-            this.txtDenom3.TabIndex = 3;
-            this.txtDenom3.TabStop = false;
-            this.txtDenom3.Tag = "sorting3.description";
-            // 
-            // txtCodice3
-            // 
-            this.txtCodice3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom3.Location = new System.Drawing.Point(133, 14);
+			this.txtDenom3.Multiline = true;
+			this.txtDenom3.Name = "txtDenom3";
+			this.txtDenom3.ReadOnly = true;
+			this.txtDenom3.Size = new System.Drawing.Size(284, 39);
+			this.txtDenom3.TabIndex = 3;
+			this.txtDenom3.TabStop = false;
+			this.txtDenom3.Tag = "sorting3.description";
+			// 
+			// txtCodice3
+			// 
+			this.txtCodice3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtCodice3.Location = new System.Drawing.Point(8, 59);
-            this.txtCodice3.Name = "txtCodice3";
-            this.txtCodice3.Size = new System.Drawing.Size(419, 20);
-            this.txtCodice3.TabIndex = 4;
-            this.txtCodice3.Tag = "sorting3.sortcode?x";
-            // 
-            // gboxclass2
-            // 
-            this.gboxclass2.Controls.Add(this.btnCodice2);
-            this.gboxclass2.Controls.Add(this.txtDenom2);
-            this.gboxclass2.Controls.Add(this.txtCodice2);
-            this.gboxclass2.Location = new System.Drawing.Point(8, 115);
-            this.gboxclass2.Name = "gboxclass2";
-            this.gboxclass2.Size = new System.Drawing.Size(433, 89);
-            this.gboxclass2.TabIndex = 8;
-            this.gboxclass2.TabStop = false;
-            this.gboxclass2.Tag = "AutoManage.txtCodice.treeclassmovimenti";
-            this.gboxclass2.Text = "Classificazione 2";
-            // 
-            // btnCodice2
-            // 
-            this.btnCodice2.Location = new System.Drawing.Point(8, 34);
-            this.btnCodice2.Name = "btnCodice2";
-            this.btnCodice2.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice2.TabIndex = 4;
-            this.btnCodice2.Tag = "manage.sorting2.tree";
-            this.btnCodice2.Text = "Codice";
-            this.btnCodice2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom2
-            // 
-            this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtCodice3.Location = new System.Drawing.Point(8, 59);
+			this.txtCodice3.Name = "txtCodice3";
+			this.txtCodice3.Size = new System.Drawing.Size(413, 20);
+			this.txtCodice3.TabIndex = 4;
+			this.txtCodice3.Tag = "sorting3.sortcode?x";
+			// 
+			// gboxclass2
+			// 
+			this.gboxclass2.Controls.Add(this.btnCodice2);
+			this.gboxclass2.Controls.Add(this.txtDenom2);
+			this.gboxclass2.Controls.Add(this.txtCodice2);
+			this.gboxclass2.Location = new System.Drawing.Point(8, 124);
+			this.gboxclass2.Name = "gboxclass2";
+			this.gboxclass2.Size = new System.Drawing.Size(425, 89);
+			this.gboxclass2.TabIndex = 8;
+			this.gboxclass2.TabStop = false;
+			this.gboxclass2.Tag = "AutoManage.txtCodice.treeclassmovimenti";
+			this.gboxclass2.Text = "Classificazione 2";
+			// 
+			// btnCodice2
+			// 
+			this.btnCodice2.Location = new System.Drawing.Point(8, 34);
+			this.btnCodice2.Name = "btnCodice2";
+			this.btnCodice2.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice2.TabIndex = 4;
+			this.btnCodice2.Tag = "manage.sorting2.tree";
+			this.btnCodice2.Text = "Codice";
+			this.btnCodice2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom2
+			// 
+			this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom2.Location = new System.Drawing.Point(133, 14);
-            this.txtDenom2.Multiline = true;
-            this.txtDenom2.Name = "txtDenom2";
-            this.txtDenom2.ReadOnly = true;
-            this.txtDenom2.Size = new System.Drawing.Size(292, 46);
-            this.txtDenom2.TabIndex = 3;
-            this.txtDenom2.TabStop = false;
-            this.txtDenom2.Tag = "sorting2.description";
-            // 
-            // txtCodice2
-            // 
-            this.txtCodice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom2.Location = new System.Drawing.Point(133, 14);
+			this.txtDenom2.Multiline = true;
+			this.txtDenom2.Name = "txtDenom2";
+			this.txtDenom2.ReadOnly = true;
+			this.txtDenom2.Size = new System.Drawing.Size(284, 46);
+			this.txtDenom2.TabIndex = 3;
+			this.txtDenom2.TabStop = false;
+			this.txtDenom2.Tag = "sorting2.description";
+			// 
+			// txtCodice2
+			// 
+			this.txtCodice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtCodice2.Location = new System.Drawing.Point(8, 63);
-            this.txtCodice2.Name = "txtCodice2";
-            this.txtCodice2.Size = new System.Drawing.Size(417, 20);
-            this.txtCodice2.TabIndex = 2;
-            this.txtCodice2.Tag = "sorting2.sortcode?x";
-            // 
-            // gboxclass1
-            // 
-            this.gboxclass1.Controls.Add(this.btnCodice1);
-            this.gboxclass1.Controls.Add(this.txtDenom1);
-            this.gboxclass1.Controls.Add(this.txtCodice1);
-            this.gboxclass1.Location = new System.Drawing.Point(8, 20);
-            this.gboxclass1.Name = "gboxclass1";
-            this.gboxclass1.Size = new System.Drawing.Size(433, 89);
-            this.gboxclass1.TabIndex = 7;
-            this.gboxclass1.TabStop = false;
-            this.gboxclass1.Tag = "AutoManage.txtCodice.treeclassmovimenti";
-            this.gboxclass1.Text = "Classificazione 1";
-            // 
-            // btnCodice1
-            // 
-            this.btnCodice1.Location = new System.Drawing.Point(8, 37);
-            this.btnCodice1.Name = "btnCodice1";
-            this.btnCodice1.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice1.TabIndex = 4;
-            this.btnCodice1.Tag = "manage.sorting1.tree";
-            this.btnCodice1.Text = "Codice";
-            this.btnCodice1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom1
-            // 
-            this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtCodice2.Location = new System.Drawing.Point(8, 63);
+			this.txtCodice2.Name = "txtCodice2";
+			this.txtCodice2.Size = new System.Drawing.Size(411, 20);
+			this.txtCodice2.TabIndex = 2;
+			this.txtCodice2.Tag = "sorting2.sortcode?x";
+			// 
+			// gboxclass1
+			// 
+			this.gboxclass1.Controls.Add(this.btnCodice1);
+			this.gboxclass1.Controls.Add(this.txtDenom1);
+			this.gboxclass1.Controls.Add(this.txtCodice1);
+			this.gboxclass1.Location = new System.Drawing.Point(8, 20);
+			this.gboxclass1.Name = "gboxclass1";
+			this.gboxclass1.Size = new System.Drawing.Size(425, 89);
+			this.gboxclass1.TabIndex = 7;
+			this.gboxclass1.TabStop = false;
+			this.gboxclass1.Tag = "AutoManage.txtCodice.treeclassmovimenti";
+			this.gboxclass1.Text = "Classificazione 1";
+			// 
+			// btnCodice1
+			// 
+			this.btnCodice1.Location = new System.Drawing.Point(8, 37);
+			this.btnCodice1.Name = "btnCodice1";
+			this.btnCodice1.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice1.TabIndex = 4;
+			this.btnCodice1.Tag = "manage.sorting1.tree";
+			this.btnCodice1.Text = "Codice";
+			this.btnCodice1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom1
+			// 
+			this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom1.Location = new System.Drawing.Point(133, 12);
-            this.txtDenom1.Multiline = true;
-            this.txtDenom1.Name = "txtDenom1";
-            this.txtDenom1.ReadOnly = true;
-            this.txtDenom1.Size = new System.Drawing.Size(292, 48);
-            this.txtDenom1.TabIndex = 3;
-            this.txtDenom1.TabStop = false;
-            this.txtDenom1.Tag = "sorting1.description";
-            // 
-            // txtCodice1
-            // 
-            this.txtCodice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom1.Location = new System.Drawing.Point(133, 12);
+			this.txtDenom1.Multiline = true;
+			this.txtDenom1.Name = "txtDenom1";
+			this.txtDenom1.ReadOnly = true;
+			this.txtDenom1.Size = new System.Drawing.Size(284, 48);
+			this.txtDenom1.TabIndex = 3;
+			this.txtDenom1.TabStop = false;
+			this.txtDenom1.Tag = "sorting1.description";
+			// 
+			// txtCodice1
+			// 
+			this.txtCodice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtCodice1.Location = new System.Drawing.Point(8, 63);
-            this.txtCodice1.Name = "txtCodice1";
-            this.txtCodice1.Size = new System.Drawing.Size(417, 20);
-            this.txtCodice1.TabIndex = 2;
-            this.txtCodice1.Tag = "sorting1.sortcode?x";
-            // 
-            // Frm_assetacquire_default
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(911, 563);
-            this.Controls.Add(this.tabCaricoBeni);
-            this.Name = "Frm_assetacquire_default";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Frm_assetacquire_default";
-            this.Load += new System.EventHandler(this.Frm_assetacquire_default_Load);
-            this.tabCaricoBeni.ResumeLayout(false);
-            this.tabPageOperazioni.ResumeLayout(false);
-            this.tabPageOperazioni.PerformLayout();
-            this.gboxListino.ResumeLayout(false);
-            this.gboxListino.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.grpClassif.ResumeLayout(false);
-            this.grpClassif.PerformLayout();
-            this.grpCredDeb.ResumeLayout(false);
-            this.grpCredDeb.PerformLayout();
-            this.grpTipoCarico.ResumeLayout(false);
-            this.grpRigaFattura.ResumeLayout(false);
-            this.grpRigaFattura.PerformLayout();
-            this.grpBuonoInv.ResumeLayout(false);
-            this.grpBuonoInv.PerformLayout();
-            this.grpRiga.ResumeLayout(false);
-            this.grpRiga.PerformLayout();
-            this.tabPageInventario.ResumeLayout(false);
-            this.tabPageInventario.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.gboxCespiti.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridBene)).EndInit();
-            this.grpValore.ResumeLayout(false);
-            this.grpValore.PerformLayout();
-            this.grpInventario.ResumeLayout(false);
-            this.grpInventario.PerformLayout();
-            this.tabPageUtilizzo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridQuota)).EndInit();
-            this.tabPageEP.ResumeLayout(false);
-            this.gboxUPB.ResumeLayout(false);
-            this.gboxUPB.PerformLayout();
-            this.grpAnalitico.ResumeLayout(false);
-            this.gboxclass3.ResumeLayout(false);
-            this.gboxclass3.PerformLayout();
-            this.gboxclass2.ResumeLayout(false);
-            this.gboxclass2.PerformLayout();
-            this.gboxclass1.ResumeLayout(false);
-            this.gboxclass1.PerformLayout();
-            this.ResumeLayout(false);
+			this.txtCodice1.Location = new System.Drawing.Point(8, 63);
+			this.txtCodice1.Name = "txtCodice1";
+			this.txtCodice1.Size = new System.Drawing.Size(411, 20);
+			this.txtCodice1.TabIndex = 2;
+			this.txtCodice1.Tag = "sorting1.sortcode?x";
+			// 
+			// Frm_assetacquire_default
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(911, 563);
+			this.Controls.Add(this.tabCaricoBeni);
+			this.Name = "Frm_assetacquire_default";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "Frm_assetacquire_default";
+			this.Load += new System.EventHandler(this.Frm_assetacquire_default_Load);
+			this.tabCaricoBeni.ResumeLayout(false);
+			this.tabPageOperazioni.ResumeLayout(false);
+			this.tabPageOperazioni.PerformLayout();
+			this.gboxListino.ResumeLayout(false);
+			this.gboxListino.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.grpClassif.ResumeLayout(false);
+			this.grpClassif.PerformLayout();
+			this.grpCredDeb.ResumeLayout(false);
+			this.grpCredDeb.PerformLayout();
+			this.grpTipoCarico.ResumeLayout(false);
+			this.grpRigaFattura.ResumeLayout(false);
+			this.grpRigaFattura.PerformLayout();
+			this.grpBuonoInv.ResumeLayout(false);
+			this.grpBuonoInv.PerformLayout();
+			this.grpRiga.ResumeLayout(false);
+			this.grpRiga.PerformLayout();
+			this.tabPageInventario.ResumeLayout(false);
+			this.tabPageInventario.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.gboxCespiti.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.gridBene)).EndInit();
+			this.grpValore.ResumeLayout(false);
+			this.grpValore.PerformLayout();
+			this.grpInventario.ResumeLayout(false);
+			this.grpInventario.PerformLayout();
+			this.tabPageUtilizzo.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.gridQuota)).EndInit();
+			this.tabPageEP.ResumeLayout(false);
+			this.gboxUPB.ResumeLayout(false);
+			this.gboxUPB.PerformLayout();
+			this.grpAnalitico.ResumeLayout(false);
+			this.grpRipartizione.ResumeLayout(false);
+			this.grpRipartizione.PerformLayout();
+			this.gboxclass3.ResumeLayout(false);
+			this.gboxclass3.PerformLayout();
+			this.gboxclass2.ResumeLayout(false);
+			this.gboxclass2.PerformLayout();
+			this.gboxclass1.ResumeLayout(false);
+			this.gboxclass1.PerformLayout();
+			this.ResumeLayout(false);
 
         }
 
@@ -4180,6 +4251,7 @@ namespace assetacquire_default { //caricobeneinventario//
 
         void ShowHint(decimal totiva, decimal totivadetraibile, int number) {
             FormHint F = new FormHint(totiva, totivadetraibile, number);
+            createForm(F, null);
             F.Show();
 
         }
@@ -4449,6 +4521,7 @@ namespace assetacquire_default { //caricobeneinventario//
 
             if (chkListDescription.Checked) {
                 FrmAskDescr FR = new FrmAskDescr(Meta.Dispatcher);
+                createForm(FR, this);
                 DialogResult D = FR.ShowDialog(this);
                 if (D != DialogResult.OK) return;
                 if (FR.Selected != null) {
@@ -4665,6 +4738,41 @@ namespace assetacquire_default { //caricobeneinventario//
 
         private void Frm_assetacquire_default_Load(object sender, EventArgs e) {
 
+        }
+
+        private void btnRipartizione_Click(object sender, EventArgs e) {
+
+            if (Meta.IsEmpty)
+				return;
+			
+			if (DS.assetacquire.Rows.Count == 0)
+                return;
+            DataRow RC = DS.assetacquire.Rows[0];
+            if (RC == null)
+                return;
+
+            object idcostpartition = RC["idcostpartition"];
+
+            if (idcostpartition != DBNull.Value) {
+                MetaData ToMeta = Meta.Dispatcher.Get("costpartition");
+                string checkfilter = QHS.CmpEq("idcostpartition", idcostpartition);
+                ToMeta.ContextFilter = checkfilter;
+                Form F = null;
+                if (Meta.linkedForm != null)
+                    F = Meta.linkedForm.ParentForm;
+                bool result = ToMeta.Edit(F, "default", false);
+
+                string listtype = ToMeta.DefaultListType;
+                DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
+                if (R != null)
+                    ToMeta.SelectRow(R, listtype);
+            }
+            else {
+                idcostpartition = EP_functions.importCostPartitionDetail(Meta);
+                if (idcostpartition == null)
+                    return;
+                RC["idcostpartition"] = idcostpartition;
+            }
         }
     }
 }

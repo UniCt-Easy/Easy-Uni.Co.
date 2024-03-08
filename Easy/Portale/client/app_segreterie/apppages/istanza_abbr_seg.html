@@ -2,13 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabistanza_abbr_abbr_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabistanza_abbr_abbr_seg_0"><i class="fa fa-dot-circle-o mr-1"></i>Principale</a>
+		<a href="#tabistanza_abbr_abbr_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabistanza_abbr_abbr_seg_0"><i class="fa fa-dot-circle-o mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabistanza_abbr_abbr_seg_1" class="nav-link" data-toggle="pill" data-target="#tabistanza_abbr_abbr_seg_1"><i class="fa fa-circle mr-1"></i>Nullaosta</a>
+		<a href="#tabistanza_abbr_abbr_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabistanza_abbr_abbr_seg_1"><i class="fa fa-circle mr-1"></i>Nullaosta</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabistanza_abbr_abbr_seg_2" class="nav-link" data-toggle="pill" data-target="#tabistanza_abbr_abbr_seg_2"><i class="fa fa-dot-circle-o mr-1"></i>Pratica di convalida/riconoscimento/dispensa collegata</a>
+		<a href="#tabistanza_abbr_abbr_seg_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabistanza_abbr_abbr_seg_2"><i class="fa fa-dot-circle-o mr-1"></i>Pratica di convalida/riconoscimento/dispensa collegata</a>
 	</li>
 
 	</ul>
@@ -23,7 +23,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#istanza_abbr_seg_data").datetimepicker();
+    $("#istanza_abbr_seg_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="istanza_abbr_seg_data">Data</label>

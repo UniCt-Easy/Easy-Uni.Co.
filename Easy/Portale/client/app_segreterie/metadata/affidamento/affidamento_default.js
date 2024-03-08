@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -68,11 +51,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.gratuito)
+				if (this.isNull(parentRow.gratuito) || parentRow.gratuito == '')
 					parentRow.gratuito = "N";
-				if (!parentRow.iderogazkind)
+				if (this.isNull(parentRow.iderogazkind))
 					parentRow.iderogazkind = 1;
-				if (!parentRow.riferimento)
+				if (this.isNull(parentRow.riferimento) || parentRow.riferimento == '')
 					parentRow.riferimento = "N";
 				_.forEach(this.getDataTable("lezione").rows, function (r) {
 					r['!title'] = parentRow.title;
@@ -118,9 +101,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#affidamento_default_idreg_docenti'), null);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('getdocentiperssd'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			
@@ -131,11 +116,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);
+				appMeta.metaModel.insertFilter(this.getDataTable("affidamentokinddefaultview"), this.q.eq('affidamentokind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("erogazkinddefaultview"), this.q.eq('erogazkind_active', 'Si'));
+				$('#grid_affidamentocaratteristica_default').data('mdlconditionallookup', 'profess,S,Si;profess,N,No;');
 				var grid_affidamentocaratteristica_defaultChildsTables = [
 					{ tablename: 'affidamentocaratteristicaora', edittype: 'default', columnlookup: 'aa', columncalc: '!affidamentocaratteristicaora'},
 				];
 				$('#grid_affidamentocaratteristica_default').data('childtables', grid_affidamentocaratteristica_defaultChildsTables);
-				//indico al framework che la tabella sasdaffini Ë cached
+				//indico al framework che la tabella sasdaffini √® cached
 				var sasdaffiniTable = this.getDataTable("sasdaffini");
 				appMeta.metaModel.cachedTable(sasdaffiniTable, true);
 				//fireAfterLink
@@ -170,15 +158,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//insertClick
 
-			//beforePost
+			beforePost: function () {
+				var self = this;
+				this.getDataTable('getdocentiperssd').acceptChanges();
+				//innerBeforePost
+			},
 
 			afterFill: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('getdocentiperssd'));
 				//afterFillin
 
 				var self = this;
 				if (!this.isEmpty()) {
-					// carica tutte le attivit‡ dell'utente. seve per visualizzarle sul calendario
+					// carica tutte le attivit√† dell'utente. seve per visualizzarle sul calendario
 					var filter = self.q.and(
 						self.q.eq("iddidprog", this.state.currentRow.iddidprog),
 						self.q.ne("idaffidamento", self.state.currentRow.idaffidamento)
@@ -196,6 +187,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 				var scheduler = new appMeta.scheduleConfig(that,
 					{
+						endDate: that.state.currentRow.stop,
 						minDateValue: that.state.currentRow.start,
 						maxHours: _.sumBy(that.getDataTable('affidamentocaratteristicaora').rows, function (row) {
 							return row.ora;

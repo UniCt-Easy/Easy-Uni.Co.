@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -182,31 +182,39 @@ public partial class viterbo_finvardetail_default :MetaPage {
         DataAccess.SetTableForReading(DS.sorting1, "sorting");
         DataAccess.SetTableForReading(DS.sorting2, "sorting");
         DataAccess.SetTableForReading(DS.sorting3, "sorting");
+        DataAccess.SetTableForReading(DS.sorting4, "sorting");
 
-        DataTable tConfig = Conn.RUN_SELECT("config", "*", null, QHS.CmpEq("ayear", Meta.GetSys("esercizio")), null, null, true);
+        //Prime le coordinate venivano lette da DB perchè si usava un DB non di produzione
+        //Ora useranno questa pagina col DB di produzione, ma non dovranno usare le Coord.Analitiche della configurazione, ma altre classificazioni
+        // che saranno definite nel file Web.config
+        object idsortingkind1_viterbo = configManager.getCfg("idsortingkind1_viterbo");
+        object idsortingkind2_viterbo = configManager.getCfg("idsortingkind2_viterbo");
+        object idsortingkind3_viterbo = configManager.getCfg("idsortingkind3_viterbo");
+        object idsortingkind4_viterbo = configManager.getCfg("idsortingkind4_viterbo");
 
-        if ((tConfig != null) && (tConfig.Rows.Count > 0)) {
-            DataRow R = tConfig.Rows[0];
-            object idsorkind1 = R["idsortingkind1"];
-            object idsorkind2 = R["idsortingkind2"];
-            object idsorkind3 = R["idsortingkind3"];
-            SetGBoxClass(1, idsorkind1);
-            SetGBoxClass(2, idsorkind2);
-            SetGBoxClass(3, idsorkind3);
-            if (idsorkind1 == DBNull.Value) {
-                gboxclass1.Enabled = false;
+        object idsorkind1 = (idsortingkind1_viterbo.ToString()== "" ? DBNull.Value : idsortingkind1_viterbo);
+        object idsorkind2 = (idsortingkind2_viterbo.ToString() == "" ? DBNull.Value : idsortingkind2_viterbo);
+        object idsorkind3 = (idsortingkind3_viterbo.ToString() == "" ? DBNull.Value : idsortingkind3_viterbo);
+        object idsorkind4 = (idsortingkind4_viterbo.ToString() == "" ? DBNull.Value : idsortingkind4_viterbo);
+        SetGBoxClass(1, idsorkind1);
+        SetGBoxClass(2, idsorkind2);
+        SetGBoxClass(3, idsorkind3);
+        SetGBoxClass(4, idsorkind4);
+        if (idsorkind1 == DBNull.Value) {
+            gboxclass1.Enabled = false;
 
-            }
-            if (idsorkind2 == DBNull.Value) {
-                gboxclass2.Enabled = false;
-
-            }
-            if (idsorkind3 == DBNull.Value) {
-                gboxclass3.Enabled = false;
-
-            }
-           
         }
+        if (idsorkind2 == DBNull.Value) {
+            gboxclass2.Enabled = false;
+
+        }
+        if (idsorkind3 == DBNull.Value) {
+            gboxclass3.Enabled = false;
+        }
+        if (idsorkind4 == DBNull.Value) {
+            gboxclass4.Enabled = false;
+        }
+
         if (formToLink) {
         
 
@@ -260,6 +268,13 @@ public partial class viterbo_finvardetail_default :MetaPage {
             denom = txtDenom3;
 
             break;
+        case 4:
+            gbox = gboxclass4;
+            btncodice = btnCodice4;
+            txt = txtCodice4;
+            denom = txtDenom4;
+
+            break;
         }
 
         bool hasdefault = (DS.viterbo_finvardetail.Columns["idsor" + num.ToString()].DefaultValue != DBNull.Value);
@@ -276,7 +291,7 @@ public partial class viterbo_finvardetail_default :MetaPage {
         }
         else {
 	        string filter = QHS.AppAnd(QHS.CmpEq("idsorkind", sortingkind),
-		        QHS.NullOrLt("start", Conn.Security.GetEsercizio()),
+		        QHS.NullOrLe("start", Conn.Security.GetEsercizio()),
 		        QHS.NullOrGe("stop", Conn.Security.GetEsercizio()));
 	        GetData.SetStaticFilter(DS.Tables["sorting" + nums], filter);
 	        DS.Tables["sorting" + nums].ExtendedProperties[MetaData.ExtraParams] = filter;
@@ -431,6 +446,9 @@ public partial class viterbo_finvardetail_default :MetaPage {
             DataRow r = DS.viterbo_finvardetail.Rows[0];
             idupb = r["idupb"];
         }
+        if ((idupb == null) || (idupb.ToString() == "")) {
+            idupb = DBNull.Value;
+        }
         if (idupb != DBNull.Value) {
             filter = QHS.CmpEq("idupb", idupb);
         }
@@ -502,6 +520,9 @@ public partial class viterbo_finvardetail_default :MetaPage {
         if (DS.viterbo_finvardetail.Rows.Count > 0) {
             DataRow r = DS.viterbo_finvardetail.Rows[0];
             idupb = r["idupb"];
+        }
+        if ((idupb == null) || (idupb.ToString() == "")) {
+            idupb = DBNull.Value;
         }
         if (idupb != DBNull.Value) {
             filter = QHS.CmpEq("idupb", idupb);

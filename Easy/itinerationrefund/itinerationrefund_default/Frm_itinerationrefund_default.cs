@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,6 +24,8 @@ using System.Windows.Forms;
 using metadatalibrary;
 using funzioni_configurazione;//funzioni_configurazione
 using itinerationFunctions;//FunzioniMissione
+using AskCurrencyExchange;
+using CurrencyManager;
 
 namespace itinerationrefund_default{
 	/// <summary>
@@ -31,16 +33,12 @@ namespace itinerationrefund_default{
 	/// </summary>
 	public class Frm_itinerationrefund_default : MetaDataForm {
         bool inChiusura = false;
-		private System.Windows.Forms.ComboBox cmbValuta;
-        private System.Windows.Forms.Button btnValuta;
 		private System.Windows.Forms.TextBox txtDescrizione;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.ComboBox cmbClassificazione;
 		private System.Windows.Forms.Button btnClassificazione;
 		private System.Windows.Forms.Button btnAnnulla;
 		private System.Windows.Forms.Button btnOK;
-		private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtCambio;
 		public vistaForm DS;
 		DataRow ParentMissione;
 		MetaData Meta;
@@ -101,9 +99,16 @@ namespace itinerationrefund_default{
 		private Button btnIndElimina;
 		private Button btnIndInserisci;
 		private Button btnIndModifica;
-		private System.ComponentModel.IContainer components;
+        private System.ComponentModel.IContainer components;
+		private GroupBox gBoxValuta;
+		private Button btnCurrencyExchange;
+		private TextBox txtValuta;
+		private Button btnValuta;
+		private Label label1;
+		private TextBox txtCambio;
+		private Manager currencyManager;
 
-		public Frm_itinerationrefund_default() {
+        public Frm_itinerationrefund_default() {
 			InitializeComponent();
 		}
 
@@ -128,9 +133,7 @@ namespace itinerationrefund_default{
 		private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_itinerationrefund_default));
-            this.cmbValuta = new System.Windows.Forms.ComboBox();
             this.DS = new itinerationrefund_default.vistaForm();
-            this.btnValuta = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.txtDescrizione = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -138,9 +141,13 @@ namespace itinerationrefund_default{
             this.btnClassificazione = new System.Windows.Forms.Button();
             this.btnAnnulla = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.grpDatiGenerali = new System.Windows.Forms.GroupBox();
+            this.gBoxValuta = new System.Windows.Forms.GroupBox();
+            this.btnCurrencyExchange = new System.Windows.Forms.Button();
+            this.txtValuta = new System.Windows.Forms.TextBox();
+            this.btnValuta = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCambio = new System.Windows.Forms.TextBox();
-            this.grpDatiGenerali = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.txtDataFine = new System.Windows.Forms.TextBox();
@@ -198,6 +205,7 @@ namespace itinerationrefund_default{
             this.btnIndModifica = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.grpDatiGenerali.SuspendLayout();
+            this.gBoxValuta.SuspendLayout();
             this.grpAnticipo.SuspendLayout();
             this.grpIndennita.SuspendLayout();
             this.grpLocalita.SuspendLayout();
@@ -212,32 +220,10 @@ namespace itinerationrefund_default{
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
             this.SuspendLayout();
             // 
-            // cmbValuta
-            // 
-            this.cmbValuta.DataSource = this.DS.currency;
-            this.cmbValuta.DisplayMember = "description";
-            this.cmbValuta.Location = new System.Drawing.Point(88, 70);
-            this.cmbValuta.Name = "cmbValuta";
-            this.cmbValuta.Size = new System.Drawing.Size(176, 21);
-            this.cmbValuta.TabIndex = 3;
-            this.cmbValuta.Tag = "itinerationrefund.idcurrency";
-            this.cmbValuta.ValueMember = "idcurrency";
-            // 
             // DS
             // 
             this.DS.DataSetName = "vistaForm";
             this.DS.EnforceConstraints = false;
-            // 
-            // btnValuta
-            // 
-            this.btnValuta.Location = new System.Drawing.Point(8, 70);
-            this.btnValuta.Name = "btnValuta";
-            this.btnValuta.Size = new System.Drawing.Size(72, 23);
-            this.btnValuta.TabIndex = 24;
-            this.btnValuta.TabStop = false;
-            this.btnValuta.Tag = "manage.currency.lista";
-            this.btnValuta.Text = "Valuta:";
-            this.btnValuta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // imageList1
             // 
@@ -250,7 +236,7 @@ namespace itinerationrefund_default{
             this.txtDescrizione.Location = new System.Drawing.Point(88, 13);
             this.txtDescrizione.Multiline = true;
             this.txtDescrizione.Name = "txtDescrizione";
-            this.txtDescrizione.Size = new System.Drawing.Size(384, 48);
+            this.txtDescrizione.Size = new System.Drawing.Size(548, 48);
             this.txtDescrizione.TabIndex = 1;
             this.txtDescrizione.Tag = "itinerationrefund.description";
             // 
@@ -290,7 +276,7 @@ namespace itinerationrefund_default{
             // 
             this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(756, 534);
+            this.btnAnnulla.Location = new System.Drawing.Point(751, 594);
             this.btnAnnulla.Name = "btnAnnulla";
             this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
             this.btnAnnulla.TabIndex = 9;
@@ -300,54 +286,94 @@ namespace itinerationrefund_default{
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(676, 534);
+            this.btnOK.Location = new System.Drawing.Point(671, 594);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 8;
             this.btnOK.Tag = "mainsave";
             this.btnOK.Text = "OK";
             // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(272, 70);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 23);
-            this.label1.TabIndex = 48;
-            this.label1.Text = "Tasso di Cambio:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtCambio
-            // 
-            this.txtCambio.Location = new System.Drawing.Point(372, 70);
-            this.txtCambio.Name = "txtCambio";
-            this.txtCambio.Size = new System.Drawing.Size(100, 20);
-            this.txtCambio.TabIndex = 4;
-            this.txtCambio.Tag = "itinerationrefund.exchangerate.fixed.8...1";
-            this.txtCambio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtCambio.TextChanged += new System.EventHandler(this.txtCambio_TextChanged);
-            // 
             // grpDatiGenerali
             // 
+            this.grpDatiGenerali.Controls.Add(this.gBoxValuta);
             this.grpDatiGenerali.Controls.Add(this.label12);
             this.grpDatiGenerali.Controls.Add(this.label11);
             this.grpDatiGenerali.Controls.Add(this.txtDataFine);
             this.grpDatiGenerali.Controls.Add(this.txtDataInizio);
             this.grpDatiGenerali.Controls.Add(this.txtDescrizione);
             this.grpDatiGenerali.Controls.Add(this.label4);
-            this.grpDatiGenerali.Controls.Add(this.cmbValuta);
-            this.grpDatiGenerali.Controls.Add(this.btnValuta);
-            this.grpDatiGenerali.Controls.Add(this.label1);
-            this.grpDatiGenerali.Controls.Add(this.txtCambio);
             this.grpDatiGenerali.Location = new System.Drawing.Point(8, 38);
             this.grpDatiGenerali.Name = "grpDatiGenerali";
-            this.grpDatiGenerali.Size = new System.Drawing.Size(480, 130);
+            this.grpDatiGenerali.Size = new System.Drawing.Size(646, 173);
             this.grpDatiGenerali.TabIndex = 2;
             this.grpDatiGenerali.TabStop = false;
             this.grpDatiGenerali.Text = "Dati generali";
             // 
+            // gBoxValuta
+            // 
+            this.gBoxValuta.Controls.Add(this.btnCurrencyExchange);
+            this.gBoxValuta.Controls.Add(this.txtValuta);
+            this.gBoxValuta.Controls.Add(this.btnValuta);
+            this.gBoxValuta.Controls.Add(this.label1);
+            this.gBoxValuta.Controls.Add(this.txtCambio);
+            this.gBoxValuta.Location = new System.Drawing.Point(10, 69);
+            this.gBoxValuta.Name = "gBoxValuta";
+            this.gBoxValuta.Size = new System.Drawing.Size(630, 53);
+            this.gBoxValuta.TabIndex = 55;
+            this.gBoxValuta.TabStop = false;
+            this.gBoxValuta.Tag = "AutoChoose.txtValuta.default.(active = \'S\')";
+            // 
+            // btnCurrencyExchange
+            // 
+            this.btnCurrencyExchange.Location = new System.Drawing.Point(499, 18);
+            this.btnCurrencyExchange.Name = "btnCurrencyExchange";
+            this.btnCurrencyExchange.Size = new System.Drawing.Size(75, 23);
+            this.btnCurrencyExchange.TabIndex = 59;
+            this.btnCurrencyExchange.Text = "Seleziona";
+            this.btnCurrencyExchange.UseVisualStyleBackColor = true;
+            this.btnCurrencyExchange.Visible = false;
+            this.btnCurrencyExchange.Click += new System.EventHandler(this.btnCurrencyExchange_Click);
+            // 
+            // txtValuta
+            // 
+            this.txtValuta.Location = new System.Drawing.Point(91, 21);
+            this.txtValuta.Name = "txtValuta";
+            this.txtValuta.Size = new System.Drawing.Size(179, 20);
+            this.txtValuta.TabIndex = 58;
+            this.txtValuta.Tag = "currency.description?x";
+            // 
+            // btnValuta
+            // 
+            this.btnValuta.Location = new System.Drawing.Point(13, 19);
+            this.btnValuta.Name = "btnValuta";
+            this.btnValuta.Size = new System.Drawing.Size(72, 23);
+            this.btnValuta.TabIndex = 56;
+            this.btnValuta.TabStop = false;
+            this.btnValuta.Tag = "choose.currency.default";
+            this.btnValuta.Text = "Valuta:";
+            this.btnValuta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(275, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 23);
+            this.label1.TabIndex = 57;
+            this.label1.Text = "Tasso di Cambio:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtCambio
+            // 
+            this.txtCambio.Location = new System.Drawing.Point(375, 21);
+            this.txtCambio.Name = "txtCambio";
+            this.txtCambio.Size = new System.Drawing.Size(100, 20);
+            this.txtCambio.TabIndex = 55;
+            this.txtCambio.Tag = "itinerationrefund.exchangerate.fixed.8...1";
+            this.txtCambio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(306, 104);
+            this.label12.Location = new System.Drawing.Point(235, 138);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(60, 13);
             this.label12.TabIndex = 52;
@@ -356,7 +382,7 @@ namespace itinerationrefund_default{
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(6, 102);
+            this.label11.Location = new System.Drawing.Point(14, 134);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(76, 23);
             this.label11.TabIndex = 51;
@@ -365,7 +391,7 @@ namespace itinerationrefund_default{
             // 
             // txtDataFine
             // 
-            this.txtDataFine.Location = new System.Drawing.Point(372, 102);
+            this.txtDataFine.Location = new System.Drawing.Point(301, 136);
             this.txtDataFine.Name = "txtDataFine";
             this.txtDataFine.Size = new System.Drawing.Size(100, 20);
             this.txtDataFine.TabIndex = 50;
@@ -375,7 +401,7 @@ namespace itinerationrefund_default{
             // 
             // txtDataInizio
             // 
-            this.txtDataInizio.Location = new System.Drawing.Point(88, 104);
+            this.txtDataInizio.Location = new System.Drawing.Point(96, 136);
             this.txtDataInizio.Name = "txtDataInizio";
             this.txtDataInizio.Size = new System.Drawing.Size(100, 20);
             this.txtDataInizio.TabIndex = 49;
@@ -662,6 +688,7 @@ namespace itinerationrefund_default{
             this.txtDataDoc.Size = new System.Drawing.Size(69, 20);
             this.txtDataDoc.TabIndex = 5;
             this.txtDataDoc.Tag = "itinerationrefund.docdate";
+            this.txtDataDoc.Leave += new System.EventHandler(this.txtDataDoc_Leave);
             // 
             // txtImportoDocEUR
             // 
@@ -671,7 +698,7 @@ namespace itinerationrefund_default{
             this.txtImportoDocEUR.Size = new System.Drawing.Size(112, 20);
             this.txtImportoDocEUR.TabIndex = 2;
             this.txtImportoDocEUR.TabStop = false;
-            this.txtImportoDocEUR.Tag = "itinerationrefund.docamount.c";
+            this.txtImportoDocEUR.Tag = "itinerationrefund.docamount";
             this.txtImportoDocEUR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtImportoDocValuta
@@ -680,7 +707,7 @@ namespace itinerationrefund_default{
             this.txtImportoDocValuta.Name = "txtImportoDocValuta";
             this.txtImportoDocValuta.Size = new System.Drawing.Size(112, 20);
             this.txtImportoDocValuta.TabIndex = 2;
-            this.txtImportoDocValuta.Tag = "";
+            this.txtImportoDocValuta.Tag = "itinerationrefund.docamount_c.fixed.8...1";
             this.txtImportoDocValuta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtImportoDocValuta.TextChanged += new System.EventHandler(this.txtImportoValuta_TextChanged);
             this.txtImportoDocValuta.Enter += new System.EventHandler(this.txtImportoValuta_Enter);
@@ -694,7 +721,7 @@ namespace itinerationrefund_default{
             this.txtImportoRichiestoEUR.Size = new System.Drawing.Size(112, 20);
             this.txtImportoRichiestoEUR.TabIndex = 2;
             this.txtImportoRichiestoEUR.TabStop = false;
-            this.txtImportoRichiestoEUR.Tag = "itinerationrefund.requiredamount.c";
+            this.txtImportoRichiestoEUR.Tag = "itinerationrefund.requiredamount";
             this.txtImportoRichiestoEUR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtImportoRichiestoEUR.TextChanged += new System.EventHandler(this.txtImportoEffettivoEUR_TextChanged);
             // 
@@ -704,7 +731,7 @@ namespace itinerationrefund_default{
             this.txtImportoRichiestoValuta.Name = "txtImportoRichiestoValuta";
             this.txtImportoRichiestoValuta.Size = new System.Drawing.Size(112, 20);
             this.txtImportoRichiestoValuta.TabIndex = 1;
-            this.txtImportoRichiestoValuta.Tag = "";
+            this.txtImportoRichiestoValuta.Tag = "itinerationrefund.requiredamount_c.fixed.8...1";
             this.txtImportoRichiestoValuta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtImportoRichiestoValuta.TextChanged += new System.EventHandler(this.txtImportoValuta_TextChanged);
             this.txtImportoRichiestoValuta.Enter += new System.EventHandler(this.txtImportoValuta_Enter);
@@ -769,7 +796,7 @@ namespace itinerationrefund_default{
             this.txtImportoEffettivoValuta.Name = "txtImportoEffettivoValuta";
             this.txtImportoEffettivoValuta.Size = new System.Drawing.Size(112, 20);
             this.txtImportoEffettivoValuta.TabIndex = 2;
-            this.txtImportoEffettivoValuta.Tag = "";
+            this.txtImportoEffettivoValuta.Tag = "itinerationrefund.amount_c.fixed.8...1";
             this.txtImportoEffettivoValuta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtImportoEffettivoValuta.TextChanged += new System.EventHandler(this.txtImportoValuta_TextChanged);
             this.txtImportoEffettivoValuta.Enter += new System.EventHandler(this.txtImportoValuta_Enter);
@@ -783,7 +810,7 @@ namespace itinerationrefund_default{
             this.txtImportoEffettivoEUR.Size = new System.Drawing.Size(112, 20);
             this.txtImportoEffettivoEUR.TabIndex = 2;
             this.txtImportoEffettivoEUR.TabStop = false;
-            this.txtImportoEffettivoEUR.Tag = "itinerationrefund.amount.c";
+            this.txtImportoEffettivoEUR.Tag = "itinerationrefund.amount";
             this.txtImportoEffettivoEUR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label18
@@ -850,7 +877,7 @@ namespace itinerationrefund_default{
             // 
             this.tabControl1.Controls.Add(this.tabSpesa);
             this.tabControl1.Controls.Add(this.tabAllegati);
-            this.tabControl1.Location = new System.Drawing.Point(8, 174);
+            this.tabControl1.Location = new System.Drawing.Point(8, 219);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(831, 361);
@@ -950,7 +977,7 @@ namespace itinerationrefund_default{
             // Frm_itinerationrefund_default
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(838, 566);
+            this.ClientSize = new System.Drawing.Size(838, 623);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.grpDatiGenerali);
             this.Controls.Add(this.btnAnnulla);
@@ -965,6 +992,8 @@ namespace itinerationrefund_default{
             ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
             this.grpDatiGenerali.ResumeLayout(false);
             this.grpDatiGenerali.PerformLayout();
+            this.gBoxValuta.ResumeLayout(false);
+            this.gBoxValuta.PerformLayout();
             this.grpAnticipo.ResumeLayout(false);
             this.grpAnticipo.PerformLayout();
             this.grpIndennita.ResumeLayout(false);
@@ -995,11 +1024,14 @@ namespace itinerationrefund_default{
         CfgItineration Cfg;
         CQueryHelper QHC;
         QueryHelper QHS;
+
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
             Conn = Meta.Conn;
             QHC = new CQueryHelper();
             QHS = Meta.Conn.GetQueryHelper();
+            currencyManager = new Manager(Meta.Conn, new Uri("https://tassidicambio.bancaditalia.it/terzevalute-wf-web/rest/v1.0/"), 1, 1, ReferenceCurrency.EUR, "Easy");
+
             HelpForm.SetFormatForColumn(DS.itinerationrefund.Columns["stoptime"], "g");
             HelpForm.SetFormatForColumn(DS.itinerationrefund.Columns["starttime"], "g");
             object oggi = Meta.Conn.DO_SYS_CMD("select getdate()");
@@ -1060,7 +1092,7 @@ namespace itinerationrefund_default{
                  }
             }
             GetData.SetStaticFilter(DS.itinerationrefundkind, filterKind);
-		}
+        }
 
         //Enable comanda la maggior parte dei controlli, tranne l'importo effettivo che 
         void EnableDisableControls (bool enable, bool advance) {
@@ -1138,7 +1170,7 @@ namespace itinerationrefund_default{
         }
 
 		public void MetaData_AfterActivation() {
-			string filter = MissFun.GetQualificaClasseFilter(Cfg.idposition,Cfg.incomeclass);
+			string filter = MissFun.GetQualificaClasseFilter(Cfg.idposition,Cfg.livello, Cfg.incomeclass);
 
 			if ( filter==null || filter=="") return; // || Meta.InsertMode
 			DataRow Curr = DS.itinerationrefund.Rows[0];
@@ -1163,6 +1195,8 @@ namespace itinerationrefund_default{
 
 			if (T.TableName == "currency") {
 				AggiornaValuta(R);
+                UiHelper.UpdateControls(currencyManager, txtCambio, R, txtDataDoc.Text.Split()[0], txtDataFine.Text.Split()[0]);
+                return;
 			}
 
 			if (T.TableName == "itinerationrefundkind") {
@@ -1286,7 +1320,7 @@ namespace itinerationrefund_default{
                 AggiornaPerc(RefundKind[0]);
             }
             RicalcolaAnticipo();//Chiamato implicitamente da AggiornaPerc(). Se non cambia la % può cambiare l'importo 
-            RicalcolaImportoEffettivoValuta(false);
+            //RicalcolaImportoEffettivoValuta(false);
             CheckLimiteAnticipo();
 
 
@@ -1340,13 +1374,15 @@ namespace itinerationrefund_default{
             DataRow Curr = DS.itinerationrefund.Rows[0];
             AggiornaLimite(Curr);
             RicalcolaAnticipo();
-            RicalcolaImportoEffettivoValuta(true);
-            if (Meta.EditMode && Meta.FirstFillForThisRow)
-            {
-                CheckLimiteAnticipo();
-                AbilitadisabilitaArea(Curr);
-            }
-            txtImportoEffettivoValuta.ReadOnly = IsRimborsoForfettario()||disabilitatoAllAvvio;
+            //RicalcolaImportoEffettivoValuta(true);
+			if (Meta.InsertMode && Meta.FirstFillForThisRow) {
+				AbilitadisabilitaArea(Curr);
+			}
+			if (Meta.EditMode  && Meta.FirstFillForThisRow) {
+				CheckLimiteAnticipo();
+				AbilitadisabilitaArea(Curr);
+			}
+			txtImportoEffettivoValuta.ReadOnly = IsRimborsoForfettario()||disabilitatoAllAvvio;
 
             object idforeigncountry = Curr["idforeigncountry"];
             if (idforeigncountry == DBNull.Value){
@@ -1361,31 +1397,35 @@ namespace itinerationrefund_default{
 			Meta.MarkTableAsNotEntityChild(DS.itinerationrefundattachment);
 			
 		}
-		bool do_checklimite = true;
-        void RicalcolaImportoEffettivoValuta(bool checklimite) {
-            if (DS.itinerationrefund.Rows.Count == 0) return;
-            DataRow Curr = DS.itinerationrefund.Rows[0];
-            double importoEuro = CfgFn.GetNoNullDouble(Curr["amount"]);
-            double importoDocEuro = CfgFn.GetNoNullDouble(Curr["docamount"]);
-            double importoRichiestoEuro = CfgFn.GetNoNullDouble(Curr["requiredamount"]);
-            double exchangeRate = CfgFn.GetNoNullDouble(Curr["exchangerate"]);
-            double importoValuta = 0;
-            double importoDocValuta = 0;
-            double importoRichiestoValuta = 0;
-            if (exchangeRate != 0) {
-                importoValuta = importoEuro / exchangeRate;
-                importoDocValuta = importoDocEuro / exchangeRate;
-                importoRichiestoValuta = importoRichiestoEuro / exchangeRate;
-            }
-            double x= CfgFn.Round(Convert.ToDouble(importoValuta), 2);
-            double x1 = CfgFn.Round(Convert.ToDouble(importoDocValuta), 2);
-            double x2 = CfgFn.Round(Convert.ToDouble(importoRichiestoValuta), 2);
-            if (!checklimite) do_checklimite = false;
-            txtImportoEffettivoValuta.Text = HelpForm.StringValue(x, "x.y.fixed.8...1");
-            txtImportoDocValuta.Text = HelpForm.StringValue(x1, "x.y.fixed.8...1");
-            txtImportoRichiestoValuta.Text = HelpForm.StringValue(x2, "x.y.fixed.8...1");
-            checklimite = true;
-        }
+		//bool do_checklimite = true;
+  //      void RicalcolaImportoEffettivoValuta(bool checklimite) {
+  //          if (DS.itinerationrefund.Rows.Count == 0) return;
+		//	Meta.GetFormData(true);
+		//	DataRow Curr = DS.itinerationrefund.Rows[0];
+		//	//condition? consequent : alternative
+			
+		//	double importoEuro = CfgFn.GetNoNullDouble(Curr["amount"]); //: CfgFn.GetNoNullDouble(amount);
+		//	double importoDocEuro = CfgFn.GetNoNullDouble(Curr["docamount"]); //: CfgFn.GetNoNullDouble(docamount);
+		//	double importoRichiestoEuro = CfgFn.GetNoNullDouble(Curr["requiredamount"]);// : CfgFn.GetNoNullDouble(required);
+
+		//	double exchangeRate = CfgFn.GetNoNullDouble(Curr["exchangerate"]);
+  //          double importoValuta = 0;
+  //          double importoDocValuta = 0;
+  //          double importoRichiestoValuta = 0;
+  //          if (exchangeRate != 0) {
+  //              importoValuta = importoEuro / exchangeRate;
+  //              importoDocValuta = importoDocEuro / exchangeRate;
+  //              importoRichiestoValuta = importoRichiestoEuro / exchangeRate;
+  //          }
+  //          double x= CfgFn.Round(Convert.ToDouble(importoValuta), 2);
+  //          double x1 = CfgFn.Round(Convert.ToDouble(importoDocValuta), 2);
+  //          double x2 = CfgFn.Round(Convert.ToDouble(importoRichiestoValuta), 2);
+  //          if (!checklimite) do_checklimite = false;
+  //          txtImportoEffettivoValuta.Text = HelpForm.StringValue(x, "x.y.fixed.8...1");
+  //          txtImportoDocValuta.Text = HelpForm.StringValue(x1, "x.y.fixed.8...1");
+  //          txtImportoRichiestoValuta.Text = HelpForm.StringValue(x2, "x.y.fixed.8...1");
+  //          checklimite = true;
+  //      }
 
         void ClearPerc() {
             DataRow Curr = DS.itinerationrefund.Rows[0];
@@ -1488,8 +1528,8 @@ namespace itinerationrefund_default{
             if (AttribRow == null) {
                 txtLimiteMax.Text = "";
                 if (!esisteConf) {
-                    show(this, "Le informazioni relative agli attributi " +
-                        "di classificazione delle spese sono incomplete o mancanti.",
+                    show(this, "Le informazioni relative  " +
+                        "al regolamento delle spese di missione per la qualifica selezionata sono incomplete o mancanti.",
                         "Avviso");
                 }
                 return;
@@ -1513,9 +1553,9 @@ namespace itinerationrefund_default{
             if (AttribRow == null) {
                 ClearPerc();
                 if (!esisteConf) {
-                    show(this, "Le informazioni relative agli attributi " +
-                        "di classificazione delle spese sono incomplete o mancanti.",
-                        "Avviso");
+                    show(this, "Le informazioni relative  " +
+                         "al regolamento delle spese di missione per la qualifica selezionata sono incomplete o mancanti.",
+                         "Avviso");
                 }
                 return;
             }
@@ -1559,7 +1599,7 @@ namespace itinerationrefund_default{
 
             DataRow rRule = tRule.Rows[0];
             string fRuleDetail = QueryCreator.WHERE_KEY_CLAUSE(rRule, DataRowVersion.Current, false);
-            string fPos = MissFun.GetQualificaClasseFilter(Cfg.idposition, Cfg.incomeclass);
+            string fPos = MissFun.GetQualificaClasseFilter(Cfg.idposition, Cfg.livello, Cfg.incomeclass);
             fRuleDetail = GetData.MergeFilters(fRuleDetail, fPos);
 
             DataRow rRefundKind = RefundKind[0];
@@ -1698,7 +1738,8 @@ namespace itinerationrefund_default{
             TextBox T1 = GetTxtByName(prefix + "EUR");
 			ConvertiFromValuta(T1, T);
             RicalcolaAnticipo();
-            if (do_checklimite) CheckLimiteAnticipo();
+            //if (do_checklimite)
+			CheckLimiteAnticipo();
 		}
 
 		private void txtImportoEffettivoEUR_TextChanged(object sender, System.EventArgs e) {
@@ -1739,6 +1780,7 @@ namespace itinerationrefund_default{
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtDataFine.Text, txtDataFine.Tag.ToString());
             if (d == null) return;
             DataRow Curr = DS.itinerationrefund.Rows[0];
+            UiHelper.UpdateControls(currencyManager, txtCambio, currentRow, txtDataDoc.Text.Split()[0], txtDataFine.Text.Split()[0]);
             AggiornaPerc(Curr);
             AggiornaLimite(Curr);
         }
@@ -1794,5 +1836,13 @@ namespace itinerationrefund_default{
             AggiornaRimborsoForfettario();
 
         }
-	}
+
+        private void btnCurrencyExchange_Click(object sender, EventArgs e) {
+            UiHelper.CreateForm(txtCambio, Conn, currentRow);
+        }
+
+        private void txtDataDoc_Leave(object sender, EventArgs e) {
+			UiHelper.UpdateControls(currencyManager, txtCambio, currentRow, txtDataDoc.Text.Split()[0], txtDataFine.Text.Split()[0]);
+		}
+    }
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,7 +37,10 @@ public class dsmeta_perfvalutazioneateneores_default: DataSet {
 	public MetaTable perfvalutazioneateneoresvalidatori 		=> (MetaTable)Tables["perfvalutazioneateneoresvalidatori"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable getregistrydocentiamministratividefaultview 		=> (MetaTable)Tables["getregistrydocentiamministratividefaultview"];
+	public MetaTable perfvalutazioneateneoresattach 		=> (MetaTable)Tables["perfvalutazioneateneoresattach"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable getdocentiamministrativiresponsabilidefaultview 		=> (MetaTable)Tables["getdocentiamministrativiresponsabilidefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfmission 		=> (MetaTable)Tables["perfmission"];
@@ -94,12 +97,25 @@ private void initClass() {
 	Tables.Add(tperfvalutazioneateneoresvalidatori);
 	tperfvalutazioneateneoresvalidatori.defineKey("idperfmission", "idperfvalutazioneateneo", "idperfvalutazioneateneores", "idvalidatori");
 
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
-	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");
-	tgetregistrydocentiamministratividefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tgetregistrydocentiamministratividefaultview.defineColumn("idreg", typeof(int),false);
-	Tables.Add(tgetregistrydocentiamministratividefaultview);
-	tgetregistrydocentiamministratividefaultview.defineKey("idreg");
+	//////////////////// PERFVALUTAZIONEATENEORESATTACH /////////////////////////////////
+	var tperfvalutazioneateneoresattach= new MetaTable("perfvalutazioneateneoresattach");
+	tperfvalutazioneateneoresattach.defineColumn("idattach", typeof(int),false);
+	tperfvalutazioneateneoresattach.defineColumn("idperfvalutazioneateneo", typeof(int),false);
+	tperfvalutazioneateneoresattach.defineColumn("idperfvalutazioneateneores", typeof(int),false);
+	tperfvalutazioneateneoresattach.defineColumn("idperfvalutazioneateneoresattach", typeof(int),false);
+	tperfvalutazioneateneoresattach.defineColumn("title", typeof(string),false);
+	tperfvalutazioneateneoresattach.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tperfvalutazioneateneoresattach);
+	tperfvalutazioneateneoresattach.defineKey("idattach", "idperfvalutazioneateneo", "idperfvalutazioneateneores", "idperfvalutazioneateneoresattach");
+
+	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILIDEFAULTVIEW /////////////////////////////////
+	var tgetdocentiamministrativiresponsabilidefaultview= new MetaTable("getdocentiamministrativiresponsabilidefaultview");
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("ruolo", typeof(string),false);
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("struttura", typeof(string),false);
+	Tables.Add(tgetdocentiamministrativiresponsabilidefaultview);
+	tgetdocentiamministrativiresponsabilidefaultview.defineKey("idreg", "ruolo", "struttura");
 
 	//////////////////// PERFMISSION /////////////////////////////////
 	var tperfmission= new MetaTable("perfmission");
@@ -120,6 +136,7 @@ private void initClass() {
 	tperfvalutazioneateneores.defineColumn("indicatore", typeof(string));
 	tperfvalutazioneateneores.defineColumn("lt", typeof(DateTime),false);
 	tperfvalutazioneateneores.defineColumn("lu", typeof(string),false);
+	tperfvalutazioneateneores.defineColumn("Note", typeof(string));
 	tperfvalutazioneateneores.defineColumn("percentualeraggiunta", typeof(decimal));
 	tperfvalutazioneateneores.defineColumn("peso", typeof(decimal));
 	tperfvalutazioneateneores.defineColumn("target", typeof(string));
@@ -139,9 +156,13 @@ private void initClass() {
 	cChild = new []{perfvalutazioneateneoresvalidatori.Columns["idvalidatori"]};
 	Relations.Add(new DataRelation("FK_perfvalutazioneateneoresvalidatori_validatori_idvalidatori",cPar,cChild,false));
 
-	cPar = new []{getregistrydocentiamministratividefaultview.Columns["idreg"]};
+	cPar = new []{perfvalutazioneateneores.Columns["idperfvalutazioneateneo"], perfvalutazioneateneores.Columns["idperfvalutazioneateneores"]};
+	cChild = new []{perfvalutazioneateneoresattach.Columns["idperfvalutazioneateneo"], perfvalutazioneateneoresattach.Columns["idperfvalutazioneateneores"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneateneoresattach_perfvalutazioneateneores_idperfvalutazioneateneo-idperfvalutazioneateneores",cPar,cChild,false));
+
+	cPar = new []{getdocentiamministrativiresponsabilidefaultview.Columns["idreg"]};
 	cChild = new []{perfvalutazioneateneores.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_perfvalutazioneateneores_getregistrydocentiamministratividefaultview_idreg",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_perfvalutazioneateneores_getdocentiamministrativiresponsabilidefaultview_idreg",cPar,cChild,false));
 
 	cPar = new []{perfmission.Columns["idperfmission"]};
 	cChild = new []{perfvalutazioneateneores.Columns["idperfmission"]};

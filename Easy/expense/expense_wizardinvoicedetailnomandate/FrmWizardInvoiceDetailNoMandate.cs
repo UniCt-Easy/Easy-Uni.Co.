@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -76,7 +76,7 @@ namespace expense_wizardinvoicedetailnomandate {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (show(this, "Si desidera eseguire ancora la procedura",
                     "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     newTab = 0;
                     ResetWizard();
@@ -107,7 +107,7 @@ namespace expense_wizardinvoicedetailnomandate {
             if ((oldTab == 0) && (newTab == 1)) {
                 DataRow[] Selected = GetGridSelectedRows(gridDetails);
                 if ((Selected == null) || (Selected.Length == 0)) {
-                    MessageBox.Show("Non è stato selezionato alcun dettaglio.");
+                    show("Non è stato selezionato alcun dettaglio.");
                     return false;
                 }
 
@@ -120,7 +120,7 @@ namespace expense_wizardinvoicedetailnomandate {
 
 
                 if (!verificaSeUPBUniformi(upb, upb_iva, causale)) {
-                    MessageBox.Show(this,
+                    show(this,
                         "Attenzione i dettagli selezionati hanno UPB non uniformi non si può andare avanti");
                     return false;
                 }
@@ -144,7 +144,7 @@ namespace expense_wizardinvoicedetailnomandate {
             if ((oldTab == 2) && (newTab == 3)) {
                 if ((radioNewCont.Checked == false) && (radioNewLinkedMov.Checked == false)
                     && (radioAddCont.Checked == false)) {
-                    MessageBox.Show("Non sarà possibile contabilizzare i dettagli selezionati.");
+                    show("Non sarà possibile contabilizzare i dettagli selezionati.");
                     return false;
                 }
                 if (!CheckInfoFin()) return false;
@@ -158,7 +158,7 @@ namespace expense_wizardinvoicedetailnomandate {
             }
             if ((oldTab == 3) && (newTab == 4)) {
                 if (!SelezioneMovimentiEffettuata) {
-                    MessageBox.Show("Non è stato selezionato il movimento.");
+                    show("Non è stato selezionato il movimento.");
                     return false;
                 }
 
@@ -470,6 +470,8 @@ namespace expense_wizardinvoicedetailnomandate {
                 filterinvoicedetail = QHS.AppAnd(filterinvoicedetail, QHS.IsNull("idexp_iva"));
             }
 
+            filterinvoicedetail = QHS.AppAnd(filterinvoicedetail, QHS.CmpNe("idpccdebitstatus", "NOLIQ"));
+
             DSCopy = DS.Copy();
             DataAccess.RUN_SELECT_INTO_TABLE(Conn, DSCopy.Tables["invoicedetail"], null, filterinvoicedetail, null,
                 false);
@@ -572,7 +574,7 @@ namespace expense_wizardinvoicedetailnomandate {
             foreach (var curr in selected) {
                 var ivaKind = DS.ivakind.f_Eq("idivakind", curr["idivakind"]).ToList();
                 if (ivaKind==null || ivaKind.Count == 0) {
-                    MessageBox.Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
+                    show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
                     return;
                 }
                 var imponibile = CfgFn.GetNoNullDouble(curr["taxable"]);
@@ -658,7 +660,7 @@ namespace expense_wizardinvoicedetailnomandate {
             DataRow Curr = InvoiceDetail;
             DataRow[] IvaKind = DS.ivakind.Select(QHC.CmpEq("idivakind", Curr["idivakind"]));
             if (IvaKind.Length == 0) {
-                MessageBox.Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
+                show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
                 return -1;
             }
 
@@ -1023,6 +1025,7 @@ namespace expense_wizardinvoicedetailnomandate {
             }
 
             FrmAskFase faf = new FrmAskFase(tempFase);
+            createForm(faf, null);
             DialogResult dr = faf.ShowDialog();
             if (dr != DialogResult.OK) return;
             choosenParentPhase = CfgFn.GetNoNullInt32(faf.cmbFasi.SelectedValue);
@@ -1251,6 +1254,7 @@ namespace expense_wizardinvoicedetailnomandate {
                 F.AllowNoManagerSelection(true);
 
             //S", filterupb, Meta.Dispatcher, idman_start, amount, upbToSelect);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK) return false;
 
             if (idman_start == null)
@@ -1319,7 +1323,7 @@ namespace expense_wizardinvoicedetailnomandate {
                 DataRow CurrExp = DS.expense.Rows[0];
                 object NuovoDocumento = Inv["doc"];
                 object NuovoDataDocumento = Inv["docdate"];
-                if (MessageBox.Show(this, "Aggiorno i campi documento e data documento del movimento di spesa " +
+                if (show(this, "Aggiorno i campi documento e data documento del movimento di spesa " +
                                           "in base al documento selezionato?", "Conferma", MessageBoxButtons.OKCancel) ==
                     DialogResult.OK) {
                     if ((NuovoDocumento != null) && (NuovoDocumento != DBNull.Value))
@@ -1390,7 +1394,7 @@ namespace expense_wizardinvoicedetailnomandate {
 			ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
-                MessageBox.Show(this,
+                show(this,
                     "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 return false;
             }
@@ -1580,6 +1584,7 @@ namespace expense_wizardinvoicedetailnomandate {
             }
 
             Form F = ShowAutomatismi.Show(Meta, spesa, entrata, null, null);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 
@@ -1665,7 +1670,7 @@ namespace expense_wizardinvoicedetailnomandate {
             object[] upb = ValoriDiversi(SelectedRows, "idupb");
 
             if (!verificaSeUPBUniformi(upb, upbiva, currcausale)) {
-                MessageBox.Show(
+                show(
                     "Attenzione! I dettagli devono avere tutti lo stesso UPB!.\n\rL'operazione sarà interrotta");
                 return false;
             }
@@ -1795,7 +1800,7 @@ namespace expense_wizardinvoicedetailnomandate {
                 if (faseCorrente == fasespesamax) {
                     DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, NewSpesaRow["idreg"]);
                     if (ModPagam == null) {
-                        MessageBox.Show(
+                        show(
                             "E' necessario che sia definita almeno una modalità di pagamento per il percipiente " +
                             "\"" + title + "\"\n\n" +
                             "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -1840,7 +1845,7 @@ namespace expense_wizardinvoicedetailnomandate {
                     if (NewLastMov["iddeputy"] != DBNull.Value && !avvisoDelegatoMostrato) {
                         avvisoDelegatoMostrato = true;
                         string titleDelegato = Conn.readValue("registry", q.eq("idreg", NewLastMov["iddeputy"]), "title")?.ToString()??"";
-                        MessageBox.Show(
+                        show(
                             "Attenzione, l'anagrafica considerata è associata ad un delegato come modalità di pagamento. Il pagamento sarà pertanto effettuato al delegato "
                             +titleDelegato+" sull'iban "+NewLastMov["iban"].ToString(),
                             "Avviso");
@@ -2004,7 +2009,7 @@ namespace expense_wizardinvoicedetailnomandate {
             decimal valore = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
                 T.Text, "x.y.c"));
             if (valore < 0) {
-                MessageBox.Show("Valore non valido");
+                show("Valore non valido");
                 T.Focus();
                 return;
             }
@@ -2034,7 +2039,7 @@ namespace expense_wizardinvoicedetailnomandate {
             //        txtPerc.Text, "x.y.c"));
 
             if (ImportoDaPagare > ImportoMax) {
-                MessageBox.Show("L'importo da pagare è superiore al totale dei dettagli selezionati");
+                show("L'importo da pagare è superiore al totale dei dettagli selezionati");
                 txtDaPagare.Text = "";                
                 return;
             }
@@ -2127,7 +2132,7 @@ namespace expense_wizardinvoicedetailnomandate {
             foreach (DataRow Row1 in Selected) {
                 DataRow[] IvaKind1 = DS.ivakind.Select(QHC.CmpEq("idivakind", Row1["idivakind"]));
                 if (IvaKind1.Length == 0) {
-                    MessageBox.Show(this,
+                    show(this,
                         "Attenzione nell'anagrafica dei tipi IVA è assente il tipo IVA selezionato nel dettaglio",
                         "Errore");
                     return null;
@@ -2190,7 +2195,7 @@ namespace expense_wizardinvoicedetailnomandate {
                 foreach (DataRow Row in Selected) {
                     DataRow[] IvaKind = DS.ivakind.Select(QHC.CmpEq("idivakind", Row["idivakind"]));
                     if (IvaKind.Length == 0) {
-                        MessageBox.Show(this,
+                        show(this,
                             "Attenzione nell'anagrafica dei tipi IVA è assente il tipo IVA selezionato nel dettaglio",
                             "Errore");
                         return null;
@@ -2291,7 +2296,7 @@ namespace expense_wizardinvoicedetailnomandate {
                 foreach (DataRow Row in Selected) {
                     DataRow[] IvaKind = DS.ivakind.Select(QHC.CmpEq("idivakind", Row["idivakind"]));
                     if (IvaKind.Length == 0) {
-                        MessageBox.Show(this,
+                        show(this,
                             "Attenzione nell'anagrafica dei tipi IVA è assente il tipo IVA selezionato nel dettaglio",
                             "Errore");
                         return 0;
@@ -2334,7 +2339,7 @@ namespace expense_wizardinvoicedetailnomandate {
             else {
                 DataRow[] IvaKindSplit = DS.ivakind.Select(QHC.CmpEq("idivakind", rowToSplit["idivakind"]));
                 if (IvaKindSplit.Length == 0) {
-                    MessageBox.Show(this,
+                    show(this,
                         "Attenzione nell'anagrafica dei tipi IVA è assente il tipo IVA selezionato nel dettaglio",
                         "Errore");
                     return 0;
@@ -2379,7 +2384,7 @@ namespace expense_wizardinvoicedetailnomandate {
                     NumberStyles.Number,
                     NumberFormatInfo.CurrentInfo);
                 if ((percent < 0) || (percent > percentmax)) {
-                    MessageBox.Show(errmsg, "Avviso");
+                    show(errmsg, "Avviso");
                     T.Focus();
                     OK = false;
                 }
@@ -2388,7 +2393,7 @@ namespace expense_wizardinvoicedetailnomandate {
                 }
             }
             catch {
-                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Exclamation);
                 return false;
             }
@@ -2538,7 +2543,7 @@ namespace expense_wizardinvoicedetailnomandate {
                         }
                         DataRow[] IvaKind = DS.ivakind.Select(QHC.CmpEq("idivakind", Row["idivakind"]));
                         if (IvaKind.Length == 0) {
-                            MessageBox.Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
+                            show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
                             return;
                         }
                         decimal imponibile = CfgFn.GetNoNullDecimal(Row["taxable"]);
@@ -2609,7 +2614,7 @@ namespace expense_wizardinvoicedetailnomandate {
                             DataRow R = DS.invoicedetail.Select(filterrow, null)[0];
                             DataRow[] IvaKind1 = DS.ivakind.Select(QHC.CmpEq("idivakind", R["idivakind"]));
                             if (IvaKind1.Length == 0) {
-                                MessageBox.Show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
+                                show(this, "Non esiste la riga nell'anagrafica dei tipi IVA", "Errore");
                                 return;
                             }
                             decimal imponibile = CfgFn.GetNoNullDecimal(R["taxable"]);

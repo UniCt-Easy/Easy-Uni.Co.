@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 
 	var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -82,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (edittype) {
 					case 'ingresso':
 						table.columns["idappello"].caption = "Appello";
-						table.columns["idattivform"].caption = "Attivit‡ formativa";
+						table.columns["idattivform"].caption = "Attivit√† formativa";
 						table.columns["idcorsostudio"].caption = "Corso di studi";
 						table.columns["iddidprog"].caption = "Didattica programmata";
 						table.columns["idprova"].caption = "Codice";
@@ -106,32 +89,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                var def = appMeta.Deferred("getNewRow-meta_prova");
 
 				var realParentObjectRow = parentRow;
-				if (editType === "stato") {
-					var realParentTableName = "didprog";
-					var realParentTable = dt.dataset.tables["didprog"];
-					if (!realParentTable) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non esiste nel dataset");
-						return def.resolve(null);
-					}
-					if (!realParentTable.rows.length) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non ha righe");
-						return def.resolve(null);
-					}
-					realParentObjectRow = realParentTable.rows[0].getRow();
-				}
-				if (editType === "dotmas") {
-					var realParentTableName = "didprog";
-					var realParentTable = dt.dataset.tables["didprog"];
-					if (!realParentTable) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non esiste nel dataset");
-						return def.resolve(null);
-					}
-					if (!realParentTable.rows.length) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non ha righe");
-						return def.resolve(null);
-					}
-					realParentObjectRow = realParentTable.rows[0].getRow();
-				}
 				if (editType === "ingresso") {
 					var realParentTableName = "didprog";
 					var realParentTable = dt.dataset.tables["didprog"];
@@ -156,6 +113,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return def.resolve(dtRow);
 					});
 			},
+
 
 
 

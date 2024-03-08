@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -114,10 +114,8 @@ namespace Backend.Controllers {
         /// <returns></returns>
         [HttpGet, Route("downloadLogo")]
         public IHttpActionResult downloadLogo() {
-            HttpResponseMessage result = null;
             var dispatcher = HttpContext.Current.getDataDispatcher();
             try {
-                string fileName = "";
                 var conn = dispatcher.conn;
                 var filter = MetaExpression.eq("idlogo", "UNIV");
                 Dictionary<string, object> objFileName = conn.readObject("logo", filter, "logo");
@@ -132,7 +130,7 @@ namespace Backend.Controllers {
 
             }
             catch (Exception ex) {
-                return Content(HttpStatusCode.NotFound, "");
+                return Content(HttpStatusCode.NotFound, ex);
             }
         }
 
@@ -294,7 +292,7 @@ namespace Backend.Controllers {
 
                     // Se invece è andata bene invio dataset con nuova riga al client.
                     // Tale riga avrà l'idattach vero, che dovrò collegare alla tabella custom con il riferimento all'allegato 
-                    var jsonResDataSet = DataUtils.dataSetToJSon(dsattach);
+                    var jsonResDataSet = DataUtils.dataSetToJSon(dsattach, false);
                     // invio json con ds serializzato
                     return Content(HttpStatusCode.OK, jsonResDataSet);
                 }

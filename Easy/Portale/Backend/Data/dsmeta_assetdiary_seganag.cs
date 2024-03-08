@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -147,20 +147,6 @@ private void initClass() {
 	tworkpackagesegview.defineColumn("dropdown_title", typeof(string),false);
 	tworkpackagesegview.defineColumn("idprogetto", typeof(int),false);
 	tworkpackagesegview.defineColumn("idworkpackage", typeof(int),false);
-	tworkpackagesegview.defineColumn("raggruppamento", typeof(string));
-	tworkpackagesegview.defineColumn("struttura_idstrutturakind", typeof(int));
-	tworkpackagesegview.defineColumn("struttura_title", typeof(string));
-	tworkpackagesegview.defineColumn("strutturakind_title", typeof(string));
-	tworkpackagesegview.defineColumn("workpackage_acronimo", typeof(string));
-	tworkpackagesegview.defineColumn("workpackage_ct", typeof(DateTime),false);
-	tworkpackagesegview.defineColumn("workpackage_cu", typeof(string),false);
-	tworkpackagesegview.defineColumn("workpackage_description", typeof(string));
-	tworkpackagesegview.defineColumn("workpackage_idstruttura", typeof(int));
-	tworkpackagesegview.defineColumn("workpackage_lt", typeof(DateTime),false);
-	tworkpackagesegview.defineColumn("workpackage_lu", typeof(string),false);
-	tworkpackagesegview.defineColumn("workpackage_start", typeof(DateTime));
-	tworkpackagesegview.defineColumn("workpackage_stop", typeof(DateTime));
-	tworkpackagesegview.defineColumn("workpackage_title", typeof(string));
 	Tables.Add(tworkpackagesegview);
 	tworkpackagesegview.defineKey("idprogetto", "idworkpackage");
 
@@ -199,6 +185,10 @@ private void initClass() {
 	tprogettosegview.defineColumn("progetto_codiceidentificativo", typeof(string));
 	tprogettosegview.defineColumn("progetto_contributo", typeof(decimal));
 	tprogettosegview.defineColumn("progetto_contributoente", typeof(decimal));
+	tprogettosegview.defineColumn("progetto_contributoenterichiesto", typeof(decimal));
+	tprogettosegview.defineColumn("progetto_contributorichiesto", typeof(decimal));
+	tprogettosegview.defineColumn("progetto_costoapprovatoateneo", typeof(decimal));
+	tprogettosegview.defineColumn("progetto_costoapprovatoateneocalcolato", typeof(decimal));
 	tprogettosegview.defineColumn("progetto_ct", typeof(DateTime),false);
 	tprogettosegview.defineColumn("progetto_cu", typeof(string),false);
 	tprogettosegview.defineColumn("progetto_cup", typeof(string));
@@ -218,12 +208,16 @@ private void initClass() {
 	tprogettosegview.defineColumn("progetto_lt", typeof(DateTime),false);
 	tprogettosegview.defineColumn("progetto_lu", typeof(string),false);
 	tprogettosegview.defineColumn("progetto_progfinanziamentotxt", typeof(string));
+	tprogettosegview.defineColumn("progetto_responsabiliamministrativi", typeof(string));
+	tprogettosegview.defineColumn("progetto_responsabiliscientifici", typeof(string));
 	tprogettosegview.defineColumn("progetto_start", typeof(DateTime));
 	tprogettosegview.defineColumn("progetto_stop", typeof(DateTime));
 	tprogettosegview.defineColumn("progetto_title", typeof(string));
 	tprogettosegview.defineColumn("progetto_title_en", typeof(string));
 	tprogettosegview.defineColumn("progetto_totalbudget", typeof(decimal));
 	tprogettosegview.defineColumn("progetto_totalcontributo", typeof(decimal));
+	tprogettosegview.defineColumn("progetto_ulteriorecup", typeof(string));
+	tprogettosegview.defineColumn("progetto_unitaorganizzativa", typeof(string));
 	tprogettosegview.defineColumn("progetto_url", typeof(string));
 	tprogettosegview.defineColumn("progettokind_title", typeof(string));
 	tprogettosegview.defineColumn("progettostatuskind_title", typeof(string));
@@ -280,6 +274,10 @@ private void initClass() {
 	cPar = new []{workpackagesegview.Columns["idworkpackage"]};
 	cChild = new []{assetdiary.Columns["idworkpackage"]};
 	Relations.Add(new DataRelation("FK_assetdiary_workpackagesegview_idworkpackage",cPar,cChild,false));
+
+	cPar = new []{progettosegview.Columns["idprogetto"]};
+	cChild = new []{workpackagesegview.Columns["idprogetto"]};
+	Relations.Add(new DataRelation("FK_workpackagesegview_progettosegview_idprogetto",cPar,cChild,false));
 
 	cPar = new []{asset.Columns["idasset"]};
 	cChild = new []{assetdiary.Columns["idasset"]};

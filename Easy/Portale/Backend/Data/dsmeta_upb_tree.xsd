@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_sorting_treeall" targetNamespace="http://tempuri.org/dsmeta_sorting_treeall.xsd" xmlns:mstns="http://tempuri.org/dsmeta_sorting_treeall.xsd" xmlns="http://tempuri.org/dsmeta_sorting_treeall.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
-  <xs:element name="dsmeta_sorting_treeall" msdata:IsDataSet="true" msdata:Locale="it-IT">
+<xs:schema id="dsmeta_upb_tree" targetNamespace="http://tempuri.org/dsmeta_upb_tree.xsd" xmlns:mstns="http://tempuri.org/dsmeta_upb_tree.xsd" xmlns="http://tempuri.org/dsmeta_upb_tree.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_upb_tree" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="upb" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">

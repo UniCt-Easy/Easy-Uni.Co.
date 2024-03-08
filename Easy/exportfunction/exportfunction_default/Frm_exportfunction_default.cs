@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -59,7 +59,8 @@ namespace exportfunction_default//expstoredprocedure//
         private Label label6;
         private ComboBox cmbModuli;
         private Button btnGeneraScript;
-        private SaveFileDialog saveFileDialog1;
+        private SaveFileDialog _saveFileDialog1;
+        private ISaveFileDialog saveFileDialog1;
         private Button btnAnalisiSp;
         private CheckBox chkScriptSP;
         private CheckBox checkBox5;
@@ -78,6 +79,7 @@ namespace exportfunction_default//expstoredprocedure//
 //			DS.delete_expstoredprocedureformat.ExtendedProperties["gridmaster"]="expstoredprocedure";
 			HelpForm.SetDenyNull(DS.exportfunction.Columns["timeout"],true);
 		    HelpForm.SetDenyNull(DS.exportfunction.Columns["active"], true);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
 
             //
             // TODO: Add any constructor code after InitializeComponent call
@@ -133,7 +135,7 @@ namespace exportfunction_default//expstoredprocedure//
             this.images = new System.Windows.Forms.ImageList(this.components);
             this.cmbModuli = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.MetaDataDetail.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgrExpSPParam)).BeginInit();
@@ -616,6 +618,7 @@ namespace exportfunction_default//expstoredprocedure//
             DataRow Curr = DS.exportfunction.Rows[0];
             string procedurename = Curr["procedurename"].ToString();
             FrmShowParams f = new FrmShowParams(procedurename,Conn);
+            createForm(f, this);
             f.ShowDialog(this);
         }
     }

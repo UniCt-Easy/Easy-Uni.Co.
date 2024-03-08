@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -42,11 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
 						this.describeAColumn(table, 'idperfruolo', 'Ruolo', null, 10, 50);
-						this.describeAColumn(table, 'oper', 'Operativit‡', null, 30, null);
-						this.describeAColumn(table, 'aggiorna', 'Aggiorna scheda e obiettivi', null, 100, null);
-						this.describeAColumn(table, 'crea', 'Crea scheda', null, 110, null);
-						this.describeAColumn(table, 'leggi', 'Visualizza scheda', null, 120, null);
-						this.describeAColumn(table, 'valuta', 'Valuta obiettivi', null, 130, null);
+						this.describeAColumn(table, 'oper', 'Operativit√†', null, 30, null);
+						this.describeAColumn(table, 'aggiorna', 'Compila i completamenti degli obiettivi', null, 100, null);
+						this.describeAColumn(table, 'crea', 'Crea le schede e inserisce gli obiettivi', null, 110, null);
+						this.describeAColumn(table, 'leggi', 'Visualizza le schede', null, 120, null);
+						this.describeAColumn(table, 'valuta', 'Valuta il completamento degli obiettivi', null, 130, null);
+						this.describeAColumn(table, 'approva', 'Approva le schede', null, 140, null);
+						this.describeAColumn(table, 'escluso', 'Non utilizzabile nelle schede', null, 160, null);
 //$objCalcFieldConfig_default$
 						break;
 					case 'maildest':
@@ -68,15 +53,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //$innerSetCaptionConfig_maildest$
 						break;
 					case 'default':
-						table.columns["aggiorna"].caption = "Aggiorna";
-						table.columns["crea"].caption = "Crea";
-						table.columns["leggi"].caption = "Visualizza";
-						table.columns["oper"].caption = "Operativit‡";
-						table.columns["valuta"].caption = "Valuta";
-						table.columns["aggiorna"].caption = "Aggiorna scheda e obiettivi";
-						table.columns["crea"].caption = "Crea scheda";
-						table.columns["leggi"].caption = "Visualizza scheda";
-						table.columns["valuta"].caption = "Valuta obiettivi";
+						table.columns["aggiorna"].caption = "Compila i completamenti degli obiettivi";
+						table.columns["approva"].caption = "Approva le schede";
+						table.columns["crea"].caption = "Crea le schede e inserisce gli obiettivi";
+						table.columns["escluso"].caption = "Non utilizzabile nelle schede";
+						table.columns["generascheda"].caption = "Ha la scheda di valutazione sul sistema";
+						table.columns["leggi"].caption = "Visualizza le schede";
+						table.columns["oper"].caption = "Operativit√†";
+						table.columns["valuta"].caption = "Valuta il completamento degli obiettivi";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$

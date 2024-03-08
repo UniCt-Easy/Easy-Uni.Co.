@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,7 +40,7 @@ CREATE   PROCEDURE [compute_balancevar]
 AS
 BEGIN
 declare @date smalldatetime
---  [compute_balancevar] 2011 
+--  [compute_balancevar] 2021 , 'N', '000100050041'
 set @date =  CONVERT(smalldatetime, '31-12-' + CONVERT(char(4), @ayear), 105)
 set  @idupb = CASE WHEN @idupb is null THEN '%' else  REPLACE(@idupb+'%','%%','%') END
 
@@ -217,7 +217,8 @@ DECLARE @bilprevision TABLE
 	finalfloatfund 	decimal(19,2),
 	finalcreditsurplus  	decimal(19,2),
 	res_competency decimal(19,2),
-	res_cash decimal(19,2)
+	res_cash decimal(19,2),
+	reportcredit decimal(19,2)
 )
 
 print 'INSERT INTO #bilprevision'
@@ -788,7 +789,16 @@ BEGIN
 				
 		where (finpart='S') and (assured='N')
 END
-
+-- Dotazione crediti da riportare
+/* 
+	tot.var.dot.crediti + tot.ass.crediti - pagamenti
+*/
+IF (@fin_kind = 2)
+BEGIN
+	UPDATE @bilprevision
+	SET reportcredit = ISNULL(totvarcredit,0) + ISNULL(totcreditpart,0) - ISNULL(di_cassa,0)
+	WHERE finpart = 'S' and assured = 'N'
+END
 -- Previsione disponibile pricipale, ossia di competenza (availableprevision) :
 --	Previsione attuale principale
 --	+ Variazioni di Previsione alla data
@@ -905,7 +915,7 @@ BEGIN
 		totproceedspart as 'tot.ass.cassa', -- ass. Cassa
 		residui1 as 'residui fase 1',
 		competenza1 as 'competenza fase 1',
-
+		var_residui1 as 'Variazioni su residui passivi',
 		ISNULL(di_cassa,0) as		'pagamenti/incassi',
 
 		ISNULL(finalproceeds,0) as 'incassi',		-- INCASSI PRESUNTI alla data(RIMANE) servono x le Entrate
@@ -928,7 +938,8 @@ BEGIN
 		supposed_res_cash  as 'prev. cassa',
 
 		res_competency as 'prev. competenza assestata',               
-		res_cash  as 'prev. cassa assestata'
+		res_cash  as 'prev. cassa assestata',
+		reportcredit as 'Dotazione Crediti da riportare'
 		
 	FROM @bilprevision
 	JOIN fin newfin
@@ -1090,7 +1101,8 @@ if (@generatevar='S') BEGIN
 
 	 END
 	 if  (@fin_kind = 2) AND (@flagcredit ='S') AND (select count(*) from @bilprevision  where 
-				([@bilprevision].assured = 'N') AND ([@bilprevision].finpart = 'S') AND isnull(totvarcredit,0) + isnull(totcreditpart,0)-isnull(di_cassa,0) <>0)<> 0 
+				([@bilprevision].assured = 'N') AND ([@bilprevision].finpart = 'S') 
+				AND isnull(totvarcredit,0) + isnull(totcreditpart,0)-isnull(di_cassa,0) <>0)<> 0 
 	 BEGIN
 		set @nmaxvar= @nmaxvar+1
 

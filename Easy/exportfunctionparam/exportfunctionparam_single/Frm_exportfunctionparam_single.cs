@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -934,12 +934,14 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
 
         private void btnCheck_Click(object sender, System.EventArgs e) {
             frmCheck F = new frmCheck(txtCheck.Text);
+            createForm(F, null);
             if (F.ShowDialog() != DialogResult.OK) return;
             txtCheck.Text = F.GetValue;
         }
 
         private void btnRadio_Click(object sender, System.EventArgs e) {
             frmRadio F = new frmRadio(txtRadio.Text);
+            createForm(F, null);
             if (F.ShowDialog() != DialogResult.OK) return;
             txtRadio.Text = F.GetValue;
         }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,6 +45,7 @@ namespace meta_provisionview{
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 }
                 int nPos = 1;
+                DescribeAColumn(T, "idprovision", "Num. Fondo", nPos++);
                 DescribeAColumn(T, "title", "Denominazione Fondo", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "registry", "Anagrafica", nPos++);
@@ -57,6 +58,12 @@ namespace meta_provisionview{
                 DescribeAColumn(T, "available", "Disponibile", nPos++);
                 DescribeAColumn(T, "payed", "Pagato", nPos++);
                 DescribeAColumn(T, "topay", "Da Pagare", nPos++);
+                DescribeAColumn(T, "active", "Attivo", nPos++);
+                DescribeAColumn(T, "residual", "Saldo Fondo", nPos++);
+                DescribeAColumn(T, "codemotive", "Cod. Causale di Costo", nPos++);
+                DescribeAColumn(T, "accmotive", "Causale di Costo", nPos++);
+                DescribeAColumn(T, "codemotive_patrim", "Cod. Causale Stato Patrimoniale", nPos++);
+                DescribeAColumn(T, "accmotive_patrim", "Causale Stato Patrimoniale", nPos++);
             }
         }
 

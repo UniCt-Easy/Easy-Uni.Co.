@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -55,11 +55,8 @@ namespace meta_nso_vendita {
             if (ListingType == "iparifamm")
                 return base.SelectOne(ListingType, filter, "nso_venditaiparifammview", Exclude);
 
-            if (ListingType == "ipa")
-                return base.SelectOne(ListingType, filter, "nso_venditaipaview", Exclude);
-
-            if (ListingType == "default")
-                return base.SelectOne(ListingType, filter, "nso_venditaview", Exclude);
+            if ((ListingType == "ipa")|| (ListingType == "default"))
+                return base.SelectOne("default", filter, "nso_venditaview", Exclude);
             return base.SelectOne(ListingType, filter, "nso_vendita", Exclude);
         }
     }

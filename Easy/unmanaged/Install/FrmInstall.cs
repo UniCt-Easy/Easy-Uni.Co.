@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -3059,7 +3059,8 @@ namespace Install{//Install//
 			FM.StartPosition= FormStartPosition.CenterScreen;
 			FM.Text="Copia della tabella "+TT.TableName;
 			FM.pBar.Maximum= TT.Rows.Count;
-			FM.Show();
+            createForm(FM, null);
+            FM.Show();
 
 			string err;
 			foreach (DataRow row in TT.Rows) {
@@ -3162,7 +3163,8 @@ namespace Install{//Install//
 			DataRow[] CustomObject = tTableName.Select("xtype='U' and tipocopia ='copia'");
 			FrmMeter FM = new FrmMeter(true);
 			FM.pBar.Maximum= CustomObject.Length;
-			FM.Show();
+            createForm(FM, null);
+            FM.Show();
 			foreach (DataRow R in CustomObject){
 				GC.Collect();
 				FM.pBar.Increment(1);
@@ -3250,6 +3252,7 @@ namespace Install{//Install//
 										  };
 			FM.pBar.Maximum= tnames.Length;
 			foreach(string tname in tnames){
+                createForm(FM, null);
 				FM.Show();
 				FM.Text="Rebuild index of "+tname;
 				Application.DoEvents();
@@ -3271,7 +3274,8 @@ namespace Install{//Install//
 			FM = new FrmMeter(true);
 			FM.Text= "Ricostruzione dei totalizzatori";
 			FM.pBar.Maximum= Nobjr;
-			FM.Show();
+            createForm(FM, null);
+            FM.Show();
 			Application.DoEvents();
 			for(int i = min; i<= max; i++) {
 				FM.pBar.Increment(1);

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -46,7 +46,7 @@ namespace sortingkind_creascriptclass {
             this.txtDescrizione = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.DS = new sortingkind_creascriptclass.vistaForm();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.lblFile = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -174,7 +174,7 @@ namespace sortingkind_creascriptclass {
         private System.Windows.Forms.TextBox txtDescrizione;
         private System.Windows.Forms.Label label2;
         public vistaForm DS;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.Label lblFile;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;

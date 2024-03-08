@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +24,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
- 
+ --setuser 'Demo'
 CREATE        PROCEDURE [trasmele_expense_unicredit_abi36_ins]
 (
 	@y int,
@@ -32,14 +32,18 @@ CREATE        PROCEDURE [trasmele_expense_unicredit_abi36_ins]
 )
 AS BEGIN
 --
---[trasmele_expense_unicredit_abi36_ins] 2015,3
+--[trasmele_expense_unicredit_abi36_ins] 2023,183
 --------------------------------------------------------------
 ---  STORED PROCEDURE PER LA TRASMISSIONE DEI MANDATI PER  ---
 ------------------------ BANCA UNICREDIT ABI 36---------------
 --------------------------------------------------------------
-DECLARE @ABI_bancodisardegna varchar(5) = '01015'
+DECLARE @abi_bancodisardegna varchar(5) = '01015'
+DECLARE @ABI_bpbari varchar(5) = '05424'
+DECLARE @codetreasurer_bpbari varchar(20) = 'BPB_PNRR'
+DECLARE @codetreasurer_bpbfacil varchar(20) = 'BPB_FACIL'
+DECLARE @istreasurer_pnrr char(1) = 'N'
 declare @fasecontrattopassivo int
-select @fasecontrattopassivo = expensephase from config where ayear=@y
+select  @fasecontrattopassivo = expensephase from config where ayear=@y
 
 DECLARE @len_numericdata int
 SET @len_numericdata = 7
@@ -77,7 +81,10 @@ SET @len_cin = 1
 DECLARE @len_bank int
 SET @len_bank =50
  
-
+  
+declare @CAB_bpbari_PNRR varchar(20)
+set  @CAB_bpbari_PNRR ='04297'
+ 
 DECLARE @idtreasurer int
 DECLARE @kpaymenttransmission int
 
@@ -117,6 +124,44 @@ SET @opkind = 'INSERIMENTO'
 
 DECLARE @lenCC_vincolato int
 SET @lenCC_vincolato = 7
+
+DECLARE @treasurer_description varchar(150)
+DECLARE @treasurer_idbank varchar(20)
+DECLARE @treasurer_trasmcode varchar(7)
+DECLARE @treasurer_codetreasurer varchar(20)
+ 
+declare @CAB varchar(20)
+
+
+SELECT @treasurer_idbank = idbank,
+	@treasurer_trasmcode = trasmcode,
+	@treasurer_description = description,
+	@treasurer_codetreasurer = codetreasurer,
+	@CAB = idcab
+FROM treasurer WHERE idtreasurer = @idtreasurer
+
+
+if (isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbari or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbfacil
+	)
+BEGIN
+		SET @istreasurer_pnrr = 'S'
+END
+
+
+-- Per la banca popolare di bari - pnrr il tag conto_evidenza deve essere di due caratteri
+-- quindi se trasmcode è maggiore di due caratteri restituisco un errore
+-- altrimenti valorizzo lenCC_vincolato a 2 invece di 7
+if (isnull(@treasurer_idbank, '') = @ABI_bpbari and   ISNULL(@istreasurer_pnrr,'N') = 'S')
+BEGIN
+	IF (DATALENGTH(CONVERT(varchar(7),ISNULL(@treasurer_trasmcode,'0'))) > 2)
+	BEGIN
+		SELECT 'Il codice conto tesoreria del tesoriere ' + (@treasurer_description) + ' deve essere di due caratteri.' as Errore
+		RETURN
+	END
+
+	SET @lenCC_vincolato = 2
+END
 
 DECLARE @cc_vincolato varchar(7)
 
@@ -508,7 +553,8 @@ CREATE TABLE #payment
 	cupcodeexpense varchar(15),
 	CIG varchar(10),
 	cigcodeexpense varchar(10),
-	cigcodemandate varchar(10)
+	cigcodemandate varchar(10),
+	expiration datetime
 )
 
 -- Tabella per il delegato
@@ -652,7 +698,8 @@ INSERT INTO #payment
 	cupcodedetail, cigcodemandate,
 	chargehandling,
 	exemption_charge_payment_kind,
-	exemption_charge_motive
+	exemption_charge_motive,
+	expiration
 )
 SELECT
 	t.ypaymenttransmission, t.npaymenttransmission, d.ypay, d.npay, s.idexp,  
@@ -672,6 +719,7 @@ SELECT
 		 ELSE ISNULL(tb.handlingbankcode,'')  -- causale esenzione bollo 
 	END,  
 	CASE
+		WHEN  (@ABI_code = @ABI_bpbari and ISNULL(@istreasurer_pnrr,'N') = 'S') THEN 'VINCOLATA'
 		WHEN ((el.paymethod_flag & 256) <> 0) THEN 'LIBERA' -- (girofondi ordinari TABELLA A)
 		WHEN ((el.paymethod_flag & 512) <> 0) THEN 'VINCOLATA' --(girofondi vincolati TABELLA A)
 		WHEN ((el.paymethod_flag & 1024) <> 0) THEN 'LIBERA' --(girofondi ordinari TABELLA B) 
@@ -709,18 +757,17 @@ SELECT
 	null,
 	null,
 	CASE
-		  WHEN (@ABI_code = @abi_bancodisardegna AND pd.idpaydisposition is not null)  
+		  WHEN (pd.idpaydisposition is not null)  
 		  THEN ISNULL(pd.title,ISNULL(pd.surname,'') + ' ' +  ISNULL(pd.forename,'') ) 
 		  ELSE ISNULL(c.title,'')
 	END,
 	CASE
-		  WHEN (@ABI_code = @abi_bancodisardegna AND pd.idpaydisposition is not null)  
+		  WHEN ( pd.idpaydisposition is not null)  
 		  THEN ISNULL(pd.cf,'')   
 		  ELSE c.cf
 	END,
 	CASE
-	WHEN (@ABI_code = @abi_bancodisardegna 
-			  AND pd.idpaydisposition is not null )
+	WHEN ( pd.idpaydisposition is not null )
 			  THEN ISNULL(pd.p_iva,'')  
 		ELSE CASE
 				WHEN ctc.flaghuman = 'N' AND c.p_iva IS NOT NULL
@@ -766,13 +813,11 @@ SELECT
 	ISNULL(el.refexternaldoc,''),
 	CONVERT(varchar(7),el.nbill),
 	el.idpay, --6 
-	CASE WHEN (@ABI_code = @abi_bancodisardegna 
-		 AND pd.idpaydisposition is not null )
+	CASE WHEN (pd.idpaydisposition is not null )
 			  THEN pd.idpaydisposition 
 	ELSE NULL
 	END,
-	CASE WHEN (@ABI_code = @abi_bancodisardegna 
-		 AND pd.idpaydisposition is not null )
+	CASE WHEN (pd.idpaydisposition is not null )
 			  THEN pd.iddetail 
 	ELSE 0
 	END,
@@ -787,7 +832,8 @@ SELECT
 	null,null,
 	chargehandling.handlingbankcode,
 	chargehandling.payment_kind,
-	chargehandling.motive
+	chargehandling.motive,
+	s.expiration
 FROM expense s
 JOIN expenselast el
 	ON S.idexp = el.idexp
@@ -843,162 +889,7 @@ JOIN finlast
 WHERE t.ypaymenttransmission = @y
 	AND t.npaymenttransmission = @n
 	--AND  p.idpaydisposition IS NULL
-	
----------------------------------------------------------------------------------------------
--- Inserimento dei pagamenti presenti nella distinta di trasmissione che si vuole trasmettere
---					che siano collegati alle disposizioni di pagamento                     --
----------------------------------------------------------------------------------------------
 
---INSERT INTO #payment (ypaymenttransmission, npaymenttransmission, ydoc, ndoc, idexp, 
---	ymov, nmov, nphase, phase,
---	flagcr, curramount,  exp_curramount,
---    idreg, expense_adate, payment_adate, transmissiondate, 	
---    stamphandling,stamp_charge, exemption_stamp_motive, 
---    destinazione, tipo_contabilita_ente_ricevente,
---	idpaymethodTRS, ABI, CAB, cc, cin_iban, cin, codice_paese, bank, iban, biccode, id_end_to_end , 
---	title_ben, cf_ben, pi_ben , 
---	paymentdescr, expenselast_paymentdescr, fulfilled, girofondo,deny_bank_details,
---	extracode, iddeputy, refexternaldoc, nbill, idpay, 
---    idpaydisposition, iddetail,codeupb, upbtitle,
---	codefin, fintitle, 
---	nlevel,finlevel,
---    cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, txt,
---	cupcodedetail, cigcodemandate)
---SELECT t.ypaymenttransmission, t.npaymenttransmission, d.ypay, d.npay, s.idexp,  
---	s.ymov, s.nmov, s.nphase, eph.description, 
---	CASE
---		WHEN ((i.flag&1)=0) THEN 'C'
---		WHEN ((i.flag&1)=1) THEN 'R'
---	END, 
---	pd.amount,
---	i.curramount,
---	null, s.adate, d.adate, t.transmissiondate, 
---	tb.description, 
---	CASE 
---		WHEN (tb.flag&0) <> 0 THEN 'N'
---		ELSE 'S'
---	END, --esenzione bollo
---	ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
---	'LIBERA', -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
---	NULL, -- informazioni obbligatorie solo per i girofondi in BI
---	--- Considero la seguente mappatura tra la modalità di pagamento della disposizione
---	--  e la modalità di pagamento ABI 
---	CASE
---		WHEN ((pd.paymethodcode = 1) OR (pd.iban IS NOT NULL)) THEN '02' -- bonifico
---		WHEN pd.paymethodcode = 2 THEN  '01' -- cassa
---		WHEN pd.paymethodcode = 3 THEN  '05' -- assegno circolare
---		WHEN pd.paymethodcode = 4 THEN  '05' -- assegno circolare non trasferibile
---		WHEN pd.paymethodcode = 5 THEN  '04' -- assegno quietanza
---		ELSE '01' --cassa 
---	END, --@len_ABI
---	CASE
---		WHEN DATALENGTH(ISNULL(pd.abi,'')) <= @len_ABI
---		THEN ISNULL(pd.abi,'')
---		ELSE SUBSTRING(pd.abi,1,@len_ABI)
---	END,
---	CASE
---		WHEN DATALENGTH(ISNULL(pd.cab,'')) <= @len_CAB
---		THEN ISNULL(pd.cab,'')
---		ELSE SUBSTRING(pd.cab,1,@len_CAB)
---	END,
---	ISNULL(pd.cc,''),
---	substring(pd.iban,3,2),
---	CASE
---		WHEN DATALENGTH(ISNULL(pd.cin,'')) <= @len_cin
---		THEN ISNULL(pd.cin,'') 
---		ELSE SUBSTRING(pd.cin,1,@len_cin)
---	END,
---	substring(pd.iban,1,2),
---	substring(bancadisposition.description,1,@len_bank),
---	ISNULL(pd.iban,''),
---	null,
---	null,
---	ISNULL(pd.title,ISNULL(pd.surname,'') + ' ' +  ISNULL(pd.forename,'') ),
---	CASE
---		WHEN pd.flaghuman = 'S' AND pd.cf IS NOT NULL
---		THEN pd.cf  
---		WHEN pd.flaghuman = 'S' AND pd.cf IS NULL
---		THEN SPACE(@len_cf)
---		ELSE SPACE(@len_cf)
---	END,
---	CASE
---		WHEN pd.flaghuman = 'N' AND pd.p_iva IS NOT NULL AND DATALENGTH(pd.p_iva) <= @len_pi
---		THEN ISNULL(pd.p_iva,'') 
---		WHEN pd.flaghuman = 'N' AND pd.p_iva IS NOT NULL AND DATALENGTH(pd.p_iva) > @len_pi
---		THEN SUBSTRING(pd.p_iva, 1, @len_pi)
---		ELSE SPACE(@len_pi)
---	END,
---	---- paymentdescr:
---	COALESCE(pd.motive, p.motive,ISNULL(s.doc,'') + ISNULL(CONVERT(varchar(12),s.docdate),'') + ISNULL(s.description,'')),
---	el.paymentdescr,
---	'N', -- non può essere a regolarizzazione 
---	'N', -- non può essere girofondo 
---	 --deny_bank_details -- vieta  coordinate bancarie
---	'N',
---	SPACE(@lencodicecontabilitaspeciale), -- codice contabilità speciale, vale solo per i girofondi
---	null, -- non ammette delegato
---	null, -- riferimento documento esterno
---	null, -- numero bolletta, non può essere a regolarizzazione
---	pd.iddetail,
---	pd.idpaydisposition,
---	pd.iddetail,
---	upb.codeupb, upb.title,
---	fin.codefin, fin.title, 
---	fin.nlevel,finlevel.description,
---	ltrim(rtrim(finlast.cupcode))  ,
---	ltrim(rtrim(u.cupcode)),
---	ltrim(rtrim(RegPhase.cupcode)),
---	ltrim(rtrim(RegPhase.cigcode)), 
---	ltrim(rtrim(substring(s.txt, 1, 200))),
---	null,null
---FROM expense s
---JOIN expenselast el 
---	ON s.idexp = el.idexp
---JOIN expensetotal i
---	ON i.idexp = el.idexp
---JOIN expenseyear y
---	ON y.idexp = el.idexp
---JOIN expensephase eph
---	ON eph.nphase = s.nphase
---JOIN upb 
---	ON upb.idupb = y.idupb
---JOIN fin
---	ON fin.idfin = y.idfin
---JOIN finlevel 
---	ON fin.nlevel = finlevel.nlevel
---	AND finlevel.ayear = y.ayear
---JOIN payment d
---	ON d.kpay = el.kpay
---JOIN paymenttransmission t
---	ON t.kpaymenttransmission = d.kpaymenttransmission
---JOIN paydisposition p
---	ON p.kpay = d.kpay
---JOIN paydispositiondetail pd
---	ON p.idpaydisposition = pd.idpaydisposition
---LEFT OUTER JOIN bank bancadisposition
---	ON bancadisposition.idbank = pd.abi
---LEFT OUTER JOIN cab sportellodisposition
---	ON sportellodisposition.idbank = pd.abi
---	AND sportellodisposition.idcab = pd.cab
---LEFT OUTER JOIN stamphandling tb
---	ON tb.idstamphandling = d.idstamphandling
---JOIN upb u
---	ON u.idupb = y.idupb
---JOIN fin f
---	ON f.idfin = y.idfin
---JOIN finlast 
---	ON finlast.idfin = f.idfin
---JOIN expenselink as RegPhaseELK	-- Dobbiamo risalire alla fase del creditore per recuperare CUP e CIG
---	ON RegPhaseELK.idchild = el.idexp
---	AND RegPhaseELK.nlevel = @expenseregphase
---JOIN expense RegPhase			-- fase del Creditore
---	ON RegPhase.idexp = RegPhaseELK.idparent 
---WHERE t.ypaymenttransmission = @y
---	AND t.npaymenttransmission = @n
---	AND i.ayear = @y
---------------------------------------------------------------------
---------------------------------------------------------------------
---------------------------------------------------------------------
 
 -- Valorizza codice cup da eventuali -----
 -- contabilizzazioni di dettagli ordine --
@@ -1149,10 +1040,8 @@ AND (p.idpaydisposition IS  NULL AND -- i mandati stipendi ad anagrafiche cumula
 	 (p.girofondo <> 'S') 
 	 ) 
 	
-AND ((e.autokind = 6) -- Recupero
-	OR (e.autokind = 14) --automatismo generico
-	OR (e.autokind = 4 AND e.idreg = p.idreg)) -- Ritenuta
-	OR (e.autokind in (20,21,30,31) AND e.idreg = p.idreg) -- AUTOMATISMI DA CSA
+AND (e.autokind in (4,6,7,14,20,21,30,31) )
+	AND ((e.idreg = p.idreg) or (e.autokind = 14)/*automatismo generico, non è richiesta la stessa anagrafica*/) 
 	AND ie.ayear = @y
 
 -- L'incasso reale sarà suddiviso in due tranches, uno di importo parti al sospeso e non collegato alla spesa
@@ -1871,8 +1760,8 @@ CREATE TABLE #trace
 	impignorabili char(1),
 	frazionabile char(1),
 	gestione_provvisoria char(1),
-	data_esecuzione_pagamento datetime, 
-	data_scadenza_pagamento datetime,
+	data_esecuzione_pagamento varchar(20), 
+	data_scadenza_pagamento varchar(20),
 	destinazione varchar(20),
 	numero_conto_banca_italia_ente_ricevente varchar(10),
 	tipo_contabilita_ente_ricevente varchar(20),
@@ -2192,8 +2081,8 @@ SELECT
 				   null,
 				   null,
 				   null,
-				   null,
-				   null,
+				   CONVERT(VARCHAR(10),expiration,20),--data esecuzione pagamento,
+				   null,--  ---data scadenza pagamento,
 				   destinazione, -- destinazione
 				   CASE 
 						WHEN (idpaymethodTRS = '09') THEN 1777 
@@ -2357,7 +2246,7 @@ LEFT JOIN #deputy
 		ABI, CAB, cc, cin_iban, cin,codice_paese, bank, iban,biccode,id_end_to_end,code, proprietary,
 		paymentdescr, stamphandling, stamp_charge, exemption_stamp_motive, 
 		refexternaldoc,expenselast_paymentdescr,  chargehandling,exemption_charge_payment_kind,
-		exemption_charge_motive
+		exemption_charge_motive, expiration
 ORDER BY #payment.ndoc, #payment.idpay
 
 --- NON DEVONO ESSERE INSERITE LE CLASSIFICAZIONI SIOPE PER TASK 15681

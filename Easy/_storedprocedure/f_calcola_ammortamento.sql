@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -153,7 +153,7 @@ IF
 			FROM inventoryamortization I
 			JOIN inventorysortingamortizationyear A
 				ON I.idinventoryamortization = A.idinventoryamortization
-			WHERE (I.flag & 2 <> 0) AND I.age IS NOT NULL AND A.ayear = @ayear AND ISNULL(I.active,'S')= 'S') > 0
+			WHERE (I.flag & 2 <> 0) AND I.age IS NOT NULL AND A.ayear = @ayear_rif AND ISNULL(I.active,'S')= 'S') > 0
 			BEGIN
 				-- Considero i tipi di rivalutazioni 'ANNUALI' 
 				SELECT  
@@ -252,7 +252,7 @@ IF
 		FROM inventoryamortization I
 		JOIN inventorysortingamortizationyear A
 			ON I.idinventoryamortization = A.idinventoryamortization
-		WHERE (I.flag & 2 <> 0) AND I.age IS NOT NULL AND A.ayear = @ayear AND ISNULL(I.active,'S')= 'S') = 0
+		WHERE (I.flag & 2 <> 0) AND I.age IS NOT NULL AND A.ayear = @ayear_rif AND ISNULL(I.active,'S')= 'S') = 0
 		BEGIN
 			SELECT @trovato = 'S',
 				@idinventoryamortization = tr.idinventoryamortization, 
@@ -279,6 +279,8 @@ IF
 				AND ((tr.flag&8) <> 0) -- ammortamenti
 				AND (tr.flag & 1 = 0)		--annuale
 				AND ISNULL(tr.active,'S')= 'S'
+				AND tr.age is null
+				AND tr.agemax is null
 				AND (b.flag & 1 <> 0)
 				AND	((tr.valuemin is null or tr.valuemin<ISNULL(C.historicalvalue,AC.start) ) and (tr.valuemax is null or tr.valuemax>=ISNULL(C.historicalvalue,AC.start) ))
 				AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
@@ -319,6 +321,8 @@ IF
 				AND ((tr.flag&8) <> 0)  --ammortamenti
 				AND (tr.flag & 1 <> 0)	--mensile
 				AND ISNULL(tr.active,'S')= 'S'
+				AND tr.age is null
+				AND tr.agemax is null
 				AND (b.flag & 1 <> 0)
 		 
 				AND	((tr.valuemin is null or tr.valuemin<ISNULL(C.historicalvalue,AC.start) ) and (tr.valuemax is null or tr.valuemax>=ISNULL(C.historicalvalue,AC.start) ))

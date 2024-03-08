@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,12 +33,16 @@ using pagoPaService;
 namespace flussocreditidetail_default {
     public partial class Frm_flussocreditidetail_default : MetaDataForm {
         MetaData Meta;
+
         public Frm_flussocreditidetail_default() {
             InitializeComponent();
+            fileSave.DefaultExt = "pdf";
+            fileSave.OverwritePrompt = false;
         }
         DataAccess Conn;
         QueryHelper QHS;
         CQueryHelper QHC;
+        string partner = "";
 
         public void MetaData_AfterFill() {
             enableControls(false);
@@ -93,6 +97,15 @@ namespace flussocreditidetail_default {
             if (idsorkind1 == DBNull.Value && idsorkind2 == DBNull.Value && idsorkind3 == DBNull.Value) {
                 tabControl1.TabPages.Remove(tabAnalitico);
             }
+            var obj = Conn.DO_READ_VALUE("partner_config", QHS.CmpEq("attivo", "S"), "code");
+            if (obj != null) {
+                partner = obj.ToString().ToLower();
+			}
+            if (partner.Contains("unicredit")) {
+                btnRicevutaEng.Visible = true;
+                return;
+            }
+            btnRicevutaEng.Visible = false;
         }
 
         public void MetaData_AfterClear() {
@@ -140,13 +153,23 @@ namespace flussocreditidetail_default {
             checkBox1.Enabled = !ReadOnly;
             checkBox2.Enabled = !ReadOnly;
             btnRicevuta.Enabled = !abilita;
+            btnRicevutaEng.Enabled = !abilita;
         }
 
         private void btnRicevuta_Click(object sender, EventArgs e) {
+            Ricevuta(false);
+        }
+
+        private void btnRicevutaEng_Click(object sender, EventArgs e) {
+            Ricevuta(true);
+        }
+
+        private void Ricevuta(bool isEng) {
             if (DS.flussocreditidetail.Rows.Count == 0) return;
             var curr = DS.flussocreditidetail._First();
             
             string error;
+            PagoPaService.SetLanguage(isEng);
             var avviso = PagoPaService.ottieniAvvisoPagamento(Conn, curr.iuv,  out error);
             if (error != null) {
                 show(error, "Errore");
@@ -168,7 +191,7 @@ namespace flussocreditidetail_default {
             catch(Exception E) {
                 QueryCreator.ShowException(E);
             }
-        }
+		}
 
         private void btnCheckIncassi_Click(object sender, EventArgs e) {
             DataRow curr;
@@ -230,8 +253,9 @@ namespace flussocreditidetail_default {
             _dispatcher = this.getInstance<IMetaDataDispatcher>();
             _security = this.getInstance<ISecurity>();
             DataRow curr = DS.flussocreditidetail.Rows[0];
-			var f = new FrmAnnullaDettaglio(curr["iduniqueformcode"],DS,Meta,_dispatcher,_security);
-			if (f.ShowDialog(this) != DialogResult.OK) return;
+            FrmAnnullaDettaglio f = new FrmAnnullaDettaglio(curr["iduniqueformcode"],DS,Meta,_dispatcher,_security);
+            createForm(f, this);
+            if (f.ShowDialog(this) != DialogResult.OK) return;
             else Meta.FreshForm();
  
 

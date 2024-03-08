@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -55,12 +55,13 @@ namespace grantload_default {
             EPM = new EP_Manager(Meta, btnGeneraEpExp, btnVisualizzaEpExp, btnGeneraPreimpegni, btnVisualizzaPreimpegni,
             btnGeneraEP, btnVisualizzaEP, labEP, null, "grantload");
             //QH.AppAnd(QH.IsNull("idgrantload"), QH.CmpEq("ygrant", esercizio));
-            btnCollega.Tag = "choose.assetgrant.default." +
-                    QHS.AppAnd(QHS.CmpEq("ygrant", esercizio), QHS.IsNull("idgrantload"));
+            btnCollega.Tag = "choose.assetgrant.single." +
+                    QHS.AppAnd(QHS.CmpEq("ygrant", esercizio), QHS.IsNull("idgrantload"),
+                    QHS.Not(QHS.AppAnd(QHS.CmpEq("flag_financesource", "U"), QHS.CmpEq("flag_entryprofitreservedone", "S"))));
             btnCollegaRisconti.Tag = "choose.assetgrantdetail.default." +
                     QHS.AppAnd(QHS.CmpEq("ydetail", esercizio), QHS.IsNull("idgrantload"));
             chkDefinizione.Enabled = true;
-
+            
         }
 
         public void MetaData_AfterClear() {
@@ -91,7 +92,6 @@ namespace grantload_default {
                     chkDefinizione.Enabled = true;
             }
             EPM.mostraEtichette();
-
         }
 
 
@@ -157,7 +157,12 @@ namespace grantload_default {
             
             QueryHelper QH = SQL ? QHS : QHC;
             string MyFilter = QH.AppAnd(QH.IsNull("idgrantload"), QH.CmpEq("ygrant", esercizio));
-                            
+            //Dobbiamo escludere le righe per cui
+            // flag_financesource = U and flag_entryprofitreservedone = S
+            string filtroRigheDaEscludere = QH.AppAnd(QH.CmpEq("flag_financesource", "U"), QH.CmpEq("flag_entryprofitreservedone", "S"));
+            filtroRigheDaEscludere = QHS.Not(filtroRigheDaEscludere);
+
+            MyFilter = QH.AppAnd(MyFilter, filtroRigheDaEscludere);
             return MyFilter;
         }
 
@@ -170,7 +175,7 @@ namespace grantload_default {
             return MyFilter;
         }
 
-        
+
         private void btnModifica_Click(object sender, EventArgs e) {
             if (Meta.IsEmpty) return;
             Meta.GetFormData(true);
@@ -180,7 +185,7 @@ namespace grantload_default {
                 "Contributi inclusi nell' elenco selezionato",
                 "Contributi non inclusi in alcun elenco",
                 DS.assetgrant, MyFilter, MyFilterSQL, "single");
-            
+          
             Meta.FreshForm();
         }
 

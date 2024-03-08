@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -72,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["external_reference"].caption = "Chiave esterna per db collegati";
 						table.columns["idclawback"].caption = "Id recupero (tabella recupero)";
 						table.columns["idexp"].caption = "id mov. spesa (tabella expense)";
-						table.columns["idformerexpense"].caption = "id economia di spesa (idexp di expense) associata qualora questo movimento. Questo movimento è valorizzato nella maschera ct_expenselast_reset (storno residui catania) e expense_wizardcreamovcompetenza (riemissione dei movimenti in competenza)";
+						table.columns["idformerexpense"].caption = "id economia di spesa (idexp di expense) associata qualora questo movimento. Questo movimento Ã¨ valorizzato nella maschera ct_expenselast_reset (storno residui catania) e expense_wizardcreamovcompetenza (riemissione dei movimenti in competenza)";
 						table.columns["idinc_linked"].caption = "incasso collegato";
 						table.columns["idpayment"].caption = "id mov. spesa collegato (idexp di expense)";
 						table.columns["idreg"].caption = "id anagrafica (tabella registry)";

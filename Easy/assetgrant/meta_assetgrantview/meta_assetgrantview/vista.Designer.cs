@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -28,49 +28,49 @@ public class assetgrantviewRow: MetaRow  {
 	public assetgrantviewRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	public Int32? idasset{ 
-		get {if (this["idasset"]==DBNull.Value)return null; return  (Int32?)this["idasset"];}
-		set {if (value==null) this["idasset"]= DBNull.Value; else this["idasset"]= value;}
+	public Int32 idasset{ 
+		get {return  (Int32)this["idasset"];}
+		set {this["idasset"]= value;}
 	}
 	public object idassetValue { 
 		get{ return this["idasset"];}
-		set {if (value==null|| value==DBNull.Value) this["idasset"]= DBNull.Value; else this["idasset"]= value;}
+		set {this["idasset"]= value;}
 	}
-	public Int32? idassetOriginal { 
-		get {if (this["idasset",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idasset",DataRowVersion.Original];}
+	public Int32 idassetOriginal { 
+		get {return  (Int32)this["idasset",DataRowVersion.Original];}
 	}
-	public Int32? idpiece{ 
-		get {if (this["idpiece"]==DBNull.Value)return null; return  (Int32?)this["idpiece"];}
-		set {if (value==null) this["idpiece"]= DBNull.Value; else this["idpiece"]= value;}
+	public Int32 idpiece{ 
+		get {return  (Int32)this["idpiece"];}
+		set {this["idpiece"]= value;}
 	}
 	public object idpieceValue { 
 		get{ return this["idpiece"];}
-		set {if (value==null|| value==DBNull.Value) this["idpiece"]= DBNull.Value; else this["idpiece"]= value;}
+		set {this["idpiece"]= value;}
 	}
-	public Int32? idpieceOriginal { 
-		get {if (this["idpiece",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idpiece",DataRowVersion.Original];}
+	public Int32 idpieceOriginal { 
+		get {return  (Int32)this["idpiece",DataRowVersion.Original];}
 	}
-	public Int32? idgrant{ 
-		get {if (this["idgrant"]==DBNull.Value)return null; return  (Int32?)this["idgrant"];}
-		set {if (value==null) this["idgrant"]= DBNull.Value; else this["idgrant"]= value;}
+	public Int32 idgrant{ 
+		get {return  (Int32)this["idgrant"];}
+		set {this["idgrant"]= value;}
 	}
 	public object idgrantValue { 
 		get{ return this["idgrant"];}
-		set {if (value==null|| value==DBNull.Value) this["idgrant"]= DBNull.Value; else this["idgrant"]= value;}
+		set {this["idgrant"]= value;}
 	}
-	public Int32? idgrantOriginal { 
-		get {if (this["idgrant",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idgrant",DataRowVersion.Original];}
+	public Int32 idgrantOriginal { 
+		get {return  (Int32)this["idgrant",DataRowVersion.Original];}
 	}
-	public Decimal? amount{ 
-		get {if (this["amount"]==DBNull.Value)return null; return  (Decimal?)this["amount"];}
-		set {if (value==null) this["amount"]= DBNull.Value; else this["amount"]= value;}
+	public Decimal amount{ 
+		get {return  (Decimal)this["amount"];}
+		set {this["amount"]= value;}
 	}
 	public object amountValue { 
 		get{ return this["amount"];}
-		set {if (value==null|| value==DBNull.Value) this["amount"]= DBNull.Value; else this["amount"]= value;}
+		set {this["amount"]= value;}
 	}
-	public Decimal? amountOriginal { 
-		get {if (this["amount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["amount",DataRowVersion.Original];}
+	public Decimal amountOriginal { 
+		get {return  (Decimal)this["amount",DataRowVersion.Original];}
 	}
 	public Int16? ygrant{ 
 		get {if (this["ygrant"]==DBNull.Value)return null; return  (Int16?)this["ygrant"];}
@@ -248,104 +248,104 @@ public class assetgrantviewRow: MetaRow  {
 	public Int32? ninventoryOriginal { 
 		get {if (this["ninventory",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["ninventory",DataRowVersion.Original];}
 	}
-	public Int32? idinventory{ 
-		get {if (this["idinventory"]==DBNull.Value)return null; return  (Int32?)this["idinventory"];}
-		set {if (value==null) this["idinventory"]= DBNull.Value; else this["idinventory"]= value;}
+	public Int32 idinventory{ 
+		get {return  (Int32)this["idinventory"];}
+		set {this["idinventory"]= value;}
 	}
 	public object idinventoryValue { 
 		get{ return this["idinventory"];}
-		set {if (value==null|| value==DBNull.Value) this["idinventory"]= DBNull.Value; else this["idinventory"]= value;}
+		set {this["idinventory"]= value;}
 	}
-	public Int32? idinventoryOriginal { 
-		get {if (this["idinventory",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinventory",DataRowVersion.Original];}
+	public Int32 idinventoryOriginal { 
+		get {return  (Int32)this["idinventory",DataRowVersion.Original];}
 	}
 	public String codeinventory{ 
-		get {if (this["codeinventory"]==DBNull.Value)return null; return  (String)this["codeinventory"];}
-		set {if (value==null) this["codeinventory"]= DBNull.Value; else this["codeinventory"]= value;}
+		get {return  (String)this["codeinventory"];}
+		set {this["codeinventory"]= value;}
 	}
 	public object codeinventoryValue { 
 		get{ return this["codeinventory"];}
-		set {if (value==null|| value==DBNull.Value) this["codeinventory"]= DBNull.Value; else this["codeinventory"]= value;}
+		set {this["codeinventory"]= value;}
 	}
 	public String codeinventoryOriginal { 
-		get {if (this["codeinventory",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeinventory",DataRowVersion.Original];}
+		get {return  (String)this["codeinventory",DataRowVersion.Original];}
 	}
 	public String inventory{ 
-		get {if (this["inventory"]==DBNull.Value)return null; return  (String)this["inventory"];}
-		set {if (value==null) this["inventory"]= DBNull.Value; else this["inventory"]= value;}
+		get {return  (String)this["inventory"];}
+		set {this["inventory"]= value;}
 	}
 	public object inventoryValue { 
 		get{ return this["inventory"];}
-		set {if (value==null|| value==DBNull.Value) this["inventory"]= DBNull.Value; else this["inventory"]= value;}
+		set {this["inventory"]= value;}
 	}
 	public String inventoryOriginal { 
-		get {if (this["inventory",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["inventory",DataRowVersion.Original];}
+		get {return  (String)this["inventory",DataRowVersion.Original];}
 	}
-	public Int32? idinventoryagency{ 
-		get {if (this["idinventoryagency"]==DBNull.Value)return null; return  (Int32?)this["idinventoryagency"];}
-		set {if (value==null) this["idinventoryagency"]= DBNull.Value; else this["idinventoryagency"]= value;}
+	public Int32 idinventoryagency{ 
+		get {return  (Int32)this["idinventoryagency"];}
+		set {this["idinventoryagency"]= value;}
 	}
 	public object idinventoryagencyValue { 
 		get{ return this["idinventoryagency"];}
-		set {if (value==null|| value==DBNull.Value) this["idinventoryagency"]= DBNull.Value; else this["idinventoryagency"]= value;}
+		set {this["idinventoryagency"]= value;}
 	}
-	public Int32? idinventoryagencyOriginal { 
-		get {if (this["idinventoryagency",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinventoryagency",DataRowVersion.Original];}
+	public Int32 idinventoryagencyOriginal { 
+		get {return  (Int32)this["idinventoryagency",DataRowVersion.Original];}
 	}
 	public String codeinventoryagency{ 
-		get {if (this["codeinventoryagency"]==DBNull.Value)return null; return  (String)this["codeinventoryagency"];}
-		set {if (value==null) this["codeinventoryagency"]= DBNull.Value; else this["codeinventoryagency"]= value;}
+		get {return  (String)this["codeinventoryagency"];}
+		set {this["codeinventoryagency"]= value;}
 	}
 	public object codeinventoryagencyValue { 
 		get{ return this["codeinventoryagency"];}
-		set {if (value==null|| value==DBNull.Value) this["codeinventoryagency"]= DBNull.Value; else this["codeinventoryagency"]= value;}
+		set {this["codeinventoryagency"]= value;}
 	}
 	public String codeinventoryagencyOriginal { 
-		get {if (this["codeinventoryagency",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeinventoryagency",DataRowVersion.Original];}
+		get {return  (String)this["codeinventoryagency",DataRowVersion.Original];}
 	}
 	public String inventoryagency{ 
-		get {if (this["inventoryagency"]==DBNull.Value)return null; return  (String)this["inventoryagency"];}
-		set {if (value==null) this["inventoryagency"]= DBNull.Value; else this["inventoryagency"]= value;}
+		get {return  (String)this["inventoryagency"];}
+		set {this["inventoryagency"]= value;}
 	}
 	public object inventoryagencyValue { 
 		get{ return this["inventoryagency"];}
-		set {if (value==null|| value==DBNull.Value) this["inventoryagency"]= DBNull.Value; else this["inventoryagency"]= value;}
+		set {this["inventoryagency"]= value;}
 	}
 	public String inventoryagencyOriginal { 
-		get {if (this["inventoryagency",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["inventoryagency",DataRowVersion.Original];}
+		get {return  (String)this["inventoryagency",DataRowVersion.Original];}
 	}
-	public Int32? idinv{ 
-		get {if (this["idinv"]==DBNull.Value)return null; return  (Int32?)this["idinv"];}
-		set {if (value==null) this["idinv"]= DBNull.Value; else this["idinv"]= value;}
+	public Int32 idinv{ 
+		get {return  (Int32)this["idinv"];}
+		set {this["idinv"]= value;}
 	}
 	public object idinvValue { 
 		get{ return this["idinv"];}
-		set {if (value==null|| value==DBNull.Value) this["idinv"]= DBNull.Value; else this["idinv"]= value;}
+		set {this["idinv"]= value;}
 	}
-	public Int32? idinvOriginal { 
-		get {if (this["idinv",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idinv",DataRowVersion.Original];}
+	public Int32 idinvOriginal { 
+		get {return  (Int32)this["idinv",DataRowVersion.Original];}
 	}
 	public String codeinv{ 
-		get {if (this["codeinv"]==DBNull.Value)return null; return  (String)this["codeinv"];}
-		set {if (value==null) this["codeinv"]= DBNull.Value; else this["codeinv"]= value;}
+		get {return  (String)this["codeinv"];}
+		set {this["codeinv"]= value;}
 	}
 	public object codeinvValue { 
 		get{ return this["codeinv"];}
-		set {if (value==null|| value==DBNull.Value) this["codeinv"]= DBNull.Value; else this["codeinv"]= value;}
+		set {this["codeinv"]= value;}
 	}
 	public String codeinvOriginal { 
-		get {if (this["codeinv",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codeinv",DataRowVersion.Original];}
+		get {return  (String)this["codeinv",DataRowVersion.Original];}
 	}
 	public String inventorytree{ 
-		get {if (this["inventorytree"]==DBNull.Value)return null; return  (String)this["inventorytree"];}
-		set {if (value==null) this["inventorytree"]= DBNull.Value; else this["inventorytree"]= value;}
+		get {return  (String)this["inventorytree"];}
+		set {this["inventorytree"]= value;}
 	}
 	public object inventorytreeValue { 
 		get{ return this["inventorytree"];}
-		set {if (value==null|| value==DBNull.Value) this["inventorytree"]= DBNull.Value; else this["inventorytree"]= value;}
+		set {this["inventorytree"]= value;}
 	}
 	public String inventorytreeOriginal { 
-		get {if (this["inventorytree",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["inventorytree",DataRowVersion.Original];}
+		get {return  (String)this["inventorytree",DataRowVersion.Original];}
 	}
 	public String cost{ 
 		get {if (this["cost"]==DBNull.Value)return null; return  (String)this["cost"];}
@@ -368,6 +368,28 @@ public class assetgrantviewRow: MetaRow  {
 	}
 	public Decimal? assetacquiretotalOriginal { 
 		get {if (this["assetacquiretotal",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["assetacquiretotal",DataRowVersion.Original];}
+	}
+	public String flag_entryprofitreservedone{ 
+		get {if (this["flag_entryprofitreservedone"]==DBNull.Value)return null; return  (String)this["flag_entryprofitreservedone"];}
+		set {if (value==null) this["flag_entryprofitreservedone"]= DBNull.Value; else this["flag_entryprofitreservedone"]= value;}
+	}
+	public object flag_entryprofitreservedoneValue { 
+		get{ return this["flag_entryprofitreservedone"];}
+		set {if (value==null|| value==DBNull.Value) this["flag_entryprofitreservedone"]= DBNull.Value; else this["flag_entryprofitreservedone"]= value;}
+	}
+	public String flag_entryprofitreservedoneOriginal { 
+		get {if (this["flag_entryprofitreservedone",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flag_entryprofitreservedone",DataRowVersion.Original];}
+	}
+	public String flag_financesource{ 
+		get {if (this["flag_financesource"]==DBNull.Value)return null; return  (String)this["flag_financesource"];}
+		set {if (value==null) this["flag_financesource"]= DBNull.Value; else this["flag_financesource"]= value;}
+	}
+	public object flag_financesourceValue { 
+		get{ return this["flag_financesource"];}
+		set {if (value==null|| value==DBNull.Value) this["flag_financesource"]= DBNull.Value; else this["flag_financesource"]= value;}
+	}
+	public String flag_financesourceOriginal { 
+		get {if (this["flag_financesource",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flag_financesource",DataRowVersion.Original];}
 	}
 	#endregion
 
@@ -406,6 +428,8 @@ public class assetgrantviewTable : MetaTableBase<assetgrantviewRow> {
 			{"inventorytree",createColumn("inventorytree",typeof(string),false,false)},
 			{"cost",createColumn("cost",typeof(string),true,false)},
 			{"assetacquiretotal",createColumn("assetacquiretotal",typeof(decimal),true,false)},
+			{"flag_entryprofitreservedone",createColumn("flag_entryprofitreservedone",typeof(string),true,false)},
+			{"flag_financesource",createColumn("flag_financesource",typeof(string),true,false)},
 		};
 	}
 }

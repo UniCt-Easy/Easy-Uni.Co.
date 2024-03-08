@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -308,11 +308,14 @@ namespace GeneraLiveUpdateForServices {
             //          m_XMLFile = "fileindex.xml"
             //          m_Filter	"*.dll"	
 
+            Hashtable skiplist = new Hashtable();
+            currConfig.mergeFilesToSkip(ref skiplist);
+
             int K = metaprofiler.StartTimer("GeneraFileXML");
             string error;
             //genera l'indice dei file nella cartella di riferimento (per es. d:\easy\output o Y:\reportnonzippati\ )
             bool res = GenXML.GeneraFileIndiceGenerico(getLocalDirectory(), currConfig.xmlFile, currConfig.subDirectories,
-                currConfig.filesToSkip, currConfig.filter, currConfig.allowedExtensions, filtraOggi, out error);
+                skiplist, currConfig.filter, currConfig.allowedExtensions, filtraOggi, out error);
             metaprofiler.StopTimer(K);
             txtNThread.Visible = false;
             string[] rempath = new string[1];
@@ -524,15 +527,15 @@ namespace GeneraLiveUpdateForServices {
         private void btnXMLFile_Click(object sender, EventArgs e) {
             this.Cursor = Cursors.WaitCursor;
             btnXMLFile.Visible = false;
-            Hashtable skiplist = GetSkipList();
+            Hashtable skiplist = GetSkipList(); // ottiene lista dei file da saltare, non selezionati
             string errori;
             ImpostaAmbiente();
-            currConfig.mergeFilesToSkip(skiplist);
+            currConfig.mergeFilesToSkip(ref skiplist);
             //ricrea l'indice  locale nella directory di produzione, es D:\\progetti\\EasyWebReport_2009\\
             if (!GenXML.GeneraFileIndiceGenerico(getLocalDirectory(), currConfig.xmlFile, currConfig.subDirectories,
                     skiplist,
                     currConfig.filter,currConfig.allowedExtensions, chkFiltraGiornalieri.Checked, out errori))
-                //    MessageBox.Show("File XML generato con successo", "Generazione file XML",
+                //    MetaFactory.factory.getSingleton<IMessageShower>().Show("File XML generato con successo", "Generazione file XML",
                 //        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //else
                 show("Sono stati riscontrati i seguenti errori nella generazione:\r"
@@ -632,7 +635,7 @@ namespace GeneraLiveUpdateForServices {
                 }
             }
             //else {
-            //    if (MessageBox.Show("La versione "+tipoversione+" verrà aggiornata. Continuare?",
+            //    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("La versione "+tipoversione+" verrà aggiornata. Continuare?",
             //        "Attenzione",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)!=DialogResult.Yes) {
             //        txtNew.Text="";
             //        return;
@@ -950,8 +953,8 @@ namespace GeneraLiveUpdateForServices {
                 allowedExtensions.Add("."+extension);
             }
         }
-        public void mergeFilesToSkip(Hashtable skipHash) {
-            foreach (var s in skipHash.Keys) filesToSkip[s] = skipHash[s];
+        public void mergeFilesToSkip(ref Hashtable skipHash) {
+            foreach (var s in filesToSkip.Keys) skipHash[s] = "NUOVO";
         }
 
         public void LoadConfig(string fileName) {

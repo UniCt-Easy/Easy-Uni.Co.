@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+﻿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -84,15 +67,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneateneores'), this.getDataTable('perfvalutazioneateneoresattach'));
+				//afterClearin
+			},
 
 			afterFill: function () {
-				this.enableControl($('#perfvalutazioneateneo_default_performance'), false);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneateneores'), this.getDataTable('perfvalutazioneateneoresattach'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.perfvalutazioneateneo.defaults({ 'calcoloautomatico': 'S' });
+				$('input[name="perfvalutazioneateneo_default_calcoloautomatico"]').on("change", _.partial(this.managecalcoloautomatico, self));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -106,13 +102,78 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//beforePost
 
-			manageperfvalutazioneateneo_default_performance: function () {
-				if (this.getDataTable("perfvalutazioneateneores").rows.length > 0) {
-					var arrayPsuo = _.map(this.getDataTable("perfvalutazioneateneores").rows, function (r) { return { valore: r.percentualeraggiunta, peso: r.peso } });
-					var average = this.calculateWeightedAverage(arrayPsuo);
-					if(this.state.currentRow.performance != average)
-						this.state.currentRow.performance= average;
+			afterPost: function () {
+
+              // se è stato cliccato annulla o elimina non eseguo sp
+
+				if (!this.state.currentRow) {
+					return appMeta.Deferred("afterPost").resolve();
 				}
+
+				if (!this.state.currentRow.getRow) {
+					return appMeta.Deferred("afterPost").resolve();
+				}
+
+				var self = this;
+
+				var waitingHandler = self.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+
+				var def = appMeta.Deferred("callSP_refresh_perftotali");
+
+
+				appMeta.getData.launchCustomServerMethod("callSP", {
+					spname: "sp_refresh_perftotali",
+					prm1: (this.state.currentRow.year ? this.state.currentRow.year : null)
+				}).then(function (res) {
+
+					self.freshForm(true, false)
+						.then(function () {
+							self.hideWaitingIndicator(waitingHandler);
+							if (res.err) {
+
+								self.showMessageOk("KO " + res.err);
+							}
+							return def.resolve();
+						});
+				});
+
+				return def.promise();
+
+			},
+
+                calculatePerformance: function (change) {
+
+                // se il calcolo è fatto dall'onchange recupero i dati dal controllo
+                if (change) {
+
+                    this.state.currentRow.calcoloautomatico = $('#perfvalutazioneateneo_default_calcoloautomaticoSi').prop("checked") ? 'S' : 'N';
+                }
+
+                if (this.state.currentRow.calcoloautomatico == 'N') {
+                    this.enableControl($('#perfvalutazioneateneo_default_performance'), true);
+                }
+                else {
+
+                    this.enableControl($('#perfvalutazioneateneo_default_performance'), false);
+
+                    if (this.getDataTable("perfvalutazioneateneores").rows.length > 0) {
+                        var arrayPsuo = _.map(this.getDataTable("perfvalutazioneateneores").rows, function (r) { return { valore: r.percentualeraggiunta, peso: r.peso } });
+                        var average = this.calculateWeightedAverage(arrayPsuo);
+                        if ($('#perfvalutazioneateneo_default_performance').val() != average.toString().replace('.', ',')) {
+                            this.state.currentRow.performance = average;
+                            $('#perfvalutazioneateneo_default_performance').val(average.toString().replace('.', ','));
+                            return;
+                        }
+                    }
+                }
+            },
+
+			manageperfvalutazioneateneo_default_performance: function () {
+                this.calculatePerformance();
+			},
+
+			managecalcoloautomatico: function(that) { 
+				that.calculatePerformance(true);
 			},
 
 			//buttons

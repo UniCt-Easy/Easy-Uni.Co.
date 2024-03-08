@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -21,6 +21,7 @@ using System.Collections;
 using q = metadatalibrary.MetaExpression;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace Backend.CommonBackend {
 	public static class AuthUtils {
@@ -52,15 +53,14 @@ namespace Backend.CommonBackend {
 			foreach (object o in syskeys) {
 				object k = sec.GetSys(o.ToString());
 				if (k == null) continue;
-				// COMMENTATO PER RAGIONI DI SICUREZZA NON INVIO LE SYS 
-				//if (k.GetType() != typeof(string)) continue;
-				// sys[o.ToString()] = k;
+				 if (k.GetType() != typeof(string)) continue;
+				 sys[o.ToString()] = k;
 			}
 
 			return sys;
 		}
 
-		private static string getCondSorFrontend(object o, Object k) {
+		private static JObject getCondSorFrontend(object o, Object k) {
 			var filterSec = (string) k;
 			if (filterSec.StartsWith("AND(1=1)")) {
 				var me = q.constant(true);
@@ -79,7 +79,7 @@ namespace Backend.CommonBackend {
 			return null;
 		}
 
-		private static string getCondSor(object o, Object k) {
+		private static JObject getCondSor(object o, Object k) {
 			var filterSec = (string) k;
 			if (String.IsNullOrEmpty(filterSec)) {
 				var me = q.fromString(filterSec);

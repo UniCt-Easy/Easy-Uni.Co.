@@ -28,6 +28,7 @@
               <xs:element name="_x0021_eserccontratto" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_numcontratto" type="xs:string" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -62,6 +63,7 @@
               <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit_crg" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit_datacrg" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -102,10 +104,7 @@
               <xs:element name="idsor03" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
-              <xs:element name="ymov_lastphase" type="xs:short" minOccurs="0" />
-              <xs:element name="nmov_lastphase" type="xs:int" minOccurs="0" />
-              <xs:element name="ypay" type="xs:short" minOccurs="0" />
-              <xs:element name="npay" type="xs:int" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

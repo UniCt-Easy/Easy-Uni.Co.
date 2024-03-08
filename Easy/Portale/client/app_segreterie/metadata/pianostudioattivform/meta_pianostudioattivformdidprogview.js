@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return this.superClass.describeColumns(table, listType);
 					case 'didprog':
 						this.describeAColumn(table, 'anno', 'Anno di corso', null, 20, null);
-						this.describeAColumn(table, 'attivform_title', 'Attivit‡ formativa del corso', null, 30, -1);
-						this.describeAColumn(table, 'attivform_scelta_title', 'Attivit‡ formativa che lo studente svolger‡', null, 40, -1);
+						this.describeAColumn(table, 'attivform_title', 'Attivit√† formativa del corso', null, 30, -1);
+						this.describeAColumn(table, 'attivform_scelta_title', 'Attivit√† formativa che lo studente svolger√†', null, 40, -1);
 //$objCalcFieldConfig_didprog$
 						break;
 //$objCalcFieldConfig$

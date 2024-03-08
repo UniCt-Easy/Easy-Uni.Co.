@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -47,12 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.gratuito)
-					parentRow.gratuito = "N";
-				if (!parentRow.iderogazkind)
-					parentRow.iderogazkind = 1;
-				if (!parentRow.riferimento)
-					parentRow.riferimento = "N";
 				_.forEach(this.getDataTable("lezione_alias2").rows, function (r) {
 					r['!title'] = parentRow.title;
 				});
@@ -82,11 +59,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.affidamento.defaults({ 'gratuito': "N" });
+				this.state.DS.tables.affidamento.defaults({ 'iderogazkind': 1 });
+				this.state.DS.tables.affidamento.defaults({ 'riferimento': "N" });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
 					$('#calendar36').fullCalendar('rerenderEvents');
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);
+				$('#grid_affidamentocaratteristica_seg').data('mdlconditionallookup', 'profess,S,Si;profess,N,No;');
 				var grid_affidamentocaratteristica_segChildsTables = [
 					{ tablename: 'affidamentocaratteristicaora', edittype: 'seg', columnlookup: 'ora', columncalc: '!affidamentocaratteristicaora'},
 				];
@@ -132,7 +113,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 				var self = this;
 				if (!this.isEmpty()) {
-					// carica tutte le attivit‡ dell'utente. seve per visualizzarle sul calendario
+					// carica tutte le attivit√† dell'utente. seve per visualizzarle sul calendario
 					var filter = self.q.and(
 						self.q.eq("idreg", this.state.currentRow.idreg_docenti),
 						self.q.ne("idaffidamento", self.state.currentRow.idaffidamento)
@@ -155,6 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						maxHoursPerDayTable = dt;
 						var scheduler = new appMeta.scheduleConfig(that,
 							{
+								endDate: that.state.currentRow.stop,						
 								minDateValue: that.state.currentRow.start,
 								maxHours: _.sumBy(that.getDataTable('affidamentocaratteristicaora').rows, function (row) {
 									return row.ora;

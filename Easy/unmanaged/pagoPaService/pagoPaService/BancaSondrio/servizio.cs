@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -263,7 +263,7 @@ namespace BancaSondrio {
             thumb = thumb ?? THUMBPRINT;
             var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
-
+            binding.MaxReceivedMessageSize = 65536 * 1000;
             var address = new EndpointAddress(url);
             
             // EndpointAddress adress = new EndpointAddress(URL);

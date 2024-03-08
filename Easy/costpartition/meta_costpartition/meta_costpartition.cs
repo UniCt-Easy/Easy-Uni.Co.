@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,7 +34,7 @@ namespace meta_costpartition {
 		protected override Form GetForm(string FormName){
 			if (FormName=="default") {
 				DefaultListType="default";
-				Name = "Ripartizione dei costi";
+				Name = "Riallocazione di contabilità analitica Costi/Ricavi";
 				return GetFormByDllName("costpartition_default");
 			}
 			return null;
@@ -95,14 +95,14 @@ namespace meta_costpartition {
 
         public override bool IsValid(DataRow R, out string errmess, out string errfield)
         {
-            if (R["costpartitioncode"] == DBNull.Value)
+            if ((R["costpartitioncode"] == DBNull.Value) || (R["costpartitioncode"].ToString() == ""))
             {
 				errmess="Attenzione! Il codice della Ripartizione non può essere nullo";
                 errfield = "costpartitioncode";
 				return false;
 			}
 
-            if (R["title"] == DBNull.Value)
+            if ((R["title"] == DBNull.Value) || (R["title"].ToString() ==""))
             {
                 errmess = "Attenzione! La denominazione non può essere nulla";
                 errfield = "title";

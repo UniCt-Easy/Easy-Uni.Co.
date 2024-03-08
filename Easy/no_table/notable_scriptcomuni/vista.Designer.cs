@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,27 +35,15 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable no_table 		=> (MetaTable)Tables["no_table"];
 
-	///<summary>
-	///Comuni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public geo_cityTable geo_city 		=> (geo_cityTable)Tables["geo_city"];
 
-	///<summary>
-	///Codice per un comune
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_city_agency 		=> (MetaTable)Tables["geo_city_agency"];
 
-	///<summary>
-	///Associazione citt√† - cap
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_cap 		=> (MetaTable)Tables["geo_cap"];
 
-	///<summary>
-	///Province
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public geo_countryTable geo_country 		=> (geo_countryTable)Tables["geo_country"];
 
@@ -65,15 +53,9 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable taxratecitystartview 		=> (MetaTable)Tables["taxratecitystartview"];
 
-	///<summary>
-	///Struttura Imposta Comunale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable taxratecitystart 		=> (MetaTable)Tables["taxratecitystart"];
 
-	///<summary>
-	///Scaglioni Imposta Comunale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable taxratecitybracket 		=> (MetaTable)Tables["taxratecitybracket"];
 

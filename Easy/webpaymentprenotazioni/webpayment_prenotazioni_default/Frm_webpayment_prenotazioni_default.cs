@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -231,7 +231,7 @@ namespace webpayment_prenotazioni_default
 			this.txtCognome.Name = "txtCognome";
 			this.txtCognome.Size = new System.Drawing.Size(262, 20);
 			this.txtCognome.TabIndex = 11;
-			this.txtCognome.Tag = "webpayment.forename";
+			this.txtCognome.Tag = "webpayment.surname";
 			// 
 			// label6
 			// 

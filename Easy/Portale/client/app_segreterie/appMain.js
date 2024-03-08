@@ -1,24 +1,13 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
+/*globals appMeta,$*/
 (function() {
 
     var loc;
-    function appMain() {}
+    function appMain() {
+        if (appMeta.appMainConfig.setTheme &&
+            appMeta.appMainConfig.cssTheme) {
+            appMeta.appMainConfig.setTheme(appMeta.appMainConfig.cssTheme);
+        }
+    }
 
     appMain.prototype = {
         constructor: appMain,
@@ -26,8 +15,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /**
          * Initializes the App that uses "MDWL" library
          */
-        init:function () {
+        init: function () {
+
+            // default è italiano, il file italiano avrà sicuramente tutte le stringhe, poiché parto sempre da quello
+            // per inserire nuove costanti per le stringhe
+            appMeta.localResource.setLanguage(appMeta.localResource.currLng);
+
             $("#redirectSSO").hide();
+            this.initWhiteLabeling();
             // configurazione proprietà framework
             this.initAppMainVariables();
             this.checkshowSSOLogin();
@@ -43,8 +38,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             $("#btnshowPassword1").on("click", _.partial(this.showHidePassword, this, 1 ));
             $("#btnshowPassword2").on("click", _.partial(this.showHidePassword, this, 2 ));
 
+            // ldap
+            if (appMeta.appMainConfig.ldapEnabled) {
+                $("#login").hide();
+                $("#loginldap").show();
+                $("#btnshowPassword4").on("click", _.partial(this.showHidePassword, this, 4 ));
+                $("#loginButtonLDAP").on("click", _.partial(this.doLoginLDAP, this ) );
+            }
+
             $("#resetPwdMailButton").on("click", _.partial(this.resetPwdSendMail, this ) );
+
+
+            $("#resetPwdMailId").show();
             $("#resetPwdMailId").on("click", _.partial(this.resetPwdMailIdClick, this ) );
+
             $("#bewPwdButton").on("click", _.partial(this.newPwdButtonClick, this ) );
 
             this.fillAnniCombo();
@@ -53,28 +60,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			this.localize();
 
 			//TEST registrazone
-			//appMeta.callPage('registrationuser', 'usr', false);
+			//appMeta.currApp.callPage('registrationuser', 'usr', false);
             this.tryAutomaticLogin();
 
         },
-
-        fillAnniCombo: function() {
+		
+		fillAnniCombo: function() {
             $("#yearsComboId").empty();
             var curranno = new Date().getFullYear();
             var anni = [curranno, curranno-1, curranno-2];
             _.forEach(anni, function(anno) {
-                    var opt = document.createElement("option");
-                    opt.textContent = anno;
-                    opt.value = anno;
-                    $("#yearsComboId").append(opt);
-                });
+                var opt = document.createElement("option");
+                opt.textContent = anno;
+                opt.value = anno;
+                $("#yearsComboId").append(opt);
+            });
         },
-
-        tryAutomaticLogin: function() {
+		
+		tryAutomaticLogin: function() {
             // se in get ho parametri speciali, devo fare altro tipo di logica, quindi non tento il login automatico
-            var username = this.getUrlVars()["username"];
-            var session = this.getUrlVars()["session"];
-            var tokenresetpwd = this.getUrlVars()["tokenresetpwd"];
+            let username = this.getUrlVars()["username"];
+            let session = this.getUrlVars()["session"];
+            let tokenresetpwd = this.getUrlVars()["tokenresetpwd"];
 
             if (username || session || tokenresetpwd) {
                 appMeta.authManager.logout();
@@ -90,7 +97,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         getUrlVars:function() {
-            var vars = {};
+            let vars = {};
             window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
                 vars[key] = value;
             });
@@ -98,14 +105,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         checkSSORedirect:function() {
-            var username = this.getUrlVars()["username"];
-            var session = this.getUrlVars()["session"];
-            if (!!username && !!session) {
+            let username = this.getUrlVars()["username"];
+            let session = this.getUrlVars()["session"];
+            if (username && session) {
                 this.loginSSO(username, session);
                 return;
             }
             // se c'è redirect=N o n allora non redireziona verso sso
-            var redirect = this.getUrlVars()["redirect"];
+            let redirect = this.getUrlVars()["redirect"];
             if (redirect && redirect.toString().toUpperCase() === "N") {
                 return;
             }
@@ -115,10 +122,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
          checkResetPwd:function() {
-            var tokenresetpwd = this.getUrlVars()["tokenresetpwd"];
+			let tokenresetpwd = this.getUrlVars()["tokenresetpwd"];
             if (!!tokenresetpwd) {
                 $("#nuovaPasswordFormdId").show();
                 $("#login").hide();
+                $("#loginldap").hide();
             }
         },
 
@@ -127,9 +135,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         newPwdButtonClick:function(that) {
-            var password1 = $("#password1").val();
-            var password2 = $("#password2").val();
-            var token = that.getUrlVars()["tokenresetpwd"];
+            let password1 = $("#password1").val();
+            let password2 = $("#password2").val();
+            let token = that.getUrlVars()["tokenresetpwd"];
 
             if (!password1 || !password2) {
                 that.showInfoMsg("Inserisci password");
@@ -152,7 +160,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     } else {
                         console.log("C'è stato qualche problema nel nuova pwd");
                     }
-                })
+                });
         },
 
         showInfoMsg:function(msg) {
@@ -160,10 +168,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 msg,
                 [appMeta.localResource.ok],
                 appMeta.localResource.cancel)
-                .show(null)
+                .show(null);
         },
-
-        validateEmail:function(email) {
+		
+		validateEmail:function(email) {
             const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(String(email).toLowerCase());
         },
@@ -176,7 +184,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return;
             }
 
-            if (!that.validateEmail(email)) {
+			if (!that.validateEmail(email)) {
                 that.showInfoMsg("Inserisci una mail valida");
                 return;
             }
@@ -190,7 +198,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     } else {
                         console.log("C'è stato qualche problema nel reset pwd");
                     }
-                })
+                });
 
         },
 
@@ -214,10 +222,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 $("#redirectSSO").show();
             }
         },
+		
+		hideLoginForm:function() {
+            $("#login").hide();
+            $("#loginldap").hide();
+            $("#redirectSSO").hide();
+            $("#logoutButton").hide();
+            $("#gotoLogin_id").show();
+            $("#gotoRegister_id").hide();
+            $("#metaRoot").show();
+        },
 
-        /**
-         *
-         */
+        showLoginForm: function (that) {
+            if (appMeta.appMainConfig.ldapEnabled) {
+                $("#loginldap").show();
+            } else {
+                $("#login").show();
+            }
+            $("#gotoLogin_id").hide();
+            $("#gotoRegister_id").show();
+            that.checkshowSSOLogin();
+        },
+
         goToRegister:function (that) {
             // nasconde login
             that.hideLoginForm();
@@ -226,28 +252,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             that.stringOriginal  = appMeta.localResource.modalLoader_wait_insert;
             appMeta.localResource.modalLoader_wait_insert = loc.retrieveDataForRegistration;
 
-            appMeta.callPage(appMeta.appMainConfig.registrationUserTableName, appMeta.appMainConfig.registrationUserEditType, false)
+            appMeta.currApp.callPage(appMeta.appMainConfig.registrationUserTableName, appMeta.appMainConfig.registrationUserEditType, false)
                 .then(function (p) {
                     // mostro login, quando la pag di registrazione viene chiusa
 
-                    if (appMeta.appMainConfig.ssoEnable) {
+					if (appMeta.appMainConfig.ssoEnable) {
                         return;
                     }
 
-                    $("#login").show();
-                    $("#gotoLogin_id").hide();
-                    $("#gotoRegister_id").show();
-                    that.checkshowSSOLogin();
+                    // mostra il login
+                    that.showLoginForm(that);
                 });
         },
+		
+		 /**
+         * invoca la pagina per la richiesta di registrazione, quando si proviene da un sso
+         */
+        ssoRegistration: function (that, method, ssoPrms) {
+            this.hideLoginForm();
+            // salvo info globali per sso, per popolare html della pag di registrazione
+            appMeta.ssoPrms = ssoPrms;
+            appMeta.currApp.callPage(appMeta.appMainConfig.registrationUserTableName, appMeta.appMainConfig.registrationUserEditType, false)
+                .then(function () {
+                    appMeta.connection.unsetToken();
 
-        hideLoginForm:function() {
-            $("#login").hide();
-            $("#redirectSSO").hide();
-            $("#logoutButton").hide();
-            $("#gotoLogin_id").show();
-            $("#gotoRegister_id").hide();
-            $("#metaRoot").show();
+                    // mostra il login
+                    that.showLoginForm(that);
+                })
         },
 
         /**
@@ -271,12 +302,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         changeLang:function () {
             // la drop dwon non effettua automaticamente la selezione dell'item come una select , quindi effettuo swap manuale dell'item selezionato
-            var htmlLangOld = $("#langctrl_id").html();
-            var htmlLangNew = $(this).html();
+            let langSel= $("#langctrl_id");
+            let htmlLangOld = langSel.html();
+            let htmlLangNew = $(this).html();
             // recupero lingua selezionata dall'item
-            var lang = $(this).find("span").data("lang");
+            let lang = $(this).find("span").data("lang");
             // swap dell'item
-            $("#langctrl_id").html(htmlLangNew);
+            langSel.html(htmlLangNew);
             $(this).html(htmlLangOld);
             // set della nuova lingua
             loc.setLanguage(lang);
@@ -295,7 +327,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     if (res === appMeta.localResource.yes) {
                         appMeta.authManager.logout()
                             .then(function () {
-                                if (appMeta.appMainConfig.ssoEnable) {
+
+                                // NON fa logout SSO. "se magari non funziona la url di logout"
+                                if (appMeta.appMainConfig.ssoEnable && appMeta.appMainConfig.SSOSingleCheckLogout){
+                                    that.goToLogin(that, true);
+                                    return;
+                                }
+
+                                if (appMeta.appMainConfig.ssoEnable && appMeta.appMainConfig.SSODoubleCheckLogout) {
                                     var winModal = new appMeta.BootstrapModal("logout SSO", appMeta.localResource.logoutSSOMsg ,
                                         [appMeta.localResource.yes, appMeta.localResource.no], appMeta.localResource.no);
                                     return winModal.show(null)
@@ -306,6 +345,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                 that.goToLogin(that, true);
                                             }
                                         });
+                                } else if (appMeta.appMainConfig.ssoEnable && !appMeta.appMainConfig.SSODoubleCheckLogout){
+                                    appMeta.authManager.logoutSSO();
                                 } else {
                                     that.goToLogin(that, true);
                                 }
@@ -321,39 +362,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var self = this;
             // inizializza il menù da db
             this.initMenuWeb().then(function () {
-                appMeta.authManager.setSystemInfo();
+			    appMeta.authManager.setSystemInfo();
                 // nasconde login
-                $("#login").hide();
-                $("#redirectSSO").hide();
+                self.hideLoginForm();
                 $("#logoutButton").show();
                 $("#gotoLogin_id").hide();
-                $("#gotoRegister_id").hide();
                 $("#resetPasswordMailId").hide();
-                $("#metaRoot").show();
                 $("#toolbar").show();
                 self.enableMenu();
                 // nasconde indicatore di attesa
-                self.hideWaitingIndicator();
-                
-                self.openPageByQueryUrl();
+                self.hideWaitingIndicator(); 
+				
+				self.openPageByQueryUrl();
 
                 appMeta.Toast.showNotification(loc.toast_login_success);
 
             })
         },
-
-        openPageByQueryUrl:function () {
+		
+		openPageByQueryUrl:function () {
             var tableName = this.getUrlVars()["tablename"];
             var editType = this.getUrlVars()["edittype"];
             if (!!tableName && !!editType) {
-                appMeta.callPage(tableName, editType, false)
+                appMeta.currApp.callPage(tableName, editType, false)
             }
         },
-
-        checkSearchOnOpening:function (metaPage) {
+		
+		checkSearchOnOpening:function (metaPage) {
             var searchon = this.getUrlVars()["searchon"];
             if (!!searchon && searchon === "on") {
                 metaPage.cmdMainDoSearch();
+            }
+        },
+
+        doLoginLDAP:function(that) {
+            var username = $("#emailldap").val();
+            var password = $("#password4").val();
+            var datacontabile = new Date(parseInt(new Date().getFullYear()),10,30);
+
+            if (username && password) {
+                that.showWaitingIndicator(loc.loginRunning, document.body);
+                appMeta.authManager.loginLDAP(username, password, datacontabile)
+                    .then(function (res) {
+                        if (res) {
+                            that.doActionsAfterLoginSuccess();
+                        } else {
+                            console.log("C'è stato qualche problema nel login");
+                            that.hideWaitingIndicator();
+                        }
+                    })
+            } else {
+                that.showInfoMsg("Inserisci username e password");
             }
         },
 
@@ -416,19 +475,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /**
          *
          */
-        goToLogin:function (that, closePage) {
-            $(appMeta.appMainConfig.rootLogin).show();
-            that.checkshowSSOLogin();
+        goToLogin: function (that, closePage) {
+
+            // mostra il login
+            that.showLoginForm(that);
+
             $("#logoutButton").hide();
-            $("#gotoLogin_id").hide();
-            $("#gotoRegister_id").show();
             $("#metaRoot").hide();
             $("#toolbar").hide();
             that.disableMenu();
-            appMeta.forceClosePopupDialog();
+            appMeta.currApp.forceClosePopupDialog();
             // chiudi pagina corrente
-            if (appMeta.currentMetaPage && closePage){
-				appMeta.currentMetaPage.cmdClose()
+            if (appMeta.currApp.currentMetaPage && closePage){
+                appMeta.currApp.currentMetaPage.cmdClose()
 					.then(function () {
 						that.hideWaitingIndicator(that);
 					});
@@ -468,60 +527,86 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /**
          * Initializes the appMeta variables
          */
-        initAppMainVariables:function () {
-            // metodi custom per modulo progetti
-            appMeta.routing.builderConnObj("calculateAmmortamento", 'POST', 'progetti', false, true);
-            appMeta.routing.builderConnObj("calculateCostiProgetto", 'POST', 'progetti', false, true);
-            // download logo
+        initAppMainVariables: function () {
+
+            //--------------registrazione servizi
+
+            //metodi generali dell'applicativo
             appMeta.routing.builderConnObj("downloadLogo", 'GET', 'file', false, true);
-            // registro chiamate per comandi di admin
+            appMeta.routing.builderConnObj("importExcel", 'POST', 'data', false, true);
+
+            //metodi dei comandi di amministratore
             appMeta.routing.builderConnObj("adminregisteruser", 'POST', 'admin', false, true);
             appMeta.routing.builderConnObj("clearCache", 'GET', 'admin', false, true);
             appMeta.routing.builderConnObj("clearSessions", 'GET', 'admin', false, true);
             appMeta.routing.builderConnObj("cryptSystemConfig", 'POST', 'admin', false, true);
-            // metodi custom per segreterie
-            // protocolla
+
+            //metodi custom per modulo segreterie
             appMeta.routing.builderConnObj("protocolla", 'POST', 'segreterie', false, true);
-            // metodi custom per performance
-            // protocolla
+
+            //metodi custom per modulo progetti
+            appMeta.routing.builderConnObj("calculateAmmortamento", 'POST', 'progetti', false, true);
+            appMeta.routing.builderConnObj("calculateCostiProgetto", 'POST', 'progetti', false, true);
+
+            // metodi custom per modulo performance
             appMeta.routing.builderConnObj("calcolaComportamenti", 'POST', 'performance', false, true);
 
+            //web services dati per la didattica Be Smart
             appMeta.routing.builderConnObj("getCaricoDidattico", 'POST', 'admin', false, true);
             appMeta.routing.builderConnObj("getAllocations", 'POST', 'admin', false, true);
 
-            appMeta.routing.builderConnObj("importExcel", 'POST', 'data', false, true);
+            appMeta.routing.builderConnObj("signFile", 'POST', 'signature', false, true);
 
+            //web services delle presenze Zucchetti
+            appMeta.routing.builderConnObj("getTimbrature", 'POST', 'admin', false, true); 
+
+            //web services del costo orario del personale Wis-Per
+            appMeta.routing.builderConnObj("getCostoOrario", 'POST', 'admin', false, true); 
+
+            //----------------variabili di applicazione
+
+            //path relativo dove si trovano i servizi
+            if (appMeta.appMainConfig.serviceBasePath) {
+                appMeta.serviceBasePath = appMeta.appMainConfig.serviceBasePath;
+            } else {
+                appMeta.serviceBasePath = "/";
+            }
             appMeta.basePath = appMeta.appMainConfig.basePath;
             appMeta.basePathMetadata = appMeta.appMainConfig.basePathMetadata;
-            appMeta.rootElement = appMeta.appMainConfig.rootElement;
+            appMeta.currApp.rootElement = appMeta.appMainConfig.rootElement;
+
             // copio i valori di configurazione utilizzati
             _.extend(appMeta.config, appMeta.appMainConfig);
-            appMeta.routing.changeUrlMethods(appMeta.appMainConfig.backendUrl);
-            appMeta.start();
+            appMeta.routing.setUrlPrefix(appMeta.appMainConfig.backendUrl);
+            appMeta.currApp.start();
             // reagisco all'evento di nuova pagina mostrata, così eventualmente posso fare delle azioni sul menu esterno
             appMeta.globalEventManager.subscribe(appMeta.EventEnum.showPage, this.showPage, this);
             appMeta.globalEventManager.subscribe(appMeta.EventEnum.expiredCredential, this.expiredCredential, this);
             appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
             appMeta.globalEventManager.subscribe(appMeta.EventEnum.ERROR_SERVER, this.serverError, this);
             appMeta.globalEventManager.subscribe(appMeta.EventEnum.SSORegistration, this.ssoRegistration, this);
+
         },
 
-        /**
-         * invoca la pagina per la richiesta di registrazione, quando si proviene da un sso
-         */
-        ssoRegistration: function (that, method, ssoPrms) {
-            this.hideLoginForm();
-            // salvo info globali per sso, per popolare html della pag di registrazione
-            appMeta.ssoPrms = ssoPrms;
-            appMeta.callPage(appMeta.appMainConfig.registrationUserTableName, appMeta.appMainConfig.registrationUserEditType, false)
-                .then(function () {
-                    appMeta.connection.unsetToken();
-                    // mostro login, quando la pag di registrazione viene chiusa
-                    $("#login").show();
-                    $("#gotoLogin_id").hide();
-                    that.checkshowSSOLogin();
-                })
+        initWhiteLabeling:function() {
+            if (appMeta.appMainConfig.headerTitle !== undefined) {
+                $('.portale_brand_name_id').text(appMeta.appMainConfig.headerTitle);
+                $('head title').text(appMeta.appMainConfig.headerTitle);
+            }
+            if (appMeta.appMainConfig.logoHeaderBase64) {
+                $('.portale_brand_logo_id').attr('src', appMeta.appMainConfig.logoHeaderBase64);
+            } else {
+                $('.portale_brand_logo_id').hide();
+            }
+            if (appMeta.appMainConfig.tempo_brand_logo_id) {
+                $('.tempo_brand_logo_id').attr('src', appMeta.appMainConfig.tempo_brand_logo_id);
+            } else {
+                $('.tempo_brand_logo_id').hide();
+            }
+
         },
+
+
 
         /**
          * Nasconde eventuale popup di errore
@@ -552,7 +637,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             } else {
                 if (currPageShowing.detailPage) return this.disableMenu();
                 this.enableMenu();
-                this.checkSearchOnOpening(currPageShowing);
+				this.checkSearchOnOpening(currPageShowing);
             }
         },
 

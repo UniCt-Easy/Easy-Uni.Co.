@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_contrattostipendioview_tfr" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_contrattostipendioview_tfr" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="registrydefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accmotive_codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_registry_codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_title" type="xs:string" minOccurs="0" />
+              <xs:element name="category_description" type="xs:string" minOccurs="0" />
+              <xs:element name="centralizedcategory_description" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="geo_city_title" type="xs:string" minOccurs="0" />
+              <xs:element name="geo_nation_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="maritalstatus_description" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registry_ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_ct" type="xs:dateTime" />
+              <xs:element name="registry_cu" type="xs:string" />
+              <xs:element name="registry_email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_extension" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_flag_pa" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_gender" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_ipa_perlapa" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_location" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_lt" type="xs:dateTime" />
+              <xs:element name="registry_lu" type="xs:string" />
+              <xs:element name="registry_maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="registry_sdi_defrifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_txt" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_description" type="xs:string" minOccurs="0" />
+              <xs:element name="registrykind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="residence_description" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="title_description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mese" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmese" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="stipendio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_previdenza" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_tesoro" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_totalece" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_tredicesima" type="xs:decimal" minOccurs="0" />
+              <xs:element name="anzianitamax" type="xs:int" minOccurs="0" />
+              <xs:element name="anzianitamin" type="xs:int" minOccurs="0" />
+              <xs:element name="assegno" type="xs:decimal" minOccurs="0" />
+              <xs:element name="classe" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="idstipendio" type="xs:int" />
+              <xs:element name="iis" type="xs:decimal" minOccurs="0" />
+              <xs:element name="irap" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lordo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lordonotredicesima" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="rifnormativo" type="xs:string" minOccurs="0" />
+              <xs:element name="scatto" type="xs:int" minOccurs="0" />
+              <xs:element name="siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stipendio" type="xs:decimal" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="totale" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inquadramentodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="inquadramento_costolordoannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="inquadramento_costolordoannuooneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="inquadramento_ct" type="xs:dateTime" />
+              <xs:element name="inquadramento_cu" type="xs:string" />
+              <xs:element name="inquadramento_lt" type="xs:dateTime" />
+              <xs:element name="inquadramento_lu" type="xs:string" />
+              <xs:element name="inquadramento_siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="inquadramento_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="inquadramento_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="inquadramento_tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="positiondefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="position_active" type="xs:string" minOccurs="0" />
+              <xs:element name="position_assegnoaggiuntivo" type="xs:string" minOccurs="0" />
+              <xs:element name="position_codeposition" type="xs:string" />
+              <xs:element name="position_costolordoannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="position_costolordoannuooneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="position_ct" type="xs:dateTime" />
+              <xs:element name="position_cu" type="xs:string" />
+              <xs:element name="position_description" type="xs:string" />
+              <xs:element name="position_elementoperequativo" type="xs:string" minOccurs="0" />
+              <xs:element name="position_foreignclass" type="xs:string" minOccurs="0" />
+              <xs:element name="position_indennitadiateneo" type="xs:string" minOccurs="0" />
+              <xs:element name="position_indennitadiposizione" type="xs:string" minOccurs="0" />
+              <xs:element name="position_indvacancacontrattuale" type="xs:string" minOccurs="0" />
+              <xs:element name="position_livello" type="xs:string" minOccurs="0" />
+              <xs:element name="position_lt" type="xs:dateTime" />
+              <xs:element name="position_lu" type="xs:string" />
+              <xs:element name="position_maxincomeclass" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxcompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxcompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxdidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxgg" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxtempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxtempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremincompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremincompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremindidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremindidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremintempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremintempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_orestraordinariemax" type="xs:int" minOccurs="0" />
+              <xs:element name="position_parttime" type="xs:string" minOccurs="0" />
+              <xs:element name="position_printingorder" type="xs:int" minOccurs="0" />
+              <xs:element name="position_puntiorganico" type="xs:decimal" minOccurs="0" />
+              <xs:element name="position_siglaesportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="position_siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tipoente" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tipopersonale" type="xs:string" minOccurs="0" />
+              <xs:element name="position_totaletredicesima" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tredicesimaindennitaintegrativaspeciale" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrylegalstatusdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="inquadramento_tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="inquadramento_title" type="xs:string" minOccurs="0" />
+              <xs:element name="position_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_active" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_csa_class" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_csa_compartment" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_csa_role" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_cu" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_datarivalutazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_iddaliaposition" type="xs:int" minOccurs="0" />
+              <xs:element name="registrylegalstatus_idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="registrylegalstatus_incomeclass" type="xs:int" minOccurs="0" />
+              <xs:element name="registrylegalstatus_incomeclassvalidity" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_livello" type="xs:int" minOccurs="0" />
+              <xs:element name="registrylegalstatus_lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_lu" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_parttime" type="xs:decimal" minOccurs="0" />
+              <xs:element name="registrylegalstatus_percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="registrylegalstatus_rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="registrylegalstatus_start" type="xs:dateTime" />
+              <xs:element name="registrylegalstatus_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_tempindet" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_txt" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="contrattostipendioview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anno" type="xs:int" />
+              <xs:element name="assegno" type="xs:decimal" minOccurs="0" />
+              <xs:element name="caricoente" type="xs:decimal" minOccurs="0" />
+              <xs:element name="classe" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="idmese" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="idstipendio" type="xs:int" />
+              <xs:element name="iis" type="xs:decimal" minOccurs="0" />
+              <xs:element name="irap" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lordo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="mese" type="xs:string" />
+              <xs:element name="mesilavorati" type="xs:int" minOccurs="0" />
+              <xs:element name="rifnormativo" type="xs:string" minOccurs="0" />
+              <xs:element name="scatto" type="xs:int" minOccurs="0" />
+              <xs:element name="siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stipendio" type="xs:decimal" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="totale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totaleanno" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totaletfr" type="xs:decimal" minOccurs="0" />
+              <xs:element name="tredicesima" type="xs:decimal" />
+              <xs:element name="validfortredicesima" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrydefaultview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="mese_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mese" />
+      <xs:field xpath="mstns:idmese" />
+    </xs:unique>
+    <xs:unique name="stipendio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stipendio" />
+      <xs:field xpath="mstns:idinquadramento" />
+      <xs:field xpath="mstns:idposition" />
+      <xs:field xpath="mstns:idstipendio" />
+    </xs:unique>
+    <xs:unique name="inquadramentodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inquadramentodefaultview" />
+      <xs:field xpath="mstns:idinquadramento" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="positiondefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:positiondefaultview" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="registrylegalstatusdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrylegalstatusdefaultview" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+    </xs:unique>
+    <xs:unique name="contrattostipendioview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:contrattostipendioview" />
+      <xs:field xpath="mstns:anno" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+      <xs:field xpath="mstns:idstipendio" />
+      <xs:field xpath="mstns:mese" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_contrattostipendioview_registrydefaultview_idreg" msdata:parent="registrydefaultview" msdata:child="contrattostipendioview" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_contrattostipendioview_mese_idmese" msdata:parent="mese" msdata:child="contrattostipendioview" msdata:parentkey="idmese" msdata:childkey="idmese" />
+      <msdata:Relationship name="FK_contrattostipendioview_stipendio_idstipendio" msdata:parent="stipendio" msdata:child="contrattostipendioview" msdata:parentkey="idstipendio" msdata:childkey="idstipendio" />
+      <msdata:Relationship name="FK_contrattostipendioview_inquadramentodefaultview_idinquadramento" msdata:parent="inquadramentodefaultview" msdata:child="contrattostipendioview" msdata:parentkey="idinquadramento" msdata:childkey="idinquadramento" />
+      <msdata:Relationship name="FK_contrattostipendioview_positiondefaultview_idposition" msdata:parent="positiondefaultview" msdata:child="contrattostipendioview" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="FK_contrattostipendioview_registrylegalstatusdefaultview_idregistrylegalstatus" msdata:parent="registrylegalstatusdefaultview" msdata:child="contrattostipendioview" msdata:parentkey="idregistrylegalstatus" msdata:childkey="idregistrylegalstatus" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

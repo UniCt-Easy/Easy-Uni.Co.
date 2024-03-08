@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,12 +36,10 @@ namespace bankdispositionsetup_carimenew {
 
 
     public partial class frmbankdispositionsetup_carimenew : MetaDataForm {
-
-        public IOpenFileDialog openFileDialog;
-
+        
         public frmbankdispositionsetup_carimenew() {
             InitializeComponent();
-            openFileDialog = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1.DefaultExt = "xml";
         }
 
         DataAccess Conn;
@@ -154,6 +152,7 @@ namespace bankdispositionsetup_carimenew {
 
 
             if (D == null) return;
+            D.InnerXml = D.InnerXml.Replace("&#x1F", "&#x90");
             string filterTreasurer = QHS.CmpEq("idtreasurer", idtreasurer);
             string fname = "";
             object savepath = Conn.DO_READ_VALUE("treasurer", filterTreasurer, "savepath");

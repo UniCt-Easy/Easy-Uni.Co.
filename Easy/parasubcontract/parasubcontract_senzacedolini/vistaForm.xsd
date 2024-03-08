@@ -26,6 +26,7 @@
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcostpartitioin" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -51,6 +52,7 @@
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="stop" type="xs:dateTime" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -110,6 +112,7 @@
               <xs:element name="taxablenet" type="xs:decimal" minOccurs="0" />
               <xs:element name="startcompetency" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stopcompetency" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

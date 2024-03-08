@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1177,6 +1177,7 @@ namespace accountvardetail_single {
 
             if (chkListTitle.Checked) {
                 FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
                 DialogResult D = FR.ShowDialog(this);
                 if (D != DialogResult.OK) return;
                 string filterenablebudgetprev = QHS.NullOrEq("flagenablebudgetprev", "S");
@@ -1248,6 +1249,7 @@ namespace accountvardetail_single {
 				total += CfgFn.GetNoNullDecimal(r[field]);
 			}
 			var f = new FrmAskDataInizioFine(false);
+			createForm(f, this);
 			var res = f.ShowDialog(this);
 			if (res != DialogResult.OK) return;
 			DateTime inizio = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -285,7 +285,7 @@ namespace bankdispositionsetup_importnew {
             EsitoProvvisorio R = new EsitoProvvisorio(esercizio,
                                          CfgFn.GetNoNullInt32(numero_sospeso),
                                         importo,
-                                        XmlHelper.AsDate(X, "data_valuta_ente")
+                                        XmlHelper.AsOptionalDate(X, "data_valuta_ente")
                                         );
             return R;
         }
@@ -316,7 +316,7 @@ namespace bankdispositionsetup_importnew {
             EsitoProvvisorio R = new EsitoProvvisorio(esercizio,
                                          CfgFn.GetNoNullInt32(numero_sospeso),
                                         importo,
-                                        XmlHelper.AsDate(X, "data_valuta_ente")
+                                        XmlHelper.AsOptionalDate(X, "data_valuta_ente")
                                         );
             return R;
         }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -41,6 +41,9 @@ namespace no_table_trasf_paydisposition {
             Meta.CanCancel = false;
             txtEsercizioInizio.Text = Meta.GetSys("esercizio").ToString();
             int stopayear = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) + 1;
+            int maxyear = CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("accountingyear", null, "max(ayear)"));
+            if (maxyear < stopayear) btnTrasferisciDisposizioni.Enabled = false;
+                else btnTrasferisciDisposizioni.Enabled = true;
         }
         private void btnTrasferisciDisposizioni_Click (object sender, EventArgs e) {
             string errMsg;
@@ -57,7 +60,7 @@ namespace no_table_trasf_paydisposition {
             HelpForm.SetDataGrid(dataGrid, paydisposition);
             HelpForm.SetGridStyle(dataGrid, paydisposition);
  
-            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione eseguita");
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Operazione eseguita", "");
         }
 
         private void txtEsercizio_Leave (object sender, EventArgs e) {

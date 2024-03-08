@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -234,6 +234,11 @@ namespace wageaddition_default //contrattodipendente//
 		private Button btnDelAtt;
 		private Button btnEditAtt;
 		private Button btnInsAtt;
+		private Button btnRipartizione;
+		public GroupBox grpRipartizioneCosti;
+		public Button btnCodRipartizione;
+		public TextBox textBox7;
+		public TextBox txtCodiceRipartizione;
 		private System.ComponentModel.IContainer components;
 
         enum ImportoDiPartenza {
@@ -369,6 +374,7 @@ namespace wageaddition_default //contrattodipendente//
 			this.txtDescrUPB = new System.Windows.Forms.TextBox();
 			this.btnUPBCode = new System.Windows.Forms.Button();
 			this.tabAnalitico = new System.Windows.Forms.TabPage();
+			this.btnRipartizione = new System.Windows.Forms.Button();
 			this.gboxclass3 = new System.Windows.Forms.GroupBox();
 			this.btnCodice3 = new System.Windows.Forms.Button();
 			this.txtDenom3 = new System.Windows.Forms.TextBox();
@@ -381,6 +387,10 @@ namespace wageaddition_default //contrattodipendente//
 			this.btnCodice1 = new System.Windows.Forms.Button();
 			this.txtDenom1 = new System.Windows.Forms.TextBox();
 			this.txtCodice1 = new System.Windows.Forms.TextBox();
+			this.grpRipartizioneCosti = new System.Windows.Forms.GroupBox();
+			this.btnCodRipartizione = new System.Windows.Forms.Button();
+			this.textBox7 = new System.Windows.Forms.TextBox();
+			this.txtCodiceRipartizione = new System.Windows.Forms.TextBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.grpBoxSiopeEP = new System.Windows.Forms.GroupBox();
 			this.btnSiope = new System.Windows.Forms.Button();
@@ -457,12 +467,12 @@ namespace wageaddition_default //contrattodipendente//
 			this.btnQualificaDalia = new System.Windows.Forms.Button();
 			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.cmb_dalia_position = new System.Windows.Forms.ComboBox();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.tabAllegati = new System.Windows.Forms.TabPage();
 			this.dgrAllegati = new System.Windows.Forms.DataGrid();
 			this.btnDelAtt = new System.Windows.Forms.Button();
 			this.btnEditAtt = new System.Windows.Forms.Button();
 			this.btnInsAtt = new System.Windows.Forms.Button();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabGenerale.SuspendLayout();
@@ -489,6 +499,7 @@ namespace wageaddition_default //contrattodipendente//
 			this.gboxclass3.SuspendLayout();
 			this.gboxclass2.SuspendLayout();
 			this.gboxclass1.SuspendLayout();
+			this.grpRipartizioneCosti.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.grpBoxSiopeEP.SuspendLayout();
 			this.gBoxCausaleDebitoCrg.SuspendLayout();
@@ -1452,10 +1463,10 @@ namespace wageaddition_default //contrattodipendente//
 			this.tabControl2.Controls.Add(this.tabPage1);
 			this.tabControl2.Controls.Add(this.tabAnalitico);
 			this.tabControl2.Controls.Add(this.tabPage2);
-			this.tabControl2.Location = new System.Drawing.Point(4, 168);
+			this.tabControl2.Location = new System.Drawing.Point(4, 149);
 			this.tabControl2.Name = "tabControl2";
 			this.tabControl2.SelectedIndex = 0;
-			this.tabControl2.Size = new System.Drawing.Size(726, 302);
+			this.tabControl2.Size = new System.Drawing.Size(726, 321);
 			this.tabControl2.TabIndex = 18;
 			// 
 			// tabPage1
@@ -1463,7 +1474,7 @@ namespace wageaddition_default //contrattodipendente//
 			this.tabPage1.Controls.Add(this.gboxUPB);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(718, 276);
+			this.tabPage1.Size = new System.Drawing.Size(718, 295);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Finanziario";
 			// 
@@ -1520,15 +1531,26 @@ namespace wageaddition_default //contrattodipendente//
 			// 
 			// tabAnalitico
 			// 
+			this.tabAnalitico.Controls.Add(this.btnRipartizione);
 			this.tabAnalitico.Controls.Add(this.gboxclass3);
 			this.tabAnalitico.Controls.Add(this.gboxclass2);
 			this.tabAnalitico.Controls.Add(this.gboxclass1);
+			this.tabAnalitico.Controls.Add(this.grpRipartizioneCosti);
 			this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
 			this.tabAnalitico.Name = "tabAnalitico";
-			this.tabAnalitico.Size = new System.Drawing.Size(718, 276);
+			this.tabAnalitico.Size = new System.Drawing.Size(718, 295);
 			this.tabAnalitico.TabIndex = 3;
 			this.tabAnalitico.Text = "Analitico";
 			this.tabAnalitico.Visible = false;
+			// 
+			// btnRipartizione
+			// 
+			this.btnRipartizione.Location = new System.Drawing.Point(360, 269);
+			this.btnRipartizione.Name = "btnRipartizione";
+			this.btnRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnRipartizione.TabIndex = 53;
+			this.btnRipartizione.Text = "Ripartizione";
+			this.btnRipartizione.Click += new System.EventHandler(this.btnRipartizione_Click);
 			// 
 			// gboxclass3
 			// 
@@ -1671,6 +1693,52 @@ namespace wageaddition_default //contrattodipendente//
 			this.txtCodice1.TabIndex = 2;
 			this.txtCodice1.Tag = "sorting1.sortcode?x";
 			// 
+			// grpRipartizioneCosti
+			// 
+			this.grpRipartizioneCosti.Controls.Add(this.btnCodRipartizione);
+			this.grpRipartizioneCosti.Controls.Add(this.textBox7);
+			this.grpRipartizioneCosti.Controls.Add(this.txtCodiceRipartizione);
+			this.grpRipartizioneCosti.Location = new System.Drawing.Point(361, 135);
+			this.grpRipartizioneCosti.Name = "grpRipartizioneCosti";
+			this.grpRipartizioneCosti.Size = new System.Drawing.Size(336, 128);
+			this.grpRipartizioneCosti.TabIndex = 54;
+			this.grpRipartizioneCosti.TabStop = false;
+			this.grpRipartizioneCosti.Tag = "AutoChoose.txtCodiceRipartizione.default.(active=\'S\')";
+			this.grpRipartizioneCosti.Text = "Ripartizione dei Costi";
+			// 
+			// btnCodRipartizione
+			// 
+			this.btnCodRipartizione.Location = new System.Drawing.Point(9, 73);
+			this.btnCodRipartizione.Name = "btnCodRipartizione";
+			this.btnCodRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnCodRipartizione.TabIndex = 4;
+			this.btnCodRipartizione.Tag = "choose.costpartition.default.(active=\'S\')";
+			this.btnCodRipartizione.Text = "Codice";
+			this.btnCodRipartizione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// textBox7
+			// 
+			this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox7.Location = new System.Drawing.Point(137, 8);
+			this.textBox7.Multiline = true;
+			this.textBox7.Name = "textBox7";
+			this.textBox7.ReadOnly = true;
+			this.textBox7.Size = new System.Drawing.Size(191, 88);
+			this.textBox7.TabIndex = 3;
+			this.textBox7.TabStop = false;
+			this.textBox7.Tag = "costpartition.title";
+			// 
+			// txtCodiceRipartizione
+			// 
+			this.txtCodiceRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceRipartizione.Location = new System.Drawing.Point(8, 102);
+			this.txtCodiceRipartizione.Name = "txtCodiceRipartizione";
+			this.txtCodiceRipartizione.Size = new System.Drawing.Size(320, 20);
+			this.txtCodiceRipartizione.TabIndex = 2;
+			this.txtCodiceRipartizione.Tag = "costpartition.costpartitioncode?x";
+			// 
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.grpBoxSiopeEP);
@@ -1681,7 +1749,7 @@ namespace wageaddition_default //contrattodipendente//
 			this.tabPage2.Controls.Add(this.gBoxCausale);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(718, 276);
+			this.tabPage2.Size = new System.Drawing.Size(718, 295);
 			this.tabPage2.TabIndex = 4;
 			this.tabPage2.Text = "E/P";
 			this.tabPage2.Visible = false;
@@ -2490,12 +2558,6 @@ namespace wageaddition_default //contrattodipendente//
 			this.cmb_dalia_position.Tag = "wageaddition.iddaliaposition";
 			this.cmb_dalia_position.ValueMember = "iddaliaposition";
 			// 
-			// imageList1
-			// 
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.imageList1.Images.SetKeyName(0, "");
-			// 
 			// tabAllegati
 			// 
 			this.tabAllegati.Controls.Add(this.dgrAllegati);
@@ -2550,6 +2612,12 @@ namespace wageaddition_default //contrattodipendente//
 			this.btnInsAtt.Tag = "insert.detail";
 			this.btnInsAtt.Text = "Inserisci...";
 			// 
+			// imageList1
+			// 
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.imageList1.Images.SetKeyName(0, "");
+			// 
 			// Frm_wageaddition_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -2594,6 +2662,8 @@ namespace wageaddition_default //contrattodipendente//
 			this.gboxclass2.PerformLayout();
 			this.gboxclass1.ResumeLayout(false);
 			this.gboxclass1.PerformLayout();
+			this.grpRipartizioneCosti.ResumeLayout(false);
+			this.grpRipartizioneCosti.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
 			this.grpBoxSiopeEP.ResumeLayout(false);
@@ -4139,5 +4209,44 @@ namespace wageaddition_default //contrattodipendente//
             if (Out == null) return;
             show(this, "Trasferimento effettuato");
         }
-    }
+
+		private void btnRipartizione_Click(object sender, EventArgs e)
+		{
+
+			if (Meta.IsEmpty)
+				return;
+
+			if (DS.wageaddition.Rows.Count == 0)
+				return;
+
+			DataRow curr = DS.wageaddition.Rows[0];
+			if (curr == null)
+				return;
+
+			object idcostpartition = curr["idcostpartition"];
+
+			if (idcostpartition != DBNull.Value)
+			{
+				MetaData ToMeta = Meta.Dispatcher.Get("costpartition");
+				string checkfilter = QHS.CmpEq("idcostpartition", idcostpartition);
+				ToMeta.ContextFilter = checkfilter;
+				Form F = null;
+				if (Meta.linkedForm != null)
+					F = Meta.linkedForm.ParentForm;
+				bool result = ToMeta.Edit(F, "default", false);
+
+				string listtype = ToMeta.DefaultListType;
+				DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
+				if (R != null)
+					ToMeta.SelectRow(R, listtype);
+			}
+			else
+			{
+				idcostpartition = EP_functions.importCostPartitionDetail(Meta);
+				if (idcostpartition == null)
+					return;
+				curr["idcostpartition"] = idcostpartition;
+			}
+		}
+	}
 }

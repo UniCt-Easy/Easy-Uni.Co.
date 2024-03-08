@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,12 +24,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
+--setuser 'amm'
 --setuser 'amministrazione'
 
 
 CREATE   procedure check_detrazioni_reddito (
 @idreg int,
 @annoredditi smallint,
+@applicamassimalesuigglavorati char(1) = 'S',  -- S --> Applica il massimale detrazione spettante per fascia reddito ridotto in base ai giorni effettivi lavorati (base nn. giorni lavorati)
+								         -- N --> Applica il massimale detrazione assoluto per fascia reddito (base 365/366 giorni se bisestile)
 @res int out
 ) as
 BEGIN
@@ -41,33 +44,41 @@ BEGIN
 	declare @31dic15_XXX datetime
 	set @31dic15_XXX = dateadd(yy, @annoredditi-2000, {d '2000-12-31'})
 
-	
+	create table #service ( idser int)
+	insert into #service
+	select distinct idser from service
+	where  (service.rec770kind='G') 
+	AND NOT EXISTS (SELECT * FROM servicetaxview
+				       WHERE servicetaxview.idser = service.idser  AND servicetaxview.taxref IN ('08_IRPEF_FOC','07_IRPEF_FO'))
 
 	-- Tabella dei cedolini
 	create table #cedolini (
 		idpayroll int, 
-		idexp int,
 		idcon varchar(8),
-		datacompetenza datetime, 
 		startpayroll datetime,
 		stoppayroll datetime,
-		compensoprev decimal(19,2),
-		ritprevtrattenuta decimal(19,2),
-		inpsamm decimal(19,2),
-		inail decimal(19,2)
+		islastpayroll char(1)-- S/N: indica se trattasi di ultimo cedolino. Le detrazioni da CUD verranno sommate solo se non è ultimo cedolino
 	)
 
 	-- Riempimento della tabella dei cedolini.
 	-- Vengono inseriti tutti i cedolini trasmessi associati ai contratti del percipiente dell'anno dei redditi.
 	-- Di questi cedolini si seleziona il movimento di spesa che li contabilizza, la data di trasmissione,
 	-- la data di inizio e fine ed il contratto di appartenenza.
-	insert into #cedolini 	(idpayroll, idcon, startpayroll, stoppayroll)
+	insert into #cedolini 	(idpayroll, idcon, startpayroll, stoppayroll, islastpayroll)
 	SELECT
-		payroll.idpayroll,  payroll.idcon, payroll.start, payroll.stop
+		payroll.idpayroll,  payroll.idcon, payroll.start, payroll.stop,
+		-- Se il cedolino ha lo stesso npayroll del cedolino di conguaglio, vuol dire che è l'ultimo cedolino rata
+		case when payroll.npayroll = (	SELECT P.npayroll FROM payroll P
+									WHERE P.idcon =parasubcontract.idcon
+									AND P.fiscalyear = @annoredditi AND P.flagbalance = 'S')
+									then 'S'
+			else 'N'
+		end
 	from payroll					
 	join parasubcontract			on payroll.idcon= parasubcontract.idcon
 	JOIN parasubcontractyear im		ON parasubcontract.idcon = im.idcon AND im.ayear = @annoredditi
 	JOIN service					ON service.idser = parasubcontract.idser
+	JOIN #service   ON #service.idser = service.idser
 	where	fiscalyear=@annoredditi 
 			and parasubcontract.idreg = @idreg
 			and payroll.flagcomputed='S'
@@ -82,22 +93,11 @@ BEGIN
 	(
 		idcon varchar(8),
 		padre varchar(8),
-		taxablepension decimal(19,2),
-		fiscaltaxablegross decimal(19,2),
-		inpsinail decimal(19,2),
-		deduction decimal(19,2),
 		start datetime, -- Data inizio del cedolino di conguaglio
 		stop datetime, -- Data fine del cedolino di conguaglio
 		stopcontract datetime, -- Data Fine del Contratto
 		capofila char(1),
-		certificatekind char(1),
-		idser int,
-		servicecode770 varchar(20),
-		highertax decimal(19,2),
-		applicaritprevidenziali char(1),
-		flagbonusappliance char(1),
-		exemptioncode INT,
-		flagsummarybalance char(1) -- questo flag indica se il cedolino di conguaglio è fittizio
+		idser int
 	)
 
 	-- Si inseriscono i contratti del percipiente corrente.
@@ -108,32 +108,20 @@ BEGIN
 	-- le deduzioni, l'imponibile fiscale lordo del contratto e l'id e la data di fine del cedolino di conguaglio.
  
 	INSERT INTO #contratti
-				(idcon, taxablepension, inpsinail, deduction,
-				fiscaltaxablegross, stopcontract, 
-				certificatekind, idser, servicecode770, highertax,
-				applicaritprevidenziali, 
-				flagbonusappliance, exemptioncode)
+				(idcon,  stopcontract, 
+				idser)
 	SELECT
-		co.idcon,	s.taxablepension,	s.inpsinail,	s.deduction,s.fiscaltaxablegross,	
-		co.stop,	service.certificatekind,	co.idser,	ISNULL(service.servicecode770,service.codeser),	im.highertax,
-		CASE
-			WHEN EXISTS (SELECT * FROM servicetaxview ST  
-			              WHERE ST.idser = service.idser
-						    AND ST.taxkind = 3) THEN 'S'
-			ELSE 'N'
-		END,
-		im.flagbonusappliance,		motive770service.exemptioncode	
+		co.idcon,
+		co.stop,	 co.idser
 	FROM  parasubcontract co						
    	JOIN parasubcontractyear im		ON co.idcon = im.idcon AND im.ayear = @annoredditi
-    JOIN parasubcontractsummaryview s			ON s.idcon = im.idcon
-													AND s.ayear = im.ayear
+    
 	JOIN service								ON service.idser = co.idser
 	LEFT OUTER JOIN motive770service			ON service.idser = motive770service.idser
 													AND motive770service.ayear = @annoredditi
-	WHERE EXISTS (SELECT * from #cedolini  where  #cedolini.idcon=co.idcon)
-		 
-
-
+	JOIN (SELECT DISTINCT #cedolini.idcon FROM #cedolini) AS c on c.idcon = co.idcon
+ 
+	
 	DECLARE @stopcontract datetime
 	SELECT 	@stopcontract  = MAX(stopcontract)  FROM #contratti	
 
@@ -162,14 +150,10 @@ BEGIN
 	-- assegnisti di ricerca accade che ci siano più contratti non legati tra loro in quanto
 	-- non esiste il concetto di trasformare un contratto pregresso in CUD per uno nuovo
 	-- in quanto non vi è l'esigenza di effettuare un conguaglio fiscale.
-	IF (SELECT COUNT(*) FROM #contratti WHERE padre IS NULL) = 1
-	BEGIN
-		UPDATE #contratti		SET capofila = 'S'		WHERE #contratti.padre IS NULL
-	END
-	ELSE
-	BEGIN
-		UPDATE #contratti	SET capofila = 'S'		WHERE idcon = (SELECT TOP 1 idcon FROM #contratti WHERE padre IS NULL)
-	END
+ 
+	UPDATE #contratti		SET capofila = 'S'		WHERE #contratti.padre IS NULL
+
+	UPDATE #cedolini	SET islastpayroll = 'N'		WHERE idcon in (select idcon from #contratti where isnull(#contratti.capofila,'N') = 'N')
 	--select * from #contratti
 	-- Tabella dei giorni lavorati
 	create table #workdays 	(giorno smalldatetime, worked char(1)) 
@@ -208,7 +192,11 @@ BEGIN
 			AND exhibitedcud.fiscalyear = @annoredditi
 	)
 
-
+--SELECT '#cedolini',* FROM #cedolini
+--SELECT '#contratti',* FROM #contratti
+--SELECT '#workdays', year(giorno) , count(*) as  giornilavorati FROM #workdays 
+--group by worked,year(giorno) 
+--having worked='S' 
 	declare @onerisostenutiinaltricontratti dec(19,2)
 	SET @onerisostenutiinaltricontratti =
 	ISNULL(
@@ -230,6 +218,9 @@ BEGIN
 	-- 08_IRPEF_FOC e 07_IRPEF_FO in quanto sono ritenute applicate a stranieri che non rientrano in questo calcolo
 	-- L'imposta lorda è pari alla somma delle ritenute (il filtro è quello descritto precedentemente), tant'è che la
 	-- query è la medesima
+ 
+
+
 	DECLARE @taxablegross	DECIMAL(19,2)
 	DECLARE @employtaxgross DECIMAL(19,2)
 	DECLARE @deduzioni		DECIMAL(19,2)
@@ -238,14 +229,10 @@ BEGIN
 			@taxablegross   = SUM (cr.taxablegross)
 	FROM	#cedolini P
 	JOIN #contratti 		ON #contratti.idcon = P.idcon
-	join parasubcontract PP on PP.idcon=P.idcon
 	JOIN 	payrolltax cr on cr.idpayroll= P.idpayroll
 	JOIN	tax ON cr.taxcode = tax.taxcode  AND taxkind = 1	AND geoappliance IS NULL
 	WHERE   tax.taxref <> '14_BONUS_FISCALE'  AND #contratti.padre IS NULL
-			AND NOT EXISTS (SELECT * FROM servicetaxview
-				       WHERE servicetaxview.idser = PP.idser  AND servicetaxview.taxref IN ('08_IRPEF_FOC','07_IRPEF_FO'))
-
---SELECT * FROM #cedolini
+ 
 	set @deduzioni = isnull(@deduzioni,0)
 	set @taxablegross = isnull(@taxablegross,0)
 
@@ -254,18 +241,17 @@ BEGIN
 	-- non divenuti CUD per altri e la cui prestazione ricade nella cetificazione CUD
 	-- Si considera ovviamente la sola detrazione con codice 29 che si riferisce al reddito
 	DECLARE @detrazioni_per_reddito DECIMAL(19,2)
-	--DECLARE @detrazioni_annue_per_reddito DECIMAL(19,2)
-	--SELECT payrollabatement.curramount, * 
-	--	 -- @detrazioni_annue_per_reddito = SUM(payrollabatement.annualamount)
-	--	FROM payrollabatement
-	--	join abatement A on payrollabatement.idabatement = A.idabatement
-	--	JOIN #cedolini					ON #cedolini.idpayroll = payrollabatement.idpayroll
-	--	JOIN #contratti 		ON #contratti.idcon = #cedolini.idcon
-	--	WHERE A.evaluatesp ='calcola_detrazione_reddito'
-	--	AND #contratti.padre IS NULL
+	DECLARE @detrazioni_per_reddito_cud DECIMAL(19,2)
+
+--select payrollabatement.curramount as 'detrazioni_per_reddito',payrollabatement.idpayroll,#cedolini.idcon, annualamount,  curramount
+--		FROM payrollabatement
+--		join abatement A on payrollabatement.idabatement = A.idabatement
+--		JOIN #cedolini					ON #cedolini.idpayroll = payrollabatement.idpayroll
+--		JOIN #contratti 		ON #contratti.idcon = #cedolini.idcon
+--		WHERE A.evaluatesp ='calcola_detrazione_reddito'
+--		AND #contratti.padre IS NULL
 
 	SELECT @detrazioni_per_reddito = SUM(payrollabatement.curramount)
-		 -- @detrazioni_annue_per_reddito = SUM(payrollabatement.annualamount)
 		FROM payrollabatement
 		join abatement A on payrollabatement.idabatement = A.idabatement
 		JOIN #cedolini					ON #cedolini.idpayroll = payrollabatement.idpayroll
@@ -273,26 +259,22 @@ BEGIN
 		WHERE A.evaluatesp ='calcola_detrazione_reddito'
 		AND #contratti.padre IS NULL
 
-		print 'detrazioni per reddito'
-	 SET @detrazioni_per_reddito = ISNULL(@detrazioni_per_reddito,0)
 
-	 -- Calcolo della detrazione per oneri
-	-- Essa è pari alla somma delle detrazioni applicate sui cedolini associati ai contratti
-	-- non divenuti CUD per altri e la cui prestazione ricade nella cetificazione CUD
-	-- Si considerano tutte le detrazioni che sono marcate come oneri detraibili (flagabatableexpense = 'S')
-	DECLARE @detrazioni_per_oneri DECIMAL(19,2)
-	--DECLARE @detrazioni_annue_per_oneri DECIMAL(19,2)
- 
-	SELECT 
-	@detrazioni_per_oneri = SUM(payrollabatement.curramount)
-	--@detrazioni_annue_per_oneri = SUM(payrollabatement.annualamount)
-	FROM payrollabatement
-	JOIN #cedolini			ON #cedolini.idpayroll = payrollabatement.idpayroll
-	JOIN abatement			ON abatement.idabatement = payrollabatement.idabatement
-	JOIN #contratti 		ON #contratti.idcon = #cedolini.idcon
-	WHERE abatement.flagabatableexpense = 'S'	AND #contratti.padre IS NULL
-			  
-	SET @detrazioni_per_oneri = ISNULL(@detrazioni_per_oneri,0)
+	 -- calcolo le detrazioni per reddito da CUD escludendo le ritenute Bonus
+	 SELECT @detrazioni_per_reddito_cud = ISNULL(SUM(exhibitedcud.earnings_based_abatements),0) 
+		FROM exhibitedcud 
+		JOIN #contratti  ON #contratti.idcon = exhibitedcud.idcon
+		WHERE #contratti.padre IS NULL
+					AND exhibitedcud.fiscalyear = @annoredditi
+-- le detrazioni da CUD verranno considerate solo se per il contratto non è stato calcolato anche l'ultimo cedolino
+			and not exists (select * from #cedolini CD 
+							where CD.idcon =  #contratti.idcon
+							and	islastpayroll = 'S')
+
+
+        SET @detrazioni_per_reddito = ISNULL(@detrazioni_per_reddito,0) + ISNULL(@detrazioni_per_reddito_cud,0)
+
+--select ISNULL(@detrazioni_per_reddito,0) as '@detrazioni_per_reddito(comprensivo di CUD)' 
 
 	declare @giorni_anno int
 	set @giorni_anno = 365
@@ -311,7 +293,9 @@ BEGIN
 		SET @workingdays=@giorni_anno
 	END
 
+	--select @workingdays as 'giorni lavorati @workingdays', @giorni_anno as 'giorni dell''anno   ' 
 
+	-- Sono i redditi CUD da ALTRI soggetti, sono qui CUD inseriti 'a mano'
 	DECLARE @totale_redditi_da_cud DECIMAL(19,2)
 	SET @totale_redditi_da_cud  = --@DB001301
 					ISNULL(
@@ -319,7 +303,9 @@ BEGIN
 						FROM exhibitedcud
 						JOIN #contratti 		ON #contratti.idcon = exhibitedcud.idcon
 						WHERE			fiscalyear = @annoredditi 
-							AND idlinkedcon is null)
+							AND idlinkedcon is null
+
+							)
 					,0)
 
 	set @totale_redditi_da_cud = isnull(@totale_redditi_da_cud,0)
@@ -327,7 +313,11 @@ BEGIN
 	declare @massimale decimal(19,2)
 
 	declare @totale_reddito decimal (19,2)
-	set @totale_reddito = @taxablegross-@deduzioni+@totale_redditi_da_cud
+	set @totale_reddito = @taxablegross - @deduzioni + @totale_redditi_da_cud
+
+	--SELECT @taxablegross as '@taxablegross', @totale_redditi_da_cud as '@totale_redditi_da_cud',  @totale_reddito as '@totale_reddito=@taxablegross-@deduzioni+@totale_redditi_da_cud'	
+
+
 	declare @maxdetrazione decimal(19,2)
 	set @maxdetrazione = 0
 
@@ -344,51 +334,49 @@ BEGIN
 	declare @max_fascia3 decimal(19,2)
 	set @max_fascia3= 50000
 
-	if (@totale_reddito <=@max_fascia1) begin
+	if (@totale_reddito <=@max_fascia1) 
+	begin
 	--1880 massimale detrazione
-	     set @maxdetrazione = (1880 / @giorni_anno) * @workingdays;
-		 print 'fascia 1'
-		 print  'calcolo detrazione applicata al percipiente rapportata al periodo di lavoro'
-		 print 	@maxdetrazione	
-		 print 'giorni lavorati'
-		 print @workingdays
+	   	 set @maxdetrazione =  1880 --- assoluto su 365 / 366 giorni lavorati
+		 --- riproporziona il massimale sui giorni effettivi lavorati
+		 if (@applicamassimalesuigglavorati = 'S') 
+			begin
+				 set @maxdetrazione = 1880 * @workingdays/ @giorni_anno ;
+			 End	
+		--SELECT 'fascia 1', 	@maxdetrazione	 as '@maxdetrazione', @workingdays as  'giorni lavorati',@giorni_anno as 'giorni nell''anno'
+	 
 		 --minima detrazione per la prima fascia
 		 if (@maxdetrazione <= 1380) BEGIN
                 SET @maxdetrazione = 1380;
          end
-	end
-	print @detrazioni_per_reddito
-	print 'totale reddito'
-	print @totale_reddito
-	print @giorni_anno
-	print @workingdays
 
-    if (@totale_reddito >@max_fascia1 and @totale_reddito <=@max_fascia2) begin
-		print 'fascia 2'
+	end
+
+    if (@totale_reddito >@max_fascia1 and @totale_reddito <=@max_fascia2) 
+	begin
 		 set @maxdetrazione =  1910    +   (1190 * (28000 - @totale_reddito)) / 13000;
-		 set  @maxdetrazione = (@maxdetrazione / @giorni_anno) * @workingdays
-		  print  'calcolo detrazione applicata al percipiente rapportata al periodo di lavoro'
-		 print 	@maxdetrazione	
-		 print 'giorni lavorati'
-		 print @workingdays
+
+		 --- riproporziona il massimale sui giorni effettivi lavorati
+		if (@applicamassimalesuigglavorati = 'S') 
+			Begin
+			set  @maxdetrazione = @maxdetrazione * @workingdays   / @giorni_anno
+			End
+		-- SELECT 'fascia 2', 	@maxdetrazione	 as '@maxdetrazione', @workingdays as  'giorni lavorati'
 	end
  
-	if (@totale_reddito >=@max_fascia2 and @totale_reddito <=@max_fascia3) begin	 
-		print 'fascia 3'
-		set @maxdetrazione= (1910 * (50000 - @totale_reddito)) / 22000;
-		set  @maxdetrazione = (@maxdetrazione / @giorni_anno) * @workingdays
-		 print  'calcolo detrazione applicata al percipiente rapportata al periodo di lavoro'
-		 print 	@maxdetrazione	
-		 print 'giorni lavorati'
-		 print @workingdays
-	end
-    
-	print 'detrazioni'
-	--print @detrazioni_per_reddito
-	--print @maxdetrazione
-
+	if (@totale_reddito >=@max_fascia2 and @totale_reddito <=@max_fascia3) 
+	begin	 
 	
-	if (@detrazioni_per_reddito> @maxdetrazione)BEGIN
+		set @maxdetrazione= (1910 * (50000 - @totale_reddito)) / 22000;
+		-- riproporziona il massimale sui giorni effettivi lavorati
+		if (@applicamassimalesuigglavorati = 'S') 
+		Begin
+			set  @maxdetrazione =  @maxdetrazione * @workingdays   / @giorni_anno
+		End
+		--SELECT 'fascia 3', 	@maxdetrazione	 as '@maxdetrazione', @workingdays as  'giorni lavorati'
+	end
+--select @detrazioni_per_reddito as '@detrazioni_per_reddito', @maxdetrazione as '@maxdetrazione'	
+	if (@detrazioni_per_reddito> @maxdetrazione + 1 /*gestiamo tolleranza di un euro*/)BEGIN
 		set @res=1
 
 	END
@@ -397,7 +385,7 @@ BEGIN
 		set @res=0
 	END
 
-
+	--select @res
 END
 GO
 SET QUOTED_IDENTIFIER OFF 
@@ -405,8 +393,8 @@ GO
 SET ANSI_NULLS ON 
 GO
  
+ 
+-- declare @res int
 
---setuser 'amm'
---declare @res int
---exec check_detrazioni_reddito 21,2022, @res out
---select @res
+--exec check_detrazioni_reddito  81670  ,2022, 'S', @res out
+ 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -87,6 +87,9 @@ private void initClass() {
 	C= new DataColumn("idcurrency", typeof(int));
 	C.AllowDBNull=false;
 	tcurrency.Columns.Add(C);
+	C= new DataColumn("codecurrency", typeof(string));
+	C.AllowDBNull=false;
+	tcurrency.Columns.Add(C);
 	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
 	tcurrency.Columns.Add(C);
@@ -102,6 +105,7 @@ private void initClass() {
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
 	tcurrency.Columns.Add(C);
+	tcurrency.Columns.Add( new DataColumn("active", typeof(string)));
 	Tables.Add(tcurrency);
 	tcurrency.PrimaryKey =  new DataColumn[]{tcurrency.Columns["idcurrency"]};
 
@@ -145,6 +149,9 @@ private void initClass() {
 	titinerationrefund.Columns.Add( new DataColumn("webwarn", typeof(string)));
 	titinerationrefund.Columns.Add( new DataColumn("idforeigncountry", typeof(int)));
 	titinerationrefund.Columns.Add( new DataColumn("noaccount", typeof(decimal)));
+	titinerationrefund.Columns.Add( new DataColumn("amount_c", typeof(decimal)));
+	titinerationrefund.Columns.Add( new DataColumn("docamount_c", typeof(decimal)));
+	titinerationrefund.Columns.Add( new DataColumn("requiredamount_c", typeof(decimal)));
 	Tables.Add(titinerationrefund);
 	titinerationrefund.PrimaryKey =  new DataColumn[]{titinerationrefund.Columns["nrefund"], titinerationrefund.Columns["iditineration"]};
 

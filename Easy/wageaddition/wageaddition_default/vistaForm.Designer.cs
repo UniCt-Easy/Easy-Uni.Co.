@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -131,6 +131,9 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable wageadditionattachment 		=> Tables["wageadditionattachment"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable costpartition 		=> Tables["costpartition"];
+
 	#endregion
 
 
@@ -229,6 +232,7 @@ private void initClass() {
 	twageaddition.Columns.Add( new DataColumn("iddalia_funzionale", typeof(int)));
 	twageaddition.Columns.Add( new DataColumn("iddalia_dipartimento", typeof(int)));
 	twageaddition.Columns.Add( new DataColumn("flagexcludefromcertificate", typeof(string)));
+	twageaddition.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(twageaddition);
 	twageaddition.PrimaryKey =  new DataColumn[]{twageaddition.Columns["ycon"], twageaddition.Columns["ncon"]};
 
@@ -1705,6 +1709,24 @@ private void initClass() {
 	twageadditionattachment.PrimaryKey =  new DataColumn[]{twageadditionattachment.Columns["ycon"], twageadditionattachment.Columns["ncon"], twageadditionattachment.Columns["idattachment"]};
 
 
+	//////////////////// COSTPARTITION /////////////////////////////////
+	var tcostpartition= new DataTable("costpartition");
+	C= new DataColumn("idcostpartition", typeof(int));
+	C.AllowDBNull=false;
+	tcostpartition.Columns.Add(C);
+	tcostpartition.Columns.Add( new DataColumn("title", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("kind", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("lu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("cu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("costpartitioncode", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("active", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("description", typeof(string)));
+	Tables.Add(tcostpartition);
+	tcostpartition.PrimaryKey =  new DataColumn[]{tcostpartition.Columns["idcostpartition"]};
+
+
 	#endregion
 
 
@@ -1828,6 +1850,10 @@ private void initClass() {
 	cPar = new []{wageaddition.Columns["ycon"], wageaddition.Columns["ncon"]};
 	cChild = new []{wageadditionattachment.Columns["ycon"], wageadditionattachment.Columns["ncon"]};
 	Relations.Add(new DataRelation("wageaddition_wageadditionattachment",cPar,cChild,false));
+
+	cPar = new []{costpartition.Columns["idcostpartition"]};
+	cChild = new []{wageaddition.Columns["idcostpartition"]};
+	Relations.Add(new DataRelation("costpartition_wageaddition",cPar,cChild,false));
 
 	#endregion
 

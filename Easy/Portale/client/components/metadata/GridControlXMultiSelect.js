@@ -1,26 +1,9 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module GridControlXMultiSelect
  * @description
  * Manages the graphics and the logic of an html GridControlXMultiSelect
  * This control permits to select one or more row with checkbox
- * Before to open the metapage child it creates the row and propagates the fields of the parent row on the child
+ * Before opening the metapage child it creates the row and propagates the fields of the parent row on the child
  */
 (function () {
     var cssDefault = appMeta.cssDefault;
@@ -32,10 +15,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Initializes the html grid control
      * @param {Html node} el
      * @param {HelpForm} helpForm
-     * @param {DataTable} table. this is the table corresponding to the tableName configured in the tag at the position 0
+     * @param {DataTable} table this is the table corresponding to the tableName configured in the tag at the position 0
      * (see function HelpForm.preScanCustomControl for the initialization)
      * @param {DataTable} primaryTable
-     * @param {string} listType. if it is called by in a listmanager, listType is passed
+     * @param {string} listType if it is called by in a listmanager, listType is passed
      * Contains all data of a grid
      */
     function GridControlXMultiSelect(el, helpForm, table, primaryTable, listType) {
@@ -93,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
 
                 _.forEach(cols, function (c, index) {
-                        var thid = appMeta.utils.getUnivoqueId();
+                        var thid = appMeta.utils.getUniqueId();
                         var $th;
 
                         // se si tratta dellaprima colonna nel grouping allora non la faccio draggable nè mettò l'ordinamento
@@ -141,7 +124,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                         // sul mobile inserisco bottoncino su header per il grouping.
                         // non aggiungo se è la colonna notevole gruppo, e se è impostato che non deve essere visibile il grouping
-                        if ((appMeta.isMobile || self.forceBtnGroupOnHeader) && !c.isFirsGrouping && !this.excludeGroup) {
+                        if ((appMeta.currApp.isMobile || self.forceBtnGroupOnHeader) && !c.isFirsGrouping && !this.excludeGroup) {
                             var $groupIcon = $('<i class="fas fa-poll-h" style="color:grey; margin-left: 6px">');
                             var $span = $('<div style="padding:5px; float:right; cursor: pointer; display: contents">');
                             $span.on("click", _.partial(self.dropColumnEv, self, c));

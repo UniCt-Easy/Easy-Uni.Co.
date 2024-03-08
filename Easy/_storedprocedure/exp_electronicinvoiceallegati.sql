@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@ SET ANSI_NULLS ON
 GO
 
 
-CREATE procedure exp_electronicinvoiceallegati(@yelectronicinvoice smallint, @nelectronicinvoice int) as
+CREATE procedure exp_electronicinvoiceallegati (@yelectronicinvoice smallint=null, @nelectronicinvoice int=null, @yinv int=null,	@ninv int=null,	@idinvkind int=null) as
 begin
 --exec exp_electronicinvoiceallegati 2014,4
 select 
@@ -37,8 +37,10 @@ select
 		on I.ninv = IA.ninv and I.yinv = IA.yinv and I.idinvkind = IA.idinvkind
 	join invoiceattachmentkind IAK
 		on IA.idattachmentkind = IAK.idattachmentkind
-	where I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
-		and IAK.attachment_fe = 'S'
+	where (I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+		or
+		 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind )
+	and IAK.attachment_fe = 'S'
 
 end
 

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -76,13 +59,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["capienzadis"].caption = "Capienza disabili";
 						table.columns["code"].caption = "Codice";
 						table.columns["idaulakind"].caption = "Tipologia";
-						table.columns["idcity"].caption = "Citt‡";
+						table.columns["idcity"].caption = "Citt√†";
 						table.columns["idedificio"].caption = "Edificio";
 						table.columns["idnation"].caption = "Nazione";
 						table.columns["idsede"].caption = "Sede";
 						table.columns["idstruttura"].caption = "Struttura didattica di afferenza";
 						table.columns["latitude"].caption = "latitudine";
-						table.columns["location"].caption = "Localit‡";
+						table.columns["location"].caption = "Localit√†";
 						table.columns["longitude"].caption = "Longitudine";
 						table.columns["title"].caption = "Denominazione";
 //$innerSetCaptionConfig_default$

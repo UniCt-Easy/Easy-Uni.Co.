@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -65,6 +65,7 @@ namespace storeunload_default {
 
             string filter = CalculateFilterForLinking(true);
             FrmSelectDetailsFromBooking F = new FrmSelectDetailsFromBooking(Meta, filter, DS);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK) return;
             DataRow[] Selected = F.SelectedRows;
             if (Selected == null) return;
@@ -313,10 +314,10 @@ namespace storeunload_default {
 
             string filter = CalculateFilterForLinking(true);
             FrmSelectDetailsFromStock F = new FrmSelectDetailsFromStock(Meta, filter, DS);
-            
 
 
 
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK) return;
             object idsor1 = DBNull.Value;
             if (F.CSM1 != null) idsor1 = F.CSM1.GetValue();

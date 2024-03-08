@@ -1,28 +1,13 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_struttura() {
 		MetaPage.apply(this, ['struttura', 'default', false]);
-        this.name = 'Struttura / Unit‡ organizzativa';
+        this.name = 'Struttura / Unit√† organizzativa';
 		this.defaultListType = 'default';
+		this.isList = true;
+		this.isTree = true;
 		//pageHeaderDeclaration
     }
 
@@ -45,8 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.idreg)
-					parentRow.idreg = this.idreg_istituto;
+				appMeta.metaModel.getTemporaryValues(this.getDataTable('afferenza'));
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#struttura_default_idupb'), null);
 				} else {
@@ -77,7 +61,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.struttura.defaults({ 'active': 'S' });
+				this.state.DS.tables.struttura.defaults({ 'idreg': this.idreg_istituto });
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -90,6 +84,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//insertClick
 
 			//beforePost
+
+			beforeSelectTreeManager: function () {
+				var def = appMeta.Deferred('beforeSelectTreeManager');
+				return def.resolve(true);
+			},
 
 			//buttons
         });

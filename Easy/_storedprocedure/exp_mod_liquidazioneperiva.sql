@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
---setuser'amm'
+--setuser'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_liquidazioneperiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_liquidazioneperiva]
 GO
@@ -33,7 +33,7 @@ CREATE  PROCEDURE [exp_mod_liquidazioneperiva] (
 AS
 BEGIN
 
---	exec exp_mod_liquidazioneperiva 2017, 4
+--	exec exp_mod_liquidazioneperiva 2022, 4
  
 CREATE TABLE #ivapay 
 (
@@ -270,6 +270,7 @@ WHERE paymentkind = 'A'
 
 -- LETTURA DELLE LIQUIDAZIONI IVA DEL RANGE CONSIDERATO
 -- FATTURE DI TIPO COMMERCIALE O PROMISCUO, NO ISTITUZIONALI O SPLIT PAYMENT
+
 DECLARE @yivapay INT
 DECLARE @nivapay INT
 DECLARE @paymentkind CHAR
@@ -297,6 +298,7 @@ FROM #mesi
 LEFT OUTER JOIN  ivapay ON month(start) = #mesi.mese
     AND paymentkind = 'C'
 	AND yivapay = @esercizio
+	and year(start) = @esercizio
 	AND month(start) BETWEEN @meseinizio AND @mesefine
 	AND ((ivapay.flag&1) <> 0)   --- iva commerciale e promiscua
 ORDER BY    ISNULL(paymentkind,'C'),  #mesi.mese
@@ -618,4 +620,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-

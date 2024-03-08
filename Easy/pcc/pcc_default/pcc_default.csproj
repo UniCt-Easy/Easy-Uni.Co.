@@ -34,9 +34,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CsvHelper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="CsvHelper">
       <HintPath>..\..\dll\CsvHelper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="metadatalibrary">
       <SpecificVersion>False</SpecificVersion>
@@ -76,7 +76,7 @@
       <DependentUpon>Frm_pcc_default.cs</DependentUpon>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="VistaForm.Designer.cs">
+    <Compile Include="VistaForm.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VistaForm.xsd</DependentUpon>
@@ -91,13 +91,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="VistaForm.xsc">
       <DependentUpon>VistaForm.xsd</DependentUpon>
     </None>
     <None Include="VistaForm.xsd">
       <SubType>Designer</SubType>
       <Generator>HDSGene</Generator>
-      <LastGenOutput>VistaForm.Designer.cs</LastGenOutput>
+      <LastGenOutput>VistaForm.cs</LastGenOutput>
     </None>
     <None Include="VistaForm.xss">
       <DependentUpon>VistaForm.xsd</DependentUpon>

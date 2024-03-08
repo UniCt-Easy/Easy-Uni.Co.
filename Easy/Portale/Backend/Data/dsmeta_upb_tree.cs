@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,8 +26,8 @@ using metadatalibrary;
 // ReSharper disable UnusedMember.Global
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
-[System.Xml.Serialization.XmlRoot("dsmeta_sorting_treeall"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public partial class dsmeta_sorting_treeall: DataSet {
+[System.Xml.Serialization.XmlRoot("dsmeta_upb_tree"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class dsmeta_upb_tree: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -44,18 +44,18 @@ public partial class dsmeta_sorting_treeall: DataSet {
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
-public dsmeta_sorting_treeall(){
+public dsmeta_upb_tree(){
 	BeginInit();
 	initClass();
 	EndInit();
 }
 [DebuggerNonUserCode]
-protected dsmeta_sorting_treeall (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+protected dsmeta_upb_tree (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
 [DebuggerNonUserCode]
 private void initClass() {
-	DataSetName = "dsmeta_sorting_treeall";
+	DataSetName = "dsmeta_upb_tree";
 	Prefix = "";
-	Namespace = "http://tempuri.org/dsmeta_sorting_treeall.xsd";
+	Namespace = "http://tempuri.org/dsmeta_upb_tree.xsd";
 
 	#region create DataTables
 	//////////////////// UPB /////////////////////////////////

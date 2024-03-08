@@ -13,11 +13,12 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rendicontattivitaprogetto_alias1" msprop:TableForReading="rendicontattivitaprogetto" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="rendicontattivitaprogetto_alias2" msprop:TableForReading="rendicontattivitaprogetto" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
             </xs:sequence>
@@ -43,6 +44,15 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="position_alias1" msprop:TableForReading="position" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="income" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -50,15 +60,6 @@
               <xs:element name="idinc" type="xs:int" />
               <xs:element name="nmov" type="xs:int" />
               <xs:element name="ymov" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="contrattokind_alias1" msprop:TableForReading="contrattokind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -70,8 +71,8 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idinc" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettoricavo" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" minOccurs="0" />
@@ -81,15 +82,52 @@
               <xs:element name="idworkpackage" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="_x0021_idcontrattokind_contrattokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idinc_income_description" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idinc_income_ymov" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idinc_income_nmov" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idposition_position_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogettotipocosto_progettotipocosto_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idrelated_entrydetail_description" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_contratto" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mese" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmese" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="salprogettoassetworkpackage" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idpiece" type="xs:int" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idsal" type="xs:int" />
+              <xs:element name="idsalprogettoassetworkpackage" type="xs:int" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="salprogettoassetworkpackagemese" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idmese" type="xs:int" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idsal" type="xs:int" />
+              <xs:element name="idsalprogettoassetworkpackage" type="xs:int" />
+              <xs:element name="idsalprogettoassetworkpackagemese" type="xs:int" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -103,11 +141,23 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rendicontattivitaprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="getregistrydocentiamministrativi" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rendicontattivitaprogetto_alias1" msprop:TableForReading="rendicontattivitaprogetto" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
             </xs:sequence>
@@ -118,6 +168,15 @@
             <xs:sequence>
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -142,12 +201,25 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="contrattokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="assetdiary" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="idassetdiary" type="xs:int" />
+              <xs:element name="idpiece" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idworkpackage" type="xs:int" />
+              <xs:element name="orepreventivate" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetdiaryora" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idassetdiary" type="xs:int" />
+              <xs:element name="idassetdiaryora" type="xs:int" />
+              <xs:element name="idworkpackage" type="xs:int" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -159,30 +231,46 @@
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idassetdiaryora" type="xs:int" minOccurs="0" />
               <xs:element name="idexp" type="xs:int" minOccurs="0" />
               <xs:element name="idpettycash" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettocosto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" />
               <xs:element name="idrelated" type="xs:string" minOccurs="0" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" minOccurs="0" />
               <xs:element name="idsal" type="xs:int" minOccurs="0" />
+              <xs:element name="idsalprogettoassetworkpackagemese" type="xs:int" minOccurs="0" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="noperation" type="xs:int" minOccurs="0" />
               <xs:element name="yoperation" type="xs:int" minOccurs="0" />
-              <xs:element name="_x0021_idcontrattokind_contrattokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idassetdiaryora_assetdiaryora_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idassetdiaryora_assetdiaryora_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idassetdiaryora_assetdiaryora_idassetdiary_idpiece" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idassetdiaryora_assetdiaryora_idassetdiary_idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idassetdiaryora_assetdiaryora_idassetdiary_orepreventivate" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idexp_expense_description" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idexp_expense_ymov" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idexp_expense_nmov" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idpettycash_pettycash_description" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idpettycash_pettycash_pettycode" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idposition_position_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogettotipocosto_progettotipocosto_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_contratto" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_year" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_idsalprogettoassetworkpackage_idpiece" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_idsalprogettoassetworkpackage_percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_idmese_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -292,9 +380,10 @@
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idsal" />
     </xs:unique>
-    <xs:unique name="rendicontattivitaprogetto_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:rendicontattivitaprogetto_alias1" />
+    <xs:unique name="rendicontattivitaprogetto_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontattivitaprogetto_alias2" />
       <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idrendicontattivitaprogetto" />
       <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
@@ -309,27 +398,51 @@
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettotipocosto" />
     </xs:unique>
+    <xs:unique name="position_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position_alias1" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
     <xs:unique name="income_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:income" />
       <xs:field xpath="mstns:idinc" />
-    </xs:unique>
-    <xs:unique name="contrattokind_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind_alias1" />
-      <xs:field xpath="mstns:idcontrattokind" />
     </xs:unique>
     <xs:unique name="progettoricavo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettoricavo" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettoricavo" />
     </xs:unique>
+    <xs:unique name="mese_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mese" />
+      <xs:field xpath="mstns:idmese" />
+    </xs:unique>
+    <xs:unique name="salprogettoassetworkpackage_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:salprogettoassetworkpackage" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idpiece" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idsal" />
+      <xs:field xpath="mstns:idsalprogettoassetworkpackage" />
+    </xs:unique>
+    <xs:unique name="salprogettoassetworkpackagemese_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:salprogettoassetworkpackagemese" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idsal" />
+      <xs:field xpath="mstns:idsalprogettoassetworkpackage" />
+      <xs:field xpath="mstns:idsalprogettoassetworkpackagemese" />
+    </xs:unique>
     <xs:unique name="sal_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sal" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idsal" />
     </xs:unique>
-    <xs:unique name="rendicontattivitaprogetto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:rendicontattivitaprogetto" />
+    <xs:unique name="getregistrydocentiamministrativi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministrativi" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="rendicontattivitaprogetto_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontattivitaprogetto_alias1" />
       <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idrendicontattivitaprogetto" />
       <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
@@ -337,6 +450,10 @@
       <xs:selector xpath=".//mstns:progettotipocosto_alias1" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettotipocosto" />
+    </xs:unique>
+    <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
     </xs:unique>
     <xs:unique name="pettycash_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pettycash" />
@@ -346,9 +463,16 @@
       <xs:selector xpath=".//mstns:expense" />
       <xs:field xpath="mstns:idexp" />
     </xs:unique>
-    <xs:unique name="contrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
+    <xs:unique name="assetdiary_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetdiary" />
+      <xs:field xpath="mstns:idassetdiary" />
+      <xs:field xpath="mstns:idworkpackage" />
+    </xs:unique>
+    <xs:unique name="assetdiaryora_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetdiaryora" />
+      <xs:field xpath="mstns:idassetdiary" />
+      <xs:field xpath="mstns:idassetdiaryora" />
+      <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
     <xs:unique name="progettocosto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettocosto" />
@@ -393,18 +517,25 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_progettoricavo_progettobudget_idprogetto-idprogettotipocosto-idworkpackage" msdata:parent="progettobudget" msdata:child="progettoricavo" msdata:parentkey="idprogetto idprogettotipocosto idworkpackage" msdata:childkey="idprogetto idprogettotipocosto idworkpackage" />
       <msdata:Relationship name="FK_progettoricavo_sal_alias1_idsal" msdata:parent="sal_alias1" msdata:child="progettoricavo" msdata:parentkey="idsal" msdata:childkey="idsal" />
-      <msdata:Relationship name="FK_progettoricavo_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="progettoricavo" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_progettoricavo_rendicontattivitaprogetto_alias2_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto_alias2" msdata:child="progettoricavo" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_rendicontattivitaprogetto_alias2_getregistrydocentiamministrativi_idreg" msdata:parent="getregistrydocentiamministrativi" msdata:child="rendicontattivitaprogetto_alias2" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_progettoricavo_entrydetail_idrelated" msdata:parent="entrydetail" msdata:child="progettoricavo" msdata:parentkey="idrelated" msdata:childkey="idrelated" />
       <msdata:Relationship name="FK_progettoricavo_progettotipocosto_alias2_idprogettotipocosto" msdata:parent="progettotipocosto_alias2" msdata:child="progettoricavo" msdata:parentkey="idprogettotipocosto" msdata:childkey="idprogettotipocosto" />
+      <msdata:Relationship name="FK_progettoricavo_position_alias1_idposition" msdata:parent="position_alias1" msdata:child="progettoricavo" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_progettoricavo_income_idinc" msdata:parent="income" msdata:child="progettoricavo" msdata:parentkey="idinc" msdata:childkey="idinc" />
-      <msdata:Relationship name="FK_progettoricavo_contrattokind_alias1_idcontrattokind" msdata:parent="contrattokind_alias1" msdata:child="progettoricavo" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
       <msdata:Relationship name="FK_progettocosto_progettobudget_idprogetto-idprogettotipocosto-idworkpackage" msdata:parent="progettobudget" msdata:child="progettocosto" msdata:parentkey="idprogetto idprogettotipocosto idworkpackage" msdata:childkey="idprogetto idprogettotipocosto idworkpackage" />
+      <msdata:Relationship name="FK_progettocosto_salprogettoassetworkpackagemese_idsalprogettoassetworkpackagemese" msdata:parent="salprogettoassetworkpackagemese" msdata:child="progettocosto" msdata:parentkey="idsalprogettoassetworkpackagemese" msdata:childkey="idsalprogettoassetworkpackagemese" />
+      <msdata:Relationship name="FK_salprogettoassetworkpackagemese_mese_idmese" msdata:parent="mese" msdata:child="salprogettoassetworkpackagemese" msdata:parentkey="idmese" msdata:childkey="idmese" />
+      <msdata:Relationship name="FK_salprogettoassetworkpackagemese_salprogettoassetworkpackage_idsalprogettoassetworkpackage" msdata:parent="salprogettoassetworkpackage" msdata:child="salprogettoassetworkpackagemese" msdata:parentkey="idsalprogettoassetworkpackage" msdata:childkey="idsalprogettoassetworkpackage" />
       <msdata:Relationship name="FK_progettocosto_sal_idsal" msdata:parent="sal" msdata:child="progettocosto" msdata:parentkey="idsal" msdata:childkey="idsal" />
-      <msdata:Relationship name="FK_progettocosto_rendicontattivitaprogetto_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto" msdata:child="progettocosto" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_progettocosto_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="progettocosto" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_rendicontattivitaprogetto_alias1_getregistrydocentiamministrativi_idreg" msdata:parent="getregistrydocentiamministrativi" msdata:child="rendicontattivitaprogetto_alias1" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_progettocosto_progettotipocosto_alias1_idprogettotipocosto" msdata:parent="progettotipocosto_alias1" msdata:child="progettocosto" msdata:parentkey="idprogettotipocosto" msdata:childkey="idprogettotipocosto" />
+      <msdata:Relationship name="FK_progettocosto_position_idposition" msdata:parent="position" msdata:child="progettocosto" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_progettocosto_pettycash_idpettycash" msdata:parent="pettycash" msdata:child="progettocosto" msdata:parentkey="idpettycash" msdata:childkey="idpettycash" />
       <msdata:Relationship name="FK_progettocosto_expense_idexp" msdata:parent="expense" msdata:child="progettocosto" msdata:parentkey="idexp" msdata:childkey="idexp" />
-      <msdata:Relationship name="FK_progettocosto_contrattokind_idcontrattokind" msdata:parent="contrattokind" msdata:child="progettocosto" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
+      <msdata:Relationship name="FK_progettocosto_assetdiaryora_idassetdiaryora" msdata:parent="assetdiaryora" msdata:child="progettocosto" msdata:parentkey="idassetdiaryora" msdata:childkey="idassetdiaryora" />
+      <msdata:Relationship name="FK_assetdiaryora_assetdiary_idassetdiary" msdata:parent="assetdiary" msdata:child="assetdiaryora" msdata:parentkey="idassetdiary" msdata:childkey="idassetdiary" />
       <msdata:Relationship name="FK_progettobudgetvariazione_progettobudget_idprogetto-idprogettobudget" msdata:parent="progettobudget" msdata:child="progettobudgetvariazione" msdata:parentkey="idprogetto idprogettobudget" msdata:childkey="idprogetto idprogettobudget" />
       <msdata:Relationship name="FK_progettobudgetvariazione_upb_idupb" msdata:parent="upb" msdata:child="progettobudgetvariazione" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="FK_progettobudgetvariazione_accmotive_idaccmotive" msdata:parent="accmotive" msdata:child="progettobudgetvariazione" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />

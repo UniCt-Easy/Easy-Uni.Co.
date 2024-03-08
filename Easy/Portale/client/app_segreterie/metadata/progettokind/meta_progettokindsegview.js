@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,11 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'progettoactivitykind_title', 'Tipologia', null, 10, 2048);
-						this.describeAColumn(table, 'title', 'Titolo', null, 20, 2048);
-						this.describeAColumn(table, 'progettokind_oredivisionecostostipendio', 'Numero ore lavorate in un anno dal personale', null, 30, null);
-						this.describeAColumn(table, 'progettokind_stipendioannoprec', 'Usa stipendi anno precedente', null, 80, null);
-						this.describeAColumn(table, 'progettokind_stipendiocomericavo', 'Usa stipendi come ricavi', null, 90, null);
+						this.describeAColumn(table, 'progettoactivitykind_title', 'Tipologia', null, 1200, 2048);
+						this.describeAColumn(table, 'title', 'Titolo', null, 2000, 2048);
+						this.describeAColumn(table, 'progettokind_oredivisionecostostipendio', 'Numero ore lavorate in un anno dal personale', null, 3000, null);
+						this.describeAColumn(table, 'progettokind_stipendioannoprec', 'Usa stipendi anno precedente', null, 8000, null);
+						this.describeAColumn(table, 'progettokind_stipendiocomericavo', 'Usa stipendi come ricavi', null, 9000, null);
+						this.describeAColumn(table, 'progettokind_active', 'Attivo', null, 10000, null);
+						this.describeAColumn(table, 'progettokind_irap', 'Includi l\'IRAP nei costi del personale', null, 11000, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

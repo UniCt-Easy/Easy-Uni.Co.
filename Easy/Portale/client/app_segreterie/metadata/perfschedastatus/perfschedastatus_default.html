@@ -7,22 +7,20 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfschedastatus_default_title">Stato</label>
-					<input id="perfschedastatus_default_title" type="text" class="form-control" data-tag="perfschedastatus.title?perfschedastatusdefaultview.title" data-subentity  />
+					<input id="perfschedastatus_default_title" type="text" class="form-control" data-tag="perfschedastatus.title?perfschedastatusdefaultview.title"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfschedastatus_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="perfschedastatus_default_activeSi" type="radio" name="perfschedastatus_default_active" class="custom-control-input" data-tag="perfschedastatus.active:S?perfschedastatusdefaultview.perfschedastatus_active:Si"  ><label for="perfschedastatus_default_activeSi"> Si</label>
+						<input id="perfschedastatus_default_activeNo" type="radio" name="perfschedastatus_default_active" class="custom-control-input" data-tag="perfschedastatus.active:N?perfschedastatusdefaultview.perfschedastatus_active:No"  ><label for="perfschedastatus_default_activeNo"> No</label>
+					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="perfschedastatus_default_description">Descrizione</label>
-					<textarea class="textarea form-control" id="perfschedastatus_default_description" type="text"  rows="4" data-tag="perfschedastatus.description?perfschedastatusdefaultview.perfschedastatus_description" data-subentity></textarea>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="perfschedastatus_default_active">Attivo</label>
-					<div class="custom-control custom-radio">
-						<input id="perfschedastatus_default_activeSi" type="radio" name="perfschedastatus_default_active" class="custom-control-input" data-tag="perfschedastatus.active:S?perfschedastatusdefaultview.perfschedastatus_active:Si" data-subentity  ><label for="perfschedastatus_default_activeSi"> Si</label>
-						<input id="perfschedastatus_default_activeNo" type="radio" name="perfschedastatus_default_active" class="custom-control-input" data-tag="perfschedastatus.active:N?perfschedastatusdefaultview.perfschedastatus_active:No" data-subentity  ><label for="perfschedastatus_default_activeNo"> No</label>
-					</div>
+					<textarea class="textarea form-control" id="perfschedastatus_default_description" type="text"  rows="4" data-tag="perfschedastatus.description?perfschedastatusdefaultview.perfschedastatus_description"  ></textarea>
 				</div>
 			</div>
 </form>

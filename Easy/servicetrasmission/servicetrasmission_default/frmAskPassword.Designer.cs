@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,9 +53,9 @@ namespace servicetrasmission_default {
 			this.label1.AutoSize = true;
 			this.label1.Location = new System.Drawing.Point(12, 22);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(170, 13);
+			this.label1.Size = new System.Drawing.Size(153, 13);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Login responsabile per sito PERLA";
+			this.label1.Text = " Login WS - AppId per AdP 2.0";
 			// 
 			// txtUser
 			// 
@@ -78,9 +78,9 @@ namespace servicetrasmission_default {
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(12, 76);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(190, 13);
+			this.label2.Size = new System.Drawing.Size(181, 13);
 			this.label2.TabIndex = 2;
-			this.label2.Text = "Password responsabile per sito PERLA";
+			this.label2.Text = "Password WS - Secretid per AdP 2.0";
 			// 
 			// btnOk
 			// 

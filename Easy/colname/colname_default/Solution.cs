@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Xml;
+using metadatalibrary;
 
 namespace colname_default//colname//
 {
@@ -103,7 +104,7 @@ namespace colname_default//colname//
 			if (references==null){
 				string SSS2="jKJK";
 				Console.WriteLine(SSS2);
-				System.Windows.Forms.MessageBox.Show("Non ho trovato il node references!");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ho trovato il node references!");
 				return ;
 			}
 
@@ -113,7 +114,7 @@ namespace colname_default//colname//
 			if (rifDaCancellare==null){
 				string SSS="jKJK";
 				Console.WriteLine(SSS);
-				System.Windows.Forms.MessageBox.Show("Non ho trovato il node da cancellare!");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ho trovato il node da cancellare!");
 				return ;
 			}
 			references.RemoveChild(rifDaCancellare);

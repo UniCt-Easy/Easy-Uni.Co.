@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,10 +23,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
+ 
 --setuser 'amministrazione'
 
-CREATE   PROCEDURE [rpt_unifiedanagrafedelleprestazioni]
+CREATE   PROCEDURE  [rpt_unifiedanagrafedelleprestazioni]
 (
 	@ayear smallint, 
 	@idreg int, 
@@ -51,6 +51,7 @@ END
 
 CREATE TABLE #outtable(
 		departmentname varchar(150),
+		transmissiondate datetime,
 		idexp int,
 		idreg int,
 		registry varchar(100),
@@ -108,6 +109,7 @@ CREATE TABLE #outtable(
 			(
 			departmentname,
 			idexp ,
+			transmissiondate,
 			idreg ,
 			registry,
 			b_city,
@@ -158,6 +160,7 @@ CREATE TABLE #outtable(
 	
 SELECT  	
 			departmentname,
+			transmissiondate,
 			idexp ,
 			idreg ,
 			registry,
@@ -214,9 +217,3 @@ ORDER BY registry, departmentname
 
 END
 
-GO
-
-SET QUOTED_IDENTIFIER OFF 
-GO
-SET ANSI_NULLS ON 
-GO

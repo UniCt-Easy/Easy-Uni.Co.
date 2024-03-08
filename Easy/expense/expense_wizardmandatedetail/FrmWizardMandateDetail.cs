@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1418,7 +1418,7 @@ namespace expense_wizardmandatedetail {
             if ((newTab < 0) || (newTab > tabController.TabPages.Count)) return;
             if (!CustomChangeTab(oldTab, newTab)) return;
             if (newTab == tabController.TabPages.Count) {
-                if (MessageBox.Show(this, "Si desidera eseguire ancora la procedura",
+                if (show(this, "Si desidera eseguire ancora la procedura",
                         "Conferma", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     newTab = 0;
                     ResetWizard();
@@ -1451,7 +1451,7 @@ namespace expense_wizardmandatedetail {
             if ((oldTab == 0) && (newTab == 1)) {
                 DataRow[] Selected = GetGridSelectedRows(gridDetails);
                 if ((Selected == null) || (GetGridSelectedRows(gridDetails).Length == 0)) {
-                    MessageBox.Show("Non è stato selezionato alcun dettaglio.");
+                    show("Non è stato selezionato alcun dettaglio.");
                     return false;
                 }
 
@@ -1508,7 +1508,7 @@ namespace expense_wizardmandatedetail {
             if ((oldTab == 2) && (newTab == 3)) {
                 if ((radioNewCont.Checked == false) && (radioNewLinkedMov.Checked == false)
                                                     && (radioAddCont.Checked == false)) {
-                    MessageBox.Show("Non sarà possibile contabilizzare i dettagli selezionati.");
+                    show("Non sarà possibile contabilizzare i dettagli selezionati.");
                     return false;
                 }
 
@@ -1518,7 +1518,7 @@ namespace expense_wizardmandatedetail {
 
             if ((oldTab == 3) && (newTab == 4)) {
                 if (!SelezioneMovimentiEffettuata) {
-                    MessageBox.Show("Non è stato selezionato il movimento.");
+                    show("Non è stato selezionato il movimento.");
                     return false;
                 }
 
@@ -1594,7 +1594,7 @@ namespace expense_wizardmandatedetail {
             }
 
             if ((FiltraRows(SelectedRows, filter).Count > 0) && (upb1.Length > 2)) {
-                MessageBox.Show(
+                show(
                     " Ad alcuni dettagli tra quelli selezionati non è stato attribuito l'UPB, ad altri si." +
                     " Selezionare dettagli coerenti");
                 stop = true;
@@ -1623,7 +1623,7 @@ namespace expense_wizardmandatedetail {
             if (objidreg != DBNull.Value)
                 filteridreg1 = QHC.CmpEq("idreg", objidreg);
             else {
-                MessageBox.Show(" Il fornitore non è correttamente impostato." +
+                show(" Il fornitore non è correttamente impostato." +
                                 " Pertanto non sarà possibile contabilizzare il contratto.");
                 stop = true;
             }
@@ -1705,7 +1705,7 @@ namespace expense_wizardmandatedetail {
 
             faseordine = CfgFn.GetNoNullInt32(Meta.GetSys("mandatephase"));
             if (faseordine == 0) {
-                MessageBox.Show("E' necessario configurare la fase di contabilizzazione dell'ordine", "Avviso");
+                show("E' necessario configurare la fase di contabilizzazione dell'ordine", "Avviso");
             }
 
             int maxphase = CfgFn.GetNoNullInt32(Conn.GetSys("maxexpensephase"));
@@ -2266,7 +2266,7 @@ namespace expense_wizardmandatedetail {
             if (currcausale == 1) {
                 foreach (DataRow r in SelectedRows) {
                     if (r["idupb_iva"] != DBNull.Value && r["idupb_iva"].ToString() != r["idupb"].ToString()) {
-                        MessageBox.Show("La contabilizzazione totale non può essere usata su dettagli con upb diverse",
+                        show("La contabilizzazione totale non può essere usata su dettagli con upb diverse",
                             "Avviso");
                         return false;
                     }
@@ -2359,13 +2359,13 @@ namespace expense_wizardmandatedetail {
                 radioAddCont.Checked = true;
                 // Deve essere un solo FORNITORE e un solo UPB per tutti i dettagli
                 if (registry.Length > 1) {
-                    MessageBox.Show(
+                    show(
                         "Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso creditore");
                     return false;
                 }
 
                 if (upb.Length > 1) {
-                    MessageBox.Show(
+                    show(
                         "Per aggiungere la contabilizzazione i dettagli selezionati devono avere lo stesso UPB");
                     return false;
                 }
@@ -2373,7 +2373,7 @@ namespace expense_wizardmandatedetail {
                 // 1. Non esiste un movimento con capienza sufficiente per i dettagli selezionati
                 if (ContabilizzazioniDisponibili.Rows.Count == 0) {
                     //string DescrUpb= Conn.DO_READ_VALUE("upb",filterupb,"title").ToString();
-                    MessageBox.Show("Non esiste un movimento con capienza sufficiente per i dettagli selezionati");
+                    show("Non esiste un movimento con capienza sufficiente per i dettagli selezionati");
                     //" (UPB "+DescrUpb+")"); 
                     AbilitaDisabilitaSelezioneMovimento(false);
                     //DS.mandatedetail.RejectChanges();
@@ -2385,7 +2385,7 @@ namespace expense_wizardmandatedetail {
                 // 2. Sono stati individuati più movimenti per contabilizzare i dettagli selezionati
                 // abilito il tasto di selezione 
                 if (ContabilizzazioniDisponibili.Rows.Count > 1) {
-                    MessageBox.Show(
+                    show(
                         "Esistono più movimenti con capienza sufficiente per i dettagli selezionati. Selezionare il movimento");
                     //DS.mandatedetail.RejectChanges();
                     //ClearMovimento();
@@ -2399,7 +2399,7 @@ namespace expense_wizardmandatedetail {
                 // 3. E' stato individuato un solo movimento per aggiungere la contabilizzazione,
                 // esso viene collegato automaticamente
                 if (ContabilizzazioniDisponibili.Rows.Count == 1) {
-                    MessageBox.Show("Il movimento è stato determinato automaticamente");
+                    show("Il movimento è stato determinato automaticamente");
                     AbilitaDisabilitaSelezioneMovimento(false);
                     //DS.mandatedetail.RejectChanges();
                     //ClearMovimento();
@@ -2440,7 +2440,10 @@ namespace expense_wizardmandatedetail {
                 // oppure ex novo
                 // Per abilitare Collega a un movimento esistente deve 
                 // essere un solo FORNITORE e un solo UPB per tutti i dettagli
-                if (registry.Length > 1) {
+                // ma quando la fase precedente è priva di creditore deve poter essere selezionata sui contratti passivi multibeneficiario
+                int phase = faseordine - 1;
+                int fasecred = CfgFn.GetNoNullInt32(Meta.GetSys("expenseregphase"));
+                if ((fasecred <= phase) && (registry.Length > 1)) {
                     labelNewLinkedCont.Text =
                         "Per creare la contabilizzazione su movimento esistente i dettagli selezionati devono avere lo stesso Fornitore";
                     radioNewLinkedMov.Visible = false;
@@ -2471,8 +2474,7 @@ namespace expense_wizardmandatedetail {
                         filtercont = GetData.MergeFilters(filtercont, filterupb_forexpense);
                     }
 
-                    int phase = faseordine - 1;
-                    int fasecred = CfgFn.GetNoNullInt32(Meta.GetSys("expenseregphase"));
+                   
                     if (fasecred <= phase) {
                         filtercont = GetData.MergeFilters(filtercont, filteridreg);
                     }
@@ -2537,6 +2539,28 @@ namespace expense_wizardmandatedetail {
             gboxMovimento.Enabled = enable;
         }
 
+        void AssegnaDatiContratto(DataRow Contratto) {
+            if (DS.expenselast.Rows.Count == 0) return;
+            DataRow curr = DS.expense.Rows[0];
+            DataRow currlast = DS.expenselast.Rows[0];
+
+            EP_functions EP = new EP_functions(Meta.Dispatcher);
+
+            object idaccmotive = DBNull.Value;
+            object idacc = DBNull.Value;
+
+            idaccmotive = Contratto["idaccmotivedebit_crg"];
+            if (idaccmotive == DBNull.Value) idaccmotive = Contratto["idaccmotivedebit"];
+
+            if (EP.attivo) {
+                idacc = EP.GetSupplierAccountForRegistry(idaccmotive, curr["idreg"]);
+            }
+
+            if (idacc != DBNull.Value) {
+              
+                currlast["idaccdebit"] = idacc;
+            }
+        }
         private void btnSelectMov_Click(object sender, System.EventArgs e) {
             //se true, deve visualizzare le contabilizzazioni disponibili
             bool allMandate = chkAddContab.Checked;
@@ -2875,6 +2899,7 @@ namespace expense_wizardmandatedetail {
             else
                 F.AllowNoManagerSelection(true);
 
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK) return false;
             if (idman_start == null)
                 idmanagerSelected = null;
@@ -2943,7 +2968,7 @@ namespace expense_wizardmandatedetail {
 
         bool doAssociaSoloDettagli() {
             if (idexp_selected == null || idexp_selected == DBNull.Value) {
-                MessageBox.Show(this, "Selezionare prima il movimento di spesa", "Avviso");
+                show(this, "Selezionare prima il movimento di spesa", "Avviso");
                 return false;
             }
 
@@ -2952,7 +2977,7 @@ namespace expense_wizardmandatedetail {
             bool isnum = isNumeric(idexp_selected.ToString(), out idexp_selected_int);
 
             if ((isnum == false) || (idexp_selected_int == 0)) {
-                MessageBox.Show(this, "Selezionare prima il movimento di spesa", "Avviso");
+                show(this, "Selezionare prima il movimento di spesa", "Avviso");
                 return false;
             }
 
@@ -3019,7 +3044,7 @@ namespace expense_wizardmandatedetail {
             //ga.GeneraClassificazioniIndirette(ga.DSP, true); lo fa già GeneraClassificazioniAutomatiche
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
-                MessageBox.Show(this,
+                show(this,
                     "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 return false;
             }
@@ -3059,6 +3084,7 @@ namespace expense_wizardmandatedetail {
 
 
             Form F = ShowAutomatismi.Show(Meta, spesa, null, null, null);
+            createForm(F, this);
             F?.ShowDialog(this);
         }
 
@@ -3313,7 +3339,7 @@ namespace expense_wizardmandatedetail {
                         if (faseCorrente == fasespesamax) {
                             DataRow ModPagam = CfgFn.ModalitaPagamentoDefault(Meta.Conn, NewSpesaRow["idreg"]);
                             if (ModPagam == null) {
-                                MessageBox.Show(
+                                show(
                                     "E' necessario che sia definita almeno una modalità di pagamento per il creditore/debitore " +
                                     "\"" + title + "\"\n\n" +
                                     "Dati non salvati", "Errore", MessageBoxButtons.OK);
@@ -3324,6 +3350,7 @@ namespace expense_wizardmandatedetail {
                             //aggiungere le informazioni della modalità di pagamento
                             NewLastMov["idregistrypaymethod"] = ModPagam["idregistrypaymethod"];
                             NewLastMov["idpaymethod"] = ModPagam["idpaymethod"];
+                            NewLastMov["iban"] = ModPagam["iban"];
                             NewLastMov["cin"] = ModPagam["cin"];
                             NewLastMov["idbank"] = ModPagam["idbank"];
                             NewLastMov["idcab"] = ModPagam["idcab"];
@@ -3336,7 +3363,7 @@ namespace expense_wizardmandatedetail {
                             NewLastMov["idchargehandling"] = ModPagam["idchargehandling"];
                             object idpaymethod = ModPagam["idpaymethod"];
                             string filterpaymethod = QHS.CmpEq("idpaymethod", idpaymethod);
-
+                            AssegnaDatiContratto(Mandate);
                             DataTable TPaymethod = Conn.RUN_SELECT("paymethod", "*", null, filterpaymethod, null, true);
 
                             if ((TPaymethod != null) && (TPaymethod.Rows.Count > 0)) {
@@ -3351,7 +3378,7 @@ namespace expense_wizardmandatedetail {
                                 string titleDelegato =
                                     Conn.readValue("registry", q.eq("idreg", NewLastMov["iddeputy"]), "title")
                                         ?.ToString() ?? "";
-                                MessageBox.Show(
+                                show(
                                     "Attenzione, l'anagrafica considerata è associata ad un delegato come modalità di pagamento. Il pagamento sarà pertanto effettuato al delegato "
                                     + titleDelegato + " sull'iban " + NewLastMov["iban"].ToString(),
                                     "Avviso");
@@ -3484,7 +3511,7 @@ namespace expense_wizardmandatedetail {
             decimal valore = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(Decimal),
                 T.Text, "x.y.c"));
             if (valore < 0) {
-                MessageBox.Show("Valore non valido");
+                show("Valore non valido");
                 T.Focus();
                 return;
             }
@@ -3523,7 +3550,7 @@ namespace expense_wizardmandatedetail {
                     txtPerc.Text, "x.y.c"));
 
             if (ImportoDaPagare > ImportoMax) {
-                MessageBox.Show("L'importo da pagare è superiore al totale dei dettagli selezionati");
+                show("L'importo da pagare è superiore al totale dei dettagli selezionati");
                 txtDaPagare.Text = "";
                 ImportoDaPagare = 0;
                 return;
@@ -3880,7 +3907,7 @@ namespace expense_wizardmandatedetail {
                     NumberStyles.Number,
                     NumberFormatInfo.CurrentInfo);
                 if ((percent < 0) || (percent > percentmax)) {
-                    MessageBox.Show(errmsg, "Avviso");
+                    show(errmsg, "Avviso");
                     T.Focus();
                     OK = false;
                 }
@@ -3889,7 +3916,7 @@ namespace expense_wizardmandatedetail {
                 }
             }
             catch {
-                MessageBox.Show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
+                show("E' necessario digitare un numero", "Avviso", System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Exclamation);
                 return false;
             }

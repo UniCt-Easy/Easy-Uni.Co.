@@ -2,22 +2,28 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabperfprogetto_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabperfprogetto_default_0"><i class="fa fa-vials mr-1"></i>Principale</a>
+		<a href="#tabperfprogetto_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabperfprogetto_default_0"><i class="fa fa-vials mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabperfprogetto_default_1" class="nav-link" data-toggle="pill" data-target="#tabperfprogetto_default_1"><i class="fa fa-warehouse mr-1"></i>Unità organizzative</a>
+		<a href="#tabperfprogetto_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfprogetto_default_1"><i class="fa fa-warehouse mr-1"></i>Unità di lavoro</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabperfprogetto_default_2" class="nav-link" data-toggle="pill" data-target="#tabperfprogetto_default_2"><i class="fa fa-bullseye mr-1"></i>Obiettivi</a>
+		<a href="#tabperfprogetto_default_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfprogetto_default_2"><i class="fa fa-bullseye mr-1"></i>Obiettivi</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabperfprogetto_default_3" class="nav-link" data-toggle="pill" data-target="#tabperfprogetto_default_3"><i class="fa fa-paperclip mr-1"></i>Allegati</a>
+		<a href="#tabperfprogetto_default_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfprogetto_default_3"><i class="fa fa-battery-three-quarters mr-1"></i>Avanzamenti</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabperfprogetto_default_4" class="nav-link" data-toggle="pill" data-target="#tabperfprogetto_default_4"><i class="fa fa-euro-sign mr-1"></i>Costi</a>
+		<a href="#tabperfprogetto_default_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfprogetto_default_4"><i class="fa fa-history mr-1"></i>Storico stati del progetto</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabperfprogetto_default_5" class="nav-link" data-toggle="pill" data-target="#tabperfprogetto_default_5"><i class="fa fa-battery-three-quarters mr-1"></i>Avanzamenti</a>
+		<a href="#tabperfprogetto_default_5" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfprogetto_default_5"><i class="fa fa-paperclip mr-1"></i>Allegati</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabperfprogetto_default_6" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfprogetto_default_6"><i class="fa fa-piggy-bank mr-1"></i>Performance budgeting</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabperfprogetto_default_7" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfprogetto_default_7"><i class="fa fa-tools mr-1"></i>Riepilogo delle attività</a>
 	</li>
 
 	</ul>
@@ -28,105 +34,109 @@
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="perfprogetto_default_idstruttura">Unità organizzativa</label>
 					<div>
-						<input id="perfprogetto_default_idstruttura" name="perfprogetto_default_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="perfprogetto_default_idstruttura" name="perfprogetto_default_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="perfprogetto_default_title">Titolo</label>
-					<input id="perfprogetto_default_title" type="text" class="form-control" data-tag="perfprogetto.title?perfprogettodefaultview.title" data-subentity  />
+					<input id="perfprogetto_default_title" type="text" class="form-control" data-tag="perfprogetto.title?perfprogettodefaultview.title"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="perfprogetto_default_description">Descrizione</label>
-					<textarea class="textarea form-control" id="perfprogetto_default_description" type="text"  rows="4" data-tag="perfprogetto.description?perfprogettodefaultview.perfprogetto_description" data-subentity  ></textarea>
+					<textarea class="textarea form-control" id="perfprogetto_default_description" type="text"  rows="4" data-tag="perfprogetto.description?perfprogettodefaultview.perfprogetto_description"  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#perfprogetto_default_datainizioprevista").datetimepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="perfprogetto_default_datainizioprevista">Data inizio prevista</label>
-					<input id="perfprogetto_default_datainizioprevista" type="text" class="form-control" data-tag="perfprogetto.datainizioprevista.g?perfprogettodefaultview.perfprogetto_datainizioprevista.g" data-subentity  />
+					<input id="perfprogetto_default_datainizioprevista" type="text" class="form-control" data-tag="perfprogetto.datainizioprevista.g?perfprogettodefaultview.perfprogetto_datainizioprevista.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#perfprogetto_default_datafineprevista").datetimepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="perfprogetto_default_datafineprevista">Data fine prevista</label>
-					<input id="perfprogetto_default_datafineprevista" type="text" class="form-control" data-tag="perfprogetto.datafineprevista.g?perfprogettodefaultview.perfprogetto_datafineprevista.g" data-subentity  />
+					<input id="perfprogetto_default_datafineprevista" type="text" class="form-control" data-tag="perfprogetto.datafineprevista.g?perfprogettodefaultview.perfprogetto_datafineprevista.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#perfprogetto_default_datainizioeffettiva").datetimepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="perfprogetto_default_datainizioeffettiva">Data inizio effettiva</label>
-					<input id="perfprogetto_default_datainizioeffettiva" type="text" class="form-control" data-tag="perfprogetto.datainizioeffettiva.g?perfprogettodefaultview.perfprogetto_datainizioeffettiva.g" data-subentity  />
+					<input id="perfprogetto_default_datainizioeffettiva" type="text" class="form-control" data-tag="perfprogetto.datainizioeffettiva.g?perfprogettodefaultview.perfprogetto_datainizioeffettiva.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#perfprogetto_default_datafineeffettiva").datetimepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="perfprogetto_default_datafineeffettiva">Data fine effettiva</label>
-					<input id="perfprogetto_default_datafineeffettiva" type="text" class="form-control" data-tag="perfprogetto.datafineeffettiva.g?perfprogettodefaultview.perfprogetto_datafineeffettiva.g" data-subentity  />
+					<input id="perfprogetto_default_datafineeffettiva" type="text" class="form-control" data-tag="perfprogetto.datafineeffettiva.g?perfprogettodefaultview.perfprogetto_datafineeffettiva.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfprogetto_default_risultato">Percentuale di completamento</label>
-					<input id="perfprogetto_default_risultato" type="text" class="form-control" data-tag="perfprogetto.risultato.fixed.2?perfprogettodefaultview.perfprogetto_risultato" data-subentity  />
+					<input id="perfprogetto_default_risultato" type="text" class="form-control" data-tag="perfprogetto.risultato.fixed.2?perfprogettodefaultview.perfprogetto_risultato"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfprogetto_default_idperfprogettostatus">Stato</label>
-					<select id="perfprogetto_default_idperfprogettostatus" class="custom-select d-block w-100"  data-source-name="perfprogettostatusdefaultview" data-value-member="idperfprogettostatus" data-display-member="dropdown_title" data-custom-control="combo" data-tag="perfprogetto.idperfprogettostatus?perfprogettodefaultview.perfprogetto_idperfprogettostatus" data-subentity   > </select>
+					<select id="perfprogetto_default_idperfprogettostatus" class="custom-select d-block w-100"  data-source-name="perfprogettostatusdefaultview" data-value-member="idperfprogettostatus" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="perfprogetto.idperfprogettostatus?perfprogettodefaultview.perfprogetto_idperfprogettostatus"   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="perfprogetto_default_note">Note</label>
-					<textarea class="textarea form-control" id="perfprogetto_default_note" type="text"  rows="4" data-tag="perfprogetto.note?perfprogettodefaultview.perfprogetto_note" data-subentity  ></textarea>
+					<textarea class="textarea form-control" id="perfprogetto_default_note" type="text"  rows="4" data-tag="perfprogetto.note?perfprogettodefaultview.perfprogetto_note"  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfprogetto_default_iddidprogsuddannokind">Frequenza monitoraggi</label>
-					<select id="perfprogetto_default_iddidprogsuddannokind" class="custom-select d-block w-100"  data-source-name="didprogsuddannokinddefaultview" data-value-member="iddidprogsuddannokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="perfprogetto.iddidprogsuddannokind?perfprogettodefaultview.perfprogetto_iddidprogsuddannokind" data-subentity   > </select>
+					<select id="perfprogetto_default_iddidprogsuddannokind" class="custom-select d-block w-100"  data-source-name="didprogsuddannokinddefaultview" data-value-member="iddidprogsuddannokind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="perfprogetto.iddidprogsuddannokind?perfprogettodefaultview.perfprogetto_iddidprogsuddannokind"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfprogetto_default_idreg_respprogetto">Responsabile</label>
+					<div>
+						<input id="perfprogetto_default_idreg_respprogetto" name="perfprogetto_default_idreg_respprogetto" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registrydefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="perfprogetto_default_benefici">Benefici attesi</label>
-					<textarea class="textarea form-control" id="perfprogetto_default_benefici" type="text"  rows="4" data-tag="perfprogetto.benefici?perfprogettodefaultview.perfprogetto_benefici" data-subentity  ></textarea>
+					<textarea class="textarea form-control" id="perfprogetto_default_benefici" type="text"  rows="4" data-tag="perfprogetto.benefici?perfprogettodefaultview.perfprogetto_benefici"  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfprogetto_default_XXperfprogettosoglia" >Soglie</div>
+				<div class="gridx" id="grid_perfprogettosoglia_default" data-tag="perfprogettosoglia.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfprogetto_default_idattach">Relazione finale del progetto</label>
+					<div id="perfprogetto_default_idattach" data-tag="perfprogetto.idattach?perfprogettodefaultview.idattach"  data-custom-control="upload" ></div>
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabperfprogetto_default_1" role="tabpanel">
-				<div class="gridx" id="grid_perfprogettouo_default" data-tag="perfprogettouo.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_perfprogettouo_default" data-tag="perfprogettouo.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabperfprogetto_default_2" role="tabpanel">
-				<div class="gridx" id="grid_perfprogettoobiettivo_default" data-tag="perfprogettoobiettivo.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_perfprogettoobiettivo_default" data-tag="perfprogettoobiettivo.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabperfprogetto_default_3" role="tabpanel">
-				<div class="gridx" id="grid_perfprogettoattach_default" data-tag="perfprogettoattach.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_perfprogettoavanzamento_default" data-tag="perfprogettoavanzamento.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabperfprogetto_default_4" role="tabpanel">
-				<div class="gridx" id="grid_perfprogettocosto_default" data-tag="perfprogettocosto.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_perfprogettostatuschanges_default" data-tag="perfprogettostatuschanges.default.default" data-custom-control="gridx" ></div>
 	</div>
 	<div class="tab-pane fade" id="tabperfprogetto_default_5" role="tabpanel">
-				<div class="gridx" id="grid_perfprogettoavanzamento_default" data-tag="perfprogettoavanzamento.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_perfprogettoobiettivoattivitaattach_perfprog" data-tag="perfprogettoobiettivoattivitaattach.perfprog.perfprog" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+	</div>
+	<div class="tab-pane fade" id="tabperfprogetto_default_6" role="tabpanel">
+				<div class="gridx" id="grid_perfprogettoaccountprevisionview_default" data-tag="perfprogettoaccountprevisionview.default.default" data-custom-control="gridx" data-mdlgroupedcolumns="perfprogettoobiettivo_title" data-mdltotnotvisible data-mdlaggregatecolumns="availableprevision;currentprevision;prevision" ></div>
+	</div>
+	<div class="tab-pane fade" id="tabperfprogetto_default_7" role="tabpanel">
+				<div class="gridx" id="grid_perfprogettoobiettivoattivita_riepilogo" data-tag="perfprogettoobiettivoattivita.riepilogo.riepilogo" data-custom-control="gridx" data-mdlgroupedcolumns="!idperfprogettoobiettivo_perfprogettoobiettivo_title" data-mdltotnotvisible ></div>
 	</div>
 </div>
 </form>

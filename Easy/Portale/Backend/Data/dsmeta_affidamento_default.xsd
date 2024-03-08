@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_affidamento_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="dsmeta_affidamento_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="dsmeta_affidamento_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -43,7 +43,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="getdocentiperssd" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="getdocentiperssd" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="aa" type="xs:string" />
@@ -223,21 +223,24 @@
         <xs:element name="registrydocentiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="accmotive_codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_registry_codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_title" type="xs:string" minOccurs="0" />
               <xs:element name="classconsorsuale_title" type="xs:string" minOccurs="0" />
-              <xs:element name="contrattokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="fonteindicebibliometrico_title" type="xs:string" minOccurs="0" />
               <xs:element name="geo_city_title" type="xs:string" minOccurs="0" />
               <xs:element name="geo_nation_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
-              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="idsasd" type="xs:int" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
-              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
               <xs:element name="maritalstatus_description" type="xs:string" minOccurs="0" />
               <xs:element name="registry_active" type="xs:string" minOccurs="0" />
               <xs:element name="registry_annotation" type="xs:string" minOccurs="0" />
@@ -251,7 +254,6 @@
               <xs:element name="registry_docenti_ct" type="xs:dateTime" />
               <xs:element name="registry_docenti_cu" type="xs:string" />
               <xs:element name="registry_docenti_cv" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_docenti_idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="registry_docenti_idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="registry_docenti_idreg" type="xs:int" />
               <xs:element name="registry_docenti_indicebibliometrico" type="xs:int" minOccurs="0" />
@@ -268,13 +270,13 @@
               <xs:element name="registry_foreigncf" type="xs:string" minOccurs="0" />
               <xs:element name="registry_forename" type="xs:string" minOccurs="0" />
               <xs:element name="registry_gender" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_idaccmotivecredit" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_idaccmotivedebit" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idcategory" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idcentralizedcategory" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idexternal" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idtitle" type="xs:string" minOccurs="0" />
               <xs:element name="registry_ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="registry_ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="registry_location" type="xs:string" minOccurs="0" />
@@ -284,6 +286,7 @@
               <xs:element name="registry_multi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="registry_p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="registry_pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_residence" type="xs:int" />
               <xs:element name="registry_rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="registry_sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="registry_sdi_norifamm" type="xs:string" minOccurs="0" />
@@ -292,7 +295,6 @@
               <xs:element name="registry_txt" type="xs:string" minOccurs="0" />
               <xs:element name="registryclass_description" type="xs:string" minOccurs="0" />
               <xs:element name="registryistituti_title" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_residence" type="xs:int" />
               <xs:element name="residence_description" type="xs:string" minOccurs="0" />
               <xs:element name="sasd_codice" type="xs:string" minOccurs="0" />
               <xs:element name="sasd_title" type="xs:string" minOccurs="0" />
@@ -309,7 +311,13 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="erogazkind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="erogazkind_ans" type="xs:string" minOccurs="0" />
+              <xs:element name="erogazkind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="erogazkind_lt" type="xs:dateTime" />
+              <xs:element name="erogazkind_lu" type="xs:string" />
+              <xs:element name="erogazkind_sortcode" type="xs:int" />
               <xs:element name="iderogazkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -504,7 +512,7 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_lezione_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="affidamento" msdata:child="lezione" msdata:parentkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
-      <msdata:Relationship name="FK_getdocentiperssd_affidamento_aa-idreg" msdata:parent="affidamento" msdata:child="getdocentiperssd" msdata:parentkey="aa idreg_docenti" msdata:childkey="aa idreg" />
+      <msdata:Relationship name="FK_affidamento_getdocentiperssd_aa" msdata:parent="getdocentiperssd" msdata:child="affidamento" msdata:parentkey="aa" msdata:childkey="aa" />
       <msdata:Relationship name="FK_affidamentocaratteristica_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="affidamento" msdata:child="affidamentocaratteristica" msdata:parentkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
       <msdata:Relationship name="FK_affidamentocaratteristicaora_affidamentocaratteristica_aa-idaffidamento-idaffidamentocaratteristica-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="affidamentocaratteristica" msdata:child="affidamentocaratteristicaora" msdata:parentkey="aa idaffidamento idaffidamentocaratteristica idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idaffidamento idaffidamentocaratteristica idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
       <msdata:Relationship name="FK_affidamentocaratteristicaora_orakind_idorakind" msdata:parent="orakind" msdata:child="affidamentocaratteristicaora" msdata:parentkey="idorakind" msdata:childkey="idorakind" />

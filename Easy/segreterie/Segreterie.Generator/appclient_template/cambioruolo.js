@@ -56,7 +56,7 @@
                 appMeta.modalLoaderControl.hide();
             }
             var self = this;
-            this.dialogid = "dialogid" + utils.getUnivoqueId();
+            this.dialogid = "dialogid" + utils.getUniqueId();
             this.dialogrootelement = $('<div id="' +  this.dialogid + '">');
             $(this.rootElement).append(this.dialogrootelement);
             var htmlInfo = this.getModalHtml();

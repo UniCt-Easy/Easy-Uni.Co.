@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -210,7 +210,8 @@ namespace ct_finyear_asscred_reset
         private void MostraRigheaSaldoDiversoDazero(DataTable Tdett_previsioniError) {
             // Mostra le righe per le quali la variazione non sarebbe a saldo zero
             FrmError frm = new FrmError(Tdett_previsioniError);
-            frm.ShowDialog();
+			createForm(frm, null);
+			frm.ShowDialog();
 
         }
         void SelezionaTutto()
@@ -357,7 +358,7 @@ namespace ct_finyear_asscred_reset
             if (res){
 
                 string mess = "Operazione Eseguita con successo.";
-                show(mess);
+                show(mess, "");
                 btnAzzera.Visible = false;
                 btnAnnulla.Text = "Chiudi";
             }

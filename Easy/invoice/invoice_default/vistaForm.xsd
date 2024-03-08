@@ -91,6 +91,7 @@
               <xs:element name="idsdi_acquistoestere" type="xs:int" minOccurs="0" />
               <xs:element name="idtreasurer_acq_estere" type="xs:int" minOccurs="0" />
               <xs:element name="idfedocumentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatkinddet" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -277,6 +278,7 @@
               <xs:element name="idepexp_pre" type="xs:int" minOccurs="0" />
               <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
               <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -592,6 +594,7 @@
               <xs:element name="idaccmotive_forwarder" type="xs:string" minOccurs="0" />
               <xs:element name="idivakind_forwarder" type="xs:int" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="flagpcc" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -624,6 +627,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="bic" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="departmentname_fe" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -667,6 +671,7 @@
               <xs:element name="description" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="code_a" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1278,6 +1283,7 @@
               <xs:element name="utente_rifiutata" type="xs:string" minOccurs="0" />
               <xs:element name="data_accettata" type="xs:dateTime" minOccurs="0" />
               <xs:element name="data_rifiutata" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="split_payment" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1323,6 +1329,11 @@
               <xs:element name="dt_prot" type="xs:string" minOccurs="0" />
               <xs:element name="at_prot" type="xs:string" minOccurs="0" />
               <xs:element name="arrivalprotocolnum" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="idsdi_rifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="issigned" type="xs:string" minOccurs="0" />
+              <xs:element name="signedxml" type="xs:string" minOccurs="0" />
+              <xs:element name="signedxmlfilename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1906,6 +1917,91 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="intrastatkinddet" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idintrastatkinddet" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="code_a" type="xs:string" />
+              <xs:element name="code_b" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pccdebitstatusdetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpccdebitstatusdetail" type="xs:int" />
+              <xs:element name="idinvkind" type="xs:int" />
+              <xs:element name="yinv" type="xs:short" />
+              <xs:element name="ninv" type="xs:int" />
+              <xs:element name="idpcc" type="xs:int" minOccurs="0" />
+              <xs:element name="importononcommerciale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="imp_sosp_contenzioso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva_sosp_contenzioso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start_sosp_contenzioso" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="imp_sosp_contestazione" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva_sosp_contestazione" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start_sosp_contestazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="imp_sosp_regolareverifica" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva_sosp_regolareverifica" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start_sosp_regolareverifica" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="imp_nonliquidabile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva_nonliquidabile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="invoiceadditionalfields" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idadditionalfields" type="xs:int" />
+              <xs:element name="idinvkind" type="xs:int" />
+              <xs:element name="yinv" type="xs:short" />
+              <xs:element name="ninv" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="labelfield1date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield1int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield1str" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield2date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield2int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield2str" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield3date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield3int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield3str" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield4date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield4int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield4str" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield5date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield5int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield5str" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rownum" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield1date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield1int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield1str" type="xs:string" minOccurs="0" />
+              <xs:element name="valuefield2date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield2int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield2str" type="xs:string" minOccurs="0" />
+              <xs:element name="valuefield3date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield3int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield3str" type="xs:string" minOccurs="0" />
+              <xs:element name="valuefield4date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield4int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield4str" type="xs:string" minOccurs="0" />
+              <xs:element name="valuefield5date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield5int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield5str" type="xs:string" minOccurs="0" />
+              <xs:element name="documentkind" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -2204,6 +2300,24 @@
       <xs:selector xpath=".//mstns:sdi_deliverystatus_acquestere" />
       <xs:field xpath="mstns:idsdi_deliverystatus" />
     </xs:unique>
+    <xs:unique name="intrastatkinddet_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:intrastatkinddet" />
+      <xs:field xpath="mstns:idintrastatkinddet" />
+    </xs:unique>
+    <xs:unique name="pccdebitstatusdetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pccdebitstatusdetail" />
+      <xs:field xpath="mstns:idpccdebitstatusdetail" />
+      <xs:field xpath="mstns:idinvkind" />
+      <xs:field xpath="mstns:yinv" />
+      <xs:field xpath="mstns:ninv" />
+    </xs:unique>
+    <xs:unique name="invoiceadditionalfields_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:invoiceadditionalfields" />
+      <xs:field xpath="mstns:idadditionalfields" />
+      <xs:field xpath="mstns:idinvkind" />
+      <xs:field xpath="mstns:yinv" />
+      <xs:field xpath="mstns:ninv" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -2265,6 +2379,9 @@
       <msdata:Relationship name="sdi_status_acquestere_sdi_acquistoestere" msdata:parent="sdi_status_acquestere" msdata:child="sdi_acquistoestere" msdata:parentkey="idsdi_status" msdata:childkey="idsdi_status" />
       <msdata:Relationship name="sdi_deliverystatus_acquestere_sdi_acquistoestere" msdata:parent="sdi_deliverystatus_acquestere" msdata:child="sdi_acquistoestere" msdata:parentkey="idsdi_deliverystatus" msdata:childkey="idsdi_deliverystatus" />
       <msdata:Relationship name="sdi_acquistoestere_invoice" msdata:parent="sdi_acquistoestere" msdata:child="invoice" msdata:parentkey="idsdi_acquistoestere" msdata:childkey="idsdi_acquistoestere" />
+      <msdata:Relationship name="intrastatkinddet_invoice" msdata:parent="intrastatkinddet" msdata:child="invoice" msdata:parentkey="idintrastatkinddet" msdata:childkey="idintrastatkinddet" />
+      <msdata:Relationship name="invoice_pccdebitstatusdetail" msdata:parent="invoice" msdata:child="pccdebitstatusdetail" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
+      <msdata:Relationship name="invoice_invoiceadditionalfields" msdata:parent="invoice" msdata:child="invoiceadditionalfields" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

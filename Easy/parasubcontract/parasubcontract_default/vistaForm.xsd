@@ -48,6 +48,7 @@
               <xs:element name="iddaliarecruitmentmotive" type="xs:int" minOccurs="0" />
               <xs:element name="iddalia_dipartimento" type="xs:int" minOccurs="0" />
               <xs:element name="iddalia_funzionale" type="xs:int" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -430,6 +431,7 @@
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1463,6 +1465,7 @@
               <xs:element name="codeupb" type="xs:string" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
               <xs:element name="sortcode1" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1640,6 +1643,22 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="_x0021_serviceattachmentkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="costpartition" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostpartition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="costpartitioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1919,6 +1938,10 @@
       <xs:field xpath="mstns:idcon" />
       <xs:field xpath="mstns:idattachment" />
     </xs:unique>
+    <xs:unique name="costpartition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costpartition" />
+      <xs:field xpath="mstns:idcostpartition" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1987,6 +2010,7 @@
       <msdata:Relationship name="dalia_funzionale_parasubcontract" msdata:parent="dalia_funzionale" msdata:child="parasubcontract" msdata:parentkey="iddalia_funzionale" msdata:childkey="iddalia_funzionale" />
       <msdata:Relationship name="serviceattachmentkind_parasubcontractattachment" msdata:parent="serviceattachmentkind" msdata:child="parasubcontractattachment" msdata:parentkey="idattachmentkind" msdata:childkey="idattachmentkind" />
       <msdata:Relationship name="parasubcontract_parasubcontractattachment" msdata:parent="parasubcontract" msdata:child="parasubcontractattachment" msdata:parentkey="idcon" msdata:childkey="idcon" />
+      <msdata:Relationship name="costpartition_parasubcontract" msdata:parent="costpartition" msdata:child="parasubcontract" msdata:parentkey="idcostpartition" msdata:childkey="idcostpartition" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

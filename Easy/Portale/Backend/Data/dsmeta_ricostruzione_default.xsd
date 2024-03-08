@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_ricostruzione_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_ricostruzione_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ricostruzioneattach" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idricostruzione" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idattach_attach_size" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="servizioaltro" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idservizioaltro" type="xs:int" />
+              <xs:element name="istituzione" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="servizioricongiunzioni" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="cronologico" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="datadecreto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dataregdecreto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="euro" type="xs:decimal" minOccurs="0" />
+              <xs:element name="foglio" type="xs:string" minOccurs="0" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idservizioricongiunzioni" type="xs:int" />
+              <xs:element name="lire" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
+              <xs:element name="ndecreto" type="xs:string" minOccurs="0" />
+              <xs:element name="registro" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="serviziomilitare" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idserviziomilitare" type="xs:int" />
+              <xs:element name="istituzione" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="serviziocontributi" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idserviziocontributi" type="xs:int" />
+              <xs:element name="istituzione" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position_alias2" msprop:TableForReading="position" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="serviziopreruoloinps" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="annokind" type="xs:string" minOccurs="0" />
+              <xs:element name="cedolini" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idserviziopreruoloinps" type="xs:int" />
+              <xs:element name="istituzione" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idposition_position_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position_alias1" msprop:TableForReading="position" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="serviziopreruolotesoro" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="annokind" type="xs:string" />
+              <xs:element name="cedolini" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idserviziopreruolotesoro" type="xs:int" />
+              <xs:element name="istituzione" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idposition_position_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrylegalstatus" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_anni" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_giorni" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_mesi" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_class" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_compartment" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_role" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="datarivalutazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="incomeclass" type="xs:int" minOccurs="0" />
+              <xs:element name="incomeclassvalidity" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="livello" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="parttime" type="xs:decimal" minOccurs="0" />
+              <xs:element name="percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="tempindet" type="xs:string" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idposition_position_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ricostruzioneanniaccademici" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anninonvalidi" type="xs:string" minOccurs="0" />
+              <xs:element name="annoaccademico" type="xs:string" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idricostruzione" type="xs:int" />
+              <xs:element name="servizi" type="xs:string" minOccurs="0" />
+              <xs:element name="serviziorows" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="serviziriepilogoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="cedolini" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idserviziriepilogoview" type="xs:string" />
+              <xs:element name="istituzione" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tipologia" type="xs:string" />
+              <xs:element name="totaldays" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ricostruzionenonvaliditaview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa_start" type="xs:string" />
+              <xs:element name="aa_stop" type="xs:string" minOccurs="0" />
+              <xs:element name="cedolini" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="startoriginal" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stoporiginal" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nonvalutabilitakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idnonvalutabilitakind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico_alias1" msprop:TableForReading="annoaccademico" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ricostruzioneperiodonv" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa_start" type="xs:string" minOccurs="0" />
+              <xs:element name="aa_stop" type="xs:string" minOccurs="0" />
+              <xs:element name="idnonvalutabilitakind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idricostruzione" type="xs:int" />
+              <xs:element name="idricostruzioneperiodonv" type="xs:int" />
+              <xs:element name="_x0021_idnonvalutabilitakind_nonvalutabilitakind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ricostruzionekinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idricostruzionekind" type="xs:int" />
+              <xs:element name="ricostruzionekind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="ricostruzionekind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="ricostruzionekind_sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getregistrydocentiamministratividefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ricostruzione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="_x0021_decreto" type="xs:string" minOccurs="0" />
+              <xs:element name="annimilitare" type="xs:int" minOccurs="0" />
+              <xs:element name="annipre1516" type="xs:int" minOccurs="0" />
+              <xs:element name="annipre2014" type="xs:int" minOccurs="0" />
+              <xs:element name="anniruolo" type="xs:int" minOccurs="0" />
+              <xs:element name="datacontratto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datadecreto" type="xs:dateTime" />
+              <xs:element name="dataecon" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datagiur" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dataregcontratto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dpanzianitaa" type="xs:int" minOccurs="0" />
+              <xs:element name="dpanzianitadata" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dpanzianitag" type="xs:int" minOccurs="0" />
+              <xs:element name="dpanzianitam" type="xs:int" minOccurs="0" />
+              <xs:element name="dpdata" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dpnumero" type="xs:string" minOccurs="0" />
+              <xs:element name="giornimilitare" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idricostruzione" type="xs:int" />
+              <xs:element name="idricostruzionekind" type="xs:int" minOccurs="0" />
+              <xs:element name="legge" type="xs:string" minOccurs="0" />
+              <xs:element name="mesialtro" type="xs:int" minOccurs="0" />
+              <xs:element name="mesimilitare" type="xs:int" minOccurs="0" />
+              <xs:element name="mesipre1415" type="xs:int" minOccurs="0" />
+              <xs:element name="mesipre2011" type="xs:int" minOccurs="0" />
+              <xs:element name="numerodecreto" type="xs:string" minOccurs="0" />
+              <xs:element name="pensiona" type="xs:int" minOccurs="0" />
+              <xs:element name="pensiong" type="xs:int" minOccurs="0" />
+              <xs:element name="pensionm" type="xs:int" minOccurs="0" />
+              <xs:element name="preruoloa" type="xs:int" minOccurs="0" />
+              <xs:element name="preruoloecona" type="xs:int" minOccurs="0" />
+              <xs:element name="preruoloecong" type="xs:int" minOccurs="0" />
+              <xs:element name="preruoloeconm" type="xs:int" minOccurs="0" />
+              <xs:element name="preruolog" type="xs:int" minOccurs="0" />
+              <xs:element name="preruoloisruolo" type="xs:string" minOccurs="0" />
+              <xs:element name="preruolom" type="xs:int" minOccurs="0" />
+              <xs:element name="preruolotota" type="xs:int" minOccurs="0" />
+              <xs:element name="preruolototg" type="xs:int" minOccurs="0" />
+              <xs:element name="preruolototm" type="xs:int" minOccurs="0" />
+              <xs:element name="protocollo" type="xs:string" minOccurs="0" />
+              <xs:element name="ruolonominaa" type="xs:int" minOccurs="0" />
+              <xs:element name="ruolonominag" type="xs:int" minOccurs="0" />
+              <xs:element name="ruolonominam" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="ricostruzioneattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ricostruzioneattach" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idricostruzione" />
+    </xs:unique>
+    <xs:unique name="servizioaltro_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:servizioaltro" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idservizioaltro" />
+    </xs:unique>
+    <xs:unique name="servizioricongiunzioni_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:servizioricongiunzioni" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idservizioricongiunzioni" />
+    </xs:unique>
+    <xs:unique name="serviziomilitare_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:serviziomilitare" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idserviziomilitare" />
+    </xs:unique>
+    <xs:unique name="serviziocontributi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:serviziocontributi" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idserviziocontributi" />
+    </xs:unique>
+    <xs:unique name="position_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position_alias2" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="serviziopreruoloinps_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:serviziopreruoloinps" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idserviziopreruoloinps" />
+    </xs:unique>
+    <xs:unique name="position_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position_alias1" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="serviziopreruolotesoro_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:serviziopreruolotesoro" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idserviziopreruolotesoro" />
+    </xs:unique>
+    <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="registrylegalstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrylegalstatus" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+    </xs:unique>
+    <xs:unique name="ricostruzioneanniaccademici_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ricostruzioneanniaccademici" />
+      <xs:field xpath="mstns:annoaccademico" />
+      <xs:field xpath="mstns:idricostruzione" />
+    </xs:unique>
+    <xs:unique name="serviziriepilogoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:serviziriepilogoview" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idserviziriepilogoview" />
+    </xs:unique>
+    <xs:unique name="ricostruzionenonvaliditaview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ricostruzionenonvaliditaview" />
+      <xs:field xpath="mstns:aa_start" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="nonvalutabilitakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nonvalutabilitakind" />
+      <xs:field xpath="mstns:idnonvalutabilitakind" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico_alias1" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="ricostruzioneperiodonv_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ricostruzioneperiodonv" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idricostruzione" />
+      <xs:field xpath="mstns:idricostruzioneperiodonv" />
+    </xs:unique>
+    <xs:unique name="ricostruzionekinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ricostruzionekinddefaultview" />
+      <xs:field xpath="mstns:idricostruzionekind" />
+    </xs:unique>
+    <xs:unique name="getregistrydocentiamministratividefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="ricostruzione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ricostruzione" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idricostruzione" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_ricostruzioneattach_ricostruzione_idricostruzione" msdata:parent="ricostruzione" msdata:child="ricostruzioneattach" msdata:parentkey="idricostruzione" msdata:childkey="idricostruzione" />
+      <msdata:Relationship name="FK_ricostruzioneattach_attach_idattach" msdata:parent="attach" msdata:child="ricostruzioneattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
+      <msdata:Relationship name="FK_servizioaltro_ricostruzione_idreg" msdata:parent="ricostruzione" msdata:child="servizioaltro" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_servizioricongiunzioni_ricostruzione_idreg" msdata:parent="ricostruzione" msdata:child="servizioricongiunzioni" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_serviziomilitare_ricostruzione_idreg" msdata:parent="ricostruzione" msdata:child="serviziomilitare" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_serviziocontributi_ricostruzione_idreg" msdata:parent="ricostruzione" msdata:child="serviziocontributi" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_serviziopreruoloinps_ricostruzione_idreg" msdata:parent="ricostruzione" msdata:child="serviziopreruoloinps" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_serviziopreruoloinps_position_alias2_idposition" msdata:parent="position_alias2" msdata:child="serviziopreruoloinps" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="FK_serviziopreruolotesoro_ricostruzione_idreg" msdata:parent="ricostruzione" msdata:child="serviziopreruolotesoro" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_serviziopreruolotesoro_position_alias1_idposition" msdata:parent="position_alias1" msdata:child="serviziopreruolotesoro" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="FK_registrylegalstatus_ricostruzione_idreg" msdata:parent="ricostruzione" msdata:child="registrylegalstatus" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_registrylegalstatus_position_idposition" msdata:parent="position" msdata:child="registrylegalstatus" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="FK_ricostruzioneanniaccademici_ricostruzione_idricostruzione" msdata:parent="ricostruzione" msdata:child="ricostruzioneanniaccademici" msdata:parentkey="idricostruzione" msdata:childkey="idricostruzione" />
+      <msdata:Relationship name="FK_ricostruzione_serviziriepilogoview_idreg" msdata:parent="serviziriepilogoview" msdata:child="ricostruzione" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_ricostruzione_ricostruzionenonvaliditaview_idreg" msdata:parent="ricostruzionenonvaliditaview" msdata:child="ricostruzione" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_ricostruzioneperiodonv_ricostruzione_idreg-idricostruzione" msdata:parent="ricostruzione" msdata:child="ricostruzioneperiodonv" msdata:parentkey="idreg idricostruzione" msdata:childkey="idreg idricostruzione" />
+      <msdata:Relationship name="FK_ricostruzioneperiodonv_nonvalutabilitakind_idnonvalutabilitakind" msdata:parent="nonvalutabilitakind" msdata:child="ricostruzioneperiodonv" msdata:parentkey="idnonvalutabilitakind" msdata:childkey="idnonvalutabilitakind" />
+      <msdata:Relationship name="FK_ricostruzioneperiodonv_annoaccademico_alias1_aa_stop" msdata:parent="annoaccademico_alias1" msdata:child="ricostruzioneperiodonv" msdata:parentkey="aa" msdata:childkey="aa_stop" />
+      <msdata:Relationship name="FK_ricostruzioneperiodonv_annoaccademico_aa_start" msdata:parent="annoaccademico" msdata:child="ricostruzioneperiodonv" msdata:parentkey="aa" msdata:childkey="aa_start" />
+      <msdata:Relationship name="FK_ricostruzione_ricostruzionekinddefaultview_idricostruzionekind" msdata:parent="ricostruzionekinddefaultview" msdata:child="ricostruzione" msdata:parentkey="idricostruzionekind" msdata:childkey="idricostruzionekind" />
+      <msdata:Relationship name="FK_ricostruzione_getregistrydocentiamministratividefaultview_idreg" msdata:parent="getregistrydocentiamministratividefaultview" msdata:child="ricostruzione" msdata:parentkey="idreg" msdata:childkey="idreg" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

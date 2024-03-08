@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -42,12 +25,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
 						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 20, null);
-						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 30, null);
-						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 40, null);
+						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 50, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 60, null);
 						this.describeAColumn(table, '!idperfcomportamento_perfcomportamento_title', 'Comportamento', null, 11, null);
 						objCalcFieldConfig['!idperfcomportamento_perfcomportamento_title'] = { tableNameLookup:'perfcomportamento', columnNameLookup:'title', columnNamekey:'idperfcomportamento' };
-						this.describeAColumn(table, '!perfvalutazionepersonalecomportamentosoglia', 'Soglie', null, 30, null);
+						this.describeAColumn(table, '!perfvalutazionepersonalecomportamentosoglia', 'Soglie', null, 40, null);
 //$objCalcFieldConfig_default$
+						break;
+					case 'giudizio':
+						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 20, null);
+						this.describeAColumn(table, 'idperfgiudizio', 'Giudizio', null, 60, null);
+						this.describeAColumn(table, '!idperfcomportamento_perfcomportamento_title', 'Comportamento', null, 11, null);
+						objCalcFieldConfig['!idperfcomportamento_perfcomportamento_title'] = { tableNameLookup:'perfcomportamento', columnNameLookup:'title', columnNamekey:'idperfcomportamento' };
+						this.describeAColumn(table, '!perfvalutazionepersonalecomportamentosoglia', 'Soglie', null, 40, null);
+//$objCalcFieldConfig_giudizio$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -65,6 +56,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["peso"].caption = "Peso";
 						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'giudizio':
+						table.columns["completamento"].caption = "Giudizio";
+						table.columns["idperfcomportamento"].caption = "Comportamento";
+						table.columns["peso"].caption = "Peso";
+						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
+						table.columns["idperfgiudizio"].caption = "Giudizio";
+//$innerSetCaptionConfig_giudizio$
 						break;
 //$innerSetCaptionConfig$
 				}

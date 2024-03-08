@@ -4,12 +4,12 @@
 		
 	</ul>
 	<form>
-					<input hidden id="assetdiaryora_seg_title" type="text" class="form-control" data-tag="assetdiaryora.!title" />
+					<input hidden id="assetdiaryora_seg_title" type="text" class="form-control" data-tag="assetdiaryora.!title?assetdiaryorasegview.!title" data-subentity  />
 			<div class="row">
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#assetdiaryora_seg_start").datetimepicker();
+    $("#assetdiaryora_seg_start").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="assetdiaryora_seg_start">Data e ora di inizio</label>
@@ -18,7 +18,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#assetdiaryora_seg_stop").datetimepicker();
+    $("#assetdiaryora_seg_stop").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="assetdiaryora_seg_stop">Data e ora di fine</label>
@@ -27,12 +27,12 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="assetdiaryora_seg_amount">Amount</label>
+					<label class="col-form-label col-md-12" for="assetdiaryora_seg_amount">Importo</label>
 					<input id="assetdiaryora_seg_amount" type="text" class="form-control" data-tag="assetdiaryora.amount.fixed.2?assetdiaryorasegview.assetdiaryora_amount" data-subentity  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="assetdiaryora_seg_idsal">Stato avanzamento lavori</label>
-					<select id="assetdiaryora_seg_idsal" class="custom-select d-block w-100"  data-source-name="saldefaultview" data-value-member="idsal" data-display-member="dropdown_title" data-custom-control="combo" data-tag="assetdiaryora.idsal?assetdiaryorasegview.assetdiaryora_idsal" data-subentity   > </select>
+					<select id="assetdiaryora_seg_idsal" class="custom-select d-block w-100"  data-source-name="saldefaultview" data-value-member="idsal" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="assetdiaryora.idsal?assetdiaryorasegview.assetdiaryora_idsal" data-subentity   > </select>
 				</div>
 			</div>
 </form>

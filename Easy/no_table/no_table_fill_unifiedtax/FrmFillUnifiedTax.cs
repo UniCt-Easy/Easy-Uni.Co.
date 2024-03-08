@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -67,7 +67,7 @@ namespace no_table_fill_unifiedtax {
                 txtDataRiferimento.Text.ToString(), "x.y");
             Meta.Conn.CallSP("fill_unifiedtax", new object[] { esercizio,
             dataRiferimento}, false, 600);
-            show("Operazione eseguita.");
+            show("Operazione eseguita.", "");
         }
 
         private void txtEsercizio_Leave(object sender, EventArgs e) {
@@ -116,7 +116,7 @@ namespace no_table_fill_unifiedtax {
                 txtDataRiferimento.Text.ToString(), "x.y");
             Meta.Conn.CallSP("fill_unifiedclawback", new object[] { esercizio,
             dataRiferimento}, false, 600);
-            show("Operazione eseguita.");
+            show("Operazione eseguita.", "");
         }
 
       

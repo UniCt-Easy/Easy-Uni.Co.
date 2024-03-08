@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,8 +53,10 @@ namespace servicetrasmission_consolida
             this.btnConsolidaDipendenti = new System.Windows.Forms.Button();
             this.txtNomeFile = new System.Windows.Forms.TextBox();
             this.btnSalvaFile = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             this.chkyear = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -126,7 +128,7 @@ namespace servicetrasmission_consolida
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "xml";
+            //this.saveFileDialog1.DefaultExt = "xml";
             // 
             // chkyear
             // 
@@ -202,8 +204,10 @@ namespace servicetrasmission_consolida
         private System.Windows.Forms.Button btnConsolidaDipendenti;
         private System.Windows.Forms.TextBox txtNomeFile;
         private System.Windows.Forms.Button btnSalvaFile;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog _openFileDialog1;
+        private metadatalibrary.IOpenFileDialog openFileDialog1;
+        private metadatalibrary.ISaveFileDialog saveFileDialog1;
         private System.Windows.Forms.CheckBox chkyear;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;

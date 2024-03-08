@@ -3,23 +3,52 @@
   <xs:element name="dsmeta_progettoudrmembro_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="rendicontattivitaprogettourdmemboview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idprogettoudr" type="xs:int" />
+              <xs:element name="idprogettoudrmembro" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="oreanno" type="xs:int" minOccurs="0" />
+              <xs:element name="oreannoimpegnate" type="xs:int" minOccurs="0" />
+              <xs:element name="oreannorendicontate" type="xs:int" minOccurs="0" />
+              <xs:element name="oreattivita" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxanno" type="xs:int" />
+              <xs:element name="stipendioannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="stipendiorendicontato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="progettoudrmembrokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idprogettoudrmembrokind" type="xs:int" />
               <xs:element name="progettoudrmembrokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="progettoudrmembrokind_ct" type="xs:dateTime" />
+              <xs:element name="progettoudrmembrokind_cu" type="xs:string" />
+              <xs:element name="progettoudrmembrokind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="progettoudrmembrokind_lt" type="xs:dateTime" />
+              <xs:element name="progettoudrmembrokind_lu" type="xs:string" />
+              <xs:element name="progettoudrmembrokind_sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="getregistrydocentiamministratividefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="getregistrydocentiamministrativimacroareaview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getregistrydocentiamministrativi_areadidattica" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_categoria" type="xs:string" />
               <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_macroareadidattica" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
@@ -34,6 +63,8 @@
               <xs:element name="costoorario" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="fondiprogetto" type="xs:string" minOccurs="0" />
+              <xs:element name="giornipreventivati" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettoudr" type="xs:int" />
               <xs:element name="idprogettoudrmembro" type="xs:int" />
@@ -44,17 +75,28 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="orepreventivate" type="xs:int" minOccurs="0" />
               <xs:element name="ricavoorario" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontattivitaprogettourdmemboview" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idprogettoudr" />
+      <xs:field xpath="mstns:idprogettoudrmembro" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:oremaxanno" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="progettoudrmembrokinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettoudrmembrokinddefaultview" />
       <xs:field xpath="mstns:idprogettoudrmembrokind" />
     </xs:unique>
-    <xs:unique name="getregistrydocentiamministratividefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview" />
+    <xs:unique name="getregistrydocentiamministrativimacroareaview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministrativimacroareaview" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="progettoudrmembro_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -66,8 +108,9 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_progettoudrmembro_rendicontattivitaprogettourdmemboview_idprogetto-idprogettoudr-idprogettoudrmembro" msdata:parent="rendicontattivitaprogettourdmemboview" msdata:child="progettoudrmembro" msdata:parentkey="idprogetto idprogettoudr idprogettoudrmembro" msdata:childkey="idprogetto idprogettoudr idprogettoudrmembro" />
       <msdata:Relationship name="FK_progettoudrmembro_progettoudrmembrokinddefaultview_idprogettoudrmembrokind" msdata:parent="progettoudrmembrokinddefaultview" msdata:child="progettoudrmembro" msdata:parentkey="idprogettoudrmembrokind" msdata:childkey="idprogettoudrmembrokind" />
-      <msdata:Relationship name="FK_progettoudrmembro_getregistrydocentiamministratividefaultview_idreg" msdata:parent="getregistrydocentiamministratividefaultview" msdata:child="progettoudrmembro" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_progettoudrmembro_getregistrydocentiamministrativimacroareaview_idreg" msdata:parent="getregistrydocentiamministrativimacroareaview" msdata:child="progettoudrmembro" msdata:parentkey="idreg" msdata:childkey="idreg" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabperfcomportamento_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabperfcomportamento_default_0"><i class="fa fa-brain mr-1"></i>Principale</a>
+		<a href="#tabperfcomportamento_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabperfcomportamento_default_0"><i class="fa fa-brain mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabperfcomportamento_default_1" class="nav-link" data-toggle="pill" data-target="#tabperfcomportamento_default_1"><i class="fa fa-angle-double-up mr-1"></i>Descrizione delle soglie per anno solare</a>
+		<a href="#tabperfcomportamento_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfcomportamento_default_1"><i class="fa fa-angle-double-up mr-1"></i>Descrizione delle soglie per anno solare</a>
 	</li>
 
 	</ul>
@@ -15,18 +15,24 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfcomportamento_default_title">Titolo</label>
-					<input id="perfcomportamento_default_title" type="text" class="form-control" data-tag="perfcomportamento.title"  />
+					<input id="perfcomportamento_default_title" type="text" class="form-control" data-tag="perfcomportamento.title?perfcomportamentodefaultview.title" data-subentity  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="perfcomportamento_default_description">Descrizione</label>
-					<textarea class="textarea form-control" id="perfcomportamento_default_description" type="text"  rows="4" data-tag="perfcomportamento.description"></textarea>
+					<textarea class="textarea form-control" id="perfcomportamento_default_description" type="text"  rows="4" data-tag="perfcomportamento.description?perfcomportamentodefaultview.perfcomportamento_description" data-subentity  ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfcomportamento_default_peso">Peso</label>
+					<input id="perfcomportamento_default_peso" type="text" class="form-control" data-tag="perfcomportamento.peso.fixed.2?perfcomportamentodefaultview.perfcomportamento_peso" data-subentity  />
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabperfcomportamento_default_1" role="tabpanel">
-				<div class="gridx" id="grid_perfcomportamentosoglia_default" data-tag="perfcomportamentosoglia.default.default" data-custom-control="gridx" data-mdlbuttonedit  ></div>
+				<div class="gridx" id="grid_perfcomportamentosoglia_default" data-tag="perfcomportamentosoglia.default.default" data-custom-control="gridx" data-mdlbuttonedit ></div>
 	</div>
 </div>
 </form>

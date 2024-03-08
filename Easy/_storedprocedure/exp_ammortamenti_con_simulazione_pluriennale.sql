@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -22,7 +22,7 @@ SET QUOTED_IDENTIFIER ON
 GO
  --setuser 'amministrazione'
  --setuser 'amm'
--- exec exp_ammortamenti_con_simulazione_pluriennale 2019,'24-11-2019', null, null
+-- exec exp_ammortamenti_con_simulazione_pluriennale 2023,{ts '2023-09-20 00:00:00.000'}, '2710', null, null, null, null, null, null
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_ammortamenti_con_simulazione_pluriennale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_ammortamenti_con_simulazione_pluriennale]
 GO

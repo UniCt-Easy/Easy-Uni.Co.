@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -56,17 +56,21 @@ namespace Backend.CommonBackend
                 QueryHelper qhs = beError.conn.GetQueryHelper();
                 string[] values = new[] { id ,
                     qhs.quote(beError.error),
-                    qhs.quote(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")),
+                    qhs.quote(DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")),
                     qhs.quote(username),
                     qhs.quote(beError.methodInfo),
                     qhs.quote(server),
                     qhs.quote(beError.metadata)
                 };
-                beError.conn.DO_INSERT("applogging", columns, values, 7);
+                var error = beError.conn.DO_INSERT("applogging", columns, values, 7);
+                if(error != null)
+                {
+                    throw new Exception(error);
+                }
             }
             catch (Exception e)
             {
-                var a = 0;
+                Console.WriteLine(e.Message);
             }
         }
     }

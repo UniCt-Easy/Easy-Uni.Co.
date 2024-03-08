@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -70,7 +70,7 @@ public class dsmeta_corsostudio_ingresso: DataSet {
 	public MetaTable didprogaccesso 		=> (MetaTable)Tables["didprogaccesso"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable titolokind 		=> (MetaTable)Tables["titolokind"];
+	public MetaTable titolokinddefaultview 		=> (MetaTable)Tables["titolokinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sessionedefaultview 		=> (MetaTable)Tables["sessionedefaultview"];
@@ -363,27 +363,24 @@ private void initClass() {
 	Tables.Add(tdidprogaccesso);
 	tdidprogaccesso.defineKey("idcorsostudio", "iddidprog", "iddidprog_acc");
 
-	//////////////////// TITOLOKIND /////////////////////////////////
-	var ttitolokind= new MetaTable("titolokind");
-	ttitolokind.defineColumn("active", typeof(string),false);
-	ttitolokind.defineColumn("idtitolokind", typeof(int),false);
-	ttitolokind.defineColumn("title", typeof(string),false);
-	Tables.Add(ttitolokind);
-	ttitolokind.defineKey("idtitolokind");
+	//////////////////// TITOLOKINDDEFAULTVIEW /////////////////////////////////
+	var ttitolokinddefaultview= new MetaTable("titolokinddefaultview");
+	ttitolokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	ttitolokinddefaultview.defineColumn("idtitolokind", typeof(int),false);
+	ttitolokinddefaultview.defineColumn("titolokind_active", typeof(string));
+	Tables.Add(ttitolokinddefaultview);
+	ttitolokinddefaultview.defineKey("idtitolokind");
 
 	//////////////////// SESSIONEDEFAULTVIEW /////////////////////////////////
 	var tsessionedefaultview= new MetaTable("sessionedefaultview");
 	tsessionedefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tsessionedefaultview.defineColumn("idsessione", typeof(int),false);
-	tsessionedefaultview.defineColumn("idsessionekind", typeof(int));
 	Tables.Add(tsessionedefaultview);
 	tsessionedefaultview.defineKey("idsessione");
 
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");
 	tsededefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tsededefaultview.defineColumn("idcity", typeof(int));
-	tsededefaultview.defineColumn("idnation", typeof(int));
 	tsededefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tsededefaultview);
 	tsededefaultview.defineKey("idsede");
@@ -489,8 +486,6 @@ private void initClass() {
 	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
 	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
-	tstrutturadefaultview.defineColumn("idupb", typeof(string));
-	tstrutturadefaultview.defineColumn("paridstruttura", typeof(int));
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 
@@ -581,9 +576,9 @@ private void initClass() {
 	cChild = new []{didprog_alias2.Columns["aa"]};
 	Relations.Add(new DataRelation("FK_didprog_alias2_annoaccademico_alias2_aa",cPar,cChild,false));
 
-	cPar = new []{titolokind.Columns["idtitolokind"]};
+	cPar = new []{titolokinddefaultview.Columns["idtitolokind"]};
 	cChild = new []{didprog.Columns["idtitolokind"]};
-	Relations.Add(new DataRelation("FK_didprog_titolokind_idtitolokind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_didprog_titolokinddefaultview_idtitolokind",cPar,cChild,false));
 
 	cPar = new []{sessionedefaultview.Columns["idsessione"]};
 	cChild = new []{didprog.Columns["idsessione"]};

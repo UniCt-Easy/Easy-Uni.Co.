@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,48 +34,27 @@ namespace assetload_default {
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Buono di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetloadTable assetload 		=> (assetloadTable)Tables["assetload"];
 
-	///<summary>
-	///Tipi di buoni di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetloadkindTable assetloadkind 		=> (assetloadkindTable)Tables["assetloadkind"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Causali di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetloadmotive 		=> (MetaTable)Tables["assetloadmotive"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensephase 		=> (MetaTable)Tables["expensephase"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetacquireview 		=> (MetaTable)Tables["assetacquireview"];
 
-	///<summary>
-	///Movimenti di spesa collegati a buoni di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetloadexpense 		=> (MetaTable)Tables["assetloadexpense"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
@@ -84,6 +63,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable historypaymentview 		=> (MetaTable)Tables["historypaymentview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable costpartition 		=> (MetaTable)Tables["costpartition"];
 
 	#endregion
 
@@ -112,7 +94,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// ASSETLOAD /////////////////////////////////
 	var tassetload= new assetloadTable();
-	tassetload.addBaseColumns("idassetload","idassetloadkind","yassetload","nassetload","idreg","idmot","doc","docdate","description","enactment","enactmentdate","adate","printdate","ratificationdate","txt","rtf","cu","ct","lu","lt","transmitted");
+	tassetload.addBaseColumns("idassetload","idassetloadkind","yassetload","nassetload","idreg","idmot","doc","docdate","description","enactment","enactmentdate","adate","printdate","ratificationdate","txt","rtf","cu","ct","lu","lt","transmitted","idcostpartition");
 	Tables.Add(tassetload);
 	tassetload.defineKey("idassetload");
 
@@ -213,6 +195,7 @@ private void initClass() {
 	tassetacquireview.defineColumn("cost_discounted", typeof(decimal));
 	tassetacquireview.defineColumn("historicalvalue", typeof(decimal));
 	tassetacquireview.defineColumn("inventorykind", typeof(string));
+	tassetacquireview.defineColumn("idcostpartition", typeof(int));
 	Tables.Add(tassetacquireview);
 	tassetacquireview.defineKey("nassetacquire");
 
@@ -314,6 +297,21 @@ private void initClass() {
 	Tables.Add(thistorypaymentview);
 	thistorypaymentview.defineKey("idexp");
 
+	//////////////////// COSTPARTITION /////////////////////////////////
+	var tcostpartition= new MetaTable("costpartition");
+	tcostpartition.defineColumn("idcostpartition", typeof(int),false);
+	tcostpartition.defineColumn("title", typeof(string));
+	tcostpartition.defineColumn("kind", typeof(string));
+	tcostpartition.defineColumn("lt", typeof(DateTime));
+	tcostpartition.defineColumn("lu", typeof(string));
+	tcostpartition.defineColumn("ct", typeof(DateTime));
+	tcostpartition.defineColumn("cu", typeof(string));
+	tcostpartition.defineColumn("costpartitioncode", typeof(string));
+	tcostpartition.defineColumn("active", typeof(string));
+	tcostpartition.defineColumn("description", typeof(string));
+	Tables.Add(tcostpartition);
+	tcostpartition.defineKey("idcostpartition");
+
 	#endregion
 
 
@@ -325,6 +323,7 @@ private void initClass() {
 	this.defineRelation("assetloadmotiveassetload","assetloadmotive","assetload","idmot");
 	this.defineRelation("assetloadkindassetload","assetloadkind","assetload","idassetloadkind");
 	this.defineRelation("registryassetload","registry","assetload","idreg");
+	this.defineRelation("costpartition_assetload","costpartition","assetload","idcostpartition");
 	#endregion
 
 }

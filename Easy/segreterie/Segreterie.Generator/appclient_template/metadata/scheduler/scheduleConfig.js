@@ -161,12 +161,14 @@
             if (this.columnStop) {
                 // setto min date, cioè oltre quella data indietro non posso andare
                 $("#txtStartDate").datetimepicker({
-                    minDate:  this.minDateValue
+                    dateFormat: 'dd/mm/yy',
+                    minDate: this.minDateValue
                 });
             } else {
                 // setto min date, cioè oltre quella data indietro non posso andare
                 $("#txtStartDate").datepicker({
-                    minDate:  this.minDateValue
+                    dateFormat: 'dd/mm/yy',
+                    minDate: this.minDateValue
                 });
             }
 

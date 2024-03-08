@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,6 +30,9 @@ namespace Backend.Data {
 public class dsmeta_contrattokind_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable stipendiocomplemento 		=> (MetaTable)Tables["stipendiocomplemento"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable stipendio 		=> (MetaTable)Tables["stipendio"];
 
@@ -73,12 +76,29 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_contrattokind_default.xsd";
 
 	#region create DataTables
+	//////////////////// STIPENDIOCOMPLEMENTO /////////////////////////////////
+	var tstipendiocomplemento= new MetaTable("stipendiocomplemento");
+	tstipendiocomplemento.defineColumn("anzianitamax", typeof(int));
+	tstipendiocomplemento.defineColumn("anzianitamin", typeof(int));
+	tstipendiocomplemento.defineColumn("complementomensile", typeof(decimal));
+	tstipendiocomplemento.defineColumn("idcontrattokind", typeof(int),false);
+	tstipendiocomplemento.defineColumn("idinquadramento", typeof(int),false);
+	tstipendiocomplemento.defineColumn("idstipendiocomplemento", typeof(int),false);
+	tstipendiocomplemento.defineColumn("idstipendiocomplementokind", typeof(int));
+	tstipendiocomplemento.defineColumn("rifnormativo", typeof(string));
+	tstipendiocomplemento.defineColumn("start", typeof(DateTime));
+	tstipendiocomplemento.defineColumn("stop", typeof(DateTime));
+	Tables.Add(tstipendiocomplemento);
+	tstipendiocomplemento.defineKey("idcontrattokind", "idinquadramento", "idstipendiocomplemento");
+
 	//////////////////// STIPENDIO /////////////////////////////////
 	var tstipendio= new MetaTable("stipendio");
 	tstipendio.defineColumn("!previdenza", typeof(decimal));
 	tstipendio.defineColumn("!tesoro", typeof(decimal));
 	tstipendio.defineColumn("!totalece", typeof(decimal));
 	tstipendio.defineColumn("!tredicesima", typeof(decimal));
+	tstipendio.defineColumn("anzianitamax", typeof(int));
+	tstipendio.defineColumn("anzianitamin", typeof(int));
 	tstipendio.defineColumn("assegno", typeof(decimal));
 	tstipendio.defineColumn("classe", typeof(int));
 	tstipendio.defineColumn("ct", typeof(DateTime));
@@ -89,11 +109,15 @@ private void initClass() {
 	tstipendio.defineColumn("iis", typeof(decimal));
 	tstipendio.defineColumn("irap", typeof(decimal));
 	tstipendio.defineColumn("lordo", typeof(decimal));
+	tstipendio.defineColumn("lordonotredicesima", typeof(decimal));
 	tstipendio.defineColumn("lt", typeof(DateTime));
 	tstipendio.defineColumn("lu", typeof(string));
+	tstipendio.defineColumn("rifnormativo", typeof(string));
 	tstipendio.defineColumn("scatto", typeof(int));
 	tstipendio.defineColumn("siglaimportazione", typeof(string));
+	tstipendio.defineColumn("start", typeof(DateTime));
 	tstipendio.defineColumn("stipendio", typeof(decimal));
+	tstipendio.defineColumn("stop", typeof(DateTime));
 	tstipendio.defineColumn("totale", typeof(decimal));
 	Tables.Add(tstipendio);
 	tstipendio.defineKey("idcontrattokind", "idinquadramento", "idstipendio");
@@ -192,6 +216,7 @@ private void initClass() {
 	tcontrattokind.defineColumn("siglaimportazione", typeof(string));
 	tcontrattokind.defineColumn("sortcode", typeof(int),false);
 	tcontrattokind.defineColumn("tempdef", typeof(string));
+	tcontrattokind.defineColumn("tipopersonale", typeof(string));
 	tcontrattokind.defineColumn("title", typeof(string),false);
 	tcontrattokind.defineColumn("totaletredicesima", typeof(string));
 	tcontrattokind.defineColumn("tredicesimaindennitaintegrativaspeciale", typeof(string));
@@ -205,6 +230,10 @@ private void initClass() {
 	var cPar = new []{contrattokind.Columns["idcontrattokind"]};
 	var cChild = new []{inquadramento.Columns["idcontrattokind"]};
 	Relations.Add(new DataRelation("FK_inquadramento_contrattokind_idcontrattokind",cPar,cChild,false));
+
+	cPar = new []{inquadramento.Columns["idcontrattokind"], inquadramento.Columns["idinquadramento"]};
+	cChild = new []{stipendiocomplemento.Columns["idcontrattokind"], stipendiocomplemento.Columns["idinquadramento"]};
+	Relations.Add(new DataRelation("FK_stipendiocomplemento_inquadramento_idcontrattokind-idinquadramento",cPar,cChild,false));
 
 	cPar = new []{inquadramento.Columns["idcontrattokind"], inquadramento.Columns["idinquadramento"]};
 	cChild = new []{stipendio.Columns["idcontrattokind"], stipendio.Columns["idinquadramento"]};

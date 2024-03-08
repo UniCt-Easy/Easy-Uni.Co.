@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -242,6 +242,7 @@
               <xs:element name="_x0021_totaleriga" type="xs:decimal" minOccurs="0" />
               <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
               <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idrevenuepartition" type="xs:int" minOccurs="0" />
               <xs:element name="epkind" type="xs:string" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_codeupb_iva" type="xs:string" minOccurs="0" />
@@ -550,6 +551,37 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="account" msprop:SkipSecurity="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:TableForPosting="" msprop:TableForReading="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="codeacc" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="flagregistry" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtransitory" type="xs:string" minOccurs="0" />
+              <xs:element name="flagupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccountkind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="paridacc" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idpatrimony" type="xs:string" minOccurs="0" />
+              <xs:element name="idplaccount" type="xs:string" minOccurs="0" />
+              <xs:element name="flagprofit" type="xs:string" minOccurs="0" />
+              <xs:element name="flagloss" type="xs:string" minOccurs="0" />
+              <xs:element name="placcount_sign" type="xs:string" minOccurs="0" />
+              <xs:element name="patrimony_sign" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcompetency" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -631,6 +663,10 @@
       <xs:selector xpath=".//mstns:incomelast" />
       <xs:field xpath="mstns:idinc" />
     </xs:unique>
+    <xs:unique name="account_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:account" />
+      <xs:field xpath="mstns:idacc" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -649,6 +685,7 @@
       <msdata:Relationship name="incomeincomeyear" msdata:parent="income" msdata:child="incomeyear" msdata:parentkey="idinc" msdata:childkey="idinc" />
       <msdata:Relationship name="incomeincome" msdata:parent="income" msdata:child="income" msdata:parentkey="idinc" msdata:childkey="parentidinc" />
       <msdata:Relationship name="registryincome" msdata:parent="registry" msdata:child="income" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="incomelast_account" msdata:parent="incomelast" msdata:child="account" msdata:parentkey="idacccredit" msdata:childkey="idacc" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

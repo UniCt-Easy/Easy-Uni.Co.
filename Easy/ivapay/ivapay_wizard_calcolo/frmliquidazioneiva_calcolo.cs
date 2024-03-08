@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -256,7 +256,7 @@ namespace ivapay_wizard_calcolo {
         private DataGrid gridSpesa;
         private Button btnScollegaS;
         private Button btnCollegaS;
-        bool GeneraTuttelafasi = true;
+        bool GeneraTutteleFasi = true;
         private DataTable AltriPagamenti;
         private DataTable AltriPagamentiIntraExtraUe;
         private Crownwood.Magic.Controls.TabPage tabPage13;
@@ -3688,9 +3688,9 @@ namespace ivapay_wizard_calcolo {
             DataRow CfgRow = DS.config.Rows[0];
             ModoCalcolo_RigaPerRiga = CfgRow["flagivapaybyrow"].ToString().ToUpper() == "S";
             if (CfgRow["flagivaregphase"].ToString().ToUpper() == "S")
-                GeneraTuttelafasi = false;
+                GeneraTutteleFasi = false;
             else
-                GeneraTuttelafasi = true;
+                GeneraTutteleFasi = true;
             startivabalance = CfgFn.GetNoNullDecimal(CfgRow["startivabalance"]);
             startivabalance12 = CfgFn.GetNoNullDecimal(CfgRow["startivabalance12"]);
             startivabalancesplit = CfgFn.GetNoNullDecimal(CfgRow["startivabalancesplit"]);
@@ -3863,7 +3863,7 @@ namespace ivapay_wizard_calcolo {
                 return;
             }
             //calcolo periodo
-            ComputePeriod(periodo);
+            ComputePeriod(periodo, m_PeriodicitaMese);
 
 
             int anno_rif = m_ToDate.Year;
@@ -3887,26 +3887,51 @@ namespace ivapay_wizard_calcolo {
         }
 
 
-        private void ComputePeriod(int periodo) {
-            //calcolo periodo default (periodo precedente)
-            if (periodo <= 0) return;
-            DateTime data = ((DateTime) Meta.GetSys("datacontabile"));
-            int year = data.Year;
-            int month = (data.Month - periodo > 0 ? data.Month - periodo : 12 + data.Month - periodo);
-            //se sono a cavallo dell'anno nuovo la liquidazione cade nell'anno prima
-            if ((month + periodo) > 12) {
-                month = month - periodo + 1;
+        /// <summary>
+        /// periodo è il range di mesi da prendere, es: 3
+        /// mese è quanti mesi prima, es: 2
+        /// 
+        /// Es: se siamo al 01/10, dobbiamo prendere 3 mesi dove l'ultimo è 2 mesi precedenti
+        /// quindi dal 01/06 al 31/08, tre mesi dove l'ultimo è agosto che è 2 mesi prima di ottobre
+        /// </summary>
+        /// <param name="periodo"></param>
+        /// <param name="mese"></param>
+        private void ComputePeriod(int durata, int mesiprecedenti) {
+            
+            // Durata
+            if (durata <= 0) return;
+
+            // Mesi precedenti
+            if (mesiprecedenti < 1)
+                mesiprecedenti = 1;
+
+            // Data Contabile
+			DateTime data = ((DateTime) Meta.GetSys("datacontabile"));
+
+			// Il Check EndOfYear forza la liquidazione del periodo corrente al mese di dicembre
+			// quindi se la durata è 1 prende dicembre, se 2 prende novebre-dicembre, etc
+			if (chkEndOfYear.Checked && (data.Month == 12))
+			    mesiprecedenti = 0;
+			
+			// Data Calcolata dalla contabile
+			// data - durata - mesiprecedenti
+			int year = data.Year;
+            int month = data.Month - durata - mesiprecedenti + 1;
+
+            // Se salto l'anno indietro
+			if (month < 1) {
+                month += 12;
                 year--;
             }
+
+            // Data DA
             DateTime FromDate = new DateTime(year, month, 1);
+            
+            // Data A
             m_ToDate = FromDate.AddMonths(periodo - 1);
+
+            // Data A al fine mese
             m_ToDate = m_ToDate.AddDays(DateTime.DaysInMonth(year, m_ToDate.Month) - 1);
-            //forza la liquidazione del periodo corrente per il solo mese di dicembre
-            //se è stata scelta tale opzione
-            if ((chkEndOfYear.Checked) && (data.Month == 12)) {
-                FromDate = m_ToDate.AddDays(1);
-                m_ToDate = new DateTime(data.Year, 12, 31);
-            }
 
             txtDal.Text = HelpForm.StringValue(FromDate, null);
             txtAl.Text = HelpForm.StringValue(m_ToDate, null);
@@ -4054,13 +4079,13 @@ namespace ivapay_wizard_calcolo {
         }
 
         private void AbilitaCollegaMovEsistente() {
-            int faselastI = (GeneraTuttelafasi) ? getIntSys("maxincomephase") : getIntSys("incomeregphase");
+            int faselastI = (GeneraTutteleFasi) ? getIntSys("maxincomephase") : getIntSys("incomeregphase");
             if (faselastI == 1)
                 btnCollegaE.Enabled = false;
             else
                 btnCollegaE.Enabled = true;
 
-            int faselastE = (GeneraTuttelafasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
+            int faselastE = (GeneraTutteleFasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
             if (faselastE == 1)
                 btnCollegaS.Enabled = false;
             else
@@ -4887,6 +4912,7 @@ namespace ivapay_wizard_calcolo {
             bool comm_promiscua = chkCommerciale.Checked;
             bool istituzionale = chkIstituzionale.Checked;
             bool split = chkIstituzionaleSplit.Checked;
+
             foreach (DataRow R in TableIva.Select()) {
                 //se istituzionale e non split e NON HO selezionato istituzionale, saltiamo la fattura
                 if ((CfgFn.GetNoNullInt32(R["flagactivity"]) == 1 && R["flagsplit"].ToString().ToUpper() == "N") &&
@@ -5008,6 +5034,7 @@ namespace ivapay_wizard_calcolo {
                     rInvDef["ninv"] = rFattura["ninv"];
                     rInvDef["ivatotalpayed"] = sign*CfgFn.GetNoNullDecimal(rFattura["currivagrosspayed"]);
                 }
+                
                 //Fa la stessa cosa nella tabella Fatture Liquidate 
                 DataRow[] fattliq = TFattLiq.Select(filter);
                 if (fattliq.Length != 0) {
@@ -5027,10 +5054,18 @@ namespace ivapay_wizard_calcolo {
                     rFattLiq["docdate"] = rFattura["docdate"];
                     rFattLiq["adate"] = rFattura["adate"];
                     rFattLiq["registry"] = rFattura["registry"];
-                    rFattLiq["unabatable"] = rFattura["unabatable"];
-                    rFattLiq["tax"] = rFattura["tax"];
-                    rFattLiq["taxable"] = rFattura["taxable"];
-                    rFattLiq["total"] = rFattura["total"];
+                    
+                    //rFattLiq["tax"] = rFattura["tax"];
+					if (rFattura["flagvariation"].ToString().ToUpper() == "S") {
+						//se è un nota di credito cambiamo il segno per evitare la visualizzazione con importo negativo
+						rFattLiq["tax"] = sign * CfgFn.GetNoNullDecimal(rFattura["tax"]);
+                        rFattLiq["total"] = sign * CfgFn.GetNoNullDecimal(rFattura["total"]);
+                    }
+					else {
+						rFattLiq["tax"] = CfgFn.GetNoNullDecimal(rFattura["tax"]);
+                        rFattLiq["total"] = CfgFn.GetNoNullDecimal(rFattura["total"]);
+                    }
+					rFattLiq["taxable"] = CfgFn.GetNoNullDecimal(rFattura["taxable"]);
 
                     rFattLiq["flagactivity"] = rFattura["flagactivity"];
                     rFattLiq["flagintracom"] = rFattura["flagintracom"];
@@ -5577,7 +5612,7 @@ namespace ivapay_wizard_calcolo {
             string denominazioneFasi = "";
             string faseDA = "", faseA = "";
 
-            if (GeneraTuttelafasi) {
+            if (GeneraTutteleFasi) {
                 denominazioneFasi = "Tutte";
             }
             else {
@@ -5613,7 +5648,7 @@ namespace ivapay_wizard_calcolo {
                 }
             }
 
-            if (GeneraTuttelafasi) {
+            if (GeneraTutteleFasi) {
                 denominazioneFasi = "Tutte";
             }
             else {
@@ -5692,11 +5727,11 @@ namespace ivapay_wizard_calcolo {
 
             int fasecurr = 99;
             if (table == "income") {
-                fasecurr = (GeneraTuttelafasi) ? getIntSys("maxincomephase") : getIntSys("incomeregphase");
+                fasecurr = (GeneraTutteleFasi) ? getIntSys("maxincomephase") : getIntSys("incomeregphase");
                 fasecurr = fasecurr - 1;
             }
             else {
-                fasecurr = (GeneraTuttelafasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
+                fasecurr = (GeneraTutteleFasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
                 fasecurr = fasecurr - 1;
             }
             if (nvaloridiversi("idfin", Selected) > 1) {
@@ -5813,6 +5848,7 @@ namespace ivapay_wizard_calcolo {
                 }
                 Fasi2.AcceptChanges();
                 FrmAskFase F = new FrmAskFase(Fasi2);
+                createForm(F, null);
                 if (F.ShowDialog() != DialogResult.OK) return;
                 selectedfase = Convert.ToInt32(F.cmbFasi.SelectedValue);
             }
@@ -5871,6 +5907,7 @@ namespace ivapay_wizard_calcolo {
                 }
                 Fasi2.AcceptChanges();
                 FrmAskFase F = new FrmAskFase(Fasi2);
+                createForm(F, null);
                 if (F.ShowDialog() != DialogResult.OK) return;
                 selectedfase = Convert.ToInt32(F.cmbFasi.SelectedValue);
             }
@@ -6048,13 +6085,13 @@ namespace ivapay_wizard_calcolo {
                     fasemax = getIntSys("maxexpensephase");
                     faseCreditoreDebitore = getIntSys("expenseregphase");
                     faseBilancio = getIntSys("expensefinphase");
-                    faselast = (GeneraTuttelafasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
+                    faselast = (GeneraTutteleFasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
                 }
                 else {
                     fasemax = getIntSys("maxincomephase");
                     faseCreditoreDebitore = getIntSys("incomeregphase");
                     faseBilancio = getIntSys("incomefinphase");
-                    faselast = (GeneraTuttelafasi) ? getIntSys("maxincomephase") : getIntSys("incomeregphase");
+                    faselast = (GeneraTutteleFasi) ? getIntSys("maxincomephase") : getIntSys("incomeregphase");
                 }
 
 
@@ -6191,7 +6228,7 @@ namespace ivapay_wizard_calcolo {
 
             //Cancella tutto ciò che non ha figli e non è di ultima fase* sino a che non trova + nulla,
             // (*)non è necessariamente la maxphase, ma è l'ultima fase che si è generata, che può essere la maxphase o quella del creditore
-            faselast = (GeneraTuttelafasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
+            faselast = (GeneraTutteleFasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
             bool keep = true;
             while (keep) {
                 keep = false;
@@ -6208,7 +6245,7 @@ namespace ivapay_wizard_calcolo {
                     }
                 }
             }
-            faselast = (GeneraTuttelafasi) ? getIntSys("maxincomephase") : getIntSys("incomeregphase");
+            faselast = (GeneraTutteleFasi) ? getIntSys("maxincomephase") : getIntSys("incomeregphase");
             keep = true;
             while (keep) {
                 keep = false;
@@ -6322,6 +6359,7 @@ namespace ivapay_wizard_calcolo {
             if (!automatismi) return;
 
             Form F = ShowAutomatismi.Show(Meta, spesa, entrata, null, null);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 
@@ -6561,29 +6599,32 @@ namespace ivapay_wizard_calcolo {
             bool istit = chkIstituzionale.Checked;
             bool commerciale = chkCommerciale.Checked;
             bool split = chkIstituzionaleSplit.Checked;
-            foreach (DataRow R in FattureInAnteprima.Select()) {
-                 if ((CfgFn.GetNoNullInt32(R["flagactivity"]) != 1 || R["flagsplit"].ToString().ToUpper() == "S" ||
-                    R["flagintracom"].ToString().ToUpper() == "N" ) && istit) {
-                    // mostro solo le fatture istituzionali e intracom non split payment
-                    R.Delete();
-                    continue;
+            if (FattureInAnteprima != null) {
+                foreach (DataRow R in FattureInAnteprima.Select()) {
+                    if ((CfgFn.GetNoNullInt32(R["flagactivity"]) != 1 || R["flagsplit"].ToString().ToUpper() == "S" ||
+                       R["flagintracom"].ToString().ToUpper() == "N") && istit) {
+                        // mostro solo le fatture istituzionali e intracom non split payment
+                        R.Delete();
+                        continue;
+                    }
+                    if ((CfgFn.GetNoNullInt32(R["flagactivity"]) != 1 || R["flagsplit"].ToString().ToUpper() == "N" ||
+                        R["flagintracom"].ToString().ToUpper() == "S") && split) {
+                        // mostro solo le fatture istituzionali e split payment non intracom e non extra-ue
+                        R.Delete();
+                        continue;
+                    }
+                    if (CfgFn.GetNoNullInt32(R["flagactivity"]) == 1 && commerciale) {
+                        // mostro solo le fatture commerciali e promiscue, indipendentemente dal flag split payment
+                        // indipendentemente se in italia, intracom o extra-ue
+                        R.Delete();
+                        continue;
+                    }
                 }
-                if ((CfgFn.GetNoNullInt32(R["flagactivity"]) != 1 || R["flagsplit"].ToString().ToUpper() == "N" ||
-                    R["flagintracom"].ToString().ToUpper() == "S") && split){
-                    // mostro solo le fatture istituzionali e split payment non intracom e non extra-ue
-                    R.Delete();
-                    continue;
-                }
-                if (CfgFn.GetNoNullInt32(R["flagactivity"]) == 1 && commerciale) {
-                    // mostro solo le fatture commerciali e promiscue, indipendentemente dal flag split payment
-                    // indipendentemente se in italia, intracom o extra-ue
-                    R.Delete();
-                    continue;
-                }
+                FattureInAnteprima.AcceptChanges();
             }
-            FattureInAnteprima.AcceptChanges();
             if (TFattLiq.Rows.Count > 0) {
                 Form Frm = ShowAutomatismi.ShowFattureLiquidate(FattureInAnteprima);
+                createForm(Frm, null);
                 DialogResult Res = Frm.ShowDialog();
                 if (Res != DialogResult.OK) return;
             }
@@ -6837,7 +6878,7 @@ namespace ivapay_wizard_calcolo {
 
 
         private void chkEndOfYear_CheckedChanged(object sender, EventArgs e) {
-            ComputePeriod(periodo);
+            ComputePeriod(periodo, m_PeriodicitaMese);
         }
 
         private void txtDataRegolamento_Leave(object sender, EventArgs e) {
@@ -6873,7 +6914,7 @@ namespace ivapay_wizard_calcolo {
             object idfin = RigheSelezionate[0]["idfin"];
 
             FrmAskInfo AskUpb = new FrmAskInfo(idupb, idfin, Disp, Conn);
-
+            createForm(AskUpb, null);
             if (AskUpb.ShowDialog() != DialogResult.OK) return;
             if (AskUpb.SelectedUpb == null) return;
             if (AskUpb.SelectedUpb["idupb"] == DBNull.Value) return;

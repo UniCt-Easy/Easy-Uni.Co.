@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -99,7 +99,8 @@ namespace csa_contractexpense_detail {
                 filter = QHS.AppAnd(filter, QHS.CmpEq("ymov", ymov), QHS.CmpEq("nmov", nmov));
             }
             else {
-                var ff = new FrmAskInfo(_meta as MetaData, "S", true).EnableManagerSelection(false);
+                FrmAskInfo ff = new FrmAskInfo(_meta as MetaData, "S", true).EnableManagerSelection(false);
+                createForm(ff, null);
                 if (ff.ShowDialog() != DialogResult.OK) return;
                 //var f = new FrmAskFase("S", _dispatcher as EntityDispatcher, _conn as DataAccess);
                 //if (f.ShowDialog() != DialogResult.OK) return;

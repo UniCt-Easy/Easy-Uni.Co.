@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,20 +23,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'docenti':
-						this.describeAColumn(table, 'idreg', 'Identificativo', null, 10, null);
-						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 101);
-						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 40, 16);
-						this.describeAColumn(table, 'registry_p_iva', 'Partita iva', null, 50, 15);
-						this.describeAColumn(table, 'registry_active', 'attivo', null, 60, null);
-						this.describeAColumn(table, 'registry_docenti_matricola', 'Matricola', null, 10, 50);
-						this.describeAColumn(table, 'sasd_codice', 'Codice SASD', null, 20, 50);
-						this.describeAColumn(table, 'sasd_title', 'Denominazione SASD', null, 20, 255);
-						this.describeAColumn(table, 'struttura_title', 'Denominazione Struttura di afferenza', null, 30, 1024);
-						this.describeAColumn(table, 'registryistituti_title', 'Istituto, Ente o Azienda', null, 40, 101);
-						this.describeAColumn(table, 'classconsorsuale_title', 'Classe consorsuale', null, 50, 50);
-						this.describeAColumn(table, 'contrattokind_title', 'Tipo', null, 510, 50);
-						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo', null, 20, 50);
-						this.describeAColumn(table, 'struttura_idstrutturakind', 'Tipo Tipo', null, 20, null);
+						this.describeAColumn(table, 'idreg', 'Identificativo', null, 1000, null);
+						this.describeAColumn(table, 'sasd_codice', 'Codice SASD', null, 2200, 50);
+						this.describeAColumn(table, 'sasd_title', 'Denominazione SASD', null, 2300, 255);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 3000, 101);
+						this.describeAColumn(table, 'struttura_title', 'Denominazione Struttura di afferenza', null, 3100, 1024);
+						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo Struttura di afferenza', null, 3220, 50);
+						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 4000, 16);
+						this.describeAColumn(table, 'registryistituti_title', 'Istituto, Ente o Azienda', null, 4100, 101);
+						this.describeAColumn(table, 'registry_p_iva', 'Partita iva', null, 5000, 15);
+						this.describeAColumn(table, 'classconsorsuale_title', 'Classe consorsuale', null, 5100, 50);
+						this.describeAColumn(table, 'registry_active', 'attivo', null, 6000, null);
+						this.describeAColumn(table, 'XXregistrylegalstatus', 'Servizi di ruolo - Contratti', null, 51000, null);
 //$objCalcFieldConfig_docenti$
 						break;
 //$objCalcFieldConfig$

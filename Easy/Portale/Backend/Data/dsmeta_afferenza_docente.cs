@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,7 +31,7 @@ public class dsmeta_afferenza_docente: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable mansionekind 		=> (MetaTable)Tables["mansionekind"];
+	public MetaTable mansionekinddefaultview 		=> (MetaTable)Tables["mansionekinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable strutturadefaultview 		=> (MetaTable)Tables["strutturadefaultview"];
@@ -64,19 +64,18 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_afferenza_docente.xsd";
 
 	#region create DataTables
-	//////////////////// MANSIONEKIND /////////////////////////////////
-	var tmansionekind= new MetaTable("mansionekind");
-	tmansionekind.defineColumn("idmansionekind", typeof(int),false);
-	tmansionekind.defineColumn("title", typeof(string),false);
-	Tables.Add(tmansionekind);
-	tmansionekind.defineKey("idmansionekind");
+	//////////////////// MANSIONEKINDDEFAULTVIEW /////////////////////////////////
+	var tmansionekinddefaultview= new MetaTable("mansionekinddefaultview");
+	tmansionekinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tmansionekinddefaultview.defineColumn("idmansionekind", typeof(int),false);
+	Tables.Add(tmansionekinddefaultview);
+	tmansionekinddefaultview.defineKey("idmansionekind");
 
 	//////////////////// STRUTTURADEFAULTVIEW /////////////////////////////////
 	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
 	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
-	tstrutturadefaultview.defineColumn("idupb", typeof(string));
-	tstrutturadefaultview.defineColumn("paridstruttura", typeof(int));
+	tstrutturadefaultview.defineColumn("struttura_active", typeof(string));
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 
@@ -99,9 +98,9 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{mansionekind.Columns["idmansionekind"]};
+	var cPar = new []{mansionekinddefaultview.Columns["idmansionekind"]};
 	var cChild = new []{afferenza.Columns["idmansionekind"]};
-	Relations.Add(new DataRelation("FK_afferenza_mansionekind_idmansionekind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_afferenza_mansionekinddefaultview_idmansionekind",cPar,cChild,false));
 
 	cPar = new []{strutturadefaultview.Columns["idstruttura"]};
 	cChild = new []{afferenza.Columns["idstruttura"]};

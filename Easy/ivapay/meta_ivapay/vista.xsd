@@ -51,6 +51,7 @@
               <xs:element name="startcredit_applied" type="xs:decimal" minOccurs="0" />
               <xs:element name="advancecomputemethod" type="xs:string" minOccurs="0" />
               <xs:element name="idf24ep" type="xs:int" minOccurs="0" />
+              <xs:element name="idf24ordinario" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

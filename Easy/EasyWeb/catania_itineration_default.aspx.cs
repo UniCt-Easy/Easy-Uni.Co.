@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,6 +35,8 @@ using EasyWebReport;
 using itinerationFunctions;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using System.Linq;
+using System.Collections.Generic;
 
 public partial class catania_itineration_default :MetaPage {
     vistaForm_itineration DS;
@@ -80,6 +82,27 @@ public partial class catania_itineration_default :MetaPage {
     protected override void OnInit(EventArgs e) {
 
         base.OnInit(e);
+    }
+    private Control Find(ControlCollection cc, string id)
+    { 
+        List<Control> controlList = cc.Cast<Control>().ToList();
+
+		foreach (Control c in controlList)
+        {
+            if (c.HasControls())
+            {
+                Control innerControl = Find(c.Controls, id);
+                if (innerControl != null)
+                    return innerControl;
+            }
+            else
+            {
+                if (c.ID == id)
+                    return c;
+            }
+		}
+
+        return null;
     }
 
     public override DataSet GetDataSet() {
@@ -186,7 +209,18 @@ public partial class catania_itineration_default :MetaPage {
         return true;
 
     }
-    public override void AfterGetFormData() {
+
+    protected override void OnPreRender(EventArgs e) {
+        base.OnPreRender(e);
+		Control c = Find(Master.Controls, "HwButton5");
+		if (c != null) {
+			hwButton Delete = (hwButton)c;
+            if (Delete.Text == "Elimina")
+			    Delete.Visible = false;
+		}
+	}
+
+    public override void AfterGetFormData() {        
         decimal importo = 0;
         object importoObj = null;
         if (OrarioCorretto()) {
@@ -230,6 +264,17 @@ public partial class catania_itineration_default :MetaPage {
         if (importo == 0) {
             RimuoviSingolaSpesa("altro");
         }
+
+        //txtCostoPresuntoCorso
+        importoObj = HelpForm.GetObjectFromString(typeof(decimal), txtCostoPresuntoCorso.Text, txtCostoPresuntoCorso.Tag.ToString());
+        importo = CfgFn.GetNoNullDecimal(importoObj);
+        if (importo > 0) {
+            GeneraSpeseAnticipo("Altro-NonAnticipabili");
+        }
+        if (importo == 0) {
+            RimuoviSingolaSpesa("Altro-NonAnticipabili");
+        }
+
         if ((HwRdbAnticipoNo.Enabled) && (HwRdbAnticipoNo.Checked)) {
             RimuoviSpeseAnticipo(false);
         }
@@ -293,42 +338,49 @@ public partial class catania_itineration_default :MetaPage {
         DataRow[] found = DS.itinerationrefund_advance.Select(QHC.CmpEq("iditinerationrefundkind", iditinerationrefundkind));
         DataRow SpeseAnticipo;
         decimal importo = 0;
+        decimal percentualeanticipo = 0;
         switch (kind) {
             case "viaggio":
                 importo = CfgFn.GetNoNullDecimal(Curr["supposedtravel"]);
+                percentualeanticipo = CfgFn.GetNoNullDecimal(Curr["advancepercentagetravel"]);
                 break;
             case "alloggio":
                 importo = CfgFn.GetNoNullDecimal(Curr["supposedliving"]);
+                percentualeanticipo = CfgFn.GetNoNullDecimal(Curr["advancepercentageliving"]);
                 break;
             case "vitto":
                 importo = CfgFn.GetNoNullDecimal(Curr["supposedfood"]);
+                percentualeanticipo = CfgFn.GetNoNullDecimal(Curr["advancepercentagefood"]);
                 break;
             case "altro":
                 importo = CfgFn.GetNoNullDecimal(Curr["supposedamount"]);
+                percentualeanticipo = CfgFn.GetNoNullDecimal(Curr["advancepercentage"]);
+                break;
+            case "Altro-NonAnticipabili":
+                importo = CfgFn.GetNoNullDecimal(Curr["supposedcourse"]);
+                percentualeanticipo = CfgFn.GetNoNullDecimal(Curr["advancepercentagecourse"]);
                 break;
         }
 
+        string flag_geo = "";
+        if (Curr["idforeigncountry"] == DBNull.Value) {
+            flag_geo = "I";
+        }
+        else {
+            flag_geo = Conn.DO_READ_VALUE("foreigncountry", QHS.CmpEq("idforeigncountry", Curr["idforeigncountry"]), "flag_ue").ToString();
+        }
         if (found.Length > 0) {
             // Modifica quelle del DS
             found[0]["requiredamount"] = importo;
             found[0]["amount"] = importo;
+            found[0]["requiredamount_c"] = importo;
+            found[0]["amount_c"] = importo;
             found[0]["starttime"]= Curr["starttime"];
             found[0]["stoptime"] = Curr["stoptime"];
+            found[0]["flag_geo"] = flag_geo;
             if (kind != "altro") {
-                // Se missione in Italia, mette la % indicata
-                if (Curr["idforeigncountry"] == DBNull.Value){
-                    found[0]["advancepercentage"] = Curr["advancepercentage"];
-                }
-                // Se missione all'estero, mette la % indicata solo per il alloggio
-                if ((Curr["idforeigncountry"] != DBNull.Value) && (kind == "alloggio")){
-                    found[0]["advancepercentage"] = Curr["advancepercentage"];
-                }
-                // Se missione all'estero, mette la % 0 per le spese diverse da alloggio
-                if ((Curr["idforeigncountry"] != DBNull.Value) && (kind != "alloggio")){
-                    found[0]["advancepercentage"] = 0;
-                }
+                    found[0]["advancepercentage"] = percentualeanticipo;
             }
-
         }
         else {
             DataRow Parent = DS.itineration.Rows[0];
@@ -340,19 +392,11 @@ public partial class catania_itineration_default :MetaPage {
             //SpeseAnticipo["iditinerationrefundkind"] = iditinerationrefundkind;
             SpeseAnticipo["requiredamount"] = importo;
             SpeseAnticipo["amount"] = importo;
+            SpeseAnticipo["requiredamount_c"] = importo;
+            SpeseAnticipo["amount_c"] = importo;
+            SpeseAnticipo["flag_geo"] = flag_geo;
             if (kind != "altro") {
-                // Se missione in Italia, mette la % indicata
-                if (Parent["idforeigncountry"] == DBNull.Value){
-                    SpeseAnticipo["advancepercentage"] = Curr["advancepercentage"];
-                }
-                // Se missione all'estero, mette la % indicata solo per il alloggio
-                if ((Parent["idforeigncountry"] != DBNull.Value) && (kind == "alloggio")){
-                    SpeseAnticipo["advancepercentage"] = Curr["advancepercentage"];
-                }
-                // Se missione all'estero, mette la % 0 per le spese diverse da alloggio
-                if ((Parent["idforeigncountry"] != DBNull.Value) && (kind != "alloggio")){
-                    SpeseAnticipo["advancepercentage"] = 0;
-                }
+                    SpeseAnticipo["advancepercentage"] = percentualeanticipo;
             }
         }
         CalcolaTotaleCostiAnticipo(Curr, false);
@@ -418,6 +462,8 @@ public partial class catania_itineration_default :MetaPage {
 
         //EnableDisableControls(txtapplierannotation, false); //Commento perchè è stato rimossa la sezione del pagamento
 
+        EnableDisableControls(btnAnnullaMissione, true);  
+
         cmbAuthModel.Enabled = true;
         btnIban.Enabled = false;
         AggiornaTotaliErogati();
@@ -462,7 +508,7 @@ public partial class catania_itineration_default :MetaPage {
     public void ImpostaControlliCT() {
         if (PState.IsEmpty)
             return;
-        if (HwRdbNoFondiEsterni.Checked || HwRdbParteFondiEsterni.Checked) {
+        if (HwRdbNoFondiEsterni.Checked) {
             VisualizzaSezioni(true);
         }
         if (HwRdbSiFondiEsterni.Checked) {
@@ -492,6 +538,12 @@ public partial class catania_itineration_default :MetaPage {
             }
 
         }
+        if (PState.InsertMode) {
+            // Se SI, visualizza la sezione della clausola etc
+            // Se NO, nasconde la sezione della clausola etc
+            VisulizzaSezioniTarga(HwRdbAutorAutoSi.Checked);
+		}
+
         if ((PState.InsertMode)
             && (HwRdbAnticipoNo.Checked == HwRdbAnticipoSi.Checked)) {
             HwRdbAnticipoNo.Checked = HwRdbNoFondiEsterni.Checked;
@@ -574,9 +626,17 @@ public partial class catania_itineration_default :MetaPage {
         DataRow CurrRow = DS.itineration.Rows[0];
         string errormsg = "";
         if (DoSendMail) {
-            errormsg = MissFun.WebSendMails(Conn as DataAccess, CurrRow);
-            if (errormsg.Trim() != "")
-                ShowClientMessage(errormsg, "Errore");
+			try
+			{
+                errormsg = MissFun.WebSendMails(Conn as DataAccess, CurrRow);
+                if (errormsg.Trim() != "")
+                    ShowClientMessage(errormsg, "Errore");
+            }
+			catch
+			{
+                ShowClientMessage("Errore di invio mail", "Errore");
+            }
+            
             DoSendMail = false;
         }
     }
@@ -637,6 +697,14 @@ public partial class catania_itineration_default :MetaPage {
                     //EnableDisableControls(txtwebwarn, true);
                     EnableDisableControls(chkWeb, true);
                     //EnableDisableControls(btnitinerationhistory, true);
+
+                    if (ApprovatadaTutti()) {
+                        //Se tutti hanno approvato, non si può più Annullare.
+                        EnableDisableControls(btnAnnullaMissione, true);
+                    }
+                    else {
+                        EnableDisableControls(btnAnnullaMissione, false);
+                    }
                     Meta.CanCancel = true;
                 }
 
@@ -647,6 +715,8 @@ public partial class catania_itineration_default :MetaPage {
                 btnStatus.Visible = true;
                 EnableDisableControls(btnEditAtt, false);
                 //EnableDisableControls(btnitinerationhistory, false);
+
+                EnableDisableControls(btnAnnullaMissione, true);
 
                 btnStatus.Enabled = true;
                 Meta.CanSave = false;// In fase di RICHIESTA non devo poter modificare nulla da Web
@@ -687,6 +757,14 @@ public partial class catania_itineration_default :MetaPage {
                 EnableDisableControls(chkWeb, true);
                 //EnableDisableControls(btnitinerationhistory, true);
 
+                if (ApprovatadaTutti()) {
+                    //Se tutti hanno approvato, non si può più Annullare.
+                    EnableDisableControls(btnAnnullaMissione, true);
+                }
+                else {
+                    EnableDisableControls(btnAnnullaMissione, false);
+                }
+
                 btnStatus.Enabled = true;
                 Meta.CanSave = true;
                 Meta.CanCancel = true;
@@ -700,6 +778,12 @@ public partial class catania_itineration_default :MetaPage {
                 EnableDisableControls(HwTextBox2, true);
                 EnableDisableControls(HwCheckClause, true);
                 EnableDisableControls(txtMotivazione, true);
+
+                if (status == 5)
+                    EnableDisableControls(btnAnnullaMissione, false);
+                else
+                    EnableDisableControls(btnAnnullaMissione, true);
+
                 Meta.CanSave = false;
                 Meta.CanCancel = false;
 
@@ -733,6 +817,8 @@ public partial class catania_itineration_default :MetaPage {
                 EnableDisableControls(btnEditAtt, false);
                 //EnableDisableControls(btnitinerationhistory, false);
 
+                EnableDisableControls(btnAnnullaMissione, true);
+
                 btnStatus.Visible = false;
                 Meta.CanSave = false;
                 Meta.CanCancel = false;
@@ -748,7 +834,10 @@ public partial class catania_itineration_default :MetaPage {
                 EnableDisableControls(btnEditAtt, false);
                 //EnableDisableControls(btnitinerationhistory, false);
 
+                EnableDisableControls(btnAnnullaMissione, true);
+
                 Meta.CanSave = false;
+                
                 Meta.CanCancel = false;
                 if (CheckSpeseConsuntivo()) {
                     btnStatus.Visible = true;
@@ -768,6 +857,8 @@ public partial class catania_itineration_default :MetaPage {
                 EnableDisableControls(btnEditAtt, false);
                 //EnableDisableControls(btnitinerationhistory, false);
 
+                EnableDisableControls(btnAnnullaMissione, true);
+
                 Meta.CanSave = false;
                 Meta.CanCancel = false;
                 btnStatus.Visible = false;
@@ -783,8 +874,14 @@ public partial class catania_itineration_default :MetaPage {
         bool myReadOnly = !abilita;
         txtImportopresuntoAnticipo.ReadOnly = myReadOnly;
         txtPercAnticipo.ReadOnly = myReadOnly;
+        txtPercAnticipoAlloggio.ReadOnly = myReadOnly;
+        txtPercAnticipoPasti.ReadOnly = myReadOnly;
+        txtPercAnticipoViaggi.ReadOnly = myReadOnly;
         txtCostoPresuntoViaggio.ReadOnly = myReadOnly;
         txtCostoPresuntoSoggiorno.ReadOnly = myReadOnly;
+        txtCostoPresuntoCorso.ReadOnly = myReadOnly;
+        txtCostoPresuntoPasti.ReadOnly = myReadOnly;
+        txtPercAnticipoCorso.ReadOnly = myReadOnly;
         txtNumPasti.ReadOnly = myReadOnly;
         txtIban.ReadOnly = myReadOnly;
     }
@@ -833,11 +930,12 @@ public partial class catania_itineration_default :MetaPage {
 
         DateTime EndDate = (DateTime)Curr["stop"];
         bool IsWeb = (Curr["flagweb"].ToString().ToLower() == "s") ? true : false;
+        bool IsOutside = (Curr["flagoutside"].ToString().ToLower() == "s") ? true : false;//missioni fondo esterno
         int numSpeseConsuntivo = DS.itinerationrefund_balance.Rows.Count;
 
 
 
-        if (dataoggi >= EndDate && numSpeseConsuntivo == 0 && IsWeb)
+        if (dataoggi >= EndDate && numSpeseConsuntivo == 0 && IsWeb && !IsOutside)
             return true;
         else
             return false;
@@ -887,7 +985,7 @@ public partial class catania_itineration_default :MetaPage {
 
             DataRow RcurrPosGiuridica = R;
             SelClass = Conn.RUN_SELECT("legalstatuscontract",
-                        "idposition, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+                        "idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
                         null, QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("idregistrylegalstatus", RcurrPosGiuridica["idregistrylegalstatus"])), null, false);
 
             DataRow RowClass = SelClass.Rows[0];
@@ -901,7 +999,7 @@ public partial class catania_itineration_default :MetaPage {
 
             int incomeclass = CfgFn.GetNoNullInt32(RowClass["incomeclass"]);
             //////txtClassStip.Text = incomeclass.ToString();
-            setPosizioneGiuridica(RowClass["idposition"]);
+            setPosizioneGiuridica(RowClass["idposition"], RowClass["livello"]);
             //            MyCfg.idposition = RowClass["idposition"];
             MyCfg.matricula = matricula;
             MyCfg.incomeclass = incomeclass;
@@ -939,6 +1037,7 @@ public partial class catania_itineration_default :MetaPage {
             string filterGE;
             filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                             QHS.CmpEq("idposition", MyCfg.idposition),
+                            QHS.CmpEq("livello", MyCfg.livello),
                             "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 
@@ -965,7 +1064,18 @@ public partial class catania_itineration_default :MetaPage {
 
         }
         */
+        if (T.TableName == "foreigncountry") {
+            if (PState.IsEmpty)
+                return;
+            if (!CommFun.DrawStateIsDone)
+                return;
+            if (DS.itineration.Rows.Count == 0)
+                return;
+            DataRow Curr = DS.itineration.Rows[0];
+            rdb_CheckedChangedAnticipoSi(null, null);
+            CalcolaTotaleCostiAnticipo(Curr, false);
 
+        }
         if (T.TableName == "authmodel") {
             if (PState.IsEmpty)
                 return;
@@ -1006,7 +1116,7 @@ public partial class catania_itineration_default :MetaPage {
 
         Meta.SetDefaults(DS.itineration);
         DataRow ParentRow = DS.itineration.Rows[0];
-        MetaData MD = appState.Dispatcher.Get("itinerationauthagengy");
+        MetaData MD = appState.Dispatcher.Get("itinerationauthagency");
 
         DS.itinerationauthagency.RejectChanges();
 
@@ -1036,6 +1146,8 @@ public partial class catania_itineration_default :MetaPage {
             MissAut["!title"] = Row["title"];
             MissAut["!priority"] = Row["priority"];
             MissAut["!description"] = Row["description"];
+            MD.DescribeColumns(DS.itinerationauthagency, "webdefault");
+            MD.CalculateFields(MissAut, "webdefault");
         }
 
     }
@@ -1065,7 +1177,7 @@ public partial class catania_itineration_default :MetaPage {
 
     /// <summary>
     /// bool: indica che il metodo viene chiamato dal Leave del numero pasti, i quel caso aggiorna il costo tot. pasti
-    /// diversamente no, perchè c'è anche la possiiblità di inserire manualmente
+    /// diversamente no, perchè c'è anche la possibilità di inserire manualmente
     /// </summary>
     /// <param name="Curr"></param>
     /// <param name="fromNpasti"></param>
@@ -1075,27 +1187,20 @@ public partial class catania_itineration_default :MetaPage {
             txtTotAnticipoRichiesto.Text = "";
         }
         decimal TotCostiPresunti = CfgFn.GetNoNullDecimal(Curr["supposedtravel"]) + CfgFn.GetNoNullDecimal(Curr["supposedliving"])
-            + (CfgFn.GetNoNullDecimal(Curr["supposedfood"]));
+            + CfgFn.GetNoNullDecimal(Curr["supposedfood"])
+            + CfgFn.GetNoNullDecimal(Curr["supposedcourse"]);// Spese per Corsi
         txtTotCostiPresunti.Text = ((decimal)CfgFn.RoundValuta(TotCostiPresunti)).ToString("C");
 
-        decimal percanticipo = CfgFn.GetNoNullDecimal(Curr["advancepercentage"]);
-        decimal TotAnticipoRichiesto;
-        if (percanticipo > 0) {
-            //Se missione in talia, la % si applica a tutte le spese
-            if (Curr["idforeigncountry"] == DBNull.Value){
-                TotAnticipoRichiesto= TotCostiPresunti * percanticipo;
-            }
-            //Se missione estera, la % si applica solo alle spese di soggiorno
-            else{
-                TotAnticipoRichiesto = CfgFn.GetNoNullDecimal(Curr["supposedliving"]) * percanticipo;
-            }
-        }
-        else {
-            TotAnticipoRichiesto = TotCostiPresunti;
-        }
+        //decimal percanticipo = CfgFn.GetNoNullDecimal(Curr["advancepercentage"]);
+        decimal percanticipoViaggio = CfgFn.GetNoNullDecimal(Curr["advancepercentagetravel"]);
+        decimal percanticipoAlloggio = CfgFn.GetNoNullDecimal(Curr["advancepercentageliving"]);
+        decimal percanticipoPasti = CfgFn.GetNoNullDecimal(Curr["advancepercentagefood"]);
+        decimal TotAnticipoRichiesto = CfgFn.GetNoNullDecimal(Curr["supposedtravel"])* percanticipoViaggio 
+                                    + CfgFn.GetNoNullDecimal(Curr["supposedliving"])* percanticipoAlloggio
+                                    + (CfgFn.GetNoNullDecimal(Curr["supposedfood"]))*percanticipoPasti;
         txtTotAnticipoRichiesto.Text = ((decimal)CfgFn.RoundValuta(TotAnticipoRichiesto)).ToString("C");
 
-        DataRow AttribRow = ottieniRigaRegolamentoSpesa();
+        DataRow AttribRow = ottieniRigaRegolamentoSpesa("vitto");
         decimal LimiteMax = 0;
         if (AttribRow == null) {
             LimiteMax = 0;
@@ -1104,18 +1209,37 @@ public partial class catania_itineration_default :MetaPage {
             LimiteMax = CfgFn.GetNoNullDecimal(AttribRow["limit"]);
         }
 
-        decimal CostoPresuntoPasti = LimiteMax * CfgFn.GetNoNullInt32(Curr["nfood"]);
-        if ((CfgFn.GetNoNullDecimal(txtCostoPresuntoPasti.Text) == 0) || (fromNpasti)) {
+		if (!(txtCostoPresuntoPasti.Visible)) return;
+		if (txtCostoPresuntoPasti.ReadOnly) return;
+
+		decimal CostoPresuntoPasti = LimiteMax * CfgFn.GetNoNullInt32(Curr["nfood"]);
+        if ((CfgFn.GetNoNullDecimal(txtCostoPresuntoPasti.Text) == 0) || fromNpasti) {
             txtCostoPresuntoPasti.Text = ((decimal)CfgFn.RoundValuta(CostoPresuntoPasti)).ToString("C");
         }
     }
 
-    private DataRow ottieniRigaRegolamentoSpesa() {
+    private string calcolaFiltroApplicazioneGeo() {
+        //Questo metodo è diverso da quello originale
+        if (DS.itineration.Rows.Count == 0)
+            return null;
+        DataRow Curr = DS.itineration.Rows[0];
+        string filter = "";
+        if (Curr["idforeigncountry"] == DBNull.Value) {
+            filter = QHS.CmpEq("flag_italy", 'S');
+        }
+		else {
+            filter = QHS.DoPar(QHS.AppOr(QHS.CmpEq("flag_eu", 'S'), QHS.CmpEq("flag_extraeu", 'S')));
+        }
+          
+        return filter;
+    }
+
+    private DataRow ottieniRigaRegolamentoSpesa(string kind) {
         if (DS.itineration.Rows.Count == 0)
             return null;
         DataRow Curr = DS.itineration.Rows[0];
 
-        object iditinerationrefundkindgroup = Conn.DO_READ_VALUE("itinerationrefundkindgroup", QHS.CmpEq("description", "vitto"), "iditinerationrefundkindgroup");
+        object iditinerationrefundkindgroup = Conn.DO_READ_VALUE("itinerationrefundkindgroup", QHS.CmpEq("description", kind), "iditinerationrefundkindgroup");
         //object iditinerationrefundkind = Conn.DO_READ_VALUE("itinerationrefundkind",
         //    QHS.AppAnd(QHS.CmpEq("iditinerationrefundkindgroup", idfundkindgroup), QHS.CmpEq("active", "S"), QHS.CmpEq("flagadvance", "S")),
         //    "iditinerationrefundkind", "codeitinerationrefundkind asc");
@@ -1130,7 +1254,7 @@ public partial class catania_itineration_default :MetaPage {
         //    return null;
         //}
 
-        //string fSuApplicazioneGeo = calcolaFiltroApplicazioneGeo();
+        string fSuApplicazioneGeo = calcolaFiltroApplicazioneGeo();
         //if (fSuApplicazioneGeo == "") {
         //    return null;
         //}
@@ -1153,7 +1277,7 @@ public partial class catania_itineration_default :MetaPage {
         if ((MyCfg.incomeclass == null) || (MyCfg.idposition == null)) {
             return null;
         }
-        string fPos = MissFun.GetQualificaClasseFilter(MyCfg.idposition, MyCfg.incomeclass);
+        string fPos = MissFun.GetQualificaClasseFilter(MyCfg.idposition, MyCfg.livello, MyCfg.incomeclass);
         fRuleDetail = GetData.MergeFilters(fRuleDetail, fPos);
 
         //DataRow rRefundKind = RefundKind[0];
@@ -1162,7 +1286,7 @@ public partial class catania_itineration_default :MetaPage {
 
         //string fHour = QHS.AppAnd(QHS.NullOrLt("nhour_min", nOre), QHS.NullOrGt("nhour_max", nOre));
         //fRuleDetail = GetData.MergeFilters(fRuleDetail, fHour);
-        //fRuleDetail = GetData.MergeFilters(fRuleDetail, fSuApplicazioneGeo);
+        fRuleDetail = GetData.MergeFilters(fRuleDetail, fSuApplicazioneGeo);
 
         DataTable tRuleDetail = DataAccess.CreateTableByName(Meta.Conn, "itinerationrefundruledetail", "*");
 
@@ -1195,6 +1319,13 @@ public partial class catania_itineration_default :MetaPage {
         CalcolaTotaleCostiAnticipo(Curr, false);
     }
 
+    public void txtCostoPresuntoCorso_LeaveTextBoxHandler(object sender, EventArgs e) {
+        if (DS.itineration.Rows.Count == 0)
+            return;
+        DataRow Curr = DS.itineration.Rows[0];
+        CalcolaTotaleCostiAnticipo(Curr, false);
+    }
+
     //public void txtOraInizio_LeaveTextBoxHandler(object sender, EventArgs e) {
     //    if (PState.IsEmpty) {
     //        return;
@@ -1203,7 +1334,7 @@ public partial class catania_itineration_default :MetaPage {
 
     //    //AggiungiOrarioInzio();
     //}
-        public void txtNumPasti_LeaveTextBoxHandler(object sender, EventArgs e) {
+    public void txtNumPasti_LeaveTextBoxHandler(object sender, EventArgs e) {
         if (DS.itineration.Rows.Count == 0)
             return;
         DataRow Curr = DS.itineration.Rows[0];
@@ -1217,10 +1348,35 @@ public partial class catania_itineration_default :MetaPage {
         Curr["advancepercentage"] = HelpForm.GetObjectFromString(typeof(double), txtPercAnticipo.Text, txtPercAnticipo.Tag.ToString());
         CalcolaTotaleCostiAnticipo(Curr, false);
     }
-    //public void txtOraInizio_TextChanged(object sender, EventArgs e) {
-    //    object xx = txtOraInizio.Text;
-    //}
-    public void txtImportopresuntoAnticipo_LeaveTextBoxHandler(object sender, EventArgs e) {
+    public void txtPercAnticipoAlloggio_LeaveTextBoxHandler(object sender, EventArgs e) {
+        if (DS.itineration.Rows.Count == 0)
+            return;
+        DataRow Curr = DS.itineration.Rows[0];
+        Curr["advancepercentageliving"] = HelpForm.GetObjectFromString(typeof(double), txtPercAnticipoAlloggio.Text, txtPercAnticipoAlloggio.Tag.ToString());
+        CalcolaTotaleCostiAnticipo(Curr, false);
+
+    }
+    public void txtPercAnticipoPasti_LeaveTextBoxHandler(object sender, EventArgs e) {
+        if (DS.itineration.Rows.Count == 0)
+            return;
+        DataRow Curr = DS.itineration.Rows[0];
+        Curr["advancepercentagefood"] = HelpForm.GetObjectFromString(typeof(double), txtPercAnticipoPasti.Text, txtPercAnticipoPasti.Tag.ToString());
+        CalcolaTotaleCostiAnticipo(Curr, false);
+    }
+
+    public void txtPercAnticipoViaggi_LeaveTextBoxHandler(object sender, EventArgs e) { 
+        if (DS.itineration.Rows.Count == 0)
+            return;
+        DataRow Curr = DS.itineration.Rows[0];
+        Curr["advancepercentagetravel"] = HelpForm.GetObjectFromString(typeof(double), txtPercAnticipoViaggi.Text, txtPercAnticipoViaggi.Tag.ToString());
+        CalcolaTotaleCostiAnticipo(Curr, false);
+
+    }
+
+        //public void txtOraInizio_TextChanged(object sender, EventArgs e) {
+        //    object xx = txtOraInizio.Text;
+        //}
+        public void txtImportopresuntoAnticipo_LeaveTextBoxHandler(object sender, EventArgs e) {
         ImpostaTageFiltriUPB(null);
     }
     public void txtDataInizio_LeaveTextBoxHandler(object sender, EventArgs e) {
@@ -1450,6 +1606,11 @@ public partial class catania_itineration_default :MetaPage {
             txtCostoPresuntoViaggio.Text = "";
             txtTotCostiPresunti.Text = "";
             txtCostoPresuntoSoggiorno.Text = "";
+            txtCostoPresuntoCorso.Text = "";
+            txtPercAnticipoAlloggio.Text = "";
+            txtPercAnticipoCorso.Text = "";
+            txtPercAnticipoPasti.Text = "";
+            txtPercAnticipoViaggi.Text = "";
             txtTotAnticipoRichiesto.Text = "";
             txtNumPasti.Text = "";
             txtCostoPresuntoPasti.Text = "";
@@ -1457,24 +1618,40 @@ public partial class catania_itineration_default :MetaPage {
         }
     }
     public void VisualizzaSezioniRichiestaAnticipo(bool anticipoPresente) {
-        lblPercAnticipo.Visible = anticipoPresente;
+        //lblPercAnticipo.Visible = anticipoPresente;
         txtImportopresuntoAnticipo.Visible = !anticipoPresente;
         lblImportopresuntoAnticipo.Visible = !anticipoPresente;
-        txtPercAnticipo.Visible = anticipoPresente;
+        //txtPercAnticipo.Visible = anticipoPresente;
+        lblPercAnticipoViaggi.Visible = anticipoPresente;
+        txtPercAnticipoViaggi.Visible = anticipoPresente;
+
+        lblPercAnticipoAlloggio.Visible = anticipoPresente;
+        txtPercAnticipoAlloggio.Visible = anticipoPresente;
+        
+        lblPercAnticipoPasti.Visible = anticipoPresente;
+        txtPercAnticipoPasti.Visible = anticipoPresente;
+        
         lblCostoPresuntoViaggio.Visible = anticipoPresente;
         txtCostoPresuntoViaggio.Visible = anticipoPresente;
+        
         lblTotCostoPresunti.Visible = anticipoPresente;
         txtTotCostiPresunti.Visible = anticipoPresente;
+        
         txtTotCostiPresunti.Enabled = false;
+
         lblCostoPresuntoSoggiorno.Visible = anticipoPresente;
         txtCostoPresuntoSoggiorno.Visible = anticipoPresente;
+
         lblTotAnticipoRichiesto.Visible = anticipoPresente;
         txtTotAnticipoRichiesto.Visible = anticipoPresente;
         txtTotAnticipoRichiesto.Enabled = false;
+
         lblNumPasti.Visible = anticipoPresente;
         txtNumPasti.Visible = anticipoPresente;
         lblCostoPresuntoPasti.Visible = anticipoPresente;
         txtCostoPresuntoPasti.Visible = anticipoPresente;
+        txtCostoPresuntoCorso.Visible = anticipoPresente;
+        lblCostoPresuntoCorso.Visible = anticipoPresente;
         lblIban.Visible = anticipoPresente;
         lblIban2.Visible = anticipoPresente;
         //HwDropDownIban.Visible = mostra;
@@ -1552,29 +1729,19 @@ public partial class catania_itineration_default :MetaPage {
         }
     }
     // Missione su fondi esterni all'ateneo
-    public void rdb_CheckedChangedNo(object sender, EventArgs e) {
+    public void rdb_CheckedChangedSi(object sender, EventArgs e) {
         if (HwRdbNoFondiEsterni.Checked) {
             HwRdbSiFondiEsterni.Checked = false;
-            HwRdbParteFondiEsterni.Checked = false;
             VisualizzaSezioni(true);
             btnIban.Visible = false;
         }
     }
 
-    public void rdb_CheckedChangedSi(object sender, EventArgs e) {
+    public void rdb_CheckedChangedNo(object sender, EventArgs e) {
         if (HwRdbSiFondiEsterni.Checked) {
             HwRdbNoFondiEsterni.Checked = false;
-            HwRdbParteFondiEsterni.Checked = false;
             VisualizzaSezioni(false);
 
-        }
-    }
-
-    public void rdb_CheckedChangedParte(object sender, EventArgs e) {
-        if (HwRdbParteFondiEsterni.Checked) {
-            HwRdbSiFondiEsterni.Checked = false;
-            HwRdbNoFondiEsterni.Checked = false;
-            VisualizzaSezioni(true);
         }
     }
 
@@ -1642,14 +1809,76 @@ public partial class catania_itineration_default :MetaPage {
             if (!PState.isEmpty) {
                 var curr = DS.itineration.Rows[0];
                 curr["advanceapplied"] = "S";
-                double percentuale = 0.75;
-                curr["advancepercentage"] = percentuale;
-                txtPercAnticipo.Text = ((decimal)CfgFn.RoundValuta(percentuale)).ToString("C");
+                DataRow AttribRow = ottieniRigaRegolamentoSpesa("altro");
+                //if (AttribRow != null) {
+                //    curr["advancepercentage"] = CfgFn.GetNoNullDouble(AttribRow["advancepercentage"]);
+                //    txtPercAnticipo.Text = HelpForm.StringValue(curr["advancepercentage"], txtPercAnticipo.Tag.ToString());
+                //}
+                AttribRow = ottieniRigaRegolamentoSpesa("alloggio");
+                if (AttribRow != null) {
+                    curr["advancepercentageliving"] = CfgFn.GetNoNullDouble(AttribRow["advancepercentage"]);
+                    txtPercAnticipoAlloggio.Text = HelpForm.StringValue(curr["advancepercentageliving"], txtPercAnticipoAlloggio.Tag.ToString());
+                }
+                AttribRow = ottieniRigaRegolamentoSpesa("viaggio");
+                if (AttribRow != null) {
+                    curr["advancepercentagetravel"] = CfgFn.GetNoNullDouble(AttribRow["advancepercentage"]);
+                    txtPercAnticipoViaggi.Text = HelpForm.StringValue(curr["advancepercentagetravel"], txtPercAnticipoViaggi.Tag.ToString());
+                }
+                
+                AttribRow = ottieniRigaRegolamentoSpesa("vitto");
+                if (AttribRow != null) {
+                    curr["advancepercentagefood"] = CfgFn.GetNoNullDouble(AttribRow["advancepercentage"]);
+                    txtPercAnticipoPasti.Text = HelpForm.StringValue(curr["advancepercentagefood"], txtPercAnticipoPasti.Tag.ToString());
+                }
+                txtPercAnticipoCorso.Text = "0";// per il momento valorizziamo costante a 0. Il campo è invisibile.
             }
             HwRdbAnticipoNo.Checked = false;
             VisualizzaSezioniRichiestaAnticipo(true);
         }
     }
+    void ClearPerc() {
+        DataRow Curr = DS.itineration.Rows[0];
+        Curr["advancepercentage"] = 0;
+        Curr["advancepercentagetravel"] = 0;
+        Curr["advancepercentageliving"] = 0;
+        Curr["advancepercentagefood"] = 0;
+        Curr["advancepercentagecourse"] = 0;
+        txtPercAnticipo.Text = HelpForm.StringValue(Curr["advancepercentage"], txtPercAnticipo.Tag.ToString());
+        txtPercAnticipoViaggi.Text = HelpForm.StringValue(Curr["advancepercentagetravel"], txtPercAnticipoViaggi.Tag.ToString());
+        txtPercAnticipoAlloggio.Text = HelpForm.StringValue(Curr["advancepercentageliving"], txtPercAnticipoAlloggio.Tag.ToString());
+        txtPercAnticipoPasti.Text = HelpForm.StringValue(Curr["advancepercentagefood"], txtPercAnticipoPasti.Tag.ToString());
+    }
+
+    void AggiornaPerc(DataRow R, string kind) {
+		if (R == null) {
+			ClearPerc();
+			return;
+		}
+		//if (IsRimborsoForfettario() && rdoItaly.Checked) {
+		//	ClearPerc();
+		//	return;
+		//}
+
+		bool esisteConf;
+		DataRow AttribRow = ottieniRigaRegolamentoSpesa(kind);
+
+		if (AttribRow == null) {
+			ClearPerc();
+			//if (!esisteConf && !msgattr) {
+			//	msgattr = true;
+			//	ShowClientMessage("Le informazioni relative agli attributi " +
+			//		"di classificazione delle spese sono incomplete o mancanti.",
+			//		"Avviso");
+			//}
+			return;
+		}
+
+		DataRow Curr = DS.itineration.Rows[0];
+		Curr["advancepercentage"] = CfgFn.GetNoNullDouble(AttribRow["advancepercentage"]);
+        txtPercAnticipo.Text = HelpForm.StringValue(
+			Curr["advancepercentage"], txtPercAnticipo.Tag.ToString());
+	}
+
 
     public void rdb_CheckedChangedFondiPropriSi(object sender, EventArgs e) {
         if (RdbMissioneFondiPropriSi.Checked) {
@@ -1666,7 +1895,6 @@ public partial class catania_itineration_default :MetaPage {
     }
     public override void AfterLink(bool firsttime, bool formToLink) {
         //Panelaltro.Visible = false;
-
         Meta.Name = "Missione";
         if (firsttime) {
             DoSendMail = false;
@@ -1695,7 +1923,12 @@ public partial class catania_itineration_default :MetaPage {
         txtCostoPresuntoViaggio.LeaveTextBoxHandler += txtCostoPresuntoViaggio_LeaveTextBoxHandler;
         txtCostoPresuntoSoggiorno.LeaveTextBoxHandler += txtCostoPresuntoSoggiorno_LeaveTextBoxHandler;
         txtCostoPresuntoPasti.LeaveTextBoxHandler += txtCostoPresuntoPasti_LeaveTextBoxHandler;
+        txtCostoPresuntoCorso.LeaveTextBoxHandler += txtCostoPresuntoCorso_LeaveTextBoxHandler;
         txtPercAnticipo.LeaveTextBoxHandler += txtPercAnticipo_LeaveTextBoxHandler;
+        txtPercAnticipoAlloggio.LeaveTextBoxHandler += txtPercAnticipoAlloggio_LeaveTextBoxHandler;
+        txtPercAnticipoPasti.LeaveTextBoxHandler += txtPercAnticipoPasti_LeaveTextBoxHandler;
+        txtPercAnticipoViaggi.LeaveTextBoxHandler += txtPercAnticipoViaggi_LeaveTextBoxHandler;
+
         txtNumPasti.LeaveTextBoxHandler += txtNumPasti_LeaveTextBoxHandler;
         txtImportopresuntoAnticipo.LeaveTextBoxHandler += txtImportopresuntoAnticipo_LeaveTextBoxHandler;
         //txtOraInizio.LeaveTextBoxHandler += txtOraInizio_LeaveTextBoxHandler;
@@ -1753,7 +1986,6 @@ public partial class catania_itineration_default :MetaPage {
         GetData.SetStaticFilter(DS.accmotiveapplied_crg, filterEpOperationDeb);
         DataAccess.SetTableForReading(DS.accmotiveapplied_crg, "accmotiveapplied");
         DataAccess.SetTableForReading(DS.accmotiveapplied_debit, "accmotiveapplied");
-
         DataAccess.SetTableForReading(DS.sorting1, "sorting");
         DataAccess.SetTableForReading(DS.sorting2, "sorting");
         DataAccess.SetTableForReading(DS.sorting3, "sorting");
@@ -1780,6 +2012,7 @@ public partial class catania_itineration_default :MetaPage {
         bool showinerationep = (rwebconf["showinerationep"].ToString().ToUpper() == "S");
         bool askitinerationclause = (rwebconf["askitinerationclause"].ToString().ToUpper() == "S");
         string itinerationclause = (rwebconf["itinerationclause"].ToString());
+        string refundlabel = rwebconf["refundlabel"].ToString();
 
         if (showitinerationlap == false) {
             DisableTappe();
@@ -1789,12 +2022,16 @@ public partial class catania_itineration_default :MetaPage {
         if (showinerationep == false) {
             DisableEP();
         }
-        HwTextBoxTappespese.Text = "Il/La sottoscritto/a, titolare della missione di cui si presenta rendiconto per il rimborso, "
-            + "dichiara che i documenti contabili allegati alla presente richiesta e riportanti i propri estremi identificativi "
-            + "sono conservati in originale presso l’emittente del documento in quanto, ai sensi del CAD, è «possibile risalire "
-            + "al loro contenuto attraverso altre scritture o documenti di cui sia obbligatoria la conservazione, anche se in "
-            + "possesso di terzi».\r"
-            + "I documenti contabili allegati non individuati nominativamente sono conservati dallo stesso dichiarante.";
+
+        HwTextBoxTappespese.Text = refundlabel;
+
+        //HwTextBoxTappespese.Text = "Il/La sottoscritto/a, titolare della missione di cui si presenta rendiconto per il rimborso, "
+        //    + "dichiara che i documenti contabili allegati alla presente richiesta e riportanti i propri estremi identificativi "
+        //    + "sono conservati in originale presso l’emittente del documento in quanto, ai sensi del CAD, è «possibile risalire "
+        //    + "al loro contenuto attraverso altre scritture o documenti di cui sia obbligatoria la conservazione, anche se in "
+        //    + "possesso di terzi».\r"
+        //    + "I documenti contabili allegati non individuati nominativamente sono conservati dallo stesso dichiarante.\r"
+        //    + "Si dichiara, inoltre, che la presente documentazione di spesa non è stata presentata ad altri enti per il rimborso.";
         /* ORIGINALE
                 if (askitinerationclause == false) {
                     HideReqClause();
@@ -1835,20 +2072,23 @@ public partial class catania_itineration_default :MetaPage {
 
         DataAccess.SetTableForReading(DS.itinerationrefund_advance, "itinerationrefund");
         DataAccess.SetTableForReading(DS.itinerationrefund_balance, "itinerationrefund");
+        DataAccess.SetTableForReading(DS.itinerationrefund_ref, "itinerationrefund");
         DataAccess.SetTableForReading(DS.itinerationrefundkind_advance, "itinerationrefundkind");
         DataAccess.SetTableForReading(DS.itinerationrefundkind_balance, "itinerationrefundkind");
+        DataAccess.SetTableForReading(DS.itinerationrefundkind_ref, "itinerationrefundkind");
+        DataAccess.SetTableForReading(DS.itineration_ref, "itineration");
         QueryCreator.SetTableForPosting(DS.itinerationrefund_advance, "itinerationrefund");
         QueryCreator.SetTableForPosting(DS.itinerationrefund_balance, "itinerationrefund");
         GetData.SetStaticFilter(DS.itinerationrefund_advance, QHS.CmpEq("flagadvancebalance", "A"));
         GetData.SetStaticFilter(DS.itinerationrefund_balance, QHS.CmpEq("flagadvancebalance", "S"));
-
+        GetData.SetStaticFilter(DS.itinerationrefund_ref, QHS.CmpEq("flagadvancebalance", "S"));
         setdataoggi();
         object idreg = PState.var["idreg"];
         string cf = CF_User();
         if (cf != null && idreg == null) {
             DataTable T = Conn.RUN_SELECT("registry", "*", null,
                 QHS.AppAnd(new string[]{QHS.CmpEq("cf", cf), QHS.CmpEq("active","S"), //QHS.CmpEq("human","S"),
-                      " (idreg IN(SELECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL))  " }),
+                      " (idreg IN(SELECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL and (active = \'S\') ))  " }),
                 null, true);
             if (T.Rows.Count == 1) {
                 PState.var["idreg"] = idreg = T.Rows[0]["idreg"];
@@ -1860,7 +2100,7 @@ public partial class catania_itineration_default :MetaPage {
 
         object hidecsa = PState.var["hidecsa"];
         if (hidecsa == null) {
-            int ncsa = Conn.RUN_SELECT_COUNT("legalstatuscontract", QHS.IsNotNull("csa_role"), false);
+            int ncsa = Conn.RUN_SELECT_COUNT("legalstatuscontract", QHS.AppAnd(QHS.IsNotNull("csa_role"),QHS.CmpEq("active", "S")), false);
             hidecsa = (ncsa == 0) ? "S" : "N";
             PState.var["hidecsa"] = hidecsa;
         }
@@ -1893,13 +2133,13 @@ public partial class catania_itineration_default :MetaPage {
         txtCodiceUPB.Visible = false;
         PanelUpb.Visible = false;
         if(Meta.edit_type == "ct_default") {
-
         }
-        //txtDataContabile.Visible = false;
-        //DateTime datafineorario = DateTime.MinValue;
-        //if (txtDataFineOrario.Text.ToString() != "") {
-        //    datafineorario = DateTime.ParseExact(txtDataFineOrario.Text, "dd/MM/yyyy HH.mm", System.Globalization.CultureInfo.InvariantCulture);
-        //}
+        txtPercAnticipo.Visible = false;// Ora gestiamo le % associate ai tipi spesa
+        lblPercAnticipo.Visible = false;
+        lblPercAnticipoCorso.Visible = false;
+        txtPercAnticipoCorso.Visible = false;// l'abbiamo aggiunto alla pagina casomai domani chiedono di 
+        // valorizzare la % di anticipo, ma per ora sarà invisibile e con valore 0% perchè la spesa
+        //per iscrizioni a corsi e convegni non è soggetta ad anticipo.
     }
 
     public override void DoCommand(string command) {
@@ -1911,9 +2151,12 @@ public partial class catania_itineration_default :MetaPage {
         if (command == "StampaMissione") {
             btnStampaMissione_Click();
         }
-    }
+		if (command == "AnnullaMissione") {
+			btnAnnullaMissione_Click();
+		}
+	}
 
-    void HideCsa() {
+	void HideCsa() {
         string script = "$(function(){\r\n" +
           "$(\".csahid\").each(function(index){\r\n" +
           "    $(this).css(\"display\",\"none\");\r\n" +
@@ -1971,7 +2214,7 @@ public partial class catania_itineration_default :MetaPage {
         //btnDelTappa.Visible = false;
         //btnEditTappa.Visible = false;
         //dgrTappe.Visible = false;
-        //PanelTappe.Visible = false;      //gboxlblgrpTappe.Visible = false;
+        PanelTappe.Visible = false;      //gboxlblgrpTappe.Visible = false;
         //PanelTappeespese.Visible = false;
         string script = "$(function(){\r\n" +
             "$('#titleTappe').html('Dettaglio Spese');\r\n" +
@@ -2029,18 +2272,29 @@ public partial class catania_itineration_default :MetaPage {
         //string sorting;
 
         object datainizio = Curr["starttime"];//Curr[MissFun.CampoDataPerPosGiuridica];
+        object datastart = Curr["start"];
+        if (
+            ((datainizio == DBNull.Value) || (((DateTime)datainizio) == QueryCreator.EmptyDate())) 
+            && 
+            ((datastart == DBNull.Value) || (((DateTime)datastart) == QueryCreator.EmptyDate()))
+            ) {
+                ClearPosGiuridica();
+                return;
+            }
+        
+
         object datafine = Curr["stoptime"];
+        object datastop = Curr["stop"];
+        if (
+            ((datafine == DBNull.Value) || (((DateTime)datafine) == QueryCreator.EmptyDate())) 
+            &&
+            ((datastop == DBNull.Value) || (((DateTime)datastop) == QueryCreator.EmptyDate()))
+            ){
+                ClearPosGiuridica();
+                    return;
+        }
+
         object codicecreddeb = Curr["idreg"];
-
-        if ((datainizio == DBNull.Value) || (((DateTime)datainizio) == QueryCreator.EmptyDate())) {
-            ClearPosGiuridica();
-            return;
-        }
-        if ((datafine == DBNull.Value) || (((DateTime)datafine) == QueryCreator.EmptyDate())) {
-            ClearPosGiuridica();
-            return;
-        }
-
         if ((codicecreddeb == DBNull.Value) || (((int)codicecreddeb) <= 0)) {
             ClearPosGiuridica();
             return;
@@ -2050,7 +2304,7 @@ public partial class catania_itineration_default :MetaPage {
         string strdate = QueryCreator.quotedstrvalue((DateTime)datainizio, true);
         string strdatefine = QueryCreator.quotedstrvalue((DateTime)datafine, true);
 
-        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datafine));
+        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datafine), QHS.CmpEq("active", "S"));
 
         if ((LastFilterPosGiuridica == filter) && (!changerole))
             return;
@@ -2089,7 +2343,7 @@ public partial class catania_itineration_default :MetaPage {
 
         if (NposGiuridiche == 1) {
             SelClass = Conn.RUN_SELECT("legalstatuscontract",
-                        "idposition, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+                        "idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
                         null, filter, null, false);
             //btnCambiaRuolo.Visible = false;
         }
@@ -2111,7 +2365,7 @@ public partial class catania_itineration_default :MetaPage {
 
         int incomeclass = CfgFn.GetNoNullInt32(RowClass["incomeclass"]);
         txtClassStip.Text = incomeclass.ToString();
-        setPosizioneGiuridica(RowClass["idposition"]);
+        setPosizioneGiuridica(RowClass["idposition"], RowClass["livello"]);
         //            MyCfg.idposition = RowClass["idposition"];
         MyCfg.matricula = matricula;
         MyCfg.incomeclass = incomeclass;
@@ -2149,6 +2403,7 @@ public partial class catania_itineration_default :MetaPage {
         string filterGE;
         filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                         QHS.CmpEq("idposition", MyCfg.idposition),
+                        QHS.CmpEq("livello", MyCfg.livello),
                         "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 
@@ -2168,6 +2423,7 @@ public partial class catania_itineration_default :MetaPage {
 
     void resetPosizioneGiuridica() {
         MyCfg.idposition = DBNull.Value;
+        MyCfg.livello = DBNull.Value;
         MyCfg.foreignclass = "";
         //grpTappe.Enabled = false;
         EnableDisableControls(btnInsertTappa, true);
@@ -2181,8 +2437,9 @@ public partial class catania_itineration_default :MetaPage {
 
 
 
-    void setPosizioneGiuridica(object idposition) {
+    void setPosizioneGiuridica(object idposition, object livello) {
         MyCfg.idposition = idposition;
+        MyCfg.livello = livello;
         if (DS.position.Select(QHC.CmpEq("idposition", idposition)).Length > 0) {
             MyCfg.foreignclass = DS.position.Select(QHC.CmpEq("idposition", idposition))[0]["foreignclass"].ToString().ToUpper();
         }
@@ -2419,6 +2676,8 @@ public partial class catania_itineration_default :MetaPage {
             //EnableDisableControls(txtanticipoaccordato, true);
             //EnableDisableControls(txtapplierannotation, false);//Commento perchè è stato rimossa la sezione del pagamento
 
+            EnableDisableControls(btnAnnullaMissione, true);
+
             // disabilito l'inserimento delle tappe
 
             if (PState.IsFirstFillForThisRow) {
@@ -2460,7 +2719,7 @@ public partial class catania_itineration_default :MetaPage {
         setDateInizioFineSpesa();
         CheckAnticipiReadOnly();
         EnableDisableRefund();
-
+        disabilitaRendicontoSpeseRef();
         SetMainVisibility();
         //if (Meta.FirstFillForThisRow) VisualizzaBtnCambiaRuolo();
 
@@ -2477,7 +2736,7 @@ public partial class catania_itineration_default :MetaPage {
         //CalcolaTotali();
         if ((!PState.IsEmpty) && (PState.IsFirstFillForThisRow)) {
             grpIncaricato.Tag = "AutoChoose.txtIncaricato.default.((active = 'S')  AND " +
-                                " (idreg IN (SELECT idreg FROM registrylegalstatus)) AND " +
+                                " (idreg IN (SELECT idreg FROM registrylegalstatus where (active = 'S') )) AND " +
                                 //" (idreg IN (SELECT idreg FROM registrytaxablestatus)) AND " +
                                 " (human = 'S'))";
         }
@@ -2508,6 +2767,24 @@ public partial class catania_itineration_default :MetaPage {
         ValorizzaTextOrario();
     }
 
+    void disabilitaRendicontoSpeseRef() {
+        if (PState.InsertMode) {
+            PanelRendicontoSpeseRef.Visible = false;
+            return;
+        }
+        if (PState.IsEmpty) {
+            PanelRendicontoSpeseRef.Visible = false;
+            return;
+        }
+        if (DS.itinerationrefundkind_ref.Select().Length == 0) {
+            PanelRendicontoSpeseRef.Visible = false;
+            return;
+        }
+        if (DS.itinerationrefundkind_ref.Select().Length > 0) {
+            PanelRendicontoSpeseRef.Visible = true;
+            return;
+        }
+    }
     public void InibisciModificheSeAutorizzata() {
         if (PState.InsertMode) return;
         //Se non ci sono righe con flagstatus <> S 
@@ -2517,7 +2794,6 @@ public partial class catania_itineration_default :MetaPage {
             divAutorizzazioneAereo.Enabled = false;
             HwRdbNoFondiEsterni.Enabled = false;
             HwRdbSiFondiEsterni.Enabled = false;
-            HwRdbParteFondiEsterni.Enabled = false;
             HwCheckClause.Enabled = false;
             chkAereo.Enabled = false;
             chkNave.Enabled = false;
@@ -2576,8 +2852,8 @@ public partial class catania_itineration_default :MetaPage {
         MetaData.SetDefault(DS.itinerationrefund_advance, "stoptime", Curr["stoptime"]);
         MetaData.SetDefault(DS.itinerationrefund_advance, "flagadvancebalance", "A");
 
-MetaData.SetDefault(DS.itinerationrefund_balance, "starttime", Curr["starttime"]);
-MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
+        MetaData.SetDefault(DS.itinerationrefund_balance, "starttime", Curr["starttime"]);
+        MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
         MetaData.SetDefault(DS.itinerationrefund_balance, "flagadvancebalance", "S");
 
     }
@@ -2691,24 +2967,24 @@ MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
     }
 
 
-    void disabilitaRendicontoSpese() {
-        if (DS.itinerationrefund_balance.Select().Length == 0) {
-            grpRendicontoSpese.Visible = false;
-            return;
-        }
-        if (PState.IsEmpty) {
-            grpRendicontoSpese.Visible = true;
-            return;
-        }
-        DataRow Curr = DS.itineration.Rows[0];
-        object datainizio = Curr["starttime"];
-        if (dataoggi > (DateTime)datainizio) {
-            grpRendicontoSpese.Visible = false;
-        }
-        else {
-            grpRendicontoSpese.Visible = true;
-        }
-    }
+    //void disabilitaRendicontoSpese() {
+    //    if (DS.itinerationrefund_balance.Select().Length == 0) {
+    //        grpRendicontoSpese.Visible = false;
+    //        return;
+    //    }
+    //    if (PState.IsEmpty) {
+    //        grpRendicontoSpese.Visible = true;
+    //        return;
+    //    }
+    //    DataRow Curr = DS.itineration.Rows[0];
+    //    object datainizio = Curr["starttime"];
+    //    if (dataoggi > (DateTime)datainizio) {
+    //        grpRendicontoSpese.Visible = false;
+    //    }
+    //    else {
+    //        grpRendicontoSpese.Visible = true;
+    //    }
+    //}
     void AggiornaSoloInformazioni() {
         if (PState.IsEmpty)
             return;
@@ -2716,28 +2992,46 @@ MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
 
         string filter;
         string sorting;
-        object datainizio = Curr["starttime"];
-        object datafine = Curr["stop"];
-        object codicecreddeb = Curr["idreg"];
+
         QHS = Conn.GetQueryHelper();
         QHC = new CQueryHelper();
-        if ((datainizio == DBNull.Value) || (((DateTime)datainizio) == QueryCreator.EmptyDate())) {
-            ClearPosGiuridica();
-            return;
-        }
-        if ((datafine == DBNull.Value) || (((DateTime)datafine) == QueryCreator.EmptyDate())) {
+        object datainizio = Curr["starttime"];//Curr[MissFun.CampoDataPerPosGiuridica];
+        object datastart = Curr["start"];
+        if (
+            ((datainizio == DBNull.Value) || (((DateTime)datainizio) == QueryCreator.EmptyDate()))
+            &&
+            ((datastart == DBNull.Value) || (((DateTime)datastart) == QueryCreator.EmptyDate()))
+            ) {
             ClearPosGiuridica();
             return;
         }
 
+
+        object datafine = Curr["stoptime"];
+        object datastop = Curr["stop"];
+        if (
+            ((datafine == DBNull.Value) || (((DateTime)datafine) == QueryCreator.EmptyDate()))
+            &&
+            ((datastop == DBNull.Value) || (((DateTime)datastop) == QueryCreator.EmptyDate()))
+            ) {
+            ClearPosGiuridica();
+            return;
+        }
+
+        object codicecreddeb = Curr["idreg"];
         if ((codicecreddeb == DBNull.Value) || (((int)codicecreddeb) <= 0)) {
             ClearPosGiuridica();
             return;
         }
 
+        if ((datainizio == DBNull.Value) || (((DateTime)datainizio) == QueryCreator.EmptyDate())) {
+            // se datainizio, ossia starttime, è null, vuol dire che la missione non è stata inserita da web, potrebbe trattarsi di missioni correlate(quelle che hanno valorizzato iditineration_rif)
+            // e cmq essendo null non deve eseguire il codice che segue.
+            return;
+		}
 
-        string strdate = QueryCreator.quotedstrvalue((DateTime)datainizio, true);
-        string strdatefine = QueryCreator.quotedstrvalue((DateTime)datafine, true);
+        //string strdate = QueryCreator.quotedstrvalue((DateTime)datainizio, true);
+        //string strdatefine = QueryCreator.quotedstrvalue((DateTime)datafine, true);
 
         filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb),
                             QHS.CmpLe("start", datainizio));
@@ -2753,9 +3047,9 @@ MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
         //    "idposition, incomeclass, incomeclassvalidity, maxincomeclass", 
         //    sorting, filter, "1", false);
 
-        string filtroInquadramento = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("idregistrylegalstatus", Curr["idregistrylegalstatus"]));
+        string filtroInquadramento = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("idregistrylegalstatus", Curr["idregistrylegalstatus"]), QHS.CmpEq("active", "S"));
         DataTable SelClass = Conn.RUN_SELECT("legalstatuscontract",
-                    "idposition, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+                    "idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
                     null, filtroInquadramento, null, false);
 
         if (SelClass.Rows.Count == 0) {
@@ -2782,7 +3076,7 @@ MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
         object matricula = Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", codicecreddeb), "extmatricula");
         int incomeclass = CfgFn.GetNoNullInt32(RowClass["incomeclass"]);
         txtClassStip.Text = incomeclass.ToString();
-        setPosizioneGiuridica(RowClass["idposition"]);
+        setPosizioneGiuridica(RowClass["idposition"], RowClass["livello"]);
         MyCfg.matricula = matricula;
         MyCfg.incomeclass = incomeclass;
         MyCfg.incomeclassvalidity = RowClass["incomeclassvalidity"];
@@ -2868,6 +3162,7 @@ MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
         filterGE = QHS.AppAnd(
             QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
             QHS.CmpEq("idposition", MyCfg.idposition),
+            QHS.CmpEq("livello", MyCfg.livello),
             "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
         DataTable DettGruppoEstero = Conn.RUN_SELECT("foreigngroupruledetail", "foreigngroupnumber",
@@ -3195,6 +3490,7 @@ MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
         foreach (DataRow S in DS.itinerationrefund_balance.Select()) {
             if (CfgFn.GetNoNullDecimal(S["amount"]) == 0) {
                 S["amount"] = S["requiredamount"];
+                S["amount_c"] = S["requiredamount_c"];
             }
         }
 
@@ -3310,7 +3606,18 @@ MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
         CfgFn.AssignNotEquals(Curr, "netfee", MyImporto - TotDip);
         CfgFn.AssignNotEquals(Curr, "total", MyImporto + TotAmm);
     }
+    public bool ApprovatadaTutti() {
+        
+        if ((DS.itinerationauthagency.Rows.Count > 0) &&  //Se ci sono agenti autorizzativi
+           (DS.itinerationauthagency.Select(QHC.CmpNe("flagstatus", "S")).Length == 0)) { // missione già approvata da tutti, non vi sono righe con flagstatus<>S
+            return true;
+        }
+        else {
+            // Se la missione non prevede Agenti autorizzativi oppre mancano delle approvazioni, la missione si può annullare.
+            return false;
+        }
 
+    }
     public void PoniInAutorizzazione() {
         DataRow curr = DS.itineration.Rows[0];
         object idoldstatus = curr["iditinerationstatus"];
@@ -3364,7 +3671,7 @@ MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
         //Aggiorna / Crea le righe nella Tabella Autorizzazioni in base al Modello Autorizzativo selezionato
         MetaData MetaAutorizzazione = ApplicationState.GetApplicationState(this).Dispatcher.Get("itinerationauthagency");
         MetaAutorizzazione.SetDefaults(DS.itinerationauthagency);
-
+        MetaAutorizzazione.DescribeColumns(DS.itinerationauthagency, "webdefault");
         DataTable authModelAuthAgency = Conn.RUN_SELECT("authmodelauthagency", null, null,
                         QHS.CmpEq("idauthmodel", Curr["idauthmodel"]), null, true);
         //Elimina dalla tabella Autorizzazioni le righe che non saranno utilizzate
@@ -3534,6 +3841,30 @@ MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", Curr["stoptime"]);
         CommFun.SetAutoMode(PanelUpb);
 
     }
+
+    public void btnAnnullaMissione_Click() {
+        DataRow CurrentRow = DS.itineration.Rows[0];
+
+        if (CurrentRow == null)
+            return;
+
+        int status = CfgFn.GetNoNullInt32(CurrentRow["iditinerationstatus"]);
+
+        if (!new[] { 1, 3, 5 }.Contains(status))
+            return;
+
+        bool res = ShowClientMessage("Sei sicuro di voler annullare la missione? " +
+            "Se si procede con l’annullamento, la missione non sarà più processabile e sarà necessario reinserirla.", "Avviso", System.Windows.Forms.MessageBoxButtons.YesNo);
+
+        if (!res)
+            return;
+
+        CurrentRow["iditinerationstatus"] = 7;
+		managingstatus = true;
+		CommFun.FreshPage(false, false);
+		managingstatus = false;
+		CommFun.DoMainCommand("mainsave");
+	}
 
     public override void BeforeClosing() {
 

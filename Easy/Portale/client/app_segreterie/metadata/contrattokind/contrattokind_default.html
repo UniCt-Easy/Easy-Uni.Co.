@@ -3,16 +3,16 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabcontrattokind_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabcontrattokind_default_0"><i class="fa fa-file-signature mr-1"></i>Principale</a>
+		<a href="#tabcontrattokind_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabcontrattokind_default_0"><i class="fa fa-file-signature mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabcontrattokind_default_1" class="nav-link" data-toggle="pill" data-target="#tabcontrattokind_default_1"><i class="fa fa-user-tie mr-1"></i>Inquadramento</a>
+		<a href="#tabcontrattokind_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcontrattokind_default_1"><i class="fa fa-user-tie mr-1"></i>Inquadramento</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabcontrattokind_default_2" class="nav-link" data-toggle="pill" data-target="#tabcontrattokind_default_2"><i class="fa fa-calendar-alt mr-1"></i>Periodi di validità</a>
+		<a href="#tabcontrattokind_default_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcontrattokind_default_2"><i class="fa fa-calendar-alt mr-1"></i>Periodi di validità</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabcontrattokind_default_3" class="nav-link" data-toggle="pill" data-target="#tabcontrattokind_default_3"><i class="fa fa-user-tag mr-1"></i>Ruoli associati</a>
+		<a href="#tabcontrattokind_default_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcontrattokind_default_3"><i class="fa fa-user-tag mr-1"></i>Ruoli associati</a>
 	</li>
 
 	</ul>
@@ -175,7 +175,7 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="contrattokind_default_indvacancacontrattuale">Abilita ind. vacanca contrattuale</label>
+					<label class="col-form-label col-md-12" for="contrattokind_default_indvacancacontrattuale">Abilita ind. vacanza contrattuale</label>
 					<div class="custom-control custom-radio">
 						<input id="contrattokind_default_indvacancacontrattualeSi" type="radio" name="contrattokind_default_indvacancacontrattuale" class="custom-control-input" data-tag="contrattokind.indvacancacontrattuale:S?contrattokinddefaultview.contrattokind_indvacancacontrattuale:Si" data-subentity  ><label for="contrattokind_default_indvacancacontrattualeSi"> Si</label>
 						<input id="contrattokind_default_indvacancacontrattualeNo" type="radio" name="contrattokind_default_indvacancacontrattuale" class="custom-control-input" data-tag="contrattokind.indvacancacontrattuale:N?contrattokinddefaultview.contrattokind_indvacancacontrattuale:No" data-subentity  ><label for="contrattokind_default_indvacancacontrattualeNo"> No</label>
@@ -204,10 +204,15 @@
 					<label class="col-form-label col-md-12" for="contrattokind_default_puntiorganico">Punti organico</label>
 					<input id="contrattokind_default_puntiorganico" type="text" class="form-control" data-tag="contrattokind.puntiorganico.fixed.2?contrattokinddefaultview.contrattokind_puntiorganico" data-subentity  />
 				</div>
-				<div class="col-md-6">
-					<div class="custom_lng_div" data-langkey="fieldlabelcontrattokind_default_siglaesportazione" >Sigla utilizzata dal sistema verso cui si esportano i dati (solitamente il MIUR)</div>
-					<label class="col-form-label col-md-12" for="contrattokind_default_siglaesportazione">Sigla esportazione</label>
-					<input id="contrattokind_default_siglaesportazione" type="text" class="form-control" data-tag="contrattokind.siglaesportazione?contrattokinddefaultview.contrattokind_siglaesportazione" data-subentity  />
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="contrattokind_default_tipopersonale">Categoria di personale</label>
+					<div class="custom-control custom-radio">
+						<input id="contrattokind_default_tipopersonaleD" type="radio" name="contrattokind_default_tipopersonale" class="custom-control-input" data-tag="contrattokind.tipopersonale:D?contrattokinddefaultview.contrattokind_tipopersonale:Docente" data-subentity  ><label for="contrattokind_default_tipopersonaleD"> Docente</label>
+						<input id="contrattokind_default_tipopersonaleP" type="radio" name="contrattokind_default_tipopersonale" class="custom-control-input" data-tag="contrattokind.tipopersonale:P?contrattokinddefaultview.contrattokind_tipopersonale:Personale tecnico-amministrativo" data-subentity  ><label for="contrattokind_default_tipopersonaleP"> Personale tecnico-amministrativo</label>
+						<input id="contrattokind_default_tipopersonaleR" type="radio" name="contrattokind_default_tipopersonale" class="custom-control-input" data-tag="contrattokind.tipopersonale:R?contrattokinddefaultview.contrattokind_tipopersonale:Ricercatore" data-subentity  ><label for="contrattokind_default_tipopersonaleR"> Ricercatore</label>
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -216,16 +221,21 @@
 					<label class="col-form-label col-md-12" for="contrattokind_default_siglaimportazione">Sigla importazione</label>
 					<input id="contrattokind_default_siglaimportazione" type="text" class="form-control" data-tag="contrattokind.siglaimportazione?contrattokinddefaultview.contrattokind_siglaimportazione" data-subentity  />
 				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelcontrattokind_default_siglaesportazione" >Sigla utilizzata dal sistema verso cui si esportano i dati (solitamente il MIUR)</div>
+					<label class="col-form-label col-md-12" for="contrattokind_default_siglaesportazione">Sigla esportazione</label>
+					<input id="contrattokind_default_siglaesportazione" type="text" class="form-control" data-tag="contrattokind.siglaesportazione?contrattokinddefaultview.contrattokind_siglaesportazione" data-subentity  />
+				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabcontrattokind_default_1" role="tabpanel">
-				<div class="gridx" id="grid_inquadramento_default" data-tag="inquadramento.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="tempdef,S,Si;tempdef,N,No;" ></div>
+				<div class="gridx" id="grid_inquadramento_default" data-tag="inquadramento.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabcontrattokind_default_2" role="tabpanel">
-				<div class="gridx" id="grid_contrattokindperiodo_default" data-tag="contrattokindperiodo.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_contrattokindperiodo_default" data-tag="contrattokindperiodo.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabcontrattokind_default_3" role="tabpanel">
-		<div id="grid_contrattokindposition_default" data-tag="position.default.default" data-custom-control="checklist" data-mdlconditionallookup="!idposition_position_active,S,Si;!idposition_position_active,N,No;!idposition_position_foreignclass,S,Si;!idposition_position_foreignclass,N,No;" ></div>
+		<div id="grid_contrattokindposition_default" data-tag="position.default.default" data-custom-control="checklist"  ></div>
 	</div>
 </div>
 </form>

@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @class localization
  * @description
@@ -64,7 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             this.localizeMenuOnTheFly();
 
             // localizzo pagina corrente. controlli standard (tab, label, nomi colonna...)
-            this.localizePage(appMeta.currentMetaPage);
+            if (appMeta.currApp.currentMetaPage) {
+                this.localizePage(appMeta.currApp.currentMetaPage);
+            }
 
         },
 
@@ -125,7 +110,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (!metapage) return console.log("localizePage: no metapage to localize");
             // 1. label: for
             this.labelPageLocalize(metapage);
-            // 2. tab: data-target
+            // 2. tab: data-bs-target
             this.tabLocalize(metapage);
             // 3. contenuto div qualsiasi
             this.divGeneralLocalize(metapage);
@@ -301,6 +286,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             $('#logoutButton').text(this["logoutButton"]);
             $('#welcome_lbl_id').text(this["welcome_lbl_id"]);
             $('#loginButton').text(this["loginButton"]);
+            $('#resetPwdMailId').text(this["resetPwdMailId"]);
             $('#gotoLogin_id').text(this["gotoLogin_id"]);
             $('#gotoRegister_id').text(this["gotoRegister_id"]);
         },

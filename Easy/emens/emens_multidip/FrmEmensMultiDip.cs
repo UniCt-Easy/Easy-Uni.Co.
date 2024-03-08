@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -92,7 +92,7 @@ namespace emens_multidip {
                 CalcolaDateDaPeriodo(Rauto[0], out Datainizio, out Datafine);
                 if (!CallStoredProcedure(R["taxcode"], Datainizio, Datafine)) continue;
                 else {
-                    MessageBox.Show("Ci sono ritenute da pagare", "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Ci sono ritenute da pagare", "Informazioni", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MetaData Metataxpay = MetaData.GetMetaData(this, "taxpay");
                     Metataxpay.Edit(meta.LinkedForm.ParentForm, "ritenutedapagare", true);
 
@@ -185,7 +185,7 @@ namespace emens_multidip {
             DataSet dsCheck = meta.Conn.CallSP("check_emens_unified",
                 new object[] { adate, yearnumber, startmonth, stopmonth }, -1, out errMsg);
             if (errMsg != null) {
-                MessageBox.Show(this, errMsg);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errMsg);
                 return false;
             }
 
@@ -195,11 +195,11 @@ namespace emens_multidip {
 
                 DataRow[] R = dsCheck.Tables[0].Select("severity = 'S'");
                 if (R.Length > 0) {
-                    MessageBox.Show(this, "Sono stati riscontrati degli errori bloccanti, l'E-Mens non verrà generato!\nCorreggere prima tali errori");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Sono stati riscontrati degli errori bloccanti, l'E-Mens non verrà generato!\nCorreggere prima tali errori");
                     return false;
                 }
                 else {
-                    MessageBox.Show(this, "Sono stati riscontrati degli errori non bloccanti, l'E-Mens verrà comunque generato ma potrebbe essere comunicati dati non corretti");
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Sono stati riscontrati degli errori non bloccanti, l'E-Mens verrà comunque generato ma potrebbe essere comunicati dati non corretti");
                 }
             }
             return true;
@@ -219,7 +219,7 @@ namespace emens_multidip {
 
             bool eseguiGenerazione = messaggio1 == "";
             if (!eseguiGenerazione) {
-                MessageBox.Show(this, "Inserire " + messaggio1.Substring(1));
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire " + messaggio1.Substring(1));
                 return;
             }
             // Controllo che siano presenti i dati non editabili nel form
@@ -231,7 +231,7 @@ namespace emens_multidip {
 
             eseguiGenerazione = messaggio2 == "";
             if (!eseguiGenerazione) {
-                MessageBox.Show(this, "Inserire una nuova denuncia, l'attuale non può essere utilizzata in quanto mancano i seguenti dati:\n" + messaggio2.Substring(1));
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Inserire una nuova denuncia, l'attuale non può essere utilizzata in quanto mancano i seguenti dati:\n" + messaggio2.Substring(1));
                 return;
             }
 
@@ -249,7 +249,7 @@ namespace emens_multidip {
 								 DS.emens.Rows[0]["stopmonth"]},
                 -1, out errMsg);
             if (errMsg != null) {
-                MessageBox.Show(this, errMsg);
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errMsg);
                 return;
             }
             StringWriter sw = new StringWriter();
@@ -280,7 +280,7 @@ namespace emens_multidip {
                     ref paramValues, -1, out errMsg);
 
                 if (errMsg != null) {
-                    MessageBox.Show(this, errMsg);
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errMsg);
                     writer.Close();
                     return;
                 }
@@ -325,7 +325,7 @@ namespace emens_multidip {
             writer.Close();
 
             if (numCollaboratori == 0) {
-                MessageBox.Show(this, "Nel periodo indicato non ci sono ritenute INPS, pertanto l'E-Mens generato non sarà valido."
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Nel periodo indicato non ci sono ritenute INPS, pertanto l'E-Mens generato non sarà valido."
                     + "\nAnno: " + DS.emens.Rows[0]["yearnumber"]
                     + "\nMese inizio: " + DS.emens.Rows[0]["startmonth"]
                     + "\nMese fine: " + DS.emens.Rows[0]["stopmonth"]);

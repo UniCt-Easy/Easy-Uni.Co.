@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,8 +37,6 @@ namespace meta_csapositionlookup
 
         protected override Form GetForm(string FormName){
             if (FormName == "lista") {
-                DefaultListType = "lista";
-                ActAsList();
                 return MetaData.GetFormByDllName("csapositionlookup_lista");
             }
             return null;
@@ -54,22 +52,14 @@ namespace meta_csapositionlookup
                 DescribeAColumn(T, "csa_role", "Ruolo CSA", nPos++);
                 DescribeAColumn(T, "csa_class", "Inquadr.CSA", nPos++);
                 DescribeAColumn(T, "csa_description", "Desr.CSA", nPos++);
-                DescribeAColumn(T, "!codeposition", "cod. Easy", "position.codeposition", nPos++);
-                DescribeAColumn(T, "!description", "Desc. Easy", "position.description", nPos++);
                 DescribeAColumn(T, "supposedtaxable", "Imponibile presunto", nPos++);
             }
-            if (ListingType == "default"){
-                foreach (DataColumn C in T.Columns)
-                    DescribeAColumn(T, C.ColumnName, "", -1);
-                int nPos = 1;
-                DescribeAColumn(T, "csa_compartment", "Comparto CSA", nPos++);
-                DescribeAColumn(T, "csa_role", "Ruolo CSA", nPos++);
-                DescribeAColumn(T, "csa_class", "Inquadr.CSA", nPos++);
-                DescribeAColumn(T, "csa_description", "Desr.CSA", nPos++);
-                DescribeAColumn(T, "!codeposition", "cod. Easy", "position.codeposition", nPos++);
-                DescribeAColumn(T, "!description", "Desc. Easy", "position.description", nPos++);
-                DescribeAColumn(T, "supposedtaxable", "Imponibile presunto", nPos++);
-            }
+        }
+        public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge) {
+            if (ListingType == "default") 
+                return base.SelectOne(ListingType, filter, "csapositionlookupview", ToMerge);
+
+            return base.SelectOne(ListingType, filter, searchtable, ToMerge);
         }
 
         public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {

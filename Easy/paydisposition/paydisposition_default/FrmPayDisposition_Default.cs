@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,6 +33,7 @@ using System.Xml;
 using System.Web;
 using Microsoft.CSharp;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace paydisposition_default {
     public partial class FrmPayDisposition_Default : MetaDataForm {
@@ -190,7 +191,7 @@ namespace paydisposition_default {
             tExcel.Columns.Add("causaleCBIdett", typeof(string));
             tExcel.Columns.Add("importo", typeof(decimal));
             tExcel.Columns.Add("codicepagamento", typeof(string));
-
+            tExcel.Columns.Add("codicemodpagamento", typeof(string));
             tExcel.Columns.Add("rimborsotasse", typeof(string));
             tExcel.Columns.Add("annoaccademico", typeof(string));
             tExcel.Columns.Add("annosolare", typeof(string));
@@ -491,7 +492,8 @@ namespace paydisposition_default {
 
         private void btnCBI_Click(object sender, EventArgs e) {
             // definizione file da creare
-            SaveFileDialog dlg = new SaveFileDialog();
+            SaveFileDialog _dlg = new SaveFileDialog();
+            ISaveFileDialog dlg = createSaveFileDialog(_dlg);
             string filename = "";
             if (dlg.ShowDialog() == DialogResult.OK)
                 filename = dlg.FileName;
@@ -668,6 +670,30 @@ namespace paydisposition_default {
                 drRighe["NumeroDocumento"] = leggi_NumMandato();
                 drRighe["RichiestaEsito"] = 0;
                 drRighe["SiglaProvincia"] = rDetail["province"].ToString();
+
+                if (drRighe["IndirizzoBeneficiario"].ToString() == "") {
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato inserito l'indirizzo.\n" +
+                        "L'operazione sarà annullata.", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+				}
+
+                if (drRighe["CapBeneficiario"].ToString() == "") {
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stato inserito il cap.\n" +
+                        "L'operazione sarà annullata.", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+				}
+
+                if (drRighe["LocalitaBeneficiario"].ToString() == "") {
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stata inserita la località.\n" +
+                        "L'operazioine sarà annullata.", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+				}
+
+                if (drRighe["SiglaProvincia"].ToString() == "") {
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Non è stata inserita la provincia.\n" +
+                        "L'operazione sarà annullata.", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+				}
                 
                 drRighe["TipoCodice"] = 3; // il 3 significa che come codice creditore andremo a specificare il CF
                 drRighe["TipoDocBeneficiario"] = 0;
@@ -930,14 +956,16 @@ namespace paydisposition_default {
                 "9-bonifici da parte di società emittenti carte di credito a favore di esercenti;" +
                 "Codificato;1;1|2|3|4|5|6|7|8|9",
                 "importo;Importo del dettaglio della disposizione;Numero;22",
-                "codicepagamento;Cod. Pagamento;Stringa;10",
+                "codicepagamento;Cod. Pagamento aggiuntivo / N.ro Conto Banca Italia;Stringa;10",
                 "codicemodpagamento;Cod. Modalità pagamento " +
                 " 1 - Bonifico " +
                 " 2 - Cassa" +
                 " 3 - Assegno Circolare" +
                 " 4 - Assegno Circolare Non Trasferibile" +
-                " 5 - Assegno di Quietanza;" +
-                "Codificato;1;1|2|3|4|5",
+                " 5 - Assegno di Quietanza" +
+                " 6 - Girofondo TAB A" +
+                " 7 - Girofondo TAB B;" +
+                "Codificato;1;1|2|3|4|5|6|7",
                 "rimborsotasse;Rimborso Tasse;Codificato;1;S|N" +
                 "annoaccademico;Anno accademico cui si riferiscono le spese(es.2015/2016);Stringa;9",
                 "annosolare;Anno solare in cui è stata sostenuta la spesa rimborsata);Stringa;4",
@@ -974,6 +1002,7 @@ namespace paydisposition_default {
 
             if (!ok) {
                 FrmViewError View = new FrmViewError(Out);
+                createForm(View, null);
                 View.Show();
             }
 
@@ -1114,42 +1143,41 @@ namespace paydisposition_default {
                         }
 
                         break;
-                    case "indirizzo":
-                        // controlli su tutti i campi indirizzo che devono essere obbliagatori
-                        if (val == "") {
-                            string err = " Indirizzo non valorizzato ma obbligatorio" + " alla riga " + rownum;
-                            DataRow row = T.NewRow();
-                            row["errors"] = err;
-                            T.Rows.Add(row);
-                            ok = false;
-                        }
-                        else {
-                            string cap = riga["cap"].ToString();
-                            string localita = riga["localita"].ToString();
-                            string provincia = riga["provincia"].ToString();
-                            if ((cap == "") || (localita == "") || (provincia == "")) {
-                                string err = "CAP/località/provincia non valorizzati ma obbligatori" +
-                                             " alla riga " + rownum;
-                                DataRow row = T.NewRow();
-                                row["errors"] = err;
-                                T.Rows.Add(row);
-                                ok = false;
-                            }
-                        }
+					//case "indirizzo":
+					//	// controlli su tutti i campi indirizzo che devono essere obbliagatori
+					//	if (val == "") {
+					//		string err = " Indirizzo non valorizzato ma obbligatorio" + " alla riga " + rownum;
+					//		DataRow row = T.NewRow();
+					//		row["errors"] = err;
+					//		T.Rows.Add(row);
+					//		ok = false;
+					//	} else {
+					//		string cap = riga["cap"].ToString();
+					//		string localita = riga["localita"].ToString();
+					//		string provincia = riga["provincia"].ToString();
+					//		if ((cap == "") || (localita == "") || (provincia == "")) {
+					//			string err = "CAP/località/provincia non valorizzati ma obbligatori" +
+					//						 " alla riga " + rownum;
+					//			DataRow row = T.NewRow();
+					//			row["errors"] = err;
+					//			T.Rows.Add(row);
+					//			ok = false;
+					//		}
+					//	}
 
-                        break;
-                    case "provincia":
-                        if ((val != "") && (val.Length != 2)) {
-                            string err = "La sigla della " + fieldname + " di tipo " + ftype + " e di valore " +
-                                         val.Trim() + " alla riga " + rownum + " deve essere di 2 caratteri";
-                            DataRow row = T.NewRow();
-                            row["errors"] = err;
-                            T.Rows.Add(row);
-                            ok = false;
-                        }
+					//	break;
+					//case "provincia":
+					//	if ((val != "") && (val.Length != 2)) {
+					//		string err = "La sigla della " + fieldname + " di tipo " + ftype + " e di valore " +
+					//					 val.Trim() + " alla riga " + rownum + " deve essere di 2 caratteri";
+					//		DataRow row = T.NewRow();
+					//		row["errors"] = err;
+					//		T.Rows.Add(row);
+					//		ok = false;
+					//	}
 
-                        break;
-                    case "datanasc":
+					//	break;
+					case "datanasc":
                         // controllo della data 
                         if (!controllaData(val) && (val != "")) {
                             string err = "Valore non previsto nella decodifica della data " + fieldname + " di tipo " +
@@ -1193,16 +1221,69 @@ namespace paydisposition_default {
 
                         break;
                     case "codicemodpagamento":
-                        if ((CfgFn.GetNoNullDecimal(val) < 0) || (CfgFn.GetNoNullDecimal(val) > 5)) {
+                        if ((CfgFn.GetNoNullDecimal(val) < 0) || (CfgFn.GetNoNullDecimal(val) > 7)) {
                             string err = "Valore non previsto per il campo " + fieldname + " di tipo " + ftype +
                                          " e di valore " +
-                                         val.Trim() + " alla riga " + rownum + ": inserire un valore non superiore a 5";
+                                         val.Trim() + " alla riga " + rownum + ": inserire un valore non superiore a 7";
                             DataRow row = T.NewRow();
                             row["errors"] = err;
                             T.Rows.Add(row);
                             ok = false;
                         }
 
+                        object numero_conto_bankit = riga["codicepagamento"];
+                        object iban = riga["iban"];
+                        //ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A richiede numero conto in Banca d'Italia
+                        if ((CfgFn.GetNoNullDecimal(val) == 6)  && 
+                             (trimString(numero_conto_bankit) == DBNull.Value)) {
+                            string err = "Informazioni incomplete  per il campo " + fieldname + " di tipo " + ftype +
+                                   " e di valore " +
+                                   val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab A si deve specificare il Numero Conto Banca d'Italia nel campo codicepagamento " +
+                                   "e non si deve specificare l'IBAN";
+                            DataRow row = T.NewRow();
+                            row["errors"] = err;
+                            T.Rows.Add(row);
+                            ok = false;
+                        }
+
+                        if ((CfgFn.GetNoNullDecimal(val) == 6) &&
+                            (trimString(iban) != DBNull.Value)) {
+                            string err = "Informazioni errate  per il campo " + fieldname + " di tipo " + ftype +
+                                   " e di valore " +
+                                   val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab A si deve specificare il Numero Conto Banca d'Italia nel campo codicepagamento " +
+                                   "e non si deve specificare l'IBAN";
+                            DataRow row = T.NewRow();
+                            row["errors"] = err;
+                            T.Rows.Add(row);
+                            ok = false;
+                        }
+
+                        //ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B richiede IBAN  e non numero conto in Banca d'Italia
+
+                        if ((CfgFn.GetNoNullDecimal(val) == 7) &&
+                            (trimString(iban) == DBNull.Value)  
+                            ) {
+                            string err = "Informazioni incomplete per il campo " + fieldname + " di tipo " + ftype +
+                                   " e di valore " +
+                                   val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab B si deve specificare il codice IBAN e non si deve specificare il conto Banca d'Italia";
+                            DataRow row = T.NewRow();
+                            row["errors"] = err;
+                            T.Rows.Add(row);
+                            ok = false;
+                        }
+
+
+                        if ((CfgFn.GetNoNullDecimal(val) == 7) &&
+                            (trimString(numero_conto_bankit) != DBNull.Value)
+                            ) {
+                            string err = "Informazioni errate per il campo " + fieldname + " di tipo " + ftype +
+                                   " e di valore " +
+                                   val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab B si deve specificare il codice IBAN e non si deve impostare il conto Banca d'Italia";
+                            DataRow row = T.NewRow();
+                            row["errors"] = err;
+                            T.Rows.Add(row);
+                            ok = false;
+                        }
                         break;
                     case "tipologiacorso":
                         if ((CfgFn.GetNoNullInt32(val) < 0) || (CfgFn.GetNoNullInt32(val) > 8)) {
@@ -1407,11 +1488,12 @@ namespace paydisposition_default {
                 if (codicemodpagamento != 0) {
                     if ((IBAN.Trim() == "") && (codicemodpagamento == 1)) // 1 Bonifico, 2 Cassa
                         codicemodpagamento = 2;
-                    if ((IBAN.Trim() != "") && (codicemodpagamento != 1)) // 1 Bonifico
+                    if ((IBAN.Trim() != "") && (codicemodpagamento != 1) && (codicemodpagamento != 7)) // 1 Bonifico 7 Girofondo tab B prevede l'IBAN
                         codicemodpagamento = 1;
                     rNew["paymethodcode"] = codicemodpagamento;
                 }
-                else {
+                else { // in tal caso non è stato selezionato un codice modalità pagamento tra quelli consentiti, allora imposto BONIFICO O CASSA a seconda
+                       // della presenza dell'IBAN
                     if (IBAN.Trim() == "") {
                         rNew["paymethodcode"] = 2; // cassa
                     }
@@ -1488,7 +1570,8 @@ namespace paydisposition_default {
             object idpaydisposition = Curr["idpaydisposition"];
 
             // definizione file da creare
-            SaveFileDialog dlg = new SaveFileDialog();
+            SaveFileDialog _dlg = new SaveFileDialog();
+            ISaveFileDialog dlg = createSaveFileDialog(_dlg);
             string filename = "";
             if (dlg.ShowDialog() == DialogResult.OK)
                 filename = dlg.FileName;
@@ -1514,6 +1597,7 @@ namespace paydisposition_default {
             var tracciato = getTracciato(tracciato_disppagamento);
             var TableTracciato = getTableTracciato(tracciato_disppagamento);
             var FT = new FrmShowTracciato(tracciato, TableTracciato, "struttura");
+            createForm(FT, null);
             FT.ShowDialog();
 
         }
@@ -1651,6 +1735,7 @@ namespace paydisposition_default {
             }
 
             WizCreaPagamenti F = new WizCreaPagamenti(RowSelected, Curr["motive"],meta as MetaData, conn as DataAccess, DSFinancial);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK) return;
             if (F.SavedData) {
                 selectIntoTable(DS.paydispositiondetail,eq("idpaydisposition", Curr["idpaydisposition"]));

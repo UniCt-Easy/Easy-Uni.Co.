@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -73,6 +73,7 @@ namespace sdi_acquisto_default {
 			this.btnImporta_all = new System.Windows.Forms.Button();
 			this.btnImporta_ipa = new System.Windows.Forms.Button();
 			this.grpDatiFattura = new System.Windows.Forms.GroupBox();
+			this.chk_enable_split_payment = new System.Windows.Forms.CheckBox();
 			this.txtDataRicezioneSdI = new System.Windows.Forms.TextBox();
 			this.label25 = new System.Windows.Forms.Label();
 			this.label14 = new System.Windows.Forms.Label();
@@ -124,8 +125,10 @@ namespace sdi_acquisto_default {
 			this.chkDT_decorrenzatermini = new System.Windows.Forms.CheckBox();
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.chkSE_scartoesitocommittente = new System.Windows.Forms.CheckBox();
-			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+			this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+			this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
@@ -494,6 +497,7 @@ namespace sdi_acquisto_default {
 			// 
 			// grpDatiFattura
 			// 
+			this.grpDatiFattura.Controls.Add(this.chk_enable_split_payment);
 			this.grpDatiFattura.Controls.Add(this.txtDataRicezioneSdI);
 			this.grpDatiFattura.Controls.Add(this.label25);
 			this.grpDatiFattura.Controls.Add(this.label14);
@@ -516,10 +520,22 @@ namespace sdi_acquisto_default {
 			this.grpDatiFattura.Controls.Add(this.txtFornitoreFE);
 			this.grpDatiFattura.Location = new System.Drawing.Point(13, 186);
 			this.grpDatiFattura.Name = "grpDatiFattura";
-			this.grpDatiFattura.Size = new System.Drawing.Size(621, 184);
+			this.grpDatiFattura.Size = new System.Drawing.Size(621, 206);
 			this.grpDatiFattura.TabIndex = 43;
 			this.grpDatiFattura.TabStop = false;
 			this.grpDatiFattura.Text = "Dati Fattura Elettronica";
+			// 
+			// chk_enable_split_payment
+			// 
+			this.chk_enable_split_payment.AutoSize = true;
+			this.chk_enable_split_payment.Enabled = false;
+			this.chk_enable_split_payment.Location = new System.Drawing.Point(78, 183);
+			this.chk_enable_split_payment.Name = "chk_enable_split_payment";
+			this.chk_enable_split_payment.Size = new System.Drawing.Size(128, 17);
+			this.chk_enable_split_payment.TabIndex = 34;
+			this.chk_enable_split_payment.Tag = "sdi_acquisto.split_payment:S:N";
+			this.chk_enable_split_payment.Text = "Applica Split Payment";
+			this.chk_enable_split_payment.UseVisualStyleBackColor = true;
 			// 
 			// txtDataRicezioneSdI
 			// 
@@ -740,7 +756,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(13, 415);
+			this.label3.Location = new System.Drawing.Point(13, 438);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(120, 21);
 			this.label3.TabIndex = 38;
@@ -750,7 +766,7 @@ namespace sdi_acquisto_default {
 			// txtNomeFilecompresso
 			// 
 			this.txtNomeFilecompresso.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNomeFilecompresso.Location = new System.Drawing.Point(13, 436);
+			this.txtNomeFilecompresso.Location = new System.Drawing.Point(13, 459);
 			this.txtNomeFilecompresso.Name = "txtNomeFilecompresso";
 			this.txtNomeFilecompresso.Size = new System.Drawing.Size(621, 20);
 			this.txtNomeFilecompresso.TabIndex = 37;
@@ -758,7 +774,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(16, 372);
+			this.label2.Location = new System.Drawing.Point(16, 395);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(70, 17);
 			this.label2.TabIndex = 36;
@@ -768,7 +784,7 @@ namespace sdi_acquisto_default {
 			// txtNomeFile
 			// 
 			this.txtNomeFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNomeFile.Location = new System.Drawing.Point(13, 392);
+			this.txtNomeFile.Location = new System.Drawing.Point(13, 415);
 			this.txtNomeFile.Name = "txtNomeFile";
 			this.txtNomeFile.Size = new System.Drawing.Size(621, 20);
 			this.txtNomeFile.TabIndex = 35;
@@ -1038,7 +1054,7 @@ namespace sdi_acquisto_default {
 			// 
 			// saveFileDialog1
 			// 
-			this.saveFileDialog1.SupportMultiDottedExtensions = true;
+			//this.saveFileDialog1.SupportMultiDottedExtensions = true;
 			// 
 			// Frm_sdi_acquisto_default
 			// 
@@ -1132,9 +1148,9 @@ namespace sdi_acquisto_default {
         private System.Windows.Forms.CheckBox chkEsisteFattura;
         private System.Windows.Forms.Button btnToProtocol;
         private System.Windows.Forms.Button btnGeneraFile;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.Button btnSalvaAllegati;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.Button btnXMLDT;
         private System.Windows.Forms.Button btnXMLSE;
         private System.Windows.Forms.Button btnXMLEC;
@@ -1158,5 +1174,8 @@ namespace sdi_acquisto_default {
         private System.Windows.Forms.Button btnVisualizzaSempl;
         private System.Windows.Forms.TextBox txtDataRicezioneSdI;
         private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.CheckBox chk_enable_split_payment;
+		private metadatalibrary.ISaveFileDialog saveFileDialog1;
+		private metadatalibrary.IFolderBrowserDialog folderBrowserDialog1;
 	}
 }

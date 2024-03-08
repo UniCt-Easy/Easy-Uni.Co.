@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,14 +27,23 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_apprelation_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_apprelation_default: DataSet {
+public partial class dsmeta_apprelation_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable appfielddetail_alias1 		=> (MetaTable)Tables["appfielddetail_alias1"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable appfielddetail 		=> (MetaTable)Tables["appfielddetail"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable apptab 		=> (MetaTable)Tables["apptab"];
+	public MetaTable apprelationkey 		=> (MetaTable)Tables["apprelationkey"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable appfielddetaildefaultview 		=> (MetaTable)Tables["appfielddetaildefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable apptabdefaultview 		=> (MetaTable)Tables["apptabdefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable apppagesdefaultview 		=> (MetaTable)Tables["apppagesdefaultview"];
@@ -67,52 +76,93 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_apprelation_default.xsd";
 
 	#region create DataTables
+	//////////////////// APPFIELDDETAIL_ALIAS1 /////////////////////////////////
+	var tappfielddetail_alias1= new MetaTable("appfielddetail_alias1");
+	tappfielddetail_alias1.defineColumn("columnname", typeof(string));
+	tappfielddetail_alias1.defineColumn("idappfielddetail", typeof(int),false);
+	tappfielddetail_alias1.defineColumn("idapppages", typeof(int),false);
+	tappfielddetail_alias1.defineColumn("title", typeof(string));
+	tappfielddetail_alias1.ExtendedProperties["TableForReading"]="appfielddetail";
+	Tables.Add(tappfielddetail_alias1);
+	tappfielddetail_alias1.defineKey("idappfielddetail", "idapppages");
+
 	//////////////////// APPFIELDDETAIL /////////////////////////////////
 	var tappfielddetail= new MetaTable("appfielddetail");
-	tappfielddetail.defineColumn("afteractivationprefill", typeof(string));
-	tappfielddetail.defineColumn("afterrowselectprefill", typeof(string));
-	tappfielddetail.defineColumn("calculatedfieldfunction", typeof(string));
-	tappfielddetail.defineColumn("charnumber", typeof(int));
 	tappfielddetail.defineColumn("columnname", typeof(string));
-	tappfielddetail.defineColumn("defaultvalue", typeof(string));
-	tappfielddetail.defineColumn("eventtext", typeof(string));
-	tappfielddetail.defineColumn("eventtype", typeof(string));
-	tappfielddetail.defineColumn("forcedropdown", typeof(string));
-	tappfielddetail.defineColumn("forcekey", typeof(string));
-	tappfielddetail.defineColumn("hidden", typeof(string));
 	tappfielddetail.defineColumn("idappfielddetail", typeof(int),false);
-	tappfielddetail.defineColumn("idappfielddetail_sortmember", typeof(int));
 	tappfielddetail.defineColumn("idapppages", typeof(int),false);
-	tappfielddetail.defineColumn("idapptab", typeof(int));
-	tappfielddetail.defineColumn("ischeckbox", typeof(string),false);
-	tappfielddetail.defineColumn("islinkingobj", typeof(string));
-	tappfielddetail.defineColumn("isnullable", typeof(string));
-	tappfielddetail.defineColumn("listtype", typeof(string));
-	tappfielddetail.defineColumn("master", typeof(string));
-	tappfielddetail.defineColumn("position", typeof(int));
-	tappfielddetail.defineColumn("radiovalues", typeof(string));
-	tappfielddetail.defineColumn("readonlyfield", typeof(string));
-	tappfielddetail.defineColumn("sqltype", typeof(string));
-	tappfielddetail.defineColumn("tablefilter", typeof(string));
-	tappfielddetail.defineColumn("testvalue", typeof(string));
-	tappfielddetail.defineColumn("text", typeof(string));
-	tappfielddetail.defineColumn("textarea", typeof(string),false);
 	tappfielddetail.defineColumn("title", typeof(string));
-	tappfielddetail.defineColumn("uniqueonrow", typeof(string),false);
-	tappfielddetail.defineColumn("visible", typeof(string));
 	Tables.Add(tappfielddetail);
 	tappfielddetail.defineKey("idappfielddetail", "idapppages");
 
-	//////////////////// APPTAB /////////////////////////////////
-	var tapptab= new MetaTable("apptab");
-	tapptab.defineColumn("header", typeof(string));
-	tapptab.defineColumn("icon", typeof(string));
-	tapptab.defineColumn("idapppages", typeof(int),false);
-	tapptab.defineColumn("idapptab", typeof(int),false);
-	tapptab.defineColumn("position", typeof(int));
-	tapptab.defineColumn("title", typeof(string));
-	Tables.Add(tapptab);
-	tapptab.defineKey("idapppages", "idapptab");
+	//////////////////// APPRELATIONKEY /////////////////////////////////
+	var tapprelationkey= new MetaTable("apprelationkey");
+	tapprelationkey.defineColumn("idappfielddetail", typeof(int));
+	tapprelationkey.defineColumn("idappfielddetail_par", typeof(int));
+	tapprelationkey.defineColumn("idapppages", typeof(int),false);
+	tapprelationkey.defineColumn("idapprelation", typeof(int),false);
+	tapprelationkey.defineColumn("idapprelationkey", typeof(int),false);
+	tapprelationkey.defineColumn("!idappfielddetail_appfielddetail_columnname", typeof(string));
+	tapprelationkey.defineColumn("!idappfielddetail_appfielddetail_title", typeof(string));
+	tapprelationkey.defineColumn("!idappfielddetail_par_appfielddetail_columnname", typeof(string));
+	tapprelationkey.defineColumn("!idappfielddetail_par_appfielddetail_title", typeof(string));
+	Tables.Add(tapprelationkey);
+	tapprelationkey.defineKey("idapppages", "idapprelation", "idapprelationkey");
+
+	//////////////////// APPFIELDDETAILDEFAULTVIEW /////////////////////////////////
+	var tappfielddetaildefaultview= new MetaTable("appfielddetaildefaultview");
+	tappfielddetaildefaultview.defineColumn("appfielddetail_afteractivationprefill", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_afterrowselectprefill", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_calculatedfieldfunction", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_charnumber", typeof(int));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_defaultvalue", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_eventtext", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_eventtype", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_forcedropdown", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_forcekey", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_hidden", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_idappfielddetail_sortmember", typeof(int));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_idapptab", typeof(int));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_ischeckbox", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_islinkingobj", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_isnullable", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_listtype", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_master", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_max", typeof(int));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_min", typeof(int));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_position", typeof(int));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_radiovalues", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_readonlyfield", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_specialcontrol", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_sqltype", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_tablefilter", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_testvalue", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_text", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_textarea", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_title", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_uniqueonrow", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_val1", typeof(int));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_val2", typeof(int));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_visible", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetailsortmember_columnname", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetailsortmember_title", typeof(string));
+	tappfielddetaildefaultview.defineColumn("apptab_title", typeof(string));
+	tappfielddetaildefaultview.defineColumn("columnname", typeof(string));
+	tappfielddetaildefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tappfielddetaildefaultview.defineColumn("idappfielddetail", typeof(int),false);
+	tappfielddetaildefaultview.defineColumn("idapppages", typeof(int),false);
+	tappfielddetaildefaultview.defineColumn("sqltype_datasettype", typeof(string));
+	tappfielddetaildefaultview.defineColumn("sqltype_sqltype", typeof(string));
+	Tables.Add(tappfielddetaildefaultview);
+	tappfielddetaildefaultview.defineKey("idappfielddetail", "idapppages");
+
+	//////////////////// APPTABDEFAULTVIEW /////////////////////////////////
+	var tapptabdefaultview= new MetaTable("apptabdefaultview");
+	tapptabdefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tapptabdefaultview.defineColumn("idapppages", typeof(int),false);
+	tapptabdefaultview.defineColumn("idapptab", typeof(int),false);
+	Tables.Add(tapptabdefaultview);
+	tapptabdefaultview.defineKey("idapppages", "idapptab");
 
 	//////////////////// APPPAGESDEFAULTVIEW /////////////////////////////////
 	var tapppagesdefaultview= new MetaTable("apppagesdefaultview");
@@ -186,13 +236,29 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{appfielddetail.Columns["idappfielddetail"]};
-	var cChild = new []{apprelation.Columns["idappfielddetail_parent"]};
-	Relations.Add(new DataRelation("FK_apprelation_appfielddetail_idappfielddetail_parent",cPar,cChild,false));
+	var cPar = new []{apprelation.Columns["idapppages"], apprelation.Columns["idapprelation"]};
+	var cChild = new []{apprelationkey.Columns["idapppages"], apprelationkey.Columns["idapprelation"]};
+	Relations.Add(new DataRelation("FK_apprelationkey_apprelation_idapppages-idapprelation",cPar,cChild,false));
 
-	cPar = new []{apptab.Columns["idapptab"]};
+	cPar = new []{appfielddetail_alias1.Columns["idappfielddetail"]};
+	cChild = new []{apprelationkey.Columns["idappfielddetail_par"]};
+	Relations.Add(new DataRelation("FK_apprelationkey_appfielddetail_alias1_idappfielddetail_par",cPar,cChild,false));
+
+	cPar = new []{appfielddetail.Columns["idappfielddetail"]};
+	cChild = new []{apprelationkey.Columns["idappfielddetail"]};
+	Relations.Add(new DataRelation("FK_apprelationkey_appfielddetail_idappfielddetail",cPar,cChild,false));
+
+	cPar = new []{appfielddetaildefaultview.Columns["idappfielddetail"]};
+	cChild = new []{apprelation.Columns["idappfielddetail_parent"]};
+	Relations.Add(new DataRelation("FK_apprelation_appfielddetaildefaultview_idappfielddetail_parent",cPar,cChild,false));
+
+	cPar = new []{apptabdefaultview.Columns["idapptab"]};
 	cChild = new []{apprelation.Columns["idapptab"]};
-	Relations.Add(new DataRelation("FK_apprelation_apptab_idapptab",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_apprelation_apptabdefaultview_idapptab",cPar,cChild,false));
+
+	cPar = new []{apppagesdefaultview.Columns["idapppages"]};
+	cChild = new []{apptabdefaultview.Columns["idapppages"]};
+	Relations.Add(new DataRelation("FK_apptabdefaultview_apppagesdefaultview_idapppages",cPar,cChild,false));
 
 	cPar = new []{apppagesdefaultview.Columns["idapppages"]};
 	cChild = new []{apprelation.Columns["idapppages_parent"]};

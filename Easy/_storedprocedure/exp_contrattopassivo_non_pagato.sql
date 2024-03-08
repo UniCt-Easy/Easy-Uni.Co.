@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
--- exp_contrattopassivo_non_pagato 2016
+--setuser 'amm'
+-- exp_contrattopassivo_non_pagato 2022
 CREATE                PROCEDURE [exp_contrattopassivo_non_pagato]
 (
 	@ayear int,
@@ -49,11 +50,11 @@ DECLARE @npay int
 CREATE TABLE #mandate_detail 
 ( yman int, nman int, adate datetime, manager varchar (150), registry varchar(100), detaildescription varchar(150), npackage decimal(19,2), imponibile decimal(19,2), 
  taxrate decimal(19,2), discount varchar(11), total decimal(19,2) , ypay int, npay varchar(100), idmankind varchar(50), rownum int, idexp_pay int, 
-ymov int, nmov int )
+ymov int, nmov int, yepexp int, nepexp int )
 
 
 INSERT INTO #mandate_detail (idmankind, nman, yman, rownum, adate, detaildescription,manager, registry,npackage, imponibile, taxrate,
-				discount,total,ymov,nmov )
+				discount,total,ymov,nmov, yepexp, nepexp )
 SELECT distinct MD.idmankind, MD.nman, MD.yman,MD.rownum, M.adate,  MD.detaildescription, MG.title, RG.title, MD.npackage,
 	MD.taxable,
 	isnull(MD.taxrate * 100 , 0), 
@@ -64,14 +65,17 @@ SELECT distinct MD.idmankind, MD.nman, MD.yman,MD.rownum, M.adate,  MD.detaildes
 		)+
 	ROUND(MD.tax,2),
 	EX.ymov,
-	EX.nmov	
+	EX.nmov,
+	EP.yepexp,
+	EP.nepexp
 	FROM mandatedetail MD
 	JOIN mandate M					ON MD.idmankind= M.idmankind AND MD.nman = M.nman AND MD.yman = M.yman
 	LEFT OUTER JOIN manager MG		ON M.idman = MG.idman
 	LEFT OUTER JOIN  registry RG	ON ISNULL(M.idreg,MD.idreg) = RG.idreg 	
 	LEFT OUTER JOIN expense EX			ON MD.idexp_taxable=EX.idexp
+	LEFT OUTER JOIN epexp EP			ON MD.idepexp = EP.idepexp
 WHERE MD.yman = @ayear	AND ( MD.idmankind=@idmankind or @idmankind is null)
-AND stop IS NULL  AND
+AND MD.stop IS NULL  AND
 		(  MD.idexp_taxable is null OR
 			 NOT EXISTS (SELECT * FROM expenselink EL
 						JOIN expenselast elast on elast.idexp=el.idchild 
@@ -82,7 +86,8 @@ AND stop IS NULL  AND
 
 SELECT mandatekind.description AS 'Tipo Contratto', yman AS 'Esercizio', nman AS 'N.ordine', rownum AS 'N.dettaglio', adate AS 'Data contabile',
 	 manager AS 'Nome responsabile', registry AS 'Nome fornitore',detaildescription AS 'Descrizione detaglio', npackage AS 'Quantità', 
-	imponibile AS 'Imponibile', taxrate AS 'Iva %', discount AS 'Sconto',total AS 'Totale', ymov AS 'Eserc. Impegno', nmov AS 'Num. Impegno'
+	imponibile AS 'Imponibile', taxrate AS 'Iva %', discount AS 'Sconto',total AS 'Totale', ymov AS 'Eserc. Impegno', nmov AS 'Num. Impegno',
+	yepexp AS 'Eserc. Impegno di Budget', nepexp AS 'Num. Impegno di Budget'
 FROM #mandate_detail 
 JOIN mandatekind
 	ON #mandate_detail.idmankind = mandatekind.idmankind

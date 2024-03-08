@@ -10,21 +10,31 @@
               <xs:element name="_x0021_tesoro" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_totalece" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_tredicesima" type="xs:decimal" minOccurs="0" />
+              <xs:element name="anzianitamax" type="xs:int" minOccurs="0" />
+              <xs:element name="anzianitamin" type="xs:int" minOccurs="0" />
               <xs:element name="assegno" type="xs:decimal" minOccurs="0" />
               <xs:element name="classe" type="xs:int" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="elementoperequativo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="idstipendio" type="xs:int" />
               <xs:element name="iis" type="xs:decimal" minOccurs="0" />
+              <xs:element name="indennitaateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="indennitaposizioneminima" type="xs:decimal" minOccurs="0" />
               <xs:element name="irap" type="xs:decimal" minOccurs="0" />
               <xs:element name="lordo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lordonotredicesima" type="xs:decimal" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="rifnormativo" type="xs:string" minOccurs="0" />
               <xs:element name="scatto" type="xs:int" minOccurs="0" />
               <xs:element name="siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stipendio" type="xs:decimal" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="totale" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -33,8 +43,8 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:stipendio" />
-      <xs:field xpath="mstns:idcontrattokind" />
       <xs:field xpath="mstns:idinquadramento" />
+      <xs:field xpath="mstns:idposition" />
       <xs:field xpath="mstns:idstipendio" />
     </xs:unique>
   </xs:element>

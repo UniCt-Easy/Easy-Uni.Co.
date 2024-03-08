@@ -35,6 +35,7 @@
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -233,6 +234,7 @@
               <xs:element name="idsor2" type="xs:int" minOccurs="0" />
               <xs:element name="idsor3" type="xs:int" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -538,6 +540,7 @@
       <msdata:Relationship name="upb_payroll_payroll" msdata:parent="upb_payroll" msdata:child="payroll" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="upb_cedolinonontrasferibile_cedolinonontrasferibile" msdata:parent="upb_cedolinonontrasferibile" msdata:child="cedolinonontrasferibile" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="upb_cedolinoannosuccessivo_cedolinoannosuccessivo" msdata:parent="upb_cedolinoannosuccessivo" msdata:child="cedolinoannosuccessivo" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="parasubcontract_cedolinoannosuccessivo" msdata:parent="parasubcontract" msdata:child="cedolinoannosuccessivo" msdata:parentkey="idcon" msdata:childkey="idcon" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

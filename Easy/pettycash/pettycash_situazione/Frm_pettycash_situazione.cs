@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -252,7 +252,8 @@ namespace pettycash_situazione//fondopiccolespese_sit//
 			if (Out==null) return;
 			Out.Tables[0].TableName= "Situazione fondo economale";
 			frmSituazioneViewer View = new frmSituazioneViewer(Out);
-			View.Show();
+            createForm(View, null);
+            View.Show();
 
 		}
 

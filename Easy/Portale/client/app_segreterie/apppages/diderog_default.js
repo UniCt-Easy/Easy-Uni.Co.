@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+﻿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -84,12 +67,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#diderog_default_inesaurimentoSi'), true);
+				this.enableControl($('#diderog_default_inesaurimentoNo'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformvalutazionekind'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('appelloattivform'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformcaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('diderog'), this.getDataTable('canale'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('getdocentiperssd'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -99,13 +86,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('appelloattivform'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformcaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('diderog'), this.getDataTable('canale'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('getdocentiperssd'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
 			afterLink: function () {
 				var self = this;
+				$('#grid_attivform_erogata').data('mdlconditionallookup', 'tipovalutaz,P,Profitto;tipovalutaz,I,Idoneità;');
 				var grid_attivform_erogataChildsTables = [
 					{ tablename: 'attivformcaratteristica', edittype: 'erogata', columnlookup: 'cf', columncalc: '!attivformcaratteristica'},
 				];
@@ -128,12 +115,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-diderog_default");
-				$('#diderog_default_idcorsostudio').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#diderog_default_idcorsostudio').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#diderog_default_aa').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#diderog_default_aa').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#diderog_default_idsede').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#diderog_default_idsede').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#diderog_default_idcorsostudio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
+				$('#diderog_default_idcorsostudio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
+				$('#diderog_default_aa').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.aa);
+				$('#diderog_default_aa').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.aa);
+				$('#diderog_default_idsede').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idsede);
+				$('#diderog_default_idsede').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idsede);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -158,7 +145,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return this.superClass.insertClick(that, grid);
 			},
 
-			//beforePost
+			beforePost: function () {
+				var self = this;
+				this.getDataTable('getcostididattica').acceptChanges();
+				//innerBeforePost
+			},
 
 			managediderog_default_inesaurimento: function () {
 				var def = appMeta.Deferred("beforeFill-manageEsaurimento");

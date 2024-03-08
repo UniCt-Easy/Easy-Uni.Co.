@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,6 +27,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+
 
 namespace Backend.CommonBackend {
     /// <summary>
@@ -66,7 +67,7 @@ namespace Backend.CommonBackend {
             if (dt == null) {
                 dataSender.reject(HttpStatusCode.InternalServerError, conn.LastError);
             } else {
-                dataSender.resolve(DataUtils.dataTableToJSon(dt));
+                dataSender.resolve(DataUtils.dataTableToJSon(dt,true,true));
             }
         }
 
@@ -136,7 +137,7 @@ namespace Backend.CommonBackend {
                     partialDt.EndLoadData();
                     // serializzo dataTable
 
-                    var serCurrDt = DataUtils.dataTableToJSon(partialDt);
+                    var serCurrDt = DataUtils.dataTableToJSon(partialDt,true,true);
                     // eseguo notify con il dt parziale corrente
                     sender.notify(serCurrDt);
                     return;

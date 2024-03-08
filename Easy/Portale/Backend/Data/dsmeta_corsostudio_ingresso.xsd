@@ -244,12 +244,12 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="titolokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="titolokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idtitolokind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="titolokind_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -258,7 +258,6 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idsessione" type="xs:int" />
-              <xs:element name="idsessionekind" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -266,8 +265,6 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idsede" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
@@ -380,8 +377,6 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idstruttura" type="xs:int" />
-              <xs:element name="idupb" type="xs:string" minOccurs="0" />
-              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -494,8 +489,8 @@
       <xs:field xpath="mstns:iddidprog" />
       <xs:field xpath="mstns:iddidprog_acc" />
     </xs:unique>
-    <xs:unique name="titolokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:titolokind" />
+    <xs:unique name="titolokinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:titolokinddefaultview" />
       <xs:field xpath="mstns:idtitolokind" />
     </xs:unique>
     <xs:unique name="sessionedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -564,7 +559,7 @@
       <msdata:Relationship name="FK_didprogaccesso_didprog_alias2_iddidprog_acc" msdata:parent="didprog_alias2" msdata:child="didprogaccesso" msdata:parentkey="iddidprog" msdata:childkey="iddidprog_acc" />
       <msdata:Relationship name="FK_didprog_alias2_sede_idsede" msdata:parent="sede" msdata:child="didprog_alias2" msdata:parentkey="idsede" msdata:childkey="idsede" />
       <msdata:Relationship name="FK_didprog_alias2_annoaccademico_alias2_aa" msdata:parent="annoaccademico_alias2" msdata:child="didprog_alias2" msdata:parentkey="aa" msdata:childkey="aa" />
-      <msdata:Relationship name="FK_didprog_titolokind_idtitolokind" msdata:parent="titolokind" msdata:child="didprog" msdata:parentkey="idtitolokind" msdata:childkey="idtitolokind" />
+      <msdata:Relationship name="FK_didprog_titolokinddefaultview_idtitolokind" msdata:parent="titolokinddefaultview" msdata:child="didprog" msdata:parentkey="idtitolokind" msdata:childkey="idtitolokind" />
       <msdata:Relationship name="FK_didprog_sessionedefaultview_idsessione" msdata:parent="sessionedefaultview" msdata:child="didprog" msdata:parentkey="idsessione" msdata:childkey="idsessione" />
       <msdata:Relationship name="FK_didprog_sededefaultview_idsede" msdata:parent="sededefaultview" msdata:child="didprog" msdata:parentkey="idsede" msdata:childkey="idsede" />
       <msdata:Relationship name="FK_didprog_geo_nation_alias2_idnation_langvis" msdata:parent="geo_nation_alias2" msdata:child="didprog" msdata:parentkey="idnation" msdata:childkey="idnation_langvis" />

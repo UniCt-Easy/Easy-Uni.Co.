@@ -3,6 +3,73 @@
   <xs:element name="dsmeta_perfprogettoobiettivoattivita_docenti" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfprogettoattivitainterazione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="commenti" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idperfinterazionekind" type="xs:int" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoattivitainterazione" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="utente" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfprogettoobiettivoattivitaattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivo" type="xs:int" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upbdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="upb_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accountminusabledefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="paridacc" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="perfprogettoobiettivoattivitadocentiview_alias1" msprop:TableForReading="perfprogettoobiettivoattivitadocentiview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -13,20 +80,12 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="perfprogettoobiettivo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfprogettoobiettivodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="idattach" type="xs:int" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idperfprogetto" type="xs:int" />
               <xs:element name="idperfprogettoobiettivo" type="xs:int" />
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
-              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -36,6 +95,7 @@
               <xs:element name="didprogsuddannokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idperfprogetto" type="xs:int" />
+              <xs:element name="idreg_respprogetto" type="xs:int" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="perfprogetto_benefici" type="xs:string" minOccurs="0" />
               <xs:element name="perfprogetto_ct" type="xs:dateTime" minOccurs="0" />
@@ -52,6 +112,7 @@
               <xs:element name="perfprogetto_note" type="xs:string" minOccurs="0" />
               <xs:element name="perfprogetto_risultato" type="xs:decimal" minOccurs="0" />
               <xs:element name="perfprogettostatus_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registryrespprogetto_title" type="xs:string" minOccurs="0" />
               <xs:element name="struttura_idstrutturakind" type="xs:int" minOccurs="0" />
               <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
               <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
@@ -70,10 +131,12 @@
               <xs:element name="datainizioeffettiva" type="xs:dateTime" minOccurs="0" />
               <xs:element name="datainizioprevista" type="xs:dateTime" minOccurs="0" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc" type="xs:string" minOccurs="0" />
               <xs:element name="idperfprogetto" type="xs:int" />
               <xs:element name="idperfprogettoobiettivo" type="xs:int" />
               <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" />
               <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="paridperfprogettoobiettivoattivita" type="xs:int" minOccurs="0" />
@@ -84,13 +147,40 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoattivitainterazione" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoattivitainterazione" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
+    </xs:unique>
+    <xs:unique name="attach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivoattivitaattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivoattivitaattach" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idperfprogetto" />
+      <xs:field xpath="mstns:idperfprogettoobiettivo" />
+      <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
+    </xs:unique>
+    <xs:unique name="upbdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbdefaultview" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="accountminusabledefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accountminusabledefaultview" />
+      <xs:field xpath="mstns:idacc" />
+      <xs:field xpath="mstns:paridacc" />
+    </xs:unique>
+    <xs:unique name="perfprogettoobiettivoattivitadocentiview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfprogettoobiettivoattivitadocentiview_alias1" />
       <xs:field xpath="mstns:idperfprogetto" />
       <xs:field xpath="mstns:idperfprogettoobiettivo" />
       <xs:field xpath="mstns:idperfprogettoobiettivoattivita" />
     </xs:unique>
-    <xs:unique name="perfprogettoobiettivo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:perfprogettoobiettivo" />
+    <xs:unique name="perfprogettoobiettivodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfprogettoobiettivodefaultview" />
       <xs:field xpath="mstns:idperfprogetto" />
       <xs:field xpath="mstns:idperfprogettoobiettivo" />
     </xs:unique>
@@ -107,9 +197,14 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitaattach_perfprogettoobiettivoattivita_idperfprogetto-idperfprogettoobiettivo-idperfprogettoobiettivoattivita" msdata:parent="perfprogettoobiettivoattivita" msdata:child="perfprogettoobiettivoattivitaattach" msdata:parentkey="idperfprogetto idperfprogettoobiettivo idperfprogettoobiettivoattivita" msdata:childkey="idperfprogetto idperfprogettoobiettivo idperfprogettoobiettivoattivita" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitaattach_attach_idattach" msdata:parent="attach" msdata:child="perfprogettoobiettivoattivitaattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivita_upbdefaultview_idupb" msdata:parent="upbdefaultview" msdata:child="perfprogettoobiettivoattivita" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivita_accountminusabledefaultview_idacc" msdata:parent="accountminusabledefaultview" msdata:child="perfprogettoobiettivoattivita" msdata:parentkey="idacc" msdata:childkey="idacc" />
       <msdata:Relationship name="FK_perfprogettoobiettivoattivita_perfprogettoobiettivoattivitadocentiview_alias1_paridperfprogettoobiettivoattivita" msdata:parent="perfprogettoobiettivoattivitadocentiview_alias1" msdata:child="perfprogettoobiettivoattivita" msdata:parentkey="idperfprogettoobiettivoattivita" msdata:childkey="paridperfprogettoobiettivoattivita" />
-      <msdata:Relationship name="FK_perfprogettoobiettivoattivitadocentiview_alias1_perfprogettoobiettivo_idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivo" msdata:child="perfprogettoobiettivoattivitadocentiview_alias1" msdata:parentkey="idperfprogettoobiettivo" msdata:childkey="idperfprogettoobiettivo" />
-      <msdata:Relationship name="FK_perfprogettoobiettivoattivita_perfprogettoobiettivo_idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivo" msdata:child="perfprogettoobiettivoattivita" msdata:parentkey="idperfprogettoobiettivo" msdata:childkey="idperfprogettoobiettivo" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivitadocentiview_alias1_perfprogettoobiettivodefaultview_idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivodefaultview" msdata:child="perfprogettoobiettivoattivitadocentiview_alias1" msdata:parentkey="idperfprogettoobiettivo" msdata:childkey="idperfprogettoobiettivo" />
+      <msdata:Relationship name="FK_perfprogettoobiettivoattivita_perfprogettoobiettivodefaultview_idperfprogettoobiettivo" msdata:parent="perfprogettoobiettivodefaultview" msdata:child="perfprogettoobiettivoattivita" msdata:parentkey="idperfprogettoobiettivo" msdata:childkey="idperfprogettoobiettivo" />
+      <msdata:Relationship name="FK_perfprogettoobiettivodefaultview_perfprogettodefaultview_idperfprogetto" msdata:parent="perfprogettodefaultview" msdata:child="perfprogettoobiettivodefaultview" msdata:parentkey="idperfprogetto" msdata:childkey="idperfprogetto" />
       <msdata:Relationship name="FK_perfprogettoobiettivoattivita_perfprogettodefaultview_idperfprogetto" msdata:parent="perfprogettodefaultview" msdata:child="perfprogettoobiettivoattivita" msdata:parentkey="idperfprogetto" msdata:childkey="idperfprogetto" />
     </xs:appinfo>
   </xs:annotation>

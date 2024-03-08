@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,15 +23,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'erogata':
-						this.describeAColumn(table, 'didprogcurr_title', 'Curriculum', null, 10, 256);
-						this.describeAColumn(table, 'didprogori_title', 'Orientamento', null, 20, 256);
-						this.describeAColumn(table, 'didproganno_title', 'Anno', null, 30, 2048);
-						this.describeAColumn(table, 'didprogporzanno_title', 'Porzione d\'anno', null, 40, 2048);
-						this.describeAColumn(table, 'attivform_title', 'Attivit‡ formativa', null, 50, -1);
-						this.describeAColumn(table, 'title', 'Denominazione', null, 60, 256);
-						this.describeAColumn(table, 'canale_CUIN', 'CUIN', null, 70, 9);
-						this.describeAColumn(table, 'XXaffidamento', 'Affidamento', null, 150, null);
-						this.describeAColumn(table, 'XXmutuazione', 'Mutuazione o fruizione', null, 160, null);
+						this.describeAColumn(table, 'didprogcurr_title', 'Curriculum', null, 1200, 256);
+						this.describeAColumn(table, 'didprogori_title', 'Orientamento', null, 2200, 256);
+						this.describeAColumn(table, 'didproganno_title', 'Anno', null, 3100, 2048);
+						this.describeAColumn(table, 'didprogporzanno_title', 'Porzione d\'anno', null, 4100, 2048);
+						this.describeAColumn(table, 'attivform_title', 'Attivit√† formativa', null, 5100, -1);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 6000, 256);
+						this.describeAColumn(table, 'canale_CUIN', 'CUIN', null, 7000, 9);
+						this.describeAColumn(table, 'XXaffidamento', 'Affidamento', null, 15000, null);
+						this.describeAColumn(table, 'XXmutuazione', 'Mutuazione o fruizione', null, 16000, null);
 //$objCalcFieldConfig_erogata$
 						break;
 //$objCalcFieldConfig$

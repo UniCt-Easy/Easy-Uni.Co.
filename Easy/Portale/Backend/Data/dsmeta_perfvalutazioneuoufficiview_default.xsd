@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfvalutazioneuoufficiview_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_perfvalutazioneuoufficiview_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview_alias1" msprop:TableForReading="strutturadefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneuodefaultview_alias1" msprop:TableForReading="perfvalutazioneuodefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneuodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfschedastatusdefaultview_alias1" msprop:TableForReading="perfschedastatusdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfschedastatus" type="xs:int" />
+              <xs:element name="perfschedastatus_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfschedastatusdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfschedastatus" type="xs:int" />
+              <xs:element name="perfschedastatus_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneuoufficiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idperfschedastatus" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfschedastatus_child" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="idperfvalutazioneuo_child" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idstruttura_child" type="xs:int" />
+              <xs:element name="peso" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title_child" type="xs:string" minOccurs="0" />
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview_alias1" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneuodefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneuodefaultview_alias1" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+      <xs:field xpath="mstns:idstruttura" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneuodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneuodefaultview" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+      <xs:field xpath="mstns:idstruttura" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="perfschedastatusdefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfschedastatusdefaultview_alias1" />
+      <xs:field xpath="mstns:idperfschedastatus" />
+    </xs:unique>
+    <xs:unique name="perfschedastatusdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfschedastatusdefaultview" />
+      <xs:field xpath="mstns:idperfschedastatus" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneuoufficiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneuoufficiview" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+      <xs:field xpath="mstns:idperfvalutazioneuo_child" />
+      <xs:field xpath="mstns:idstruttura" />
+      <xs:field xpath="mstns:idstruttura_child" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfvalutazioneuoufficiview_year_year" msdata:parent="year" msdata:child="perfvalutazioneuoufficiview" msdata:parentkey="year" msdata:childkey="year" />
+      <msdata:Relationship name="FK_perfvalutazioneuoufficiview_strutturadefaultview_alias1_idstruttura_child" msdata:parent="strutturadefaultview_alias1" msdata:child="perfvalutazioneuoufficiview" msdata:parentkey="idstruttura" msdata:childkey="idstruttura_child" />
+      <msdata:Relationship name="FK_perfvalutazioneuoufficiview_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="perfvalutazioneuoufficiview" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_perfvalutazioneuoufficiview_perfvalutazioneuodefaultview_alias1_idperfvalutazioneuo_child" msdata:parent="perfvalutazioneuodefaultview_alias1" msdata:child="perfvalutazioneuoufficiview" msdata:parentkey="idperfvalutazioneuo" msdata:childkey="idperfvalutazioneuo_child" />
+      <msdata:Relationship name="FK_perfvalutazioneuoufficiview_perfvalutazioneuodefaultview_idperfvalutazioneuo" msdata:parent="perfvalutazioneuodefaultview" msdata:child="perfvalutazioneuoufficiview" msdata:parentkey="idperfvalutazioneuo" msdata:childkey="idperfvalutazioneuo" />
+      <msdata:Relationship name="FK_perfvalutazioneuoufficiview_perfschedastatusdefaultview_alias1_idperfschedastatus_child" msdata:parent="perfschedastatusdefaultview_alias1" msdata:child="perfvalutazioneuoufficiview" msdata:parentkey="idperfschedastatus" msdata:childkey="idperfschedastatus_child" />
+      <msdata:Relationship name="FK_perfvalutazioneuoufficiview_perfschedastatusdefaultview_idperfschedastatus" msdata:parent="perfschedastatusdefaultview" msdata:child="perfvalutazioneuoufficiview" msdata:parentkey="idperfschedastatus" msdata:childkey="idperfschedastatus" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

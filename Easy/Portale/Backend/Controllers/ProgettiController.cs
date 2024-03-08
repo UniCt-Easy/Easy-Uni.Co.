@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -20,22 +20,15 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Backend.CommonBackend;
 using Backend.Extensions;
-using metadatalibrary;
-using metaeasylibrary;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Net;
 using System.Web;
-using System.Web.Http;
-using System.Web.Http.Cors;
 using progettocosto_functions;
 using progettoricavo_functions;
 
-namespace Backend.Controllers {
+namespace Backend.Controllers
+{
 
 
 
@@ -63,7 +56,7 @@ namespace Backend.Controllers {
         /// <param name="prms">customEventQueryParameters</param>
         /// <returns></returns>
         [HttpPost, Route("calculateAmmortamento")]
-        public IHttpActionResult calculateAmmortamento(calcolaProgettoCostoPrms prms) {
+        public IHttpActionResult calculateAmmortamento([FromBody] calcolaProgettoCostoPrms prms) {
             var dispatcher = HttpContext.Current.getDataDispatcher();
             progettocosto_function pf = new progettocosto_function(dispatcher.conn);
 
@@ -87,7 +80,7 @@ namespace Backend.Controllers {
                 return Content(HttpStatusCode.OK, result);
             }
 
-            var jsonResDataSet = DataUtils.dataSetToJSon(ds1);
+            var jsonResDataSet = DataUtils.dataSetToJSon(ds1,false);
             result = new JObject {
                 {"error", null},
                 {"ds", jsonResDataSet}
@@ -102,7 +95,7 @@ namespace Backend.Controllers {
         /// <param name="prms">customEventQueryParameters</param>
         /// <returns></returns>
         [HttpPost, Route("calculateCostiProgetto")]
-        public IHttpActionResult calculateCostiProgetto(calcolaProgettoCostoPrms prms) {
+        public IHttpActionResult calculateCostiProgetto([FromBody] calcolaProgettoCostoPrms prms) {
             var dispatcher = HttpContext.Current.getDataDispatcher();
             progettocosto_function pf = new progettocosto_function(dispatcher.conn);
             progettoricavo_function pfr = new progettoricavo_function(dispatcher.conn);
@@ -137,7 +130,7 @@ namespace Backend.Controllers {
 
             ds.Tables.Add(dsr.Tables[0].Copy());
 
-            var jsonResDataSet = DataUtils.dataSetToJSon(ds);
+            var jsonResDataSet = DataUtils.dataSetToJSon(ds,false);
             result = new JObject {
                 {"error", null},
                 {"ds", jsonResDataSet}

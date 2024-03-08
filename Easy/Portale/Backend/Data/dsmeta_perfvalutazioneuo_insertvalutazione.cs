@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 	[Serializable, DesignerCategory("code"), System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 	[System.Xml.Serialization.XmlRoot("dsmeta_perfvalutazioneuo_insertvalutazione"), System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-	public class dsmeta_perfvalutazioneuo_insertvalutazione : DataSet {
+	public class dsmeta_perfvalutazioneuo_insertvalutazione :DataSet {
 
 		#region Table members declaration
 
@@ -122,7 +122,7 @@ namespace Backend.Data {
 			tperfobiettiviuo.defineColumn("!perfobiettiviuosoglia", typeof(string));
 			Tables.Add(tperfobiettiviuo);
 			tperfobiettiviuo.defineKey("idperfobiettiviuo", "idperfvalutazioneuo");
-		
+
 
 			//////////////////// PERFREQUESTOBBUNATANTUM /////////////////////////////////
 			var tperfrequestobbunatantum = new MetaTable("perfrequestobbunatantum");
@@ -151,7 +151,7 @@ namespace Backend.Data {
 			cPar = new[] { perfobiettiviuo.Columns["idperfobiettiviuo"], perfobiettiviuo.Columns["idperfvalutazioneuo"] };
 			cChild = new[] { perfobiettiviuosoglia.Columns["idperfobiettiviuo"], perfobiettiviuosoglia.Columns["idperfvalutazioneuo"] };
 			Relations.Add(new DataRelation("FK_perfobiettiviuosoglia_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo", cPar, cChild, false));
-			
+
 
 			#endregion
 

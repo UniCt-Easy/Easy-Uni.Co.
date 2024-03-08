@@ -80,6 +80,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="funzioni_configurazione">
+      <HintPath>..\..\..\progetti\sdiftp\dll\funzioni_configurazione.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>

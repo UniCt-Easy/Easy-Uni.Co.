@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,9 +45,9 @@ namespace no_table_f24ep {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnFileInput = new System.Windows.Forms.Button();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
-            this.saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
+            this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtContoDiAddebito = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -68,6 +68,9 @@ namespace no_table_f24ep {
             this.label = new System.Windows.Forms.Label();
             this.CMenu = new System.Windows.Forms.ContextMenu();
 			this.MenuEnterPwd = new System.Windows.Forms.MenuItem();
+            this.saveOutputFileDlg = createSaveFileDialog(_saveOutputFileDlg);
+            this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+            this.openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -113,7 +116,7 @@ namespace no_table_f24ep {
             // 
             // saveOutputFileDlg
             // 
-            this.saveOutputFileDlg.DefaultExt = "T24";
+            //this.saveOutputFileDlg.DefaultExt = "T24";
             // 
             // groupBox3
             // 
@@ -355,9 +358,9 @@ namespace no_table_f24ep {
         System.Data.DataTable tributi = new System.Data.DataTable();
         //private System.Windows.Forms.OpenFileDialog MyOpenFile;
         //private System.Windows.Forms.ProgressBar progressBarImport;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
-        private System.Windows.Forms.SaveFileDialog saveOutputFileDlg;
+        private System.Windows.Forms.SaveFileDialog _saveOutputFileDlg;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtContoDiAddebito;
         private System.Windows.Forms.Label label5;
@@ -376,5 +379,8 @@ namespace no_table_f24ep {
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.TextBox txtEmail;
+        private metadatalibrary.IOpenFileDialog openInputFileDlg;
+        private metadatalibrary.ISaveFileDialog saveOutputFileDlg;
+        private metadatalibrary.IFolderBrowserDialog folderBrowserDialog1;
     }
 }

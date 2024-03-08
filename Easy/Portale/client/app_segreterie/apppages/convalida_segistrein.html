@@ -2,13 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabconvalida_segistrein_0" class="nav-link active show" data-toggle="pill" data-target="#tabconvalida_segistrein_0"><i class="fa fa-arrows-alt-h mr-1"></i>Principale</a>
+		<a href="#tabconvalida_segistrein_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabconvalida_segistrein_0"><i class="fa fa-arrows-alt-h mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabconvalida_segistrein_1" class="nav-link" data-toggle="pill" data-target="#tabconvalida_segistrein_1"><i class="fa fa-sign-out-alt mr-1"></i>Convalidanti</a>
+		<a href="#tabconvalida_segistrein_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabconvalida_segistrein_1"><i class="fa fa-sign-out-alt mr-1"></i>Convalidanti</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabconvalida_segistrein_2" class="nav-link" data-toggle="pill" data-target="#tabconvalida_segistrein_2"><i class="fa fa-sign-in-alt mr-1"></i>Convalidati</a>
+		<a href="#tabconvalida_segistrein_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabconvalida_segistrein_2"><i class="fa fa-sign-in-alt mr-1"></i>Convalidati</a>
 	</li>
 
 	</ul>
@@ -29,7 +29,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#convalida_segistrein_data").datetimepicker();
+    $("#convalida_segistrein_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="convalida_segistrein_data">Data</label>

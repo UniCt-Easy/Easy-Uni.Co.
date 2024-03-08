@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,8 +27,9 @@ GO
 -- =========================================================================
 -- Prepara gli avvisi di pagamento da caricare sul WS della Banca di Sondrio
 -- =========================================================================
--- exp_posizionidebitorie_iuv '000000000014592'
+-- exp_posizionidebitorie_iuv '922179010000273'
 --setuser 'amm'
+--setuser 'amministrazione'
 CREATE PROCEDURE exp_posizionidebitorie_iuv
 	@iuv varchar(100)
 AS
@@ -94,12 +95,14 @@ BEGIN
 		iduniqueformcode,barcodevalue,	qrcodevalue ,codiceavviso, codicetassonomia
 		;
 		
+
 		with max_codice_tassonomia (idflusso,idreg,iduniqueformcode,codicetassonomia) as (
 			select top 1 idflusso,idreg,iduniqueformcode, codicetassonomia  FROM #advice
 			WHERE importo = ( select max(importo) from #advice A where 
 				A.idflusso = #advice.idflusso  AND
 				A.idreg = #advice.idreg  AND
-				A.iduniqueformcode = #advice.iduniqueformcode)
+				A.iduniqueformcode = #advice.iduniqueformcode AND
+				A.codicetassonomia IS NOT NULL)
 			)	
 	-- Valorizzo il codice tassonomia prevalente ovvero in base alla riga di imporot massimo
 	UPDATE #advice  SET codicetassonomia = (SELECT codicetassonomia FROM max_codice_tassonomia A
@@ -107,6 +110,32 @@ BEGIN
 												  A.idreg = #advice.idreg  AND
 												  A.iduniqueformcode = #advice.iduniqueformcode)
 
+ 
+   --- dopo aver uniformato i codici tassonomia, i dati devono essere ulteriormente ragguppati su di esso
+	SELECT  
+		idflusso,
+		iddetail,
+		idreg,
+		SUM(importo) AS   importo,
+		scadenza,
+		causale ,
+		iddisposizione  ,
+		--iniziovalidita,
+		--finevalidita,
+		nform,
+		iduniqueformcode,
+		barcodevalue, qrcodevalue , codiceavviso, codicetassonomia
+
+	INTO #advice1 FROM #advice group by 
+	idflusso,
+		iddetail,
+		causale, iddisposizione,
+		idreg,
+		scadenza,
+		nform,
+		iduniqueformcode,
+		barcodevalue, qrcodevalue , codiceavviso, codicetassonomia
+		--select * from #advice1
 	CREATE TABLE #address
 	(
 		idaddresskind int,
@@ -197,6 +226,7 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode,codicetassonomia) as (
 			select distinct coalesce(
 			invoicekind.description+' n.'+convert(varchar(10),flussocreditidetail.ninv)+'/'+convert(varchar(4),flussocreditidetail.yinv),
 			estimatekind.description+' n.'+convert(varchar(10),flussocreditidetail.nestim)+'/'+convert(varchar(4),flussocreditidetail.yestim),
+			substring(list.description,1,50),
 			'bollettino n.'+isnull(flussocreditidetail.nform,flussocreditidetail.iduniqueformcode)
 						, flussocreditidetail.description 
 			),
@@ -207,6 +237,7 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode,codicetassonomia) as (
 			from flussocreditidetail 
 			left outer join invoicekind on flussocreditidetail.idinvkind  = invoicekind.idinvkind
 			left outer join estimatekind on flussocreditidetail.idestimkind  = estimatekind.idestimkind
+			left outer join list on flussocreditidetail.idlist = list.idlist
 			WHERE flussocreditidetail.iuv =@iuv
 				and flussocreditidetail.annulment is null
 			)	
@@ -249,13 +280,13 @@ with descr_crediti (descr,idflusso,idreg,iduniqueformcode,codicetassonomia) as (
 		ADV.iduniqueformcode,
 		barcodevalue,
 		qrcodevalue ,codiceavviso, codicetassonomia
-	FROM	#advice AS ADV
+	FROM	#advice1 AS ADV
 		--join descr_crediti on ADV.iduniqueformcode=descr_crediti.iduniqueformcode 
 	LEFT OUTER JOIN		registry AS REG ON ADV.idreg = REG.idreg
 	LEFT OUTER JOIN		#address AS ADDR ON ADDR.idreg = REG.idreg
 	LEFT OUTER JOIN		registryreference AS REF ON REF.idreg = REG.idreg AND flagdefault = 'S'
-	
+ 
 END
 GO
 
- --exp_posizionidebitorie_iuv '000000000013481'
+ 

@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="funzioni_configurazione">
-      <HintPath>..\..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
-    </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
     </Reference>

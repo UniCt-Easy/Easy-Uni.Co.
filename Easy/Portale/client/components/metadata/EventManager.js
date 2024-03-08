@@ -1,35 +1,31 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+/*globals ObjectRow,DataRelation,define,self,jsDataSet,jsDataQuery,metaModel,appMeta,_ */
 
 /**
  * @module EventManger
  * @description
  * Manages the events communication
  */
-(function() {
+(function(logtypeEnum, logger, _, Deferred,when) {
 
-    var logType = appMeta.logTypeEnum;
-    var logger = appMeta.logger;
+    /** Detect free variable `global` from Node.js. */
+    let freeGlobal = typeof global === 'object' && global && global.Object === Object && global;
+    /** Detect free variable `self`. */
+    let freeSelf = typeof self === 'object' && self && self.Object === Object && self;
+    /** Used as a reference to the global object. */
+    let root = freeGlobal || freeSelf || Function('return this')();
+    /** Detect free variable `exports`. */
+    let freeExports = typeof exports === 'object' && exports && !exports.nodeType && exports;
+    /** Detect free variable `module`. */
+    let freeModule = freeExports && typeof module === 'object' && module && !module.nodeType && module;
+    //noinspection JSUnresolvedVariable
+    /** Detect free variable `global` from Node.js or Browserified code and use it as `root`. (thanks lodash)*/
+    let moduleExports = freeModule && freeModule.exports === freeExports;
 
     /**
      * List of the event type managed by the framework
      * @type {{ROW_SELECT: string, showModalWindow: string, closeModalWindow: string, listCreated: string, listManagerHideControl: string, insertClick: string, deleteClick: string, editClick: string, unlinkClick: string, textBoxGotFocus: string, toolbarButtonClick: string, mainToolBarLoaded: string, startClearMainRowEvent: string, stopClearMainRowEvent: string, startMainRowSelectionEvent: string, stopMainRowSelectionEvent: string, startRowSelectionEvent: string, stopRowSelectionEvent: string}}
      */
-    var eventEnum = {
+    let eventEnum = {
         ERROR_SERVER: "ERROR_SERVER",
         ROW_SELECT: "RowSelect",
         showModalWindow:"showModalWindow",
@@ -87,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         invoke: function (sender, args) {
             //console.log("invoke",args);
-             return this.callBack.apply(this.context, _.union([sender], args || []));
+            return this.callBack.apply(this.context, _.union([sender], args || []));
         }
     };
 
@@ -111,8 +107,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @method register
          * @public
          * @description SYNC
-         * Adds a listener to the event. Id adds ea new Delegate object to the subscribers collection
-         * @param {function} callback
+         * Adds a listener to the event. It adds a new Delegate object to the subscribers collection
+         * @param {function} callBack
          * @param {object} context
          */
         register: function(callBack, context) {
@@ -128,6 +124,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {type} context
          */
         unregister: function (callBack, context) {
+            //console.log("unregistering from ", this.eventName);
             _.remove(this.subscribers,
                 function(c) {
                     return c.callBack === callBack && c.context === context;
@@ -143,22 +140,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {object[]} [args]
          */
         trigger: function (sender, args) {
-            if (this.subscribers.length === 0) return $.Deferred().resolve(true);
-            var that = this;
-            //console.log(this.subscribers);
-    /*        return $.when(_.map(_.clone(this.subscribers),
-                function (sub) {
-                    // Per ogni sottoscrittore invoco la callback 
-                    //console.log("invoking:", that.eventName);
-                    return sub.invoke(sender, args);
-                }));*/
+            //console.log("Event trigger invoked on " + this.eventName);
+            //logger.log(logtypeEnum.INFO, "triggering_ " + this.eventName, Array.prototype.slice.call(args));
+            //console.log("triggering:", arguments[0],arguments[2]);
 
-            var chain = $.when();
+            //console.log("trigger("+sender+","+args)
+            if (this.subscribers.length === 0) {
+                // console.log("no subscribers")
+                return Deferred().resolve(true);
+            }
+
+            let chain = when();
 
             _.forEach(_.clone(this.subscribers), function (sub) {
                 chain  = chain.then(function () {
                     return  sub.invoke(sender, args);
-                })
+                });
             });
 
             return chain;
@@ -172,12 +169,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
     function EventManager() {
 
-        /**
-         *
-         * @type {[Event]}
-         */
+        /* {{Event}} */
         this.events = {};
-        return this;
+        this.events["increase"] = new Event("increase")
+        this.events["decrease"] = new Event("decrease")
     }
 
     EventManager.prototype = {
@@ -188,15 +183,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description SYNC
          * Attaches a listener "callback" to an event
-         * @param {String} typeEvent
+         * @param {string} eventType
          * @param {Function} callback
          * @param {Object} context this of the subscriber
          */
-        subscribe: function(typeEvent, callback, context) {
-            if (!this.events[typeEvent]) {
-                this.events[typeEvent] = new Event(typeEvent);
+        subscribe: function (eventType, callback, context) {
+            
+            if (!this.events[eventType]) {
+                this.events[eventType] = new Event(eventType);
+                //console.log("event created for " + eventType);
             }
-            this.events[typeEvent].register(callback, context);
+            this.events[eventType].register(callback, context);
+            //console.log("listener added for " + eventType);
         },
 
         /**
@@ -221,33 +219,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Invokes all listener's delegates, this is ASYNC
          * @param {string} type
          * @param {object} sender
-         * @paran {object} params
+         * @param {object} params
+         * @return Promise
          */
         trigger: function(type, sender) {
             // recupera la lista dei sottoscrittori a questo evento type
-            var event = this.events[type];
-            if (!event) return $.Deferred().resolve(true);
-            //console.log("trigger arguments sliced:", Array.prototype.slice.call(arguments,2));
+            let event = this.events[type];
+            if (!event) {
+                //console.log("event " + type + " not found ");               
+                if (type !== "increase" && type!="decrease"){
+                    //console.log("No one was subscribing "+type)
+                }
+                return Deferred().resolve(true);
+            }
+          
             return event.trigger(sender, Array.prototype.slice.call(arguments, 2));
         }
 
     };
 
     /**
+     * Class that helps waiting for events stabilization after some action, especially used in tests
      * @constructor Stabilizer
-     * @description
      */
     function Stabilizer() {
-        this.nesting = 0;
-        this.currentDeferred = new $.Deferred();
-        this.isPaused = false;
-        this.pauseDeferred = new $.Deferred().resolve(true);
-        this.enabled = true;
-        this.evManager = new EventManager();
+        this.reset();
+        this.monitoring = {};
     }
 
     Stabilizer.prototype = {
         constructor: Stabilizer,
+
+        reset: function () {
+            //console.log("resetting Stabilizer");
+            this.nesting = 0;
+            this.currentDeferred = new Deferred();
+            this.isPaused = false;
+            this.pauseDeferred = new Deferred().resolve(true);
+            this.enabled = true;
+            this.evManager = new EventManager();
+        },
+        /**
+         * Detect if d is a Deferred (duck typing)
+         * @param {object} d
+         * @return {boolean}
+         */
         isDeferred: function(d) {
             return d && d.then !== undefined && d.fail !== undefined;
         },
@@ -256,7 +272,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Returns a value and resolves it or fails with it when events are not paused
          * When event is fired, nesting is decreased
          * @param {object} result
-         * @param {boolean} [fail]
          * @returns {Deferred}
          */
         waitRunning: function(result) {
@@ -265,12 +280,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 //console.log("not waiting and returning",result);
                 return result;
             }
-            var res = $.Deferred();
-            var that = this;
+            let res = Deferred();
             this.pauseDeferred.done(function() {
-                result.then(function(err) {
+                result.then(function(r) {
                         //console.log("resolve with ", result);
-                        res.resolve(result);
+                        res.resolve(r);
                     },
                     function(err) {
                         //console.log("failing with ", result);
@@ -285,13 +299,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         /**
-         * Links result of targetDeferred to sourceDeferred
+         * Links result of sourceDeferred to targetDeferred so that when source is fired, target follows
          * @param {Deferred} targetDeferred
          * @param {Deferred} sourceDeferred
-         * @param {string} eventName
+         * @return {Deferred} targetDeferred
          */
-        takeFrom: function(targetDeferred, sourceDeferred, eventName) {
-            targetDeferred.__eventName = eventName;
+        takeFrom: function (targetDeferred, sourceDeferred) {
             sourceDeferred
                 .then(function(data) {
                         //console.log("waited and now:", data);
@@ -305,18 +318,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         /**
-         * Encapsulate a deferred in order to track the number of open promises
+         * Creates an encapsulated in order to track the number of open promises
          * @param {string} [eventName]
          * @returns {Deferred}
          */
         encapsulate: function(eventName) {
-            var that = this;
+            const that = this;
+            //console.log("encapsulating:" + eventName);
             //if (inputDeferred && inputDeferred.__createdByStabilizer) return inputDeferred;
             this.increaseNesting(eventName);
-            var outputDeferred = $.Deferred();
+
+            //we are creating the actual Deferred here
+            const outputDeferred = Deferred();
 
             outputDeferred.__eventName = eventName;
-            //we are creating the actual Deferred here
             outputDeferred.from = _.bind(this.takeFrom, this, outputDeferred);
 
             // called when the Deferred is resolved or rejected.
@@ -335,12 +350,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} [eventName]
          * @returns {Deferred}
          */
-        Deferred: function(eventName) {
+        Deferred: function (eventName) {
+            //console.log("creating Deferred:", eventName);
+            this.eventName = eventName;
             if (!this.enabled) {
-                return $.Deferred();
+                return Deferred(); //quello esterno
             }
             return this.encapsulate(eventName); //who owns the handle will pilote the promise
-
         },
 
         /**
@@ -359,33 +375,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @param {string} [eventName]
          **/
-        increaseNesting: function(eventName) {
+        increaseNesting: function (eventName) {
+            //console.log("-----------------------increaseNesting invoked on ", eventName, " and nesting ", this.nesting);
+            if (this.monitoring[eventName]!==undefined) {
+                this.monitoring[eventName]+= 1;
+            }
+            else {
+                this.monitoring[eventName] = 1;
+            }
+            //_.forEach(this.monitoring, function (value, key) {
+            //    console.log(key);
+            //});
             this.nesting++;
-            logger.log(logType.INFO, "increasing nesting", eventName, this.nesting);
+            //logger.log(logtypeEnum.INFO, "increasing nesting ", eventName, this.nesting);
             this.evManager.trigger("increase", this, eventName);
         },
-
+        showDeferred: function () {
+            console.log(JSON.stringify(this.monitoring));
+        },
         /**
          * Decrease number of open Deferred
          * @method decreaseNesting
          * @public
          * @param {string} [eventName]
          */
-        decreaseNesting: function(eventName) {
+        decreaseNesting: function (eventName) {
+            //console.log("---------------------decreaseNesting invoked on ", eventName, " and nesting ", this.nesting);
+            if (this.monitoring[eventName] !== undefined) {
+                this.monitoring[eventName] -= 1;
+                if (this.monitoring[eventName] == 0) delete this.monitoring[eventName];
+            }
+            else {
+                this.monitoring[eventName] = -1;
+            }
+            //_.forEach(this.monitoring, function (value, key) {
+            //    console.log(key);
+            //});
             this.nesting--;
-            logger.log(logType.INFO, "decreaseNesting ", eventName, this.nesting);
+            //logger.log(logtypeEnum.INFO, "decreaseNesting ", eventName, this.nesting);
             if (!this.evManager) console.log("this.evManager is null");
             this.evManager.trigger("decrease", this, eventName);
             if (this.nesting === 0) {
+                //console.log("resolving current deferred");
                 this.currentDeferred.resolve();
-                this.currentDeferred = new $.Deferred();
+                this.currentDeferred = new Deferred();
             }
             if (this.nesting < 0) throw "Deferred nesting level less than 0";
         },
 
         pause: function() {
             if (this.isPaused) return;
-            this.pauseDeferred = new $.Deferred();
+            this.pauseDeferred = new Deferred();
             this.isPaused = true;
         },
 
@@ -396,17 +436,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         /**
-         * Waits for unstability and then for stability. if the counter of the nested deferred is zero then resolves the stabilize method,
+         * Waits for instability and then for stability. if the counter of the nested deferred is zero then resolves the stabilize method,
          * otherwise instantiates a new DeferredListener
          * @param {bool} dontWaitForInstability  if true waits for stability only
          * @returns {Deferred}
          */
         stabilize: function(dontWaitForInstability) {
             if (this.nesting === 0 && dontWaitForInstability) {
-                logger.log(logType.INFO, "stabilize invoked: immediatly stabilized");
-                return $.Deferred().resolve();
+                //logger.log(logtypeEnum.INFO, "stabilize invoked: immediately stabilized");
+                return Deferred().resolve();
             }
-            logger.log(logType.INFO, this.nesting > 0 ? "stabilize invoked:  actually unstable:" + this.nesting : "stabilize invoked:  waiting for unstable");
+            logger.log(logtypeEnum.WARNING, this.nesting > 0 ? "stabilize invoked:  actually unstable:" + this.nesting : "stabilize invoked:  waiting for unstable");
             var listener = new DeferredListener(this);
             return listener.result;
         },
@@ -415,11 +455,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Wait for unstability and then for stability
          * @returns {Deferred}
          */
-        stabilizeToCurrent: function() {
-            //console.log(this.nesting > 0 ? "stabilize invoked:  actually unstable:" + this.nesting : "stabilize invoked:  waiting for unstable");
-            var listener = new DeferredListener(this, this.nesting);
+        stabilizeToCurrent: function(stillOpen) {
+            logger.log(logtypeEnum.WARNING, this.nesting > 0 ? "stabilize invoked:  actually unstable:" + this.nesting : "stabilize invoked:  waiting for unstable");
+            stillOpen = stillOpen|0;
+            let listener = new DeferredListener(this, this.nesting-stillOpen);
             return listener.result;
-
         }
     };
 
@@ -431,12 +471,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @param {number} desiredNesting
      */
     function DeferredListener(stabilizer, desiredNesting) {
-        this.desiredNesting = desiredNesting | 0;
+        this.desiredNesting = desiredNesting || 0;
         this.activated = stabilizer.nesting > this.desiredNesting;
-        this.result = $.Deferred();
+        this.result = Deferred();
         this.stabilizer = stabilizer;
         stabilizer.evManager.subscribe("decrease", this.decrease, this);
         if (!this.activated) {
+            //console.log("DeferredListener: this is not yet activated. Desired=", this.desiredNesting, " actual=", stabilizer.nesting);
             stabilizer.evManager.subscribe("increase", this.increase, this);
         }
     }
@@ -451,12 +492,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} eventName
          */
         decrease: function (source, eventName) {
-            //logger.log(logType.INFO, "decreasing raised ", eventName, this.activated, this.stabilizer.nesting);
+            //logger.log(logtypeEnum.INFO, "decreasing raised ", eventName, this.activated, this.stabilizer.nesting);
             if (this.activated && this.stabilizer.nesting === this.desiredNesting) {
                 this.stabilizer.evManager.unsubscribe("decrease", this.decrease, this);
                 this.stabilizer.evManager.unsubscribe("increase", this.increase, this);
                 this.result.resolve();
-                logger.log(logType.INFO, "stabilized was done");
+                //logger.log(logtypeEnum.INFO, "stabilized was done");
             }
         },
 
@@ -467,18 +508,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         increase: function (source, eventName) {
             this.activated = true;
-            //logger.log(logType.INFO, "increase raised ", eventName, this.activated, this.stabilizer.nesting);
+            //logger.log(logtypeEnum.INFO, "increase raised ", eventName, this.activated, this.stabilizer.nesting);
         }
 
     };
+    const stabilizer = new Stabilizer();
+    const myDeferred = _.bind(stabilizer.Deferred, stabilizer);
+    myDeferred.when = _.bind(when, stabilizer);
 
-    var stabilizer = new Stabilizer();
-    var myDeferred = _.bind(stabilizer.Deferred, stabilizer);
-    appMeta.Stabilizer = stabilizer;
-    appMeta.Deferred = myDeferred;
-    appMeta.ResolvedDeferred = _.bind(stabilizer.ResolvedDeferred, stabilizer);
-    appMeta.stabilize = _.bind(stabilizer.stabilize, stabilizer);
-    appMeta.stabilizeToCurrent = _.bind(stabilizer.stabilizeToCurrent, stabilizer);
-    appMeta.EventManager = EventManager;
-    appMeta.EventEnum = eventEnum;
-}());
+
+    const toExport = {
+        Stabilizer:stabilizer,
+        Deferred: myDeferred,
+        ResolvedDeferred: _.bind(stabilizer.ResolvedDeferred, stabilizer),
+        stabilize: _.bind(stabilizer.stabilize, stabilizer),
+        stabilizeToCurrent : _.bind(stabilizer.stabilizeToCurrent, stabilizer),
+        EventManager: EventManager,
+        EventEnum: eventEnum
+    };
+
+    // Some AMD build optimizers like r.js check for condition patterns like the following:
+    //noinspection JSUnresolvedVariable
+    if (freeExports && freeModule) {
+        // Export for a browser or Rhino.
+        if (root.appMeta) {
+            _.extend(root.appMeta, toExport);
+        }
+        else {
+            if (moduleExports) { // Export for Node.js or RingoJS.
+                (freeModule.exports = toExport).EventManager = toExport;
+            }
+            else { // Export for Narwhal or Rhino -require.
+                freeExports.EventManager = toExport;
+            }
+        }
+
+    }
+    else {
+        // Export for a browser or Rhino.
+        if (root.appMeta){
+            _.extend(root.appMeta, toExport);
+        }
+        else {
+            root.EventManager=toExport;
+        }
+
+    }
+
+}(  (typeof appMeta === 'undefined') ? require('./Logger').logTypeEnum : appMeta.logTypeEnum,
+    (typeof appMeta === 'undefined') ? require('./Logger').logger : appMeta.logger,
+    (typeof _ === 'undefined') ? require('lodash') : _,
+    (typeof $ === 'undefined') ? require('JQDeferred') : $.Deferred,
+    (typeof $ === 'undefined') ? require('JQDeferred').when : $.when
+));

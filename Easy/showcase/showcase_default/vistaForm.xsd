@@ -205,7 +205,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="upb_iva">
+        <xs:element name="upb_iva1">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idupb" type="xs:string" />
@@ -246,6 +246,31 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="showcasedetail_related">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idshowcase" type="xs:int" />
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="idlist_related" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="availability" type="xs:int" minOccurs="0" />
+              <xs:element name="idivakind" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="unitprice" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -277,9 +302,15 @@
       <xs:selector xpath=".//mstns:estimatekind" />
       <xs:field xpath="mstns:idestimkind" />
     </xs:unique>
-    <xs:unique name="upb_iva_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:upb_iva" />
+    <xs:unique name="upb_iva1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_iva1" />
       <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="showcasedetail_related_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:showcasedetail_related" />
+      <xs:field xpath="mstns:idshowcase" />
+      <xs:field xpath="mstns:idlist" />
+      <xs:field xpath="mstns:rownum" />
     </xs:unique>
   </xs:element>
   <xs:annotation>
@@ -289,8 +320,10 @@
       <msdata:Relationship name="upb_showcasedetail" msdata:parent="upb" msdata:child="showcasedetail" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="invoicekind_showcasedetail" msdata:parent="invoicekind" msdata:child="showcasedetail" msdata:parentkey="idinvkind" msdata:childkey="idinvkind" />
       <msdata:Relationship name="estimatekind_showcasedetail" msdata:parent="estimatekind" msdata:child="showcasedetail" msdata:parentkey="idestimkind" msdata:childkey="idestimkind" />
-      <msdata:Relationship name="upb_iva_showcasedetail" msdata:parent="upb_iva" msdata:child="showcasedetail" msdata:parentkey="idupb" msdata:childkey="idupb_iva" />
+      <msdata:Relationship name="upb_iva_showcasedetail" msdata:parent="upb_iva1" msdata:child="showcasedetail" msdata:parentkey="idupb" msdata:childkey="idupb_iva" />
       <msdata:Relationship name="listview_showcasedetail" msdata:parent="listview" msdata:child="showcasedetail" msdata:parentkey="idlist" msdata:childkey="idlist" />
+      <msdata:Relationship name="showcase_showcasedetail_related" msdata:parent="showcase" msdata:child="showcasedetail_related" msdata:parentkey="idshowcase" msdata:childkey="idshowcase" />
+      <msdata:Relationship name="showcasedetail_showcasedetail_related" msdata:parent="showcasedetail" msdata:child="showcasedetail_related" msdata:parentkey="idshowcase idlist" msdata:childkey="idshowcase idlist" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

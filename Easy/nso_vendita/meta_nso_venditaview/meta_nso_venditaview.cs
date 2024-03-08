@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -44,7 +44,7 @@ namespace meta_nso_venditaview {
                 foreach (DataColumn C in T.Columns)
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 int nPos = 1;
-                DescribeAColumn(T, "buyer_name", "Cliente", nPos++);
+                DescribeAColumn(T, "title", "Cliente", nPos++);
                 DescribeAColumn(T, "protocoldate", "Data Ricezione", nPos++);
                 DescribeAColumn(T, "adate", "Data Emissione", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
@@ -63,6 +63,9 @@ namespace meta_nso_venditaview {
                 DescribeAColumn(T, "rejectreason", "Annotazioni su rifiuto o accettazione", nPos++);
                 DescribeAColumn(T, "utente_accettata", "Utente accettazione", nPos++);
                 DescribeAColumn(T, "data_accettata", "Data accettazione", nPos++);
+                DescribeAColumn(T, "order_data_scadenza", "Data scadenza ordine", nPos++);
+                DescribeAColumn(T, "order_id", "ID", nPos++);
+                DescribeAColumn(T, "order_idemittente", "End Point", nPos++);
                 DescribeAColumn(T, "existsestimate", "Ordine creato in contabilità", nPos++);
                 DescribeAColumn(T, "tipodocumento", "Tipo Documento NSO", nPos++);
                 DescribeAColumn(T, "data_ricezione", "Data Ricezione NSO", nPos++);

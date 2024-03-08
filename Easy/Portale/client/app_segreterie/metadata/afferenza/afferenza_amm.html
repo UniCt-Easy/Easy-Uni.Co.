@@ -7,33 +7,33 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="afferenza_amm_idstruttura">U.O.</label>
-					<select id="afferenza_amm_idstruttura" class="custom-select d-block w-100"  data-source-name="strutturaperfelenchiview" data-value-member="idstruttura" data-display-member="dropdown_title" data-custom-control="combo" data-tag="afferenza.idstruttura?afferenzaammview.idstruttura" data-subentity   > </select>
+					<select id="afferenza_amm_idstruttura" class="custom-select d-block w-100"  data-source-name="strutturaperfelenchiview" data-value-member="idstruttura" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="afferenza.idstruttura?afferenzaammview.idstruttura" data-subentity   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#afferenza_amm_start").datepicker();
+    $("#afferenza_amm_start").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="afferenza_amm_start">Dal</label>
-					<input id="afferenza_amm_start" type="text" class="form-control" data-tag="afferenza.start?afferenzaammview.afferenza_start" data-subentity  />
+					<input id="afferenza_amm_start" type="text" class="form-control" data-tag="afferenza.start.g?afferenzaammview.afferenza_start.g" data-subentity  />
 				</div>
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#afferenza_amm_stop").datepicker();
+    $("#afferenza_amm_stop").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="afferenza_amm_stop">Al</label>
-					<input id="afferenza_amm_stop" type="text" class="form-control" data-tag="afferenza.stop?afferenzaammview.afferenza_stop" data-subentity  />
+					<input id="afferenza_amm_stop" type="text" class="form-control" data-tag="afferenza.stop.g?afferenzaammview.afferenza_stop.g" data-subentity  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="afferenza_amm_idmansionekind">Mansione</label>
-					<select id="afferenza_amm_idmansionekind" class="custom-select d-block w-100"  data-source-name="mansionekind" data-value-member="idmansionekind" data-display-member="title" data-custom-control="combo" data-tag="afferenza.idmansionekind?afferenzaammview.afferenza_idmansionekind" data-subentity   > </select>
+					<select id="afferenza_amm_idmansionekind" class="custom-select d-block w-100"  data-source-name="mansionekinddefaultview" data-value-member="idmansionekind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="afferenza.idmansionekind?afferenzaammview.afferenza_idmansionekind" data-subentity   > </select>
 				</div>
 			</div>
 </form>

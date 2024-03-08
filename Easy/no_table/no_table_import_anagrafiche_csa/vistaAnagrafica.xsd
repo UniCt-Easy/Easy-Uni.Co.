@@ -119,6 +119,9 @@
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idregistrylegalstatus" type="xs:int" />
               <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
+              <xs:element name="livello" type="xs:int" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="flagdefault" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

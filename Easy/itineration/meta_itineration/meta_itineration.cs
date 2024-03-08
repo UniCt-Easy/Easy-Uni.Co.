@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -64,9 +64,10 @@ namespace meta_itineration//meta_missione//
 			SetDefault(PrimaryTable, "adate", GetSys("datacontabile"));
 			SetDefault(PrimaryTable, "active", "S");
 			SetDefault(PrimaryTable, "authneeded", "X");
-			SetDefault(PrimaryDataTable, "clause_accepted", "N");
+			SetDefault(PrimaryTable, "clause_accepted", "N");
 			SetDefault(PrimaryTable, "flagmove", 0);
 			SetDefault(PrimaryTable, "flagoutside", "S");
+			SetDefault(PrimaryTable, "advanceapplied", "N");
 		}
 
 		public override bool IsValid(DataRow R, out string errmess, out string errfield) {

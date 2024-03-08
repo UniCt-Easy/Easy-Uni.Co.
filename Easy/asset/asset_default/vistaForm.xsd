@@ -945,6 +945,8 @@
               <xs:element name="_x0021_titleMotive" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_codeunderwriting" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_titleunderwriting" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_entryprofitreservedone" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_financesource" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

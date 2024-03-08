@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -70,7 +70,8 @@ namespace f24ep_default {
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtDataGenerazione = new System.Windows.Forms.TextBox();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageLiquidazioni = new System.Windows.Forms.TabPage();
             this.tabPageSanzioni = new System.Windows.Forms.TabPage();
@@ -418,7 +419,7 @@ namespace f24ep_default {
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "T24";
+            //this.saveFileDialog1.DefaultExt = "T24";
             // 
             // tabControl1
             // 
@@ -762,7 +763,8 @@ namespace f24ep_default {
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtDataGenerazione;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
+        private metadatalibrary.ISaveFileDialog saveFileDialog1;
         private System.Windows.Forms.DataGrid gridLiquidazioni;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageLiquidazioni;

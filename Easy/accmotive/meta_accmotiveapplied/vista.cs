@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,15 +29,15 @@ public class accmotiveappliedRow: MetaRow  {
 
 	#region Field Definition
 	public String idaccmotive{ 
-		get {if (this["idaccmotive"]==DBNull.Value)return null; return  (String)this["idaccmotive"];}
-		set {if (value==null) this["idaccmotive"]= DBNull.Value; else this["idaccmotive"]= value;}
+		get {return  (String)this["idaccmotive"];}
+		set {this["idaccmotive"]= value;}
 	}
 	public object idaccmotiveValue { 
 		get{ return this["idaccmotive"];}
-		set {if (value==null|| value==DBNull.Value) this["idaccmotive"]= DBNull.Value; else this["idaccmotive"]= value;}
+		set {this["idaccmotive"]= value;}
 	}
 	public String idaccmotiveOriginal { 
-		get {if (this["idaccmotive",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idaccmotive",DataRowVersion.Original];}
+		get {return  (String)this["idaccmotive",DataRowVersion.Original];}
 	}
 	public String paridaccmotive{ 
 		get {if (this["paridaccmotive"]==DBNull.Value)return null; return  (String)this["paridaccmotive"];}
@@ -51,70 +51,70 @@ public class accmotiveappliedRow: MetaRow  {
 		get {if (this["paridaccmotive",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["paridaccmotive",DataRowVersion.Original];}
 	}
 	public String codemotive{ 
-		get {if (this["codemotive"]==DBNull.Value)return null; return  (String)this["codemotive"];}
-		set {if (value==null) this["codemotive"]= DBNull.Value; else this["codemotive"]= value;}
+		get {return  (String)this["codemotive"];}
+		set {this["codemotive"]= value;}
 	}
 	public object codemotiveValue { 
 		get{ return this["codemotive"];}
-		set {if (value==null|| value==DBNull.Value) this["codemotive"]= DBNull.Value; else this["codemotive"]= value;}
+		set {this["codemotive"]= value;}
 	}
 	public String codemotiveOriginal { 
-		get {if (this["codemotive",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codemotive",DataRowVersion.Original];}
+		get {return  (String)this["codemotive",DataRowVersion.Original];}
 	}
 	public String motive{ 
-		get {if (this["motive"]==DBNull.Value)return null; return  (String)this["motive"];}
-		set {if (value==null) this["motive"]= DBNull.Value; else this["motive"]= value;}
+		get {return  (String)this["motive"];}
+		set {this["motive"]= value;}
 	}
 	public object motiveValue { 
 		get{ return this["motive"];}
-		set {if (value==null|| value==DBNull.Value) this["motive"]= DBNull.Value; else this["motive"]= value;}
+		set {this["motive"]= value;}
 	}
 	public String motiveOriginal { 
-		get {if (this["motive",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["motive",DataRowVersion.Original];}
+		get {return  (String)this["motive",DataRowVersion.Original];}
 	}
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	public String active{ 
 		get {if (this["active"]==DBNull.Value)return null; return  (String)this["active"];}
@@ -128,15 +128,15 @@ public class accmotiveappliedRow: MetaRow  {
 		get {if (this["active",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["active",DataRowVersion.Original];}
 	}
 	public String idepoperation{ 
-		get {if (this["idepoperation"]==DBNull.Value)return null; return  (String)this["idepoperation"];}
-		set {if (value==null) this["idepoperation"]= DBNull.Value; else this["idepoperation"]= value;}
+		get {return  (String)this["idepoperation"];}
+		set {this["idepoperation"]= value;}
 	}
 	public object idepoperationValue { 
 		get{ return this["idepoperation"];}
-		set {if (value==null|| value==DBNull.Value) this["idepoperation"]= DBNull.Value; else this["idepoperation"]= value;}
+		set {this["idepoperation"]= value;}
 	}
 	public String idepoperationOriginal { 
-		get {if (this["idepoperation",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idepoperation",DataRowVersion.Original];}
+		get {return  (String)this["idepoperation",DataRowVersion.Original];}
 	}
 	public String epoperation{ 
 		get {if (this["epoperation"]==DBNull.Value)return null; return  (String)this["epoperation"];}
@@ -150,15 +150,15 @@ public class accmotiveappliedRow: MetaRow  {
 		get {if (this["epoperation",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["epoperation",DataRowVersion.Original];}
 	}
 	public String in_use{ 
-		get {if (this["in_use"]==DBNull.Value)return null; return  (String)this["in_use"];}
-		set {if (value==null) this["in_use"]= DBNull.Value; else this["in_use"]= value;}
+		get {return  (String)this["in_use"];}
+		set {this["in_use"]= value;}
 	}
 	public object in_useValue { 
 		get{ return this["in_use"];}
-		set {if (value==null|| value==DBNull.Value) this["in_use"]= DBNull.Value; else this["in_use"]= value;}
+		set {this["in_use"]= value;}
 	}
 	public String in_useOriginal { 
-		get {if (this["in_use",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["in_use",DataRowVersion.Original];}
+		get {return  (String)this["in_use",DataRowVersion.Original];}
 	}
 	public String flagamm{ 
 		get {if (this["flagamm"]==DBNull.Value)return null; return  (String)this["flagamm"];}

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -117,15 +117,20 @@ public partial class MetaMasterBootstrap: System.Web.UI.MasterPage, MetaPageMast
             lblDipartimento.Text = Session["Dipartimento"].ToString();
             CPH_InfoUtente.Visible = true;
         }
-
+        
         if (Session["nome_universita"] != null) {
             lblNomeUniversita.Text = Session["nome_universita"].ToString();
         }
 
         //ImageButton5.Attributes.Add("onmouseover", "alert('ciao');");
-
-
-
+        
+        object catCfg = Session["system_config_catania_missioni"];
+        string unict = configManager.getCfg("unict");
+        if ((catCfg != null && catCfg.ToString().ToUpper() == "S")
+            || (unict != null && unict.ToUpper() == "S")) {
+            helpLinks.InnerHtml = "<a href=\"GuidaEasyWeb.pdf\" tabindex=\"-1\" onclick=\"window.open(this.href);return false;\" title=\"Manuale\">Documentazione</a> <a href=\"http://afi.unict.it/supporto/missioni\" tabindex=\"-1\" onclick=\"window.open(this.href);return false;\" title=\"Supporto\">Supporto</a>";
+            CPH_InfoUtente.Visible = true;
+        }
     }
 
     public string SavedFocus() {
@@ -412,26 +417,22 @@ public partial class MetaMasterBootstrap: System.Web.UI.MasterPage, MetaPageMast
         T.Columns["flagsystem"].Caption = "Note";
         T.Columns.Add("msg", typeof(string));
         T.Columns["msg"].Caption = "Messaggio di errore";
-        T.Columns.Add("kind", typeof(string));
-        T.Columns["kind"].Caption = "Gravità";
         T.Columns.Add("codice", typeof(string));
         T.Columns["codice"].Caption = "Codice";
-        //T.Columns.Add("table", typeof(string));
-        //T.Columns["table"].Caption = "Tabella";
-        //T.Columns.Add("operation", typeof(string));
-        //T.Columns["operation"].Caption = "Op.";
         T.Columns.Add("id", typeof(string));
         T.Columns["id"].Caption = "#";
+        T.Columns.Add("kind", typeof(string));
+        T.Columns["kind"].Caption = "Gravità";
         D.Tables.Add(T);
         Dictionary<string, bool> allm = new Dictionary<string, bool>();
-
+ 
         foreach (EasyProcedureMessage CM in PMC) {
             System.Data.DataRow R = T.NewRow();
             if (CM.flagsystem) {
-                R["flagsystem"] = "S";
+                R["flagsystem"] = "di SISTEMA";
             }
             else {
-                R["flagsystem"] = "Regola NON di SISTEMA";
+                R["flagsystem"] = "NON di SISTEMA";
             }
             string m = ConvertCarriages(CM.LongMess);
             R["msg"] = m;

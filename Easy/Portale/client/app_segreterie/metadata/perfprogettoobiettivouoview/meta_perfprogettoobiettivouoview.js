@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -45,7 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'description', 'Descrizione', null, 40, -1);
 						this.describeAColumn(table, 'peso', 'Peso per il progetto', 'fixed.2', 50, null);
 						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 60, null);
-						this.describeAColumn(table, '!perfprogettoobiettivosoglia', 'Soglie', null, 50, null);
+						this.describeAColumn(table, '!perfprogettoobiettivosoglia', 'Soglie dell\'obiettivo', null, 50, null);
+						this.describeAColumn(table, '!perfprogettosoglia', 'Soglie del progetto', null, 20, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -70,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 			primaryKey: function () {
-				return ["idstruttura", "idperfstrutturauo", "idperfvalutazioneuo", "idperfprogettoobiettivo"];
+				return ["idperfstrutturauo", "idperfvalutazioneuo", "idperfprogettoobiettivo"];
 			},
 
 

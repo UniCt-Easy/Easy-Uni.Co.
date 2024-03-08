@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,7 +36,7 @@ namespace meta_proceedsview {//meta_documentoincassoview//
 			Name = "reversali di incasso";
 		}
 		public override string GetSorting(string ListingType) {
-			if (ListingType=="lista")return "ypro desc, npro desc";
+			if (ListingType=="lista" || ListingType == "documentitrasmessi") return "ypro desc, npro desc";
 			return base.GetSorting (ListingType);
 		}
 

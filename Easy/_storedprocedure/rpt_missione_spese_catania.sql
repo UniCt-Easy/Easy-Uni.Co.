@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO 
 
-
+-- setuser 'amm'
 --setuser 'amministrazione'
 -- rpt_missione_spese_catania 2019, 30
 
@@ -41,13 +41,16 @@ SELECT
 	itinerationrefundkind.description AS itinerationrefundkind,
 	itinerationrefund.description,
 	itinerationrefund.extraallowance,
-	--itinerationrefund.amount,
+	itinerationrefund.amount,
+	itinerationrefund.amount_c,
+	/*
 	CASE 
 		WHEN exchangerate > 0 THEN
 			ROUND(isnull(amount,0) / exchangerate, 2)
 		ELSE
   			isnull(amount,0)
 		END as 'amount',
+	*/
 	isnull(itinerationrefund.advancepercentage,0) *100 AS advancepercentage,
 	itinerationrefund.starttime,
 	itinerationrefund.stoptime,

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -20,18 +20,19 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.Runtime.Caching;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using Backend.Components;
-using Backend.Extensions;
 using System.Web;
+using System.Text;
+using Backend.CommonBackend;
+using Backend.LDAP;
+using static Backend.CommonBackend.DBLogger;
 
 namespace Backend.Security {
 
@@ -310,14 +311,39 @@ namespace Backend.Security {
         /// <param name="password">La password.</param>
         /// <param name="salt">Il sale.</param>
         /// <param name="iterations">Il numero di iterazioni da effettuare.</param>
+        /// <param name="secureHashAlgorithm">Algoritmo di sicurezza Hash.</param>
         /// <returns>L'hash della password.</returns>
-        public static byte[] generateHash(string password, byte[] salt, int iterations) {
+        public static byte[] generateHash(string password, byte[] salt, int iterations, string secureHashAlgorithm = "SHA256")
+        {
             if (string.IsNullOrEmpty(password) || salt == null || iterations < 1) return null;
             if (salt.Length < 8) return null;
             var hash = new byte[LengthHash];
 
-            using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations)) {
-                hash = pbkdf2.GetBytes(LengthHash);
+            if (string.IsNullOrWhiteSpace(secureHashAlgorithm))
+                secureHashAlgorithm = "SHA256";
+
+            switch (secureHashAlgorithm)
+            {
+                case "SHA1":
+                    using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations))
+                    {
+                        hash = pbkdf2.GetBytes(LengthHash);
+                    }
+                    break;
+
+                case "SHA256":
+                    hash = new byte[32];
+                    using (SHA256 mySHA256 = SHA256.Create())
+                    {
+                        var psw = Encoding.UTF8.GetBytes(password);
+                        var pswAndSalt = new byte[psw.Length + salt.Length];
+                        System.Buffer.BlockCopy(psw, 0, pswAndSalt, 0, psw.Length);
+                        System.Buffer.BlockCopy(salt, 0, pswAndSalt, psw.Length, salt.Length);
+                        for (int i = 0; i < iterations; i++)
+                            hash = mySHA256.ComputeHash(pswAndSalt);
+                    }
+                    break;
+
             }
 
             return hash;
@@ -331,13 +357,61 @@ namespace Backend.Security {
         /// <param name="secureHash">L'hash registrato.</param>
         /// <param name="iterations">Il numero di iterazioni da effettuare.</param>
         /// <returns>Vero se le password coincidono.</returns>
-        public static bool verify(string password, byte[] salt, byte[] secureHash, int iterations) {
+        public static bool verify(string password, byte[] salt, byte[] secureHash, int iterations)
+        {
             if (string.IsNullOrEmpty(password) || secureHash == null || salt == null || iterations < 1) return false;
             if (salt.Length < 8) return false;
             var insecureHash = generateHash(password, salt, iterations);
 
-            return Enumerable.SequenceEqual(secureHash, insecureHash);
+            if (Enumerable.SequenceEqual(secureHash, insecureHash))
+                return true;
+
+            insecureHash = generateHash(password, salt, iterations, "SHA1");
+            if (Enumerable.SequenceEqual(secureHash, insecureHash))
+                return true;
+
+            return false;
+
         }
+
+        ///// <summary>
+        ///// Genera l'hash di una password.
+        ///// </summary>
+        ///// <param name="password">La password.</param>
+        ///// <param name="salt">Il sale.</param>
+        ///// <param name="iterations">Il numero di iterazioni da effettuare.</param>
+        ///// <returns>L'hash della password.</returns>
+        //public static byte[] generateHash(string password, byte[] salt, int iterations)
+        //{
+        //    if (string.IsNullOrEmpty(password) || salt == null || iterations < 1) return null;
+        //    if (salt.Length < 8) return null;
+        //    var hash = new byte[LengthHash];
+
+        //    using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations))
+        //    {
+        //        hash = pbkdf2.GetBytes(LengthHash);
+        //    }
+
+        //    return hash;
+        //}
+
+        ///// <summary>
+        ///// Verifica la correttezza di una password confrontandone l'hash calcolato con quello dato.
+        ///// </summary>
+        ///// <param name="password">La password.</param>
+        ///// <param name="salt">Il sale.</param>
+        ///// <param name="secureHash">L'hash registrato.</param>
+        ///// <param name="iterations">Il numero di iterazioni da effettuare.</param>
+        ///// <returns>Vero se le password coincidono.</returns>
+        //public static bool verify(string password, byte[] salt, byte[] secureHash, int iterations)
+        //{
+        //    if (string.IsNullOrEmpty(password) || secureHash == null || salt == null || iterations < 1) return false;
+        //    if (salt.Length < 8) return false;
+        //    var insecureHash = generateHash(password, salt, iterations);
+
+        //    return Enumerable.SequenceEqual(secureHash, insecureHash);
+        //}
+
 
         /// <summary>
         /// Invia un'e-mail contenente la password in chiaro dell'utente.
@@ -532,9 +606,15 @@ namespace Backend.Security {
                 identity.IsAnonymous = true;
                 return identity;
             } else {
-                var json = JWT.Decode(token, MasterKey);
-                if (json == null) return null;
-
+                string json;
+                try {
+                    json = JWT.Decode(token, MasterKey);
+                    if (json == null)
+                        return null;
+                }
+                catch (Exception ex) {
+                    return null;
+                }
                 return JsonConvert.DeserializeObject<Identity>(json);
             }
             
@@ -558,7 +638,7 @@ namespace Backend.Security {
         /// <summary>
         /// Decodifica i dati della configurazione
         /// </summary>
-        /// <param name="token">Il token firmato.</param>
+        /// <param name="sistemConfig">Il token firmato.</param>
         /// <returns>I dati dell'utente.</returns>
         public static SystemConfig decodeSystemConfig(string sistemConfig)
         {

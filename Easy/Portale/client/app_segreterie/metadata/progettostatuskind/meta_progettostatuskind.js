@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -44,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'title', 'Stato', null, 20, 50);
 						this.describeAColumn(table, 'sortcode', 'Ordinamento', null, 30, null);
 						this.describeAColumn(table, 'contributo', 'Abilita il cofinanziamento ottenuto dall\'ateneo', null, 80, null);
-						this.describeAColumn(table, 'contributoente', 'Abilita il contributo totale ottenuto per l\'ateneo dall’ente finanziatore', null, 90, null);
-						this.describeAColumn(table, 'contributoenterichiesto', 'Abilita il contributo totale richiesto dall\'ateneo all’ente finanziatore', null, 100, null);
+						this.describeAColumn(table, 'contributoente', 'Abilita il contributo totale ottenuto per l\'ateneo dallâ€™ente finanziatore', null, 90, null);
+						this.describeAColumn(table, 'contributoenterichiesto', 'Abilita il contributo totale richiesto dall\'ateneo allâ€™ente finanziatore', null, 100, null);
 						this.describeAColumn(table, 'contributorichiesto', 'Abilita il cofinanziamento richiesto all\'ateneo', null, 110, null);
 //$objCalcFieldConfig_default$
 						break;
@@ -61,8 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (edittype) {
 					case 'default':
 						table.columns["contributo"].caption = "Abilita il cofinanziamento ottenuto dall'ateneo";
-						table.columns["contributoente"].caption = "Abilita il contributo totale ottenuto per l'ateneo dall’ente finanziatore";
-						table.columns["contributoenterichiesto"].caption = "Abilita il contributo totale richiesto dall'ateneo all’ente finanziatore";
+						table.columns["contributoente"].caption = "Abilita il contributo totale ottenuto per l'ateneo dallâ€™ente finanziatore";
+						table.columns["contributoenterichiesto"].caption = "Abilita il contributo totale richiesto dall'ateneo allâ€™ente finanziatore";
 						table.columns["contributorichiesto"].caption = "Abilita il cofinanziamento richiesto all'ateneo";
 //$innerSetCaptionConfig_default$
 						break;

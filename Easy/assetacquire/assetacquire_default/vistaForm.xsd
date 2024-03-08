@@ -78,6 +78,7 @@
               <xs:element name="ninv" type="xs:int" minOccurs="0" />
               <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
               <xs:element name="invrownum" type="xs:int" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -222,6 +223,7 @@
               <xs:element name="codeupb" type="xs:string" minOccurs="0" />
               <xs:element name="upb" type="xs:string" minOccurs="0" />
               <xs:element name="ratificationdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1054,6 +1056,7 @@
               <xs:element name="flagbit" type="xs:unsignedByte" minOccurs="0" />
               <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
               <xs:element name="iduniqueformcode" type="xs:string" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1170,6 +1173,22 @@
               <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
               <xs:element name="enable_fe" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="costpartition" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostpartition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="costpartitioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1344,6 +1363,10 @@
       <xs:selector xpath=".//mstns:invoicekind" />
       <xs:field xpath="mstns:idinvkind" />
     </xs:unique>
+    <xs:unique name="costpartition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costpartition" />
+      <xs:field xpath="mstns:idcostpartition" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1376,6 +1399,7 @@
       <msdata:Relationship name="inventoryassetacquire" msdata:parent="inventory" msdata:child="assetacquire" msdata:parentkey="idinventory" msdata:childkey="idinventory" />
       <msdata:Relationship name="inventorytreeviewassetacquire" msdata:parent="inventorytreeview" msdata:child="assetacquire" msdata:parentkey="idinv" msdata:childkey="idinv" />
       <msdata:Relationship name="FK_invoice_assetacquire" msdata:parent="invoice" msdata:child="assetacquire" msdata:parentkey="ninv yinv idinvkind" msdata:childkey="ninv yinv idinvkind" />
+      <msdata:Relationship name="costpartition_assetacquire" msdata:parent="costpartition" msdata:child="assetacquire" msdata:parentkey="idcostpartition" msdata:childkey="idcostpartition" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,6 +33,7 @@ namespace itinerationFunctions//FunzioniMissione//
         public decimal foreignhours;
         public object incomeclass;
         public object idposition;
+        public object livello;
         public object idwor;
         public object incomeclassvalidity;
         public object matricula;
@@ -567,7 +568,7 @@ namespace itinerationFunctions//FunzioniMissione//
 
         public static void RicalcolaSpese(DataAccess Conn,
             DataRow Missione,
-            DataTable Spese, object idposition, object classnum
+            DataTable Spese, object idposition,object livello, object classnum
             ) {
             object iditinerationrefundrule = Conn.DO_READ_VALUE("itinerationrefundrule",
                 "(start<=" + QueryCreator.quotedstrvalue(
@@ -603,11 +604,13 @@ namespace itinerationFunctions//FunzioniMissione//
         /// <param name="Missione"></param>
         /// <param name="Tappa"></param>
         /// <returns></returns>
-        public static string GetQualificaClasseFilter(object idposition, object incomeclass) {
+        public static string GetQualificaClasseFilter(object idposition, object livello, object incomeclass) {
             string codicequalifica = idposition.ToString();
             object classe = incomeclass;
+            string strlivello = livello.ToString();
 
             return "(idposition=" + QueryCreator.quotedstrvalue(codicequalifica, true) + ")" +
+                 "AND (livello=" + QueryCreator.quotedstrvalue(strlivello, true) + " or livello is null ) " +
                 " AND (" + QueryCreator.quotedstrvalue(classe, true) + " between minincomeclass and maxincomeclass)";
         }
 
@@ -1002,18 +1005,36 @@ namespace itinerationFunctions//FunzioniMissione//
             int numberbegin = CfgFn.GetNoNullInt32(curr["nitineration"]);
             int numberend = CfgFn.GetNoNullInt32(curr["nitineration"]);
             string pdfFileName, errmess;
-            bool res = stampaMissione(Conn, FilePath, yitineration, numberbegin, numberend, out pdfFileName, out errmess);
+            string reportname = "missione_prospetto_calcolo"; 
+            bool res = stampaMissione(Conn, FilePath, reportname, yitineration, numberbegin, numberend, out pdfFileName, out errmess);
             if (!res) {
                 return errmess;
             }
-            return null;
+            DataTable Tlicense = Conn.RUN_SELECT("license", "cf, p_iva", null, null, null, false);
+            bool catania = false;
+            if (Tlicense != null && Tlicense.Columns.Count > 0) {
+                DataRow R = Tlicense.Rows[0];
+                //Controlliamo il db è Catania
+                if (((R["cf"] != DBNull.Value) && (R["cf"].ToString() == "02772010878")) || ((R["p_iva"] != DBNull.Value) && (R["p_iva"].ToString() == "02772010878"))) {
+                    catania = true; ;
+                }
+            }
+
+
+            if (catania) {
+                reportname = "modulo_missione_catania";
+                res = stampaMissione(Conn, FilePath, reportname, yitineration, numberbegin, numberend, out pdfFileName, out errmess);
+                if (!res) {
+                    return errmess;
+                }
+            }
+            return errmess;
 
         }
-        
-        public static bool stampaMissione(DataAccess Conn, string FilePath, int yitineration, int numberbegin, int numberend, out string pdfFileName, out string errmess) {
+
+        public static bool stampaMissione(DataAccess Conn, string FilePath, string ReportName, int yitineration, int numberbegin, int numberend, out string pdfFileName, out string errmess) {
             errmess = "";
             pdfFileName = "";
-            string ReportName = "missione_prospetto_calcolo";
             DataTable myPrymaryTable = createStampaMissioneTable();
             myPrymaryTable.Rows[0]["reportname"] = ReportName;
             myPrymaryTable.Rows[0]["ayear"] = Conn.GetSys("esercizio");
@@ -1047,7 +1068,7 @@ namespace itinerationFunctions//FunzioniMissione//
             if (!FilePath.EndsWith("\\")) FilePath += "\\";
 
             //var tempfilename = "stampamissione-" + Guid.NewGuid() + ".pdf";
-            var tempfilename = "stampamissione_" + yitineration.ToString() + "_" + numberbegin.ToString() + ".pdf";
+            var tempfilename = rep["description"] + "_" + yitineration.ToString() + "_" + numberbegin.ToString() + ".pdf";
             //pdfFileName = @"ReportPDF/" + tempfilename;
             string error;
             bool retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);

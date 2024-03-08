@@ -37,6 +37,8 @@
               <xs:element name="inventorytree" type="xs:string" />
               <xs:element name="cost" type="xs:string" minOccurs="0" />
               <xs:element name="assetacquiretotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flag_entryprofitreservedone" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_financesource" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

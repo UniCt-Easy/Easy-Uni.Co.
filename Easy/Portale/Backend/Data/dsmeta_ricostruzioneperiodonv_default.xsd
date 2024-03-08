@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_ricostruzioneperiodonv_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_ricostruzioneperiodonv_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="nonvalutabilitakinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idnonvalutabilitakind" type="xs:int" />
+              <xs:element name="nonvalutabilitakind_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico_alias1" msprop:TableForReading="annoaccademico" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ricostruzioneperiodonv" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa_start" type="xs:string" minOccurs="0" />
+              <xs:element name="aa_stop" type="xs:string" minOccurs="0" />
+              <xs:element name="idnonvalutabilitakind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idricostruzione" type="xs:int" />
+              <xs:element name="idricostruzioneperiodonv" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nonvalutabilitakinddefaultview" />
+      <xs:field xpath="mstns:idnonvalutabilitakind" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico_alias1" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="ricostruzioneperiodonv_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ricostruzioneperiodonv" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idricostruzione" />
+      <xs:field xpath="mstns:idricostruzioneperiodonv" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_ricostruzioneperiodonv_nonvalutabilitakinddefaultview_idnonvalutabilitakind" msdata:parent="nonvalutabilitakinddefaultview" msdata:child="ricostruzioneperiodonv" msdata:parentkey="idnonvalutabilitakind" msdata:childkey="idnonvalutabilitakind" />
+      <msdata:Relationship name="FK_ricostruzioneperiodonv_annoaccademico_alias1_aa_stop" msdata:parent="annoaccademico_alias1" msdata:child="ricostruzioneperiodonv" msdata:parentkey="aa" msdata:childkey="aa_stop" />
+      <msdata:Relationship name="FK_ricostruzioneperiodonv_annoaccademico_aa_start" msdata:parent="annoaccademico" msdata:child="ricostruzioneperiodonv" msdata:parentkey="aa" msdata:childkey="aa_start" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

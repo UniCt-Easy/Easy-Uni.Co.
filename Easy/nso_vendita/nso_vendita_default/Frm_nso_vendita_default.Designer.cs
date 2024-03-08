@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -109,27 +109,21 @@ namespace nso_vendita_default {
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.label4 = new System.Windows.Forms.Label();
 			this.btnXMLMT = new System.Windows.Forms.Button();
-			this.btnXMLEC = new System.Windows.Forms.Button();
+			this.btnXMLRESP = new System.Windows.Forms.Button();
 			this.label19 = new System.Windows.Forms.Label();
-			this.btnXMLSE = new System.Windows.Forms.Button();
 			this.txtIdentificativoSdI = new System.Windows.Forms.TextBox();
-			this.btnXMLDT = new System.Windows.Forms.Button();
 			this.txtTipoDocumento = new System.Windows.Forms.TextBox();
 			this.grpMessaggi = new System.Windows.Forms.GroupBox();
-			this.textBox11 = new System.Windows.Forms.TextBox();
-			this.textBox10 = new System.Windows.Forms.TextBox();
-			this.label18 = new System.Windows.Forms.Label();
-			this.label17 = new System.Windows.Forms.Label();
 			this.label16 = new System.Windows.Forms.Label();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.label11 = new System.Windows.Forms.Label();
 			this.textBox9 = new System.Windows.Forms.TextBox();
 			this.chkMT_filemetadati = new System.Windows.Forms.CheckBox();
-			this.chkDT_decorrenzatermini = new System.Windows.Forms.CheckBox();
 			this.textBox3 = new System.Windows.Forms.TextBox();
-			this.chkSE_scartoesitocommittente = new System.Windows.Forms.CheckBox();
-			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+			this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+			this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
@@ -154,11 +148,10 @@ namespace nso_vendita_default {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl1.Controls.Add(this.tabPrincipale);
 			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Location = new System.Drawing.Point(4, 15);
-			this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
+			this.tabControl1.Location = new System.Drawing.Point(3, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(991, 639);
+			this.tabControl1.Size = new System.Drawing.Size(767, 519);
 			this.tabControl1.TabIndex = 34;
 			// 
 			// tabPrincipale
@@ -185,42 +178,47 @@ namespace nso_vendita_default {
 			this.tabPrincipale.Controls.Add(this.label2);
 			this.tabPrincipale.Controls.Add(this.txtNomeFile);
 			this.tabPrincipale.Controls.Add(this.gboxStato);
-			this.tabPrincipale.Location = new System.Drawing.Point(4, 25);
-			this.tabPrincipale.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
 			this.tabPrincipale.Name = "tabPrincipale";
-			this.tabPrincipale.Padding = new System.Windows.Forms.Padding(4);
-			this.tabPrincipale.Size = new System.Drawing.Size(983, 610);
+			this.tabPrincipale.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPrincipale.Size = new System.Drawing.Size(759, 493);
 			this.tabPrincipale.TabIndex = 0;
 			this.tabPrincipale.Text = "Principale";
 			this.tabPrincipale.UseVisualStyleBackColor = true;
 			// 
 			// label34
 			// 
+			this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label34.AutoSize = true;
-			this.label34.Location = new System.Drawing.Point(732, 370);
+			this.label34.Location = new System.Drawing.Point(550, 301);
+			this.label34.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label34.Name = "label34";
-			this.label34.Size = new System.Drawing.Size(153, 17);
+			this.label34.Size = new System.Drawing.Size(117, 13);
 			this.label34.TabIndex = 73;
 			this.label34.Text = "Email Avviso Ricezione";
 			// 
 			// txtEmailAvvisoRicezione
 			// 
-			this.txtEmailAvvisoRicezione.Location = new System.Drawing.Point(736, 390);
+			this.txtEmailAvvisoRicezione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtEmailAvvisoRicezione.Location = new System.Drawing.Point(553, 317);
+			this.txtEmailAvvisoRicezione.Margin = new System.Windows.Forms.Padding(2);
 			this.txtEmailAvvisoRicezione.Multiline = true;
 			this.txtEmailAvvisoRicezione.Name = "txtEmailAvvisoRicezione";
-			this.txtEmailAvvisoRicezione.Size = new System.Drawing.Size(235, 72);
+			this.txtEmailAvvisoRicezione.Size = new System.Drawing.Size(195, 59);
 			this.txtEmailAvvisoRicezione.TabIndex = 72;
 			this.txtEmailAvvisoRicezione.Tag = "nso_vendita.email_nso";
 			// 
 			// btnVisualizza
 			// 
-			this.btnVisualizza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnVisualizza.AutoSize = true;
+			this.btnVisualizza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnVisualizza.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.btnVisualizza.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnVisualizza.Location = new System.Drawing.Point(735, 75);
-			this.btnVisualizza.Margin = new System.Windows.Forms.Padding(4);
+			this.btnVisualizza.Location = new System.Drawing.Point(553, 61);
 			this.btnVisualizza.Name = "btnVisualizza";
-			this.btnVisualizza.Size = new System.Drawing.Size(236, 33);
+			this.btnVisualizza.Size = new System.Drawing.Size(195, 27);
 			this.btnVisualizza.TabIndex = 28;
 			this.btnVisualizza.Text = "Visualizza File";
 			this.btnVisualizza.UseVisualStyleBackColor = true;
@@ -228,98 +226,97 @@ namespace nso_vendita_default {
 			// 
 			// txtDataRifiutata
 			// 
-			this.txtDataRifiutata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDataRifiutata.Location = new System.Drawing.Point(736, 326);
-			this.txtDataRifiutata.Margin = new System.Windows.Forms.Padding(4);
+			this.txtDataRifiutata.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDataRifiutata.Location = new System.Drawing.Point(553, 265);
 			this.txtDataRifiutata.Name = "txtDataRifiutata";
-			this.txtDataRifiutata.Size = new System.Drawing.Size(235, 22);
+			this.txtDataRifiutata.Size = new System.Drawing.Size(195, 20);
 			this.txtDataRifiutata.TabIndex = 71;
 			this.txtDataRifiutata.TabStop = false;
 			this.txtDataRifiutata.Tag = "nso_vendita.data_rifiutata";
 			// 
 			// label22
 			// 
-			this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label22.AutoSize = true;
-			this.label22.Location = new System.Drawing.Point(732, 306);
-			this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label22.Location = new System.Drawing.Point(550, 249);
 			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(55, 17);
+			this.label22.Size = new System.Drawing.Size(42, 13);
 			this.label22.TabIndex = 70;
 			this.label22.Text = "in data:";
 			// 
 			// txtUserRifiutata
 			// 
-			this.txtUserRifiutata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUserRifiutata.Location = new System.Drawing.Point(736, 278);
-			this.txtUserRifiutata.Margin = new System.Windows.Forms.Padding(4);
+			this.txtUserRifiutata.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtUserRifiutata.Location = new System.Drawing.Point(553, 226);
 			this.txtUserRifiutata.Name = "txtUserRifiutata";
-			this.txtUserRifiutata.Size = new System.Drawing.Size(235, 22);
+			this.txtUserRifiutata.Size = new System.Drawing.Size(195, 20);
 			this.txtUserRifiutata.TabIndex = 69;
 			this.txtUserRifiutata.TabStop = false;
 			this.txtUserRifiutata.Tag = "nso_vendita.utente_rifiutata";
 			// 
 			// label23
 			// 
-			this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(732, 258);
-			this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label23.Location = new System.Drawing.Point(550, 210);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(133, 17);
+			this.label23.Size = new System.Drawing.Size(100, 13);
 			this.label23.TabIndex = 68;
 			this.label23.Text = "Rifiutata dall\'utente:";
 			// 
 			// txtDataAccettata
 			// 
-			this.txtDataAccettata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDataAccettata.Location = new System.Drawing.Point(736, 203);
-			this.txtDataAccettata.Margin = new System.Windows.Forms.Padding(4);
+			this.txtDataAccettata.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDataAccettata.Location = new System.Drawing.Point(553, 165);
 			this.txtDataAccettata.Name = "txtDataAccettata";
-			this.txtDataAccettata.Size = new System.Drawing.Size(235, 22);
+			this.txtDataAccettata.Size = new System.Drawing.Size(195, 20);
 			this.txtDataAccettata.TabIndex = 67;
 			this.txtDataAccettata.TabStop = false;
 			this.txtDataAccettata.Tag = "nso_vendita.data_accettata";
 			// 
 			// label21
 			// 
-			this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label21.AutoSize = true;
-			this.label21.Location = new System.Drawing.Point(732, 183);
-			this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label21.Location = new System.Drawing.Point(550, 149);
 			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(55, 17);
+			this.label21.Size = new System.Drawing.Size(42, 13);
 			this.label21.TabIndex = 66;
 			this.label21.Text = "in data:";
 			// 
 			// txtUserAccettata
 			// 
-			this.txtUserAccettata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUserAccettata.Location = new System.Drawing.Point(736, 155);
-			this.txtUserAccettata.Margin = new System.Windows.Forms.Padding(4);
+			this.txtUserAccettata.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtUserAccettata.Location = new System.Drawing.Point(553, 126);
 			this.txtUserAccettata.Name = "txtUserAccettata";
-			this.txtUserAccettata.Size = new System.Drawing.Size(235, 22);
+			this.txtUserAccettata.Size = new System.Drawing.Size(195, 20);
 			this.txtUserAccettata.TabIndex = 65;
 			this.txtUserAccettata.TabStop = false;
 			this.txtUserAccettata.Tag = "nso_vendita.utente_accettata";
 			// 
 			// label20
 			// 
-			this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(732, 135);
-			this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label20.Location = new System.Drawing.Point(550, 110);
 			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(140, 17);
+			this.label20.Size = new System.Drawing.Size(107, 13);
 			this.label20.TabIndex = 64;
 			this.label20.Text = "Accettata dall\'utente:";
 			// 
 			// btnSalvaAllegati
 			// 
-			this.btnSalvaAllegati.Location = new System.Drawing.Point(574, 20);
-			this.btnSalvaAllegati.Margin = new System.Windows.Forms.Padding(4);
+			this.btnSalvaAllegati.Location = new System.Drawing.Point(430, 16);
 			this.btnSalvaAllegati.Name = "btnSalvaAllegati";
-			this.btnSalvaAllegati.Size = new System.Drawing.Size(155, 32);
+			this.btnSalvaAllegati.Size = new System.Drawing.Size(115, 26);
 			this.btnSalvaAllegati.TabIndex = 54;
 			this.btnSalvaAllegati.TabStop = false;
 			this.btnSalvaAllegati.Text = "Salva Allegati";
@@ -328,10 +325,9 @@ namespace nso_vendita_default {
 			// 
 			// btnGeneraFile
 			// 
-			this.btnGeneraFile.Location = new System.Drawing.Point(411, 20);
-			this.btnGeneraFile.Margin = new System.Windows.Forms.Padding(4);
+			this.btnGeneraFile.Location = new System.Drawing.Point(308, 16);
 			this.btnGeneraFile.Name = "btnGeneraFile";
-			this.btnGeneraFile.Size = new System.Drawing.Size(155, 32);
+			this.btnGeneraFile.Size = new System.Drawing.Size(116, 26);
 			this.btnGeneraFile.TabIndex = 53;
 			this.btnGeneraFile.TabStop = false;
 			this.btnGeneraFile.Text = "Salva File";
@@ -340,10 +336,9 @@ namespace nso_vendita_default {
 			// 
 			// btnToProtocol
 			// 
-			this.btnToProtocol.Location = new System.Drawing.Point(248, 20);
-			this.btnToProtocol.Margin = new System.Windows.Forms.Padding(4);
+			this.btnToProtocol.Location = new System.Drawing.Point(186, 16);
 			this.btnToProtocol.Name = "btnToProtocol";
-			this.btnToProtocol.Size = new System.Drawing.Size(155, 32);
+			this.btnToProtocol.Size = new System.Drawing.Size(116, 26);
 			this.btnToProtocol.TabIndex = 52;
 			this.btnToProtocol.Text = "Inserisci protocollo";
 			this.btnToProtocol.UseVisualStyleBackColor = true;
@@ -351,8 +346,6 @@ namespace nso_vendita_default {
 			// 
 			// grpOperazionisuOV
 			// 
-			this.grpOperazionisuOV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpOperazionisuOV.Controls.Add(this.btnAccetta);
 			this.grpOperazionisuOV.Controls.Add(this.label15);
 			this.grpOperazionisuOV.Controls.Add(this.btnImporta);
@@ -362,20 +355,17 @@ namespace nso_vendita_default {
 			this.grpOperazionisuOV.Controls.Add(this.label25);
 			this.grpOperazionisuOV.Controls.Add(this.txtDataScadenzaOrdine);
 			this.grpOperazionisuOV.Controls.Add(this.label26);
-			this.grpOperazionisuOV.Location = new System.Drawing.Point(17, 69);
-			this.grpOperazionisuOV.Margin = new System.Windows.Forms.Padding(4);
+			this.grpOperazionisuOV.Location = new System.Drawing.Point(13, 56);
 			this.grpOperazionisuOV.Name = "grpOperazionisuOV";
-			this.grpOperazionisuOV.Padding = new System.Windows.Forms.Padding(4);
-			this.grpOperazionisuOV.Size = new System.Drawing.Size(710, 127);
+			this.grpOperazionisuOV.Size = new System.Drawing.Size(533, 103);
 			this.grpOperazionisuOV.TabIndex = 50;
 			this.grpOperazionisuOV.TabStop = false;
 			// 
 			// btnAccetta
 			// 
-			this.btnAccetta.Location = new System.Drawing.Point(11, 19);
-			this.btnAccetta.Margin = new System.Windows.Forms.Padding(4);
+			this.btnAccetta.Location = new System.Drawing.Point(8, 15);
 			this.btnAccetta.Name = "btnAccetta";
-			this.btnAccetta.Size = new System.Drawing.Size(90, 32);
+			this.btnAccetta.Size = new System.Drawing.Size(68, 26);
 			this.btnAccetta.TabIndex = 49;
 			this.btnAccetta.Text = "Accetta";
 			this.btnAccetta.UseVisualStyleBackColor = true;
@@ -385,20 +375,18 @@ namespace nso_vendita_default {
 			// 
 			this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label15.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-			this.label15.Location = new System.Drawing.Point(351, 15);
-			this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label15.Location = new System.Drawing.Point(263, 12);
 			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(303, 22);
+			this.label15.Size = new System.Drawing.Size(227, 18);
 			this.label15.TabIndex = 48;
 			this.label15.Text = "Annotazioni su rifiuto o accettazione";
 			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// btnImporta
 			// 
-			this.btnImporta.Location = new System.Drawing.Point(109, 19);
-			this.btnImporta.Margin = new System.Windows.Forms.Padding(4);
+			this.btnImporta.Location = new System.Drawing.Point(82, 15);
 			this.btnImporta.Name = "btnImporta";
-			this.btnImporta.Size = new System.Drawing.Size(140, 32);
+			this.btnImporta.Size = new System.Drawing.Size(105, 26);
 			this.btnImporta.TabIndex = 45;
 			this.btnImporta.Text = "Crea in contabilità";
 			this.btnImporta.UseVisualStyleBackColor = true;
@@ -409,20 +397,18 @@ namespace nso_vendita_default {
 			this.txtRifiuto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtRifiuto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtRifiuto.Location = new System.Drawing.Point(354, 40);
-			this.txtRifiuto.Margin = new System.Windows.Forms.Padding(4);
+			this.txtRifiuto.Location = new System.Drawing.Point(266, 32);
 			this.txtRifiuto.Multiline = true;
 			this.txtRifiuto.Name = "txtRifiuto";
-			this.txtRifiuto.Size = new System.Drawing.Size(344, 72);
+			this.txtRifiuto.Size = new System.Drawing.Size(260, 59);
 			this.txtRifiuto.TabIndex = 47;
 			this.txtRifiuto.Tag = "nso_vendita.rejectreason";
 			// 
 			// btnRifiuta
 			// 
-			this.btnRifiuta.Location = new System.Drawing.Point(254, 19);
-			this.btnRifiuta.Margin = new System.Windows.Forms.Padding(4);
+			this.btnRifiuta.Location = new System.Drawing.Point(190, 15);
 			this.btnRifiuta.Name = "btnRifiuta";
-			this.btnRifiuta.Size = new System.Drawing.Size(90, 32);
+			this.btnRifiuta.Size = new System.Drawing.Size(68, 26);
 			this.btnRifiuta.TabIndex = 46;
 			this.btnRifiuta.Text = "Rifiuta";
 			this.btnRifiuta.UseVisualStyleBackColor = true;
@@ -431,20 +417,18 @@ namespace nso_vendita_default {
 			// txtDataRicezioneSdI
 			// 
 			this.txtDataRicezioneSdI.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtDataRicezioneSdI.Location = new System.Drawing.Point(221, 59);
-			this.txtDataRicezioneSdI.Margin = new System.Windows.Forms.Padding(4);
+			this.txtDataRicezioneSdI.Location = new System.Drawing.Point(166, 48);
 			this.txtDataRicezioneSdI.Name = "txtDataRicezioneSdI";
-			this.txtDataRicezioneSdI.Size = new System.Drawing.Size(123, 23);
+			this.txtDataRicezioneSdI.Size = new System.Drawing.Size(93, 20);
 			this.txtDataRicezioneSdI.TabIndex = 32;
 			this.txtDataRicezioneSdI.Tag = "nso_vendita.data_ricezione";
 			// 
 			// label25
 			// 
 			this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label25.Location = new System.Drawing.Point(95, 60);
-			this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label25.Location = new System.Drawing.Point(71, 49);
 			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(118, 22);
+			this.label25.Size = new System.Drawing.Size(88, 18);
 			this.label25.TabIndex = 33;
 			this.label25.Text = "Data Ricezione";
 			this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -452,27 +436,25 @@ namespace nso_vendita_default {
 			// txtDataScadenzaOrdine
 			// 
 			this.txtDataScadenzaOrdine.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtDataScadenzaOrdine.Location = new System.Drawing.Point(221, 89);
+			this.txtDataScadenzaOrdine.Location = new System.Drawing.Point(166, 72);
+			this.txtDataScadenzaOrdine.Margin = new System.Windows.Forms.Padding(2);
 			this.txtDataScadenzaOrdine.Name = "txtDataScadenzaOrdine";
-			this.txtDataScadenzaOrdine.Size = new System.Drawing.Size(123, 23);
+			this.txtDataScadenzaOrdine.Size = new System.Drawing.Size(93, 20);
 			this.txtDataScadenzaOrdine.TabIndex = 35;
 			this.txtDataScadenzaOrdine.Tag = "nso_vendita.order_data_scadenza";
 			// 
 			// label26
 			// 
 			this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label26.Location = new System.Drawing.Point(139, 90);
-			this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label26.Location = new System.Drawing.Point(104, 73);
 			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(75, 22);
+			this.label26.Size = new System.Drawing.Size(56, 18);
 			this.label26.TabIndex = 37;
 			this.label26.Text = "Scadenza";
 			this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// grpDatiFattura
 			// 
-			this.grpDatiFattura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpDatiFattura.Controls.Add(this.label6);
 			this.grpDatiFattura.Controls.Add(this.txtClienteTaxId);
 			this.grpDatiFattura.Controls.Add(this.groupBox2);
@@ -496,11 +478,9 @@ namespace nso_vendita_default {
 			this.grpDatiFattura.Controls.Add(this.txtDescrizione);
 			this.grpDatiFattura.Controls.Add(this.label7);
 			this.grpDatiFattura.Controls.Add(this.txtCodiceIpa);
-			this.grpDatiFattura.Location = new System.Drawing.Point(17, 204);
-			this.grpDatiFattura.Margin = new System.Windows.Forms.Padding(4);
+			this.grpDatiFattura.Location = new System.Drawing.Point(13, 166);
 			this.grpDatiFattura.Name = "grpDatiFattura";
-			this.grpDatiFattura.Padding = new System.Windows.Forms.Padding(4);
-			this.grpDatiFattura.Size = new System.Drawing.Size(710, 341);
+			this.grpDatiFattura.Size = new System.Drawing.Size(532, 277);
 			this.grpDatiFattura.TabIndex = 43;
 			this.grpDatiFattura.TabStop = false;
 			this.grpDatiFattura.Text = "Dati Ordine";
@@ -509,10 +489,9 @@ namespace nso_vendita_default {
 			// 
 			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
 			this.label6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.label6.Location = new System.Drawing.Point(28, 117);
-			this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label6.Location = new System.Drawing.Point(21, 95);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(83, 22);
+			this.label6.Size = new System.Drawing.Size(62, 18);
 			this.label6.TabIndex = 51;
 			this.label6.Tag = "nso_vendita.ipa";
 			this.label6.Text = "Cliente";
@@ -520,9 +499,10 @@ namespace nso_vendita_default {
 			// 
 			// txtClienteTaxId
 			// 
-			this.txtClienteTaxId.Location = new System.Drawing.Point(316, 147);
+			this.txtClienteTaxId.Location = new System.Drawing.Point(237, 119);
+			this.txtClienteTaxId.Margin = new System.Windows.Forms.Padding(2);
 			this.txtClienteTaxId.Name = "txtClienteTaxId";
-			this.txtClienteTaxId.Size = new System.Drawing.Size(149, 22);
+			this.txtClienteTaxId.Size = new System.Drawing.Size(113, 20);
 			this.txtClienteTaxId.TabIndex = 16;
 			this.txtClienteTaxId.Tag = "nso_vendita.buyer_taxid";
 			// 
@@ -536,9 +516,11 @@ namespace nso_vendita_default {
 			this.groupBox2.Controls.Add(this.txtDataEmissioneOrdine);
 			this.groupBox2.Controls.Add(this.txtIdOrdine);
 			this.groupBox2.Controls.Add(this.label31);
-			this.groupBox2.Location = new System.Drawing.Point(14, 21);
+			this.groupBox2.Location = new System.Drawing.Point(10, 17);
+			this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(684, 56);
+			this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+			this.groupBox2.Size = new System.Drawing.Size(513, 46);
 			this.groupBox2.TabIndex = 50;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Tripletta";
@@ -548,19 +530,19 @@ namespace nso_vendita_default {
 			this.txtIdEmittenteOrdine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtIdEmittenteOrdine.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtIdEmittenteOrdine.Location = new System.Drawing.Point(573, 21);
+			this.txtIdEmittenteOrdine.Location = new System.Drawing.Point(430, 17);
+			this.txtIdEmittenteOrdine.Margin = new System.Windows.Forms.Padding(2);
 			this.txtIdEmittenteOrdine.Name = "txtIdEmittenteOrdine";
-			this.txtIdEmittenteOrdine.Size = new System.Drawing.Size(100, 23);
+			this.txtIdEmittenteOrdine.Size = new System.Drawing.Size(76, 20);
 			this.txtIdEmittenteOrdine.TabIndex = 2;
 			this.txtIdEmittenteOrdine.Tag = "nso_vendita.order_idemittente";
 			// 
 			// label24
 			// 
 			this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label24.Location = new System.Drawing.Point(255, 20);
-			this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label24.Location = new System.Drawing.Point(191, 16);
 			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(109, 22);
+			this.label24.Size = new System.Drawing.Size(82, 18);
 			this.label24.TabIndex = 39;
 			this.label24.Text = "Data Emissione";
 			this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -568,10 +550,9 @@ namespace nso_vendita_default {
 			// label32
 			// 
 			this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label32.Location = new System.Drawing.Point(482, 20);
-			this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label32.Location = new System.Drawing.Point(362, 16);
 			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(84, 22);
+			this.label32.Size = new System.Drawing.Size(63, 18);
 			this.label32.TabIndex = 41;
 			this.label32.Text = "IPA Cliente";
 			this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -579,28 +560,29 @@ namespace nso_vendita_default {
 			// txtDataEmissioneOrdine
 			// 
 			this.txtDataEmissioneOrdine.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtDataEmissioneOrdine.Location = new System.Drawing.Point(372, 21);
+			this.txtDataEmissioneOrdine.Location = new System.Drawing.Point(279, 17);
+			this.txtDataEmissioneOrdine.Margin = new System.Windows.Forms.Padding(2);
 			this.txtDataEmissioneOrdine.Name = "txtDataEmissioneOrdine";
-			this.txtDataEmissioneOrdine.Size = new System.Drawing.Size(100, 23);
+			this.txtDataEmissioneOrdine.Size = new System.Drawing.Size(76, 20);
 			this.txtDataEmissioneOrdine.TabIndex = 34;
 			this.txtDataEmissioneOrdine.Tag = "nso_vendita.adate";
 			// 
 			// txtIdOrdine
 			// 
 			this.txtIdOrdine.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtIdOrdine.Location = new System.Drawing.Point(107, 21);
+			this.txtIdOrdine.Location = new System.Drawing.Point(80, 17);
+			this.txtIdOrdine.Margin = new System.Windows.Forms.Padding(2);
 			this.txtIdOrdine.Name = "txtIdOrdine";
-			this.txtIdOrdine.Size = new System.Drawing.Size(130, 23);
+			this.txtIdOrdine.Size = new System.Drawing.Size(98, 20);
 			this.txtIdOrdine.TabIndex = 0;
 			this.txtIdOrdine.Tag = "nso_vendita.order_id";
 			// 
 			// label31
 			// 
 			this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label31.Location = new System.Drawing.Point(57, 21);
-			this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label31.Location = new System.Drawing.Point(43, 17);
 			this.label31.Name = "label31";
-			this.label31.Size = new System.Drawing.Size(42, 22);
+			this.label31.Size = new System.Drawing.Size(32, 18);
 			this.label31.TabIndex = 40;
 			this.label31.Text = "ID";
 			this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -609,10 +591,9 @@ namespace nso_vendita_default {
 			// 
 			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
 			this.label13.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.label13.Location = new System.Drawing.Point(245, 207);
-			this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label13.Location = new System.Drawing.Point(184, 168);
 			this.label13.Name = "label13";
-			this.label13.Size = new System.Drawing.Size(64, 22);
+			this.label13.Size = new System.Drawing.Size(48, 18);
 			this.label13.TabIndex = 47;
 			this.label13.Tag = "nso_vendita.ipa";
 			this.label13.Text = "Nome";
@@ -622,10 +603,9 @@ namespace nso_vendita_default {
 			// 
 			this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
 			this.label33.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.label33.Location = new System.Drawing.Point(212, 146);
-			this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label33.Location = new System.Drawing.Point(159, 119);
 			this.label33.Name = "label33";
-			this.label33.Size = new System.Drawing.Size(97, 22);
+			this.label33.Size = new System.Drawing.Size(73, 18);
 			this.label33.TabIndex = 49;
 			this.label33.Tag = "nso_vendita.ipa";
 			this.label33.Text = "Partita IVA";
@@ -636,19 +616,19 @@ namespace nso_vendita_default {
 			this.txtIpa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtIpa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtIpa.Location = new System.Drawing.Point(316, 207);
+			this.txtIpa.Location = new System.Drawing.Point(237, 168);
+			this.txtIpa.Margin = new System.Windows.Forms.Padding(2);
 			this.txtIpa.Name = "txtIpa";
-			this.txtIpa.Size = new System.Drawing.Size(382, 23);
+			this.txtIpa.Size = new System.Drawing.Size(288, 20);
 			this.txtIpa.TabIndex = 46;
 			this.txtIpa.Tag = "ipa.officename";
 			// 
 			// label30
 			// 
 			this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label30.Location = new System.Drawing.Point(273, 86);
-			this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label30.Location = new System.Drawing.Point(205, 70);
 			this.label30.Name = "label30";
-			this.label30.Size = new System.Drawing.Size(36, 22);
+			this.label30.Size = new System.Drawing.Size(27, 18);
 			this.label30.TabIndex = 45;
 			this.label30.Text = "Iva";
 			this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -658,21 +638,19 @@ namespace nso_vendita_default {
 			this.txtCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtCliente.Location = new System.Drawing.Point(121, 117);
-			this.txtCliente.Margin = new System.Windows.Forms.Padding(4);
+			this.txtCliente.Location = new System.Drawing.Point(91, 95);
 			this.txtCliente.Name = "txtCliente";
-			this.txtCliente.Size = new System.Drawing.Size(577, 23);
+			this.txtCliente.Size = new System.Drawing.Size(434, 20);
 			this.txtCliente.TabIndex = 14;
-			this.txtCliente.Tag = "nso_vendita.buyer_name";
+			this.txtCliente.Tag = "nso_vendita.buyer_name?nso_venditaview.title";
 			// 
 			// label5
 			// 
 			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
 			this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.label5.Location = new System.Drawing.Point(16, 146);
-			this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label5.Location = new System.Drawing.Point(12, 119);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(98, 22);
+			this.label5.Size = new System.Drawing.Size(74, 18);
 			this.label5.TabIndex = 48;
 			this.label5.Tag = "nso_vendita.ipa";
 			this.label5.Text = "Codice IPA";
@@ -681,27 +659,28 @@ namespace nso_vendita_default {
 			// txtOrderTaxTotal
 			// 
 			this.txtOrderTaxTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtOrderTaxTotal.Location = new System.Drawing.Point(316, 86);
+			this.txtOrderTaxTotal.Location = new System.Drawing.Point(237, 70);
+			this.txtOrderTaxTotal.Margin = new System.Windows.Forms.Padding(2);
 			this.txtOrderTaxTotal.Name = "txtOrderTaxTotal";
-			this.txtOrderTaxTotal.Size = new System.Drawing.Size(100, 23);
+			this.txtOrderTaxTotal.Size = new System.Drawing.Size(76, 20);
 			this.txtOrderTaxTotal.TabIndex = 44;
 			this.txtOrderTaxTotal.Tag = "nso_vendita.tax_total";
 			// 
 			// txtClienteId
 			// 
-			this.txtClienteId.Location = new System.Drawing.Point(121, 147);
+			this.txtClienteId.Location = new System.Drawing.Point(91, 119);
+			this.txtClienteId.Margin = new System.Windows.Forms.Padding(2);
 			this.txtClienteId.Name = "txtClienteId";
-			this.txtClienteId.Size = new System.Drawing.Size(80, 22);
+			this.txtClienteId.Size = new System.Drawing.Size(61, 20);
 			this.txtClienteId.TabIndex = 17;
 			this.txtClienteId.Tag = "nso_vendita.buyer_id";
 			// 
 			// label27
 			// 
 			this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label27.Location = new System.Drawing.Point(203, 176);
-			this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label27.Location = new System.Drawing.Point(152, 143);
 			this.label27.Name = "label27";
-			this.label27.Size = new System.Drawing.Size(111, 22);
+			this.label27.Size = new System.Drawing.Size(83, 18);
 			this.label27.TabIndex = 38;
 			this.label27.Text = "Data protocollo";
 			this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -709,10 +688,9 @@ namespace nso_vendita_default {
 			// label14
 			// 
 			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label14.Location = new System.Drawing.Point(1, 176);
-			this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label14.Location = new System.Drawing.Point(1, 143);
 			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(112, 22);
+			this.label14.Size = new System.Drawing.Size(84, 18);
 			this.label14.TabIndex = 31;
 			this.label14.Text = "Num. Protocollo";
 			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -720,30 +698,27 @@ namespace nso_vendita_default {
 			// txtNumProtocolloEntrata
 			// 
 			this.txtNumProtocolloEntrata.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtNumProtocolloEntrata.Location = new System.Drawing.Point(121, 176);
-			this.txtNumProtocolloEntrata.Margin = new System.Windows.Forms.Padding(4);
+			this.txtNumProtocolloEntrata.Location = new System.Drawing.Point(91, 143);
 			this.txtNumProtocolloEntrata.Name = "txtNumProtocolloEntrata";
-			this.txtNumProtocolloEntrata.Size = new System.Drawing.Size(80, 23);
+			this.txtNumProtocolloEntrata.Size = new System.Drawing.Size(61, 20);
 			this.txtNumProtocolloEntrata.TabIndex = 30;
 			this.txtNumProtocolloEntrata.Tag = "nso_vendita.arrivalprotocolnum";
 			// 
 			// txtProtocolDate
 			// 
 			this.txtProtocolDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtProtocolDate.Location = new System.Drawing.Point(316, 176);
-			this.txtProtocolDate.Margin = new System.Windows.Forms.Padding(4);
+			this.txtProtocolDate.Location = new System.Drawing.Point(237, 143);
 			this.txtProtocolDate.Name = "txtProtocolDate";
-			this.txtProtocolDate.Size = new System.Drawing.Size(100, 23);
+			this.txtProtocolDate.Size = new System.Drawing.Size(76, 20);
 			this.txtProtocolDate.TabIndex = 28;
 			this.txtProtocolDate.Tag = "nso_vendita.protocoldate";
 			// 
 			// label12
 			// 
 			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label12.Location = new System.Drawing.Point(59, 86);
-			this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label12.Location = new System.Drawing.Point(44, 70);
 			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(54, 22);
+			this.label12.Size = new System.Drawing.Size(40, 18);
 			this.label12.TabIndex = 27;
 			this.label12.Text = "Totale";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -751,20 +726,18 @@ namespace nso_vendita_default {
 			// txtOrderTotal
 			// 
 			this.txtOrderTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtOrderTotal.Location = new System.Drawing.Point(121, 86);
-			this.txtOrderTotal.Margin = new System.Windows.Forms.Padding(4);
+			this.txtOrderTotal.Location = new System.Drawing.Point(91, 70);
 			this.txtOrderTotal.Name = "txtOrderTotal";
-			this.txtOrderTotal.Size = new System.Drawing.Size(100, 23);
+			this.txtOrderTotal.Size = new System.Drawing.Size(76, 20);
 			this.txtOrderTotal.TabIndex = 26;
 			this.txtOrderTotal.Tag = "nso_vendita.total";
 			// 
 			// label10
 			// 
 			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label10.Location = new System.Drawing.Point(118, 303);
-			this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label10.Location = new System.Drawing.Point(88, 246);
 			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(139, 22);
+			this.label10.Size = new System.Drawing.Size(104, 18);
 			this.label10.TabIndex = 23;
 			this.label10.Text = "Rif. amministrazione";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -774,20 +747,18 @@ namespace nso_vendita_default {
 			this.txtRifAmm.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtRifAmm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtRifAmm.Location = new System.Drawing.Point(265, 303);
-			this.txtRifAmm.Margin = new System.Windows.Forms.Padding(4);
+			this.txtRifAmm.Location = new System.Drawing.Point(199, 246);
 			this.txtRifAmm.Name = "txtRifAmm";
-			this.txtRifAmm.Size = new System.Drawing.Size(433, 23);
+			this.txtRifAmm.Size = new System.Drawing.Size(326, 20);
 			this.txtRifAmm.TabIndex = 22;
 			this.txtRifAmm.Tag = "nso_vendita.riferimento_amministrazione";
 			// 
 			// label8
 			// 
 			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label8.Location = new System.Drawing.Point(18, 237);
-			this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label8.Location = new System.Drawing.Point(14, 193);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(95, 22);
+			this.label8.Size = new System.Drawing.Size(71, 18);
 			this.label8.TabIndex = 19;
 			this.label8.Text = "Descrizione";
 			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -797,11 +768,10 @@ namespace nso_vendita_default {
 			this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescrizione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtDescrizione.Location = new System.Drawing.Point(121, 237);
-			this.txtDescrizione.Margin = new System.Windows.Forms.Padding(4);
+			this.txtDescrizione.Location = new System.Drawing.Point(91, 193);
 			this.txtDescrizione.Multiline = true;
 			this.txtDescrizione.Name = "txtDescrizione";
-			this.txtDescrizione.Size = new System.Drawing.Size(577, 58);
+			this.txtDescrizione.Size = new System.Drawing.Size(434, 48);
 			this.txtDescrizione.TabIndex = 18;
 			this.txtDescrizione.Tag = "nso_vendita.description";
 			// 
@@ -809,10 +779,9 @@ namespace nso_vendita_default {
 			// 
 			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
 			this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.label7.Location = new System.Drawing.Point(31, 208);
-			this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label7.Location = new System.Drawing.Point(23, 169);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(81, 22);
+			this.label7.Size = new System.Drawing.Size(61, 18);
 			this.label7.TabIndex = 17;
 			this.label7.Text = "Codice IPA";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -820,10 +789,9 @@ namespace nso_vendita_default {
 			// txtCodiceIpa
 			// 
 			this.txtCodiceIpa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtCodiceIpa.Location = new System.Drawing.Point(121, 207);
-			this.txtCodiceIpa.Margin = new System.Windows.Forms.Padding(4);
+			this.txtCodiceIpa.Location = new System.Drawing.Point(91, 168);
 			this.txtCodiceIpa.Name = "txtCodiceIpa";
-			this.txtCodiceIpa.Size = new System.Drawing.Size(80, 23);
+			this.txtCodiceIpa.Size = new System.Drawing.Size(61, 20);
 			this.txtCodiceIpa.TabIndex = 16;
 			this.txtCodiceIpa.Tag = "nso_vendita.codice_ipa";
 			// 
@@ -831,20 +799,17 @@ namespace nso_vendita_default {
 			// 
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.txtNumFile);
-			this.groupBox1.Location = new System.Drawing.Point(17, 12);
-			this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+			this.groupBox1.Location = new System.Drawing.Point(13, 10);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-			this.groupBox1.Size = new System.Drawing.Size(213, 44);
+			this.groupBox1.Size = new System.Drawing.Size(160, 36);
 			this.groupBox1.TabIndex = 41;
 			this.groupBox1.TabStop = false;
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(8, 9);
-			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label1.Location = new System.Drawing.Point(6, 7);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(91, 31);
+			this.label1.Size = new System.Drawing.Size(68, 25);
 			this.label1.TabIndex = 9;
 			this.label1.Text = "Numero File:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -852,19 +817,17 @@ namespace nso_vendita_default {
 			// txtNumFile
 			// 
 			this.txtNumFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNumFile.Location = new System.Drawing.Point(107, 14);
-			this.txtNumFile.Margin = new System.Windows.Forms.Padding(4);
+			this.txtNumFile.Location = new System.Drawing.Point(80, 11);
 			this.txtNumFile.Name = "txtNumFile";
-			this.txtNumFile.Size = new System.Drawing.Size(93, 23);
+			this.txtNumFile.Size = new System.Drawing.Size(71, 20);
 			this.txtNumFile.TabIndex = 8;
 			this.txtNumFile.Tag = "nso_vendita.idnso_vendita";
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(378, 548);
-			this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label3.Location = new System.Drawing.Point(284, 445);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(160, 22);
+			this.label3.Size = new System.Drawing.Size(120, 18);
 			this.label3.TabIndex = 38;
 			this.label3.Text = "Nome File Compresso:";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -872,19 +835,17 @@ namespace nso_vendita_default {
 			// txtNomeFilecompresso
 			// 
 			this.txtNomeFilecompresso.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNomeFilecompresso.Location = new System.Drawing.Point(381, 571);
-			this.txtNomeFilecompresso.Margin = new System.Windows.Forms.Padding(4);
+			this.txtNomeFilecompresso.Location = new System.Drawing.Point(286, 464);
 			this.txtNomeFilecompresso.Name = "txtNomeFilecompresso";
-			this.txtNomeFilecompresso.Size = new System.Drawing.Size(348, 23);
+			this.txtNomeFilecompresso.Size = new System.Drawing.Size(262, 20);
 			this.txtNomeFilecompresso.TabIndex = 37;
 			this.txtNomeFilecompresso.Tag = "nso_vendita.zipfilename";
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(14, 548);
-			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label2.Location = new System.Drawing.Point(10, 445);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(93, 22);
+			this.label2.Size = new System.Drawing.Size(70, 18);
 			this.label2.TabIndex = 36;
 			this.label2.Text = "Nome File:";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -892,21 +853,20 @@ namespace nso_vendita_default {
 			// txtNomeFile
 			// 
 			this.txtNomeFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNomeFile.Location = new System.Drawing.Point(16, 571);
-			this.txtNomeFile.Margin = new System.Windows.Forms.Padding(4);
+			this.txtNomeFile.Location = new System.Drawing.Point(12, 464);
 			this.txtNomeFile.Name = "txtNomeFile";
-			this.txtNomeFile.Size = new System.Drawing.Size(348, 23);
+			this.txtNomeFile.Size = new System.Drawing.Size(262, 20);
 			this.txtNomeFile.TabIndex = 35;
 			this.txtNomeFile.Tag = "nso_vendita.filename";
 			// 
 			// gboxStato
 			// 
+			this.gboxStato.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxStato.Controls.Add(this.cmbStatus);
-			this.gboxStato.Location = new System.Drawing.Point(737, 12);
-			this.gboxStato.Margin = new System.Windows.Forms.Padding(4);
+			this.gboxStato.Location = new System.Drawing.Point(551, 10);
 			this.gboxStato.Name = "gboxStato";
-			this.gboxStato.Padding = new System.Windows.Forms.Padding(4);
-			this.gboxStato.Size = new System.Drawing.Size(236, 49);
+			this.gboxStato.Size = new System.Drawing.Size(197, 40);
 			this.gboxStato.TabIndex = 34;
 			this.gboxStato.TabStop = false;
 			this.gboxStato.Text = "Stato";
@@ -918,10 +878,9 @@ namespace nso_vendita_default {
 			this.cmbStatus.DataSource = this.DS.nso_status;
 			this.cmbStatus.DisplayMember = "description";
 			this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbStatus.Location = new System.Drawing.Point(8, 17);
-			this.cmbStatus.Margin = new System.Windows.Forms.Padding(4);
+			this.cmbStatus.Location = new System.Drawing.Point(6, 14);
 			this.cmbStatus.Name = "cmbStatus";
-			this.cmbStatus.Size = new System.Drawing.Size(220, 24);
+			this.cmbStatus.Size = new System.Drawing.Size(186, 21);
 			this.cmbStatus.TabIndex = 43;
 			this.cmbStatus.Tag = "nso_vendita.idnso_status?nso_venditaview.idnso_status";
 			this.cmbStatus.ValueMember = "idnso_status";
@@ -930,179 +889,97 @@ namespace nso_vendita_default {
 			// 
 			this.tabPage1.Controls.Add(this.label4);
 			this.tabPage1.Controls.Add(this.btnXMLMT);
-			this.tabPage1.Controls.Add(this.btnXMLEC);
+			this.tabPage1.Controls.Add(this.btnXMLRESP);
 			this.tabPage1.Controls.Add(this.label19);
-			this.tabPage1.Controls.Add(this.btnXMLSE);
 			this.tabPage1.Controls.Add(this.txtIdentificativoSdI);
-			this.tabPage1.Controls.Add(this.btnXMLDT);
 			this.tabPage1.Controls.Add(this.txtTipoDocumento);
 			this.tabPage1.Controls.Add(this.grpMessaggi);
-			this.tabPage1.Location = new System.Drawing.Point(4, 25);
-			this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-			this.tabPage1.Size = new System.Drawing.Size(983, 610);
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(759, 493);
 			this.tabPage1.TabIndex = 1;
-			this.tabPage1.Text = "Dati SDI";
+			this.tabPage1.Text = "Dati NSO";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
 			// label4
 			// 
-			this.label4.Location = new System.Drawing.Point(13, 14);
-			this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label4.Location = new System.Drawing.Point(10, 11);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(172, 22);
+			this.label4.Size = new System.Drawing.Size(129, 18);
 			this.label4.TabIndex = 40;
-			this.label4.Text = "Identificativo SdI:";
+			this.label4.Text = "Identificativo NSO:";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// btnXMLMT
 			// 
 			this.btnXMLMT.AutoSize = true;
-			this.btnXMLMT.Location = new System.Drawing.Point(857, 91);
-			this.btnXMLMT.Margin = new System.Windows.Forms.Padding(4);
+			this.btnXMLMT.Location = new System.Drawing.Point(643, 74);
 			this.btnXMLMT.Name = "btnXMLMT";
-			this.btnXMLMT.Size = new System.Drawing.Size(143, 33);
+			this.btnXMLMT.Size = new System.Drawing.Size(107, 27);
 			this.btnXMLMT.TabIndex = 57;
 			this.btnXMLMT.Text = "Visualizza File";
 			this.btnXMLMT.UseVisualStyleBackColor = true;
 			this.btnXMLMT.Click += new System.EventHandler(this.btnXMLMetaDati_Click);
 			// 
-			// btnXMLEC
+			// btnXMLRESP
 			// 
-			this.btnXMLEC.AutoSize = true;
-			this.btnXMLEC.Location = new System.Drawing.Point(857, 125);
-			this.btnXMLEC.Margin = new System.Windows.Forms.Padding(4);
-			this.btnXMLEC.Name = "btnXMLEC";
-			this.btnXMLEC.Size = new System.Drawing.Size(143, 33);
-			this.btnXMLEC.TabIndex = 58;
-			this.btnXMLEC.Text = "Visualizza File";
-			this.btnXMLEC.UseVisualStyleBackColor = true;
-			this.btnXMLEC.Click += new System.EventHandler(this.btnXMLNEC_Click);
+			this.btnXMLRESP.AutoSize = true;
+			this.btnXMLRESP.Location = new System.Drawing.Point(643, 102);
+			this.btnXMLRESP.Name = "btnXMLRESP";
+			this.btnXMLRESP.Size = new System.Drawing.Size(107, 27);
+			this.btnXMLRESP.TabIndex = 58;
+			this.btnXMLRESP.Text = "Visualizza File";
+			this.btnXMLRESP.UseVisualStyleBackColor = true;
+			this.btnXMLRESP.Click += new System.EventHandler(this.btnXMLNEC_Click);
 			// 
 			// label19
 			// 
-			this.label19.Location = new System.Drawing.Point(373, 14);
-			this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label19.Location = new System.Drawing.Point(280, 11);
 			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(172, 22);
+			this.label19.Size = new System.Drawing.Size(129, 18);
 			this.label19.TabIndex = 63;
-			this.label19.Text = "Tipo Documento SdI";
+			this.label19.Text = "Tipo Documento NSO";
 			this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// btnXMLSE
-			// 
-			this.btnXMLSE.AutoSize = true;
-			this.btnXMLSE.Location = new System.Drawing.Point(857, 159);
-			this.btnXMLSE.Margin = new System.Windows.Forms.Padding(4);
-			this.btnXMLSE.Name = "btnXMLSE";
-			this.btnXMLSE.Size = new System.Drawing.Size(143, 33);
-			this.btnXMLSE.TabIndex = 59;
-			this.btnXMLSE.Text = "Visualizza File";
-			this.btnXMLSE.UseVisualStyleBackColor = true;
-			this.btnXMLSE.Click += new System.EventHandler(this.btnXMLSEC_Click);
 			// 
 			// txtIdentificativoSdI
 			// 
 			this.txtIdentificativoSdI.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtIdentificativoSdI.Location = new System.Drawing.Point(17, 37);
-			this.txtIdentificativoSdI.Margin = new System.Windows.Forms.Padding(4);
+			this.txtIdentificativoSdI.Location = new System.Drawing.Point(13, 30);
 			this.txtIdentificativoSdI.Name = "txtIdentificativoSdI";
-			this.txtIdentificativoSdI.Size = new System.Drawing.Size(340, 23);
+			this.txtIdentificativoSdI.Size = new System.Drawing.Size(256, 20);
 			this.txtIdentificativoSdI.TabIndex = 39;
-			this.txtIdentificativoSdI.Tag = "nso_vendita.identificativo_sdi";
-			// 
-			// btnXMLDT
-			// 
-			this.btnXMLDT.AutoSize = true;
-			this.btnXMLDT.Location = new System.Drawing.Point(857, 193);
-			this.btnXMLDT.Margin = new System.Windows.Forms.Padding(4);
-			this.btnXMLDT.Name = "btnXMLDT";
-			this.btnXMLDT.Size = new System.Drawing.Size(143, 33);
-			this.btnXMLDT.TabIndex = 60;
-			this.btnXMLDT.Text = "Visualizza File";
-			this.btnXMLDT.UseVisualStyleBackColor = true;
-			this.btnXMLDT.Click += new System.EventHandler(this.btnXMLDC_Click);
+			this.txtIdentificativoSdI.Tag = "nso_vendita.identificativo_nso";
 			// 
 			// txtTipoDocumento
 			// 
 			this.txtTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtTipoDocumento.Location = new System.Drawing.Point(376, 37);
-			this.txtTipoDocumento.Margin = new System.Windows.Forms.Padding(4);
+			this.txtTipoDocumento.Location = new System.Drawing.Point(282, 30);
 			this.txtTipoDocumento.Name = "txtTipoDocumento";
-			this.txtTipoDocumento.Size = new System.Drawing.Size(173, 23);
+			this.txtTipoDocumento.Size = new System.Drawing.Size(131, 20);
 			this.txtTipoDocumento.TabIndex = 62;
 			this.txtTipoDocumento.Tag = "nso_vendita.tipodocumento";
 			// 
 			// grpMessaggi
 			// 
-			this.grpMessaggi.Controls.Add(this.textBox11);
-			this.grpMessaggi.Controls.Add(this.textBox10);
-			this.grpMessaggi.Controls.Add(this.label18);
-			this.grpMessaggi.Controls.Add(this.label17);
 			this.grpMessaggi.Controls.Add(this.label16);
 			this.grpMessaggi.Controls.Add(this.checkBox1);
 			this.grpMessaggi.Controls.Add(this.label11);
 			this.grpMessaggi.Controls.Add(this.textBox9);
 			this.grpMessaggi.Controls.Add(this.chkMT_filemetadati);
-			this.grpMessaggi.Controls.Add(this.chkDT_decorrenzatermini);
 			this.grpMessaggi.Controls.Add(this.textBox3);
-			this.grpMessaggi.Controls.Add(this.chkSE_scartoesitocommittente);
-			this.grpMessaggi.Location = new System.Drawing.Point(17, 72);
-			this.grpMessaggi.Margin = new System.Windows.Forms.Padding(4);
+			this.grpMessaggi.Location = new System.Drawing.Point(13, 58);
 			this.grpMessaggi.Name = "grpMessaggi";
-			this.grpMessaggi.Padding = new System.Windows.Forms.Padding(4);
-			this.grpMessaggi.Size = new System.Drawing.Size(832, 163);
+			this.grpMessaggi.Size = new System.Drawing.Size(624, 84);
 			this.grpMessaggi.TabIndex = 42;
 			this.grpMessaggi.TabStop = false;
 			this.grpMessaggi.Text = "Messaggi collegati";
 			// 
-			// textBox11
-			// 
-			this.textBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox11.Location = new System.Drawing.Point(359, 125);
-			this.textBox11.Margin = new System.Windows.Forms.Padding(4);
-			this.textBox11.Name = "textBox11";
-			this.textBox11.Size = new System.Drawing.Size(463, 23);
-			this.textBox11.TabIndex = 56;
-			this.textBox11.Tag = "nso_vendita.dt_prot";
-			// 
-			// textBox10
-			// 
-			this.textBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox10.Location = new System.Drawing.Point(359, 91);
-			this.textBox10.Margin = new System.Windows.Forms.Padding(4);
-			this.textBox10.Name = "textBox10";
-			this.textBox10.Size = new System.Drawing.Size(463, 23);
-			this.textBox10.TabIndex = 55;
-			this.textBox10.Tag = "nso_vendita.se_prot";
-			// 
-			// label18
-			// 
-			this.label18.Location = new System.Drawing.Point(298, 126);
-			this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(53, 22);
-			this.label18.TabIndex = 54;
-			this.label18.Text = "N.Prot. ";
-			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// label17
-			// 
-			this.label17.Location = new System.Drawing.Point(298, 92);
-			this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(53, 22);
-			this.label17.TabIndex = 53;
-			this.label17.Text = "N.Prot. ";
-			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
 			// label16
 			// 
-			this.label16.Location = new System.Drawing.Point(298, 58);
-			this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label16.Location = new System.Drawing.Point(223, 47);
 			this.label16.Name = "label16";
-			this.label16.Size = new System.Drawing.Size(53, 22);
+			this.label16.Size = new System.Drawing.Size(40, 18);
 			this.label16.TabIndex = 52;
 			this.label16.Text = "N.Prot. ";
 			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1110,21 +987,19 @@ namespace nso_vendita_default {
 			// checkBox1
 			// 
 			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(7, 60);
-			this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
+			this.checkBox1.Location = new System.Drawing.Point(5, 49);
 			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(206, 21);
+			this.checkBox1.Size = new System.Drawing.Size(210, 17);
 			this.checkBox1.TabIndex = 26;
 			this.checkBox1.Tag = "nso_vendita.flag_unseen:1";
-			this.checkBox1.Text = "Notifica di esito committente";
+			this.checkBox1.Text = "Risp. Ricezione, Accettazione o Rifiuto";
 			this.checkBox1.UseVisualStyleBackColor = true;
 			// 
 			// label11
 			// 
-			this.label11.Location = new System.Drawing.Point(295, 24);
-			this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label11.Location = new System.Drawing.Point(221, 20);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(56, 22);
+			this.label11.Size = new System.Drawing.Size(42, 18);
 			this.label11.TabIndex = 50;
 			this.label11.Text = "N.Prot.";
 			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1132,70 +1007,42 @@ namespace nso_vendita_default {
 			// textBox9
 			// 
 			this.textBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox9.Location = new System.Drawing.Point(359, 57);
-			this.textBox9.Margin = new System.Windows.Forms.Padding(4);
+			this.textBox9.Location = new System.Drawing.Point(269, 46);
 			this.textBox9.Name = "textBox9";
-			this.textBox9.Size = new System.Drawing.Size(463, 23);
+			this.textBox9.Size = new System.Drawing.Size(348, 20);
 			this.textBox9.TabIndex = 51;
 			this.textBox9.Tag = "nso_vendita.ec_prot";
 			// 
 			// chkMT_filemetadati
 			// 
 			this.chkMT_filemetadati.AutoSize = true;
-			this.chkMT_filemetadati.Location = new System.Drawing.Point(7, 26);
-			this.chkMT_filemetadati.Margin = new System.Windows.Forms.Padding(4);
+			this.chkMT_filemetadati.Location = new System.Drawing.Point(5, 21);
 			this.chkMT_filemetadati.Name = "chkMT_filemetadati";
-			this.chkMT_filemetadati.Size = new System.Drawing.Size(133, 21);
+			this.chkMT_filemetadati.Size = new System.Drawing.Size(102, 17);
 			this.chkMT_filemetadati.TabIndex = 22;
 			this.chkMT_filemetadati.Tag = "nso_vendita.flag_unseen:0";
 			this.chkMT_filemetadati.Text = "File dei metadati";
 			this.chkMT_filemetadati.UseVisualStyleBackColor = true;
 			// 
-			// chkDT_decorrenzatermini
-			// 
-			this.chkDT_decorrenzatermini.AutoSize = true;
-			this.chkDT_decorrenzatermini.Location = new System.Drawing.Point(7, 128);
-			this.chkDT_decorrenzatermini.Margin = new System.Windows.Forms.Padding(4);
-			this.chkDT_decorrenzatermini.Name = "chkDT_decorrenzatermini";
-			this.chkDT_decorrenzatermini.Size = new System.Drawing.Size(199, 21);
-			this.chkDT_decorrenzatermini.TabIndex = 25;
-			this.chkDT_decorrenzatermini.Tag = "nso_vendita.flag_unseen:3";
-			this.chkDT_decorrenzatermini.Text = "Notifica decorrenza termini";
-			this.chkDT_decorrenzatermini.UseVisualStyleBackColor = true;
-			// 
 			// textBox3
 			// 
 			this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox3.Location = new System.Drawing.Point(359, 23);
-			this.textBox3.Margin = new System.Windows.Forms.Padding(4);
+			this.textBox3.Location = new System.Drawing.Point(269, 19);
 			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(463, 23);
+			this.textBox3.Size = new System.Drawing.Size(348, 20);
 			this.textBox3.TabIndex = 49;
 			this.textBox3.Tag = "nso_vendita.mt_prot";
 			// 
-			// chkSE_scartoesitocommittente
-			// 
-			this.chkSE_scartoesitocommittente.AutoSize = true;
-			this.chkSE_scartoesitocommittente.Location = new System.Drawing.Point(7, 94);
-			this.chkSE_scartoesitocommittente.Margin = new System.Windows.Forms.Padding(4);
-			this.chkSE_scartoesitocommittente.Name = "chkSE_scartoesitocommittente";
-			this.chkSE_scartoesitocommittente.Size = new System.Drawing.Size(249, 21);
-			this.chkSE_scartoesitocommittente.TabIndex = 24;
-			this.chkSE_scartoesitocommittente.Tag = "nso_vendita.flag_unseen:2";
-			this.chkSE_scartoesitocommittente.Text = "Notifica di scarto esito committente";
-			this.chkSE_scartoesitocommittente.UseVisualStyleBackColor = true;
-			// 
 			// saveFileDialog1
 			// 
-			this.saveFileDialog1.SupportMultiDottedExtensions = true;
+			//this.saveFileDialog1.SupportMultiDottedExtensions = true;
 			// 
 			// Frm_nso_vendita_default
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(999, 655);
+			this.ClientSize = new System.Drawing.Size(774, 532);
 			this.Controls.Add(this.tabControl1);
-			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "Frm_nso_vendita_default";
 			this.Text = "Frm_nso_vendita_default";
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
@@ -1235,8 +1082,6 @@ namespace nso_vendita_default {
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.GroupBox grpMessaggi;
         private System.Windows.Forms.CheckBox chkMT_filemetadati;
-        private System.Windows.Forms.CheckBox chkDT_decorrenzatermini;
-        private System.Windows.Forms.CheckBox chkSE_scartoesitocommittente;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNumFile;
@@ -1262,20 +1107,14 @@ namespace nso_vendita_default {
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox grpOperazionisuOV;
         private System.Windows.Forms.Button btnAccetta;
         private System.Windows.Forms.Button btnToProtocol;
         private System.Windows.Forms.Button btnGeneraFile;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.Button btnSalvaAllegati;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Button btnXMLDT;
-        private System.Windows.Forms.Button btnXMLSE;
-        private System.Windows.Forms.Button btnXMLEC;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
+        private System.Windows.Forms.Button btnXMLRESP;
         private System.Windows.Forms.Button btnXMLMT;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtTipoDocumento;
@@ -1311,5 +1150,7 @@ namespace nso_vendita_default {
         private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label34;
 		private System.Windows.Forms.TextBox txtEmailAvvisoRicezione;
+		private metadatalibrary.ISaveFileDialog saveFileDialog1;
+		private metadatalibrary.IFolderBrowserDialog folderBrowserDialog1;
 	}
 }

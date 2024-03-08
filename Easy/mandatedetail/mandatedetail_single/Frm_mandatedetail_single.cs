@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -394,6 +394,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.txtDescUbicazione = new System.Windows.Forms.TextBox();
 			this.txtUbicazione = new System.Windows.Forms.TextBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.btnRemoveEpAcc = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.btnScollegaPreimpegno = new System.Windows.Forms.Button();
 			this.btnCollegaPreimpegno = new System.Windows.Forms.Button();
@@ -401,13 +402,12 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label24 = new System.Windows.Forms.Label();
 			this.txtNumPreimpegno = new System.Windows.Forms.TextBox();
 			this.txtEsercPreImpegno = new System.Windows.Forms.TextBox();
+			this.btnLinkEpAcc = new System.Windows.Forms.Button();
 			this.grpBoxSiopeEP = new System.Windows.Forms.GroupBox();
 			this.btnSiope = new System.Windows.Forms.Button();
 			this.txtDescSiope = new System.Windows.Forms.TextBox();
 			this.txtCodSiope = new System.Windows.Forms.TextBox();
 			this.grpBoxAccertamentiBudget = new System.Windows.Forms.GroupBox();
-			this.btnRemoveEpAcc = new System.Windows.Forms.Button();
-			this.btnLinkEpAcc = new System.Windows.Forms.Button();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
 			this.txtNumAccBudget = new System.Windows.Forms.TextBox();
@@ -1587,9 +1587,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.grpRipartizioneCosti.Controls.Add(this.button3);
 			this.grpRipartizioneCosti.Controls.Add(this.textBox1);
 			this.grpRipartizioneCosti.Controls.Add(this.txtCodiceRipartizione);
-			this.grpRipartizioneCosti.Location = new System.Drawing.Point(426, 102);
+			this.grpRipartizioneCosti.Location = new System.Drawing.Point(418, 3);
 			this.grpRipartizioneCosti.Name = "grpRipartizioneCosti";
-			this.grpRipartizioneCosti.Size = new System.Drawing.Size(382, 96);
+			this.grpRipartizioneCosti.Size = new System.Drawing.Size(382, 89);
 			this.grpRipartizioneCosti.TabIndex = 4;
 			this.grpRipartizioneCosti.TabStop = false;
 			this.grpRipartizioneCosti.Tag = "AutoChoose.txtCodiceRipartizione.default.(active=\'S\')";
@@ -1597,7 +1597,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// button3
 			// 
-			this.button3.Location = new System.Drawing.Point(13, 41);
+			this.button3.Location = new System.Drawing.Point(13, 33);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(88, 23);
 			this.button3.TabIndex = 4;
@@ -1609,11 +1609,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox1.Location = new System.Drawing.Point(107, 19);
+			this.textBox1.Location = new System.Drawing.Point(107, 14);
 			this.textBox1.Multiline = true;
 			this.textBox1.Name = "textBox1";
 			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(269, 45);
+			this.textBox1.Size = new System.Drawing.Size(269, 41);
 			this.textBox1.TabIndex = 3;
 			this.textBox1.TabStop = false;
 			this.textBox1.Tag = "costpartition.title";
@@ -1622,7 +1622,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			this.txtCodiceRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCodiceRipartizione.Location = new System.Drawing.Point(8, 70);
+			this.txtCodiceRipartizione.Location = new System.Drawing.Point(8, 62);
 			this.txtCodiceRipartizione.Name = "txtCodiceRipartizione";
 			this.txtCodiceRipartizione.Size = new System.Drawing.Size(368, 20);
 			this.txtCodiceRipartizione.TabIndex = 2;
@@ -1680,9 +1680,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.gboxclass2.Controls.Add(this.btnCodice2);
 			this.gboxclass2.Controls.Add(this.txtDenom2);
 			this.gboxclass2.Controls.Add(this.txtCodice2);
-			this.gboxclass2.Location = new System.Drawing.Point(426, 3);
+			this.gboxclass2.Location = new System.Drawing.Point(8, 215);
 			this.gboxclass2.Name = "gboxclass2";
-			this.gboxclass2.Size = new System.Drawing.Size(382, 89);
+			this.gboxclass2.Size = new System.Drawing.Size(404, 89);
 			this.gboxclass2.TabIndex = 2;
 			this.gboxclass2.TabStop = false;
 			this.gboxclass2.Tag = "AutoManage.txtCodice.treeclassmovimenti";
@@ -1707,7 +1707,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.txtDenom2.Multiline = true;
 			this.txtDenom2.Name = "txtDenom2";
 			this.txtDenom2.ReadOnly = true;
-			this.txtDenom2.Size = new System.Drawing.Size(262, 41);
+			this.txtDenom2.Size = new System.Drawing.Size(284, 41);
 			this.txtDenom2.TabIndex = 3;
 			this.txtDenom2.TabStop = false;
 			this.txtDenom2.Tag = "sorting2.description";
@@ -1718,7 +1718,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.txtCodice2.Location = new System.Drawing.Point(8, 63);
 			this.txtCodice2.Name = "txtCodice2";
-			this.txtCodice2.Size = new System.Drawing.Size(366, 20);
+			this.txtCodice2.Size = new System.Drawing.Size(388, 20);
 			this.txtCodice2.TabIndex = 2;
 			this.txtCodice2.Tag = "sorting2.sortcode?x";
 			// 
@@ -1945,6 +1945,18 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabPage2.TabIndex = 4;
 			this.tabPage2.Text = "E/P";
 			// 
+			// btnRemoveEpAcc
+			// 
+			this.btnRemoveEpAcc.Location = new System.Drawing.Point(865, 389);
+			this.btnRemoveEpAcc.Name = "btnRemoveEpAcc";
+			this.btnRemoveEpAcc.Size = new System.Drawing.Size(75, 23);
+			this.btnRemoveEpAcc.TabIndex = 13;
+			this.btnRemoveEpAcc.TabStop = false;
+			this.btnRemoveEpAcc.Tag = "";
+			this.btnRemoveEpAcc.Text = "Scollega";
+			this.btnRemoveEpAcc.Visible = false;
+			this.btnRemoveEpAcc.Click += new System.EventHandler(this.btnRemoveEpAcc_Click);
+			// 
 			// groupBox3
 			// 
 			this.groupBox3.Controls.Add(this.btnScollegaPreimpegno);
@@ -2021,6 +2033,18 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.txtEsercPreImpegno.TabStop = false;
 			this.txtEsercPreImpegno.Tag = "pre_epexp.yepexp";
 			// 
+			// btnLinkEpAcc
+			// 
+			this.btnLinkEpAcc.Location = new System.Drawing.Point(784, 389);
+			this.btnLinkEpAcc.Name = "btnLinkEpAcc";
+			this.btnLinkEpAcc.Size = new System.Drawing.Size(75, 23);
+			this.btnLinkEpAcc.TabIndex = 12;
+			this.btnLinkEpAcc.TabStop = false;
+			this.btnLinkEpAcc.Tag = "";
+			this.btnLinkEpAcc.Text = "Collega";
+			this.btnLinkEpAcc.Visible = false;
+			this.btnLinkEpAcc.Click += new System.EventHandler(this.btnLinkEpAcc_Click);
+			// 
 			// grpBoxSiopeEP
 			// 
 			this.grpBoxSiopeEP.Controls.Add(this.btnSiope);
@@ -2077,30 +2101,6 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.grpBoxAccertamentiBudget.TabIndex = 48;
 			this.grpBoxAccertamentiBudget.TabStop = false;
 			this.grpBoxAccertamentiBudget.Text = "Accertamento di Budget";
-			// 
-			// btnRemoveEpAcc
-			// 
-			this.btnRemoveEpAcc.Location = new System.Drawing.Point(865, 389);
-			this.btnRemoveEpAcc.Name = "btnRemoveEpAcc";
-			this.btnRemoveEpAcc.Size = new System.Drawing.Size(75, 23);
-			this.btnRemoveEpAcc.TabIndex = 13;
-			this.btnRemoveEpAcc.TabStop = false;
-			this.btnRemoveEpAcc.Tag = "";
-			this.btnRemoveEpAcc.Text = "Scollega";
-			this.btnRemoveEpAcc.Visible = false;
-			this.btnRemoveEpAcc.Click += new System.EventHandler(this.btnRemoveEpAcc_Click);
-			// 
-			// btnLinkEpAcc
-			// 
-			this.btnLinkEpAcc.Location = new System.Drawing.Point(784, 389);
-			this.btnLinkEpAcc.Name = "btnLinkEpAcc";
-			this.btnLinkEpAcc.Size = new System.Drawing.Size(75, 23);
-			this.btnLinkEpAcc.TabIndex = 12;
-			this.btnLinkEpAcc.TabStop = false;
-			this.btnLinkEpAcc.Tag = "";
-			this.btnLinkEpAcc.Text = "Collega";
-			this.btnLinkEpAcc.Visible = false;
-			this.btnLinkEpAcc.Click += new System.EventHandler(this.btnLinkEpAcc_Click);
 			// 
 			// label11
 			// 
@@ -2859,11 +2859,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
             if (linktoinvoice == "N") {
 	            rdEPKind_F.Enabled = false;
 	            rdEPKind_R.Enabled = false;
-	            grpRipartizioneCosti.Enabled = true;
+	            //grpRipartizioneCosti.Enabled = true;
 	        }
-	        else {
-	            grpRipartizioneCosti.Enabled = false;
-	        }
+	        //else {
+	        //    grpRipartizioneCosti.Enabled = false;
+	        //}
 	        //if (linktoinvoice == "N") {
 	        //    grpPcc.Enabled = true;
 	        //}
@@ -3241,8 +3241,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
 
 
             Meta.SourceRow.Table.ExtendedProperties["RigaModificata"] = Meta.SourceRow;
-        }
-        public void MetaData_BeforeFill() {
+
+			Meta.SourceRow.Table.ExtendedProperties["propagaCausaleUpb"] = Meta.SourceRow;
+
+		}
+		public void MetaData_BeforeFill() {
             DataRow curr = DS.mandatedetail.Rows[0];
 
             if (Meta.FirstFillForThisRow) {
@@ -3274,11 +3277,16 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			}
 			int esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
 			object datacontabile = Meta.GetSys("datacontabile");
-			if ((CfgFn.GetNoNullInt32(Curr["yman"]) < esercizio) && (Curr.RowState == DataRowState.Added)) {
+			if ((CfgFn.GetNoNullInt32(Curr["yman"]) < esercizio) && (Curr.RowState == DataRowState.Added)
+				 && (Curr["stop"] == DBNull.Value)) {
 				txtStart.Text = HelpForm.StringValue(datacontabile,
 				txtStart.Tag.ToString());
 			}
 
+			if ((CfgFn.GetNoNullInt32(Curr["yman"]) < esercizio) && (Curr.RowState == DataRowState.Added)
+				 && (Curr["stop"] != DBNull.Value)) {
+			     txtStart.ReadOnly = true;
+			}
 
 			object idlist = Curr["idlist"];
             if (idlist != DBNull.Value) {
@@ -3956,6 +3964,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 
             if(chkListDescription.Checked){
                 FrmAskDescr FR = new FrmAskDescr(Meta.Dispatcher);
+                createForm(FR, this);
                 DialogResult D = FR.ShowDialog(this);
                 if (D != DialogResult.OK) return;
                 if (FR.Selected != null){
@@ -4321,6 +4330,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             if (quantita == 0) return;
 
             frmHint F = new frmHint(imponibileUnitario,totiva, totdetraibile, quantita, tassocambio, sconto);
+            createForm(F, null);
             F.Show();
         }
 
@@ -4421,7 +4431,8 @@ namespace mandatedetail_single//dettordinegenericosingle//
 
 
 			FormCalculateDiscount F = new FormCalculateDiscount(ImponibileValutaTot, sconto, imponibileUnitario,
-																	quantita, totiva, ImponibileEUR, taxrate);			
+																	quantita, totiva, ImponibileEUR, taxrate);
+            createForm(F, this);
             DialogResult D = F.ShowDialog(this);
             if (D != DialogResult.OK) return;
 			this.txtSconto.Text = HelpForm.StringValue(F.sconto, "x.y.fixed.4....%.100");		

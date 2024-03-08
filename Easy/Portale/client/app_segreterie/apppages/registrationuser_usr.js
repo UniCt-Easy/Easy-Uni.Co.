@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -53,6 +36,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					firstErrorObj = { warningMsg: "", errMsg: loc.getMinNumRowRequired("Autorizzazioni richieste", 1), errField: "XXregistrationuserflowchart", row: rowToCheck };
 					return def.resolve(firstErrorObj);
 				}
+
+				if (rowToCheck.table.dataset.tables["registrationuser"] &&
+					(!rowToCheck.current.surname ||
+					 !rowToCheck.current.forename ||
+					 !rowToCheck.current.cf
+					)) {
+					firstErrorObj = { warningMsg: "", errMsg: 'Inserisci i dati nome, cognome e codiceFiscale' , errField: "cf", row: rowToCheck };
+					return def.resolve(firstErrorObj);
+				}
 //$isValidArray$
 				
 				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
@@ -64,14 +56,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.esercizio)
-					parentRow.esercizio = (new Date()).getFullYear();
-				if (!parentRow.idregistrationuserstatus)
-					parentRow.idregistrationuserstatus = 1;
-				if (!parentRow.userkind)
-					parentRow.userkind = 5;
-				_.extend(parentRow, appMeta.ssoPrms);
+
+				if (appMeta.ssoPrms) {
+					_.extend(parentRow, appMeta.ssoPrms);
+					if (!parentRow.userkind) {
+						// 5 sso, 4 ldap, 3 user + passweb
+						parentRow.userkind =  appMeta.appMainConfig.ssoEnable ? 5 : (appMeta.appMainConfig.ldapEnabled ? 4 : 3);
+					}
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -93,8 +85,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//afterClear
 
 			afterFill: function () {
-				this.enableControl($('#registrationuser_usr_surname'), false);
-				this.enableControl($('#registrationuser_usr_forename'), false);
+				this.enableControl($('#registrationuser_usr_surname'), appMeta.appMainConfig.ldapEnabled);
+				this.enableControl($('#registrationuser_usr_forename'), appMeta.appMainConfig.ldapEnabled);
 				this.enableControl($('#registrationuser_usr_email'), false);
 				this.enableControl($('#registrationuser_usr_login'), false);
 				this.enableControl($('#registrationuser_usr_idregistrationuserstatus'), false);
@@ -104,6 +96,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
+				var registrationuser = this.getDataTable("registrationuser");
+				registrationuser.defaults(
+					{
+						'esercizio': (new Date()).getFullYear(),
+						'idregistrationuserstatus' : 1,
+						// TORNATO DAL SERVER negli ssoPrameters ---> 'userkind': appMeta.appMainConfig.ssoEnable ? 5 : (appMeta.appMainConfig.ldapEnabled ? 4 : 3)
+					});
+
 				this.setFilterRegistrationuser_usr_flowchart();
 				$("#GiveAccess").on("click", _.partial(this.fireGiveAccess, this));
 				$("#GiveAccess").prop("disabled", true);
@@ -148,10 +148,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			fireGiveAccess: function (that) {
+				appMeta.ssoPrms = null;
 				that.cmdMainSave()
 					.then(function (res) {
 						if (res) {
-							return that.showMessageOk("Richiesta di registrazione inviata con successo. Verrai reindirizzato alla home.");
+							return that.showMessageOk("Richiesta di registrazione inviata con successo! Attendi l'autorizzazione da parte di un amministratore e quindi riprova login sso");
 						}
 						return res;
 					})

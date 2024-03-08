@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -223,10 +223,16 @@ namespace bankdispositionsetup_importnew {
 
                 data_da_considerare = data_movimento;
             else data_da_considerare = (DateTime)data_valuta_ente;
+            decimal importo = XmlHelper.AsDecimal(X, "importo");
 
+            string tipo_operazione = X["tipo_operazione"].InnerText;
+
+            if (tipo_operazione == "STORNATO" && importo > 0) {
+                importo = -importo;
+            }
             ProvvisorioSpesa R = new ProvvisorioSpesa(esercizio,
                                         XmlHelper.AsInt(X, "numero_documento"),
-                                        XmlHelper.AsDecimal(X, "importo"),
+                                        importo,
                                         causale,
                                         XmlHelper.AsString(Xreg, "anagrafica_cliente"),
                                         data_da_considerare,
@@ -252,10 +258,16 @@ namespace bankdispositionsetup_importnew {
                 data_da_considerare = data_movimento;
             else data_da_considerare = (DateTime)data_valuta_ente;
 
+            decimal importo = XmlHelper.AsDecimal(X, "importo");
 
+            string tipo_operazione = X["tipo_operazione"].InnerText;
+
+            if (tipo_operazione == "STORNATO" && importo > 0) {
+                importo = -importo;
+            }
             ProvvisorioEntrata R = new ProvvisorioEntrata(esercizio,
                                         XmlHelper.AsInt(X, "numero_documento"),
-                                        XmlHelper.AsDecimal(X, "importo"),
+                                        importo,
                                         causale,
                                         XmlHelper.AsString(Xreg, "anagrafica_cliente"),
                                         data_da_considerare,

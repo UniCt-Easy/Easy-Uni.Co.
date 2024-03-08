@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -177,7 +177,7 @@ SELECT '4 - Contratti con ritenute fiscali inseriti come CUD in altri contratti 
 	    ) 
 	UNION ALL
 	--setuser 'amministrazione'
-	SELECT '6 - Contratti con due conguagli nell''anno redditi ' as 'Elenco',   co.idcon,co.ycon as 'Es. Contratto', co.ncon as 'N. contratto', co.duty as 'Mansione',  
+	SELECT distinct '6 - Contratti con due conguagli nell''anno redditi ' as 'Elenco',   co.idcon,co.ycon as 'Es. Contratto', co.ncon as 'N. contratto', co.duty as 'Mansione',  
 
 	co.start as 'Data inizio',  co.stop as 'Data fine',im.flagexcludefromcertificate as 'Escludi da Cert. Unica', r.title as 'Anagrafica', r.cf as 'CF', r.birthdate as 'Nato il', ISNULL(service.servicecode770,service.codeser) as 'Cod. Prest.',
        service.description as 'Prestazione', service.rec770kind as 'Tipo Rec. CU',
@@ -192,11 +192,37 @@ SELECT '4 - Contratti con ritenute fiscali inseriti come CUD in altri contratti 
 		JOIN parasubcontract co1 ON cud.idcon = co1.idcon
 		JOIN parasubcontractyear im1 ON cud.idcon = im1.idcon AND im1.ayear = @annoredditi 
 	WHERE  --due o più conguagli 
-		 (select COUNT(*) FROM payroll cedconguaglio where cedconguaglio.idcon=co.idcon AND cedconguaglio.fiscalyear = @annoredditi and
+		 (select COUNT(*) FROM payroll cedconguaglio where cedconguaglio.idcon=co.idcon  AND cedconguaglio.fiscalyear = @annoredditi 
+													and
 													 cedconguaglio.flagbalance = 'S' )>1					
 	    OR
-		 (select COUNT(*) FROM payroll cedconguaglio where cedconguaglio.idcon=co1.idcon AND cedconguaglio.fiscalyear = @annoredditi and
+		 (select COUNT(*) FROM payroll cedconguaglio where cedconguaglio.idcon=co1.idcon AND cedconguaglio.fiscalyear = @annoredditi
+													and
 													 cedconguaglio.flagbalance = 'S' )>1				
+
+	UNION ALL
+	--setuser 'amministrazione'
+	SELECT distinct '7 - Contratti divenuti CUD per due o più contratti nell''anno redditi ' as 'Elenco',   co.idcon,co.ycon as 'Es. Contratto', co.ncon as 'N. contratto', co.duty as 'Mansione',  
+
+	co.start as 'Data inizio',  co.stop as 'Data fine',im.flagexcludefromcertificate as 'Escludi da Cert. Unica', r.title as 'Anagrafica', r.cf as 'CF', r.birthdate as 'Nato il', ISNULL(service.servicecode770,service.codeser) as 'Cod. Prest.',
+       service.description as 'Prestazione', service.rec770kind as 'Tipo Rec. CU',
+	   co1.idcon as 'Inserito come CUD in (idcon)', convert(varchar(4),co1.ycon) + '/'+convert(varchar(10),co1.ncon)    as 'Inserito come CUD in',
+	   im1.flagexcludefromcertificate as 'Escludi Contr. collegato da Cert. Unica'
+	FROM  
+		parasubcontract co  
+        JOIN parasubcontractyear im ON co.idcon = im.idcon AND im.ayear = @annoredditi
+		JOIN service ON service.idser = co.idser
+		join registry R ON R.idreg = co.idreg 
+		join  exhibitedcud cud on cud.idlinkedcon = co.idcon
+		JOIN parasubcontract co1 ON cud.idcon = co1.idcon
+		JOIN parasubcontractyear im1 ON cud.idcon = im1.idcon AND im1.ayear = @annoredditi 
+	where (select count(*) from exhibitedcud cud_bis 
+			join parasubcontract co1_bis on  cud_bis.idcon = co1_bis.idcon
+			JOIN parasubcontractyear im1_bis ON cud_bis.idcon = im1_bis.idcon AND im1_bis.ayear = @annoredditi 
+		where  cud_bis.idlinkedcon = co.idcon
+		and cud_bis.fiscalyear = @annoredditi
+		)>1		
+
 		 
 	END
 	GO

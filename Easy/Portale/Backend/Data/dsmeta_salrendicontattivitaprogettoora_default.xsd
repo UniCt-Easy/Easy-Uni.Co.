@@ -10,6 +10,9 @@
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
               <xs:element name="idrendicontattivitaprogettoora" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
+              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogetto_description" type="xs:string" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogetto_idreg" type="xs:int" minOccurs="0" />
               <xs:element name="rendicontattivitaprogettoora_ct" type="xs:dateTime" />
               <xs:element name="rendicontattivitaprogettoora_cu" type="xs:string" />
               <xs:element name="rendicontattivitaprogettoora_data" type="xs:dateTime" minOccurs="0" />
@@ -19,6 +22,8 @@
               <xs:element name="rendicontattivitaprogettoora_ore" type="xs:int" minOccurs="0" />
               <xs:element name="sal_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sal_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="workpackage_raggruppamento" type="xs:string" minOccurs="0" />
+              <xs:element name="workpackage_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -39,7 +44,9 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:rendicontattivitaprogettoorasegsalview" />
+      <xs:field xpath="mstns:idrendicontattivitaprogetto" />
       <xs:field xpath="mstns:idrendicontattivitaprogettoora" />
+      <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
     <xs:unique name="salrendicontattivitaprogettoora_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:salrendicontattivitaprogettoora" />

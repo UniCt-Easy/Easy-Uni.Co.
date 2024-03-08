@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1368,6 +1368,9 @@ namespace bankdispositionsetup_siopeplus_incassi {
         public string codice_cge { get; set; }
 
         [XmlElement(Order = 2)]
+        public string codice_cup { get; set; }
+
+        [XmlElement(Order = 3)]
         public decimal importo { get; set; }
 
         
@@ -1377,7 +1380,7 @@ namespace bankdispositionsetup_siopeplus_incassi {
             this.classificazione_dati_siope_entrateField = new ctClassificazione_dati_siope_entrate();
         }
 
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 4)]
         public ctClassificazione_dati_siope_entrate classificazione_dati_siope_entrate {
             get { return this.classificazione_dati_siope_entrateField; }
             set { this.classificazione_dati_siope_entrateField = value; }

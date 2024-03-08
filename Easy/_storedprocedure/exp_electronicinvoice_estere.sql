@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoice_estere]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoice_estere]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoice_estere]
 GO
 
@@ -24,7 +24,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
+--setuser 'amministrazione'
 -- La sp viene chiamata dal form della fattura, per creare la riga in sdi_acquisto_estere e quindi il file xml
 CREATE procedure exp_electronicinvoice_estere(
 	@yinv int,
@@ -45,16 +45,16 @@ select @cf = case when upper(substring(cf,1,2)) ='IT' then substring(cf,3,(len(c
 			end
 	from license
 
-	DECLARE @phonenumber varchar(12)
-	DECLARE @comune varchar(60)
-	DECLARE @provincia varchar(2)
-	DECLARE @indirizzo varchar(60)
-	DECLARE @cap varchar(5)
+	DECLARE @phonenumber varchar(30)	-- license.phonenumber = 30
+	DECLARE @comune varchar(65)			-- geo_city.title = 65, license.location = 50
+	DECLARE @provincia varchar(2)		-- license.country = 2
+	DECLARE @indirizzo varchar(100)		-- license.address1 = 50 + license.address2 = 50
+	DECLARE @cap varchar(5)				-- license.cap = 5
 	SELECT
 		@phonenumber = substring(ltrim(rtrim(license.phonenumber)),1,12),
 		@comune = SUBSTRING(isnull(geo_city.title, license.location), 1, 60),
 		@provincia = license.country,
-		@indirizzo = isnull(license.address1,'') + SUBSTRING(isnull(license.address2,''), 1, 10),
+		@indirizzo = isnull(license.address1,'') + isnull(license.address2,''),
 		@cap = license.cap
 	FROM license
 	left outer join geo_city 
@@ -87,9 +87,9 @@ CREATE TABLE #SedeFornitore
 (
 	idaddresskind int,
     idreg int,
-	address varchar(60),	
-	location varchar(60),
-	cap varchar(5),		
+	address varchar(100),	-- registryaddress.address = 100
+	location varchar(65),	-- geo_city.title = 65, registryaddress.location = 50
+	cap varchar(20),		-- registryaddress.cap = 20		
 	province varchar(2),
 	nation varchar(2)
 )
@@ -107,9 +107,9 @@ CREATE TABLE #StabileOrganizzazioneFornitore
 (
 	idaddresskind int,
     idreg int,
-	address varchar(60),	
-	location varchar(60),
-	cap varchar(5),		
+	address varchar(100),	-- registryaddress.address = 100
+	location varchar(65),	-- geo_city.title = 65, registryaddress.location = 50
+	cap varchar(20),		-- registryaddress.cap = 20
 	province varchar(2),
 	nation varchar(2)
 )
@@ -118,8 +118,8 @@ INSERT INTO #StabileOrganizzazioneFornitore(idaddresskind, idreg, address,	locat
 SELECT 
 	idaddresskind,
 	idreg, 
-	substring(address,1,60),
-	SUBSTRING(isnull(geo_city.title, registryaddress.location), 1, 60),
+	address,
+	isnull(geo_city.title, registryaddress.location),
 	case when geo_city.idcity is null then '00000' else registryaddress.cap end,
 	geo_country.province,
 	ISNULL(geo_nation_agency.value,'IT')
@@ -147,9 +147,9 @@ INSERT INTO #SedeFornitore(idaddresskind, idreg, address,	location, cap, provinc
 SELECT 
 	idaddresskind,
 	idreg, 
-	substring(address,1,60),
-	SUBSTRING(isnull(geo_city.title, registryaddress.location), 1, 60),
-	case when geo_city.idcity is null then '00000' else registryaddress.cap end,
+	address,
+	isnull(geo_city.title, registryaddress.location),
+	case when geo_city.idcity is null then '00000' else ltrim(rtrim(registryaddress.cap)) end,
 	case when geo_nation_agency.value is null then geo_country.province else 'EE' end,
 	ISNULL(geo_nation_agency.value,'IT')
 FROM registryaddress
@@ -295,20 +295,34 @@ select
 -- <DATI GENERALI>
 	FEkind.codefedocumentkind	as 'Tipodocumento',
 	'EUR' as 'divisa',
-	I.adate	as'data',
-	--I.doc as 'numero',
-	'dip' + replicate('0',5-len(convert(varchar(5),I.idinvkind ))) + convert(varchar(5),I.idinvkind )+ '-'+I.doc as 'numero',
+	I.protocoldate	as'data',
+	--I.doc as 'numero',20
+	replicate('0',5-len(convert(varchar(5),I.idinvkind ))) + convert(varchar(5),I.idinvkind )+substring(I.doc,1, 15) as 'numero',
 	I.docdate as 'datadocumento',
 	-- Sulla fattura, sull'intera fattura non sul dettaglio, è previsto o uno sconto o una maggiorazione. Per questo potremmo fare un altro check, che verifichi non vi siano sia sconti che maggiorazioni 
 	-- nella stessa fattura, perchè non possiamo trasmettere nello stesso file un dettaglio scontato e un dettaglio maggiorato.Anche se il concetto di maggiorazione credo non venga usato proprio...
 	--> Imponibile totale -  Imponibile totale scontato = importo sconto
 	 ROUND((  select 
-		  sum( CONVERT(decimal(19,8), (ID2.taxable_euro/ISNULL(ID2.npackage, ID2.number)-ID2.taxable))*ISNULL(ID2.npackage, ID2.number))		   
-	  
-		from invoicedetailview ID2		
-		where ID2.ninv = I.ninv AND ID2.yinv = I.yinv AND ID2.idinvkind = I.idinvkind and ID2.taxable_euro <>0 and ISNULL(ID2.npackage, ID2.number)<>0
+		  SUM( CONVERT(decimal(19,8), (/*imponibile totale euro scontato diviso quantità*/ID2.taxable_euro/ISNULL(ID2.npackage, ID2.number)
+		  -
+		  /*sottraggo imponibile unitario non scontato convertito in euro*/ ID2.taxable * CONVERT(DECIMAL(19,10),ID2.exchangerate) ))*ISNULL(ID2.npackage, ID2.number))		   
+		 from invoicedetailview ID2		
+		 where ID2.ninv = I.ninv AND ID2.yinv = I.yinv AND ID2.idinvkind = I.idinvkind and ID2.taxable_euro <>0 and ISNULL(ID2.npackage, ID2.number)<>0
 	   ),2)
-		as 'sconto',
+
+	 --   CONVERT(decimal(19,2),
+		--ROUND((SELECT SUM(
+		--			ID2.taxable * 
+		--			ISNULL(ID2.npackage,ID2.number) * 
+		--			CONVERT(DECIMAL(19,10),I.exchangerate) *
+		--			(CONVERT(DECIMAL(19,6),ISNULL(ID2.discount, 0.0))
+		--			)
+		--  )
+		--  from invoicedetailview ID2		
+		--  where ID2.ninv = I.ninv AND ID2.yinv = I.yinv AND ID2.idinvkind = I.idinvkind and ID2.taxable_euro <>0 and ISNULL(ID2.npackage, ID2.number)<>0)
+		-- ,2 ))  
+		 
+		 as 'sconto',
 	case 
 		when (select sum(discount) from invoicedetail id2 where id2.ninv = I.ninv AND id2.yinv = I.yinv AND id2.idinvkind = I.idinvkind)>0 then 'SC'
 		when (select sum(discount) from invoicedetail id2 where id2.ninv = I.ninv AND id2.yinv = I.yinv AND id2.idinvkind = I.idinvkind)<0 then 'MG'
@@ -347,7 +361,7 @@ select
 	end as 'DataScadenzaPagamento'*/
 	 I.idexpirationkind ,
 	 I.paymentexpiring,
-	 case	when isnull(I.flag_enable_split_payment,'N') = 'S' then  I.taxable
+	 case	when isnull(I.flag_enable_split_payment,'N') = 'S' then  I.taxable 
 			else I.total 
 	 end  as 'ImportoPagamento',
 	 case --when (R.flagbankitaliaproceeds='S' AND I.idfepaymethod in ('MP05','MP15')) then (select iban_f24 from config where ayear = @yinv)
@@ -371,6 +385,7 @@ JOIN #SedeFornitore				ON #SedeFornitore.idreg = I.idreg
 JOIN treasurer T on I.idtreasurer_acq_estere = T.idtreasurer
 LEFT OUTER JOIN #StabileOrganizzazioneFornitore				ON #StabileOrganizzazioneFornitore.idreg = I.idreg
 where I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind
+and ((I.idreg_sostituto is not null and I.p_iva_sostituto is not null) or I.idreg_sostituto is null)
 end
 
 GO
@@ -381,6 +396,3 @@ GO
 SET ANSI_NULLS ON 
 GO
  
-
---EXEC exp_electronicinvoice_estere 2021, 7, 366 
-

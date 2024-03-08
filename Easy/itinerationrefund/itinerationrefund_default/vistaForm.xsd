@@ -7,11 +7,13 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcurrency" type="xs:int" />
+              <xs:element name="codecurrency" type="xs:string" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -43,6 +45,9 @@
               <xs:element name="webwarn" type="xs:string" minOccurs="0" />
               <xs:element name="idforeigncountry" type="xs:int" minOccurs="0" />
               <xs:element name="noaccount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="docamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="requiredamount_c" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

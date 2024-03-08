@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -170,6 +170,7 @@ namespace mandatekind_default
 		private CheckBox chkOttempLegge;
 		private CheckBox chkCasellarioAmm;
 		private CheckBox chkCasellarioGiud;
+		private CheckBox chkPattoIntegrita;
 		private System.ComponentModel.IContainer components;
 
 		public Frm_mandatekind_default()
@@ -232,6 +233,7 @@ namespace mandatekind_default
 			chkOttempLegge.Enabled = true;
 			chkCasellarioAmm.Enabled = true;
 			chkCasellarioGiud.Enabled = true;
+			chkPattoIntegrita.Enabled = true;
         }
         public void MetaData_AfterFill() {
             if (DS.mandatekind.Rows.Count > 0) {
@@ -247,6 +249,7 @@ namespace mandatekind_default
 					chkOttempLegge.Enabled = true;
 					chkCasellarioAmm.Enabled = true;
 					chkCasellarioGiud.Enabled = true;
+					chkPattoIntegrita.Enabled = true;
                 }
                 else {
                     //CIG non  previsto, quindi certificati non necessari
@@ -258,6 +261,7 @@ namespace mandatekind_default
 					chkOttempLegge.Enabled = false;
 					chkCasellarioAmm.Enabled = false;
 					chkCasellarioGiud.Enabled = false;
+					chkPattoIntegrita.Enabled = false;
                 }
             }
         }
@@ -430,6 +434,7 @@ namespace mandatekind_default
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
+			this.chkPattoIntegrita = new System.Windows.Forms.CheckBox();
 			this.tabMandateKind.SuspendLayout();
 			this.tabPageInfo.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -547,6 +552,7 @@ namespace mandatekind_default
 			// 
 			// grpCertificatiNecessari
 			// 
+			this.grpCertificatiNecessari.Controls.Add(this.chkPattoIntegrita);
 			this.grpCertificatiNecessari.Controls.Add(this.chkVerificaAnac);
 			this.grpCertificatiNecessari.Controls.Add(this.chkRegolaritaFiscale);
 			this.grpCertificatiNecessari.Controls.Add(this.chkOttempLegge);
@@ -557,7 +563,7 @@ namespace mandatekind_default
 			this.grpCertificatiNecessari.Controls.Add(this.chkCCdedicato);
 			this.grpCertificatiNecessari.Location = new System.Drawing.Point(372, 174);
 			this.grpCertificatiNecessari.Name = "grpCertificatiNecessari";
-			this.grpCertificatiNecessari.Size = new System.Drawing.Size(193, 221);
+			this.grpCertificatiNecessari.Size = new System.Drawing.Size(193, 233);
 			this.grpCertificatiNecessari.TabIndex = 95;
 			this.grpCertificatiNecessari.TabStop = false;
 			this.grpCertificatiNecessari.Text = "Certificati necessari";
@@ -1148,7 +1154,7 @@ namespace mandatekind_default
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage5.Size = new System.Drawing.Size(673, 373);
+			this.tabPage5.Size = new System.Drawing.Size(553, 373);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "Indirizzo";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -1161,7 +1167,7 @@ namespace mandatekind_default
 			this.textBox4.Multiline = true;
 			this.textBox4.Name = "textBox4";
 			this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox4.Size = new System.Drawing.Size(667, 367);
+			this.textBox4.Size = new System.Drawing.Size(547, 367);
 			this.textBox4.TabIndex = 38;
 			this.textBox4.Tag = "mandatekind.address";
 			// 
@@ -1171,7 +1177,7 @@ namespace mandatekind_default
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(673, 373);
+			this.tabPage1.Size = new System.Drawing.Size(553, 373);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Annotazioni 1";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -1184,7 +1190,7 @@ namespace mandatekind_default
 			this.textBox13.Multiline = true;
 			this.textBox13.Name = "textBox13";
 			this.textBox13.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox13.Size = new System.Drawing.Size(667, 367);
+			this.textBox13.Size = new System.Drawing.Size(547, 367);
 			this.textBox13.TabIndex = 36;
 			this.textBox13.Tag = "mandatekind.notes1";
 			// 
@@ -1194,7 +1200,7 @@ namespace mandatekind_default
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(673, 373);
+			this.tabPage2.Size = new System.Drawing.Size(553, 373);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Annotazioni 2";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -1207,7 +1213,7 @@ namespace mandatekind_default
 			this.textBox12.Multiline = true;
 			this.textBox12.Name = "textBox12";
 			this.textBox12.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox12.Size = new System.Drawing.Size(667, 367);
+			this.textBox12.Size = new System.Drawing.Size(547, 367);
 			this.textBox12.TabIndex = 36;
 			this.textBox12.Tag = "mandatekind.notes2";
 			// 
@@ -1217,7 +1223,7 @@ namespace mandatekind_default
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(673, 373);
+			this.tabPage3.Size = new System.Drawing.Size(553, 373);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Annotazioni 3";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -1230,7 +1236,7 @@ namespace mandatekind_default
 			this.textBox11.Multiline = true;
 			this.textBox11.Name = "textBox11";
 			this.textBox11.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox11.Size = new System.Drawing.Size(667, 367);
+			this.textBox11.Size = new System.Drawing.Size(547, 367);
 			this.textBox11.TabIndex = 37;
 			this.textBox11.Tag = "mandatekind.notes3";
 			// 
@@ -1961,6 +1967,17 @@ namespace mandatekind_default
 			this.button3.Tag = "insert.default";
 			this.button3.Text = "Inserisci...";
 			// 
+			// chkPattoIntegrita
+			// 
+			this.chkPattoIntegrita.AutoSize = true;
+			this.chkPattoIntegrita.Location = new System.Drawing.Point(10, 210);
+			this.chkPattoIntegrita.Name = "chkPattoIntegrita";
+			this.chkPattoIntegrita.Size = new System.Drawing.Size(103, 17);
+			this.chkPattoIntegrita.TabIndex = 100;
+			this.chkPattoIntegrita.Tag = "mandatekind.requested_doc:8";
+			this.chkPattoIntegrita.Text = "Patto di Integrità";
+			this.chkPattoIntegrita.UseVisualStyleBackColor = true;
+			// 
 			// Frm_mandatekind_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -2038,6 +2055,7 @@ namespace mandatekind_default
 				chkOttempLegge.Enabled = false;
 				chkCasellarioAmm.Enabled = false;
 				chkCasellarioGiud.Enabled = false;
+				chkPattoIntegrita.Enabled = false;
             }
             else {
                 chkCCdedicato.Enabled = true;
@@ -2048,6 +2066,7 @@ namespace mandatekind_default
 				chkOttempLegge.Enabled = true;
 				chkCasellarioAmm.Enabled = true;
 				chkCasellarioGiud.Enabled = true;
+				chkPattoIntegrita.Enabled = true;
             }
         }
     }

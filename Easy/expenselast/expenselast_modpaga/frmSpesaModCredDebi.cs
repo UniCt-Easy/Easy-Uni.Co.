@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -959,6 +959,7 @@ namespace expenselast_modpaga//spesamodcreddebi//
         private void inserisciBBAN() {
             string bbanIniziale = txtBBAN.Text == CIN_NON_CORRETTO ? "" : txtBBAN.Text;
             frmaskbban BBAN = new frmaskbban(bbanIniziale);
+            createForm(BBAN, this);
             if (BBAN.ShowDialog(this) != DialogResult.OK) return;
             if (BBAN.insertedBBAN == "") return;
 
@@ -1247,6 +1248,7 @@ namespace expenselast_modpaga//spesamodcreddebi//
         private void btnIBAN_Click(object sender, EventArgs e) {
             FrmAskIban frm = new FrmAskIban(txtIBAN.Text);
 			DataRow curr = DS.expenselast.Rows[0];
+            createForm(frm, this);
             if (frm.ShowDialog(this) != DialogResult.OK) return;
             if ((frm.insertedIBAN == "")||(!frm.insertedIBAN.StartsWith("IT"))) {
 			    curr["idbank"] = DBNull.Value;

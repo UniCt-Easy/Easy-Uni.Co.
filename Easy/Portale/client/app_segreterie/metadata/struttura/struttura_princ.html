@@ -31,24 +31,24 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_princ_idaoo">AOO</label>
-					<select id="struttura_princ_idaoo" class="custom-select d-block w-100"  data-source-name="aoodefaultview" data-value-member="idaoo" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idaoo?strutturaprincview.struttura_idaoo" data-subentity   > </select>
+					<select id="struttura_princ_idaoo" class="custom-select d-block w-100"  data-source-name="aoodefaultview" data-value-member="idaoo" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="struttura.idaoo?strutturaprincview.struttura_idaoo" data-subentity   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_princ_idsede">Sede</label>
-					<select id="struttura_princ_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idsede?strutturaprincview.struttura_idsede" data-subentity  data-mandatory  > </select>
+					<select id="struttura_princ_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="struttura.idsede?strutturaprincview.struttura_idsede" data-subentity  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_princ_idstrutturakind">Tipo</label>
-					<select id="struttura_princ_idstrutturakind" class="custom-select d-block w-100"  data-source-name="strutturakinddefaultview" data-value-member="idstrutturakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idstrutturakind?strutturaprincview.struttura_idstrutturakind" data-subentity  data-mandatory  > </select>
+					<select id="struttura_princ_idstrutturakind" class="custom-select d-block w-100"  data-source-name="strutturakinddefaultview" data-value-member="idstrutturakind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="struttura.idstrutturakind?strutturaprincview.struttura_idstrutturakind" data-subentity  data-mandatory  > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_princ_idupb">UPB</label>
 					<div>
-						<input id="struttura_princ_idupb" name="struttura_princ_idupb" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="upbdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="struttura_princ_idupb" name="struttura_princ_idupb" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="upbdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -60,6 +60,13 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_princ_title_en">Denominazione (ENG)</label>
 					<input id="struttura_princ_title_en" type="text" class="form-control" data-tag="struttura.title_en?strutturaprincview.struttura_title_en" data-subentity  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_princ_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="struttura_princ_activeSi" type="radio" name="struttura_princ_active" class="custom-control-input" data-tag="struttura.active:S?strutturaprincview.struttura_active:Si" data-subentity  ><label for="struttura_princ_activeSi"> Si</label>
+						<input id="struttura_princ_activeNo" type="radio" name="struttura_princ_active" class="custom-control-input" data-tag="struttura.active:N?strutturaprincview.struttura_active:No" data-subentity  ><label for="struttura_princ_activeNo"> No</label>
+					</div>
 				</div>
 			</div>
 </form>

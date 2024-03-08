@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@ drop procedure [rpt_missione_prospetto_calcolo]
 GO
 
 -- setuser 'amministrazione'
--- rpt_missione_prospetto_calcolo 2018,2018,194,194
+-- rpt_missione_prospetto_calcolo 2023,2023,1,1
 CREATE  PROCEDURE  rpt_missione_prospetto_calcolo
 	@ayear smallint, 
 	@yitineration smallint, 
@@ -43,6 +43,7 @@ CREATE TABLE #rls
 (
 	idreg int,
 	idposition int,
+	livello int,
 	incomeclass int,
 	yitineration smallint,
 	nitineration int,
@@ -51,8 +52,8 @@ CREATE TABLE #rls
 	start datetime
 )
 
-INSERT INTO #rls (idreg, idposition, incomeclass, yitineration, nitineration,iditineration, start)
-SELECT RLS.idreg, RLS.idposition, isnull(RLS.incomeclass,0), I.yitineration, I.nitineration,  I.iditineration,I.start
+INSERT INTO #rls (idreg, idposition, livello, incomeclass, yitineration, nitineration,iditineration, start)
+SELECT RLS.idreg, RLS.idposition,  RLS.livello, isnull(RLS.incomeclass,0), I.yitineration, I.nitineration,  I.iditineration,I.start
 FROM registrylegalstatus RLS
 JOIN itineration I
 	ON I.idreg = RLS.idreg
@@ -72,12 +73,14 @@ SET foreigngroupnumber =
 FROM foreigngroupruledetail DET
 JOIN foreigngrouprule F		ON F.idforeigngrouprule = DET.idforeigngrouprule
 WHERE DET.idposition = #rls.idposition
+	and DET.livello = #rls.livello
 	AND #rls.incomeclass BETWEEN DET.minincomeclass AND DET.maxincomeclass
 	AND F.start =
 		(SELECT MAX(F2.start)
 		FROM foreigngrouprule F2
 		JOIN foreigngroupruledetail DET2			ON F.idforeigngrouprule = DET.idforeigngrouprule
 		WHERE DET2.idposition = #rls.idposition
+			and DET2.livello = #rls.livello
 			AND #rls.incomeclass BETWEEN DET.minincomeclass AND DET.maxincomeclass
 			AND start <= #rls.start)
 )
@@ -89,11 +92,11 @@ SELECT
 	registry.title as registry,
 	registry.extmatricula AS matricula,
 	service.description as service,
-	itineration.authorizationdate,
-	itineration.start,
-	itineration.stop,
-	itineration.adate,
-	position.description as position,
+	CONVERT(datetime,itineration.authorizationdate) as authorizationdate,
+	CONVERT(datetime,itineration.start) as start,
+	CONVERT(datetime,itineration.stop) as stop,
+	CONVERT(datetime, itineration.adate)   as adate,
+	isnull(position.description,'')+ isnull(convert(varchar(2), #rls.livello),'') as position,
 	#rls.incomeclass AS currentclass,
 	#rls.foreigngroupnumber,
 	itineration.applierannotations,

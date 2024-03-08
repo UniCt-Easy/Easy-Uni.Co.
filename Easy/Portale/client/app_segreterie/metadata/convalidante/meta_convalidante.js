@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -54,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idsostenimento_sostenimento_voto', 'Voto Sostenimento', 'fixed.2', 162, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_votosu', 'Su Sostenimento', null, 163, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_votolode', 'Lode Sostenimento', null, 164, null);
-						this.describeAColumn(table, '!idsostenimento_sostenimento_idattivform_title', 'Attivit‡ formativa Sostenimento', null, 161, null);
+						this.describeAColumn(table, '!idsostenimento_sostenimento_idattivform_title', 'Attivit√† formativa Sostenimento', null, 161, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_idreg_title', 'Denominazione Sostenimento', null, 161, null);
 						objCalcFieldConfig['!idsostenimento_sostenimento_voto'] = { tableNameLookup:'sostenimento', columnNameLookup:'voto', columnNamekey:'idsostenimento' };
 						objCalcFieldConfig['!idsostenimento_sostenimento_votosu'] = { tableNameLookup:'sostenimento', columnNameLookup:'votosu', columnNamekey:'idsostenimento' };
@@ -75,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idsostenimento_sostenimento_voto', 'Voto Sostenimento', 'fixed.2', 162, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_votosu', 'Su Sostenimento', null, 163, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_votolode', 'Lode Sostenimento', null, 164, null);
-						this.describeAColumn(table, '!idsostenimento_sostenimento_idattivform_title', 'Attivit‡ formativa Sostenimento', null, 161, null);
+						this.describeAColumn(table, '!idsostenimento_sostenimento_idattivform_title', 'Attivit√† formativa Sostenimento', null, 161, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_idreg_title', 'Denominazione Sostenimento', null, 161, null);
 						objCalcFieldConfig['!idsostenimento_sostenimento_voto'] = { tableNameLookup:'sostenimento', columnNameLookup:'voto', columnNamekey:'idsostenimento' };
 						objCalcFieldConfig['!idsostenimento_sostenimento_votosu'] = { tableNameLookup:'sostenimento', columnNameLookup:'votosu', columnNamekey:'idsostenimento' };
@@ -92,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idsostenimento_sostenimento_voto', 'Voto Sostenimento', 'fixed.2', 162, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_votosu', 'Su Sostenimento', null, 163, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_votolode', 'Lode Sostenimento', null, 164, null);
-						this.describeAColumn(table, '!idsostenimento_sostenimento_idattivform_title', 'Attivit‡ formativa Sostenimento', null, 161, null);
+						this.describeAColumn(table, '!idsostenimento_sostenimento_idattivform_title', 'Attivit√† formativa Sostenimento', null, 161, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_idreg_title', 'Denominazione Sostenimento', null, 161, null);
 						objCalcFieldConfig['!idsostenimento_sostenimento_voto'] = { tableNameLookup:'sostenimento', columnNameLookup:'voto', columnNamekey:'idsostenimento' };
 						objCalcFieldConfig['!idsostenimento_sostenimento_votosu'] = { tableNameLookup:'sostenimento', columnNameLookup:'votosu', columnNamekey:'idsostenimento' };
@@ -111,7 +94,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idsostenimento_sostenimento_voto', 'Voto Sostenimento', 'fixed.2', 162, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_votosu', 'Su Sostenimento', null, 163, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_votolode', 'Lode Sostenimento', null, 164, null);
-						this.describeAColumn(table, '!idsostenimento_sostenimento_idattivform_title', 'Attivit‡ formativa Sostenimento', null, 161, null);
+						this.describeAColumn(table, '!idsostenimento_sostenimento_idattivform_title', 'Attivit√† formativa Sostenimento', null, 161, null);
 						this.describeAColumn(table, '!idsostenimento_sostenimento_idreg_title', 'Denominazione Sostenimento', null, 161, null);
 						objCalcFieldConfig['!idsostenimento_sostenimento_voto'] = { tableNameLookup:'sostenimento', columnNameLookup:'voto', columnNamekey:'idsostenimento' };
 						objCalcFieldConfig['!idsostenimento_sostenimento_votosu'] = { tableNameLookup:'sostenimento', columnNameLookup:'votosu', columnNamekey:'idsostenimento' };

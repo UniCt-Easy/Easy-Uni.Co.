@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,7 +32,7 @@ CREATE        PROCEDURE [trasmele_expense_bccflumeri_var]
 	@n int
 )
 AS BEGIN
-
+ 
 --------------------------------------------------------------
 ---  STORED PROCEDURE PER LA TRASMISSIONE DEI MANDATI PER  ---
 ----------- BANCA DI CREDITO COOPERATIVO FLUMERI -------------
@@ -616,7 +616,8 @@ CREATE TABLE #payment
 	cigcodemandate varchar(10),
 	autokind int,
 	totalann char(1),
-	opkind varchar(20)
+	opkind varchar(20),
+	expiration datetime
 )
 
 -- Tabella per il delegato
@@ -763,7 +764,7 @@ INSERT INTO #payment
     cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, txt ,
 	chargehandling,
 	exemption_charge_payment_kind,
-	exemption_charge_motive
+	exemption_charge_motive,expiration
 )
 SELECT t.ypaymenttransmission, t.npaymenttransmission,d.kpay, d.ypay, d.npay, s.idexp,  
 	s.ymov, s.nmov, s.nphase, eph.description, 
@@ -885,7 +886,8 @@ SELECT t.ypaymenttransmission, t.npaymenttransmission,d.kpay, d.ypay, d.npay, s.
 	ltrim(rtrim(substring(s.txt, 1, 200))),
 	ISNULL(chargehandling.handlingbankcode,@handlingbankcode_default),
 	chargehandling.payment_kind,
-	chargehandling.motive
+	chargehandling.motive,
+	s.expiration
 FROM expense s
 JOIN expenselast el
 	ON S.idexp = el.idexp
@@ -1873,8 +1875,8 @@ CREATE TABLE #trace
 	impignorabili char(1),
 	frazionabile char(1),
 	gestione_provvisoria char(1),
-	data_esecuzione_pagamento datetime, 
-	data_scadenza_pagamento datetime,
+	data_esecuzione_pagamento varchar(20), 
+	data_scadenza_pagamento varchar(20),
 	destinazione varchar(20),
 	numero_conto_banca_italia_ente_ricevente varchar(10),
 	tipo_contabilita_ente_ricevente varchar(20),
@@ -2205,8 +2207,8 @@ SELECT
 				   null,
 				   null,
 				   null,
-				   null,
-				   null,
+				   CONVERT(VARCHAR(10),expiration,20),--data esecuzione pagamento,
+				   null,--  ---data scadenza pagamento,
 				   destinazione, -- destinazione
 				   CASE 
 						WHEN (idpaymethodTRS = '09') THEN 1777 
@@ -2377,7 +2379,7 @@ LEFT JOIN #deputy
 		ABI, CAB, cc, cin_iban, cin,codice_paese, bank, iban,biccode,id_end_to_end,code, proprietary,
 		paymentdescr,nbill, stamphandling, stamp_charge, exemption_stamp_motive, 
 		refexternaldoc,expenselast_paymentdescr, #payment.txt, chargehandling,exemption_charge_payment_kind,
-		exemption_charge_motive
+		exemption_charge_motive,expiration
 	ORDER BY  #payment.ndoc, #payment.idpay	
 
 

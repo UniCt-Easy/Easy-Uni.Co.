@@ -3,31 +3,38 @@
   <xs:element name="dsmeta_stipendioannuo_prev" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="contrattoprevview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="registrylegalstatusprevview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="contratto_classe" type="xs:int" minOccurs="0" />
-              <xs:element name="contratto_ct" type="xs:dateTime" />
-              <xs:element name="contratto_cu" type="xs:string" />
-              <xs:element name="contratto_datarivalutazione" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="contratto_estremibando" type="xs:string" minOccurs="0" />
-              <xs:element name="contratto_idinquadramento" type="xs:int" minOccurs="0" />
-              <xs:element name="contratto_lt" type="xs:dateTime" />
-              <xs:element name="contratto_lu" type="xs:string" />
-              <xs:element name="contratto_parttime" type="xs:decimal" minOccurs="0" />
-              <xs:element name="contratto_percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
-              <xs:element name="contratto_scatto" type="xs:int" minOccurs="0" />
-              <xs:element name="contratto_start" type="xs:dateTime" />
-              <xs:element name="contratto_stop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="contratto_tempdef" type="xs:string" minOccurs="0" />
-              <xs:element name="contratto_tempindet" type="xs:string" minOccurs="0" />
-              <xs:element name="contrattokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcontratto" type="xs:int" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
               <xs:element name="inquadramento_tempdef" type="xs:string" minOccurs="0" />
               <xs:element name="inquadramento_title" type="xs:string" minOccurs="0" />
+              <xs:element name="position_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_active" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_csa_class" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_csa_compartment" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_csa_role" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_cu" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_datarivalutazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_iddaliaposition" type="xs:int" minOccurs="0" />
+              <xs:element name="registrylegalstatus_idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="registrylegalstatus_incomeclass" type="xs:int" minOccurs="0" />
+              <xs:element name="registrylegalstatus_incomeclassvalidity" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_livello" type="xs:int" minOccurs="0" />
+              <xs:element name="registrylegalstatus_lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_lu" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_parttime" type="xs:decimal" minOccurs="0" />
+              <xs:element name="registrylegalstatus_percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="registrylegalstatus_rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="registrylegalstatus_start" type="xs:dateTime" />
+              <xs:element name="registrylegalstatus_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registrylegalstatus_tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_tempindet" type="xs:string" minOccurs="0" />
+              <xs:element name="registrylegalstatus_txt" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -35,17 +42,8 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
-              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
-              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
-              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
               <xs:element name="registry_active" type="xs:string" minOccurs="0" />
-              <xs:element name="residence" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -55,8 +53,8 @@
               <xs:element name="caricoente" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontratto" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
               <xs:element name="idstipendioannuo" type="xs:int" />
               <xs:element name="irap" type="xs:decimal" minOccurs="0" />
               <xs:element name="lordo" type="xs:decimal" minOccurs="0" />
@@ -70,9 +68,9 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattoprevview" />
-      <xs:field xpath="mstns:idcontratto" />
+      <xs:selector xpath=".//mstns:registrylegalstatusprevview" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
     </xs:unique>
     <xs:unique name="registrypersoneview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:registrypersoneview" />
@@ -80,15 +78,16 @@
     </xs:unique>
     <xs:unique name="stipendioannuo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:stipendioannuo" />
-      <xs:field xpath="mstns:idcontratto" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
       <xs:field xpath="mstns:idstipendioannuo" />
       <xs:field xpath="mstns:year" />
     </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_stipendioannuo_contrattoprevview_idcontratto" msdata:parent="contrattoprevview" msdata:child="stipendioannuo" msdata:parentkey="idcontratto" msdata:childkey="idcontratto" />
+      <msdata:Relationship name="FK_stipendioannuo_registrylegalstatusprevview_idregistrylegalstatus" msdata:parent="registrylegalstatusprevview" msdata:child="stipendioannuo" msdata:parentkey="idregistrylegalstatus" msdata:childkey="idregistrylegalstatus" />
+      <msdata:Relationship name="FK_registrylegalstatusprevview_registrypersoneview_idreg" msdata:parent="registrypersoneview" msdata:child="registrylegalstatusprevview" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_stipendioannuo_registrypersoneview_idreg" msdata:parent="registrypersoneview" msdata:child="stipendioannuo" msdata:parentkey="idreg" msdata:childkey="idreg" />
     </xs:appinfo>
   </xs:annotation>

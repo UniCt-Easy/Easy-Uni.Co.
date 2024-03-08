@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,8 +23,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
-
+--setuser 'amm'
+--setuser 'amministrazione'
+-- exec exp_payment_trasmitted {d '2023-12-19'}, 2023
 
 CREATE                     PROCEDURE [exp_payment_trasmitted]
 @date datetime,
@@ -48,7 +49,8 @@ SELECT  P.ypay  AS 'Esercizio Mandato',
 		FROM banktransaction B
 		WHERE B.kpay = EL.kpay
 		AND B.transactiondate <= @date)
-	,0)) AS 'Importo Non Esitato'
+	,0)) AS 'Importo Non Esitato',
+	t.description as 'Cassiere'
 FROM expensetotal ET 
 JOIN expense E 
 	ON ET.idexp = E.idexp  	AND ET.ayear = @ayear
@@ -58,10 +60,11 @@ JOIN payment P
 	ON P.kpay = EL.kpay
 JOIN paymenttransmission pt
 	ON PT.kpaymenttransmission = P.kpaymenttransmission
+left join treasurer t on t.idtreasurer = P.idtreasurer
 WHERE P.ypay = @ayear
 	AND PT.transmissiondate <= @date
 	AND PT.ypaymenttransmission = @ayear
-GROUP BY P.ypay,P.npay,P.adate,EL.kpay 
+GROUP BY P.ypay,P.npay,P.adate,EL.kpay, t.description
 HAVING ISNULL(SUM(ET.curramount),0)>0 
 END
 

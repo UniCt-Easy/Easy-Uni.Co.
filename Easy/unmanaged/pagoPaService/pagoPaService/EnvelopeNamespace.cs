@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,7 +32,7 @@ using System.Xml.Linq;
 
 namespace XmlFormatter {
 
-    public class EnvelopeNamespaceMessageFormatter :IClientMessageFormatter {
+    public class EnvelopeNamespaceMessageFormatter : IClientMessageFormatter {
         private readonly IClientMessageFormatter formatter;
 
         public string[] EnvelopeNamespaces { get; set; }
@@ -43,8 +43,8 @@ namespace XmlFormatter {
         }
 
         public Message SerializeRequest(MessageVersion messageVersion, object[] parameters) {
-                var message = this.formatter.SerializeRequest(messageVersion, parameters);
-                return new EnvelopeNamespaceMessage(message) { EnvelopeNamespaces = EnvelopeNamespaces,cleanAction=cleanAction };
+            var message = this.formatter.SerializeRequest(messageVersion, parameters);
+            return new EnvelopeNamespaceMessage(message) { EnvelopeNamespaces = EnvelopeNamespaces, cleanAction = cleanAction };
         }
 
         public object DeserializeReply(Message message, object[] parameters) {
@@ -53,10 +53,10 @@ namespace XmlFormatter {
     }
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class EnvelopeNamespacesAttribute :Attribute, IOperationBehavior {
+    public class EnvelopeNamespacesAttribute : Attribute, IOperationBehavior {
 
         public string[] EnvelopeNamespaces { get; set; }
-        public bool cleanAction  { get; set; } = false;
+        public bool cleanAction { get; set; } = false;
         public void AddBindingParameters(OperationDescription operationDescription,
             BindingParameterCollection bindingParameters) {
         }
@@ -93,18 +93,14 @@ namespace XmlFormatter {
             this._ns = ns;
         }
 
-        public override string Name
-        {
-            get
-            {
+        public override string Name {
+            get {
                 return _Name;
             }
         }
 
-        public override string Namespace
-        {
-            get
-            {
+        public override string Namespace {
+            get {
                 return _ns;
             }
         }
@@ -118,7 +114,7 @@ namespace XmlFormatter {
 
     }
 
-    public class EnvelopeNamespaceMessage :Message {
+    public class EnvelopeNamespaceMessage : Message {
         private readonly Message message;
         //private inserimentoPosizione req;
 
@@ -164,8 +160,8 @@ namespace XmlFormatter {
             if (EnvelopeNamespaces != null) {
                 foreach (string ns in EnvelopeNamespaces) {
                     var tokens = ns.Split(new char[] { ':' }, 2);
-                    MessageHeaderInfo oldH=null;
-                    if (tokens[0] == "head" || tokens[0]=="h") {
+                    MessageHeaderInfo oldH = null;
+                    if (tokens[0] == "head" || tokens[0] == "h") {
                         for (int i = 0; i < Headers.Count; i++) {
                             if (Headers[i].Namespace == tokens[1]) {
                                 oldH = Headers[i];
@@ -182,35 +178,35 @@ namespace XmlFormatter {
                             Headers.Add(em);
                         }
                     }
-                    
+
                 }
             }
 
             writer.WriteStartElement("Header", envelopeHeader);
-           
-            
+
+
         }
 
 
-        protected override void OnWriteStartBody(XmlDictionaryWriter writer) {          
+        protected override void OnWriteStartBody(XmlDictionaryWriter writer) {
             writer.WriteStartElement("Body", envelopeHeader);
-            
+
         }
 
         protected override void OnWriteBodyContents(XmlDictionaryWriter writer) {
             this.message.WriteBodyContents(writer);
         }
 
-        
+
 
 
         protected override void OnWriteStartEnvelope(XmlDictionaryWriter writer) {
             string prefix = "soapenv";
             foreach (string ns in EnvelopeNamespaces) {
                 var tokens = ns.Split(new char[] { ':' }, 2);
-                if (tokens[1]== envelopeHeader) {
+                if (tokens[1] == envelopeHeader) {
                     prefix = tokens[0];
-                }                
+                }
             }
             writer.WriteStartElement(prefix, "Envelope", envelopeHeader);
 
@@ -234,8 +230,8 @@ namespace XmlFormatter {
         public string LastRequestXML { get; private set; }
         public string LastProcessedRequestXML { get; private set; }
 
-        private string method=null;
-        private Dictionary<string, string> replace=null;
+        private string method = null;
+        private Dictionary<string, string> replace = null;
         public void doCleanResponse(string method, Dictionary<string, string> replace) {
             cleanResponse = true;
             this.method = method;
@@ -245,7 +241,7 @@ namespace XmlFormatter {
         private bool cleanResponse = false;
 
         public void AfterReceiveReply(ref Message reply, object correlationState) {
-            if (!cleanResponse)return;
+            if (!cleanResponse) return;
 
             var xmlDocument = new XmlDocument();
             var memoryStream = new MemoryStream();
@@ -255,7 +251,7 @@ namespace XmlFormatter {
             var buffer = reply.CreateBufferedCopy(Int32.MaxValue);
             var newMessage = buffer.CreateMessage();
 
-            
+
             // Write the xml request message into the memory stream
             newMessage.WriteMessage(xmlWriter);
 
@@ -269,15 +265,15 @@ namespace XmlFormatter {
             xmlDocument.Load(memoryStream);
             string newReplyStr = Encoding.UTF8.GetString(memoryStream.ToArray());
 
-            if (!newReplyStr.Contains(method)) {                
-                reply = buffer.CreateMessage();           
+            if (!newReplyStr.Contains(method)) {
+                reply = buffer.CreateMessage();
                 return;
             }
 
             foreach (string k in replace.Keys) {
                 newReplyStr = newReplyStr.Replace(k, replace[k]);
             }
-            
+
             //xmlns:ns1="http://pmpay.it/ws/payPA/"
             byte[] b = Encoding.UTF8.GetBytes(newReplyStr);
 
@@ -288,13 +284,13 @@ namespace XmlFormatter {
             var request2 = Message.CreateMessage(xmlReader, int.MaxValue, reply.Version);
             //request2.Headers.CopyHeadersFrom(request);
             buffer = request2.CreateBufferedCopy(Int32.MaxValue);
-            reply = buffer.CreateMessage();   
+            reply = buffer.CreateMessage();
 
 
         }
 
         void cascadeDeleteAttribute(XmlNode x, string attribute) {
-            if (x.Attributes!=null) x.Attributes.RemoveNamedItem("xmlns:"+attribute);
+            if (x.Attributes != null) x.Attributes.RemoveNamedItem("xmlns:" + attribute);
             foreach (XmlNode c in x.ChildNodes) cascadeDeleteAttribute(c, attribute);
 
 
@@ -306,7 +302,7 @@ namespace XmlFormatter {
             //        }
             //    }
             //}
-            
+
         }
         public object BeforeSendRequest(ref Message request, IClientChannel channel) {
             LastRequestXML = request.ToString();
@@ -323,7 +319,7 @@ namespace XmlFormatter {
             var xmlDocument = new XmlDocument();
             var memoryStream = new MemoryStream();
             var xmlWriter = XmlWriter.Create(memoryStream);
-            
+
             // Write the xml request message into the memory stream
             request.WriteMessage(xmlWriter);
 
@@ -335,7 +331,7 @@ namespace XmlFormatter {
             // Load the memory stream into the xmlDocument
             xmlDocument.Load(memoryStream);
 
-            if (_ns.Length > 2)
+            if (_ns.Length > 3)
                 xmlDocument.InnerXml = xmlDocument.InnerXml.Replace(
                     "<head:gestorePosizioniHeader />",
                     "<head:gestorePosizioniHeader><user>" + _ns[2] + "</user><password>" + _ns[3] + "</password></head:gestorePosizioniHeader>");
@@ -343,8 +339,8 @@ namespace XmlFormatter {
             string s = xmlDocument.InnerXml;
             // Remove the attributes from the second node down form the top
             foreach (string nn in _ns) cascadeDeleteAttribute(xmlDocument.ChildNodes[1], nn);
-            
-            
+
+
 
             // Reset the memoryStream object - essentially nulls it out
             memoryStream.SetLength(0);
@@ -373,25 +369,25 @@ namespace XmlFormatter {
             return null;
         }
 
-       
+
     }
 
     public class CleanNameSpacesBehavior : IEndpointBehavior {
-        private readonly string [] _ns;
+        private readonly string[] _ns;
         private CleanNameSpaces clean = null;
-        public  bool cleanAction = false;
-        public CleanNameSpacesBehavior(params string []ns) {
+        public bool cleanAction = false;
+        public CleanNameSpacesBehavior(params string[] ns) {
             this._ns = ns;
-            clean = new CleanNameSpaces(false,_ns);
+            clean = new CleanNameSpaces(false, _ns);
         }
 
-        public CleanNameSpacesBehavior(bool cleanAction, params string []ns) {
+        public CleanNameSpacesBehavior(bool cleanAction, params string[] ns) {
             this._ns = ns;
-            clean = new CleanNameSpaces(cleanAction,_ns);
+            clean = new CleanNameSpaces(cleanAction, _ns);
         }
 
         public void doCleanResponse(string method, Dictionary<string, string> replace) {
-            clean.doCleanResponse(method,replace);
+            clean.doCleanResponse(method, replace);
         }
 
         public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters) {

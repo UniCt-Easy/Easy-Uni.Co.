@@ -295,6 +295,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="nassetacquire" type="xs:int" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

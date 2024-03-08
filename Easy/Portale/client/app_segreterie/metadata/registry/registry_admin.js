@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 (function () {
 
     var MetaSegreteriePage = window.appMeta.MetaSegreteriePage;
@@ -77,8 +60,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 $("#btnSaveDataset").on("click", _.partial(this.simulatedoPostSilent, this ));
 
-                $("#dataInizioGetAllId").datepicker();
-                $("#dataFineGetAllId").datepicker();
+                $("#dataInizioGetAllId").datepicker({ dateFormat: 'dd/mm/yy' });
+                $("#dataFineGetAllId").datepicker({ dateFormat: 'dd/mm/yy' });
+
+                //Nuovi WS 16-11-'22
+                //Zucchetti timbrature
+                $("#btngetTimbrature").on("click", _.partial(this.getTimbrature, this));
+                $("#dataInizioTimbrature").datepicker({ altFormat: "mm-dd-yy", altField: "#alt_dataInizioTimbrature" });
+                $("#dataFineTimbrature").datepicker({ altFormat: "mm-dd-yy", altField: "#alt_dataFineTimbrature" });
+
+                //18-11-'22 - Visper costo orario del personale
+                $("#btngetCostoOrario").on("click", _.partial(this.getCostoOrario, this));
+                $("#dataInizioCostoOrario").datepicker({ altFormat: "mm-dd-yy", altField: "#alt_dataInizioCostoOrario" });
+                $("#dataFineCostoOrario").datepicker({ altFormat: "mm-dd-yy", altField: "#alt_dataFineCostoOrario" });
             },
 
             selectJsonFileCaricoDidattico:function(that, event) {
@@ -2221,6 +2215,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return true;
             },
 
+
+            createExec: function(that) {
+
+            },
+
             /**
              * Esegue la registrazione utente, inserendo i dati su tutte le tabelle che servono per la gestione dei privilegi
              * oltre che dei contatti
@@ -2252,7 +2251,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         esercizio: $("#esercizio").val(),
                         usertype : $("#usertype").val(),
                         matricola : $("#matricola").val(),
-                        userkind : 3
+                        userkind : $("#userKindsel").val()
                     })
                     .then(function(res) {
                         var err  = res.err;
@@ -2337,8 +2336,89 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     }, function (err) {
                         that.hideWaitingIndicator(waitingHandler);
                     })
-            }
+            },
 
+            getTimbrature: function (that) {
+                let formatDate = function(date) { // Torna la data nel formato AAAAmmdd
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+               
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+               
+                    return [year, month, day].join('');
+                }
+
+                let matricole = $("#matricolaTimbrature").val(),
+                    dataInizio = formatDate($("#alt_dataInizioTimbrature").val()),
+                    dataFine = formatDate($("#alt_dataFineTimbrature").val());
+
+                let waitingHandler = that.showWaitingIndicator('attendi chiamata servizio');
+
+                console.log({
+                    matricole : matricole,
+                    dataInizio : dataInizio,
+                    dataFine : dataFine
+                });
+
+                appMeta.callWebService("getTimbrature", {
+                    matricola : matricole,
+                    dateFrom : dataInizio,
+                    dateTo : dataFine
+                }).then(function (res) {
+                    that.hideWaitingIndicator(waitingHandler);
+                    
+                    if (res == "OK")
+                        return alert("Dati salvati correttamente");
+                    else {
+                        console.error(res);
+                        return alert("Attenzione! Si è verificato un errore");
+                    }
+                });
+            },
+
+            getCostoOrario: function (that) {
+                let formatDate = function(date) { // Torna la data nel formato dd/mm/yyyy
+                    if (!date)
+                        return '';
+
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+                    if(isNaN(day) || isNaN(month) || isNaN(year))
+                        return '';
+               
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+               
+                    return [day, month, year].join('/');
+                }
+
+                let matricole = $("#matricolaWsCostoOrario").val(),
+                    dataElaborazione = formatDate($("#alt_dataInizioCostoOrario").val()),
+                    dataStopCostoOrario = formatDate($("#alt_dataFineCostoOrario").val());
+
+                let waitingHandler = that.showWaitingIndicator('attendi chiamata servizio');
+
+                appMeta.callWebService("getCostoOrario", {
+                    matricola : matricole,
+                    dataElab : dataElaborazione,
+                    dataStop : dataStopCostoOrario
+                }).then(function (res) {
+                    that.hideWaitingIndicator(waitingHandler);
+                    
+                    console.warn("response:\n\n"+res);
+                    if (res == "OK")
+                        return alert("Dati salvati correttamente");
+                    else {
+                        console.error(res);
+                        return alert("Attenzione! Si è verificato un errore\n\n"+res);
+                    }
+                });
+            }
             //buttons
         });
 

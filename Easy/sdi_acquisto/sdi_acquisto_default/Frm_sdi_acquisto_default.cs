@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,9 +40,10 @@ namespace sdi_acquisto_default {
         MetaData Meta;
 
         public DataSet D;
-
+                
         public Frm_sdi_acquisto_default() {
             InitializeComponent();
+            saveFileDialog1.SupportMultiDottedExtensions = true;
             HelpForm.SetDenyNull(DS.sdi_acquisto.Columns["ec_sent"], true);
             HelpForm.SetDenyNull(DS.sdi_acquisto.Columns["notcreacontabilita"], true);
         }
@@ -282,16 +283,22 @@ namespace sdi_acquisto_default {
                 btnToProtocol.Enabled = false;
                 txtDataRicezioneFE.ReadOnly = true;
                 txtDataRicezioneSdI.ReadOnly = true;
+
                 if (stato == 5 || stato == 6) {
-                    btnToProtocol.Enabled = true;
                     txtDataRicezioneFE.ReadOnly = false;
                     txtDataRicezioneSdI.ReadOnly = false;
-                    }
+                }
                 else {
-                    btnToProtocol.Enabled = false;
                     txtDataRicezioneFE.ReadOnly = true;
                     txtDataRicezioneSdI.ReadOnly = true;
-                    }
+                }
+                object currProt = Curr["arrivalprotocolnum", DataRowVersion.Original];
+                if (stato == 4 || stato == 5 || stato == 6) {
+                    btnToProtocol.Enabled = (currProt == DBNull.Value);
+                }
+                else {
+                    btnToProtocol.Enabled = false;
+                }
 
                 AbilitaDisabilitaFattdacreareincontabilita(stato, countInvoice, false);
             }
@@ -343,7 +350,15 @@ namespace sdi_acquisto_default {
                 return;
             }
 
-            if (!onlysecutiry && stato != 2 && stato != 4 && stato != 3) {
+            bool privateEntity = false;
+
+            if (DS.sdi_acquisto.Rows.Count > 0)
+            {
+                DataRow curr = DS.sdi_acquisto.Rows[0];
+                privateEntity = stato == 1 && curr["codice_ipa"].ToString().Length == 7;
+            }
+
+            if (!onlysecutiry && stato != 2 && stato != 4 && stato != 3 && !privateEntity) {
                 SubEntity_chkNoncreareincontabilita.Enabled = false;
                 SubEntity_txtFattDanoncreareincontabilita.Enabled = false;
                 return;
@@ -649,6 +664,7 @@ namespace sdi_acquisto_default {
                 show(this, messaggio, "Avviso");
                 //Apre un form per consentire all'utente la scelta dell'Anagrafica
                 FrmAskAnagrafica F = new FrmAskAnagrafica(Meta, Meta.Dispatcher);
+                createForm(F, this);
                 if (F.ShowDialog(this) != DialogResult.OK)
                     return;
                 idreg = F.idreg;
@@ -831,6 +847,7 @@ namespace sdi_acquisto_default {
                 //Se la valuta è diversa da Euro/Lira Italiana, chiede il tasso di cambio
                 while (CfgFn.GetNoNullDecimal(Cambio) == 0) {
                     FrmAskCambio FC = new FrmAskCambio(1);
+                    createForm(FC, this);
                     if (FC.ShowDialog(this) != DialogResult.OK) {
                         Cambio = 1;
                     }
@@ -859,6 +876,12 @@ namespace sdi_acquisto_default {
             }
 
             MetaData.SetDefault(Invoice, "exchangerate", Cambio);
+
+            string flag_enable_split_payment = Curr["split_payment"].ToString();
+            if (flag_enable_split_payment != "") {
+                //questa condizione serve affinchè la valorizzazione del default avvenga solo se il flag è stato valorizzato. 
+                MetaData.SetDefault(Invoice, "flag_enable_split_payment", flag_enable_split_payment);
+            }
             MetaInvoice.DoMainCommand("maininsert");
             MetaInvoice.SetUsr("sdi_acquisto", null);
             if (parcella) {
@@ -954,7 +977,8 @@ namespace sdi_acquisto_default {
 
             // Visualizza file xml
             //Stream transformedData = new MemoryStream();
-            string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            //string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            string tempFileName = Path.ChangeExtension(Path.GetTempFileName(), "htm");
 
             XmlWriter xw = XmlWriter.Create(tempFileName);
             XmlDocument doc = new XmlDocument();
@@ -1020,7 +1044,8 @@ namespace sdi_acquisto_default {
             if (!Meta.GetFormData(false))
                 return;
             // Visualizza file xml
-            string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            //string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            string tempFileName = Path.ChangeExtension(Path.GetTempFileName(), "htm");
             XmlWriter xw = XmlWriter.Create(tempFileName);
             XmlDocument doc = new XmlDocument();
 
@@ -1214,7 +1239,8 @@ namespace sdi_acquisto_default {
 
             if (arrivalProtocol==DBNull.Value) {
 				FrmAskProtocollo FP = new FrmAskProtocollo(0);
-				if (FP.ShowDialog(this) == DialogResult.OK) {
+                createForm(FP, this);
+                if (FP.ShowDialog(this) == DialogResult.OK) {
 					arrivalProtocol = FP.Protocollo;
 				}
 			}
@@ -1230,7 +1256,7 @@ namespace sdi_acquisto_default {
 	                curr["protocoldate"] = DateTime.Now.Date;
                 }
                 else {
-	                if (show("Aggiorno la data di ricezione ?", "Conferma", MessageBoxButtons.OKCancel) ==
+	                if (show("Aggiorno la data di protocollo ?", "Conferma", MessageBoxButtons.OKCancel) ==
 	                    DialogResult.OK) {
 		                curr["protocoldate"] = DateTime.Now.Date;
 	                }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -21,8 +21,8 @@ GO
  
 /*
 setuser'amministrazione'
-EXEC exp_mod_intrastat 2017, null,2,'A','T','B'
-exp_mod_intrastat_unified {ts '2017-06-07 00:00:00.000'} ,'2017' ,'6' ,'2', 'A', 'M' ,'XXXX' ,'123456' ,'0' ,'V', '1', 'E', 'N', '(null)'
+--exp_mod_intrastat_unified_xxx {d '2022-05-23'}, '2022', '4', null, 'C', 'T', 'M', 'XXXX', '123456', '0', 'V', '1', 'I', 'N', null
+EXEC exp_mod_intrastat 2022, 4, 0,'C','M','B'
 */
 SET QUOTED_IDENTIFIER OFF 
 GO
@@ -55,7 +55,8 @@ CREATE TABLE #Dettaglio1_BENI
 										-- l’operazione intracomunitaria
 	ammontareinEuro int,				-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta int,				-- numerico Len.13 -- Ammontare delle operazioni in valuta
-	codTransazione char(1),				-- Codice della natura dela transazione
+	codTransazioneA char(1),				-- Codice della natura dela transazione A
+	codTransazioneB char(1),				-- Codice della natura dela transazione B
 	codNomenclatura varchar(8),			-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg int,						-- numerico Len. 10 -- Massa netta in kilogrammi
 	unitasupp int,						-- numerico Len. 10 -- Unità supplementari per l'acquisto / Quantità espressa nell'unità di misura supplementare
@@ -143,6 +144,8 @@ BEGIN
  SET @flagAV = 'A'
 END
 
+
+
 INSERT INTO #Dettaglio1_BENI
 (
 	annorif ,
@@ -154,7 +157,8 @@ INSERT INTO #Dettaglio1_BENI
 	codiceIVA, 				-- codicestatomembro= Codice dello Stato membro dell'acquirente/fornitore + Codice IVA dell'acquitente /fornitore = DE123456788
 	ammontareinEuro,		-- numerico -- Ammontare delle operazioni in euro
 	ammontareinValuta,		-- numerico -- Ammontare delle operazioni in valuta
-	codTransazione,			-- Codice della natura dela transazione
+	codTransazioneA,			-- Codice della natura dela transazione A
+	codTransazioneB,			-- Codice della natura dela transazione B
 	codNomenclatura,		-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg,				-- numerico -- Massa netta in kilogrammi
 	unitasupp,				-- numerico -- Unità supplementari per l'acquisto / Quantità espressa nell'unità di misura supplementare
@@ -184,7 +188,14 @@ SELECT
 		 ),0)
 	ELSE 0
 	END,
-	K.idintrastatkind,	-- codTransazione			
+	-- codTransazione A: a partire dal 2022 va comunicata la colonna A
+	case when  ISNULL(YEAR(I_MAIN.adate),YEAR(I.adate))>=2022 then K.code_a
+		else K.idintrastatkind
+	end,
+	-- codTransazione B :  è la colonna B e va comunicata a partire dal 2022			
+	case when ISNULL(YEAR(I_MAIN.adate),YEAR(I.adate)) >=2022 then 	KB.code_b
+		else null
+	end,	
 	-- codNomenclatura	-> intrastatcode
 	case 
 		when @periodicita IN ('M','T') then SUBSTRING(REPLICATE('0',@lencodNomenclatura),1,@lencodNomenclatura - DATALENGTH(ISNULL(C.code,''))) + ISNULL(C.code,'')
@@ -207,7 +218,7 @@ SELECT
 	-- codOrigineMerce,		
 	case 
 		when @tipoRiepilogo ='A' then Orig.idintrastatnation
-		else REPLICATE(' ',2)
+		else 'IT'
 	end,
 	-- provOrigine_Dest				
 	case 
@@ -229,6 +240,8 @@ JOIN invoicekindregisterkind INV_REG
 	ON INV_REG.idinvkind= I.idinvkind
 JOIN 	ivaregisterkind IRK
 	ON IRK.idivaregisterkind= INV_REG.idivaregisterkind --AND IRK.registerclass='A'
+LEFT OUTER JOIN intrastatkinddet KB
+	ON I.idintrastatkinddet = KB.idintrastatkinddet
 LEFT OUTER JOIN intrastatnation as Dest
 	ON I.iso_destination = Dest.idintrastatnation
 LEFT OUTER JOIN intrastatnation as Orig	
@@ -256,9 +269,9 @@ WHERE I.flagintracom = 'S'
 	or
 	@tipoRiepilogo = 'A'
 	)
-group by R.p_iva,I.idcurrency,K.idintrastatkind,C.code,
+group by R.p_iva,I.idcurrency,K.idintrastatkind, K.code_a,	KB.code_b, C.code,
 		Prov.idintrastatnation, Dest.idintrastatnation, Orig.idintrastatnation,geo_country_destination.province,geo_country_origin.province,
-		I.docdate,I_MAIN.docdate,IK.flag, InvDet.idintrastatmeasure
+		I.docdate,I_MAIN.docdate,IK.flag, InvDet.idintrastatmeasure, I.adate,I_MAIN.adate
 
 
 INSERT INTO #Dettaglio3_SERVIZI
@@ -386,8 +399,15 @@ update #Dettaglio3_SERVIZI set flagpaired ='S' WHERE
 update #Dettaglio1_BENI set  segno_variazione='-' where flagvariation='S' and flagpaired='N'
 update #Dettaglio3_SERVIZI set segno_variazione='-' where flagvariation='S' and flagpaired='N'
 
-update #Dettaglio1_BENI set  ammontareinEuro=-ammontareinEuro,ammontareinValuta=-ammontareinValuta,codTransazione=1
+update #Dettaglio1_BENI set  ammontareinEuro=-ammontareinEuro,ammontareinValuta=-ammontareinValuta,codTransazioneA=1
 				 where flagvariation='S' and flagpaired='S'
+
+update #Dettaglio1_BENI set  codTransazioneA=1, codTransazioneB=1
+				 where flagvariation='S' and flagpaired='S' and annorif >=2022
+
+update #Dettaglio1_BENI set  codTransazioneA=1 
+				 where flagvariation='S' and flagpaired='S' and annorif <2022
+
 update #Dettaglio3_SERVIZI set ammontareinEuro=-ammontareinEuro,ammontareinValuta=-ammontareinValuta
 				 where flagvariation='S' and flagpaired='S'
  
@@ -397,7 +417,6 @@ update #Dettaglio1_BENI set annorif=null, meserif=null,trimrif=null where flagva
 update #Dettaglio3_SERVIZI set annorif=null, meserif=null,trimrif=null where flagvariation='N' or flagpaired='S'
 
 --questo perché nella group by vanno raggruppate
-
 
 
 
@@ -412,7 +431,8 @@ Begin
 	codiceIVA, 				-- codicestatomembro= Codice dello Stato membro dell'acquirente/fornitore + Codice IVA dell'acquitente /fornitore = DE123456788
 	IsNull(SUM(ammontareinEuro), 0),		-- numerico -- Ammontare delle operazioni in euro
 	IsNull(SUM(ammontareinValuta), 0),		-- numerico -- Ammontare delle operazioni in valuta
-	codTransazione,			-- Codice della natura dela transazione
+	codTransazioneA,			-- Codice della natura dela transazione
+	codTransazioneB,			-- Codice della natura dela transazione
 	codNomenclatura,		-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg,				-- numerico -- Massa netta in kilogrammi
 	unitasupp,				-- numerico -- Unità supplementari per l'acquisto / Quantità espressa nell'unità di misura supplementare
@@ -424,7 +444,7 @@ Begin
 	codOrigineMerce,		-- Codice del paese di origine della merce
 	provOrigine_Dest		-- Codice della provincia di origine/destinazione della merce	
  FROM #Dettaglio1_BENI
-	group by annorif,meserif,trimrif,segno_variazione,codiceIVA,codTransazione,codNomenclatura,massainkg,unitasupp,
+	group by annorif,meserif,trimrif,segno_variazione,codiceIVA,codTransazioneA,codTransazioneB,codNomenclatura,massainkg,unitasupp,
 			codDest_codProv,codOrigineMerce,provOrigine_Dest
 	order by segno_variazione,annorif,meserif
 End
@@ -467,9 +487,3 @@ SET ANSI_NULLS ON
 GO
 
 
---- exp_mod_intrastat_unified {ts '2010-05-31 00:00:00000'}, '2010', '5', null, 'A', 'M', 'XXXX', '123456', '0', 'A', '1'
--- select * from registry R left outer join expense E on E.idreg= R.idreg+999999999 where isnull(E.idreg,-2) is null
---EXEC exp_mod_intrastat 2010,5,null,'A','M','B'
---select 3/3+1
-
---EXEC exp_mod_intrastat 2014,5,null,'A','M','B'

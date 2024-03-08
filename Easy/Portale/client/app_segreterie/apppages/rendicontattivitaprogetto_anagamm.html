@@ -2,13 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabrendicontattivitaprogetto_anagamm_0" class="nav-link active show" data-toggle="pill" data-target="#tabrendicontattivitaprogetto_anagamm_0"><i class="fa fa-tools mr-1"></i>Principale</a>
+		<a href="#tabrendicontattivitaprogetto_anagamm_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabrendicontattivitaprogetto_anagamm_0"><i class="fa fa-tools mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabrendicontattivitaprogetto_anagamm_1" class="nav-link" data-toggle="pill" data-target="#tabrendicontattivitaprogetto_anagamm_1"><i class="fa fa-calendar-alt mr-1"></i>Dettaglio giorni della attività</a>
+		<a href="#tabrendicontattivitaprogetto_anagamm_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabrendicontattivitaprogetto_anagamm_1"><i class="fa fa-calendar-alt mr-1"></i>Dettaglio giorni della attività</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabrendicontattivitaprogetto_anagamm_2" class="nav-link" data-toggle="pill" data-target="#tabrendicontattivitaprogetto_anagamm_2"><i class="fa fa-taxi mr-1"></i>Missioni dell'attività</a>
+		<a href="#tabrendicontattivitaprogetto_anagamm_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabrendicontattivitaprogetto_anagamm_2"><i class="fa fa-taxi mr-1"></i>Missioni dell'attività</a>
 	</li>
 
 	</ul>
@@ -16,62 +16,66 @@
 <div class="tab-content mt-2">
 	<div class="tab-pane fade active show" id="tabrendicontattivitaprogetto_anagamm_0" role="tabpanel">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anagamm_idprogetto">Progetto</label>
 					<div>
-						<input id="rendicontattivitaprogetto_anagamm_idprogetto" name="rendicontattivitaprogetto_anagamm_idprogetto" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="progettosegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="rendicontattivitaprogetto_anagamm_idprogetto" name="rendicontattivitaprogetto_anagamm_idprogetto" type="text" data-listtype="elenchi"  class="form-control" data-minchar="2" data-tag="progettoelenchiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
 				</div>
-				<div class="col-md-6">
+			</div>
+			<div class="row">
+				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anagamm_idworkpackage">Workpackage</label>
-					<select id="rendicontattivitaprogetto_anagamm_idworkpackage" class="custom-select d-block w-100"  data-source-name="workpackagesegview" data-value-member="idworkpackage" data-display-member="dropdown_title" data-custom-control="combo" data-tag="rendicontattivitaprogetto.idworkpackage?rendicontattivitaprogettoanagammview.idworkpackage" data-subentity  data-mandatory  > </select>
+					<select id="rendicontattivitaprogetto_anagamm_idworkpackage" class="custom-select d-block w-100"  data-source-name="workpackageelenchiview" data-value-member="idworkpackage" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="rendicontattivitaprogetto.idworkpackage?rendicontattivitaprogettoanagammview.idworkpackage"  data-mandatory  data-master="progettoelenchiview"> </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anagamm_description">Descrizione</label>
-					<textarea class="textarea form-control" id="rendicontattivitaprogetto_anagamm_description" type="text"  rows="4" data-tag="rendicontattivitaprogetto.description?rendicontattivitaprogettoanagammview.rendicontattivitaprogetto_description" data-subentity  />
+					<textarea class="textarea form-control" id="rendicontattivitaprogetto_anagamm_description" type="text"  rows="4" data-tag="rendicontattivitaprogetto.description?rendicontattivitaprogettoanagammview.rendicontattivitaprogetto_description"  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anagamm_orepreventivate">Numero di ore preventivate</label>
-					<input id="rendicontattivitaprogetto_anagamm_orepreventivate" type="text" class="form-control" data-tag="rendicontattivitaprogetto.orepreventivate?rendicontattivitaprogettoanagammview.rendicontattivitaprogetto_orepreventivate" data-subentity  data-mandatory />
+					<input id="rendicontattivitaprogetto_anagamm_orepreventivate" type="text" class="form-control" data-tag="rendicontattivitaprogetto.orepreventivate?rendicontattivitaprogettoanagammview.rendicontattivitaprogetto_orepreventivate"  data-mandatory />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anagamm_orerendicont">Numero di ore rendicontate</label>
-					<input id="rendicontattivitaprogetto_anagamm_orerendicont" type="text" class="form-control" data-tag="rendicontattivitaprogetto.!orerendicont?rendicontattivitaprogettoanagammview.!orerendicont" data-subentity  />
+					<input id="rendicontattivitaprogetto_anagamm_orerendicont" type="text" class="form-control" data-tag="rendicontattivitaprogetto.!orerendicont?rendicontattivitaprogettoanagammview.!orerendicont"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#rendicontattivitaprogetto_anagamm_datainizioprevista").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anagamm_datainizioprevista">Data inizio prevista</label>
-					<input id="rendicontattivitaprogetto_anagamm_datainizioprevista" type="text" class="form-control" data-tag="rendicontattivitaprogetto.datainizioprevista?rendicontattivitaprogettoanagammview.rendicontattivitaprogetto_datainizioprevista" data-subentity  data-mandatory />
+					<input id="rendicontattivitaprogetto_anagamm_datainizioprevista" type="text" class="form-control" data-tag="rendicontattivitaprogetto.datainizioprevista?rendicontattivitaprogettoanagammview.rendicontattivitaprogetto_datainizioprevista"  data-mandatory  data-datePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#rendicontattivitaprogetto_anagamm_stop").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anagamm_stop">Data fine prevista</label>
-					<input id="rendicontattivitaprogetto_anagamm_stop" type="text" class="form-control" data-tag="rendicontattivitaprogetto.stop?rendicontattivitaprogettoanagammview.rendicontattivitaprogetto_stop" data-subentity  />
+					<input id="rendicontattivitaprogetto_anagamm_stop" type="text" class="form-control" data-tag="rendicontattivitaprogetto.stop?rendicontattivitaprogettoanagammview.rendicontattivitaprogetto_stop"  data-mandatory  data-datePickerFormat="dd/mm/yy"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anagamm_idrendicontattivitaprogettokind">Tipo di attività</label>
+					<select id="rendicontattivitaprogetto_anagamm_idrendicontattivitaprogettokind" class="custom-select d-block w-100"  data-source-name="rendicontattivitaprogettokinddefaultview" data-value-member="idrendicontattivitaprogettokind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="rendicontattivitaprogetto.idrendicontattivitaprogettokind?rendicontattivitaprogettoanagammview.rendicontattivitaprogetto_idrendicontattivitaprogettokind"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelrendicontattivitaprogetto_default_XXrendicontattivitaprogettowpview" >Riepilogo ore rendicontate per questa attività nel progetto e negli anni</div>
+				<div class="gridx" id="grid_rendicontattivitaprogettowpview_default" data-tag="rendicontattivitaprogettowpview.default.default" data-custom-control="gridx" ></div>
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabrendicontattivitaprogetto_anagamm_1" role="tabpanel">
- <button id="OpenScheduleConfig" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-calendar mr-1" ></i>Distribuisci le ore sul calendario
-    </button>
+		<button id="OpenScheduleConfig" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-calendar mr-1" ></i>Distribuisci le ore sul calendario
+		</button>
 	<hr>
 		<div class="row">
 			<div class="col-md-12">
-				<div id="calendar14" data-tag="rendicontattivitaprogettoora.seg.seg" data-custom-control="calendar"  data-mdltitlecolumnname="!titleancestor"   data-mdlstartcolumnname="data"   data-mdlmaincolor="darkgreen"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+				<div id="calendar15" data-tag="rendicontattivitaprogettoora.seg.seg" data-custom-control="calendar"  data-mdltitlecolumnname="!titleancestor"   data-mdlstartcolumnname="data"   data-mdlmaincolor="darkgreen"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
 			</div>
 		</div>
 	</div>

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -43,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'gruppo':
 						this.describeAColumn(table, 'start', 'Dal', null, 80, null);
 						this.describeAColumn(table, 'stop', 'Al', null, 90, null);
-						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit‡', null, 100, null);
+						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit√†', null, 100, null);
 						this.describeAColumn(table, '!iddidproganno_didproganno_title', 'Anno di corso', null, 31, null);
 						objCalcFieldConfig['!iddidproganno_didproganno_title'] = { tableNameLookup:'didproganno', columnNameLookup:'title', columnNamekey:'iddidproganno' };
 						this.describeAColumn(table, '!iddidprogcurr_didprogcurr_title', 'Curriculum', null, 11, null);
@@ -65,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'default':
 						this.describeAColumn(table, 'start', 'Dal', null, 80, null);
 						this.describeAColumn(table, 'stop', 'Al', null, 90, null);
-						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit‡', null, 100, null);
+						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit√†', null, 100, null);
 						this.describeAColumn(table, '!iddidproganno_didproganno_title', 'Anno di corso', null, 31, null);
 						objCalcFieldConfig['!iddidproganno_didproganno_title'] = { tableNameLookup:'didproganno', columnNameLookup:'title', columnNamekey:'iddidproganno' };
 						this.describeAColumn(table, '!iddidprogcurr_didprogcurr_title', 'Curriculum', null, 11, null);
@@ -85,23 +68,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idinsegninteg_insegninteg_denominazione'] = { tableNameLookup:'insegninteg', columnNameLookup:'denominazione', columnNamekey:'idinsegninteg' };
 						objCalcFieldConfig['!idinsegninteg_insegninteg_codice'] = { tableNameLookup:'insegninteg', columnNameLookup:'codice', columnNamekey:'idinsegninteg' };
 						this.describeAColumn(table, '!canale', 'Canali', null, 140, null);
-						this.describeAColumn(table, '!attivformcaratteristica', 'Caratteristiche dell\'attivit‡ formativa', null, 150, null);
+						this.describeAColumn(table, '!attivformcaratteristica', 'Caratteristiche dell\'attivit√† formativa', null, 150, null);
 //$objCalcFieldConfig_default$
 						break;
 					case 'appello':
-						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit‡', null, 180, null);
+						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit√†', null, 180, null);
 //$objCalcFieldConfig_appello$
 						break;
 					case 'proped':
 						this.describeAColumn(table, 'start', 'Dal', null, 80, null);
 						this.describeAColumn(table, 'stop', 'Al', null, 90, null);
-						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit‡', null, 100, null);
+						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit√†', null, 100, null);
 //$objCalcFieldConfig_proped$
 						break;
 					case 'erogata':
 						this.describeAColumn(table, 'start', 'Dal', null, 80, null);
 						this.describeAColumn(table, 'stop', 'Al', null, 90, null);
-						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit‡', null, 100, null);
+						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneit√†', null, 100, null);
 						this.describeAColumn(table, '!iddidproganno_didproganno_title', 'Anno di corso', null, 31, null);
 						objCalcFieldConfig['!iddidproganno_didproganno_title'] = { tableNameLookup:'didproganno', columnNameLookup:'title', columnNamekey:'iddidproganno' };
 						this.describeAColumn(table, '!iddidprogcurr_didprogcurr_title', 'Curriculum', null, 11, null);
@@ -120,7 +103,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idinsegninteg_insegninteg_codice', 'Codice Integrando', null, 72, null);
 						objCalcFieldConfig['!idinsegninteg_insegninteg_denominazione'] = { tableNameLookup:'insegninteg', columnNameLookup:'denominazione', columnNamekey:'idinsegninteg' };
 						objCalcFieldConfig['!idinsegninteg_insegninteg_codice'] = { tableNameLookup:'insegninteg', columnNameLookup:'codice', columnNamekey:'idinsegninteg' };
-						this.describeAColumn(table, '!attivformcaratteristica', 'Caratteristiche dell\'attivit‡ formativa', null, 150, null);
+						this.describeAColumn(table, '!attivformcaratteristica', 'Caratteristiche dell\'attivit√† formativa', null, 150, null);
 //$objCalcFieldConfig_erogata$
 						break;
 //$objCalcFieldConfig$
@@ -149,8 +132,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["sortcode"].caption = "Ordine";
 						table.columns["start"].caption = "Dal";
 						table.columns["stop"].caption = "Al";
-						table.columns["tipovalutaz"].caption = "Profitto o Idoneit‡";
-						table.columns["title"].caption = "Attivit‡ formativa";
+						table.columns["tipovalutaz"].caption = "Profitto o Idoneit√†";
+						table.columns["title"].caption = "Attivit√† formativa";
 //$innerSetCaptionConfig_erogata$
 						break;
 					case 'default':

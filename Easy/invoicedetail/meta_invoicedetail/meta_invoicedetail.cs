@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -73,6 +73,7 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
 				int nPos = 1;
                 DescribeAColumn(T, "idgroup", "Gruppo", nPos++);
                 DescribeAColumn(T, "rownum", "Numero Riga", nPos++);
+                DescribeAColumn(T, "idpccdebitstatus","Stato PCC", nPos++);
                 DescribeAColumn(T, "!tipoiva","Tipo IVA","ivakind.description",nPos++);
 				DescribeAColumn(T, "detaildescription","Descrizione",nPos++);
 				DescribeAColumn(T, "!aliquota", "Aliquota","ivakind.rate",nPos++);
@@ -144,8 +145,9 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
 				foreach (DataColumn C in T.Columns)
 					DescribeAColumn(T, C.ColumnName, "",-1);
 				int nPos = 1;
-				DescribeAColumn(T,"rownum",".riga",nPos++);
-				DescribeAColumn(T, "!codeupb","UPB",nPos++);
+                DescribeAColumn(T, "rownum", "Numero Riga", nPos++);
+                DescribeAColumn(T, "idpccdebitstatus", "Stato PCC", nPos++);
+                DescribeAColumn(T, "!codeupb","UPB",nPos++);
                 DescribeAColumn(T, "!codeupb_iva", "UPB iva", nPos++);
                 DescribeAColumn(T, "!tipoiva", "Tipo IVA", "ivakind.description", nPos++);
 				DescribeAColumn(T, "detaildescription","Descrizione",nPos++);
@@ -196,6 +198,8 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
                 || (C.ColumnName == "estimrownum") || (C.ColumnName == "idestimkind")
 			    || (C.ColumnName == "codicetipo") || (C.ColumnName == "codicevalore")
                 || (C.ColumnName == "nestim") || (C.ColumnName == "yestim")
+                || (C.ColumnName == "idinvkind_main") || (C.ColumnName == "yinv_main")
+                || (C.ColumnName == "rownum_main") || (C.ColumnName == "ninv_main")
                 || (C.ColumnName == "iduniqueformcode")) {
 				return;
 			}
@@ -254,7 +258,7 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
         }
 
 		public override bool IsValid(DataRow R, out string errmess, out string errfield){
-			if (!base.IsValid(R,out errmess,out errfield))return false;
+		
             if (CfgFn.GetNoNullInt32(R["idivakind"]) == 0) {
                 errmess = "E' necessario specificare il tipo di iva";
                 errfield = "idivakind";
@@ -270,7 +274,28 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
 				errfield="detaildescription";
 				return false;
 			}
-		    if (R.Table.Columns.Contains("flagbit")) {
+
+            // var isDenyNull = (!T.Columns[field].AllowDBNull || HelpForm.IsDenyNull(T.Columns[field]));
+            if (R["competencystart"] == DBNull.Value) {
+                var isDenyNull = (!R.Table.Columns["competencystart"].AllowDBNull || HelpForm.IsDenyNull(R.Table.Columns["competencystart"]));
+                
+                if (isDenyNull) {
+                    errmess = "La data di inizio competenza non può essere nulla";
+                    errfield = "competencystart";
+                    return false;
+                }
+            }
+
+            if (R["competencystop"] == DBNull.Value) {
+                var isDenyNull = (!R.Table.Columns["competencystop"].AllowDBNull || HelpForm.IsDenyNull(R.Table.Columns["competencystop"]));
+
+                if (isDenyNull) {
+                    errmess = "La data di fine competenza non può essere nulla";
+                    errfield = "competencystop";
+                    return false;
+                }
+            }
+            if (R.Table.Columns.Contains("flagbit")) {
 		        object flagObj = R["flagbit"];
 		        int flagInvoice = CfgFn.GetNoNullInt32(flagObj);
 		        bool isValoreDoganale = (flagInvoice & 1) != 0; // Bit 0
@@ -310,7 +335,7 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
                         string code = Ocode.ToString();
                         if ((code.Length) < 8) {
                             errmess = "E' necessario scegliere un codice di nomenclatura di 8 caratteri";
-                            //errfield = "detaildescription";
+                            errfield = "detaildescription";
                             return false;
                         }
                     }
@@ -374,6 +399,7 @@ namespace meta_invoicedetail{//meta_dettdocumentoiva//
                 errfield = "cigcode";
                 return false;
             }
+            if (!base.IsValid(R, out errmess, out errfield)) return false;
             return true;
 		}
 

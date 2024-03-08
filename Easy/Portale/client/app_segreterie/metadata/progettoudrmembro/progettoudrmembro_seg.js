@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -50,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var arraydef = [];
 				
 				arraydef.push(this.manageprogettoudrmembro_seg_orerendicontate());
+				arraydef.push(this.manageprogettoudrmembro_seg_giornipreventivati());
 				//afterGetFormDataInside
 				
 				$.when.apply($, arraydef)
@@ -64,6 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				this.manageprogettoudrmembro_seg_giornipreventivati();
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -83,10 +68,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#progettoudrmembro_seg_orerendicontate'), true);
+				this.enableControl($('#progettoudrmembro_seg_giornipreventivati'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#progettoudrmembro_seg_orerendicontate'), false);
+				this.enableControl($('#progettoudrmembro_seg_giornipreventivati'), false);
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
@@ -94,6 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			afterLink: function () {
 				var self = this;
 				this.setDenyNull("progettoudrmembro","idreg");
+				appMeta.metaModel.insertFilter(this.getDataTable("progettoudrmembrokinddefaultview"), this.q.eq('progettoudrmembrokind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -105,10 +99,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-progettoudrmembro_seg");
 				if (t.name === "getregistrydocentiamministrativi" && r !== null) {
-					this.state.DS.tables.getregistrydocentiamministratividefaultview.staticFilter(window.jsDataQuery.eq("idreg", r.idreg));
-					if (this.state.DS.tables.getregistrydocentiamministratividefaultview.rows.length)
-						if (this.state.DS.tables.getregistrydocentiamministratividefaultview.rows[0].idreg !== r.idreg) {
-							this.state.DS.tables.getregistrydocentiamministratividefaultview.clear();
+					this.state.DS.tables.getregistrydocentiamministrativimacroareaview.staticFilter(window.jsDataQuery.eq("idreg", r.idreg));
+					if (this.state.DS.tables.getregistrydocentiamministrativimacroareaview.rows.length)
+						if (this.state.DS.tables.getregistrydocentiamministrativimacroareaview.rows[0].idreg !== r.idreg) {
+							this.state.DS.tables.getregistrydocentiamministrativimacroareaview.clear();
 							$('#progettoudrmembro_seg_idreg').val('');
 						}
 				}
@@ -124,31 +118,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//insertClick
 
-			//beforePost
+			beforePost: function () {
+				var self = this;
+				this.getDataTable('rendicontattivitaprogettourdmemboview').acceptChanges();
+				//innerBeforePost
+			},
 
 			manageprogettoudrmembro_seg_orerendicontate: function () {
-				var def = appMeta.Deferred("manageorerendicontate-progettoudrmembro_seg");
-				var projectPage = appMeta.currentMetaPage.state.callerState.callerPage;
-				var membroRow = appMeta.currentMetaPage.state.currentRow;
-				var q = appMeta.currentMetaPage.q;
-				if (membroRow.idreg) {
-					var rendicontattivitaprogettoRows = projectPage.getDataTable("rendicontattivitaprogetto")
-						.select(q.eq("idreg", membroRow.idreg));
-					if (rendicontattivitaprogettoRows.length > 0) {
-						var rendicontattivitaprogettooraRows = projectPage.getDataTable("rendicontattivitaprogettoora")
-							.select(q.isIn("idrendicontattivitaprogetto", _.map(
-								rendicontattivitaprogettoRows, function (row) {
-									return row.idrendicontattivitaprogetto;
-								})));
-						if (rendicontattivitaprogettooraRows.length > 0) {
-							membroRow['!orerendicontate'] = _.sumBy(rendicontattivitaprogettooraRows, function (r) {
-								if (r.ore) return r.ore;
-								return 0;
-							});
-						}
+				if (this.getDataTable("rendicontattivitaprogettourdmemboview").rows.length) {
+					this.state.currentRow['!orerendicontate'] = _.sumBy(this.getDataTable("rendicontattivitaprogettourdmemboview").rows, function (r) {
+						if (r.oreattivita) return r.ore;
+						return 0;
+					});
+				}
+					
+			//	var def = appMeta.Deferred("manageorerendicontate-progettoudrmembro_seg");
+			//	var projectPage = appMeta.currApp.currentMetaPage.state.callerPage;
+			//	var membroRow = appMeta.currApp.currentMetaPage.state.currentRow;
+			//	var q = appMeta.currApp.currentMetaPage.q;
+			//	if (membroRow.idreg) {
+			//		var rendicontattivitaprogettoRows = projectPage.getDataTable("rendicontattivitaprogetto")
+			//			.select(q.eq("idreg", membroRow.idreg));
+			//		if (rendicontattivitaprogettoRows.length > 0) {
+			//			var rendicontattivitaprogettooraRows = projectPage.getDataTable("rendicontattivitaprogettoora")
+			//				.select(q.isIn("idrendicontattivitaprogetto", _.map(
+			//					rendicontattivitaprogettoRows, function (row) {
+			//						return row.idrendicontattivitaprogetto;
+			//					})));
+			//			if (rendicontattivitaprogettooraRows.length > 0) {
+			//				membroRow['!orerendicontate'] = _.sumBy(rendicontattivitaprogettooraRows, function (r) {
+			//					if (r.ore) return r.ore;
+			//					return 0;
+			//				});
+			//			}
+			//		}
+			//	}
+			//	return def.resolve();
+			},
+
+			manageprogettoudrmembro_seg_giornipreventivati: function () {
+				//calcolato in base alla divisione di 8 ore al giorno per i docenti e 7,2 per il personale tecnico-amministrativo
+				if (this.state.currentRow.orepreventivate) {
+					var tb = this.getDataTable('getregistrydocentiamministrativimacroareaview');
+					if (tb.rows.length) {
+						var oregg = tb.rows[0].getregistrydocentiamministrativi_categoria == 'D' ? 8 : 7.2;
+						this.state.currentRow.giornipreventivati = (this.state.currentRow.orepreventivate / oregg)
 					}
 				}
-				return def.resolve();
 			},
 
 			//buttons

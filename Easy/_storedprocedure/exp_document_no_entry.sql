@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+-- setuser'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_document_no_entry]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_document_no_entry]
 GO
@@ -38,7 +39,7 @@ AS
 BEGIN
 -- setuser'amministrazione'
 -- setuser'amm'
--- exec [exp_document_no_entry] 2019, 'C'
+-- exec [exp_document_no_entry] 2021, 'I'
  
 /*
 A) Compensi (Missioni, Contratti occasionali, Cedolini, Compensi a dipendenti, Import da stipendi CSA, Liquidazione imposte) -- >C
@@ -88,7 +89,8 @@ CREATE TABLE #document
 		note varchar(400),
 		datecompleted datetime,
 		sortcode varchar(30), --task 10695
-		descriptions varchar(250)
+		descriptions varchar(250),
+		rownum int
 	)
 
 
@@ -360,30 +362,66 @@ ORDER BY mankind, yman, nman
 INSERT INTO #document
 	(
 		desckind, dockind,y,n,fiscalyear,ndetail,description,
-		adate,registry,service,manager,docamount,sortcode, descriptions
+		adate,registry,service,manager,docamount,sortcode, descriptions, rownum
 	)
-SELECT  'Contratto Attivo', estimkind, yestim, nestim, null, null, estimateview.description,
-		adate, registry, null, manager,total,sorting.sortcode, sorting.description
-from estimateview 
-join estimatekind ON estimateview.idestimkind = estimatekind.idestimkind
-left join sorting on estimateview.idsor01 = sorting.idsor
-where  not exists
-(select * from entry where idrelated = 'estim' + '§' + estimateview.idestimkind + '§'  + 
-		convert(varchar(4),yestim) + '§'  + convert(varchar(14),nestim))
---and not exists (select * from invoicedetail 
---				where invoicedetail.idestimkind = estimateview.idestimkind and 
---				      invoicedetail.yestim = estimateview.yestim and 
---				      invoicedetail.nestim = estimateview.nestim )
-AND isnull(estimatekind.linktoinvoice,'N') ='N' AND isnull(estimateview.active,'N') = 'S'
-AND yestim = @ayear
-	AND (@idsor01 IS NULL OR estimateview.idsor01 = @idsor01)
-	AND (@idsor02 IS NULL OR estimateview.idsor02 = @idsor02)
-	AND (@idsor03 IS NULL OR estimateview.idsor03 = @idsor03)
-	AND (@idsor04 IS NULL OR estimateview.idsor04 = @idsor04)
-	AND (@idsor05 IS NULL OR estimateview.idsor05 = @idsor05)
-AND @kind in ('I','A')
-ORDER BY estimkind, yestim, nestim 
+SELECT  'Contratto Attivo', estimatekind.description, estimate.yestim, estimate.nestim, null, null, estimatedetail.detaildescription,
+		estimate.adate, registry.title, null, manager.title,
+ 	    ROUND(estimatedetail.taxable * estimatedetail.number * 
+		  CONVERT(DECIMAL(19,6),estimate.exchangerate) *
+		  (1 - CONVERT(DECIMAL(19,6),ISNULL(estimatedetail.discount, 0.0))),2
+		)+
+	  ROUND(isnull(estimatedetail.tax,0) ,2),  sorting.sortcode, sorting.description, estimatedetail.rownum
+from estimate 
+join estimatedetail
+	on estimatedetail.idestimkind = estimate.idestimkind and 
+	   estimatedetail.yestim = estimate.yestim and 
+	   estimatedetail.nestim = estimate.nestim 
+join estimatekind ON estimate.idestimkind = estimatekind.idestimkind
+join registry ON registry.idreg = estimatedetail.idreg
+left outer join manager ON manager.idman = estimate.idman
+left join sorting on estimate.idsor01 = sorting.idsor
+where  (
 
+	--task 17744: RIEPILOGO COSA DEVE MOSTRARE L'ESPORTAZIONE PER I CA:
+--CASO  1) CA  SENZA flag accertamento differiti -> la diagnostica deve mostrare nell'esercizio in cui viene lanciata deve mostrare i CA dell'anno che hanno dettagli con
+--o senza data inizio validità nell'anno e che non hanno scrittura, e quelli di esercizi precedenti con dettagli con data inizio validità dell'anno dell'esportazione
+
+--CASO 2) CA  CON flag accertamento differiti  -->  nell'esercizio in cui viene lanciata deve mostrare CA dell'anno che hanno dettagli CON data inizio validità nell'anno
+--e che non hanno scrittura. Nonchè deve mostrare i CA  di anni precedenti che hanno dettagli CON data inizio validità nell'anno di lancio diagnostica che non hanno scrittura.
+--Nel caso 2 Non devono mai essere mostrati quella senza data inizio validità.
+
+			-- 1) --  Scritture non differite alla fase di generazione incassi
+			(isnull(estimatedetail.flag,0) & 1 = 0  -- Prendo contratti dell'anno con o senza data inizio validità nell'anno (non esercizi futuri) 
+			and ((estimate.yestim = @ayear and isnull(year(estimatedetail.start), estimate.yestim) = @ayear) 
+			 or (estimate.yestim <@ayear and  year(estimatedetail.start) = @ayear)
+			)
+			-- 2)--  Scritture differite alla fase di generazione incassi
+			OR 
+			-- Non devono mai essere mostrati quella senza data inizio validità, ma sono quelli aventi inizio validità nell'anno, sia di contratti dell'anno che di contratti di anni precedenti. 
+			(isnull(estimatedetail.flag,0) & 1 <> 0 and (year(estimatedetail.start) = @ayear)) -- Contratti di esercizi precedenti e dettagli con data inizio validità in esercizio corrente
+		)
+		)
+
+ and not exists
+ (select * from entry e
+ join entrydetail ed on e.nentry = ed.nentry 
+	and e.yentry = ed.yentry
+ where ed.idrelated = 'estim' + '§' + estimatedetail.idestimkind 
+		+ '§'  + convert(varchar(4), estimatedetail.yestim) 
+		+ '§'  + convert(varchar(14), estimatedetail.nestim) 
+		+ '§'  + convert(varchar(14), estimatedetail.rownum)
+		and ed.yentry = @ayear -- cerchiamo una scrittura in esercizio corrente
+		and e.idrelated like '%estim§%')
+
+AND isnull(estimatekind.linktoinvoice,'N') ='N' AND isnull(estimate.active,'N') = 'S'
+	AND (@idsor01 IS NULL OR estimate.idsor01 = @idsor01)
+	AND (@idsor02 IS NULL OR estimate.idsor02 = @idsor02)
+	AND (@idsor03 IS NULL OR estimate.idsor03 = @idsor03)
+	AND (@idsor04 IS NULL OR estimate.idsor04 = @idsor04)
+	AND (@idsor05 IS NULL OR estimate.idsor05 = @idsor05)
+AND @kind in ('I','A')
+ORDER BY estimatekind.description, estimate.yestim, estimate.nestim 
+--select * from #document where desckind = 'Contratto Attivo'
 
 INSERT INTO #document
 	(
@@ -643,7 +681,11 @@ SELECT
 	desckind  as 'Documento',
 	dockind as 'Tipo',
 	y as 'Eserc. Doc.',
-	n as 'Num. Doc.',
+	case when rownum is  null then convert(varchar(10), n) 
+		else convert(varchar(10), n)  + ' (Dettaglio: ' + convert(varchar(10),rownum) + ')'
+		end
+	as 'Num. Doc.',
+	-- n as 'Num. Doc.',
 	start as 'Dal',
 	stop as 'Al',
 	datecompleted as 'Data Acquisizione Documentazione definitiva',
@@ -667,6 +709,9 @@ GO
 
 SET QUOTED_IDENTIFIER OFF 
 GO
+
 SET ANSI_NULLS ON 
 GO
+
+
 

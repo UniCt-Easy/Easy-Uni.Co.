@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,11 +27,14 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_registryreference_persone"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_registryreference_persone: DataSet {
+public partial class dsmeta_registryreference_persone: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registryreference 		=> (MetaTable)Tables["registryreference"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registry 		=> (MetaTable)Tables["registry"];
 
 	#endregion
 
@@ -86,6 +89,65 @@ private void initClass() {
 	tregistryreference.defineColumn("website", typeof(string));
 	Tables.Add(tregistryreference);
 	tregistryreference.defineKey("idreg", "idregistryreference");
+
+	//////////////////// REGISTRY /////////////////////////////////
+	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("idreg", typeof(int),false);
+	tregistry.defineColumn("active", typeof(string),false);
+	tregistry.defineColumn("annotation", typeof(string));
+	tregistry.defineColumn("badgecode", typeof(string));
+	tregistry.defineColumn("birthdate", typeof(DateTime));
+	tregistry.defineColumn("cf", typeof(string));
+	tregistry.defineColumn("ct", typeof(DateTime),false);
+	tregistry.defineColumn("cu", typeof(string),false);
+	tregistry.defineColumn("extmatricula", typeof(string));
+	tregistry.defineColumn("foreigncf", typeof(string));
+	tregistry.defineColumn("forename", typeof(string));
+	tregistry.defineColumn("gender", typeof(string));
+	tregistry.defineColumn("idcategory", typeof(string));
+	tregistry.defineColumn("idcentralizedcategory", typeof(string));
+	tregistry.defineColumn("idcity", typeof(int));
+	tregistry.defineColumn("idmaritalstatus", typeof(string));
+	tregistry.defineColumn("idnation", typeof(int));
+	tregistry.defineColumn("idregistryclass", typeof(string));
+	tregistry.defineColumn("idtitle", typeof(string));
+	tregistry.defineColumn("location", typeof(string));
+	tregistry.defineColumn("lt", typeof(DateTime),false);
+	tregistry.defineColumn("lu", typeof(string),false);
+	tregistry.defineColumn("maritalsurname", typeof(string));
+	tregistry.defineColumn("p_iva", typeof(string));
+	tregistry.defineColumn("rtf", typeof(Byte[]));
+	tregistry.defineColumn("surname", typeof(string));
+	tregistry.defineColumn("title", typeof(string),false);
+	tregistry.defineColumn("txt", typeof(string));
+	tregistry.defineColumn("residence", typeof(int),false);
+	tregistry.defineColumn("idregistrykind", typeof(int));
+	tregistry.defineColumn("authorization_free", typeof(string));
+	tregistry.defineColumn("multi_cf", typeof(string));
+	tregistry.defineColumn("toredirect", typeof(int));
+	tregistry.defineColumn("idaccmotivecredit", typeof(string));
+	tregistry.defineColumn("idaccmotivedebit", typeof(string));
+	tregistry.defineColumn("ccp", typeof(string));
+	tregistry.defineColumn("flagbankitaliaproceeds", typeof(string));
+	tregistry.defineColumn("idexternal", typeof(int));
+	tregistry.defineColumn("ipa_fe", typeof(string));
+	tregistry.defineColumn("flag_pa", typeof(string));
+	tregistry.defineColumn("sdi_defrifamm", typeof(string));
+	tregistry.defineColumn("sdi_norifamm", typeof(string));
+	tregistry.defineColumn("email_fe", typeof(string));
+	tregistry.defineColumn("pec_fe", typeof(string));
+	tregistry.defineColumn("extension", typeof(string));
+	tregistry.defineColumn("ipa_perlapa", typeof(string));
+	Tables.Add(tregistry);
+	tregistry.defineKey("idreg");
+
+	#endregion
+
+
+	#region DataRelation creation
+	var cPar = new []{registry.Columns["idreg"]};
+	var cChild = new []{registryreference.Columns["idreg"]};
+	Relations.Add(new DataRelation("registry_registryreference",cPar,cChild,false));
 
 	#endregion
 

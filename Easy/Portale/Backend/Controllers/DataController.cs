@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,6 +47,8 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
+using System.Web.Http.Filters;
 
 namespace Backend.Controllers {
 
@@ -70,29 +72,40 @@ namespace Backend.Controllers {
 			/// Rappresentazione json stringa del JsDataSet
 			/// </summary>
 			[Required]
-			public string ds { get; set; }
+			public JToken ds { get; set; }
 		}
 
 
+		/// <summary>
+		/// Contains the post params for the method select
+		/// </summary>
+		public class getJsDataQueryParameters {
+			/// <summary>
+			/// Query
+			/// </summary>
+			public JToken dquery { get; set; }
+		
+		}
 
 		/// <summary>
 		/// Called by Client, build the MetaExpression from the json of the jsDataQuery
 		/// </summary>
 		/// <param name="dquery">JsDataQuery json string representation</param>
 		/// <returns></returns>
-		[HttpGet, Route("getJsDataQuery")]
-		public IHttpActionResult getJsDataQuery(string dquery) {
+		[HttpPost, Route("getJsDataQuery")]
+		public IHttpActionResult getJsDataQuery([FromBody] getJsDataQueryParameters dquery) {
 			// trasformo in JObject
 			try {
 
-                var filterEvaluatingError = evaluateFilter(dquery, "");
+                var filterEvaluatingError = evaluateFilter(dquery.dquery,"");
                 if (!string.IsNullOrEmpty(filterEvaluatingError)) {
                     return Content(HttpStatusCode.BadRequest, LoginFailedStatus.FilterWithUndefined + "$__$" + filterEvaluatingError);
                 }
 
-                MetaExpression m = (MetaExpression)MetaExpressionSerializer.deserialize(JToken.Parse(dquery));
+                MetaExpression m = (MetaExpression)MetaExpressionSerializer.deserialize(dquery.dquery);
 				var jsonRes = DataUtils.metaExpressionToJson(m);
-				return Content(HttpStatusCode.OK, jsonRes);
+				return Json(jsonRes);
+				//return Content(HttpStatusCode.OK, jsonRes);
 			}
 			catch (Exception e) {
 				return Content(HttpStatusCode.InternalServerError,
@@ -112,7 +125,7 @@ namespace Backend.Controllers {
 			/// <summary>
 			/// Filter to apply
 			/// </summary>
-			public string filter { get; set; }
+			public JToken filter { get; set; }
 		}
 
 		/// <summary>
@@ -121,14 +134,14 @@ namespace Backend.Controllers {
 		/// <param name="prms">tableName and filter to apply</param>
 		/// <returns></returns>
 		[HttpPost, Route("selectCount")]
-		public IHttpActionResult selectCount(selectCountQueryParameters prms) {
+		public IHttpActionResult selectCount([FromBody] selectCountQueryParameters prms) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
 
 			string tableName = prms.tableName;
-			string filter = prms.filter;
+			var filter = prms.filter;
 
-			string filterString = DataUtils.getfilterFromJsDataQuery(JToken.Parse(filter), dispatcher);
+			string filterString = DataUtils.getfilterFromJsDataQuery(filter, dispatcher);
 
 			int count = conn.RUN_SELECT_COUNT(tableName, filterString, false);
 
@@ -166,7 +179,7 @@ namespace Backend.Controllers {
 			/// <summary>
 			/// Filter to apply
 			/// </summary>
-			public string filter { get; set; }
+			public JObject filter { get; set; }
 
 			/// <summary>
 			/// Request id
@@ -180,7 +193,7 @@ namespace Backend.Controllers {
 		/// <param name="prms">parameters</param>
 		/// <returns></returns>
 		[HttpPost, Route("selectAsync")]
-		public async Task<IHttpActionResult> selectAsync(selectQueryParameters prms) {
+		public async Task<IHttpActionResult> selectAsync([FromBody] selectQueryParameters prms) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var dataSender = new HttpDataSender(prms.idRequest, dispatcher);
 
@@ -197,7 +210,8 @@ namespace Backend.Controllers {
 			return Content(res.code, res.answer);
 		}
 
-        private string evaluateFilter(string filter, string tableName) {
+        private string evaluateFilter(JToken filterObj, string tableName) {
+			string filter = filterObj.ToString(Formatting.None);
             var filterEvaluatingErrorArray = new List<string>();
             var matches = Regex.Matches(filter, @"\[\{""name"":""field"",""args"":\[\{""value"":""(.*?)""\}\]\},\{\}\]", RegexOptions.Singleline).Cast<Match>().Select(m => m.Value.Trim()).Distinct().ToList();
             if (matches.Count() > 0) {
@@ -228,7 +242,7 @@ namespace Backend.Controllers {
 		/// <param name="prms">parameters</param>
 		/// <returns></returns>
 		[HttpPost, Route("select")]
-		public IHttpActionResult select(selectQueryParameters prms) {
+		public IHttpActionResult select([FromBody] selectQueryParameters prms) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 
 			var conn = dispatcher.conn;
@@ -242,10 +256,10 @@ namespace Backend.Controllers {
 
 			q metaExpr = null;
 
-			if (!string.IsNullOrEmpty(filter)) {
+			if (filter != null) {
                
                 try {
-                    metaExpr = MetaExpressionSerializer.deserialize(JObject.Parse(filter)) as q;
+                    metaExpr = MetaExpressionSerializer.deserialize(filter) as q;
                 }
                 catch (Exception e) {
 
@@ -269,7 +283,7 @@ namespace Backend.Controllers {
 						"tablename:" + tableName + ", column list: " + columnList + " filter: " + filter));
 			}
 
-			return Content(HttpStatusCode.OK, DataUtils.dataTableToJSon(dt));
+			return Content(HttpStatusCode.OK, DataUtils.dataTableToJSon(dt,true, true));
 
 		}
 
@@ -283,7 +297,7 @@ namespace Backend.Controllers {
 			/// Json Serialization of a SelectBuilder[] 
 			/// </summary>
 			[Required]
-			public string selBuilderArr { get; set; }
+			public JToken selBuilderArr { get; set; }
 
 			/// <summary>
 			/// id of request
@@ -298,7 +312,7 @@ namespace Backend.Controllers {
 		/// <param name="prms">multiRunSelectQueryParameters</param>
 		/// <returns></returns>
 		[HttpPost, Route("multiRunSelectAsync")]
-		public async Task<IHttpActionResult> multiRunSelectAsync(multiRunSelectQueryParameters prms) {
+		public async Task<IHttpActionResult> multiRunSelectAsync([FromBody] multiRunSelectQueryParameters prms) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
 
@@ -348,13 +362,13 @@ namespace Backend.Controllers {
 		/// <param name="prms">multiRunSelectQueryParameters</param>
 		/// <returns></returns>
 		[HttpPost, Route("multiRunSelect")]
-		public IHttpActionResult multiRunSelect(multiRunSelectQueryParameters prms) {
+		public IHttpActionResult multiRunSelect([FromBody] multiRunSelectQueryParameters prms) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
 			var selBuilderArr = prms.selBuilderArr;
 			var idRequest = prms.idRequest;
 
-			var sel = JObject.Parse(selBuilderArr);
+			var sel = selBuilderArr; //JObject.Parse(selBuilderArr);
 			var arr = JArray.FromObject(sel["arr"]);
 
 			var outDs = new DataSet();
@@ -367,14 +381,14 @@ namespace Backend.Controllers {
 				var expr = objSelBuild["filter"];
                 var tableName = objSelBuild["tableName"].ToString();
 
-                var filterEvaluatingError = evaluateFilter(expr.ToString(), tableName);
+                var filterEvaluatingError = evaluateFilter(expr, tableName);
                 if (!string.IsNullOrEmpty(filterEvaluatingError)) {
                     filterEvaluatingErrorArray.Add(filterEvaluatingError);
                     continue;
                 }
 
 
-                var table = DataSetSerializer.jTokenToTable(JObject.Parse((string)objSelBuild["table"]) , dispatcher);
+                var table = DataSetSerializer.jTokenToTable(objSelBuild["table"],true, dispatcher, tableName);
 				string top = null;
 				if (!String.IsNullOrEmpty(objSelBuild["top"].ToString())) top = objSelBuild["top"].ToString();
 
@@ -411,27 +425,37 @@ namespace Backend.Controllers {
 			}
 
 			// 3. torno il ds popolato solo con i dati che mi aspetto
-			var jsonResDataSet = DataUtils.dataSetToJSon(outDs);
+			var jsonResDataSet = DataUtils.dataSetToJSon(outDs,false);
 			return Content(HttpStatusCode.OK, jsonResDataSet);
 
 		}
 
-		public string GetAndLogErrorMessage(DataSet ds, IEasyDataAccess conn, string error, string methodInfo,
-			string metadata) {
-			BEError bEError = new BEError();
-			bEError.conn = conn;
-			bEError.error = error  + " " + GetDSErrors(ds);
-			bEError.methodInfo = methodInfo;
-			bEError.metadata = metadata;
-			DBLogger.log(bEError);
-			return bEError.error;
-		}
+        public string GetAndLogErrorMessage(DataSet ds, IEasyDataAccess conn, string error, string methodInfo, string metadata)
+        {
+            BEError bEError = new BEError();
+            bEError.conn = conn;
+            bEError.error = error + " " + GetDSErrors(ds);
+            bEError.methodInfo = methodInfo;
+            bEError.metadata = metadata;
+            DBLogger.log(bEError);
+            return bEError.error;
+        }
+
+        public void LogOperationAndData(DataSet ds, IEasyDataAccess conn, string operation, string methodInfo, string metadata)
+        {
+            BEError bEError = new BEError();
+            bEError.conn = conn;
+            bEError.error = operation;
+            bEError.methodInfo = methodInfo;
+            bEError.metadata = metadata;
+            DBLogger.log(bEError);
+        }
 
 
-		/// <summary>
-		/// Parameters for method getDataSet
-		/// </summary>
-		public class getDataSetQueryParameters {
+        /// <summary>
+        /// Parameters for method getDataSet
+        /// </summary>
+        public class getDataSetQueryParameters {
 			/// <summary>
 			/// Name of main dataset table 
 			/// </summary>
@@ -451,7 +475,7 @@ namespace Backend.Controllers {
 		/// <param name="prms">tableName / edtiType</param>
 		/// <returns></returns>
 		[HttpPost, Route("getDataSet")]
-		public IHttpActionResult getDataSet(getDataSetQueryParameters prms) {
+		public IHttpActionResult getDataSet([FromBody] getDataSetQueryParameters prms) {
 			var tableName = prms.tableName;
 			var editType = prms.editType;
 
@@ -465,13 +489,13 @@ namespace Backend.Controllers {
 			try {
 				var outDs = DataUtils.createEmptyDataSet(tableName, editType);
 				if (outDs == null) {
-					return Content(HttpStatusCode.BadRequest, "DataSet non esistente.");
+					return Content(HttpStatusCode.BadRequest, $"DataSet non esistente ({tableName}-{editType}).");
 				}
 
 				// trasforma il ds costruito in una struttura da serializzare e rinviare al client.
-				string jsonResDataSet = DataUtils.dataSetToJSon(outDs);
+				var jsonResDataSet = DataUtils.dataSetToJSon(outDs,true);
 
-				return Content(HttpStatusCode.OK, jsonResDataSet);
+				return Json(jsonResDataSet); //Content(HttpStatusCode.OK, jsonResDataSet);
 			}
 			catch (Exception ex) {
 				var msg = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
@@ -500,7 +524,7 @@ namespace Backend.Controllers {
 			/// <summary>
 			/// json string  serialization of a jsDataQuery
 			/// </summary>
-			public string filter { get; set; } // json string of serialized jsDataQuery
+			public JToken filter { get; set; } // json string of serialized jsDataQuery
 		}
 
 		/// <summary>
@@ -509,7 +533,7 @@ namespace Backend.Controllers {
 		/// <param name="prms">fillDataSetQueryParameters</param>
 		/// <returns></returns>
 		[HttpPost, Route("fillDataSet")]
-		public IHttpActionResult fillDataSet(fillDataSetQueryParameters prms) {
+		public IHttpActionResult fillDataSet( fillDataSetQueryParameters prms) {
 
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var tableName = prms.tableName;
@@ -546,7 +570,7 @@ namespace Backend.Controllers {
 						"tablename:" + tableName + ", editType:" + editType));
 			}
 
-			return Content(HttpStatusCode.OK, DataUtils.dataSetToJSon(outDs));
+			return Content(HttpStatusCode.OK, DataUtils.dataSetToJSon(outDs,false));
 
 		}
 
@@ -570,7 +594,7 @@ namespace Backend.Controllers {
 			/// array of key/value pairs. key:tableName, value:filter jsDataQuery serialized in json
 			/// </summary>
 			[Required]
-			public string pairTablefilter { get; set; }
+			public JObject pairTablefilter { get; set; }
 		}
 
 
@@ -580,7 +604,7 @@ namespace Backend.Controllers {
 		/// <param name="prms">Table name</param>
 		/// <returns></returns>
 		[HttpPost, Route("prefillDataSet")]
-		public IHttpActionResult prefillDataSet(PreFillDataSetQueryParameters prms) {
+		public IHttpActionResult prefillDataSet([FromBody] PreFillDataSetQueryParameters prms) {
 
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
@@ -602,7 +626,7 @@ namespace Backend.Controllers {
 			var selList = new List<SelectBuilder>();
 
 			// 2. popolo solo le tabelle passate nel parametro pairTablefilter, insieme al proprio filtro
-			var jobj = JObject.Parse(pairTablefilter);
+			var jobj = pairTablefilter;
 			foreach (var x in jobj) {
 				var tName = x.Key;
 				var filter = x.Value;
@@ -625,7 +649,7 @@ namespace Backend.Controllers {
 			}
 
 			// 3. torno il ds popolato solo con i dati che mi aspetto
-			var jsonResDataSet = DataUtils.dataSetToJSon(outDs);
+			var jsonResDataSet = DataUtils.dataSetToJSon(outDs,false);
 			return Content(HttpStatusCode.OK, jsonResDataSet);
 
 		}
@@ -635,13 +659,13 @@ namespace Backend.Controllers {
 		/// </summary>
 		public class getNewRowQueryParameters {
 
-			public string
+			public JToken
 				dtChild {
 				get;
 				set;
 			} // N.B il ds in input al metodo va solo in post, altrimenti in get sarebbe troppo grande
 
-			public string
+			public JToken
 				dtParent { get; set; } // contiene una riga ed una sola, nel caso in cui devo creare una riga child
 
 			public string rel { get; set; } // relazione padre figlio
@@ -665,7 +689,7 @@ namespace Backend.Controllers {
 
 		/// <returns></returns>
 		[HttpPost, Route("getNewRow")]
-		public IHttpActionResult getNewRow(getNewRowQueryParameters prms) {
+		public IHttpActionResult getNewRow([FromBody] getNewRowQueryParameters prms) {
 
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 
@@ -675,10 +699,11 @@ namespace Backend.Controllers {
 			var rel = prms.rel;
 			DataRow drParent = null;
 			// deserializzo il dtChild e dtParent di input
-			MetaTable myDtChild = DataSetSerializer.jTokenToTable(JObject.Parse(dtChild), dispatcher);
+			//var parsedChild = JObject.Parse(dtChild);
+			MetaTable myDtChild = DataSetSerializer.jTokenToTable(dtChild, false, dispatcher,null);
 			MetaTable myDtParent = null;
 			if (dtParent != null) {
-				myDtParent = DataSetSerializer.jTokenToTable(JObject.Parse(dtParent), dispatcher);
+				myDtParent = DataSetSerializer.jTokenToTable(dtParent, false, dispatcher,null);
 				// recupero la riga tramite la tabella. son sicuro che è la 1a riga. poichè il client passa la padre con una riga
 				drParent = myDtParent.Rows[0];
 			}
@@ -734,7 +759,7 @@ namespace Backend.Controllers {
 			// serializzo filtro
 			var filterOutObjJson = DataUtils.metaExpressionToJson(filterOut);
 			// serializzo DataTable di output
-			var myDtChildOutJson = DataUtils.dataTableToJSon(myDtChild);
+			var myDtChildOutJson = DataUtils.dataTableToJSon(myDtChild,true, true);
 			// qui se tutto funziona i campi selettori e via dicendo dovrebbero essere serializzati
 			// attenzione bisogna capire se c'è da fare ulteriore lavoro per i campi customautoincrement la cui proprietà non è 
 			//  serializzabile e quindi credo che bisogna artificialmente imporre un autoincremento generico 
@@ -754,7 +779,7 @@ namespace Backend.Controllers {
 		/// </summary>
 		public class doGetQueryParameters {
 			[Required]
-			public string
+			public JToken
 				ds {
 				get;
 				set;
@@ -763,7 +788,7 @@ namespace Backend.Controllers {
 			[Required]
 			public string primaryTableName { get; set; }
 
-			public string filter { get; set; }
+			public JToken filter { get; set; }
 
 			[Required]
 			public bool onlyPeripherals { get; set; }
@@ -775,7 +800,7 @@ namespace Backend.Controllers {
 		/// <param name="prms"></param>
 		/// <returns></returns>
 		[HttpPost, Route("doGet")]
-		public IHttpActionResult doGet(doGetQueryParameters prms) {
+		public IHttpActionResult doGet([FromBody] doGetQueryParameters prms) {
 
 			// Inizializzo GetData
 			var dispatcher = HttpContext.Current.getDataDispatcher();
@@ -786,7 +811,7 @@ namespace Backend.Controllers {
 			DataSet myds = null;
 			try {
 
-				myds = DataSetSerializer.deserialize(JObject.Parse(ds), dispatcher);
+				myds = DataSetSerializer.deserialize(ds,true, dispatcher); //JObject.Parse(ds)
 
 				var getData = new GetData();
 				getData.InitClass(myds, dispatcher.Connection, primaryTableName);
@@ -819,7 +844,7 @@ namespace Backend.Controllers {
                 }
                
                 // Torno il ds popolato solo con i dati che mi aspetto
-                var jsonResDataSet = DataUtils.dataSetToJSon(myds);
+                var jsonResDataSet = DataUtils.dataSetToJSon(myds,false);
 
 				getData.Destroy();
 
@@ -910,7 +935,7 @@ namespace Backend.Controllers {
 
 			public string editType { get; set; }
 
-			public string filter { get; set; }
+			public JToken filter { get; set; }
 		}
 
 		/// <summary>
@@ -921,11 +946,11 @@ namespace Backend.Controllers {
 		/// <param name="filter"></param>
 		/// <returns></returns>
 		[HttpPost, Route("getDsByRowKey")]
-		public IHttpActionResult getDsByRowKey(getDsByRowKeyParameters prms) {
+		public IHttpActionResult getDsByRowKey([FromBody] getDsByRowKeyParameters prms) {
 
 			string tableName = prms.tableName;
 			string editType = prms.editType;
-			string filter = prms.filter;
+			var filter = prms.filter;
 
 			Dispatcher dispatcher = HttpContext.Current.getDataDispatcher();
 			DataSet outDs = DataUtils.createEmptyDataSet(tableName, editType);
@@ -946,10 +971,10 @@ namespace Backend.Controllers {
 				getData.InitClass(outDs, dispatcher.Connection, tableName);
 
 				// 1. Eseguo la SEARCH_BY_KEY, rivista, poichè dal client mi arriva già il filtro. Capire con Nino se va bene!!
-				var sFilter = DataUtils.getfilterFromJsDataQuery(JToken.Parse(filter), dispatcher);
+				var sFilter = DataUtils.getfilterFromJsDataQuery(filter, dispatcher);
 				getData.ReadCached();
 				dt = outDs.Tables[tableName];
-				dispatcher.conn.RUN_SELECT_INTO_TABLE(dt, dt.getSorting(), sFilter, null, true);
+				dispatcher.conn.RUN_SELECT_INTO_TABLE(dt, dt.getSorting(), sFilter, null, false);
                 string errorMessage = dispatcher.conn.LastError;
                 if (!String.IsNullOrEmpty(errorMessage)) {
                     return Content(HttpStatusCode.InternalServerError,
@@ -969,13 +994,29 @@ namespace Backend.Controllers {
 
 				// bonifico dataset per i campi byte[]
 				AttachmentUtils.sanitizeDsForAttach(outDs);
-
+				List<DataRelation> relsToRemove = new List<DataRelation>();
+				List<DataTable> tablesToRemove =	new List<DataTable>();
+				foreach (DataTable t in outDs.Tables) {
+					if (t.Rows.Count == 0) {
+						foreach(DataRelation r in outDs.Relations) {
+							if (r.ParentTable==t || r.ChildTable==t) {
+								relsToRemove.Add(r);
+							}
+						}
+						tablesToRemove.Add(t);
+					}
+				}
+				relsToRemove.ForEach(r => { if (outDs.Relations.Contains(r.RelationName)) { outDs.Relations.Remove(r);} });
+				tablesToRemove.ForEach(t=> { outDs.Tables.Remove(t); });
+				
 				// Torno il ds popolato solo con i dati che mi aspetto
-				var jsonResDataSet = DataUtils.dataSetToJSon(outDs);
+				var jsonResDataSet = DataUtils.dataSetToJSon(outDs,false);
 
 				getData.Destroy();
 
-				return Content(HttpStatusCode.OK, jsonResDataSet);
+                LogOperationAndData(outDs, dispatcher.conn, tableName + "," + editType, "getDsByRowKey", sFilter);
+
+                return Content(HttpStatusCode.OK, jsonResDataSet);
 
 			}
 			catch (Exception e) {
@@ -1028,7 +1069,7 @@ namespace Backend.Controllers {
 			var dt = dispatcher.conn.CreateTableByName(tableName, columnList);
 
 			// Torno il ds popolato solo con i dati che mi aspetto
-			var jsonResDataTable = DataUtils.dataTableToJSon(dt);
+			var jsonResDataTable = DataUtils.dataTableToJSon(dt,true, true);
 
 			return Content(HttpStatusCode.OK, jsonResDataTable);
 		}
@@ -1086,7 +1127,7 @@ namespace Backend.Controllers {
 			[Required]
 			public int nRowPerPage { get; set; }
 
-			public string filter { get; set; }
+			public JToken filter { get; set; }
 			public string listType { get; set; }
 			public string sortby { get; set; }
 		}
@@ -1103,7 +1144,7 @@ namespace Backend.Controllers {
 		/// <param name="filter"></param>
 		/// <returns></returns>
 		[HttpPost, Route("getPagedTable")]
-		public IHttpActionResult getPagedTable(getPagedTableQueryParameters prms) {
+		public IHttpActionResult getPagedTable([FromBody] getPagedTableQueryParameters prms) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
 
@@ -1115,12 +1156,12 @@ namespace Backend.Controllers {
 			string tableName = prms.tableName;
 			int nPage = prms.nPage;
 			int nRowPerPage = prms.nRowPerPage;
-			string filter = prms.filter;
+			var filter = prms.filter;
 			string listType = prms.listType;
 			string sort = prms.sortby;
 
 
-			string filterString = DataUtils.getfilterFromJsDataQuery(JToken.Parse(filter), dispatcher);
+			string filterString = DataUtils.getfilterFromJsDataQuery(filter, dispatcher);
 
 			// 1. Mappatura con tabella web_listredir
 			string[] arrayMapped = getMappingWebListRedir(tableName, listType);
@@ -1286,16 +1327,21 @@ namespace Backend.Controllers {
 			// 7. invoco describeColumns su nuovo meta con nuovi prm 
 			meta.DescribeColumns(dtPaged, newlisttype);
 
-			// Torno il result popolato solo con i dati che mi aspetto.
+			// 8. preparo i risultati
 			// il totPage serve al client per capire quante pagine ci sono
-			var jsonResDataTable = DataUtils.dataTableToJSon(dtPaged);
+			var jsonResDataTable = DataUtils.dataTableToJSon(dtPaged,true,	true);
 			var result = new JObject {
 				{"dt", jsonResDataTable},
 				{"totpage", totPages},
-				{"totrows", totrows}
-			};
+                {"totrows", totrows}
+            };
 
-			return Content(HttpStatusCode.OK, result);
+			// 9. loggo l'operazione
+            LogOperationAndData(null, dispatcher.conn, tableName + "," + newlisttype, "getPagedTable", query);
+
+            // 10. Torno il result popolato solo con i dati che mi aspetto.
+            return Json(result);
+			//return Content(HttpStatusCode.OK, result);
 
 		}
 
@@ -1304,13 +1350,13 @@ namespace Backend.Controllers {
 		/// </summary>
 		public class getSpecificChildQueryParameters {
 			[Required]
-			public string
+			public JToken
 				dt {
 				get;
 				set;
 			} // N.B il ds in input al metodo va solo in post, altrimenti in get sarebbe troppo grande
 
-			public string startconditionfilter { get; set; }
+			public JToken startconditionfilter { get; set; }
 
 			public string startval { get; set; }
 
@@ -1325,7 +1371,7 @@ namespace Backend.Controllers {
         ///  returned. Used for AutoManage functions.
         /// </summary>
 		[HttpPost, Route("GetSpecificChild")]
-		public IHttpActionResult GetSpecificChild(getSpecificChildQueryParameters prm) {
+		public IHttpActionResult GetSpecificChild([FromBody] getSpecificChildQueryParameters prm) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
 			var qh = dispatcher.QueryHelper;
@@ -1334,9 +1380,9 @@ namespace Backend.Controllers {
 			var startval = prm.startval;
 			var startConditionFilter = prm.startconditionfilter;
 			var dtSerialized = prm.dt;
-			var dt = DataSetSerializer.jTokenToTable(JObject.Parse(dtSerialized), dispatcher);
+			var dt = DataSetSerializer.jTokenToTable(dtSerialized, true, dispatcher,null);//JObject.Parse(dtSerialized)
 
-			string startcondition = DataUtils.getfilterFromJsDataQuery(JToken.Parse(startConditionFilter), dispatcher);
+			string startcondition = DataUtils.getfilterFromJsDataQuery(startConditionFilter, dispatcher);
 			string filter = qh.AppAnd(startcondition, qh.Like(startfield, startval));
 
 			conn.RUN_SELECT_INTO_TABLE(dt, "len(" + startfield + ")", filter, null, true);
@@ -1353,7 +1399,7 @@ namespace Backend.Controllers {
 				drOut = dt.Rows[0];
 			}
 
-			string filterOutObjJson = null;
+			JObject filterOutObjJson = null;
 			if (drOut != null) {
 				// Costruisco filter in output per permettere l'individuazione della riga lato js
 				var filterOut = MetaExpression.keyCmp(drOut);
@@ -1363,7 +1409,7 @@ namespace Backend.Controllers {
 			}
 
 			// serializzo DataTable di output
-			var dtOutJson = DataUtils.dataTableToJSon(dt);
+			var dtOutJson = DataUtils.dataTableToJSon(dt,true, true);
 
 			// invio al client un json obj formato da dt con la riga cercata, +  il filtro per individuare la riga
 			var result = new JObject {
@@ -1380,7 +1426,7 @@ namespace Backend.Controllers {
 		/// </summary>
 		public class desrColQueryParameters {
 			[Required]
-			public string dt { get; set; }
+			public JToken dt { get; set; }
 
 			[Required]
 			public string listType { get; set; }
@@ -1393,13 +1439,13 @@ namespace Backend.Controllers {
 		/// <param name="prm">desrColQueryParameters</param>
 		/// <returns></returns>
 		[HttpPost, Route("describeColumns")]
-		public IHttpActionResult describeColumns(desrColQueryParameters prm) {
+		public IHttpActionResult describeColumns([FromBody] desrColQueryParameters prm) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
 
 			var listType = prm.listType;
 			var dtSerialized = prm.dt;
-			var dt = DataSetSerializer.jTokenToTable(JObject.Parse(dtSerialized), dispatcher);
+			var dt = DataSetSerializer.jTokenToTable(dtSerialized, true, dispatcher,null);
 
 			// recupero il meta della tabella
 			string tName = DataAccess.GetTableForReading(dt);
@@ -1420,7 +1466,7 @@ namespace Backend.Controllers {
 			meta.DescribeColumns(dt, listType);
 
 			// Torno il dt popolato solo con i dati che mi aspetto
-			var jsonResDataTable = DataUtils.dataTableToJSon(dt);
+			var jsonResDataTable = DataUtils.dataTableToJSon(dt,false, true);
 			return Content(HttpStatusCode.OK, jsonResDataTable);
 		}
 
@@ -1429,7 +1475,7 @@ namespace Backend.Controllers {
 		/// </summary>
 		public class desrcTreeParameters {
 			[Required]
-			public string dt { get; set; }
+			public JToken dt { get; set; }
 
 			[Required]
 			public string listType { get; set; }
@@ -1443,13 +1489,13 @@ namespace Backend.Controllers {
 		/// <param name="listType"></param>
 		/// <returns></returns>
 		[HttpPost, Route("describeTree")]
-		public IHttpActionResult describeTree(desrcTreeParameters prms) {
+		public IHttpActionResult describeTree([FromBody] desrcTreeParameters prms) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
 
 			var listType = prms.listType;
 			var dtSerialized = prms.dt;
-			var dt = DataSetSerializer.jTokenToTable(JObject.Parse(dtSerialized), dispatcher);
+			var dt = DataSetSerializer.jTokenToTable(dtSerialized, false, dispatcher, null);
 
 			// recupero il meta della tabella
 			string tableName = DataAccess.GetTableForReading(dt);
@@ -1539,13 +1585,13 @@ namespace Backend.Controllers {
 		/// </summary>
 		public class getCopyChildsQueryParameters {
 			[Required]
-			public string dsIn { get; set; } // ds di input con le righe da copiare 
+			public JToken dsIn { get; set; } // ds di input con le righe da copiare 
 
-			public string dtPrimary { get; set; } // Ds che verrà emrgiato sul client con le nuove righe calcolate
+			public JToken dtPrimary { get; set; } // Ds che verrà emrgiato sul client con le nuove righe calcolate
 
-			public string filterPrimary { get; set; }
+			public JToken filterPrimary { get; set; }
 
-			public string filterInsertRow { get; set; }
+			public JToken filterInsertRow { get; set; }
 
 			public string editType { get; set; }
 
@@ -1557,7 +1603,7 @@ namespace Backend.Controllers {
 		/// <param name="prm"></param>
 		/// <returns></returns>
 		[HttpPost, Route("getNewRowCopyChilds")]
-		public IHttpActionResult getNewRowCopyChilds(getCopyChildsQueryParameters prm) {
+		public IHttpActionResult getNewRowCopyChilds([FromBody] getCopyChildsQueryParameters prm) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
 			var qh = dispatcher.QueryHelper;
@@ -1570,7 +1616,7 @@ namespace Backend.Controllers {
 			var tableName = "";
 
 			/****************** Costrusci dt principale e ds di output ************************/
-			MetaTable myDtParent = DataSetSerializer.jTokenToTable(JObject.Parse(dtPrimary), dispatcher);
+			MetaTable myDtParent = DataSetSerializer.jTokenToTable(dtPrimary, false, dispatcher,null);
 			// deserializzo riga nuova padre inserita
 			MetaExpression metaExprFilterInsertRow = DataUtils.getMetaExpressionFromJsonDataQuery(filterInsertRow);
 			DataRow rowToInsert = getDataRowFromTableFiltered(myDtParent, metaExprFilterInsertRow);
@@ -1594,7 +1640,7 @@ namespace Backend.Controllers {
 
 			/********** DS e riga principaledi input da copiare ******************************/
 			// 1. deserializzo strutture dati
-			var DSin = DataSetSerializer.deserialize(JObject.Parse(dsInPrm), dispatcher);
+			var DSin = DataSetSerializer.deserialize(dsInPrm, false,dispatcher);
 			// deserializzo riga padre
 			MetaTable myDtParentIn = (MetaTable)DSin.Tables[tableName];
 			// recupero la riga Parent tramite il nome tabella e il filtro su di essa, passato dal client
@@ -1607,9 +1653,9 @@ namespace Backend.Controllers {
 			recursiveNewCopyChilds(newRowParent, primaryRowCopy, outDs);
 
 			// trasforma il ds costruito in una struttura da serializzare e rinviare al client.
-			string jsonResDataSet = DataUtils.dataSetToJSon(outDs);
+			var jsonResDataSet = DataUtils.dataSetToJSon(outDs,false);
 
-			return Content(HttpStatusCode.OK, jsonResDataSet);
+			return Json(jsonResDataSet); // Content(HttpStatusCode.OK, jsonResDataSet);
 
 		}
 
@@ -1672,7 +1718,7 @@ namespace Backend.Controllers {
 			/// jsDataSet serialization
 			/// </summary>
 			[Required]
-			public string
+			public JToken
 				ds {
 				get;
 				set;
@@ -1693,7 +1739,7 @@ namespace Backend.Controllers {
 			/// <summary>
 			/// Previous messages ignored, is the jSon Serialization of a EasyProcedureMessage (s) array
 			/// </summary>
-			public string messages { get; set; }
+			public JArray messages { get; set; }
 		}
 
 		/// <summary>
@@ -1782,7 +1828,7 @@ namespace Backend.Controllers {
         /// <param name="prms"></param>
         /// <returns></returns>
         [HttpPost, Route("saveDataSet")]
-		public IHttpActionResult saveDataSet(saveDataQueryParameters prms) {
+		public IHttpActionResult saveDataSet([FromBody] saveDataQueryParameters prms) {
 			// 0. Inizializzo variabili
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 
@@ -1795,16 +1841,22 @@ namespace Backend.Controllers {
 
 
             try {
-			    // 1. deserializzo strutture dati
-			    myds = DataSetSerializer.deserialize(JObject.Parse(ds), dispatcher);
+				// 3. prende ds originale dal Server, per questioni di sicurezza utilizzo questo per il post dei dati, dopo averlo 'mergiato'
+					// (vedi punto successivo num 4)
+				var outDs = DataUtils.createEmptyDataSet(tableName, editType);
+				if (outDs == null)
+					return Content(HttpStatusCode.BadRequest, $"DataSet {tableName}-{editType} non esistente.");
 
-                // controllo se utilizza connessione anonima . blocco le operazioni non permesse
-                if (!isAnonymousPermitted(tableName, editType, myds)) {
-                    return Content(HttpStatusCode.BadRequest, LoginFailedStatus.AnonymousNotPermitted);
-                }
+				// 1. deserializzo strutture dati
+				DataSetSerializer.deserializeIntoDataSet(ds, outDs);
 
+				// controllo se utilizza connessione anonima . blocco le operazioni non permesse
+				if (!isAnonymousPermitted(tableName, editType, myds)) {
+					return Content(HttpStatusCode.BadRequest, LoginFailedStatus.AnonymousNotPermitted);
+				}
+				
                 var myMessages = new ProcedureMessageCollection();
-			    if (messages != null) myMessages = DataSetSerializer.deserializeMessages(JArray.Parse(messages));
+			    if (messages != null) myMessages = DataSetSerializer.deserializeMessages(messages);
 
 			    // sul meta della tab principale invocherò la post
 			    var meta = dispatcher.GetMeta(tableName);
@@ -1821,14 +1873,14 @@ namespace Backend.Controllers {
 			    string errfield = "";
 
 			    //ciclo su tutte le tabelle del dataset
-			    foreach (DataTable table in myds.Tables) {
+			    foreach (DataTable table in outDs.Tables) {
 				    // se è tab principale oppure subentity, 
-				    if (table.TableName == tableName || DataUtils.isSubEntityOrNotEntityChild(null, table, myds.Tables[tableName])) {
+				    if (table.TableName == tableName || DataUtils.isSubEntityOrNotEntityChild(null, table, outDs.Tables[tableName])) {
 					    // devo invocare la specifica isValid, quindi recupero il meta
 					    string tName = DataAccess.GetTableForReading(table);
 					    var currMeta = dispatcher.GetMeta(tName);
 					    currMeta.edit_type = editType;
-					    currMeta.ds = myds;
+					    currMeta.ds = outDs;
 					    if (currMeta == null) return Content(HttpStatusCode.BadRequest, "Entità non valida " + tName);
 					    // ciclo sulle righe. e controllerò quelle in cui ci sono CRUD
 					    foreach (DataRow row in table.Rows) {
@@ -1887,30 +1939,7 @@ namespace Backend.Controllers {
 			    } // fine for sulle tabelle del ds
 
 
-			    // 3. prende ds originale dal Server, per questioni di sicurezza utilizzo questo per il post dei dati, dopo averlo 'mergiato' (vedi punto succssivo num 4)
-			    var outDs = DataUtils.createEmptyDataSet(tableName, editType);
 
-			    if (outDs == null) return Content(HttpStatusCode.BadRequest, "DataSet non esistente.");
-
-			    try {
-				    // 4. Travasa i dati del ds proveninte dal client, su quello appena generato del server
-				    foreach (DataTable table in outDs.Tables) {
-					    // solo se ovviamente la tabella esiste
-					    DataTable dtInput = myds.Tables[table.TableName];
-					    if (dtInput != null) {
-						    // merge preservando lo stato delle righe
-						    table.Merge(dtInput, true);
-						    // copio le prop di autoincremento
-						    RowChange.CopyAutoIncrementProperties(dtInput, table);
-					    }
-				    }
-
-			    }
-			    catch (Exception e) {
-				    return Content(HttpStatusCode.BadRequest,
-					    GetAndLogErrorMessage(outDs, dispatcher.conn, e.Message, "saveDataSet",
-						    tableName + " " + editType));
-			    }
 
 			    // lista delle righe il cui campo byte[] sarà modificato, e che in caso
 			    // di errore della save , dovrò bonificare.
@@ -1938,8 +1967,15 @@ namespace Backend.Controllers {
 				    // 8. gestisco registrazione
 				    manageRegistration(outDs);
 
-				    // segnalo i messaggi già ignorati 
-				    if (myMessages.Count > 0) postData.IgnoreMessages(myMessages);
+					// 9. salvo una copia del dataset
+					var parentRowState = "ModifiedChildren";
+					if(postData.DS.Tables[tableName].Rows.Count>0)
+                        parentRowState = postData.DS.Tables[tableName].Rows[0].RowState.ToString();
+					LogOperationAndData(myds, dispatcher.conn, tableName + "," + editType, "saveDatSet," + parentRowState, ds.ToString()); ;
+
+
+                    // segnalo i messaggi già ignorati 
+                    if (myMessages.Count > 0) postData.IgnoreMessages(myMessages);
 
 				    //salva i dati ed ottiene un eventuale elenco di messaggi
 				    myMessages = postData.DO_POST_SERVICE();
@@ -1972,14 +2008,14 @@ namespace Backend.Controllers {
 				    AttachmentUtils.sanitizeDsForAttach(outDs);
 			    }
 
-			    var dsSerialized = DataUtils.dataSetToJSon(outDs);
+			    var dsSerialized = DataUtils.dataSetToJSon(outDs,false);
 
 			    var messagesSerialized = DataSetSerializer.serializeMessages(myMessages);
-			    // costrusico risposta da mandare al client con il ds e i messaggi eventuali più altre info utili
+			    // costruisco risposta da mandare al client con il ds e i messaggi eventuali più altre info utili
 			    var result = DataUtils.getJsonSaveDataSetAnswer(dsSerialized, messagesSerialized, success, canIgnore);
 
 			    // 9. invio risposta al client
-			    return Content(HttpStatusCode.OK, result);
+			    return Json(result); //Content(HttpStatusCode.OK, result);
             } catch (Exception e) {
                 return Content(HttpStatusCode.InternalServerError,
                     GetAndLogErrorMessage(myds, dispatcher.conn, e.Message, "saveDatSet",
@@ -2120,7 +2156,7 @@ namespace Backend.Controllers {
 		}
 
 		[HttpPost, Route("setUsrEnv")]
-		public IHttpActionResult setUsrEnv(setUsrEnvParameters prms) {
+		public IHttpActionResult setUsrEnv([FromBody] setUsrEnvParameters prms) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 
 			var key = prms.key;
@@ -2136,8 +2172,8 @@ namespace Backend.Controllers {
 			return Content(HttpStatusCode.OK, "ok");
 		}
 
-		[HttpPost, Route("cambiaRuolo")]
-		public IHttpActionResult cambiaRuolo(CambioRuoloFormData data) {
+		[HttpPost, Route("changeRole")]
+		public IHttpActionResult cambiaRuolo([FromBody] CambioRuoloFormData data) {
 
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
@@ -2176,14 +2212,34 @@ namespace Backend.Controllers {
 			Guid guidsession = identity.guidsession;
 			SessionMDLW.updateSessionInfoFromGuid(guidsession, usr, sys);
 
-			var result = new JObject {
+            Hashtable sysClient = new Hashtable();
+            sysClient.Add("dbversion", dispatcher.conn.DO_READ_VALUE("updatedbversion", null, "max(versionname)"));
+            sysClient.Add("backendversion", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            sysClient.Add("idcustomuser", sec.GetSys("idcustomuser"));
+
+            var result = new JObject {
 				{"usr", JToken.FromObject(usr)},
-				{"sys", JToken.FromObject(sys)}
+				{"sys", JToken.FromObject(sysClient)}
 			};
 
+            //eseguo il LOG degli accessi
+            BEError logOK = new BEError();
+            logOK.conn = conn;
+            logOK.error = "Cambio ruolo avvenuto con successo";
+            logOK.methodInfo = "cambiaRuolo";
+            logOK.metadata =
+                "esercizio: " + conn.Security.GetSys("esercizio") +
+                ", idreg: " + idreg +
+                ", idcustomuser: " + conn.Security.GetSys("idcustomuser") +
+                ", userName: " + conn +
+                ", dbversion: " + conn.ToString() +
+                ", backendversion: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +
+                ", idflowchart: " + idflowchart
+                ;
+            DBLogger.log(logOK);
 
-			// 13. torno risposta al client con nuovo environment
-			return Content(HttpStatusCode.OK, result);
+            // 13. torno risposta al client con nuovo environment
+            return Content(HttpStatusCode.OK, result);
 		}
 
 
@@ -2196,7 +2252,7 @@ namespace Backend.Controllers {
 			/// <summary>
 			/// Filter to apply
 			/// </summary>
-			public string filter { get; set; }
+			public JToken filter { get; set; }
 
 			/// <summary>
 			/// Expression to read
@@ -2211,7 +2267,7 @@ namespace Backend.Controllers {
 		}
 
 		[HttpPost, Route("doReadValue")]
-		public IHttpActionResult doReadValue(doReadValueParameters prms) {
+		public IHttpActionResult doReadValue([FromBody] doReadValueParameters prms) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			//  string table, string condition, string expr, string orderby
 			var table = prms.table;
@@ -2219,7 +2275,7 @@ namespace Backend.Controllers {
 			var expr = prms.expr;
 			var orderby = prms.orderby;
 
-			var filterString = DataUtils.getfilterFromJsDataQuery(JToken.Parse(filter), dispatcher);
+			var filterString = DataUtils.getfilterFromJsDataQuery(filter, dispatcher);
 
 			var conn = dispatcher.conn;
 
@@ -2257,7 +2313,7 @@ namespace Backend.Controllers {
         }
 
         [HttpPost, Route("sendMail")]
-        public IHttpActionResult sendMail(sendMailParameters prms) {
+        public IHttpActionResult sendMail([FromBody] sendMailParameters prms) {
             var emailDest = prms.emailDest;
             var body = prms.htmlBody;
             var subject = prms.subject;
@@ -2266,8 +2322,10 @@ namespace Backend.Controllers {
 				int smtpport = Convert.ToInt32(WebConfigurationManager.AppSettings["smtpport"]);
 				string smtpuser = WebConfigurationManager.AppSettings["smtpuser"];
 				string smtppwd = WebConfigurationManager.AppSettings["smtppwd"];
-				SystemConfig systemConfig = Security.Token.decodeSystemConfig(smtppwd);
-				smtppwd = systemConfig.password;
+				if (!string.IsNullOrWhiteSpace(smtppwd)) {
+					SystemConfig systemConfig = Security.Token.decodeSystemConfig(smtppwd);
+					smtppwd = systemConfig.password;
+				}
 
 				BodyBuilder builder = new BodyBuilder();
 				MimeMessage mail = new MimeMessage();
@@ -2288,7 +2346,8 @@ namespace Backend.Controllers {
 					}
 					client.Connect(smtpserver, smtpport, useSsl);
 					client.AuthenticationMechanisms.Remove("XOAUTH2");
-					client.Authenticate(smtpuser, smtppwd);
+					if (!string.IsNullOrWhiteSpace(smtppwd)) 
+						client.Authenticate(smtpuser, smtppwd);
 					client.Send(mail);
 					client.Disconnect(true);
 				}
@@ -2308,32 +2367,40 @@ namespace Backend.Controllers {
         #region ImportExcel
         public class importExcelParameters {
             /// <summary>
-            /// Table to read
+            /// Stored procedure
             /// </summary>
             public string spName { get; set; }
 
             /// <summary>
-            /// body of the mail
+            /// dataset
             /// </summary>
-            public string ds { get; set; }
+            public JToken ds { get; set; }
 
             /// <summary>
-            /// subject of the mail
+            /// ids Parent
             /// </summary>
             public string[] idsParent { get; set; }
+
+            /// <summary>
+            /// additionalparam
+            /// </summary>
+            public string[] additionalparam { get; set; }
 
         }
 
         [HttpPost, Route("importExcel")]
-        public IHttpActionResult importExcel(importExcelParameters prms) {
+        public IHttpActionResult importExcel([FromBody] importExcelParameters prms) {
 
             // -----------> deserializza prm
             var ds = prms.ds;
             var spName = prms.spName;
             var idsParent = prms.idsParent;
+            var additionalparam = prms.additionalparam;
+			if (additionalparam == null)
+				additionalparam = new string[0];
             var dispatcher = HttpContext.Current.getDataDispatcher();
 
-            DataSet dataSet = DataSetSerializer.deserialize(JObject.Parse(ds), dispatcher);
+            DataSet dataSet = DataSetSerializer.deserialize(ds, true, dispatcher);
             DataTable dt = dataSet.Tables[0];
 
             // ----------->   1. Crea tabella
@@ -2350,7 +2417,7 @@ namespace Backend.Controllers {
             command = "CREATE TABLE " + tableName + " (\r";
             int ncol = columns.GetLength(0);
             for (i = 0; i < ncol; i++) {
-                command += columns[i] + " varchar(1000) NULL ";
+                command += "[" + columns[i] + "] varchar(1000) NULL ";
                 if ((i + 1 < ncol)) command += ",\r";
             }
             command += ")";
@@ -2364,15 +2431,19 @@ namespace Backend.Controllers {
             var myMessages = new ProcedureMessageCollection();
             myMessages = postData.DO_POST_SERVICE();
             if (myMessages.Count > 0) {
-                EasyProcedureMessage msg1 = (EasyProcedureMessage)myMessages[0];
+				ProcedureMessage msg1 = (ProcedureMessage)myMessages[0];
                 string err = msg1.LongMess;
                 return Content(HttpStatusCode.OK, "Errore durante il salvataggio della tabella iniziale " + err);
 
             }
+            object userweb = dispatcher.conn.GetUsr("userweb");
+
             // -----------> 3. chiama sp
             object[] list = new object[] {
                 String.Join(",", idsParent),
-                tableName
+                tableName,
+                userweb,
+                String.Join(",", additionalparam)
             };
         
             DataSet DSout = dispatcher.conn.CallSP(spName, list, true, -1);
@@ -2407,7 +2478,7 @@ namespace Backend.Controllers {
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost, Route("fromJsDataSetToDataset")]
-		public IHttpActionResult fromJsDataSetToDataset(JsDs data) {
+		public IHttpActionResult fromJsDataSetToDataset([FromBody] JsDs data) {
 			// SENZA STRUTTURA  "{\"tables\":{\"table1\":{\"rows\":[{\"state\":\"added\",\"curr\":{\"c_name\":\"nome1\",\"c_dec\":11,\"c_double\":1001}},{\"state\":\"added\",\"curr\":{\"c_name\":\"nome2\",\"c_dec\":22,\"c_double\":2002}}]},\"table2\":{\"rows\":[{\"state\":\"added\",\"curr\":{\"c_name\":\"nome1\",\"c_citta\":\"roma\"}},{\"state\":\"added\",\"curr\":{\"c_name\":\"nome2\",\"c_citta\":\"bari\"}}]},\"table3\":{\"rows\":[{\"state\":\"added\",\"curr\":{\"c_alt\":1.5,\"c_sex\":\"maschio\",\"c_date\":\"1980-10-02T00:00:00.000Z\",\"c_int16\":2018}},{\"state\":\"added\",\"curr\":{\"c_alt\":1.6,\"c_sex\":\"femmina\",\"c_date\":\"1981-10-02T00:00:00.000Z\",\"c_int16\":2019}},{\"state\":\"added\",\"curr\":{\"c_alt\":1.7,\"c_sex\":null,\"c_date\":\"1981-10-02T00:00:00.000Z\",\"c_int16\":2020}}]}}}"
 
 			// --> CON STRUTTURA {"name":"temp","relations":{"r1":{"parentTable":"table1","parentCols":"c_name","childTable":"table2","childCols":"c_name"}},"tables":{"table1":{"key":"","tableForReading":"table1","tableForWriting":"table1","skipSecurity":false,"defaults":{},"autoIncrementColumns":{},"columns":{"c_name":{"name":"c_name","ctype":"String"},"c_dec":{"name":"c_dec","ctype":"Decimal"},"c_double":{"name":"c_double","ctype":"Double"}},"rows":[{"state":"added","curr":{"c_name":"nome1","c_dec":11,"c_double":1001}},{"state":"added","curr":{"c_name":"nome2","c_dec":22,"c_double":2002}}]},"table2":{"key":"","tableForReading":"table2","tableForWriting":"table2","skipSecurity":false,"defaults":{},"autoIncrementColumns":{},"columns":{"c_name":{"name":"c_name","ctype":"String"},"c_citta":{"name":"c_citta","ctype":"String"}},"rows":[{"state":"added","curr":{"c_name":"nome1","c_citta":"roma"}},{"state":"added","curr":{"c_name":"nome2","c_citta":"bari"}}]},"table3":{"key":"","tableForReading":"table3","tableForWriting":"table3","skipSecurity":false,"defaults":{},"autoIncrementColumns":{},"columns":{"c_alt":{"name":"c_alt","ctype":"Decimal"},"c_sex":{"name":"c_sex","ctype":"String"},"c_date":{"name":"c_date","ctype":"DateTime"},"c_int16":{"name":"c_int16","ctype":"Int16"}},"rows":[{"state":"added","curr":{"c_alt":1.5,"c_sex":"maschio","c_date":"1980-10-02T00:00:00.000Z","c_int16":2018}},{"state":"added","curr":{"c_alt":1.6,"c_sex":"femmina","c_date":"1981-10-02T00:00:00.000Z","c_int16":2019}},{"state":"added","curr":{"c_alt":1.7,"c_sex":null,"c_date":"1981-10-02T00:00:00.000Z","c_int16":2020}}]}}}
@@ -2420,12 +2491,12 @@ namespace Backend.Controllers {
 			}
 
 			try {
-				var dataSet = DataSetSerializer.deserialize(JObject.Parse(data.ds), dispatcher);
+				var dataSet = DataSetSerializer.deserialize(data.ds,true, dispatcher);
 
 				// trasforma il ds costruito in una struttura da serializzare e rinviare al client.
-				var jsonResDataSet = DataUtils.dataSetToJSon(dataSet);
+				var jsonResDataSet = DataUtils.dataSetToJSon(dataSet,true);
 
-				return Content(HttpStatusCode.OK, jsonResDataSet);
+				return Json(jsonResDataSet); //Content(HttpStatusCode.OK, jsonResDataSet);
 			}
 			catch (Exception e) {
 				return Content(HttpStatusCode.InternalServerError,
@@ -2437,13 +2508,13 @@ namespace Backend.Controllers {
 		/// <summary>
 		/// Create sql expression from json object. Json is the JsDataQuery deserialized
 		/// </summary>
-		/// <param name="filter"></param>
+		/// <param name="data"></param>
 		/// <returns></returns>
-		[HttpGet, Route("fromJsDataQueryToSql")]
-		public IHttpActionResult fromJsDataQueryToSql(string filter) {
+		[HttpPost, Route("fromJsDataQueryToSql")]
+		public IHttpActionResult fromJsDataQueryToSql(JObject data) {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
-			string filterString = DataUtils.getfilterFromJsDataQuery(JToken.Parse(filter), dispatcher);
+			var filterString = DataUtils.getfilterFromJsDataQuery(data.GetValue("filter"), dispatcher);
 			return Content(HttpStatusCode.OK, filterString);
 		}
 
@@ -2457,8 +2528,8 @@ namespace Backend.Controllers {
 			if (testClientCode == "test1") {
 				var registryDs = new dsmeta_registry_anagrafica();
 				// trasforma il ds costruito in una struttura da serializzare e rinviare al client.
-				string jsonResDataSet = DataUtils.dataSetToJSon(registryDs);
-				return Content(HttpStatusCode.OK, jsonResDataSet);
+				var jsonResDataSet = DataUtils.dataSetToJSon(registryDs,true);
+				return Json(jsonResDataSet); //Content(HttpStatusCode.OK, jsonResDataSet);
 			}
 
 			if (testClientCode == "test2") {
@@ -2477,6 +2548,7 @@ namespace Backend.Controllers {
 
 				ds1.Tables["registryreference"].Columns["referencename"].ExtendedProperties["Selector"] = "s";
 				ds1.Tables["registryreference"].Columns["referencename"].ExtendedProperties["SelectorMask"] = "123";
+
 				ds1.Tables["registryreference"].Columns["idreg"].ExtendedProperties["IsAutoIncrement"] = "s";
 				ds1.Tables["registryreference"].Columns["idreg"].ExtendedProperties["PrefixField"] = "PrefixField";
 				ds1.Tables["registryreference"].Columns["idreg"].ExtendedProperties["MiddleConst"] = "MiddleConst";
@@ -2506,7 +2578,7 @@ namespace Backend.Controllers {
 				var r = datat.Rows[0];
 				r["flagdefault"] = "N";
 				r["referencename"] = "Luigi";
-
+				//Ci sono 6 righe ove referencename like riccardo%. La prima riga è modified (flagdefault,referencename) , la 3a è deleted, l'ultima è added
 				//AGGIUNGO UNA NUOVA RIGA ALLA TABELLA 
 
 				var row = datat.NewRow();
@@ -2523,7 +2595,7 @@ namespace Backend.Controllers {
 				//RIMUOVO UNA RIGA DALLA TABELLA
 				datat.Rows[2].Delete();
 
-				var jsonResDataSet = DataUtils.dataSetToJSon(ds1);
+				var jsonResDataSet = DataUtils.dataSetToJSon(ds1,true);
 
 				return Content(HttpStatusCode.OK, jsonResDataSet);
 			}
@@ -2576,7 +2648,7 @@ namespace Backend.Controllers {
 		/// <param name="prms">customEventQueryParameters</param>
 		/// <returns></returns>
 		[HttpPost, Route("customServerMethod")]
-		public IHttpActionResult customServerMethod(customServerMethodQueryParameters prms) {
+		public IHttpActionResult customServerMethod([FromBody] customServerMethodQueryParameters prms) {
 			var eventName = prms.eventName;
 			var parameters = prms.parameters;
 
@@ -2590,20 +2662,16 @@ namespace Backend.Controllers {
 			switch (eventName) {
 				case "myCustomEvent":
 					return myCustomEvent();
-					break;
 
 				case "mdlwCustomEvent":
 					// richiama metodo standar per chiamare un metodo del metadato
 					return mdlwCustomEvent(myjsonprm);
-					break;
 
 				case "callSP":
 					return callSP(myjsonprm);
-					break;
 
 				default:
 					return Content(HttpStatusCode.MethodNotAllowed, eventName);
-					break;
 			}
 
 		}
@@ -2633,19 +2701,32 @@ namespace Backend.Controllers {
 			});
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 			var conn = dispatcher.conn;
-			var errmsg = "";
+            var errmsg = "";
 
-			DataSet ds = conn.CallSP(spname, prms.ToArray(), -1, out errmsg);
+
+            DataSet ds = conn.CallSP(spname, prms.ToArray(), -1, out errmsg);
 			if (string.IsNullOrEmpty(errmsg)) {
-                var jsonResDataSet = DataUtils.dataSetToJSon(ds);
+
+				var msg = "";
+				if (ds.Tables.Count > 0)
+					if (ds.Tables[0].Rows.Count > 0)
+						if (ds.Tables[0].Rows[0].ItemArray.Count() > 0)
+							msg = ds.Tables[0].Rows[0].ItemArray[0].ToString();
+				
+				LogOperationAndData(null, dispatcher.conn, msg, "callSP", "Procedure: " + spname + " Parameters: " + JsonConvert.SerializeObject(prms, Formatting.Indented));
+
+                var jsonResDataSet = DataUtils.dataSetToJSon(ds,false);
                 var result = new JObject {
                     {"ds", jsonResDataSet},
                     {"err", null}
                  };
+
                 return Content(HttpStatusCode.OK, result);
 			}
 
-			return Content(HttpStatusCode.OK, new JObject {
+            GetAndLogErrorMessage(null, dispatcher.conn, errmsg, "callSP", "Procedure: " + spname + " Parameters: " + JsonConvert.SerializeObject(prms, Formatting.Indented));
+
+            return Content(HttpStatusCode.OK, new JObject {
                     {"ds", null},
                     {"err", errmsg}
                  });

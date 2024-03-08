@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,7 +37,7 @@ namespace emens_default//DenunceRetributiveMensili//
 	{
 		private XmlTextWriter writer;
 		public vistaForm DS;
-		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+		private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
 		private System.Windows.Forms.Button btnGeneraEmens;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox txtCFPersonaMittente;
@@ -81,14 +81,17 @@ namespace emens_default//DenunceRetributiveMensili//
         DataTable T_unified = new DataTable("T_unified");
         private Button btnGeneraUniEmens;
         string unif_suffix = "";
-        public IOpenFileDialog openFileDialog1;
+        private IOpenFileDialog openFileDialog1;
+        private ISaveFileDialog saveFileDialog1;
 
 		public Frm_emens_default()
 		{
 			InitializeComponent();
 
-			// Caption per tabella EMENS
-			dsEmens.Emens.Columns["AnnoMeseDenuncia"].Caption = "Mese denuncia";
+            saveFileDialog1.DefaultExt = "xml";
+
+            // Caption per tabella EMENS
+            dsEmens.Emens.Columns["AnnoMeseDenuncia"].Caption = "Mese denuncia";
 			dsEmens.Emens.Columns["CFAzienda"].Caption = "C.F. Azienda";
 			dsEmens.Emens.Columns["CFCollaboratore"].Caption = "C.F. Collaboratore";
 			dsEmens.Emens.Columns["Cognome"].Caption = "Cognome";
@@ -102,8 +105,7 @@ namespace emens_default//DenunceRetributiveMensili//
 			dsEmens.Emens.Columns["Dal"].Caption = "Dal";
 			dsEmens.Emens.Columns["Al"].Caption = "Al";
 			dsEmens.Emens.Columns["CodCalamita"].Caption = "";
-            dsEmens.Emens.Columns["CodCertificazione"].Caption = "";
-            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            dsEmens.Emens.Columns["CodCertificazione"].Caption = "";            
 		}
 
 		/// <summary>
@@ -132,7 +134,7 @@ namespace emens_default//DenunceRetributiveMensili//
             this.btnGeneraEmens = new System.Windows.Forms.Button();
             this.DS = new emens_default.vistaForm();
             this.dsEmens = new emens_default.VistaEmens();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.label3 = new System.Windows.Forms.Label();
             this.grpDatiMittente = new System.Windows.Forms.GroupBox();
             this.txtCFSoftwarehouse = new System.Windows.Forms.TextBox();
@@ -164,6 +166,8 @@ namespace emens_default//DenunceRetributiveMensili//
             this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.txtUnified = new System.Windows.Forms.TextBox();
             this.btnGeneraUniEmens = new System.Windows.Forms.Button();
+            this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsEmens)).BeginInit();
             this.grpDatiMittente.SuspendLayout();
@@ -195,7 +199,7 @@ namespace emens_default//DenunceRetributiveMensili//
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "xml";
+            //this.saveFileDialog1.DefaultExt = "xml";
             // 
             // label3
             // 
@@ -597,14 +601,15 @@ namespace emens_default//DenunceRetributiveMensili//
 			}
 
             if ((meta.edit_type == "unified") && (T_unified.Rows.Count>0))
-                {
-                    ImpostaCaptionRitDaLiquidare(T_unified);
-                    DataSet DSunified = new DataSet();
-                    DSunified.Tables.Add(T_unified);
-                    FrmDettaglioRisultati X = new FrmDettaglioRisultati(DSunified.Tables["T_unified"]);
-                    X.Text = "Ritenute applicate ma non liquidate";
-                    X.ShowDialog(this);
-                }
+            {
+                ImpostaCaptionRitDaLiquidare(T_unified);
+                DataSet DSunified = new DataSet();
+                DSunified.Tables.Add(T_unified);
+                FrmDettaglioRisultati X = new FrmDettaglioRisultati(DSunified.Tables["T_unified"]);
+                X.Text = "Ritenute applicate ma non liquidate";
+                createForm(X, this);
+                X.ShowDialog(this);
+            }
             T_unified.Clear();
             
 		}
@@ -739,6 +744,7 @@ namespace emens_default//DenunceRetributiveMensili//
             {
                 impostaCaption(dsCheck.Tables[0]);
                 FrmDettaglioRisultati X = new FrmDettaglioRisultati(dsCheck.Tables[0]);
+                createForm(X, this);
                 X.ShowDialog(this);
 
                 DataRow[] R = dsCheck.Tables[0].Select("severity = 'S'");
@@ -1133,8 +1139,10 @@ namespace emens_default//DenunceRetributiveMensili//
                     dsEmens.Emens.Rows.Add(rEmens);
 				}
 			}
-			new FrmDettaglioRisultati(dsEmens.Emens).ShowDialog(this);
-		}
+			FrmDettaglioRisultati frm = new FrmDettaglioRisultati(dsEmens.Emens);
+            createForm(frm, this);
+            frm.ShowDialog(this);
+        }
 
 		void salvaFile()
 		{

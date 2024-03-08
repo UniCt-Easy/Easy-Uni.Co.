@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -27,8 +10,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		this.canInsert = false;
 		this.canInsertCopy = false;
 		this.canCancel = false;
-		this.canShowLast = false;
 		this.firstSearchFilter = window.jsDataQuery.constant(true);
+		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
+		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
     }
 
@@ -44,26 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//isValidFunction
 
-			afterGetFormData: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				//afterGetFormDataFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("afterGetFormData-registry_docenti_docenti_docente");
-				var arraydef = [];
-				
-				arraydef.push(this.manageregistry_docenti_docente_idcontrattokind());
-				//afterGetFormDataInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return def.resolve();
-					});
-				return def.promise();
-			},
+			//afterGetFormData
 			
 			beforeFill: function () {
 				//parte sincrona
@@ -72,11 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				
 				if (self.isNullOrMinDate(parentRow.birthdate))
 					parentRow.birthdate = new Date();
-				if (!parentRow.idregistrykind)
-					parentRow.idregistrykind = 8;
-				if (!parentRow.residence)
-					parentRow.residence = 1;
-				parentRow.extension = "docenti";
 								_.forEach(this.getDataTable("rendicontaltro").rows, function (r) {
 					var title = r.ore + ' ore';
 					if(r.idrendicontaltrokind) {
@@ -95,6 +55,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					this.helpForm.filter($('#registry_docenti_docente_idregistryclass'), this.q.eq('registryclass_active', 'Si'));
 				}
 				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#registry_docenti_docente_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#registry_docenti_docente_idstruttura'), this.q.eq('struttura_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_docenti_docente_idclassconsorsuale'), null);
 				} else {
 					this.helpForm.filter($('#registry_docenti_docente_idclassconsorsuale'), this.q.eq('classconsorsuale_active', 'Si'));
@@ -107,23 +72,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				//beforeFillFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-registry_docenti_docenti_docente");
+				var def = appMeta.Deferred("beforeFill-registry_docenti_docente");
 				var arraydef = [];
 				
-				var dt = this.state.DS.tables["registry_docenti"];
-				if (dt.rows.length === 0) {
-					var meta = appMeta.getMeta("registry_docenti");
-					meta.setDefaults(dt);
-					var defregistry_docenti = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
-						function (currentRowdocenti) {
-							//defaultExtendingObject
-							return true;
-						}
-					);
-					arraydef.push(defregistry_docenti);
-				}
-
-				arraydef.push(this.manageregistry_docenti_docente_idcontrattokind());
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -137,29 +88,72 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#registry_docenti_docente_extmatricula'), true);
+				this.enableControl($('#registry_docenti_docente_idtitle'), true);
 				this.helpForm.filter($('#registry_docenti_docente_idtitle'), null);
+				this.enableControl($('#registry_docenti_docente_surname'), true);
+				this.enableControl($('#registry_docenti_docente_forename'), true);
+				this.enableControl($('#registry_docenti_docente_genderM'), true);
+				this.enableControl($('#registry_docenti_docente_genderF'), true);
+				this.enableControl($('#registry_docenti_docente_birthdate'), true);
+				this.enableControl($('#registry_docenti_docente_idcity'), true);
+				this.enableControl($('#registry_docenti_docente_idnation'), true);
+				this.enableControl($('#registry_docenti_docente_cf'), true);
+				this.enableControl($('#registry_docenti_docente_idmaritalstatus'), true);
+				this.enableControl($('#registry_docenti_docente_p_iva'), true);
+				this.enableControl($('#registry_docenti_docente_idregistryclass'), true);
 				this.helpForm.filter($('#registry_docenti_docente_idregistryclass'), null);
+				this.enableControl($('#registry_docenti_docente_residence'), true);
+				this.enableControl($('#registry_docenti_docente_location'), true);
+				this.enableControl($('#registry_docenti_docente_foreigncf'), true);
+				this.enableControl($('#registry_docenti_docente_maritalsurname'), true);
+				this.enableControl($('#registry_docenti_docente_soggiorno'), true);
+				this.enableControl($('#registry_docenti_docente_idstruttura'), true);
+				this.helpForm.filter($('#registry_docenti_docente_idstruttura'), null);
+				this.enableControl($('#registry_docenti_docente_idsasd'), true);
+				this.enableControl($('#registry_docenti_docente_idclassconsorsuale'), true);
 				this.helpForm.filter($('#registry_docenti_docente_idclassconsorsuale'), null);
+				this.enableControl($('#registry_docenti_docente_idreg_istituti'), true);
 				this.helpForm.filter($('#registry_docenti_docente_idreg_istituti'), null);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
+				this.enableControl($('#registry_docenti_docente_idfonteindicebibliometrico'), true);
+				this.enableControl($('#registry_docenti_docente_indicebibliometrico'), true);
+				this.enableControl($('#registry_docenti_docente_activeSi'), true);
+				this.enableControl($('#registry_docenti_docente_activeNo'), true);
+				this.enableControl($('#registry_docenti_docente_idreg'), true);
+				this.enableControl($('#registry_docenti_docente_badgecode'), true);
+				this.enableControl($('#registry_docenti_docente_annotation'), true);
+				this.enableControl($('#registry_docenti_docente_multi_cfSi'), true);
+				this.enableControl($('#registry_docenti_docente_multi_cfNo'), true);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			
 			afterLink: function () {
 				var self = this;
 				this.configureDependencies();
+				this.state.DS.tables.registry.defaults({ 'extension': 'docenti' });
+				this.state.DS.tables.registry.defaults({ 'idregistrykind': 8 });
+				this.state.DS.tables.registry.defaults({ 'residence': 1 });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar64').fullCalendar('rerenderEvents');
+					$('#calendar61').fullCalendar('rerenderEvents');
 				});
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar65').fullCalendar('rerenderEvents');
+					$('#calendar62').fullCalendar('rerenderEvents');
 				});
+				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
+				$("#OpenScheduleConfig").prop("disabled", true);
 				this.setDenyNull("registry","surname");
 				this.setDenyNull("registry","forename");
 				this.setDenyNull("registry","gender");
 				this.setDenyNull("registry","birthdate");
 				this.setDenyNull("registry","idcity");
+				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));
+				$('#grid_registrylegalstatus_default').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;tempdef,S,Si;tempdef,N,No;tempindet,S,Si;tempindet,N,No;');
+				$('#grid_progettotimesheet_datipersonali').data('mdlconditionallookup', 'multilinetype,S,Si;multilinetype,N,No;output,P,PDF;output,F,PDF firmato;output,X,Excel;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -172,9 +166,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterActivation
 
-			//rowSelected
+			rowSelected: function (dataRow) {
+				$("#OpenScheduleConfig").prop("disabled", false);
+				//firerowSelected
+			},
 
-			//buttonClickEnd
+
+			buttonClickEnd: function (currMetaPage, cmd) {
+				//fireRelButtonClickEnd
+				cmd = cmd.toLowerCase();
+				if (cmd === "mainsetsearch") {
+					$("#OpenScheduleConfig").prop("disabled", true);
+					//firebuttonClickEnd
+				}
+				return this.superClass.buttonClickEnd(currMetaPage, cmd);
+			},
+
 
 			//insertClick
 
@@ -199,7 +206,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             },
 
 			afterFill: function () {
-				this.enableControl($('#registry_docenti_docente_idreg'), false);
+				this.enableControl($('#registry_docenti_docente_extmatricula'), false);
 				this.enableControl($('#registry_docenti_docente_idtitle'), false);
 				this.enableControl($('#registry_docenti_docente_surname'), false);
 				this.enableControl($('#registry_docenti_docente_forename'), false);
@@ -225,22 +232,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				this.enableControl($('#registry_docenti_docente_indicebibliometrico'), false);
 				this.enableControl($('#registry_docenti_docente_activeSi'), false);
 				this.enableControl($('#registry_docenti_docente_activeNo'), false);
+				this.enableControl($('#registry_docenti_docente_idreg'), false);
 				this.enableControl($('#registry_docenti_docente_badgecode'), false);
 				this.enableControl($('#registry_docenti_docente_annotation'), false);
 				this.enableControl($('#registry_docenti_docente_multi_cfSi'), false);
 				this.enableControl($('#registry_docenti_docente_multi_cfNo'), false);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
 				//afterFillin
 
 				var self = this;
 				if (!this.isEmpty()) {
-					// carica tutte le attivit‡ dell'utente. seve per visualizzarle sul calendario
+					// carica tutte le attivit√† dell'utente. seve per visualizzarle sul calendario
 					var filter = self.q.and(
 						self.q.eq("idreg", this.state.currentRow.idreg),
 						self.q.eq("idsospensione",0)
 					);
 					return this.getExternalEventForCalendar(filter, $("[data-tag='sospensione.default.default']")).then( function(){
-						// carica tutte le attivit‡ dell'utente. seve per visualizzarle sul calendario
+						// carica tutte le attivit√† dell'utente. seve per visualizzarle sul calendario
 						filter = self.q.and(
 							self.q.eq("idreg", self.state.currentRow.idreg),
 							self.q.eq("idrendicontaltro", 0)
@@ -253,20 +260,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return MetaPage.prototype.afterFill.call(this);
 			},
 
-			manageregistry_docenti_docente_idcontrattokind: function () {
-				var def = appMeta.Deferred("beforeFill-manageregistry_docenti_idcontrattokind");
-				var self = this;
-				var currcontratto;
-				_.forEach(this.state.DS.tables.contratto.rows, function (row) {
-					if (!currcontratto)
-						currcontratto = row;
-					else
-						if (currcontratto.start < row.start)
-							currcontratto = row;
-				});
-				if (currcontratto)
-					this.state.DS.tables.registry_docenti.rows[0].idcontrattokind = currcontratto.idcontrattokind;
-				return def.resolve();
+			fireOpenScheduleConfig: function (that) {
+				if (!that.state.currentRow.idreg)
+					return that.showMessageOk('Occorre indicare chi svolge l\'attivit√† e salvare');
+
+				const today = new Date(); // Data corrente
+				const start = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+				const stop = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+
+				let maxHoursPerDayTable = null;
+				let idreg = that.state.currentRow.idreg;
+				let filter = that.q.and([
+					that.q.eq("idreg", idreg),
+					that.q.or(that.q.isNull("start"), that.q.le("start", start)),
+					that.q.or(that.q.isNull("stop"), that.q.ge("stop", stop))
+				]);
+				appMeta.getData.runSelect("getoremaxgg", "*", filter, null)
+					.then(function (dt) {
+						maxHoursPerDayTable = dt;
+						return that.getFormData(true);
+					}).then(function () {
+						var scheduler = new appMeta.scheduleConfig(that,
+							{
+								endDate: stop,
+								minDateValue: start,
+								maxHours: 1500, //massimo ore lavorabili per docente per anno
+								tableNameSchedule: 'rendicontaltro',
+								columnDate: 'data',
+								columnOre: 'ore',
+								columnTitle: '!title',
+								columnTitleValue: "schedulazione",
+								calendarTag: "rendicontaltro.docente.docente",
+								maxHoursPerDayTable: maxHoursPerDayTable,
+								chooseKind: true
+							});
+						return scheduler.show();
+					});
 			},
 
 			//buttons

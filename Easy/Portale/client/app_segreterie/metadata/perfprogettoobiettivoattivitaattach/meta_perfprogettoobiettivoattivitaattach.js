@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,12 +24,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, '!idattach_attach_filename', 'Nome del file', null, 13, null);
-						this.describeAColumn(table, '!idattach_attach_size', 'Dimensione', null, 15, null);
+						this.describeAColumn(table, 'data', 'Data Inserimento', 'g', 90, null);
+						this.describeAColumn(table, '!idattach_attach_filename', 'Allegato', 'skipNChar.40', 10, null);
 						objCalcFieldConfig['!idattach_attach_filename'] = { tableNameLookup:'attach', columnNameLookup:'filename', columnNamekey:'idattach' };
-						objCalcFieldConfig['!idattach_attach_size'] = { tableNameLookup:'attach', columnNameLookup:'size', columnNamekey:'idattach' };
-						this.describeAColumn(table, '!idattach_attach_filename', 'Allegato', null, 10, null);
 //$objCalcFieldConfig_default$
+						break;
+					case 'perfprog':
+						this.describeAColumn(table, 'data', 'Data Inserimento', 'g', 90, null);
+						this.describeAColumn(table, '!idattach_attach_filename', 'Allegato', 'skipNChar.40', 30, null);
+						objCalcFieldConfig['!idattach_attach_filename'] = { tableNameLookup:'attach', columnNameLookup:'filename', columnNamekey:'idattach' };
+						this.describeAColumn(table, '!idperfprogettoobiettivo_perfprogettoobiettivo_title', 'Obiettivo', null, 11, null);
+						objCalcFieldConfig['!idperfprogettoobiettivo_perfprogettoobiettivo_title'] = { tableNameLookup:'perfprogettoobiettivo_alias2', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivo' };
+						this.describeAColumn(table, '!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_title', 'Titolo Attività', null, 21, null);
+						this.describeAColumn(table, '!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_datainizioprevista', 'Data inizio prevista Attività', 'g', 22, null);
+						this.describeAColumn(table, '!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_datafineprevista', 'Data fine prevista Attività', 'g', 23, null);
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_title'] = { tableNameLookup:'perfprogettoobiettivoattivita_alias2', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivoattivita' };
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_datainizioprevista'] = { tableNameLookup:'perfprogettoobiettivoattivita_alias2', columnNameLookup:'datainizioprevista', columnNamekey:'idperfprogettoobiettivoattivita' };
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_datafineprevista'] = { tableNameLookup:'perfprogettoobiettivoattivita_alias2', columnNameLookup:'datafineprevista', columnNamekey:'idperfprogettoobiettivoattivita' };
+						this.describeAColumn(table, '!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_title', 'Titolo Attività', null, 23, null);
+						this.describeAColumn(table, '!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_idperfprogetto_title', 'Identificativo Attività', null, 20, null);
+						this.describeAColumn(table, '!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_idperfprogettoobiettivo_title', 'Identificativo Attività', null, 20, null);
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_idperfprogetto_title'] = { tableNameLookup:'perfprogetto', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivoattivita' };
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_idperfprogettoobiettivo_title'] = { tableNameLookup:'perfprogettoobiettivo', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivoattivita' };
+						objCalcFieldConfig['!idperfprogettoobiettivo_perfprogettoobiettivo_title'] = { tableNameLookup:'perfprogettoobiettivo_alias3', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivo' };
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_title'] = { tableNameLookup:'perfprogettoobiettivoattivita_alias4', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivoattivita' };
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_datainizioprevista'] = { tableNameLookup:'perfprogettoobiettivoattivita_alias4', columnNameLookup:'datainizioprevista', columnNamekey:'idperfprogettoobiettivoattivita' };
+						objCalcFieldConfig['!idperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_datafineprevista'] = { tableNameLookup:'perfprogettoobiettivoattivita_alias4', columnNameLookup:'datafineprevista', columnNamekey:'idperfprogettoobiettivoattivita' };
+						this.describeAColumn(table, '!idattach_attach_filename', 'Allegato', null, 30, null);
+//$objCalcFieldConfig_perfprog$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -60,7 +65,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (edittype) {
 					case 'default':
 						table.columns["idattach"].caption = "Allegato";
+						table.columns["data"].caption = "Data Inserimento";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'perfprog':
+						table.columns["ct"].caption = "Data";
+						table.columns["data"].caption = "Data Inserimento";
+						table.columns["idattach"].caption = "Allegato";
+						table.columns["idperfprogettoobiettivo"].caption = "Obiettivo";
+						table.columns["idperfprogettoobiettivoattivita"].caption = "Attività";
+//$innerSetCaptionConfig_perfprog$
 						break;
 //$innerSetCaptionConfig$
 				}

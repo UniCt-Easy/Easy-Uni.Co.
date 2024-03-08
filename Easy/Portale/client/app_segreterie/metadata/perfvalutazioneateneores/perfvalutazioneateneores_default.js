@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -46,13 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var parentRow = self.state.currentRow;
 				
 				var loggato = this.sec.usr('idreg');
-				//se l'utente loggato  è il compilatore disabilito tutti i campi a meno di fonte e percentuale raggiunta
+				//se l'utente loggato  Ã¨ il compilatore disabilito tutti i campi a meno di fonte e percentuale raggiunta
 				if (loggato == this.state.currentRow.idreg) {
 					self.enableAllParentRowControl(parentRow,this.state.DS.name, false);
 					self.enableControl($('#perfvalutazioneateneores_default_percentualeraggiunta'), true);
 					self.enableControl($('#perfvalutazioneateneores_default_fonte'), true);					
-				}
-
+					}
+	
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -71,9 +54,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneateneores'), this.getDataTable('perfvalutazioneateneoresattach'));
+				//afterClearin
+			},
 
-			//afterFill
+			afterFill: function () {
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneateneores'), this.getDataTable('perfvalutazioneateneoresattach'));
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
 			//afterLink
 
@@ -101,7 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//beforePost
 
-			children: ['perfvalutazioneateneoresvalidatori'],
+			children: ['perfvalutazioneateneoresattach', 'perfvalutazioneateneoresvalidatori'],
 			haveChildren: function () {
 				var self = this;
 				return _.some(this.children, function (child) {

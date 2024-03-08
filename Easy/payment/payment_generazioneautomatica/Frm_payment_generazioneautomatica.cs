@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -815,12 +815,14 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
 
             if (chkCSA.Checked)
                 ParteWhere = QHS.AppAnd(ParteWhere, QHS.FieldInList("autokind", "20,21,30,31"));
+            //pagamenti creati con la procedura di Azzeramento Fine Anno, personalizzazione per Catania
             if (chkPagamentiAzzeramentiFineAnno.Checked) {
                 ParteWhere = QHS.AppAnd(ParteWhere, QHS.CmpEq("autokind", "27"));
 			} else {
+                // autokind 27 riservato a Catania, se il check box non è flaggato bisogna escludere quelli con autokind 27
                 ParteWhere = QHS.AppAnd(ParteWhere, QHS.NullOrNe("autokind", "27"));
 			}
-            //pagamenti creati con la procedura di Azzeramento Fine Anno, personalizzazione per Catania
+            // escludo i pagamenti a importo corrente zero
             if (chkEscludiZero.Checked)
                 ParteWhere = QHS.AppAnd(ParteWhere, QHS.CmpNe("curramount", 0));
 
@@ -879,8 +881,9 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
                 ParteGroupBy = MyAppend(ParteGroupBy, "flagarrear");
                 ParteOrderBy = MyAppend(ParteOrderBy, "flagarrear ASC");
             }
-
-            ParteHaving = "SUM(curramount) > 0";
+            ParteHaving = "";
+            if (chkEscludiZero.Checked) 
+                ParteHaving = HavingClause + " SUM(curramount) > 0";
 
             if (ParteGroupBy == "") GroupByClause = "";
             if (ParteOrderBy == "") OrderByClause = "";
@@ -890,7 +893,7 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
             if (ParteSelect != "") {
                 MyQuery = SelectClause + ParteSelect + FromClause + ParteFrom +
                           WhereClause + ParteWhere + GroupByClause + ParteGroupBy +
-                          HavingClause + ParteHaving + OrderByClause + ParteOrderBy;
+                          ParteHaving + OrderByClause + ParteOrderBy;
             }
 
 
@@ -1212,6 +1215,15 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
             //pagamenti creati con la procedura di Azzeramento Fine Anno, personalizzazione per Catania
             if (chkPagamentiAzzeramentiFineAnno.Checked)
                 condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive, QHS.CmpEq("autokind", "27"));
+            else {
+                // autokind 27 riservato a Catania, se il check box non è flaggato bisogna escludere quelli con autokind 27
+                condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive, QHS.NullOrNe("autokind", "27"));
+            }
+
+            // escludo i pagamenti a importo corrente zero
+            if (chkEscludiZero.Checked)
+                condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive, QHS.CmpNe("curramount", 0));
+
             if (Conn.GetSys("idflowchart") != null && Conn.GetSys("idflowchart").ToString() != "") {
                 string security = Conn.SelectCondition("expenselastview", true);
                 condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive, security);

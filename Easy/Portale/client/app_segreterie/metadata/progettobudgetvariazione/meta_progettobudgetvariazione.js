@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -47,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idaccmotive_accmotive_title', 'Denominazione Causale economico patrimoniale', null, 22, null);
 						objCalcFieldConfig['!idaccmotive_accmotive_codemotive'] = { tableNameLookup:'accmotive', columnNameLookup:'codemotive', columnNamekey:'idaccmotive' };
 						objCalcFieldConfig['!idaccmotive_accmotive_title'] = { tableNameLookup:'accmotive', columnNameLookup:'title', columnNamekey:'idaccmotive' };
-						this.describeAColumn(table, '!idupb_upb_title', 'Unit‡ previsionale di base (UPB)', null, 11, null);
+						this.describeAColumn(table, '!idupb_upb_title', 'Unit√† previsionale di base (UPB)', null, 11, null);
 						objCalcFieldConfig['!idupb_upb_title'] = { tableNameLookup:'upb', columnNameLookup:'title', columnNamekey:'idupb' };
 //$objCalcFieldConfig_default$
 						break;
@@ -64,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'default':
 						table.columns["data"].caption = "Data variazione";
 						table.columns["idaccmotive"].caption = "Causale economico patrimoniale";
-						table.columns["idupb"].caption = "Unit‡ previsionale di base (UPB)";
+						table.columns["idupb"].caption = "Unit√† previsionale di base (UPB)";
 						table.columns["newamount"].caption = "Nuovo budget";
 //$innerSetCaptionConfig_default$
 						break;

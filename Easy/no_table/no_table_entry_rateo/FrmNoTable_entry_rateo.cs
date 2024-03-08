@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1181,6 +1181,7 @@ namespace no_table_entry_rateo {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Passivi Rateo senza Casuale di costo", t);
+                createForm(f, this);
                 f.Show(this);
                 return null;
             }
@@ -1239,6 +1240,7 @@ namespace no_table_entry_rateo {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Ordine Fatture a Ricevere senza Casuale di costo", t);
+                createForm(f, this);
                 f.Show(this);
                 return null;
             }
@@ -1303,6 +1305,7 @@ namespace no_table_entry_rateo {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Attivi Rateo senza Casuale di Ricavo", t);
+                createForm(f, this);
                 f.Show(this);
                 return null;
             }
@@ -1362,6 +1365,7 @@ namespace no_table_entry_rateo {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Attivi Fatture da Emettere senza Casuale di Ricavo", t);
+                createForm(f, this);
                 f.Show(this);
                 return null;
             }
@@ -1408,6 +1412,7 @@ namespace no_table_entry_rateo {
 
             FrmEntryPreSave frm = new FrmEntryPreSave(rateiattivi,rateipassivi,
                 FattRicevere,FattEmettere, RateiParcelle, ParcelleRicevere, Meta.Conn, AnnoCommerciale);
+            createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
                 show(this, "Operazione Annullata!");

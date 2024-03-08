@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -64,6 +64,7 @@ using metadatalibrary;
 					DescribeAColumn(T,"title","Denominazione",nPos++);
 					DescribeAColumn(T,"surname","Cognome",nPos++);
 					DescribeAColumn(T,"forename","Nome",nPos++);
+					DescribeAColumn(T,"extmatricula", "Matricola", nPos++);
 					DescribeAColumn(T,"employkind","tipo incarico",nPos++);
 					DescribeAColumn(T,"cf","Cod.Fiscale",nPos++);
 					
@@ -78,8 +79,8 @@ using metadatalibrary;
 					
 					DescribeAColumn(T,"gender","Sesso",nPos++);
 					DescribeAColumn(T,"apmanager","Qualifica",nPos++);
-                DescribeAColumn(T, "serviceregistrykind", "Tipologia incarico", nPos++);
-                DescribeAColumn(T,"apregistrykind","Tipologia conferente",nPos++);
+					DescribeAColumn(T, "serviceregistrykind", "Tipologia incarico", nPos++);
+					DescribeAColumn(T,"apregistrykind","Tipologia conferente",nPos++);
 					DescribeAColumn(T,"apactivitykind","Oggetto dell'incarico",nPos++);
 					DescribeAColumn(T,"is_annulled","Annullato",nPos++);
 					DescribeAColumn(T,"is_delivered","Trasmesso",nPos++);

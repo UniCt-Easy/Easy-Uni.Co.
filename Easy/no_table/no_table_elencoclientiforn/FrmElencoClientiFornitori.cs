@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,8 +29,12 @@ namespace no_table_elencoclientiforn {
     public partial class FrmElencoClientiFornitori : MetaDataForm {
         MetaData Meta;
         QueryHelper QHC;
+
+        ISaveFileDialog saveFileDialog1;
+
         public FrmElencoClientiFornitori() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
         }
 
         private void btnScegliFile_Click(object sender, EventArgs e) {

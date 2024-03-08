@@ -25,7 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>true</Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Backend.xml</DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,6 +47,815 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonalestatuschanges_default.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonalestatuschanges_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneuostatuschanges_default.cs">
+      <DependentUpon>dsmeta_perfvalutazioneuostatuschanges_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_mansionekindcomportamento_default.cs">
+      <DependentUpon>dsmeta_mansionekindcomportamento_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_registrylegalstatus_default.cs">
+      <DependentUpon>dsmeta_registrylegalstatus_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_registrylegalstatus_amm.cs">
+      <DependentUpon>dsmeta_registrylegalstatus_amm.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_registrylegalstatus_servizi.cs">
+      <DependentUpon>dsmeta_registrylegalstatus_servizi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_registry_didattica.cs">
+      <DependentUpon>dsmeta_registry_didattica.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_rendicontdidattica_default.cs">
+      <DependentUpon>dsmeta_rendicontdidattica_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_registry_docenti_docentenoaltro.cs">
+      <DependentUpon>dsmeta_registry_docenti_docentenoaltro.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_rendicontattivitaprogettoannoview_default.cs">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoannoview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_pannellocambioperfstatus_default.cs">
+      <DependentUpon>dsmeta_pannellocambioperfstatus_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_rendicontattivitaprogettokind_default.cs">
+      <DependentUpon>dsmeta_rendicontattivitaprogettokind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Controllers\SignatureController.cs" />
+    <Compile Include="Data\dsmeta_subassetloadsubassetloadsub_default.cs">
+      <DependentUpon>dsmeta_subassetloadsubassetloadsub_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_rendicontattivitaprogettoora_personale.cs">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoora_personale.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_sal_elenchi.cs">
+      <DependentUpon>dsmeta_sal_elenchi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_assetloadsub_consigneestandalone.cs">
+      <DependentUpon>dsmeta_assetloadsub_consigneestandalone.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_assetconsignee_default.cs">
+      <DependentUpon>dsmeta_assetconsignee_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_subassetloadsub_default.cs">
+      <DependentUpon>dsmeta_subassetloadsub_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_assetconsignsub_subconsignee.cs">
+      <DependentUpon>dsmeta_assetconsignsub_subconsignee.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_subassetconsignsub_default.cs">
+      <DependentUpon>dsmeta_subassetconsignsub_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_assetconsignsub_adminembedded.cs">
+      <DependentUpon>dsmeta_assetconsignsub_adminembedded.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_logassetloadsub_default.cs">
+      <DependentUpon>dsmeta_logassetloadsub_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_assetconsignsub_consigneeembedded.cs">
+      <DependentUpon>dsmeta_assetconsignsub_consigneeembedded.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_assetconsignsubasset_default.cs">
+      <DependentUpon>dsmeta_assetconsignsubasset_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_logassetconsignsub_default.cs">
+      <DependentUpon>dsmeta_logassetconsignsub_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_subassetconsignsubassetconsignsub_default.cs">
+      <DependentUpon>dsmeta_subassetconsignsubassetconsignsub_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettotimesheet_datipersonali.cs">
+      <DependentUpon>dsmeta_progettotimesheet_datipersonali.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneuoreport_default.cs">
+      <DependentUpon>dsmeta_perfvalutazioneuoreport_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettosalreport_default.cs">
+      <DependentUpon>dsmeta_progettosalreport_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettomesereport_default.cs">
+      <DependentUpon>dsmeta_progettomesereport_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonalereport_default.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonalereport_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_apprelationkey_default.cs">
+      <DependentUpon>dsmeta_apprelationkey_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettoobiettivo_amministrativi.cs">
+      <DependentUpon>dsmeta_perfprogettoobiettivo_amministrativi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfuointerazioni_default.cs">
+      <DependentUpon>dsmeta_perfuointerazioni_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneuo_upo.cs">
+      <DependentUpon>dsmeta_perfvalutazioneuo_upo.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettouoview_default.cs">
+      <DependentUpon>dsmeta_perfprogettouoview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfateneoindicatoreattach_default.cs">
+      <DependentUpon>dsmeta_perfateneoindicatoreattach_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_consolidamento_default.cs">
+      <DependentUpon>dsmeta_consolidamento_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettotimesheet_personale.cs">
+      <DependentUpon>dsmeta_progettotimesheet_personale.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_consolidamentorendicontattivitaprogettoora_default.cs">
+      <DependentUpon>dsmeta_consolidamentorendicontattivitaprogettoora_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfateneoindicatore_personale.cs">
+      <DependentUpon>dsmeta_perfateneoindicatore_personale.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettosoglia_default.cs">
+      <DependentUpon>dsmeta_perfprogettosoglia_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfateneoobiettivosdgoals_obiettivi.cs">
+      <DependentUpon>dsmeta_perfateneoobiettivosdgoals_obiettivi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfateneoresponsabilitaperfateneoindicatore_obiettivi.cs">
+      <DependentUpon>dsmeta_perfateneoresponsabilitaperfateneoindicatore_obiettivi.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfateneoresponsabilita_obiettivi.cs">
+      <DependentUpon>dsmeta_perfateneoresponsabilita_obiettivi.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfateneostakeholder_obiettivi.cs">
+      <DependentUpon>dsmeta_perfateneostakeholder_obiettivi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneateneo_obiettivi.cs">
+      <DependentUpon>dsmeta_perfvalutazioneateneo_obiettivi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfateneoobiettivo_obiettivi.cs">
+      <DependentUpon>dsmeta_perfateneoobiettivo_obiettivi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfateneoindicatore_obiettivi.cs">
+      <DependentUpon>dsmeta_perfateneoindicatore_obiettivi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi.cs">
+      <DependentUpon>dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_registry_anagrafica.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsmeta_registry_anagrafica.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsmeta_registry_anagrafica1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsmeta_registry_anagrafica1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsmeta_registry_anagrafica2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsmeta_registry_anagrafica2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsmeta_registry_anagrafica3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsmeta_registry_anagrafica3.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsmeta_strutturaperfateneoindicatore_obiettivi.cs">
+      <DependentUpon>dsmeta_strutturaperfateneoindicatore_obiettivi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettoobiettivoattivita_referenti.cs">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivita_referenti.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettoobiettivoattivita_riepilogo.cs">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivita_riepilogo.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettoobiettivointerazione_default.cs">
+      <DependentUpon>dsmeta_perfprogettoobiettivointerazione_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_rendicontattivitaprogettowpview_default.cs">
+      <DependentUpon>dsmeta_rendicontattivitaprogettowpview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_rendicontattivitaprogettourdmemboview_default.cs">
+      <DependentUpon>dsmeta_rendicontattivitaprogettourdmemboview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_rendicontattivitaprogettoprogettoview_default.cs">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoprogettoview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_assetconsignsub_amm.cs">
+      <DependentUpon>dsmeta_assetconsignsub_amm.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_assetloadsub_default.cs">
+      <DependentUpon>dsmeta_assetloadsub_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_assetconsignsub_default.cs">
+      <DependentUpon>dsmeta_assetconsignsub_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfobiettiviuosoglia_target.cs">
+      <DependentUpon>dsmeta_perfobiettiviuosoglia_target.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonalesoglia_target.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonalesoglia_target.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_salprogettoassetworkpackagemese_default.cs">
+      <DependentUpon>dsmeta_salprogettoassetworkpackagemese_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_filtrocapitolocsaruolocsa_default.cs">
+      <DependentUpon>dsmeta_filtrocapitolocsaruolocsa_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ruolocsa_default.cs">
+      <DependentUpon>dsmeta_ruolocsa_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettokindcontrattokind_default.cs">
+      <DependentUpon>dsmeta_progettokindcontrattokind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_filtrocapitolocsa_default.cs">
+      <DependentUpon>dsmeta_filtrocapitolocsa_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_filtrocapitolocsacapitolocsa_default.cs">
+      <DependentUpon>dsmeta_filtrocapitolocsacapitolocsa_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_contrattostipendioannuoview_default.cs">
+      <DependentUpon>dsmeta_contrattostipendioannuoview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_capitolocsa_default.cs">
+      <DependentUpon>dsmeta_capitolocsa_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_costoorario_default.cs">
+      <DependentUpon>dsmeta_costoorario_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_timbratura_default.cs">
+      <DependentUpon>dsmeta_timbratura_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_contrattostipendioview_tfr.cs">
+      <DependentUpon>dsmeta_contrattostipendioview_tfr.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_contratto_servizi.cs">
+      <DependentUpon>dsmeta_contratto_servizi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_serviziriepilogoview_default.cs">
+      <DependentUpon>dsmeta_serviziriepilogoview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_salprogettoassetworkpackage_default.cs">
+      <DependentUpon>dsmeta_salprogettoassetworkpackage_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ricostruzioneattach_default.cs">
+      <DependentUpon>dsmeta_ricostruzioneattach_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_pcspeoview_default.cs">
+      <DependentUpon>dsmeta_pcspeoview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonaleobiettivo_conattivita.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonaleobiettivo_conattivita.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonalevalresponsabile_default.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonalevalresponsabile_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonale_campania.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_campania.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettoobiettivoattivitaattach_perfprog.cs">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivitaattach_perfprog.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettouomembro_default.cs">
+      <DependentUpon>dsmeta_perfprogettouomembro_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettoaccountprevisionview_default.cs">
+      <DependentUpon>dsmeta_perfprogettoaccountprevisionview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettoattivitainterazione_default.cs">
+      <DependentUpon>dsmeta_perfprogettoattivitainterazione_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_importcontrattistipendiview_default.cs">
+      <DependentUpon>dsmeta_importcontrattistipendiview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettoobiettivoattivitaattach_perfprogetto.cs">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivitaattach_perfprogetto.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonale_tusciasint.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_tusciasint.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettoregistry_docenti_default.cs">
+      <DependentUpon>dsmeta_progettoregistry_docenti_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettoregistry_amministrativi_default.cs">
+      <DependentUpon>dsmeta_progettoregistry_amministrativi_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettoreport_default.cs">
+      <DependentUpon>dsmeta_progettoreport_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettoreportprogettoactivitykind_default.cs">
+      <DependentUpon>dsmeta_progettoreportprogettoactivitykind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettoreportprogettokind_default.cs">
+      <DependentUpon>dsmeta_progettoreportprogettokind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettoreportregistryprogfin_default.cs">
+      <DependentUpon>dsmeta_progettoreportregistryprogfin_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettoreportstruttura_default.cs">
+      <DependentUpon>dsmeta_progettoreportstruttura_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettoreportprogettostatuskind_default.cs">
+      <DependentUpon>dsmeta_progettoreportprogettostatuskind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettosegreportview_default.cs">
+      <DependentUpon>dsmeta_progettosegreportview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettofinanziamento_catania.cs">
+      <DependentUpon>dsmeta_progettofinanziamento_catania.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettokeyword_default.cs">
+      <DependentUpon>dsmeta_progettokeyword_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_macroareadidattica_default.cs">
+      <DependentUpon>dsmeta_macroareadidattica_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogetto_responsabili.cs">
+      <DependentUpon>dsmeta_perfprogetto_responsabili.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettosettoreerc_seg.cs">
+      <DependentUpon>dsmeta_progettosettoreerc_seg.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progetto_catania.cs">
+      <DependentUpon>dsmeta_progetto_catania.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_stipendiocomplemento_default.cs">
+      <DependentUpon>dsmeta_stipendiocomplemento_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_stipendiocomplementokind_default.cs">
+      <DependentUpon>dsmeta_stipendiocomplementokind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_contrattostipendioview_default.cs">
+      <DependentUpon>dsmeta_contrattostipendioview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ricostruzioneanniaccademici_default.cs">
+      <DependentUpon>dsmeta_ricostruzioneanniaccademici_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ricostruzionenonvaliditaview_default.cs">
+      <DependentUpon>dsmeta_ricostruzionenonvaliditaview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfruolomansionekind_default.cs">
+      <DependentUpon>dsmeta_perfruolomansionekind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfprogettostatuschanges_default.cs">
+      <DependentUpon>dsmeta_perfprogettostatuschanges_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_sdgoals_default.cs">
+      <DependentUpon>dsmeta_sdgoals_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettosdgoals_default.cs">
+      <DependentUpon>dsmeta_progettosdgoals_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfobiettiviuo_onlyprestazionali.cs">
+      <DependentUpon>dsmeta_perfobiettiviuo_onlyprestazionali.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonale_onlycomportamentali.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_onlycomportamentali.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonale_onlyprestazionali.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_onlyprestazionali.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneateneores_personale.cs">
+      <DependentUpon>dsmeta_perfvalutazioneateneores_personale.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneateneo_consoglie.cs">
+      <DependentUpon>dsmeta_perfvalutazioneateneo_consoglie.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneateneores_consoglie.cs">
+      <DependentUpon>dsmeta_perfvalutazioneateneores_consoglie.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneateneoressoglia_default.cs">
+      <DependentUpon>dsmeta_perfvalutazioneateneoressoglia_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonale_tuscia.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_tuscia.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonalecomportamento_giudizio.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonalecomportamento_giudizio.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonaleobiettivo_tuscia.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonaleobiettivo_tuscia.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneuoufficiview_default.cs">
+      <DependentUpon>dsmeta_perfvalutazioneuoufficiview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Controllers\BesmartController.cs" />
+    <Compile Include="Data\dsmeta_congiuntokind_default.cs">
+      <DependentUpon>dsmeta_congiuntokind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_registrycongiunto_default.cs">
+      <DependentUpon>dsmeta_registrycongiunto_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_apppagestemplate_default.cs">
+      <DependentUpon>dsmeta_apppagestemplate_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestaagile_default.cs">
+      <DependentUpon>dsmeta_ptarichiestaagile_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestariposi_default.cs">
+      <DependentUpon>dsmeta_ptarichiestariposi_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestamaternita_default.cs">
+      <DependentUpon>dsmeta_ptarichiestamaternita_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiesta104_default.cs">
+      <DependentUpon>dsmeta_ptarichiesta104_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestamalattiafiglio_default.cs">
+      <DependentUpon>dsmeta_ptarichiestamalattiafiglio_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestaastensionematernita_default.cs">
+      <DependentUpon>dsmeta_ptarichiestaastensionematernita_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestacongedo_default.cs">
+      <DependentUpon>dsmeta_ptarichiestacongedo_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptadichiarazioneassenzapermessi_default.cs">
+      <DependentUpon>dsmeta_ptadichiarazioneassenzapermessi_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptadichiarazioneassenzapermessifiglio_default.cs">
+      <DependentUpon>dsmeta_ptadichiarazioneassenzapermessifiglio_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptadichiarazionemansioni_default.cs">
+      <DependentUpon>dsmeta_ptadichiarazionemansioni_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptadichiarazionepermessi_default.cs">
+      <DependentUpon>dsmeta_ptadichiarazionepermessi_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestaagilereport_default.cs">
+      <DependentUpon>dsmeta_ptarichiestaagilereport_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestaagileattivita_default.cs">
+      <DependentUpon>dsmeta_ptarichiestaagileattivita_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestaagilereportptarichiestaagileattivita_default.cs">
+      <DependentUpon>dsmeta_ptarichiestaagilereportptarichiestaagileattivita_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneuo_onlyunatantum.cs">
+      <DependentUpon>dsmeta_perfvalutazioneuo_onlyunatantum.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfobiettiviuo_onlyunatantum.cs">
+      <DependentUpon>dsmeta_perfobiettiviuo_onlyunatantum.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazioneateneoresattach_default.cs">
+      <DependentUpon>dsmeta_perfvalutazioneateneoresattach_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfvalutazionepersonaleobiettivoattach_default.cs">
+      <DependentUpon>dsmeta_perfvalutazionepersonaleobiettivoattach_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfobiettiviuoattach_default.cs">
+      <DependentUpon>dsmeta_perfobiettiviuoattach_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestaagilereportstatus_default.cs">
+      <DependentUpon>dsmeta_ptarichiestaagilereportstatus_default.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsmeta_ptarichiestastatuskind_default.cs">
+      <DependentUpon>dsmeta_ptarichiestastatuskind_default.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\dsmeta_registry_servizi.cs">
+      <DependentUpon>dsmeta_registry_servizi.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ricostruzione_default.cs">
+      <DependentUpon>dsmeta_ricostruzione_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ricostruzionekind_default.cs">
+      <DependentUpon>dsmeta_ricostruzionekind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_nonvalutabilitakind_default.cs">
+      <DependentUpon>dsmeta_nonvalutabilitakind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_servizioruolo_default.cs">
+      <DependentUpon>dsmeta_servizioruolo_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_serviziopreruolotesoro_default.cs">
+      <DependentUpon>dsmeta_serviziopreruolotesoro_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_serviziopreruoloinps_default.cs">
+      <DependentUpon>dsmeta_serviziopreruoloinps_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_serviziocontributi_default.cs">
+      <DependentUpon>dsmeta_serviziocontributi_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_serviziomilitare_default.cs">
+      <DependentUpon>dsmeta_serviziomilitare_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_servizioricongiunzioni_default.cs">
+      <DependentUpon>dsmeta_servizioricongiunzioni_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_servizioaltro_default.cs">
+      <DependentUpon>dsmeta_servizioaltro_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ricostruzioneperiodonv_default.cs">
+      <DependentUpon>dsmeta_ricostruzioneperiodonv_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Data\dsmeta_perfprogettoobiettivoattivita_docenti.cs">
       <DependentUpon>dsmeta_perfprogettoobiettivoattivita_docenti.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -171,9 +981,6 @@
     </Compile>
     <Compile Include="Data\dsmeta_pcsbilancio_default.cs">
       <DependentUpon>dsmeta_pcsbilancio_default.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Data\dsmeta_perfvalutazionepersonale_insertvalutazione.cs">
-      <DependentUpon>dsmeta_perfvalutazionepersonale_insertvalutazione.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\dsmeta_perfvalutazioneuo_insertvalutazione.cs">
       <DependentUpon>dsmeta_perfvalutazioneuo_insertvalutazione.xsd</DependentUpon>
@@ -540,11 +1347,6 @@
     </Compile>
     <Compile Include="Data\dsmeta_perfpositionattach_default.cs">
       <DependentUpon>dsmeta_perfpositionattach_default.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Data\dsmeta_perfpositionattach_Moduli di rendicontazione.cs">
-      <DependentUpon>dsmeta_perfpositionattach_Moduli di rendicontazione.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -1291,11 +2093,6 @@
     </Compile>
     <Compile Include="Data\dsmeta_convalidato_segstudprat.cs">
       <DependentUpon>dsmeta_convalidato_segstudprat.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Data\dsmeta_stipendiokind_default.cs">
-      <DependentUpon>dsmeta_stipendiokind_default.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -2959,11 +3756,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>registrypaymethod_anagrafica.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Data\registry_anagrafica.cs">
-      <DependentUpon>registry_anagrafica.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Data\upb_tree.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2972,6 +3764,9 @@
     <Compile Include="Extensions\IExtendedDataSet.cs" />
     <Compile Include="Extensions\MetaExtensions.cs" />
     <Compile Include="Extra\CodiceFiscale.cs" />
+    <Compile Include="Ldap\ldapauth.cs" />
+    <Compile Include="Models\EliminaRendicontazioneDocente.cs" />
+    <Compile Include="Models\RendicontazioneDocente.cs" />
     <Compile Include="saml\consumer.aspx.cs">
       <DependentUpon>consumer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3149,22 +3944,55 @@
     <Content Include="Data\dsmeta_pcsbilancio_default.xss">
       <DependentUpon>dsmeta_pcsbilancio_default.xsd</DependentUpon>
     </Content>
-    <Content Include="Data\dsmeta_perfvalutazionepersonale_insertvalutazione.xsc">
-      <DependentUpon>dsmeta_perfvalutazionepersonale_insertvalutazione.xsd</DependentUpon>
+    <Content Include="Data\dsmeta_perfateneoresponsabilita_obiettivi.xsc">
+      <DependentUpon>dsmeta_perfateneoresponsabilita_obiettivi.xsd</DependentUpon>
     </Content>
-    <None Include="Data\dsmeta_perfvalutazionepersonale_insertvalutazione.xsd">
+    <Content Include="Data\dsmeta_perfateneoresponsabilitaperfateneoindicatore_obiettivi.xsc">
+      <DependentUpon>dsmeta_perfateneoresponsabilitaperfateneoindicatore_obiettivi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfateneoresponsabilitaperfateneoindicatore_obiettivi.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsmeta_perfvalutazionepersonale_insertvalutazione.Designer.cs</LastGenOutput>
+      <LastGenOutput>dsmeta_perfateneoresponsabilitaperfateneoindicatore_obiettivi.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Data\dsmeta_perfvalutazionepersonale_insertvalutazione.xss">
-      <DependentUpon>dsmeta_perfvalutazionepersonale_insertvalutazione.xsd</DependentUpon>
+    <Content Include="Data\dsmeta_perfateneoresponsabilitaperfateneoindicatore_obiettivi.xss">
+      <DependentUpon>dsmeta_perfateneoresponsabilitaperfateneoindicatore_obiettivi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfateneoresponsabilita_obiettivi.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsmeta_perfateneoresponsabilita_obiettivi.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfateneoresponsabilita_obiettivi.xss">
+      <DependentUpon>dsmeta_perfateneoresponsabilita_obiettivi.xsd</DependentUpon>
     </Content>
     <None Include="Data\dsmeta_perfvalutazioneuo_insertvalutazione.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsmeta_perfvalutazioneuo_insertvalutazione.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Data\dsmeta_ptarichiestaagilereportstatus_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestaagilereportstatus_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestaagilereportstatus_default.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsmeta_ptarichiestaagilereportstatus_default.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestaagilereportstatus_default.xss">
+      <DependentUpon>dsmeta_ptarichiestaagilereportstatus_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestastatuskind_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestastatuskind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestastatuskind_default.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsmeta_ptarichiestastatuskind_default.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestastatuskind_default.xss">
+      <DependentUpon>dsmeta_ptarichiestastatuskind_default.xsd</DependentUpon>
+    </Content>
     <None Include="Data\dsmeta_registry_admin.xsd">
       <SubType>Designer</SubType>
       <Generator>HDSGene</Generator>
@@ -3173,14 +4001,59 @@
     <Content Include="Data\dsmeta_registry_admin.xss">
       <DependentUpon>dsmeta_registry_admin.xsd</DependentUpon>
     </Content>
-    <Content Include="Data\registry_anagrafica.xsc">
-      <DependentUpon>registry_anagrafica.xsd</DependentUpon>
-    </Content>
     <Content Include="Data\dsmeta_richitesi_segistcons.xsc">
       <DependentUpon>dsmeta_richitesi_segistcons.xsd</DependentUpon>
     </Content>
     <Content Include="Data\dsmeta_resetpassword_admin.xsc">
       <DependentUpon>dsmeta_resetpassword_admin.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registry_anagrafica.xsc">
+      <DependentUpon>dsmeta_registry_anagrafica.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registry_anagrafica.json" />
+    <None Include="Data\dsmeta_registry_anagrafica.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registry_anagrafica.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registry_anagrafica.xss">
+      <DependentUpon>dsmeta_registry_anagrafica.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registry_anagrafica1.json" />
+    <Content Include="Data\dsmeta_registry_anagrafica1.xsc">
+      <DependentUpon>dsmeta_registry_anagrafica1.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registry_anagrafica1.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registry_anagrafica1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registry_anagrafica1.xss">
+      <DependentUpon>dsmeta_registry_anagrafica1.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registry_anagrafica2.json" />
+    <Content Include="Data\dsmeta_registry_anagrafica2.xsc">
+      <DependentUpon>dsmeta_registry_anagrafica2.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registry_anagrafica2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsmeta_registry_anagrafica2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registry_anagrafica2.xss">
+      <DependentUpon>dsmeta_registry_anagrafica2.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registry_anagrafica3.json" />
+    <Content Include="Data\dsmeta_registry_anagrafica3.xsc">
+      <DependentUpon>dsmeta_registry_anagrafica3.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registry_anagrafica3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsmeta_registry_anagrafica3.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registry_anagrafica3.xss">
+      <DependentUpon>dsmeta_registry_anagrafica3.xsd</DependentUpon>
     </Content>
     <None Include="Data\dsmeta_resetpassword_admin.xsd">
       <SubType>Designer</SubType>
@@ -3209,13 +4082,6 @@
     <Content Include="Data\dsmeta_tesikeyword_segistcons.xss">
       <DependentUpon>dsmeta_tesikeyword_segistcons.xsd</DependentUpon>
     </Content>
-    <None Include="Data\registry_anagrafica.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>registry_anagrafica.cs</LastGenOutput>
-    </None>
-    <Content Include="Data\registry_anagrafica.xss">
-      <DependentUpon>registry_anagrafica.xsd</DependentUpon>
-    </Content>
     <None Include="saml.config">
       <SubType>Designer</SubType>
     </None>
@@ -3243,6 +4109,1722 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalestatuschanges_default.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonalestatuschanges_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonalestatuschanges_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonalestatuschanges_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalestatuschanges_default.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonalestatuschanges_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneuostatuschanges_default.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneuostatuschanges_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneuostatuschanges_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneuostatuschanges_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneuostatuschanges_default.xss">
+      <DependentUpon>dsmeta_perfvalutazioneuostatuschanges_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_mansionekindcomportamento_default.xsc">
+      <DependentUpon>dsmeta_mansionekindcomportamento_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_mansionekindcomportamento_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_mansionekindcomportamento_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_mansionekindcomportamento_default.xss">
+      <DependentUpon>dsmeta_mansionekindcomportamento_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registrylegalstatus_default.xsc">
+      <DependentUpon>dsmeta_registrylegalstatus_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registrylegalstatus_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registrylegalstatus_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registrylegalstatus_default.xss">
+      <DependentUpon>dsmeta_registrylegalstatus_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registrylegalstatus_amm.xsc">
+      <DependentUpon>dsmeta_registrylegalstatus_amm.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registrylegalstatus_amm.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registrylegalstatus_amm.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registrylegalstatus_amm.xss">
+      <DependentUpon>dsmeta_registrylegalstatus_amm.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registrylegalstatus_servizi.xsc">
+      <DependentUpon>dsmeta_registrylegalstatus_servizi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registrylegalstatus_servizi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registrylegalstatus_servizi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registrylegalstatus_servizi.xss">
+      <DependentUpon>dsmeta_registrylegalstatus_servizi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registry_didattica.xsc">
+      <DependentUpon>dsmeta_registry_didattica.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registry_didattica.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registry_didattica.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registry_didattica.xss">
+      <DependentUpon>dsmeta_registry_didattica.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_rendicontdidattica_default.xsc">
+      <DependentUpon>dsmeta_rendicontdidattica_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_rendicontdidattica_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_rendicontdidattica_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_rendicontdidattica_default.xss">
+      <DependentUpon>dsmeta_rendicontdidattica_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registry_docenti_docentenoaltro.xsc">
+      <DependentUpon>dsmeta_registry_docenti_docentenoaltro.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registry_docenti_docentenoaltro.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registry_docenti_docentenoaltro.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registry_docenti_docentenoaltro.xss">
+      <DependentUpon>dsmeta_registry_docenti_docentenoaltro.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettoannoview_default.xsc">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoannoview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_rendicontattivitaprogettoannoview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_rendicontattivitaprogettoannoview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettoannoview_default.xss">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoannoview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_pannellocambioperfstatus_default.xsc">
+      <DependentUpon>dsmeta_pannellocambioperfstatus_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_pannellocambioperfstatus_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_pannellocambioperfstatus_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_pannellocambioperfstatus_default.xss">
+      <DependentUpon>dsmeta_pannellocambioperfstatus_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettokind_default.xsc">
+      <DependentUpon>dsmeta_rendicontattivitaprogettokind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_rendicontattivitaprogettokind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_rendicontattivitaprogettokind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettokind_default.xss">
+      <DependentUpon>dsmeta_rendicontattivitaprogettokind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_subassetloadsubassetloadsub_default.xsc">
+      <DependentUpon>dsmeta_subassetloadsubassetloadsub_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_subassetloadsubassetloadsub_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_subassetloadsubassetloadsub_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_subassetloadsubassetloadsub_default.xss">
+      <DependentUpon>dsmeta_subassetloadsubassetloadsub_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettoora_personale.xsc">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoora_personale.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_rendicontattivitaprogettoora_personale.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_rendicontattivitaprogettoora_personale.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettoora_personale.xss">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoora_personale.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_sal_elenchi.xsc">
+      <DependentUpon>dsmeta_sal_elenchi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_sal_elenchi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_sal_elenchi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_sal_elenchi.xss">
+      <DependentUpon>dsmeta_sal_elenchi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_assetloadsub_consigneestandalone.xsc">
+      <DependentUpon>dsmeta_assetloadsub_consigneestandalone.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_assetloadsub_consigneestandalone.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_assetloadsub_consigneestandalone.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_assetloadsub_consigneestandalone.xss">
+      <DependentUpon>dsmeta_assetloadsub_consigneestandalone.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_assetconsignee_default.xsc">
+      <DependentUpon>dsmeta_assetconsignee_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_assetconsignee_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_assetconsignee_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_assetconsignee_default.xss">
+      <DependentUpon>dsmeta_assetconsignee_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_subassetloadsub_default.xsc">
+      <DependentUpon>dsmeta_subassetloadsub_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_subassetloadsub_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_subassetloadsub_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_subassetloadsub_default.xss">
+      <DependentUpon>dsmeta_subassetloadsub_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_assetconsignsub_subconsignee.xsc">
+      <DependentUpon>dsmeta_assetconsignsub_subconsignee.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_assetconsignsub_subconsignee.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_assetconsignsub_subconsignee.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_assetconsignsub_subconsignee.xss">
+      <DependentUpon>dsmeta_assetconsignsub_subconsignee.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_subassetconsignsub_default.xsc">
+      <DependentUpon>dsmeta_subassetconsignsub_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_subassetconsignsub_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_subassetconsignsub_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_subassetconsignsub_default.xss">
+      <DependentUpon>dsmeta_subassetconsignsub_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_assetconsignsub_adminembedded.xsc">
+      <DependentUpon>dsmeta_assetconsignsub_adminembedded.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_assetconsignsub_adminembedded.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_assetconsignsub_adminembedded.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_assetconsignsub_adminembedded.xss">
+      <DependentUpon>dsmeta_assetconsignsub_adminembedded.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_logassetloadsub_default.xsc">
+      <DependentUpon>dsmeta_logassetloadsub_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_logassetloadsub_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_logassetloadsub_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_logassetloadsub_default.xss">
+      <DependentUpon>dsmeta_logassetloadsub_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_assetconsignsub_consigneeembedded.xsc">
+      <DependentUpon>dsmeta_assetconsignsub_consigneeembedded.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_assetconsignsub_consigneeembedded.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_assetconsignsub_consigneeembedded.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_assetconsignsub_consigneeembedded.xss">
+      <DependentUpon>dsmeta_assetconsignsub_consigneeembedded.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_assetconsignsubasset_default.xsc">
+      <DependentUpon>dsmeta_assetconsignsubasset_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_assetconsignsubasset_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_assetconsignsubasset_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_assetconsignsubasset_default.xss">
+      <DependentUpon>dsmeta_assetconsignsubasset_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_logassetconsignsub_default.xsc">
+      <DependentUpon>dsmeta_logassetconsignsub_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_logassetconsignsub_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_logassetconsignsub_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_logassetconsignsub_default.xss">
+      <DependentUpon>dsmeta_logassetconsignsub_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_subassetconsignsubassetconsignsub_default.xsc">
+      <DependentUpon>dsmeta_subassetconsignsubassetconsignsub_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_subassetconsignsubassetconsignsub_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_subassetconsignsubassetconsignsub_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_subassetconsignsubassetconsignsub_default.xss">
+      <DependentUpon>dsmeta_subassetconsignsubassetconsignsub_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettotimesheet_datipersonali.xsc">
+      <DependentUpon>dsmeta_progettotimesheet_datipersonali.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettotimesheet_datipersonali.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettotimesheet_datipersonali.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettotimesheet_datipersonali.xss">
+      <DependentUpon>dsmeta_progettotimesheet_datipersonali.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneuoreport_default.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneuoreport_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneuoreport_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneuoreport_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneuoreport_default.xss">
+      <DependentUpon>dsmeta_perfvalutazioneuoreport_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettosalreport_default.xsc">
+      <DependentUpon>dsmeta_progettosalreport_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettosalreport_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettosalreport_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettosalreport_default.xss">
+      <DependentUpon>dsmeta_progettosalreport_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettomesereport_default.xsc">
+      <DependentUpon>dsmeta_progettomesereport_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettomesereport_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettomesereport_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettomesereport_default.xss">
+      <DependentUpon>dsmeta_progettomesereport_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalereport_default.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonalereport_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonalereport_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonalereport_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalereport_default.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonalereport_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_apprelationkey_default.xsc">
+      <DependentUpon>dsmeta_apprelationkey_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_apprelationkey_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_apprelationkey_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_apprelationkey_default.xss">
+      <DependentUpon>dsmeta_apprelationkey_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettoobiettivo_amministrativi.xsc">
+      <DependentUpon>dsmeta_perfprogettoobiettivo_amministrativi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettoobiettivo_amministrativi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettoobiettivo_amministrativi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettoobiettivo_amministrativi.xss">
+      <DependentUpon>dsmeta_perfprogettoobiettivo_amministrativi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfuointerazioni_default.xsc">
+      <DependentUpon>dsmeta_perfuointerazioni_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfuointerazioni_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfuointerazioni_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfuointerazioni_default.xss">
+      <DependentUpon>dsmeta_perfuointerazioni_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneuo_upo.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneuo_upo.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneuo_upo.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneuo_upo.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneuo_upo.xss">
+      <DependentUpon>dsmeta_perfvalutazioneuo_upo.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettouoview_default.xsc">
+      <DependentUpon>dsmeta_perfprogettouoview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettouoview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettouoview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettouoview_default.xss">
+      <DependentUpon>dsmeta_perfprogettouoview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfateneoindicatoreattach_default.xsc">
+      <DependentUpon>dsmeta_perfateneoindicatoreattach_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfateneoindicatoreattach_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfateneoindicatoreattach_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfateneoindicatoreattach_default.xss">
+      <DependentUpon>dsmeta_perfateneoindicatoreattach_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_consolidamento_default.xsc">
+      <DependentUpon>dsmeta_consolidamento_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_consolidamento_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_consolidamento_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_consolidamento_default.xss">
+      <DependentUpon>dsmeta_consolidamento_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettotimesheet_personale.xsc">
+      <DependentUpon>dsmeta_progettotimesheet_personale.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettotimesheet_personale.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettotimesheet_personale.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettotimesheet_personale.xss">
+      <DependentUpon>dsmeta_progettotimesheet_personale.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_consolidamentorendicontattivitaprogettoora_default.xsc">
+      <DependentUpon>dsmeta_consolidamentorendicontattivitaprogettoora_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_consolidamentorendicontattivitaprogettoora_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_consolidamentorendicontattivitaprogettoora_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_consolidamentorendicontattivitaprogettoora_default.xss">
+      <DependentUpon>dsmeta_consolidamentorendicontattivitaprogettoora_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfateneoindicatore_personale.xsc">
+      <DependentUpon>dsmeta_perfateneoindicatore_personale.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfateneoindicatore_personale.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfateneoindicatore_personale.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfateneoindicatore_personale.xss">
+      <DependentUpon>dsmeta_perfateneoindicatore_personale.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettosoglia_default.xsc">
+      <DependentUpon>dsmeta_perfprogettosoglia_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettosoglia_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettosoglia_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettosoglia_default.xss">
+      <DependentUpon>dsmeta_perfprogettosoglia_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfateneoobiettivosdgoals_obiettivi.xsc">
+      <DependentUpon>dsmeta_perfateneoobiettivosdgoals_obiettivi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfateneoobiettivosdgoals_obiettivi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfateneoobiettivosdgoals_obiettivi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfateneoobiettivosdgoals_obiettivi.xss">
+      <DependentUpon>dsmeta_perfateneoobiettivosdgoals_obiettivi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfateneostakeholder_obiettivi.xsc">
+      <DependentUpon>dsmeta_perfateneostakeholder_obiettivi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfateneostakeholder_obiettivi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfateneostakeholder_obiettivi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfateneostakeholder_obiettivi.xss">
+      <DependentUpon>dsmeta_perfateneostakeholder_obiettivi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneateneo_obiettivi.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneateneo_obiettivi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneateneo_obiettivi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneateneo_obiettivi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneateneo_obiettivi.xss">
+      <DependentUpon>dsmeta_perfvalutazioneateneo_obiettivi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfateneoobiettivo_obiettivi.xsc">
+      <DependentUpon>dsmeta_perfateneoobiettivo_obiettivi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfateneoobiettivo_obiettivi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfateneoobiettivo_obiettivi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfateneoobiettivo_obiettivi.xss">
+      <DependentUpon>dsmeta_perfateneoobiettivo_obiettivi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfateneoindicatore_obiettivi.xsc">
+      <DependentUpon>dsmeta_perfateneoindicatore_obiettivi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfateneoindicatore_obiettivi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfateneoindicatore_obiettivi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfateneoindicatore_obiettivi.xss">
+      <DependentUpon>dsmeta_perfateneoindicatore_obiettivi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi.xsc">
+      <DependentUpon>dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi.xss">
+      <DependentUpon>dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_strutturaperfateneoindicatore_obiettivi.xsc">
+      <DependentUpon>dsmeta_strutturaperfateneoindicatore_obiettivi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_strutturaperfateneoindicatore_obiettivi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_strutturaperfateneoindicatore_obiettivi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_strutturaperfateneoindicatore_obiettivi.xss">
+      <DependentUpon>dsmeta_strutturaperfateneoindicatore_obiettivi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivita_referenti.xsc">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivita_referenti.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettoobiettivoattivita_referenti.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettoobiettivoattivita_referenti.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivita_referenti.xss">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivita_referenti.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivita_riepilogo.xsc">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivita_riepilogo.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettoobiettivoattivita_riepilogo.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettoobiettivoattivita_riepilogo.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivita_riepilogo.xss">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivita_riepilogo.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettoobiettivointerazione_default.xsc">
+      <DependentUpon>dsmeta_perfprogettoobiettivointerazione_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettoobiettivointerazione_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettoobiettivointerazione_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettoobiettivointerazione_default.xss">
+      <DependentUpon>dsmeta_perfprogettoobiettivointerazione_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettowpview_default.xsc">
+      <DependentUpon>dsmeta_rendicontattivitaprogettowpview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_rendicontattivitaprogettowpview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_rendicontattivitaprogettowpview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettowpview_default.xss">
+      <DependentUpon>dsmeta_rendicontattivitaprogettowpview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettourdmemboview_default.xsc">
+      <DependentUpon>dsmeta_rendicontattivitaprogettourdmemboview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_rendicontattivitaprogettourdmemboview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_rendicontattivitaprogettourdmemboview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettourdmemboview_default.xss">
+      <DependentUpon>dsmeta_rendicontattivitaprogettourdmemboview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettoprogettoview_default.xsc">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoprogettoview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_rendicontattivitaprogettoprogettoview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_rendicontattivitaprogettoprogettoview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettoprogettoview_default.xss">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoprogettoview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_assetconsignsub_amm.xsc">
+      <DependentUpon>dsmeta_assetconsignsub_amm.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_assetconsignsub_amm.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_assetconsignsub_amm.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_assetconsignsub_amm.xss">
+      <DependentUpon>dsmeta_assetconsignsub_amm.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_assetloadsub_default.xsc">
+      <DependentUpon>dsmeta_assetloadsub_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_assetloadsub_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_assetloadsub_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_assetloadsub_default.xss">
+      <DependentUpon>dsmeta_assetloadsub_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_assetconsignsub_default.xsc">
+      <DependentUpon>dsmeta_assetconsignsub_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_assetconsignsub_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_assetconsignsub_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_assetconsignsub_default.xss">
+      <DependentUpon>dsmeta_assetconsignsub_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfobiettiviuosoglia_target.xsc">
+      <DependentUpon>dsmeta_perfobiettiviuosoglia_target.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfobiettiviuosoglia_target.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfobiettiviuosoglia_target.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfobiettiviuosoglia_target.xss">
+      <DependentUpon>dsmeta_perfobiettiviuosoglia_target.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalesoglia_target.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonalesoglia_target.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonalesoglia_target.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonalesoglia_target.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalesoglia_target.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonalesoglia_target.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_salprogettoassetworkpackagemese_default.xsc">
+      <DependentUpon>dsmeta_salprogettoassetworkpackagemese_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_salprogettoassetworkpackagemese_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_salprogettoassetworkpackagemese_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_salprogettoassetworkpackagemese_default.xss">
+      <DependentUpon>dsmeta_salprogettoassetworkpackagemese_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_filtrocapitolocsaruolocsa_default.xsc">
+      <DependentUpon>dsmeta_filtrocapitolocsaruolocsa_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_filtrocapitolocsaruolocsa_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_filtrocapitolocsaruolocsa_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_filtrocapitolocsaruolocsa_default.xss">
+      <DependentUpon>dsmeta_filtrocapitolocsaruolocsa_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ruolocsa_default.xsc">
+      <DependentUpon>dsmeta_ruolocsa_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ruolocsa_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ruolocsa_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ruolocsa_default.xss">
+      <DependentUpon>dsmeta_ruolocsa_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettokindcontrattokind_default.xsc">
+      <DependentUpon>dsmeta_progettokindcontrattokind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettokindcontrattokind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettokindcontrattokind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettokindcontrattokind_default.xss">
+      <DependentUpon>dsmeta_progettokindcontrattokind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_filtrocapitolocsa_default.xsc">
+      <DependentUpon>dsmeta_filtrocapitolocsa_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_filtrocapitolocsa_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_filtrocapitolocsa_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_filtrocapitolocsa_default.xss">
+      <DependentUpon>dsmeta_filtrocapitolocsa_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_filtrocapitolocsacapitolocsa_default.xsc">
+      <DependentUpon>dsmeta_filtrocapitolocsacapitolocsa_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_filtrocapitolocsacapitolocsa_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_filtrocapitolocsacapitolocsa_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_filtrocapitolocsacapitolocsa_default.xss">
+      <DependentUpon>dsmeta_filtrocapitolocsacapitolocsa_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_contrattostipendioannuoview_default.xsc">
+      <DependentUpon>dsmeta_contrattostipendioannuoview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_contrattostipendioannuoview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_contrattostipendioannuoview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_contrattostipendioannuoview_default.xss">
+      <DependentUpon>dsmeta_contrattostipendioannuoview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_capitolocsa_default.xsc">
+      <DependentUpon>dsmeta_capitolocsa_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_capitolocsa_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_capitolocsa_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_capitolocsa_default.xss">
+      <DependentUpon>dsmeta_capitolocsa_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_costoorario_default.xsc">
+      <DependentUpon>dsmeta_costoorario_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_costoorario_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_costoorario_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_costoorario_default.xss">
+      <DependentUpon>dsmeta_costoorario_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_timbratura_default.xsc">
+      <DependentUpon>dsmeta_timbratura_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_timbratura_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_timbratura_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_timbratura_default.xss">
+      <DependentUpon>dsmeta_timbratura_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_contrattostipendioview_tfr.xsc">
+      <DependentUpon>dsmeta_contrattostipendioview_tfr.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_contrattostipendioview_tfr.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_contrattostipendioview_tfr.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_contrattostipendioview_tfr.xss">
+      <DependentUpon>dsmeta_contrattostipendioview_tfr.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_contratto_servizi.xsc">
+      <DependentUpon>dsmeta_contratto_servizi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_contratto_servizi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_contratto_servizi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_contratto_servizi.xss">
+      <DependentUpon>dsmeta_contratto_servizi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_serviziriepilogoview_default.xsc">
+      <DependentUpon>dsmeta_serviziriepilogoview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_serviziriepilogoview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_serviziriepilogoview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_serviziriepilogoview_default.xss">
+      <DependentUpon>dsmeta_serviziriepilogoview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_salprogettoassetworkpackage_default.xsc">
+      <DependentUpon>dsmeta_salprogettoassetworkpackage_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_salprogettoassetworkpackage_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_salprogettoassetworkpackage_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_salprogettoassetworkpackage_default.xss">
+      <DependentUpon>dsmeta_salprogettoassetworkpackage_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ricostruzioneattach_default.xsc">
+      <DependentUpon>dsmeta_ricostruzioneattach_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ricostruzioneattach_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ricostruzioneattach_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ricostruzioneattach_default.xss">
+      <DependentUpon>dsmeta_ricostruzioneattach_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_pcspeoview_default.xsc">
+      <DependentUpon>dsmeta_pcspeoview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_pcspeoview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_pcspeoview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_pcspeoview_default.xss">
+      <DependentUpon>dsmeta_pcspeoview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonaleobiettivo_conattivita.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonaleobiettivo_conattivita.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonaleobiettivo_conattivita.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonaleobiettivo_conattivita.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonaleobiettivo_conattivita.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonaleobiettivo_conattivita.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalevalresponsabile_default.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonalevalresponsabile_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonalevalresponsabile_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonalevalresponsabile_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalevalresponsabile_default.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonalevalresponsabile_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_campania.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_campania.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonale_campania.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonale_campania.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_campania.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_campania.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivitaattach_perfprog.xsc">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivitaattach_perfprog.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettoobiettivoattivitaattach_perfprog.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettoobiettivoattivitaattach_perfprog.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivitaattach_perfprog.xss">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivitaattach_perfprog.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettouomembro_default.xsc">
+      <DependentUpon>dsmeta_perfprogettouomembro_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettouomembro_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettouomembro_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettouomembro_default.xss">
+      <DependentUpon>dsmeta_perfprogettouomembro_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettoaccountprevisionview_default.xsc">
+      <DependentUpon>dsmeta_perfprogettoaccountprevisionview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettoaccountprevisionview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettoaccountprevisionview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettoaccountprevisionview_default.xss">
+      <DependentUpon>dsmeta_perfprogettoaccountprevisionview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettoattivitainterazione_default.xsc">
+      <DependentUpon>dsmeta_perfprogettoattivitainterazione_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettoattivitainterazione_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettoattivitainterazione_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettoattivitainterazione_default.xss">
+      <DependentUpon>dsmeta_perfprogettoattivitainterazione_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_importcontrattistipendiview_default.xsc">
+      <DependentUpon>dsmeta_importcontrattistipendiview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_importcontrattistipendiview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_importcontrattistipendiview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_importcontrattistipendiview_default.xss">
+      <DependentUpon>dsmeta_importcontrattistipendiview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivitaattach_perfprogetto.xsc">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivitaattach_perfprogetto.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettoobiettivoattivitaattach_perfprogetto.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettoobiettivoattivitaattach_perfprogetto.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivitaattach_perfprogetto.xss">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivitaattach_perfprogetto.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_tusciasint.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_tusciasint.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonale_tusciasint.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonale_tusciasint.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_tusciasint.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_tusciasint.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettoregistry_docenti_default.xsc">
+      <DependentUpon>dsmeta_progettoregistry_docenti_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettoregistry_docenti_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettoregistry_docenti_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettoregistry_docenti_default.xss">
+      <DependentUpon>dsmeta_progettoregistry_docenti_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettoregistry_amministrativi_default.xsc">
+      <DependentUpon>dsmeta_progettoregistry_amministrativi_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettoregistry_amministrativi_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettoregistry_amministrativi_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettoregistry_amministrativi_default.xss">
+      <DependentUpon>dsmeta_progettoregistry_amministrativi_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettoreport_default.xsc">
+      <DependentUpon>dsmeta_progettoreport_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettoreport_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettoreport_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettoreport_default.xss">
+      <DependentUpon>dsmeta_progettoreport_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettoreportprogettoactivitykind_default.xsc">
+      <DependentUpon>dsmeta_progettoreportprogettoactivitykind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettoreportprogettoactivitykind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettoreportprogettoactivitykind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettoreportprogettoactivitykind_default.xss">
+      <DependentUpon>dsmeta_progettoreportprogettoactivitykind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettoreportprogettokind_default.xsc">
+      <DependentUpon>dsmeta_progettoreportprogettokind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettoreportprogettokind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettoreportprogettokind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettoreportprogettokind_default.xss">
+      <DependentUpon>dsmeta_progettoreportprogettokind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettoreportregistryprogfin_default.xsc">
+      <DependentUpon>dsmeta_progettoreportregistryprogfin_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettoreportregistryprogfin_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettoreportregistryprogfin_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettoreportregistryprogfin_default.xss">
+      <DependentUpon>dsmeta_progettoreportregistryprogfin_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettoreportstruttura_default.xsc">
+      <DependentUpon>dsmeta_progettoreportstruttura_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettoreportstruttura_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettoreportstruttura_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettoreportstruttura_default.xss">
+      <DependentUpon>dsmeta_progettoreportstruttura_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettoreportprogettostatuskind_default.xsc">
+      <DependentUpon>dsmeta_progettoreportprogettostatuskind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettoreportprogettostatuskind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettoreportprogettostatuskind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettoreportprogettostatuskind_default.xss">
+      <DependentUpon>dsmeta_progettoreportprogettostatuskind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettosegreportview_default.xsc">
+      <DependentUpon>dsmeta_progettosegreportview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettosegreportview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettosegreportview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettosegreportview_default.xss">
+      <DependentUpon>dsmeta_progettosegreportview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettofinanziamento_catania.xsc">
+      <DependentUpon>dsmeta_progettofinanziamento_catania.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettofinanziamento_catania.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettofinanziamento_catania.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettofinanziamento_catania.xss">
+      <DependentUpon>dsmeta_progettofinanziamento_catania.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettokeyword_default.xsc">
+      <DependentUpon>dsmeta_progettokeyword_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettokeyword_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettokeyword_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettokeyword_default.xss">
+      <DependentUpon>dsmeta_progettokeyword_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_macroareadidattica_default.xsc">
+      <DependentUpon>dsmeta_macroareadidattica_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_macroareadidattica_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_macroareadidattica_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_macroareadidattica_default.xss">
+      <DependentUpon>dsmeta_macroareadidattica_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogetto_responsabili.xsc">
+      <DependentUpon>dsmeta_perfprogetto_responsabili.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogetto_responsabili.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogetto_responsabili.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogetto_responsabili.xss">
+      <DependentUpon>dsmeta_perfprogetto_responsabili.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettosettoreerc_seg.xsc">
+      <DependentUpon>dsmeta_progettosettoreerc_seg.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettosettoreerc_seg.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettosettoreerc_seg.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettosettoreerc_seg.xss">
+      <DependentUpon>dsmeta_progettosettoreerc_seg.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progetto_catania.xsc">
+      <DependentUpon>dsmeta_progetto_catania.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progetto_catania.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progetto_catania.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progetto_catania.xss">
+      <DependentUpon>dsmeta_progetto_catania.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_stipendiocomplemento_default.xsc">
+      <DependentUpon>dsmeta_stipendiocomplemento_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_stipendiocomplemento_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_stipendiocomplemento_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_stipendiocomplemento_default.xss">
+      <DependentUpon>dsmeta_stipendiocomplemento_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_stipendiocomplementokind_default.xsc">
+      <DependentUpon>dsmeta_stipendiocomplementokind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_stipendiocomplementokind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_stipendiocomplementokind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_stipendiocomplementokind_default.xss">
+      <DependentUpon>dsmeta_stipendiocomplementokind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_contrattostipendioview_default.xsc">
+      <DependentUpon>dsmeta_contrattostipendioview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_contrattostipendioview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_contrattostipendioview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_contrattostipendioview_default.xss">
+      <DependentUpon>dsmeta_contrattostipendioview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ricostruzioneanniaccademici_default.xsc">
+      <DependentUpon>dsmeta_ricostruzioneanniaccademici_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ricostruzioneanniaccademici_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ricostruzioneanniaccademici_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ricostruzioneanniaccademici_default.xss">
+      <DependentUpon>dsmeta_ricostruzioneanniaccademici_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ricostruzionenonvaliditaview_default.xsc">
+      <DependentUpon>dsmeta_ricostruzionenonvaliditaview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ricostruzionenonvaliditaview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ricostruzionenonvaliditaview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ricostruzionenonvaliditaview_default.xss">
+      <DependentUpon>dsmeta_ricostruzionenonvaliditaview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfruolomansionekind_default.xsc">
+      <DependentUpon>dsmeta_perfruolomansionekind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfruolomansionekind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfruolomansionekind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfruolomansionekind_default.xss">
+      <DependentUpon>dsmeta_perfruolomansionekind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivita_docenti.xsc">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivita_docenti.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettoobiettivoattivita_docenti.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettoobiettivoattivita_docenti.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettoobiettivoattivita_docenti.xss">
+      <DependentUpon>dsmeta_perfprogettoobiettivoattivita_docenti.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfprogettostatuschanges_default.xsc">
+      <DependentUpon>dsmeta_perfprogettostatuschanges_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfprogettostatuschanges_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfprogettostatuschanges_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfprogettostatuschanges_default.xss">
+      <DependentUpon>dsmeta_perfprogettostatuschanges_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_sdgoals_default.xsc">
+      <DependentUpon>dsmeta_sdgoals_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_sdgoals_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_sdgoals_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_sdgoals_default.xss">
+      <DependentUpon>dsmeta_sdgoals_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettosdgoals_default.xsc">
+      <DependentUpon>dsmeta_progettosdgoals_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettosdgoals_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettosdgoals_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettosdgoals_default.xss">
+      <DependentUpon>dsmeta_progettosdgoals_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfobiettiviuo_onlyprestazionali.xsc">
+      <DependentUpon>dsmeta_perfobiettiviuo_onlyprestazionali.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfobiettiviuo_onlyprestazionali.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfobiettiviuo_onlyprestazionali.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfobiettiviuo_onlyprestazionali.xss">
+      <DependentUpon>dsmeta_perfobiettiviuo_onlyprestazionali.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_onlycomportamentali.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_onlycomportamentali.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonale_onlycomportamentali.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonale_onlycomportamentali.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_onlycomportamentali.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_onlycomportamentali.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_onlyprestazionali.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_onlyprestazionali.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonale_onlyprestazionali.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonale_onlyprestazionali.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_onlyprestazionali.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_onlyprestazionali.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneateneores_personale.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneateneores_personale.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneateneores_personale.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneateneores_personale.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneateneores_personale.xss">
+      <DependentUpon>dsmeta_perfvalutazioneateneores_personale.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneateneo_consoglie.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneateneo_consoglie.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneateneo_consoglie.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneateneo_consoglie.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneateneo_consoglie.xss">
+      <DependentUpon>dsmeta_perfvalutazioneateneo_consoglie.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneateneores_consoglie.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneateneores_consoglie.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneateneores_consoglie.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneateneores_consoglie.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneateneores_consoglie.xss">
+      <DependentUpon>dsmeta_perfvalutazioneateneores_consoglie.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneateneoressoglia_default.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneateneoressoglia_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneateneoressoglia_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneateneoressoglia_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneateneoressoglia_default.xss">
+      <DependentUpon>dsmeta_perfvalutazioneateneoressoglia_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_tuscia.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_tuscia.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonale_tuscia.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonale_tuscia.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonale_tuscia.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonale_tuscia.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalecomportamento_giudizio.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonalecomportamento_giudizio.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonalecomportamento_giudizio.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonalecomportamento_giudizio.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonalecomportamento_giudizio.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonalecomportamento_giudizio.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonaleobiettivo_tuscia.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonaleobiettivo_tuscia.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonaleobiettivo_tuscia.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonaleobiettivo_tuscia.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonaleobiettivo_tuscia.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonaleobiettivo_tuscia.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneuoufficiview_default.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneuoufficiview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneuoufficiview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneuoufficiview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneuoufficiview_default.xss">
+      <DependentUpon>dsmeta_perfvalutazioneuoufficiview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_congiuntokind_default.xsc">
+      <DependentUpon>dsmeta_congiuntokind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_congiuntokind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_congiuntokind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_congiuntokind_default.xss">
+      <DependentUpon>dsmeta_congiuntokind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registrycongiunto_default.xsc">
+      <DependentUpon>dsmeta_registrycongiunto_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registrycongiunto_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registrycongiunto_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registrycongiunto_default.xss">
+      <DependentUpon>dsmeta_registrycongiunto_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_apppagestemplate_default.xsc">
+      <DependentUpon>dsmeta_apppagestemplate_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_apppagestemplate_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_apppagestemplate_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_apppagestemplate_default.xss">
+      <DependentUpon>dsmeta_apppagestemplate_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestaagile_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestaagile_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestaagile_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiestaagile_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestaagile_default.xss">
+      <DependentUpon>dsmeta_ptarichiestaagile_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestariposi_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestariposi_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestariposi_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiestariposi_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestariposi_default.xss">
+      <DependentUpon>dsmeta_ptarichiestariposi_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestamaternita_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestamaternita_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestamaternita_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiestamaternita_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestamaternita_default.xss">
+      <DependentUpon>dsmeta_ptarichiestamaternita_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiesta104_default.xsc">
+      <DependentUpon>dsmeta_ptarichiesta104_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiesta104_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiesta104_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiesta104_default.xss">
+      <DependentUpon>dsmeta_ptarichiesta104_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestamalattiafiglio_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestamalattiafiglio_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestamalattiafiglio_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiestamalattiafiglio_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestamalattiafiglio_default.xss">
+      <DependentUpon>dsmeta_ptarichiestamalattiafiglio_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestaastensionematernita_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestaastensionematernita_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestaastensionematernita_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiestaastensionematernita_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestaastensionematernita_default.xss">
+      <DependentUpon>dsmeta_ptarichiestaastensionematernita_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestacongedo_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestacongedo_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestacongedo_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiestacongedo_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestacongedo_default.xss">
+      <DependentUpon>dsmeta_ptarichiestacongedo_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptadichiarazioneassenzapermessi_default.xsc">
+      <DependentUpon>dsmeta_ptadichiarazioneassenzapermessi_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptadichiarazioneassenzapermessi_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptadichiarazioneassenzapermessi_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptadichiarazioneassenzapermessi_default.xss">
+      <DependentUpon>dsmeta_ptadichiarazioneassenzapermessi_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptadichiarazioneassenzapermessifiglio_default.xsc">
+      <DependentUpon>dsmeta_ptadichiarazioneassenzapermessifiglio_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptadichiarazioneassenzapermessifiglio_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptadichiarazioneassenzapermessifiglio_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptadichiarazioneassenzapermessifiglio_default.xss">
+      <DependentUpon>dsmeta_ptadichiarazioneassenzapermessifiglio_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptadichiarazionemansioni_default.xsc">
+      <DependentUpon>dsmeta_ptadichiarazionemansioni_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptadichiarazionemansioni_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptadichiarazionemansioni_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptadichiarazionemansioni_default.xss">
+      <DependentUpon>dsmeta_ptadichiarazionemansioni_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptadichiarazionepermessi_default.xsc">
+      <DependentUpon>dsmeta_ptadichiarazionepermessi_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptadichiarazionepermessi_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptadichiarazionepermessi_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptadichiarazionepermessi_default.xss">
+      <DependentUpon>dsmeta_ptadichiarazionepermessi_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestaagilereport_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestaagilereport_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestaagilereport_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiestaagilereport_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestaagilereport_default.xss">
+      <DependentUpon>dsmeta_ptarichiestaagilereport_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestaagileattivita_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestaagileattivita_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestaagileattivita_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiestaagileattivita_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestaagileattivita_default.xss">
+      <DependentUpon>dsmeta_ptarichiestaagileattivita_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ptarichiestaagilereportptarichiestaagileattivita_default.xsc">
+      <DependentUpon>dsmeta_ptarichiestaagilereportptarichiestaagileattivita_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ptarichiestaagilereportptarichiestaagileattivita_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ptarichiestaagilereportptarichiestaagileattivita_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ptarichiestaagilereportptarichiestaagileattivita_default.xss">
+      <DependentUpon>dsmeta_ptarichiestaagilereportptarichiestaagileattivita_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneuo_onlyunatantum.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneuo_onlyunatantum.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneuo_onlyunatantum.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneuo_onlyunatantum.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneuo_onlyunatantum.xss">
+      <DependentUpon>dsmeta_perfvalutazioneuo_onlyunatantum.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfobiettiviuo_onlyunatantum.xsc">
+      <DependentUpon>dsmeta_perfobiettiviuo_onlyunatantum.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfobiettiviuo_onlyunatantum.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfobiettiviuo_onlyunatantum.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfobiettiviuo_onlyunatantum.xss">
+      <DependentUpon>dsmeta_perfobiettiviuo_onlyunatantum.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazioneateneoresattach_default.xsc">
+      <DependentUpon>dsmeta_perfvalutazioneateneoresattach_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazioneateneoresattach_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazioneateneoresattach_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazioneateneoresattach_default.xss">
+      <DependentUpon>dsmeta_perfvalutazioneateneoresattach_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfvalutazionepersonaleobiettivoattach_default.xsc">
+      <DependentUpon>dsmeta_perfvalutazionepersonaleobiettivoattach_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfvalutazionepersonaleobiettivoattach_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfvalutazionepersonaleobiettivoattach_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfvalutazionepersonaleobiettivoattach_default.xss">
+      <DependentUpon>dsmeta_perfvalutazionepersonaleobiettivoattach_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfobiettiviuoattach_default.xsc">
+      <DependentUpon>dsmeta_perfobiettiviuoattach_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfobiettiviuoattach_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfobiettiviuoattach_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfobiettiviuoattach_default.xss">
+      <DependentUpon>dsmeta_perfobiettiviuoattach_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registry_servizi.xsc">
+      <DependentUpon>dsmeta_registry_servizi.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registry_servizi.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registry_servizi.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registry_servizi.xss">
+      <DependentUpon>dsmeta_registry_servizi.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ricostruzione_default.xsc">
+      <DependentUpon>dsmeta_ricostruzione_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ricostruzione_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ricostruzione_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ricostruzione_default.xss">
+      <DependentUpon>dsmeta_ricostruzione_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ricostruzionekind_default.xsc">
+      <DependentUpon>dsmeta_ricostruzionekind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ricostruzionekind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ricostruzionekind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ricostruzionekind_default.xss">
+      <DependentUpon>dsmeta_ricostruzionekind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_nonvalutabilitakind_default.xsc">
+      <DependentUpon>dsmeta_nonvalutabilitakind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_nonvalutabilitakind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_nonvalutabilitakind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_nonvalutabilitakind_default.xss">
+      <DependentUpon>dsmeta_nonvalutabilitakind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_servizioruolo_default.xsc">
+      <DependentUpon>dsmeta_servizioruolo_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_servizioruolo_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_servizioruolo_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_servizioruolo_default.xss">
+      <DependentUpon>dsmeta_servizioruolo_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_serviziopreruolotesoro_default.xsc">
+      <DependentUpon>dsmeta_serviziopreruolotesoro_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_serviziopreruolotesoro_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_serviziopreruolotesoro_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_serviziopreruolotesoro_default.xss">
+      <DependentUpon>dsmeta_serviziopreruolotesoro_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_serviziopreruoloinps_default.xsc">
+      <DependentUpon>dsmeta_serviziopreruoloinps_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_serviziopreruoloinps_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_serviziopreruoloinps_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_serviziopreruoloinps_default.xss">
+      <DependentUpon>dsmeta_serviziopreruoloinps_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_serviziocontributi_default.xsc">
+      <DependentUpon>dsmeta_serviziocontributi_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_serviziocontributi_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_serviziocontributi_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_serviziocontributi_default.xss">
+      <DependentUpon>dsmeta_serviziocontributi_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_serviziomilitare_default.xsc">
+      <DependentUpon>dsmeta_serviziomilitare_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_serviziomilitare_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_serviziomilitare_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_serviziomilitare_default.xss">
+      <DependentUpon>dsmeta_serviziomilitare_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_servizioricongiunzioni_default.xsc">
+      <DependentUpon>dsmeta_servizioricongiunzioni_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_servizioricongiunzioni_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_servizioricongiunzioni_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_servizioricongiunzioni_default.xss">
+      <DependentUpon>dsmeta_servizioricongiunzioni_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_servizioaltro_default.xsc">
+      <DependentUpon>dsmeta_servizioaltro_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_servizioaltro_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_servizioaltro_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_servizioaltro_default.xss">
+      <DependentUpon>dsmeta_servizioaltro_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ricostruzioneperiodonv_default.xsc">
+      <DependentUpon>dsmeta_ricostruzioneperiodonv_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ricostruzioneperiodonv_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ricostruzioneperiodonv_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ricostruzioneperiodonv_default.xss">
+      <DependentUpon>dsmeta_ricostruzioneperiodonv_default.xsd</DependentUpon>
+    </Content>
     <Content Include="Data\dsmeta_perfruolocontrattokind_default.xsc">
       <DependentUpon>dsmeta_perfruolocontrattokind_default.xsd</DependentUpon>
     </Content>
@@ -4276,17 +6858,6 @@
     </None>
     <Content Include="Data\dsmeta_perfpositionattach_default.xss">
       <DependentUpon>dsmeta_perfpositionattach_default.xsd</DependentUpon>
-    </Content>
-    <Content Include="Data\dsmeta_perfpositionattach_Moduli di rendicontazione.xsc">
-      <DependentUpon>dsmeta_perfpositionattach_Moduli di rendicontazione.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_perfpositionattach_Moduli di rendicontazione.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_perfpositionattach_Moduli di rendicontazione.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_perfpositionattach_Moduli di rendicontazione.xss">
-      <DependentUpon>dsmeta_perfpositionattach_Moduli di rendicontazione.xsd</DependentUpon>
     </Content>
     <Content Include="Data\dsmeta_perfpositionsoglieindividuali_default.xsc">
       <DependentUpon>dsmeta_perfpositionsoglieindividuali_default.xsd</DependentUpon>
@@ -5803,17 +8374,6 @@
     </None>
     <Content Include="Data\dsmeta_convalidato_segstudprat.xss">
       <DependentUpon>dsmeta_convalidato_segstudprat.xsd</DependentUpon>
-    </Content>
-    <Content Include="Data\dsmeta_stipendiokind_default.xsc">
-      <DependentUpon>dsmeta_stipendiokind_default.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_stipendiokind_default.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_stipendiokind_default.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_stipendiokind_default.xss">
-      <DependentUpon>dsmeta_stipendiokind_default.xsd</DependentUpon>
     </Content>
     <Content Include="Data\dsmeta_inquadramento_default.xsc">
       <DependentUpon>dsmeta_inquadramento_default.xsd</DependentUpon>
@@ -9553,8 +12113,8 @@
     <Content Include="WebSocket\WSServer.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.10.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.BouncyCastle.1.8.10\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="ComponentSpace.SAML2, Version=2.6.0.18, Culture=neutral, PublicKeyToken=7c51d97b3a0a8ff9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -9591,6 +12151,19 @@
     </Reference>
     <Reference Include="meta_attach">
       <HintPath>..\libraries\meta_attach.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.6.30.0\lib\net45\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.30.0\lib\net45\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.30.0\lib\net45\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.30.0\lib\net45\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
@@ -9629,7 +12202,12 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.Protocols" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.30.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.30.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -9638,6 +12216,7 @@
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -9671,9 +12250,21 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FirmaRemotaAruba\FirmaRemotaAruba.csproj">
+      <Project>{9c709d4c-729c-4b2e-921c-b7cde1c4028e}</Project>
+      <Name>FirmaRemotaAruba</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

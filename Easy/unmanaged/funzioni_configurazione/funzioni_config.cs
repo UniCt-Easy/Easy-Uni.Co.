@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -395,7 +395,8 @@ namespace funzioni_configurazione{//funzioni_configurazione//
                 else {
                     gboxclass.Visible = false;
                 }
-                if (filterSec != null) {
+				if ((filterSec != null) && (filterSec != DBNull.Value)) {
+				 
                     btnCodice.Tag = "choose.sorting0" + nums + ".treeall." + filtercomplete;
                 }
                 else {
@@ -439,7 +440,7 @@ namespace funzioni_configurazione{//funzioni_configurazione//
                 var title = conn.DO_READ_VALUE("sortingkind", filter, "description").ToString();
                 gboxclass.Text = title;
                 //btnCodice.Tag = "manage.sorting" + nums + ".tree." + filter;
-                if (filterSec != null) {
+                if ((filterSec != null)&&(filterSec != DBNull.Value)) {
                     btnCodice.Tag = "choose.sorting" + nums + ".treeusable." + filter;
                 }
                 else {

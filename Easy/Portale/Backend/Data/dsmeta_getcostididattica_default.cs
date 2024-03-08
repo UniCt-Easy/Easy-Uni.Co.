@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,14 +27,14 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_getcostididattica_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_getcostididattica_default: DataSet {
+public partial class dsmeta_getcostididattica_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrydocentiview 		=> (MetaTable)Tables["registrydocentiview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable contrattokinddefaultview 		=> (MetaTable)Tables["contrattokinddefaultview"];
+	public MetaTable positiondefaultview 		=> (MetaTable)Tables["positiondefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable affidamentokinddefaultview 		=> (MetaTable)Tables["affidamentokinddefaultview"];
@@ -90,50 +90,190 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// REGISTRYDOCENTIVIEW /////////////////////////////////
 	var tregistrydocentiview= new MetaTable("registrydocentiview");
+	tregistrydocentiview.defineColumn("accmotive_codemotive", typeof(string));
+	tregistrydocentiview.defineColumn("accmotive_registry_codemotive", typeof(string));
+	tregistrydocentiview.defineColumn("accmotive_registry_title", typeof(string));
+	tregistrydocentiview.defineColumn("accmotive_title", typeof(string));
+	tregistrydocentiview.defineColumn("classconsorsuale_title", typeof(string));
 	tregistrydocentiview.defineColumn("dropdown_title", typeof(string),false);
+	tregistrydocentiview.defineColumn("fonteindicebibliometrico_title", typeof(string));
+	tregistrydocentiview.defineColumn("geo_city_title", typeof(string));
+	tregistrydocentiview.defineColumn("geo_nation_title", typeof(string));
+	tregistrydocentiview.defineColumn("idaccmotivecredit", typeof(string));
+	tregistrydocentiview.defineColumn("idaccmotivedebit", typeof(string));
 	tregistrydocentiview.defineColumn("idcity", typeof(int));
 	tregistrydocentiview.defineColumn("idclassconsorsuale", typeof(int));
 	tregistrydocentiview.defineColumn("idnation", typeof(int));
 	tregistrydocentiview.defineColumn("idreg", typeof(int),false);
 	tregistrydocentiview.defineColumn("idreg_istituti", typeof(int));
-	tregistrydocentiview.defineColumn("idregistryclass", typeof(string));
 	tregistrydocentiview.defineColumn("idsasd", typeof(int));
 	tregistrydocentiview.defineColumn("idstruttura", typeof(int));
-	tregistrydocentiview.defineColumn("idtitle", typeof(string));
+	tregistrydocentiview.defineColumn("maritalstatus_description", typeof(string));
 	tregistrydocentiview.defineColumn("registry_active", typeof(string));
+	tregistrydocentiview.defineColumn("registry_annotation", typeof(string));
+	tregistrydocentiview.defineColumn("registry_authorization_free", typeof(string));
+	tregistrydocentiview.defineColumn("registry_badgecode", typeof(string));
+	tregistrydocentiview.defineColumn("registry_birthdate", typeof(DateTime));
+	tregistrydocentiview.defineColumn("registry_ccp", typeof(string));
+	tregistrydocentiview.defineColumn("registry_cf", typeof(string));
+	tregistrydocentiview.defineColumn("registry_ct", typeof(DateTime),false);
+	tregistrydocentiview.defineColumn("registry_cu", typeof(string),false);
+	tregistrydocentiview.defineColumn("registry_docenti_ct", typeof(DateTime),false);
+	tregistrydocentiview.defineColumn("registry_docenti_cu", typeof(string),false);
+	tregistrydocentiview.defineColumn("registry_docenti_cv", typeof(string));
+	tregistrydocentiview.defineColumn("registry_docenti_idfonteindicebibliometrico", typeof(int));
+	tregistrydocentiview.defineColumn("registry_docenti_idreg", typeof(int),false);
+	tregistrydocentiview.defineColumn("registry_docenti_indicebibliometrico", typeof(int));
+	tregistrydocentiview.defineColumn("registry_docenti_lt", typeof(DateTime),false);
+	tregistrydocentiview.defineColumn("registry_docenti_lu", typeof(string),false);
+	tregistrydocentiview.defineColumn("registry_docenti_matricola", typeof(string));
+	tregistrydocentiview.defineColumn("registry_docenti_ricevimento", typeof(string));
+	tregistrydocentiview.defineColumn("registry_docenti_soggiorno", typeof(string));
+	tregistrydocentiview.defineColumn("registry_email_fe", typeof(string));
+	tregistrydocentiview.defineColumn("registry_extension", typeof(string));
+	tregistrydocentiview.defineColumn("registry_extmatricula", typeof(string));
+	tregistrydocentiview.defineColumn("registry_flag_pa", typeof(string));
+	tregistrydocentiview.defineColumn("registry_flagbankitaliaproceeds", typeof(string));
+	tregistrydocentiview.defineColumn("registry_foreigncf", typeof(string));
+	tregistrydocentiview.defineColumn("registry_forename", typeof(string));
+	tregistrydocentiview.defineColumn("registry_gender", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idcategory", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idcentralizedcategory", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idexternal", typeof(int));
+	tregistrydocentiview.defineColumn("registry_idmaritalstatus", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idregistryclass", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idregistrykind", typeof(int));
+	tregistrydocentiview.defineColumn("registry_idtitle", typeof(string));
+	tregistrydocentiview.defineColumn("registry_ipa_fe", typeof(string));
+	tregistrydocentiview.defineColumn("registry_ipa_perlapa", typeof(string));
+	tregistrydocentiview.defineColumn("registry_location", typeof(string));
+	tregistrydocentiview.defineColumn("registry_lt", typeof(DateTime),false);
+	tregistrydocentiview.defineColumn("registry_lu", typeof(string),false);
+	tregistrydocentiview.defineColumn("registry_maritalsurname", typeof(string));
+	tregistrydocentiview.defineColumn("registry_multi_cf", typeof(string));
+	tregistrydocentiview.defineColumn("registry_p_iva", typeof(string));
+	tregistrydocentiview.defineColumn("registry_pec_fe", typeof(string));
+	tregistrydocentiview.defineColumn("registry_residence", typeof(int),false);
+	tregistrydocentiview.defineColumn("registry_rtf", typeof(Byte[]));
+	tregistrydocentiview.defineColumn("registry_sdi_defrifamm", typeof(string));
+	tregistrydocentiview.defineColumn("registry_sdi_norifamm", typeof(string));
+	tregistrydocentiview.defineColumn("registry_surname", typeof(string));
+	tregistrydocentiview.defineColumn("registry_toredirect", typeof(int));
+	tregistrydocentiview.defineColumn("registry_txt", typeof(string));
+	tregistrydocentiview.defineColumn("registryclass_description", typeof(string));
+	tregistrydocentiview.defineColumn("registryistituti_title", typeof(string));
+	tregistrydocentiview.defineColumn("residence_description", typeof(string));
+	tregistrydocentiview.defineColumn("sasd_codice", typeof(string));
+	tregistrydocentiview.defineColumn("sasd_title", typeof(string));
+	tregistrydocentiview.defineColumn("struttura_idstrutturakind", typeof(int));
+	tregistrydocentiview.defineColumn("struttura_title", typeof(string));
+	tregistrydocentiview.defineColumn("strutturakind_title", typeof(string));
+	tregistrydocentiview.defineColumn("title", typeof(string),false);
+	tregistrydocentiview.defineColumn("title_description", typeof(string));
 	Tables.Add(tregistrydocentiview);
 	tregistrydocentiview.defineKey("idreg");
 
-	//////////////////// CONTRATTOKINDDEFAULTVIEW /////////////////////////////////
-	var tcontrattokinddefaultview= new MetaTable("contrattokinddefaultview");
-	tcontrattokinddefaultview.defineColumn("contrattokind_active", typeof(string));
-	tcontrattokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tcontrattokinddefaultview.defineColumn("idcontrattokind", typeof(int),false);
-	Tables.Add(tcontrattokinddefaultview);
-	tcontrattokinddefaultview.defineKey("idcontrattokind");
+	//////////////////// POSITIONDEFAULTVIEW /////////////////////////////////
+	var tpositiondefaultview= new MetaTable("positiondefaultview");
+	tpositiondefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tpositiondefaultview.defineColumn("idposition", typeof(int),false);
+	tpositiondefaultview.defineColumn("position_active", typeof(string));
+	tpositiondefaultview.defineColumn("position_assegnoaggiuntivo", typeof(string));
+	tpositiondefaultview.defineColumn("position_codeposition", typeof(string),false);
+	tpositiondefaultview.defineColumn("position_costolordoannuo", typeof(decimal));
+	tpositiondefaultview.defineColumn("position_costolordoannuooneri", typeof(decimal));
+	tpositiondefaultview.defineColumn("position_ct", typeof(DateTime),false);
+	tpositiondefaultview.defineColumn("position_cu", typeof(string),false);
+	tpositiondefaultview.defineColumn("position_description", typeof(string),false);
+	tpositiondefaultview.defineColumn("position_elementoperequativo", typeof(string));
+	tpositiondefaultview.defineColumn("position_foreignclass", typeof(string));
+	tpositiondefaultview.defineColumn("position_indennitadiateneo", typeof(string));
+	tpositiondefaultview.defineColumn("position_indennitadiposizione", typeof(string));
+	tpositiondefaultview.defineColumn("position_indvacancacontrattuale", typeof(string));
+	tpositiondefaultview.defineColumn("position_livello", typeof(string));
+	tpositiondefaultview.defineColumn("position_lt", typeof(DateTime),false);
+	tpositiondefaultview.defineColumn("position_lu", typeof(string),false);
+	tpositiondefaultview.defineColumn("position_maxincomeclass", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxcompitididatempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxcompitididatempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxdidatempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxdidatempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxgg", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxtempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxtempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremincompitididatempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremincompitididatempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremindidatempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremindidatempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremintempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremintempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_orestraordinariemax", typeof(int));
+	tpositiondefaultview.defineColumn("position_parttime", typeof(string));
+	tpositiondefaultview.defineColumn("position_printingorder", typeof(int));
+	tpositiondefaultview.defineColumn("position_puntiorganico", typeof(decimal));
+	tpositiondefaultview.defineColumn("position_siglaesportazione", typeof(string));
+	tpositiondefaultview.defineColumn("position_siglaimportazione", typeof(string));
+	tpositiondefaultview.defineColumn("position_tempdef", typeof(string));
+	tpositiondefaultview.defineColumn("position_tipoente", typeof(string));
+	tpositiondefaultview.defineColumn("position_tipopersonale", typeof(string));
+	tpositiondefaultview.defineColumn("position_totaletredicesima", typeof(string));
+	tpositiondefaultview.defineColumn("position_tredicesimaindennitaintegrativaspeciale", typeof(string));
+	tpositiondefaultview.defineColumn("title", typeof(string));
+	Tables.Add(tpositiondefaultview);
+	tpositiondefaultview.defineKey("idposition");
 
 	//////////////////// AFFIDAMENTOKINDDEFAULTVIEW /////////////////////////////////
 	var taffidamentokinddefaultview= new MetaTable("affidamentokinddefaultview");
 	taffidamentokinddefaultview.defineColumn("affidamentokind_active", typeof(string));
+	taffidamentokinddefaultview.defineColumn("affidamentokind_costoora", typeof(decimal));
+	taffidamentokinddefaultview.defineColumn("affidamentokind_costoorariodacontratto", typeof(string));
+	taffidamentokinddefaultview.defineColumn("affidamentokind_ct", typeof(DateTime),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_cu", typeof(string),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_description", typeof(string),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_lt", typeof(DateTime),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_lu", typeof(string),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_sortcode", typeof(int),false);
 	taffidamentokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	taffidamentokinddefaultview.defineColumn("idaffidamentokind", typeof(int),false);
+	taffidamentokinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(taffidamentokinddefaultview);
 	taffidamentokinddefaultview.defineKey("idaffidamentokind");
 
 	//////////////////// INSEGNINTEGDEFAULTVIEW /////////////////////////////////
 	var tinsegnintegdefaultview= new MetaTable("insegnintegdefaultview");
+	tinsegnintegdefaultview.defineColumn("denominazione", typeof(string));
 	tinsegnintegdefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tinsegnintegdefaultview.defineColumn("idinsegn", typeof(int),false);
 	tinsegnintegdefaultview.defineColumn("idinsegninteg", typeof(int),false);
+	tinsegnintegdefaultview.defineColumn("insegninteg_codice", typeof(string));
+	tinsegnintegdefaultview.defineColumn("insegninteg_ct", typeof(DateTime),false);
+	tinsegnintegdefaultview.defineColumn("insegninteg_cu", typeof(string),false);
+	tinsegnintegdefaultview.defineColumn("insegninteg_denominazione_en", typeof(string));
+	tinsegnintegdefaultview.defineColumn("insegninteg_lt", typeof(DateTime),false);
+	tinsegnintegdefaultview.defineColumn("insegninteg_lu", typeof(string),false);
 	Tables.Add(tinsegnintegdefaultview);
 	tinsegnintegdefaultview.defineKey("idinsegn", "idinsegninteg");
 
 	//////////////////// INSEGNDEFAULTVIEW /////////////////////////////////
 	var tinsegndefaultview= new MetaTable("insegndefaultview");
+	tinsegndefaultview.defineColumn("corsostudio_annoistituz", typeof(int));
+	tinsegndefaultview.defineColumn("corsostudio_title", typeof(string));
+	tinsegndefaultview.defineColumn("corsostudiokind_title", typeof(string));
+	tinsegndefaultview.defineColumn("denominazione", typeof(string));
 	tinsegndefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tinsegndefaultview.defineColumn("idcorsostudio", typeof(int));
 	tinsegndefaultview.defineColumn("idinsegn", typeof(int),false);
 	tinsegndefaultview.defineColumn("idstruttura", typeof(int));
+	tinsegndefaultview.defineColumn("insegn_codice", typeof(string));
+	tinsegndefaultview.defineColumn("insegn_ct", typeof(DateTime),false);
+	tinsegndefaultview.defineColumn("insegn_cu", typeof(string),false);
+	tinsegndefaultview.defineColumn("insegn_denominazione_en", typeof(string));
+	tinsegndefaultview.defineColumn("insegn_idcorsostudiokind", typeof(int));
+	tinsegndefaultview.defineColumn("insegn_lt", typeof(DateTime),false);
+	tinsegndefaultview.defineColumn("insegn_lu", typeof(string),false);
+	tinsegndefaultview.defineColumn("struttura_idstrutturakind", typeof(int));
+	tinsegndefaultview.defineColumn("struttura_title", typeof(string));
+	tinsegndefaultview.defineColumn("strutturakind_title", typeof(string));
 	Tables.Add(tinsegndefaultview);
 	tinsegndefaultview.defineKey("idinsegn");
 
@@ -225,19 +365,58 @@ private void initClass() {
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");
 	tsededefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tsededefaultview.defineColumn("geo_city_title", typeof(string));
+	tsededefaultview.defineColumn("geo_nation_title", typeof(string));
 	tsededefaultview.defineColumn("idcity", typeof(int));
 	tsededefaultview.defineColumn("idnation", typeof(int));
 	tsededefaultview.defineColumn("idsede", typeof(int),false);
+	tsededefaultview.defineColumn("sede_address", typeof(string));
+	tsededefaultview.defineColumn("sede_annotations", typeof(string));
+	tsededefaultview.defineColumn("sede_cap", typeof(string));
+	tsededefaultview.defineColumn("sede_ct", typeof(DateTime),false);
+	tsededefaultview.defineColumn("sede_cu", typeof(string),false);
+	tsededefaultview.defineColumn("sede_idreg", typeof(int));
+	tsededefaultview.defineColumn("sede_idsedemiur", typeof(int));
+	tsededefaultview.defineColumn("sede_latitude", typeof(decimal));
+	tsededefaultview.defineColumn("sede_longitude", typeof(decimal));
+	tsededefaultview.defineColumn("sede_lt", typeof(DateTime),false);
+	tsededefaultview.defineColumn("sede_lu", typeof(string),false);
+	tsededefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tsededefaultview);
 	tsededefaultview.defineKey("idsede");
 
 	//////////////////// CORSOSTUDIODEFAULTVIEW /////////////////////////////////
 	var tcorsostudiodefaultview= new MetaTable("corsostudiodefaultview");
+	tcorsostudiodefaultview.defineColumn("corsostudio_almalaureasurvey", typeof(string));
+	tcorsostudiodefaultview.defineColumn("corsostudio_annoistituz", typeof(int));
+	tcorsostudiodefaultview.defineColumn("corsostudio_basevoto", typeof(int));
+	tcorsostudiodefaultview.defineColumn("corsostudio_codice", typeof(string));
+	tcorsostudiodefaultview.defineColumn("corsostudio_codicemiur", typeof(string));
+	tcorsostudiodefaultview.defineColumn("corsostudio_codicemiurlungo", typeof(string));
+	tcorsostudiodefaultview.defineColumn("corsostudio_crediti", typeof(int));
+	tcorsostudiodefaultview.defineColumn("corsostudio_ct", typeof(DateTime),false);
+	tcorsostudiodefaultview.defineColumn("corsostudio_cu", typeof(string),false);
+	tcorsostudiodefaultview.defineColumn("corsostudio_durata", typeof(int));
+	tcorsostudiodefaultview.defineColumn("corsostudio_idcorsostudiokind", typeof(int),false);
+	tcorsostudiodefaultview.defineColumn("corsostudio_idduratakind", typeof(int));
+	tcorsostudiodefaultview.defineColumn("corsostudio_lt", typeof(DateTime),false);
+	tcorsostudiodefaultview.defineColumn("corsostudio_lu", typeof(string),false);
+	tcorsostudiodefaultview.defineColumn("corsostudio_obbform", typeof(string));
+	tcorsostudiodefaultview.defineColumn("corsostudio_sboccocc", typeof(string));
+	tcorsostudiodefaultview.defineColumn("corsostudio_title_en", typeof(string));
+	tcorsostudiodefaultview.defineColumn("corsostudiokind_title", typeof(string));
+	tcorsostudiodefaultview.defineColumn("corsostudiolivello_title", typeof(string));
+	tcorsostudiodefaultview.defineColumn("corsostudionorma_title", typeof(string));
 	tcorsostudiodefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tcorsostudiodefaultview.defineColumn("duratakind_title", typeof(string));
 	tcorsostudiodefaultview.defineColumn("idcorsostudio", typeof(int),false);
 	tcorsostudiodefaultview.defineColumn("idcorsostudiolivello", typeof(int));
 	tcorsostudiodefaultview.defineColumn("idcorsostudionorma", typeof(int));
 	tcorsostudiodefaultview.defineColumn("idstruttura", typeof(int));
+	tcorsostudiodefaultview.defineColumn("struttura_idstrutturakind", typeof(int));
+	tcorsostudiodefaultview.defineColumn("struttura_title", typeof(string));
+	tcorsostudiodefaultview.defineColumn("strutturakind_title", typeof(string));
+	tcorsostudiodefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tcorsostudiodefaultview);
 	tcorsostudiodefaultview.defineKey("idcorsostudio");
 
@@ -253,12 +432,12 @@ private void initClass() {
 	tgetcostididattica.defineColumn("docente", typeof(string));
 	tgetcostididattica.defineColumn("idaffidamento", typeof(int),false);
 	tgetcostididattica.defineColumn("idaffidamentokind", typeof(int),false);
-	tgetcostididattica.defineColumn("idcontrattokind", typeof(int),false);
 	tgetcostididattica.defineColumn("idcorsostudio", typeof(int),false);
 	tgetcostididattica.defineColumn("iddidprog", typeof(int),false);
 	tgetcostididattica.defineColumn("iddidprogcurr", typeof(int),false);
 	tgetcostididattica.defineColumn("idinsegn", typeof(int),false);
 	tgetcostididattica.defineColumn("idinsegninteg", typeof(int));
+	tgetcostididattica.defineColumn("idposition", typeof(int),false);
 	tgetcostididattica.defineColumn("idreg_docenti", typeof(int));
 	tgetcostididattica.defineColumn("idsede", typeof(int),false);
 	tgetcostididattica.defineColumn("insegnamento", typeof(string));
@@ -266,7 +445,7 @@ private void initClass() {
 	tgetcostididattica.defineColumn("ruolo", typeof(string),false);
 	tgetcostididattica.defineColumn("sede", typeof(string));
 	Tables.Add(tgetcostididattica);
-	tgetcostididattica.defineKey("aa", "idaffidamento", "idcontrattokind", "idcorsostudio", "iddidprog", "iddidprogcurr", "idsede");
+	tgetcostididattica.defineKey("aa", "idaffidamento", "idcorsostudio", "iddidprog", "iddidprogcurr", "idposition", "idsede");
 
 	#endregion
 
@@ -276,9 +455,9 @@ private void initClass() {
 	var cChild = new []{getcostididattica.Columns["idreg_docenti"]};
 	Relations.Add(new DataRelation("FK_getcostididattica_registrydocentiview_idreg_docenti",cPar,cChild,false));
 
-	cPar = new []{contrattokinddefaultview.Columns["idcontrattokind"]};
-	cChild = new []{getcostididattica.Columns["idcontrattokind"]};
-	Relations.Add(new DataRelation("FK_getcostididattica_contrattokinddefaultview_idcontrattokind",cPar,cChild,false));
+	cPar = new []{positiondefaultview.Columns["idposition"]};
+	cChild = new []{getcostididattica.Columns["idposition"]};
+	Relations.Add(new DataRelation("FK_getcostididattica_positiondefaultview_idposition",cPar,cChild,false));
 
 	cPar = new []{affidamentokinddefaultview.Columns["idaffidamentokind"]};
 	cChild = new []{getcostididattica.Columns["idaffidamentokind"]};

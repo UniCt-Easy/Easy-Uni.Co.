@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -72,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var arraydef = [];
 				
 				arraydef.push(this.insertSoglie());
-				//beforeFillInside
+				this.EnableControl();				//beforeFillInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
@@ -112,33 +95,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//beforePost
 
 			configureDependencies: function () {
-            var valorenumericoCtrl = $('#perfobiettiviuo_default_valorenumerico');
+				var valorenumericoCtrl = $('#perfobiettiviuo_default_valorenumerico');
 
-            var completamentoCtrl = $('#perfobiettiviuo_default_completamento');
-            this.registerFormula(completamentoCtrl, this.manageperfobiettiviuo_default_completamento.bind(this));
-            this.addDependencies(valorenumericoCtrl, completamentoCtrl);
-         },
-		insertSoglie: function (prm) {
-			var filterYear = window.jsDataQuery.eq('year', this.state.callerState.currentRow.year);
+				var completamentoCtrl = $('#perfobiettiviuo_default_completamento');
+				this.registerFormula(completamentoCtrl, this.manageperfobiettiviuo_default_completamento.bind(this));
+				this.addDependencies(valorenumericoCtrl, completamentoCtrl);
+			},
+
+			insertSoglie: function (prm) {
+				var filterYear = window.jsDataQuery.eq('year', this.state.callerState.currentRow.year);
 
 				var message = null;
-				//if (this.getDataTable("perfobiettiviuosoglia").rows.length > 0 && !this.state.isInsertState()) {
-				//	return;
-				//}
 				if (this.getDataTable("perfobiettiviuosoglia").rows.length > 0) {
 					message = false;
-				}				
+				}
 
-				return this.superClass.insertSoglie({ table: "perfobiettiviuosoglia", keyColumns: "idperfobiettiviuo,idperfvalutazioneuo", year: this.state.callerState.currentRow.year, columnValueName: "percentuale", filter: filterYear, desMessage:message});
-			  },
+				return this.superClass.insertSoglie({ table: "perfobiettiviuosoglia", keyColumns: "idperfobiettiviuo,idperfvalutazioneuo", year: this.state.callerState.currentRow.year, columnValueName: "percentuale", filter: filterYear, desMessage: message });
+			},
+
+                        EnableControl: function () {
+				if (this.state.callerPage.crea !== true) {
+					this.enableControl('#perfobiettiviuo_default_title', false)
+					this.enableControl('#perfobiettiviuo_default_description', false)
+					this.enableControl('#perfobiettiviuo_default_peso', false)
+				} 
+				
+				var goi = $('#grid_perfobiettiviuosoglia_default').data("customController")
+				if (goi) {
+					if (this.state.callerPage.crea !== true) {
+						$(goi.el).css("pointer-events", "none")
+					} else {
+						$(goi.el).css("pointer-events", "unset")
+					}
+				}
+			},
 
 			manageperfobiettiviuo_default_completamento: function () {
-if (this.state.currentRow.valorenumerico !==undefined && this.state.currentRow.valorenumerico !== null) {
-	var arrObiettivi = _.map(this.state.callerState.DS.tables["perfobiettiviuosoglia"].rows, function (r) { return { indicatore: r.valorenumerico, soglia: r.percentuale} })            
-               this.enableControl($('#perfobiettiviuo_default_completamento'), false);
-	return this.calculateCompletamentoByValoreNumerico(arrObiettivi, this.state.currentRow.valorenumerico);
-            }
-	else this.enableControl($('#perfobiettiviuo_default_completamento'), true);
+				var haveNumericSoglia = false;
+				var arrObiettivi = _.map(this.state.DS.tables["perfobiettiviuosoglia"].rows, function (r) {
+					if (r.valorenumerico !== undefined && r.valorenumerico !== null) {
+						haveNumericSoglia = true;
+					}
+					return { indicatore: r.valorenumerico, soglia: r.percentuale }
+				})
+
+				if (this.state.currentRow.valorenumerico !== undefined && this.state.currentRow.valorenumerico !== null) {
+					this.enableControl($('#perfobiettiviuo_default_completamento'), false);
+					return this.calculateCompletamentoByValoreNumerico(arrObiettivi, this.state.currentRow.valorenumerico);
+				}
+				else this.enableControl($('#perfobiettiviuo_default_completamento'), true);
+
+				this.enableControl($('#perfobiettiviuo_default_valorenumerico'), haveNumericSoglia);
+
 			},
 
 			//buttons

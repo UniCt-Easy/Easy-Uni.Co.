@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -45,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow['!altreupb'])
+				if (this.isNull(parentRow['!altreupb']) || parentRow['!altreupb'] == '')
 					parentRow['!altreupb'] = 'S';
 				//beforeFillFilter
 				
@@ -65,7 +48,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#progettoasset_default_ammortamento'), true);
+				this.enableControl($('#progettoasset_default_ammortamentopreventivato'), true);
+				this.enableControl($('#progettoasset_default_descammortamentopreventivato'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#progettoasset_default_ammortamento'), false);
@@ -91,8 +82,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-progettoasset_default");
-				$('#progettoasset_default_idpiece').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#progettoasset_default_idpiece').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#progettoasset_default_idpiece').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idpiece);
+				$('#progettoasset_default_idpiece').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idpiece);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -123,7 +114,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 				// 1. select idinv  from datasetparent.progettotipocostoinventorytree.idinv)
 				var def = appMeta.Deferred("setFilterOnClassificazioneInventariale-progettoasset_default");
-				var self = window.appMeta.currentMetaPage;
+				var self = window.appMeta.currApp.currentMetaPage;
 				var arrayIdInv = _.map(self.state.callerState.DS.tables.progettotipocostoinventorytree.rows,
 					function(r) {return r.idinv;});
 				var filterInventoryTree = self.q.isIn("idinv", arrayIdInv);
@@ -135,7 +126,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 						// 3. assetsegview where inventorytree_codeinv is in
 						var filter = self.q.isIn("inventorytree_codeinv", arrayCodeinv);
-						//4 . se è spuntato altreupb allora basta così altrimenti filtro anche sulle upb dell progetto
+						//4 . se Ã¨ spuntato altreupb allora basta cosÃ¬ altrimenti filtro anche sulle upb dell progetto
 						if (!$('#progettoasset_default_altreupb').is(':checked') && self.state.currentRow) {
 							var upbs = _.map(self.state.callerState.DS.tables.workpackageupb.rows, function (r) { return r.idupb; });
 							filter = window.jsDataQuery.and([filter, window.jsDataQuery.isIn("upb_idupb", upbs)]);
@@ -164,7 +155,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								msg = "KO " + res.err;
 							}
 							else {
-								msg = "OK. L'ammortamento preventivato è stato aggiornato";
+								msg = "OK. L'ammortamento preventivato Ã¨ stato aggiornato";
 								var ds = appMeta.getDataUtils.getJsDataSetFromJson(res.ds);
 								if (ds.tables['Table']) {
 									that.state.currentRow.ammortamentopreventivato = ds.tables['Table'].rows[0].valoreammortizzato;
@@ -173,7 +164,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 									$('#progettoasset_default_descammortamentopreventivato').val(ds.tables['Table'].rows[0].descrizione);
 								}
 								else {
-									msg = "KO. Il sistema non è riuscito a calcolare la quota di ammortamento. Verificare i dati inseriti.";
+									msg = "KO. Il sistema non Ã¨ riuscito a calcolare la quota di ammortamento. Verificare i dati inseriti.";
 								}
 							}
 							that.hideWaitingIndicator(waitingHandler);
@@ -182,6 +173,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					} else {
 						that.hideWaitingIndicator(waitingHandler);
 					}
+				});
+			},
+
+			children: [''],
+			haveChildren: function () {
+				var self = this;
+				return _.some(this.children, function (child) {
+					if (child !== '')
+						return !!self.getDataTable(child).rows.length;
+					else
+						return false;
 				});
 			},
 
@@ -197,17 +199,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			managealtreupb: function(that) { 
 				that.setFilterOnClassificazioneInventariale();
-			},
-
-			children: [''],
-			haveChildren: function () {
-				var self = this;
-				return _.some(this.children, function (child) {
-					if (child !== '')
-						return !!self.getDataTable(child).rows.length;
-					else
-						return false;
-				});
 			},
 
 			//buttons

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -86,6 +86,10 @@ namespace meta_csa_importver_partition_incomeview{
                 DescribeAColumn(T, "descrmov", "Descrizione", nPos++);
                 DescribeAColumn(T, "movkind", ".Tipo mov CSA", nPos++);
                 DescribeAColumn(T, "descrmovkind", "Tipo mov CSA", nPos++);
+                DescribeAColumn(T, "codefin_mov", "Cod. Bilancio", nPos++);
+                DescribeAColumn(T, "fin_mov", "Voce Bilancio", nPos++);
+                DescribeAColumn(T, "codeupb_mov", "Cod. UPB", nPos++);
+                DescribeAColumn(T, "upb_mov", "UPB", nPos++);
                 DescribeAColumn(T, "registry_main", "Anagr. Movimento", nPos++);
                 DescribeAColumn(T, "registry", "Anagr. Regola Sp.", nPos++);
                 DescribeAColumn(T, "registry_agency", "Anagr. Ente versamento", nPos++);
@@ -111,6 +115,10 @@ namespace meta_csa_importver_partition_incomeview{
                 DescribeAColumn(T, "nmov", "Num. Movimento", nPos++);
                 DescribeAColumn(T, "descrmov", "Descrizione", nPos++);
                 DescribeAColumn(T, "movkind", ".Tipo mov CSA", nPos++);
+                DescribeAColumn(T, "codefin_mov", "Cod. Bilancio", nPos++);
+                DescribeAColumn(T, "fin_mov", "Voce Bilancio", nPos++);
+                DescribeAColumn(T, "codeupb_mov", "Cod. UPB", nPos++);
+                DescribeAColumn(T, "upb_mov", "UPB", nPos++);
                 DescribeAColumn(T, "descrmovkind", "Tipo mov CSA", nPos++);
                 DescribeAColumn(T, "registry_main", "Anagr. Movimento", nPos++);
                 DescribeAColumn(T, "registry", "Anagr. Regola Sp.", nPos++);

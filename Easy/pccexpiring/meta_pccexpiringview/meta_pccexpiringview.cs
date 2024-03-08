@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,13 +43,18 @@ namespace meta_pccexpiringview {
                 DescribeAColumn(T, "invoicekind", "Tipo documento", nPos++);
                 DescribeAColumn(T, "yinv", "Esercizio", nPos++);
                 DescribeAColumn(T, "ninv", "Numero", nPos++);
-                DescribeAColumn(T, "invrownum", "Num.Dett.Fattura", nPos++);
-                DescribeAColumn(T, "mandatekind", "Tipo Contratto Passivo", nPos++);
-                DescribeAColumn(T, "yman", "Esercizio", nPos++);
-                DescribeAColumn(T, "nman", "Numero", nPos++);
-                DescribeAColumn(T, "manrownum", "Num.Dett.ContrattoPassivo", nPos++);
-                DescribeAColumn(T, "ycon", "Esercizio Contratto Occasionale", nPos++);
-                DescribeAColumn(T, "ncon", "Numero Contratto Occasionale", nPos++);
+                DescribeAColumn(T, "IDENTIFICATIVO_2_a", "IDENTIFICATIVO_2_a(IdSdi)", nPos++);
+                DescribeAColumn(T, "IDENTIFICATIVO_2_b", "IDENTIFICATIVO_2_b(Num. FE)", nPos++);
+                DescribeAColumn(T, "IDENTIFICATIVO_3_a", "IDENTIFICATIVO_3_a(data doc.)", nPos++);
+                DescribeAColumn(T, "IDENTIFICATIVO_3_b", "IDENTIFICATIVO_3_b(CF)", nPos++);
+                DescribeAColumn(T, "IDENTIFICATIVO_3_c", "IDENTIFICATIVO_3_c(ipa)", nPos++);
+                //DescribeAColumn(T, "invrownum", "Num.Dett.Fattura", nPos++);
+                //DescribeAColumn(T, "mandatekind", "Tipo Contratto Passivo", nPos++);
+                //DescribeAColumn(T, "yman", "Esercizio", nPos++);
+                //DescribeAColumn(T, "nman", "Numero", nPos++);
+                //DescribeAColumn(T, "manrownum", "Num.Dett.ContrattoPassivo", nPos++);
+                //DescribeAColumn(T, "ycon", "Esercizio Contratto Occasionale", nPos++);
+                //DescribeAColumn(T, "ncon", "Numero Contratto Occasionale", nPos++);
                 DescribeAColumn(T, "registry", "Fornitore", nPos++);
                 DescribeAColumn(T, "IdFiscaleIvaFornitore", "Id Fiscale Iva", nPos++);
                 DescribeAColumn(T, "CFfornitore", "Codice Fiscale", nPos++);

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -74,6 +74,7 @@ namespace meta_invoiceview//meta_documentoivaview//
                 DescribeAColumn(T, "p_iva", "P. IVA Cliente/Fornitore", pos++);
               	DescribeAColumn(T,"registryreference","Riferimento Cliente/Fornitore",pos++);
 				DescribeAColumn(T,"flagvariation","Nota variaz.",pos++);
+                DescribeAColumn(T, "identificativo_sdi", "Identificativo Sdi", pos++);
                 DescribeAColumn(T, "expirationkind", "Tipo scad.", pos++);
 				DescribeAColumn(T,"paymentexpiring","giorni scad.",pos++);
 				DescribeAColumn(T,"expiring","Scadenza",pos++);

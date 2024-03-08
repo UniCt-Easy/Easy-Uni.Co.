@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,9 +31,7 @@ namespace invoicedetail_default {
         MetaData Meta;
         public FrmInvoiceDetail_Default() {
             InitializeComponent();
-            cmbTassonomia.DataSource = DS.tassonomia_pagopa;
-            cmbTassonomia.ValueMember = "idtassonomia";
-            cmbTassonomia.DisplayMember = "title";
+           
         }
         DataAccess Conn;
         QueryHelper QHS;
@@ -236,7 +234,10 @@ namespace invoicedetail_default {
             gboxCausaleBilancioEntrata.Enabled = abilita;
             gboxCausaleBilancioEntrataIva.Enabled = abilita;
             gboxProfessionale.Enabled = abilita;
+            groupBox2.Enabled = abilita;
+            groupBox1.Enabled = abilita;
             grpBoxSiopeEP.Enabled = abilita;
+            gBoxTassonomia.Enabled = abilita;
         }
 
         private void CalcolaImponibileValuta()
@@ -311,6 +312,7 @@ namespace invoicedetail_default {
             Mlistino.DS = DS.Clone();
             if (chkListDescription.Checked){
                 FrmAskDescr FR = new FrmAskDescr(Meta.Dispatcher);
+                createForm(FR, this);
                 DialogResult D = FR.ShowDialog(this);
                 if (D != DialogResult.OK) return;
                 if (FR.Selected != null){
@@ -444,6 +446,7 @@ namespace invoicedetail_default {
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
             GetData.CacheTable(DS.mandatekind, null, "description", true);
+            GetData.CacheTable(DS.estimatekind, null, "description", true);
             Meta.CanInsert = false;
             Meta.CanInsertCopy = false;
             Meta.CanCancel = false;
@@ -474,6 +477,8 @@ namespace invoicedetail_default {
             DataTable tExpSetup = Conn.RUN_SELECT("config", "*", null,
                 filterEsercizio, null, null, true);
             GetData.SetStaticFilter(DS.intrastatcode, filterEsercizio);
+            GetData.SetStaticFilter(DS.mandatekind, QHS.CmpEq("linktoinvoice", "S"));
+            GetData.SetStaticFilter(DS.estimatekind, QHS.CmpEq("linktoinvoice", "S"));
 
             gboxIntra.Tag = gboxIntra.Tag + "." + filterEsercizio;
             btnIntra.Tag = btnIntra.Tag + "." + filterEsercizio;
@@ -639,6 +644,5 @@ namespace invoicedetail_default {
         private void txtListino_Enter(object sender, EventArgs e) {
             lastCodice = txtListino.Text;
         }
-
-    }
+	}
 }

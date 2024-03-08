@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -100,15 +100,19 @@ namespace flussocrediti_default {
             this.btnEsportaFlussoCrediti = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtCartellaEsportazione = new System.Windows.Forms.TextBox();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.chkIstransmitted = new System.Windows.Forms.CheckBox();
-            this.folderBrowserDialog2 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog2 = new System.Windows.Forms.FolderBrowserDialog();
             this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.grpPartner = new System.Windows.Forms.GroupBox();
             this.btnAnnullaInvio = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+            this.folderBrowserDialog2 = createFolderBrowserDialog(_folderBrowserDialog2);
             this.TabControll.SuspendLayout();
             this.tabDettagliCA.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -799,7 +803,7 @@ namespace flussocrediti_default {
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "xml";
+            //this.saveFileDialog1.DefaultExt = "xml";
             // 
             // chkIstransmitted
             // 
@@ -937,12 +941,12 @@ namespace flussocrediti_default {
         public System.Windows.Forms.TextBox txtCodice01;
         public System.Windows.Forms.Button btnCodice01;
         private System.Windows.Forms.TextBox txtDenom01;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtCartellaEsportazione;
         private System.Windows.Forms.CheckBox chkIstransmitted;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog2;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog2;
         private System.Windows.Forms.OpenFileDialog _openFileDialog1;
         private System.Windows.Forms.TabPage tabFatture;
         private System.Windows.Forms.Button buttonDeleteFatt;
@@ -973,5 +977,9 @@ namespace flussocrediti_default {
         private System.Windows.Forms.Button btnAnnullaInvio;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
+        private metadatalibrary.IOpenFileDialog openFileDialog1;
+        private metadatalibrary.ISaveFileDialog saveFileDialog1;
+        private metadatalibrary.IFolderBrowserDialog folderBrowserDialog1;
+        private metadatalibrary.IFolderBrowserDialog folderBrowserDialog2;
     }
     }

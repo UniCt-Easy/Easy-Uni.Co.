@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -430,6 +430,7 @@ namespace no_table_entry_rettifica {
             }
 
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, AnnoCommerciale,tEntryDetailSource);
+            createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
                 show(this, "Operazione Annullata!");
@@ -539,7 +540,8 @@ namespace no_table_entry_rettifica {
             string strYear = QHS.quote(currAyear);
             string filter = totali ? QHS.CmpLe("ED.yentry", currAyear) : QHS.CmpEq("ED.yentry", currAyear);
             string strIdepacc = leggiIdEpAcc ? ",ed.idepacc" : "";
-            string query = "select  sum(ed.amount) as amount, ed.idacc, ed.idreg,ed.idaccmotive" + strIdepacc+
+            string query = "select  sum(ed.amount) as amount, ed.idacc, ed.idreg,ed.idaccmotive, " +
+                    " ed.idsor1,ed.idsor2,ed.idsor3 " + strIdepacc+
                     " from entrydetail ed " +
                     " join account A on ED.idacc=A.idacc " +
                     " WHERE " +
@@ -547,26 +549,10 @@ namespace no_table_entry_rettifica {
                     " AND (A.flagaccountusage & 524288 = 0) " +  // Escludi da calcolo Commessa completata . Task 15404
                     " AND " + filter +  //scritture di quest'anno o tutte le prec. a seconda del par. di input
                     " AND ED.idupb= " + QHS.quote(idupb) +
-                    " group by  ed.idreg, ed.idacc,ed.idaccmotive"+ strIdepacc ;//ed.idepacc,
+                    " group by  ed.idreg, ed.idacc,ed.idaccmotive,ed.idsor1,ed.idsor2,ed.idsor3 " + strIdepacc;
             DataTable t = Conn.SQLRunner(query, false,600);
             return t;
         }
-
-        //DataTable ottieniCostiUPB(object idupb) {
-        //    int currAyear = (int)Meta.GetSys("esercizio");
-        //    string strYear = QHS.quote(currAyear);
-        //    string query = "select  sum(ed.amount) as amount,  ed.idreg " +//,ed.idepexp,ed.idacc,
-        //            " from entrydetail ed " +
-        //            " join account A on ED.idacc=A.idacc " +
-        //            " WHERE " +
-        //            " A.flagaccountusage & 64 <> 0 " +  //costi
-        //            " AND ED.yentry= " + strYear +  //scritture di quest'anno
-        //            " AND ED.idupb= " + QHS.quote(idupb) +
-        //            " group by  ed.idreg"; //,ed.idepexp,ed.idacc
-        //    DataTable t = Conn.SQLRunner(query, false,600);
-        //    return t;
-        //}
-
 
         void ripartisciSommaInBaseARicavi(decimal somma, DataTable ricavi) {
             decimal sommaRicavi = MetaData.SumColumn(ricavi, "amount");
@@ -597,7 +583,8 @@ namespace no_table_entry_rettifica {
 
             string query = "select  U.idupb, -sum(ed.amount) as accruals ,year(U.stop) as yearstop, year(U.start) as yearstart,ed.idacc as idacc_accruals,  " +
                 "EU.idacc_deferredcost, 	EU.idaccmotive_deferredcost, EU.idacc_revenue,EU.idaccmotive_revenue,U.idepupbkind,U.title,U.codeupb ," +
-                "EU.idacc_cost,EU.idaccmotive_cost,EU.idacc_accruals, EU.idaccmotive_accruals " +//, ed.idepacced.idepexp, commentato con task 11624
+                "EU.idacc_cost,EU.idaccmotive_cost,EU.idacc_accruals, EU.idaccmotive_accruals  " +
+                     //, ed.idepacced.idepexp, commentato con task 11624
                     " from entrydetail ed " +
                     " join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry "+
                     " join account A on ED.idacc=A.idacc " +
@@ -613,9 +600,9 @@ namespace no_table_entry_rettifica {
                     " AND EU.adjustmentkind='C'  "+        
                     " group by U.idupb, ed.idacc, EU.idacc_cost,EU.idaccmotive_cost,"+
                      "EU.idacc_deferredcost, 	EU.idaccmotive_deferredcost, EU.idacc_revenue,EU.idaccmotive_revenue," +
-                    " EU.idacc_accruals, EU.idacc_deferredcost,EU.idaccmotive_accruals,year(U.stop),year(U.start),U.idepupbkind,U.title,U.codeupb   " +
-                " having " +
-                " -sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end) <> 0"; // RATEO DIVERSO DA ZERO; // ed.idepacc,ed.idepexp,
+                    " EU.idacc_accruals, EU.idacc_deferredcost,EU.idaccmotive_accruals,year(U.stop),year(U.start),U.idepupbkind,U.title,U.codeupb  " +
+                    " having " +
+                    " -sum(case when A.idacc = EU.idacc_accruals then ED.amount else 0 end) <> 0"; // RATEO DIVERSO DA ZERO; // ed.idepacc,ed.idepexp,
             DataTable t = Conn.SQLRunner(query, false,600);
             return t;
         }
@@ -632,7 +619,7 @@ namespace no_table_entry_rettifica {
                 "EU.idaccmotive_cost, EU.idaccmotive_revenue, 	EU.idaccmotive_deferredcost,EU.idaccmotive_accruals," +
                 "year(U.stop) as yearstop, year(U.start) as yearstart,   EU.adjustmentkind,U.idepupbkind,U.codeupb,U.title " +
                 "from entrydetail ed (nolock) " +
-                " join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry "+
+                " join entry e (nolock) on e.yentry=ed.yentry and e.nentry=ed.nentry " +
                 " join UPB UPB_associati (nolock)  on ed.idupb = UPB_associati.idupb " +
                 " join UPB U (nolock)  on U.idupb=ISNULL(UPB_associati.idupb_capofila,UPB_associati.idupb) " +
                 "join epupbkindyear EU (nolock)  on EU.idepupbkind = U.idepupbkind " +
@@ -640,12 +627,12 @@ namespace no_table_entry_rettifica {
                 " where (A.flagaccountusage & 524288 = 0 ) and " +  // Escludi da calcolo Commessa completata . Task 15404
                 QHS.AppAnd(QHS.NullOrLe("year(U.start)", currAyear),
                             QHS.CmpGt("year(U.stop)", currAyear), QHS.CmpEq("EU.ayear", currAyear),
-                    QHS.FieldNotIn("e.identrykind",new object[] {8,11,12} ),
+                    QHS.FieldNotIn("e.identrykind", new object[] { 8, 11, 12 }),
                     QHS.CmpEq("EU.adjustmentkind", "C"), QHS.CmpEq("ED.yentry", currAyear)) +
                 " group by U.idupb,EU.idacc_cost, EU.idacc_revenue, 	EU.idacc_deferredcost,EU.idacc_accruals, " +
                 " EU.idaccmotive_cost, EU.idaccmotive_revenue, 	EU.idaccmotive_deferredcost,EU.idaccmotive_accruals," +
                 " EU.adjustmentkind,year(U.stop),year(U.start),U.idepupbkind,U.codeupb,U.title  ";
-            
+             
 
             DataTable tPluri = DataAccess.SQLRunner(Meta.Conn, query,false,600);
             return tPluri;
@@ -678,7 +665,7 @@ namespace no_table_entry_rettifica {
                
                 " group by U.idupb,EU.idacc_cost, EU.idacc_revenue, 	EU.idacc_deferredcost,EU.idacc_accruals, " +
                 " EU.idaccmotive_cost, EU.idaccmotive_revenue, 	EU.idaccmotive_deferredcost,EU.idaccmotive_accruals," +
-                " EU.adjustmentkind,year(U.stop),year(U.start),U.idepupbkind,U.codeupb,U.title  " +
+                " EU.adjustmentkind,year(U.stop),year(U.start),U.idepupbkind,U.codeupb,U.title " +
                 " having " +
                 " sum(case when A.flagaccountusage & (64+131072) <> 0 then ED.amount else 0 end)  < "  + // COSTI < RICAVI
                 " sum(case when A.flagaccountusage & 128 <> 0 then ED.amount else 0 end) and " +
@@ -895,11 +882,11 @@ namespace no_table_entry_rettifica {
                     rDetail["idacc"] = Curr[campoCosto];
                     rDetail["idupb"] = Curr["idupb"];
                     rDetail["idaccmotive"] = Curr[causaleCosto];
-                    //rDetail["idsor1"] = Curr["idsor1"];
-                    //rDetail["idsor2"] = Curr["idsor2"];
-                    //rDetail["idsor3"] = Curr["idsor3"];
-                    //rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
-                    rDetail["competencystart"] = DBNull.Value;
+					//rDetail["idsor1"] = Curr["idsor1"];
+					//rDetail["idsor2"] = Curr["idsor2"];
+					//rDetail["idsor3"] = Curr["idsor3"];
+						//rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
+						rDetail["competencystart"] = DBNull.Value;
                     rDetail["competencystop"] = DBNull.Value;
 
                     rDetail = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
@@ -982,12 +969,12 @@ namespace no_table_entry_rettifica {
                             rDetail["idreg"] = idreg;
                             rDetail["idupb"] = Curr["idupb"];
                             //rDetail["idepexp"] = r["idepexp"];
-                            rDetail["idaccmotive"] = Curr[causaleRicavo];
-                            //rDetail["idsor1"] = Curr["idsor1"];
-                            //rDetail["idsor2"] = Curr["idsor2"];
-                            //rDetail["idsor3"] = Curr["idsor3"];
-                            //rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
-                            rDetail["competencystart"] = DBNull.Value;
+                            rDetail["idaccmotive"] = Curr[causaleRicavo]; // Conto di Ricavo letto da configurazione
+						    //rDetail["idsor1"] = Curr["idsor1"];
+						    //rDetail["idsor2"] = Curr["idsor2"];
+						    //rDetail["idsor3"] = Curr["idsor3"];
+						    //rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
+						    rDetail["competencystart"] = DBNull.Value;
                             rDetail["competencystop"] = DBNull.Value;
 
                             rDetail = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
@@ -1057,11 +1044,11 @@ namespace no_table_entry_rettifica {
                             //rDetail["idepacc"] = r["idepacc"];    commento per task 11624
                             rDetail["idreg"] = idreg; //DBNull.Value;
                             rDetail["idupb"] = Curr["idupb"];
-                            //rDetail["idsor1"] = Curr["idsor1"];
-                            //rDetail["idsor2"] = Curr["idsor2"];
-                            //rDetail["idsor3"] = Curr["idsor3"];
-                            //rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
-                            rDetail["idaccmotive"] = idaccmotive;
+							rDetail["idsor1"] = r["idsor1"];
+							rDetail["idsor2"] = r["idsor2"];
+							rDetail["idsor3"] = r["idsor3"];
+							//rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
+							rDetail["idaccmotive"] = idaccmotive;
                             rDetail["competencystart"] = DBNull.Value;
                             rDetail["competencystop"] = DBNull.Value;
 
@@ -1101,6 +1088,7 @@ namespace no_table_entry_rettifica {
                 return true;
             }
             FrmEntryPreSavePluriennale frm = new FrmEntryPreSavePluriennale(ds.Tables["entrydetail"], Meta.Conn);
+            createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
                 show(this, @"Operazione Annullata!");
@@ -1133,10 +1121,14 @@ namespace no_table_entry_rettifica {
             progBar.Maximum = n;
             progBar.Value = 0;
             bool anyError = false;
+            string lastUpbWithError = "";
             foreach (DataRow r in tCommessaCompletata.Rows) {
 	            string idupb = r["idupb"].ToString();
                 txtCurrent.Text = $@"UPB {r["codeupb"]} {r["title"]}";
-                if (!rigeneraScrittura(r)) anyError=true;
+                if (!rigeneraScrittura(r)) { 
+                    anyError = true; 
+                    lastUpbWithError += $@"UPB {r["codeupb"]} {r["title"]}"+ "\n";
+                 }
                 progBar.Increment(1);
                 progBar.Update();
                 Application.DoEvents();
@@ -1145,7 +1137,7 @@ namespace no_table_entry_rettifica {
             progBar.Value = 0;
             progBar.Update();
             if (anyError) {
-	            show(this, "Generazione scritture completata con ERRORI.");
+	            show(this, "Generazione scritture completata con ERRORI " + lastUpbWithError + ".");
             }
             else {
 	            show(this, "Generazione scritture completata.");
@@ -1263,7 +1255,10 @@ namespace no_table_entry_rettifica {
                     rDetail = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
                     rDetail["amount"] = amount;
                     rDetail["idacc"] = Curr[campoRiscontoPassivo];
-                //rDetail["idepacc"] = r["idepacc"];    commento per task 11624
+                    rDetail["idsor1"] = r["idsor1"];
+                    rDetail["idsor2"] = r["idsor2"];
+                    rDetail["idsor3"] = r["idsor3"];
+                    //rDetail["idepacc"] = r["idepacc"];    commento per task 11624
                     rDetail["idreg"] = idreg;// DBNull.Value;
                     rDetail["idupb"] = Curr["idupb"];
                     rDetail["idaccmotive"] = Curr[causaleRiscontoPassivo];
@@ -1479,7 +1474,9 @@ namespace no_table_entry_rettifica {
                         rDetail["idaccmotive"] = idaccmotive;
                         rDetail["competencystart"] = DBNull.Value;
                         rDetail["competencystop"] = DBNull.Value;
-
+                        rDetail["idsor1"] = r["idsor1"];
+                        rDetail["idsor2"] = r["idsor2"];
+                        rDetail["idsor3"] = r["idsor3"];
                         rDetail = MEntryDetail.Get_New_Row(rEntry, ds.Tables["entrydetail"]);
                         rDetail["amount"] = amount;
                         rDetail["idacc"] = Curr[campoRiscontoPassivo];
@@ -1500,6 +1497,7 @@ namespace no_table_entry_rettifica {
                 return true;
             }
             FrmEntryPreSavePluriennale frm = new FrmEntryPreSavePluriennale(ds.Tables["entrydetail"], Meta.Conn);
+            createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
                 show(this, "Operazione Annullata!");

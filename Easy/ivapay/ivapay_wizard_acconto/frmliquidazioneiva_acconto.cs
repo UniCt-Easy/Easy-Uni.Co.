@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -421,15 +421,15 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
             GetData.SetStaticFilter(DS.payment, QHS.CmpEq("ypay", esercizio));
         }
 
-        bool generaTuttelafasi = true;
+        bool GeneraTutteleFasi = true;
 
         public void MetaData_AfterActivation() {
 			FormInit();
             DataRow CfgRow = DS.config.Rows[0];
             if (CfgRow["flagivaregphase"].ToString().ToUpper() == "S")
-                generaTuttelafasi = false;
+                GeneraTutteleFasi = false;
             else
-                generaTuttelafasi = true;
+                GeneraTutteleFasi = true;
 
             maxfasespesa = Meta.GetSys("maxexpensephase");
 		}
@@ -818,7 +818,8 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
 				}
 				Fasi2.AcceptChanges();
 				FrmAskFase F = new FrmAskFase(Fasi2);
-				if (F.ShowDialog()!=DialogResult.OK) return;
+                createForm(F, null);
+                if (F.ShowDialog()!=DialogResult.OK) return;
 				selectedfase = Convert.ToInt32( F.cmbFasi.SelectedValue);
 			}
 			rowfilter= GetFilterForSelection(RigheSelezionate, "expense", selectedfase);
@@ -962,7 +963,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
 			fasemax = getIntSys("maxexpensephase");
 			faseCreditoreDebitore = getIntSys("expenseregphase");
 			faseBilancio = getIntSys("expensefinphase");
-            int faselast = (generaTuttelafasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
+            int faselast = (GeneraTutteleFasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
 
             DS.Tables["expenseview"].AcceptChanges();
 
@@ -1135,6 +1136,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
             }
 
             Form F = ShowAutomatismi.Show(Meta, spesa, null, null, null);
+            createForm(F, this);
             F.ShowDialog(this);
         }
         private string LeggiMetodoUsato() {
@@ -1206,7 +1208,7 @@ namespace ivapay_wizard_acconto {//liquidazioneiva_acconto//
             object idfin = RigheSelezionate[0]["idfin"];
 
             FrmAskInfo AskUpb = new FrmAskInfo(idupb, idfin, Disp, Conn);
-
+            createForm(AskUpb, null);
             if (AskUpb.ShowDialog() != DialogResult.OK) return;
             if (AskUpb.SelectedUpb == null) return;
             if (AskUpb.SelectedUpb["idupb"] == DBNull.Value) return;

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,8 +32,17 @@ namespace meta_intrastatkind//meta_tiposcadenza//
 			base(Conn, Dispatcher, "intrastatkind") {
 			EditTypes.Add("lista");
 			ListingTypes.Add("lista");
-            Name = " Natura della transazione";
+			ListingTypes.Add("default");
+			Name = " Natura della transazione";
 		}
+
+		//public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge) {
+		//	if (ListingType=="default")
+		//		return base.SelectOne(ListingType, filter, "intrastatkindview", ToMerge);
+
+		//	return base.SelectOne(ListingType, filter, searchtable, ToMerge);
+		//}
+
 		protected override Form GetForm(string FormName) {
 			if (FormName=="lista") {
 				ActAsList();
@@ -51,6 +60,20 @@ namespace meta_intrastatkind//meta_tiposcadenza//
 
 				DescribeAColumn(T, "idintrastatkind","Codice");
 				DescribeAColumn(T, "description","Descrizione");
+			}
+			if (listtype == "default") {
+				foreach (DataColumn C in T.Columns)
+					DescribeAColumn(T, C.ColumnName, "", -1);
+				int nPos = 1;
+				DescribeAColumn(T, "code_a", "Colonna A", nPos++);
+				DescribeAColumn(T, "description", "Descrizione", nPos++);
+			}
+			if (listtype == "pre2022") {
+				foreach (DataColumn C in T.Columns)
+					DescribeAColumn(T, C.ColumnName, "", -1);
+				int nPos = 1;
+				DescribeAColumn(T, "idintrastatkind", "Codice", nPos++);
+				DescribeAColumn(T, "description", "Descrizione", nPos++);
 			}
 		}   
 	}

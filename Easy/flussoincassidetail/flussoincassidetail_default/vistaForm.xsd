@@ -71,6 +71,7 @@
               <xs:element name="importotale" type="xs:decimal" minOccurs="0" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="elaborato" type="xs:string" minOccurs="0" />
+              <xs:element name="dataesitopagamento" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

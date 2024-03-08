@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_pcsassunzionisimulate_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="dsmeta_pcsassunzionisimulate_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsmeta_pcsassunzionisimulate_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -12,7 +12,7 @@
               <xs:element name="costolordoannuo_stip" type="xs:decimal" minOccurs="0" />
               <xs:element name="costomese" type="xs:decimal" minOccurs="0" />
               <xs:element name="costoora" type="xs:decimal" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxdidatempopieno" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxgg" type="xs:int" minOccurs="0" />
@@ -26,12 +26,38 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="contrattokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="contrattokind_active" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sasddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idsasd" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="positiondefaultview_alias1" msprop:TableForReading="positiondefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="position_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="positiondefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="position_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -42,9 +68,10 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="finanziamento" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
-              <xs:element name="idcontrattokind_start" type="xs:int" minOccurs="0" />
+              <xs:element name="idanalisiannuale" type="xs:int" />
               <xs:element name="idpcsassunzionisimulate" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition_start" type="xs:int" minOccurs="0" />
               <xs:element name="idsasd" type="xs:int" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="legge" type="xs:string" minOccurs="0" />
@@ -66,21 +93,37 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getcontrattikindview" />
-      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idposition" />
     </xs:unique>
-    <xs:unique name="contrattokinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokinddefaultview" />
-      <xs:field xpath="mstns:idcontrattokind" />
+    <xs:unique name="strutturadefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="sasddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sasddefaultview" />
+      <xs:field xpath="mstns:idsasd" />
+    </xs:unique>
+    <xs:unique name="positiondefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:positiondefaultview_alias1" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="positiondefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:positiondefaultview" />
+      <xs:field xpath="mstns:idposition" />
     </xs:unique>
     <xs:unique name="pcsassunzionisimulate_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pcsassunzionisimulate" />
+      <xs:field xpath="mstns:idanalisiannuale" />
       <xs:field xpath="mstns:idpcsassunzionisimulate" />
       <xs:field xpath="mstns:year" />
     </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_pcsassunzionisimulate_contrattokinddefaultview_idcontrattokind" msdata:parent="contrattokinddefaultview" msdata:child="pcsassunzionisimulate" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
+      <msdata:Relationship name="FK_pcsassunzionisimulate_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="pcsassunzionisimulate" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_pcsassunzionisimulate_sasddefaultview_idsasd" msdata:parent="sasddefaultview" msdata:child="pcsassunzionisimulate" msdata:parentkey="idsasd" msdata:childkey="idsasd" />
+      <msdata:Relationship name="FK_pcsassunzionisimulate_positiondefaultview_alias1_idposition" msdata:parent="positiondefaultview_alias1" msdata:child="pcsassunzionisimulate" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="FK_pcsassunzionisimulate_positiondefaultview_idposition_start" msdata:parent="positiondefaultview" msdata:child="pcsassunzionisimulate" msdata:parentkey="idposition" msdata:childkey="idposition_start" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

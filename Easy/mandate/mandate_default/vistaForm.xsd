@@ -292,6 +292,47 @@
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
               <xs:element name="idlist" type="xs:int" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="paymentcompetency" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="yinv_main" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv_main" type="xs:int" minOccurs="0" />
+              <xs:element name="va3type" type="xs:string" minOccurs="0" />
+              <xs:element name="idintrastatcode" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatmeasure" type="xs:int" minOccurs="0" />
+              <xs:element name="weight" type="xs:decimal" minOccurs="0" />
+              <xs:element name="intrastatoperationkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idintrastatservice" type="xs:int" minOccurs="0" />
+              <xs:element name="idunit" type="xs:int" minOccurs="0" />
+              <xs:element name="idpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="unitsforpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatsupplymethod" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="exception12" type="xs:string" minOccurs="0" />
+              <xs:element name="intra12operationkind" type="xs:string" minOccurs="0" />
+              <xs:element name="move12" type="xs:string" minOccurs="0" />
+              <xs:element name="idinvkind_main" type="xs:int" minOccurs="0" />
+              <xs:element name="leasing" type="xs:string" minOccurs="0" />
+              <xs:element name="usedmodesospesometro" type="xs:string" minOccurs="0" />
+              <xs:element name="resetresidualmandate" type="xs:string" minOccurs="0" />
+              <xs:element name="idfetransfer" type="xs:string" minOccurs="0" />
+              <xs:element name="fereferencerule" type="xs:string" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
+              <xs:element name="idpccdebitstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idpccdebitmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="rounding" type="xs:string" minOccurs="0" />
+              <xs:element name="idepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="flagbit" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="iduniqueformcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="ycon" type="xs:int" minOccurs="0" />
+              <xs:element name="ncon" type="xs:int" minOccurs="0" />
+              <xs:element name="codicetipo" type="xs:string" minOccurs="0" />
+              <xs:element name="codicevalore" type="xs:string" minOccurs="0" />
+              <xs:element name="idepexp_pre" type="xs:int" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1409,18 +1450,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="garatraspareview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idGaraTraspare" type="xs:int" />
-              <xs:element name="cig" type="xs:string" />
-              <xs:element name="codicefiscale" type="xs:string" />
-              <xs:element name="identificativoFiscaleEstero" type="xs:string" />
-              <xs:element name="ragionesociale" type="xs:double" minOccurs="0" />
-              <xs:element name="SommaImportoAggiudicazione" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="wsaggiudicatario" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -1471,7 +1500,7 @@
               <xs:element name="rupCognome" type="xs:string" minOccurs="0" />
               <xs:element name="rupCodiceFiscale" type="xs:string" minOccurs="0" />
               <xs:element name="dataPubblicazione" type="xs:dateTime" />
-              <xs:element name="tipoDataPubblicazione" type="xs:int" />
+              <xs:element name="tipoPubblicazione" type="xs:int" />
               <xs:element name="motivazioneAffidamento" type="xs:string" minOccurs="0" />
               <xs:element name="ribasso" type="xs:double" minOccurs="0" />
               <xs:element name="json" type="xs:string" minOccurs="0" />
@@ -1500,6 +1529,20 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="garatraspareview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idGaraTraspare" type="xs:int" />
+              <xs:element name="cig" type="xs:string" />
+              <xs:element name="Fornitore" type="xs:string" minOccurs="0" />
+              <xs:element name="FornitoreCFPIva" type="xs:string" />
+              <xs:element name="FornitoreIdEstero" type="xs:string" />
+              <xs:element name="ImportoAggiudicazione" type="xs:double" minOccurs="0" />
+              <xs:element name="Rup" type="xs:string" minOccurs="0" />
+              <xs:element name="RupCF" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1715,13 +1758,6 @@
       <xs:selector xpath=".//mstns:attachmentkind" />
       <xs:field xpath="mstns:idattachmentkind" />
     </xs:unique>
-    <xs:unique name="garatraspareview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:garatraspareview" />
-      <xs:field xpath="mstns:identificativoFiscaleEstero" />
-      <xs:field xpath="mstns:codicefiscale" />
-      <xs:field xpath="mstns:cig" />
-      <xs:field xpath="mstns:idGaraTraspare" />
-    </xs:unique>
     <xs:unique name="wsaggiudicatario_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:wsaggiudicatario" />
       <xs:field xpath="mstns:idAggiudicatario" />
@@ -1737,6 +1773,14 @@
     <xs:unique name="wslotto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:wslotto" />
       <xs:field xpath="mstns:idLotto" />
+    </xs:unique>
+    <xs:unique name="garatraspareview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:garatraspareview" />
+      <xs:field xpath="mstns:idGaraTraspare" />
+      <xs:field xpath="mstns:cig" />
+      <xs:field xpath="mstns:FornitoreCFPIva" />
+      <xs:field xpath="mstns:FornitoreIdEstero" />
+      <xs:field xpath="mstns:RupCF" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

@@ -241,6 +241,7 @@
               <xs:element name="ninv_main" type="xs:int" minOccurs="0" />
               <xs:element name="ycon" type="xs:int" minOccurs="0" />
               <xs:element name="ncon" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -313,6 +314,7 @@
               <xs:element name="ninv_main" type="xs:int" minOccurs="0" />
               <xs:element name="ycon" type="xs:int" minOccurs="0" />
               <xs:element name="ncon" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
+						this.describeAColumn(table, 'idworkpackage', 'Workpackage', null, 10, null);
+						this.describeAColumn(table, 'idprogettotipocosto', 'Voce di costo', null, 20, null);
 						this.describeAColumn(table, 'budget', 'Budget iniziale', 'fixed.2', 30, null);
 						this.describeAColumn(table, '!budgetvariazione', 'Budget corrente', 'fixed.2', 40, null);
 						this.describeAColumn(table, '!spese', 'Costi', 'fixed.2', 50, null);
@@ -64,18 +49,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'seg':
-						table.columns["!budgetvariazione"].caption = "Budget attuale";
-						table.columns["!ricaviincassati"].caption = "Ricavi incassati";
-						table.columns["!ricavinonincassati"].caption = "Ricavi non incassati";
-						table.columns["!spese"].caption = "Costi";
 						table.columns["budget"].caption = "Budget iniziale";
 						table.columns["idprogettotipocosto"].caption = "Voce di costo";
 						table.columns["idworkpackage"].caption = "Workpackage";
 						table.columns["sortcode"].caption = "Ordine di visualizzazione";
-						table.columns["budget"].caption = "Budget disponibile iniziale";
-						table.columns["!budgetvariazione"].caption = "Budget disponibile attuale";
 						table.columns["!budgetvariazione"].caption = "Budget corrente";
 						table.columns["!ricaviincassati"].caption = "Ricavi";
+						table.columns["!ricavinonincassati"].caption = "Ricavi non incassati";
+						table.columns["!spese"].caption = "Costi";
 //$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$
@@ -108,6 +89,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (listType) {
 					case "seg": {
 						return "idworkpackage asc , sortcode asc , idprogettotipocosto asc ";
+					}
+					case "seg": {
+						return "sortcode";
 					}
 					//$getSortingin$
 				}

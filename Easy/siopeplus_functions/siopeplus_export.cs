@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -874,6 +874,7 @@ namespace siopeplus_functions {
         public incassi.reversaleInformazioni_versanteClassificazione get_classificazione_entrate(DataRow R) {
             incassi.reversaleInformazioni_versanteClassificazione CC = new incassi.reversaleInformazioni_versanteClassificazione();
             CC.codice_cge = GetStringValue(R["codice_cge"]);
+            CC.codice_cup = GetStringValue(R["codice_cup"]);
             CC.importo = CfgFn.GetNoNullDecimal(R["importoclassificazionemov"]);
 
             string codice_cge = R["codice_cge"].ToString();
