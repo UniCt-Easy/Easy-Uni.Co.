@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -258,7 +258,7 @@ namespace export_default//ExportForm//
 					Col.DefaultValue= def;
 				}
 				catch {
-//					MessageBox.Show("Errore cercando di impostare il campo "+
+//					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore cercando di impostare il campo "+
 //							ColName + " = " +
 //							QueryCreator.quotedstrvalue(def,false)+".\r"+
 //							"Dettaglio: "+E.Message,
@@ -590,7 +590,7 @@ namespace export_default//ExportForm//
                         rb.Tag = tablename + "." + paramname + ":" + token[2 * i];
                         rb.Text = token[2 * i + 1];
                         rb.Width = ControlWidth - 20;
-                        rb.Height = LabelHeight;
+                        rb.Height = LabelHeight + 6;
                         grp.Controls.Add(rb);
                         rb.Location = new Point(12, Altezza);
                         Altezza += rb.Height;
@@ -727,8 +727,7 @@ namespace export_default//ExportForm//
             return true;
         }
 
-       
-
+        
         /// <summary>
         /// Tabella parent da aggiungere al dataset in caso di AutoChoose/AutoManage
         /// </summary>
@@ -1097,7 +1096,7 @@ namespace export_default//ExportForm//
         bool responsabile_presente(DataRow Params) {
             if (myPrymaryTable.Columns.Contains("idman")) {
                 if ((Params["idman"].ToString() == "") || (Params["idman"].ToString() == "%")) {
-                    //MessageBox.Show("E' necessario scegliere un responsabile (regola di sicurezza)");
+                    //MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario scegliere un responsabile (regola di sicurezza)");
                     return false;
                 }                
             }
@@ -1265,7 +1264,12 @@ namespace export_default//ExportForm//
             string filename = ExportName + ".mht";
             string fullPath = currdir + filename;
             if (!File.Exists(filename)) return;
-            Help.ShowHelp(this, filename);
+            string fileUri = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
+            frmMhtViewer mhtViewer = new frmMhtViewer(fileUri);
+            createForm(mhtViewer, null);
+            mhtViewer.Show();
+            
+ 
         }
 	}
 	public class GestioneClass {

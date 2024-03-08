@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,11 +39,11 @@ namespace sdi_vendita_default {
         QueryHelper QHS;
         DataAccess Conn;
         MetaData Meta;
-        public IOpenFileDialog openFileDialog1;
 
         public Frm_sdi_vendita_default() {
             InitializeComponent();
-            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1.DefaultExt = "xml";
+            saveFileDialog1.SupportMultiDottedExtensions = true;
         }
 
         bool IsAdmin = false;
@@ -170,9 +170,10 @@ namespace sdi_vendita_default {
                 DataRow rFattura = DS.invoice.Rows[0];
                 isPA = rFattura["ipa_ven_cliente"].ToString().Length == 6;
             }
-            string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            //string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            string tempFileName = Path.ChangeExtension(Path.GetTempFileName(), "htm");
 
-			Button btnVisualizza = (Button) sender;
+            Button btnVisualizza = (Button) sender;
 
 			XmlWriter xw = XmlWriter.Create(tempFileName);
             XmlDocument doc = new XmlDocument();
@@ -277,6 +278,7 @@ namespace sdi_vendita_default {
             object oldprotocol = curr["arrivalprotocolnum", DataRowVersion.Original];
             if (oldprotocol != DBNull.Value) return;
             FrmAskProtocollo FP = new FrmAskProtocollo(0);
+            createForm(FP, this);
             if (FP.ShowDialog(this) == DialogResult.OK) {
                 arrivalProtocol = FP.Protocollo;
             }
@@ -408,7 +410,8 @@ namespace sdi_vendita_default {
             if (!Meta.GetFormData(false))
                 return;
             // Visualizza file xml
-            string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            //string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            string tempFileName = Path.ChangeExtension(Path.GetTempFileName(), "htm");
             XmlWriter xw = XmlWriter.Create(tempFileName);
             XmlDocument doc = new XmlDocument();
 
@@ -481,6 +484,11 @@ namespace sdi_vendita_default {
             if (DS.invoice.Rows.Count == 0)
                 return;
             Meta.GetFormData(true);
+            PostData.RemoveFalseUpdates(DS);
+            if (DS.HasChanges()) {
+                show(this, "Per scollegate la fattura occorre prima SALVARE");
+                return;
+            }
             DataRow inv = DS.invoice.Rows[0];
             inv["yelectronicinvoice"] = DBNull.Value;
             inv["nelectronicinvoice"] = DBNull.Value;

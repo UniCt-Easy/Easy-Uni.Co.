@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +19,7 @@ if exists (select * from dbo.sysobjects where id = object_id(N'[exp_unifiedf24ep
 and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_unifiedf24ep_ritenute]
 GO
-
+ 
 
 CREATE  PROCEDURE [exp_unifiedf24ep_ritenute]
 	  @ayear int, 
@@ -74,7 +74,7 @@ CREATE TABLE #unifiedtax
 	WHERE ayear = @ayear 
 	AND   idunifiedf24ep = @idunifiedf24ep
 	AND   (@tax is null OR unifiedtaxview.taxcode = @tax )
-        AND  (unifiedtaxview.department = @departmentname  OR @departmentname is null) 
+        AND  (unifiedtaxview.iddbdepartment = @departmentname  OR @departmentname is null) 
 
 	INSERT INTO #unifiedtax
 	(
@@ -106,7 +106,7 @@ CREATE TABLE #unifiedtax
 	WHERE ayear = @ayear 
 	AND   idunifiedf24ep = @idunifiedf24ep
 	AND   (@tax is null OR unifiedtaxcorrigeview.taxcode = @tax )
-        AND  (unifiedtaxcorrigeview.department = @departmentname  OR @departmentname is null) 
+        AND  (unifiedtaxcorrigeview.iddbdepartment = @departmentname  OR @departmentname is null) 
 
 	
 	IF (ISNULL(@showdepartment,'N') = 'S')

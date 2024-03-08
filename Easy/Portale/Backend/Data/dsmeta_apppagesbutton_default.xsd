@@ -3,14 +3,16 @@
   <xs:element name="dsmeta_apppagesbutton_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="apptab" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="apptabdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="header" type="xs:string" minOccurs="0" />
-              <xs:element name="icon" type="xs:string" minOccurs="0" />
+              <xs:element name="apptab_header" type="xs:string" minOccurs="0" />
+              <xs:element name="apptab_icon" type="xs:string" minOccurs="0" />
+              <xs:element name="apptab_position" type="xs:int" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idapppages" type="xs:int" />
               <xs:element name="idapptab" type="xs:int" />
-              <xs:element name="position" type="xs:int" minOccurs="0" />
+              <xs:element name="idapptabcolsnumber" type="xs:int" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -36,7 +38,7 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:apptab" />
+      <xs:selector xpath=".//mstns:apptabdefaultview" />
       <xs:field xpath="mstns:idapppages" />
       <xs:field xpath="mstns:idapptab" />
     </xs:unique>
@@ -48,7 +50,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_apppagesbutton_apptab_idapptab" msdata:parent="apptab" msdata:child="apppagesbutton" msdata:parentkey="idapptab" msdata:childkey="idapptab" />
+      <msdata:Relationship name="FK_apppagesbutton_apptabdefaultview_idapptab" msdata:parent="apptabdefaultview" msdata:child="apppagesbutton" msdata:parentkey="idapptab" msdata:childkey="idapptab" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

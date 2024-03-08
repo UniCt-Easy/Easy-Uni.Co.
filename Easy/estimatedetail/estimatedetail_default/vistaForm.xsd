@@ -100,7 +100,10 @@
               <xs:element name="rate" type="xs:decimal" />
               <xs:element name="unabatabilitypercentage" type="xs:decimal" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeivakind" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idfenature" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -141,6 +144,10 @@
               <xs:element name="idgroup" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_tipodocumento" type="xs:string" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="npackage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idfetransfer" type="xs:string" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -459,22 +466,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="revenuepartition">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idrevenuepartition" type="xs:int" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-              <xs:element name="kind" type="xs:string" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="revenuepartitioncode" type="xs:string" minOccurs="0" />
-              <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="upb_iva">
           <xs:complexType>
             <xs:sequence>
@@ -686,6 +677,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="costpartition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostpartition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="costpartitioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -756,10 +763,6 @@
       <xs:selector xpath=".//mstns:accmotiveannulment" />
       <xs:field xpath="mstns:idaccmotive" />
     </xs:unique>
-    <xs:unique name="revenuepartition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:revenuepartition" />
-      <xs:field xpath="mstns:idrevenuepartition" />
-    </xs:unique>
     <xs:unique name="upb_iva_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:upb_iva" />
       <xs:field xpath="mstns:idupb" />
@@ -792,6 +795,10 @@
       <xs:selector xpath=".//mstns:finmotive_iva_income" />
       <xs:field xpath="mstns:idfinmotive" />
     </xs:unique>
+    <xs:unique name="costpartition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costpartition" />
+      <xs:field xpath="mstns:idcostpartition" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -811,11 +818,11 @@
       <msdata:Relationship name="ivakindestimatedetail" msdata:parent="ivakind" msdata:child="estimatedetail" msdata:parentkey="idivakind" msdata:childkey="idivakind" />
       <msdata:Relationship name="accmotiveappliedestimatedetail" msdata:parent="accmotive" msdata:child="estimatedetail" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
       <msdata:Relationship name="accmotiveannulment_estimatedetail" msdata:parent="accmotiveannulment" msdata:child="estimatedetail" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiveannulment" />
-      <msdata:Relationship name="revenuepartition_estimatedetail" msdata:parent="revenuepartition" msdata:child="estimatedetail" msdata:parentkey="idrevenuepartition" msdata:childkey="idrevenuepartition" />
       <msdata:Relationship name="finmotive_income_estimatedetail" msdata:parent="finmotive_income" msdata:child="estimatedetail" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive" />
       <msdata:Relationship name="sorting_siope_estimatedetail" msdata:parent="sorting_siope" msdata:child="estimatedetail" msdata:parentkey="idsor" msdata:childkey="idsor_siope" />
       <msdata:Relationship name="tassonomia_pagopa_estimatedetail" msdata:parent="tassonomia_pagopa" msdata:child="estimatedetail" msdata:parentkey="idtassonomia" msdata:childkey="idtassonomia" />
       <msdata:Relationship name="finmotive_iva_income_estimatedetail" msdata:parent="finmotive_iva_income" msdata:child="estimatedetail" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive_iva" />
+      <msdata:Relationship name="costpartition_estimatedetail" msdata:parent="costpartition" msdata:child="estimatedetail" msdata:parentkey="idcostpartition" msdata:childkey="idrevenuepartition" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

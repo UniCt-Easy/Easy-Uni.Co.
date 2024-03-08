@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,10 +31,25 @@ public class dsmeta_perfprogettoobiettivoattivita_docenti: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfprogettoattivitainterazione 		=> (MetaTable)Tables["perfprogettoattivitainterazione"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable attach 		=> (MetaTable)Tables["attach"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfprogettoobiettivoattivitaattach 		=> (MetaTable)Tables["perfprogettoobiettivoattivitaattach"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable upbdefaultview 		=> (MetaTable)Tables["upbdefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable accountminusabledefaultview 		=> (MetaTable)Tables["accountminusabledefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettoobiettivoattivitadocentiview_alias1 		=> (MetaTable)Tables["perfprogettoobiettivoattivitadocentiview_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable perfprogettoobiettivo 		=> (MetaTable)Tables["perfprogettoobiettivo"];
+	public MetaTable perfprogettoobiettivodefaultview 		=> (MetaTable)Tables["perfprogettoobiettivodefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettodefaultview 		=> (MetaTable)Tables["perfprogettodefaultview"];
@@ -67,6 +82,68 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_perfprogettoobiettivoattivita_docenti.xsd";
 
 	#region create DataTables
+	//////////////////// PERFPROGETTOATTIVITAINTERAZIONE /////////////////////////////////
+	var tperfprogettoattivitainterazione= new MetaTable("perfprogettoattivitainterazione");
+	tperfprogettoattivitainterazione.defineColumn("commenti", typeof(string));
+	tperfprogettoattivitainterazione.defineColumn("ct", typeof(DateTime),false);
+	tperfprogettoattivitainterazione.defineColumn("cu", typeof(string),false);
+	tperfprogettoattivitainterazione.defineColumn("data", typeof(DateTime));
+	tperfprogettoattivitainterazione.defineColumn("idperfinterazionekind", typeof(int),false);
+	tperfprogettoattivitainterazione.defineColumn("idperfprogetto", typeof(int),false);
+	tperfprogettoattivitainterazione.defineColumn("idperfprogettoattivitainterazione", typeof(int),false);
+	tperfprogettoattivitainterazione.defineColumn("idperfprogettoobiettivo", typeof(int),false);
+	tperfprogettoattivitainterazione.defineColumn("idperfprogettoobiettivoattivita", typeof(int),false);
+	tperfprogettoattivitainterazione.defineColumn("lt", typeof(DateTime),false);
+	tperfprogettoattivitainterazione.defineColumn("lu", typeof(string),false);
+	tperfprogettoattivitainterazione.defineColumn("utente", typeof(string));
+	Tables.Add(tperfprogettoattivitainterazione);
+	tperfprogettoattivitainterazione.defineKey("idperfprogetto", "idperfprogettoattivitainterazione", "idperfprogettoobiettivo", "idperfprogettoobiettivoattivita");
+
+	//////////////////// ATTACH /////////////////////////////////
+	var tattach= new MetaTable("attach");
+	tattach.defineColumn("attachment", typeof(Byte[]));
+	tattach.defineColumn("ct", typeof(DateTime),false);
+	tattach.defineColumn("cu", typeof(string),false);
+	tattach.defineColumn("filename", typeof(string),false);
+	tattach.defineColumn("hash", typeof(string),false);
+	tattach.defineColumn("idattach", typeof(int),false);
+	tattach.defineColumn("lt", typeof(DateTime),false);
+	tattach.defineColumn("lu", typeof(string),false);
+	tattach.defineColumn("size", typeof(int),false);
+	Tables.Add(tattach);
+	tattach.defineKey("idattach");
+
+	//////////////////// PERFPROGETTOOBIETTIVOATTIVITAATTACH /////////////////////////////////
+	var tperfprogettoobiettivoattivitaattach= new MetaTable("perfprogettoobiettivoattivitaattach");
+	tperfprogettoobiettivoattivitaattach.defineColumn("ct", typeof(DateTime),false);
+	tperfprogettoobiettivoattivitaattach.defineColumn("cu", typeof(string),false);
+	tperfprogettoobiettivoattivitaattach.defineColumn("data", typeof(DateTime));
+	tperfprogettoobiettivoattivitaattach.defineColumn("idattach", typeof(int),false);
+	tperfprogettoobiettivoattivitaattach.defineColumn("idperfprogetto", typeof(int),false);
+	tperfprogettoobiettivoattivitaattach.defineColumn("idperfprogettoobiettivo", typeof(int),false);
+	tperfprogettoobiettivoattivitaattach.defineColumn("idperfprogettoobiettivoattivita", typeof(int),false);
+	tperfprogettoobiettivoattivitaattach.defineColumn("lt", typeof(DateTime),false);
+	tperfprogettoobiettivoattivitaattach.defineColumn("lu", typeof(string),false);
+	tperfprogettoobiettivoattivitaattach.defineColumn("!idattach_attach_filename", typeof(string));
+	Tables.Add(tperfprogettoobiettivoattivitaattach);
+	tperfprogettoobiettivoattivitaattach.defineKey("idattach", "idperfprogetto", "idperfprogettoobiettivo", "idperfprogettoobiettivoattivita");
+
+	//////////////////// UPBDEFAULTVIEW /////////////////////////////////
+	var tupbdefaultview= new MetaTable("upbdefaultview");
+	tupbdefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tupbdefaultview.defineColumn("idupb", typeof(string),false);
+	tupbdefaultview.defineColumn("upb_active", typeof(string));
+	Tables.Add(tupbdefaultview);
+	tupbdefaultview.defineKey("idupb");
+
+	//////////////////// ACCOUNTMINUSABLEDEFAULTVIEW /////////////////////////////////
+	var taccountminusabledefaultview= new MetaTable("accountminusabledefaultview");
+	taccountminusabledefaultview.defineColumn("dropdown_title", typeof(string),false);
+	taccountminusabledefaultview.defineColumn("idacc", typeof(string),false);
+	taccountminusabledefaultview.defineColumn("paridacc", typeof(string),false);
+	Tables.Add(taccountminusabledefaultview);
+	taccountminusabledefaultview.defineKey("idacc", "paridacc");
+
 	//////////////////// PERFPROGETTOOBIETTIVOATTIVITADOCENTIVIEW_ALIAS1 /////////////////////////////////
 	var tperfprogettoobiettivoattivitadocentiview_alias1= new MetaTable("perfprogettoobiettivoattivitadocentiview_alias1");
 	tperfprogettoobiettivoattivitadocentiview_alias1.defineColumn("dropdown_title", typeof(string),false);
@@ -77,27 +154,20 @@ private void initClass() {
 	Tables.Add(tperfprogettoobiettivoattivitadocentiview_alias1);
 	tperfprogettoobiettivoattivitadocentiview_alias1.defineKey("idperfprogetto", "idperfprogettoobiettivo", "idperfprogettoobiettivoattivita");
 
-	//////////////////// PERFPROGETTOOBIETTIVO /////////////////////////////////
-	var tperfprogettoobiettivo= new MetaTable("perfprogettoobiettivo");
-	tperfprogettoobiettivo.defineColumn("completamento", typeof(decimal));
-	tperfprogettoobiettivo.defineColumn("ct", typeof(DateTime),false);
-	tperfprogettoobiettivo.defineColumn("cu", typeof(string),false);
-	tperfprogettoobiettivo.defineColumn("description", typeof(string));
-	tperfprogettoobiettivo.defineColumn("idattach", typeof(int));
-	tperfprogettoobiettivo.defineColumn("idperfprogetto", typeof(int),false);
-	tperfprogettoobiettivo.defineColumn("idperfprogettoobiettivo", typeof(int),false);
-	tperfprogettoobiettivo.defineColumn("lt", typeof(DateTime));
-	tperfprogettoobiettivo.defineColumn("lu", typeof(string));
-	tperfprogettoobiettivo.defineColumn("peso", typeof(decimal));
-	tperfprogettoobiettivo.defineColumn("title", typeof(string));
-	Tables.Add(tperfprogettoobiettivo);
-	tperfprogettoobiettivo.defineKey("idperfprogetto", "idperfprogettoobiettivo");
+	//////////////////// PERFPROGETTOOBIETTIVODEFAULTVIEW /////////////////////////////////
+	var tperfprogettoobiettivodefaultview= new MetaTable("perfprogettoobiettivodefaultview");
+	tperfprogettoobiettivodefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tperfprogettoobiettivodefaultview.defineColumn("idperfprogetto", typeof(int),false);
+	tperfprogettoobiettivodefaultview.defineColumn("idperfprogettoobiettivo", typeof(int),false);
+	Tables.Add(tperfprogettoobiettivodefaultview);
+	tperfprogettoobiettivodefaultview.defineKey("idperfprogetto", "idperfprogettoobiettivo");
 
 	//////////////////// PERFPROGETTODEFAULTVIEW /////////////////////////////////
 	var tperfprogettodefaultview= new MetaTable("perfprogettodefaultview");
 	tperfprogettodefaultview.defineColumn("didprogsuddannokind_title", typeof(string));
 	tperfprogettodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tperfprogettodefaultview.defineColumn("idperfprogetto", typeof(int),false);
+	tperfprogettodefaultview.defineColumn("idreg_respprogetto", typeof(int));
 	tperfprogettodefaultview.defineColumn("idstruttura", typeof(int));
 	tperfprogettodefaultview.defineColumn("perfprogetto_benefici", typeof(string));
 	tperfprogettodefaultview.defineColumn("perfprogetto_ct", typeof(DateTime));
@@ -114,6 +184,7 @@ private void initClass() {
 	tperfprogettodefaultview.defineColumn("perfprogetto_note", typeof(string));
 	tperfprogettodefaultview.defineColumn("perfprogetto_risultato", typeof(decimal));
 	tperfprogettodefaultview.defineColumn("perfprogettostatus_title", typeof(string));
+	tperfprogettodefaultview.defineColumn("registryrespprogetto_title", typeof(string));
 	tperfprogettodefaultview.defineColumn("struttura_idstrutturakind", typeof(int));
 	tperfprogettodefaultview.defineColumn("struttura_title", typeof(string));
 	tperfprogettodefaultview.defineColumn("strutturakind_title", typeof(string));
@@ -131,10 +202,12 @@ private void initClass() {
 	tperfprogettoobiettivoattivita.defineColumn("datainizioeffettiva", typeof(DateTime));
 	tperfprogettoobiettivoattivita.defineColumn("datainizioprevista", typeof(DateTime));
 	tperfprogettoobiettivoattivita.defineColumn("description", typeof(string));
+	tperfprogettoobiettivoattivita.defineColumn("idacc", typeof(string));
 	tperfprogettoobiettivoattivita.defineColumn("idperfprogetto", typeof(int),false);
 	tperfprogettoobiettivoattivita.defineColumn("idperfprogettoobiettivo", typeof(int),false);
 	tperfprogettoobiettivoattivita.defineColumn("idperfprogettoobiettivoattivita", typeof(int),false);
 	tperfprogettoobiettivoattivita.defineColumn("idreg", typeof(int));
+	tperfprogettoobiettivoattivita.defineColumn("idupb", typeof(string));
 	tperfprogettoobiettivoattivita.defineColumn("lt", typeof(DateTime),false);
 	tperfprogettoobiettivoattivita.defineColumn("lu", typeof(string),false);
 	tperfprogettoobiettivoattivita.defineColumn("paridperfprogettoobiettivoattivita", typeof(int));
@@ -146,17 +219,37 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{perfprogettoobiettivoattivitadocentiview_alias1.Columns["idperfprogettoobiettivoattivita"]};
-	var cChild = new []{perfprogettoobiettivoattivita.Columns["paridperfprogettoobiettivoattivita"]};
+	var cPar = new []{perfprogettoobiettivoattivita.Columns["idperfprogetto"], perfprogettoobiettivoattivita.Columns["idperfprogettoobiettivo"], perfprogettoobiettivoattivita.Columns["idperfprogettoobiettivoattivita"]};
+	var cChild = new []{perfprogettoobiettivoattivitaattach.Columns["idperfprogetto"], perfprogettoobiettivoattivitaattach.Columns["idperfprogettoobiettivo"], perfprogettoobiettivoattivitaattach.Columns["idperfprogettoobiettivoattivita"]};
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivoattivitaattach_perfprogettoobiettivoattivita_idperfprogetto-idperfprogettoobiettivo-idperfprogettoobiettivoattivita",cPar,cChild,false));
+
+	cPar = new []{attach.Columns["idattach"]};
+	cChild = new []{perfprogettoobiettivoattivitaattach.Columns["idattach"]};
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivoattivitaattach_attach_idattach",cPar,cChild,false));
+
+	cPar = new []{upbdefaultview.Columns["idupb"]};
+	cChild = new []{perfprogettoobiettivoattivita.Columns["idupb"]};
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivoattivita_upbdefaultview_idupb",cPar,cChild,false));
+
+	cPar = new []{accountminusabledefaultview.Columns["idacc"]};
+	cChild = new []{perfprogettoobiettivoattivita.Columns["idacc"]};
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivoattivita_accountminusabledefaultview_idacc",cPar,cChild,false));
+
+	cPar = new []{perfprogettoobiettivoattivitadocentiview_alias1.Columns["idperfprogettoobiettivoattivita"]};
+	cChild = new []{perfprogettoobiettivoattivita.Columns["paridperfprogettoobiettivoattivita"]};
 	Relations.Add(new DataRelation("FK_perfprogettoobiettivoattivita_perfprogettoobiettivoattivitadocentiview_alias1_paridperfprogettoobiettivoattivita",cPar,cChild,false));
 
-	cPar = new []{perfprogettoobiettivo.Columns["idperfprogettoobiettivo"]};
+	cPar = new []{perfprogettoobiettivodefaultview.Columns["idperfprogettoobiettivo"]};
 	cChild = new []{perfprogettoobiettivoattivitadocentiview_alias1.Columns["idperfprogettoobiettivo"]};
-	Relations.Add(new DataRelation("FK_perfprogettoobiettivoattivitadocentiview_alias1_perfprogettoobiettivo_idperfprogettoobiettivo",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivoattivitadocentiview_alias1_perfprogettoobiettivodefaultview_idperfprogettoobiettivo",cPar,cChild,false));
 
-	cPar = new []{perfprogettoobiettivo.Columns["idperfprogettoobiettivo"]};
+	cPar = new []{perfprogettoobiettivodefaultview.Columns["idperfprogettoobiettivo"]};
 	cChild = new []{perfprogettoobiettivoattivita.Columns["idperfprogettoobiettivo"]};
-	Relations.Add(new DataRelation("FK_perfprogettoobiettivoattivita_perfprogettoobiettivo_idperfprogettoobiettivo",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivoattivita_perfprogettoobiettivodefaultview_idperfprogettoobiettivo",cPar,cChild,false));
+
+	cPar = new []{perfprogettodefaultview.Columns["idperfprogetto"]};
+	cChild = new []{perfprogettoobiettivodefaultview.Columns["idperfprogetto"]};
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivodefaultview_perfprogettodefaultview_idperfprogetto",cPar,cChild,false));
 
 	cPar = new []{perfprogettodefaultview.Columns["idperfprogetto"]};
 	cChild = new []{perfprogettoobiettivoattivita.Columns["idperfprogetto"]};

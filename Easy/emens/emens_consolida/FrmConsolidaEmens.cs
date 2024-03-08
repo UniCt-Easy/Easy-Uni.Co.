@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,12 +38,14 @@ namespace emens_consolida//consolidaEmens//
 		private MetaData meta;
 		private System.Windows.Forms.Button btnDirectory;
 		private System.Windows.Forms.TextBox txtDirectory;
-		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+		private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
+		private IFolderBrowserDialog folderBrowserDialog1;
 		private System.Windows.Forms.Button btnLeggi;
 		public vistaForm DS;
 		private VistaEmens dsEmens;
 		private System.Windows.Forms.DataGrid gridFile;
-		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+		private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
+		private ISaveFileDialog saveFileDialog1;
 		private System.Windows.Forms.Button btnFileXml;
 		private System.Windows.Forms.TextBox txtFileXml;
 		private System.Windows.Forms.Button btnApriXml;
@@ -73,7 +75,11 @@ namespace emens_consolida//consolidaEmens//
 			//
 			InitializeComponent();
 
-			dsEmens.log.Columns["nomefile"].Caption = "Nome del file";
+            saveFileDialog1.DefaultExt = "xml";
+            saveFileDialog1.Title = "Specificare il nome del file da produrre:";
+            folderBrowserDialog1.Description = "Indicare la cartella dove sono presenti i file Emens da consolidare:";
+
+            dsEmens.log.Columns["nomefile"].Caption = "Nome del file";
 			dsEmens.log.Columns["esitolettura"].Caption = "Esito della lettura";
 
 			dsEmens.Emens.Columns["AnnoMeseDenuncia"].Caption = "Mese denuncia";
@@ -117,14 +123,14 @@ namespace emens_consolida//consolidaEmens//
 		{
             this.btnDirectory = new System.Windows.Forms.Button();
             this.txtDirectory = new System.Windows.Forms.TextBox();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.btnLeggi = new System.Windows.Forms.Button();
             this.DS = new emens_consolida.vistaForm();
             this.dsEmens = new emens_consolida.VistaEmens();
             this.gridFile = new System.Windows.Forms.DataGrid();
             this.btnFileXml = new System.Windows.Forms.Button();
             this.txtFileXml = new System.Windows.Forms.TextBox();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.btnApriXml = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCFPersonaMittente = new System.Windows.Forms.TextBox();
@@ -138,6 +144,8 @@ namespace emens_consolida//consolidaEmens//
             this.cmbSedeInps = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnLeggiUniemens = new System.Windows.Forms.Button();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS.emens)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsEmens)).BeginInit();
@@ -166,7 +174,7 @@ namespace emens_consolida//consolidaEmens//
             // 
             // folderBrowserDialog1
             // 
-            this.folderBrowserDialog1.Description = "Indicare la cartella dove sono presenti i file Emens da consolidare:";
+            //this.folderBrowserDialog1.Description = "Indicare la cartella dove sono presenti i file Emens da consolidare:";
             // 
             // btnLeggi
             // 
@@ -226,8 +234,8 @@ namespace emens_consolida//consolidaEmens//
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "xml";
-            this.saveFileDialog1.Title = "Specificare il nome del file da produrre:";
+            //this.saveFileDialog1.DefaultExt = "xml";
+            //this.saveFileDialog1.Title = "Specificare il nome del file da produrre:";
             // 
             // btnApriXml
             // 
@@ -806,8 +814,10 @@ namespace emens_consolida//consolidaEmens//
                     dsEmens.Emens.Rows.Add(rEmens);
 				}
 			}
-			new FrmDettaglioRisultati(dsEmens.Emens).ShowDialog(this);
-		}
+            FrmDettaglioRisultati frm = new FrmDettaglioRisultati(dsEmens.Emens);
+            createForm(frm, this);
+            frm.ShowDialog(this);
+        }
 
 		private void btnApriXml_Click(object sender, System.EventArgs e)
 		{

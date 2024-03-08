@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,14 +40,16 @@ namespace mod770_details_consolidamento {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.btnScegliCartella = new System.Windows.Forms.Button();
             this.txtCartella = new System.Windows.Forms.TextBox();
             this.btnConsolida = new System.Windows.Forms.Button();
             this.DS = new mod770_details_consolidamento.vistaForm();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.txtFile770 = new System.Windows.Forms.TextBox();
             this.btnFile = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,7 +89,7 @@ namespace mod770_details_consolidamento {
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "77s";
+            //this.saveFileDialog1.DefaultExt = "77s";
             // 
             // txtFile770
             // 
@@ -130,13 +132,15 @@ namespace mod770_details_consolidamento {
 
         #endregion
 
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.Button btnScegliCartella;
         private System.Windows.Forms.TextBox txtCartella;
         private System.Windows.Forms.Button btnConsolida;
         public vistaForm DS;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.TextBox txtFile770;
         private System.Windows.Forms.Button btnFile;
+        private metadatalibrary.ISaveFileDialog saveFileDialog1;
+        private metadatalibrary.IFolderBrowserDialog folderBrowserDialog1;
     }
 }

@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_rendicontattivitaprogettoitineration() {
 		MetaPage.apply(this, ['rendicontattivitaprogettoitineration', 'default', true]);
-        this.name = 'Missioni dell\'attivit‡';
+        this.name = 'Missioni dell\'attivit√†';
 		this.defaultListType = 'default';
 		//pageHeaderDeclaration
     }
@@ -40,9 +23,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterGetFormData
 			
-			//beforeFill
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#rendicontattivitaprogettoitineration_default_iditineration'), null);
+				} else {
+					this.helpForm.filter($('#rendicontattivitaprogettoitineration_default_iditineration'), this.q.eq('itineration_active', 'Si'));
+				}
+				//beforeFillFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("beforeFill-rendicontattivitaprogettoitineration_default");
+				var arraydef = [];
+				
+				//beforeFillInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return self.superClass.beforeFill.call(self)
+							.then(function () {
+								return def.resolve();
+							});
+					});
+				return def.promise();
+			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#rendicontattivitaprogettoitineration_default_iditineration'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -50,8 +65,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-rendicontattivitaprogettoitineration_default");
-				$('#rendicontattivitaprogettoitineration_default_iditineration').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#rendicontattivitaprogettoitineration_default_iditineration').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#rendicontattivitaprogettoitineration_default_iditineration').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iditineration);
+				$('#rendicontattivitaprogettoitineration_default_iditineration').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iditineration);
 				//afterRowSelectin
 				return def.resolve();
 			},

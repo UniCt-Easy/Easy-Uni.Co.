@@ -112,6 +112,6 @@
   -->
   <PropertyGroup>
     <PreBuildEvent />
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+    <PostBuildEvent>if exist "$(SolutionDir)output" xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -505,6 +505,7 @@ private void initClass() {
 	testimatedetail_taxable.defineColumn("lu", typeof(string),false);
 	testimatedetail_taxable.defineColumn("lt", typeof(DateTime),false);
 	testimatedetail_taxable.defineColumn("idaccmotive", typeof(string));
+	testimatedetail_taxable.defineColumn("idrevenuepartition", typeof(int));
 	testimatedetail_taxable.defineColumn("idivakind", typeof(int));
 	testimatedetail_taxable.defineColumn("toinvoice", typeof(string));
 	testimatedetail_taxable.defineColumn("exchangerate", typeof(double));
@@ -543,6 +544,7 @@ private void initClass() {
 	testimatedetail_iva.defineColumn("lu", typeof(string),false);
 	testimatedetail_iva.defineColumn("lt", typeof(DateTime),false);
 	testimatedetail_iva.defineColumn("idaccmotive", typeof(string));
+	testimatedetail_iva.defineColumn("idrevenuepartition", typeof(int));
 	testimatedetail_iva.defineColumn("idivakind", typeof(int));
 	testimatedetail_iva.defineColumn("toinvoice", typeof(string));
 	testimatedetail_iva.defineColumn("exchangerate", typeof(double));

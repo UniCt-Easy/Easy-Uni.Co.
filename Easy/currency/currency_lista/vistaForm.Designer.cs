@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@ using System.Runtime.Serialization;
 namespace currency_lista {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	///<summary>
@@ -82,6 +82,7 @@ private void initClass() {
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
 	tcurrency.Columns.Add(C);
+	tcurrency.Columns.Add( new DataColumn("active", typeof(string)));
 	Tables.Add(tcurrency);
 	tcurrency.PrimaryKey =  new DataColumn[]{tcurrency.Columns["idcurrency"]};
 

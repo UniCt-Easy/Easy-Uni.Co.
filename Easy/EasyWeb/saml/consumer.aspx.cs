@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -58,8 +58,8 @@ public partial class SAMLConsumerService : System.Web.UI.Page {
         }
 
         // Imposta l'identificativo utente nelle variabili di sessione.
-        Session["samluser"] = attributes[AttributeUID];
-        Session["samlemail"] = attributes[AttributeEmail];
+        if (attributes.ContainsKey(AttributeUID)) Session["samluser"] = attributes[AttributeUID];
+        if (attributes.ContainsKey(AttributeEmail)) Session["samlemail"] = attributes[AttributeEmail];
 
         // Redireziona il browser dell'utente.
         Response.Redirect(targetUrl);

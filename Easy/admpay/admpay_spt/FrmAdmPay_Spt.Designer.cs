@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -49,7 +49,7 @@ namespace admpay_spt {
             this.btnInputFile = new System.Windows.Forms.Button();
             this.lblTask = new System.Windows.Forms.Label();
             this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
-            this.saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
+            this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.DS = new admpay_spt.vistaForm();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -169,6 +169,6 @@ namespace admpay_spt {
         private System.Windows.Forms.Label lblTask;
         public vistaForm DS;
         private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
-        private System.Windows.Forms.SaveFileDialog saveOutputFileDlg;
+        private System.Windows.Forms.SaveFileDialog _saveOutputFileDlg;
     }
 }

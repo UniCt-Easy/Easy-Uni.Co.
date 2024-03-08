@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,141 +29,72 @@ namespace calcolocedolino {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Contratto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable parasubcontract 		=> Tables["parasubcontract"];
 
-	///<summary>
-	///Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payroll 		=> Tables["payroll"];
 
-	///<summary>
-	///Dettaglio Deduzioni Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolldeduction 		=> Tables["payrolldeduction"];
 
-	///<summary>
-	///Dettaglio Detrazioni Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrollabatement 		=> Tables["payrollabatement"];
 
-	///<summary>
-	///Ritenuta Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolltax 		=> Tables["payrolltax"];
 
-	///<summary>
-	///Scaglione di un cedolino parasubordinato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolltaxbracket 		=> Tables["payrolltaxbracket"];
 
-	///<summary>
-	///informazioni annuali sul contratto parasubordinato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable parasubcontractyear 		=> Tables["parasubcontractyear"];
 
-	///<summary>
-	///CUD Presentato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable exhibitedcud 		=> Tables["exhibitedcud"];
 
-	///<summary>
-	///Altre Collaborazioni INAIL
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable otherinail 		=> Tables["otherinail"];
 
-	///<summary>
-	///Posizione Assicurativa Territoriale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable pat 		=> Tables["pat"];
 
-	///<summary>
-	///Dettaglio Deduzioni CUD Presentato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable exhibitedcuddeduction 		=> Tables["exhibitedcuddeduction"];
 
-	///<summary>
-	///Imputazione tipo deduzione 
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable deductioncode 		=> Tables["deductioncode"];
 
-	///<summary>
-	///Oneri Deducibili - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable deductibleexpense 		=> Tables["deductibleexpense"];
 
-	///<summary>
-	///Tipo Imponibile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable taxablekind 		=> Tables["taxablekind"];
 
-	///<summary>
-	///Codici Deduzioni per Esercizio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable deduction 		=> Tables["deduction"];
 
-	///<summary>
-	///Tipi di ritenuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
-	///<summary>
-	///Familiare - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable parasubcontractfamily 		=> Tables["parasubcontractfamily"];
 
-	///<summary>
-	///Tipo detrazione, usato nei contratti parasubordinati
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable abatement 		=> Tables["abatement"];
 
-	///<summary>
-	///Oneri Detraibili - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable abatableexpense 		=> Tables["abatableexpense"];
 
-	///<summary>
-	///Informazioni su una detrazione per un determinato esercizo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable abatementcode 		=> Tables["abatementcode"];
 
-	///<summary>
-	///Dettaglio Detrazioni CUD Presentato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable exhibitedcudabatement 		=> Tables["exhibitedcudabatement"];
 
-	///<summary>
-	///Comunicazioni da CAF
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable cafdocument 		=> Tables["cafdocument"];
 
-	///<summary>
-	///Storni Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolltaxcorrige 		=> Tables["payrolltaxcorrige"];
 
@@ -245,6 +176,7 @@ private void initClass() {
 	tparasubcontract.Columns.Add( new DataColumn("idaccmotivedebit", typeof(string)));
 	tparasubcontract.Columns.Add( new DataColumn("idaccmotivedebit_crg", typeof(string)));
 	tparasubcontract.Columns.Add( new DataColumn("idaccmotivedebit_datacrg", typeof(DateTime)));
+	tparasubcontract.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tparasubcontract);
 	tparasubcontract.PrimaryKey =  new DataColumn[]{tparasubcontract.Columns["idcon"]};
 
@@ -296,6 +228,7 @@ private void initClass() {
 	tpayroll.Columns.Add(C);
 	tpayroll.Columns.Add( new DataColumn("flagsummarybalance", typeof(string)));
 	tpayroll.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tpayroll);
 	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 

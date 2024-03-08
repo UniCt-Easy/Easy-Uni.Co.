@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,7 +45,7 @@ namespace no_table_elencoclientiforn {
             this.btnScriviElenco = new System.Windows.Forms.Button();
             this.btnClienti = new System.Windows.Forms.Button();
             this.btnFornitori = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.DS = new no_table_elencoclientiforn.vistaForm();
             this.btnCheck = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -148,7 +148,7 @@ namespace no_table_elencoclientiforn {
         private System.Windows.Forms.Button btnClienti;
         private System.Windows.Forms.Button btnFornitori;
         public vistaForm DS;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.Button btnCheck;
     }
 }

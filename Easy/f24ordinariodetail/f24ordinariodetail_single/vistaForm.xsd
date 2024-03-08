@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="f24ordinariodetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idf24ordinario" type="xs:int" />
+              <xs:element name="iddetail" type="xs:int" />
+              <xs:element name="codicetributo" type="xs:string" />
+              <xs:element name="codiceufficio" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceatto" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimentoa" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimentob" type="xs:string" minOccurs="0" />
+              <xs:element name="importoadebito" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoacredito" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="ravvedimentooperoso" type="xs:string" minOccurs="0" />
+              <xs:element name="immobilivariati" type="xs:string" minOccurs="0" />
+              <xs:element name="accontosaldo" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroimmobili" type="xs:int" minOccurs="0" />
+              <xs:element name="detrazioneabitazione" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idaltrienti" type="xs:string" minOccurs="0" />
+              <xs:element name="idcodicesedealtrienti" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceposizione" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idprovincia" type="xs:string" minOccurs="0" />
+              <xs:element name="identificativooperazione" type="xs:string" minOccurs="0" />
+              <xs:element name="identelocale" type="xs:int" minOccurs="0" />
+              <xs:element name="catastalecomune" type="xs:string" minOccurs="0" />
+              <xs:element name="idf24sezione" type="xs:string" />
+              <xs:element name="codiceditta" type="xs:string" minOccurs="0" />
+              <xs:element name="cc_codiceditta" type="xs:string" minOccurs="0" />
+              <xs:element name="numerodiriferimento" type="xs:string" minOccurs="0" />
+              <xs:element name="causaleinail" type="xs:string" minOccurs="0" />
+              <xs:element name="codicesedeinail" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24sezione">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idf24sezione" type="xs:string" />
+              <xs:element name="descrizione" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24entilocali">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attivo" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="descrizione" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="identelocale" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24altrientiprevidenzialiassicurativi">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="descrizione" type="xs:string" />
+              <xs:element name="attivo" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idaltrienti" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24sediinail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codicesede" type="xs:string" />
+              <xs:element name="nomesede" type="xs:string" minOccurs="0" />
+              <xs:element name="indirizzo" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="citta" type="xs:string" minOccurs="0" />
+              <xs:element name="provincia" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fiscaltaxregion">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfiscaltaxregion" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idcountry" type="xs:int" minOccurs="0" />
+              <xs:element name="idregion" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24sedialtrienti">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaltrienti" type="xs:string" />
+              <xs:element name="codicesede" type="xs:string" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PROVINCIA">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDPROVINCIA" type="xs:int" />
+              <xs:element name="IDREGIONE" type="xs:int" minOccurs="0" />
+              <xs:element name="DIZIONEPROVINCIA" type="xs:string" minOccurs="0" />
+              <xs:element name="CODISTATPROVINCIA" type="xs:string" minOccurs="0" />
+              <xs:element name="SIGLAPROV" type="xs:string" minOccurs="0" />
+              <xs:element name="CODISTATCAPOLPROV" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24tributi">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codicetributo" type="xs:string" />
+              <xs:element name="modalitadiutilizzo" type="xs:string" minOccurs="0" />
+              <xs:element name="tipotributo" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimento_a" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimento_b" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcodiceufficio" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceatto" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="idf24sezione" type="xs:string" minOccurs="0" />
+              <xs:element name="idaltrienti" type="xs:string" minOccurs="0" />
+              <xs:element name="attivo" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="codicetributoep" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24ordinariodetail" />
+      <xs:field xpath="mstns:idf24ordinario" />
+      <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+    <xs:unique name="f24sezione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24sezione" />
+      <xs:field xpath="mstns:idf24sezione" />
+    </xs:unique>
+    <xs:unique name="f24entilocali_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24entilocali" />
+      <xs:field xpath="mstns:identelocale" />
+    </xs:unique>
+    <xs:unique name="f24altrientiprevidenzialiassicurativi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24altrientiprevidenzialiassicurativi" />
+      <xs:field xpath="mstns:idaltrienti" />
+    </xs:unique>
+    <xs:unique name="f24sediinail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24sediinail" />
+      <xs:field xpath="mstns:codicesede" />
+    </xs:unique>
+    <xs:unique name="fiscaltaxregion_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fiscaltaxregion" />
+      <xs:field xpath="mstns:idfiscaltaxregion" />
+    </xs:unique>
+    <xs:unique name="f24sedialtrienti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24sedialtrienti" />
+      <xs:field xpath="mstns:idaltrienti" />
+      <xs:field xpath="mstns:codicesede" />
+    </xs:unique>
+    <xs:unique name="f24tributi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24tributi" />
+      <xs:field xpath="mstns:codicetributo" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="f24sezione_f24ordinariodetail" msdata:parent="f24sezione" msdata:child="f24ordinariodetail" msdata:parentkey="idf24sezione" msdata:childkey="idf24sezione" />
+      <msdata:Relationship name="f24entilocali_f24ordinariodetail" msdata:parent="f24entilocali" msdata:child="f24ordinariodetail" msdata:parentkey="identelocale" msdata:childkey="identelocale" />
+      <msdata:Relationship name="f24sediinail_f24ordinariodetail" msdata:parent="f24sediinail" msdata:child="f24ordinariodetail" msdata:parentkey="codicesede" msdata:childkey="codicesedeinail" />
+      <msdata:Relationship name="fiscaltaxregion_f24ordinariodetail" msdata:parent="fiscaltaxregion" msdata:child="f24ordinariodetail" msdata:parentkey="idfiscaltaxregion" msdata:childkey="idfiscaltaxregion" />
+      <msdata:Relationship name="PROVINCIA_f24ordinariodetail" msdata:parent="PROVINCIA" msdata:child="f24ordinariodetail" msdata:parentkey="SIGLAPROV" msdata:childkey="idprovincia" />
+      <msdata:Relationship name="f24tributi_f24ordinariodetail" msdata:parent="f24tributi" msdata:child="f24ordinariodetail" msdata:parentkey="codicetributo" msdata:childkey="codicetributo" />
+      <msdata:Relationship name="f24altrientiprevidenzialiassicurativi_f24ordinariodetail" msdata:parent="f24altrientiprevidenzialiassicurativi" msdata:child="f24ordinariodetail" msdata:parentkey="idaltrienti" msdata:childkey="idaltrienti" />
+      <msdata:Relationship name="f24sedialtrienti_f24ordinariodetail" msdata:parent="f24sedialtrienti" msdata:child="f24ordinariodetail" msdata:parentkey="codicesede" msdata:childkey="idcodicesedealtrienti" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

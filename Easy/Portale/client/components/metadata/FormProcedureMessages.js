@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module FormProcedureMessage
  * @description
@@ -30,7 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @constructor FormProcedureMessage
      * @description
      * Initializes the form for the db procedure messages
-     * @param {Html node} rootElement
+     * @param {node} rootElement
      * @param {DbProcedureMessage []} messages. They are the messages returned form the server, after the post command.
      * @param {MetaPage} metaPage
      * @param {boolean} canIgnore. Indicates that all messages can be ignored
@@ -40,13 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         this.metaPage = metaPage;
         this.rootElement = rootElement || document.body;
         this.messages = messages;
-        this.templateFileHtmlPath  = appMeta.basePath + appMeta.config.path_procedureMessagesTemplate;
+        this.templateFileHtmlPath  =  appMeta.config.path_procedureMessagesTemplate;
         this.columnNames = ["id", "description"];
         this.columnCaptions = [locale.prodMess_id, locale.prodMess_lonMsg];
 
-        // dichiara il deferred di cui verrà fatta la promise alla fine del fillcontrol, cioè qaundo sarà
+        // dichiara il deferred di cui verrà fatta la promise alla fine del fillcontrol, cioè quando sarà
         // mostrato il form, e si rimane in attesa dell'operazione dell'utente.
-        // infatti il def verrà risolto alla pressione dei pulsanti salva o i ognora
+        // infatti il def verrà risolto alla pressione dei pulsanti salva o ignora
         this.def = Deferred('FormProcedureMessage.loadTemplate');
 
         this.canignore = canIgnore;
@@ -64,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         fillControl:function () {
             // carico il template della Form
-            var htmlFileName =  this.templateFileHtmlPath;
+            var htmlFileName =  appMeta.basePath +this.templateFileHtmlPath;
             var self = this;
             $.get(htmlFileName)
                 .done(
@@ -152,7 +135,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 $(".procedureMessage_btn_ignoreandsave").show();
                 $(".procedureMessageWarningIcon").show();
                 $(".procedureMessage_btn_ignoreandsave").text(locale.procedureMessage_btn_ignoreandsave).on("click", _.partial(this.ignoreAndSave, this));
-            }else{
+            }
+            else{
                 $(".procedureMessageErrorIcon").show();
             }
 
@@ -248,7 +232,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Returns the deferred "def" with true, meaning caller has to redo the post to server
          * @param {FormProcedureMessage} that
-         * @returns {Deferred(true)}
+         * @returns {Deferred<true>)}
          */
         ignoreAndSave:function (that) {
             that.closeWindowModal();

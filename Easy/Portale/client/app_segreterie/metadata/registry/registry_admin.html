@@ -1,24 +1,28 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a href="#tabregistry_admin_0" class="nav-link active show" data-toggle="pill"
-               data-target="#tabregistry_admin_0"><i class="fa fa-user-tie mr-1"></i>Principale</a>
+            <a href="#tabregistry_admin_0" class="nav-link active show" data-bs-toggle="pill"
+               data-bs-target="#tabregistry_admin_0"><i class="fa fa-user-tie mr-1"></i>Principale</a>
         </li>
         <li class="nav-item">
-            <a href="#tabregistry_admin_1" class="nav-link" data-toggle="pill"
-               data-target="#tabregistry_admin_1"><i class="fa fa-key mr-1"></i>Crypt System Config</a>
+            <a href="#tabregistry_admin_1" class="nav-link" data-bs-toggle="pill"
+               data-bs-target="#tabregistry_admin_1"><i class="fa fa-key mr-1"></i>Crypt System Config</a>
         </li>
         <li class="nav-item">
-            <a href="#tabregistry_admin_2" class="nav-link" data-toggle="pill"
-               data-target="#tabregistry_admin_2"><i class="fa fa-clipboard-list mr-1"></i>Carico didattico</a>
+            <a href="#tabregistry_admin_2" class="nav-link" data-bs-toggle="pill"
+               data-bs-target="#tabregistry_admin_2"><i class="fa fa-clipboard-list mr-1"></i>Carico didattico</a>
         </li>
         <li class="nav-item">
-            <a href="#tabregistry_admin_3" class="nav-link" data-toggle="pill"
-               data-target="#tabregistry_admin_3"><i class="fa fa-clipboard-list mr-1"></i>Funzioni Sviluppo</a>
+            <a href="#tabregistry_admin_3" class="nav-link" data-bs-toggle="pill"
+               data-bs-target="#tabregistry_admin_3"><i class="fa fa-clipboard-list mr-1"></i>Funzioni Sviluppo</a>
         </li>
         <li class="nav-item">
-            <a href="#tabregistry_admin_4" class="nav-link" data-toggle="pill"
-               data-target="#tabregistry_admin_4"><i class="fa fa-clipboard-list mr-1"></i>Import excel</a>
+            <a href="#tabregistry_admin_4" class="nav-link" data-bs-toggle="pill"
+               data-bs-target="#tabregistry_admin_4"><i class="fa fa-clipboard-list mr-1"></i>Import excel</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tabregistry_admin_5" class="nav-link" data-bs-toggle="pill"
+               data-bs-target="#tabregistry_admin_5"><i class="fa fa-clipboard-list mr-1"></i>Timbrature</a>
         </li>
     </ul>
     <form>
@@ -29,88 +33,119 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="uname">login</label>
-                            <input type="text" class="form-control" id="uname"/>
+                            <input type="text" class="form-control" id="uname" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="pwdeasy">password db</label>
-                            <input type="password" class="form-control" id="pwdeasy"/>
+                            <input type="password" class="form-control" id="pwdeasy" />
                         </div>
                         <div class="col-md-6">
                             <label for="rpassword">ripeti password db</label>
-                            <input type="password" class="form-control" id="rpassword"/>
+                            <input type="password" class="form-control" id="rpassword" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="passwordweb">password web</label>
-                            <input type="password" class="form-control" id="passwordweb"/>
+                            <input type="password" class="form-control" id="passwordweb" />
                         </div>
                         <div class="col-md-6">
                             <label for="rpasswordweb">ripeti password web</label>
-                            <input type="password" class="form-control" id="rpasswordweb"/>
+                            <input type="password" class="form-control" id="rpasswordweb" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="forename">nome</label>
-                            <input type="text" class="form-control" id="forename"/>
+                            <input type="text" class="form-control" id="forename" />
                         </div>
                         <div class="col-md-6">
                             <label for="surname">cognome</label>
-                            <input type="text" class="form-control" id="surname"/>
+                            <input type="text" class="form-control" id="surname" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="cf">Codice Fiscale</label>
-                            <input type="text" class="form-control" id="cf"/>
+                            <input type="text" class="form-control" id="cf" />
                         </div>
                         <div class="col-md-6">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email"/>
+                            <input type="text" class="form-control" id="email" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="usertype">Tipo utente (studenti, docenti, amministrativi)</label>
-                            <input type="text" class="form-control" id="usertype"/>
+                            <label for="usertype">Tipo utente</label>
+                            <select type="text" class="form-control" id="usertype">
+                                <option value="docenti">Docente/Ricercatore/Dottorando</option>
+                                <option value="amministrativi">Personale tecnico-amministrativo</option>
+                                <option value="studenti">Studente</option>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label for="matricola">matricola </label>
-                            <input type="text" class="form-control" id="matricola"/>
+                            <input type="text" class="form-control" id="matricola" />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="codeflowchart">Profilo (codeflowchart: ES: SEGPRG)</label>
-                            <input type="text" class="form-control" id="codeflowchart"/>
+                            <input type="text" class="form-control" id="codeflowchart" />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="esercizio">esercizio</label>
-                            <input type="text" class="form-control" id="esercizio"/>
+                            <select type="text" class="form-control" id="esercizio">
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-4">
+                            <label for="userKindsel">Tipo di login</label>
+                            <select id="userKindsel" class="custom-select d-block w-100">
+                                <option value="3">Login user & password - 3</option>
+                                <option value="4">LDAP - 4</option>
+                                <option value="5">Single sign On - 5</option>
+                            </select>
                         </div>
                     </div>
                     <button type="button" class="btn btn-primary p-2 mt-2" id="registerBtn">Registra utente</button>
 
                     <hr>
-                    <button type="button" class="btn btn-primary p-2 mt-2 mb-2" id="clearSessionBtn">Svuota sessioni
+                    <button type="button" class="btn btn-primary p-2 mt-2 mb-2" id="clearSessionBtn">
+                        Svuota sessioni
                         server
                     </button>
                     <br>
-                    <p><i>(Invalida i token, quindi gli utenti saranno buttati fuori con il messaggio di sessione
-                        scaduta.
-                        Inoltre svuota l'environment dell'utente)</i></p>
+                    <p>
+                        <i>
+                            (Invalida i token, quindi gli utenti saranno buttati fuori con il messaggio di sessione
+                            scaduta.
+                            Inoltre svuota l'environment dell'utente)
+                        </i>
+                    </p>
                     <hr>
-                    <button type="button" class="btn btn-primary p-2 mt-2 mb-2" id="clearCacheBtn">Svuota Server Cache
+                    <button type="button" class="btn btn-primary p-2 mt-2 mb-2" id="clearCacheBtn">
+                        Svuota Server Cache
                     </button>
                     <br>
-                    <p><i>(Svuota le groupOperation per utente, quindi se viene aggiunto un privilegio
-                        verrà rieseguito il calcolo dei privilegi. Al logout login il menù è rinfrescato.
-                        Svuota la dbStrucuture dove sono immagazzinate info base sulle tabelle
-                        Svuota la cache con la descrizione delle colonne. (coldDescr))
-                    </i></p>
+                    <p>
+                        <i>
+                            (Svuota le groupOperation per utente, quindi se viene aggiunto un privilegio
+                            verrà rieseguito il calcolo dei privilegi. Al logout login il menù è rinfrescato.
+                            Svuota la dbStrucuture dove sono immagazzinate info base sulle tabelle
+                            Svuota la cache con la descrizione delle colonne. (coldDescr))
+                        </i>
+                    </p>
                 </div>
             </div>
 
@@ -119,10 +154,11 @@
                 <div class="row">
                     <div class="col-md-6 oneRow">
                         <label for="pwddb">password db</label>
-                        <input type="password" class="form-control" id="pwddb"/>
+                        <input type="password" class="form-control" id="pwddb" />
                         <button type="button" class="btn btn-primary" id="btnshowPasswordDb"
-                                style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                        ><i class="fa fa-eye mr-1"></i></button>
+                                style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                            <i class="fa fa-eye mr-1"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="row">
@@ -131,43 +167,44 @@
                         <textarea type="text" rows="3" class="form-control" id="pwdcod" disabled></textarea>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary p-2 mt-2 mb-2" id="pwdDbBtn">Codifica
+                <button type="button" class="btn btn-primary p-2 mt-2 mb-2" id="pwdDbBtn">
+                    Codifica
                 </button>
             </div>
 
             <div class="tab-pane fade" id="tabregistry_admin_2" role="tabpanel">
                 <div style="background-color: #8fd19e; padding: 5px">
                     <button type="button" class="btn btn-primary" id="btngetCaricoDidattico"
-                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                    ><i class="fa fa-eye mr-1"></i>Login bismart + Carico didattico
+                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <i class="fa fa-eye mr-1"></i>Login bismart + Carico didattico
                     </button>
                     <h5>Si va per cognome, (invece di cf) per bug su sistema besmart che torna tutta la didattica per l'anno accademico</h5>
                     <div class="row">
                         <div class="col-4">
                             <label for="docenteCognomeId">Docente Cognome</label>
-                            <input type="text" class="form-control" id="docenteCognomeId" value="Graziani"/>
+                            <input type="text" class="form-control" id="docenteCognomeId" value="Graziani" />
                         </div>
                         <div class="col-4">
                             <label for="annoaccademicoId">Anno accademico</label>
-                            <input type="text" class="form-control" id="annoaccademicoId" placeholder="aaaa/aaaa" value="2020/2021"/>
+                            <input type="text" class="form-control" id="annoaccademicoId" placeholder="aaaa/aaaa" value="2020/2021" />
                         </div>
                     </div>
-               </div>
+                </div>
                 <hr>
                 <div style="background-color: salmon; padding: 5px">
                     <button type="button" class="btn btn-primary" id="btngetCaricoDidatticoJson"
-                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                    ><i class="fa fa-eye mr-1"></i>Carico didattico da json offline
+                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <i class="fa fa-eye mr-1"></i>Carico didattico da json offline
                     </button>
                     <h5>Si utilizza un json chiamato da postman, quindi la ricerca è stata già fatta. bisogna solo riportare l'anno accademico</h5>
                     <div class="row">
                         <div class="col-4">
                             <label for="docenteIdReg">idreg debug</label>
-                            <input type="text" class="form-control" id="docenteIdReg" value="1040387"/>
+                            <input type="text" class="form-control" id="docenteIdReg" value="1040387" />
                         </div>
                         <div class="col-4">
                             <label for="annoaccademicoIdJson">Anno accademico</label>
-                            <input type="text" class="form-control" id="annoaccademicoIdJson" placeholder="aaaa/aaaa" value="2020/2021"/>
+                            <input type="text" class="form-control" id="annoaccademicoIdJson" placeholder="aaaa/aaaa" value="2020/2021" />
                         </div>
                     </div>
 
@@ -183,34 +220,34 @@
 
                 <div style="background-color: orange; padding: 5px">
                     <button type="button" class="btn btn-primary" id="btngetCaricoDidatticoJsonFile"
-                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                    ><i class="fa fa-eye mr-1"></i>Carico didattico da json file offline
+                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <i class="fa fa-eye mr-1"></i>Carico didattico da json file offline
                     </button>
                     <h5>Si utilizza un json da file, quindi la ricerca è stata già fatta. bisogna solo riportare l'anno accademico</h5>
                     <div class="row">
                         <div class="col-4">
                             <label for="docenteIdRegFile">idreg debug (se passi null allora prende idreg dal cf fiscale. ma in db sviluppo i cf non è detto ci siano)</label><br>
                             <label for="docenteIdRegFile">LASCIARE VUOTO SU DB vero dove esistono i docenti</label>
-                            <input type="text" class="form-control" id="docenteIdRegFile" value="1040387"/>
+                            <input type="text" class="form-control" id="docenteIdRegFile" value="1040387" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                             <label for="annoaccademicoIdJsonFile">Anno accademico</label>
-                            <input type="text" class="form-control" id="annoaccademicoIdJsonFile" placeholder="aaaa/aaaa" value="2020/2021"/>
+                            <input type="text" class="form-control" id="annoaccademicoIdJsonFile" placeholder="aaaa/aaaa" value="2020/2021" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                             <label for="itemIndexId">indice item processato da cui partire</label>
-                            <input type="text" class="form-control" id="itemIndexId" value="0"/>
+                            <input type="text" class="form-control" id="itemIndexId" value="0" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                             <div class="col-4">
                                 <label for="onlyCorsoStudioId">only corso studio</label>
-                                <input type="checkbox" class="form-control" id="onlyCorsoStudioId" value="0"/>
+                                <input type="checkbox" class="form-control" id="onlyCorsoStudioId" value="0" />
                             </div>
                         </div>
                     </div>
@@ -227,22 +264,22 @@
 
                 <div style="background-color: #7db9e8; padding: 5px">
                     <button type="button" class="btn btn-primary" id="btngetAllocationJsonFile"
-                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                    ><i class="fa fa-eye mr-1"></i>Edifici - Aule - Lezioni da json file offline
+                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <i class="fa fa-eye mr-1"></i>Edifici - Aule - Lezioni da json file offline
                     </button>
                     <h5>Get- Allocation Si utilizza un json da file, quindi la ricerca è stata già fatta.</h5>
                     <h5>Popola lezione aule edifici</h5>
                     <div class="row">
                         <div class="col-4">
                             <label for="itemIndexLezioniId">indice item processato da cui partire</label>
-                            <input type="text" class="form-control" id="itemIndexLezioniId" value="0"/>
+                            <input type="text" class="form-control" id="itemIndexLezioniId" value="0" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                             <div class="col-4">
                                 <label for="onlyLezioniId">only lezioni (aule- edifici già fatte)</label>
-                                <input type="checkbox" class="form-control" id="onlyLezioniId" value="0"/>
+                                <input type="checkbox" class="form-control" id="onlyLezioniId" value="0" />
                             </div>
                         </div>
                     </div>
@@ -262,8 +299,8 @@
                     <h5>Json offline del servizio getallocations, popola tabella lezione</h5>
 
                     <button type="button" class="btn btn-primary" id="btngetAllocationsDebug"
-                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                    ><i class="fa fa-eye mr-1"></i>Processa json getAllocations DEBUG
+                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <i class="fa fa-eye mr-1"></i>Processa json getAllocations DEBUG
                     </button>
 
                     <div class="row">
@@ -281,30 +318,30 @@
                     <div class="row">
                         <div class="col-4">
                             <label for="annoaccademicoId">Docente Nome</label>
-                            <input type="text" class="form-control" id="docenteNomeGetAllId" value="Salvatore"/>
+                            <input type="text" class="form-control" id="docenteNomeGetAllId" value="Salvatore" />
                         </div>
                         <div class="col-4">
                             <label for="docenteCognomeId">Docente Cognome</label>
-                            <input type="text" class="form-control" id="docenteCognomeGetAllId" value="Graziani"/>
+                            <input type="text" class="form-control" id="docenteCognomeGetAllId" value="Graziani" />
                         </div>
                         <div class="col-4">
                             <label for="dataInizioGetAllId">Data Inizio</label>
-                            <input type="text" class="form-control" id="dataInizioGetAllId"/>
+                            <input type="text" class="form-control" id="dataInizioGetAllId" />
                         </div>
                         <div class="col-4">
                             <label for="dataFineGetAllId">Data Fine</label>
-                            <input type="text" class="form-control" id="dataFineGetAllId"/>
+                            <input type="text" class="form-control" id="dataFineGetAllId" />
                         </div>
                     </div>
 
                     <button type="button" class="btn btn-primary" id="btngetAllocations"
-                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                    ><i class="fa fa-eye mr-1"></i>Richiedi Lezioni (ws getAllocations)
+                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <i class="fa fa-eye mr-1"></i>Richiedi Lezioni (ws getAllocations)
                     </button>
 
                     <button type="button" class="btn btn-primary" id="btngetAllocationsMassivo"
-                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                    ><i class="fa fa-eye mr-1"></i>Richiedi Lezioni Massivo (solo inizio e fine) (ws getAllocations)
+                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <i class="fa fa-eye mr-1"></i>Richiedi Lezioni Massivo (solo inizio e fine) (ws getAllocations)
                     </button>
 
                 </div>
@@ -315,18 +352,18 @@
                 <h5>postData.doPostSilent(ds: JsDataSet, tableName: string, editType: string, messages: [])</h5>
 
                 <button type="button" class="btn btn-primary" id="btnSaveDataset"
-                        style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                ><i class="fa fa-eye mr-1"></i>run
+                        style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                    <i class="fa fa-eye mr-1"></i>run
                 </button>
 
                 <div class="row">
                     <div class="col-5">
                         <label for="tableNameId">TableName</label>
-                        <input type="text" class="form-control" id="tableNameId"/>
+                        <input type="text" class="form-control" id="tableNameId" />
                     </div>
                     <div class="col-5">
                         <label for="edittypeid">EditType</label>
-                        <input type="text" class="form-control" id="edittypeid"/>
+                        <input type="text" class="form-control" id="edittypeid" />
                     </div>
                 </div>
 
@@ -343,14 +380,14 @@
                 <h5>Scegli un file xls</h5>
 
                 <button type="button" class="btn btn-primary" id="btnImport"
-                        style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
-                ><i class="fa fa-eye mr-1"></i>run
+                        style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                    <i class="fa fa-eye mr-1"></i>run
                 </button>
 
                 <div class="row">
                     <div class="col-5">
                         <label for="tableNameId">TableName</label>
-                        <input type="text" class="form-control" id="tableNameImport"/>
+                        <input type="text" class="form-control" id="tableNameImport" />
                     </div>
 
                 </div>
@@ -358,24 +395,90 @@
                 <div class="row">
                     <div class="col">
                         <label for="arraycolumnsfileid">array columns file</label>
-                        <input type="text" class="form-control" id="arraycolumnsfileid"/>
+                        <input type="text" class="form-control" id="arraycolumnsfileid" />
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
                         <label for="arraycolumnsdbid">array columns file</label>
-                        <input type="text" class="form-control" id="arraycolumnsdbid"/>
+                        <input type="text" class="form-control" id="arraycolumnsdbid" />
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <label class="col-form-label col-md-12" for="genericFileExcelId">Importa file excel generico</label>
-                    <input id="genericFileExcelId" type="file" class="form-control"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                    <input id="genericFileExcelId" type="file" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                 </div>
 
             </div>
-        </div>
+
+            <div class="tab-pane fade" id="tabregistry_admin_5" role="tabpanel">
+                <div class="container">
+                    <h4>Timbrature</h4>
+                    <span>
+                        Acquisizione delle ore lavorate giornaliere del personale soggetto a timbratura.
+                        <br>
+                        Indicare il periodo dalla data di inizio acquisizione alla data di fine.
+                        <br>
+                        Indicare una singola matricola o più matricole separate da virgola.
+                    </span>
+                    <br>
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="dataInizioTimbrature">Data Inizio</label>
+                            <input type="text" class="form-control" id="dataInizioTimbrature" />
+                            <input type="hidden" id="alt_dataInizioTimbrature" name="dateFrom">
+                        </div>
+                        <div class="col-4">
+                            <label for="dataFineTimbrature">Data Fine</label>
+                            <input type="text" class="form-control" id="dataFineTimbrature" />
+                            <input type="hidden" id="alt_dataFineTimbrature" name="dateTo">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="matricolaTimbrature">Matricola/e</label>
+                            <input placeholder="1102 o 1125,1138,1140" type="text" class="form-control" id="matricolaTimbrature" />
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btngetTimbrature"
+                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <!--<i class="fa fa-eye mr-1"></i>-->
+                        run
+                    </button>
+                </div>
+                <hr>
+                <div class="container">
+                    <h4>Costo orario personale</h4>
+                    <span>
+                        Acquisizione del costo orario del personale.
+                        <br>
+                        Indicare la data di inizio acquisizione e indicare una singola matricola o più matricole separate da virgola.
+                        <br>
+                        L'interrogazione con la data odierna restituisce l'ultimo costo orario caricato dall'ufficio stipendi.
+                    </span>
+                    <br>
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="dataInizioCostoOrario">Data Inizio</label>
+                            <input type="text" class="form-control" id="dataInizioCostoOrario" />
+                            <input type="hidden" id="alt_dataInizioCostoOrario" name="dataInizioCostoOrario">
+                        </div>
+                        <div class="col-4">
+                            <label for="dataFineCostoOrario">Data Fine</label>
+                            <input type="text" class="form-control" id="dataFineCostoOrario" />
+                            <input type="hidden" id="alt_dataFineCostoOrario" name="dataFineCostoOrario">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="matricolaWsCostoOrario">Matricola/e</label>
+                            <input placeholder="1102 o 1125,1138,1140" type="text" class="form-control" id="matricolaWsCostoOrario" />
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btngetCostoOrario"
+                            style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        run
+                    </button>
+                </div>
+            </div>
     </form>
 </div>
 

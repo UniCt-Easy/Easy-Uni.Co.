@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -724,15 +724,14 @@ begin
 	INSERT INTO #errors VALUES( 'Ripartizioni Ritenute con Cap. di Costo o movimento spesa costo valorizzato, riservato, invece, ai Recuperi' , 75,'S')
 end
 
---76) Contributi negativi  senza capitolo di entrata   valorizzato o senza classificazione Siope Entrata
+--76) Contributi negativi  senza capitolo di entrata   valorizzato  
  if exists (  SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import AND
   ISNULL(csa_importver.flagclawback,'N') = 'N' 
   AND (idcsa_contractkinddata is  not   null or  idcsa_contracttax is not null) and (isnull(importo,0) <0)
-  AND 	(idfin_incomeclawback is null
-  OR 	idsor_siope_incomeclawback IS NULL)
+  AND idfin_incomeclawback is null 
 ) 
 begin
-	INSERT INTO #errors VALUES( 'Contributi con importo negativo senza capitolo di entrata o classificazione Siope entrata configurati' , 76,'S')
+	INSERT INTO #errors VALUES( 'Contributi con importo negativo senza capitolo di entrata valorizzato' , 76,'S')
 end
 
 

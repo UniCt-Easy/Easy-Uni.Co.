@@ -23,6 +23,7 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idattach" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazioneuo" type="xs:int" />
               <xs:element name="idperfvalutazioneuoattach" type="xs:int" />

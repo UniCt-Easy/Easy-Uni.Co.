@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_rendicontattivitaprogetto_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_rendicontattivitaprogetto_seg: DataSet {
+public partial class dsmeta_rendicontattivitaprogetto_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -37,13 +37,22 @@ public class dsmeta_rendicontattivitaprogetto_seg: DataSet {
 	public MetaTable rendicontattivitaprogettoora 		=> (MetaTable)Tables["rendicontattivitaprogettoora"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable rendicontattivitaprogettowpview 		=> (MetaTable)Tables["rendicontattivitaprogettowpview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable year 		=> (MetaTable)Tables["year"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable rendicontattivitaprogettoyear 		=> (MetaTable)Tables["rendicontattivitaprogettoyear"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable rendicontattivitaprogettokinddefaultview 		=> (MetaTable)Tables["rendicontattivitaprogettokinddefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable getregistrydocentiamministratividefaultview 		=> (MetaTable)Tables["getregistrydocentiamministratividefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable upbelenchiview 		=> (MetaTable)Tables["upbelenchiview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable itineration 		=> (MetaTable)Tables["itineration"];
@@ -94,6 +103,9 @@ private void initClass() {
 	trendicontattivitaprogettoora.defineColumn("ct", typeof(DateTime),false);
 	trendicontattivitaprogettoora.defineColumn("cu", typeof(string),false);
 	trendicontattivitaprogettoora.defineColumn("data", typeof(DateTime));
+	trendicontattivitaprogettoora.defineColumn("idconsolidamento", typeof(int));
+	trendicontattivitaprogettoora.defineColumn("idprogetto", typeof(int),false);
+	trendicontattivitaprogettoora.defineColumn("idreg", typeof(int),false);
 	trendicontattivitaprogettoora.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
 	trendicontattivitaprogettoora.defineColumn("idrendicontattivitaprogettoora", typeof(int),false);
 	trendicontattivitaprogettoora.defineColumn("idsal", typeof(int));
@@ -104,7 +116,22 @@ private void initClass() {
 	trendicontattivitaprogettoora.defineColumn("!idsal_sal_start", typeof(DateTime));
 	trendicontattivitaprogettoora.defineColumn("!idsal_sal_stop", typeof(DateTime));
 	Tables.Add(trendicontattivitaprogettoora);
-	trendicontattivitaprogettoora.defineKey("idrendicontattivitaprogetto", "idrendicontattivitaprogettoora", "idworkpackage");
+	trendicontattivitaprogettoora.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idrendicontattivitaprogettoora", "idworkpackage");
+
+	//////////////////// RENDICONTATTIVITAPROGETTOWPVIEW /////////////////////////////////
+	var trendicontattivitaprogettowpview= new MetaTable("rendicontattivitaprogettowpview");
+	trendicontattivitaprogettowpview.defineColumn("idprogetto", typeof(int),false);
+	trendicontattivitaprogettowpview.defineColumn("idreg", typeof(int),false);
+	trendicontattivitaprogettowpview.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
+	trendicontattivitaprogettowpview.defineColumn("idworkpackage", typeof(int),false);
+	trendicontattivitaprogettowpview.defineColumn("oreanno", typeof(int));
+	trendicontattivitaprogettowpview.defineColumn("oreattivita", typeof(int));
+	trendicontattivitaprogettowpview.defineColumn("oremaxanno", typeof(int),false);
+	trendicontattivitaprogettowpview.defineColumn("stipendioannuo", typeof(decimal));
+	trendicontattivitaprogettowpview.defineColumn("stipendiorendicontato", typeof(decimal));
+	trendicontattivitaprogettowpview.defineColumn("year", typeof(int),false);
+	Tables.Add(trendicontattivitaprogettowpview);
+	trendicontattivitaprogettowpview.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idworkpackage", "oremaxanno", "year");
 
 	//////////////////// YEAR /////////////////////////////////
 	var tyear= new MetaTable("year");
@@ -120,14 +147,31 @@ private void initClass() {
 	trendicontattivitaprogettoyear.defineColumn("idworkpackage", typeof(int),false);
 	trendicontattivitaprogettoyear.defineColumn("ore", typeof(int));
 	trendicontattivitaprogettoyear.defineColumn("year", typeof(int));
+	trendicontattivitaprogettoyear.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(trendicontattivitaprogettoyear);
 	trendicontattivitaprogettoyear.defineKey("idprogetto", "idrendicontattivitaprogetto", "idrendicontattivitaprogettoyear", "idworkpackage");
+
+	//////////////////// RENDICONTATTIVITAPROGETTOKINDDEFAULTVIEW /////////////////////////////////
+	var trendicontattivitaprogettokinddefaultview= new MetaTable("rendicontattivitaprogettokinddefaultview");
+	trendicontattivitaprogettokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	trendicontattivitaprogettokinddefaultview.defineColumn("idrendicontattivitaprogettokind", typeof(int),false);
+	trendicontattivitaprogettokinddefaultview.defineColumn("rendicontattivitaprogettokind_active", typeof(string));
+	trendicontattivitaprogettokinddefaultview.defineColumn("rendicontattivitaprogettokind_ct", typeof(DateTime),false);
+	trendicontattivitaprogettokinddefaultview.defineColumn("rendicontattivitaprogettokind_cu", typeof(string),false);
+	trendicontattivitaprogettokinddefaultview.defineColumn("rendicontattivitaprogettokind_description", typeof(string));
+	trendicontattivitaprogettokinddefaultview.defineColumn("rendicontattivitaprogettokind_lt", typeof(DateTime),false);
+	trendicontattivitaprogettokinddefaultview.defineColumn("rendicontattivitaprogettokind_lu", typeof(string),false);
+	trendicontattivitaprogettokinddefaultview.defineColumn("rendicontattivitaprogettokind_sortcode", typeof(int));
+	trendicontattivitaprogettokinddefaultview.defineColumn("title", typeof(string));
+	Tables.Add(trendicontattivitaprogettokinddefaultview);
+	trendicontattivitaprogettokinddefaultview.defineKey("idrendicontattivitaprogettokind");
 
 	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
 	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");
 	tgetregistrydocentiamministratividefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_cf", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_contratto", typeof(string));
+	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_extmatricula", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_forename", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_istituto", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_ssd", typeof(string));
@@ -136,6 +180,15 @@ private void initClass() {
 	tgetregistrydocentiamministratividefaultview.defineColumn("surname", typeof(string));
 	Tables.Add(tgetregistrydocentiamministratividefaultview);
 	tgetregistrydocentiamministratividefaultview.defineKey("idreg");
+
+	//////////////////// UPBELENCHIVIEW /////////////////////////////////
+	var tupbelenchiview= new MetaTable("upbelenchiview");
+	tupbelenchiview.defineColumn("active", typeof(string));
+	tupbelenchiview.defineColumn("codeupb", typeof(string),false);
+	tupbelenchiview.defineColumn("idupb", typeof(string),false);
+	tupbelenchiview.defineColumn("title", typeof(string),false);
+	Tables.Add(tupbelenchiview);
+	tupbelenchiview.defineKey("idupb");
 
 	//////////////////// ITINERATION /////////////////////////////////
 	var titineration= new MetaTable("itineration");
@@ -146,6 +199,10 @@ private void initClass() {
 	titineration.defineColumn("admincarkmcost", typeof(decimal));
 	titineration.defineColumn("advanceapplied", typeof(string));
 	titineration.defineColumn("advancepercentage", typeof(decimal));
+	titineration.defineColumn("advancepercentagecourse", typeof(decimal));
+	titineration.defineColumn("advancepercentagefood", typeof(decimal));
+	titineration.defineColumn("advancepercentageliving", typeof(decimal));
+	titineration.defineColumn("advancepercentagetravel", typeof(decimal));
 	titineration.defineColumn("applierannotations", typeof(string));
 	titineration.defineColumn("authdoc", typeof(string));
 	titineration.defineColumn("authdocdate", typeof(DateTime));
@@ -170,6 +227,7 @@ private void initClass() {
 	titineration.defineColumn("idaccmotivedebit_crg", typeof(string));
 	titineration.defineColumn("idaccmotivedebit_datacrg", typeof(DateTime));
 	titineration.defineColumn("idauthmodel", typeof(int));
+	titineration.defineColumn("idcostpartition", typeof(int));
 	titineration.defineColumn("iddalia_dipartimento", typeof(int));
 	titineration.defineColumn("iddalia_funzionale", typeof(int));
 	titineration.defineColumn("iddaliaposition", typeof(int));
@@ -178,6 +236,7 @@ private void initClass() {
 	titineration.defineColumn("iditineration", typeof(int),false);
 	titineration.defineColumn("iditineration_ref", typeof(int));
 	titineration.defineColumn("iditinerationstatus", typeof(int));
+	titineration.defineColumn("idman", typeof(int));
 	titineration.defineColumn("idreg", typeof(int),false);
 	titineration.defineColumn("idregistrylegalstatus", typeof(int));
 	titineration.defineColumn("idregistrypaymethod", typeof(int));
@@ -202,6 +261,7 @@ private void initClass() {
 	titineration.defineColumn("stop", typeof(DateTime),false);
 	titineration.defineColumn("stoptime", typeof(DateTime));
 	titineration.defineColumn("supposedamount", typeof(decimal));
+	titineration.defineColumn("supposedcourse", typeof(decimal));
 	titineration.defineColumn("supposedfood", typeof(decimal));
 	titineration.defineColumn("supposedliving", typeof(decimal));
 	titineration.defineColumn("supposedtravel", typeof(decimal));
@@ -213,6 +273,8 @@ private void initClass() {
 	titineration.defineColumn("vehicle_motive", typeof(string));
 	titineration.defineColumn("webwarn", typeof(string));
 	titineration.defineColumn("yitineration", typeof(int),false);
+	titineration.defineColumn("!idupb_upbelenchiview_codeupb", typeof(string));
+	titineration.defineColumn("!idupb_upbelenchiview_title", typeof(string));
 	Tables.Add(titineration);
 	titineration.defineKey("iditineration");
 
@@ -222,12 +284,16 @@ private void initClass() {
 	trendicontattivitaprogettoitineration.defineColumn("idprogetto", typeof(int),false);
 	trendicontattivitaprogettoitineration.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
 	trendicontattivitaprogettoitineration.defineColumn("idworkpackage", typeof(int),false);
+	trendicontattivitaprogettoitineration.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(trendicontattivitaprogettoitineration);
 	trendicontattivitaprogettoitineration.defineKey("iditineration", "idprogetto", "idrendicontattivitaprogetto", "idworkpackage");
 
 	//////////////////// RENDICONTATTIVITAPROGETTO /////////////////////////////////
 	var trendicontattivitaprogetto= new MetaTable("rendicontattivitaprogetto");
 	trendicontattivitaprogetto.defineColumn("!orerendicont", typeof(string));
+	trendicontattivitaprogetto.defineColumn("!raggruppamento", typeof(string));
+	trendicontattivitaprogetto.defineColumn("!titolobreve", typeof(string));
+	trendicontattivitaprogetto.defineColumn("!wp", typeof(string));
 	trendicontattivitaprogetto.defineColumn("ct", typeof(DateTime),false);
 	trendicontattivitaprogetto.defineColumn("cu", typeof(string),false);
 	trendicontattivitaprogetto.defineColumn("datainizioprevista", typeof(DateTime),false);
@@ -236,25 +302,30 @@ private void initClass() {
 	trendicontattivitaprogetto.defineColumn("idprogetto", typeof(int),false);
 	trendicontattivitaprogetto.defineColumn("idreg", typeof(int),false);
 	trendicontattivitaprogetto.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
+	trendicontattivitaprogetto.defineColumn("idrendicontattivitaprogettokind", typeof(int));
 	trendicontattivitaprogetto.defineColumn("idworkpackage", typeof(int),false);
 	trendicontattivitaprogetto.defineColumn("lt", typeof(DateTime),false);
 	trendicontattivitaprogetto.defineColumn("lu", typeof(string),false);
 	trendicontattivitaprogetto.defineColumn("orepreventivate", typeof(int),false);
-	trendicontattivitaprogetto.defineColumn("stop", typeof(DateTime));
+	trendicontattivitaprogetto.defineColumn("stop", typeof(DateTime),false);
 	Tables.Add(trendicontattivitaprogetto);
-	trendicontattivitaprogetto.defineKey("idprogetto", "idrendicontattivitaprogetto", "idworkpackage");
+	trendicontattivitaprogetto.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idworkpackage");
 
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{rendicontattivitaprogetto.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto.Columns["idworkpackage"]};
-	var cChild = new []{rendicontattivitaprogettoora.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoora.Columns["idworkpackage"]};
-	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_idrendicontattivitaprogetto-idworkpackage",cPar,cChild,false));
+	var cPar = new []{rendicontattivitaprogetto.Columns["idprogetto"], rendicontattivitaprogetto.Columns["idworkpackage"], rendicontattivitaprogetto.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto.Columns["idreg"]};
+	var cChild = new []{rendicontattivitaprogettoora.Columns["idprogetto"], rendicontattivitaprogettoora.Columns["idworkpackage"], rendicontattivitaprogettoora.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoora.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_idprogetto-idworkpackage-idrendicontattivitaprogetto-idreg",cPar,cChild,false));
 
 	cPar = new []{sal.Columns["idsal"]};
 	cChild = new []{rendicontattivitaprogettoora.Columns["idsal"]};
 	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoora_sal_idsal",cPar,cChild,false));
+
+	cPar = new []{rendicontattivitaprogettowpview.Columns["idprogetto"], rendicontattivitaprogettowpview.Columns["idreg"], rendicontattivitaprogettowpview.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettowpview.Columns["idworkpackage"]};
+	cChild = new []{rendicontattivitaprogetto.Columns["idprogetto"], rendicontattivitaprogetto.Columns["idreg"], rendicontattivitaprogetto.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto.Columns["idworkpackage"]};
+	Relations.Add(new DataRelation("FK_rendicontattivitaprogetto_rendicontattivitaprogettowpview_idprogetto-idreg-idrendicontattivitaprogetto-idworkpackage",cPar,cChild,false));
 
 	cPar = new []{rendicontattivitaprogetto.Columns["idprogetto"], rendicontattivitaprogetto.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto.Columns["idworkpackage"]};
 	cChild = new []{rendicontattivitaprogettoyear.Columns["idprogetto"], rendicontattivitaprogettoyear.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoyear.Columns["idworkpackage"]};
@@ -264,17 +335,25 @@ private void initClass() {
 	cChild = new []{rendicontattivitaprogettoyear.Columns["year"]};
 	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoyear_year_year",cPar,cChild,false));
 
+	cPar = new []{rendicontattivitaprogettokinddefaultview.Columns["idrendicontattivitaprogettokind"]};
+	cChild = new []{rendicontattivitaprogetto.Columns["idrendicontattivitaprogettokind"]};
+	Relations.Add(new DataRelation("FK_rendicontattivitaprogetto_rendicontattivitaprogettokinddefaultview_idrendicontattivitaprogettokind",cPar,cChild,false));
+
 	cPar = new []{getregistrydocentiamministratividefaultview.Columns["idreg"]};
 	cChild = new []{rendicontattivitaprogetto.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_rendicontattivitaprogetto_getregistrydocentiamministratividefaultview_idreg",cPar,cChild,false));
 
-	cPar = new []{rendicontattivitaprogetto.Columns["idprogetto"], rendicontattivitaprogetto.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto.Columns["idworkpackage"]};
-	cChild = new []{rendicontattivitaprogettoitineration.Columns["idprogetto"], rendicontattivitaprogettoitineration.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoitineration.Columns["idworkpackage"]};
-	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_idprogetto-idrendicontattivitaprogetto-idworkpackage",cPar,cChild,false));
+	cPar = new []{rendicontattivitaprogetto.Columns["idprogetto"], rendicontattivitaprogetto.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto.Columns["idworkpackage"], rendicontattivitaprogetto.Columns["iditineration"]};
+	cChild = new []{rendicontattivitaprogettoitineration.Columns["idprogetto"], rendicontattivitaprogettoitineration.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoitineration.Columns["idworkpackage"], rendicontattivitaprogettoitineration.Columns["iditineration"]};
+	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_idprogetto-idrendicontattivitaprogetto-idworkpackage-iditineration",cPar,cChild,false));
 
 	cPar = new []{itineration.Columns["iditineration"]};
 	cChild = new []{rendicontattivitaprogettoitineration.Columns["iditineration"]};
 	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoitineration_itineration_iditineration",cPar,cChild,false));
+
+	cPar = new []{upbelenchiview.Columns["idupb"]};
+	cChild = new []{itineration.Columns["idupb"]};
+	Relations.Add(new DataRelation("FK_itineration_upbelenchiview_idupb",cPar,cChild,false));
 
 	#endregion
 

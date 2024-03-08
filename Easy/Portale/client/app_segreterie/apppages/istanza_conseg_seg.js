@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -49,12 +32,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				
 				if (self.isNullOrMinDate(parentRow.data))
 					parentRow.data = new Date();
-				if (!parentRow.extension)
-					parentRow.extension = "conseg";
-				if (!parentRow.idistanzakind)
-					parentRow.idistanzakind = 12;
-				if (!parentRow.idstatuskind)
-					parentRow.idstatuskind = 1;
+				parentRow.extension = "conseg";
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#istanza_conseg_seg_idreg_studenti'), null);
+				} else {
+					this.helpForm.filter($('#istanza_conseg_seg_idreg_studenti'), this.q.eq('registry_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -75,8 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				}
 
 				//beforeFillInside
-
-				//beforeFillInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
@@ -89,9 +70,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				this.helpForm.filter($('#istanza_conseg_seg_idreg_studenti'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('istanza_conseg'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('richitesi'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('relatore'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('richitesi'));
 				//afterClearin
 			},
 
@@ -99,17 +81,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				this.enableControl($('#istanza_conseg_seg_protnumero'), false);
 				this.enableControl($('#istanza_conseg_seg_protanno'), false);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('istanza_conseg'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('richitesi'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('relatore'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('richitesi'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.istanza.defaults({ 'extension': "conseg" });
+				this.state.DS.tables.istanza.defaults({ 'idistanzakind': 12 });
+				this.state.DS.tables.istanza.defaults({ 'idstatuskind': 1 });
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
 				this.state.DS.tables.statuskind.staticFilter(window.jsDataQuery.eq('istanze', 'S'));
+				$('#grid_richitesi_segistcons').data('mdlconditionallookup', 'accettata,S,Si;accettata,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

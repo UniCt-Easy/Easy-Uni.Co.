@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,7 +37,7 @@ namespace meta_paymentview{//meta_documentopagamentoview//
     
         }
 		public override string GetSorting(string ListingType) {
-			if (ListingType=="lista")return "ypay desc, npay desc";
+			if (ListingType == "lista" || ListingType == "documentitrasmessi") return "ypay desc, npay desc";
 			return base.GetSorting (ListingType);
 		}
         private string[] mykey = new string[] { "kpay" };

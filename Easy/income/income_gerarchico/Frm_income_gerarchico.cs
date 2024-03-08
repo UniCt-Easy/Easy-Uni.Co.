@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -904,7 +904,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.groupBox19.Controls.Add(this.label14);
 			this.groupBox19.Location = new System.Drawing.Point(392, 274);
 			this.groupBox19.Name = "groupBox19";
-			this.groupBox19.Size = new System.Drawing.Size(406, 56);
+			this.groupBox19.Size = new System.Drawing.Size(403, 56);
 			this.groupBox19.TabIndex = 14;
 			this.groupBox19.TabStop = false;
 			this.groupBox19.Text = "Documento collegato";
@@ -932,7 +932,7 @@ namespace income_gerarchico //EntrataGerarchico//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDataDocumento.Location = new System.Drawing.Point(242, 32);
 			this.txtDataDocumento.Name = "txtDataDocumento";
-			this.txtDataDocumento.Size = new System.Drawing.Size(157, 20);
+			this.txtDataDocumento.Size = new System.Drawing.Size(154, 20);
 			this.txtDataDocumento.TabIndex = 2;
 			this.txtDataDocumento.Tag = "income.docdate";
 			// 
@@ -973,7 +973,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.groupCredDeb.Controls.Add(this.txtCredDeb);
 			this.groupCredDeb.Location = new System.Drawing.Point(392, 103);
 			this.groupCredDeb.Name = "groupCredDeb";
-			this.groupCredDeb.Size = new System.Drawing.Size(406, 40);
+			this.groupCredDeb.Size = new System.Drawing.Size(403, 40);
 			this.groupCredDeb.TabIndex = 5;
 			this.groupCredDeb.TabStop = false;
 			this.groupCredDeb.Tag = "AutoChoose.txtCredDeb.lista.(active=\'S\')";
@@ -985,7 +985,7 @@ namespace income_gerarchico //EntrataGerarchico//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCredDeb.Location = new System.Drawing.Point(8, 16);
 			this.txtCredDeb.Name = "txtCredDeb";
-			this.txtCredDeb.Size = new System.Drawing.Size(391, 20);
+			this.txtCredDeb.Size = new System.Drawing.Size(388, 20);
 			this.txtCredDeb.TabIndex = 1;
 			this.txtCredDeb.Tag = "registry.title?incomeview.registry";
 			// 
@@ -1303,11 +1303,12 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabControl1.Controls.Add(this.tabAssIncassi);
 			this.tabControl1.Controls.Add(this.tabAssCrediti);
 			this.tabControl1.Controls.Add(this.tabAltro);
+			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.ImageList = this.imageList1;
 			this.tabControl1.Location = new System.Drawing.Point(187, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(814, 531);
+			this.tabControl1.Size = new System.Drawing.Size(811, 529);
 			this.tabControl1.TabIndex = 4;
 			this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabClassSup_Enter);
 			// 
@@ -1337,7 +1338,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabMovFin1.Controls.Add(this.gboxImporto);
 			this.tabMovFin1.Location = new System.Drawing.Point(4, 23);
 			this.tabMovFin1.Name = "tabMovFin1";
-			this.tabMovFin1.Size = new System.Drawing.Size(806, 504);
+			this.tabMovFin1.Size = new System.Drawing.Size(803, 502);
 			this.tabMovFin1.TabIndex = 0;
 			this.tabMovFin1.Text = "Movimento Finanziario";
 			// 
@@ -1391,7 +1392,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gboxBolletta.Controls.Add(this.btnBolletta);
 			this.gboxBolletta.Location = new System.Drawing.Point(395, 397);
 			this.gboxBolletta.Name = "gboxBolletta";
-			this.gboxBolletta.Size = new System.Drawing.Size(402, 40);
+			this.gboxBolletta.Size = new System.Drawing.Size(399, 40);
 			this.gboxBolletta.TabIndex = 16;
 			this.gboxBolletta.TabStop = false;
 			this.gboxBolletta.Tag = "AutoChoose.SubEntity_txtBolletta.entrata.(active=\'S\')";
@@ -1578,7 +1579,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.cmbCausale.ItemHeight = 13;
 			this.cmbCausale.Location = new System.Drawing.Point(517, 178);
 			this.cmbCausale.Name = "cmbCausale";
-			this.cmbCausale.Size = new System.Drawing.Size(281, 21);
+			this.cmbCausale.Size = new System.Drawing.Size(278, 21);
 			this.cmbCausale.TabIndex = 12;
 			this.cmbCausale.ValueMember = "idtipo";
 			this.cmbCausale.SelectedIndexChanged += new System.EventHandler(this.cmbCausale_SelectedIndexChanged);
@@ -1592,7 +1593,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.cmbTipoContabilizzazione.ItemHeight = 13;
 			this.cmbTipoContabilizzazione.Location = new System.Drawing.Point(517, 154);
 			this.cmbTipoContabilizzazione.Name = "cmbTipoContabilizzazione";
-			this.cmbTipoContabilizzazione.Size = new System.Drawing.Size(281, 21);
+			this.cmbTipoContabilizzazione.Size = new System.Drawing.Size(278, 21);
 			this.cmbTipoContabilizzazione.TabIndex = 11;
 			this.cmbTipoContabilizzazione.SelectedIndexChanged += new System.EventHandler(this.cmbTipoContabilizzazione_SelectedIndexChanged);
 			// 
@@ -1610,7 +1611,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gboxDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
 			this.gboxDocumento.Location = new System.Drawing.Point(392, 202);
 			this.gboxDocumento.Name = "gboxDocumento";
-			this.gboxDocumento.Size = new System.Drawing.Size(406, 72);
+			this.gboxDocumento.Size = new System.Drawing.Size(403, 72);
 			this.gboxDocumento.TabIndex = 13;
 			this.gboxDocumento.TabStop = false;
 			this.gboxDocumento.Text = "Documento da contabilizzare";
@@ -1633,7 +1634,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.cmbTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cmbTipoDocumento.Location = new System.Drawing.Point(61, 16);
 			this.cmbTipoDocumento.Name = "cmbTipoDocumento";
-			this.cmbTipoDocumento.Size = new System.Drawing.Size(338, 21);
+			this.cmbTipoDocumento.Size = new System.Drawing.Size(335, 21);
 			this.cmbTipoDocumento.TabIndex = 1;
 			this.cmbTipoDocumento.Tag = "";
 			this.cmbTipoDocumento.SelectedIndexChanged += new System.EventHandler(this.cmbTipoDocumentoGenerico_SelectedIndexChanged);
@@ -1645,7 +1646,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.txtNumDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtNumDoc.Location = new System.Drawing.Point(240, 48);
 			this.txtNumDoc.Name = "txtNumDoc";
-			this.txtNumDoc.Size = new System.Drawing.Size(159, 20);
+			this.txtNumDoc.Size = new System.Drawing.Size(156, 20);
 			this.txtNumDoc.TabIndex = 4;
 			this.txtNumDoc.Leave += new System.EventHandler(this.txtNumDoc_Leave);
 			// 
@@ -1695,7 +1696,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.groupBox17.Controls.Add(this.txtDescrizione);
 			this.groupBox17.Location = new System.Drawing.Point(392, 0);
 			this.groupBox17.Name = "groupBox17";
-			this.groupBox17.Size = new System.Drawing.Size(406, 100);
+			this.groupBox17.Size = new System.Drawing.Size(403, 100);
 			this.groupBox17.TabIndex = 3;
 			this.groupBox17.TabStop = false;
 			this.groupBox17.Text = "Descrizione";
@@ -1708,7 +1709,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.txtDescrizione.Location = new System.Drawing.Point(8, 16);
 			this.txtDescrizione.Multiline = true;
 			this.txtDescrizione.Name = "txtDescrizione";
-			this.txtDescrizione.Size = new System.Drawing.Size(391, 73);
+			this.txtDescrizione.Size = new System.Drawing.Size(388, 73);
 			this.txtDescrizione.TabIndex = 1;
 			this.txtDescrizione.Tag = "income.description";
 			// 
@@ -2085,7 +2086,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.labBollette1.Size = new System.Drawing.Size(625, 13);
 			this.labBollette1.TabIndex = 33;
 			this.labBollette1.Text = "Per utilizzare il collegamento multiplo con le bollette è necessario selezionare " +
-    "\"Regolarizza disposizione di pagamento già effettuata\"";
+    "\"Regolarizza disposizione di incasso già effettuata\"";
 			// 
 			// btnAddBolletta
 			// 
@@ -5016,7 +5017,8 @@ namespace income_gerarchico //EntrataGerarchico//
 			if (Out == null) return;
 			Out.Tables[0].TableName = "Situazione movimento di entrata";
 			frmSituazioneViewer View = new frmSituazioneViewer(Out);
-			View.Show();
+            createForm(View, null);
+            View.Show();
 		}
 
 
@@ -8070,7 +8072,8 @@ namespace income_gerarchico //EntrataGerarchico//
 
 			if (chkListTitle.Checked) {
 				FrmAskDescr FR = new FrmAskDescr(0);
-				DialogResult D = FR.ShowDialog(this);
+                createForm(FR, this);
+                DialogResult D = FR.ShowDialog(this);
 				if (D != DialogResult.OK) return;
 				filter = GetData.MergeFilters(filter,
 					         "(title like " + QueryCreator.quotedstrvalue(
@@ -8206,7 +8209,8 @@ namespace income_gerarchico //EntrataGerarchico//
 		private void btnMultipleBillSel_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
 			FrmChooseBill f = new FrmChooseBill(Meta, GetData.MergeFilters(null, DS.billview));
-			if (f.ShowDialog(this) != DialogResult.OK) return;
+            createForm(f, this);
+            if (f.ShowDialog(this) != DialogResult.OK) return;
 
 			DataRow[] sel = f.GetGridSelectedRows();
 			MetaData mincbill = Meta.Dispatcher.Get("incomebill");

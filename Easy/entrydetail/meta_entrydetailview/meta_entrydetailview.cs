@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -63,6 +63,8 @@ namespace meta_entrydetailview {
 				DescribeAColumn(T, "upb", "U.P.B.", nPos++);
 				DescribeAColumn(T, "give", "Dare", nPos++);
 				DescribeAColumn(T, "have", "Avere", nPos++);
+				DescribeAColumn(T, "amount", "Saldo", nPos++);
+                DescribeAColumn(T, "adate", "DataContabile", nPos++);
                 DescribeAColumn(T, "detaildescription", "Descrizione dettaglio", nPos++);
                 DescribeAColumn(T, "description", "Descrizione Scrittura", nPos++);
 				DescribeAColumn(T, "codemotive", "Cod. Causale", nPos++);
@@ -80,7 +82,7 @@ namespace meta_entrydetailview {
                 DescribeAColumn(T, "idrelated", "Chiave EP documento", nPos++);
                 DescribeAColumn(T, "idrelateddetail", "Chiave EP dettaglio", nPos++);
 
-                DescribeAColumn(T, "adate", ".DataContabile", nPos++);
+                
                 DescribeAColumn(T, "docdate", ".DataDocumento", nPos++);
                 DescribeAColumn(T, "flagaccountusage", ".flag Tipo conto", nPos++);
                 DescribeAColumn(T, "flagregistry", ".Flag Anagrafica", nPos++);

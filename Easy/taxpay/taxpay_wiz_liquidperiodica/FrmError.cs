@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,13 +53,13 @@ namespace taxpay_wiz_liquidperiodica {
             string modello = (taxpaykind.ToString().ToUpper() == "I")
                 ? "F24" : "F24EP";
 
-            string campi = (taxpaykind.ToString().ToUpper() == "I")
-                ? "(Codice Ritenuta)" : "(Codice Tributo, Anno Fiscale, Mese Riferimento, Comune (ove presente), Regione Fiscale (ove presente))";
+            //string campi = (taxpaykind.ToString().ToUpper() == "I")
+            //    ? "(Codice Ritenuta)" : "(Codice Tributo, Anno Fiscale, Mese Riferimento, Comune (ove presente), Regione Fiscale (ove presente))";
 
-            string msgLiquidazione = "Vengono visualizzati i dettagli precedentemente selezionati che raggruppati secondo " +
-                "i seguenti criteri " + campi + " stabiliti dalla legge nella produzione del modello " + modello + 
-                " darebbero vita a dei rimborsi, mentre tale modello non li prevede";
-            lblLiq.Text = msgLiquidazione;
+            //string msgLiquidazione = "Vengono visualizzati i dettagli precedentemente selezionati che raggruppati secondo " +
+            //    "i seguenti criteri " + campi + " stabiliti dalla legge nella produzione del modello " + modello + 
+            //    " darebbero vita a dei rimborsi, mentre tale modello non li prevede";
+            //lblLiq.Text = msgLiquidazione;
 
             string msgFinanziario = "Vengono visualizzati i dettagli precedentemente selezionati che raggruppati secondo " +
                 "i seguenti criteri (Codice Bilancio, Codice U.P.B., Responsabile, Ente Percipiente) " +

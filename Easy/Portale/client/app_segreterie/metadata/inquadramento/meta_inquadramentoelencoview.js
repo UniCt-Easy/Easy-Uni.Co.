@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,13 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'elenco':
-						this.describeAColumn(table, 'contrattokind_title', 'Tipologia contrattuale', null, 10, 50);
-						this.describeAColumn(table, 'inquadramento_title', 'Inquadramento', null, 20, 2048);
-						this.describeAColumn(table, 'inquadramento_tempdef', 'Tempo definito', null, 30, null);
-						this.describeAColumn(table, 'inquadramento_start', 'Inizio validit‡', 'g', 80, null);
-						this.describeAColumn(table, 'inquadramento_stop', 'Fine validit‡', 'g', 90, null);
-						this.describeAColumn(table, 'inquadramento_costolordoannuo', 'Costo lordo annuo massimo', 'fixed.2', 100, null);
-						this.describeAColumn(table, 'inquadramento_costolordoannuooneri', 'Costo lordo e oneri annuo massimo', 'fixed.2', 110, null);
+						this.describeAColumn(table, 'position_title', 'Tipologia contrattuale', null, 1200, 50);
+						this.describeAColumn(table, 'inquadramento_title', 'Inquadramento', null, 2000, 2048);
+						this.describeAColumn(table, 'inquadramento_tempdef', 'Tempo definito', null, 3000, null);
+						this.describeAColumn(table, 'inquadramento_start', 'Inizio validit√†', 'g', 8000, null);
+						this.describeAColumn(table, 'inquadramento_stop', 'Fine validit√†', 'g', 9000, null);
+						this.describeAColumn(table, 'inquadramento_costolordoannuo', 'Costo lordo annuo massimo', 'fixed.2', 10000, null);
+						this.describeAColumn(table, 'inquadramento_costolordoannuooneri', 'Costo lordo e oneri annuo massimo', 'fixed.2', 11000, null);
 //$objCalcFieldConfig_elenco$
 						break;
 //$objCalcFieldConfig$
@@ -59,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//$setCaptions$
 
 			primaryKey: function () {
-				return ["idcontrattokind", "idinquadramento"];
+				return ["idposition", "idinquadramento"];
 			},
 
 

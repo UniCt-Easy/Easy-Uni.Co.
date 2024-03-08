@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,13 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo', null, 20, 50);
-						this.describeAColumn(table, 'struttura_idstrutturakind', 'Tipo Tipo', null, 20, null);
-						this.describeAColumn(table, 'title', 'Titolo', null, 10, -1);
-						this.describeAColumn(table, 'aoo_title', 'Area organizzativa omogenea', null, 40, 1024);
-						this.describeAColumn(table, 'registryreferente_title', 'Referente', null, 50, 101);
-						this.describeAColumn(table, 'struttura_title', 'Denominazione Struttura dell\'istituto', null, 60, 1024);
-						this.describeAColumn(table, 'tirocinioproposto_ore', 'Ore', null, 80, null);
+						this.describeAColumn(table, 'title', 'Titolo', null, 1000, -1);
+						this.describeAColumn(table, 'aoo_title', 'Area organizzativa omogenea', null, 4200, 1024);
+						this.describeAColumn(table, 'registryreferente_title', 'Referente', null, 5300, 101);
+						this.describeAColumn(table, 'struttura_title', 'Denominazione Struttura dell\'istituto', null, 6100, 1024);
+						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo Struttura dell\'istituto', null, 6220, 50);
+						this.describeAColumn(table, 'tirocinioproposto_ore', 'Ore', null, 8000, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

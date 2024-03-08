@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -53,10 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idcontrattokind_contrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idcontrattokind' };
 						this.describeAColumn(table, '!idinquadramento_inquadramento_title', 'Denominazione Inquadramento', null, 21, null);
 						this.describeAColumn(table, '!idinquadramento_inquadramento_tempdef', 'Tempo definito Inquadramento', null, 22, null);
-						this.describeAColumn(table, '!idinquadramento_inquadramento_idcontrattokind_title', 'Tipologia Inquadramento', null, 21, null);
 						objCalcFieldConfig['!idinquadramento_inquadramento_title'] = { tableNameLookup:'inquadramento', columnNameLookup:'title', columnNamekey:'idinquadramento' };
 						objCalcFieldConfig['!idinquadramento_inquadramento_tempdef'] = { tableNameLookup:'inquadramento', columnNameLookup:'tempdef', columnNamekey:'idinquadramento' };
-						objCalcFieldConfig['!idinquadramento_inquadramento_idcontrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idinquadramento' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'amm':
@@ -71,21 +52,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idcontrattokind_contrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idcontrattokind' };
 						this.describeAColumn(table, '!idinquadramento_inquadramento_title', 'Denominazione Inquadramento', null, 21, null);
 						this.describeAColumn(table, '!idinquadramento_inquadramento_tempdef', 'Tempo definito Inquadramento', null, 22, null);
-						this.describeAColumn(table, '!idinquadramento_inquadramento_idcontrattokind_title', 'Tipologia Inquadramento', null, 21, null);
 						objCalcFieldConfig['!idinquadramento_inquadramento_title'] = { tableNameLookup:'inquadramento', columnNameLookup:'title', columnNamekey:'idinquadramento' };
 						objCalcFieldConfig['!idinquadramento_inquadramento_tempdef'] = { tableNameLookup:'inquadramento', columnNameLookup:'tempdef', columnNamekey:'idinquadramento' };
-						objCalcFieldConfig['!idinquadramento_inquadramento_idcontrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idinquadramento' };
 //$objCalcFieldConfig_amm$
 						break;
 					case 'prev':
-						this.describeAColumn(table, 'percentualesufondiateneo', 'Percentuale su fondi interni', 'fixed.2', 20, null);
+						this.describeAColumn(table, 'percentualesufondiateneo', 'Percentuale su fondi interni', 'fixed.2', 30, null);
 						this.describeAColumn(table, 'start', 'Inizio', null, 40, null);
-						this.describeAColumn(table, 'stop', 'Fine', null, 50, null);
-						this.describeAColumn(table, 'parttime', 'Part-time %', 'fixed.2', 60, null);
+						this.describeAColumn(table, 'datarivalutazione', 'Data di prossima rivalutazione', null, 50, null);
+						this.describeAColumn(table, 'stop', 'Fine', null, 60, null);
+						this.describeAColumn(table, 'parttime', 'Part-time %', 'fixed.2', 70, null);
 						this.describeAColumn(table, 'tempindet', 'Tempo indeterminato', null, 80, null);
 						this.describeAColumn(table, 'scatto', 'Scatto', null, 110, null);
 						this.describeAColumn(table, 'classe', 'Classe', null, 120, null);
 //$objCalcFieldConfig_prev$
+						break;
+					case 'servizi':
+						this.describeAColumn(table, 'istituzione', 'Istituzione', null, 10, 2048);
+						this.describeAColumn(table, 'start', 'Inizio', null, 30, null);
+						this.describeAColumn(table, 'stop', 'Fine', null, 40, null);
+						this.describeAColumn(table, 'anni', 'Anni', null, 150, null);
+						this.describeAColumn(table, 'mesi', 'Mesi', null, 160, null);
+						this.describeAColumn(table, 'giorni', 'Giorni', null, 170, null);
+						this.describeAColumn(table, 'classe', 'Classe', null, 210, null);
+						this.describeAColumn(table, 'scatto', 'Scatto', null, 220, null);
+						this.describeAColumn(table, 'parttime', 'Part-time %', 'fixed.2', 230, null);
+						this.describeAColumn(table, 'tempdef', 'Tempo definito', null, 240, null);
+						this.describeAColumn(table, '!idcontrattokind_contrattokind_title', 'Tipologia di contratto', null, 201, null);
+						objCalcFieldConfig['!idcontrattokind_contrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idcontrattokind' };
+//$objCalcFieldConfig_servizi$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -148,6 +143,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["tempindet"].caption = "Tempo indeterminato";
 //$innerSetCaptionConfig_prev$
 						break;
+					case 'servizi':
+						table.columns["classe"].caption = "Classe";
+						table.columns["datarivalutazione"].caption = "Data di prossima rivalutazione";
+						table.columns["estremibando"].caption = "Estremi del bando di contratto";
+						table.columns["idcontratto"].caption = "Codice";
+						table.columns["idcontrattokind"].caption = "Tipologia di contratto";
+						table.columns["idinquadramento"].caption = "Inquadramento";
+						table.columns["idreg"].caption = "Docente";
+						table.columns["parttime"].caption = "Part-time %";
+						table.columns["percentualesufondiateneo"].caption = "Percentuale su fondi interni";
+						table.columns["scatto"].caption = "Scatto";
+						table.columns["start"].caption = "Inizio";
+						table.columns["stop"].caption = "Fine";
+						table.columns["tempdef"].caption = "Tempo definito";
+						table.columns["tempindet"].caption = "Tempo indeterminato";
+						table.columns["classe"].caption = "Anzianità minima di fascia";
+//$innerSetCaptionConfig_servizi$
+						break;
 //$innerSetCaptionConfig$
 				}
 			},
@@ -174,7 +187,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "amm": {
+						return "start asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

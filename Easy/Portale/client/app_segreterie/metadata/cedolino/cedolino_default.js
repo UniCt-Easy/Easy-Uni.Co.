@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_cedolino() {
 		MetaPage.apply(this, ['cedolino', 'default', true]);
-        this.name = 'Cedolino';
+        this.name = 'Stipendio mensile importato';
 		this.defaultListType = 'default';
 		//pageHeaderDeclaration
     }
@@ -95,7 +78,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#cedolino_default_tredicesima'), true);
+				this.enableControl($('#cedolino_default_lordo'), true);
+				this.enableControl($('#cedolino_default_tesoro'), true);
+				this.enableControl($('#cedolino_default_previdenza'), true);
+				this.enableControl($('#cedolino_default_irap'), true);
+				this.enableControl($('#cedolino_default_totalece'), true);
+				this.enableControl($('#cedolino_default_totale'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#cedolino_default_tredicesima'), false);
@@ -149,7 +144,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			managecedolino_default_totalece: function () {
-				this.state.currentRow['!totalece'] = this.state.currentRow['!tesoro'] + this.state.currentRow['!previdenza'] + this.state.currentRow.irap;
+				this.state.currentRow['totalece'] = this.state.currentRow['!tesoro'] + this.state.currentRow['!previdenza'] + this.state.currentRow.irap;
 
 			},
 

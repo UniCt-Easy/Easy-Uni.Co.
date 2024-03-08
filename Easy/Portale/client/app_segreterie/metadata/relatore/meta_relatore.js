@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -45,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idrelatorekind_relatorekind_title'] = { tableNameLookup:'relatorekind', columnNameLookup:'title', columnNamekey:'idrelatorekind' };
 						this.describeAColumn(table, '!idreg_docenti_registry_docenti_title', 'Relatore', null, 41, null);
 						objCalcFieldConfig['!idreg_docenti_registry_docenti_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_docenti_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 //$objCalcFieldConfig_segistcons$
 						break;
 //$objCalcFieldConfig$
@@ -55,7 +39,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'segistcons':
+						table.columns["idistanza"].caption = "Istanza di conseguimento del titolo";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["idreg_docenti"].caption = "Relatore";
+						table.columns["idrelatore"].caption = "Identificativo";
+						table.columns["idrelatorekind"].caption = "Tipologia";
+//$innerSetCaptionConfig_segistcons$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_relatore");

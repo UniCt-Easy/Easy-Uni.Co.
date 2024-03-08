@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaConsegnatarioInventario.xsd" xmlns:mstns="http://tempuri.org/VistaConsegnatarioInventario.xsd" xmlns="http://tempuri.org/VistaConsegnatarioInventario.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaConsegnatarioInventario.xsd" xmlns:mstns="http://tempuri.org/VistaConsegnatarioInventario.xsd" xmlns="http://tempuri.org/VistaConsegnatarioInventario.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -21,7 +21,6 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idinventoryagency" type="xs:int" />
-              <xs:element name="_x0021_ente" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
@@ -42,9 +41,10 @@
       <xs:field xpath="mstns:idinventoryagency" />
       <xs:field xpath="mstns:start" />
     </xs:unique>
-    <xs:keyref name="inventoryagencyassetconsignee" refer="Constraint1">
-      <xs:selector xpath=".//mstns:assetconsignee" />
-      <xs:field xpath="mstns:idinventoryagency" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="inventoryagencyassetconsignee" msdata:parent="inventoryagency" msdata:child="assetconsignee" msdata:parentkey="idinventoryagency" msdata:childkey="idinventoryagency" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

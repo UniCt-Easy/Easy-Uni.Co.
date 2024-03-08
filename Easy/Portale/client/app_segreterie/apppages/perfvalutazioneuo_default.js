@@ -1,40 +1,23 @@
+Ôªø(function () {
 
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+	var MetaPage = window.appMeta.MetaSegreteriePage;
 
-
-(function () {
-	
-    var MetaPage = window.appMeta.MetaSegreteriePage;
-
-    function metaPage_perfvalutazioneuo() {
+	function metaPage_perfvalutazioneuo() {
 		MetaPage.apply(this, ['perfvalutazioneuo', 'default', false]);
-        this.name = 'Schede di valutazione delle Unit‡ organizzative';
+		this.name = 'Schede di valutazione delle Unit√† organizzative';
 		this.defaultListType = 'default';
 		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
 		//pageHeaderDeclaration
-    }
+	}
 
-    metaPage_perfvalutazioneuo.prototype = _.extend(
-        new MetaPage(),
-        {
-            constructor: metaPage_perfvalutazioneuo,
-            superClass: MetaPage.prototype,
+	metaPage_perfvalutazioneuo.prototype = _.extend(
+		new MetaPage(),
+		{
+			constructor: metaPage_perfvalutazioneuo,
+			superClass: MetaPage.prototype,
 
-            getName: function () {
-               return this.name;
+			getName: function () {
+				return this.name;
 			},
 
 			//isValidFunction
@@ -43,47 +26,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-				
+
 				//afterGetFormDataFilter
-				
+
 				//parte asincrona
 				var def = appMeta.Deferred("afterGetFormData-perfvalutazioneuo_default");
 				var arraydef = [];
-				
+
 				arraydef.push(this.manageperfvalutazioneuo_default_idstruttura());
 				arraydef.push(this.manageperfvalutazioneuo_default_completamentopsuo());
 				arraydef.push(this.manageperfvalutazioneuo_default_completamentopsauo());
 				arraydef.push(this.manageperfvalutazioneuo_default_indicatori());
 				arraydef.push(this.manageperfvalutazioneuo_default_obiettiviindividuali());
 				//afterGetFormDataInside
-				
+
 				$.when.apply($, arraydef)
 					.then(function () {
 						return def.resolve();
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.year)
-					parentRow.year = new Date().getFullYear();
+
 				this.manageperfvalutazioneuo_default_idstruttura();
 				this.manageperfvalutazioneuo_default_completamentopsuo();
 				this.manageperfvalutazioneuo_default_completamentopsauo();
 				this.manageperfvalutazioneuo_default_indicatori();
 				this.manageperfvalutazioneuo_default_obiettiviindividuali();
 				//beforeFillFilter
-				
+
 				//parte asincrona
 				var def = appMeta.Deferred("beforeFill-perfvalutazioneuo_default");
 				var arraydef = [];
-				
+
+				if (!this.state.isSearchState()) {
+					var filteractive = this.q.eq('struttura_active', 'Si');
+					var filter = self.state.currentRow.idstruttura ? this.q.or(filteractive, this.q.eq('idstruttura', self.state.currentRow.idstruttura)) : filteractive;
+					appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), false);
+					var perfvalutazioneuo_default_idstrutturaCtrl = $('#perfvalutazioneuo_default_idstruttura').data("customController");
+					arraydef.push(perfvalutazioneuo_default_idstrutturaCtrl.filteredPreFillCombo(filter, null, true));
+				}
+				if (!this.state.isSearchState()) {
+					var filteractive = this.q.eq('perfschedastatus_active', 'Si');
+					var filter = self.state.currentRow.idperfschedastatus ? this.q.or(filteractive, this.q.eq('idperfschedastatus', self.state.currentRow.idperfschedastatus)) : filteractive;
+					appMeta.metaModel.cachedTable(this.getDataTable("perfschedastatusdefaultview"), false);
+					var perfvalutazioneuo_default_idperfschedastatusCtrl = $('#perfvalutazioneuo_default_idperfschedastatus').data("customController");
+					arraydef.push(perfvalutazioneuo_default_idperfschedastatusCtrl.filteredPreFillCombo(filter, null, true));
+				}
 				//beforeFillInside
-				
+
 				$.when.apply($, arraydef)
 					.then(function () {
 						return self.superClass.beforeFill.call(self)
@@ -95,13 +90,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#perfvalutazioneuo_default_risultato'), true);
+				this.enableControl($('#perfvalutazioneuo_default_completamentopsuo'), true);
+				this.enableControl($('#perfvalutazioneuo_default_completamentopsauo'), true);
+				this.enableControl($('#perfvalutazioneuo_default_indicatori'), true);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_compobborg'), true);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_valobborg'), true);
+				this.enableControl($('#perfvalutazioneuo_default_obiettiviindividuali'), true);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_create'), true);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_comp'), true);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_val'), true);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_appr'), true);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfprogettoobiettivouoview'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivouoview'), this.getDataTable('perfprogettoobiettivosoglia'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivouoview'), this.getDataTable('perfprogettosoglia'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivopersonaleview'), this.getDataTable('perfprogettoobiettivosoglia_alias1'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivopersonaleview'), this.getDataTable('perfprogettosoglia_alias1'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfvalutazioneuoindicatori'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuoindicatori'), this.getDataTable('perfvalutazioneuoindicatorisoglia'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfobiettiviuo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfvalutazioneuoattach'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfobiettiviuo'));
 				//afterClearin
+
+				//parte asincrona
+				var def = appMeta.Deferred("afterClear-perfvalutazioneuo_default");
+				var arraydef = [];
+
+				if (this.state.isSearchState()) {
+					appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), false);
+					var perfvalutazioneuo_default_idstrutturaCtrl = $('#perfvalutazioneuo_default_idstruttura').data("customController");
+					arraydef.push(perfvalutazioneuo_default_idstrutturaCtrl.filteredPreFillCombo(null, null, true));
+				}
+				if (this.state.isSearchState()) {
+					appMeta.metaModel.cachedTable(this.getDataTable("perfschedastatusdefaultview"), false);
+					var perfvalutazioneuo_default_idperfschedastatusCtrl = $('#perfvalutazioneuo_default_idperfschedastatus').data("customController");
+					arraydef.push(perfvalutazioneuo_default_idperfschedastatusCtrl.filteredPreFillCombo(null, null, true));
+				}
+				//afterClearInAsync
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
 			},
 
 			afterFill: function () {
@@ -109,51 +140,64 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				this.enableControl($('#perfvalutazioneuo_default_completamentopsuo'), false);
 				this.enableControl($('#perfvalutazioneuo_default_completamentopsauo'), false);
 				this.enableControl($('#perfvalutazioneuo_default_indicatori'), false);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_compobborg'), false);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_valobborg'), false);
 				this.enableControl($('#perfvalutazioneuo_default_obiettiviindividuali'), false);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_create'), false);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_comp'), false);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_val'), false);
+				this.enableControl($('#perfvalutazioneuo_default_idreg_appr'), false);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfprogettoobiettivouoview'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivouoview'), this.getDataTable('perfprogettoobiettivosoglia'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivouoview'), this.getDataTable('perfprogettosoglia'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivopersonaleview'), this.getDataTable('perfprogettoobiettivosoglia_alias1'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivopersonaleview'), this.getDataTable('perfprogettosoglia_alias1'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfvalutazioneuoindicatori'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuoindicatori'), this.getDataTable('perfvalutazioneuoindicatorisoglia'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfobiettiviuo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfvalutazioneuoattach'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfobiettiviuo'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
 			afterLink: function () {
 				var self = this;
-				this.calculateRisultatoPerc();
+				this.EnableControl();
+				this.state.DS.tables.perfvalutazioneuo.defaults({ 'year': new Date().getFullYear() });
+				this.state.DS.tables.year.staticFilter(window.jsDataQuery.and(this.q.gt('year', 2020), this.q.lt('year', (new Date().getFullYear()) + 1)));
+				appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), true);
+				appMeta.metaModel.lockRead(this.getDataTable("strutturaperfelenchiview"));
+				appMeta.metaModel.cachedTable(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"), true);
+				appMeta.metaModel.lockRead(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"));
 				$('#perfvalutazioneuo_default_pesoindicatori').on("change", _.partial(this.managepesoindicatori, self));
 				$('#perfvalutazioneuo_default_pesoobiettivi').on("change", _.partial(this.managepesoobiettivi, self));
 				$('#perfvalutazioneuo_default_pesoprogaltreuo').on("change", _.partial(this.managepesoprogaltreuo, self));
 				$('#perfvalutazioneuo_default_pesoproguo').on("change", _.partial(this.managepesoproguo, self));
-				appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("strutturaperfelenchiview"));
-				appMeta.metaModel.cachedTable(this.getDataTable("getregistrydocentiamministratividefaultview"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("getregistrydocentiamministratividefaultview"));
 				var grid_perfprogettoobiettivouoview_defaultChildsTables = [
-					{ tablename: 'perfprogettoobiettivosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettoobiettivosoglia'},
+					{ tablename: 'perfprogettoobiettivosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettoobiettivosoglia' },
+					{ tablename: 'perfprogettosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettosoglia' },
 				];
 				$('#grid_perfprogettoobiettivouoview_default').data('childtables', grid_perfprogettoobiettivouoview_defaultChildsTables);
 				$('#grid_perfprogettoobiettivouoview_default').data('childtablesadd', false);
 				$('#grid_perfprogettoobiettivouoview_default').data('childtablesedit', false);
 				$('#grid_perfprogettoobiettivouoview_default').data('childtablesdelete', false);
 				var grid_perfprogettoobiettivopersonaleview_defaultChildsTables = [
-					{ tablename: 'perfprogettoobiettivosoglia_alias1', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettoobiettivosoglia_alias1'},
+					{ tablename: 'perfprogettoobiettivosoglia_alias1', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettoobiettivosoglia_alias1' },
+					{ tablename: 'perfprogettosoglia_alias1', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettosoglia_alias1' },
 				];
 				$('#grid_perfprogettoobiettivopersonaleview_default').data('childtables', grid_perfprogettoobiettivopersonaleview_defaultChildsTables);
 				$('#grid_perfprogettoobiettivopersonaleview_default').data('childtablesadd', false);
 				$('#grid_perfprogettoobiettivopersonaleview_default').data('childtablesedit', false);
 				$('#grid_perfprogettoobiettivopersonaleview_default').data('childtablesdelete', false);
 				var grid_perfvalutazioneuoindicatori_defaultChildsTables = [
-					{ tablename: 'perfvalutazioneuoindicatorisoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfvalutazioneuoindicatorisoglia'},
+					{ tablename: 'perfvalutazioneuoindicatorisoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfvalutazioneuoindicatorisoglia' },
 				];
 				$('#grid_perfvalutazioneuoindicatori_default').data('childtables', grid_perfvalutazioneuoindicatori_defaultChildsTables);
 				$('#grid_perfvalutazioneuoindicatori_default').data('childtablesadd', false);
 				$('#grid_perfvalutazioneuoindicatori_default').data('childtablesedit', false);
 				$('#grid_perfvalutazioneuoindicatori_default').data('childtablesdelete', false);
 				var grid_perfobiettiviuo_defaultChildsTables = [
-					{ tablename: 'perfobiettiviuosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfobiettiviuosoglia'},
+					{ tablename: 'perfobiettiviuosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfobiettiviuosoglia' },
 				];
 				$('#grid_perfobiettiviuo_default').data('childtables', grid_perfobiettiviuo_defaultChildsTables);
 				//fireAfterLink
@@ -165,216 +209,99 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterRowSelect: function (t, r) {
-				$('#perfvalutazioneuo_default_idstruttura').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#perfvalutazioneuo_default_idstruttura').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#perfvalutazioneuo_default_year').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#perfvalutazioneuo_default_year').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#perfvalutazioneuo_default_year').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.year);
+				$('#perfvalutazioneuo_default_year').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.year);
+				$('#perfvalutazioneuo_default_idstruttura').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idstruttura);
+				$('#perfvalutazioneuo_default_idstruttura').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idstruttura);
+				$('#perfvalutazioneuo_default_year').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idstruttura);
+				$('#perfvalutazioneuo_default_year').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idstruttura);
 				//afterRowSelectin
 				var arraydef = [];
 				var self = this;
 				if (t.name === "year" && r !== null) {
- var filterResponsabile = self.q.eq('idreg', this.sec.usr('idreg'));
-                    var filterRuolo = self.q.eq('idperfruolo', 'Responsabile');
-             
-                    var startdA =  appMeta.getDataUtils.normalizeDataWithoutOffsetTimezone(new Date(r.year,0,1), true);
-               
-                    var filterDa = self.q.lt('start', startdA);
-                    var filterDaEq = self.q.eq('start', startdA);
-                    var filterDaNull = self.q.isNull('start');
-                    var filterOrDa = self.q.or(filterDa, filterDaNull, filterDaEq);
+					//in base all'anno selezionato e ai diritti dell'utente popolo la tendina delle strutture 
+					var filterResponsabile = self.q.eq('idreg', parseInt(this.sec.usr('idreg')));
+					var filterYear = self.q.eq('year', r.year);
+					var filterAll = self.q.and(filterResponsabile, filterYear);
 
-                    var startA = appMeta.getDataUtils.normalizeDataWithoutOffsetTimezone(new Date(r.year,11,31), true);
-                
-                    var filterA = self.q.gt('stop', startA);
-                    var filterANull = self.q.isNull('stop');
-                    var filterAEq = self.q.eq('stop', startA);
-                    var filterOrA = self.q.or(filterA, filterANull, filterAEq);
+					return appMeta.getData.runSelect("strutturaparentresponsabiliview", "idstruttura", filterAll).then(function (dt) {
 
-                    var filterStrutturaNotNull = self.q.isNotNull('idstruttura');
+						filter = self.q.isIn("idstruttura", _.map(dt.rows,
+							function (row) {
+								if (row.idstruttura) {
+									return row.idstruttura;
+								}
+								return true;
+
+							})
+						);
 
 
-                    var filterAll = self.q.and(filterResponsabile, filterRuolo, filterOrDa, filterOrA, filterStrutturaNotNull);
+						appMeta.metaModel.cachedTable(self.getDataTable("strutturaperfelenchiview"), false);
+						var perfvalutazioneuo_default_idstruttura = $('#perfvalutazioneuo_default_idstruttura').data("customController");
 
+						arraydef.push(perfvalutazioneuo_default_idstruttura.filteredPreFillCombo(filter, null, true)
+							.then(function (dt) {
+								if (self.state.currentRow && self.state.currentRow.idstruttura)
+									return perfvalutazioneuo_default_idstruttura.fillControl(null, self.state.currentRow.idstruttura);
+								return true;
+							})
+						);
+						return $.when.apply($, arraydef);
 
-                    if (self.state.currentRow && self.state.currentRow.idreg) {
-                        var filterSelected = self.q.eq('idstruttura', self.state.currentRow.idstruttura);
-                        filterAll = self.q.or(filterAll, filterSelected);
-                    }
+					});
 
-                    return appMeta.getData.runSelect("strutturaparentresponsabiliview", "idstruttura", filterAll).then(function (dt) {
-
-
-                        filter = self.q.isIn("idstruttura", _.map(dt.rows,
-                            function (row) {
-                                if (row.idstruttura) {
-                                    return row.idstruttura;
-                                }
-                                return true;
-
-                            })
-                        );
-
-
-                        appMeta.metaModel.cachedTable(self.getDataTable("strutturaperfelenchiview"), false);
-                        var perfvalutazioneuo_default_idstruttura = $('#perfvalutazioneuo_default_idstruttura').data("customController");
-
-                        arraydef.push(perfvalutazioneuo_default_idstruttura.filteredPreFillCombo(filter, null, true)
-                            .then(function (dt) {
-                                if (self.state.currentRow && self.state.currentRow.idstruttura)
-                                    perfvalutazioneuo_default_idstruttura.fillControl(null, self.state.currentRow.idstruttura);
-                                return true;
-                            })
-                        );
-                        return $.when.apply($, arraydef);
-
-                    });
 				}
 				if (t.name === "strutturaperfelenchiview" && r !== null) {
-if ((this.state.isInsertState() && (self.state.currentRow && self.state.currentRow.idstruttura > 0 && self.state.currentRow.idstruttura == $('perfvalutazioneuo_default_idstruttura').val())) ||
-                        this.state.isSearchState())
-                        return $.when.apply($, arraydef);
+					//se sono in ricerca oppure √® gi√† selezionata sul controllo la struttura che sta sul dataset esco e non faccio niente
+					if ((this.state.isInsertState() && (self.state.currentRow && self.state.currentRow.idstruttura && self.state.currentRow.idstruttura == $('#perfvalutazioneuo_default_idstruttura').val()))
+						|| this.state.isSearchState()
+					)
+						return $.when.apply($, arraydef);
 
-                    var filterListApprovatori;
-                    var filterListValutatori;
-                    self.state.currentRow.idstruttura = self.state.currentRow.idstruttura == 0 ? $('#perfvalutazioneuo_default_idstruttura').val() : self.state.currentRow.idstruttura;
+					var filterStruttura = self.q.eq('idstruttura', r.idstruttura);
+					var filterYear = self.q.eq('year', (self.state.currentRow ? self.state.currentRow.year : $('#perfvalutazioneuo_default_year').val()));
+					var filterObiettivi = self.q.or(self.q.eq('obiettivi_organizzativi', 'S'), self.q.eq('obiettivi_unatantum', 'S'))
+					var filterAll = self.q.and(filterYear, filterStruttura, filterObiettivi);
 
-                    //Recupero il valutatore da preselezionare
-                    var filterStruttura = self.q.eq('idstruttura', self.state.currentRow.idstruttura);
-                    var filterRuolo = self.q.eq('idperfruolo', 'Valutatore');
+					var dtVal;
+					return self.calcDirittiUO(filterAll)
+						.then(function (res) {
+							dtVal = res;
+							return self.EnableControl();
+						})
+						.then(function () {
 
-                     var startdA = appMeta.getDataUtils.normalizeDataWithoutOffsetTimezone(new Date($('#perfvalutazioneuo_default_year').val(), 0, 1), true)
+							//Compilatore indicatori
+							self.loadRulesPerson(arraydef, dtVal, "aggiorna", "obiettivi_organizzativi", "idreg_compobborg", "getdocentiamministrativiresponsabilinomcognview", 'perfvalutazioneuo_default_idreg_compobborg');
+							//Valutatore indicatori
+							self.loadRulesPerson(arraydef, dtVal, "valuta", "obiettivi_organizzativi", "idreg_valobborg", "getdocentiamministrativiresponsabilinomcognview_alias1", 'perfvalutazioneuo_default_idreg_valobborg');
+							//Inserisce obiettivi una tantum
+							self.loadRulesPerson(arraydef, dtVal, "crea", "obiettivi_unatantum", "idreg_create", "getdocentiamministrativiresponsabilinomcognview_alias2", 'perfvalutazioneuo_default_idreg_create');
+							//Compilatore obiettivi una tantum
+							self.loadRulesPerson(arraydef, dtVal, "aggiorna", "obiettivi_unatantum", "idreg_comp", "getdocentiamministrativiresponsabilinomcognview_alias3", 'perfvalutazioneuo_default_idreg_comp');
+							//Valutatore obiettivi una tantum
+							self.loadRulesPerson(arraydef, dtVal, "valuta", "obiettivi_unatantum", "idreg_val", "getdocentiamministrativiresponsabilinomcognview_alias4", 'perfvalutazioneuo_default_idreg_val');
+							//Approvatore
+							self.loadRulesPerson(arraydef, dtVal, "approva", "obiettivi_unatantum", "idreg_appr", "getdocentiamministrativiresponsabilinomcognview_alias5", 'perfvalutazioneuo_default_idreg_appr');
 
-                    var filterDa = self.q.lt('start', startdA);
-                    var filterEqDa = self.q.eq('start', startdA);
-                    var filterDaNull = self.q.isNull('start');
-                    var filterOrDa = self.q.or(filterDa, filterDaNull, filterEqDa);
-                                     
-                    var startA = appMeta.getDataUtils.normalizeDataWithoutOffsetTimezone(new Date($('#perfvalutazioneuo_default_year').val(),11,1), true);
+							return true;
+						}).then(function () {
+							if (self.state.isInsertState()) {
+								return self.calculateIndicatori(null).then(function () {
+									if (self.state.currentRow && self.getDataTable("perfvalutazioneuoindicatori").rows) {
 
+										$('#perfvalutazioneuo_default_idstruttura').prop("disabled", true);
+										$('#perfvalutazioneuo_default_idstruttura').prop("readonly", true);
+										$('#perfvalutazioneuo_default_year').prop("disabled", true);
+										$('#perfvalutazioneuo_default_year').prop("readonly", true);
+									}
+									return $.when.apply($, arraydef);
+								});
+							}
+							return $.when.apply($, arraydef);
+						});
 
-                    var filterA = self.q.gt('stop', startA);
-                    var filterEqA = self.q.eq('stop', startA);
-                    var filterANull = self.q.isNull('stop');
-
-                    var filterOrA = self.q.or(filterA, filterANull, filterEqA);
-
-                    var filterIdRegNotNull = self.q.isNotNull('idreg');
-
-                    var filterAll = self.q.and(filterStruttura, filterRuolo, filterOrDa, filterOrA, filterIdRegNotNull);
-
-                    if (self.state.currentRow.idreg_val)
-                        filterAll = self.q.or(filterAll, self.q.eq('idreg', self.state.currentRow.idreg_val));
-
-                    return appMeta.getData.runSelect("strutturaparentresponsabiliview", "*", filterAll).
-                        then(function (dtVal) {
-
-                            //se sono gi‡ stati selezionati o esistenti, non devo riselezionarli
-                            if (!self.state.currentRow.idreg_val) {
-                                if (dtVal.rows.length > 0) {
-                                    self.state.currentRow.idreg_val = dtVal.rows[0].idreg;
-                                }
-                                else self.state.currentRow.idreg_val = null;
-                            }
-
-                            filterListValutatori = self.q.isIn("idreg", _.map(dtVal.rows,
-                                function (row) {
-                                    if (row.idreg) {
-                                        return row.idreg;
-                                    }
-                                    return true;
-                                })
-                            );
-                            var filterStruttura = self.q.eq('idstruttura', self.state.currentRow.idstruttura);
-                            var filterRuolo = self.q.eq('idperfruolo', 'Approvatore');
-
-                            var startdA = appMeta.getDataUtils.normalizeDataWithoutOffsetTimezone(new Date($('#perfvalutazioneuo_default_year').val(), 0, 1), true)
-
-                           
-
-                            var filterDa = self.q.lt('start', startdA);
-                            var filterEqDa = self.q.eq('start', startdA);
-                            var filterDaNull = self.q.isNull('start');
-                            var filterOrDa = self.q.or(filterDa, filterDaNull, filterEqDa);
-
-                            var startA = appMeta.getDataUtils.normalizeDataWithoutOffsetTimezone(new Date($('#perfvalutazioneuo_default_year').val(), 11, 31), true)
-
-                            var filterA = self.q.gt('stop', startA);
-                            var filterEqA = self.q.eq('stop', startA);
-                            var filterANull = self.q.isNull('stop');
-
-                            var filterOrA = self.q.or(filterA, filterANull, filterEqA);
-
-                            var filterIdRegNotNull = self.q.isNotNull('idreg');
-
-                            var filterAll = self.q.and(filterStruttura, filterRuolo, filterOrDa, filterOrA, filterIdRegNotNull);
-
-                            if (self.state.currentRow.idreg_appr)
-                                filterAll = self.q.or(filterAll, self.q.eq('idreg', self.state.currentRow.idreg_appr));
-
-                            //Recupero l'approvatore da preselzionare
-                            return appMeta.getData.runSelect("strutturaparentresponsabiliview", "*", filterAll).
-                                then(function (dtaff) {
-
-                                    //se sono gi‡ stati selezionati o esistenti, non devo riselezionarli
-                                    if (!self.state.currentRow.idreg_appr) {
-                                        if (dtaff.rows.length > 0) {
-
-                                            self.state.currentRow.idreg_appr = dtaff.rows[0].idreg;
-
-                                        }
-                                        else self.state.currentRow.idreg_appr = null;
-                                    }
-
-
-                                    filterListApprovatori = self.q.isIn("idreg", _.map(dtaff.rows,
-                                        function (row) {
-                                            if (row.idreg) {
-                                                return row.idreg;
-                                            }
-                                            return true;
-                                        })
-                                    );
-
-
-                                    appMeta.metaModel.cachedTable(self.getDataTable("getregistrydocentiamministratividefaultview"), false);
-                                    var perfvalutazioneuo_default_idreg_valCtrl = $('#perfvalutazioneuo_default_idreg_val').data("customController");
-                                    arraydef.push(perfvalutazioneuo_default_idreg_valCtrl.filteredPreFillCombo(filterListValutatori, null, true)
-                                        .then(function (dt) {
-                                            if (self.state.currentRow && self.state.currentRow.idreg_val)
-                                                return perfvalutazioneuo_default_idreg_valCtrl.fillControl(null, self.state.currentRow.idreg_val);
-                                            return true;
-                                        })
-                                    );
-
-
-                                    appMeta.metaModel.cachedTable(self.getDataTable("getregistrydocentiamministratividefaultview_alias1"), false);
-                                    var perfvalutazioneuo_default_idreg_apprCtrl = $('#perfvalutazioneuo_default_idreg_appr').data("customController");
-                                    arraydef.push(perfvalutazioneuo_default_idreg_apprCtrl.filteredPreFillCombo(filterListApprovatori, null, true)
-                                        .then(function (dt) {
-                                            if (self.state.currentRow && self.state.currentRow.idreg_appr)
-                                                return perfvalutazioneuo_default_idreg_apprCtrl.fillControl(null, self.state.currentRow.idreg_appr);
-                                            return true;
-                                        })
-                                    );
-
-
-                                }).then(function () {
-                                    if (self.state.isInsertState()) {
-                                        self.calculateIndicatori(null).then(function () {
-                                            if (self.state.currentRow && self.getDataTable("perfvalutazioneuoindicatori").rows) {
-
-                                                $('#perfvalutazioneuo_default_idstruttura').prop("disabled", true);
-                                                $('#perfvalutazioneuo_default_idstruttura').prop("readonly", true);
-                                                $('#perfvalutazioneuo_default_year').prop("disabled", true);
-                                                $('#perfvalutazioneuo_default_year').prop("readonly", true);
-                                            }
-                                            return true;
-                                        });
-                                    }
-                                    return true;
-                                });
-                            return $.when.apply($, arraydef);
-                        });
 				}
 				//afterRowSelectAsincIn
 				return $.when.apply($, arraydef);
@@ -382,16 +309,9 @@ if ((this.state.isInsertState() && (self.state.currentRow && self.state.currentR
 
 			//afterActivation
 
-			
+
 			//buttonClickEnd
 
-			insertClick: function (that, grid) {
-				if (!$('#perfvalutazioneuo_default_idstruttura').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Unit‡ organizzativa');
-				}
-				//insertClickin
-				return this.superClass.insertClick(that, grid);
-			},
 
 			beforePost: function () {
 				var self = this;
@@ -400,113 +320,272 @@ if ((this.state.isInsertState() && (self.state.currentRow && self.state.currentR
 				//innerBeforePost
 			},
 
+			insertClick: function (that, grid) {
+				var msg = this.CheckRights(that, grid, 'i');
+				if (msg) return this.showMessageOk(msg);
+				if (!$('#perfvalutazioneuo_default_year').val() && this.children.includes(grid.dataSourceName)) {
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Anno solare');
+				}
+				if (!$('#perfvalutazioneuo_default_idstruttura').val() && this.children.includes(grid.dataSourceName)) {
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Unit√† organizzativa');
+				}
+				if (!$('#perfvalutazioneuo_default_year').val() && this.children.includes(grid.dataSourceName)) {
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Anno solare');
+				}
+				//insertClickin
+				return this.superClass.insertClick(that, grid);
+			},
+
+			editClick: function (that, grid) {
+				var msg = this.CheckRights(that, grid, 'u');
+				if (msg) return this.showMessageOk(msg);
+				return this.superClass.editClick(that, grid);
+			},
+
+			deleteClick: function (that, grid) {
+				var msg = this.CheckRights(that, grid, 'd');
+				if (msg) return this.showMessageOk(msg);
+				return this.superClass.deleteClick(that, grid);
+			},
+
+			CheckRights: function (that, grid, op) {
+				var usr = parseInt(this.sec.usr('idreg'));
+				//obiettivi organizzativi
+				if (grid.dataSourceName == "perfvalutazioneuoindicatori") {
+					if (this.state.currentRow.idreg_create !== usr && this.state.currentRow.idreg_compobborg !== usr && this.state.currentRow.idreg_valobborg !== usr
+						&& this.crea !== true && this.aggiorna_org !== true && this.valuta_org !== true) {
+						return 'Non sei abilitato a operare su gli indicatori'; //indicatori
+					}
+					else {
+						if (this.state.currentRow.idreg_create !== usr && this.crea !== true && (op === 'd' || op == 'i')) {
+							return 'Non sei abilitato a creare o cancellare indicatori'; //indicatori
+						}
+					}
+				}
+				if (grid.dataSourceName == "perfobiettiviuo") {
+					if (this.state.currentRow.idreg_create !== usr && this.state.currentRow.idreg_comp !== usr && this.state.currentRow.idreg_val !== usr
+						&& this.crea !== true && this.aggiorna_ut !== true && this.valuta_ut !== true) {
+						return 'Non sei abilitato a operare su gli obiettivi una tantum'; //una tantum
+					}
+					else {
+						if (this.state.currentRow.idreg_create !== usr && this.crea !== true && (op === 'd' || op == 'i')) {
+							return 'Non sei abilitato a creare o cancellare obiettivi una tantum'; //una tantum
+						}
+					}
+				}
+			},
+
+			EnableControl: function () {
+				//pesi
+				//se non crea e non valuta ...
+				if (this.crea !== true && this.valuta_org !== true && this.valuta_ut !== true) {
+					this.enableControl('#perfvalutazioneuo_default_pesoproguo', false)
+					this.enableControl('#perfvalutazioneuo_default_pesoprogaltreuo', false)
+					this.enableControl('#perfvalutazioneuo_default_pesoindicatori', false)
+					this.enableControl('#perfvalutazioneuo_default_pesoobiettivi', false)
+				} else {
+					//..altrimenti ...
+					if (this.crea == true) {
+						this.enableControl('#perfvalutazioneuo_default_pesoproguo', true)
+						this.enableControl('#perfvalutazioneuo_default_pesoprogaltreuo', true)
+					}
+
+					if (this.crea == true || this.valuta_org === true)
+						this.enableControl('#perfvalutazioneuo_default_pesoindicatori', true)
+					else
+						this.enableControl('#perfvalutazioneuo_default_pesoindicatori', false)
+					if (this.crea == true || this.valuta_ut === true)
+						this.enableControl('#perfvalutazioneuo_default_pesoobiettivi', true)
+					else
+						this.enableControl('#perfvalutazioneuo_default_pesoobiettivi', false)
+
+				}
+
+				//pulsanti
+				if (this.canSaveOriginal === undefined) {
+					this.canSaveOriginal = this.canSave;
+					this.canInsertOriginal = this.canInsert;
+					this.canInsertCopyOriginal = this.canInsertCopy;
+					this.canCancelOriginal = this.canCancel;
+				}
+
+				if (this.crea !== true && this.valuta_org !== true && this.valuta_ut !== true && this.aggiorna_org !== true && this.aggiorna_ut !== true) {
+					this.canSave = false;
+					this.canInsert = false;
+					this.canInsertCopy = false;
+					this.canCancel = false;
+				} else {
+					this.canSave = this.canSaveOriginal;
+					this.canInsert = this.canInsertOriginal;
+					this.canInsertCopy = this.canInsertCopyOriginal;
+					this.canCancel = this.canCancelOriginal;
+				}
+
+				//griglie
+				var goi = $('#grid_perfvalutazioneuoindicatori_default').data("customController")
+				if (goi) {
+					//indicatori
+					if (this.aggiorna_org !== true && this.valuta_org !== true) {
+						$(goi.el).css("pointer-events", "none")
+					} else {
+						$(goi.el).css("pointer-events", "unset")
+					}
+					//una tantum
+					var gc = $('#grid_perfobiettiviuo_default').data("customController")
+					if (this.crea !== true && this.aggiorna_ut !== true && this.valuta_ut !== true) {
+						$(gc.el).css("pointer-events", "none")
+					} else {
+						$(gc.el).css("pointer-events", "unset")
+					}
+				}
+
+				//se ha un cambio stato impostato lo faccio salvare
+				if (this.roles && this.roles.length > 0 && this.state.currentRow && this.state.currentRow.idperfschedastatus) {
+					var self = this;
+					var filter = this.q.isIn('idperfruolo', this.roles);
+					return appMeta.getData.runSelect("perfschedacambiostatoruolimailview", "*", filter)
+						.then(function (dtRes) {
+							if (dtRes.rows.length) {
+								self.allowedStateChanges = dtRes.rows;
+								self.canSave = self.canSaveOriginal;
+								self.canInsert = self.canInsertOriginal;
+								self.canInsertCopy = self.canInsertCopylseOriginal;
+								self.canCancel = self.canCancelOriginal;
+							}
+							return true;
+						})
+						.then(function () {
+							return self.freshToolBar();
+						});
+				}
+				else
+					return this.freshToolBar();
+
+			},
+
 			alreadySelected: false,
-stateValue: null,
- calculateIndicatori: function (prm) {
-                if (!this.state.currentRow || !(this.state.isInsertState() && (this.getDataTable("perfvalutazioneuoindicatori").rows == 0)))
-                {
-                    return;
-                }
-                var grid = this.getCustomControl('perfvalutazioneuoindicatori.default.default');
+
+			stateValue: null,
+
+			calculateIndicatori: function (prm) {
+				var def = appMeta.Deferred("calculateIndicatori");
+				if (!this.state.currentRow || !(this.state.isInsertState() && (this.getDataTable("perfvalutazioneuoindicatori").rows == 0))) {
+					return def.resolve();
+				}
+				var grid = this.getCustomControl('perfvalutazioneuoindicatori.default.default');
 
 
-                if (grid.gridRows.length > 0)
-                    return;
+				if (grid.gridRows.length > 0)
+					return def.resolve();
 
-                var waitingHandler = this.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
-                var def = appMeta.Deferred("calculateIndicatori");
+				var waitingHandler = this.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
 
-                var self = this;
-                var filterPerfIndicatore;
-                var idstruttura = self.state.currentRow.idstruttura == 0 ? $('#perfvalutazioneuo_default_idstruttura').val() : self.state.currentRow.idstruttura;
-                var filter = this.q.eq("idstruttura", idstruttura);
+				var self = this;
+				var filterPerfIndicatore;
+				var idstruttura = self.state.currentRow.idstruttura == 0 ? $('#perfvalutazioneuo_default_idstruttura').val() : self.state.currentRow.idstruttura;
+				var filter = this.q.eq("idstruttura", idstruttura);
 
-                var chain = $.when();
-                var arrayDef = [];
-                var rows;
-                var sogliaTable;
-
+				var chain = $.when();
+				var arrayDef = [];
+				var rows;
+				var sogliaTable;
 
 
-                appMeta.getData.runSelect("perfstrutturaperfindicatore", "idstruttura,idperfindicatore", filter)
-                    .then(function (dtPerfstrutturaPerfindicatore) {
-                        filterPerfIndicatore = self.q.isIn("idperfindicatore", _.map(dtPerfstrutturaPerfindicatore.rows, function (r) { return r.idperfindicatore; }));
 
-                        return appMeta.getData.runSelectIntoTable(self.getDataTable("perfindicatore"), filterPerfIndicatore)
-                    }).then(function () {
+				appMeta.getData.runSelect("perfstrutturaperfindicatore", "idstruttura,idperfindicatore", filter)
+					.then(function (dtPerfstrutturaPerfindicatore) {
+						filterPerfIndicatore = self.q.isIn("idperfindicatore", _.map(dtPerfstrutturaPerfindicatore.rows, function (r) { return r.idperfindicatore; }));
 
-                        var filterAnnoScheda = self.q.eq("year", self.state.currentRow.year);
+						return appMeta.getData.runSelectIntoTable(self.getDataTable("perfindicatore"), filterPerfIndicatore)
+					}).then(function () {
 
-                        var filterAnd = self.q.and(filterPerfIndicatore, filterAnnoScheda);
+						var filterAnnoScheda = self.q.eq("year", self.state.currentRow.year);
 
-                        return appMeta.getData.runSelect("perfindicatoresoglia", "*", filterAnd)
-                    }).then(function (dtIndicatoreSoglia) {
-                        sogliaTable = dtIndicatoreSoglia.rows;
+						var filterAnd = self.q.and(filterPerfIndicatore, filterAnnoScheda);
 
-                        rows = _.uniqBy(sogliaTable, "idperfindicatore");
+						return appMeta.getData.runSelect("perfindicatoresoglia", "*", filterAnd)
+					}).then(function (dtIndicatoreSoglia) {
+						sogliaTable = dtIndicatoreSoglia.rows;
 
-                        var meta = appMeta.getMeta("perfvalutazioneuoindicatori");
+						rows = _.uniqBy(sogliaTable, "idperfindicatore");
 
-                        var dt = self.getDataTable("perfvalutazioneuoindicatori");
+						var meta = appMeta.getMeta("perfvalutazioneuoindicatori");
 
-                        meta.setDefaults(dt);
+						var dt = self.getDataTable("perfvalutazioneuoindicatori");
 
-                        _.forEach(rows, function (indicatoreRow) {
-                            if (indicatoreRow.getRow().state != jsDataSet.dataRowState.added && !self.state.isInsertState())
-                                return;
+						meta.setDefaults(dt);
 
-                            chain = chain.then(function () {
+						_.forEach(rows, function (indicatoreRow) {
+							if (indicatoreRow.getRow().state != jsDataSet.dataRowState.added && !self.state.isInsertState())
+								return;
 
-                                return self.costruisciPerfvalutazioneuoindicatori(indicatoreRow);
-                            });
+							chain = chain.then(function () {
 
-                            arrayDef.push(chain);
+								return self.costruisciPerfvalutazioneuoindicatori(indicatoreRow);
+							});
 
-                        });
+							arrayDef.push(chain);
 
-                        return $.when.apply($, arrayDef);
-                    }).then(function () {
+						});
 
-                        //riaggiorno la tabella manualmente con i dati calcolati dopo che la carichiamo
-                        appMeta.metaModel.getTemporaryValues(self.getDataTable("perfvalutazioneuoindicatori"));
+						return $.when.apply($, arrayDef);
+					}).then(function () {
 
-                        chain = $.when();
-                        arrayDef = [];
-                        var meta = appMeta.getMeta("perfvalutazioneuoindicatorisoglia");
+						//riaggiorno la tabella manualmente con i dati calcolati dopo che la carichiamo
+						appMeta.metaModel.getTemporaryValues(self.getDataTable("perfvalutazioneuoindicatori"));
+
+						chain = $.when();
+						arrayDef = [];
+						var meta = appMeta.getMeta("perfvalutazioneuoindicatorisoglia");
 
 
-                        var dt = self.getDataTable("perfvalutazioneuoindicatorisoglia");
-                        meta.setDefaults(dt);
+						var dt = self.getDataTable("perfvalutazioneuoindicatorisoglia");
+						meta.setDefaults(dt);
 
-                        _.forEach(sogliaTable, function (sogliaRow) {
-                            if (sogliaRow.getRow().state != jsDataSet.dataRowState.added && !self.state.isInsertState())
-                                return;
+						_.forEach(sogliaTable, function (sogliaRow) {
+							if (sogliaRow.getRow().state != jsDataSet.dataRowState.added && !self.state.isInsertState())
+								return;
 
-                            chain = chain.then(function () {
-                                return self.costruisciPerfvalutazioneuoindicatorisoglia(sogliaRow, self.getDataTable("perfvalutazioneuoindicatori"));
-                            });
+							chain = chain.then(function () {
+								return self.costruisciPerfvalutazioneuoindicatorisoglia(sogliaRow, self.getDataTable("perfvalutazioneuoindicatori"));
+							});
 
-                            arrayDef.push(chain);
+							arrayDef.push(chain);
 
-                        });
-                        return $.when.apply($, arrayDef);
-                    }).then(function () {
+						});
+						return $.when.apply($, arrayDef);
+					}).then(function () {
 
-                        appMeta.metaModel.getTemporaryValues(self.getDataTable("perfvalutazioneuoindicatorisoglia"));
+						appMeta.metaModel.getTemporaryValues(self.getDataTable("perfvalutazioneuoindicatorisoglia"));
 
-                        var gridControl = $('#grid_perfvalutazioneuoindicatori_default').data("customController");
-                        if (gridControl&& gridControl.rows > 0) {
-                            return gridControl.fillControl();
-                        }
+						var gridControl = $('#grid_perfvalutazioneuoindicatori_default').data("customController");
+						if (gridControl && gridControl.dataTable.rows != null && gridControl.dataTable.rows.length > 0) {
+							return gridControl.fillControl();
+						}
 
-                    }).then(function () {
+					}).then(function () {
 
-                        self.hideWaitingIndicator(waitingHandler);
-                        def.resolve();
+						self.hideWaitingIndicator(waitingHandler);
+						def.resolve();
 
-                    });
-                return def.promise();
-            },
+					});
+				return def.promise();
+			},
+
+			costruisciPerfvalutazioneuoindicatori: function (indicatoreRow) {
+				var def = appMeta.Deferred("costruisciIndicatore");
+				var meta = appMeta.getMeta("perfvalutazioneuoindicatori");
+				var self = this;
+
+				meta.getNewRow(this.state.currentRow.getRow(), this.getDataTable("perfvalutazioneuoindicatori")).then(function (row) {
+					row.current.idperfindicatore = indicatoreRow.idperfindicatore;
+					row.current.idperfvalutazioneuo = self.state.currentRow.idperfvalutazioneuo;
+					def.resolve();
+
+				});
+
+				return def.promise();
+			},
 
 			costruisciPerfvalutazioneuoindicatorisoglia: function (sogliaRow, perfvalutazioneuoindicatori) {
 				var def = appMeta.Deferred("costruisciriga");
@@ -536,6 +615,7 @@ stateValue: null,
 
 				return def.resolve();
 			},
+
 			calculateRisultatoPerc: function () {
 				if (!this.state.currentRow) {
 					return;
@@ -547,348 +627,96 @@ stateValue: null,
 				var average = this.calculateWeightedAverage(arrayRisultato);
 				this.state.currentRow.risultato = average;
 			},
-afterPost: function () {
 
-                if (!this.state.currentRow.getRow) {
-                    return;
-                }
-                if (this.stateValue == this.state.currentRow.idperfschedastatus || !this.state.currentRow.idperfschedastatus)
-                    return;
+			afterPost: function () {
+				return this.sendMailChangeStatusValutazioneUO(false, ['perfprogettoobiettivouoview', 'perfprogettoobiettivopersonaleview'], "della scheda di valutazione dell'unit√† organizzativa ");
+			},
 
-                var self = this;
-                var destinatari = [];
-                var destinatariDbRow = [];
-                var invio = false;
-                var exit = false;
-                var ruoloLoggato;
-                var titleLoggato;
-                var titleStruttura;
-                var strutturaRows;
-                var def = appMeta.Deferred("afterPost");
-                var parentRow = self.state.currentRow;
-                var waitingHandler = self.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+			assignPercentuali: function (tableName, columnName) {
+				if (this.getDataTable(tableName).rows.length > 0) {
+					var arrayIndicatori = _.map(this.getDataTable(tableName).rows, function (r) { return { valore: r.completamento, peso: r.peso } });
+					var average = this.calculateWeightedAverage(arrayIndicatori);
+					if (average === this.state.currentRow[columnName]) {
+						return;
+					}
+					this.state.currentRow[columnName] = average;
+					this.calculateRisultatoPerc();
+				}
+			},
 
-                var filter = this.q.and([this.q.eq("idperfvalutazioneuo", parentRow.idperfvalutazioneuo), this.q.eq("idstruttura", parentRow.idstruttura)]);
-                var selBuilderArray = [];
-                var tableToRefresh = ['perfprogettoobiettivouoview', 'perfprogettoobiettivopersonaleview'];
-                _.forEach(tableToRefresh, function (tname) {
-                    selBuilderArray.push({ filter: filter, top: null, tableName: tname, table: self.state.DS.tables[tname] });
-                });
+			getProfiliValutazione: function (varToNoAafterLinkPush) {
+				var def = appMeta.Deferred("getProfValutazione");
+				var self = this;
+				var startdA = new Date();
+				startdA.setMonth(11);
+				startdA.setDate(31);
 
-                appMeta.getData.multiRunSelect(selBuilderArray)
-                    .then(function () {
-                        return self.freshForm(false, false)
-                    })
-                    .then(function () {
+				startdA.setFullYear(new Date().getFullYear() - 1);
 
-                        // Ë stato cliccato annulla o elimina non invio mail
-                        if (!self.state.currentRow.getRow) {
-                            exit = true;
-                            return def.resolve();
-                        }
+				var filterDa = self.q.lt('convert(varchar,start,101)', startdA);
+				var filterDaNull = self.q.isNull('start');
+				var filterOrDa = self.q.or(filterDa, filterDaNull);
 
-                        //lo stato Ë rimasto lo stesso, o non viene inizialmente inserito non invio mail
-                        if (self.stateValue == self.state.currentRow.idperfschedastatus || !self.state.currentRow.idperfschedastatus) {
-                            exit = true;
-                            return def.resolve();
-                        }
-
-                        //verifico se deve essere inviata una mail
-
-                        var startdA = new Date();
-                        startdA.setMonth(11);
-                        startdA.setDate(31);
-
-                        startdA.setFullYear(self.state.currentRow.year - 1);
-
-                        var filterDa = self.q.lt('convert(varchar,start,101)', startdA);
-                        var filterDaNull = self.q.isNull('start');
-                        var filterOrDa = self.q.or(filterDa, filterDaNull);
-
-                        var startA = new Date();
-                        startA.setMonth(0);
-                        startA.setDate(1);
-                        startA.setFullYear(self.state.currentRow.year + 1);
+				var startA = new Date();
+				startA.setMonth(0);
+				startA.setDate(1);
+				startA.setFullYear(new Date().getFullYear() + 1);
 
 
-                        var filterA = self.q.gt('convert(varchar,stop,101)', startA);
-                        var filterANull = self.q.isNull('stop');
-
-                        var filterOrA = self.q.or(filterA, filterANull);
-
-                        var filterStruttura = self.q.eq('idstruttura', self.state.currentRow.idstruttura);
-
-
-                        //var filterValutatore = self.q.eq('idreg', self.state.currentRow.idreg_val);
-                        //var filterApprovatore = self.q.eq('idreg', self.state.currentRow.idreg_appr);
-
-                        //var filterOr = self.q.or(filterValutatore, filterApprovatore);
-
-                        var filterAll = self.q.and(filterOrDa, filterOrA, filterStruttura);
-
-                        return appMeta.getData.runSelect("strutturaparentresponsabiliview", "*", filterAll)
-                    })
-                    .then(function (dtStruttura) {
-                        if (exit) {
-                            return;
-                        }
-                        strutturaRows = dtStruttura.rows;
-
-                        _.forEach(strutturaRows, function (row) {
-                            if (row.idreg == self.sec.usrEnv.idreg) {
-                                ruoloLoggato = row.idperfruolo;
-                                titleLoggato = row.registry_title;
-                                titleStruttura = row.title;
-                                return false;
-                            }
-                        });
-
-                        //vecchio stato scheda
-                        var filterStato = self.q.eq('idperfschedastatus', self.stateValue);
-                        //se Ë il primo stato che viene salvato alla scheda setto lo stato attuale come quello di partenza
-                        if (!self.stateValue) {
-                            filterStato = self.q.isNull(self.state.currentRow.idperfschedastatus);
-                        }
-
-                        //nuovo stato scheda
-                        var filterStatoTo = self.q.eq('idperfschedastatus_to', self.state.currentRow.idperfschedastatus);
-
-                        var filterRuolo = self.q.eq('idperfruolo', ruoloLoggato);
-                        var filterAll = self.q.and(filterStato, filterStatoTo, filterRuolo);
-
-                        //recupero i cambi stato /ruoli a cui devo inviare la mail
-                        return appMeta.getData.runSelect("perfschedacambiostato", "*", filterAll)
-                    })
-                    .then(function (dtCambiostato) {
-                        if (exit) {
-                            return;
-                        }
-                        self.stateValue = self.state.currentRow.idperfschedastatus;
-
-                        //Non ci sono ruoli a cui devo inviare mail esco
-                        if (dtCambiostato.rows.length == 0 || !dtCambiostato.rows[0].idperfruolo_mail) {
-                            self.hideWaitingIndicator(waitingHandler);
-                            exit = true;
-                            return def.resolve();
-                        }
-                        self.hideWaitingIndicator(waitingHandler);
-                        waitingHandler = self.showWaitingIndicator('Invio mail');
-                        invio = true;
-
-                        _.forEach(dtCambiostato.rows, function (cambioStatoRow) {
-                            if (cambioStatoRow.idperfruolo_mail == 'Valutatore') {
-                                //destinatari.push([self.state.currentRow.idreg_val, 'Valutatore']);
-                                _.forEach(strutturaRows, function (row) {
-                                    if (row.idreg == self.state.currentRow.idreg_val) {
-                                        destinatari.push(row);
-                                        return false;
-                                    }
-                                });
-                            } else {
-                                if (cambioStatoRow.idperfruolo_mail == 'Approvatore') {
-                                    _.forEach(strutturaRows, function (row) {
-                                        if (row.idreg == self.state.currentRow.idreg_appr) {
-                                            destinatari.push(row);
-                                            return false;
-                                        }
-                                    });
-                                } else {
-                                    _.forEach(strutturaRows, function (row) {
-                                        if (cambioStatoRow.idperfruolo_mail == row.idperfruolo) {
-                                            destinatari.push(row);
-                                            return false;
-                                        }
-                                    });
-                                }
-                            }
-                        });
-
-                        var arrayDest = [];
-                        _.map(destinatari, function (row) { return arrayDest.push(row.idreg); });
-                        //Recupero i dati della persona a cui inviare la mail
-                        return self.superClass.getRegistryreference(arrayDest)
-                    })
-
-                    .then(function (dtRows) {
-                        if (exit) {
-                            return;
-                        }
-                        if (dtRows.length == 0) {
-                            self.hideWaitingIndicator(waitingHandler);
-                            return def.from(self.showMessageOk("Non ci sono destinatari a cui inviare la notifica"));
-                        }
-
-                        destinatariDbRow = dtRows;
-
-                        var filterStato = self.q.eq("idperfschedastatus", self.state.currentRow.idperfschedastatus);
-
-                        //recupero i cambi stato /ruoli a cui devo inviare la mail
-                        return appMeta.getData.runSelect("perfschedastatus", "*", filterStato)
-                    }).then(function (dtStato) {
-
-
-                        var arrayDef = [];
-                        var body;
-                        if (!dtStato || dtStato.rows.length == 0) {
-                            self.hideWaitingIndicator(waitingHandler);
-                            return def.from(self.showMessageOk("Lo stato selezionato non Ë riconosciuto"));
-                        }
-
-                        _.forEach(destinatariDbRow, function (row) {
-                            body = "Gentile " + row.email + ",</br>";
-                            var subject = "Modifica stato scheda valutazione unit‡ organizzativa " + titleStruttura;
-                            body += "l'utente \"" + titleLoggato + "\" ha modificato lo stato della scheda in  \"" + dtStato.rows[0].title + "\".";
-                            arrayDef.push(self.superClass.sendMail({ emailDest: row.email, body: body, subject: subject, viewMessage: false }));
-                        });
-
-                        return $.when.apply($, arrayDef);
-                    })
-                    .then(function () {
-                        self.hideWaitingIndicator(waitingHandler);
-                        if (exit == true) {
-                            return def.resolve();
-                        }
-                        if (typeof (exit) === 'string' && exit.trim()) {
-                            return def.from(self.showMessageOk(exit));
-                        }
-                        if (invio) {
-
-                            return def.from(self.showMessageOk('Invio mail avvenuto con successo'));
-                        }
-                        return def.resolve();
-                    });
-
-                def.promise();
-            },
-
-            assignPercentuali: function (tableName, columnName) {
-                if (this.getDataTable(tableName).rows.length > 0) {
-                    var arrayIndicatori = _.map(this.getDataTable(tableName).rows, function (r) { return { valore: r.completamento, peso: r.peso } });
-                    var average = this.calculateWeightedAverage(arrayIndicatori);
-                    if (average === this.state.currentRow[columnName]) {
-                        return;
-                    }
-                    this.state.currentRow[columnName] = average;
-                    this.calculateRisultatoPerc();
-                }
-            },
-            getProfiliValutazione: function (varToNoAafterLinkPush) {
-                var def = appMeta.Deferred("getProfValutazione");
-                var self = this;
-                var startdA = new Date();
-                startdA.setMonth(11);
-                startdA.setDate(31);
-
-                startdA.setFullYear(new Date().getFullYear() - 1);
-
-                var filterDa = self.q.lt('convert(varchar,start,101)', startdA);
-                var filterDaNull = self.q.isNull('start');
-                var filterOrDa = self.q.or(filterDa, filterDaNull);
-
-                var startA = new Date();
-                startA.setMonth(0);
-                startA.setDate(1);
-                startA.setFullYear(new Date().getFullYear() + 1);
-
-
-                var filterA = self.q.gt('convert(varchar,stop,101)', startA);
-                var filterANull = self.q.isNull('stop)');
+				var filterA = self.q.gt('convert(varchar,stop,101)', startA);
+				var filterANull = self.q.isNull('stop)');
 
 				var filterOrA = self.q.or(filterA, filterANull);
 
-                var filterSelected = self.q.eq('idstruttura', self.state.currentRow.idstruttura);
+				var filterSelected = self.q.eq('idstruttura', self.state.currentRow.idstruttura);
 
-                var filterStrutturaParent = self.q.eq('idstruttura_parent', self.state.currentRow.idstruttura);
-                var filterAndStruttura = self.q.and(filterSelected, filterStrutturaParent);
-
-
-                var filterAll = self.q.and(filterOrDa, filterOrA, filterSelected, filterAndStruttura);
+				var filterStrutturaParent = self.q.eq('idstruttura_parent', self.state.currentRow.idstruttura);
+				var filterAndStruttura = self.q.and(filterSelected, filterStrutturaParent);
 
 
+				var filterAll = self.q.and(filterOrDa, filterOrA, filterSelected, filterAndStruttura);
 
-                return appMeta.getData.runSelect("strutturaparentresponsabiliview", "*", filterAll).then(function (dt) {
 
-                    def.resolve();
-                    return dt.rows;
 
-                });
+				return appMeta.getData.runSelect("strutturaparentresponsabiliview", "*", filterAll).then(function (dt) {
 
-                return def.promise();
-            },
-rowSelected: function () {
+					def.resolve();
+					return dt.rows;
+
+				});
+
+				return def.promise();
+			},
+
+			rowSelected: function () {
 				this.stateValue = this.state.currentRow.idperfschedastatus;
 			},
 
-			managepesoindicatori: function(that) { 
-				that.getFormData(true).then(function () {
-					that.calculateRisultatoPerc();
-					var result = that.state.currentRow.risultato;
-					var tag = "perfvalutazioneuo.risultato.fixed.2";
-					var typedObject = new appMeta.TypedObject("Decimal", result, tag);
-					var value = typedObject.stringValue(tag);
-					$('#perfvalutazioneuo_default_risultato').val(value);
-				});
-			},
-
-			managepesoobiettivi: function(that) { 
-				that.getFormData(true).then(function () {
-					that.calculateRisultatoPerc();
-					var result = that.state.currentRow.risultato;
-					var tag = "perfvalutazioneuo.risultato.fixed.2";
-					var typedObject = new appMeta.TypedObject("Decimal", result, tag);
-					var value = typedObject.stringValue(tag);
-					$('#perfvalutazioneuo_default_risultato').val(value);
-				});
-
-			},
-
-			managepesoprogaltreuo: function(that) { 
-				that.getFormData(true).then(function () {
-					that.calculateRisultatoPerc();
-					var result = that.state.currentRow.risultato;
-					var tag = "perfvalutazioneuo.risultato.fixed.2";
-					var typedObject = new appMeta.TypedObject("Decimal", result, tag);
-					var value = typedObject.stringValue(tag);
-					$('#perfvalutazioneuo_default_risultato').val(value);
-				});
-			},
-
-			managepesoproguo: function(that) { 
-				that.getFormData(true).then(function () {
-					that.calculateRisultatoPerc();
-					var result = that.state.currentRow.risultato;
-					var tag = "perfvalutazioneuo.risultato.fixed.2";
-					var typedObject = new appMeta.TypedObject("Decimal", result, tag);
-					var value = typedObject.stringValue(tag);
-					$('#perfvalutazioneuo_default_risultato').val(value);
-				});
-			},
-
 			manageperfvalutazioneuo_default_idstruttura: function () {
-var grid = this.getCustomControl('perfvalutazioneuoindicatori.default.default');
+				var grid = this.getCustomControl('perfvalutazioneuoindicatori.default.default');
 				if (this.state.currentRow.idstruttura > 0 && grid.gridRows.length == 0 && !this.state.isInsertState()) {
 					this.calculateIndicatori(null);
 				}
 			},
 
 			manageperfvalutazioneuo_default_completamentopsuo: function () {
-               //Percentuale di completamento per i progetti Strategici della UO
-              this.assignPercentuali("perfprogettoobiettivouoview", "completamentopsuo");            
+				//Percentuale di completamento per i progetti Strategici della UO
+				this.assignPercentuali("perfprogettoobiettivouoview", "completamentopsuo");
 			},
 
 			manageperfvalutazioneuo_default_completamentopsauo: function () {
-      //Percentuale di completamento dei progetti Strategici di altre UO 
-       this.assignPercentuali("perfprogettoobiettivopersonaleview", "completamentopsauo");
+				//Percentuale di completamento dei progetti Strategici di altre UO 
+				this.assignPercentuali("perfprogettoobiettivopersonaleview", "completamentopsauo");
 			},
 
 			manageperfvalutazioneuo_default_indicatori: function () {
-         //Percentuale di completamento indicatori
-          this.assignPercentuali("perfvalutazioneuoindicatori", "indicatori");
+				//Percentuale di completamento indicatori
+				this.assignPercentuali("perfvalutazioneuoindicatori", "indicatori");
 			},
 
 			manageperfvalutazioneuo_default_obiettiviindividuali: function () {
-        //Percentuale di completamento obiettivi una tantum
-        this.assignPercentuali("perfobiettiviuo", "obiettiviindividuali");
+				//Percentuale di completamento obiettivi una tantum
+				this.assignPercentuali("perfobiettiviuo", "obiettiviindividuali");
 			},
 
 			children: ['perfobiettiviuo', 'perfprogettoobiettivopersonaleview', 'perfprogettoobiettivouoview', 'perfvalutazioneuoattach', 'perfvalutazioneuoindicatori'],
@@ -902,8 +730,74 @@ var grid = this.getCustomControl('perfvalutazioneuoindicatori.default.default');
 				});
 			},
 
+			managepesoindicatori: function (that) {
+				var def = appMeta.Deferred('managepesoindicatori');
+
+				if (that.state.isSearchState()) {
+					return def.resolve();
+				}
+				that.getFormData(true).then(function () {
+					that.calculateRisultatoPerc();
+					var result = that.state.currentRow.risultato;
+					var tag = "perfvalutazioneuo.risultato.fixed.2";
+					var typedObject = new appMeta.TypedObject("Decimal", result, tag);
+					var value = typedObject.stringValue(tag);
+					$('#perfvalutazioneuo_default_risultato').val(value);
+					def.resolve();
+				});
+				return def.promise();
+			},
+
+			managepesoobiettivi: function (that) {
+				var def = appMeta.Deferred('managepesoobiettivi');
+
+				if (that.state.isSearchState()) {
+					return def.resolve();
+				}
+				that.getFormData(true).then(function () {
+					that.calculateRisultatoPerc();
+					var result = that.state.currentRow.risultato;
+					var tag = "perfvalutazioneuo.risultato.fixed.2";
+					var typedObject = new appMeta.TypedObject("Decimal", result, tag);
+					var value = typedObject.stringValue(tag);
+					$('#perfvalutazioneuo_default_risultato').val(value);
+					def.resolve();
+				});
+				return def.promise();
+
+			},
+
+			managepesoprogaltreuo: function (that) {
+				that.getFormData(true).then(function () {
+					that.calculateRisultatoPerc();
+					var result = that.state.currentRow.risultato;
+					var tag = "perfvalutazioneuo.risultato.fixed.2";
+					var typedObject = new appMeta.TypedObject("Decimal", result, tag);
+					var value = typedObject.stringValue(tag);
+					$('#perfvalutazioneuo_default_risultato').val(value);
+				});
+			},
+
+			managepesoproguo: function (that) {
+				var def = appMeta.Deferred('managepesoproguo');
+
+				if (that.state.isSearchState()) {
+					return def.resolve();
+				}
+				that.getFormData(true).then(function () {
+					that.calculateRisultatoPerc();
+					var result = that.state.currentRow.risultato;
+					var tag = "perfvalutazioneuo.risultato.fixed.2";
+					var typedObject = new appMeta.TypedObject("Decimal", result, tag);
+					var value = typedObject.stringValue(tag);
+					$('#perfvalutazioneuo_default_risultato').val(value);
+					def.resolve();
+				});
+				return def.promise();
+			},
+
 			//buttons
-        });
+		});
 
 	window.appMeta.addMetaPage('perfvalutazioneuo', 'default', metaPage_perfvalutazioneuo);
 

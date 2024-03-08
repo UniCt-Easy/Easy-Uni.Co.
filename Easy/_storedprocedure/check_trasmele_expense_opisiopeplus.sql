@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -109,7 +109,7 @@ if	((SELECT COUNT(*) FROM paymenttransmission  WHERE  npaymenttransmission = @n 
 	and T1.kind = 'INFO_BENEFICIARIO'
 	and exists (select * 	from #checktrace T2
 						where T1.numero_mandato = T2.numero_mandato
-							and T2.tipo_operazione IN( 'INSERIMENTO' ,'VARIAZIONE') )
+							and T2.tipo_operazione IN( 'INSERIMENTO' ,'VARIAZIONE','ANNULLO') )
 
 
 --	Se ci sono più classificazioni sul movimento e : più dati distinti in fattura o fattura senza siope => diventa obbligatorio il Siope in fatura
@@ -136,7 +136,7 @@ if	((SELECT COUNT(*) FROM paymenttransmission  WHERE  npaymenttransmission = @n 
 	)
 	and exists (select * 	from #checktrace T2
 						where T1.numero_mandato = T2.numero_mandato
-							and T2.tipo_operazione IN( 'INSERIMENTO' ,'VARIAZIONE') )
+							and T2.tipo_operazione IN( 'INSERIMENTO' ,'VARIAZIONE','ANNULLO') )
 
 
 
@@ -203,16 +203,6 @@ if	((SELECT COUNT(*) FROM paymenttransmission  WHERE  npaymenttransmission = @n 
 	--il controllo deve agire solo se c'è la sezione ARCONET
 	and (select count(*) from #checktrace T3
 		where T1.numero_mandato = T3.numero_mandato and T1.idexp = T3.idexp and kind='ARCONET')>0
-
-	--Controlliamo la presenza del carattere char(31) si presenta come spazione : &#x001F;	&#31;	1F	\u001F	Unit Separator
-	--Non supera la validazione XML e va rimosso
-	insert into #errors(error)
-	select 'Nella descrizione del mandato Num. '+ convert(varchar(10),numero_mandato)+ ', Pagamento n.' + convert(varchar(10), E.nmov) +' vi è il carattere  NON VALIDO ''Unit Separator'' (simile a spazio) alla posizione '+ convert(varchar(10),PATINDEX('%'+char(31) +'%', description))+'. '
-	+ 'Descrizione:' + description+'.'
-	from #checktrace T1
-	join expense E on T1.idexp = E.idexp
-	where description like '%'+char(31) +'%' 
-
 
 
 	IF ((SELECT COUNT(*) FROM #errors) >0)

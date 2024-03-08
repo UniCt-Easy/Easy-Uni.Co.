@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -45,9 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.residence)
-					parentRow.residence = 1;
-				parentRow.extension = "aziende";
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_aziende_ro_idcategory'), null);
 				} else {
@@ -76,22 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				//beforeFillFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-registry_aziende_aziende_ro");
+				var def = appMeta.Deferred("beforeFill-registry_aziende_ro");
 				var arraydef = [];
 				
-				var dt = this.state.DS.tables["registry_aziende"];
-				if (dt.rows.length === 0) {
-					var meta = appMeta.getMeta("registry_aziende");
-					meta.setDefaults(dt);
-					var defregistry_aziende = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
-						function (currentRowaziende) {
-							//defaultExtendingObject
-							return true;
-						}
-					);
-					arraydef.push(defregistry_aziende);
-				}
-
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -105,13 +72,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#registry_aziende_ro_title'), true);
+				this.enableControl($('#registry_aziende_ro_idregistrykind'), true);
+				this.enableControl($('#registry_aziende_ro_title_en'), true);
+				this.enableControl($('#registry_aziende_ro_idcategory'), true);
 				this.helpForm.filter($('#registry_aziende_ro_idcategory'), null);
+				this.enableControl($('#registry_aziende_ro_idregistryclass'), true);
 				this.helpForm.filter($('#registry_aziende_ro_idregistryclass'), null);
+				this.enableControl($('#registry_aziende_ro_residence'), true);
 				this.helpForm.filter($('#registry_aziende_ro_residence'), null);
+				this.enableControl($('#registry_aziende_ro_ccp'), true);
+				this.enableControl($('#registry_aziende_ro_idnation'), true);
+				this.enableControl($('#registry_aziende_ro_flag_paS'), true);
+				this.enableControl($('#registry_aziende_ro_flag_paN'), true);
+				this.enableControl($('#registry_aziende_ro_idcity'), true);
+				this.enableControl($('#registry_aziende_ro_location'), true);
+				this.enableControl($('#registry_aziende_ro_ipa_fe'), true);
+				this.enableControl($('#registry_aziende_ro_cf'), true);
+				this.enableControl($('#registry_aziende_ro_p_iva'), true);
+				this.enableControl($('#registry_aziende_ro_foreigncf'), true);
+				this.enableControl($('#registry_aziende_ro_pic'), true);
+				this.enableControl($('#registry_aziende_ro_multi_cfSi'), true);
+				this.enableControl($('#registry_aziende_ro_multi_cfNo'), true);
+				this.enableControl($('#registry_aziende_ro_annotation'), true);
+				this.enableControl($('#registry_aziende_ro_idateco'), true);
+				this.enableControl($('#registry_aziende_ro_idnace'), true);
+				this.enableControl($('#registry_aziende_ro_idnaturagiur'), true);
 				this.helpForm.filter($('#registry_aziende_ro_idnaturagiur'), null);
+				this.enableControl($('#registry_aziende_ro_idnumerodip'), true);
 				this.helpForm.filter($('#registry_aziende_ro_idnumerodip'), null);
+				this.enableControl($('#registry_aziende_ro_activeSi'), true);
+				this.enableControl($('#registry_aziende_ro_activeNo'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('sede'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -146,7 +142,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.registry.defaults({ 'extension': 'aziende' });
+				this.state.DS.tables.registry.defaults({ 'residence': 1 });
+				$('#grid_registryaddress_seg').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;');
+				$('#grid_registryreference_seg').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;');
+				$('#grid_ccnlregistry_aziende_default').data('mdlconditionallookup', '!idccnl_ccnl_active,S,Si;!idccnl_ccnl_active,N,No;!idccnl_registry_active,S,Si;!idccnl_registry_active,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

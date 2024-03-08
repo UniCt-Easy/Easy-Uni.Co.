@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -18,12 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_spese_3f_resp_generale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_spese_3f_resp_generale]
 GO
-
+ 
 SET QUOTED_IDENTIFIER OFF 
 GO
 SET ANSI_NULLS ON 
 GO
-
+--setuser'amministrazione'
+-- exec  rpt_partitario_spese_3f_resp_generale  2023, '%', 3, 'S', 'S', 'S', NULL, {ts '2023-01-01 00:00:00'}, {ts '2023-02-28 00:00:00'}, NULL, NULL, NULL, NULL, NULL, NULL
 -- STAMPA PRINCIPALE
 CREATE                   PROCEDURE [rpt_partitario_spese_3f_resp_generale]
 	@ayear int,
@@ -97,13 +98,18 @@ BEGIN
 	SET @idupb=@idupb+'%' 
 END
 
-CREATE TABLE #expense
+
+
+
+DECLARE  @expense AS TABLE
 (
 	idfin int ,
 	idupb varchar(36),
 	codeupb varchar(50),
 	nphase tinyint,
+	idexp int,
 	rowkind int,
+	kpay int,
 	initialprevisioncomp decimal(19,2),
 	initialprevisioncassa decimal(19,2),
 	finvar_prevision decimal(19,2),
@@ -181,10 +187,13 @@ assign_cash decimal(19,2),
 dot_cash decimal(19,2)
 )
 
-INSERT INTO #expense
+
+
+INSERT INTO @expense
 (
 	idfin,
 	idupb,
+	idexp, 
 	nphase,
 	rowkind, 
 	adate, 
@@ -204,6 +213,8 @@ INSERT INTO #expense
 	ymovpayment,
 	nmovpayment,
 	payment_amount,
+
+	kpay, 
 	npay,
 	printdate,
 	annulmentdate,
@@ -216,8 +227,10 @@ INSERT INTO #expense
 SELECT 
 	ISNULL(FL.idparent, expenseyear.idfin),-- figlio di livello @codelevel della voce di bilancio in input ut
 	expenseyear.idupb,
+	expense.idexp,
 	expense.nphase,
 	expense.nphase-1,
+
 	expense.adate,
 	case 
 	when isnull(expense.doc,'')='' then expense.description 
@@ -246,6 +259,8 @@ SELECT
 	E3.ymov,
 	E3.nmov, 
 	expenseyear.amount,
+
+	expenselast.kpay,
 	payment.npay,
 	payment.printdate,
 	payment.annulmentdate,
@@ -259,37 +274,37 @@ SELECT
 	END, 
 	E2.idexp, --IMPEGNO
 	expense.idman 
-FROM expense
-JOIN expenseyear
-	ON expenseyear.idexp = expense.idexp
-JOIN upb
-	ON expenseyear.idupb = upb.idupb	
-JOIN expensetotal
+FROM expense WITH (NOLOCK) 
+JOIN expenseyear WITH (NOLOCK) 
+	ON expenseyear.idexp = expense.idexp  
+JOIN upb WITH (NOLOCK)  
+	ON expenseyear.idupb = upb.idupb	 
+JOIN expensetotal WITH (NOLOCK) 
 	ON  expenseyear.idexp = expensetotal.idexp
 	AND expenseyear.ayear = expensetotal.ayear	
-JOIN finlast
-	ON finlast.idfin = expenseyear.idfin 
-JOIN expenselink EL2
+--JOIN finlast WITH (NOLOCK) 
+--	ON finlast.idfin = expenseyear.idfin 
+JOIN expenselink EL2 WITH (NOLOCK) 
 	ON EL2.idchild = expense.idexp  AND EL2.nlevel = @nfinphase
-LEFT OUTER JOIN expenselink EL4
+LEFT OUTER JOIN expenselink EL4 WITH (NOLOCK) 
 	ON EL4.idchild = expense.idexp  AND EL4.nlevel = @nregphase
-LEFT  OUTER JOIN finlink FL
+LEFT  OUTER JOIN finlink FL WITH (NOLOCK) 
 	ON FL.idchild = expenseyear.idfin  AND FL.nlevel = @codelevel
-LEFT  OUTER JOIN finlink FL1
+LEFT  OUTER JOIN finlink FL1 WITH (NOLOCK) 
 	ON FL1.idchild = expenseyear.idfin  AND FL1.nlevel = @level_input
-LEFT OUTER JOIN expenselast
+LEFT OUTER JOIN expenselast WITH (NOLOCK) 
 	ON expenselast.idexp = expense.idexp
-LEFT OUTER JOIN expenselink EL3
+LEFT OUTER JOIN expenselink EL3 WITH (NOLOCK) 
 	ON EL3.idchild = expense.idexp  AND EL3.nlevel = @maxexpensephase
-LEFT OUTER JOIN expense E2
+LEFT OUTER JOIN expense E2 WITH (NOLOCK) 
 	ON E2.idexp = EL2.idparent
-LEFT OUTER JOIN expense E4
+LEFT OUTER JOIN expense E4 WITH (NOLOCK) 
 	ON E4.idexp = EL4.idparent
-LEFT OUTER JOIN expense E3
+LEFT OUTER JOIN expense E3  WITH (NOLOCK) 
 	ON E3.idexp = EL3.idparent
-LEFT OUTER JOIN payment
+LEFT OUTER JOIN payment WITH (NOLOCK) 
 	ON payment.kpay = expenselast.kpay
-LEFT OUTER JOIN paymenttransmission
+LEFT OUTER JOIN paymenttransmission WITH (NOLOCK) 
 	ON paymenttransmission.kpaymenttransmission = payment.kpaymenttransmission
 WHERE (@idfin IS NULL OR  isnull(FL1.idparent, expenseyear.idfin) = @idfin)		
 	--AND expense.adate between @start and @stop
@@ -302,15 +317,17 @@ WHERE (@idfin IS NULL OR  isnull(FL1.idparent, expenseyear.idfin) = @idfin)
 	AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03)
 	AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)	
+ 
 /* lo commento perchè prendo tutte la fasi, dopo vedrò se 
 nphase= finphase or regphase or maxphase
 */
-	
+
 --- Inserimento delle variazioni dei movimenti
-INSERT INTO #expense
+INSERT INTO @expense
 (
 	idfin,
 	idupb,
+	idexp,
 	nphase,
 	rowkind, 
 	adate, 
@@ -344,19 +361,16 @@ INSERT INTO #expense
 
 SELECT 
 
-	ISNULL(FL.idparent, expenseyear.idfin),-- figlio di livello @codelevel della voce di bilancio in input ut
-	expenseyear.idupb,
-	expense.nphase,
-	expense.nphase-1,
+	[@expense].idfin,-- figlio di livello @codelevel della voce di bilancio in input ut
+	[@expense].idupb,
+	expensevar.idexp, 
+	[@expense].nphase,
+	[@expense].nphase-1,
 	expensevar.adate,
 	case isnull(expensevar.doc,'') when '' then expensevar.description 
-	else  expense.description + 
-		' (Doc. ' 
-		+ isnull(Convert (varchar(35),ISNULL(expense.doc,'')),'') + ' del '
-		+ iSNULL(Convert (varchar(2),datepart(dd,expense.docdate))+'/'+Convert (varchar(2),datepart(mm,expense.docdate))+'/'+Convert (varchar(4),datepart(yy,expense.docdate)),'')
-		+')'	
+	else  [@expense].description 	
 		end,
-	expense.idreg,	
+	[@expense].idreg,	
 	E2.idexp, --IMPEGNO, in relatà è la prima fase, quindi lo stanziamento
 	E2.ymov,
 	E2.nmov,  
@@ -379,38 +393,39 @@ SELECT
 	expensevar.amount,--EV3
 	payment.npay,
 	E2.idexp, 
-	expense.idman 
-FROM expensevar
-join expense 
-	on expensevar.idexp = expense.idexp
-JOIN expenseyear
-	ON expenseyear.idexp = expense.idexp 
-JOIN upb
+	[@expense].idman 
+FROM expensevar WITH (NOLOCK) 
+join @expense  
+	on expensevar.idexp = [@expense].idexp
+JOIN expenseyear WITH (NOLOCK) 
+	ON expenseyear.idexp = [@expense].idexp 
+JOIN upb WITH (NOLOCK) 
 	ON expenseyear.idupb = upb.idupb	
-JOIN finlast
-	ON finlast.idfin = expenseyear.idfin 
-JOIN expenselink EL2
+--JOIN finlast WITH (NOLOCK) 
+--	ON finlast.idfin = expenseyear.idfin 
+JOIN expenselink EL2 WITH (NOLOCK) 
 	ON EL2.idchild = expensevar.idexp  AND EL2.nlevel = @nfinphase
-LEFT  OUTER JOIN expenselink EL4
+LEFT  OUTER JOIN expenselink EL4 WITH (NOLOCK) 
 	ON EL4.idchild = expensevar.idexp  AND EL4.nlevel = @nregphase
-LEFT OUTER JOIN expenselink EL3
+LEFT OUTER JOIN expenselink EL3 WITH (NOLOCK) 
 	ON EL3.idchild = expensevar.idexp  AND EL3.nlevel = @maxexpensephase
-LEFT  OUTER JOIN finlink FL
+LEFT  OUTER JOIN finlink FL WITH (NOLOCK) 
 	ON FL.idchild = expenseyear.idfin  AND FL.nlevel = @codelevel
-LEFT  OUTER JOIN finlink FL1
+LEFT  OUTER JOIN finlink FL1 WITH (NOLOCK) 
 	ON FL1.idchild = expenseyear.idfin  AND FL1.nlevel = @level_input
-LEFT OUTER JOIN expenselast
-	ON expenselast.idexp = expense.idexp
-LEFT OUTER JOIN expense E2
+LEFT OUTER JOIN expenselast WITH (NOLOCK) 
+	ON expenselast.idexp = [@expense].idexp
+LEFT OUTER JOIN expense E2 WITH (NOLOCK) 
 	ON E2.idexp = EL2.idparent
-LEFT OUTER JOIN expense E4
+LEFT OUTER JOIN expense E4 WITH (NOLOCK) 
 	ON E4.idexp = EL4.idparent
-LEFT OUTER JOIN expense E3
+LEFT OUTER JOIN expense E3 WITH (NOLOCK) 
 	ON E3.idexp = EL3.idparent
-LEFT OUTER JOIN payment
+LEFT OUTER JOIN payment WITH (NOLOCK) 
 	ON payment.kpay = expenselast.kpay
 WHERE	(@idfin IS NULL OR  isnull(FL1.idparent, expenseyear.idfin) = @idfin)	
-	AND isnull(expensevar.autokind,'') <>'22'	
+ AND 
+	isnull(expensevar.autokind,'') <>'22'	
 	AND expensevar.adate between @firstday and @stop
 	and expensevar.yvar = @ayear 
 	AND ((E2.idman = @idman) or (@idman is null ))--and expense.idman is not null))
@@ -421,10 +436,10 @@ WHERE	(@idfin IS NULL OR  isnull(FL1.idparent, expenseyear.idfin) = @idfin)
 	AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03)
 	AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
-	
+
 -- -L'update è stato introdotto perchè dobbiamo considerare con Responsabile quello della prima fase
-UPDATE #expense SET idman = ( select ee.idman FROM #expense ee  -- posso avere 2 righe se ho la fase 1 e la var.
-                        WHERE ee.nappropriation = #expense.nappropriation 
+UPDATE @expense SET idman = ( select ee.idman FROM @expense ee  -- posso avere 2 righe se ho la fase 1 e la var.
+                               WHERE ee.nappropriation = [@expense].nappropriation 
                                 AND ee.nphase = @nfinphase
                                 AND ee.nvarappropriation is null
                                 )
@@ -433,7 +448,7 @@ WHERE nphase > @nfinphase
 
 IF (@suppressifblank = 'S')
 BEGIN
-	INSERT INTO #expense
+	INSERT INTO @expense
 		(
 		idfin,
 		idupb,
@@ -443,42 +458,44 @@ BEGIN
 		ISNULL(FL2.idparent, FD.idfin),
 		upb.idupb,
 		upb.idman 
-	FROM fin
-	JOIN finlink FL1
+	FROM fin WITH (NOLOCK) 
+	JOIN finlink FL1 WITH (NOLOCK) 
 		ON FL1.idchild = fin.idfin and FL1.nlevel = @level_input
-	JOIN finlink FL2
+	JOIN finlink FL2 WITH (NOLOCK) 
 		ON FL2.idchild = fin.idfin AND FL2.nlevel = @codelevel
-	JOIN finlink FL3
+	JOIN finlink FL3 WITH (NOLOCK) 
 		ON FL3.idparent = fin.idfin
-	JOIN finvardetail FD 
+	JOIN finvardetail FD  WITH (NOLOCK) 
 		ON FD.idfin = FL3.idchild
-	JOIN finvar FVAR 
+	JOIN finvar FVAR  WITH (NOLOCK) 
 		ON FVAR.yvar = FD.yvar
 		AND FVAR.nvar = FD.nvar
-	JOIN upb 
+	JOIN upb  WITH (NOLOCK) 
 		ON FD.idupb=upb.idupb
 	WHERE ((fin.flag&1)<>0) 
-		AND (@idfin IS NULL 
 		AND FVAR.idfinvarstatus = 5
-		OR  (isnull(FL1.idparent, FD.idfin) = @idfin AND @idfin is NOT NULL))	
+		AND (@idfin IS NULL 
+		OR  (isnull(FL1.idparent, FD.idfin) = @idfin AND @idfin is NOT NULL)
+		)	
+
 		AND ((upb.idman  = @idman) OR (@idman is null))-- and upb.idman is not null))	
-		AND fin.ayear = @ayear
+		AND fin.ayear = @ayear and FVAR.yvar = @ayear
 		AND (upb.idupb like @idupb)
                 AND (
                        ( upb.idman IS NOT NULL 
                         AND NOT EXISTS (SELECT *
-                           FROM #expense
-                           WHERE isnull(FL2.idparent, FD.idfin) = #expense.idfin
-                           and  upb.idman = #expense.idman 
-                           and upb.idupb = #expense.idupb ) 
+                           FROM @expense
+                           WHERE isnull(FL2.idparent, FD.idfin) = [@expense].idfin
+                           and  upb.idman = [@expense].idman 
+                           and upb.idupb = [@expense].idupb ) 
                         )
                         OR
                         ( upb.idman IS NULL
                         AND NOT EXISTS ( SELECT *
-			FROM #expense
-			WHERE isnull(FL2.idparent, FD.idfin) = #expense.idfin
-			        ---and #expense.idman IS NOT NULL
-        			and upb.idupb = #expense.idupb)
+			FROM @expense
+			WHERE isnull(FL2.idparent, FD.idfin) = [@expense].idfin
+			        ---and [@expense].idman IS NOT NULL
+        			and upb.idupb = [@expense].idupb)
                         )
                 )
 	AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
@@ -486,8 +503,11 @@ BEGIN
 	AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03)
 	AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
-	
-INSERT INTO #expense
+
+
+--	 SELECT * FROM @expense
+--RETURN
+INSERT INTO @expense
 	(
 		idfin,
 		idupb,
@@ -497,38 +517,38 @@ SELECT distinct
 	isnull(FL2.idparent, EY.idfin),
 	upb.idupb,
 	upb.idman
-FROM fin
-	JOIN finlink FL1
+FROM fin WITH (NOLOCK) 
+	JOIN finlink FL1 WITH (NOLOCK) 
 		ON FL1.idchild = fin.idfin and FL1.nlevel = @level_input
-	JOIN finlink FL2
+	JOIN finlink FL2 WITH (NOLOCK) 
 		ON FL2.idchild = fin.idfin AND FL2.nlevel = @codelevel
-	JOIN finlink FL3
+	JOIN finlink FL3 WITH (NOLOCK) 
 		ON FL3.idparent = fin.idfin
-	JOIN expenseyear EY 
+	JOIN expenseyear EY WITH (NOLOCK)  
 		ON EY.idfin = FL3.idchild and EY.ayear = fin.ayear
-	JOIN upb 
+	JOIN upb  WITH (NOLOCK) 
 		on EY.idupb=upb.idupb
 	WHERE ((fin.flag&1)<>0) -- Spesa	
 		AND (@idfin IS NULL 
 		OR  isnull(FL1.idparent, EY.idfin) = @idfin)	
 		AND ((upb.idman  = @idman) OR (@idman is null ))--and upb.idman is not null))	
-		AND fin.ayear = @ayear
+		AND fin.ayear = @ayear and  EY.ayear = @ayear
 		AND (upb.idupb like @idupb)
                 AND (
                        ( upb.idman IS NOT NULL 
                         AND NOT EXISTS (SELECT *
-                           FROM #expense
-                           WHERE isnull(FL2.idparent, EY.idfin) = #expense.idfin
-                           and  upb.idman = #expense.idman 
-                           and upb.idupb = #expense.idupb ) 
+                           FROM @expense
+                           WHERE isnull(FL2.idparent, EY.idfin) = [@expense].idfin
+                           and  upb.idman = [@expense].idman 
+                           and upb.idupb = [@expense].idupb ) 
                         )
                         OR
                         ( upb.idman IS NULL
                         AND NOT EXISTS ( SELECT *
-			FROM #expense
-			WHERE isnull(FL2.idparent, EY.idfin) = #expense.idfin
-			        ---and #expense.idman IS NOT NULL
-        			and upb.idupb = #expense.idupb)
+			FROM @expense
+			WHERE isnull(FL2.idparent, EY.idfin) = [@expense].idfin
+			        ---and [@expense].idman IS NOT NULL
+        			and upb.idupb = [@expense].idupb)
                         )
                 )
 	AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
@@ -537,7 +557,7 @@ FROM fin
 	AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 
-INSERT INTO #expense
+INSERT INTO @expense
 	(
 		idfin,
 		idupb,
@@ -547,14 +567,14 @@ SELECT distinct
 	isnull(FL2.idparent, FY.idfin),
 	upb.idupb,
 	upb.idman
-FROM fin
-	JOIN finlink FL1
+FROM fin WITH (NOLOCK) 
+	JOIN finlink FL1 WITH (NOLOCK) 
 		ON FL1.idchild = fin.idfin and FL1.nlevel = @level_input
-	JOIN finlink FL2
+	JOIN finlink FL2 WITH (NOLOCK) 
 		ON FL2.idchild = fin.idfin AND FL2.nlevel = @codelevel
-	JOIN finlink FL3
+	JOIN finlink FL3 WITH (NOLOCK) 
 		ON FL3.idparent = fin.idfin
-	JOIN finyear FY 
+	JOIN finyear FY WITH (NOLOCK) 
 		on FY.idfin = FL3.idchild   
 		and FY.ayear=fin.ayear and
 			(isnull(FY.previousprevision,0) <> 0 OR
@@ -564,7 +584,7 @@ FROM fin
 			 isnull(FY.previousarrears,0) <> 0 OR
 			 isnull(FY.currentarrears,0) <> 0					 
 			)
-	JOIN upb 
+	JOIN upb WITH (NOLOCK) 
 		on FY.idupb=upb.idupb
 WHERE ((fin.flag&1)<>0) 	
 		AND (@idfin IS NULL 
@@ -575,18 +595,18 @@ WHERE ((fin.flag&1)<>0)
                 AND (
                        ( upb.idman IS NOT NULL 
                         AND NOT EXISTS (SELECT *
-                           FROM #expense
-                           WHERE isnull(FL2.idparent, FY.idfin) = #expense.idfin
-                           and  upb.idman = #expense.idman 
-                           and upb.idupb = #expense.idupb ) 
+                           FROM @expense
+                           WHERE isnull(FL2.idparent, FY.idfin) = [@expense].idfin
+                           and  upb.idman = [@expense].idman 
+                           and upb.idupb = [@expense].idupb ) 
                         )
                         OR
                         ( upb.idman IS NULL
                         AND NOT EXISTS ( SELECT *
-			FROM #expense
-			WHERE isnull(FL2.idparent, FY.idfin) = #expense.idfin
-			        ---and #expense.idman IS NOT NULL
-        			and upb.idupb = #expense.idupb)
+			FROM @expense
+			WHERE isnull(FL2.idparent, FY.idfin) = [@expense].idfin
+			        ---and [@expense].idman IS NOT NULL
+        			and upb.idupb = [@expense].idupb)
                         )
                 )
 	AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
@@ -595,7 +615,7 @@ WHERE ((fin.flag&1)<>0)
 	AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)                
 
-INSERT INTO #expense
+INSERT INTO @expense
 	(
 		idfin,
 		idupb,
@@ -605,10 +625,10 @@ SELECT
 	fin.idfin,
 	upb.idupb,
 	upb.idman
-FROM fin CROSS JOIN upb 
-JOIN creditpart CP
-	ON CP.idfin = fin.idfin
-LEFT OUTER JOIN finlink FL1
+FROM fin CROSS JOIN upb  WITH (NOLOCK) 
+JOIN creditpart CP WITH (NOLOCK) 
+	ON CP.idfin = fin.idfin 
+LEFT OUTER JOIN finlink FL1 WITH (NOLOCK) 
 	ON FL1.idchild = fin.idfin and FL1.nlevel = @level_input
 WHERE ((fin.flag&1)=1) 	
 	AND (@idfin IS NULL 
@@ -620,18 +640,18 @@ WHERE ((fin.flag&1)=1)
         AND (
                ( upb.idman IS NOT NULL 
                 AND NOT EXISTS (SELECT *
-                   FROM #expense
-                   WHERE fin.idfin = #expense.idfin
-                   and  upb.idman = #expense.idman 
-                   and upb.idupb = #expense.idupb ) 
+                   FROM @expense
+                   WHERE fin.idfin = [@expense].idfin
+                   and  upb.idman = [@expense].idman 
+                   and upb.idupb = [@expense].idupb ) 
                 )
                 OR
                 ( upb.idman IS NULL
                 AND NOT EXISTS ( SELECT *
-		FROM #expense
-		WHERE fin.idfin = #expense.idfin
-		        ---and #expense.idman IS NOT NULL
-			and upb.idupb = #expense.idupb)
+		FROM @expense
+		WHERE fin.idfin = [@expense].idfin
+		        ---and [@expense].idman IS NOT NULL
+			and upb.idupb = [@expense].idupb)
                 )
         )
 	AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
@@ -640,7 +660,7 @@ WHERE ((fin.flag&1)=1)
 	AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 
-INSERT INTO #expense
+INSERT INTO @expense
 	(
 		idfin,
 		idupb,
@@ -650,10 +670,10 @@ SELECT
 	fin.idfin,
 	upb.idupb,
 	upb.idman
-FROM fin CROSS JOIN upb 
-JOIN proceedspart PP
+FROM fin CROSS JOIN upb  WITH (NOLOCK) 
+JOIN proceedspart PP WITH (NOLOCK) 
 	ON PP.idfin = fin.idfin
-LEFT OUTER JOIN finlink FL1
+LEFT OUTER JOIN finlink FL1 WITH (NOLOCK) 
 	ON FL1.idchild = fin.idfin and FL1.nlevel = @level_input
 WHERE ((fin.flag&1)=1) 	
 	AND (@idfin IS NULL 
@@ -665,18 +685,18 @@ WHERE ((fin.flag&1)=1)
         AND (
                ( upb.idman IS NOT NULL 
                 AND NOT EXISTS (SELECT *
-                   FROM #expense
-                   WHERE fin.idfin = #expense.idfin
-                   and  upb.idman = #expense.idman 
-                   and upb.idupb = #expense.idupb ) 
+                   FROM @expense
+                   WHERE fin.idfin = [@expense].idfin
+                   and  upb.idman = [@expense].idman 
+                   and upb.idupb = [@expense].idupb ) 
                 )
                 OR
                 ( upb.idman IS NULL
                 AND NOT EXISTS ( SELECT *
-		FROM #expense
-		WHERE fin.idfin = #expense.idfin
-		        ---and #expense.idman IS NOT NULL
-			and upb.idupb = #expense.idupb)
+		FROM @expense
+		WHERE fin.idfin = [@expense].idfin
+		        ---and [@expense].idman IS NOT NULL
+			and upb.idupb = [@expense].idupb)
                 )
         )
 	AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
@@ -688,7 +708,7 @@ WHERE ((fin.flag&1)=1)
 END
 ELSE
 BEGIN
-INSERT INTO #expense
+INSERT INTO @expense
 	(
 		idfin,
 		idupb,
@@ -698,8 +718,8 @@ SELECT
 	fin.idfin,
 	upb.idupb,
 	upb.idman
-FROM fin CROSS JOIN upb 
-LEFT OUTER JOIN finlink FL1
+FROM fin CROSS JOIN upb WITH (NOLOCK) 
+LEFT OUTER JOIN finlink FL1 WITH (NOLOCK) 
 	ON FL1.idchild = fin.idfin and FL1.nlevel = @level_input
 WHERE ((fin.flag&1)=1) -- = 'S'	
 	AND (@idfin IS NULL 
@@ -711,18 +731,18 @@ WHERE ((fin.flag&1)=1) -- = 'S'
         AND (
                ( upb.idman IS NOT NULL 
                 AND NOT EXISTS (SELECT *
-                   FROM #expense
-                   WHERE fin.idfin = #expense.idfin
-                   and  upb.idman = #expense.idman 
-                   and upb.idupb = #expense.idupb ) 
+                   FROM @expense
+                   WHERE fin.idfin = [@expense].idfin
+                   and  upb.idman = [@expense].idman 
+                   and upb.idupb = [@expense].idupb ) 
                 )
                 OR
                 ( upb.idman IS NULL
                 AND NOT EXISTS ( SELECT *
-		FROM #expense
-		WHERE fin.idfin = #expense.idfin
-		        ---and #expense.idman IS NOT NULL
-			and upb.idupb = #expense.idupb)
+		FROM @expense
+		WHERE fin.idfin = [@expense].idfin
+		        ---and [@expense].idman IS NOT NULL
+			and upb.idupb = [@expense].idupb)
                 )
         )
 	AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
@@ -731,18 +751,18 @@ WHERE ((fin.flag&1)=1) -- = 'S'
 	AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 
-
 END
-
-CREATE TABLE #appropriation_C
+ 
+DECLARE  @appropriation_C AS TABLE
+ 
     (
 	idfin int,
 	idupb varchar(36),
 	idman int,
 	amount decimal(19,2),
-	nphase tinyint			 
+	nphase tinyint	
     )
-INSERT INTO #appropriation_C
+INSERT INTO @appropriation_C
 	(
 	idfin,
 	idupb,
@@ -756,23 +776,23 @@ SELECT
 	E1.idman,
 	SUM(ISNULL(expenseyear.amount, 0)),
 	expense.nphase
-FROM expense
-JOIN expenseyear
+FROM expense WITH (NOLOCK) 
+JOIN expenseyear WITH (NOLOCK) 
 	ON expenseyear.idexp = expense.idexp 
-JOIN upb
+JOIN upb WITH (NOLOCK) 
 	ON expenseyear.idupb = upb.idupb	
-JOIN expensetotal 
+JOIN expensetotal WITH (NOLOCK)  
 	ON  expenseyear.idexp = expensetotal.idexp 
 	AND expenseyear.ayear = expensetotal.ayear 
-LEFT OUTER JOIN finlink 
+LEFT OUTER JOIN finlink  WITH (NOLOCK) 
 	ON finlink.idchild = expenseyear.idfin 
 	AND finlink.nlevel = @codelevel
-LEFT OUTER JOIN finlink FL
+LEFT OUTER JOIN finlink FL WITH (NOLOCK) 
 	ON FL.idchild = expenseyear.idfin 
 	AND FL.nlevel = @level_input
-LEFT OUTER JOIN expenselink
+LEFT OUTER JOIN expenselink WITH (NOLOCK) 
         ON expenselink.idchild = expense.idexp and expenselink.nlevel = @nfinphase
-LEFT OUTER JOIN expense E1
+LEFT OUTER JOIN expense E1 WITH (NOLOCK) 
         ON E1.idexp = expenselink.idparent 
 WHERE expense.adate between @firstday and @stop
 	AND expenseyear.ayear = @ayear
@@ -788,16 +808,16 @@ WHERE expense.adate between @firstday and @stop
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 	
 GROUP BY expenseyear.idupb,ISNULL(finlink.idparent,expenseyear.idfin),E1.idman,expense.nphase 
-
-CREATE TABLE #var_appropriation_C
+DECLARE  @var_appropriation_C AS TABLE
+ 
     (
 	idfin int,
 	idupb varchar(36),
 	idman int,
 	amount decimal(19,2),
-	nphase tinyint							 
+	nphase tinyint		
     )
-INSERT INTO #var_appropriation_C
+INSERT INTO @var_appropriation_C
 	(
 	idfin,
 	idupb,
@@ -811,25 +831,25 @@ SELECT
 	E1.idman, 
 	SUM(ISNULL(expensevar.amount, 0)),
 	expense.nphase
-FROM expensevar
-JOIN expenseyear
+FROM expensevar WITH (NOLOCK) 
+JOIN expenseyear WITH (NOLOCK) 
 	ON expenseyear.idexp = expensevar.idexp 
-JOIN upb
+JOIN upb WITH (NOLOCK) 
 	ON expenseyear.idupb = upb.idupb	
-JOIN expensetotal 
+JOIN expensetotal  WITH (NOLOCK) 
 	ON  expenseyear.idexp = expensetotal.idexp AND
 	expenseyear.ayear = expensetotal.ayear 
-JOIN expense 
+JOIN expense  WITH (NOLOCK) 
 	ON expense.idexp = expenseyear.idexp
-LEFT OUTER JOIN finlink 
+LEFT OUTER JOIN finlink  WITH (NOLOCK) 
 	ON finlink.idchild = expenseyear.idfin 
 	AND finlink.nlevel = @codelevel
-LEFT OUTER JOIN finlink FL
+LEFT OUTER JOIN finlink FL WITH (NOLOCK) 
 	ON FL.idchild = expenseyear.idfin 
 	AND FL.nlevel = @level_input
-LEFT OUTER JOIN expenselink
+LEFT OUTER JOIN expenselink WITH (NOLOCK) 
         ON expenselink.idchild = expense.idexp and expenselink.nlevel = @nfinphase
-LEFT OUTER JOIN expense E1
+LEFT OUTER JOIN expense E1 WITH (NOLOCK) 
         ON E1.idexp = expenselink.idparent 
 WHERE expensevar.yvar = @ayear
 	AND expenseyear.ayear = @ayear
@@ -847,15 +867,17 @@ WHERE expensevar.yvar = @ayear
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 GROUP BY expenseyear.idupb,ISNULL(finlink.idparent,expenseyear.idfin),E1.idman,expense.nphase 
 
-CREATE TABLE #appropriation_R
+
+DECLARE @appropriation_R AS TABLE
+ 
     (
 	idfin int,
 	idupb varchar(36),
 	idman int,
 	amount decimal(19,2),
-	nphase tinyint							 
+	nphase tinyint	
     )
-INSERT INTO #appropriation_R
+INSERT INTO @appropriation_R
 	(
 	idfin,
 	idupb,
@@ -869,23 +891,23 @@ SELECT
 	E1.idman,	
 	SUM(ISNULL(expenseyear.amount, 0)),
 	expense.nphase
-FROM expenseyear
-JOIN expense
+FROM expenseyear WITH (NOLOCK) 
+JOIN expense WITH (NOLOCK) 
 	ON expense.idexp = expenseyear.idexp 
-JOIN upb
+JOIN upb WITH (NOLOCK) 
 	ON expenseyear.idupb = upb.idupb	
-JOIN expensetotal 
+JOIN expensetotal WITH (NOLOCK)  
 	ON  expenseyear.idexp = expensetotal.idexp 
 	AND expenseyear.ayear = expensetotal.ayear
-LEFT OUTER JOIN finlink 
+LEFT OUTER JOIN finlink  WITH (NOLOCK) 
 	ON finlink.idchild = expenseyear.idfin 
 	AND finlink.nlevel = @codelevel
-LEFT OUTER JOIN finlink FL
+LEFT OUTER JOIN finlink FL WITH (NOLOCK) 
 	ON FL.idchild = expenseyear.idfin 
 	AND FL.nlevel = @level_input
-LEFT OUTER JOIN expenselink
+LEFT OUTER JOIN expenselink WITH (NOLOCK) 
         ON expenselink.idchild = expense.idexp and expenselink.nlevel = @nfinphase
-LEFT OUTER JOIN expense E1
+LEFT OUTER JOIN expense E1 WITH (NOLOCK) 
         ON E1.idexp = expenselink.idparent 
 WHERE  ((expensetotal.flag&1)=1)
 	AND expenseyear.ayear = @ayear
@@ -907,15 +929,17 @@ WHERE  ((expensetotal.flag&1)=1)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 GROUP BY expenseyear.idupb,ISNULL(finlink.idparent,expenseyear.idfin),E1.idman,expense.nphase 
 
-CREATE TABLE #var_appropriation_R
+
+DECLARE @var_appropriation_R AS TABLE
+
     (
 	idfin int,
 	idupb varchar(36),
 	idman int,
 	amount decimal(19,2),
-	nphase tinyint							 
+	nphase tinyint		
     )
-INSERT INTO #var_appropriation_R
+INSERT INTO @var_appropriation_R
 	(
 	idfin,
 	idupb,
@@ -929,25 +953,25 @@ SELECT
 	E1.idman,	
 	SUM(ISNULL(expensevar.amount, 0)),
 	expense.nphase
-FROM expensevar
-JOIN expenseyear
+FROM expensevar WITH (NOLOCK) 
+JOIN expenseyear WITH (NOLOCK) 
 	ON expenseyear.idexp = expensevar.idexp	
-JOIN upb
+JOIN upb WITH (NOLOCK) 
 	ON expenseyear.idupb = upb.idupb
-JOIN expense 
+JOIN expense  WITH (NOLOCK) 
 	ON expense.idexp = expenseyear.idexp
-JOIN expensetotal 
+JOIN expensetotal  WITH (NOLOCK) 
 	ON  expenseyear.idexp = expensetotal.idexp AND
 	expenseyear.ayear = expensetotal.ayear
-LEFT OUTER JOIN finlink 
+LEFT OUTER JOIN finlink  WITH (NOLOCK) 
 	ON finlink.idchild = expenseyear.idfin 
 	AND finlink.nlevel = @codelevel
-LEFT OUTER JOIN finlink FL
+LEFT OUTER JOIN finlink FL WITH (NOLOCK) 
 	ON FL.idchild = expenseyear.idfin 
 	AND FL.nlevel = @level_input
-LEFT OUTER JOIN expenselink
+LEFT OUTER JOIN expenselink WITH (NOLOCK) 
         ON expenselink.idchild = expense.idexp and expenselink.nlevel = @nfinphase
-LEFT OUTER JOIN expense E1
+LEFT OUTER JOIN expense E1 WITH (NOLOCK) 
         ON E1.idexp = expenselink.idparent 
 WHERE expensevar.yvar = @ayear
 	AND isnull(expensevar.autokind,'') <>'22'
@@ -966,15 +990,15 @@ WHERE expensevar.yvar = @ayear
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 GROUP BY expenseyear.idupb,ISNULL(finlink.idparent,expenseyear.idfin),E1.idman,expense.nphase 
 
-CREATE TABLE #payment_C
+DECLARE  @payment_C AS TABLE
     (
 	idfin int,
 	idupb varchar(36),
 	idman int,
-	amount decimal(19,2)					 
+	amount decimal(19,2)	
     )
 
-INSERT INTO #payment_C
+INSERT INTO @payment_C
 	(
 	idfin,
 	idupb,
@@ -986,24 +1010,24 @@ SELECT
 	expenseyear.idupb,
 	E1.idman,
 	SUM(ISNULL(paymentemitted.amount,0))
-FROM expenseyear
-JOIN upb
+FROM expenseyear WITH (NOLOCK) 
+JOIN upb WITH (NOLOCK) 
 	ON expenseyear.idupb = upb.idupb
-JOIN paymentemitted
+JOIN paymentemitted WITH (NOLOCK) 
 	ON expenseyear.idexp = paymentemitted.idexp AND expenseyear.ayear = @ayear
-JOIN expense on expense.idexp = expenseyear.idexp
-JOIN expensetotal 
+JOIN expense WITH (NOLOCK)  on expense.idexp = expenseyear.idexp
+JOIN expensetotal  WITH (NOLOCK) 
 	ON  expenseyear.idexp = expensetotal.idexp AND
 	expenseyear.ayear = expensetotal.ayear 
-LEFT OUTER JOIN finlink 
+LEFT OUTER JOIN finlink  WITH (NOLOCK) 
 	ON finlink.idchild = expenseyear.idfin 
 	AND finlink.nlevel = @codelevel
-LEFT OUTER JOIN finlink FL
+LEFT OUTER JOIN finlink FL WITH (NOLOCK) 
 	ON FL.idchild = expenseyear.idfin 
 	AND FL.nlevel = @level_input
-LEFT OUTER JOIN expenselink
+LEFT OUTER JOIN expenselink WITH (NOLOCK) 
         ON expenselink.idchild = expense.idexp and expenselink.nlevel = @nfinphase
-LEFT OUTER JOIN expense E1
+LEFT OUTER JOIN expense E1 WITH (NOLOCK) 
         ON E1.idexp = expenselink.idparent 
 WHERE paymentemitted.competencydate between @firstday and @stop
 	AND  ((expensetotal.flag&1)=0) 
@@ -1017,42 +1041,44 @@ WHERE paymentemitted.competencydate between @firstday and @stop
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 GROUP BY expenseyear.idupb,ISNULL(finlink.idparent,expenseyear.idfin),E1.idman
 
-CREATE TABLE #payment_R
+DECLARE  @payment_R AS TABLE
+
     (
 	idfin int,
 	idupb varchar(36),
 	idman int,
-	amount decimal(19,2)					 
+	amount decimal(19,2)	
     )
-INSERT INTO #payment_R
+INSERT INTO @payment_R
 	(
 	idfin,
 	idupb,
 	idman,
 	amount
+
 	)
 SELECT
 	ISNULL(finlink.idparent,expenseyear.idfin),
 	expenseyear.idupb,
 	E1.idman,
 	SUM(ISNULL(paymentemitted.amount,0))
-FROM paymentemitted
-JOIN expenseyear
+FROM paymentemitted WITH (NOLOCK) 
+JOIN expenseyear WITH (NOLOCK) 
 	ON expenseyear.idexp = paymentemitted.idexp 
 	AND expenseyear.ayear = @ayear
-JOIN upb
+JOIN upb WITH (NOLOCK) 
 	ON expenseyear.idupb = upb.idupb	
-JOIN expense 
+JOIN expense  WITH (NOLOCK) 
 	ON expense.idexp = expenseyear.idexp
-LEFT OUTER JOIN finlink 
+LEFT OUTER JOIN finlink  WITH (NOLOCK) 
 	ON finlink.idchild = expenseyear.idfin 
 	AND finlink.nlevel = @codelevel
-LEFT OUTER JOIN finlink FL
+LEFT OUTER JOIN finlink FL WITH (NOLOCK) 
 	ON FL.idchild = expenseyear.idfin 
 	AND FL.nlevel = @level_input
-LEFT OUTER JOIN expenselink
+LEFT OUTER JOIN expenselink WITH (NOLOCK) 
         ON expenselink.idchild = expense.idexp and expenselink.nlevel = @nfinphase
-LEFT OUTER JOIN expense E1
+LEFT OUTER JOIN expense E1 WITH (NOLOCK) 
         ON E1.idexp = expenselink.idparent 
 WHERE paymentemitted.competencydate between @firstday and @stop
 	AND (paymentemitted.flagarrear='R') 
@@ -1066,15 +1092,15 @@ WHERE paymentemitted.competencydate between @firstday and @stop
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 GROUP BY expenseyear.idupb,ISNULL(finlink.idparent,expenseyear.idfin),E1.idman
 
-
-CREATE TABLE #var_payment_C
+DECLARE  @var_payment_C AS TABLE
+ 
     (
 	idfin int,
 	idupb varchar(36),
 	idman int,
-	amount decimal(19,2)					 
+	amount decimal(19,2)		
     )
-INSERT INTO #var_payment_C
+INSERT INTO @var_payment_C
 	(
 	idfin,
 	idupb,
@@ -1086,25 +1112,25 @@ SELECT
 	expenseyear.idupb,
 	E1.idman,
 	SUM(ISNULL(expensevar.amount, 0))
-FROM expensevar
-JOIN expenseyear
+FROM expensevar WITH (NOLOCK) 
+JOIN expenseyear WITH (NOLOCK) 
 	ON expenseyear.idexp = expensevar.idexp 
 	AND expenseyear.ayear = @ayear
-JOIN upb
+JOIN upb WITH (NOLOCK) 
 	ON expenseyear.idupb = upb.idupb	
-JOIN expense on expense.idexp = expenseyear.idexp
-JOIN expensetotal 
+JOIN expense  WITH (NOLOCK) on expense.idexp = expenseyear.idexp
+JOIN expensetotal  WITH (NOLOCK) 
 	ON  expenseyear.idexp = expensetotal.idexp AND
 	expenseyear.ayear = expensetotal.ayear 
 LEFT OUTER JOIN finlink 
 	ON finlink.idchild = expenseyear.idfin 
 	AND finlink.nlevel = @codelevel
-LEFT OUTER JOIN finlink FL
+LEFT OUTER JOIN finlink FL WITH (NOLOCK) 
 	ON FL.idchild = expenseyear.idfin 
 	AND FL.nlevel = @level_input
-LEFT OUTER JOIN expenselink
+LEFT OUTER JOIN expenselink WITH (NOLOCK) 
         ON expenselink.idchild = expense.idexp and expenselink.nlevel = @nfinphase
-LEFT OUTER JOIN expense E1
+LEFT OUTER JOIN expense E1 WITH (NOLOCK) 
         ON E1.idexp = expenselink.idparent 
 WHERE expensevar.yvar = @ayear
 	AND isnull(expensevar.autokind,'') <>'22'
@@ -1121,14 +1147,14 @@ WHERE expensevar.yvar = @ayear
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 GROUP BY expenseyear.idupb,ISNULL(finlink.idparent,expenseyear.idfin),E1.idman
 
-CREATE TABLE #var_payment_R
+DECLARE  @var_payment_R AS TABLE
     (
 	idfin int,
 	idupb varchar(36),
 	idman int,
-	amount decimal(19,2)					 
+	amount decimal(19,2)	
     )
-INSERT INTO #var_payment_R
+INSERT INTO @var_payment_R
 	(
 	idfin,
 	idupb,
@@ -1140,25 +1166,25 @@ SELECT
 	expenseyear.idupb,
 	E1.idman,
 	SUM(ISNULL(expensevar.amount, 0))
-FROM expensevar
-JOIN expenseyear
+FROM expensevar WITH (NOLOCK) 
+JOIN expenseyear WITH (NOLOCK) 
 	ON expenseyear.idexp = expensevar.idexp 
 	AND expenseyear.ayear = @ayear
-JOIN upb
+JOIN upb WITH (NOLOCK) 
 	ON expenseyear.idupb = upb.idupb	
-JOIN expense on expense.idexp = expenseyear.idexp
-JOIN expensetotal 
+JOIN expense  WITH (NOLOCK) on expense.idexp = expenseyear.idexp
+JOIN expensetotal  WITH (NOLOCK) 
 	ON  expenseyear.idexp = expensetotal.idexp AND
 	expenseyear.ayear = expensetotal.ayear
-LEFT OUTER JOIN finlink 
+LEFT OUTER JOIN finlink  WITH (NOLOCK) 
 	ON finlink.idchild = expenseyear.idfin 
 	AND finlink.nlevel = @codelevel
 LEFT OUTER JOIN finlink FL
 	ON FL.idchild = expenseyear.idfin 
 	AND FL.nlevel = @level_input
-LEFT OUTER JOIN expenselink
+LEFT OUTER JOIN expenselink WITH (NOLOCK) 
         ON expenselink.idchild = expense.idexp and expenselink.nlevel = @nfinphase
-LEFT OUTER JOIN expense E1
+LEFT OUTER JOIN expense E1 WITH (NOLOCK) 
         ON E1.idexp = expenselink.idparent 
 WHERE expensevar.yvar = @ayear
 	AND isnull(expensevar.autokind,'') <>'22'
@@ -1176,7 +1202,7 @@ WHERE expensevar.yvar = @ayear
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 GROUP BY expenseyear.idupb,ISNULL(finlink.idparent,expenseyear.idfin),E1.idman
 
-UPDATE #expense
+UPDATE @expense
 SET
 -- Disp.dell' Impegno:  Impegno + Var.Impegno alla data - (SubImpegni + Var. SubImpegni)
 	available_appropriation = 
@@ -1184,11 +1210,11 @@ SET
 		+ ISNULL((SELECT SUM(amount)
 		FROM expensevar
 		join expense on expensevar.idexp = expense.idexp
-		WHERE expensevar.idexp= #expense.nappropriation
+		WHERE expensevar.idexp= [@expense].nappropriation
 			and expensevar.adate between @firstday and @stop
 			and expensevar.yvar = @ayear
 			and expense.nphase  = @nfinphase
-			and #expense.nvarappropriation is null
+			and [@expense].nvarappropriation is null
 		),0) 
 		- ISNULL((SELECT SUM(expenseyear.amount)
 			from expenseyear
@@ -1196,10 +1222,10 @@ SET
 			ON E.idexp = expenseyear.idexp  
 		JOIN expenselink elk1
 			ON elk1.idchild = E.idexp AND elk1.nlevel = @nfinphase
-		where elk1.idparent = #expense.nappropriation
+		where elk1.idparent = [@expense].nappropriation
 			AND E.nphase = @nregphase
 			AND expenseyear.ayear =@ayear
-			and #expense.nvarappropriation is null -- deve aggiornare solo le righe degli impegni
+			and [@expense].nvarappropriation is null -- deve aggiornare solo le righe degli impegni
 		),0)
 		- ISNULL((SELECT SUM(expensevar.amount)
 		FROM expensevar
@@ -1207,11 +1233,11 @@ SET
 			ON E.idexp = expensevar.idexp  
 		JOIN expenselink elk1
 			ON elk1.idchild = E.idexp AND elk1.nlevel = @nfinphase
-		WHERE elk1.idparent = #expense.nappropriation
+		WHERE elk1.idparent = [@expense].nappropriation
 			and expensevar.adate between @firstday and @stop
 			and expensevar.yvar = @ayear
 			AND E.nphase = @nregphase
-			and #expense.nvarappropriation is null
+			and [@expense].nvarappropriation is null
 		),0)	,
 
 -- Disp. del Subimpegno =  Subimpegno + Var.Subimpegno alla data -  (Liquidazioni +  Var.Liquidazioni alla data )
@@ -1220,11 +1246,11 @@ SET
 		+ ISNULL((SELECT SUM(amount)
 		FROM expensevar
 		join expense on expensevar.idexp = expense.idexp
-		WHERE expensevar.idexp= #expense.nregphase
+		WHERE expensevar.idexp= [@expense].nregphase
 			and expensevar.adate between @firstday and @stop
 			and expensevar.yvar = @ayear
 			and expense.nphase  = @nregphase
-			and #expense.nvarregphase is null
+			and [@expense].nvarregphase is null
 		),0)
 		- ISNULL((SELECT SUM(expenseyear.amount)
 			from expenseyear
@@ -1232,10 +1258,10 @@ SET
 			ON E.idexp = expenseyear.idexp  
 		JOIN expenselink elk2
 			ON elk2.idchild = E.idexp AND elk2.nlevel = @nregphase
-		where elk2.idparent = #expense.nregphase
+		where elk2.idparent = [@expense].nregphase
 			AND E.nphase = @maxexpensephase
 			AND expenseyear.ayear =@ayear
-			and #expense.nvarregphase is null
+			and [@expense].nvarregphase is null
 		),0) 
 		- ISNULL((SELECT SUM(expensevar.amount)
 		FROM expensevar
@@ -1243,14 +1269,14 @@ SET
 			ON E.idexp = expensevar.idexp  
 		JOIN expenselink elk1
 			ON elk1.idchild = E.idexp AND elk1.nlevel = @nregphase
-		WHERE elk1.idparent = #expense.nregphase
+		WHERE elk1.idparent = [@expense].nregphase
 			and expensevar.adate between @firstday and @stop
 			and expensevar.yvar = @ayear
 			AND E.nphase = @maxexpensephase
-			and #expense.nvarregphase is null
+			and [@expense].nvarregphase is null
 		),0)
 
-UPDATE #expense SET 
+UPDATE @expense SET 
 	finvar_prevision = ISNULL((SELECT SUM(ISNULL(finvardetail.amount,0))
 			FROM finvardetail
 			JOIN finvar
@@ -1264,8 +1290,8 @@ UPDATE #expense SET
 				AND finvar.variationkind <> 5
 				AND finvar.adate between @firstday and @stop
 				AND finvar.yvar = @ayear
-				AND ISNULL(finlink.idparent,finvardetail.idfin) = #expense.idfin 
-				AND finvardetail.idupb = #expense.idupb
+				AND ISNULL(finlink.idparent,finvardetail.idfin) = [@expense].idfin 
+				AND finvardetail.idupb = [@expense].idupb
 			), 0),
 	finvar_secondaryprev = ISNULL((SELECT SUM(ISNULL(finvardetail.amount,0))
 				FROM finvardetail
@@ -1280,87 +1306,87 @@ UPDATE #expense SET
 					AND finvar.variationkind <> 5
 					AND finvar.adate between @firstday and @stop
 					AND finvar.yvar = @ayear
-					AND ISNULL(finlink.idparent,finvardetail.idfin)  = #expense.idfin 
-					AND finvardetail.idupb = #expense.idupb
+					AND ISNULL(finlink.idparent,finvardetail.idfin)  = [@expense].idfin 
+					AND finvardetail.idupb = [@expense].idupb
 					), 0),
-	appropriation_C = (SELECT SUM(ISNULL(#appropriation_C.amount,0))  
-				FROM #appropriation_C
-				WHERE  #appropriation_C.idfin = #expense.idfin
-					and isnull(#appropriation_C.idman,0) = isnull(#expense.idman,0)
-					and #appropriation_C.idupb = #expense.idupb
-					and #appropriation_C.nphase = @nfinphase ), 
-	var_appropriation_C = (SELECT SUM(ISNULL(#var_appropriation_C.amount,0))  
-				FROM #var_appropriation_C
-				WHERE  #var_appropriation_C.idfin = #expense.idfin
-					and isnull(#var_appropriation_C.idman,0) = isnull(#expense.idman,0)
-					and #var_appropriation_C.idupb = #expense.idupb
-					and #var_appropriation_C.nphase = @nfinphase),
-	regphase_C = (SELECT SUM(ISNULL(#appropriation_C.amount,0))  
-				FROM #appropriation_C
-				WHERE  #appropriation_C.idfin = #expense.idfin
-					and isnull(#appropriation_C.idman,0) = isnull(#expense.idman,0)
-					and #appropriation_C.idupb = #expense.idupb
-					and #appropriation_C.nphase = @nregphase
+	appropriation_C = (SELECT SUM(ISNULL([@appropriation_C].amount,0))  
+				FROM @appropriation_C
+				WHERE  [@appropriation_C].idfin = [@expense].idfin
+					and isnull([@appropriation_C].idman,0) = isnull([@expense].idman,0)
+					and [@appropriation_C].idupb = [@expense].idupb
+					and [@appropriation_C].nphase = @nfinphase ), 
+	var_appropriation_C = (SELECT SUM(ISNULL([@var_appropriation_C].amount,0))  
+				FROM @var_appropriation_C
+				WHERE  [@var_appropriation_C].idfin = [@expense].idfin
+					and isnull([@var_appropriation_C].idman,0) = isnull([@expense].idman,0)
+					and [@var_appropriation_C].idupb = [@expense].idupb
+					and [@var_appropriation_C].nphase = @nfinphase),
+	regphase_C = (SELECT SUM(ISNULL([@appropriation_C].amount,0))  
+				FROM @appropriation_C
+				WHERE  [@appropriation_C].idfin = [@expense].idfin
+					and isnull([@appropriation_C].idman,0) = isnull([@expense].idman,0)
+					and [@appropriation_C].idupb = [@expense].idupb
+					and [@appropriation_C].nphase = @nregphase
 					), 
-	var_regphase_C = (SELECT SUM(ISNULL(#var_appropriation_C.amount,0))  
-				FROM #var_appropriation_C
-				WHERE  #var_appropriation_C.idfin = #expense.idfin
-					and isnull(#var_appropriation_C.idman,0) = isnull(#expense.idman,0)
-					and #var_appropriation_C.idupb = #expense.idupb
-					and #var_appropriation_C.nphase = @nregphase
+	var_regphase_C = (SELECT SUM(ISNULL([@var_appropriation_C].amount,0))  
+				FROM @var_appropriation_C
+				WHERE  [@var_appropriation_C].idfin = [@expense].idfin
+					and isnull([@var_appropriation_C].idman,0) = isnull([@expense].idman,0)
+					and [@var_appropriation_C].idupb = [@expense].idupb
+					and [@var_appropriation_C].nphase = @nregphase
 					),
-	payment_C = (SELECT SUM(ISNULL(#payment_C.amount,0))  
-				FROM #payment_C
-				WHERE  #payment_C.idfin = #expense.idfin
-					and #payment_C.idupb = #expense.idupb
-					and isnull(#payment_C.idman,0) = isnull(#expense.idman,0)), 
-	var_payment_C = (SELECT SUM(ISNULL(#var_payment_C.amount,0))  
-				FROM #var_payment_C
-				WHERE   #var_payment_C.idfin = #expense.idfin
-					and #var_payment_C.idupb = #expense.idupb
-					and isnull(#var_payment_C.idman,0) = isnull(#expense.idman,0)),
-  	appropriation_R =(SELECT SUM(ISNULL(#appropriation_R.amount,0))  
-				FROM #appropriation_R
-				WHERE  #appropriation_R.idfin = #expense.idfin
-					and isnull(#appropriation_R.idman,0) = isnull(#expense.idman,0)
-					and #appropriation_R.idupb = #expense.idupb
-					and #appropriation_R.nphase = @nfinphase), 
-	var_appropriation_R =(SELECT SUM(ISNULL(#var_appropriation_R.amount,0))  
-				FROM #var_appropriation_R
-				WHERE  #var_appropriation_R.idfin = #expense.idfin
-					and isnull(#var_appropriation_R.idman,0) = isnull(#expense.idman,0)
-					and #var_appropriation_R.idupb = #expense.idupb
-					and #var_appropriation_R.nphase = @nfinphase), 
-  	regphase_R =(SELECT SUM(ISNULL(#appropriation_R.amount,0))  
-				FROM #appropriation_R
-				WHERE  #appropriation_R.idfin = #expense.idfin
-					and isnull(#appropriation_R.idman,0) = isnull(#expense.idman,0)
-					and #appropriation_R.idupb = #expense.idupb
-					and #appropriation_R.nphase = @nregphase),  
-	var_regphase_R =(SELECT SUM(ISNULL(#var_appropriation_R.amount,0))  
-				FROM #var_appropriation_R
-				WHERE  #var_appropriation_R.idfin = #expense.idfin
-					and isnull(#var_appropriation_R.idman,0) = isnull(#expense.idman,0)
-					and #var_appropriation_R.idupb = #expense.idupb
-					and #var_appropriation_R.nphase = @nregphase),  
+	payment_C = (SELECT SUM(ISNULL([@payment_C].amount,0))  
+				FROM @payment_C
+				WHERE  [@payment_C].idfin = [@expense].idfin
+					and [@payment_C].idupb = [@expense].idupb
+					and isnull([@payment_C].idman,0) = isnull([@expense].idman,0)), 
+	var_payment_C = (SELECT SUM(ISNULL([@var_payment_C].amount,0))  
+				FROM @var_payment_C
+				WHERE   [@var_payment_C].idfin = [@expense].idfin
+					and [@var_payment_C].idupb = [@expense].idupb
+					and isnull([@var_payment_C].idman,0) = isnull([@expense].idman,0)),
+  	appropriation_R =(SELECT SUM(ISNULL([@appropriation_R].amount,0))  
+				FROM @appropriation_R
+				WHERE  [@appropriation_R].idfin = [@expense].idfin
+					and isnull([@appropriation_R].idman,0) = isnull([@expense].idman,0)
+					and [@appropriation_R].idupb = [@expense].idupb
+					and [@appropriation_R].nphase = @nfinphase), 
+	var_appropriation_R =(SELECT SUM(ISNULL([@var_appropriation_R].amount,0))  
+				FROM @var_appropriation_R
+				WHERE  [@var_appropriation_R].idfin = [@expense].idfin
+					and isnull([@var_appropriation_R].idman,0) = isnull([@expense].idman,0)
+					and [@var_appropriation_R].idupb = [@expense].idupb
+					and [@var_appropriation_R].nphase = @nfinphase), 
+  	regphase_R =(SELECT SUM(ISNULL([@appropriation_R].amount,0))  
+				FROM @appropriation_R
+				WHERE  [@appropriation_R].idfin = [@expense].idfin
+					and isnull([@appropriation_R].idman,0) = isnull([@expense].idman,0)
+					and [@appropriation_R].idupb = [@expense].idupb
+					and [@appropriation_R].nphase = @nregphase),  
+	var_regphase_R =(SELECT SUM(ISNULL([@var_appropriation_R].amount,0))  
+				FROM @var_appropriation_R
+				WHERE  [@var_appropriation_R].idfin = [@expense].idfin
+					and isnull([@var_appropriation_R].idman,0) = isnull([@expense].idman,0)
+					and [@var_appropriation_R].idupb = [@expense].idupb
+					and [@var_appropriation_R].nphase = @nregphase),  
 
-	payment_R =(SELECT SUM(ISNULL(#payment_R.amount,0))  
-			FROM #payment_R					
-			WHERE  #payment_R.idfin = #expense.idfin
-				and #payment_R.idupb = #expense.idupb
-				and isnull(#payment_R.idman,0) = isnull(#expense.idman,0)
+	payment_R =(SELECT SUM(ISNULL([@payment_R].amount,0))  
+			FROM @payment_R					
+			WHERE  [@payment_R].idfin = [@expense].idfin
+				and [@payment_R].idupb = [@expense].idupb
+				and isnull([@payment_R].idman,0) = isnull([@expense].idman,0)
 			), 
-	var_payment_R = (SELECT SUM(ISNULL(#var_payment_R.amount,0))  
-			FROM #var_payment_R
-			WHERE  #var_payment_R.idfin = #expense.idfin
-				and #var_payment_R.idupb = #expense.idupb
-				and isnull(#var_payment_R.idman,0) = isnull(#expense.idman,0)
+	var_payment_R = (SELECT SUM(ISNULL([@var_payment_R].amount,0))  
+			FROM @var_payment_R
+			WHERE  [@var_payment_R].idfin = [@expense].idfin
+				and [@var_payment_R].idupb = [@expense].idupb
+				and isnull([@var_payment_R].idman,0) = isnull([@expense].idman,0)
 			)
 
 	IF @codelevel >= @levelusable
 		BEGIN	
 print 'Then'
-		UPDATE #expense
+		UPDATE @expense
 		SET	
 		initialprevisioncomp= ISNULL((SELECT finyear.prevision 
 					FROM finyear
@@ -1368,8 +1394,8 @@ print 'Then'
 						ON finyear.idfin = fin.idfin
 					JOIN upb
 						ON finyear.idupb = upb.idupb
-					WHERE finyear.idupb = #expense.idupb AND 
-						finyear.idfin = #expense.idfin),0),
+					WHERE finyear.idupb = [@expense].idupb AND 
+						finyear.idfin = [@expense].idfin),0),
 	  
 		initialprevisioncassa = ISNULL((SELECT finyear.secondaryprev 
 					FROM finyear
@@ -1377,13 +1403,13 @@ print 'Then'
 						ON finyear.idfin = fin.idfin
 					JOIN upb
 						ON finyear.idupb = upb.idupb
-					WHERE finyear.idupb = #expense.idupb AND 
-						finyear.idfin = #expense.idfin),0)
+					WHERE finyear.idupb = [@expense].idupb AND 
+						finyear.idfin = [@expense].idfin),0)
 		END 
 	ELSE 
 		BEGIN
 print 'Else'
-		UPDATE #expense
+		UPDATE @expense
 		SET 
 		initialprevisioncomp= ISNULL((SELECT SUM(isnull(finyear.prevision,0)) 
 					FROM finyear
@@ -1393,8 +1419,8 @@ print 'Else'
 						ON finyear.idupb = upb.idupb
 					JOIN finlink 
 						ON finlink.idchild = finyear.idfin 
-					WHERE finyear.idupb = #expense.idupb AND 
-						finlink.idparent =  #expense.idfin
+					WHERE finyear.idupb = [@expense].idupb AND 
+						finlink.idparent =  [@expense].idfin
 						AND fin.nlevel = @levelusable),0) ,
 	  
 		initialprevisioncassa = ISNULL((SELECT SUM(isnull(finyear.secondaryprev,0)) 
@@ -1405,15 +1431,15 @@ print 'Else'
 						ON finyear.idupb = upb.idupb
 					JOIN finlink 
 						ON finlink.idchild = finyear.idfin 
-					WHERE finyear.idupb = #expense.idupb AND 
-						finlink.idparent =  #expense.idfin
+					WHERE finyear.idupb = [@expense].idupb AND 
+						finlink.idparent =  [@expense].idfin
 						AND fin.nlevel = @levelusable),0)
 	
 		END
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------- CALCOLO DEL DISPONIBILE -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	UPDATE #expense
+	UPDATE @expense
 		SET 
 		total_appropriation_C = (SELECT SUM(ISNULL(expenseyear.amount, 0))
 					FROM expense
@@ -1428,8 +1454,8 @@ print 'Else'
 					WHERE expense.adate between @firstday and @stop
 						AND expense.nphase = @nfinphase
 						AND ((expensetotal.flag&1)=0) 
-						AND expenseyear.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent, expenseyear.idfin) = #expense.idfin),
+						AND expenseyear.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent, expenseyear.idfin) = [@expense].idfin),
 		
 		total_var_appropriation_C = (SELECT SUM(ISNULL(expensevar.amount, 0))
 					FROM expensevar
@@ -1448,8 +1474,8 @@ print 'Else'
 						AND expense.nphase = @nfinphase
 						AND ((expensetotal.flag&1)=0) 
 						AND expensevar.adate between @firstday and @stop 
-						AND expenseyear.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent, expenseyear.idfin) = #expense.idfin),
+						AND expenseyear.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent, expenseyear.idfin) = [@expense].idfin),
 		total_regphase_C = (SELECT SUM(ISNULL(expenseyear.amount, 0))
 					FROM expense
 					JOIN expenseyear
@@ -1464,8 +1490,8 @@ print 'Else'
 					WHERE expense.adate between @firstday and @stop
 						AND expense.nphase = @nregphase
 						AND ((expensetotal.flag&1)=0) 
-						AND expenseyear.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent, expenseyear.idfin) = #expense.idfin),
+						AND expenseyear.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent, expenseyear.idfin) = [@expense].idfin),
 		
 		total_var_regphase_C = (SELECT SUM(ISNULL(expensevar.amount, 0))
 					FROM expensevar
@@ -1483,8 +1509,8 @@ print 'Else'
 						AND expense.nphase = @nregphase
 						AND ((expensetotal.flag&1)=0) 
 						AND expensevar.adate between @firstday and @stop 
-						AND expenseyear.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent, expenseyear.idfin) = #expense.idfin),
+						AND expenseyear.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent, expenseyear.idfin) = [@expense].idfin),
 
 		total_appropriation_R = (SELECT SUM(ISNULL(expenseyear.amount, 0))
 					FROM expenseyear
@@ -1500,8 +1526,8 @@ print 'Else'
 					WHERE ((expensetotal.flag&1)=1)
 						AND expense.nphase = @nfinphase
 						AND expense.adate <= @stop
-						AND expenseyear.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent, expenseyear.idfin) = #expense.idfin),
+						AND expenseyear.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent, expenseyear.idfin) = [@expense].idfin),
 
 		total_var_appropriation_R = ( SELECT SUM(ISNULL(expensevar.amount, 0))
 					FROM expensevar
@@ -1520,8 +1546,8 @@ print 'Else'
 						AND ((expensetotal.flag&1)=1) -- =R
 						AND expense.nphase = @nfinphase
 						AND expensevar.adate  between @firstday and @stop
-						AND expenseyear.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent, expenseyear.idfin)  = #expense.idfin),
+						AND expenseyear.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent, expenseyear.idfin)  = [@expense].idfin),
 		total_regphase_R = (SELECT SUM(ISNULL(expenseyear.amount, 0))
 					FROM expenseyear
 					JOIN expense
@@ -1536,8 +1562,8 @@ print 'Else'
 					WHERE ((expensetotal.flag&1)=1)
 						AND expense.nphase = @nregphase
 						AND expense.adate <= @stop
-						AND expenseyear.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent, expenseyear.idfin) = #expense.idfin),
+						AND expenseyear.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent, expenseyear.idfin) = [@expense].idfin),
 
 		total_var_regphase_R = ( SELECT SUM(ISNULL(expensevar.amount, 0))
 					FROM expensevar
@@ -1556,8 +1582,8 @@ print 'Else'
 						AND ((expensetotal.flag&1)=1) -- =R
 						AND expense.nphase = @nregphase
 						AND expensevar.adate  between @firstday and @stop
-						AND expenseyear.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent, expenseyear.idfin)  = #expense.idfin),
+						AND expenseyear.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent, expenseyear.idfin)  = [@expense].idfin),
 	
 		total_payment_C = (SELECT SUM(ISNULL(paymentemitted.amount,0))
 					FROM paymentemitted
@@ -1567,8 +1593,8 @@ print 'Else'
 					WHERE paymentemitted.competencydate between @firstday and @stop
 						AND paymentemitted.ymov = @ayear
 						AND paymentemitted.flagarrear = 'C'
-						AND paymentemitted.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent,paymentemitted.idfin) = #expense.idfin),
+						AND paymentemitted.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent,paymentemitted.idfin) = [@expense].idfin),
 		total_var_payment_C = (SELECT SUM(ISNULL(expensevar.amount, 0))
 					FROM expensevar
 					JOIN paymentemitted
@@ -1580,8 +1606,8 @@ print 'Else'
 						AND paymentemitted.ymov = @ayear
 						AND paymentemitted.flagarrear = 'C'
 						AND expensevar.adate between @firstday and @stop
-						AND paymentemitted.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent,paymentemitted.idfin)= #expense.idfin),
+						AND paymentemitted.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent,paymentemitted.idfin)= [@expense].idfin),
 		total_payment_R = (SELECT SUM(ISNULL(paymentemitted.amount,0))
 					FROM paymentemitted
 					LEFT OUTER JOIN finlink 
@@ -1590,8 +1616,8 @@ print 'Else'
 					WHERE paymentemitted.competencydate between @firstday and @stop
 						AND paymentemitted.flagarrear = 'R'
 						AND paymentemitted.ymov = @ayear
-						AND paymentemitted.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent,paymentemitted.idfin) = #expense.idfin),
+						AND paymentemitted.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent,paymentemitted.idfin) = [@expense].idfin),
 		total_var_payment_R = ( SELECT SUM(ISNULL(expensevar.amount, 0))
 					FROM expensevar
 					JOIN paymentemitted
@@ -1603,8 +1629,8 @@ print 'Else'
 						AND paymentemitted.ymov = @ayear
 						AND paymentemitted.flagarrear = 'R'
 						AND expensevar.adate between @firstday and @stop
-						AND paymentemitted.idupb = #expense.idupb 
-						AND ISNULL(finlink.idparent,paymentemitted.idfin ) = #expense.idfin)
+						AND paymentemitted.idupb = [@expense].idupb 
+						AND ISNULL(finlink.idparent,paymentemitted.idfin ) = [@expense].idfin)
 CREATE TABLE #expenseprec
 (
 	idupb varchar(36),
@@ -1639,7 +1665,7 @@ BEGIN
 		AND FY.ayear = @ayear
 		AND FY.nlevel = (SELECT MIN(nlevel) FROM finlevel 
 				WHERE FY.ayear = @ayear   AND (flag&2)<>0)
-	AND FY.idupb in (select distinct idupb from #expense)
+	AND FY.idupb in (select distinct idupb from @expense)
 	AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
 	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)
 	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)
@@ -1694,7 +1720,7 @@ IF 	(
 	isnull((select flagcredit from config where ayear = @ayear),'N')='S'
 	)
 BEGIN
-	UPDATE #expense
+	UPDATE @expense
 	SET avanzo_ammin = 
 		isnull((select SUM(d.amount)--Avanzo di Amministrazione
 			FROM finvardetail d
@@ -1704,9 +1730,9 @@ BEGIN
 				AND v.flagcredit ='S'
 			JOIN finlink
 				ON  finlink.idchild = d.idfin   
-			where finlink.idparent = #expense.idfin
+			where finlink.idparent = [@expense].idfin
 				AND v.idfinvarstatus = 5
-				and d.idupb = #expense.idupb
+				and d.idupb = [@expense].idupb
 				AND v.adate <= @stop
 				AND v.yvar = @ayear
 				AND v.variationkind IN (2,3)),0.0),
@@ -1718,8 +1744,8 @@ BEGIN
 				and creditpart.ycreditpart = incomeyear.ayear
 			JOIN finlink
 				ON  finlink.idchild = creditpart.idfin   
-			WHERE finlink.idparent = #expense.idfin
-			AND incomeyear.idupb = #expense.idupb
+			WHERE finlink.idparent = [@expense].idfin
+			AND incomeyear.idupb = [@expense].idupb
 			AND adate between @firstday and @stop),0.0),
 	dot_credit = 		
 		isnull((SELECT SUM(d.amount)--Variazioni e Storni di Crediti'
@@ -1730,9 +1756,9 @@ BEGIN
 				AND v.flagcredit ='S'
 			JOIN finlink
 				ON  finlink.idchild = d.idfin   
-			WHERE finlink.idparent = #expense.idfin
+			WHERE finlink.idparent = [@expense].idfin
 			      AND v.idfinvarstatus = 5
-			      AND d.idupb = #expense.idupb
+			      AND d.idupb = [@expense].idupb
 			      AND v.adate between @firstday and @stop
 			      AND v.variationkind IN (1,4)),0.0)
 END
@@ -1741,7 +1767,7 @@ IF 	(
 	isnull((select flagproceeds from config where ayear = @ayear),'N')='S'
 	)
 BEGIN
-	UPDATE #expense
+	UPDATE @expense
 		SET avanzo_cassa = 
 			isnull(( select SUM(d.amount)
 				FROM finvardetail d
@@ -1750,8 +1776,8 @@ BEGIN
 					AND v.nvar = d.nvar
 				JOIN finlink
 					ON  finlink.idchild = d.idfin   
-				where  finlink.idparent = #expense.idfin
-					AND d.idupb = #expense.idupb
+				where  finlink.idparent = [@expense].idfin
+					AND d.idupb = [@expense].idupb
 					AND v.flagproceeds='S'
 					AND v.idfinvarstatus = 5
 					AND v.adate <= @stop
@@ -1765,8 +1791,8 @@ BEGIN
 					and proceedspart.yproceedspart = incomeyear.ayear
 				JOIN finlink
 					ON  finlink.idchild = proceedspart.idfin   
-				where finlink.idparent = #expense.idfin
-				AND incomeyear.idupb = #expense.idupb
+				where finlink.idparent = [@expense].idfin
+				AND incomeyear.idupb = [@expense].idupb
 				AND adate between @firstday and @stop),0.0),
 		dot_cash =
 			isnull((SELECT SUM(d.amount)
@@ -1776,17 +1802,17 @@ BEGIN
 					AND v.nvar = d.nvar
 				JOIN finlink
 					ON  finlink.idchild = d.idfin  
-				where finlink.idparent = #expense.idfin
+				where finlink.idparent = [@expense].idfin
 					AND v.flagproceeds='S'
 					AND v.idfinvarstatus = 5
 					AND v.adate between @firstday and @stop
-					and d.idupb = #expense.idupb
+					and d.idupb = [@expense].idupb
 					AND v.variationkind IN (1,4)),0.0)
 END
 					
 if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa è x un livello sottostante la categoria cancella le righe
 	BEGIN
-		DELETE FROM  #expense   
+		DELETE FROM  @expense   
 		WHERE  
 		(ISNULL(initialprevisioncomp,0)= 0 AND 
 		ISNULL(initialprevisioncassa,0)= 0 AND 
@@ -1815,7 +1841,7 @@ if (@suppressifblank = 'S') and @codelevel>2	--> se la stampa è x un livello sot
 		ISNULL(avanzo_cassa,0)=0 AND
 		ISNULL(assign_cash,0)=0 AND
 		ISNULL(dot_cash,0)=0 
-		AND (select nlevel from fin FFF where FFF.idfin= #expense.idfin)>=2
+		AND (select nlevel from fin FFF where FFF.idfin= [@expense].idfin)>=2
 		)
 	END
 
@@ -1828,8 +1854,8 @@ select @regphase = description from  expensephase where nphase = @nregphase
 select @maxphase = description from  expensephase where nphase = @maxexpensephase
 
 SELECT 
-	#expense.idupb,
-	#expense.idfin,
+	[@expense].idupb,
+	[@expense].idfin,
 	U.codeupb,
 	U.title as upb,
 	U.printingorder as upbprintingorder,
@@ -1841,8 +1867,8 @@ SELECT
 	rowkind,
 	sum(isnull(initialprevisioncomp,0)) as initialprevisioncomp,
 	sum(isnull(initialprevisioncassa,0)) as  initialprevisioncassa , 
-	sum(isnull(#expense.finvar_prevision,0)) as  finvar_prevision ,
-	sum(isnull(#expense.finvar_secondaryprev,0)) as  finvar_secondaryprev ,	
+	sum(isnull([@expense].finvar_prevision,0)) as  finvar_prevision ,
+	sum(isnull([@expense].finvar_secondaryprev,0)) as  finvar_secondaryprev ,	
 	sum(isnull(appropriation_C,0)) as  appropriation_C ,
 	sum(isnull(var_appropriation_C,0)) as  var_appropriation_C ,
 
@@ -1894,7 +1920,7 @@ SELECT
 	@ayear as ayear,
 	idappropriation,
 	MAN.title as manager,
-	isnull(#expense.idman,0) as idman,
+	isnull([@expense].idman,0) as idman,
 	sum(isnull(total_appropriation_C,0)) as total_appropriation_C,
 	sum(isnull(total_var_appropriation_C,0)) as total_var_appropriation_C,
 	sum(isnull(total_regphase_C,0)) as total_regphase_C,
@@ -1932,22 +1958,22 @@ SELECT
 	ISNULL(sum(avanzo_cassa),0) as avanzo_cassa,
 	ISNULL(sum(assign_cash),0) as assign_cash,
 	ISNULL(sum(dot_cash),0) as dot_cash
-FROM #expense
+FROM @expense
 JOIN fin F
-	ON #expense.idfin = F.idfin
+	ON [@expense].idfin = F.idfin
 JOIN upb U
-	ON #expense.idupb = U.idupb
+	ON [@expense].idupb = U.idupb
 LEFT OUTER JOIN manager MAN  
-	ON #expense.idman = MAN.idman
+	ON [@expense].idman = MAN.idman
 LEFT OUTER JOIN registry REG
-	On #expense.idreg = REG.idreg
+	On [@expense].idreg = REG.idreg
 LEFT OUTER JOIN #expenseprec prec
-		ON #expense.idupb = prec.idupb
-GROUP BY  #expense.idupb,U.codeupb,#expense.idman,MAN.title,		
-	#expense.idfin,F.codefin,F.title,F.nlevel,
+		ON [@expense].idupb = prec.idupb
+GROUP BY  [@expense].idupb,U.codeupb,[@expense].idman,MAN.title,		
+	[@expense].idfin,F.codefin,F.title,F.nlevel,
 	F.printingorder,nphase,
 	rowkind,adate,description,REG.title,nappropriation,npayment,
-	npay,#expense.printdate,#expense.transactiondate,flagarrear,reportdate,#expense.ayear,idappropriation,
+	npay,[@expense].printdate,[@expense].transactiondate,flagarrear,reportdate,[@expense].ayear,idappropriation,
 	ymovappropriation,nmovappropriation,ymovpayment,nmovpayment,yvarappropriation,nvarappropriation,
 	nregphase, ymovregphase,nmovregphase,yvarregphase,nvarregphase,
 	yvarpayment,nvarpayment,U.title,U.printingorder,annulmentdate ,	transmissiondate,
@@ -1967,6 +1993,4 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-
-
 

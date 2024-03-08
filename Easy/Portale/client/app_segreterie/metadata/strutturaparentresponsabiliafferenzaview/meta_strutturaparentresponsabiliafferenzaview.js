@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -42,15 +25,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
 						this.describeAColumn(table, 'title', 'Title', null, 10, 1024);
-						this.describeAColumn(table, 'afferente_idreg', 'Identificativo', null, 20, null);
-						this.describeAColumn(table, 'afferente_title', 'Afferente_title', null, 30, 101);
 						this.describeAColumn(table, 'idperfruolo', 'Identificativo', null, 40, 50);
-						this.describeAColumn(table, 'registry_title', 'Registry_title', null, 80, 101);
-						this.describeAColumn(table, 'start', 'Start', null, 90, null);
-						this.describeAColumn(table, 'stop', 'Stop', null, 100, null);
-						this.describeAColumn(table, 'strutturaresponsabile_start', 'Strutturaresponsabile_start', null, 110, null);
-						this.describeAColumn(table, 'strutturaresponsabile_stop', 'Strutturaresponsabile_stop', null, 120, null);
-						this.describeAColumn(table, 'titlestrutturaparent', 'Titlestrutturaparent', null, 130, 1024);
+						this.describeAColumn(table, 'idreg', 'idreg di chi ha il diritto', null, 50, null);
+						this.describeAColumn(table, 'idstruttura', 'Identificativo', null, 60, null);
+						this.describeAColumn(table, 'registry_title', 'Nome di chi ha il diritto', null, 80, 101);
+						this.describeAColumn(table, 'start', 'Start', 'g', 90, null);
+						this.describeAColumn(table, 'stop', 'Stop', 'g', 100, null);
+						this.describeAColumn(table, 'afferenza_idreg', 'idreg su cui ha il diritto', null, 140, null);
+						this.describeAColumn(table, 'afferenza_start', 'Afferenza_start', 'g', 150, null);
+						this.describeAColumn(table, 'afferenza_stop', 'Afferenza_stop', 'g', 160, null);
+						this.describeAColumn(table, 'aggiorna', 'Aggiorna', null, 170, null);
+						this.describeAColumn(table, 'crea', 'Crea', null, 180, null);
+						this.describeAColumn(table, 'leggi', 'Leggi', null, 190, null);
+						this.describeAColumn(table, 'obiettivi_ateneo', 'Obiettivi_ateneo', null, 200, 1);
+						this.describeAColumn(table, 'obiettivi_comportamentali', 'Obiettivi_comportamentali', null, 210, 1);
+						this.describeAColumn(table, 'obiettivi_individuali', 'Obiettivi_individuali', null, 220, 1);
+						this.describeAColumn(table, 'obiettivi_organizzativi', 'Obiettivi_organizzativi', null, 230, 1);
+						this.describeAColumn(table, 'obiettivi_progetti', 'Obiettivi_progetti', null, 240, 1);
+						this.describeAColumn(table, 'obiettivi_unatantum', 'Obiettivi_unatantum', null, 250, 1);
+						this.describeAColumn(table, 'valuta', 'Valuta', null, 260, null);
+						this.describeAColumn(table, 'year', 'Year', null, 270, null);
+						this.describeAColumn(table, 'resplevel', 'Resplevel', null, 280, null);
+						this.describeAColumn(table, 'idafferenza', 'Idafferenza', null, 290, null);
+						this.describeAColumn(table, 'approva', 'Approva', null, 300, null);
+						this.describeAColumn(table, 'idposition', 'Idposition', null, 310, null);
+						this.describeAColumn(table, 'escluso', 'Escluso', null, 320, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -59,7 +58,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["afferenza_idreg"].caption = "idreg su cui ha il diritto";
+						table.columns["idreg"].caption = "idreg di chi ha il diritto";
+						table.columns["registry_title"].caption = "Nome di chi ha il diritto";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			primaryKey: function () {
 				return ["idreg", "idperfruolo", "idstruttura", "idstruttura_parent"];

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,11 +27,11 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_progettoudr_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_progettoudr_seg: DataSet {
+public partial class dsmeta_progettoudr_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry 		=> (MetaTable)Tables["registry"];
+	public MetaTable getregistrydocentiamministrativi 		=> (MetaTable)Tables["getregistrydocentiamministrativi"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettoudrmembrokind 		=> (MetaTable)Tables["progettoudrmembrokind"];
@@ -67,13 +67,16 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_progettoudr_seg.xsd";
 
 	#region create DataTables
-	//////////////////// REGISTRY /////////////////////////////////
-	var tregistry= new MetaTable("registry");
-	tregistry.defineColumn("active", typeof(string),false);
-	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("title", typeof(string),false);
-	Tables.Add(tregistry);
-	tregistry.defineKey("idreg");
+	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVI /////////////////////////////////
+	var tgetregistrydocentiamministrativi= new MetaTable("getregistrydocentiamministrativi");
+	tgetregistrydocentiamministrativi.defineColumn("contratto", typeof(string));
+	tgetregistrydocentiamministrativi.defineColumn("extmatricula", typeof(string));
+	tgetregistrydocentiamministrativi.defineColumn("forename", typeof(string));
+	tgetregistrydocentiamministrativi.defineColumn("idreg", typeof(int),false);
+	tgetregistrydocentiamministrativi.defineColumn("macroareadidattica", typeof(string));
+	tgetregistrydocentiamministrativi.defineColumn("surname", typeof(string));
+	Tables.Add(tgetregistrydocentiamministrativi);
+	tgetregistrydocentiamministrativi.defineKey("idreg");
 
 	//////////////////// PROGETTOUDRMEMBROKIND /////////////////////////////////
 	var tprogettoudrmembrokind= new MetaTable("progettoudrmembrokind");
@@ -89,6 +92,8 @@ private void initClass() {
 	tprogettoudrmembro.defineColumn("costoorario", typeof(decimal));
 	tprogettoudrmembro.defineColumn("ct", typeof(DateTime));
 	tprogettoudrmembro.defineColumn("cu", typeof(string));
+	tprogettoudrmembro.defineColumn("fondiprogetto", typeof(string));
+	tprogettoudrmembro.defineColumn("giornipreventivati", typeof(int));
 	tprogettoudrmembro.defineColumn("idprogetto", typeof(int),false);
 	tprogettoudrmembro.defineColumn("idprogettoudr", typeof(int),false);
 	tprogettoudrmembro.defineColumn("idprogettoudrmembro", typeof(int),false);
@@ -99,8 +104,14 @@ private void initClass() {
 	tprogettoudrmembro.defineColumn("lu", typeof(string));
 	tprogettoudrmembro.defineColumn("orepreventivate", typeof(int));
 	tprogettoudrmembro.defineColumn("ricavoorario", typeof(decimal));
+	tprogettoudrmembro.defineColumn("start", typeof(DateTime));
+	tprogettoudrmembro.defineColumn("stop", typeof(DateTime));
 	tprogettoudrmembro.defineColumn("!idprogettoudrmembrokind_progettoudrmembrokind_title", typeof(string));
-	tprogettoudrmembro.defineColumn("!idreg_registry_title", typeof(string));
+	tprogettoudrmembro.defineColumn("!idreg_getregistrydocentiamministrativi_surname", typeof(string));
+	tprogettoudrmembro.defineColumn("!idreg_getregistrydocentiamministrativi_forename", typeof(string));
+	tprogettoudrmembro.defineColumn("!idreg_getregistrydocentiamministrativi_extmatricula", typeof(string));
+	tprogettoudrmembro.defineColumn("!idreg_getregistrydocentiamministrativi_contratto", typeof(string));
+	tprogettoudrmembro.defineColumn("!idreg_getregistrydocentiamministrativi_macroareadidattica", typeof(string));
 	Tables.Add(tprogettoudrmembro);
 	tprogettoudrmembro.defineKey("idprogetto", "idprogettoudr", "idprogettoudrmembro");
 
@@ -133,9 +144,9 @@ private void initClass() {
 	var cChild = new []{progettoudrmembro.Columns["idprogetto"], progettoudrmembro.Columns["idprogettoudr"]};
 	Relations.Add(new DataRelation("FK_progettoudrmembro_progettoudr_idprogetto-idprogettoudr",cPar,cChild,false));
 
-	cPar = new []{registry.Columns["idreg"]};
+	cPar = new []{getregistrydocentiamministrativi.Columns["idreg"]};
 	cChild = new []{progettoudrmembro.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_progettoudrmembro_registry_idreg",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_progettoudrmembro_getregistrydocentiamministrativi_idreg",cPar,cChild,false));
 
 	cPar = new []{progettoudrmembrokind.Columns["idprogettoudrmembrokind"]};
 	cChild = new []{progettoudrmembro.Columns["idprogettoudrmembrokind"]};

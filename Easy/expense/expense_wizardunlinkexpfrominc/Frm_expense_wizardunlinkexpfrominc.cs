@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1519,11 +1519,11 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
 
 		bool GetExpense(){
             if (txtNmovExpense.Text.Trim() == "") {
-                MessageBox.Show("Non è stato selezionato nessun movimento di spesa");
+                show("Non è stato selezionato nessun movimento di spesa");
                 return false;
             }
             if (txtElencoMandato.Text.Trim() != "") {
-                MessageBox.Show("Rimuovere il Mandato dall'Elenco di Trasmissione prima di procedere");
+                show("Rimuovere il Mandato dall'Elenco di Trasmissione prima di procedere");
                 return false;
             }
             string filter = GetFilterExpense(false);
@@ -1541,12 +1541,12 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
 
         bool GetIncome () {
             if (txtNmovIncome.Text.Trim() == "") {
-                MessageBox.Show("Selezionare un movimento di entrata per procedere");
+                show("Selezionare un movimento di entrata per procedere");
                 return false;
             }
             
             if (txtElencoReversale.Text.Trim() != "") {
-                MessageBox.Show("Rimuovere la Reversale dall'Elenco di Trasmissione prima di procedere");
+                show("Rimuovere la Reversale dall'Elenco di Trasmissione prima di procedere");
                 return false;
             }
             string filter = GetFilterIncome(true);
@@ -1754,18 +1754,18 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
 
         bool doScollega () {
             if (DS.expense.Rows.Count == 0) {
-                MessageBox.Show("Non è stato selezionato un movimento di spesa");
+                show("Non è stato selezionato un movimento di spesa");
                 return false;
             }
             if (DS.income.Rows.Count == 0) {
-                MessageBox.Show("Non è stato selezionato un movimento di entrata");
+                show("Non è stato selezionato un movimento di entrata");
                 return false;
             }
           
             DataRow CurrIncome = DS.income.Rows[0];
             DataRow CurrExpense = DS.expense.Rows[0];
 
-            if (MessageBox.Show(this, "Si desidera scollegare l'incasso dal pagamento selezionato?", "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
+            if (show(this, "Si desidera scollegare l'incasso dal pagamento selezionato?", "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
                 CurrIncome["autokind"] = DBNull.Value;
                 CurrIncome["idpayment"] = DBNull.Value;
             }
@@ -1776,7 +1776,7 @@ namespace expense_wizardunlinkexpfrominc {//spesawizardelimina//
             PostData Post = Meta.Get_PostData();
             Post.InitClass(DS, Conn);
             bool res = Post.DO_POST();
-            if (res) MessageBox.Show("Operazione effettuata.");
+            if (res) show("Operazione effettuata.");
             if (!res) CurrIncome.RejectChanges();
             return res;
         }

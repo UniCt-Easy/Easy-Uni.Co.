@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,6 +14,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
+using metadatalibrary;
 
 namespace notable_scriptcomuni {
 	partial class frmNoTable_scriptcomuni {
@@ -41,7 +43,8 @@ namespace notable_scriptcomuni {
 		/// </summary>
 		private void InitializeComponent() {
 			this.btnFileVariazioneComuniAE = new System.Windows.Forms.Button();
-			this.askFileName = new System.Windows.Forms.OpenFileDialog();
+			this._askFileName = new System.Windows.Forms.OpenFileDialog();
+			this.askFileName = createOpenFileDialog(this._askFileName);
 			this.txtFileVarComuniAE = new System.Windows.Forms.TextBox();
 			this.txtListaComuni = new System.Windows.Forms.TextBox();
 			this.btnFileListaComuni = new System.Windows.Forms.Button();
@@ -76,8 +79,8 @@ namespace notable_scriptcomuni {
 			// 
 			// askFileName
 			// 
-			this.askFileName.FileName = "openFileVarComuni";
-			this.askFileName.RestoreDirectory = true;
+			//this.askFileName.FileName = "openFileVarComuni";
+			//this.askFileName.RestoreDirectory = true;
 			// 
 			// txtFileVarComuniAE
 			// 
@@ -290,7 +293,8 @@ namespace notable_scriptcomuni {
 
 		public notable_scriptcomuni.dsmeta DS;
 		private System.Windows.Forms.Button btnFileVariazioneComuniAE;
-		private System.Windows.Forms.OpenFileDialog askFileName;
+		private System.Windows.Forms.OpenFileDialog _askFileName;
+		private IOpenFileDialog askFileName;
 		private System.Windows.Forms.TextBox txtFileVarComuniAE;
 		private System.Windows.Forms.TextBox txtListaComuni;
 		private System.Windows.Forms.Button btnFileListaComuni;

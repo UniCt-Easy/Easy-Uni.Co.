@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -5371,7 +5371,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 					datainizio = Convert.ToDateTime(SubEntity_txtDataInizioPrest.Text);
 				}
 				catch {
-					MessageBox.Show("La data inserita non era valida");
+					show("La data inserita non era valida");
 					SubEntity_txtDataInizioPrest.SelectAll();
 					SubEntity_txtDataInizioPrest.Focus();
 					return;
@@ -5390,7 +5390,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 					datainizio = Convert.ToDateTime(SubEntity_txtDataFinePrest.Text);
 				}
 				catch {
-					MessageBox.Show("La data inserita non era valida");
+					show("La data inserita non era valida");
 					SubEntity_txtDataFinePrest.SelectAll();
 					SubEntity_txtDataFinePrest.Focus();
 					return;
@@ -5409,7 +5409,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 					datacontabile = Convert.ToDateTime(txtDataCont.Text);
 				}
 				catch {
-					MessageBox.Show("La data inserita non era valida");
+					show("La data inserita non era valida");
 					txtDataCont.SelectAll();
 					txtDataCont.Focus();
 					return;
@@ -5475,7 +5475,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			faseentratamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxincomephase"));
 
 			if ((fasespesamax == 0) || (faseentratamax == 0) || DS.config.Rows.Count == 0) {
-				MessageBox.Show("Non è presente la configurazione delle entrate o delle spese");
+				show("Non è presente la configurazione delle entrate o delle spese");
 				MustClose = true;
 
 				return;
@@ -6965,7 +6965,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			if (Meta.IsEmpty) return;
 
 			if (DS.expenselast.Rows.Count == 0) {
-				MessageBox.Show(this, "Problemi con il caricamento dei dati, si consiglia di contattare l'assistenza.",
+				show(this, "Problemi con il caricamento dei dati, si consiglia di contattare l'assistenza.",
 					"Errore");
 				Meta.LogError("ExpenseLevels>SetComboCreditoreDebitore expenselast vuoto");
 				DS.registrypaymethod.Clear();
@@ -7279,10 +7279,12 @@ namespace expense_gerarchico { //SpesaGerarchico//
 		bool ItWasAnInsert = false;
 		bool ItWasAnInsertCancel = false;
 		bool ricalcolaPaymentBank = false;
+		bool mostraMessScrittureEP = false;
 		int kpay = 0;
 
 		public void MetaData_BeforePost() {
 			ricalcolaPaymentBank = false;
+			mostraMessScrittureEP = false;
 			kpay = 0;
 			if (DS.Tables["expense"].Rows.Count == 0) return;
 			if (!Meta.IsEmpty) {
@@ -7314,8 +7316,30 @@ namespace expense_gerarchico { //SpesaGerarchico//
 						message += "Sarà generato il pagamento a favore di " + delegato;
 						if (CurrLast["iban"] != DBNull.Value)
 							message += " con IBAN " + CurrLast["iban"].ToString();
-						MessageBox.Show(message, "Conferma", MessageBoxButtons.OK);
+						show(message, "Conferma", MessageBoxButtons.OK);
 					}
+
+					foreach (DataRow rVar in DS.expensevar.Rows) {
+						if (rVar.RowState == DataRowState.Unchanged) continue;
+						if (rVar.RowState == DataRowState.Added) {
+							object Idinvkind = rVar["idinvkind", DataRowVersion.Default];
+							if (Idinvkind != DBNull.Value) {
+								mostraMessScrittureEP = true;
+							}
+						}
+						if (rVar.RowState == DataRowState.Modified) {
+							object oldIdinvkind_main = rVar["idinvkind", DataRowVersion.Original];
+							object newIdinvkind_main = rVar["idinvkind", DataRowVersion.Current];
+							if (oldIdinvkind_main != newIdinvkind_main) {
+								mostraMessScrittureEP = true;
+							}
+						}
+					}
+					if (mostraMessScrittureEP) {
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("E'necessario rigenerare le scritture EP della Nota di Credito.", "Conferma", MessageBoxButtons.OK);
+						mostraMessScrittureEP = false;
+					}
+
 
 					if (CurrLast["kpay"] == DBNull.Value) return;
 					if (CurrLast.RowState != DataRowState.Unchanged) {
@@ -7620,7 +7644,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 					    )
 					) {
 						if ((getidman == DBNull.Value) ||
-						    MessageBox.Show("Cambio il responsabile in base alla voce di bilancio selezionata?",
+						    show("Cambio il responsabile in base alla voce di bilancio selezionata?",
 							    "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) {
 							SetResponsabile(R["idman"]);
 						}
@@ -7682,7 +7706,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 		void ManageBollettaChange(DataRow Bolletta) {
 			if (Meta.IsEmpty) return;
 			if (txtDescrizione.Text != "") {
-				if (MessageBox.Show("Aggiorno il campo descrizione in base alla Bolletta selezionata?",
+				if (show("Aggiorno il campo descrizione in base alla Bolletta selezionata?",
 					    "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK)
 					txtDescrizione.Text = Bolletta["motive"].ToString();
 			}
@@ -7707,7 +7731,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 				SetImporto(importo);
 				SubEntity_txtImportoMovimento.Text = importo.ToString("c");
 				if (avvisare) {
-					MessageBox.Show("L'importo del movimento è stato impostato al valore della bolletta", "Avviso");
+					show("L'importo del movimento è stato impostato al valore della bolletta", "Avviso");
 				}
 			}
 
@@ -7881,6 +7905,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			if (Out == null) return;
 			Out.Tables[0].TableName = "Situazione movimento di spesa";
 			frmSituazioneViewer View = new frmSituazioneViewer(Out);
+			createForm(View, null);
 			View.Show();
 		}
 
@@ -8484,7 +8509,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			object ImportoNetto = HelpForm.GetObjectFromString(typeof(decimal), txtImportonettoDip.Text, "x.y");
 
 			if (CfgFn.GetNoNullDecimal(ImportoNetto) < 0) {
-				MessageBox.Show(this, "L'importo netto è NEGATIVO!\r" + "ANNULLARE l'operazione e rivedere il Compenso.", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				show(this, "L'importo netto è NEGATIVO!\r" + "ANNULLARE l'operazione e rivedere il Compenso.", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			//Meta.FreshForm(true);
 		}
@@ -9354,7 +9379,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 					default: {
 						object descr = DS.tax.Compute("MIN(description)", filterTax);
-						MessageBox.Show(this, "La ritenuta " + descr.ToString() +
+						show(this, "La ritenuta " + descr.ToString() +
 						                      " ha più di un dettaglio attivo nel Riepilogo Storico bisogna procedere ad una modficia manuale");
 						break;
 					}
@@ -9585,8 +9610,8 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			string filter = QHS.AppAnd(QHS.CmpEq("idpayment", idspesa), QHS.DoPar(QHS.AppOr(QHS.CmpEq("autokind", 4),
 				QHS.CmpEq("autokind", 20), QHS.CmpEq("autokind", 21))));
 			Form F = ShowAutomatismi.Show(Meta, filter, filter, filter, null);
+			createForm(F, null);
 			F.Show();
-
 		}
 
 		private void btnAutomatismiRecuperi_Click(object sender, System.EventArgs e) {
@@ -9596,8 +9621,8 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			string filter = "(idpayment=" + QueryCreator.quotedstrvalue(idspesa, true) + ")AND" +
 			                "(autokind=6)";
 			Form F = ShowAutomatismi.Show(Meta, filter, filter, filter, null);
+			createForm(F, null);
 			F.Show();
-
 		}
 
 
@@ -9666,7 +9691,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			DataRow DRSpesa = DS.Tables["expense"].Rows[0];
 
 			if (DS.expensetotal.Rows.Count == 0) {
-				MessageBox.Show("Importo spesa  was empty");
+				show("Importo spesa  was empty");
 				return;
 			}
 
@@ -9926,7 +9951,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 			if (TreeTable == null) {
 				Meta.ErroreIrrecuperabile = true;
-				MessageBox.Show(
+				show(
 					"Errore nell'accedere alla informazioni sulla gerarchia, è necessario chiudere la maschera.",
 					"Errore");
 				MovTree.Enabled = false;
@@ -11355,7 +11380,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 					int NEXP = Meta.Conn.RUN_SELECT_COUNT("expenseview", filterprec, false);
 					if (NEXP == 0) {
-						MessageBox.Show("Non è stato trovato un movimento di spesa a cui agganciare questo pagamento," +
+						show("Non è stato trovato un movimento di spesa a cui agganciare questo pagamento," +
 						                " ai fini di una corretta associazione impegno ordine-pagamento fattura.");
 						break;
 					}
@@ -11364,7 +11389,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 					while (MyDR2 == null) {
 						if (NEXP > 1)
-							MessageBox.Show(
+							show(
 								"E' ora necessario scegliere il mov. di spesa a cui agganciare questo pagamento," +
 								" ai fini di una corretta associazione impegno ordine-pagamento fattura.");
 						MyDR2 = MFase.SelectOne("elencofaseprec", filterprec, null, null);
@@ -11755,7 +11780,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 			if (MetaData.Empty(this)) return;
 			if (IvaLinked == null) {
-				MessageBox.Show("E' necessario selezionare prima la fattura.");
+				show("E' necessario selezionare prima la fattura.");
 				return;
 			}
 
@@ -11772,7 +11797,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			}
 
 			if (tablename == "") {
-				MessageBox.Show("E' necessario selezionare prima una causale", "Avviso");
+				show("E' necessario selezionare prima una causale", "Avviso");
 				return;
 			}
 
@@ -11794,7 +11819,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 			if (Meta.IsEmpty) return;
 			if (IvaLinked == null) {
-				MessageBox.Show("E' necessario selezionare prima la fattura.");
+				show("E' necessario selezionare prima la fattura.");
 				return;
 			}
 
@@ -11811,7 +11836,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			}
 
 			if (ToLink == null) {
-				MessageBox.Show("E' necessario selezionare prima la causale");
+				show("E' necessario selezionare prima la causale");
 				return;
 			}
 
@@ -11835,7 +11860,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 		private void btnScollegaDettInvoice_Click(object sender, System.EventArgs e) {
 			if (Meta.IsEmpty) return;
 			if (IvaLinked == null) {
-				MessageBox.Show("E' necessario selezionare prima la fattura.");
+				show("E' necessario selezionare prima la fattura.");
 				return;
 			}
 
@@ -12073,7 +12098,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			CalcolaImportoInBaseADettagliFattura();
 
 			if ((DS.invoicedetail_iva.Rows.Count == 0) && (DS.invoicedetail_taxable.Rows.Count == 0)) {
-				MessageBox.Show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
+				show("Non sono stati trovati dettagli coerenti con UPB e Causale selezionati.");
 				return;
 			}
 		}
@@ -12288,7 +12313,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 //			}
 
 			if ((currphase > 1) && (importo > DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la " +
+				show("Sarà effettuata una contabilizzazione di importo inferiore poiché la " +
 				                "disponibilità del movimento selezionato è inferiore a " + importo.ToString());
 				importo = DisponibileDaFasePrecedente;
 			}
@@ -12828,7 +12853,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 			if (MetaData.Empty(this)) return;
 			if (OrdineLinked == null) {
-				MessageBox.Show("E' necessario selezionare prima il contr.passivo");
+				show("E' necessario selezionare prima il contr.passivo");
 				return;
 			}
 
@@ -12845,7 +12870,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			}
 
 			if (tablename == "") {
-				MessageBox.Show("E' necessario selezionare prima una causale", "Avviso");
+				show("E' necessario selezionare prima una causale", "Avviso");
 				return;
 			}
 
@@ -12867,7 +12892,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 			if (Meta.IsEmpty) return;
 			if (OrdineLinked == null) {
-				MessageBox.Show("E' necessario selezionare prima il contr.passivo");
+				show("E' necessario selezionare prima il contr.passivo");
 				return;
 			}
 
@@ -12884,7 +12909,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			}
 
 			if (ToLink == null) {
-				MessageBox.Show("E' necessario selezionare prima la causale");
+				show("E' necessario selezionare prima la causale");
 				return;
 			}
 
@@ -12908,7 +12933,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 		private void btnScollegaDettOrdine_Click(object sender, System.EventArgs e) {
 			if (Meta.IsEmpty) return;
 			if (OrdineLinked == null) {
-				MessageBox.Show("E' necessario selezionare prima il contr.passivo");
+				show("E' necessario selezionare prima il contr.passivo");
 				return;
 			}
 
@@ -13184,7 +13209,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 //				importo= totimponibile+totiva-assigned_gen;
 //			}
 			if ((currphase > 1) && (importo > DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione di importo inferiore poiché la " +
+				show("Sarà effettuata una contabilizzazione di importo inferiore poiché la " +
 				                "disponibilità del movimento selezionato è inferiore a " + importo.ToString());
 				importo = DisponibileDaFasePrecedente;
 			}
@@ -13278,7 +13303,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 				catch {
 				}
 			}
-
+			
 			if (FiltraNum) {
 				int nummissione = CfgFn.GetNoNullInt32(txtNumDoc.Text);
 				if (txtNumDoc.Text != "") {
@@ -13289,7 +13314,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 			if (Meta.InsertMode) {
 				FilterMissione +=
-					" AND ( ((residual>0) AND (completed='S')) OR (linkedanpag + linkedangir < totadvance) )";
+					" AND ( ((residual>0) AND (completed='S') and (datecompleted is not null) ) OR (linkedanpag + linkedangir < totadvance) )";
 				FilterMissione += " AND ((active IS NULL)OR(active='S')) ";
 			}
 
@@ -13753,7 +13778,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 			if (((Meta.EditMode) ||
 			     ((contabilizzato_SALDO + contabilizzato_ANPAG - contabilizzato_VARIAZIONI) < totlordo) &&
-			     ((completed != null) && (completed.ToString().ToUpper() == "S")))
+			     ((completed != null) && (Missione["datecompleted"] != DBNull.Value) && (completed.ToString().ToUpper() == "S")))
 			) {
 				EnableTipoMovimento(4, "Pagamento o saldo della missione");
 			}
@@ -13872,7 +13897,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			}
 
 			if ((currphase > 1) && (importo > DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale della missione poiché la " +
+				show("Sarà effettuata una contabilizzazione parziale della missione poiché la " +
 				                "disponibilità del movimento selezionato è inferiore a " + importo.ToString());
 				importo = DisponibileDaFasePrecedente;
 			}
@@ -14434,7 +14459,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			//if ((currphase>1)&& (importo> DisponibileDaFasePrecedente)) importo=DisponibileDaFasePrecedente;	
 
 			if ((currphase > 1) && (importo > DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale del cedolino poiché la " +
+				show("Sarà effettuata una contabilizzazione parziale del cedolino poiché la " +
 				                "disponibilità del movimento selezionato è inferiore a " + importo.ToString());
 				importo = DisponibileDaFasePrecedente;
 			}
@@ -14986,7 +15011,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			//if ((currphase>1)&& (importo> DisponibileDaFasePrecedente)) importo=DisponibileDaFasePrecedente;	
 
 			if ((currphase > 1) && (importo > DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale del contratto occasionale poiché la " +
+				show("Sarà effettuata una contabilizzazione parziale del contratto occasionale poiché la " +
 				                "disponibilità del movimento selezionato è inferiore a " + importo.ToString());
 				importo = DisponibileDaFasePrecedente;
 			}
@@ -15526,7 +15551,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			}
 
 			if ((currphase > 1) && (importo > DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale della fattura poiché la " +
+				show("Sarà effettuata una contabilizzazione parziale della fattura poiché la " +
 				                "disponibilità del movimento selezionato è inferiore a " + importo.ToString());
 				importo = DisponibileDaFasePrecedente;
 			}
@@ -16009,7 +16034,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			//if ((currphase>1)&& (importo> DisponibileDaFasePrecedente)) importo=DisponibileDaFasePrecedente;	
 
 			if ((currphase > 1) && (importo > DisponibileDaFasePrecedente)) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale del compenso poiché la " +
+				show("Sarà effettuata una contabilizzazione parziale del compenso poiché la " +
 				                "disponibilità del movimento selezionato è inferiore a " + importo.ToString());
 				importo = DisponibileDaFasePrecedente;
 			}
@@ -16330,7 +16355,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			if (found.Length > 0) {
 				Recupero = found[0];
 				if ((Recupero.RowState != DataRowState.Added) && (importo > 0)) {
-					MessageBox.Show("Non è stato possibile generare un recupero sugli anticipi poiché " +
+					show("Non è stato possibile generare un recupero sugli anticipi poiché " +
 					                " ne è già presente uno collegato a questo movimento di spesa");
 				}
 
@@ -16503,7 +16528,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			ImportoDaRecuperare -= ImportoVariazioni;
 
 			if (ImportoDaRecuperare < 0) {
-				MessageBox.Show(
+				show(
 					"Attenzione, l'importo del Recupero IVA Estera è negativo");
 				return;
 			}
@@ -16567,7 +16592,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			ImportoDaRecuperare -= ImportoVariazioni;
 
 			if (ImportoDaRecuperare < 0) {
-				MessageBox.Show(
+				show(
 					"Attenzione, l'importo del Recupero legato all'applicazione dello Split Payment è negativo");
 				return;
 			}
@@ -16684,6 +16709,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 
 			if (chkListTitle.Checked) {
 				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
 				DialogResult D = FR.ShowDialog(this);
 				if (D != DialogResult.OK) return;
 				filter = GetData.MergeFilters(filter,
@@ -16725,7 +16751,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			//if (prestazione == "GENERICA") {
 			if (allowedit == "S") {
 				if ((!Meta.FirstFillForThisRow) && (Meta.EditMode || Meta.InsertMode)) {
-					MessageBox.Show(
+					show(
 						"Selezionando la prestazione GENERICA le ritenute inserite non saranno visualizzate nelle stampe:\r" +
 						"1) Modelli di certificazione fiscale\r" +
 						"2) Trasmissioni EMENS, Modello 770 ecc.\r" +
@@ -16804,7 +16830,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			DataRow Curr = DS.expense.Rows[0];
 			DataRow CurrLast = DS.expenselast.Rows[0];
 			if (Curr["idreg"] == DBNull.Value) {
-				MessageBox.Show(this, "Selezionare prima l'anagrafica", "Avviso");
+				show(this, "Selezionare prima l'anagrafica", "Avviso");
 				return;
 			}
 
@@ -16874,7 +16900,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			DataRow CurrMov = DS.expense.Rows[0];
 			int esercizio = MyConn.GetEsercizio();
 			if (CfgFn.GetNoNullInt32(CurrMov["ymov"]) != esercizio) {
-				MessageBox.Show(this,
+				show(this,
 					"E' possibile assegnare i finanziamenti solo nell'anno di creazione del movimento", "Avviso");
 				return;
 			}
@@ -16883,7 +16909,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			object idfin = Curr["idfin"];
 			object idupb = Curr["idupb"];
 			if (idfin == DBNull.Value || idupb == DBNull.Value) {
-				MessageBox.Show(this, "E' necessario selezionare prima UPB e voce di bilancio", "Avviso");
+				show(this, "E' necessario selezionare prima UPB e voce di bilancio", "Avviso");
 				return;
 			}
 
@@ -16891,13 +16917,13 @@ namespace expense_gerarchico { //SpesaGerarchico//
 				QHS.AppAnd(QHS.CmpEq("idfin", idfin), QHS.CmpEq("idupb", idupb), QHS.CmpGt(fieldtouse, 0)), null,
 				false);
 			if (F == null || F.Rows.Count == 0) {
-				MessageBox.Show(this, "Non ci sono finanziamenti per questa coppia progetto-voce di bilancio",
+				show(this, "Non ci sono finanziamenti per questa coppia progetto-voce di bilancio",
 					"Informazione");
 				return;
 			}
 
 			if (DS.underwritingappropriation.Select().Length > 0) {
-				if (MessageBox.Show(this, "I finanziamenti precedentemente assegnati saranno cancellati.",
+				if (show(this, "I finanziamenti precedentemente assegnati saranno cancellati.",
 					    "Conferma",
 					    MessageBoxButtons.OKCancel) != DialogResult.OK) {
 					return;
@@ -17052,7 +17078,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			DataRow CurrMov = DS.expense.Rows[0];
 			int esercizio = MyConn.GetEsercizio();
 			if (CfgFn.GetNoNullInt32(CurrMov["ymov"]) != esercizio) {
-				MessageBox.Show(this,
+				show(this,
 					"E' possibile assegnare i finanziamenti solo nell'anno di creazione del movimento", "Avviso");
 				return;
 			}
@@ -17061,7 +17087,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			object idfin = Curr["idfin"];
 			object idupb = Curr["idupb"];
 			if (idfin == DBNull.Value || idupb == DBNull.Value) {
-				MessageBox.Show(this, "E' necessario selezionare prima UPB e voce di bilancio", "Avviso");
+				show(this, "E' necessario selezionare prima UPB e voce di bilancio", "Avviso");
 				return;
 			}
 
@@ -17069,13 +17095,13 @@ namespace expense_gerarchico { //SpesaGerarchico//
 				QHS.AppAnd(QHS.CmpEq("idfin", idfin), QHS.CmpEq("idupb", idupb), QHS.CmpGt(fieldtouse, 0)), null,
 				false);
 			if (F == null || F.Rows.Count == 0) {
-				MessageBox.Show(this, "Non ci sono finanziamenti per questa coppia progetto-voce di bilancio",
+				show(this, "Non ci sono finanziamenti per questa coppia progetto-voce di bilancio",
 					"Informazione");
 				return;
 			}
 
 			if (DS.underwritingpayment.Select().Length > 0) {
-				if (MessageBox.Show(this, "I finanziamenti precedentemente assegnati saranno cancellati.",
+				if (show(this, "I finanziamenti precedentemente assegnati saranno cancellati.",
 					    "Conferma",
 					    MessageBoxButtons.OKCancel) != DialogResult.OK) {
 					return;
@@ -17156,14 +17182,14 @@ namespace expense_gerarchico { //SpesaGerarchico//
 			DataRow CurrMov = DS.expense.Rows[0];
 			int esercizio = MyConn.GetEsercizio();
 			if (CfgFn.GetNoNullInt32(CurrMov["ymov"]) != esercizio) {
-				MessageBox.Show(this,
+				show(this,
 					"E' possibile assegnare i finanziamenti solo nell'anno di creazione del movimento", "Avviso");
 				return;
 			}
 
 			DataRow Curr = DS.expenseyear.Rows[0];
 			//if (idfin == DBNull.Value || idupb == DBNull.Value) {
-			//    MessageBox.Show(this, "E' necessario selezionare prima UPB e voce di bilancio", "Avviso");
+			//    show(this, "E' necessario selezionare prima UPB e voce di bilancio", "Avviso");
 			//    return;
 			//}
 			DataTable F = MyConn.RUN_SELECT("expensecreditproceedsview", "*", fieldtouse + " asc",
@@ -17174,13 +17200,13 @@ namespace expense_gerarchico { //SpesaGerarchico//
 					QHS.CmpLe(fieldtouse, 0), QHS.CmpGt("topay", 0)), null, false);
 
 			if (F == null || F.Rows.Count == 0) {
-				MessageBox.Show(this, "Non ci sono finanziamenti per questa coppia progetto-voce di bilancio",
+				show(this, "Non ci sono finanziamenti per questa coppia progetto-voce di bilancio",
 					"Informazione");
 				return;
 			}
 
 			if (DS.underwritingpayment.Select().Length > 0) {
-				if (MessageBox.Show(this, "I finanziamenti precedentemente assegnati saranno cancellati.",
+				if (show(this, "I finanziamenti precedentemente assegnati saranno cancellati.",
 					    "Conferma",
 					    MessageBoxButtons.OKCancel) != DialogResult.OK) {
 					return;
@@ -17251,6 +17277,7 @@ namespace expense_gerarchico { //SpesaGerarchico//
 		private void btnMultipleBillSel_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
 			FrmChooseBill f = new FrmChooseBill(Meta, GetData.MergeFilters(null, DS.billview));
+			createForm(f, this);
 			if (f.ShowDialog(this) != DialogResult.OK) return;
 
 			DataRow[] sel = f.GetGridSelectedRows();

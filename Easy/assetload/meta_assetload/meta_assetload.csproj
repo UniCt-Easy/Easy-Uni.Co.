@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -80,6 +80,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ep_functions">
+      <HintPath>..\..\output\ep_functions.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -116,14 +119,14 @@
     <Compile Include="meta_assetload.cs">
       <SubType>Code</SubType>
     </Compile>
-        <Compile Include="vista.Designer.cs">
+    <Compile Include="vista.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>vista.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-        <None Include="vista.xsc">
+    <None Include="vista.xsc">
       <DependentUpon>vista.xsd</DependentUpon>
     </None>
     <None Include="vista.xsd">

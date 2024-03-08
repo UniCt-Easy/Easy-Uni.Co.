@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabaccordoscambiomidettaz_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabaccordoscambiomidettaz_seg_0"><i class="fa fa-hands-helping mr-1"></i>Principale</a>
+		<a href="#tabaccordoscambiomidettaz_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabaccordoscambiomidettaz_seg_0"><i class="fa fa-hands-helping mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabaccordoscambiomidettaz_seg_1" class="nav-link" data-toggle="pill" data-target="#tabaccordoscambiomidettaz_seg_1"><i class="fa fa-language mr-1"></i>Elenco Lingue e livello richiesto per gli studenti espressi con livelli EUROPASS</a>
+		<a href="#tabaccordoscambiomidettaz_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabaccordoscambiomidettaz_seg_1"><i class="fa fa-language mr-1"></i>Elenco Lingue e livello richiesto per gli studenti espressi con livelli EUROPASS</a>
 	</li>
 
 	</ul>
@@ -28,7 +28,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#accordoscambiomidettaz_seg_stipula").datepicker();
+    $("#accordoscambiomidettaz_seg_stipula").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="accordoscambiomidettaz_seg_stipula">Data di stipula</label>
@@ -37,7 +37,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#accordoscambiomidettaz_seg_stop").datepicker();
+    $("#accordoscambiomidettaz_seg_stop").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="accordoscambiomidettaz_seg_stop">Data di termine</label>

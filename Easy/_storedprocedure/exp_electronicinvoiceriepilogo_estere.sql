@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,10 +40,10 @@ begin
 		end	 as 'AliquotaIVA',
 		null as 'Natura',
 		case when (ivakind.flag & 512 = 0 ) then sum(ID.taxable_euro) 
-			when (ivakind.flag & 512 <> 0 ) then sum(ID.taxable_euro) + isnull(sum(ID.iva_euro),0) 
+			 when (ivakind.flag & 512 <> 0) then sum(ID.taxable_euro) + isnull(sum(ID.iva_euro),0) 
 		end	 as 'ImponibileImporto',
 		case when (ivakind.flag & 512 = 0 ) then sum(ID.iva_euro) 
-			when (ivakind.flag & 512 <> 0 ) then 0
+			 when (ivakind.flag & 512 <> 0 ) then 0
 		end	 as 'Imposta',
 		case 
 			when isnull(I.flag_enable_split_payment,'N')='S' then 'S' --> Scissione dei pagamenti
@@ -69,7 +69,7 @@ begin
 		0 as 'AliquotaIVA',
 		ivakind.idfenature as 'Natura',
 		case when (ivakind.flag & 512 = 0 ) then sum(ID.taxable_euro) 
-			when (ivakind.flag & 512 <> 0 ) then sum(ID.taxable_euro) + isnull(sum(ID.iva_euro),0) 
+			 when (ivakind.flag & 512 <> 0 ) then sum(ID.taxable_euro) + isnull(sum(ID.iva_euro),0) 
 		end	 as 'ImponibileImporto',
 		case when (ivakind.flag & 512 = 0 ) then sum(ID.iva_euro) 
 			when (ivakind.flag & 512 <> 0 ) then 0

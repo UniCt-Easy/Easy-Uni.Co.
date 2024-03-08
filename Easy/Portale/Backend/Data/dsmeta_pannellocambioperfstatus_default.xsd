@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_pannellocambioperfstatus_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_pannellocambioperfstatus_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfschedastatusdefaultview_alias1" msprop:TableForReading="perfschedastatusdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfschedastatus" type="xs:int" />
+              <xs:element name="perfschedastatus_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfschedastatusdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfschedastatus" type="xs:int" />
+              <xs:element name="perfschedastatus_active" type="xs:string" minOccurs="0" />
+              <xs:element name="perfschedastatus_ct" type="xs:dateTime" />
+              <xs:element name="perfschedastatus_cu" type="xs:string" />
+              <xs:element name="perfschedastatus_description" type="xs:string" minOccurs="0" />
+              <xs:element name="perfschedastatus_lt" type="xs:dateTime" />
+              <xs:element name="perfschedastatus_lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pannellocambioperfstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpannellocambioperfstatus" type="xs:int" />
+              <xs:element name="idperfschedastatus" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfschedastatus_to" type="xs:int" minOccurs="0" />
+              <xs:element name="schedakind" type="xs:string" minOccurs="0" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfschedastatusdefaultview_alias1" />
+      <xs:field xpath="mstns:idperfschedastatus" />
+    </xs:unique>
+    <xs:unique name="perfschedastatusdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfschedastatusdefaultview" />
+      <xs:field xpath="mstns:idperfschedastatus" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="pannellocambioperfstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pannellocambioperfstatus" />
+      <xs:field xpath="mstns:idpannellocambioperfstatus" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_pannellocambioperfstatus_perfschedastatusdefaultview_alias1_idperfschedastatus_to" msdata:parent="perfschedastatusdefaultview_alias1" msdata:child="pannellocambioperfstatus" msdata:parentkey="idperfschedastatus" msdata:childkey="idperfschedastatus_to" />
+      <msdata:Relationship name="FK_pannellocambioperfstatus_perfschedastatusdefaultview_idperfschedastatus" msdata:parent="perfschedastatusdefaultview" msdata:child="pannellocambioperfstatus" msdata:parentkey="idperfschedastatus" msdata:childkey="idperfschedastatus" />
+      <msdata:Relationship name="FK_pannellocambioperfstatus_year_year" msdata:parent="year" msdata:child="pannellocambioperfstatus" msdata:parentkey="year" msdata:childkey="year" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

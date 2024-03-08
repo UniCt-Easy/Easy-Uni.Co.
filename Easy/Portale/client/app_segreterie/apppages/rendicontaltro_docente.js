@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_rendicontaltro() {
 		MetaPage.apply(this, ['rendicontaltro', 'docente', true]);
-        this.name = 'Registro delle attivit‡ oltre le lezioni';
+        this.name = 'Registro delle attivit√† oltre le lezioni';
 		this.defaultListType = 'docente';
 		//pageHeaderDeclaration
     }
@@ -45,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.isNull(parentRow.aa) || parentRow.aa == '')
+					parentRow.aa = this.getAcademicYear(new Date(), 'A');
 				if (self.isNullOrMinDate(parentRow.data))
 					parentRow.data = new Date();
 				//beforeFillFilter
@@ -69,12 +54,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				appMeta.metaModel.insertFilter(this.getDataTable("rendicontaltrokinddefaultview"), this.q.eq('rendicontaltrokind_active', 'Si'));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-rendicontaltro_docente");
-				$('#rendicontaltro_docente_aa').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#rendicontaltro_docente_aa').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#rendicontaltro_docente_aa').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.aa);
+				$('#rendicontaltro_docente_aa').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.aa);
 				//afterRowSelectin
 				return def.resolve();
 			},

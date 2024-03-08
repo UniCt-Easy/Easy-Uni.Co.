@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 (function () {
 
     var MetaSegreteriePage = window.appMeta.MetaSegreteriePage;
@@ -60,45 +43,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 $("#clearSessionBtn").on("click", _.partial(this.clearSessions, this));
                 $("#clearCacheBtn").on("click", _.partial(this.clearServerCache, this));
                 $("#pwdDbBtn").on("click", _.partial(this.codificaPwdDb, this));
-                $("#btnshowPasswordDb").on("click", _.partial(this.showHidePassword, this ));
-                $("#btngetCaricoDidattico").on("click", _.partial(this.getCaricoDidattico, this ));
-                $("#btngetCaricoDidatticoJson").on("click", _.partial(this.getCaricoDidatticoJson, this ));
-                $("#btngetAllocationsDebug").on("click", _.partial(this.getAllocationsDebug, this ));
-                $("#btngetAllocations").on("click", _.partial(this.getAllocations, this ));
+                $("#btnshowPasswordDb").on("click", _.partial(this.showHidePassword, this));
+                $("#btngetCaricoDidattico").on("click", _.partial(this.getCaricoDidattico, this));
+                $("#btngetCaricoDidatticoJson").on("click", _.partial(this.getCaricoDidatticoJson, this));
+                $("#btngetAllocationsDebug").on("click", _.partial(this.getAllocationsDebug, this));
+                $("#btngetAllocations").on("click", _.partial(this.getAllocations, this));
 
                 // carico didattico
-                $("#idUploadFileJson").on("change", _.partial(this.selectJsonFileCaricoDidattico, this ));
-                $("#btngetCaricoDidatticoJsonFile").on("click", _.partial(this.getCaricoDidatticoJsonFile, this ));
+                $("#idUploadFileJson").on("change", _.partial(this.selectJsonFileCaricoDidattico, this));
+                $("#btngetCaricoDidatticoJsonFile").on("click", _.partial(this.getCaricoDidatticoJsonFile, this));
 
                 //lezioni
-                $("#idUploadFileAllocationJson").on("change", _.partial(this.selectJsonFileAllocation, this ));
-                $("#btngetAllocationJsonFile").on("click", _.partial(this.getAllocationJsonFile, this ));
-                $("#btngetAllocationsMassivo").on("click", _.partial(this.getAllocationMassivo, this ));
+                $("#idUploadFileAllocationJson").on("change", _.partial(this.selectJsonFileAllocation, this));
+                $("#btngetAllocationJsonFile").on("click", _.partial(this.getAllocationJsonFile, this));
+                $("#btngetAllocationsMassivo").on("click", _.partial(this.getAllocationMassivo, this));
 
-                $("#btnSaveDataset").on("click", _.partial(this.simulatedoPostSilent, this ));
+                $("#btnSaveDataset").on("click", _.partial(this.simulatedoPostSilent, this));
 
-                $("#dataInizioGetAllId").datepicker();
-                $("#dataFineGetAllId").datepicker();
+                $("#dataInizioGetAllId").datepicker({ dateFormat: 'dd/mm/yy' });
+                $("#dataFineGetAllId").datepicker({ dateFormat: 'dd/mm/yy' });
+
+                //Nuovi WS 16-11-'22
+                //Zucchetti timbrature
+                $("#btngetTimbrature").on("click", _.partial(this.getTimbrature, this));
+                $("#dataInizioTimbrature").datepicker({ altFormat: "mm-dd-yy", altField: "#alt_dataInizioTimbrature" });
+                $("#dataFineTimbrature").datepicker({ altFormat: "mm-dd-yy", altField: "#alt_dataFineTimbrature" });
+
+                //18-11-'22 - Visper costo orario del personale
+                $("#btngetCostoOrario").on("click", _.partial(this.getCostoOrario, this));
+                $("#dataInizioCostoOrario").datepicker({ altFormat: "mm-dd-yy", altField: "#alt_dataInizioCostoOrario" });
+                $("#dataFineCostoOrario").datepicker({ altFormat: "mm-dd-yy", altField: "#alt_dataFineCostoOrario" });
             },
 
-            selectJsonFileCaricoDidattico:function(that, event) {
+            selectJsonFileCaricoDidattico: function (that, event) {
                 if (event.target.files.length > 0) {
                     that.jsonFileCaricoDidattico = event.target.files[0];
                 }
             },
 
-            selectJsonFileAllocation:function(that, event) {
+            selectJsonFileAllocation: function (that, event) {
                 if (event.target.files.length > 0) {
                     that.jsonFileAllocations = event.target.files[0];
                 }
             },
 
 
-            lezioneDidProg:function(item) {
+            lezioneDidProg: function (item) {
                 var def = Deferred('lezioneDidProg');
                 var codice = item.contextCode;
                 var q = this.q.eq('codicemiur', codice);
-                return getData.runSelect('didprog',"iddidprog,codicemiur", q)
+                return getData.runSelect('didprog', "iddidprog,codicemiur", q)
                     .then(function (dt) {
                         // didattiche programmate con quel codice
                         var ids = _.map(dt.rows, function (r) {
@@ -108,12 +102,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     });
             },
 
-            lezioneDidProgAnno:function(idsdidProg, item) {
+            lezioneDidProgAnno: function (idsdidProg, item) {
                 var def = Deferred('lezioneDidProgAnno');
                 var q1 = this.q.isIn('iddidprog', idsdidProg);
                 var q2 = this.q.eq('anno', item.yearsJS);
                 var q = this.q.and(q1, q2);
-                return getData.runSelect('didproganno ',"iddidproganno ", q)
+                return getData.runSelect('didproganno ', "iddidproganno ", q)
                     .then(function (dt) {
                         var ids = _.map(dt.rows, function (r) {
                             return r.iddidproganno;
@@ -122,10 +116,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     });
             },
 
-            lezioneInsegn:function(ids, item) {
+            lezioneInsegn: function (ids, item) {
                 var def = Deferred('lezioneDidProgAnno');
                 var q = this.q.eq('codice', item.courseCode);
-                return getData.runSelect('insegn ',"idinsegn,codice", q)
+                return getData.runSelect('insegn ', "idinsegn,codice", q)
                     .then(function (dt) {
                         var idinsegn = dt.rows.length ? dt.rows[0].idinsegn : null;
                         ids.push(idinsegn);
@@ -133,7 +127,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     });
             },
 
-            manageCorsoStudio: function(ds, item, annoistituzione) {
+            manageCorsoStudio: function (ds, item, annoistituzione) {
                 var self = this;
                 var tname = 'corsostudio';
                 var dtMain = ds.tables[tname];
@@ -153,42 +147,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return def.resolve();
                 }
 
-               getData.runSelect(tname, "*", filter)
-                   .then(function (table) {
-                       // se non esiste creo riga
-                       appMeta.utils._if(table && table.rows.length)
-                           ._then(function (){
-                               dtMain.load(table.rows[0]);
-                               self.currCorsoStudioRow = table.rows[0];
-                               return def.resolve();
-                           })
-                           ._else(function () {
-                               var meta = appMeta.getMeta(tname);
-                               self.getIdStruttura(programmazionefacolta)
-									.then(function (id) {
-										meta.setDefaults(dtMain);
-										idStruttura = id;
-										return meta.getNewRow(null, dtMain);
-                                   }).then(function (row) {
-                                       if (!row) {
-                                           return def.resolve();
-                                       }
-                                       row.current.codicemiur = codiceCorso;
-                                       row.current.codicemiurlungo = codicione;
-                                       row.current.title = title;
-                                       row.current.title_en = title_en;
-                                       row.current.idstruttura = idStruttura;
-                                       row.current.annoistituz = annoistituzione;
-                                       self.currCorsoStudioRow =  row.current;
-                                       return def.resolve();
-                                   });
-                           });
-                   });
+                getData.runSelect(tname, "*", filter)
+                    .then(function (table) {
+                        // se non esiste creo riga
+                        appMeta.utils._if(table && table.rows.length)
+                            ._then(function () {
+                                dtMain.load(table.rows[0]);
+                                self.currCorsoStudioRow = table.rows[0];
+                                return def.resolve();
+                            })
+                            ._else(function () {
+                                var meta = appMeta.getMeta(tname);
+                                self.getIdStruttura(programmazionefacolta)
+                                    .then(function (id) {
+                                        meta.setDefaults(dtMain);
+                                        idStruttura = id;
+                                        return meta.getNewRow(null, dtMain);
+                                    }).then(function (row) {
+                                        if (!row) {
+                                            return def.resolve();
+                                        }
+                                        row.current.codicemiur = codiceCorso;
+                                        row.current.codicemiurlungo = codicione;
+                                        row.current.title = title;
+                                        row.current.title_en = title_en;
+                                        row.current.idstruttura = idStruttura;
+                                        row.current.annoistituz = annoistituzione;
+                                        self.currCorsoStudioRow = row.current;
+                                        return def.resolve();
+                                    });
+                            });
+                    });
 
                 return def.promise();
             },
 
-            manageCorsoStudioClasseScuola:function(ds, item) {
+            manageCorsoStudioClasseScuola: function (ds, item) {
                 var def = Deferred('manageCorsoStudioClasseScuola');
                 var self = this;
                 var tname = 'corsostudioclassescuola';
@@ -214,49 +208,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         if (dtMain.select(filter).length) {
                             return def.resolve();
                         }
-                        getData.runSelect(tname,"*", filter).then(function (table) {
-                                // se non esiste creo riga
-                                appMeta.utils._if(table && table.rows.length)
-                                    ._then(function () {
-                                        dtMain.load(table.rows[0]);
-                                        return def.resolve();
-                                    })
-                                    ._else(function () {
-                                        var meta = appMeta.getMeta(tname);
-										meta.setDefaults(dtMain);
-										return meta.getNewRow(null, dtMain)
-                                            .then(function (row) {
-                                                if (!row) {
-                                                    return def.resolve();
-                                                }
-                                                row.current.idcorsostudio = idcorsostudio;
-                                                row.current.idclassescuola = idclassescuola;
+                        getData.runSelect(tname, "*", filter).then(function (table) {
+                            // se non esiste creo riga
+                            appMeta.utils._if(table && table.rows.length)
+                                ._then(function () {
+                                    dtMain.load(table.rows[0]);
+                                    return def.resolve();
+                                })
+                                ._else(function () {
+                                    var meta = appMeta.getMeta(tname);
+                                    meta.setDefaults(dtMain);
+                                    return meta.getNewRow(null, dtMain)
+                                        .then(function (row) {
+                                            if (!row) {
                                                 return def.resolve();
-                                            })
-                                    });
-                            });
+                                            }
+                                            row.current.idcorsostudio = idcorsostudio;
+                                            row.current.idclassescuola = idclassescuola;
+                                            return def.resolve();
+                                        })
+                                });
+                        });
                     });
 
                 return def.promise();
             },
 
-            getIdStruttura:function(programmazionefacolta) {
+            getIdStruttura: function (programmazionefacolta) {
                 var def = Deferred('manageDidProg');
                 getData.runSelect("strutturadefaultview", "idstruttura,title")
                     .then(function (dt) {
-                        var idstrutturaObj = _.find(dt.rows,function (row) {
+                        var idstrutturaObj = _.find(dt.rows, function (row) {
                             return row.title.toUpperCase().trim() === programmazionefacolta.toUpperCase().trim();
                         });
-                        if (idstrutturaObj){
+                        if (idstrutturaObj) {
                             return def.resolve(idstrutturaObj.idstruttura)
                         }
                         return def.resolve(null)
-                });
+                    });
 
                 return def.promise();
             },
 
-            manageDidErog:function(ds, item) {
+            manageDidErog: function (ds, item) {
                 var def = Deferred('manageDidErog');
                 var self = this;
                 var tname = 'diderog';
@@ -273,7 +267,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return def.resolve();
                 }
 
-                getData.runSelect(tname,"*", filter).then(function (table) {
+                getData.runSelect(tname, "*", filter).then(function (table) {
                     // se non esiste creo riga
                     appMeta.utils._if(table && table.rows.length)
                         ._then(function () {
@@ -282,8 +276,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         })
                         ._else(function () {
                             var meta = appMeta.getMeta(tname);
-							meta.setDefaults(dtMain);
-                           return meta.getNewRow(null, dtMain)
+                            meta.setDefaults(dtMain);
+                            return meta.getNewRow(null, dtMain)
                                 .then(function (row) {
                                     if (!row) {
                                         return def.resolve();
@@ -300,7 +294,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageDidProg:function(ds, item) {
+            manageDidProg: function (ds, item) {
                 var def = Deferred('manageDidProg');
                 var self = this;
                 var tname = 'didprog';
@@ -317,7 +311,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 var annoCorso = item.AnnoCorsoNumber;
                 var annoDidProgPartenza = annosolare - annoCorso + 1;
-                var annoDidProg = annoDidProgPartenza + "/" + (annoDidProgPartenza + 1 );
+                var annoDidProg = annoDidProgPartenza + "/" + (annoDidProgPartenza + 1);
 
                 this.getIdStruttura(programmazionefacolta)
                     .then(function (idstruttura) {
@@ -331,7 +325,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             return def.resolve();
                         }
 
-                        getData.runSelect(tname,"*", filter).then(function (table) {
+                        getData.runSelect(tname, "*", filter).then(function (table) {
                             // se non esiste creo riga
                             appMeta.utils._if(table && table.rows.length)
                                 ._then(function () {
@@ -341,7 +335,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 })
                                 ._else(function () {
                                     var meta = appMeta.getMeta(tname);
-									meta.setDefaults(dtMain);
+                                    meta.setDefaults(dtMain);
                                     return meta.getNewRow(null, dtMain)
                                         .then(function (row) {
                                             if (!row) {
@@ -374,7 +368,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageDidProgCurr:function(ds, item) {
+            manageDidProgCurr: function (ds, item) {
                 var def = Deferred('manageDidProgCurr');
                 var self = this;
                 var tname = 'didprogcurr';
@@ -406,7 +400,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     self.currDidprogcurrRow = rows[0];
                     return def.resolve();
                 }
-                getData.runSelect(tname,"", filter ).then(function (table) {
+                getData.runSelect(tname, "", filter).then(function (table) {
                     // se non esiste creo riga
                     appMeta.utils._if(table && table.rows.length)
                         ._then(function () {
@@ -416,8 +410,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         })
                         ._else(function () {
                             var meta = appMeta.getMeta(tname);
-							meta.setDefaults(dtMain);
-                           return meta.getNewRow(null, dtMain )
+                            meta.setDefaults(dtMain);
+                            return meta.getNewRow(null, dtMain)
                                 .then(function (row) {
                                     if (!row) {
                                         return def.resolve();
@@ -434,17 +428,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageDidProgOri:function(ds, item) {
+            manageDidProgOri: function (ds, item) {
                 var def = Deferred('manageDidProgCurr');
                 var self = this;
                 var tname = 'didprogori';
                 var dtMain = ds.tables[tname];
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
 
                 var title = item.Orientamento;
-                var filter =  self.q.and([
+                var filter = self.q.and([
                     self.q.eq("iddidprogcurr", iddidprogcurr),
                     self.q.eq("title", title)]
                 );
@@ -454,7 +448,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     self.currDidprogoriRow = rows[0];
                     return def.resolve();
                 }
-                getData.runSelect(tname,"*", filter).then(function (table) {
+                getData.runSelect(tname, "*", filter).then(function (table) {
                     // se non esiste creo riga
                     appMeta.utils._if(table && table.rows.length)
                         ._then(function () {
@@ -464,8 +458,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         })
                         ._else(function () {
                             var meta = appMeta.getMeta(tname);
-							meta.setDefaults(dtMain);
-                            return meta.getNewRow(null, dtMain )
+                            meta.setDefaults(dtMain);
+                            return meta.getNewRow(null, dtMain)
                                 .then(function (row) {
                                     if (!row) {
                                         return def.resolve();
@@ -482,13 +476,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageDidProgAnno:function(ds, item) {
+            manageDidProgAnno: function (ds, item) {
                 var def = Deferred('manageDidProgAnno');
                 var self = this;
                 var tname = 'didproganno';
                 var dtMain = ds.tables[tname];
 
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
                 var iddidprogori = self.currDidprogoriRow.iddidprogori;
@@ -506,7 +500,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     self.currDidprogannoRow = rows[0];
                     return def.resolve();
                 }
-                getData.runSelect(tname,"*", filter).then(function (table) {
+                getData.runSelect(tname, "*", filter).then(function (table) {
                     // se non esiste creo riga
                     appMeta.utils._if(table && table.rows.length)
                         ._then(function () {
@@ -516,8 +510,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         })
                         ._else(function () {
                             var meta = appMeta.getMeta(tname);
-							meta.setDefaults(dtMain);
-                           return meta.getNewRow(null, dtMain)
+                            meta.setDefaults(dtMain);
+                            return meta.getNewRow(null, dtMain)
                                 .then(function (row) {
                                     if (!row) {
                                         return def.resolve();
@@ -537,22 +531,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageDidProgPorzanno:function(ds, item) {
+            manageDidProgPorzanno: function (ds, item) {
                 var def = Deferred('manageDidProgCurr');
                 var self = this;
                 var tname = 'didprogporzanno';
                 var dtMain = ds.tables[tname];
 
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
                 var iddidprogori = self.currDidprogoriRow.iddidprogori;
-                var iddidproganno =  self.currDidprogannoRow.iddidproganno;
+                var iddidproganno = self.currDidprogannoRow.iddidproganno;
 
                 var annoAccademico = item.AnnoAccademico;
                 var title = item.UnitaTemporale;
 
-                var filter =  self.q.and([
+                var filter = self.q.and([
                     self.q.eq("iddidproganno", iddidproganno),
                     self.q.eq("title", title)]
                 );
@@ -562,7 +556,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     self.currDidprogporzannoRow = rows[0];
                     return def.resolve();
                 }
-                getData.runSelect(tname,"*", filter).then(function (table) {
+                getData.runSelect(tname, "*", filter).then(function (table) {
                     // se non esiste creo riga
                     appMeta.utils._if(table && table.rows.length)
                         ._then(function () {
@@ -572,7 +566,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         })
                         ._else(function () {
                             var meta = appMeta.getMeta(tname);
-							meta.setDefaults(dtMain);
+                            meta.setDefaults(dtMain);
                             return meta.getNewRow(null, dtMain)
                                 .then(function (row) {
                                     if (!row) {
@@ -605,7 +599,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageInsegn:function(ds, item){
+            manageInsegn: function (ds, item) {
                 var self = this;
                 var tname = 'insegn';
                 var dtMain = ds.tables[tname];
@@ -617,7 +611,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return this.showMessageOk('manageInsegn - codice insegnamento nullo ' + denominazione);
                 }
                 codiceInsegnamento = codiceInsegnamento.toString();
-                var filter  = this.q.eq("codice", codiceInsegnamento);
+                var filter = this.q.eq("codice", codiceInsegnamento);
 
                 // se già c'è
                 var rows = dtMain.select(filter);
@@ -630,15 +624,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     .then(function (table) {
                         // se non esiste creo riga
                         appMeta.utils._if(table && table.rows.length)
-                            ._then(function (){
+                            ._then(function () {
                                 dtMain.load(table.rows[0]);
                                 self.currInsegnRow = table.rows[0];
                                 return def.resolve();
                             })
                             ._else(function () {
                                 var meta = appMeta.getMeta(tname);
-								meta.setDefaults(dtMain);
-                               return meta.getNewRow(null, dtMain)
+                                meta.setDefaults(dtMain);
+                                return meta.getNewRow(null, dtMain)
                                     .then(function (row) {
                                         if (!row) {
                                             return def.resolve();
@@ -654,11 +648,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            getIdSasd:function(sigla) {
+            getIdSasd: function (sigla) {
                 var self = this;
                 var def = Deferred('getIdSasd');
 
-                if (!sigla){
+                if (!sigla) {
                     return this.showMessageOk('sigla vuota');
                 }
                 // se già calcolato lo ritorno
@@ -668,17 +662,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 getData.runSelect("sasd", "idsasd,codice", this.q.eq('codice', sigla))
                     .then(function (dt) {
-                          if (dt.rows.length) {
-                              // memorizzo in dictionary gli idsasd per questo codice (Sigla)
-                              self.currsasdList[sigla] = dt.rows[0].idsasd;
-                              return def.resolve(dt.rows[0].idsasd);
-                          }
-                         return def.resolve(null);
+                        if (dt.rows.length) {
+                            // memorizzo in dictionary gli idsasd per questo codice (Sigla)
+                            self.currsasdList[sigla] = dt.rows[0].idsasd;
+                            return def.resolve(dt.rows[0].idsasd);
+                        }
+                        return def.resolve(null);
                     });
                 return def.promise();
             },
 
-            manageInsegncaratteristica:function(ds, item) {
+            manageInsegncaratteristica: function (ds, item) {
                 var def = Deferred('manageInsegncaratteristica');
                 var self = this;
                 var cf = item.Crediti;
@@ -687,7 +681,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     console.log('item.SSDInsegnamento vuoto', item);
                     return def.resolve();
                 }
-                if (! self.currInsegnRow) {
+                if (!self.currInsegnRow) {
                     return def.resolve();
                 }
 
@@ -700,11 +694,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     var chain = $.when();
                     var realCf = 0;
                     if (ssd.length) {
-                        realCf = cf / ssd.length ;
+                        realCf = cf / ssd.length;
                     }
                     _.forEach(ssd, function (ssdItem, index) {
-                        chain = chain.then(function() {
-                            return  self.manageInsegncaratteristicaSSD(ds, item, ssdItem, realCf);
+                        chain = chain.then(function () {
+                            return self.manageInsegncaratteristicaSSD(ds, item, ssdItem, realCf);
                         });
                         arrayDef.push(chain);
                     });
@@ -715,12 +709,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             },
 
-            manageInsegncaratteristicaSSD:function(ds, item, ssd, cf) {
+            manageInsegncaratteristicaSSD: function (ds, item, ssd, cf) {
 
                 var def = Deferred('manageInsegncaratteristica');
                 var self = this;
                 var tname = 'insegncaratteristica';
-                var dtMain= ds.tables[tname];
+                var dtMain = ds.tables[tname];
                 var modulo = item.Modulo;
 
                 // se c'è modulo non va creato
@@ -735,7 +729,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 this.getIdSasd(sigla)
                     .then(function (idsasdPrm) {
                         idsasd = idsasdPrm;
-                        var filter  = self.q.and([
+                        var filter = self.q.and([
                             self.q.eq("idinsegn", idinsegn),
                             self.q.eq("cf", cf),
                             self.q.eq("idsasd", idsasd),
@@ -752,26 +746,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             .then(function (table) {
                                 // se non esiste creo riga
                                 appMeta.utils._if(table && table.rows.length)
-                                    ._then(function (){
+                                    ._then(function () {
                                         dtMain.load(table.rows[0]);
                                         self.currInsegnCaratteristicaRow = table.rows[0];
                                         return def.resolve();
                                     })
                                     ._else(function () {
                                         var meta = appMeta.getMeta(tname);
-										meta.setDefaults(dtMain);
+                                        meta.setDefaults(dtMain);
                                         return meta.getNewRow(null, dtMain)
                                             .then(function (row) {
-                                            if (!row) {
+                                                if (!row) {
+                                                    return def.resolve();
+                                                }
+                                                row.current.idinsegn = idinsegn;
+                                                row.current.cf = cf;
+                                                row.current.idsasd = idsasd;
+                                                row.current.profess = 'N';
+                                                self.currInsegnCaratteristicaRow = row.current;
                                                 return def.resolve();
-                                            }
-                                            row.current.idinsegn = idinsegn;
-                                            row.current.cf = cf;
-                                            row.current.idsasd = idsasd;
-                                            row.current.profess = 'N';
-                                            self.currInsegnCaratteristicaRow = row.current;
-                                            return def.resolve();
-                                        });
+                                            });
                                     })
                             });
                     });
@@ -779,13 +773,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageInsegnteg:function(ds, item){
+            manageInsegnteg: function (ds, item) {
                 var self = this;
-                var tname= 'insegninteg';
-                var dtMain= ds.tables[tname];
+                var tname = 'insegninteg';
+                var dtMain = ds.tables[tname];
                 var def = Deferred('manageInsegnteg');
 
-                if (! self.currInsegnRow) {
+                if (!self.currInsegnRow) {
                     return def.resolve();
                 }
 
@@ -818,15 +812,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     .then(function (table) {
                         // se non esiste creo riga
                         appMeta.utils._if(table && table.rows.length)
-                            ._then(function (){
+                            ._then(function () {
                                 dtMain.load(table.rows[0]);
                                 self.currInsegnintegRow = table.rows[0];
                                 return def.resolve();
                             })
                             ._else(function () {
                                 var meta = appMeta.getMeta(tname);
-								meta.setDefaults(dtMain);
-                               return meta.getNewRow(null, dtMain )
+                                meta.setDefaults(dtMain);
+                                return meta.getNewRow(null, dtMain)
                                     .then(function (row) {
                                         if (!row) {
                                             return def.resolve();
@@ -837,13 +831,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         self.currInsegnintegRow = row.current;
                                         return def.resolve();
                                     })
-                        });
+                            });
                     });
 
                 return def.promise();
             },
 
-            manageInsegntegcaratteristica:function(ds, item) {
+            manageInsegntegcaratteristica: function (ds, item) {
                 var def = Deferred('manageInsegntegcaratteristica');
                 var self = this;
                 var cf = item.Crediti;
@@ -851,22 +845,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.from(self.manageInsegntegcaratteristicaSSD(ds, item, ssd, cf));
             },
 
-            manageInsegntegcaratteristicaSSD:function(ds, item, ssd, cf) {
+            manageInsegntegcaratteristicaSSD: function (ds, item, ssd, cf) {
                 var def = Deferred('manageInsegntegcaratteristica');
                 var self = this;
                 var tname = 'insegnintegcaratteristica';
-                var dtMain= ds.tables[tname];
+                var dtMain = ds.tables[tname];
                 var modulo = item.Modulo;
 
                 if (!modulo) {
                     return def.resolve();
                 }
 
-                if (! self.currInsegnRow) {
+                if (!self.currInsegnRow) {
                     return def.resolve();
                 }
 
-                if (! self.currInsegnintegRow) {
+                if (!self.currInsegnintegRow) {
                     return def.resolve();
                 }
 
@@ -879,7 +873,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 this.getIdSasd(sigla)
                     .then(function (idsasdPrm) {
                         idsasd = idsasdPrm;
-                        var filter  = self.q.and([
+                        var filter = self.q.and([
                             self.q.eq("idinsegn", idinsegn),
                             self.q.eq("idinsegninteg", idinsegninteg),
                             self.q.eq("cf", cf),
@@ -897,14 +891,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             .then(function (table) {
                                 // se non esiste creo riga
                                 appMeta.utils._if(table && table.rows.length)
-                                    ._then(function (){
+                                    ._then(function () {
                                         dtMain.load(table.rows[0]);
                                         self.currInsegnintegcaratteristicaRow = table.rows[0];
                                         return def.resolve();
                                     })
                                     ._else(function () {
                                         var meta = appMeta.getMeta(tname);
-										meta.setDefaults(dtMain);
+                                        meta.setDefaults(dtMain);
                                         return meta.getNewRow(null, dtMain)
                                             .then(function (row) {
                                                 if (!row) {
@@ -917,29 +911,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                 row.current.profess = 'N';
                                                 self.currInsegnintegcaratteristicaRow = row.current;
                                                 return def.resolve();
-                                        })
-                                });
+                                            })
+                                    });
                             });
                     });
 
                 return def.promise();
             },
 
-            manageAttivform:function(ds, item){
+            manageAttivform: function (ds, item) {
                 var self = this;
                 var def = Deferred('manageAttivform');
-                var tname= 'attivform';
-                var dtMain= ds.tables[tname];
+                var tname = 'attivform';
+                var dtMain = ds.tables[tname];
 
                 var idinsegn = self.currInsegnRow.idinsegn;
                 var idinsegninteg = self.currInsegnintegRow ? self.currInsegnintegRow.idinsegninteg : null;
 
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
                 var iddidprogori = self.currDidprogoriRow.iddidprogori;
-                var iddidproganno =  self.currDidprogannoRow.iddidproganno;
-                var iddidprogporzanno =  self.currDidprogporzannoRow.iddidprogporzanno;
+                var iddidproganno = self.currDidprogannoRow.iddidproganno;
+                var iddidprogporzanno = self.currDidprogporzannoRow.iddidprogporzanno;
 
                 var annoAccademico = item.AnnoAccademico;
                 var insegnamento = item.Insegnamento;
@@ -947,10 +941,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var modulo = item.Modulo;
                 var codiceModulo = item.CodiceModulo;
 
-                var filter =  self.q.and([
-                        self.q.eq("iddidprogporzanno", iddidprogporzanno),
-                        self.q.eq("idinsegn", idinsegn)
-                    ]
+                var filter = self.q.and([
+                    self.q.eq("iddidprogporzanno", iddidprogporzanno),
+                    self.q.eq("idinsegn", idinsegn)
+                ]
                 );
 
                 if (idinsegninteg) {
@@ -968,15 +962,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     .then(function (table) {
                         // se non esiste creo riga
                         appMeta.utils._if(table && table.rows.length)
-                            ._then(function (){
+                            ._then(function () {
                                 dtMain.load(table.rows[0]);
                                 self.currAttivformRow = table.rows[0];
                                 return def.resolve();
                             })
                             ._else(function () {
                                 var meta = appMeta.getMeta(tname);
-								meta.setDefaults(dtMain);
-                               return meta.getNewRow(null, dtMain)
+                                meta.setDefaults(dtMain);
+                                return meta.getNewRow(null, dtMain)
                                     .then(function (row) {
                                         if (!row) {
                                             return def.resolve();
@@ -995,13 +989,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         self.currAttivformRow = row.current;
                                         return def.resolve();
                                     })
-                        });
+                            });
                     });
 
                 return def.promise();
             },
 
-            manageAttivformcaratteristica: function(ds, item) {
+            manageAttivformcaratteristica: function (ds, item) {
                 var self = this;
                 var def = Deferred('manageAttivformcaratteristica');
                 var crediti = item.Crediti;
@@ -1021,13 +1015,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     var chain = $.when();
                     var realCf = 0;
                     if (ssd.length) {
-                        realCf = crediti / ssd.length ;
+                        realCf = crediti / ssd.length;
                     }
                     _.forEach(ssd, function (ssdItem, index) {
-                        chain = chain.then(function() {
+                        chain = chain.then(function () {
                             // recupero dalla dict già calcolata per insegn.
                             var idsasd = self.currsasdList[ssdItem.Sigla];
-                            return  self.manageAttivformcaratteristicaSSD(ds, item, idsasd, realCf);
+                            return self.manageAttivformcaratteristicaSSD(ds, item, idsasd, realCf);
                         });
                         arrayDef.push(chain);
                     });
@@ -1040,18 +1034,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.from(self.manageAttivformcaratteristicaSSD(ds, item, idsasd, crediti));
             },
 
-            manageAttivformcaratteristicaSSD: function(ds, item, idsasd, crediti) {
+            manageAttivformcaratteristicaSSD: function (ds, item, idsasd, crediti) {
                 var self = this;
                 var def = Deferred('manageAttivformcaratteristicaSSD');
-                var tname= 'attivformcaratteristica';
-                var dtMain= ds.tables[tname];
+                var tname = 'attivformcaratteristica';
+                var dtMain = ds.tables[tname];
 
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
                 var iddidprogori = self.currDidprogoriRow.iddidprogori;
-                var iddidproganno =  self.currDidprogannoRow.iddidproganno;
-                var iddidprogporzanno =  self.currDidprogporzannoRow.iddidprogporzanno;
+                var iddidproganno = self.currDidprogannoRow.iddidproganno;
+                var iddidprogporzanno = self.currDidprogporzannoRow.iddidprogporzanno;
                 var idattivform = self.currAttivformRow.idattivform;
 
                 var annoAccademico = item.AnnoAccademico;
@@ -1083,12 +1077,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             idambitoareadisc = dt.rows[0].idambitoareadisc;
                         }
 
-                        var filter =  self.q.and([
-                                self.q.eq("idattivform", idattivform),
-                                self.q.eq("idtipoattform", idtipoattform),
-                                self.q.eq("idambitoareadisc", idambitoareadisc),
-                                self.q.eq("idsasd", idsasd)
-                            ]
+                        var filter = self.q.and([
+                            self.q.eq("idattivform", idattivform),
+                            self.q.eq("idtipoattform", idtipoattform),
+                            self.q.eq("idambitoareadisc", idambitoareadisc),
+                            self.q.eq("idsasd", idsasd)
+                        ]
                         );
                         // se già c'è
                         var rows = dtMain.select(filter);
@@ -1100,56 +1094,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         // esistenza riga su db
                         return getData.runSelect(tname, "*", filter);
                     }).then(function (table) {
-                    // se non esiste creo riga
-                    appMeta.utils._if(table && table.rows.length)
-                        ._then(function (){
-                            dtMain.load(table.rows[0]);
-                            self.currAttivformcaratteristicaRow = table.rows[0];
-                            return def.resolve();
-                        })
-                        ._else(function () {
-                            var meta = appMeta.getMeta(tname);
-							meta.setDefaults(dtMain);
-                           return meta.getNewRow(null, dtMain)
-                                .then(function (row) {
-                                    if (!row) {
+                        // se non esiste creo riga
+                        appMeta.utils._if(table && table.rows.length)
+                            ._then(function () {
+                                dtMain.load(table.rows[0]);
+                                self.currAttivformcaratteristicaRow = table.rows[0];
+                                return def.resolve();
+                            })
+                            ._else(function () {
+                                var meta = appMeta.getMeta(tname);
+                                meta.setDefaults(dtMain);
+                                return meta.getNewRow(null, dtMain)
+                                    .then(function (row) {
+                                        if (!row) {
+                                            return def.resolve();
+                                        }
+                                        row.current.idattivform = idattivform;
+                                        row.current.iddidprogporzanno = iddidprogporzanno;
+                                        row.current.iddidprog = iddidprog;
+                                        row.current.iddidprogcurr = iddidprogcurr;
+                                        row.current.idcorsostudio = idcorsostudio;
+                                        row.current.iddidprogori = iddidprogori;
+                                        row.current.iddidproganno = iddidproganno;
+                                        row.current.aa = annoAccademico;
+
+                                        row.current.idtipoattform = idtipoattform;
+                                        row.current.idambitoareadisc = idambitoareadisc;
+                                        row.current.idsasd = idsasd;
+                                        row.current.cf = crediti;
+                                        row.current.profess = 'N';
+
+                                        // algoritmo per popolare campo json e title
+                                        var p = [];
+                                        p.push([{ cf: crediti }, 'cf', 'Crediti']);
+                                        p.push([self.currtipoattform, 'title', 'Attività']);
+                                        p.push([self.currambitoareadisc, 'title', 'Ambito']);
+                                        p.push([self.currsasd, 'sasd_codice', 'SSD']);
+                                        var output = self.buildOreAttivformcaratteristicaForTitle(item);
+                                        p.push([output, null, 'Ore']);
+                                        row.current.json = self.stringify(p, 'json');
+                                        row.current.title = self.stringify(p, 'string');
+                                        self.currAttivformcaratteristicaRow = row.current;
                                         return def.resolve();
-                                    }
-                                    row.current.idattivform = idattivform;
-                                    row.current.iddidprogporzanno = iddidprogporzanno;
-                                    row.current.iddidprog = iddidprog;
-                                    row.current.iddidprogcurr = iddidprogcurr;
-                                    row.current.idcorsostudio = idcorsostudio;
-                                    row.current.iddidprogori = iddidprogori;
-                                    row.current.iddidproganno = iddidproganno;
-                                    row.current.aa = annoAccademico;
-
-                                    row.current.idtipoattform = idtipoattform;
-                                    row.current.idambitoareadisc = idambitoareadisc;
-                                    row.current.idsasd = idsasd;
-                                    row.current.cf = crediti;
-                                    row.current.profess = 'N';
-
-                                    // algoritmo per popolare campo json e title
-                                    var p = [];
-                                    p.push([{cf: crediti}, 'cf', 'Crediti']);
-                                    p.push([self.currtipoattform, 'title', 'Attività']);
-                                    p.push([self.currambitoareadisc, 'title', 'Ambito']);
-                                    p.push([self.currsasd, 'sasd_codice', 'SSD']);
-                                    var output = self.buildOreAttivformcaratteristicaForTitle(item);
-                                    p.push([output, null, 'Ore']);
-                                    row.current.json = self.stringify(p, 'json');
-                                    row.current.title = self.stringify(p, 'string');
-                                    self.currAttivformcaratteristicaRow =  row.current;
-                                    return def.resolve();
-                                })
-                        });
-                });
+                                    })
+                            });
+                    });
 
                 return def.promise();
             },
 
-            buildOreAttivformcaratteristicaForTitle:function(item) {
+            buildOreAttivformcaratteristicaForTitle: function (item) {
                 var oraAula = item.OreAula;
                 var oreSeminari = item.OreSeminari;
                 var oreLaboratorio = item.OreLaboratorio;
@@ -1175,7 +1169,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return res;
             },
 
-            manageAttivformcaratteristicaora: function(ds, item) {
+            manageAttivformcaratteristicaora: function (ds, item) {
                 var def = Deferred('manageAttivformcaratteristicaora');
 
                 // ore
@@ -1228,19 +1222,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
 
                 var idattivformcaratteristica = self.currAttivformcaratteristicaRow.idattivformcaratteristica;
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
                 var iddidprogori = self.currDidprogoriRow.iddidprogori;
-                var iddidproganno =  self.currDidprogannoRow.iddidproganno;
-                var iddidprogporzanno =  self.currDidprogporzannoRow.iddidprogporzanno;
+                var iddidproganno = self.currDidprogannoRow.iddidproganno;
+                var iddidprogporzanno = self.currDidprogporzannoRow.iddidprogporzanno;
                 var idattivform = self.currAttivformRow.idattivform;
                 var aa = item.AnnoAccademico;
 
                 var filter = self.q.and([
-                        self.q.eq("idattivformcaratteristica", idattivformcaratteristica),
-                        self.q.eq("idorakind", idorakind)
-                    ]
+                    self.q.eq("idattivformcaratteristica", idattivformcaratteristica),
+                    self.q.eq("idorakind", idorakind)
+                ]
                 );
 
                 // se già c'è
@@ -1248,8 +1242,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return def.resolve();
                 }
 
-				meta.setDefaults(dtMain);
-				meta.getNewRow(null, dtMain)
+                meta.setDefaults(dtMain);
+                meta.getNewRow(null, dtMain)
                     .then(function (row) {
                         row.current.idattivform = idattivform;
                         row.current.idattivformcaratteristica = idattivformcaratteristica;
@@ -1261,7 +1255,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         row.current.iddidproganno = iddidproganno;
                         row.current.aa = aa;
 
-                        row.current.idorakind  = idorakind;
+                        row.current.idorakind = idorakind;
                         row.current.ora = parseInt(ora);
 
                         def.resolve();
@@ -1270,26 +1264,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageCanale:function(ds, item){
+            manageCanale: function (ds, item) {
                 var self = this;
                 var def = Deferred('manageCanale');
-                var tname= 'canale';
-                var dtMain= ds.tables[tname];
+                var tname = 'canale';
+                var dtMain = ds.tables[tname];
 
                 var idsede = self.currAttivformRow.idsede;
                 var cuin = item.CUIN;
 
-                if(!cuin) {
+                if (!cuin) {
                     console.log('manageCanale item.CUIN vuoto', item);
                     return def.resolve();
                 }
 
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
                 var iddidprogori = self.currDidprogoriRow.iddidprogori;
-                var iddidproganno =  self.currDidprogannoRow.iddidproganno;
-                var iddidprogporzanno =  self.currDidprogporzannoRow.iddidprogporzanno;
+                var iddidproganno = self.currDidprogannoRow.iddidproganno;
+                var iddidprogporzanno = self.currDidprogporzannoRow.iddidprogporzanno;
                 var idattivform = self.currAttivformRow.idattivform;
                 var title = item.Canale;
                 // a volte vale {"-self-closing": "true"} edè quindi un oggetto
@@ -1300,13 +1294,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var numerostud = item.NumeroStudentiCanale;
                 var aa = item.AnnoAccademico;
 
-                var filter =  self.q.and([
-                        self.q.eq("idattivform", idattivform),
-                        self.q.eq("cuin", cuin)
-                    ]
+                var filter = self.q.and([
+                    self.q.eq("idattivform", idattivform),
+                    self.q.eq("cuin", cuin)
+                ]
                 );
                 if (title) {
-                    filter = self.q.and(filter,  self.q.eq("title", title));
+                    filter = self.q.and(filter, self.q.eq("title", title));
                 }
 
                 // se già c'è
@@ -1320,15 +1314,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     .then(function (table) {
                         // se non esiste creo riga
                         appMeta.utils._if(table && table.rows.length)
-                            ._then(function (){
+                            ._then(function () {
                                 dtMain.load(table.rows[0]);
                                 self.currCanaleRow = table.rows[0];
                                 return def.resolve();
                             })
                             ._else(function () {
                                 var meta = appMeta.getMeta(tname);
-								meta.setDefaults(dtMain);
-								return meta.getNewRow(null, dtMain )
+                                meta.setDefaults(dtMain);
+                                return meta.getNewRow(null, dtMain)
                                     .then(function (row) {
                                         if (!row) {
                                             return def.resolve();
@@ -1346,7 +1340,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         row.current.sortcode = sortcode;
                                         row.current.numerostud = numerostud;
                                         row.current.title = title;
-                                        self.currCanaleRow =  row.current;
+                                        self.currCanaleRow = row.current;
                                         return def.resolve();
                                     })
                             });
@@ -1362,25 +1356,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              * @param {string} docenteCF necessario per calcolare idreg_docenti
              * @returns {*}
              */
-            manageAffidamento:function(ds, item, idreg_docenti) {
+            manageAffidamento: function (ds, item, idreg_docenti) {
                 var self = this;
                 var def = Deferred('manageAffidamento');
-                var tname= 'affidamento';
-                var dtMain= ds.tables[tname];
+                var tname = 'affidamento';
+                var dtMain = ds.tables[tname];
 
-                if(!self.currCanaleRow) {
+                if (!self.currCanaleRow) {
                     console.log('manageAffidamento riga canale vuota', item);
                     return def.resolve();
                 }
 
                 var idcanale = self.currCanaleRow.idcanale;
                 var idSede = self.currCanaleRow.idsede;
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
                 var iddidprogori = self.currDidprogoriRow.iddidprogori;
-                var iddidproganno =  self.currDidprogannoRow.iddidproganno;
-                var iddidprogporzanno =  self.currDidprogporzannoRow.iddidprogporzanno;
+                var iddidproganno = self.currDidprogannoRow.iddidproganno;
+                var iddidprogporzanno = self.currDidprogporzannoRow.iddidprogporzanno;
                 var idattivform = self.currAttivformRow.idattivform;
                 var aa = item.AnnoAccademico;
                 var gratuito = item.Gratuito === 'false' ? 'N' : 'S';
@@ -1404,17 +1398,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
                 var filter;
                 if (idreg_docenti) {
-                    filter =  self.q.and([
-                            self.q.eq("idcanale", idcanale),
-                            self.q.eq("idreg_docenti", idreg_docenti)
-                        ]
+                    filter = self.q.and([
+                        self.q.eq("idcanale", idcanale),
+                        self.q.eq("idreg_docenti", idreg_docenti)
+                    ]
                     );
                 } else {
                     console.log('manageAffidamento idreg_docenti vuoto, ma trovato idAffidamento' + idAffidamentoKindToCompare, item);
-                    filter =  self.q.and([
-                            self.q.eq("idcanale", idcanale),
-                            self.q.eq("idaffidamentokind", idAffidamentoKindToCompare)
-                        ]
+                    filter = self.q.and([
+                        self.q.eq("idcanale", idcanale),
+                        self.q.eq("idaffidamentokind", idAffidamentoKindToCompare)
+                    ]
                     );
                 }
 
@@ -1429,15 +1423,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     .then(function (table) {
                         // se non esiste creo riga
                         appMeta.utils._if(table && table.rows.length)
-                            ._then(function (){
+                            ._then(function () {
                                 dtMain.load(table.rows[0]);
                                 self.currAffidamentoRow = table.rows[0];
                                 return def.resolve();
                             })
                             ._else(function () {
                                 var meta = appMeta.getMeta(tname);
-								meta.setDefaults(dtMain);
-								return meta.getNewRow(null, dtMain)
+                                meta.setDefaults(dtMain);
+                                return meta.getNewRow(null, dtMain)
                                     .then(function (row) {
                                         if (!row) {
                                             return def.resolve();
@@ -1466,16 +1460,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         row.current.riferimento = 'S';
 
                                         row.current.idreg_docenti = idreg_docenti;
-                                        self.currAffidamentoRow =  row.current;
+                                        self.currAffidamentoRow = row.current;
                                         return def.resolve();
-                                })
-                        });
+                                    })
+                            });
                     });
 
                 return def.promise();
             },
 
-            manageEdificio:function(ds, item) {
+            manageEdificio: function (ds, item) {
                 var self = this;
                 var tname = 'edificio';
                 var dtMain = ds.tables[tname];
@@ -1484,7 +1478,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var edificioInfoArr = spacePath.split(">");
                 var edificioTitle = edificioInfoArr[1].trim();
 
-                var filter  = this.q.eq("title", edificioTitle);
+                var filter = this.q.eq("title", edificioTitle);
 
                 // se già c'è
                 var rows = dtMain.select(filter);
@@ -1497,14 +1491,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     .then(function (table) {
                         // se non esiste creo riga
                         appMeta.utils._if(table && table.rows.length)
-                            ._then(function (){
+                            ._then(function () {
                                 dtMain.load(table.rows[0]);
                                 self.currEdificioRow = table.rows[0];
                                 return def.resolve();
                             })
                             ._else(function () {
                                 var meta = appMeta.getMeta(tname);
-								meta.setDefaults(dtMain);
+                                meta.setDefaults(dtMain);
                                 return meta.getNewRow(null, dtMain)
                                     .then(function (row) {
                                         if (!row) {
@@ -1522,7 +1516,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageLezioneAula:function(ds, item) {
+            manageLezioneAula: function (ds, item) {
                 var self = this;
                 var tname = 'aula';
                 var dtMain = ds.tables[tname];
@@ -1532,7 +1526,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var edificioInfoArr = item.spacePath.split(">");
                 var edificioTitle = edificioInfoArr[1].trim();
 
-                var filter  = this.q.eq("code", code);
+                var filter = this.q.eq("code", code);
 
                 // se già c'è
                 var rows = dtMain.select(filter);
@@ -1545,21 +1539,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     .then(function (table) {
                         // se non esiste creo riga
                         appMeta.utils._if(table && table.rows.length)
-                            ._then(function (){
+                            ._then(function () {
                                 dtMain.load(table.rows[0]);
                                 self.currAulaRow = table.rows[0];
                                 return def.resolve();
                             })
                             ._else(function () {
                                 var meta = appMeta.getMeta(tname);
-								meta.setDefaults(dtMain);
+                                meta.setDefaults(dtMain);
                                 return meta.getNewRow(null, dtMain)
                                     .then(function (row) {
                                         if (!row) {
                                             return def.resolve();
                                         }
 
-                                        var filterEdificio  = self.q.eq("title", edificioTitle);
+                                        var filterEdificio = self.q.eq("title", edificioTitle);
                                         var rows = ds.tables.edificio.select(filterEdificio);
                                         row.current.idedificio = rows[0].idedificio;
                                         row.current.title = title;
@@ -1574,7 +1568,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            manageAffidamentoCustomFields: function(ds, item) {
+            manageAffidamentoCustomFields: function (ds, item) {
                 var def = appMeta.Deferred("beforeFill-manageattivform_title");
                 var dtaffidamento = ds.tables.affidamento;
                 var rowAffidamento = dtaffidamento.rows[0];
@@ -1582,7 +1576,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 this.manageaffidamento_default_title_and_json(rowAffidamento, ds, item)
                     .then(function () {
                         def.resolve();
-                     });
+                    });
                 return def.promise();
             },
 
@@ -1620,15 +1614,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             },
 
-            buildOreAndCfFormAffidamento:function(item) {
+            buildOreAndCfFormAffidamento: function (item) {
                 var creditidocente = item.CreditiDocente;
                 var ore = item.OreDocente;
                 var res = '';
                 if (creditidocente) {
-                    res =  creditidocente + ' crediti';
+                    res = creditidocente + ' crediti';
                 }
                 if (ore) {
-                    res +=  ', ' + ore + ' ore';
+                    res += ', ' + ore + ' ore';
                 }
                 return res;
             },
@@ -1659,24 +1653,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 rowAffidamento.jsonancestor = self.stringify(p, 'json');
             },
 
-            manageAffidamentoCaratteristica:function(ds, item) {
+            manageAffidamentoCaratteristica: function (ds, item) {
                 var self = this;
                 var def = Deferred('manageAffidamentoCaratteristica');
-                var tname= 'affidamentocaratteristica';
-                var dtMain= ds.tables[tname];
+                var tname = 'affidamentocaratteristica';
+                var dtMain = ds.tables[tname];
 
-                if(!self.currAffidamentoRow) {
+                if (!self.currAffidamentoRow) {
                     return def.resolve();
                 }
 
                 var idaffidamento = self.currAffidamentoRow.idaffidamento;
                 var idcanale = self.currCanaleRow.idcanale;
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
                 var iddidprogori = self.currDidprogoriRow.iddidprogori;
-                var iddidproganno =  self.currDidprogannoRow.iddidproganno;
-                var iddidprogporzanno =  self.currDidprogporzannoRow.iddidprogporzanno;
+                var iddidproganno = self.currDidprogannoRow.iddidproganno;
+                var iddidprogporzanno = self.currDidprogporzannoRow.iddidprogporzanno;
                 var idattivform = self.currAttivformRow.idattivform;
                 var aa = item.AnnoAccademico;
 
@@ -1684,7 +1678,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var idtipoattform = this.currtipoattform.idtipoattform;
                 var idambitoareadisc = this.currambitoareadisc.idambitoareadisc;
 
-                if(!item.SSD) {
+                if (!item.SSD) {
                     console.log('manageAffidamentoCaratteristica item.SSD vuota', item);
                     return def.resolve();
                 }
@@ -1697,11 +1691,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var profess = 'N';
 
                 var filter = self.q.and([
-                        self.q.eq("idaffidamento", idaffidamento),
-                        self.q.eq("idtipoattform", idtipoattform),
-                        self.q.eq("idambitoareadisc", idambitoareadisc),
-                        self.q.eq("idsasd", idsasd)
-                    ]
+                    self.q.eq("idaffidamento", idaffidamento),
+                    self.q.eq("idtipoattform", idtipoattform),
+                    self.q.eq("idambitoareadisc", idambitoareadisc),
+                    self.q.eq("idsasd", idsasd)
+                ]
                 );
 
                 // se già c'è
@@ -1711,19 +1705,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return def.resolve();
                 }
 
-               getData.runSelect(tname, "*", filter)
+                getData.runSelect(tname, "*", filter)
                     .then(function (table) {
                         // se non esiste creo riga
                         appMeta.utils._if(table && table.rows.length)
-                            ._then(function (){
+                            ._then(function () {
                                 dtMain.load(table.rows[0]);
                                 self.currAffidamentoCaratteristicaRow = table.rows[0];
                                 return def.resolve();
                             })
                             ._else(function () {
                                 var meta = appMeta.getMeta(tname);
-								meta.setDefaults(dtMain);
-								return meta.getNewRow(null, dtMain)
+                                meta.setDefaults(dtMain);
+                                return meta.getNewRow(null, dtMain)
                                     .then(function (row) {
                                         if (!row) {
                                             return def.resolve();
@@ -1744,11 +1738,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         row.current.idsasd = idsasd;
 
                                         row.current.profess = profess;
-                                        self.currAffidamentoCaratteristicaRow =  row.current;
+                                        self.currAffidamentoCaratteristicaRow = row.current;
                                         return def.resolve();
                                     })
-                        });
-                });
+                            });
+                    });
 
                 return def.promise();
             },
@@ -1759,7 +1753,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 // ore
                 var oreDocente = item.OreDocente;
 
-                if(!this.currAffidamentoCaratteristicaRow) {
+                if (!this.currAffidamentoCaratteristicaRow) {
                     return def.resolve();
                 }
 
@@ -1788,22 +1782,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var self = this;
                 var def = Deferred('creaAffidamentoCaratteristicaOraRecord');
                 var tname = 'affidamentocaratteristicaora';
-                var dtMain= ds.tables[tname];
+                var dtMain = ds.tables[tname];
                 var meta = appMeta.getMeta(tname);
 
-                if(!self.currAffidamentoCaratteristicaRow) {
+                if (!self.currAffidamentoCaratteristicaRow) {
                     return def.resolve();
                 }
 
                 var idaffidamentocaratteristica = self.currAffidamentoCaratteristicaRow.idaffidamentocaratteristica;
                 var idaffidamento = self.currAffidamentoRow.idaffidamento;
                 var idcanale = self.currCanaleRow.idcanale;
-                var idcorsostudio =  self.currCorsoStudioRow.idcorsostudio;
+                var idcorsostudio = self.currCorsoStudioRow.idcorsostudio;
                 var iddidprog = self.currDidprogRow.iddidprog;
                 var iddidprogcurr = self.currDidprogcurrRow.iddidprogcurr;
                 var iddidprogori = self.currDidprogoriRow.iddidprogori;
-                var iddidproganno =  self.currDidprogannoRow.iddidproganno;
-                var iddidprogporzanno =  self.currDidprogporzannoRow.iddidprogporzanno;
+                var iddidproganno = self.currDidprogannoRow.iddidproganno;
+                var iddidprogporzanno = self.currDidprogporzannoRow.iddidprogporzanno;
                 var idattivform = self.currAttivformRow.idattivform;
                 var aa = item.AnnoAccademico;
 
@@ -1815,8 +1809,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     return def.resolve();
                 }
 
-				meta.setDefaults(dtMain);
-				meta.getNewRow(null, dtMain)
+                meta.setDefaults(dtMain);
+                meta.getNewRow(null, dtMain)
                     .then(function (row) {
                         row.current.idaffidamento = idaffidamento;
                         row.current.idaffidamentocaratteristica = idaffidamentocaratteristica;
@@ -1830,8 +1824,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         row.current.iddidproganno = iddidproganno;
                         row.current.aa = aa;
 
-                        row.current.idorakind  = idorakind;
-                        row.current.ripetizioni  = null;
+                        row.current.idorakind = idorakind;
+                        row.current.ripetizioni = null;
                         row.current.ora = parseInt(ora);
 
                         def.resolve();
@@ -1854,7 +1848,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return def.promise();
             },
 
-            getCaricoDidattico:function(that) {
+            getCaricoDidattico: function (that) {
                 var docenteCF = $("#docenteCFId").val();
                 var docenteCognome = $("#docenteCognomeId").val();
                 var aa = $("#annoaccademicoId").val();
@@ -1870,7 +1864,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 });
             },
 
-            getCaricoDidatticoJsonFile:function(that) {
+            getCaricoDidatticoJsonFile: function (that) {
                 if (that.jsonFileCaricoDidattico) {
                     var reader = new FileReader();
                     reader.readAsText(that.jsonFileCaricoDidattico, "UTF-8");
@@ -1885,7 +1879,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
             },
 
-            getAllocationJsonFile:function(that) {
+            getAllocationJsonFile: function (that) {
                 if (that.jsonFileAllocations) {
                     var reader = new FileReader();
                     reader.readAsText(that.jsonFileAllocations, "UTF-8");
@@ -1898,7 +1892,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
             },
 
-            getCaricoDidatticoJson:function(that) {
+            getCaricoDidatticoJson: function (that) {
                 var res = $("#jsonresponseidJson").val();
                 var aa = $("#annoaccademicoIdJson").val();
                 var idreg = $("#docenteIdReg").val();
@@ -1914,8 +1908,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     var idreg_docenti;
                     var waitingHandler = that.showWaitingIndicator('Attendi richiesta dataset');
                     // DocenteModuloNVA
-                    var envelopeTag  = envelopeTagPrm || "soap:Envelope";
-                    var bodyTag  = bodyTagPrm || "soap:Body";
+                    var envelopeTag = envelopeTagPrm || "soap:Envelope";
+                    var bodyTag = bodyTagPrm || "soap:Body";
                     var items = JSON.parse(json)[envelopeTag][bodyTag].GetCaricoDidatticoResponse.GetCaricoDidatticoResult.CaricoDidattico.DocenteModuloNVA;
                     var arrayDef = [];
                     var arrayDefInsegn = [];
@@ -1934,63 +1928,63 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         // INIZIO LOOP su insegn insegnteg
 
                         if (!onlyCorsoStudio) {
-                                _.forEach(items, function (item, index) {
+                            _.forEach(items, function (item, index) {
 
-                                    chainInsegn = chainInsegn.then(function() {
+                                chainInsegn = chainInsegn.then(function () {
+                                    that.hideWaitingIndicator(waitingHandler);
+                                    waitingHandler = that.showWaitingIndicator('Attendi costruzione righe vocabolari insegn insegnteg  ' + (index + sliceIndex + 1));
+                                    that.currInsegnRow = null;
+                                    that.currInsegnCaratteristicaRow = null;
+                                    that.currInsegnintegRow = null;
+                                    that.currInsegnintegcaratteristicaRow = null;
+                                    return that.manageInsegn(ds, item);
+                                }).then(function () {
+                                    return that.manageInsegncaratteristica(ds, item);
+                                })
+                                    .then(function () {
+                                        return that.manageInsegnteg(ds, item);
+                                    })
+                                    .then(function () {
+                                        return that.manageInsegntegcaratteristica(ds, item);
+                                    }).then(function () {
                                         that.hideWaitingIndicator(waitingHandler);
-                                        waitingHandler = that.showWaitingIndicator('Attendi costruzione righe vocabolari insegn insegnteg  ' + (index + sliceIndex + 1));
-                                        that.currInsegnRow = null;
-                                        that.currInsegnCaratteristicaRow = null;
-                                        that.currInsegnintegRow = null;
-                                        that.currInsegnintegcaratteristicaRow = null;
-                                        return that.manageInsegn(ds, item);
-                                        }).then(function () {
-                                            return that.manageInsegncaratteristica(ds, item);
-                                        })
-                                        .then(function () {
-                                            return that.manageInsegnteg(ds, item);
-                                        })
-                                        .then(function () {
-                                            return that.manageInsegntegcaratteristica(ds, item);
-                                        }).then(function () {
-                                            that.hideWaitingIndicator(waitingHandler);
-                                            waitingHandler = that.showWaitingIndicator('salvo vocabolario ' + (index + sliceIndex + 1));
-                                            return appMeta.postData.doPostSilent(ds, corsostudioTableName, corsostudioEditType, [])
-                                        })
-                                        .then(function (res, msg) {
-                                            that.hideWaitingIndicator(waitingHandler);
-                                            if (!res && msg && msg.length) {
-                                                var s = msg.reduce(function (acc, m) {
-                                                    acc += m.description + '\n';
-                                                    return acc;
-                                                }, '');
-                                                that.printItemIndex('Vocabolario err', index + sliceIndex);
-                                                return that.showMessageOk(s)
-                                            }
-                                            if (res && !popupOk) {
-                                                return that.showMessageOk('Vocabolario '  + (index + sliceIndex + 1) + ' salvato con successo')
-                                            }
-                                            that.printItemIndex('Vocabolario', index + sliceIndex);
-                                            return true;
-                                        }, function(err) {
+                                        waitingHandler = that.showWaitingIndicator('salvo vocabolario ' + (index + sliceIndex + 1));
+                                        return appMeta.postData.doPostSilent(ds, corsostudioTableName, corsostudioEditType, [])
+                                    })
+                                    .then(function (res, msg) {
+                                        that.hideWaitingIndicator(waitingHandler);
+                                        if (!res && msg && msg.length) {
+                                            var s = msg.reduce(function (acc, m) {
+                                                acc += m.description + '\n';
+                                                return acc;
+                                            }, '');
                                             that.printItemIndex('Vocabolario err', index + sliceIndex);
-                                            that.hideWaitingIndicator(waitingHandler);
-                                            return false;
-                                        });
+                                            return that.showMessageOk(s)
+                                        }
+                                        if (res && !popupOk) {
+                                            return that.showMessageOk('Vocabolario ' + (index + sliceIndex + 1) + ' salvato con successo')
+                                        }
+                                        that.printItemIndex('Vocabolario', index + sliceIndex);
+                                        return true;
+                                    }, function (err) {
+                                        that.printItemIndex('Vocabolario err', index + sliceIndex);
+                                        that.hideWaitingIndicator(waitingHandler);
+                                        return false;
+                                    });
 
-                                        arrayDefInsegn.push(chainInsegn);
-                                 });
+                                arrayDefInsegn.push(chainInsegn);
+                            });
                         }
                         // FINE LOOP vocabolari
 
                         // RISOLVO IL PRIMO PACCHETTO DI DEFERRED così il ds avrà gli id calcolati veri su insegn insegnteg
                         return $.when.apply($, arrayDefInsegn)
-                            .then(function(res) {
+                            .then(function (res) {
                                 that.hideWaitingIndicator(waitingHandler);
 
                                 //INIZIO for su didattica
                                 _.forEach(items, function (item, index) {
-                                    chain = chain.then(function() {
+                                    chain = chain.then(function () {
                                         // reset var globali
                                         that.currCorsoStudioRow = null;
                                         that.currDidprogRow = null;
@@ -2048,7 +2042,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                             .then(function () {
                                                 return that.manageDidProgPorzanno(ds, item);
                                             })
-                                            .then(function() {
+                                            .then(function () {
                                                 return that.manageInsegn(ds, item);
                                             })
                                             .then(function () {
@@ -2107,7 +2101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                     return that.showMessageOk('Carico didattico item ' + (index + sliceIndex + 1) + ' salvato con successo')
                                                 }
                                                 return true;
-                                            }, function(err) {
+                                            }, function (err) {
                                                 that.printItemIndex('item err', index + sliceIndex);
                                                 that.hideWaitingIndicator(waitingHandler);
                                             });
@@ -2116,7 +2110,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 });
 
                                 return $.when.apply($, arrayDef)
-                                    .then(function(res) {
+                                    .then(function (res) {
                                         that.hideWaitingIndicator(waitingHandler);
                                         console.log(res);
                                     })
@@ -2131,11 +2125,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
             },
 
-            printItemIndex: function(msg, i) {
+            printItemIndex: function (msg, i) {
                 document.getElementById("infoImportFileJson").innerHTML = msg + " item: " + i;
             },
 
-            getAllocationMassivo:function(that) {
+            getAllocationMassivo: function (that) {
                 // esegue la richiesta al servizio di unict. la url è cablata lato server. --> renderla configurabile
                 var docenteNome = null;
                 var docenteCognome = null;
@@ -2160,8 +2154,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 });
             },
 
-            getAllocations:function(that) {
-              // esegue la richiesta al servizio di unict. la url è cablata lato server. --> renderla configurabile
+            getAllocations: function (that) {
+                // esegue la richiesta al servizio di unict. la url è cablata lato server. --> renderla configurabile
                 var docenteNome = $("#docenteNomeGetAllId").val();
                 var docenteCognome = $("#docenteCognomeGetAllId").val();
                 var dataInizio = $("#dataInizioGetAllId").val();
@@ -2185,7 +2179,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 });
             },
 
-            getAllocationsDebug:function(that) {
+            getAllocationsDebug: function (that) {
                 var res = $("#jsonGetAllocations").val();
                 return appMeta.Lezioni.manageGetAllocationsResponse(res, that);
             },
@@ -2194,7 +2188,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             /**
              * show hide the password
              */
-            showHidePassword:function(that) {
+            showHidePassword: function (that) {
                 that.isPwdToShow = !that.isPwdToShow;
                 var type = that.isPwdToShow ? 'text' : 'password';
                 var iconRemove = that.isPwdToShow ? 'fa-eye' : 'fa-eye-slash';
@@ -2204,7 +2198,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 $('#pwddb').attr('type', type);
             },
 
-            setPageTitle:function() {
+            setPageTitle: function () {
                 this.showAllTbas();
                 this.setTitle(this.getName());
             },
@@ -2213,12 +2207,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              * ritorna true se il check sulla ripetizione password è corretto
              * @returns {boolean}
              */
-            isValidPassword:function() {
+            isValidPassword: function () {
                 if (($("#pwdeasy").val() !== $("#rpassword").val()) ||
                     ($("#passwordweb").val() !== $("#rpasswordweb").val())) {
                     return false;
                 }
                 return true;
+            },
+
+
+            createExec: function (that) {
+
             },
 
             /**
@@ -2238,7 +2237,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         });
                 }
 
-                var waitingHandler = that.showWaitingIndicator("Attendi registrazione utente" );
+                var waitingHandler = that.showWaitingIndicator("Attendi registrazione utente");
                 appMeta.callWebService("adminregisteruser",
                     {
                         login: $("#uname").val(),
@@ -2250,18 +2249,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         email: $("#email").val(),
                         codeflowchart: $("#codeflowchart").val(),
                         esercizio: $("#esercizio").val(),
-                        usertype : $("#usertype").val(),
-                        matricola : $("#matricola").val(),
-                        userkind : 3
+                        usertype: $("#usertype").val(),
+                        matricola: $("#matricola").val(),
+                        userkind: $("#userKindsel").val()
                     })
-                    .then(function(res) {
-                        var err  = res.err;
+                    .then(function (res) {
+                        var err = res.err;
                         var msg = res.msg;
                         that.hideWaitingIndicator(waitingHandler);
                         that.showMessageOk(msg)
                             .then(function () {
                                 def.resolve();
-                        });
+                            });
                     });
 
                 return def.promise();
@@ -2269,12 +2268,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             codificaPwdDb: function (that) {
                 var def = appMeta.Deferred("admin-codificaPwdDb");
-                var waitingHandler = that.showWaitingIndicator("Attendi mentre codifico i parametri di sistema" );
+                var waitingHandler = that.showWaitingIndicator("Attendi mentre codifico i parametri di sistema");
                 appMeta.callWebService("cryptSystemConfig",
                     {
                         password: $("#pwddb").val(),
                     })
-                    .then(function(res) {
+                    .then(function (res) {
                         that.hideWaitingIndicator(waitingHandler);
                         $("#pwdcod").val(res)
                     });
@@ -2289,9 +2288,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              */
             clearSessions: function (that) {
                 var def = appMeta.Deferred("admin-registerUser");
-                var waitingHandler = that.showWaitingIndicator("Attendi lapulizia delle sessioni utente" );
+                var waitingHandler = that.showWaitingIndicator("Attendi lapulizia delle sessioni utente");
                 appMeta.callWebService("clearSessions", {})
-                    .then(function() {
+                    .then(function () {
                         that.hideWaitingIndicator(waitingHandler);
                         def.resolve();
                     });
@@ -2305,9 +2304,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              */
             clearServerCache: function (that) {
                 var def = appMeta.Deferred("admin-registerUser");
-                var waitingHandler = that.showWaitingIndicator("Attendi registrazione utente" );
+                var waitingHandler = that.showWaitingIndicator("Attendi registrazione utente");
                 appMeta.callWebService("clearCache", {})
-                    .then(function() {
+                    .then(function () {
                         that.hideWaitingIndicator(waitingHandler);
                         def.resolve();
                     });
@@ -2337,8 +2336,89 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     }, function (err) {
                         that.hideWaitingIndicator(waitingHandler);
                     })
-            }
+            },
 
+            getTimbrature: function (that) {
+                let formatDate = function (date) { // Torna la data nel formato AAAAmmdd
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+
+                    return [year, month, day].join('');
+                }
+
+                let matricole = $("#matricolaTimbrature").val(),
+                    dataInizio = formatDate($("#alt_dataInizioTimbrature").val()),
+                    dataFine = formatDate($("#alt_dataFineTimbrature").val());
+
+                let waitingHandler = that.showWaitingIndicator('attendi chiamata servizio');
+
+                console.log({
+                    matricole: matricole,
+                    dataInizio: dataInizio,
+                    dataFine: dataFine
+                });
+
+                appMeta.callWebService("getTimbrature", {
+                    matricola: matricole,
+                    dateFrom: dataInizio,
+                    dateTo: dataFine
+                }).then(function (res) {
+                    that.hideWaitingIndicator(waitingHandler);
+
+                    if (res == "OK")
+                        return alert("Dati salvati correttamente");
+                    else {
+                        console.error(res);
+                        return alert("Attenzione! Si è verificato un errore");
+                    }
+                });
+            },
+
+            getCostoOrario: function (that) {
+                let formatDate = function (date) { // Torna la data nel formato dd/mm/yyyy
+                    if (!date)
+                        return '';
+
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+                    if (isNaN(day) || isNaN(month) || isNaN(year))
+                        return '';
+
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+
+                    return [day, month, year].join('/');
+                }
+
+                let matricole = $("#matricolaWsCostoOrario").val(),
+                    dataElaborazione = formatDate($("#alt_dataInizioCostoOrario").val()),
+                    dataStopCostoOrario = formatDate($("#alt_dataFineCostoOrario").val());
+
+                let waitingHandler = that.showWaitingIndicator('attendi chiamata servizio');
+
+                appMeta.callWebService("getCostoOrario", {
+                    matricola: matricole,
+                    dataElab: dataElaborazione,
+                    dataStop: dataStopCostoOrario
+                }).then(function (res) {
+                    that.hideWaitingIndicator(waitingHandler);
+
+                    console.warn("response:\n\n" + res);
+                    if (res == "OK")
+                        return alert("Dati salvati correttamente");
+                    else {
+                        console.error(res);
+                        return alert("Attenzione! Si è verificato un errore\n\n" + res);
+                    }
+                });
+            }
             //buttons
         });
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,6 +19,7 @@ using metadatalibrary;
 using metaeasylibrary;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -74,7 +75,7 @@ namespace Backend.CommonBackend
             // ripulisco lastError e seguendo la lettura. poichè essa stessa esegue reset.
             var lastError = eda.LastError;
             locked = false;
-		}
+        }
 
 		/// <summary>
 		/// Elimino dal pool di connessioni
@@ -128,31 +129,34 @@ namespace Backend.CommonBackend
 			error = null;
 			detail = null;
 
-			// SE NON ESISTE LA CHIAVE
-			if (!EasyDataAccessDict.ContainsKey(conn_key))
-			{
-				// CREO UNA NUOVA CONNESSIONE CHE E' LA PRIMA DEL POOL DI QUELLA CHIAVE/TUPLA
-				EasyConn ec = new EasyConn(DNS, Server, Database, User, Password, Dipartimento, Esercizio, DataContabile, out error, out detail);
-				EasyDataAccessDict[conn_key] = new List<EasyConn>();
-				EasyDataAccessDict[conn_key].Add(ec);
-				return ec;
-			}
-			else
-			{
-				// ALTRIMENTI ALL'INTERNO DI QUEL POOL CERCO UNA CONNESSIONE LIBERA CON QUELLA TUPLA, e che non abbia errori di apertura appesi
-				EasyConn ec = EasyDataAccessDict[conn_key].Where(w => (w.locked == false && (w.eda != null && !w.eda.openError))).FirstOrDefault();
-                // se ho problemi di apertura, perchè rimane appeso qualcosa non la considero
-				if (ec == null)
-				{
-					// SE NESSUNA CONNESSIONE E' LIBERA (SONO TUTTE LOCKED) NE CREO UN'ALTRA LIBERA
-					// IN QUEL POOL (CARATTERIZZATO DA CONNESSIONI TUTTE ALLO STESSO Server/DB/Dip
-					ec = new EasyConn(DNS, Server, Database, User, Password, Dipartimento, Esercizio, DataContabile, out error, out detail);
-					EasyDataAccessDict[conn_key].Add(ec);
-				}
-                // metto lock sulla connessione, perchè se esiste l'ho presa dal pool in cui era ovviamente a false
-                ec.locked = true;
-				return ec;
-			}
+                // SE NON ESISTE LA CHIAVE
+                if (!EasyDataAccessDict.ContainsKey(conn_key)) {
+                    // CREO UNA NUOVA CONNESSIONE CHE E' LA PRIMA DEL POOL DI QUELLA CHIAVE/TUPLA
+                    EasyConn ec = new EasyConn(DNS, Server, Database, User, Password, Dipartimento, Esercizio, DataContabile, out error, out detail);
+                    EasyDataAccessDict[conn_key] = new List<EasyConn>();
+                    EasyDataAccessDict[conn_key].Add(ec);
+                    return ec;
+                }
+                else {
+
+                     lock (EasyDataAccessDict) {
+                        // ALTRIMENTI ALL'INTERNO DI QUEL POOL CERCO UNA CONNESSIONE LIBERA CON QUELLA TUPLA, e che non abbia errori di apertura appesi
+                        EasyConn ec = EasyDataAccessDict[conn_key].Where(w => (w.locked == false && (w.eda != null && !w.eda.openError))).FirstOrDefault();
+
+                            if (ec == null) {
+                                // SE NESSUNA CONNESSIONE E' LIBERA (SONO TUTTE LOCKED) NE CREO UN'ALTRA LIBERA
+                                // IN QUEL POOL (CARATTERIZZATO DA CONNESSIONI TUTTE ALLO STESSO Server/DB/Dip
+                                ec = new EasyConn(DNS, Server, Database, User, Password, Dipartimento, Esercizio, DataContabile, out error, out detail);
+                                EasyDataAccessDict[conn_key].Add(ec);
+                            }
+                          
+                            // metto lock sulla connessione, perchè se esiste l'ho presa dal pool in cui era ovviamente a false
+                            ec.locked = true;
+                            return ec;
+                    }  
+          
+            }
+
 		}
 
         public static void createConnPool(string DNS, string Server, string Database, string User, string Password, string Dipartimento, int Esercizio, DateTime DataContabile, out string error, out string detail) {

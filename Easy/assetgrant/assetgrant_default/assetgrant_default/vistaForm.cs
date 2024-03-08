@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,30 +26,18 @@ using System.Runtime.Serialization;
 namespace assetgrant_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Finanziamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwriting 		=> Tables["underwriting"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotive 		=> Tables["accmotive"];
 
-	///<summary>
-	///Attribuzione di un contributo conto impianti ad un cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetgrant 		=> Tables["assetgrant"];
 
-	///<summary>
-	///Inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventory 		=> Tables["inventory"];
 
@@ -59,15 +47,9 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventorytreeview 		=> Tables["inventorytreeview"];
 
-	///<summary>
-	///Ente inventariale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventoryagency 		=> Tables["inventoryagency"];
 
-	///<summary>
-	///Accertamento di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable epacc 		=> Tables["epacc"];
 
@@ -190,6 +172,8 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tassetgrant.Columns.Add(C);
 	tassetgrant.Columns.Add( new DataColumn("idepacc", typeof(int)));
+	tassetgrant.Columns.Add( new DataColumn("flag_entryprofitreservedone", typeof(string)));
+	tassetgrant.Columns.Add( new DataColumn("flag_financesource", typeof(string)));
 	Tables.Add(tassetgrant);
 	tassetgrant.PrimaryKey =  new DataColumn[]{tassetgrant.Columns["idasset"], tassetgrant.Columns["idgrant"], tassetgrant.Columns["idpiece"]};
 

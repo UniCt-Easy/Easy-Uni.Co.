@@ -106,6 +106,7 @@
               <xs:element name="idepexp_pre" type="xs:int" minOccurs="0" />
               <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
               <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -270,9 +271,9 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="idepoperation" type="xs:string" />
+              <xs:element name="idepoperation" type="xs:string" minOccurs="0" />
               <xs:element name="epoperation" type="xs:string" minOccurs="0" />
-              <xs:element name="in_use" type="xs:string" minOccurs="0" />
+              <xs:element name="in_use" type="xs:string" />
               <xs:element name="expensekind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -603,6 +604,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="listingorder" type="xs:int" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

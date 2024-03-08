@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,6 +33,7 @@ BEGIN
 	DECLARE @idreg int
 	DECLARE @idregistrylegalstatus int
 	DECLARE @idposition int
+	DECLARE @livello int
 	DECLARE	@incomeclass int
 	DECLARE @foreigngroupnumber int
 	
@@ -40,14 +41,15 @@ BEGIN
 	where  iditineration = @iditineration
 	
  	
-	select @incomeclass=incomeclass ,@idposition=idposition from registrylegalstatus 
+	select @incomeclass=incomeclass ,@idposition=idposition, @livello = livello from registrylegalstatus 
 	where  idreg=@idreg and idregistrylegalstatus=@idregistrylegalstatus 
 	
-
+	
 	select top 1 @foreigngroupnumber=foreigngroupnumber from foreigngroupruledetail 
 	join foreigngrouprule on (foreigngrouprule.idforeigngrouprule=foreigngroupruledetail.idforeigngrouprule) 
 	where ((@incomeclass between minincomeclass and maxincomeclass) OR (maxincomeclass=0))
 	and idposition=@idposition
+	and (livello=@livello or @livello is null)
 	order by foreigngrouprule.start desc
 	
 	print @idregistrylegalstatus

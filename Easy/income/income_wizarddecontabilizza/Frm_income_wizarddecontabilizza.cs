@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,12 +30,8 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 	/// Summary description for frmEntrataWizardDecontabilizza.
 	/// </summary>
 	public class Frm_income_wizarddecontabilizza : MetaDataForm {
-		private Crownwood.Magic.Controls.TabPage tabIntro;
 		private Crownwood.Magic.Controls.TabPage tabSelect;
 		private Crownwood.Magic.Controls.TabPage tabDelete;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox txtCausale;
 		private System.Windows.Forms.TextBox txtTipoCont;
 		private System.Windows.Forms.Label label8;
@@ -189,10 +185,6 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
             this.label5 = new System.Windows.Forms.Label();
             this.lblFaseMovimento = new System.Windows.Forms.Label();
             this.cmbFaseSpesa = new System.Windows.Forms.ComboBox();
-            this.tabIntro = new Crownwood.Magic.Controls.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabDelete = new Crownwood.Magic.Controls.TabPage();
             this.label18 = new System.Windows.Forms.Label();
             this.labMSG = new System.Windows.Forms.Label();
@@ -212,7 +204,6 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
             this.groupBox1.SuspendLayout();
             this.gboxUpb.SuspendLayout();
             this.gboxMovimento.SuspendLayout();
-            this.tabIntro.SuspendLayout();
             this.tabDelete.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -235,7 +226,6 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
             this.tabController.Size = new System.Drawing.Size(704, 482);
             this.tabController.TabIndex = 0;
             this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
-            this.tabIntro,
             this.tabSelect,
             this.tabDelete});
             // 
@@ -260,7 +250,7 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
             this.tabSelect.Name = "tabSelect";
             this.tabSelect.Size = new System.Drawing.Size(704, 457);
             this.tabSelect.TabIndex = 4;
-            this.tabSelect.Title = "Pagina 2 di 3";
+            this.tabSelect.Title = "Pagina 1 di 2";
             // 
             // groupBox2
             // 
@@ -775,51 +765,6 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
             this.cmbFaseSpesa.ValueMember = "nphase";
             this.cmbFaseSpesa.SelectedIndexChanged += new System.EventHandler(this.cmbFaseSpesa_SelectedIndexChanged);
             // 
-            // tabIntro
-            // 
-            this.tabIntro.Controls.Add(this.label3);
-            this.tabIntro.Controls.Add(this.label2);
-            this.tabIntro.Controls.Add(this.label1);
-            this.tabIntro.Location = new System.Drawing.Point(0, 0);
-            this.tabIntro.Name = "tabIntro";
-            this.tabIntro.Selected = false;
-            this.tabIntro.Size = new System.Drawing.Size(704, 457);
-            this.tabIntro.TabIndex = 3;
-            this.tabIntro.Title = "Pagina 1 di 3";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.Location = new System.Drawing.Point(8, 112);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(688, 40);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "L\'unica informazione che sarà eliminata sarà il COLLEGAMENTO tra il movimento di " +
-    "entrata e il documento associato.";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.Location = new System.Drawing.Point(8, 64);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(688, 23);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Il documento in se stesso non sarà eliminato, e non sarà eliminato neanche il mov" +
-    "imento di entrata che lo contabilizza.";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(8, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(688, 40);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Questo wizard serve a rimuovere in modo guidato la contabilizzazione di un docume" +
-    "nto (documento iva).";
-            // 
             // tabDelete
             // 
             this.tabDelete.Controls.Add(this.label18);
@@ -829,7 +774,7 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
             this.tabDelete.Selected = false;
             this.tabDelete.Size = new System.Drawing.Size(704, 457);
             this.tabDelete.TabIndex = 5;
-            this.tabDelete.Title = "Pagina 3 di 3";
+            this.tabDelete.Title = "Pagina 2 di 2";
             // 
             // label18
             // 
@@ -917,7 +862,6 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
             this.gboxUpb.PerformLayout();
             this.gboxMovimento.ResumeLayout(false);
             this.gboxMovimento.PerformLayout();
-            this.tabIntro.ResumeLayout(false);
             this.tabDelete.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -968,7 +912,7 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 			if (newTab==tabController.TabPages.Count){
                  if (show(this, "Si desidera eseguire ancora la procedura ?",
                                                             "Conferma", MessageBoxButtons.YesNo) ==  DialogResult.Yes) {
-                    newTab = 1;
+                    newTab = 0;
 					selIndex = cmbFaseSpesa.SelectedIndex;
                     ResetWizard();
 				}
@@ -979,8 +923,8 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 				}
 			}
 
-            if ((oldTab == 3) && (newTab == 2)) {
-                newTab = 1;
+            if ((oldTab == 2) && (newTab == 1)) {
+                newTab = 0;
                 ResetWizard();
 			}
 
@@ -1023,13 +967,9 @@ namespace income_wizarddecontabilizza {//entratawizarddecontabilizza//
 			StandardChangeTab(+1);
 		}
 
-		bool CustomChangeTab(int oldTab, int newTab){
-			if (oldTab==0) 	{
-				return true ; // 0->1: nothing to do
-			}
-			if ((oldTab==1)&&(newTab==0))return true; //1->0:nothing to do!
-			if ((oldTab==1)&&(newTab==2))return GetMovimentoSelezionato(); 
-			if ((oldTab==2)&&(newTab==3))return doDelete(); 
+		bool CustomChangeTab(int oldTab, int newTab){			
+			if ((oldTab==0)&&(newTab==1))return GetMovimentoSelezionato(); 
+			if ((oldTab==1)&&(newTab==2))return doDelete(); 
 			return true;
 		}
 

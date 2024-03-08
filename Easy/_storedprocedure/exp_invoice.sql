@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoice]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invoice]
 GO
-
+ 
 
 SET QUOTED_IDENTIFIER ON 
 GO
@@ -34,7 +34,7 @@ CREATE  PROCEDURE exp_invoice(
 	@deferred 		char(1) --(D = Solo fatture ad iva Differita, I = solo fatture ad iva Immediata, T = Tutte)
 ) 
 AS BEGIN
--- exec exp_invoice '2015', {ts '2015-01-01 00:00:00.000'}, {ts '2015-12-31 00:00:00.000'}, null, null, 'T'
+-- exec exp_invoice '2022', {ts '2022-01-01 00:00:00.000'}, {ts '2022-12-31 00:00:00.000'}, null, null, 'T'
 
 	CREATE TABLE #invoice
 	(	
@@ -162,9 +162,9 @@ update  #invoice set   linked=isnull(taxabletotal,0)+isnull(ivatotal,0),
 			residual=0 
 		where active='N'
 
-create table #InvoiceMain(ninv	int,yinv smallint, idinvkind int, ninv_main	int,yinv_main	smallint, idinvkind_main int, invkind_main varchar(50))
-insert into #InvoiceMain(ninv, yinv, idinvkind, ninv_main, yinv_main, idinvkind_main, invkind_main)
-select ID.ninv, ID.yinv, ID.idinvkind, ID.ninv_main, ID.yinv_main, ID.idinvkind_main, IK.description
+create table #InvoiceMain(ninv	int,yinv smallint, idinvkind int, ninv_main	int,yinv_main	smallint, idinvkind_main int, rownum_main int, invkind_main varchar(50))
+insert into #InvoiceMain(ninv, yinv, idinvkind, ninv_main, yinv_main, idinvkind_main, rownum_main, invkind_main)
+select ID.ninv, ID.yinv, ID.idinvkind, ID.ninv_main, ID.yinv_main, ID.idinvkind_main, ID.rownum_main, IK.description
 from invoicedetail ID
 JOIN 	#invoice I
 	ON ID.idinvkind = I.idinvkind
@@ -172,7 +172,7 @@ JOIN 	#invoice I
 	AND ID.ninv = I.ninv  
 join invoicekind IK
 	on ID.idinvkind_main = IK.idinvkind
-group by ID.ninv, ID.yinv, ID.idinvkind, ID.ninv_main, ID.yinv_main, ID.idinvkind_main, IK.description
+group by ID.ninv, ID.yinv, ID.idinvkind, ID.ninv_main, ID.yinv_main, ID.idinvkind_main, ID.rownum_main, IK.description
 
 DECLARE @ninv01	int
 declare @yinv01 smallint
@@ -180,24 +180,26 @@ declare @idinvkind01 int
 DECLARE @ninv01_main	int
 declare @yinv01_main smallint
 declare @idinvkind01_main int
+declare @rownum01_main int
 declare @invkind01_main varchar(50)
 
 DECLARE cursore CURSOR FORWARD_ONLY for 
-	SELECT ninv, yinv, idinvkind, ninv_main, yinv_main, idinvkind_main, invkind_main
+	SELECT ninv, yinv, idinvkind, ninv_main, yinv_main, idinvkind_main, rownum_main, invkind_main
 	FROM #InvoiceMain
 	where yinv_main is not null
-	order by ninv, yinv, idinvkind
+	order by ninv, yinv, idinvkind, rownum_main
 		OPEN cursore
 	FETCH NEXT FROM cursore 
-	INTO @ninv01, @yinv01, @idinvkind01, @ninv01_main, @yinv01_main, @idinvkind01_main, @invkind01_main
+	INTO @ninv01, @yinv01, @idinvkind01, @ninv01_main, @yinv01_main, @idinvkind01_main, @rownum01_main, @invkind01_main
  
 	WHILE (@@fetch_status=0) BEGIN
 	
 	UPDATE 	#invoice set
-	  invoice_main = isnull(invoice_main,'') + @invkind01_main +  ' N.'+isnull(convert(varchar(10),@ninv01_main),'') +  ' Eserc.'+ isnull(convert(varchar(10),@yinv01_main),'')+'. '
+	  invoice_main = substring( @invkind01_main +  ' N.'+isnull(convert(varchar(10),@ninv01_main),'') +  ' Eserc.'+ isnull(convert(varchar(10),@yinv01_main),'')+ 
+	  ' Riga n.' + isnull(convert(varchar(10), @rownum01_main), '') + ' ' + isnull(invoice_main,'') + '.',1,800 )
 	 WHERE ninv = @ninv01 and yinv = @yinv01 and idinvkind = @idinvkind01
 		FETCH NEXT FROM cursore 
-		INTO @ninv01, @yinv01, @idinvkind01, @ninv01_main, @yinv01_main,@idinvkind01_main, @invkind01_main
+		INTO @ninv01, @yinv01, @idinvkind01, @ninv01_main, @yinv01_main,@idinvkind01_main, @rownum01_main, @invkind01_main
 	END
 CLOSE cursore
 

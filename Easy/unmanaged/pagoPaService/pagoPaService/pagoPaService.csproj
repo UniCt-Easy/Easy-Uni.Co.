@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="funzioni_configurazione">
+      <HintPath>..\..\..\output\funzioni_configurazione.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\..\dll\metadatalibrary.dll</HintPath>
       <Private>True</Private>
@@ -38,20 +41,17 @@
       <HintPath>..\..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="funzioni_configurazione">
-      <HintPath>..\..\..\dll\funzioni_configurazione.dll</HintPath>
-    </Reference>
     <Reference Include="meta_flussocrediti">
-      <HintPath>..\..\..\dll\meta_flussocrediti.dll</HintPath>
+      <HintPath>..\..\..\flussocrediti\meta_flussocrediti\bin\Debug\meta_flussocrediti.dll</HintPath>
     </Reference>
     <Reference Include="meta_flussocreditidetail">
-      <HintPath>..\..\..\dll\meta_flussocreditidetail.dll</HintPath>
+      <HintPath>..\..\..\flussocreditidetail\meta_flussocreditidetail\bin\Debug\meta_flussocreditidetail.dll</HintPath>
     </Reference>
     <Reference Include="meta_flussoincassi">
-      <HintPath>..\..\..\dll\meta_flussoincassi.dll</HintPath>
+      <HintPath>..\..\..\flussoincassi\meta_flussoincassi\bin\Debug\meta_flussoincassi.dll</HintPath>
     </Reference>
     <Reference Include="meta_flussoincassidetail">
-      <HintPath>..\..\..\dll\meta_flussoincassidetail.dll</HintPath>
+      <HintPath>..\..\..\flussoincassidetail\meta_flussoincassidetail\bin\Debug\meta_flussoincassidetail.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\dll\Newtonsoft.Json.dll</HintPath>

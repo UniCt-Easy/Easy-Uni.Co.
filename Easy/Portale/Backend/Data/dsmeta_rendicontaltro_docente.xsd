@@ -8,6 +8,14 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idrendicontaltrokind" type="xs:int" />
+              <xs:element name="rendicontaltrokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="rendicontaltrokind_ct" type="xs:dateTime" />
+              <xs:element name="rendicontaltrokind_cu" type="xs:string" />
+              <xs:element name="rendicontaltrokind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="rendicontaltrokind_lt" type="xs:dateTime" />
+              <xs:element name="rendicontaltrokind_lu" type="xs:string" />
+              <xs:element name="rendicontaltrokind_sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

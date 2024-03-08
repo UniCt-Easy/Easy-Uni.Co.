@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -69,6 +52,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				
 				this.calculateRisultatoPerc();
 				this.manageperfprogetto_default_risultato();
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#perfprogetto_default_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#perfprogetto_default_idstruttura'), this.q.eq('struttura_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#perfprogetto_default_idreg_respprogetto'), null);
+				} else {
+					this.helpForm.filter($('#perfprogetto_default_idreg_respprogetto'), this.q.eq('registry_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -89,15 +82,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettocosto'), this.getDataTable('getcostoview'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettocosto'), this.getDataTable('perfprogettocostobudgetview'));
+				//parte sincrona
+				this.helpForm.filter($('#perfprogetto_default_idstruttura'), null);
+				this.enableControl($('#perfprogetto_default_risultato'), true);
+				this.helpForm.filter($('#perfprogetto_default_idreg_respprogetto'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
 				this.enableControl($('#perfprogetto_default_risultato'), false);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettocosto'), this.getDataTable('getcostoview'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettocosto'), this.getDataTable('perfprogettocostobudgetview'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
@@ -105,6 +100,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			afterLink: function () {
 				var self = this;
 				this.setDenyNull("perfprogetto","idstruttura");
+				appMeta.metaModel.insertFilter(this.getDataTable("perfprogettostatusdefaultview"), this.q.eq('perfprogettostatus_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("didprogsuddannokinddefaultview"), this.q.eq('didprogsuddannokind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -124,228 +121,208 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			beforePost: function () {
 				var self = this;
-				this.getDataTable('getcostoview').acceptChanges();
-				this.getDataTable('perfprogettocostobudgetview').acceptChanges();
+				this.getDataTable('perfprogettoaccountprevisionview').acceptChanges();
 				//innerBeforePost
 			},
 
 			stateValue: null,
-afterPost: function () {
+            afterPost: function () {
 
-				if (!this.state.currentRow.getRow) {
-					return;
-				}
-				if (this.stateValue == this.state.currentRow.idperfprogettostatus || !this.state.currentRow.idperfprogettostatus)
-					return;
+                // Ã¨ stato cliccato annulla o elimina non invio mail
+                if (!this.state.currentRow.getRow) {
+                    return;
+                }
+                //lo stato Ã¨ rimasto lo stesso, o non viene inizialmente inserito, non invio mail
+                if (this.stateValue == this.state.currentRow.idperfprogettostatus || !this.state.currentRow.idperfprogettostatus)
+                    return;
 
-				var self = this;
-				var destinatari = [];
-				var destinatariDbRow = [];
-				var invio = false;
-				var exit = false;
-				var ruoloLoggato;
-				var titleLoggato;
-				var titleStruttura;
-				var strutturaRows;
-				var def = appMeta.Deferred("afterPost");
-				var parentRow = self.state.currentRow;
-				var waitingHandler = self.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+                var self = this;
+                var destinatari = [];
+                var destinatariDbRow = [];
+                var invio = false;
+                var exit = false;
+                var ruoloLoggato;
+                var titleLoggato;
+                var titleStruttura;
+                var strutturaRows;
+                var def = appMeta.Deferred("afterPost");
+                var parentRow = self.state.currentRow;
+                var waitingHandler = self.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
 
-				var filter = this.q.eq("idperfprogetto", parentRow.idperfprogetto);
-				var selBuilderArray = [];
+                var filter = this.q.eq("idperfprogetto", parentRow.idperfprogetto);
+                var selBuilderArray = [];
 
-
-
-
-				// è stato cliccato annulla o elimina non invio mail
-				if (!self.state.currentRow.getRow) {
-					exit = true;
-					return def.resolve();
-				}
-
-				//lo stato è rimasto lo stesso, o non viene inizialmente inserito, non invio mail
-				if (self.stateValue == self.state.currentRow.idperfprogettostatus || !self.state.currentRow.idperfprogettostatus) {
-					exit = true;
-					return def.resolve();
-				}
-
-				//verifico se deve essere inviata una mail
-
-				var filterStruttura = self.q.eq('idstruttura', self.state.currentRow.idstruttura);
-				var filterIdReg = self.q.eq('idreg', self.sec.usr('idreg'));
-
-				var filterAll = self.q.and(filterStruttura, filterIdReg);
+                //inserisco il precendete stato nello storico
+                var meta = appMeta.getMeta("perfprogettostatuschanges");
+                var dataSetTable = self.state.DS.tables["perfprogettostatuschanges"];
+                meta.setDefaults(dataSetTable);
 
 
-				
-				if (self.state.currentRow.datainizioeffettiva) {
-					var filterDa = self.q.lt('strutturaresponsabile_start', self.state.currentRow.datainizioeffettiva);
-					filterAll = self.q.and(filterAll, filterDa);
-				}
+                meta.getNewRow(null, dataSetTable).then(function (row) {
+                    if (!row) {
+                        return def.resolve();
+                    }
+                    row.current.idperfprogettostatus = self.state.currentRow.idperfprogettostatus;
+                    row.current.changedate = new Date();
+                    row.current.changeuser = self.sec.usr('userweb');
+                    row.current.idperfprogetto = self.state.currentRow.idperfprogetto;
+                    
+                    return def.resolve();
 
-				//Domande
-				//se non ci sono date, che date prendiamo in considerazione per verificare il responsabile della struttura?
-				//se viene salvato più volte lo stato, dobbiamo tener conto dell'ultimo stato salvato o del primo?
+                });
+               
+                //verifico se deve essere inviata una mail
 
-				if (self.state.currentRow.datafineeffettiva) {
+                var filterStruttura = self.q.eq('idstruttura', self.state.currentRow.idstruttura);
+                var filterIdReg = self.q.eq('idreg', self.sec.usr('idreg'));
 
-					var filterA = self.q.gt('strutturaresponsabile_stop', self.state.currentRow.datafineeffettiva);
-					filterAll = self.q.and(filterAll, filterA);
-
-				}
+                var filterAll = self.q.and(filterStruttura, filterIdReg);
 
 
 
-				/*
-				if (!self.state.currentRow.datainizioeffettiva) {
-					var startdA = new Date();
-					startdA.setMonth(11);
-					startdA.setDate(31);
+                if (self.state.currentRow.datainizioeffettiva) {
+                    var filterDa = self.q.lt('start', self.state.currentRow.datainizioeffettiva);
+                    filterAll = self.q.and(filterAll, filterDa);
+                }
 
-					startdA.setFullYear(startA.getFullYear() - 1);
-					filterDa = self.q.lt('strutturaresponsabile_start', startdA);
-				}
+                //Domande
+                //se non ci sono date, che date prendiamo in considerazione per verificare il responsabile della struttura?
+                //se viene salvato piÃ¹ volte lo stato, dobbiamo tener conto dell'ultimo stato salvato o del primo?
 
-				var filterDaNull = self.q.isNull('strutturaresponsabile_start');
-				var filterOrDa = self.q.or(filterDa, filterDaNull);
+                if (self.state.currentRow.datafineeffettiva) {
 
+                    var filterA = self.q.gt('stop', self.state.currentRow.datafineeffettiva);
+                    filterAll = self.q.and(filterAll, filterA);
 
-				var filterA = self.q.gt('strutturaresponsabile_stop', self.state.currentRow.datafineeffettiva);
-				if (!self.state.currentRow.datafineeffettiva) {
-					var startA = new Date();
-					startA.setMonth(0);
-					startA.setDate(1);
-					startA.setFullYear(startA.getFullYear() + 1);
-					filterA = self.q.gt('strutturaresponsabile_stop', startA);
-				}
+                }
 
+                
 
-				var filterANull = self.q.isNull('strutturaresponsabile_stop');
+                return appMeta.getData.runSelect("strutturaparentresponsabiliafferenzaview", "idperfruolo,registry_title,title,idreg", filterAll)
 
-				var filterOrA = self.q.or(filterA, filterANull);
-
-				*/
-
-				return appMeta.getData.runSelect("strutturaparentresponsabiliafferenzaview", "idperfruolo,registry_title,title,idreg", filterAll)
-
-					.then(function (dtStruttura) {
-						if (exit == true || (typeof(exit)  === 'string' &&  exit.trim()))
-							return;
-						if (!dtStruttura || !dtStruttura.rows || dtStruttura.rows.length == 0) {
-							exit = "Non sono stati individuati destinatari a cui inviare la notifica";
-							return;
-
-							
-						}
-						strutturaRows = dtStruttura.rows;
+                    .then(function (dtStruttura) {
+                        if (exit == true || (typeof(exit) === 'string' && exit.trim()))
+                            return;
+                        if (!dtStruttura || !dtStruttura.rows || dtStruttura.rows.length == 0) {
+                            exit = "Non sono stati individuati destinatari a cui inviare la notifica";
+                            return;
 
 
-						ruoloLoggato = strutturaRows[0].idperfruolo;
-						titleLoggato = strutturaRows[0].registry_title;
-						titleStruttura = strutturaRows[0].title;
+                        }
+                        strutturaRows = dtStruttura.rows;
 
 
-						//vecchio stato scheda
-						var filterStato = self.q.eq('idperfprogettostatus', self.stateValue);
-						//se è il primo stato che viene salvato alla scheda setto lo stato attuale come quello di partenza
-						if (!self.stateValue) {
-							filterStato = self.q.isNull(self.state.currentRow.idperfprogettostatus);
-						}
-
-						//nuovo stato scheda
-						var filterStatoTo = self.q.eq('idperfprogettostatus_to', self.state.currentRow.idperfprogettostatus);
+                        ruoloLoggato = strutturaRows[0].idperfruolo;
+                        titleLoggato = strutturaRows[0].registry_title;
+                        titleStruttura = strutturaRows[0].title;
 
 
-						var filterRuolo = self.q.eq('idperfruolo', ruoloLoggato);
-						var filterAll = self.q.and(filterStato, filterStatoTo, filterRuolo);
+                        //vecchio stato scheda
+                        var filterStato = self.q.eq('idperfprogettostatus', self.stateValue);
+                        //se Ã¨ il primo stato che viene salvato alla scheda setto lo stato attuale come quello di partenza
+                        if (!self.stateValue) {
+                            filterStato = self.q.isNull(self.state.currentRow.idperfprogettostatus);
+                        }
 
-						//recupero i cambi stato /ruoli a cui devo inviare la mail
-						return appMeta.getData.runSelect("perfprogettocambiostato", "*", filterAll)
-					})
-					.then(function (dtCambiostato) {
-						if (exit == true || (typeof (exit) === 'string' && exit.trim()))
-							return;
-						//Non ci sono ruoli a cui devo inviare mail esco
-						if (!dtCambiostato || !dtCambiostato.rows|| dtCambiostato.rows.length == 0 || !dtCambiostato.rows[0].idperfruolo_mail) {
-							exit=true;
-							return;
-						}
-						self.stateValue = self.state.currentRow.idperfprogettostatus;
-						self.hideWaitingIndicator(waitingHandler);
-						waitingHandler = self.showWaitingIndicator('Invio mail');
-						invio = true;
-
-						_.forEach(dtCambiostato.rows, function (cambioStatoRow) {
-
-							_.forEach(strutturaRows, function (row) {
-								if (cambioStatoRow.idperfruolo_mail == row.idperfruolo) {
-									destinatari.push(row);
-									return false;
-								}
-							});
-						}
-						);
-
-						var arrayDest = [];
-						_.map(destinatari, function (row) { return arrayDest.push(row.idreg); });
-						//Recupero i dati della persona a cui inviare la mail
-						return self.superClass.getRegistryreference(arrayDest)
-					})
-
-					.then(function (dtRows) {
-						if (exit == true || (typeof(exit) === 'string' && exit.trim()))
-							return;
-						if (!dtRows || dtRows.length == 0) {
-							exit = "Non sono stati individuati destinatari a cui inviare la notifica";
-							return;
-						}
-
-						destinatariDbRow = dtRows;
-
-						var filterStato = self.q.eq("idperfprogettostatus", self.state.currentRow.idperfprogettostatus);
-
-						//recupero i cambi stato/ruoli a cui devo inviare la mail
-						return appMeta.getData.runSelect("perfprogettostatus", "*", filterStato)
-					}).then(function (dtStato) {
-						if (exit == true || (typeof(exit) === 'string' && exit.trim()))
-							return;
-						if (!dtStato || !dtStato.rows || dtStato.rows.length == 0) {
-							exit = "Lo stato selezionato non è riconosciuto";
-							return;
-						}
-						var arrayDef = [];
-						var body;
+                        //nuovo stato scheda
+                        var filterStatoTo = self.q.eq('idperfprogettostatus_to', self.state.currentRow.idperfprogettostatus);
 
 
-						_.forEach(destinatariDbRow, function (row) {
-							body = "Gentile " + row.email + ",</br>";
-							var subject = "Modifica stato progetto " + titleStruttura;
-							body += "l'utente \"" + titleLoggato + "\" ha modificato lo stato del progetto in oggetto, in  \"" + dtStato.rows[0].title + "\".";
-							arrayDef.push(self.superClass.sendMail({ emailDest: row.email, body: body, subject: subject, viewMessage: false }));
-						});
+                        var filterRuolo = self.q.eq('idperfruolo', ruoloLoggato);
+                        var filterAll = self.q.and(filterStato, filterStatoTo, filterRuolo);
 
-						return $.when.apply($, arrayDef);
-					})
-					.then(function () {
-						self.hideWaitingIndicator(waitingHandler);
+                        //recupero i cambi stato /ruoli a cui devo inviare la mail
+                        return appMeta.getData.runSelect("perfprogettocambiostatoruolimailview", "*", filterAll)
+                    })
+                    .then(function (dtCambiostato) {
+                        if (exit == true || (typeof (exit) === 'string' && exit.trim()))
+                            return;
+                        //Non ci sono ruoli a cui devo inviare mail esco
+                        if (!dtCambiostato || !dtCambiostato.rows || dtCambiostato.rows.length == 0 || !dtCambiostato.rows[0].idperfruolo_mail) {
+                            exit = true;
+                            return;
+                        }
+                        self.hideWaitingIndicator(waitingHandler);
+                        waitingHandler = self.showWaitingIndicator('Invio mail');
+                        invio = true;
 
-						if (exit == true) {
-							return def.resolve();
-						}
-						if (typeof(exit) === 'string' && exit.trim()) {
-							return def.from(self.showMessageOk(exit));
-						}
-						if (invio) {
+                        _.forEach(dtCambiostato.rows, function (cambioStatoRow) {
 
-							return def.from(self.showMessageOk('Invio mail avvenuto con successo'));
-						}
-						return def.resolve();
-					});
+                            _.forEach(strutturaRows, function (row) {
+                                if (cambioStatoRow.idperfruolo_mail == row.idperfruolo) {
+                                    destinatari.push(row);
+                                    return false;
+                                }
+                            });
+                        }
+                        );
 
-				def.promise();
+                        var arrayDest = [];
+                        _.map(destinatari, function (row) { return arrayDest.push(row.idreg); });
+                        //Recupero i dati della persona a cui inviare la mail
+                        return self.superClass.getRegistryreference(arrayDest)
+                    })
+
+                    .then(function (dtRows) {
+                        if (exit == true || (typeof(exit) === 'string' && exit.trim()))
+                            return;
+                        if (!dtRows || dtRows.length == 0) {
+                            exit = "Non sono stati individuati destinatari a cui inviare la notifica";
+                            return;
+                        }
+
+                        destinatariDbRow = dtRows;
+
+                        var filterStato = self.q.eq("idperfprogettostatus", self.state.currentRow.idperfprogettostatus);
+
+                        //recupero i cambi stato/ruoli a cui devo inviare la mail
+                        return appMeta.getData.runSelect("perfprogettostatus", "*", filterStato)
+                    }).then(function (dtStato) {
+                        if (exit == true || (typeof(exit) === 'string' && exit.trim()))
+                            return;
+                        if (!dtStato || !dtStato.rows || dtStato.rows.length == 0) {
+                            exit = "Lo stato selezionato non Ã¨ riconosciuto";
+                            return;
+                        }
+                        var arrayDef = [];
+                        var body;
+
+
+                        _.forEach(destinatariDbRow, function (row) {
+                            body = "Gentile " + row.email + ",</br>";
+                            var subject = "Modifica stato del progetto " + titleStruttura;
+                            body += "l'utente \"" + titleLoggato + "\" ha modificato lo stato del progetto in oggetto, in  \"" + dtStato.rows[0].title + "\".";
+                            arrayDef.push(self.superClass.sendMail({ emailDest: row.email, body: body, subject: subject, viewMessage: false }));
+                        });
+
+                        return $.when.apply($, arrayDef);
+                    })
+                    .then(function() {
+                        self.stateValue = self.state.currentRow.idperfprogettostatus;
+                        return self.cmdMainSave();
+                    })
+                    .then(function () {
+                        self.hideWaitingIndicator(waitingHandler);
+
+                        if (exit == true) {
+                            return def.resolve();
+                        }
+                        if (typeof(exit) === 'string' && exit.trim()) {
+                            return def.from(self.showMessageOk(exit));
+                        }
+                        if (invio) {
+
+                            return def.from(self.showMessageOk('Invio mail avvenuto con successo'));
+                        }
+                        return def.resolve();
+                    });
+               
+
+                def.promise();
 			},
-manageperfprogettouo: function () {
-	var self = this;
+			
+			manageperfprogettouo: function () {
+	            var self = this;
 				var getregistrydocentiamministrativifilter = self.q.isIn("idreg", _.map(self.getDataTable("perfprogettouomembro").rows, function (r) { return r.idreg; }));
 				var def = appMeta.Deferred("manageperfprogettouo_default_struttura");
 				var perfprogettouo = self.getDataTable("perfprogettouo");
@@ -375,8 +352,9 @@ manageperfprogettouo: function () {
 
 					});
 				return def.promise();
-         },
-calculateRisultatoPerc: function () {
+			},
+
+			calculateRisultatoPerc: function () {
 					if (this.state.currentRow) {
 					var arrayRisultato = [];
 					var pa = this.getDataTable("perfprogettoobiettivo");
@@ -389,10 +367,11 @@ calculateRisultatoPerc: function () {
 						this.state.currentRow.risultato = average;
 				}
 			},
-rowSelected: function()
-{
-this.stateValue = $('#perfprogetto_default_idperfprogettostatus').val();
-},
+			
+			rowSelected: function()
+			{
+				this.stateValue = this.state.currentRow.idperfprogettostatus;
+			},
 
 			manageperfprogetto_default_risultato: function () {
 //calcolo del completamento

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -28,37 +28,28 @@ public class paydispositiondetailRow: MetaRow  {
 	public paydispositiondetailRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	///<summary>
-	///N. Disposizione
-	///</summary>
-	public Int32? idpaydisposition{ 
-		get {if (this["idpaydisposition"]==DBNull.Value)return null; return  (Int32?)this["idpaydisposition"];}
-		set {if (value==null) this["idpaydisposition"]= DBNull.Value; else this["idpaydisposition"]= value;}
+	public Int32 idpaydisposition{ 
+		get {return  (Int32)this["idpaydisposition"];}
+		set {this["idpaydisposition"]= value;}
 	}
 	public object idpaydispositionValue { 
 		get{ return this["idpaydisposition"];}
-		set {if (value==null|| value==DBNull.Value) this["idpaydisposition"]= DBNull.Value; else this["idpaydisposition"]= value;}
+		set {this["idpaydisposition"]= value;}
 	}
-	public Int32? idpaydispositionOriginal { 
-		get {if (this["idpaydisposition",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idpaydisposition",DataRowVersion.Original];}
+	public Int32 idpaydispositionOriginal { 
+		get {return  (Int32)this["idpaydisposition",DataRowVersion.Original];}
 	}
-	///<summary>
-	///n. dettaglio
-	///</summary>
-	public Int32? iddetail{ 
-		get {if (this["iddetail"]==DBNull.Value)return null; return  (Int32?)this["iddetail"];}
-		set {if (value==null) this["iddetail"]= DBNull.Value; else this["iddetail"]= value;}
+	public Int32 iddetail{ 
+		get {return  (Int32)this["iddetail"];}
+		set {this["iddetail"]= value;}
 	}
 	public object iddetailValue { 
 		get{ return this["iddetail"];}
-		set {if (value==null|| value==DBNull.Value) this["iddetail"]= DBNull.Value; else this["iddetail"]= value;}
+		set {this["iddetail"]= value;}
 	}
-	public Int32? iddetailOriginal { 
-		get {if (this["iddetail",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddetail",DataRowVersion.Original];}
+	public Int32 iddetailOriginal { 
+		get {return  (Int32)this["iddetail",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Cognome
-	///</summary>
 	public String surname{ 
 		get {if (this["surname"]==DBNull.Value)return null; return  (String)this["surname"];}
 		set {if (value==null) this["surname"]= DBNull.Value; else this["surname"]= value;}
@@ -70,9 +61,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String surnameOriginal { 
 		get {if (this["surname",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["surname",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Nome
-	///</summary>
 	public String forename{ 
 		get {if (this["forename"]==DBNull.Value)return null; return  (String)this["forename"];}
 		set {if (value==null) this["forename"]= DBNull.Value; else this["forename"]= value;}
@@ -84,11 +72,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String forenameOriginal { 
 		get {if (this["forename",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["forename",DataRowVersion.Original];}
 	}
-	///<summary>
-	///genere M/F
-	///	 F: Femmina
-	///	 M: maschio
-	///</summary>
 	public String gender{ 
 		get {if (this["gender"]==DBNull.Value)return null; return  (String)this["gender"];}
 		set {if (value==null) this["gender"]= DBNull.Value; else this["gender"]= value;}
@@ -100,9 +83,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String genderOriginal { 
 		get {if (this["gender",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["gender",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data di nascita
-	///</summary>
 	public DateTime? birthdate{ 
 		get {if (this["birthdate"]==DBNull.Value)return null; return  (DateTime?)this["birthdate"];}
 		set {if (value==null) this["birthdate"]= DBNull.Value; else this["birthdate"]= value;}
@@ -114,9 +94,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public DateTime? birthdateOriginal { 
 		get {if (this["birthdate",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["birthdate",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id citt√† (tabella geo_city)
-	///</summary>
 	public Int32? idcity{ 
 		get {if (this["idcity"]==DBNull.Value)return null; return  (Int32?)this["idcity"];}
 		set {if (value==null) this["idcity"]= DBNull.Value; else this["idcity"]= value;}
@@ -128,9 +105,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public Int32? idcityOriginal { 
 		get {if (this["idcity",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcity",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Id nazione (tabella geo_nation)
-	///</summary>
 	public Int32? idnation{ 
 		get {if (this["idnation"]==DBNull.Value)return null; return  (Int32?)this["idnation"];}
 		set {if (value==null) this["idnation"]= DBNull.Value; else this["idnation"]= value;}
@@ -142,9 +116,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public Int32? idnationOriginal { 
 		get {if (this["idnation",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idnation",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice fiscale
-	///</summary>
 	public String cf{ 
 		get {if (this["cf"]==DBNull.Value)return null; return  (String)this["cf"];}
 		set {if (value==null) this["cf"]= DBNull.Value; else this["cf"]= value;}
@@ -156,9 +127,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String cfOriginal { 
 		get {if (this["cf",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cf",DataRowVersion.Original];}
 	}
-	///<summary>
-	///n. operazione
-	///</summary>
 	public String address{ 
 		get {if (this["address"]==DBNull.Value)return null; return  (String)this["address"];}
 		set {if (value==null) this["address"]= DBNull.Value; else this["address"]= value;}
@@ -170,9 +138,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String addressOriginal { 
 		get {if (this["address",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["address",DataRowVersion.Original];}
 	}
-	///<summary>
-	///ubicazione
-	///</summary>
 	public String location{ 
 		get {if (this["location"]==DBNull.Value)return null; return  (String)this["location"];}
 		set {if (value==null) this["location"]= DBNull.Value; else this["location"]= value;}
@@ -184,9 +149,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String locationOriginal { 
 		get {if (this["location",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["location",DataRowVersion.Original];}
 	}
-	///<summary>
-	///provincia
-	///</summary>
 	public String province{ 
 		get {if (this["province"]==DBNull.Value)return null; return  (String)this["province"];}
 		set {if (value==null) this["province"]= DBNull.Value; else this["province"]= value;}
@@ -198,9 +160,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String provinceOriginal { 
 		get {if (this["province",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["province",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice avv. postale
-	///</summary>
 	public String cap{ 
 		get {if (this["cap"]==DBNull.Value)return null; return  (String)this["cap"];}
 		set {if (value==null) this["cap"]= DBNull.Value; else this["cap"]= value;}
@@ -212,9 +171,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String capOriginal { 
 		get {if (this["cap",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cap",DataRowVersion.Original];}
 	}
-	///<summary>
-	///codice abi
-	///</summary>
 	public String abi{ 
 		get {if (this["abi"]==DBNull.Value)return null; return  (String)this["abi"];}
 		set {if (value==null) this["abi"]= DBNull.Value; else this["abi"]= value;}
@@ -226,9 +182,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String abiOriginal { 
 		get {if (this["abi",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["abi",DataRowVersion.Original];}
 	}
-	///<summary>
-	///codice CAB
-	///</summary>
 	public String cab{ 
 		get {if (this["cab"]==DBNull.Value)return null; return  (String)this["cab"];}
 		set {if (value==null) this["cab"]= DBNull.Value; else this["cab"]= value;}
@@ -240,9 +193,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String cabOriginal { 
 		get {if (this["cab",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cab",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Causale (descrizione)
-	///</summary>
 	public String motive{ 
 		get {if (this["motive"]==DBNull.Value)return null; return  (String)this["motive"];}
 		set {if (value==null) this["motive"]= DBNull.Value; else this["motive"]= value;}
@@ -254,9 +204,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String motiveOriginal { 
 		get {if (this["motive",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["motive",DataRowVersion.Original];}
 	}
-	///<summary>
-	///importo
-	///</summary>
 	public Decimal? amount{ 
 		get {if (this["amount"]==DBNull.Value)return null; return  (Decimal?)this["amount"];}
 		set {if (value==null) this["amount"]= DBNull.Value; else this["amount"]= value;}
@@ -268,65 +215,50 @@ public class paydispositiondetailRow: MetaRow  {
 	public Decimal? amountOriginal { 
 		get {if (this["amount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["amount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data creazione
-	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome utente creazione
-	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data ultima modifica
-	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome ultimo utente modifica
-	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Email
-	///</summary>
 	public String email{ 
 		get {if (this["email"]==DBNull.Value)return null; return  (String)this["email"];}
 		set {if (value==null) this["email"]= DBNull.Value; else this["email"]= value;}
@@ -338,9 +270,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String emailOriginal { 
 		get {if (this["email",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["email",DataRowVersion.Original];}
 	}
-	///<summary>
-	///ID Causale CBI (tabella cbimotive)
-	///</summary>
 	public Int32? idcbimotive{ 
 		get {if (this["idcbimotive"]==DBNull.Value)return null; return  (Int32?)this["idcbimotive"];}
 		set {if (value==null) this["idcbimotive"]= DBNull.Value; else this["idcbimotive"]= value;}
@@ -352,9 +281,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public Int32? idcbimotiveOriginal { 
 		get {if (this["idcbimotive",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcbimotive",DataRowVersion.Original];}
 	}
-	///<summary>
-	///conto corrente
-	///</summary>
 	public String cc{ 
 		get {if (this["cc"]==DBNull.Value)return null; return  (String)this["cc"];}
 		set {if (value==null) this["cc"]= DBNull.Value; else this["cc"]= value;}
@@ -366,9 +292,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String ccOriginal { 
 		get {if (this["cc",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cc",DataRowVersion.Original];}
 	}
-	///<summary>
-	///CIN della mod. pagamento
-	///</summary>
 	public String cin{ 
 		get {if (this["cin"]==DBNull.Value)return null; return  (String)this["cin"];}
 		set {if (value==null) this["cin"]= DBNull.Value; else this["cin"]= value;}
@@ -380,9 +303,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String cinOriginal { 
 		get {if (this["cin",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cin",DataRowVersion.Original];}
 	}
-	///<summary>
-	///IBAN
-	///</summary>
 	public String iban{ 
 		get {if (this["iban"]==DBNull.Value)return null; return  (String)this["iban"];}
 		set {if (value==null) this["iban"]= DBNull.Value; else this["iban"]= value;}
@@ -394,11 +314,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String ibanOriginal { 
 		get {if (this["iban",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["iban",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Persona fisica
-	///	 N: Non persona fisica
-	///	 S: Persona fisica
-	///</summary>
 	public String flaghuman{ 
 		get {if (this["flaghuman"]==DBNull.Value)return null; return  (String)this["flaghuman"];}
 		set {if (value==null) this["flaghuman"]= DBNull.Value; else this["flaghuman"]= value;}
@@ -410,9 +325,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String flaghumanOriginal { 
 		get {if (this["flaghuman",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flaghuman",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Denominazione
-	///</summary>
 	public String title{ 
 		get {if (this["title"]==DBNull.Value)return null; return  (String)this["title"];}
 		set {if (value==null) this["title"]= DBNull.Value; else this["title"]= value;}
@@ -424,9 +336,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String titleOriginal { 
 		get {if (this["title",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["title",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Partita IVA
-	///</summary>
 	public String p_iva{ 
 		get {if (this["p_iva"]==DBNull.Value)return null; return  (String)this["p_iva"];}
 		set {if (value==null) this["p_iva"]= DBNull.Value; else this["p_iva"]= value;}
@@ -438,9 +347,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String p_ivaOriginal { 
 		get {if (this["p_iva",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["p_iva",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Cod. Pagamento
-	///</summary>
 	public String paymentcode{ 
 		get {if (this["paymentcode"]==DBNull.Value)return null; return  (String)this["paymentcode"];}
 		set {if (value==null) this["paymentcode"]= DBNull.Value; else this["paymentcode"]= value;}
@@ -452,9 +358,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String paymentcodeOriginal { 
 		get {if (this["paymentcode",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["paymentcode",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Codice Pagamento
-	///</summary>
 	public Int32? paymethodcode{ 
 		get {if (this["paymethodcode"]==DBNull.Value)return null; return  (Int32?)this["paymethodcode"];}
 		set {if (value==null) this["paymethodcode"]= DBNull.Value; else this["paymethodcode"]= value;}
@@ -466,9 +369,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public Int32? paymethodcodeOriginal { 
 		get {if (this["paymethodcode",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["paymethodcode",DataRowVersion.Original];}
 	}
-	///<summary>
-	///anno accademico a cui si riferiscono le spese
-	///</summary>
 	public Int32? academicyear{ 
 		get {if (this["academicyear"]==DBNull.Value)return null; return  (Int32?)this["academicyear"];}
 		set {if (value==null) this["academicyear"]= DBNull.Value; else this["academicyear"]= value;}
@@ -480,17 +380,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public Int32? academicyearOriginal { 
 		get {if (this["academicyear",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["academicyear",DataRowVersion.Original];}
 	}
-	///<summary>
-	///tipologia del corso
-	///	 1: laurea
-	///	 2: laurea magistrale
-	///	 3: laurea vecchio ordinamento
-	///	 4: master I livello
-	///	 5: master II livello
-	///	 6: dottorato
-	///	 7: scuola specializzazione
-	///	 8: corsi di perfezionamento
-	///</summary>
 	public String degreekind{ 
 		get {if (this["degreekind"]==DBNull.Value)return null; return  (String)this["degreekind"];}
 		set {if (value==null) this["degreekind"]= DBNull.Value; else this["degreekind"]= value;}
@@ -502,9 +391,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String degreekindOriginal { 
 		get {if (this["degreekind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["degreekind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///codice corso universitario
-	///</summary>
 	public String degreecode{ 
 		get {if (this["degreecode"]==DBNull.Value)return null; return  (String)this["degreecode"];}
 		set {if (value==null) this["degreecode"]= DBNull.Value; else this["degreecode"]= value;}
@@ -516,11 +402,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String degreecodeOriginal { 
 		get {if (this["degreecode",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["degreecode",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Rimborso Tasse
-	///	 N: Non √® vero che: "Rimborso Tasse"
-	///	 S: Rimborso Tasse
-	///</summary>
 	public String flagtaxrefund{ 
 		get {if (this["flagtaxrefund"]==DBNull.Value)return null; return  (String)this["flagtaxrefund"];}
 		set {if (value==null) this["flagtaxrefund"]= DBNull.Value; else this["flagtaxrefund"]= value;}
@@ -532,9 +413,6 @@ public class paydispositiondetailRow: MetaRow  {
 	public String flagtaxrefundOriginal { 
 		get {if (this["flagtaxrefund",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagtaxrefund",DataRowVersion.Original];}
 	}
-	///<summary>
-	///anno solare in cui √® stata sostenuta la spesa rimborsata
-	///</summary>
 	public Int32? calendaryear{ 
 		get {if (this["calendaryear"]==DBNull.Value)return null; return  (Int32?)this["calendaryear"];}
 		set {if (value==null) this["calendaryear"]= DBNull.Value; else this["calendaryear"]= value;}
@@ -582,9 +460,6 @@ public class paydispositiondetailRow: MetaRow  {
 	#endregion
 
 }
-///<summary>
-///Disposizione di Pagamento - Dettaglio
-///</summary>
 public class paydispositiondetailTable : MetaTableBase<paydispositiondetailRow> {
 	public paydispositiondetailTable() : base("paydispositiondetail"){
 		baseColumns = new Dictionary<string, DataColumn>(){

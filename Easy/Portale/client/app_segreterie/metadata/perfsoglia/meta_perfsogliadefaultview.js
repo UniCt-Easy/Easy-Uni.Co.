@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'perfsogliakind_idperfsogliakind', 'Tipo', null, 30, 50);
-						this.describeAColumn(table, 'perfsoglia_valore', 'Percentuale di default', 'fixed.2', 40, null);
-						this.describeAColumn(table, 'year_year', 'Anno solare', null, 50, null);
+						this.describeAColumn(table, 'idperfsogliakind', 'Tipo', null, 3000, 50);
+						this.describeAColumn(table, 'perfsoglia_valore', 'Percentuale di default', 'fixed.2', 4000, null);
+						this.describeAColumn(table, 'year', 'Anno solare', null, 5000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -62,7 +45,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "default": {
+						return "perfsoglia_valore asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

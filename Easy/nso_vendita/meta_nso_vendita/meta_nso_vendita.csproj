@@ -64,7 +64,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="vista.xsc">
       <DependentUpon>vista.xsd</DependentUpon>
     </None>

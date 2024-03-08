@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_driverupb_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_driverupb_default: DataSet {
+public partial class dsmeta_driverupb_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -143,7 +143,6 @@ private void initClass() {
 	taccountusablecoanview.defineColumn("placcount_title", typeof(string));
 	taccountusablecoanview.defineColumn("title", typeof(string),false);
 	Tables.Add(taccountusablecoanview);
-	taccountusablecoanview.defineKey("idacc");
 
 	//////////////////// YEAR /////////////////////////////////
 	var tyear= new MetaTable("year");

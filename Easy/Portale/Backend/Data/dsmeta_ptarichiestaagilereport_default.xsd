@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_ptarichiestaagilereport_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_ptarichiestaagilereport_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfvalutazionepersonaleobiettivo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfvalutazionepersonale" type="xs:int" />
+              <xs:element name="idperfvalutazionepersonaleobiettivo" type="xs:int" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ptarichiestaagileattivita" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfvalutazionepersonaleobiettivo" type="xs:int" />
+              <xs:element name="idptarichiestaagile" type="xs:int" />
+              <xs:element name="idptarichiestaagileattivita" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idperfvalutazionepersonaleobiettivo_perfvalutazionepersonaleobiettivo_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idperfvalutazionepersonaleobiettivo_perfvalutazionepersonaleobiettivo_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idperfvalutazionepersonaleobiettivo_perfvalutazionepersonaleobiettivo_peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idperfvalutazionepersonaleobiettivo_perfvalutazionepersonaleobiettivo_completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idperfvalutazionepersonaleobiettivo_perfvalutazionepersonaleobiettivo_note" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ptarichiestaagilereportptarichiestaagileattivita" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idptarichiestaagile" type="xs:int" />
+              <xs:element name="idptarichiestaagileattivita" type="xs:int" />
+              <xs:element name="idptarichiestaagilereport" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ptarichiestaagilereportstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idptarichiestaagilereportstatus" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ptarichiestaagilereport" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idptarichiestaagile" type="xs:int" />
+              <xs:element name="idptarichiestaagilereport" type="xs:int" />
+              <xs:element name="idptarichiestaagilereportstatus" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="mese" type="xs:int" minOccurs="0" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="vistodir" type="xs:string" minOccurs="0" />
+              <xs:element name="vistoresp" type="xs:string" minOccurs="0" />
+              <xs:element name="vistoresptem" type="xs:string" minOccurs="0" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazionepersonaleobiettivo" />
+      <xs:field xpath="mstns:idperfvalutazionepersonale" />
+      <xs:field xpath="mstns:idperfvalutazionepersonaleobiettivo" />
+    </xs:unique>
+    <xs:unique name="ptarichiestaagileattivita_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ptarichiestaagileattivita" />
+      <xs:field xpath="mstns:idperfvalutazionepersonaleobiettivo" />
+      <xs:field xpath="mstns:idptarichiestaagile" />
+      <xs:field xpath="mstns:idptarichiestaagileattivita" />
+    </xs:unique>
+    <xs:unique name="ptarichiestaagilereportptarichiestaagileattivita_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ptarichiestaagilereportptarichiestaagileattivita" />
+      <xs:field xpath="mstns:idptarichiestaagile" />
+      <xs:field xpath="mstns:idptarichiestaagileattivita" />
+      <xs:field xpath="mstns:idptarichiestaagilereport" />
+    </xs:unique>
+    <xs:unique name="ptarichiestaagilereportstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ptarichiestaagilereportstatus" />
+      <xs:field xpath="mstns:idptarichiestaagilereportstatus" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="ptarichiestaagilereport_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ptarichiestaagilereport" />
+      <xs:field xpath="mstns:idptarichiestaagile" />
+      <xs:field xpath="mstns:idptarichiestaagilereport" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_ptarichiestaagilereportptarichiestaagileattivita_ptarichiestaagilereport_idptarichiestaagile-idptarichiestaagilereport" msdata:parent="ptarichiestaagilereport" msdata:child="ptarichiestaagilereportptarichiestaagileattivita" msdata:parentkey="idptarichiestaagile idptarichiestaagilereport" msdata:childkey="idptarichiestaagile idptarichiestaagilereport" />
+      <msdata:Relationship name="FK_ptarichiestaagilereportptarichiestaagileattivita_ptarichiestaagileattivita_idptarichiestaagileattivita" msdata:parent="ptarichiestaagileattivita" msdata:child="ptarichiestaagilereportptarichiestaagileattivita" msdata:parentkey="idptarichiestaagileattivita" msdata:childkey="idptarichiestaagileattivita" />
+      <msdata:Relationship name="FK_ptarichiestaagileattivita_perfvalutazionepersonaleobiettivo_idperfvalutazionepersonaleobiettivo" msdata:parent="perfvalutazionepersonaleobiettivo" msdata:child="ptarichiestaagileattivita" msdata:parentkey="idperfvalutazionepersonaleobiettivo" msdata:childkey="idperfvalutazionepersonaleobiettivo" />
+      <msdata:Relationship name="FK_ptarichiestaagilereport_ptarichiestaagilereportstatus_idptarichiestaagilereportstatus" msdata:parent="ptarichiestaagilereportstatus" msdata:child="ptarichiestaagilereport" msdata:parentkey="idptarichiestaagilereportstatus" msdata:childkey="idptarichiestaagilereportstatus" />
+      <msdata:Relationship name="FK_ptarichiestaagilereport_year_year" msdata:parent="year" msdata:child="ptarichiestaagilereport" msdata:parentkey="year" msdata:childkey="year" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

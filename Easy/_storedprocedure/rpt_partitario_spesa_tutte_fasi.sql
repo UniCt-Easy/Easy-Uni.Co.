@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
+--setuser'amministrazione'
 CREATE PROCEDURE rpt_partitario_spesa_tutte_fasi
 	@ayear int,
 	@kind char(1),
@@ -158,8 +158,8 @@ CREATE TABLE #expense
 	annotations varchar(400),
 
 	available decimal(19,2),
-	hierarchy varchar (50),
-	tothierarchy varchar (50)
+	hierarchy varchar (200),
+	tothierarchy varchar (200)
 	)
 
 DECLARE @firstday datetime

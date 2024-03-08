@@ -6,34 +6,70 @@
         <xs:element name="getregistrydocentiamministrativi" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="areadidattica" type="xs:string" minOccurs="0" />
+              <xs:element name="categoria" type="xs:string" />
               <xs:element name="cf" type="xs:string" minOccurs="0" />
               <xs:element name="contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
               <xs:element name="forename" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="macroareadidattica" type="xs:string" minOccurs="0" />
               <xs:element name="ssd" type="xs:string" minOccurs="0" />
               <xs:element name="struttura" type="xs:string" minOccurs="0" />
               <xs:element name="surname" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="mansionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmansionekind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="struttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="afferenza" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idafferenza" type="xs:int" />
+              <xs:element name="idmansionekind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="perfprogettouomembro" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="agile" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
+              <xs:element name="idafferenza" type="xs:int" minOccurs="0" />
               <xs:element name="idperfprogetto" type="xs:int" />
               <xs:element name="idperfprogettouo" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idafferenza_afferenza_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idafferenza_afferenza_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idafferenza_afferenza_idstruttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idafferenza_afferenza_idstruttura_paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idafferenza_afferenza_idmansionekind_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_surname" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -58,6 +94,19 @@
       <xs:selector xpath=".//mstns:getregistrydocentiamministrativi" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
+    <xs:unique name="mansionekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mansionekind" />
+      <xs:field xpath="mstns:idmansionekind" />
+    </xs:unique>
+    <xs:unique name="struttura_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:struttura" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="afferenza_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:afferenza" />
+      <xs:field xpath="mstns:idafferenza" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
     <xs:unique name="perfprogettouomembro_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfprogettouomembro" />
       <xs:field xpath="mstns:idperfprogetto" />
@@ -74,6 +123,9 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_perfprogettouomembro_perfprogettouo_idperfprogetto-idperfprogettouo" msdata:parent="perfprogettouo" msdata:child="perfprogettouomembro" msdata:parentkey="idperfprogetto idperfprogettouo" msdata:childkey="idperfprogetto idperfprogettouo" />
       <msdata:Relationship name="FK_perfprogettouomembro_getregistrydocentiamministrativi_idreg" msdata:parent="getregistrydocentiamministrativi" msdata:child="perfprogettouomembro" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_perfprogettouomembro_afferenza_idafferenza" msdata:parent="afferenza" msdata:child="perfprogettouomembro" msdata:parentkey="idafferenza" msdata:childkey="idafferenza" />
+      <msdata:Relationship name="FK_afferenza_mansionekind_idmansionekind" msdata:parent="mansionekind" msdata:child="afferenza" msdata:parentkey="idmansionekind" msdata:childkey="idmansionekind" />
+      <msdata:Relationship name="FK_afferenza_struttura_idstruttura" msdata:parent="struttura" msdata:child="afferenza" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

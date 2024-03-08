@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -47,53 +30,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.residence)
-					parentRow.residence = 1;
-				parentRow.extension = "aziende";
 				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_aziende_idregistryclass'), null);
+					this.helpForm.filter($('#registry_aziende_idnaturagiur'), null);
 				} else {
-					this.helpForm.filter($('#registry_aziende_idregistryclass'), this.q.eq('registryclass_active', 'Si'));
-				}
-				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_aziende_residence'), null);
-				} else {
-					this.helpForm.filter($('#registry_aziende_residence'), this.q.eq('active', 'S'));
-				}
-				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_aziende_default_idnaturagiur'), null);
-				} else {
-					this.helpForm.filter($('#registry_aziende_default_idnaturagiur'), this.q.eq('naturagiur_active', 'Si'));
-				}
-				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_aziende_default_idnumerodip'), null);
-				} else {
-					this.helpForm.filter($('#registry_aziende_default_idnumerodip'), this.q.eq('active', 'S'));
+					this.helpForm.filter($('#registry_aziende_idnaturagiur'), this.q.eq('naturagiur_active', 'Si'));
 				}
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_aziende_idcategory'), null);
 				} else {
 					this.helpForm.filter($('#registry_aziende_idcategory'), this.q.eq('active', 'S'));
 				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#registry_aziende_idaccmotivedebit'), null);
+				} else {
+					this.helpForm.filter($('#registry_aziende_idaccmotivedebit'), this.q.eq('accmotive_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#registry_aziende_idaccmotivecredit'), null);
+				} else {
+					this.helpForm.filter($('#registry_aziende_idaccmotivecredit'), this.q.eq('accmotive_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-registry_aziende_aziende");
+				var def = appMeta.Deferred("beforeFill-registry_aziende");
 				var arraydef = [];
 				
-				var dt = this.state.DS.tables["registry_aziende"];
-				if (dt.rows.length === 0) {
-					var meta = appMeta.getMeta("registry_aziende");
-					meta.setDefaults(dt);
-					var defregistry_aziende = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
-						function (currentRowaziende) {
-							//defaultExtendingObject
-							return true;
-						}
-					);
-					arraydef.push(defregistry_aziende);
-				}
-
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -107,13 +69,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
-				this.helpForm.filter($('#registry_aziende_idregistryclass'), null);
-				this.helpForm.filter($('#registry_aziende_residence'), null);
-				this.helpForm.filter($('#registry_aziende_default_idnaturagiur'), null);
-				this.helpForm.filter($('#registry_aziende_default_idnumerodip'), null);
+				//parte sincrona
+				this.helpForm.filter($('#registry_aziende_idnaturagiur'), null);
 				this.helpForm.filter($('#registry_aziende_idcategory'), null);
+				this.helpForm.filter($('#registry_aziende_idaccmotivedebit'), null);
+				this.helpForm.filter($('#registry_aziende_idaccmotivecredit'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('sede'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -124,8 +88,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.registry.defaults({ 'extension': 'aziende' });
+				this.state.DS.tables.registry.defaults({ 'idcentralizedcategory': '03' });
+				this.state.DS.tables.registry.defaults({ 'idregistryclass': '21' });
+				this.state.DS.tables.registry.defaults({ 'idregistrykind': 4 });
+				this.state.DS.tables.registry.defaults({ 'residence': 1 });
 				$("#btn_add_ccnlregistry_aziende_idccnl").on("click", _.partial(this.searchAndAssignccnl, self));
 				$("#btn_add_ccnlregistry_aziende_idccnl").prop("disabled", true);
+				appMeta.metaModel.insertFilter(this.getDataTable("registryclassaziendeview"), this.q.eq('registryclass_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("numerodip"), this.q.eq('active', 'S'));
+				$('#grid_ccnlregistry_aziende_default').data('mdlconditionallookup', '!idccnl_ccnl_active,S,Si;!idccnl_ccnl_active,N,No;!idccnl_registry_active,S,Si;!idccnl_registry_active,N,No;');
+				$('#grid_registryreference_seg').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;');
+				$('#grid_registryaddress_seg').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

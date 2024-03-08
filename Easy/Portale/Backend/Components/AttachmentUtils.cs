@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -218,7 +218,7 @@ namespace Backend.Components {
         /// <summary>
         /// Torna il nome della colonna calcolata che deve essere sul dataset
         /// </summary>
-        /// <param name="ccname></param>
+        /// <param name="cname"></param>
         /// <returns></returns>
         public static string getAttachColumn(string cname) {
             return "!" + cname;
@@ -238,7 +238,6 @@ namespace Backend.Components {
 }
 
 public class ColumnRowAttach {
-    private DataRow r;
 
     public ColumnRowAttach(string columnName, DataRow dataRow) {
         this.columnName = columnName;

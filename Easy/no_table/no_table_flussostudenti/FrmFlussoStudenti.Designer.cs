@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -41,9 +41,10 @@ namespace no_table_flussostudenti {
         /// </summary>
         private void InitializeComponent() {
 			this.DS = new no_table_flussostudenti.dsmeta();
-			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
-			this.saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
+			this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
+			this.saveOutputFileDlg = createSaveFileDialog(_saveOutputFileDlg);
 			this.tabGrid = new System.Windows.Forms.TabControl();
 			this.tabPageCreditiImportati = new System.Windows.Forms.TabPage();
 			this.dgrCrediti = new System.Windows.Forms.DataGrid();
@@ -122,7 +123,7 @@ namespace no_table_flussostudenti {
 			// 
 			// saveOutputFileDlg
 			// 
-			this.saveOutputFileDlg.DefaultExt = "T24";
+			//this.saveOutputFileDlg.DefaultExt = "T24";
 			// 
 			// tabGrid
 			// 
@@ -672,10 +673,11 @@ namespace no_table_flussostudenti {
         //System.Data.DataTable mData = new System.Data.DataTable();
         //System.Data.DataTable mData_essetre = new System.Data.DataTable();
         //System.Data.DataTable mData1 = new System.Data.DataTable();
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
-        private System.Windows.Forms.SaveFileDialog saveOutputFileDlg;
-        private System.Windows.Forms.TabControl tabGrid;
+        private System.Windows.Forms.SaveFileDialog _saveOutputFileDlg;
+		public metadatalibrary.ISaveFileDialog saveOutputFileDlg;
+		private System.Windows.Forms.TabControl tabGrid;
         private System.Windows.Forms.TabPage tabPageCreditiImportati;
         private System.Windows.Forms.DataGrid dgrCrediti;
         private System.Windows.Forms.TabPage tabPageIncassiImportati;

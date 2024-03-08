@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,9 +32,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase_fin 		=> Tables["expensephase_fin"];
 
-	///<summary>
-	///Configurazione Pluriennale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable uniconfig 		=> Tables["uniconfig"];
 
@@ -62,9 +59,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingapplicabilityview 		=> Tables["sortingapplicabilityview"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingkind 		=> Tables["sortingkind"];
 
@@ -176,6 +170,8 @@ private void initClass() {
 	C= new DataColumn("pwd_requiredigit", typeof(Char));
 	C.AllowDBNull=false;
 	tuniconfig.Columns.Add(C);
+	tuniconfig.Columns.Add( new DataColumn("perla_user", typeof(string)));
+	tuniconfig.Columns.Add( new DataColumn("perla_pwd", typeof(string)));
 	Tables.Add(tuniconfig);
 	tuniconfig.PrimaryKey =  new DataColumn[]{tuniconfig.Columns["dummykey"]};
 

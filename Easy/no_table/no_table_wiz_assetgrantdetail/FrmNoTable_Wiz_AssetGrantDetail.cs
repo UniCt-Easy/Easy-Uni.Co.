@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -103,11 +103,11 @@ namespace no_table_wiz_assetgrantdetail {
                     HelpForm.SetDataGrid(gridRisultati, Out.Tables[0]);
                     if (Out.Tables[0].Rows.Count == 0) {
                         btnCreaRisconti.Visible = false;
-                        lblRiepilogo.Text = "Non Saranno Generati Risconti per i Cespiti ammortizzati nell'esercizio corrente";
+                        lblRiepilogo.Text = "Non Saranno Generati Utilizzo Risconti/Riserve per i Cespiti ammortizzati nell'esercizio corrente";
                     }
                     else {
                         btnCreaRisconti.Visible = true;
-                        lblRiepilogo.Text = "Saranno Generati i seguenti Risconti per i Cespiti ammortizzati nell'esercizio corrente";
+                        lblRiepilogo.Text = "Saranno Generati i seguenti Utilizzo Risconti/Riserve per i Cespiti ammortizzati nell'esercizio corrente";
                     }
                 }
                 catch (Exception E) {

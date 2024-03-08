@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,21 +29,12 @@ namespace sdi_acquisto_default {
 public partial class VistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Fattura Elettronica-Acquisto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sdi_acquisto 		=> Tables["sdi_acquisto"];
 
-	///<summary>
-	///Stato fattura in SDI
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sdi_status 		=> Tables["sdi_status"];
 
-	///<summary>
-	///Configurazione Pluriennale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable uniconfig 		=> Tables["uniconfig"];
 
@@ -131,6 +122,7 @@ private void initClass() {
 	tsdi_acquisto.Columns.Add( new DataColumn("notcreacontabilitareason", typeof(string)));
 	tsdi_acquisto.Columns.Add( new DataColumn("signedxml", typeof(string)));
 	tsdi_acquisto.Columns.Add( new DataColumn("data_ricezione", typeof(DateTime)));
+	tsdi_acquisto.Columns.Add( new DataColumn("split_payment", typeof(string)));
 	Tables.Add(tsdi_acquisto);
 	tsdi_acquisto.PrimaryKey =  new DataColumn[]{tsdi_acquisto.Columns["idsdi_acquisto"]};
 

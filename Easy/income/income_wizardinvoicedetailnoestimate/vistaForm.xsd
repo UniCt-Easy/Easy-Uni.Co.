@@ -186,6 +186,10 @@
               <xs:element name="rate" type="xs:decimal" />
               <xs:element name="unabatabilitypercentage" type="xs:decimal" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeivakind" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idfenature" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

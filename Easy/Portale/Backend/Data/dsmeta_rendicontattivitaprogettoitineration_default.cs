@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_rendicontattivitaprogettoitineration_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_rendicontattivitaprogettoitineration_default: DataSet {
+public partial class dsmeta_rendicontattivitaprogettoitineration_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -66,6 +66,7 @@ private void initClass() {
 	titinerationsegview.defineColumn("description", typeof(string),false);
 	titinerationsegview.defineColumn("dropdown_title", typeof(string),false);
 	titinerationsegview.defineColumn("iditineration", typeof(int),false);
+	titinerationsegview.defineColumn("idupb", typeof(string));
 	titinerationsegview.defineColumn("itineration_active", typeof(string));
 	titinerationsegview.defineColumn("itineration_adate", typeof(DateTime),false);
 	titinerationsegview.defineColumn("itineration_additionalannotations", typeof(string));
@@ -73,6 +74,10 @@ private void initClass() {
 	titinerationsegview.defineColumn("itineration_admincarkmcost", typeof(decimal));
 	titinerationsegview.defineColumn("itineration_advanceapplied", typeof(string));
 	titinerationsegview.defineColumn("itineration_advancepercentage", typeof(decimal));
+	titinerationsegview.defineColumn("itineration_advancepercentagecourse", typeof(decimal));
+	titinerationsegview.defineColumn("itineration_advancepercentagefood", typeof(decimal));
+	titinerationsegview.defineColumn("itineration_advancepercentageliving", typeof(decimal));
+	titinerationsegview.defineColumn("itineration_advancepercentagetravel", typeof(decimal));
 	titinerationsegview.defineColumn("itineration_applierannotations", typeof(string));
 	titinerationsegview.defineColumn("itineration_authdoc", typeof(string));
 	titinerationsegview.defineColumn("itineration_authdocdate", typeof(DateTime));
@@ -92,9 +97,11 @@ private void initClass() {
 	titinerationsegview.defineColumn("itineration_footkmcost", typeof(decimal));
 	titinerationsegview.defineColumn("itineration_grossfactor", typeof(decimal));
 	titinerationsegview.defineColumn("itineration_idaccmotive", typeof(string));
+	titinerationsegview.defineColumn("itineration_idaccmotivedebit", typeof(string));
 	titinerationsegview.defineColumn("itineration_idaccmotivedebit_crg", typeof(string));
 	titinerationsegview.defineColumn("itineration_idaccmotivedebit_datacrg", typeof(DateTime));
 	titinerationsegview.defineColumn("itineration_idauthmodel", typeof(int));
+	titinerationsegview.defineColumn("itineration_idcostpartition", typeof(int));
 	titinerationsegview.defineColumn("itineration_iddalia_dipartimento", typeof(int));
 	titinerationsegview.defineColumn("itineration_iddalia_funzionale", typeof(int));
 	titinerationsegview.defineColumn("itineration_iddaliaposition", typeof(int));
@@ -102,6 +109,7 @@ private void initClass() {
 	titinerationsegview.defineColumn("itineration_idforeigncountry", typeof(int));
 	titinerationsegview.defineColumn("itineration_iditineration_ref", typeof(int));
 	titinerationsegview.defineColumn("itineration_iditinerationstatus", typeof(int));
+	titinerationsegview.defineColumn("itineration_idman", typeof(int));
 	titinerationsegview.defineColumn("itineration_idreg", typeof(int),false);
 	titinerationsegview.defineColumn("itineration_idregistrylegalstatus", typeof(int));
 	titinerationsegview.defineColumn("itineration_idregistrypaymethod", typeof(int));
@@ -110,7 +118,6 @@ private void initClass() {
 	titinerationsegview.defineColumn("itineration_idsor1", typeof(int));
 	titinerationsegview.defineColumn("itineration_idsor2", typeof(int));
 	titinerationsegview.defineColumn("itineration_idsor3", typeof(int));
-	titinerationsegview.defineColumn("itineration_idupb", typeof(string));
 	titinerationsegview.defineColumn("itineration_location", typeof(string));
 	titinerationsegview.defineColumn("itineration_lt", typeof(DateTime),false);
 	titinerationsegview.defineColumn("itineration_lu", typeof(string),false);
@@ -126,6 +133,7 @@ private void initClass() {
 	titinerationsegview.defineColumn("itineration_stop", typeof(DateTime),false);
 	titinerationsegview.defineColumn("itineration_stoptime", typeof(DateTime));
 	titinerationsegview.defineColumn("itineration_supposedamount", typeof(decimal));
+	titinerationsegview.defineColumn("itineration_supposedcourse", typeof(decimal));
 	titinerationsegview.defineColumn("itineration_supposedfood", typeof(decimal));
 	titinerationsegview.defineColumn("itineration_supposedliving", typeof(decimal));
 	titinerationsegview.defineColumn("itineration_supposedtravel", typeof(decimal));
@@ -137,6 +145,7 @@ private void initClass() {
 	titinerationsegview.defineColumn("itineration_vehicle_motive", typeof(string));
 	titinerationsegview.defineColumn("itineration_webwarn", typeof(string));
 	titinerationsegview.defineColumn("itineration_yitineration", typeof(int),false);
+	titinerationsegview.defineColumn("upb_title", typeof(string));
 	Tables.Add(titinerationsegview);
 	titinerationsegview.defineKey("iditineration");
 

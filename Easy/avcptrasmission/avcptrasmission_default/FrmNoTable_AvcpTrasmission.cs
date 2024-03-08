@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,7 +36,7 @@ namespace avcptrasmission_default {
         QueryHelper QHS;
         CQueryHelper QHC;
         DataAccess Conn;
-
+        
         public void AzzeraAvvisi() {
             listaErrori.Clear();            
         }
@@ -56,6 +56,7 @@ namespace avcptrasmission_default {
 
         public FrmNoTable_AvcpTrasmission() {
             InitializeComponent();
+            folderAsk.Description = "Selezione della cartella dove creare i file. File eventualmente già presenti saranno sovrascritti.";
         }
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);

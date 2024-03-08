@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -629,6 +629,7 @@ namespace expense_wizardcreamovcompetenza//wizard_spesacreamovcompetenza//
             }
 
             Form F = ShowAutomatismi.Show(Meta, spesa, null, null, null);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 
@@ -637,7 +638,7 @@ namespace expense_wizardcreamovcompetenza//wizard_spesacreamovcompetenza//
             CurrencyManager cm = (CurrencyManager)dgMovSpesa.BindingContext[DS2, dataMember];
             DataView view = cm.List as DataView;
             if (view == null) {
-                MessageBox.Show(this, "Lista vuota!");
+                show(this, "Lista vuota!");
                 return;
             }
             ArrayList movimenti = new ArrayList();
@@ -656,7 +657,7 @@ namespace expense_wizardcreamovcompetenza//wizard_spesacreamovcompetenza//
             }
 
             if (movimenti.Count == 0) {
-                MessageBox.Show(this, "Nessun movimento di spesa selezionato!");
+                show(this, "Nessun movimento di spesa selezionato!");
                 return;
             }
 
@@ -681,7 +682,7 @@ namespace expense_wizardcreamovcompetenza//wizard_spesacreamovcompetenza//
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res)
             {
-                MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+                show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 Resetta();
                 return;
             }

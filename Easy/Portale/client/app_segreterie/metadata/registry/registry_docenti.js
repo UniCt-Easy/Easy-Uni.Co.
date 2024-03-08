@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -40,79 +23,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//isValidFunction
 
-			afterGetFormData: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				//afterGetFormDataFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("afterGetFormData-registry_docenti_docenti");
-				var arraydef = [];
-				
-				arraydef.push(this.manageregistry_docenti_default_idcontrattokind());
-				//afterGetFormDataInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return def.resolve();
-					});
-				return def.promise();
-			},
+			//afterGetFormData
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.birthdate))
-					parentRow.birthdate = new Date();
-				if (!parentRow.idregistrykind)
-					parentRow.idregistrykind = 8;
-				if (!parentRow.residence)
-					parentRow.residence = 1;
-				parentRow.extension = "docenti";
 				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_docenti_idtitle'), null);
+					this.helpForm.filter($('#registry_docenti_idstruttura'), null);
 				} else {
-					this.helpForm.filter($('#registry_docenti_idtitle'), this.q.eq('active', 'S'));
+					this.helpForm.filter($('#registry_docenti_idstruttura'), this.q.eq('struttura_active', 'Si'));
 				}
 				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_docenti_idregistryclass'), null);
+					this.helpForm.filter($('#registry_docenti_idclassconsorsuale'), null);
 				} else {
-					this.helpForm.filter($('#registry_docenti_idregistryclass'), this.q.eq('registryclass_active', 'Si'));
+					this.helpForm.filter($('#registry_docenti_idclassconsorsuale'), this.q.eq('classconsorsuale_active', 'Si'));
 				}
 				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_docenti_default_idclassconsorsuale'), null);
+					this.helpForm.filter($('#registry_docenti_idreg_istituti'), null);
 				} else {
-					this.helpForm.filter($('#registry_docenti_default_idclassconsorsuale'), this.q.eq('classconsorsuale_active', 'Si'));
+					this.helpForm.filter($('#registry_docenti_idreg_istituti'), this.q.eq('registry_active', 'Si'));
 				}
 				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_docenti_default_idreg_istituti'), null);
+					this.helpForm.filter($('#registry_docenti_idaccmotivedebit'), null);
 				} else {
-					this.helpForm.filter($('#registry_docenti_default_idreg_istituti'), this.q.eq('registry_active', 'Si'));
+					this.helpForm.filter($('#registry_docenti_idaccmotivedebit'), this.q.eq('accmotive_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#registry_docenti_idaccmotivecredit'), null);
+				} else {
+					this.helpForm.filter($('#registry_docenti_idaccmotivecredit'), this.q.eq('accmotive_active', 'Si'));
 				}
 				//beforeFillFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-registry_docenti_docenti");
+				var def = appMeta.Deferred("beforeFill-registry_docenti");
 				var arraydef = [];
 				
-				var dt = this.state.DS.tables["registry_docenti"];
-				if (dt.rows.length === 0) {
-					var meta = appMeta.getMeta("registry_docenti");
-					meta.setDefaults(dt);
-					var defregistry_docenti = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
-						function (currentRowdocenti) {
-							//defaultExtendingObject
-							return true;
-						}
-					);
-					arraydef.push(defregistry_docenti);
-				}
-
-				arraydef.push(this.manageregistry_docenti_default_idcontrattokind());
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -126,32 +74,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
-				this.helpForm.filter($('#registry_docenti_idtitle'), null);
-				this.helpForm.filter($('#registry_docenti_idregistryclass'), null);
-				this.helpForm.filter($('#registry_docenti_default_idclassconsorsuale'), null);
-				this.helpForm.filter($('#registry_docenti_default_idreg_istituti'), null);
+				//parte sincrona
+				this.helpForm.filter($('#registry_docenti_idstruttura'), null);
+				this.helpForm.filter($('#registry_docenti_idclassconsorsuale'), null);
+				this.helpForm.filter($('#registry_docenti_idreg_istituti'), null);
+				this.helpForm.filter($('#registry_docenti_idaccmotivedebit'), null);
+				this.helpForm.filter($('#registry_docenti_idaccmotivecredit'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('assetdiary'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('rendicontattivitaprogetto'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoora'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			
 			afterLink: function () {
 				var self = this;
 				this.configureDependencies();
+				this.state.DS.tables.registry.defaults({ 'extension': 'docenti' });
+				this.state.DS.tables.registry.defaults({ 'idcentralizedcategory': '01' });
+				this.state.DS.tables.registry.defaults({ 'idregistryclass': '22' });
+				this.state.DS.tables.registry.defaults({ 'idregistrykind': 8 });
+				this.state.DS.tables.registry.defaults({ 'residence': 1 });
 				$("#btn_add_publicazregistry_docenti_idpublicaz").on("click", _.partial(this.searchAndAssignpublicaz, self));
 				$("#btn_add_publicazregistry_docenti_idpublicaz").prop("disabled", true);
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar64').fullCalendar('rerenderEvents');
+					$('#calendar62').fullCalendar('rerenderEvents');
 				});
 				this.setDenyNull("registry","surname");
 				this.setDenyNull("registry","forename");
 				this.setDenyNull("registry","gender");
-				this.setDenyNull("registry","birthdate");
-				this.setDenyNull("registry","idcity");
+				appMeta.metaModel.insertFilter(this.getDataTable("title"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("registryclasspersoneview"), this.q.eq('registryclass_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));
+				$('#grid_registrylegalstatus_default').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;tempdef,S,Si;tempdef,N,No;tempindet,S,Si;tempindet,N,No;');
+				$('#grid_titolostudio_docenti').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
+				$('#grid_registryaddress_seg').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;');
+				$('#grid_registryreference_persone').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;');
+				$('#grid_affidamento_seg').data('mdlconditionallookup', 'freqobbl,S,Si;freqobbl,N,No;gratuito,S,Si;gratuito,N,No;riferimento,S,Si;riferimento,N,No;');
+				$('#grid_progettotimesheet_default').data('mdlconditionallookup', 'multilinetype,S,Si;multilinetype,N,No;output,P,PDF;output,F,PDF firmato;output,X,Excel;');
 				var grid_affidamento_segChildsTables = [
 					{ tablename: 'affidamentocaratteristica', edittype: 'seg', columnlookup: 'json', columncalc: '!affidamentocaratteristica'},
 				];
@@ -190,12 +153,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//insertClick
 
-			//beforePost
+			beforePost: function () {
+				var self = this;
+				this.getDataTable('contrattostipendioannuoview').acceptChanges();
+				this.getDataTable('contrattostipendioview').acceptChanges();
+				//innerBeforePost
+			},
 
 			configureDependencies:function () {
 				var p1 = $("input[data-tag='registry.surname?registrydocentiview.registry_surname']");
 				var p2 = $("input[data-tag='registry.forename?registrydocentiview.registry_forename']");
-				var f1 = $("input[data-tag='registry.title']");
+				var f1 = $("input[data-tag='registry.title?registrydocentiview.title']");
                 // funz di trasformazione
                 var modifiesDenominazione = function (row) {
                     if (!row) return;
@@ -212,14 +180,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			afterFill: function () {
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('assetdiary'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('rendicontattivitaprogetto'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoora'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				//afterFillin
 
 				var self = this;
 				if (!this.isEmpty()) {
-					// carica tutte le attivit‡ dell'utente. seve per visualizzarle sul calendario
+					// carica tutte le attivit√† dell'utente. seve per visualizzarle sul calendario
 					var filter = self.q.and(
 						self.q.eq("idreg", self.state.currentRow.idreg),
 						self.q.eq("idsospensione",0)
@@ -242,22 +208,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					columnToFill: "idpublicaz",
 					tableToFill: "publicazregistry_docenti"
 				});
-			},
-
-			manageregistry_docenti_default_idcontrattokind: function () {
-				var def = appMeta.Deferred("beforeFill-manageregistry_docenti_idcontrattokind");
-				var self = this;
-				var currcontratto;
-				_.forEach(this.state.DS.tables.contratto.rows, function (row) {
-					if (!currcontratto)
-						currcontratto = row;
-					else
-						if (currcontratto.start < row.start)
-							currcontratto = row;
-				});
-				if (currcontratto)
-					this.state.DS.tables.registry_docenti.rows[0].idcontrattokind = currcontratto.idcontrattokind;
-				return def.resolve();
 			},
 
 			//buttons

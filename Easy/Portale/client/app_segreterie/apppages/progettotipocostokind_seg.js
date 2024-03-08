@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -58,6 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				$("#btn_add_progettotipocostokindtax_taxcode").prop("disabled", true);
 				$("#btn_add_progettotiporicavokindaccmotive_idaccmotive").on("click", _.partial(this.searchAndAssignaccmotive_alias1, self));
 				$("#btn_add_progettotiporicavokindaccmotive_idaccmotive").prop("disabled", true);
+				$('#grid_progettotipocostokindcontrattokind_seg').data('mdlconditionallookup', '!idposition_position_active,S,Si;!idposition_position_active,N,No;!idposition_position_tipopersonale,D,Docente;!idposition_position_tipopersonale,P,Personale tecnico-amministrativo;!idposition_position_tipopersonale,R,Ricercatore;');
+				$('#grid_progettotiporicavokindcontrattokind_default').data('mdlconditionallookup', '!idposition_position_active,S,Si;!idposition_position_active,N,No;!idposition_position_tipopersonale,D,Docente;!idposition_position_tipopersonale,P,Personale tecnico-amministrativo;!idposition_position_tipopersonale,R,Ricercatore;');
+				$('#grid_progettotipocostokindtax_seg').data('mdlconditionallookup', '!taxcode_tax_active,S,Si;!taxcode_tax_active,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

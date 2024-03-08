@@ -1,4 +1,5 @@
-﻿<!--header-->
+﻿<div class="p-2 custom_lng_div" data-langkey="pageheader882" >I dati importati in questa interfaccia riguarderanno tutte le simulazioni effettuate sul medesimo anno solare.</div>
+
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 		
@@ -8,34 +9,34 @@
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="stipendioannuo_prev_idreg">Dipendente</label>
 					<div>
-						<input id="stipendioannuo_prev_idreg" name="stipendioannuo_prev_idreg" type="text" data-listtype="persone"  class="form-control" data-minchar="2" data-tag="registrypersoneview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="stipendioannuo_prev_idreg" name="stipendioannuo_prev_idreg" type="text" data-listtype="persone"  class="form-control" data-minchar="2" data-tag="registrypersoneview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<label class="col-form-label col-md-12" for="stipendioannuo_prev_idcontratto">Contratto</label>
-					<select id="stipendioannuo_prev_idcontratto" class="custom-select d-block w-100"  data-source-name="contrattoprevview" data-value-member="idcontratto" data-display-member="dropdown_title" data-custom-control="combo" data-tag="stipendioannuo.idcontratto"  data-mandatory  > </select>
+					<label class="col-form-label col-md-12" for="stipendioannuo_prev_idregistrylegalstatus">Contratto</label>
+					<select id="stipendioannuo_prev_idregistrylegalstatus" class="custom-select d-block w-100"  data-source-name="registrylegalstatusprevview" data-value-member="idregistrylegalstatus" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="stipendioannuo.idregistrylegalstatus?stipendioannuoprevview.idregistrylegalstatus"  data-mandatory  data-master="registrypersoneview"> </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="stipendioannuo_prev_lordo">Retribuzione totale lorda</label>
-					<input id="stipendioannuo_prev_lordo" type="text" class="form-control" data-tag="stipendioannuo.lordo.fixed.2"  />
+					<input id="stipendioannuo_prev_lordo" type="text" class="form-control" data-tag="stipendioannuo.lordo.fixed.2?stipendioannuoprevview.stipendioannuo_lordo"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="stipendioannuo_prev_caricoente">Totale a carico ente</label>
-					<input id="stipendioannuo_prev_caricoente" type="text" class="form-control" data-tag="stipendioannuo.caricoente.fixed.2"  />
+					<input id="stipendioannuo_prev_caricoente" type="text" class="form-control" data-tag="stipendioannuo.caricoente.fixed.2?stipendioannuoprevview.stipendioannuo_caricoente"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="stipendioannuo_prev_irap">IRAP</label>
-					<input id="stipendioannuo_prev_irap" type="text" class="form-control" data-tag="stipendioannuo.irap.fixed.2"  />
+					<input id="stipendioannuo_prev_irap" type="text" class="form-control" data-tag="stipendioannuo.irap.fixed.2?stipendioannuoprevview.stipendioannuo_irap"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="stipendioannuo_prev_totale">Totale costo annuo</label>
-					<input id="stipendioannuo_prev_totale" type="text" class="form-control" data-tag="stipendioannuo.totale.fixed.2"  />
+					<input id="stipendioannuo_prev_totale" type="text" class="form-control" data-tag="stipendioannuo.totale.fixed.2?stipendioannuoprevview.stipendioannuo_totale"  />
 				</div>
 			</div>
 </form>

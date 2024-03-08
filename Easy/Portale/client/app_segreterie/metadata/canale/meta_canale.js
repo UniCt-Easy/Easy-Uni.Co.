@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -43,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'erogata':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 60, 256);
 						this.describeAColumn(table, 'CUIN', 'CUIN', null, 70, 9);
-						this.describeAColumn(table, '!idattivform_attivform_title', 'Attivit‡ formativa', null, 51, null);
+						this.describeAColumn(table, '!idattivform_attivform_title', 'Attivit√† formativa', null, 51, null);
 						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform_alias2', columnNameLookup:'title', columnNamekey:'idattivform' };
 						this.describeAColumn(table, '!iddidproganno_didproganno_title', 'Anno', null, 31, null);
 						objCalcFieldConfig['!iddidproganno_didproganno_title'] = { tableNameLookup:'didproganno_alias1', columnNameLookup:'title', columnNamekey:'iddidproganno' };
@@ -74,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
-						table.columns["idattivform"].caption = "Attivit‡ formativa";
+						table.columns["idattivform"].caption = "Attivit√† formativa";
 						table.columns["idcanale"].caption = "Canale";
 						table.columns["iddidproganno"].caption = "Anno";
 						table.columns["iddidprogcurr"].caption = "Curriculum";
@@ -86,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //$innerSetCaptionConfig_default$
 						break;
 					case 'erogata':
-						table.columns["idattivform"].caption = "Attivit‡ formativa";
+						table.columns["idattivform"].caption = "Attivit√† formativa";
 //$innerSetCaptionConfig_erogata$
 						break;
 //$innerSetCaptionConfig$

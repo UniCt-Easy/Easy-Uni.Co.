@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -611,6 +611,17 @@ public class casualcontractRow: MetaRow  {
 	public String flagexcludefromcertificateOriginal { 
 		get {if (this["flagexcludefromcertificate",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagexcludefromcertificate",DataRowVersion.Original];}
 	}
+	public Int32? idcostpartition{ 
+		get {if (this["idcostpartition"]==DBNull.Value)return null; return  (Int32?)this["idcostpartition"];}
+		set {if (value==null) this["idcostpartition"]= DBNull.Value; else this["idcostpartition"]= value;}
+	}
+	public object idcostpartitionValue { 
+		get{ return this["idcostpartition"];}
+		set {if (value==null|| value==DBNull.Value) this["idcostpartition"]= DBNull.Value; else this["idcostpartition"]= value;}
+	}
+	public Int32? idcostpartitionOriginal { 
+		get {if (this["idcostpartition",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcostpartition",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -670,6 +681,7 @@ public class casualcontractTable : MetaTableBase<casualcontractRow> {
 			{"iddalia_dipartimento",createColumn("iddalia_dipartimento",typeof(int),true,false)},
 			{"iddalia_funzionale",createColumn("iddalia_funzionale",typeof(int),true,false)},
 			{"flagexcludefromcertificate",createColumn("flagexcludefromcertificate",typeof(string),true,false)},
+			{"idcostpartition",createColumn("idcostpartition",typeof(int),true,false)},
 		};
 	}
 }

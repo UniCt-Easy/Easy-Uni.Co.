@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /* On scroll fixed men√π */
 $(document).scroll(function () {
 	//alert($('.navbar').hasClass('fixed-navbar'));
@@ -132,7 +115,7 @@ $(document).ready(function () {
 
 		getSQLStringFromDateTime: function (d) {
 			return '' + d.getFullYear() + _.padStart((d.getMonth() + 1), 2, '0') + _.padStart(d.getDate(), 2, '0') + ' ' +
-				_.padStart(d.getHours(), 2, '0') + ':' + _.padStart(d.getMinutes(),2,'0') + ':000';
+				_.padStart(d.getHours(), 2, '0') + ':' + _.padStart(d.getMinutes(), 2, '0') + ':000';
 		}
 	};
 

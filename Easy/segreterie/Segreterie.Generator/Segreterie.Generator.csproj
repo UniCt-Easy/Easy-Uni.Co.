@@ -8,12 +8,13 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Segreterie.Generator</RootNamespace>
     <AssemblyName>Segreterie.Generator</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HDSGen.cs" />
@@ -45,6 +47,15 @@
     <Reference Include="generaSQL, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\unmanaged\GeneraSQL\bin\Debug\generaSQL.dll</HintPath>
+    </Reference>
+    <Reference Include="mdl">
+      <HintPath>dll\mdl.dll</HintPath>
+    </Reference>
+    <Reference Include="mdl_language">
+      <HintPath>dll\mdl_language.dll</HintPath>
+    </Reference>
+    <Reference Include="mdl_utils">
+      <HintPath>dll\mdl_utils.dll</HintPath>
     </Reference>
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -56,9 +67,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\progetti\HDSGeneVSIX\HDSGeneVSIX\bin\Debug\Microsoft.VisualStudio.Shell.15.0.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Framework, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Framework, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.Shell.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
   </ItemGroup>

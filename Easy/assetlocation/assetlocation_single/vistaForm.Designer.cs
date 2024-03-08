@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,145 +15,166 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-namespace assetlocation_single {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable locationview{get { return Tables["locationview"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable assetlocation{get { return Tables["assetlocation"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace assetlocation_single {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable locationview 		=> Tables["locationview"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetlocation 		=> Tables["assetlocation"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable locationlevel 		=> Tables["locationlevel"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaForm";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaForm.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("locationview");
-	C= new DataColumn("idlocation", typeof(System.Int32), "");
+	//////////////////// LOCATIONVIEW /////////////////////////////////
+	var tlocationview= new DataTable("locationview");
+	C= new DataColumn("idlocation", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("locationcode", typeof(System.String), "");
+	tlocationview.Columns.Add(C);
+	C= new DataColumn("locationcode", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("active", typeof(System.String), "");
+	tlocationview.Columns.Add(C);
+	C= new DataColumn("active", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nlevel", typeof(System.Byte), "");
+	tlocationview.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("leveldescr", typeof(System.String), "");
+	tlocationview.Columns.Add(C);
+	C= new DataColumn("leveldescr", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paridlocation", typeof(System.Int32), ""));
-	C= new DataColumn("description", typeof(System.String), "");
+	tlocationview.Columns.Add(C);
+	tlocationview.Columns.Add( new DataColumn("paridlocation", typeof(int)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idman", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("manager", typeof(System.String), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tlocationview.Columns.Add(C);
+	tlocationview.Columns.Add( new DataColumn("idman", typeof(int)));
+	tlocationview.Columns.Add( new DataColumn("manager", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tlocationview.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tlocationview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tlocationview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tlocationview.Columns.Add(C);
+	tlocationview.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tlocationview.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tlocationview.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tlocationview.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tlocationview.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tlocationview);
+	tlocationview.PrimaryKey =  new DataColumn[]{tlocationview.Columns["idlocation"]};
 
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idlocation"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("assetlocation");
-	C= new DataColumn("idasset", typeof(System.Int32), "");
+	//////////////////// ASSETLOCATION /////////////////////////////////
+	var tassetlocation= new DataTable("assetlocation");
+	C= new DataColumn("idasset", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idassetlocation", typeof(System.Int32), "");
+	tassetlocation.Columns.Add(C);
+	C= new DataColumn("idassetlocation", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("start", typeof(System.DateTime), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tassetlocation.Columns.Add(C);
+	tassetlocation.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tassetlocation.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tassetlocation.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tassetlocation.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idlocation", typeof(System.Int32), "");
+	tassetlocation.Columns.Add(C);
+	C= new DataColumn("idlocation", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idasset"], 	T.Columns["idassetlocation"]};
-	T.PrimaryKey = key;
+	tassetlocation.Columns.Add(C);
+	Tables.Add(tassetlocation);
+	tassetlocation.PrimaryKey =  new DataColumn[]{tassetlocation.Columns["idasset"], tassetlocation.Columns["idassetlocation"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["locationview"];
-TChild= Tables["assetlocation"];
-CPar = new DataColumn[1]{TPar.Columns["idlocation"]};
-CChild = new DataColumn[1]{TChild.Columns["idlocation"]};
-Relations.Add(new DataRelation("locationview_assetlocation",CPar,CChild));
+	//////////////////// LOCATIONLEVEL /////////////////////////////////
+	var tlocationlevel= new DataTable("locationlevel");
+	C= new DataColumn("nlevel", typeof(byte));
+	C.AllowDBNull=false;
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("codelen", typeof(byte));
+	C.AllowDBNull=false;
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
+	C.AllowDBNull=false;
+	tlocationlevel.Columns.Add(C);
+	Tables.Add(tlocationlevel);
+	tlocationlevel.PrimaryKey =  new DataColumn[]{tlocationlevel.Columns["nlevel"]};
+
+
+	#endregion
+
+
+	#region DataRelation creation
+	var cPar = new []{locationview.Columns["idlocation"]};
+	var cChild = new []{assetlocation.Columns["idlocation"]};
+	Relations.Add(new DataRelation("locationview_assetlocation",cPar,cChild,false));
+
+	#endregion
 
 }
 }

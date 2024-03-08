@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 
 	var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -56,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 50, null);
 //$objCalcFieldConfig_seganagstu$
 						break;
 					case 'seganagstuacc':
@@ -63,6 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Prova di accesso', null, 52, null);
 						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias2', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias2', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 //$objCalcFieldConfig_seganagstuacc$
 						break;
 					case 'seganagstumast':
@@ -70,6 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Master', null, 52, null);
 						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias3', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias3', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 //$objCalcFieldConfig_seganagstumast$
 						break;
 					case 'seganagstustato':
@@ -77,6 +65,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Esame di stato', null, 52, null);
 						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias4', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias4', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 //$objCalcFieldConfig_seganagstustato$
 						break;
 					case 'seg':
@@ -134,57 +124,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_iscrizione");
 
-				var realParentObjectRow = parentRow;
-				if (editType === "stato") {
-					var realParentTableName = "didprog";
-					var realParentTable = dt.dataset.tables["didprog"];
-					if (!realParentTable) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non esiste nel dataset");
-						return def.resolve(null);
-					}
-					if (!realParentTable.rows.length) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non ha righe");
-						return def.resolve(null);
-					}
-					realParentObjectRow = realParentTable.rows[0].getRow();
-				}
-				if (editType === "dotmas") {
-					var realParentTableName = "didprog";
-					var realParentTable = dt.dataset.tables["didprog"];
-					if (!realParentTable) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non esiste nel dataset");
-						return def.resolve(null);
-					}
-					if (!realParentTable.rows.length) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non ha righe");
-						return def.resolve(null);
-					}
-					realParentObjectRow = realParentTable.rows[0].getRow();
-				}
-				if (editType === "ingresso") {
-					var realParentTableName = "didprog";
-					var realParentTable = dt.dataset.tables["didprog"];
-					if (!realParentTable) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non esiste nel dataset");
-						return def.resolve(null);
-					}
-					if (!realParentTable.rows.length) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non ha righe");
-						return def.resolve(null);
-					}
-					realParentObjectRow = realParentTable.rows[0].getRow();
-				}
 				//$getNewRowInside$
 
 				dt.autoIncrement('idiscrizione', { minimum: 99990001 });
 
 				// metto i default
-				return this.superClass.getNewRow(realParentObjectRow, dt, editType)
+				return this.superClass.getNewRow(parentRow, dt, editType)
 					.then(function (dtRow) {
 						//$getNewRowDefault$
 						return def.resolve(dtRow);
 					});
 			},
+
+
 
 
 

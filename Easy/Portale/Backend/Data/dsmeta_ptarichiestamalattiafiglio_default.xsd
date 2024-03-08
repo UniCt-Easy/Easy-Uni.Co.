@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_ptarichiestamalattiafiglio_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_ptarichiestamalattiafiglio_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ptarichiestastatuskind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idptarichiestastatuskind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ptadichiarazioneassenzapermessifigliodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idptadichiarazioneassenzapermessifiglio" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrycongiuntodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="congiuntokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcongiuntokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idreg_parente" type="xs:int" />
+              <xs:element name="idregistrycongiunto" type="xs:int" />
+              <xs:element name="registrycongiunto_ct" type="xs:dateTime" />
+              <xs:element name="registrycongiunto_cu" type="xs:string" />
+              <xs:element name="registrycongiunto_lt" type="xs:dateTime" />
+              <xs:element name="registrycongiunto_lu" type="xs:string" />
+              <xs:element name="registryparente_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="afferenzaammview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="afferenza_ct" type="xs:dateTime" />
+              <xs:element name="afferenza_cu" type="xs:string" />
+              <xs:element name="afferenza_idmansionekind" type="xs:int" minOccurs="0" />
+              <xs:element name="afferenza_lt" type="xs:dateTime" />
+              <xs:element name="afferenza_lu" type="xs:string" />
+              <xs:element name="afferenza_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="afferenza_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idafferenza" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="mansionekind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturaparent_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryamministrativiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ptarichiestamalattiafiglio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="etafiglio" type="xs:string" minOccurs="0" />
+              <xs:element name="idafferenza" type="xs:int" minOccurs="0" />
+              <xs:element name="idptadichiarazioneassenzapermessifiglio" type="xs:int" minOccurs="0" />
+              <xs:element name="idptarichiestamalattiafiglio" type="xs:int" />
+              <xs:element name="idptarichiestastatuskind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrycongiunto" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ptarichiestastatuskind" />
+      <xs:field xpath="mstns:idptarichiestastatuskind" />
+    </xs:unique>
+    <xs:unique name="ptadichiarazioneassenzapermessifigliodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ptadichiarazioneassenzapermessifigliodefaultview" />
+      <xs:field xpath="mstns:idptadichiarazioneassenzapermessifiglio" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registrycongiuntodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrycongiuntodefaultview" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idreg_parente" />
+      <xs:field xpath="mstns:idregistrycongiunto" />
+    </xs:unique>
+    <xs:unique name="afferenzaammview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:afferenzaammview" />
+      <xs:field xpath="mstns:idafferenza" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registryamministrativiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryamministrativiview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="ptarichiestamalattiafiglio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ptarichiestamalattiafiglio" />
+      <xs:field xpath="mstns:idptarichiestamalattiafiglio" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_ptarichiestamalattiafiglio_ptarichiestastatuskind_idptarichiestastatuskind" msdata:parent="ptarichiestastatuskind" msdata:child="ptarichiestamalattiafiglio" msdata:parentkey="idptarichiestastatuskind" msdata:childkey="idptarichiestastatuskind" />
+      <msdata:Relationship name="FK_ptarichiestamalattiafiglio_ptadichiarazioneassenzapermessifigliodefaultview_idptadichiarazioneassenzapermessifiglio" msdata:parent="ptadichiarazioneassenzapermessifigliodefaultview" msdata:child="ptarichiestamalattiafiglio" msdata:parentkey="idptadichiarazioneassenzapermessifiglio" msdata:childkey="idptadichiarazioneassenzapermessifiglio" />
+      <msdata:Relationship name="FK_ptarichiestamalattiafiglio_registrycongiuntodefaultview_idregistrycongiunto" msdata:parent="registrycongiuntodefaultview" msdata:child="ptarichiestamalattiafiglio" msdata:parentkey="idregistrycongiunto" msdata:childkey="idregistrycongiunto" />
+      <msdata:Relationship name="FK_ptarichiestamalattiafiglio_afferenzaammview_idafferenza" msdata:parent="afferenzaammview" msdata:child="ptarichiestamalattiafiglio" msdata:parentkey="idafferenza" msdata:childkey="idafferenza" />
+      <msdata:Relationship name="FK_ptarichiestamalattiafiglio_registryamministrativiview_idreg" msdata:parent="registryamministrativiview" msdata:child="ptarichiestamalattiafiglio" msdata:parentkey="idreg" msdata:childkey="idreg" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

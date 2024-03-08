@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,46 +27,61 @@ using ZXing;
 using pagoPaService.Utils;
 using PdfSharp.Pdf.Advanced;
 
-namespace UnicreditService {
+namespace UnicreditService
+{
 
-    public class Bollettino {
+    public class Bollettino
+    {
 
         private MemoryStream template;
+        private bool avvisoEng = false;
 
-        public Bollettino(string template) {
+        public Bollettino(string template)
+        {
             this.template = new MemoryStream();
+            avvisoEng = false;
 
-            if (File.Exists(template)) {
-                using (var src = new FileStream(template, FileMode.Open)) {
+            if (File.Exists(template))
+            {
+                using (var src = new FileStream(template, FileMode.Open))
+                {
                     src.CopyTo(this.template);
                 }
             }
-            else {
+            else
+            {
                 throw new ArgumentException($"Non è possibile scaricare il documento perchè il template pdf non è stato trovato\r\n");
             }
         }
 
+        public void SetBollettino(bool isEng)
+        {
+            avvisoEng = isEng;
+        }
 
-
-       public byte[] generaBollettino_versione_2018(string Oggetto_Pagamento, string Cf_Ente, string Cf_Destinatario, string Ente_Creditore, string Settore_Ente, string Info_Ente, string Nome_Cognome_Destinatario, string Indirizzo_Destinatario,
-                             string Pagamento_Rateale, DateTime dData, decimal decImporto, string  Del_Tuo_Ente, string Oggetto_PagamentoRid, string Cbill, string Codice_Avviso,
-                             byte[] logo, string ValoreCodiceQR, out string errore
-                        ) {
-
-             try {
+        public byte[] generaBollettino_versione_2018(string Oggetto_Pagamento, string Cf_Ente, string Cf_Destinatario, string Ente_Creditore, string Settore_Ente, string Info_Ente, string Nome_Cognome_Destinatario, string Indirizzo_Destinatario,
+                              string Pagamento_Rateale, DateTime dData, decimal decImporto, string Del_Tuo_Ente, string Oggetto_PagamentoRid, string Cbill, string Codice_Avviso,
+                              byte[] logo, string ValoreCodiceQR, out string errore
+                         )
+        {
+            try
+            {
                 errore = null;
                 var document = PdfReader.Open(this.template);
 
                 //var options = new XPdfFontOptions(PdfFontEmbedding.Always);
                 //var font = new XFont("Titillium Web", 16, XFontStyle.Bold, options);
 
-                if (document.AcroForm != null) {
+                if (document.AcroForm != null)
+                {
                     var form = document.AcroForm;
 
-                    if (form.Elements.ContainsKey("/NeedAppearances")) {
+                    if (form.Elements.ContainsKey("/NeedAppearances"))
+                    {
                         form.Elements["/NeedAppearances"] = new PdfBoolean(true);
                     }
-                    else {
+                    else
+                    {
                         form.Elements.Add("/NeedAppearances", new PdfBoolean(true));
                     }
 
@@ -75,70 +90,77 @@ namespace UnicreditService {
                     // (case sensitive)
                     // Oggetto_Pagamento[60] Logo_Ente Cf_Ente Cf_Destinatario Ente_Creditore[37] Settore_Ente[37] Info_Ente[55] Nome_Cognome_Destinatario[37] Indirizzo_Destinatario[37]
                     // Pagamento_Rateale[28] Data[10] Importo[8] Del_Tuo_Ente[20] Nome_Cognome_DestinatarioRid[30] Oggetto_PagamentoRid[50] Cbill[8] Codice_Avviso[30]
-                    items["Oggetto_Pagamento"] = Oggetto_Pagamento.Substring(0, Math.Min(60,Oggetto_Pagamento.Length));
+                    items["Oggetto_Pagamento"] = Oggetto_Pagamento.Substring(0, Math.Min(60, Oggetto_Pagamento.Length));
                     //Logo_Ente 
                     items["Cf_Ente"] = Cf_Ente;
                     items["Cf_Ente_2"] = Cf_Ente;
                     items["Cf_Destinatario"] = Cf_Destinatario;
-                    items["Ente_Creditore"] = Ente_Creditore.Substring(0, Math.Min(60,Ente_Creditore.Length));
-                    items["Ente_Creditore_2"] = Ente_Creditore.Substring(0, Math.Min(60,Ente_Creditore.Length));
+                    items["Ente_Creditore"] = Ente_Creditore.Substring(0, Math.Min(60, Ente_Creditore.Length));
+                    items["Ente_Creditore_2"] = Ente_Creditore.Substring(0, Math.Min(60, Ente_Creditore.Length));
 
-                    items["Settore_Ente"] = Settore_Ente.Substring(0,Math.Min(37,Settore_Ente.Length));
-                    items["Info_Ente"] = Info_Ente.Substring(0,Math.Min(55, Info_Ente.Length));
-                    items["Nome_Cognome_Destinatario"] = Nome_Cognome_Destinatario.Substring(0,Math.Min(37,Nome_Cognome_Destinatario.Length));
-                    items["Indirizzo_Destinatario"] = Indirizzo_Destinatario.Substring(0,Math.Min(37,Indirizzo_Destinatario.Length));
-                    items["Pagamento_Rateale"] = Pagamento_Rateale.Substring(0,Math.Min(28,Pagamento_Rateale.Length));
+                    items["Settore_Ente"] = Settore_Ente.Substring(0, Math.Min(37, Settore_Ente.Length));
+                    items["Info_Ente"] = Info_Ente.Split(new string[] { "CF:" }, StringSplitOptions.None)[0];//.Substring(0,Math.Min(55, Info_Ente.Length));
+                    items["Nome_Cognome_Destinatario"] = Nome_Cognome_Destinatario.Substring(0, Math.Min(37, Nome_Cognome_Destinatario.Length));
+                    items["Indirizzo_Destinatario"] = Indirizzo_Destinatario.Substring(0, Math.Min(200, Indirizzo_Destinatario.Length));
+                    items["Pagamento_Rateale"] = Pagamento_Rateale.Substring(0, Math.Min(28, Pagamento_Rateale.Length));
                     //Data[10] Importo[8] 
-                    items["Data"] = dData.ToString().Substring(0,Math.Min(10,dData.ToString().Length));
-                    items["Data_2"] = dData.ToString().Substring(0,Math.Min(10,dData.ToString().Length));
-                    items["Importo"] =  string.Format("{0:0.00}", decImporto); 
-                    items["Importo_2"] = string.Format("{0:0.00}", decImporto); 
+                    items["Data"] = dData.ToString().Substring(0, Math.Min(10, dData.ToString().Length));
+                    items["Data_2"] = dData.ToString().Substring(0, Math.Min(10, dData.ToString().Length));
+                    items["Importo"] = string.Format("{0:0.00}", decImporto);
+                    items["Importo_2"] = string.Format("{0:0.00}", decImporto);
 
-                    items["Del_Tuo_Ente"] = Del_Tuo_Ente.Substring(0,Math.Min(28,Del_Tuo_Ente.Length));
-                    items["Nome_Cognome_DestinatarioRid"] = Nome_Cognome_Destinatario.Substring(0,Math.Min(30,Nome_Cognome_Destinatario.Length));
-                    items["Oggetto_PagamentoRid"] = Oggetto_Pagamento.Substring(0,Math.Min(50,Oggetto_Pagamento.Length));
-                    items["Cbill"] = Cbill.Substring(0,Math.Min(8,Cbill.Length));
-                    items["Codice_Avviso"] = Codice_Avviso.Substring(0,Math.Min(30,Codice_Avviso.Length));
+                    items["Del_Tuo_Ente"] = Del_Tuo_Ente.Substring(0, Math.Min(28, Del_Tuo_Ente.Length));
+                    items["Nome_Cognome_DestinatarioRid"] = Nome_Cognome_Destinatario.Substring(0, Math.Min(30, Nome_Cognome_Destinatario.Length));
+                    items["Oggetto_PagamentoRid"] = Oggetto_Pagamento.Substring(0, Math.Min(50, Oggetto_Pagamento.Length));
+                    items["Cbill"] = Cbill.Substring(0, Math.Min(8, Cbill.Length));
+                    items["Codice_Avviso"] = Codice_Avviso.Substring(0, Math.Min(30, Codice_Avviso.Length));
 
-                    foreach (var name in items.Keys) {
+                    foreach (var name in items.Keys)
+                    {
                         var field = document.AcroForm.Fields[name];
-                        if (field != null) { // per non generare eccezione in caso di nomi errati
+                        if (field != null)
+                        { // per non generare eccezione in caso di nomi errati
                             field.Value = new PdfString(items[name]);
-                            
+
                             field.ReadOnly = true;
-                            
+
                         }
                         //else
                         //    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella scrittura del campo " + name);
                     }
-                    
+
                 }
 
-                using (var gfx = XGraphics.FromPdfPage(document.Pages[0], XPageDirection.Upwards)) { 
-                    gfx.MFEH = PdfFontEmbedding.Always; 
-                      
+                using (var gfx = XGraphics.FromPdfPage(document.Pages[0], XPageDirection.Upwards))
+                {
+                    gfx.MFEH = PdfFontEmbedding.Always;
+
                     float dpiPDF = 300;
                     var marginePollici15MM = gfx.pointsFromMm(15);
                     var logoImage = BollettiniPdf.GetLogo(logo, 30, 30);
                     var xLogoEnte = gfx.pointsFromMm(170.2f);
 
                     var mmA4 = BollettiniPdf.mmFromPoints(dpiPDF, Convert.ToSingle(gfx.PageSize.Height));
-                    var yLogoEnte = gfx.pointsFromMm(mmA4-41); 
- 
+                    var yLogoEnte = gfx.pointsFromMm(mmA4 - 41);
+
                     var logoPosition = new XPoint(xLogoEnte, yLogoEnte);
 
-                    
+
                     gfx.DrawImage(logoImage, logoPosition);
- 
+
                     Bitmap qrcodeImage = BollettiniPdf.GenerateQR(ValoreCodiceQR);
 
                     // Verifica che il qrCode sia stato generato correttmente, in quel caso la funzione torna un valore null
-                    if (qrcodeImage == null) {
+                    if (qrcodeImage == null)
+                    {
                         errore = "Errore nella generazione del QR code.";
                         return null;
                     }
 
                     var qrcodePosition = new XPoint(179, 285);
+                    if (avvisoEng)
+                        qrcodePosition = new XPoint(50, 250);
+
                     gfx.DrawImage(qrcodeImage, qrcodePosition);
                 }
 
@@ -146,7 +168,8 @@ namespace UnicreditService {
                 document.Save(ms);
                 return ms.ToArray();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 errore = ex.Message;
             }
 
@@ -193,7 +216,6 @@ namespace UnicreditService {
                             field.ReadOnly = true;
                         }
                     }
-
                 }
 
                 MemoryStream ms = new MemoryStream();
@@ -208,23 +230,28 @@ namespace UnicreditService {
             return null;
         }
 
-        public byte[] Genera(string ente, string descrizioneEnte,  
+        public byte[] Genera(string ente, string descrizioneEnte,
                              string indirizzoEnte, string capEnte, string comuneEnte, string provinciaEnte, string codiceFiscaleEnte,
                              string debitore,
-                             string codiceAvviso, string codiceSia, string tipologiaServizio, string urlSitoIstituzionale,string urlServizioPagamento, string codiceBollettino, decimal importo, DateTime scadenza, string iuv,string causaleBollettino,
-                             byte []logo,string valoreCodiceBarre,string ValoreCodiceQR, out string errore
-                        ) {
-            try {
+                             string codiceAvviso, string codiceSia, string tipologiaServizio, string urlSitoIstituzionale, string urlServizioPagamento, string codiceBollettino, decimal importo, DateTime scadenza, string iuv, string causaleBollettino,
+                             byte[] logo, string valoreCodiceBarre, string ValoreCodiceQR, out string errore
+                        )
+        {
+            try
+            {
                 errore = null;
                 var document = PdfReader.Open(this.template);
 
-                if (document.AcroForm != null) {
+                if (document.AcroForm != null)
+                {
                     var form = document.AcroForm;
 
-                    if (form.Elements.ContainsKey("/NeedAppearances")) {
+                    if (form.Elements.ContainsKey("/NeedAppearances"))
+                    {
                         form.Elements["/NeedAppearances"] = new PdfBoolean(true);
                     }
-                    else {
+                    else
+                    {
                         form.Elements.Add("/NeedAppearances", new PdfBoolean(true));
                     }
 
@@ -233,7 +260,7 @@ namespace UnicreditService {
                     // (case sensitive)
                     //items["IndirizzoLogo"] =  
                     items["Ente"] = string.Format("{0}\n{1}\n{2} {3} ({4})\nCF: {5}\n{6}",
-                    descrizioneEnte, indirizzoEnte,capEnte, comuneEnte,provinciaEnte,codiceFiscaleEnte, urlSitoIstituzionale /*UrlSitoIstituzionaleEnte*/ );
+                    descrizioneEnte, indirizzoEnte, capEnte, comuneEnte, provinciaEnte, codiceFiscaleEnte, urlSitoIstituzionale /*UrlSitoIstituzionaleEnte*/ );
                     items["Debitore"] = debitore;
                     items["CodiceSia"] = codiceSia; //siacodecbi in treasurer
                     items["CodiceAvviso"] = codiceAvviso;
@@ -244,21 +271,24 @@ namespace UnicreditService {
                     items["Causale"] = causaleBollettino;
                     items["Importo_1"] = string.Format("{0:0.00}", importo);
                     items["EnteUrl"] = descrizioneEnte + " " + urlServizioPagamento;
-       
-                    foreach (var name in items.Keys) {
+
+                    foreach (var name in items.Keys)
+                    {
                         var field = document.AcroForm.Fields[name];
-                        if (field != null) { // per non generare eccezione in caso di nomi errati
+                        if (field != null)
+                        { // per non generare eccezione in caso di nomi errati
                             field.Value = new PdfString(items[name]);
-                       
+
                             field.ReadOnly = true;
                         }
                         //else
                         //    MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella scrittura del campo " + name);
                     }
-                    
+
                 }
 
-                using (var gfx = XGraphics.FromPdfPage(document.Pages[0], XPageDirection.Upwards)) {
+                using (var gfx = XGraphics.FromPdfPage(document.Pages[0], XPageDirection.Upwards))
+                {
                     float dpiPDF = 300;
 
 
@@ -273,8 +303,8 @@ namespace UnicreditService {
                     var xLogoEnte = gfx.pointsFromMm(12);
 
                     var mmA4 = BollettiniPdf.mmFromPoints(dpiPDF, Convert.ToSingle(gfx.PageSize.Height));
-                    var yLogoEnte = gfx.pointsFromMm(mmA4 - 22 -5);
- 
+                    var yLogoEnte = gfx.pointsFromMm(mmA4 - 22 - 5);
+
                     var logoPosition = new XPoint(xLogoEnte, yLogoEnte);
                     gfx.DrawImage(logoImage, logoPosition);
 
@@ -290,7 +320,8 @@ namespace UnicreditService {
                     grTextEnte.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     grTextEnte.PixelOffsetMode = PixelOffsetMode.HighQuality;
                     grTextEnte.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-                    StringFormat format = new StringFormat() {
+                    StringFormat format = new StringFormat()
+                    {
                         //Alignment = StringAlignment.Center
                         LineAlignment = StringAlignment.Near
                     };
@@ -311,19 +342,20 @@ namespace UnicreditService {
                     //  GenerateEAN(string text, int height, int width, int margin)
                     // 14mm= 39 points
                     var barcodeImage = BollettiniPdf.GenerateEAN(valoreCodiceBarre, 39);     // Genera l'immagine del codice a barre
-                  
+
                     // Verifica che il barCode sia stato generato correttamente
-                    if (barcodeImage == null) {
+                    if (barcodeImage == null)
+                    {
                         errore = "Errore nella generazione del bar code.";
                         return null;
                     }
                     int textHeight = 7;
 
                     //barcodeImage.SetResolution(dpiPDF, dpiPDF);
-                    var barcodePosition = new XPoint(marginePollici15MM, marginePollici15MM+ textHeight);
+                    var barcodePosition = new XPoint(marginePollici15MM, marginePollici15MM + textHeight);
                     gfx.DrawImage(barcodeImage, barcodePosition);
 
-                    
+
                     int heigthtextBarCode = Convert.ToInt32(textHeight * dpiPDF / 72.0); //pixel
                     int heigthtextBarCodeExternal = Convert.ToInt32(textHeight * 96.0f / 72.0); //pixel
                     var txtImage = new Bitmap(Convert.ToInt32(barcodeImage.Width * dpiPDF / 96.0), heigthtextBarCode);
@@ -335,7 +367,8 @@ namespace UnicreditService {
                     grTextBarCode.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
                     var textPosition = new XPoint(marginePollici15MM, barcodePosition.Y - heigthtextBarCodeExternal);
                     //Create string formatting options(used for alignment)
-                     format = new StringFormat() {
+                    format = new StringFormat()
+                    {
                         Alignment = StringAlignment.Center
                         //,LineAlignment = StringAlignment.Center
                     };
@@ -347,11 +380,12 @@ namespace UnicreditService {
 
                     gfx.DrawImage(txtImage, textPosition);
 
- 
+
                     Bitmap qrcodeImage = BollettiniPdf.GenerateQR(ValoreCodiceQR);
 
                     // Verifica che il qrCode sia stato generato correttmente, in quel caso la funzione torna un valore null
-                    if (qrcodeImage == null) {
+                    if (qrcodeImage == null)
+                    {
                         errore = "Errore nella generazione del QR code.";
                         return null;
                     }
@@ -367,46 +401,45 @@ namespace UnicreditService {
                 document.Save(ms);
                 return ms.ToArray();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 errore = ex.Message;
             }
 
             return null;
         }
-        private void stampaDocumento(PdfDocument doc, string nomeFile, string cf, string progr, string modulo, string denominazione) {
+
+        private void stampaDocumento(PdfDocument doc, string nomeFile, string cf, string progr, string modulo, string denominazione)
+        {
             string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
             //string nomeFile = denominazione + cf;
-            foreach (char c in invalid) {
+            foreach (char c in invalid)
+            {
                 nomeFile = nomeFile.Replace(c.ToString(), "");
             }
 
             string NomeCompletoFilePDF = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nomeFile + ".pdf");
             // string pathCompleto = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NomeCompletoFilePDF);
 
-            try {
+            try
+            {
                 doc.Save(NomeCompletoFilePDF);
                 //MetaFactory.factory.getSingleton<IMessageShower>().Show("Salvataggio effettuato");
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 /* QueryCreator.ShowError(this, "E*/
-               // rrore salvando il file, probabilmente il file è già aperto.", e.ToString());
+                // rrore salvando il file, probabilmente il file è già aperto.", e.ToString());
             }
 
             //Process p = new Process();
             //p.StartInfo.FileName = nomeFile;
             //p.Start();
         }
-       
-
-
-     
-       
-
-       
 
     }
-    public class InformazioniEnte {
-
+    public class InformazioniEnte
+    {
         public byte[] Logo;
         public string CodiceFiscale;
         public string Denominazione;
@@ -417,6 +450,4 @@ namespace UnicreditService {
         public string Provincia;
 
     }
-
 }
-

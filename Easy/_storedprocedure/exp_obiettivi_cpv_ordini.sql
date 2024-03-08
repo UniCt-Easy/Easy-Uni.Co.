@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -69,7 +69,7 @@ set @idsorkind_CPV = (select idsorkind from sortingkind where codesorkind='CPV')
 	join sorting SortObiettivi on SortObiettiviExp.idsor = SortObiettivi.idsor and SortObiettivi.idsorkind = @idsorkind_Obiettivi
 	
 		
-	JOIN expensesorted SortCpvExp on ImpOrd.idexp = SortCpvExp.idexp
+	left outer JOIN expensesorted SortCpvExp on ImpOrd.idexp = SortCpvExp.idexp
 	LEFT OUTER JOIN sorting SortCpv on SortCpvExp.idsor = SortCpv.idsor and SortCpv.idsorkind = @idsorkind_CPV
 
 	WHERE
@@ -112,7 +112,7 @@ SELECT distinct
 	join sorting SortObiettivi on SortObiettiviExp.idsor = SortObiettivi.idsor and SortObiettivi.idsorkind = @idsorkind_Obiettivi
 	
 		
-	JOIN expensesorted SortCpvExp on ImpOrd.idexp = SortCpvExp.idexp
+	left outer JOIN expensesorted SortCpvExp on ImpOrd.idexp = SortCpvExp.idexp
 	LEFT OUTER JOIN sorting SortCpv on SortCpvExp.idsor = SortCpv.idsor and SortCpv.idsorkind = @idsorkind_CPV
 
 	WHERE

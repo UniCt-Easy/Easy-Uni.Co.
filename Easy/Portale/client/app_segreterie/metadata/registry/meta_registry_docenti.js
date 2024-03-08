@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -52,6 +35,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'matricola', 'Matricola', null, 10, 50);
 //$objCalcFieldConfig_docenti_docente$
 						break;
+					case 'default':
+						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_title', 'Classe consorsuale', null, 51, null);
+						objCalcFieldConfig['!idclassconsorsuale_classconsorsuale_title'] = { tableNameLookup:'classconsorsuale', columnNameLookup:'title', columnNamekey:'idclassconsorsuale' };
+						this.describeAColumn(table, '!idreg_istituti_registry_istituti_title', 'Istituto, Ente o Azienda', null, 41, null);
+						objCalcFieldConfig['!idreg_istituti_registry_istituti_title'] = { tableNameLookup:'registry_alias4', columnNameLookup:'title', columnNamekey:'idreg_istituti' };
+						this.describeAColumn(table, '!idsasd_sasd_codice', 'Codice SASD', null, 21, null);
+						this.describeAColumn(table, '!idsasd_sasd_title', 'Denominazione SASD', null, 22, null);
+						objCalcFieldConfig['!idsasd_sasd_codice'] = { tableNameLookup:'sasd', columnNameLookup:'codice', columnNamekey:'idsasd' };
+						objCalcFieldConfig['!idsasd_sasd_title'] = { tableNameLookup:'sasd', columnNameLookup:'title', columnNamekey:'idsasd' };
+						this.describeAColumn(table, '!idstruttura_struttura_title', 'Denominazione Struttura di afferenza', null, 31, null);
+						this.describeAColumn(table, '!idstruttura_struttura_idstrutturakind_title', 'Tipologia Struttura di afferenza', null, 31, null);
+						objCalcFieldConfig['!idstruttura_struttura_title'] = { tableNameLookup:'struttura_alias2', columnNameLookup:'title', columnNamekey:'idstruttura' };
+						objCalcFieldConfig['!idstruttura_struttura_idstrutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idstruttura' };
+//$objCalcFieldConfig_default$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -65,7 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'docenti':
 						table.columns["cv"].caption = "Curriculum Vitae";
 						table.columns["idclassconsorsuale"].caption = "Classe consorsuale";
-						table.columns["idcontrattokind"].caption = "Tipo";
 						table.columns["idfonteindicebibliometrico"].caption = "Fonte";
 						table.columns["idreg"].caption = "Codice Istituto";
 						table.columns["idreg_istituti"].caption = "Istituto, Ente o Azienda";
@@ -78,8 +75,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //$innerSetCaptionConfig_docenti$
 						break;
 					case 'docenti_docente':
-						table.columns["cv"].caption = "Curriculum Vitae";
 //$innerSetCaptionConfig_docenti_docente$
+						break;
+					case 'docenti_docentenoaltro':
+						table.columns["cv"].caption = "Curriculum Vitae";
+						table.columns["idclassconsorsuale"].caption = "Classe consorsuale";
+						table.columns["idfonteindicebibliometrico"].caption = "Fonte";
+						table.columns["idreg"].caption = "Codice Istituto";
+						table.columns["idreg_istituti"].caption = "Istituto, Ente o Azienda";
+						table.columns["idsasd"].caption = "SASD";
+						table.columns["idstruttura"].caption = "Struttura di afferenza";
+						table.columns["indicebibliometrico"].caption = "Indice bibliometrico (H-Index)";
+						table.columns["matricola"].caption = "Matricola";
+						table.columns["ricevimento"].caption = "Orari di ricevimento";
+						table.columns["soggiorno"].caption = "Permesso di soggiorno";
+//$innerSetCaptionConfig_docenti_docentenoaltro$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -115,6 +125,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return "title asc ";
 					}
 					case "docenti_docente": {
+						return "title asc ";
+					}
+					case "docenti_docentenoaltro": {
 						return "title asc ";
 					}
 					//$getSortingin$

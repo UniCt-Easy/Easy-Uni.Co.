@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -47,8 +30,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'datainizioeffettiva', 'Data inizio effettiva', 'g', 60, null);
 						this.describeAColumn(table, 'datafineeffettiva', 'Data fine effettiva', 'g', 70, null);
 						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 80, null);
-						this.describeAColumn(table, '!idreg_registry_title', 'Chi svolge l�attivit�', null, 31, null);
-						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg' };
+						this.describeAColumn(table, '!idacc_accountminusable_title', 'Denominazione Voce di costo', null, 181, null);
+						this.describeAColumn(table, '!idacc_accountminusable_codeacc', 'Codice Voce di costo', null, 182, null);
+						this.describeAColumn(table, '!idacc_accountminusable_accountkind', 'Tipo Voce di costo', null, 183, null);
+						this.describeAColumn(table, '!idacc_accountminusable_ayear', 'Anno Voce di costo', null, 184, null);
+						objCalcFieldConfig['!idacc_accountminusable_title'] = { tableNameLookup:'accountminusable', columnNameLookup:'title', columnNamekey:'idacc' };
+						objCalcFieldConfig['!idacc_accountminusable_codeacc'] = { tableNameLookup:'accountminusable', columnNameLookup:'codeacc', columnNamekey:'idacc' };
+						objCalcFieldConfig['!idacc_accountminusable_accountkind'] = { tableNameLookup:'accountminusable', columnNameLookup:'accountkind', columnNamekey:'idacc' };
+						objCalcFieldConfig['!idacc_accountminusable_ayear'] = { tableNameLookup:'accountminusable', columnNameLookup:'ayear', columnNamekey:'idacc' };
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_surname', 'Cognome Chi svolge l’attività', null, 31, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_forename', 'Nome Chi svolge l’attività', null, 32, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_extmatricula', 'Matricola Chi svolge l’attività', null, 33, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_contratto', 'Contratto Chi svolge l’attività', null, 34, null);
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_surname'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'surname', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_forename'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'forename', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'extmatricula', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'contratto', columnNamekey:'idreg' };
+						this.describeAColumn(table, '!idupb_upb_title', 'Unità previsionale di base (UPB)', null, 191, null);
+						objCalcFieldConfig['!idupb_upb_title'] = { tableNameLookup:'upb', columnNameLookup:'title', columnNamekey:'idupb' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'docenti':
@@ -59,6 +58,55 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'datafineeffettiva', 'Data fine effettiva', 'g', 80, null);
 						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 90, null);
 //$objCalcFieldConfig_docenti$
+						break;
+					case 'elenchi':
+						this.describeAColumn(table, 'title', 'Titolo', null, 10, 1024);
+						this.describeAColumn(table, 'datainizioprevista', 'Data inizio prevista', 'g', 40, null);
+						this.describeAColumn(table, 'datafineprevista', 'Data fine prevista', 'g', 50, null);
+						this.describeAColumn(table, 'datainizioeffettiva', 'Data inizio effettiva', 'g', 60, null);
+						this.describeAColumn(table, 'datafineeffettiva', 'Data fine effettiva', 'g', 70, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 80, null);
+//$objCalcFieldConfig_elenchi$
+						break;
+					case 'riepilogo':
+						this.describeAColumn(table, 'title', 'Titolo', null, 40, 1024);
+						this.describeAColumn(table, 'datainizioprevista', 'Data inizio prevista', 'g', 60, null);
+						this.describeAColumn(table, 'datafineprevista', 'Data fine prevista', 'g', 70, null);
+						this.describeAColumn(table, 'datainizioeffettiva', 'Data inizio effettiva', 'g', 80, null);
+						this.describeAColumn(table, 'datafineeffettiva', 'Data fine effettiva', 'g', 90, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 100, null);
+						this.describeAColumn(table, '!idacc_accountminusable_title', 'Denominazione Voce di costo', null, 181, null);
+						this.describeAColumn(table, '!idacc_accountminusable_codeacc', 'Codice Voce di costo', null, 182, null);
+						this.describeAColumn(table, '!idacc_accountminusable_accountkind', 'Tipo Voce di costo', null, 183, null);
+						this.describeAColumn(table, '!idacc_accountminusable_ayear', 'Anno Voce di costo', null, 184, null);
+						objCalcFieldConfig['!idacc_accountminusable_title'] = { tableNameLookup:'accountminusable', columnNameLookup:'title', columnNamekey:'idacc' };
+						objCalcFieldConfig['!idacc_accountminusable_codeacc'] = { tableNameLookup:'accountminusable', columnNameLookup:'codeacc', columnNamekey:'idacc' };
+						objCalcFieldConfig['!idacc_accountminusable_accountkind'] = { tableNameLookup:'accountminusable', columnNameLookup:'accountkind', columnNamekey:'idacc' };
+						objCalcFieldConfig['!idacc_accountminusable_ayear'] = { tableNameLookup:'accountminusable', columnNameLookup:'ayear', columnNamekey:'idacc' };
+						this.describeAColumn(table, '!idperfprogettoobiettivo_perfprogettoobiettivo_title', 'Obiettivo strategico', null, 21, null);
+						objCalcFieldConfig['!idperfprogettoobiettivo_perfprogettoobiettivo_title'] = { tableNameLookup:'perfprogettoobiettivo_alias1', columnNameLookup:'title', columnNamekey:'idperfprogettoobiettivo' };
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_surname', 'Cognome Chi svolge l’attività', null, 51, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_forename', 'Nome Chi svolge l’attività', null, 52, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_extmatricula', 'Matricola Chi svolge l’attività', null, 53, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_contratto', 'Contratto Chi svolge l’attività', null, 54, null);
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_surname'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'surname', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_forename'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'forename', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'extmatricula', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'contratto', columnNamekey:'idreg' };
+						this.describeAColumn(table, '!idupb_upb_title', 'Unità previsionale di base (UPB)', null, 191, null);
+						objCalcFieldConfig['!idupb_upb_title'] = { tableNameLookup:'upb', columnNameLookup:'title', columnNamekey:'idupb' };
+						this.describeAColumn(table, '!paridperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_title', 'Attività madre', null, 31, null);
+						objCalcFieldConfig['!paridperfprogettoobiettivoattivita_perfprogettoobiettivoattivita_title'] = { tableNameLookup:'perfprogettoobiettivoattivita_alias2', columnNameLookup:'title', columnNamekey:'paridperfprogettoobiettivoattivita' };
+//$objCalcFieldConfig_riepilogo$
+						break;
+					case 'referenti':
+						this.describeAColumn(table, 'title', 'Titolo', null, 50, 1024);
+						this.describeAColumn(table, 'datainizioprevista', 'Data inizio prevista', 'g', 60, null);
+						this.describeAColumn(table, 'datafineprevista', 'Data fine prevista', 'g', 70, null);
+						this.describeAColumn(table, 'datainizioeffettiva', 'Data inizio effettiva', 'g', 80, null);
+						this.describeAColumn(table, 'datafineeffettiva', 'Data fine effettiva', 'g', 90, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 100, null);
+//$objCalcFieldConfig_referenti$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -77,9 +125,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["datainizioeffettiva"].caption = "Data inizio effettiva";
 						table.columns["datainizioprevista"].caption = "Data inizio prevista";
 						table.columns["description"].caption = "Descrizione";
-						table.columns["idreg"].caption = "Chi svolge l�attivit�";
-						table.columns["paridperfprogettoobiettivoattivita"].caption = "Attivit� madre";
+						table.columns["idreg"].caption = "Chi svolge l’attività";
+						table.columns["paridperfprogettoobiettivoattivita"].caption = "Attività madre";
 						table.columns["title"].caption = "Titolo";
+						table.columns["idacc"].caption = "Voce di costo";
+						table.columns["idupb"].caption = "Unità previsionale di base (UPB)";
 //$innerSetCaptionConfig_default$
 						break;
 					case 'docenti':
@@ -89,12 +139,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["datainizioeffettiva"].caption = "Data inizio effettiva";
 						table.columns["datainizioprevista"].caption = "Data inizio prevista";
 						table.columns["description"].caption = "Descrizione";
-						table.columns["idreg"].caption = "Chi svolge l�attivit�";
-						table.columns["paridperfprogettoobiettivoattivita"].caption = "Attivit� madre";
+						table.columns["idreg"].caption = "Chi svolge l’attività";
+						table.columns["paridperfprogettoobiettivoattivita"].caption = "Attività madre";
 						table.columns["title"].caption = "Titolo";
 						table.columns["idperfprogetto"].caption = "Progetto Strategico";
 						table.columns["idperfprogettoobiettivo"].caption = "Obiettivo strategico";
 //$innerSetCaptionConfig_docenti$
+						break;
+					case 'elenchi':
+						table.columns["completamento"].caption = "Percentuale di completamento";
+						table.columns["datafineeffettiva"].caption = "Data fine effettiva";
+						table.columns["datafineprevista"].caption = "Data fine prevista";
+						table.columns["datainizioeffettiva"].caption = "Data inizio effettiva";
+						table.columns["datainizioprevista"].caption = "Data inizio prevista";
+						table.columns["description"].caption = "Descrizione";
+						table.columns["idacc"].caption = "Voce di costo";
+						table.columns["idreg"].caption = "Chi svolge l’attività";
+						table.columns["idupb"].caption = "Unità previsionale di base (UPB)";
+						table.columns["paridperfprogettoobiettivoattivita"].caption = "Attività madre";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_elenchi$
+						break;
+					case 'riepilogo':
+						table.columns["completamento"].caption = "Percentuale di completamento";
+						table.columns["datafineeffettiva"].caption = "Data fine effettiva";
+						table.columns["datafineprevista"].caption = "Data fine prevista";
+						table.columns["datainizioeffettiva"].caption = "Data inizio effettiva";
+						table.columns["datainizioprevista"].caption = "Data inizio prevista";
+						table.columns["description"].caption = "Descrizione";
+						table.columns["idacc"].caption = "Voce di costo";
+						table.columns["idperfprogetto"].caption = "Progetto Strategico";
+						table.columns["idperfprogettoobiettivo"].caption = "Obiettivo strategico";
+						table.columns["idreg"].caption = "Chi svolge l’attività";
+						table.columns["idupb"].caption = "Unità previsionale di base (UPB)";
+						table.columns["paridperfprogettoobiettivoattivita"].caption = "Attività madre";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_riepilogo$
+						break;
+					case 'referenti':
+						table.columns["completamento"].caption = "Percentuale di completamento";
+						table.columns["datafineeffettiva"].caption = "Data fine effettiva";
+						table.columns["datafineprevista"].caption = "Data fine prevista";
+						table.columns["datainizioeffettiva"].caption = "Data inizio effettiva";
+						table.columns["datainizioprevista"].caption = "Data inizio prevista";
+						table.columns["description"].caption = "Descrizione";
+						table.columns["idacc"].caption = "Voce di costo";
+						table.columns["idperfprogetto"].caption = "Progetto Strategico";
+						table.columns["idperfprogettoobiettivo"].caption = "Obiettivo strategico";
+						table.columns["idreg"].caption = "Chi svolge l’attività";
+						table.columns["idupb"].caption = "Unità previsionale di base (UPB)";
+						table.columns["paridperfprogettoobiettivoattivita"].caption = "Attività madre";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_referenti$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -132,6 +228,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case "docenti": {
 						return "ct asc ";
 					}
+					case "elenchi": {
+						return "ct asc ";
+					}
+					case "riepilogo": {
+						return "ct asc ";
+					}
+					case "referenti": {
+						return "ct asc ";
+					}
 					//$getSortingin$
 				}
 				return this.superClass.getSorting(listType);
@@ -139,7 +244,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			describeTree: function (table, listType) {
 				var def = appMeta.Deferred("meta_describeTree");
-				var nodedispatcher = new appMeta.SimpleUnLeveled_TreeNode_Dispatcher("title");
+				var nodedispatcher = new appMeta.SimpleUnLeveled_TreeNode_Dispatcher("title", "datainizioprevista", "datafineprevista");
 				var rootCondition = window.jsDataQuery.eq("paridperfprogettoobiettivoattivita", 5);
 				return def.resolve({
 					rootCondition: rootCondition,

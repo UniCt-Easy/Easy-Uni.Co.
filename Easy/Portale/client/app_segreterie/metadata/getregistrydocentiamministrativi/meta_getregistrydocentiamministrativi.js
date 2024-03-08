@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -43,13 +26,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'default':
 						this.describeAColumn(table, 'surname', 'Cognome', null, 10, 50);
 						this.describeAColumn(table, 'forename', 'Nome', null, 20, 50);
-						this.describeAColumn(table, 'extmatricula', 'Extmatricula', null, 30, 40);
+						this.describeAColumn(table, 'extmatricula', 'Matricola', null, 30, 40);
 						this.describeAColumn(table, 'cf', 'CF', null, 40, 16);
 						this.describeAColumn(table, 'contratto', 'Contratto', null, 50, 50);
 						this.describeAColumn(table, 'ssd', 'SSD', null, 60, 50);
 						this.describeAColumn(table, 'struttura', 'Struttura', null, 70, 1024);
 						this.describeAColumn(table, 'istituto', 'Istituto', null, 80, 101);
 //$objCalcFieldConfig_default$
+						break;
+					case 'nomcogn':
+						this.describeAColumn(table, 'surname', 'Cognome', null, 10, 50);
+						this.describeAColumn(table, 'forename', 'Nome', null, 20, 50);
+//$objCalcFieldConfig_nomcogn$
+						break;
+					case 'macroarea':
+						this.describeAColumn(table, 'surname', 'Cognome', null, 10, 50);
+						this.describeAColumn(table, 'forename', 'Nome', null, 20, 50);
+						this.describeAColumn(table, 'extmatricula', 'Matricola', null, 30, 40);
+						this.describeAColumn(table, 'cf', 'CF', null, 40, 16);
+						this.describeAColumn(table, 'contratto', 'Contratto', null, 50, 50);
+						this.describeAColumn(table, 'ssd', 'SSD', null, 60, 50);
+						this.describeAColumn(table, 'macroareadidattica', 'Macroarea', null, 70, 1024);
+						this.describeAColumn(table, 'struttura', 'Struttura', null, 80, 1024);
+						this.describeAColumn(table, 'istituto', 'Istituto', null, 90, 101);
+//$objCalcFieldConfig_macroarea$
+						break;
+					case 'nomcognmat':
+						this.describeAColumn(table, 'surname', 'Cognome', null, 10, 50);
+						this.describeAColumn(table, 'forename', 'Nome', null, 20, 50);
+						this.describeAColumn(table, 'extmatricula', 'Matricola', null, 30, 40);
+//$objCalcFieldConfig_nomcognmat$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -66,7 +72,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["forename"].caption = "Nome";
 						table.columns["ssd"].caption = "SSD";
 						table.columns["surname"].caption = "Cognome";
+						table.columns["extmatricula"].caption = "Matricola";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'nomcogn':
+						table.columns["cf"].caption = "CF";
+						table.columns["forename"].caption = "Nome";
+						table.columns["ssd"].caption = "SSD";
+						table.columns["surname"].caption = "Cognome";
+//$innerSetCaptionConfig_nomcogn$
+						break;
+					case 'macroarea':
+						table.columns["cf"].caption = "CF";
+						table.columns["extmatricula"].caption = "Matricola";
+						table.columns["forename"].caption = "Nome";
+						table.columns["macroareadidattica"].caption = "Macroarea";
+						table.columns["ssd"].caption = "SSD";
+						table.columns["surname"].caption = "Cognome";
+//$innerSetCaptionConfig_macroarea$
+						break;
+					case 'nomcognmat':
+						table.columns["cf"].caption = "CF";
+						table.columns["extmatricula"].caption = "Matricola";
+						table.columns["forename"].caption = "Nome";
+						table.columns["ssd"].caption = "SSD";
+						table.columns["surname"].caption = "Cognome";
+//$innerSetCaptionConfig_nomcognmat$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -97,6 +128,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "surname ASC , forename ASC ";
+					}
+					case "nomcogn": {
+						return "surname ASC , forename ASC ";
+					}
+					case "macroarea": {
+						return "surname ASC , forename ASC ";
+					}
+					case "nomcognmat": {
 						return "surname ASC , forename ASC ";
 					}
 					//$getSortingin$

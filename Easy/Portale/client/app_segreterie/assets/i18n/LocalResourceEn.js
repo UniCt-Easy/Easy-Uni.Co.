@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module LocalResourceEn
  * @description
@@ -40,6 +23,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         thereWereProblemsWithTheregistration: "Some error occurs in the registration",
         loginRunning: "Wait for the login!",
         menuLoading : "Menù loading",
+		toast_login_success: "Login successful",
+		toast_reg_success: "Registration successful",
+		info_not_avalilable: "Row information not present for this object",
+
+		//scheduler
+		scheduler_fields_mandatory_msg1: "Before proceeding with the scheduling you must enter all the necessary information on the main tab, and the project and workpackage titles",
+		scheduler_fields_mandatory_msg2: "Insert description and total hour",
+		scheduler_waitConfigLoading: "Wait config loading",
+		scheduler_maxHoursScheduled: "You scheduled max hours",
+		scheduler_title: "Scheduler configuration",
+		scheduler_missing_fields: "You have to insert all fields",
+		scheduler_max_hour_to_insert: "Max number of hour inserted",
+		scheduler_running: "Scheduler running..",
+		scheduler_done: "Scheduler configured. Press <strong>Save</strong> on the main page",
+		schedulerLogMaxHourPerDay: "The day <strong>S%currday%S</strong> there wasn't enough available hours. On <strong>S%maxTotPerDay%S</strong> of total hours" +
+			" you schdueld <strong>S%hoursSameDay%S</strong>, you would have added <strong>S%hoursToAdd%S</strong>",
+		schedulerSkypDay: "No time has been set for the day <strong>S%currday%S</strong>, since the maximum number of <strong>S%maxTotPerDay%S</strong> hours has already been reached, for the qualification <strong >S%role%S</strong>.",
+
+		schedulerNoRoleDefined: " <span style='color:red;'>undefined for this day<span>",
+		schedulerLastDay: "Last day <strong>S%currday%S</strong> <strong>S%maxTotPerDay%S</strong> hours were set, remaining",
+		schedulerTooManyHours: "Hours configuration completed correctly, but I have not entered <strong>S%remaininghours%S</strong> hours, as the programming would go beyond the end date <strong>S%endDate%S</strong>",
+
+		schedulerSospDay: "Day <strong>S%currday%S</strong> not scheduled, it was a sospension day",
+
+		welcome_lbl_id: 'Welcome to the prototype of the segreterie. Click on menù item to open a page',
 
         // chiavi per controlli appMain
         menu_search_btn_id: "Search",
@@ -49,27 +57,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         loginButton: 'Login',
         gotoLogin_id: 'Login',
         gotoRegister_id: 'Sign up',
+		resetPwdMailId: 'Forgot password?',
+        
+        // stringe custom pagine
+		protocolSaveOK: "Protocol record successfully generated",
+		protocolSaveNOK: "There are some problems in assigning the protocol",
+		protocolSaveNOSaved: "You must save before assigning the protocol",
 
-		scheduler_fields_mandatory_msg1 : "You have to insert all necessary info on main tab",
-		scheduler_fields_mandatory_msg2 : "Insert description and total hour",
-		scheduler_waitConfigLoading: "Wait config loading",
-		scheduler_maxHoursScheduled : "You scheduled max hours",
-		scheduler_title : "Scheduler configuration",
-		scheduler_missing_fields : "You have to insert all fields",
-		scheduler_max_hour_to_insert : "Max number of hour inserted",
-		scheduler_running : "Scheduler running..",
-		scheduler_done : "Scheduler configured. Press <strong>Save</strong> on the main page",
-		schedulerLogMaxHourPerDay: "The day <strong>S%currday%S</strong> there wasn't enough available hours. On <strong>S%maxTotPerDay%S</strong> of total hours" +
-			" you schdueld <strong>S%hoursSameDay%S</strong>, you would have added <strong>S%hoursToAdd%S</strong>",
-		schedulerSospDay : "Day <strong>S%currday%S</strong> not scheduled, it was a sospension day",
-
-
-		welcome_lbl_id: 'Welcome to the prototype of the segreterie. Click on menù item to open a page',
-
-		// conditional lookups
+		// lookup condizionali
 		grid_questionariodomrisp_defaultconditionallookup: "multiplacontxt,S,Yes;multiplacontxt,N,No;",
 
-		// columns
+		// colonne
 		grid_questionariodomrisp_default_indicerisp: "Sorting",
 		grid_questionariodomrisp_default_max: "Maximum numeric value",
 		grid_questionariodomrisp_default_min: "Minimum numeric value",
@@ -89,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		grid_questionario_default_questionariokind_title: "Typology Type",
 		grid_questionario_default_questionariokind_description: "Type Description",
 
-		// label on html
+		// label su html
 		questionariodomrisp_default_response: "Answer",
 		questionariodomrisp_default_punteggio: "Score",
 		questionariodomrisp_default_multiplacontxtYes: "Yes",
@@ -130,7 +128,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		"grid_titolostudio_docenti_!idreg_istituti_registry_title": "Istitute",
 
 
-		// nomi tab
+        // nomi tab
 		"#tabquestionariodom_default_1" : "Answer",
 		"#tabquestionariodom_default_0" : "Main",
 		"#tabquestionario_default_1" : "Question",

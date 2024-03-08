@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tablearningagrtrainer_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tablearningagrtrainer_seg_0"><i class="fa fa-handshake mr-1"></i>Principale</a>
+		<a href="#tablearningagrtrainer_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tablearningagrtrainer_seg_0"><i class="fa fa-handshake mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tablearningagrtrainer_seg_3" class="nav-link" data-toggle="pill" data-target="#tablearningagrtrainer_seg_3"><i class="fa fa-language mr-1"></i>Lingua principale in cui viene svolto il lavoro e livello conosciuto</a>
+		<a href="#tablearningagrtrainer_seg_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tablearningagrtrainer_seg_3"><i class="fa fa-language mr-1"></i>Lingua principale in cui viene svolto il lavoro e livello conosciuto</a>
 	</li>
 
 	</ul>
@@ -45,7 +45,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#convalida_segmitr_data").datetimepicker();
+    $("#convalida_segmitr_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="convalida_segmitr_data">Data</label>
@@ -264,7 +264,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#learningagrtrainer_seg_start").datepicker();
+    $("#learningagrtrainer_seg_start").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_start">Data inizio periodo </label>
@@ -273,7 +273,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#learningagrtrainer_seg_stop").datepicker();
+    $("#learningagrtrainer_seg_stop").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="learningagrtrainer_seg_stop">Data fine periodo </label>

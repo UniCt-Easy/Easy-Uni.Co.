@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,11 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitbilancio_spesa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitbilancio_spesa]
 GO
-
 
 SET QUOTED_IDENTIFIER ON 
 GO
@@ -200,7 +198,7 @@ BEGIN
 			AND finvar.idfinvarstatus = 5 AND finvar.variationkind <> 5
 		WHERE  	((F.flag & 1 ) = 1) AND F.ayear =@ayear	
 			AND (@idfin IS NULL OR  FLK1.idparent = @idfin)
-			AND (U.idupb LIKE @idupb and U.active = 'S')
+			AND (U.idupb LIKE @idupb /*and U.active = 'S'*/)
 			AND (F.nlevel = @nlevel)
 		GROUP BY U.idupb, F.idfin, ISNULL(U.assured,'N')
 
@@ -233,7 +231,7 @@ BEGIN
 			ON finlink.idparent = F.idfin AND finlink.nlevel = @level_input
 		WHERE  ((F.flag & 1 ) = 1) AND F.ayear =@ayear	
 			AND (@idfin IS NULL OR  finlink.idparent = @idfin)
-			AND (U.idupb LIKE @idupb  and U.active = 'S')
+			AND (U.idupb LIKE @idupb  /*and U.active = 'S'*/)
 			AND (F.nlevel = @nlevel)
 			AND NOT EXISTS (SELECT *
 					  FROM #situation_fin
@@ -277,7 +275,7 @@ BEGIN
 		WHERE  	((F.flag & 1 ) = 1) AND F.ayear =@ayear	
 			AND (@idfin IS NULL 
 		        OR  FLK.idparent = @idfin)
-			AND (U.idupb LIKE @idupb and U.active = 'S')
+			AND (U.idupb LIKE @idupb /*and U.active = 'S'*/)
 			AND (F.nlevel = @nlevel)
 		GROUP BY U.idupb, F.idfin,ISNULL(U.assured,'N')
 	END
@@ -325,7 +323,7 @@ BEGIN
 				AND finvar.idfinvarstatus = 5 AND finvar.variationkind <> 5
 			WHERE  ((F.flag & 1 ) = 1) AND F.ayear = @ayear
 				AND (@idfin IS NULL OR FLK.idparent = @idfin)
-				AND (U.idupb like @idupb and U.active = 'S')
+				AND (U.idupb like @idupb /*and U.active = 'S'*/)
 				AND (F.nlevel >=  @nlevel)
 				
 			GROUP BY U.idupb,F.idfin,F.nlevel,F.ayear,F.flag,ISNULL(U.assured,'N')
@@ -363,7 +361,7 @@ BEGIN
 			ON finlink.idchild = F.idfin AND finlink.nlevel = @level_input 
 		WHERE  (F.flag & 1 ) = 1 and F.ayear = @ayear
 			AND (@idfin IS NULL OR finlink.idparent = @idfin)
-			AND (U.idupb like @idupb and U.active = 'S')
+			AND (U.idupb like @idupb /*and U.active = 'S'*/)
 			AND (F.nlevel >=  @nlevel)
 			AND NOT EXISTS (SELECT *
 					  FROM #situation_fin
@@ -414,7 +412,7 @@ BEGIN
 			AND (@idfin IS NULL OR FLK.idparent = @idfin)
 		WHERE  ((F.flag & 1) = 1) and F.ayear = @ayear
 			AND (@idfin IS NULL OR  FLK.idparent = @idfin)
-			AND (U.idupb LIKE @idupb and U.active = 'S')
+			AND (U.idupb LIKE @idupb /*and U.active = 'S'*/)
 			AND (F.nlevel >=  @nlevel)
 		GROUP BY U.idupb,F.idfin,F.nlevel,F.ayear,F.flag, ISNULL(U.assured,'N')
 	END

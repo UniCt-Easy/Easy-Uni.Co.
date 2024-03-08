@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_perfprogettoavanzamento_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_perfprogettoavanzamento_default: DataSet {
+public partial class dsmeta_perfprogettoavanzamento_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -66,24 +66,22 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// REGISTRYAMMINISTRATIVIVIEW_ALIAS1 /////////////////////////////////
 	var tregistryamministrativiview_alias1= new MetaTable("registryamministrativiview_alias1");
+	tregistryamministrativiview_alias1.defineColumn("accmotive_codemotive", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("accmotive_registry_codemotive", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("accmotive_registry_title", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("accmotive_title", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("category_description", typeof(string));
-	tregistryamministrativiview_alias1.defineColumn("contrattokind_title", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("dropdown_title", typeof(string),false);
 	tregistryamministrativiview_alias1.defineColumn("geo_city_title", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("geo_nation_title", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("idaccmotivecredit", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("idaccmotivedebit", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("idcity", typeof(int));
 	tregistryamministrativiview_alias1.defineColumn("idnation", typeof(int));
 	tregistryamministrativiview_alias1.defineColumn("idreg", typeof(int),false);
 	tregistryamministrativiview_alias1.defineColumn("idtitle", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("maritalstatus_description", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_active", typeof(string));
-	tregistryamministrativiview_alias1.defineColumn("registry_amministrativi_ct", typeof(DateTime));
-	tregistryamministrativiview_alias1.defineColumn("registry_amministrativi_cu", typeof(string));
-	tregistryamministrativiview_alias1.defineColumn("registry_amministrativi_cv", typeof(string));
-	tregistryamministrativiview_alias1.defineColumn("registry_amministrativi_idcontrattokind", typeof(int));
-	tregistryamministrativiview_alias1.defineColumn("registry_amministrativi_idreg", typeof(int),false);
-	tregistryamministrativiview_alias1.defineColumn("registry_amministrativi_lt", typeof(DateTime));
-	tregistryamministrativiview_alias1.defineColumn("registry_amministrativi_lu", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_annotation", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_authorization_free", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_badgecode", typeof(string));
@@ -100,14 +98,22 @@ private void initClass() {
 	tregistryamministrativiview_alias1.defineColumn("registry_foreigncf", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_forename", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_gender", typeof(string));
-	tregistryamministrativiview_alias1.defineColumn("registry_idaccmotivecredit", typeof(string));
-	tregistryamministrativiview_alias1.defineColumn("registry_idaccmotivedebit", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("registry_idateco", typeof(int));
 	tregistryamministrativiview_alias1.defineColumn("registry_idcategory", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_idcentralizedcategory", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("registry_idclassconsorsuale", typeof(int));
 	tregistryamministrativiview_alias1.defineColumn("registry_idexternal", typeof(int));
+	tregistryamministrativiview_alias1.defineColumn("registry_idfonteindicebibliometrico", typeof(int));
 	tregistryamministrativiview_alias1.defineColumn("registry_idmaritalstatus", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("registry_idnace", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("registry_idnaturagiur", typeof(int));
+	tregistryamministrativiview_alias1.defineColumn("registry_idnumerodip", typeof(int));
+	tregistryamministrativiview_alias1.defineColumn("registry_idreg_istituti", typeof(int));
 	tregistryamministrativiview_alias1.defineColumn("registry_idregistryclass", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_idregistrykind", typeof(int));
+	tregistryamministrativiview_alias1.defineColumn("registry_idsasd", typeof(int));
+	tregistryamministrativiview_alias1.defineColumn("registry_idstruttura", typeof(int));
+	tregistryamministrativiview_alias1.defineColumn("registry_indicebibliometrico", typeof(int));
 	tregistryamministrativiview_alias1.defineColumn("registry_ipa_fe", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_ipa_perlapa", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_location", typeof(string));
@@ -117,12 +123,16 @@ private void initClass() {
 	tregistryamministrativiview_alias1.defineColumn("registry_multi_cf", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_p_iva", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_pec_fe", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("registry_pic", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_residence", typeof(int),false);
+	tregistryamministrativiview_alias1.defineColumn("registry_ricevimento", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_rtf", typeof(Byte[]));
 	tregistryamministrativiview_alias1.defineColumn("registry_sdi_defrifamm", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_sdi_norifamm", typeof(string));
+	tregistryamministrativiview_alias1.defineColumn("registry_soggiorno", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_surname", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_title", typeof(string),false);
+	tregistryamministrativiview_alias1.defineColumn("registry_title_en", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registry_toredirect", typeof(int));
 	tregistryamministrativiview_alias1.defineColumn("registry_txt", typeof(string));
 	tregistryamministrativiview_alias1.defineColumn("registryclass_description", typeof(string));
@@ -135,24 +145,22 @@ private void initClass() {
 
 	//////////////////// REGISTRYAMMINISTRATIVIVIEW /////////////////////////////////
 	var tregistryamministrativiview= new MetaTable("registryamministrativiview");
+	tregistryamministrativiview.defineColumn("accmotive_codemotive", typeof(string));
+	tregistryamministrativiview.defineColumn("accmotive_registry_codemotive", typeof(string));
+	tregistryamministrativiview.defineColumn("accmotive_registry_title", typeof(string));
+	tregistryamministrativiview.defineColumn("accmotive_title", typeof(string));
 	tregistryamministrativiview.defineColumn("category_description", typeof(string));
-	tregistryamministrativiview.defineColumn("contrattokind_title", typeof(string));
 	tregistryamministrativiview.defineColumn("dropdown_title", typeof(string),false);
 	tregistryamministrativiview.defineColumn("geo_city_title", typeof(string));
 	tregistryamministrativiview.defineColumn("geo_nation_title", typeof(string));
+	tregistryamministrativiview.defineColumn("idaccmotivecredit", typeof(string));
+	tregistryamministrativiview.defineColumn("idaccmotivedebit", typeof(string));
 	tregistryamministrativiview.defineColumn("idcity", typeof(int));
 	tregistryamministrativiview.defineColumn("idnation", typeof(int));
 	tregistryamministrativiview.defineColumn("idreg", typeof(int),false);
 	tregistryamministrativiview.defineColumn("idtitle", typeof(string));
 	tregistryamministrativiview.defineColumn("maritalstatus_description", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_active", typeof(string));
-	tregistryamministrativiview.defineColumn("registry_amministrativi_ct", typeof(DateTime));
-	tregistryamministrativiview.defineColumn("registry_amministrativi_cu", typeof(string));
-	tregistryamministrativiview.defineColumn("registry_amministrativi_cv", typeof(string));
-	tregistryamministrativiview.defineColumn("registry_amministrativi_idcontrattokind", typeof(int));
-	tregistryamministrativiview.defineColumn("registry_amministrativi_idreg", typeof(int),false);
-	tregistryamministrativiview.defineColumn("registry_amministrativi_lt", typeof(DateTime));
-	tregistryamministrativiview.defineColumn("registry_amministrativi_lu", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_annotation", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_authorization_free", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_badgecode", typeof(string));
@@ -169,14 +177,22 @@ private void initClass() {
 	tregistryamministrativiview.defineColumn("registry_foreigncf", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_forename", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_gender", typeof(string));
-	tregistryamministrativiview.defineColumn("registry_idaccmotivecredit", typeof(string));
-	tregistryamministrativiview.defineColumn("registry_idaccmotivedebit", typeof(string));
+	tregistryamministrativiview.defineColumn("registry_idateco", typeof(int));
 	tregistryamministrativiview.defineColumn("registry_idcategory", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_idcentralizedcategory", typeof(string));
+	tregistryamministrativiview.defineColumn("registry_idclassconsorsuale", typeof(int));
 	tregistryamministrativiview.defineColumn("registry_idexternal", typeof(int));
+	tregistryamministrativiview.defineColumn("registry_idfonteindicebibliometrico", typeof(int));
 	tregistryamministrativiview.defineColumn("registry_idmaritalstatus", typeof(string));
+	tregistryamministrativiview.defineColumn("registry_idnace", typeof(string));
+	tregistryamministrativiview.defineColumn("registry_idnaturagiur", typeof(int));
+	tregistryamministrativiview.defineColumn("registry_idnumerodip", typeof(int));
+	tregistryamministrativiview.defineColumn("registry_idreg_istituti", typeof(int));
 	tregistryamministrativiview.defineColumn("registry_idregistryclass", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_idregistrykind", typeof(int));
+	tregistryamministrativiview.defineColumn("registry_idsasd", typeof(int));
+	tregistryamministrativiview.defineColumn("registry_idstruttura", typeof(int));
+	tregistryamministrativiview.defineColumn("registry_indicebibliometrico", typeof(int));
 	tregistryamministrativiview.defineColumn("registry_ipa_fe", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_ipa_perlapa", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_location", typeof(string));
@@ -186,12 +202,16 @@ private void initClass() {
 	tregistryamministrativiview.defineColumn("registry_multi_cf", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_p_iva", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_pec_fe", typeof(string));
+	tregistryamministrativiview.defineColumn("registry_pic", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_residence", typeof(int),false);
+	tregistryamministrativiview.defineColumn("registry_ricevimento", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_rtf", typeof(Byte[]));
 	tregistryamministrativiview.defineColumn("registry_sdi_defrifamm", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_sdi_norifamm", typeof(string));
+	tregistryamministrativiview.defineColumn("registry_soggiorno", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_surname", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_title", typeof(string),false);
+	tregistryamministrativiview.defineColumn("registry_title_en", typeof(string));
 	tregistryamministrativiview.defineColumn("registry_toredirect", typeof(int));
 	tregistryamministrativiview.defineColumn("registry_txt", typeof(string));
 	tregistryamministrativiview.defineColumn("registryclass_description", typeof(string));

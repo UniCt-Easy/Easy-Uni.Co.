@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,12 +29,9 @@ using metadatalibrary;
 namespace assetgrantdetail_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventory 		=> (MetaTable)Tables["inventory"];
 
@@ -44,27 +41,15 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventorytreeview 		=> (MetaTable)Tables["inventorytreeview"];
 
-	///<summary>
-	///Ente inventariale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventoryagency 		=> (MetaTable)Tables["inventoryagency"];
 
-	///<summary>
-	///Attribuzione di un contributo conto impianti ad un cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetgrantTable assetgrant 		=> (assetgrantTable)Tables["assetgrant"];
 
-	///<summary>
-	///Risconto contributo conto impianti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetgrantdetailTable assetgrantdetail 		=> (assetgrantdetailTable)Tables["assetgrantdetail"];
 
-	///<summary>
-	///Accertamento di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epacc 		=> (MetaTable)Tables["epacc"];
 
@@ -268,7 +253,7 @@ private void initClass() {
 
 	//////////////////// ASSETGRANT /////////////////////////////////
 	var tassetgrant= new assetgrantTable();
-	tassetgrant.addBaseColumns("idasset","idgrant","idunderwriting","idaccmotive","amount","ygrant","description","doc","docdate","idgrantload","lt","lu","ct","cu","idpiece","idepacc");
+	tassetgrant.addBaseColumns("idasset","idgrant","idunderwriting","idaccmotive","amount","ygrant","description","doc","docdate","idgrantload","lt","lu","ct","cu","idpiece","idepacc","flag_financesource","flag_entryprofitreservedone");
 	Tables.Add(tassetgrant);
 	tassetgrant.defineKey("idasset", "idgrant", "idpiece");
 

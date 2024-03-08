@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -46,9 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'cap', 'CAP', null, 40, 20);
 						this.describeAColumn(table, 'code', 'Codice', null, 50, 128);
 						this.describeAColumn(table, 'latitude', 'Latitudine', 'fixed.7', 90, null);
-						this.describeAColumn(table, 'location', 'Localit‡', null, 100, 20);
+						this.describeAColumn(table, 'location', 'Localit√†', null, 100, 20);
 						this.describeAColumn(table, 'longitude', 'Longitudine', 'fixed.7', 110, null);
-						this.describeAColumn(table, '!idcity_geo_city_title', 'Citt‡', null, 61, null);
+						this.describeAColumn(table, '!idcity_geo_city_title', 'Citt√†', null, 61, null);
 						objCalcFieldConfig['!idcity_geo_city_title'] = { tableNameLookup:'geo_city_alias1', columnNameLookup:'title', columnNamekey:'idcity' };
 						this.describeAColumn(table, '!idnation_geo_nation_title', 'Nazione', null, 71, null);
 						objCalcFieldConfig['!idnation_geo_nation_title'] = { tableNameLookup:'geo_nation_alias1', columnNameLookup:'title', columnNamekey:'idnation' };
@@ -59,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'address', 'Indirizzo', null, 30, 100);
 						this.describeAColumn(table, 'cap', 'CAP', null, 40, 20);
 						this.describeAColumn(table, 'code', 'Codice', null, 50, 128);
-						this.describeAColumn(table, 'location', 'Localit‡', null, 100, 20);
+						this.describeAColumn(table, 'location', 'Localit√†', null, 100, 20);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -76,12 +59,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["address"].caption = "Indirizzo";
 						table.columns["cap"].caption = "CAP";
 						table.columns["code"].caption = "Codice";
-						table.columns["idcity"].caption = "Citt‡";
+						table.columns["idcity"].caption = "Citt√†";
 						table.columns["idedificio"].caption = "Edificio";
 						table.columns["idnation"].caption = "Nazione";
 						table.columns["idsede"].caption = "Sede";
 						table.columns["latitude"].caption = "Latitudine";
-						table.columns["location"].caption = "Localit‡";
+						table.columns["location"].caption = "Localit√†";
 						table.columns["longitude"].caption = "Longitudine";
 						table.columns["title"].caption = "Denominazione";
 //$innerSetCaptionConfig_default$

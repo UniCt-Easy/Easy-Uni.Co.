@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -68,17 +68,21 @@ namespace stip_decodifica_default {
 			this.txtVoce = new System.Windows.Forms.TextBox();
 			this.txtCodiceCorsoLaurea = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
-			this.DS = new stip_decodifica_default.vistaForm();
 			this.cmbTipoContratto = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.button5 = new System.Windows.Forms.Button();
 			this.txtImporto = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
+			this.grpTassa = new System.Windows.Forms.GroupBox();
+			this.grpVoce = new System.Windows.Forms.GroupBox();
+			this.DS = new stip_decodifica_default.vistaForm();
 			this.groupBox4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox10.SuspendLayout();
 			this.gboxCausale.SuspendLayout();
+			this.grpTassa.SuspendLayout();
+			this.grpVoce.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -107,7 +111,7 @@ namespace stip_decodifica_default {
 			this.textBox14.Multiline = true;
 			this.textBox14.Name = "textBox14";
 			this.textBox14.ReadOnly = true;
-			this.textBox14.Size = new System.Drawing.Size(277, 67);
+			this.textBox14.Size = new System.Drawing.Size(278, 67);
 			this.textBox14.TabIndex = 2;
 			this.textBox14.TabStop = false;
 			this.textBox14.Tag = "accmotiveapplied_undotaxpost.motive";
@@ -324,7 +328,7 @@ namespace stip_decodifica_default {
 			// 
 			// btnCorsoLaurea
 			// 
-			this.btnCorsoLaurea.Location = new System.Drawing.Point(375, 312);
+			this.btnCorsoLaurea.Location = new System.Drawing.Point(383, 325);
 			this.btnCorsoLaurea.Name = "btnCorsoLaurea";
 			this.btnCorsoLaurea.Size = new System.Drawing.Size(104, 23);
 			this.btnCorsoLaurea.TabIndex = 109;
@@ -334,33 +338,33 @@ namespace stip_decodifica_default {
 			// 
 			// btnTassa
 			// 
-			this.btnTassa.Location = new System.Drawing.Point(375, 393);
+			this.btnTassa.Location = new System.Drawing.Point(4, 8);
 			this.btnTassa.Name = "btnTassa";
 			this.btnTassa.Size = new System.Drawing.Size(104, 23);
 			this.btnTassa.TabIndex = 110;
 			this.btnTassa.TabStop = false;
-			this.btnTassa.Tag = "choose.stip_tassa.default";
+			this.btnTassa.Tag = "Choose.stip_tassa.default";
 			this.btnTassa.Text = "Tassa";
 			// 
 			// btnVoce
 			// 
-			this.btnVoce.Location = new System.Drawing.Point(375, 420);
+			this.btnVoce.Location = new System.Drawing.Point(4, 8);
 			this.btnVoce.Name = "btnVoce";
 			this.btnVoce.Size = new System.Drawing.Size(104, 23);
 			this.btnVoce.TabIndex = 111;
 			this.btnVoce.TabStop = false;
-			this.btnVoce.Tag = "choose.stip_voce.default";
+			this.btnVoce.Tag = "Choose.stip_voce.default";
 			this.btnVoce.Text = "Voce";
 			// 
 			// txtCorsoLaurea
 			// 
 			this.txtCorsoLaurea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCorsoLaurea.Location = new System.Drawing.Point(376, 339);
+			this.txtCorsoLaurea.Location = new System.Drawing.Point(381, 354);
 			this.txtCorsoLaurea.Multiline = true;
 			this.txtCorsoLaurea.Name = "txtCorsoLaurea";
 			this.txtCorsoLaurea.ReadOnly = true;
-			this.txtCorsoLaurea.Size = new System.Drawing.Size(389, 49);
+			this.txtCorsoLaurea.Size = new System.Drawing.Size(389, 104);
 			this.txtCorsoLaurea.TabIndex = 112;
 			this.txtCorsoLaurea.Tag = "stip_corsolaurea.descrizione?stip_decodificaview.corsolaurea";
 			// 
@@ -368,9 +372,8 @@ namespace stip_decodifica_default {
 			// 
 			this.txtTassa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTassa.Location = new System.Drawing.Point(485, 394);
+			this.txtTassa.Location = new System.Drawing.Point(114, 9);
 			this.txtTassa.Name = "txtTassa";
-			this.txtTassa.ReadOnly = true;
 			this.txtTassa.Size = new System.Drawing.Size(280, 20);
 			this.txtTassa.TabIndex = 113;
 			this.txtTassa.Tag = "stip_tassa.descrizione?stip_decodificaview.tassa";
@@ -379,9 +382,8 @@ namespace stip_decodifica_default {
 			// 
 			this.txtVoce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtVoce.Location = new System.Drawing.Point(485, 421);
+			this.txtVoce.Location = new System.Drawing.Point(114, 9);
 			this.txtVoce.Name = "txtVoce";
-			this.txtVoce.ReadOnly = true;
 			this.txtVoce.Size = new System.Drawing.Size(280, 20);
 			this.txtVoce.TabIndex = 114;
 			this.txtVoce.Tag = "stip_voce.descrizione?stip_decodificaview.voce";
@@ -390,31 +392,26 @@ namespace stip_decodifica_default {
 			// 
 			this.txtCodiceCorsoLaurea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCodiceCorsoLaurea.Location = new System.Drawing.Point(596, 315);
+			this.txtCodiceCorsoLaurea.Location = new System.Drawing.Point(624, 329);
 			this.txtCodiceCorsoLaurea.Name = "txtCodiceCorsoLaurea";
 			this.txtCodiceCorsoLaurea.ReadOnly = true;
-			this.txtCodiceCorsoLaurea.Size = new System.Drawing.Size(168, 20);
+			this.txtCodiceCorsoLaurea.Size = new System.Drawing.Size(146, 20);
 			this.txtCodiceCorsoLaurea.TabIndex = 115;
 			this.txtCodiceCorsoLaurea.Tag = "stip_corsolaurea.codicecorsolaurea?stip_decodificaview.codicecorsolaurea";
 			// 
 			// label7
 			// 
-			this.label7.Location = new System.Drawing.Point(504, 316);
+			this.label7.Location = new System.Drawing.Point(523, 330);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(90, 16);
 			this.label7.TabIndex = 116;
 			this.label7.Text = "Codice Corso:";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
-			// DS
-			// 
-			this.DS.DataSetName = "vistaForm";
-			this.DS.EnforceConstraints = false;
-			// 
 			// cmbTipoContratto
 			// 
 			this.cmbTipoContratto.DisplayMember = "description";
-			this.cmbTipoContratto.Location = new System.Drawing.Point(135, 472);
+			this.cmbTipoContratto.Location = new System.Drawing.Point(137, 547);
 			this.cmbTipoContratto.Name = "cmbTipoContratto";
 			this.cmbTipoContratto.Size = new System.Drawing.Size(320, 21);
 			this.cmbTipoContratto.TabIndex = 117;
@@ -424,7 +421,7 @@ namespace stip_decodifica_default {
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(137, 456);
+			this.label1.Location = new System.Drawing.Point(139, 531);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(179, 13);
 			this.label1.TabIndex = 118;
@@ -432,9 +429,9 @@ namespace stip_decodifica_default {
 			// 
 			// button5
 			// 
-			this.button5.Location = new System.Drawing.Point(20, 469);
+			this.button5.Location = new System.Drawing.Point(22, 544);
 			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(104, 24);
+			this.button5.Size = new System.Drawing.Size(104, 25);
 			this.button5.TabIndex = 119;
 			this.button5.TabStop = false;
 			this.button5.Tag = "Choose.estimatekind.default";
@@ -457,9 +454,38 @@ namespace stip_decodifica_default {
 			this.label6.Text = "#:";
 			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// grpTassa
+			// 
+			this.grpTassa.Controls.Add(this.btnTassa);
+			this.grpTassa.Controls.Add(this.txtTassa);
+			this.grpTassa.Location = new System.Drawing.Point(374, 463);
+			this.grpTassa.Name = "grpTassa";
+			this.grpTassa.Size = new System.Drawing.Size(400, 35);
+			this.grpTassa.TabIndex = 122;
+			this.grpTassa.TabStop = false;
+			this.grpTassa.Tag = "AutoChoose.txtTassa.default";
+			// 
+			// grpVoce
+			// 
+			this.grpVoce.Controls.Add(this.txtVoce);
+			this.grpVoce.Controls.Add(this.btnVoce);
+			this.grpVoce.Location = new System.Drawing.Point(374, 501);
+			this.grpVoce.Name = "grpVoce";
+			this.grpVoce.Size = new System.Drawing.Size(400, 36);
+			this.grpVoce.TabIndex = 123;
+			this.grpVoce.TabStop = false;
+			this.grpVoce.Tag = "AutoChoose.txtVoce.default";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			// 
 			// Frm_stip_decodifica_default
 			// 
-			this.ClientSize = new System.Drawing.Size(789, 515);
+			this.ClientSize = new System.Drawing.Size(789, 576);
+			this.Controls.Add(this.grpVoce);
+			this.Controls.Add(this.grpTassa);
 			this.Controls.Add(this.txtImporto);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.button5);
@@ -467,11 +493,7 @@ namespace stip_decodifica_default {
 			this.Controls.Add(this.cmbTipoContratto);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.txtCodiceCorsoLaurea);
-			this.Controls.Add(this.txtVoce);
-			this.Controls.Add(this.txtTassa);
 			this.Controls.Add(this.txtCorsoLaurea);
-			this.Controls.Add(this.btnVoce);
-			this.Controls.Add(this.btnTassa);
 			this.Controls.Add(this.btnCorsoLaurea);
 			this.Controls.Add(this.groupBox4);
 			this.Controls.Add(this.groupBox3);
@@ -489,6 +511,10 @@ namespace stip_decodifica_default {
 			this.groupBox10.PerformLayout();
 			this.gboxCausale.ResumeLayout(false);
 			this.gboxCausale.PerformLayout();
+			this.grpTassa.ResumeLayout(false);
+			this.grpTassa.PerformLayout();
+			this.grpVoce.ResumeLayout(false);
+			this.grpVoce.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -531,5 +557,7 @@ namespace stip_decodifica_default {
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox txtImporto;
         private System.Windows.Forms.Label label6;
-    }
+		private System.Windows.Forms.GroupBox grpTassa;
+		private System.Windows.Forms.GroupBox grpVoce;
+	}
 }

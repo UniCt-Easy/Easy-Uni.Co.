@@ -25,7 +25,9 @@
               <xs:element name="yoperation" type="xs:short" minOccurs="0" />
               <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" minOccurs="0" />
-            </xs:sequence>
+			  <xs:element name="idassetdiaryora" type="xs:int" minOccurs="0" />
+			  <xs:element name="idsalprogettoassetworkpackagemese" type="xs:int" minOccurs="0" />
+			</xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="assetdiaryora">

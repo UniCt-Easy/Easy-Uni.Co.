@@ -4,37 +4,33 @@
 <html>
 <head id="Head1" runat="server">
     <title>Easy</title>
-
-     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=EDGE" />
- <meta http-equiv="Expires" content="-1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=EDGE" />
+    <meta http-equiv="Expires" content="-1" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Cache-Control" content="no-cache" />
-
-    <link type="text/css" href="css/custom-theme/jquery-ui-1.11.4.custom.min.css" rel="stylesheet" />
-    <link type="text/css" href="css/jquery.pgrid.default.css" rel="stylesheet" />
-    <!--link type="text/css" href="css/jquery-impromptu.css" rel="stylesheet" / !-->
-    <link type="text/css" href="css/menustyle.css" rel="stylesheet" />
-    <link type="text/css" href="css/masterpage.css" rel="stylesheet" />
-
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-
+    <link type="text/css" rel="stylesheet" href="css/custom-theme/jquery-ui-1.11.4.custom.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/jquery.pgrid.default.css" />
+    <link type="text/css" rel="stylesheet" href="css/menustyle.css" />
+    <link type="text/css" rel="stylesheet" href="css/masterpage.css" />
+    <link type="image/x-icon" rel="icon" href="favicon.ico" />
+    <link type="image/x-icon" rel="shortcut icon" href="favicon.ico" />
 </head>
 <!--Commentare la riga che segue per abilitare il menù contestuale su tutte le pagine-->
 <!--Decommentare la successiva in caso di debug o si necessiti di visualizzare il sorgente HTML-->
 <!--body oncontextmenu="return false;" -->
 <body style="margin: 0px 0px; padding: 0px; text-align: center;">
+
     <asp:ContentPlaceHolder ID="head" runat="server">
+
     </asp:ContentPlaceHolder>
 
     <form id="form1" runat="server" style="border-style: none; margin: 0px;">
-        <asp:Button ID="btnAllSubmit" runat="server" UseSubmitBehaviour="false"  OnClick="btnAllSubmit_Click"
-             Style="visibility: hidden; display: none;" />
-
+        <asp:Button ID="btnAllSubmit" runat="server" UseSubmitBehaviour="false"  OnClick="btnAllSubmit_Click" Style="visibility: hidden; display: none;" />
         <div align="center" tabindex="-1" style="margin-top: 0; margin-bottom: 0;">
             <table border="0" tabindex="-1" width="100%" id="tableTotale" cellspacing="0" cellpadding="0">
                 <tr>
                     <td height="127" valign="top" style="width: 100%">
+
                         <asp:ContentPlaceHolder ID="CPH_A0" runat="server">
                             <table border="0" width="100%" id="table5" cellspacing="0" cellpadding="0" height="87">
                                 <tr>
@@ -50,8 +46,8 @@
                                 </tr>
                             </table>
                         </asp:ContentPlaceHolder>
-                        <asp:ContentPlaceHolder ID="CPH_MainMenu" runat="server">
 
+                        <asp:ContentPlaceHolder ID="CPH_MainMenu" runat="server">
                             <table border="0" width="100%" id="table3" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td style="background-image: url('Immagini/Fondo_Barra_Strumenti.jpg'); background-size: 100% 100%; background-repeat: repeat-x; background-position: left top; height: 36px;">
@@ -79,7 +75,7 @@
                                                         <asp:Label ID="lblNomeUtente" runat="server" Text=""></asp:Label>
                                                         &nbsp; &nbsp; Ruolo:
                                                         <asp:Label ID="lblRuolo" runat="server" Text=""></asp:Label>
-                                                        &nbsp; &nbsp; <a href="GuidaEasyWeb.pdf" tabindex="-1" onclick="window.open(this.href);return false;" title="Manuale">Help</a>
+                                                        &nbsp; &nbsp; <div runat="server" id="helpLinks"><a href="GuidaEasyWeb.pdf" tabindex="-1" onclick="window.open(this.href);return false;" title="Manuale">Help</a></div>
                                                     </asp:ContentPlaceHolder>
                                                 </td>
                                             </tr>
@@ -88,91 +84,65 @@
                                 </tr>
                             </table>
                         </asp:ContentPlaceHolder>
+
                     </td>
                 </tr>
             </table>
         </div>
 
-
         <div id="CHP_PC_DIV" style="border-style: groove; margin: 0px auto; width: 960px; text-align: left;" runat="server">
             <asp:ContentPlaceHolder ID="CHP_PC" runat="server">
+
             </asp:ContentPlaceHolder>
         </div>
+
         <asp:TextBox ID="TxSavedFocus" CssClass="savefocus" runat="server" Style="display: none;"  TabIndex ="-1" Width="300px"></asp:TextBox>
+
         <div  id="Div_CHPList" runat="server" style="display: inline-block; position: absolute; width: 80%; left: 10%;  top:10%" >
             <asp:ContentPlaceHolder ID="CHP_List" runat="server">
-
-
-
                 
             </asp:ContentPlaceHolder>
         </div>
 
-
-                <asp:TextBox ID="PreservePreviousValue" runat="server" Style="display: none;" Width="1px"></asp:TextBox>
-                <asp:TextBox ID="PreviousValue" runat="server" Style="display: none;" Width="1px"></asp:TextBox>
-
-
-
+        <asp:TextBox ID="PreservePreviousValue" runat="server" Style="display: none;" Width="1px"></asp:TextBox>
+        <asp:TextBox ID="PreviousValue" runat="server" Style="display: none;" Width="1px"></asp:TextBox>
 
         <asp:ContentPlaceHolder ID="CHP_CM" runat="server">
+
         </asp:ContentPlaceHolder>
 
-
-
-
-
         <div id="CHP_BR_DIV" runat="server" class="Rules" visible="false">
-
             <asp:ContentPlaceHolder ID="CHP_BR" runat="server">
                 <!-- qui vengono inserite le business rule !-->
-
             </asp:ContentPlaceHolder>
-
-
         </div>
 
         <div id="CHP_TB_BR" runat="server" style="margin: 0px;">
+            <asp:ContentPlaceHolder runat="server" ID="CHP_TB">
 
-            <asp:ContentPlaceHolder runat="server" ID="CHP_TB"></asp:ContentPlaceHolder>
+            </asp:ContentPlaceHolder>
         </div>
     </form>
 
-         <script type="text/javascript">
-             var MetaMasterUsingBootstrap = false;
-
-     </script>
-
-
-
+    <script type="text/javascript">
+        var MetaMasterUsingBootstrap = false;
+    </script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.11.4.js"></script>
-    <!--script type="text/javascript" src="js/jquery-impromptu.js"></script   !-->
-    
-     <asp:ContentPlaceHolder ID="JScriptBeforeLibs" runat="server">
+
+    <asp:ContentPlaceHolder ID="JScriptBeforeLibs" runat="server">
         <script type="text/javascript">
-        /* INTUIT */
-        
-
+            /* INTUIT */
         </script>
-
     </asp:ContentPlaceHolder>
     
     <script type="text/javascript" src="js/jquery.pgrid.min.js"></script>
     <script type="text/javascript" src="js/allmine.js?v=2"></script>
 
-
     <asp:ContentPlaceHolder ID="JScriptAfterLibs" runat="server">
          <script type="text/javascript">
              /* INTUIT */
-
-            
         </script>
-
     </asp:ContentPlaceHolder>
-    
-        
-      
 </body>
-
 </html>

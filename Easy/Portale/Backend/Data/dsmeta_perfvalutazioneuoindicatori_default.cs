@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -95,6 +95,7 @@ private void initClass() {
 	tperfvalutazioneuoindicatorisoglia.defineColumn("valore", typeof(decimal),false);
 	tperfvalutazioneuoindicatorisoglia.defineColumn("valorenumerico", typeof(decimal));
 	tperfvalutazioneuoindicatorisoglia.defineColumn("year", typeof(int),false);
+	tperfvalutazioneuoindicatorisoglia.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfvalutazioneuoindicatorisoglia);
 	tperfvalutazioneuoindicatorisoglia.defineKey("idperfvalutazioneuoindicatori", "idperfvalutazioneuoindicatorisoglia");
 
@@ -111,7 +112,6 @@ private void initClass() {
 	tperfvalutazioneuoindicatori.defineColumn("ct", typeof(DateTime),false);
 	tperfvalutazioneuoindicatori.defineColumn("cu", typeof(string),false);
 	tperfvalutazioneuoindicatori.defineColumn("idperfindicatore", typeof(int),false);
-	tperfvalutazioneuoindicatori.defineColumn("idperfstruttura", typeof(int),false);
 	tperfvalutazioneuoindicatori.defineColumn("idperfvalutazioneuo", typeof(int),false);
 	tperfvalutazioneuoindicatori.defineColumn("idperfvalutazioneuoindicatori", typeof(int),false);
 	tperfvalutazioneuoindicatori.defineColumn("lt", typeof(DateTime),false);
@@ -119,7 +119,7 @@ private void initClass() {
 	tperfvalutazioneuoindicatori.defineColumn("peso", typeof(decimal));
 	tperfvalutazioneuoindicatori.defineColumn("valorenumerico", typeof(decimal));
 	Tables.Add(tperfvalutazioneuoindicatori);
-	tperfvalutazioneuoindicatori.defineKey("idperfindicatore", "idperfstruttura", "idperfvalutazioneuo", "idperfvalutazioneuoindicatori");
+	tperfvalutazioneuoindicatori.defineKey("idperfindicatore", "idperfvalutazioneuo", "idperfvalutazioneuoindicatori");
 
 	#endregion
 

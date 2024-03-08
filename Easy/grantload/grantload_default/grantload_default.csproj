@@ -66,6 +66,12 @@
       <Name>meta_assetgrantdetailview</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_underwriting">
+      <HintPath>..\..\underwriting\meta_underwriting\bin\Debug\meta_underwriting.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_underwriting</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -85,6 +91,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>

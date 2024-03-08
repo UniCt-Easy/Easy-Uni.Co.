@@ -452,7 +452,7 @@
                                         </fieldset>
                                     </asp:Panel>
                                 </div>
-						        <div class="col-md-6">	
+						        <div class="col-md-12">	
                                     <asp:Panel ID="grpRendicontoSpese" runat="server">
                                         <fieldset class="GroupBoxLabel sup1 hid2">
                                             <legend>Rendiconto Spese</legend>
@@ -665,7 +665,7 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <cc1:hwPanel GroupingText="U.P.B."  CssClass="pr-4 pl-4 pt-3 pb-3 gbox scheduler-border form-group grpborder pr-1" ID="PanelUpb" runat="server" Tag="AutoManage.txtCodiceUPB.tree">
+                                        <cc1:hwPanel GroupingText="U.P.B."  CssClass="pr-4 pl-4 pt-3 pb-3 gbox scheduler-border form-group grpborder pr-1" ID="PanelUpb" runat="server" Tag="AutoManage.txtCodiceUPB.tree.(active=\'S\')">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <cc1:hwButton runat="server" ID="btnUPB" Tag="manage.upb.tree" TabIndex="380" class="btn btn-primary" Text="UPB"></cc1:hwButton>

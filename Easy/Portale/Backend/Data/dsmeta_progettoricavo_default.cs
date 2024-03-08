@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,14 +27,14 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_progettoricavo_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_progettoricavo_default: DataSet {
+public partial class dsmeta_progettoricavo_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomedefaultview 		=> (MetaTable)Tables["incomedefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable contrattokinddefaultview 		=> (MetaTable)Tables["contrattokinddefaultview"];
+	public MetaTable positiondefaultview 		=> (MetaTable)Tables["positiondefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable saldefaultview 		=> (MetaTable)Tables["saldefaultview"];
@@ -83,18 +83,16 @@ private void initClass() {
 	var tincomedefaultview= new MetaTable("incomedefaultview");
 	tincomedefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tincomedefaultview.defineColumn("idinc", typeof(int),false);
-	tincomedefaultview.defineColumn("idreg", typeof(int));
-	tincomedefaultview.defineColumn("idunderwriting", typeof(int));
 	Tables.Add(tincomedefaultview);
 	tincomedefaultview.defineKey("idinc");
 
-	//////////////////// CONTRATTOKINDDEFAULTVIEW /////////////////////////////////
-	var tcontrattokinddefaultview= new MetaTable("contrattokinddefaultview");
-	tcontrattokinddefaultview.defineColumn("contrattokind_active", typeof(string));
-	tcontrattokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tcontrattokinddefaultview.defineColumn("idcontrattokind", typeof(int),false);
-	Tables.Add(tcontrattokinddefaultview);
-	tcontrattokinddefaultview.defineKey("idcontrattokind");
+	//////////////////// POSITIONDEFAULTVIEW /////////////////////////////////
+	var tpositiondefaultview= new MetaTable("positiondefaultview");
+	tpositiondefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tpositiondefaultview.defineColumn("idposition", typeof(int),false);
+	tpositiondefaultview.defineColumn("position_active", typeof(string));
+	Tables.Add(tpositiondefaultview);
+	tpositiondefaultview.defineKey("idposition");
 
 	//////////////////// SALDEFAULTVIEW /////////////////////////////////
 	var tsaldefaultview= new MetaTable("saldefaultview");
@@ -122,10 +120,11 @@ private void initClass() {
 	var trendicontattivitaprogettosegview= new MetaTable("rendicontattivitaprogettosegview");
 	trendicontattivitaprogettosegview.defineColumn("dropdown_title", typeof(string),false);
 	trendicontattivitaprogettosegview.defineColumn("idprogetto", typeof(int),false);
+	trendicontattivitaprogettosegview.defineColumn("idreg", typeof(int),false);
 	trendicontattivitaprogettosegview.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
 	trendicontattivitaprogettosegview.defineColumn("idworkpackage", typeof(int),false);
 	Tables.Add(trendicontattivitaprogettosegview);
-	trendicontattivitaprogettosegview.defineKey("idprogetto", "idrendicontattivitaprogetto", "idworkpackage");
+	trendicontattivitaprogettosegview.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idworkpackage");
 
 	//////////////////// PROGETTOTIPOCOSTO /////////////////////////////////
 	var tprogettotipocosto= new MetaTable("progettotipocosto");
@@ -172,8 +171,8 @@ private void initClass() {
 	tprogettoricavo.defineColumn("cu", typeof(string),false);
 	tprogettoricavo.defineColumn("doc", typeof(string));
 	tprogettoricavo.defineColumn("docdate", typeof(DateTime));
-	tprogettoricavo.defineColumn("idcontrattokind", typeof(int));
 	tprogettoricavo.defineColumn("idinc", typeof(int));
+	tprogettoricavo.defineColumn("idposition", typeof(int));
 	tprogettoricavo.defineColumn("idprogetto", typeof(int),false);
 	tprogettoricavo.defineColumn("idprogettoricavo", typeof(int),false);
 	tprogettoricavo.defineColumn("idprogettotipocosto", typeof(int));
@@ -194,9 +193,9 @@ private void initClass() {
 	var cChild = new []{progettoricavo.Columns["idinc"]};
 	Relations.Add(new DataRelation("FK_progettoricavo_incomedefaultview_idinc",cPar,cChild,false));
 
-	cPar = new []{contrattokinddefaultview.Columns["idcontrattokind"]};
-	cChild = new []{progettoricavo.Columns["idcontrattokind"]};
-	Relations.Add(new DataRelation("FK_progettoricavo_contrattokinddefaultview_idcontrattokind",cPar,cChild,false));
+	cPar = new []{positiondefaultview.Columns["idposition"]};
+	cChild = new []{progettoricavo.Columns["idposition"]};
+	Relations.Add(new DataRelation("FK_progettoricavo_positiondefaultview_idposition",cPar,cChild,false));
 
 	cPar = new []{saldefaultview.Columns["idsal"]};
 	cChild = new []{progettoricavo.Columns["idsal"]};

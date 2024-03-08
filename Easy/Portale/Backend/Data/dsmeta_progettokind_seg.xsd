@@ -38,6 +38,29 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettokindcontrattokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="costostandard" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="idprogettokind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idposition_position_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="progettoattachkindprogettostatuskind" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -86,7 +109,7 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="idprogettokind" type="xs:int" />
               <xs:element name="idprogettotipocostokind" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
@@ -138,7 +161,7 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="idprogettokind" type="xs:int" />
               <xs:element name="idprogettotipocostokind" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
@@ -179,21 +202,30 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idprogettoactivitykind" type="xs:int" />
               <xs:element name="progettoactivitykind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="progettoactivitykind_ct" type="xs:dateTime" />
+              <xs:element name="progettoactivitykind_cu" type="xs:string" />
+              <xs:element name="progettoactivitykind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="progettoactivitykind_lt" type="xs:dateTime" />
+              <xs:element name="progettoactivitykind_lu" type="xs:string" />
+              <xs:element name="progettoactivitykind_sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="progettokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idcorsostudio" type="xs:string" minOccurs="0" />
               <xs:element name="idprogettoactivitykind" type="xs:int" minOccurs="0" />
               <xs:element name="idprogettokind" type="xs:int" />
+              <xs:element name="irap" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
-              <xs:element name="oredivisionecostostipendio" type="xs:int" minOccurs="0" />
+              <xs:element name="oredivisionecostostipendio" type="xs:int" />
               <xs:element name="stipendioannoprec" type="xs:string" minOccurs="0" />
               <xs:element name="stipendiocomericavo" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
@@ -217,6 +249,15 @@
       <xs:field xpath="mstns:idprogettokind" />
       <xs:field xpath="mstns:idprogettotestokind" />
     </xs:unique>
+    <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="progettokindcontrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettokindcontrattokind" />
+      <xs:field xpath="mstns:idposition" />
+      <xs:field xpath="mstns:idprogettokind" />
+    </xs:unique>
     <xs:unique name="progettoattachkindprogettostatuskind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettoattachkindprogettostatuskind" />
       <xs:field xpath="mstns:idprogettoattachkind" />
@@ -233,7 +274,7 @@
     </xs:unique>
     <xs:unique name="progettotiporicavokindcontrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettotiporicavokindcontrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idposition" />
       <xs:field xpath="mstns:idprogettokind" />
       <xs:field xpath="mstns:idprogettotipocostokind" />
     </xs:unique>
@@ -257,7 +298,7 @@
     </xs:unique>
     <xs:unique name="progettotipocostokindcontrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettotipocostokindcontrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idposition" />
       <xs:field xpath="mstns:idprogettokind" />
       <xs:field xpath="mstns:idprogettotipocostokind" />
     </xs:unique>
@@ -286,6 +327,8 @@
       <msdata:Relationship name="FK_workpackagekind_progettokind_idprogettokind" msdata:parent="progettokind" msdata:child="workpackagekind" msdata:parentkey="idprogettokind" msdata:childkey="idprogettokind" />
       <msdata:Relationship name="FK_progettotestokind_progettokind_idprogettokind" msdata:parent="progettokind" msdata:child="progettotestokind" msdata:parentkey="idprogettokind" msdata:childkey="idprogettokind" />
       <msdata:Relationship name="FK_progettotestokindprogettostatuskind_progettotestokind_idprogettotestokind" msdata:parent="progettotestokind" msdata:child="progettotestokindprogettostatuskind" msdata:parentkey="idprogettotestokind" msdata:childkey="idprogettotestokind" />
+      <msdata:Relationship name="FK_progettokindcontrattokind_progettokind_idprogettokind" msdata:parent="progettokind" msdata:child="progettokindcontrattokind" msdata:parentkey="idprogettokind" msdata:childkey="idprogettokind" />
+      <msdata:Relationship name="FK_progettokindcontrattokind_position_idposition" msdata:parent="position" msdata:child="progettokindcontrattokind" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_progettoattachkind_progettokind_idprogettokind" msdata:parent="progettokind" msdata:child="progettoattachkind" msdata:parentkey="idprogettokind" msdata:childkey="idprogettokind" />
       <msdata:Relationship name="FK_progettoattachkindprogettostatuskind_progettoattachkind_idprogettoattachkind" msdata:parent="progettoattachkind" msdata:child="progettoattachkindprogettostatuskind" msdata:parentkey="idprogettoattachkind" msdata:childkey="idprogettoattachkind" />
       <msdata:Relationship name="FK_progettoattachkind_attach_idattach_template" msdata:parent="attach" msdata:child="progettoattachkind" msdata:parentkey="idattach" msdata:childkey="idattach_template" />

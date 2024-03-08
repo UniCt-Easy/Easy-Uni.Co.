@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -45,10 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.conseguito)
-					parentRow.conseguito = 0;
+				if (this.isNull(parentRow.conseguito) || parentRow.conseguito == '')
+					parentRow.conseguito = 'N';
 				if (self.isNullOrMinDate(parentRow.data))
 					parentRow.data = new Date();
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#titolostudio_docenti_idreg_istituti'), null);
+				} else {
+					this.helpForm.filter($('#titolostudio_docenti_idreg_istituti'), this.q.eq('registry_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -67,7 +55,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				this.helpForm.filter($('#titolostudio_docenti_idreg_istituti'), null);
+				//afterClearin
+			},
 
 			//afterFill
 
@@ -91,6 +82,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

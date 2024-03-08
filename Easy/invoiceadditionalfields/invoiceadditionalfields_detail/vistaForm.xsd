@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="invoiceadditionalfields">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idadditionalfields" type="xs:int" />
+              <xs:element name="idinvkind" type="xs:int" />
+              <xs:element name="yinv" type="xs:short" />
+              <xs:element name="ninv" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="labelfield1date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield1int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield1str" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield2date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield2int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield2str" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield3date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield3int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield3str" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield4date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield4int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield4str" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield5date" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield5int" type="xs:string" minOccurs="0" />
+              <xs:element name="labelfield5str" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rownum" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield1date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield1int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield1str" type="xs:string" minOccurs="0" />
+              <xs:element name="valuefield2date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield2int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield2str" type="xs:string" minOccurs="0" />
+              <xs:element name="valuefield3date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield3int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield3str" type="xs:string" minOccurs="0" />
+              <xs:element name="valuefield4date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield4int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield4str" type="xs:string" minOccurs="0" />
+              <xs:element name="valuefield5date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="valuefield5int" type="xs:int" minOccurs="0" />
+              <xs:element name="valuefield5str" type="xs:string" minOccurs="0" />
+              <xs:element name="documentkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="invoicemultifieldkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmultifieldkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="allownull" type="xs:string" />
+              <xs:element name="fieldcode" type="xs:string" />
+              <xs:element name="fieldname" type="xs:string" />
+              <xs:element name="len" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ordernumber" type="xs:short" minOccurs="0" />
+              <xs:element name="systype" type="xs:string" />
+              <xs:element name="tabname" type="xs:string" minOccurs="0" />
+              <xs:element name="tag" type="xs:string" minOccurs="0" />
+              <xs:element name="documentkind" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:invoiceadditionalfields" />
+      <xs:field xpath="mstns:idadditionalfields" />
+      <xs:field xpath="mstns:idinvkind" />
+      <xs:field xpath="mstns:yinv" />
+      <xs:field xpath="mstns:ninv" />
+    </xs:unique>
+    <xs:unique name="invoicemultifieldkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:invoicemultifieldkind" />
+      <xs:field xpath="mstns:idmultifieldkind" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

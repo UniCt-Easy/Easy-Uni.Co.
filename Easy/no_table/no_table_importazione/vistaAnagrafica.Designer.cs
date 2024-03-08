@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,381 +15,394 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-namespace notable_importazione {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaAnagrafica: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable registry{get { return Tables["registry"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable registryaddress{get { return Tables["registryaddress"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable registrypaymethod{get { return Tables["registrypaymethod"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable registrylegalstatus{get { return Tables["registrylegalstatus"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable registrytaxablestatus{get { return Tables["registrytaxablestatus"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable centralizedcategory{get { return Tables["centralizedcategory"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable registrykind{get { return Tables["registrykind"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace notable_importazione {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaAnagrafica"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaAnagrafica: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registry 		=> Tables["registry"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registryaddress 		=> Tables["registryaddress"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registrypaymethod 		=> Tables["registrypaymethod"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registrylegalstatus 		=> Tables["registrylegalstatus"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registrytaxablestatus 		=> Tables["registrytaxablestatus"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable centralizedcategory 		=> Tables["centralizedcategory"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registrykind 		=> Tables["registrykind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registry_docenti 		=> Tables["registry_docenti"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registry_amministrativi 		=> Tables["registry_amministrativi"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaAnagrafica(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaAnagrafica";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaAnagrafica.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaAnagrafica (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaAnagrafica";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaAnagrafica.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("registry");
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	//////////////////// REGISTRY /////////////////////////////////
+	var tregistry= new DataTable("registry");
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("active", typeof(System.String), "");
+	tregistry.Columns.Add(C);
+	C= new DataColumn("active", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("annotation", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("badgecode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("birthdate", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("cf", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("annotation", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("badgecode", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("birthdate", typeof(DateTime)));
+	tregistry.Columns.Add( new DataColumn("cf", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tregistry.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("extmatricula", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("foreigncf", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("forename", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("gender", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcategory", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcentralizedcategory", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcity", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idmaritalstatus", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idnation", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idregistryclass", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idtitle", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("location", typeof(System.String), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("extmatricula", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("foreigncf", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("forename", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("gender", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idcategory", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idcentralizedcategory", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idcity", typeof(int)));
+	tregistry.Columns.Add( new DataColumn("idmaritalstatus", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idnation", typeof(int)));
+	tregistry.Columns.Add( new DataColumn("idregistryclass", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idtitle", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("location", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tregistry.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("maritalsurname", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("p_iva", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("surname", typeof(System.String), ""));
-	C= new DataColumn("title", typeof(System.String), "");
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("maritalsurname", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("p_iva", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tregistry.Columns.Add( new DataColumn("surname", typeof(string)));
+	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	C= new DataColumn("residence", typeof(System.Int32), "");
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("txt", typeof(string)));
+	C= new DataColumn("residence", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("idregistrykind", typeof(int)));
+	tregistry.Columns.Add( new DataColumn("authorization_free", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("multi_cf", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idexternal", typeof(int)));
+	tregistry.Columns.Add( new DataColumn("flag_pa", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("flagbankitaliaproceeds", typeof(string)));
+	Tables.Add(tregistry);
+	tregistry.PrimaryKey =  new DataColumn[]{tregistry.Columns["idreg"]};
 
-	T.Columns.Add(new DataColumn("idregistrykind", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("authorization_free", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("multi_cf", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idexternal", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("flag_pa", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagbankitaliaproceeds", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idreg"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("registryaddress");
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	//////////////////// REGISTRYADDRESS /////////////////////////////////
+	var tregistryaddress= new DataTable("registryaddress");
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	tregistryaddress.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("address", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("annotations", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cap", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("ct", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("cu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagforeign", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcity", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idnation", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("location", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("officename", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("stop", typeof(System.DateTime), ""));
-	C= new DataColumn("idaddresskind", typeof(System.Int32), "");
+	tregistryaddress.Columns.Add(C);
+	tregistryaddress.Columns.Add( new DataColumn("active", typeof(string)));
+	tregistryaddress.Columns.Add( new DataColumn("address", typeof(string)));
+	tregistryaddress.Columns.Add( new DataColumn("annotations", typeof(string)));
+	tregistryaddress.Columns.Add( new DataColumn("cap", typeof(string)));
+	tregistryaddress.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tregistryaddress.Columns.Add( new DataColumn("cu", typeof(string)));
+	tregistryaddress.Columns.Add( new DataColumn("flagforeign", typeof(string)));
+	tregistryaddress.Columns.Add( new DataColumn("idcity", typeof(int)));
+	tregistryaddress.Columns.Add( new DataColumn("idnation", typeof(int)));
+	tregistryaddress.Columns.Add( new DataColumn("location", typeof(string)));
+	tregistryaddress.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tregistryaddress.Columns.Add( new DataColumn("lu", typeof(string)));
+	tregistryaddress.Columns.Add( new DataColumn("officename", typeof(string)));
+	tregistryaddress.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	C= new DataColumn("idaddresskind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tregistryaddress.Columns.Add(C);
+	tregistryaddress.Columns.Add( new DataColumn("recipientagency", typeof(string)));
+	Tables.Add(tregistryaddress);
+	tregistryaddress.PrimaryKey =  new DataColumn[]{tregistryaddress.Columns["idreg"], tregistryaddress.Columns["start"], tregistryaddress.Columns["idaddresskind"]};
 
-	T.Columns.Add(new DataColumn("recipientagency", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[3]{
-	T.Columns["idreg"], 	T.Columns["start"], 	T.Columns["idaddresskind"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("registrypaymethod");
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	//////////////////// REGISTRYPAYMETHOD /////////////////////////////////
+	var tregistrypaymethod= new DataTable("registrypaymethod");
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idregistrypaymethod", typeof(System.Int32), "");
+	tregistrypaymethod.Columns.Add(C);
+	C= new DataColumn("idregistrypaymethod", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("regmodcode", typeof(System.String), "");
+	tregistrypaymethod.Columns.Add(C);
+	C= new DataColumn("regmodcode", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cin", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tregistrypaymethod.Columns.Add(C);
+	tregistrypaymethod.Columns.Add( new DataColumn("active", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("cc", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("cin", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tregistrypaymethod.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("flagstandard", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("iban", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idbank", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcab", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("iddeputy", typeof(System.Int32), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tregistrypaymethod.Columns.Add(C);
+	tregistrypaymethod.Columns.Add( new DataColumn("flagstandard", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("iban", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idbank", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idcab", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("iddeputy", typeof(int)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tregistrypaymethod.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tregistrypaymethod.Columns.Add(C);
+	tregistrypaymethod.Columns.Add( new DataColumn("paymentdescr", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("paymentexpiring", typeof(short)));
+	tregistrypaymethod.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tregistrypaymethod.Columns.Add( new DataColumn("txt", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("refexternaldoc", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idcurrency", typeof(int)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idpaymethod", typeof(int)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idexpirationkind", typeof(short)));
+	Tables.Add(tregistrypaymethod);
+	tregistrypaymethod.PrimaryKey =  new DataColumn[]{tregistrypaymethod.Columns["idreg"], tregistrypaymethod.Columns["idregistrypaymethod"]};
 
-	T.Columns.Add(new DataColumn("paymentdescr", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("paymentexpiring", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("refexternaldoc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcurrency", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idpaymethod", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idexpirationkind", typeof(System.Int16), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idreg"], 	T.Columns["idregistrypaymethod"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("registrylegalstatus");
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	//////////////////// REGISTRYLEGALSTATUS /////////////////////////////////
+	var tregistrylegalstatus= new DataTable("registrylegalstatus");
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	tregistrylegalstatus.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("ct", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("cu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("incomeclass", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("incomeclassvalidity", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idposition", typeof(System.Int32), ""));
-	C= new DataColumn("idregistrylegalstatus", typeof(System.Int32), "");
+	tregistrylegalstatus.Columns.Add(C);
+	tregistrylegalstatus.Columns.Add( new DataColumn("active", typeof(string)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("cu", typeof(string)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("incomeclass", typeof(short)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("incomeclassvalidity", typeof(DateTime)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("lu", typeof(string)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tregistrylegalstatus.Columns.Add( new DataColumn("txt", typeof(string)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("idposition", typeof(int)));
+	C= new DataColumn("idregistrylegalstatus", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tregistrylegalstatus.Columns.Add(C);
+	tregistrylegalstatus.Columns.Add( new DataColumn("flagdefault", typeof(string)));
+	Tables.Add(tregistrylegalstatus);
+	tregistrylegalstatus.PrimaryKey =  new DataColumn[]{tregistrylegalstatus.Columns["idregistrylegalstatus"], tregistrylegalstatus.Columns["idreg"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idregistrylegalstatus"], 	T.Columns["idreg"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("registrytaxablestatus");
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	//////////////////// REGISTRYTAXABLESTATUS /////////////////////////////////
+	var tregistrytaxablestatus= new DataTable("registrytaxablestatus");
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	tregistrytaxablestatus.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tregistrytaxablestatus.Columns.Add(C);
+	tregistrytaxablestatus.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tregistrytaxablestatus.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tregistrytaxablestatus.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tregistrytaxablestatus.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tregistrytaxablestatus.Columns.Add(C);
+	tregistrytaxablestatus.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tregistrytaxablestatus.Columns.Add( new DataColumn("supposedincome", typeof(decimal)));
+	tregistrytaxablestatus.Columns.Add( new DataColumn("txt", typeof(string)));
+	Tables.Add(tregistrytaxablestatus);
+	tregistrytaxablestatus.PrimaryKey =  new DataColumn[]{tregistrytaxablestatus.Columns["idreg"], tregistrytaxablestatus.Columns["start"]};
 
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("supposedincome", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idreg"], 	T.Columns["start"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("centralizedcategory");
-	C= new DataColumn("idcentralizedcategory", typeof(System.String), "");
+	//////////////////// CENTRALIZEDCATEGORY /////////////////////////////////
+	var tcentralizedcategory= new DataTable("centralizedcategory");
+	C= new DataColumn("idcentralizedcategory", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tcentralizedcategory.Columns.Add(C);
+	tcentralizedcategory.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tcentralizedcategory.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tcentralizedcategory.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tcentralizedcategory.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tcentralizedcategory.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tcentralizedcategory.Columns.Add(C);
+	Tables.Add(tcentralizedcategory);
+	tcentralizedcategory.PrimaryKey =  new DataColumn[]{tcentralizedcategory.Columns["idcentralizedcategory"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idcentralizedcategory"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("registrykind");
-	C= new DataColumn("sortcode", typeof(System.String), "");
+	//////////////////// REGISTRYKIND /////////////////////////////////
+	var tregistrykind= new DataTable("registrykind");
+	C= new DataColumn("sortcode", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tregistrykind.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tregistrykind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tregistrykind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tregistrykind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tregistrykind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idregistrykind", typeof(System.Int32), "");
+	tregistrykind.Columns.Add(C);
+	C= new DataColumn("idregistrykind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idregistrykind"]};
-	T.PrimaryKey = key;
+	tregistrykind.Columns.Add(C);
+	Tables.Add(tregistrykind);
+	tregistrykind.PrimaryKey =  new DataColumn[]{tregistrykind.Columns["idregistrykind"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["registry"];
-TChild= Tables["registrytaxablestatus"];
-CPar = new DataColumn[1]{TPar.Columns["idreg"]};
-CChild = new DataColumn[1]{TChild.Columns["idreg"]};
-Relations.Add(new DataRelation("FK_registry_registrytaxablestatus",CPar,CChild));
+	//////////////////// REGISTRY_DOCENTI /////////////////////////////////
+	var tregistry_docenti= new DataTable("registry_docenti");
+	C= new DataColumn("idreg", typeof(int));
+	C.AllowDBNull=false;
+	tregistry_docenti.Columns.Add(C);
+	tregistry_docenti.Columns.Add( new DataColumn("soggiorno", typeof(string)));
+	tregistry_docenti.Columns.Add( new DataColumn("matricola", typeof(string)));
+	tregistry_docenti.Columns.Add( new DataColumn("idclassconsorsuale", typeof(int)));
+	tregistry_docenti.Columns.Add( new DataColumn("cv", typeof(string)));
+	tregistry_docenti.Columns.Add( new DataColumn("idsasd", typeof(int)));
+	tregistry_docenti.Columns.Add( new DataColumn("ricevimento", typeof(string)));
+	tregistry_docenti.Columns.Add( new DataColumn("idreg_istituti", typeof(int)));
+	tregistry_docenti.Columns.Add( new DataColumn("idlocation_struttura", typeof(int)));
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tregistry_docenti.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tregistry_docenti.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tregistry_docenti.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tregistry_docenti.Columns.Add(C);
+	tregistry_docenti.Columns.Add( new DataColumn("idcontrattokind", typeof(int)));
+	tregistry_docenti.Columns.Add( new DataColumn("idfonteindicebibliometrico", typeof(int)));
+	tregistry_docenti.Columns.Add( new DataColumn("idstruttura", typeof(int)));
+	tregistry_docenti.Columns.Add( new DataColumn("indicebibliometrico", typeof(int)));
+	Tables.Add(tregistry_docenti);
+	tregistry_docenti.PrimaryKey =  new DataColumn[]{tregistry_docenti.Columns["idreg"]};
 
-TPar= Tables["registry"];
-TChild= Tables["registrylegalstatus"];
-CPar = new DataColumn[1]{TPar.Columns["idreg"]};
-CChild = new DataColumn[1]{TChild.Columns["idreg"]};
-Relations.Add(new DataRelation("registry_registrylegalstatus",CPar,CChild));
 
-TPar= Tables["registry"];
-TChild= Tables["registrypaymethod"];
-CPar = new DataColumn[1]{TPar.Columns["idreg"]};
-CChild = new DataColumn[1]{TChild.Columns["idreg"]};
-Relations.Add(new DataRelation("registry_registrypaymethod",CPar,CChild));
+	//////////////////// REGISTRY_AMMINISTRATIVI /////////////////////////////////
+	var tregistry_amministrativi= new DataTable("registry_amministrativi");
+	C= new DataColumn("idreg", typeof(int));
+	C.AllowDBNull=false;
+	tregistry_amministrativi.Columns.Add(C);
+	tregistry_amministrativi.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tregistry_amministrativi.Columns.Add( new DataColumn("cu", typeof(string)));
+	tregistry_amministrativi.Columns.Add( new DataColumn("cv", typeof(string)));
+	tregistry_amministrativi.Columns.Add( new DataColumn("idcontrattokind", typeof(int)));
+	tregistry_amministrativi.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tregistry_amministrativi.Columns.Add( new DataColumn("lu", typeof(string)));
+	Tables.Add(tregistry_amministrativi);
+	tregistry_amministrativi.PrimaryKey =  new DataColumn[]{tregistry_amministrativi.Columns["idreg"]};
 
-TPar= Tables["registry"];
-TChild= Tables["registryaddress"];
-CPar = new DataColumn[1]{TPar.Columns["idreg"]};
-CChild = new DataColumn[1]{TChild.Columns["idreg"]};
-Relations.Add(new DataRelation("registry_registryaddress",CPar,CChild));
 
-TPar= Tables["centralizedcategory"];
-TChild= Tables["registry"];
-CPar = new DataColumn[1]{TPar.Columns["idcentralizedcategory"]};
-CChild = new DataColumn[1]{TChild.Columns["idcentralizedcategory"]};
-Relations.Add(new DataRelation("centralizedcategory_registry",CPar,CChild));
+	#endregion
 
-TPar= Tables["registrykind"];
-TChild= Tables["registry"];
-CPar = new DataColumn[1]{TPar.Columns["idregistrykind"]};
-CChild = new DataColumn[1]{TChild.Columns["idregistrykind"]};
-Relations.Add(new DataRelation("registrykind_registry",CPar,CChild));
+
+	#region DataRelation creation
+	var cPar = new []{registry.Columns["idreg"]};
+	var cChild = new []{registrytaxablestatus.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_registry_registrytaxablestatus",cPar,cChild,false));
+
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{registrylegalstatus.Columns["idreg"]};
+	Relations.Add(new DataRelation("registry_registrylegalstatus",cPar,cChild,false));
+
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{registrypaymethod.Columns["idreg"]};
+	Relations.Add(new DataRelation("registry_registrypaymethod",cPar,cChild,false));
+
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{registryaddress.Columns["idreg"]};
+	Relations.Add(new DataRelation("registry_registryaddress",cPar,cChild,false));
+
+	cPar = new []{centralizedcategory.Columns["idcentralizedcategory"]};
+	cChild = new []{registry.Columns["idcentralizedcategory"]};
+	Relations.Add(new DataRelation("centralizedcategory_registry",cPar,cChild,false));
+
+	cPar = new []{registrykind.Columns["idregistrykind"]};
+	cChild = new []{registry.Columns["idregistrykind"]};
+	Relations.Add(new DataRelation("registrykind_registry",cPar,cChild,false));
+
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{registry_docenti.Columns["idreg"]};
+	Relations.Add(new DataRelation("registry_docenti_registry",cPar,cChild,false));
+
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{registry_amministrativi.Columns["idreg"]};
+	Relations.Add(new DataRelation("registry_amministrativi_registry",cPar,cChild,false));
+
+	#endregion
 
 }
 }

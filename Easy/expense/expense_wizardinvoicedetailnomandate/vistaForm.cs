@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -41,126 +41,69 @@ using metadatalibrary;
 namespace expense_wizardinvoicedetailnomandate {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Dettaglio documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicedetailTable invoicedetail 		=> (invoicedetailTable)Tables["invoicedetail"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensephase 		=> (MetaTable)Tables["expensephase"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicekindTable invoicekind 		=> (invoicekindTable)Tables["invoicekind"];
 
-	///<summary>
-	///Elenco aliquote
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public ivakindTable ivakind 		=> (ivakindTable)Tables["ivakind"];
 
-	///<summary>
-	///Movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expenseTable expense 		=> (expenseTable)Tables["expense"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Informazioni annuali su movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expenseyearTable expenseyear 		=> (expenseyearTable)Tables["expenseyear"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finTable fin 		=> (finTable)Tables["fin"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb 		=> (upbTable)Tables["upb"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable tipomovimento 		=> (MetaTable)Tables["tipomovimento"];
 
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoiceTable invoice 		=> (invoiceTable)Tables["invoice"];
 
-	///<summary>
-	///Contabilizzazione fattura acquisto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expenseinvoice 		=> (MetaTable)Tables["expenseinvoice"];
 
-	///<summary>
-	///Movimento di spesa - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expenselastTable expenselast 		=> (expenselastTable)Tables["expenselast"];
 
-	///<summary>
-	///Partita pendente
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public billTable bill 		=> (billTable)Tables["bill"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable billview 		=> (MetaTable)Tables["billview"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account 		=> (accountTable)Tables["account"];
 
-	///<summary>
-	///Dettaglio Recuperi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expenseclawback 		=> (MetaTable)Tables["expenseclawback"];
 
-	///<summary>
-	///Tipi di recupero
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable clawback 		=> (MetaTable)Tables["clawback"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
-	///<summary>
-	///dettagli di una fattura inseriti in liquidazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable invoicedetaildeferred 		=> (MetaTable)Tables["invoicedetaildeferred"];
 
-	///<summary>
-	///Classificazione Movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expensesortedTable expensesorted 		=> (expensesortedTable)Tables["expensesorted"];
 
@@ -222,7 +165,7 @@ private void initClass() {
 
 	//////////////////// IVAKIND /////////////////////////////////
 	var tivakind= new ivakindTable();
-	tivakind.addBaseColumns("idivakind","ct","cu","description","lt","lu","rate","unabatabilitypercentage","active");
+	tivakind.addBaseColumns("idivakind","ct","cu","description","lt","lu","rate","unabatabilitypercentage","active","codeivakind","flag","annotations","idfenature");
 	Tables.Add(tivakind);
 	tivakind.defineKey("idivakind");
 

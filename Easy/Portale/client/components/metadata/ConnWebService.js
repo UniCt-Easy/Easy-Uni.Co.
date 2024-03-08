@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module ConnWebService
  * @description
@@ -46,37 +29,65 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {object} objConn contains the name of the method and the parameters
          * @returns {Deferred}
          */
-        call:function (callConfigObj, objConn) {
-            
+        call: function (callConfigObj, objConn) {
+
             //la riga seguente l'ho commentata e poi sostituita perché nella login page
             //mi dava l'errore "Deferred is not a function"
             //var deferred = Deferred('ConnWebService.call ' + callConfigObj.url);
             var deferred = appMeta.Deferred('ConnWebService.call ' + callConfigObj.url);
 
-            var options   = {
+            
+            let options = {
                 url: callConfigObj.url,
                 type: callConfigObj.type,
-                data: objConn.prm,
-                timeout : appMeta.config.ajax_timeout,
+                data: callConfigObj.type === "POST" ?
+                    JSON.stringify(objConn.prm, appMeta.getDataUtils.dataTransformToJSON) :
+                    objConn.prm, //{ "data": objConn.prm }
+                timeout: appMeta.config.ajax_timeout,
                 success: _.partial(this.success, this, deferred),
                 error: _.partial(this.error, deferred)
             };
-
+            if (callConfigObj.type === "POST") {
+                options.contentType = 'application/json';
+            }
             // passo header per autorizzazione solo se metodo lo richiede
-            if (callConfigObj.auth){
-                var token = this.getAuthToken();
+            if (callConfigObj.auth) {
+                let token = this.getAuthToken();
+                //console.log("evaluated token is "+token)
                 options["headers"] = {
-                    'Authorization':  "Bearer " + token
-                }
+                    'Authorization': "Bearer " + token,
+                    "language": appMeta.localResource.currLng
+                };
+            }
+            else {
+                let AnonymousToken = "AnonymousToken123456789";
+                options["headers"] = {
+                    'Authorization': "Bearer " + AnonymousToken,
+                    "language": appMeta.localResource.currLng
+                };
             }
 
             // associa ad una tripla. Serve principalmente per recuperare "multipleResult" alla risposta
-            this.requestIdDict[objConn.prm.idRequest] = {method:objConn.method, deferred: deferred, multipleResult:callConfigObj.multipleResult};
+            this.requestIdDict[objConn.prm.idRequest] =
+            {
+                method: objConn.method,
+                deferred: deferred,
+                multipleResult: callConfigObj.multipleResult
+            };
 
             // Aggiungo solo se necessario il prm datatype
-            if (callConfigObj.dataType)  options.datatype = callConfigObj.dataType;
+            if (callConfigObj.dataType) {
+                options.datatype = callConfigObj.dataType;
+            }
 
-            $.ajax(options);
+            //console.log("invoking " + JSON.stringify(options));
+            try {
+                $.ajax(options);
+            }
+            catch (err) {
+                console.log("catching " + err);                
+                deferred.reject({ text: err, status:500 });
+            }
 
             return deferred.promise();
         },
@@ -91,8 +102,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {Object} ajaxOptions
          * @param {Object} thrownError
          */
-        error:function (deferred, xhr, ajaxOptions, thrownError) {
-            return deferred.reject({ text: xhr.responseText, status: xhr.status });
+        error: function (deferred, xhr, status, thrownError) {
+            //console.log(xhr);
+            let err = xhr.responseText;
+            //if (err.Message) err = JSON.parse(err).Message;
+            //console.log("got error from web service! " + xhr.responseJSON + " status " + status + " body:" + thrownError);
+            if (xhr.responseJSON) {
+                err = xhr.responseJSON;
+                if (err.Message) err = err.Message;
+            }
+           
+            deferred.reject({ text: err, status: xhr.statusText });
         },
 
         /**
@@ -104,22 +124,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * The logic is managed from the caller
          * @param {ConnWebService} that
          * @param {Deferred} deferred
-         * @param {Json string} res. is the answser of the server
+         * @param {string} res. is the answer of the server
          * @returns {Deferred}
          */
         success:function (that, deferred, res) {
 
             // INIZIO CODICE retrocompatibilità dei test e2e.
-            // introdotta nuova gestione dopo  l'inserimento dell'interfaccia comune con i web socket
+            // Introdotta nuova gestione dopo  l'inserimento dell'interfaccia comune con i web socket
             var isValidJSON = true;
+            //console.log("got data from service")
             if (!res)  return deferred.resolve(null);
-            try { JSON.parse(res) } catch (e){ isValidJSON = false }
-            if (isValidJSON){
+            try { JSON.parse(res); } catch (e){ isValidJSON = false; }
+            if (isValidJSON) {
+                //console.log("ConnWebService received:" + JSON.stringify(options));
                 var obj  = appMeta.getDataUtils.getJsObjectFromJson(res);
                 if (!Array.isArray(obj.data)){
                     return deferred.resolve(res);
                 }
             } else {
+                //it's an object
                 return deferred.resolve(res);
             }
             // FINE codice per retrocompatibilità . Togliere se sarà migrato tutto il backend http
@@ -178,7 +201,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {Date} expiresOn
          */
 		setToken: function (token, expiresOn) {
-            // salvo su storage locale,per riverificare se utente è già connesso
+            // salvo su storage locale, per riverificare se utente è già connesso
+            //console.log("saving token into localStorage:"+token);
 			window.localStorage.setItem('mdlusertoken', token);
             window.localStorage.setItem('expiresOn', expiresOn);
 			//window.localStorage.setItem('idreg', idreg); // è nelle var di ambiente security.usr

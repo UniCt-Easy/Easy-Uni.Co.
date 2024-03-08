@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1235,6 +1235,9 @@ namespace income_levels//entratamovimenti//
 			// 
 			// Tabcontrol1
 			// 
+			this.Tabcontrol1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.Tabcontrol1.Controls.Add(this.tabMovFin);
 			this.Tabcontrol1.Controls.Add(this.tabClassSup);
 			this.Tabcontrol1.Controls.Add(this.tabDetails);
@@ -1999,6 +2002,9 @@ namespace income_levels//entratamovimenti//
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox2.Controls.Add(this.txtTotaleSospesi);
 			this.groupBox2.Controls.Add(this.lbTotale);
 			this.groupBox2.Controls.Add(this.btnMultipleBillSel);
@@ -2060,7 +2066,7 @@ namespace income_levels//entratamovimenti//
 			this.labBollette1.Size = new System.Drawing.Size(625, 13);
 			this.labBollette1.TabIndex = 33;
 			this.labBollette1.Text = "Per utilizzare il collegamento multiplo con le bollette è necessario selezionare " +
-    "\"Regolarizza disposizione di pagamento già effettuata\"";
+    "\"Regolarizza disposizione di incasso già effettuata\"";
 			// 
 			// btnAddBolletta
 			// 
@@ -4581,7 +4587,8 @@ namespace income_levels//entratamovimenti//
 			if (Out==null) return;
 			Out.Tables[0].TableName= "Situazione movimento di entrata";
 			frmSituazioneViewer View = new frmSituazioneViewer(Out);
-			View.Show();
+            createForm(View, null);
+            View.Show();
 		}
 
 
@@ -7480,7 +7487,8 @@ namespace income_levels//entratamovimenti//
 			}
 			if (chkListTitle.Checked){
 				FrmAskDescr FR= new FrmAskDescr(0);
-				DialogResult D = FR.ShowDialog(this);
+                createForm(FR, this);
+                DialogResult D = FR.ShowDialog(this);
 				if (D!= DialogResult.OK) return;
 				filter = GetData.MergeFilters(filter,
 					"(title like "+QueryCreator.quotedstrvalue(
@@ -7627,6 +7635,7 @@ namespace income_levels//entratamovimenti//
             string elaborate = "";
             D.Tables.Add(T);
             FrmAskNBill f = new FrmAskNBill(T);
+            createForm(f, this);
             if (f.ShowDialog(this) != DialogResult.OK) return;
             string bills = f.txtBollette.Text.Trim();
             if (bills == "") return;
@@ -7671,6 +7680,7 @@ namespace income_levels//entratamovimenti//
         private void btnMultipleBillSel_Click(object sender, EventArgs e) {
             if (Meta.IsEmpty) return;
             FrmChooseBill f = new FrmChooseBill(Meta, GetData.MergeFilters(null, DS.billview));
+            createForm(f, this);
             if (f.ShowDialog(this) != DialogResult.OK) return;
 
             DataRow[] sel = f.GetGridSelectedRows();

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -974,6 +974,7 @@ namespace asset_cambioinventario {
 			this.tabPage4.Controls.Add(this.groupBox3);
 			this.tabPage4.Location = new System.Drawing.Point(0, 0);
 			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.Selected = false;
 			this.tabPage4.Size = new System.Drawing.Size(876, 508);
 			this.tabPage4.TabIndex = 9;
 			// 
@@ -1498,7 +1499,6 @@ namespace asset_cambioinventario {
 			this.tabPageInizio.Controls.Add(this.lblFase1);
 			this.tabPageInizio.Location = new System.Drawing.Point(0, 0);
 			this.tabPageInizio.Name = "tabPageInizio";
-			this.tabPageInizio.Selected = false;
 			this.tabPageInizio.Size = new System.Drawing.Size(876, 508);
 			this.tabPageInizio.TabIndex = 6;
 			this.tabPageInizio.Title = "Inizio";
@@ -1520,8 +1520,8 @@ namespace asset_cambioinventario {
 			this.tabController.IDEPixelArea = true;
 			this.tabController.Location = new System.Drawing.Point(0, 0);
 			this.tabController.Name = "tabController";
-			this.tabController.SelectedIndex = 3;
-			this.tabController.SelectedTab = this.tabPage4;
+			this.tabController.SelectedIndex = 0;
+			this.tabController.SelectedTab = this.tabPageInizio;
 			this.tabController.Size = new System.Drawing.Size(876, 533);
 			this.tabController.TabIndex = 1;
 			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
@@ -2324,15 +2324,17 @@ namespace asset_cambioinventario {
                     }
 
                     object newsubresp = DBNull.Value;
-                    if (cmbConsegnatario.SelectedIndex > 0) {
+                    if (cmbConsegnatario.SelectedIndex > 0) {  // imposto nuovo subconsegnatario
                         newsubresp = cmbConsegnatario.SelectedValue;
                     }
                     else {
-                        newsubresp = R["idcurrsubman"];
-                        if (newsubresp == DBNull.Value) {
-                            DataTable oldSubResp = Conn.RUN_SELECT("assetsubmanager", "*", "start desc",
-                                QHS.CmpEq("idasset", R["idasset"]), null, false);
-                            if (oldSubResp != null && oldSubResp.Rows.Count > 0) newsubresp = oldSubResp.Rows[0]["idmanager"];
+                        if (chkSubRespInvariato.Checked) {  // lascio il vecchio subconsegnatario
+                            newsubresp = R["idcurrsubman"];
+                            if (newsubresp == DBNull.Value) {
+                                DataTable oldSubResp = Conn.RUN_SELECT("assetsubmanager", "*", "start desc",
+                                    QHS.CmpEq("idasset", R["idasset"]), null, false);
+                                if (oldSubResp != null && oldSubResp.Rows.Count > 0) newsubresp = oldSubResp.Rows[0]["idmanager"];
+                            }
                         }
                     }
 
@@ -2863,10 +2865,10 @@ namespace asset_cambioinventario {
                 ShowMsg("Selezionare il responsabile o stabilire di lasciarlo invariato.");
                 return false;
             }
-            if (cmbConsegnatario.SelectedIndex <= 0 && chkSubRespInvariato.Checked == false) {
-                ShowMsg("Selezionare il subconsegnatario o stabilire di lasciarlo invariato.");
-                return false;
-            }
+            //if (cmbConsegnatario.SelectedIndex <= 0 && chkSubRespInvariato.Checked == false) {
+            //    ShowMsg("Selezionare il subconsegnatario o stabilire di lasciarlo invariato.");
+            //    return false;
+            //}
 
 
             if (cmbResponsabile.SelectedIndex > 0) {

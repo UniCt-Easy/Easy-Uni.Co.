@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -87,6 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 110, null);
 						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
 						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idstatuskind' };
+						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind_alias3', columnNameLookup:'title', columnNamekey:'idstatuskind' };
 //$objCalcFieldConfig_pas_seganagstu$
 						break;
 					case 'imm_seganagsturin':
@@ -102,6 +86,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
 						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idstatuskind' };
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias7', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias7', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind_alias2', columnNameLookup:'title', columnNamekey:'idstatuskind' };
+						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 20, null);
 //$objCalcFieldConfig_imm_seganagsturin$
 						break;
 					case 'imm_segrin':
@@ -131,6 +119,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
 						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idstatuskind' };
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias6', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias6', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind_alias1', columnNameLookup:'title', columnNamekey:'idstatuskind' };
+						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 20, null);
 //$objCalcFieldConfig_imm_seganagstu$
 						break;
 					case 'imm_segpre':
@@ -153,6 +145,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
 						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idstatuskind' };
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias5', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias5', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 20, null);
 //$objCalcFieldConfig_imm_seganagstupre$
 						break;
 					case 'rein_seg':
@@ -247,6 +242,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["protanno"].caption = "Anno di protocollo";
 						table.columns["protnumero"].caption = "Numero di protocollo";
 //$innerSetCaptionConfig_rimb_seg$
+						break;
+					case 'conseg_seg':
+						table.columns["aa"].caption = "Anno accademico";
+//$innerSetCaptionConfig_conseg_seg$
 						break;
 //$innerSetCaptionConfig$
 				}

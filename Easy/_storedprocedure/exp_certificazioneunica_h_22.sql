@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -20,9 +20,10 @@ drop procedure [exp_certificazioneunica_h_22]
 GO
  
  --setuser 'amministrazione'
+ -- setuser 'amm'
  /*
  declare @newProg int
- exec exp_certificazioneunica_h_22 9434,1, 'N', @newProg out
+ exec exp_certificazioneunica_h_22 177099,1, 'N', @newProg out
  */
  --select @newProg
 CREATE PROCEDURE [exp_certificazioneunica_h_22]
@@ -712,7 +713,7 @@ DEALLOCATE cursoreexpense
 					exec exp_certificazioneunica_d_22  @idreg, @newprogrCom, 'H',NULL, @print
 				END
 
-  
+
 			insert into #recordH (progr, modulo, quadro, riga, colonna, stringa, data, intero)
 			select @newprogrCom,1, quadro, riga, colonna, stringa, data, intero
 			from #recHNonArrot 
@@ -720,7 +721,8 @@ DEALLOCATE cursoreexpense
 			and (quadro<>'AU' or colonna <> '001')
 			and (colonna <> '006') and (colonna <> '029') and (colonna <> '030') and (colonna <> '031')  and (colonna <> '033')
 			and  modulo = 1
-	 
+
+
 			--1 Tipo record
 			INSERT INTO #recordH (progr, modulo, quadro, riga, colonna, stringa) VALUES(@newprogrCom,@modulo,'HRH', 1, '01', 'H')
 			--2 Codice fiscale del sostituto d'imposta
@@ -784,9 +786,26 @@ DEALLOCATE cursoreexpense
 				and isnull(#recHNonArrot.socialseccode,'') = isnull(@socialseccode,'')
 				and isnull(#recHNonArrot.notsubjecttaxcode,'') = isnull(@notsubjecttax,'')
 				and #recHNonArrot.decimfisc is not null
+				and not (quadro='AU' and colonna='004')
 				group by #recHNonArrot.quadro, #recHNonArrot.colonna
 				having ( sum(#recHNonArrot.decimfisc)) <> 0
-					
+			
+			-- Se ci sono più prestazioni che differiscono per il valore del Campo "Codice", ossia AU 006
+			-- In questi casi, deve mostrare in "Ammontare lordo corrisposto" = AU 004, la somma degli ammontari 
+			-- e restuire due (o più ) moduli nei quali valorizzare i diversi "Codice" 6
+			insert into #recordH (progr, modulo, quadro, riga, colonna, decimale)
+				select @newprogrCom,@modulo, #recHNonArrot.quadro, 1, #recHNonArrot.colonna, sum(#recHNonArrot.decimfisc) 
+				from #recHNonArrot 
+				where isnull(#recHNonArrot.causale,'') = isnull(@causale,'')
+				and isnull(#recHNonArrot.socialseccode,'') = isnull(@socialseccode,'')
+				--and isnull(#recHNonArrot.notsubjecttaxcode,'') = isnull(@notsubjecttax,'')
+				and 
+				#recHNonArrot.decimfisc is not null
+				and quadro='AU' and colonna='004'
+				group by #recHNonArrot.quadro, #recHNonArrot.colonna
+				having ( sum(#recHNonArrot.decimfisc)) <> 0
+			update #recordH set decimale = null where modulo >1 and quadro = 'AU' and colonna='004'
+			update #recordH set stringa = null where modulo >1 and quadro = 'AU' and colonna='001'
 			insert into #recordH (progr, modulo, quadro, riga, colonna, decimale)
 				select @newprogrCom,@modulo, #recHNonArrot.quadro, 1, #recHNonArrot.colonna, sum(#recHNonArrot.decimprev)
 				from #recHNonArrot 
@@ -819,6 +838,7 @@ BEGIN
 	  SET @newprogrCom  = @progrCom 
 	  SET @modulo = 1 
 END
+
 DECLARE @newmodulo int
 insert into #recordH (progr,modulo, quadro, riga, colonna, stringa,decimale, intero, data)
 			exec exp_certificazioneunica_h_pign_22  @idreg, @newprogrCom, @modulo, @fattoprestazioni,  @inseritopignoramenti out, @newmodulo out
@@ -834,7 +854,7 @@ end
 ----------------------------------------------------
 -------- Fine Parte relativa ai Pignoramenti -------
 ----------------------------------------------------
-SELECT  progr,modulo, quadro, riga, colonna, stringa,decimale, intero, data FROM #recordh 
+SELECT  progr,modulo, quadro, riga, colonna, stringa,decimale, intero, data, @speseRimborsateProf_nonimp as 'Spese non imponibili' FROM #recordh 
 WHERE stringa IS NOT NULL OR intero IS NOT NULL OR data IS NOT NULL OR decimale IS NOT NULL
 --select * from #recHNonArrot
 --SELECT * FROM #infoPignoramenti
@@ -851,7 +871,5 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-
- 
 
  

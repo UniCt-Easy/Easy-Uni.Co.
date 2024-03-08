@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -736,6 +736,7 @@ namespace admpay_default {
 
 		private void btnGenera_Click(object sender, System.EventArgs e) {
             AskTask compito = new AskTask(0);
+			createForm(compito, null);
             DialogResult dr = compito.ShowDialog();
             if (dr != DialogResult.OK) {
                 show(this, "Non è stato scelto alcun compito", "Avvertimento");
@@ -758,6 +759,7 @@ namespace admpay_default {
             //Crea le Hash Table (una per ogni coordinata) a partire da Mdata
             if (!CreaHashTable(compito.Choosen)) {
                 FrmError frm = new FrmError(tErrorLog);
+				createForm(frm, null);
                 DialogResult dr1 = frm.ShowDialog();
                 show(this, "Errore nella fase di raggruppamento dei dati");
                 return;
@@ -782,6 +784,7 @@ namespace admpay_default {
 			string errMess;
             if (!generaMovimenti(mData, IoE, compito.Choosen, out errMess)) {
                 FrmError frm = new FrmError(tErrorLog);
+				createForm(frm, null);
                 DialogResult dr1 = frm.ShowDialog();
                 if (dr1 != DialogResult.OK) {
                     tErrorLog.Clear();
@@ -796,6 +799,7 @@ namespace admpay_default {
             else {
                 if (tErrorLog.Rows.Count > 0) {
                     FrmError frm = new FrmError(tErrorLog);
+					createForm(frm, null);
                     DialogResult dr1 = frm.ShowDialog();
                     if (dr1 != DialogResult.OK) {
                         tErrorLog.Clear();

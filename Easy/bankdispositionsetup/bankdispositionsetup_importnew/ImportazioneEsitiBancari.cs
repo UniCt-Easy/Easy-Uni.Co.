@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,13 +23,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
 
 namespace bankdispositionsetup_importnew {
-
-
-
-
     /// <summary>
     /// Classe base per righe di importazione mandati e reversali
     /// </summary>
@@ -582,7 +577,7 @@ namespace bankdispositionsetup_importnew {
             abi.AddRange(new string[] { "05696", "03067", "03111", "01030",
                                         "02008", "05372", "01010", "08661", "01010",
                                         "06065", "03069", "05262", "08553", "03019","05216","03599",
-                                        "01015"});
+                                        "01015","05424", "06230"});
             if (!abi.Contains(idbank.ToString())) {
                 MetaFactory.factory.getSingleton<IMessageShower>().Show("La banca selezionata non è al momento gestita dall'applicazione", "Errore");
                 return null;
@@ -590,7 +585,7 @@ namespace bankdispositionsetup_importnew {
 
             if (idbank.ToString() == "05696") I = import_sondrio.ImportaFile(Conn, fname);
             if ((idbank.ToString() == "03067") || (idbank.ToString() == "03111")) I = import_carime.ImportaFile(Conn, fname); //Carime / Ubi Banca
-            if (idbank.ToString() == "01030") I = import_mps.ImportaFile(Conn, fname); // DA RIMUOVERE
+            //if (idbank.ToString() == "01030") I = import_mps.ImportaFile(Conn, fname); // DA RIMUOVERE
             if (idbank.ToString() == "02008") {
 
                 if (fname.EndsWith("xml")) {
@@ -601,7 +596,7 @@ namespace bankdispositionsetup_importnew {
                 }
 
             }
-            if (idbank.ToString() == "01015") /*Banco di Sardegna*/
+            if ((idbank.ToString() == "01015") /*Banco di Sardegna*/ || (idbank.ToString() == "05424" /*Banca Popolare di Bari*/ ))
             {
                 I = import_intesasanpaolo.ImportaFile(Conn, fname);
             }
@@ -615,7 +610,8 @@ namespace bankdispositionsetup_importnew {
             if ((idbank.ToString() == "08553") || (idbank.ToString() == "03599")) I = import_bccflumeri.ImportaFile(Conn, fname);  // Banca Credito Cooperativo Flumeri
             if (idbank.ToString() == "03019") I = import_creditosiciliano.ImportaFile(Conn, fname);  // Credito Siciliano
             if (idbank.ToString() == "05216") I = import_creditosiciliano.ImportaFile(Conn, fname);  // Credito Valtellinese
-            //if (idbank.ToString() == "01030") I = import_mps_abi36.ImportaFile(Conn, fname); //Monte dei Paschi di Siena ABI 36
+            if (idbank.ToString() == "06230") I = import_creditosiciliano.ImportaFile(Conn, fname);  // credit agricol
+            if (idbank.ToString() == "01030") I = import_mps_abi36.ImportaFile(Conn, fname); //Monte dei Paschi di Siena ABI 36
             if (I == null) return null;
             if (doppiaImportazioneNonOpi(Conn, I, idbank)) {
                 return I;
@@ -637,12 +633,11 @@ namespace bankdispositionsetup_importnew {
             //    return null;
             //}
             //Chiamata GET per chiedere il file del Giornale di Cassa
-            string errore;
-            var Giornaledicassa = PagoPaService.LeggiGiornaledicassa(Conn, inizio, fine,scaricaFile, out errore);
+            var Giornaledicassa = PagoPaService.LeggiGiornaledicassa(Conn, inizio, fine, scaricaFile, out string errore);
             if (errore != null) {
                 //ErrorLogger.Logger.logException("Errore - PagoPaService.LeggiGiornaledicassa()[WS OPI]");
                 DatiImportati[] error1 = new DatiImportati[1];
-                error1[0] = new bankdispositionsetup_importnew.DatiImportati(Conn.GetEsercizio());
+                error1[0] = new DatiImportati(Conn.GetEsercizio());
                 error1[0].DatiValidi = false;
                 error1[0].error = "Errore - PagoPaService.LeggiGiornaledicassa()[WS OPI]\n\r"+errore;
                 return error1;
@@ -650,43 +645,47 @@ namespace bankdispositionsetup_importnew {
             if (Giornaledicassa == null) {
                 //ErrorLogger.Logger.logException("Avviso - Nessun file ricevuto[WS OPI]");
                 DatiImportati[] error1 = new DatiImportati[1];
-                error1[0] = new bankdispositionsetup_importnew.DatiImportati(Conn.GetEsercizio());
+                error1[0] = new DatiImportati(Conn.GetEsercizio());
                 error1[0].DatiValidi = false;
                 error1[0].error = "Avviso - Nessun file ricevuto[WS OPI]";
                 return error1;
             }
-            int nDoc = Giornaledicassa.Length;
-            DatiImportati[] allDatiImportati = new DatiImportati[nDoc];
-            int i = 0;
+            //int nDoc = Giornaledicassa.Length;
+
+            //DatiImportati[] allDatiImportati = new DatiImportati[nDoc];
+            //int i = 0;
+            List<DatiImportati> allDatiImportati = new List<DatiImportati>();
+
             Dictionary<string, bool> importatiInMemoria= new Dictionary<string, bool>();
-            string idbank = null;
-            foreach (Stream Giornale in Giornaledicassa) {                
-                var I = import_siopeplus.ImportaFile(Conn, Giornale, out idbank);//Da valutare un'eventuale condizione
+            foreach (Stream Giornale in Giornaledicassa) {
+                var I = import_siopeplus.ImportaFile(Conn, Giornale, out string idbank);//Da valutare un'eventuale condizione
                 Giornale.Close();
                 Giornale.Dispose();
                 if (I == null) {
                     continue;
                 }
-                allDatiImportati[i] = I;
-                i++;
-                if (importatiInMemoria.ContainsKey(I.identificativo_flusso_BT)) {
-	                I.DatiValidi = false;
-	                I.error = $"Identificativo duplicato nel flusso ricevuto dalla banca ({I.identificativo_flusso_BT})";
-	                continue;
-                }
-
-                importatiInMemoria[I.identificativo_flusso_BT] = true;
-
                 if (giornaleGiaImportato(Conn, I, idbank)) {
                     continue;
                 }
 
-                
+                //allDatiImportati[i] = I;
+                //i++;
+                allDatiImportati.Add(I);
+
+                if (importatiInMemoria.ContainsKey(I.identificativo_flusso_BT)) {
+                    I.DatiValidi = false;
+                    I.error = $"Identificativo duplicato nel flusso ricevuto dalla banca ({I.identificativo_flusso_BT})";
+                    continue;
+                }
+
+                importatiInMemoria[I.identificativo_flusso_BT] = true;
+
 
                 //if (!verificaDoppiaImportazioneNonOpi(Conn, I, idbank)) I.DatiValidi = false;
-                I.CalcolaChiaviDocumenti(Conn);             
+                I.CalcolaChiaviDocumenti(Conn);
             }
-            return allDatiImportati; 
+            //return allDatiImportati;
+            return allDatiImportati.ToArray(); 
         }
 
         private static DateTime CalcolaData(string data) {
@@ -697,15 +696,6 @@ namespace bankdispositionsetup_importnew {
             return dataDt;
 
         }
-
-        /// <summary>
-        /// Cerca di capire se il file in esame è stato già oggetto di elaborazione, nel qual caso avvisa e restituisce false
-        /// </summary>
-        /// <param name="Conn"></param>
-        /// <param name="M"></param>
-        /// <param name="idbank"></param>
-        /// <returns></returns>
-
 
         public static DatiImportati ImportFileManualeSiopePlus(DataAccess Conn, string fname) {
             //if (idbank == null || idbank == DBNull.Value) {
@@ -726,15 +716,6 @@ namespace bankdispositionsetup_importnew {
             return I;
         }
 
-
-
-        /// <summary>
-        /// Cerca di capire se il file in esame è stato già oggetto di elaborazione, nel qual caso avvisa e restituisce true
-        /// </summary>
-        /// <param name="dataGrid1"></param>
-        /// <param name="txtInizioElaborazione"></param>
-        /// <param name="txtFineElaborazione"></param>
-        /// <returns></returns>
         private static bool doppiaImportazioneNonOpi(DataAccess Conn, DatiImportati M, object idbank) {
             QueryHelper QHS = Conn.GetQueryHelper();
             DateTime lastpayment = new DateTime(1900, 1, 1);
@@ -817,8 +798,7 @@ namespace bankdispositionsetup_importnew {
 			//GDC-2019011720190117185938720#001#001
 			//GDC - 2019 01 17 2019 01 17 185938720#001#001
 			//string datainizio = identificativo_flusso_BT.Substring(4, 8);
-   //         string datafine = identificativo_flusso_BT.Substring(13, 8);
-
+            //string datafine = identificativo_flusso_BT.Substring(13, 8);
 			
 			//Non serve, essendo il formato AAAAMMDD possiamo confrontare direttamente le stringhe
 			//DateTime datainizioDt = CalcolaData(datainizio);
@@ -847,11 +827,11 @@ namespace bankdispositionsetup_importnew {
         }
 
         /// <summary>
-        /// Restituisce true se ci sono bollette nel flusso non ancora importate
+        /// Valuta la presenza di sospesi da importare sui dati tramite la connessione al database.
         /// </summary>
-        /// <param name="Conn"></param>
-        /// <param name="M"></param>
-        /// <returns></returns>
+        /// <param name="Conn">Connessione al database</param>
+        /// <param name="M">Dati da valutare</param>
+        /// <returns>true se ci sono sospesi da importare, false altrimenti</returns>
         private static bool sospesiDaImportare(DataAccess Conn, DatiImportati M) {
             QueryHelper Q = Conn.GetQueryHelper();
             CQueryHelper QHC = new CQueryHelper();
@@ -924,6 +904,5 @@ namespace bankdispositionsetup_importnew {
             }
             return true;
         }
-
-        }
+    }
 }

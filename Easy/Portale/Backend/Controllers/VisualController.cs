@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -18,26 +18,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using Backend.CommonBackend;
 using Backend.Extensions;
-using metadatalibrary;
-using metaeasylibrary;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
 using System.Web;
-using System.Web.Http;
-using System.Web.Http.Cors;
-using progettocosto_functions;
 using System.Diagnostics;
 using System.Security;
 using System.Web.Configuration;
 
-namespace Backend.Controllers {
+namespace Backend.Controllers
+{
 
 
 
@@ -65,7 +54,7 @@ namespace Backend.Controllers {
         /// <param name="prms">customEventQueryParameters</param>
         /// <returns></returns>
         [HttpPost, Route("generaPages")]
-        public IHttpActionResult generaPages(generaPagesPrms prms) {
+        public IHttpActionResult generaPages([FromBody] generaPagesPrms prms) {
             var dispatcher = HttpContext.Current.getDataDispatcher();
 
             string pathGenerator = WebConfigurationManager.AppSettings["pathGenerator"];

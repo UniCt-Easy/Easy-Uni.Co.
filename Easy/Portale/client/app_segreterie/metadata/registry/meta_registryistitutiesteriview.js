@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,18 +23,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'istitutiesteri':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 101);
-						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 40, 16);
-						this.describeAColumn(table, 'registry_p_iva', 'Partita iva', null, 50, 15);
-						this.describeAColumn(table, 'registry_active', 'attivo', null, 60, null);
-						this.describeAColumn(table, 'geo_city_title', 'Citt‡', null, 70, 65);
-						this.describeAColumn(table, 'geo_nation_title', 'Nazione', null, 80, 65);
-						this.describeAColumn(table, 'registry_istitutiesteri_idreg', 'Identificativo', null, 10, null);
-						this.describeAColumn(table, 'registry_istitutiesteri_name', 'Name', null, 20, 1024);
-						this.describeAColumn(table, 'registry_istitutiesteri_city', 'City', null, 30, 255);
-						this.describeAColumn(table, 'registry_istitutiesteri_code', 'Code', null, 40, 50);
-						this.describeAColumn(table, 'registry_istitutiesteri_institutionalcode', 'Institutional code', null, 50, 50);
-						this.describeAColumn(table, 'registry_istitutiesteri_referencenumber', 'Reference number', null, 60, 50);
+						this.describeAColumn(table, 'registry_istitutiesteri_idreg', 'Identificativo', null, 1000, null);
+						this.describeAColumn(table, 'registry_istitutiesteri_name', 'Name', null, 2000, 1024);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 3000, 101);
+						this.describeAColumn(table, 'registry_istitutiesteri_city', 'City', null, 3000, 255);
+						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 4000, 16);
+						this.describeAColumn(table, 'registry_istitutiesteri_code', 'Code', null, 4000, 50);
+						this.describeAColumn(table, 'registry_p_iva', 'Partita iva', null, 5000, 15);
+						this.describeAColumn(table, 'registry_istitutiesteri_institutionalcode', 'Institutional code', null, 5000, 50);
+						this.describeAColumn(table, 'registry_active', 'attivo', null, 6000, null);
+						this.describeAColumn(table, 'registry_istitutiesteri_referencenumber', 'Reference number', null, 6000, 50);
+						this.describeAColumn(table, 'geo_city_title', 'Citt√†', null, 7100, 65);
+						this.describeAColumn(table, 'geo_nation_title', 'Nazione', null, 8300, 65);
 //$objCalcFieldConfig_istitutiesteri$
 						break;
 //$objCalcFieldConfig$

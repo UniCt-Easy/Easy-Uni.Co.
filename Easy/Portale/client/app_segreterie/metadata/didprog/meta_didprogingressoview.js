@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,21 +23,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'ingresso':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
-						this.describeAColumn(table, 'corsostudio_title', 'Denominazione Corso di studi', null, 40, 1024);
-						this.describeAColumn(table, 'corsostudio_annoistituz', 'Anno accademico di istituzione Corso di studi', null, 40, null);
-						this.describeAColumn(table, 'didprognumchiusokind_title', 'Numero chiuso', null, 140, 50);
-						this.describeAColumn(table, 'graduatoria_title', 'Graduatoria', null, 170, 256);
-						this.describeAColumn(table, 'sede_title', 'Sede', null, 190, 1024);
-						this.describeAColumn(table, 'geo_nationlang_lang', 'Lingua di erogazione', null, 200, 64);
-						this.describeAColumn(table, 'geo_nationlang2_lang', 'Seconda lingua di erogazione', null, 210, 64);
-						this.describeAColumn(table, 'geo_nationlangvis_lang', 'Lingua di visualizzazione', null, 220, 64);
-						this.describeAColumn(table, 'sessione_start', 'Data di inizio Sessione', null, 240, null);
-						this.describeAColumn(table, 'sessione_stop', 'Data di fine Sessione', null, 240, null);
-						this.describeAColumn(table, 'titolokind_title', 'Titolo di studi', null, 250, 50);
-						this.describeAColumn(table, 'sessionekind_title', 'Tipologia Tipologia', null, 30, 50);
-						this.describeAColumn(table, 'sessione_idsessionekind', 'Tipologia Tipologia', null, 30, null);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 1000, 1024);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 2000, 9);
+						this.describeAColumn(table, 'corsostudio_title', 'Denominazione Corso di studi', null, 4100, 1024);
+						this.describeAColumn(table, 'corsostudio_annoistituz', 'Anno accademico di istituzione Corso di studi', null, 4600, null);
+						this.describeAColumn(table, 'didprognumchiusokind_title', 'Numero chiuso', null, 14200, 50);
+						this.describeAColumn(table, 'graduatoria_title', 'Graduatoria', null, 17200, 256);
+						this.describeAColumn(table, 'sede_title', 'Sede', null, 19200, 1024);
+						this.describeAColumn(table, 'geo_nationlang_lang', 'Lingua di erogazione', null, 20400, 64);
+						this.describeAColumn(table, 'geo_nationlang2_lang', 'Seconda lingua di erogazione', null, 21400, 64);
+						this.describeAColumn(table, 'geo_nationlangvis_lang', 'Lingua di visualizzazione', null, 22400, 64);
+						this.describeAColumn(table, 'sessionekind_title', 'Tipologia Tipologia Sessione', null, 24320, 50);
+						this.describeAColumn(table, 'sessione_start', 'Data di inizio Sessione', null, 24400, null);
+						this.describeAColumn(table, 'sessione_stop', 'Data di fine Sessione', null, 24500, null);
+						this.describeAColumn(table, 'titolokind_title', 'Titolo di studi', null, 25200, 50);
 //$objCalcFieldConfig_ingresso$
 						break;
 //$objCalcFieldConfig$

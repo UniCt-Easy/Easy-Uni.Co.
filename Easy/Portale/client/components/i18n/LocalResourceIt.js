@@ -1,36 +1,17 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
+/*globals ObjectRow,DataRelation,define,self,jsDataSet,jsDataQuery,metaModel */
 /**
  * @module localResourceIt
- * @description
- * Collection of the localized strings ITALIAN
+ * @description  Collection of the localized strings ITALIAN
  */
 (function () {
 
     /**
-     * @constructor localResourceIt
+     * @constructor LocalResourceIt
      * @description
+     * Resources for italian language
      */
-    function localResourceIt() {
-    }
 
-    localResourceIt.prototype = {
-        constructor: localResourceIt,
+    const LocalResourceIt = {
         yes : "Si",
         no : "No",
         error : "Errore",
@@ -52,8 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         column : 'colonna',
         from: "da",
         to : "a",
-		date: 'Data',
-		start: 'Inizio',
+        date: 'Data',
+        start: 'Inizio',
         end: 'Fine',
         infoevent: 'Info evento',
         loading: 'Caricamento...',
@@ -62,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         cambioRuolo : 'Scelta ruolo',
 
         logoutMsg : "Vuoi uscire dall' applicazione?",
-        logoutSSOMsg : "Vuoi effettuare anche il Logout dal sistema CAS",
+        logoutSSOMsg : "Vuoi effettuare anche il Logout dal sistema di \"Single sign on\"",
 
         noNetwork : "Il tuo dispositivo non è connesso a nessuna rete! Prova a connetterti e riprova",
         networkConnectionError : "Errore di connessione con il server. Controllare la connessione e riprova!",
@@ -76,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         noElementFound:"Nessun elemento trovato",
 
         sameValuesForTheKey: "E' stata inserita una riga con la stessa chiave primaria di un altra esistente. " +
-        " E' necessario modificare i dati immessi per salvarli.",
+            " E' necessario modificare i dati immessi per salvarli.",
 
         noPrimaryDataSelected: "Nessuna riga principale selezionata",
         selectRowInAGrid: "Seleziona una riga da modificare",
@@ -109,6 +90,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         editnotes : "Edita Note",
         mainclose : "Chiudi",
         showlast: "Info riga",
+        mainexportpdf: "Stampa",
 
         emptyField: "Svuota campi",
 
@@ -121,7 +103,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         multiSelect_toolbarButtonsTitle:  "E' possibile selzionare_ TODO",
         multiSelect_lbl_toAdd: "Da aggiungere",
         multiSelect_lbl_added: "Aggiunti",
-        multiSelect_lbl_descrtiption: "Ctrl/Shift + Click &egrave; possibile selezionare o deselezionare una o pi&ugrave; righe di un elenco. \<BR\> Con il tasto destro &egrave; possibile selezionare o deselezionare tutte le righe di un elenco",
+        multiSelect_lbl_description: "Ctrl/Shift + Click &egrave; possibile selezionare o deselezionare una o pi&ugrave; righe di un elenco. \<BR\> Con il tasto destro &egrave; possibile selezionare o deselezionare tutte le righe di un elenco",
         multiSelect_lbl_wait: "Attendi caricamento delle tabelle",
 
         procedureMessage_btn_nosave : "Non salvare",
@@ -232,16 +214,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         passwordMismatched: "La conferma della password non corrisponde",
 
         // errori server
-        serverErrorDataNotPermitted  : "Accesso non consentito in tale data in base alla gestione della sicurezza. L'utente deve esistere sull'organigramma per l'anno scelto. Contatta un amministratore per controllare la datacontabile sulla configurazione del sito.",
+        serverErrorDataNotPermitted  : "Accesso non consentito in tale data in base alla gestione della sicurezza.",
         serverErrorNoCredential  : "Inserisci le credenziali",
         serverErrorExpiredCredential  : "Credenziali scadute, rieffettuare l'accesso",
         serverErrorExpiredSession  : "Sessione scaduta, rieffettuare l'accesso",
         serverErrorBadCredential  : "Credenziali non corrette, riprovare l'inserimento di utente e/o password",
         serverErrorTokenEmpty : "E' stato effettuato il logout",
         serverErrorUserNotSecurity: "Utente fuori dalla gestione di sicurezza. " +
-            "1. Contatta Admin per inserimento utente virtuale, associato all'utente che sta eseguendo la login, su Organigramma (Organigramma ->  profilo -> tab utenti). " +
-            "2. Potrebbe essere necessario eseguire la chiusura dell'anno precedente e generare il nuovo organigramma per l'anno nuovo.  " +
-            "3. Controllare infine il dipartimento associato all' utente virtuale",
+            "1. Contatta gli amministratori per l'inserimento dell'utente, e l'inserimento nell'Organigramma (Organigramma ->  profilo -> tab utenti). " +
+            "2. Potrebbe essere necessario eseguire la chiusura dell'anno precedente e generare il nuovo organigramma per l'anno nuovo.  ",
         serverErrorAnonymous : "Operazione anonima non permessa, provare ad effettuare di nuovo l'accesso",
         serverErrorSSO: "Non è stato possibile autenticare tramite SSO",
         dataContabileMissing : "Bisogna specificare una data contabile",
@@ -257,8 +238,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         confirmSelection: "Conferma selezione",
         selectedRows: "righe selezionate"
     };
-    
-    appMeta.localResourceIt = localResourceIt;
+    let resource = LocalResourceIt;
+
+
+    if (typeof appMeta !== "undefined"){
+        appMeta.LocalResource.prototype.registerDictionary("it", resource);
+    }
+    else {
+        module.exports = resource;
+    }
 }());
 
 

@@ -58,6 +58,7 @@
               <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
               <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

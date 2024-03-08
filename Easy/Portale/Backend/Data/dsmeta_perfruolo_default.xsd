@@ -3,6 +3,96 @@
   <xs:element name="dsmeta_perfruolo_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="mansionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="generascheda" type="xs:string" minOccurs="0" />
+              <xs:element name="idmansionekind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="pesoateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesocomp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoindividuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesouo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfruolomansionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idmansionekind" type="xs:int" />
+              <xs:element name="idperfruolo" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="assegnoaggiuntivo" type="xs:string" minOccurs="0" />
+              <xs:element name="codeposition" type="xs:string" />
+              <xs:element name="costolordoannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costolordoannuooneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="elementoperequativo" type="xs:string" minOccurs="0" />
+              <xs:element name="foreignclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="indennitadiateneo" type="xs:string" minOccurs="0" />
+              <xs:element name="indennitadiposizione" type="xs:string" minOccurs="0" />
+              <xs:element name="indvacancacontrattuale" type="xs:string" minOccurs="0" />
+              <xs:element name="livello" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maxincomeclass" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxcompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxcompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxdidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxgg" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxtempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxtempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremincompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremincompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremindidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremindidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremintempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremintempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="orestraordinariemax" type="xs:int" minOccurs="0" />
+              <xs:element name="parttime" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:int" minOccurs="0" />
+              <xs:element name="puntiorganico" type="xs:decimal" minOccurs="0" />
+              <xs:element name="siglaesportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="tipoente" type="xs:string" minOccurs="0" />
+              <xs:element name="tipopersonale" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="totaletredicesima" type="xs:string" minOccurs="0" />
+              <xs:element name="tredicesimaindennitaintegrativaspeciale" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfruolocontrattokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfruolo" type="xs:string" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="perfobiettivokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -29,69 +119,16 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="contrattokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="assegnoaggiuntivo" type="xs:string" minOccurs="0" />
-              <xs:element name="costolordoannuo" type="xs:decimal" minOccurs="0" />
-              <xs:element name="costolordoannuooneri" type="xs:decimal" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="elementoperequativo" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="indennitadiateneo" type="xs:string" minOccurs="0" />
-              <xs:element name="indennitadiposizione" type="xs:string" minOccurs="0" />
-              <xs:element name="indvacancacontrattuale" type="xs:string" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="oremaxcompitididatempoparziale" type="xs:int" minOccurs="0" />
-              <xs:element name="oremaxcompitididatempopieno" type="xs:int" minOccurs="0" />
-              <xs:element name="oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
-              <xs:element name="oremaxdidatempopieno" type="xs:int" minOccurs="0" />
-              <xs:element name="oremaxgg" type="xs:int" minOccurs="0" />
-              <xs:element name="oremaxtempoparziale" type="xs:int" minOccurs="0" />
-              <xs:element name="oremaxtempopieno" type="xs:int" minOccurs="0" />
-              <xs:element name="oremincompitididatempoparziale" type="xs:int" minOccurs="0" />
-              <xs:element name="oremincompitididatempopieno" type="xs:int" minOccurs="0" />
-              <xs:element name="oremindidatempoparziale" type="xs:int" minOccurs="0" />
-              <xs:element name="oremindidatempopieno" type="xs:int" minOccurs="0" />
-              <xs:element name="oremintempoparziale" type="xs:int" minOccurs="0" />
-              <xs:element name="oremintempopieno" type="xs:int" minOccurs="0" />
-              <xs:element name="orestraordinariemax" type="xs:int" minOccurs="0" />
-              <xs:element name="parttime" type="xs:string" minOccurs="0" />
-              <xs:element name="puntiorganico" type="xs:decimal" minOccurs="0" />
-              <xs:element name="scatto" type="xs:string" minOccurs="0" />
-              <xs:element name="siglaesportazione" type="xs:string" minOccurs="0" />
-              <xs:element name="siglaimportazione" type="xs:string" minOccurs="0" />
-              <xs:element name="sortcode" type="xs:int" />
-              <xs:element name="tempdef" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" />
-              <xs:element name="totaletredicesima" type="xs:string" minOccurs="0" />
-              <xs:element name="tredicesimaindennitaintegrativaspeciale" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="perfruolocontrattokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="idperfruolo" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="perfruolo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="aggiorna" type="xs:string" minOccurs="0" />
+              <xs:element name="approva" type="xs:string" minOccurs="0" />
               <xs:element name="crea" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
+              <xs:element name="escluso" type="xs:string" minOccurs="0" />
+              <xs:element name="generascheda" type="xs:string" minOccurs="0" />
               <xs:element name="idperfruolo" type="xs:string" />
               <xs:element name="leggi" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
@@ -104,21 +141,30 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mansionekind" />
+      <xs:field xpath="mstns:idmansionekind" />
+    </xs:unique>
+    <xs:unique name="perfruolomansionekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfruolomansionekind" />
+      <xs:field xpath="mstns:idmansionekind" />
+      <xs:field xpath="mstns:idperfruolo" />
+    </xs:unique>
+    <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="perfruolocontrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfruolocontrattokind" />
+      <xs:field xpath="mstns:idperfruolo" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="perfobiettivokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfobiettivokind" />
       <xs:field xpath="mstns:idperfobiettivokind" />
     </xs:unique>
     <xs:unique name="perfruoloperfobiettivokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfruoloperfobiettivokind" />
       <xs:field xpath="mstns:idperfobiettivokind" />
-      <xs:field xpath="mstns:idperfruolo" />
-    </xs:unique>
-    <xs:unique name="contrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
-    </xs:unique>
-    <xs:unique name="perfruolocontrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:perfruolocontrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
       <xs:field xpath="mstns:idperfruolo" />
     </xs:unique>
     <xs:unique name="perfruolo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -128,10 +174,12 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_perfruolomansionekind_perfruolo_idperfruolo" msdata:parent="perfruolo" msdata:child="perfruolomansionekind" msdata:parentkey="idperfruolo" msdata:childkey="idperfruolo" />
+      <msdata:Relationship name="FK_perfruolomansionekind_mansionekind_idmansionekind" msdata:parent="mansionekind" msdata:child="perfruolomansionekind" msdata:parentkey="idmansionekind" msdata:childkey="idmansionekind" />
+      <msdata:Relationship name="FK_perfruolocontrattokind_perfruolo_idperfruolo" msdata:parent="perfruolo" msdata:child="perfruolocontrattokind" msdata:parentkey="idperfruolo" msdata:childkey="idperfruolo" />
+      <msdata:Relationship name="FK_perfruolocontrattokind_position_idposition" msdata:parent="position" msdata:child="perfruolocontrattokind" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_perfruoloperfobiettivokind_perfruolo_idperfruolo" msdata:parent="perfruolo" msdata:child="perfruoloperfobiettivokind" msdata:parentkey="idperfruolo" msdata:childkey="idperfruolo" />
       <msdata:Relationship name="FK_perfruoloperfobiettivokind_perfobiettivokind_idperfobiettivokind" msdata:parent="perfobiettivokind" msdata:child="perfruoloperfobiettivokind" msdata:parentkey="idperfobiettivokind" msdata:childkey="idperfobiettivokind" />
-      <msdata:Relationship name="FK_perfruolocontrattokind_perfruolo_idperfruolo" msdata:parent="perfruolo" msdata:child="perfruolocontrattokind" msdata:parentkey="idperfruolo" msdata:childkey="idperfruolo" />
-      <msdata:Relationship name="FK_perfruolocontrattokind_contrattokind_idcontrattokind" msdata:parent="contrattokind" msdata:child="perfruolocontrattokind" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

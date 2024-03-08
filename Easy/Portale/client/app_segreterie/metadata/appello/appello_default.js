@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -42,42 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterGetFormData
 			
-			beforeFill: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.idappelloazionekind)
-					parentRow.idappelloazionekind = 1;
-				if (!parentRow.idappellokind)
-					parentRow.idappellokind = 1;
-				if (!parentRow.idstudprenotkind)
-					parentRow.idstudprenotkind = 1;
-				if (!parentRow.lavoratori)
-					parentRow.lavoratori = "N";
-				if (!parentRow.passaggio)
-					parentRow.passaggio = "N";
-				if (!parentRow.prointermedia)
-					parentRow.prointermedia = "N";
-				if (!parentRow.publicato)
-					parentRow.publicato = "N";
-				//beforeFillFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-appello_default");
-				var arraydef = [];
-				
-				//beforeFillInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
-					});
-				return def.promise();
-			},
+			//beforeFill
 
 			//afterClear
 
@@ -85,8 +33,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.appello.defaults({ 'idappelloazionekind': 1 });
+				this.state.DS.tables.appello.defaults({ 'idappellokind': 1 });
+				this.state.DS.tables.appello.defaults({ 'idstudprenotkind': 1 });
+				this.state.DS.tables.appello.defaults({ 'lavoratori': "N" });
+				this.state.DS.tables.appello.defaults({ 'passaggio': "N" });
+				this.state.DS.tables.appello.defaults({ 'prointermedia': "N" });
+				this.state.DS.tables.appello.defaults({ 'publicato': "N" });
 				$("#btn_add_appelloattivform_idattivform").on("click", _.partial(this.searchAndAssignattivform, self));
 				$("#btn_add_appelloattivform_idattivform").prop("disabled", true);
+				$('#grid_appelloattivform_appello').data('mdlconditionallookup', '!aa_attivform_tipovalutaz,S,Si;!aa_attivform_tipovalutaz,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

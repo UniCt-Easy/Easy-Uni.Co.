@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -346,7 +346,7 @@ namespace no_table_import_anagrafiche_csa {
             if (!ImportaAnagrafiche(LinkedServerName, DBServerName))
                 show("Operazione non eseguita.");
             else
-                show("Operazione eseguita.");
+                show("Operazione eseguita.", "");
         }
 
         private bool isNumeric(string str, out int valore) {
@@ -439,6 +439,8 @@ namespace no_table_import_anagrafiche_csa {
             D.Tables["registry"].Clear();
             D.Tables["registrytaxablestatus"].Clear();
             D.Tables["registrylegalstatus"].Clear();
+            D.Tables["registry_docenti"].Clear();
+            D.Tables["registry_amministrativi"].Clear();
             TanagraficheError.Clear();
             Tavviso.Clear();
             Dictionary<string, DataRow> regs = new Dictionary<string, DataRow>();
@@ -554,6 +556,10 @@ namespace no_table_import_anagrafiche_csa {
             if (!SaveTrance(D, Tavviso, TanagraficheError, countavviso, counterr)) {
                 return false;
             }
+            // Qui deve sistemare il campo Active e lo fa tramite la sp che agisce sulle matricole oggetto di questa elaborazione
+            string disattivariga = "S";
+             Meta.Conn.CallSP("compute_inquadranagrafiche_csa",
+                 new object[] { matricola_da, matricola_a, disattivariga }, 10000, out errMess);
 
             return true;
         }
@@ -602,6 +608,8 @@ namespace no_table_import_anagrafiche_csa {
                     D.Tables["registry"].Clear();
                     D.Tables["registrytaxablestatus"].Clear();
                     D.Tables["registrylegalstatus"].Clear();
+                    D.Tables["registry_docenti"].Clear();
+                    D.Tables["registry_amministrativi"].Clear();
                     TanagraficheError.Clear();
                     return false;
                 }
@@ -616,6 +624,8 @@ namespace no_table_import_anagrafiche_csa {
             D.Tables["registry"].Clear();
             D.Tables["registrytaxablestatus"].Clear();
             D.Tables["registrylegalstatus"].Clear();
+            D.Tables["registry_docenti"].Clear();
+            D.Tables["registry_amministrativi"].Clear();
             TanagraficheError.Clear();
             Tavviso.Clear();
             return true;
@@ -832,11 +842,17 @@ namespace no_table_import_anagrafiche_csa {
                     continue;
                 // RIVEDERE se idposition è null lo mette a null, se è valorizzato lo mette valorizzato
                 object idposition = R["codicequalifica"];
+                object idinquadramento = R["codiceinquadramento"];
+                
+                object livello = R["livello"];
                 //if ((idposition != DBNull.Value) && (idposition != null)){
                 DataRow RLS = MetaRegistryLegalStatus.Get_New_Row(Reg, D.Tables["registrylegalstatus"]);
                 RLS["idreg"] = Reg["idreg"];
                 RLS["active"] = "S";
+                RLS["flagdefault"] = "N";
                 RLS["idposition"] = idposition;
+                RLS["idinquadramento"] = idinquadramento;
+                RLS["livello"] = livello;
                 RLS["start"] = R["in_vigore_giur"];
                 if (R.Table.Columns.Contains("iddaliaposition")) {
                     RLS["iddaliaposition"] = R["iddaliaposition"];
@@ -844,8 +860,8 @@ namespace no_table_import_anagrafiche_csa {
                 RLS["incomeclassvalidity"] = R["datadecorrenza"];
                 RLS["incomeclass"] = R["classestipendiale"];
                 RLS["csa_compartment"] = R["comparto"];
+                RLS["csa_class"] = R["inquadramento"];
                 RLS["csa_role"] = R["ruolo"];
-                //RLS["csa_class"] = R["inquadr"];
                 RLS["ct"] = DateTime.Now;
                 RLS["lt"] = DateTime.Now;
                 RLS["cu"] = "importazioneCSA";
@@ -854,51 +870,9 @@ namespace no_table_import_anagrafiche_csa {
                     redditoannuo = CfgFn.GetNoNullDecimal(R["imponpresunto"]);
                     datavalidita = R["in_vigore_giur"];
                 }
-                //}
 
             }
-            //Aggiunge le righe in "registry_docenti" o  "registry_amministrativi" ove assenti
-            foreach (DataRow R in CSADati) {
-                if (R["rowkind"].ToString() != "I") //Deve agire solo se crea le righe dell'inquadramento
-                    continue;
-                int n_regdoc_amm = Conn.RUN_SELECT_COUNT("registry_docenti", QHS.CmpEq("idreg", Reg["idreg"]), true);
-                if (n_regdoc_amm > 0) continue;
-                n_regdoc_amm = Conn.RUN_SELECT_COUNT("registry_amministrativi", QHS.CmpEq("idreg", Reg["idreg"]), true);
-                if (n_regdoc_amm > 0) continue;
-                
-                object idposition = R["codicequalifica"];
-                if ((idposition != DBNull.Value) && (idposition != null)) {
-                    object idcontrattokind = Conn.DO_READ_VALUE("contrattokindposition", QHS.CmpEq("idposition", idposition), "idcontrattokind");
-                    object siglaimportazione = Conn.DO_READ_VALUE("contrattokind", QHS.CmpEq("idcontrattokind", idcontrattokind), "siglaimportazione");
-                    bool creatoAmministrativo = false;
-                    string[] amministrativi = new string[] { "B", "C", "D", "Dir.", "EP" };
-                    foreach (string S in amministrativi) { 
-                        if (siglaimportazione.Equals(S)) {
-                            DataRow RegAmm = MetaRegistryAamministrativi.Get_New_Row(Reg, D.Tables["registry_amministrativi"]);
-                            RegAmm["idreg"] = Reg["idreg"];
-                        RegAmm["idcontrattokind"] = idcontrattokind;
-                            RegAmm["ct"] = DateTime.Now;
-                            RegAmm["lt"] = DateTime.Now;
-                            RegAmm["cu"] = "importazioneCSA";
-                            RegAmm["lu"] = "importazioneCSA";
-                            creatoAmministrativo = true;
-                            break;
-                        } 
-                    }
-                     if(!creatoAmministrativo) {
-                            DataRow RegDoc = MetaRegistryDocenti.Get_New_Row(Reg, D.Tables["registry_docenti"]);
-                            RegDoc["idreg"] = Reg["idreg"];
-                            RegDoc["idcontrattokind"] = idcontrattokind;
-                            RegDoc["idreg_istituti"] = Conn.DO_READ_VALUE("istitutoprinc", null, "idreg");
-                            RegDoc["ct"] = DateTime.Now;
-                            RegDoc["lt"] = DateTime.Now;
-                            RegDoc["cu"] = "importazioneCSA";
-                            RegDoc["lu"] = "importazioneCSA";
-                        }
-                    
-                }
-              }
-
+          
             if (redditoannuo != 0) {
                 DataRow RTS = MetaRegistryTaxableStatus.Get_New_Row(Reg, D.Tables["registrytaxablestatus"]);
                 RTS["idreg"] = Reg["idreg"];
@@ -911,6 +885,11 @@ namespace no_table_import_anagrafiche_csa {
                 RTS["lu"] = "importazioneCSA";
             }
             return Reg;
+        }
+
+        int NoNullInt(object o) {
+            if (o == DBNull.Value) return 0;
+            return Convert.ToInt32(o);
         }
 
         bool SaveData(DataSet D, bool displayMsg) {
@@ -1250,26 +1229,32 @@ namespace no_table_import_anagrafiche_csa {
         }
 
         private bool AggiornaPosGiuridica(DataRow rCSADati, DataRow Reg) {
-            object idposition = rCSADati["codicequalifica"];
+            object idposition = rCSADati["codicequalifica"]; // Sono i codici in Easy
+            object idinquadramento = rCSADati["codiceinquadramento"];// Sono i codici in Easy
             // Stiamo contemplando anche il caso di idposition NULL
             //if (idposition == DBNull.Value) return false;
-
+            object inquadramento = rCSADati["inquadramento"];// è il valore che arriva dalla view di CSA
+            string filterinq = "";
+            string filterinqC = "";
+            if ((inquadramento != DBNull.Value) && (inquadramento != null)) {
+                filterinq = QHS.CmpEq("csa_class", rCSADati["inquadramento"]);
+                filterinqC = QHC.CmpEq("csa_class", rCSADati["inquadramento"]);
+            }
             object idReg = Reg["idreg"];
             
-            string filterkey = QHS.AppAnd(QHS.CmpEq("idreg", idReg),
+            string filterkey = QHS.AppAnd(QHS.CmpEq("idreg", idReg), filterinq,
                 QHS.CmpEq("csa_compartment", rCSADati["comparto"]), QHS.CmpEq("csa_role", rCSADati["ruolo"]),
                 QHS.CmpEq("start", rCSADati["in_vigore_giur"]), QHS.CmpEq("incomeclass", rCSADati["classestipendiale"]));
-         
+           
+            string filterkeyC = QHC.AppAnd(QHC.CmpEq("idreg", idReg), filterinqC,
+                 QHC.CmpEq("csa_compartment", rCSADati["comparto"]), QHC.CmpEq("csa_role", rCSADati["ruolo"]),
+                 QHC.CmpEq("start", rCSADati["in_vigore_giur"]), QHC.CmpEq("incomeclass", rCSADati["classestipendiale"]));
             int rKey = Conn.RUN_SELECT_COUNT("registrylegalstatus", filterkey, true);
             DataRow R=null;
             if (rKey > 0) {
                 // Aggiornerà solo i campi NON chiave, in realtà sta controllando i campi principali.
                 DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrylegalstatus"], null, filterkey, null, true);
-                DataRow[] rFound = D.Tables["registrylegalstatus"].Select(
-	                QHC.AppAnd(QHS.CmpEq("idreg", idReg),
-		                QHC.CmpEq("csa_compartment", rCSADati["comparto"]), QHC.CmpEq("csa_role", rCSADati["ruolo"]),
-		                QHC.CmpEq("start", rCSADati["in_vigore_giur"]), QHC.CmpEq("incomeclass", rCSADati["classestipendiale"]))
-	                );
+                DataRow[] rFound = D.Tables["registrylegalstatus"].Select(filterkeyC);
                 R = rFound[0];
             }
             else {
@@ -1279,14 +1264,14 @@ namespace no_table_import_anagrafiche_csa {
 		            oldStart = oldStart.AddDays(-1);
 		            //Cerca l'inquadramento che finisce nel giorno precedente
 		            string filterkeyOld = QHS.AppAnd(QHS.CmpEq("idreg", idReg),
-			            QHS.CmpEq("csa_compartment", rCSADati["comparto"]), QHS.CmpEq("csa_role", rCSADati["ruolo"]),
-			            QHS.CmpEq("stop",oldStart), 
+    		            QHS.CmpEq("csa_compartment", rCSADati["comparto"]), QHS.CmpEq("csa_role", rCSADati["ruolo"]), filterinq,
+                        QHS.CmpEq("stop",oldStart), 
 			            QHS.CmpEq("incomeclass", rCSADati["classestipendiale"]));
 		            DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrylegalstatus"],"start desc", filterkeyOld, "1", true);
 		            DataRow[] rFound = D.Tables["registrylegalstatus"].Select(
 			            QHC.AppAnd(QHC.CmpEq("idreg", idReg),
-				            QHC.CmpEq("csa_compartment", rCSADati["comparto"]),
-				            QHC.CmpEq("csa_role", rCSADati["ruolo"]),
+				            QHC.CmpEq("csa_compartment", rCSADati["comparto"]), filterinqC,
+                            QHC.CmpEq("csa_role", rCSADati["ruolo"]),
 				            QHC.CmpEq("stop",oldStart), 
 				            QHC.CmpEq("incomeclass", rCSADati["classestipendiale"])));
 		            if (rFound.Length > 0) {
@@ -1294,13 +1279,14 @@ namespace no_table_import_anagrafiche_csa {
 			            foundprec = true;
 		            }
 	            }
-
 	            if (!foundprec) {
 		            // Inserisce un nuovo inquadramento, perchè nel DB non ne esiste uno con quei campi.
 		            R = MetaRegistryLegalStatus.Get_New_Row(Reg, D.Tables["registrylegalstatus"]);
 		            R["idreg"] = idReg;
 		            R["start"] = rCSADati["in_vigore_giur"];
-	            }
+                    R["flagdefault"] = "N";
+                    R["livello"] = rCSADati["livello"];
+                }
             }
 
           
@@ -1311,7 +1297,7 @@ namespace no_table_import_anagrafiche_csa {
             R["incomeclass"] = rCSADati["classestipendiale"];
             R["csa_compartment"] = rCSADati["comparto"];
             R["csa_role"] = rCSADati["ruolo"];
-            //R["csa_class"] = rCSADati["inquadr"];
+            R["csa_class"] = rCSADati["inquadramento"];
             R["lt"] = DateTime.Now;
             R["lu"] = "UPimportazioneCSA";
             return true;
@@ -1323,7 +1309,7 @@ namespace no_table_import_anagrafiche_csa {
             DataRow R = null;
             object idReg = Reg["idreg"];
             // Controlla che nel DB ci sia una riga con quei dati identica, se c'è esce.
-            string filter = QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start),QHS.CmpEq("active","S"), QHS.CmpEq("supposedincome", supposedincome));
+            string filter = QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start));//,QHS.CmpEq("active","S"), QHS.CmpEq("supposedincome", supposedincome));
             int N = Conn.RUN_SELECT_COUNT("registrytaxablestatus", filter, true);
             if (N > 0) return false;
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -205,6 +205,7 @@ namespace surplus_default {//situazioneammin//
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_surplus_default));
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.btnStampa1 = new System.Windows.Forms.Button();
@@ -350,8 +351,8 @@ namespace surplus_default {//situazioneammin//
 			// tabControl1
 			// 
 			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Controls.Add(this.tabPage3);
@@ -405,6 +406,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			this.btnStampa1.Location = new System.Drawing.Point(552, 16);
 			this.btnStampa1.Name = "btnStampa1";
+			this.btnStampa1.Size = new System.Drawing.Size(75, 23);
 			this.btnStampa1.TabIndex = 54;
 			this.btnStampa1.Text = "Stampa";
 			this.btnStampa1.Click += new System.EventHandler(this.btnStampa1_Click);
@@ -418,9 +420,7 @@ namespace surplus_default {//situazioneammin//
 			this.txtDescrPagamentiPresunti.Size = new System.Drawing.Size(280, 64);
 			this.txtDescrPagamentiPresunti.TabIndex = 53;
 			this.txtDescrPagamentiPresunti.TabStop = false;
-			this.txtDescrPagamentiPresunti.Text = "Pagamenti Trasmessi dopo la data della situazione finanziaria comunque entro l\'an" +
-				"no + Pagamenti non inseriti in mandato + Pagamenti non Trasmessi + Impegni che s" +
-				"cadono entro l\'anno o di cui la data di scadenza non è specificata";
+			this.txtDescrPagamentiPresunti.Text = resources.GetString("txtDescrPagamentiPresunti.Text");
 			// 
 			// txtDescrIncassiPresunti
 			// 
@@ -431,9 +431,7 @@ namespace surplus_default {//situazioneammin//
 			this.txtDescrIncassiPresunti.Size = new System.Drawing.Size(280, 64);
 			this.txtDescrIncassiPresunti.TabIndex = 52;
 			this.txtDescrIncassiPresunti.TabStop = false;
-			this.txtDescrIncassiPresunti.Text = "Incassi Trasmessi dopo la data della situazione finanziaria comunque entro l\'anno" +
-				" + Incassi non inseriti in reversale + Incassi non Trasmessi + Accertamenti che " +
-				"scadono entro l\'anno o di cui la data di scadenza non è specificata";
+			this.txtDescrIncassiPresunti.Text = resources.GetString("txtDescrIncassiPresunti.Text");
 			// 
 			// txtDescrPagamenti0101Data
 			// 
@@ -445,7 +443,7 @@ namespace surplus_default {//situazioneammin//
 			this.txtDescrPagamenti0101Data.TabIndex = 51;
 			this.txtDescrPagamenti0101Data.TabStop = false;
 			this.txtDescrPagamenti0101Data.Text = "Sono considerati tutti i pagamenti dell\'anno in corso in base alla configurazione" +
-				" di bilancio";
+    " di bilancio";
 			// 
 			// txtDescrIncassi0101Data
 			// 
@@ -457,7 +455,7 @@ namespace surplus_default {//situazioneammin//
 			this.txtDescrIncassi0101Data.TabIndex = 50;
 			this.txtDescrIncassi0101Data.TabStop = false;
 			this.txtDescrIncassi0101Data.Text = "Sono considerati tutti gli incassi dell\'anno in corso in base alla configurazione" +
-				" di bilancio";
+    " di bilancio";
 			// 
 			// btnPagamentiPresunti3112
 			// 
@@ -524,7 +522,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			// txtFondopresuntoal3112
 			// 
-			this.txtFondopresuntoal3112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.txtFondopresuntoal3112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtFondopresuntoal3112.Location = new System.Drawing.Point(280, 336);
 			this.txtFondopresuntoal3112.Name = "txtFondopresuntoal3112";
 			this.txtFondopresuntoal3112.ReadOnly = true;
@@ -532,7 +530,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtFondopresuntoal3112.TabIndex = 37;
 			this.txtFondopresuntoal3112.TabStop = false;
 			this.txtFondopresuntoal3112.Tag = "surplus.!fondocassapres3112";
-			this.txtFondopresuntoal3112.Text = "";
 			// 
 			// txtpagamentidata
 			// 
@@ -541,7 +538,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtpagamentidata.Size = new System.Drawing.Size(120, 20);
 			this.txtpagamentidata.TabIndex = 34;
 			this.txtpagamentidata.Tag = "surplus.paymentstoendofyear";
-			this.txtpagamentidata.Text = "";
 			// 
 			// txtincassidata
 			// 
@@ -550,11 +546,10 @@ namespace surplus_default {//situazioneammin//
 			this.txtincassidata.Size = new System.Drawing.Size(120, 20);
 			this.txtincassidata.TabIndex = 32;
 			this.txtincassidata.Tag = "surplus.proceedstoendofyear";
-			this.txtincassidata.Text = "";
 			// 
 			// textBox4
 			// 
-			this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.textBox4.Location = new System.Drawing.Point(280, 184);
 			this.textBox4.Name = "textBox4";
 			this.textBox4.ReadOnly = true;
@@ -562,7 +557,6 @@ namespace surplus_default {//situazioneammin//
 			this.textBox4.TabIndex = 34;
 			this.textBox4.TabStop = false;
 			this.textBox4.Tag = "surplus.!fondocassadata";
-			this.textBox4.Text = "";
 			this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
 			// 
 			// FCassaPres3112
@@ -608,7 +602,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtpagamenti0101.Size = new System.Drawing.Size(120, 20);
 			this.txtpagamenti0101.TabIndex = 30;
 			this.txtpagamenti0101.Tag = "surplus.paymentstilldate";
-			this.txtpagamenti0101.Text = "";
 			// 
 			// txtincassi0101
 			// 
@@ -617,17 +610,15 @@ namespace surplus_default {//situazioneammin//
 			this.txtincassi0101.Size = new System.Drawing.Size(120, 20);
 			this.txtincassi0101.TabIndex = 28;
 			this.txtincassi0101.Tag = "surplus.proceedstilldate";
-			this.txtincassi0101.Text = "";
 			// 
 			// txtfondocassa0101
 			// 
-			this.txtfondocassa0101.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.txtfondocassa0101.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtfondocassa0101.Location = new System.Drawing.Point(280, 64);
 			this.txtfondocassa0101.Name = "txtfondocassa0101";
 			this.txtfondocassa0101.Size = new System.Drawing.Size(120, 20);
 			this.txtfondocassa0101.TabIndex = 27;
 			this.txtfondocassa0101.Tag = "surplus.startfloatfund";
-			this.txtfondocassa0101.Text = "";
 			this.txtfondocassa0101.TextChanged += new System.EventHandler(this.txtfondocassa0101_TextChanged);
 			// 
 			// labPagamentiData
@@ -661,6 +652,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			this.btnRicalcola1.Location = new System.Drawing.Point(456, 16);
 			this.btnRicalcola1.Name = "btnRicalcola1";
+			this.btnRicalcola1.Size = new System.Drawing.Size(75, 23);
 			this.btnRicalcola1.TabIndex = 23;
 			this.btnRicalcola1.Text = "Ricalcola";
 			this.btnRicalcola1.Click += new System.EventHandler(this.btnRicalcola1_Click);
@@ -672,7 +664,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtData.Size = new System.Drawing.Size(104, 20);
 			this.txtData.TabIndex = 22;
 			this.txtData.Tag = "surplus.previsiondate";
-			this.txtData.Text = "";
 			this.txtData.TextChanged += new System.EventHandler(this.txtData_TextChanged);
 			// 
 			// label2
@@ -700,7 +691,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtEsercizio.TabIndex = 19;
 			this.txtEsercizio.TabStop = false;
 			this.txtEsercizio.Tag = "surplus.ayear.year";
-			this.txtEsercizio.Text = "";
 			this.txtEsercizio.Leave += new System.EventHandler(this.txtEsercizio_Leave);
 			// 
 			// tabPage2
@@ -750,6 +740,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			this.btnStampa3.Location = new System.Drawing.Point(552, 16);
 			this.btnStampa3.Name = "btnStampa3";
+			this.btnStampa3.Size = new System.Drawing.Size(75, 23);
 			this.btnStampa3.TabIndex = 73;
 			this.btnStampa3.Text = "Stampa";
 			this.btnStampa3.Click += new System.EventHandler(this.btnStampa3_Click);
@@ -775,7 +766,7 @@ namespace surplus_default {//situazioneammin//
 			this.txtDescrResiduiPassiviPresuntiPrecedenti.TabIndex = 71;
 			this.txtDescrResiduiPassiviPresuntiPrecedenti.TabStop = false;
 			this.txtDescrResiduiPassiviPresuntiPrecedenti.Text = "Residui Passivi Precedenti non Pagati nell\'anno con data di scadenza in anni succ" +
-				"essivi ";
+    "essivi ";
 			// 
 			// txtDescrResiduiAttiviPresuntiCorrenti
 			// 
@@ -798,7 +789,7 @@ namespace surplus_default {//situazioneammin//
 			this.txtDescrResiduiAttiviPresuntiPrecedenti.TabIndex = 69;
 			this.txtDescrResiduiAttiviPresuntiPrecedenti.TabStop = false;
 			this.txtDescrResiduiAttiviPresuntiPrecedenti.Text = "Residui Attivi Precedenti non Incassati nell\'anno con data di scadenza in anni su" +
-				"ccessivi ";
+    "ccessivi ";
 			// 
 			// txtDescrFondoCassaPresunto3112
 			// 
@@ -810,7 +801,7 @@ namespace surplus_default {//situazioneammin//
 			this.txtDescrFondoCassaPresunto3112.TabIndex = 68;
 			this.txtDescrFondoCassaPresunto3112.TabStop = false;
 			this.txtDescrFondoCassaPresunto3112.Text = "Fondo di Cassa Iniziale + Incassi calcolati alla data della situazione Amministra" +
-				"tiva - Pagamenti calcolati alla data della Situazione Amministrativa";
+    "tiva - Pagamenti calcolati alla data della Situazione Amministrativa";
 			// 
 			// btnResiduiPassiviPresuntiAtt
 			// 
@@ -886,7 +877,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			// txttotrespasspres
 			// 
-			this.txttotrespasspres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.txttotrespasspres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txttotrespasspres.Location = new System.Drawing.Point(296, 328);
 			this.txttotrespasspres.Name = "txttotrespasspres";
 			this.txttotrespasspres.ReadOnly = true;
@@ -894,7 +885,6 @@ namespace surplus_default {//situazioneammin//
 			this.txttotrespasspres.TabIndex = 59;
 			this.txttotrespasspres.TabStop = false;
 			this.txttotrespasspres.Tag = "surplus.!totrespassivipres";
-			this.txttotrespasspres.Text = "";
 			// 
 			// label20
 			// 
@@ -907,7 +897,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			// txtavammpres3112
 			// 
-			this.txtavammpres3112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.txtavammpres3112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtavammpres3112.Location = new System.Drawing.Point(296, 368);
 			this.txtavammpres3112.Name = "txtavammpres3112";
 			this.txtavammpres3112.ReadOnly = true;
@@ -915,7 +905,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtavammpres3112.TabIndex = 56;
 			this.txtavammpres3112.TabStop = false;
 			this.txtavammpres3112.Tag = "surplus.!avanzoammpres3112";
-			this.txtavammpres3112.Text = "";
 			// 
 			// txtResiduiPassiviPresunti
 			// 
@@ -924,7 +913,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtResiduiPassiviPresunti.Size = new System.Drawing.Size(120, 20);
 			this.txtResiduiPassiviPresunti.TabIndex = 53;
 			this.txtResiduiPassiviPresunti.Tag = "surplus.supposedcurrentexpenditure";
-			this.txtResiduiPassiviPresunti.Text = "";
 			// 
 			// txtResiduiPassiviPrec
 			// 
@@ -933,11 +921,10 @@ namespace surplus_default {//situazioneammin//
 			this.txtResiduiPassiviPrec.Size = new System.Drawing.Size(120, 20);
 			this.txtResiduiPassiviPrec.TabIndex = 51;
 			this.txtResiduiPassiviPrec.Tag = "surplus.supposedpreviousexpenditure";
-			this.txtResiduiPassiviPrec.Text = "";
 			// 
 			// txtTotaleResiduiAttiviPres
 			// 
-			this.txtTotaleResiduiAttiviPres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.txtTotaleResiduiAttiviPres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtTotaleResiduiAttiviPres.Location = new System.Drawing.Point(296, 200);
 			this.txtTotaleResiduiAttiviPres.Name = "txtTotaleResiduiAttiviPres";
 			this.txtTotaleResiduiAttiviPres.ReadOnly = true;
@@ -945,7 +932,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtTotaleResiduiAttiviPres.TabIndex = 53;
 			this.txtTotaleResiduiAttiviPres.TabStop = false;
 			this.txtTotaleResiduiAttiviPres.Tag = "surplus.!totresattivipres";
-			this.txtTotaleResiduiAttiviPres.Text = "";
 			// 
 			// txtAvaCassPres3112
 			// 
@@ -990,7 +976,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtResiduiAttiviPresunti.Size = new System.Drawing.Size(120, 20);
 			this.txtResiduiAttiviPresunti.TabIndex = 49;
 			this.txtResiduiAttiviPresunti.Tag = "surplus.supposedcurrentrevenue";
-			this.txtResiduiAttiviPresunti.Text = "";
 			// 
 			// txtResiduiAttiviPrec
 			// 
@@ -999,11 +984,10 @@ namespace surplus_default {//situazioneammin//
 			this.txtResiduiAttiviPrec.Size = new System.Drawing.Size(120, 20);
 			this.txtResiduiAttiviPrec.TabIndex = 47;
 			this.txtResiduiAttiviPrec.Tag = "surplus.supposedpreviousrevenue";
-			this.txtResiduiAttiviPrec.Text = "";
 			// 
 			// txtFondoCassaPresunto3112
 			// 
-			this.txtFondoCassaPresunto3112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.txtFondoCassaPresunto3112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtFondoCassaPresunto3112.Location = new System.Drawing.Point(296, 64);
 			this.txtFondoCassaPresunto3112.Name = "txtFondoCassaPresunto3112";
 			this.txtFondoCassaPresunto3112.ReadOnly = true;
@@ -1011,7 +995,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtFondoCassaPresunto3112.TabIndex = 46;
 			this.txtFondoCassaPresunto3112.TabStop = false;
 			this.txtFondoCassaPresunto3112.Tag = "surplus.!fondocassapres3112";
-			this.txtFondoCassaPresunto3112.Text = "";
 			// 
 			// labResAttiviAnno
 			// 
@@ -1044,6 +1027,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			this.btnRicalcola2.Location = new System.Drawing.Point(456, 16);
 			this.btnRicalcola2.Name = "btnRicalcola2";
+			this.btnRicalcola2.Size = new System.Drawing.Size(75, 23);
 			this.btnRicalcola2.TabIndex = 42;
 			this.btnRicalcola2.Text = "Ricalcola";
 			this.btnRicalcola2.Click += new System.EventHandler(this.btnRicalcola2_Click);
@@ -1057,7 +1041,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtDataAmmPresunta.TabIndex = 41;
 			this.txtDataAmmPresunta.TabStop = false;
 			this.txtDataAmmPresunta.Tag = "";
-			this.txtDataAmmPresunta.Text = "";
 			// 
 			// label17
 			// 
@@ -1084,7 +1067,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtEsercizioAmmPresunta.TabIndex = 38;
 			this.txtEsercizioAmmPresunta.TabStop = false;
 			this.txtEsercizioAmmPresunta.Tag = "";
-			this.txtEsercizioAmmPresunta.Text = "";
 			// 
 			// tabPage3
 			// 
@@ -1243,7 +1225,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			// textBox18
 			// 
-			this.textBox18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.textBox18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.textBox18.Location = new System.Drawing.Point(216, 296);
 			this.textBox18.Name = "textBox18";
 			this.textBox18.ReadOnly = true;
@@ -1251,7 +1233,6 @@ namespace surplus_default {//situazioneammin//
 			this.textBox18.TabIndex = 80;
 			this.textBox18.TabStop = false;
 			this.textBox18.Tag = "surplus.!totpagamenti";
-			this.textBox18.Text = "";
 			// 
 			// label19
 			// 
@@ -1264,7 +1245,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			// txtfondocassa3112
 			// 
-			this.txtfondocassa3112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.txtfondocassa3112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtfondocassa3112.Location = new System.Drawing.Point(216, 336);
 			this.txtfondocassa3112.Name = "txtfondocassa3112";
 			this.txtfondocassa3112.ReadOnly = true;
@@ -1272,7 +1253,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtfondocassa3112.TabIndex = 78;
 			this.txtfondocassa3112.TabStop = false;
 			this.txtfondocassa3112.Tag = "surplus.!fondocassa3112";
-			this.txtfondocassa3112.Text = "";
 			// 
 			// txtPagamentiContoResidui
 			// 
@@ -1281,7 +1261,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtPagamentiContoResidui.Size = new System.Drawing.Size(120, 20);
 			this.txtPagamentiContoResidui.TabIndex = 75;
 			this.txtPagamentiContoResidui.Tag = "surplus.residualpayments";
-			this.txtPagamentiContoResidui.Text = "";
 			// 
 			// txtPagamentiContoCompetenza
 			// 
@@ -1290,11 +1269,10 @@ namespace surplus_default {//situazioneammin//
 			this.txtPagamentiContoCompetenza.Size = new System.Drawing.Size(120, 20);
 			this.txtPagamentiContoCompetenza.TabIndex = 73;
 			this.txtPagamentiContoCompetenza.Tag = "surplus.competencypayments";
-			this.txtPagamentiContoCompetenza.Text = "";
 			// 
 			// textBox22
 			// 
-			this.textBox22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.textBox22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.textBox22.Location = new System.Drawing.Point(216, 184);
 			this.textBox22.Name = "textBox22";
 			this.textBox22.ReadOnly = true;
@@ -1302,7 +1280,6 @@ namespace surplus_default {//situazioneammin//
 			this.textBox22.TabIndex = 75;
 			this.textBox22.TabStop = false;
 			this.textBox22.Tag = "surplus.!totincassi";
-			this.textBox22.Text = "";
 			// 
 			// labFondocassa3112
 			// 
@@ -1347,7 +1324,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtIncassiContoResidui.Size = new System.Drawing.Size(120, 20);
 			this.txtIncassiContoResidui.TabIndex = 71;
 			this.txtIncassiContoResidui.Tag = "surplus.residualproceeds";
-			this.txtIncassiContoResidui.Text = "";
 			// 
 			// txtIncassiContoCompetenza
 			// 
@@ -1356,11 +1332,10 @@ namespace surplus_default {//situazioneammin//
 			this.txtIncassiContoCompetenza.Size = new System.Drawing.Size(120, 20);
 			this.txtIncassiContoCompetenza.TabIndex = 69;
 			this.txtIncassiContoCompetenza.Tag = "surplus.competencyproceeds";
-			this.txtIncassiContoCompetenza.Text = "";
 			// 
 			// txtFondoCassa0101bis
 			// 
-			this.txtFondoCassa0101bis.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.txtFondoCassa0101bis.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtFondoCassa0101bis.Location = new System.Drawing.Point(216, 64);
 			this.txtFondoCassa0101bis.Name = "txtFondoCassa0101bis";
 			this.txtFondoCassa0101bis.ReadOnly = true;
@@ -1368,7 +1343,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtFondoCassa0101bis.TabIndex = 68;
 			this.txtFondoCassa0101bis.TabStop = false;
 			this.txtFondoCassa0101bis.Tag = "surplus.startfloatfund";
-			this.txtFondoCassa0101bis.Text = "";
 			// 
 			// label25
 			// 
@@ -1401,6 +1375,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			this.btnRicalcola3.Location = new System.Drawing.Point(456, 16);
 			this.btnRicalcola3.Name = "btnRicalcola3";
+			this.btnRicalcola3.Size = new System.Drawing.Size(75, 23);
 			this.btnRicalcola3.TabIndex = 64;
 			this.btnRicalcola3.Text = "Ricalcola";
 			this.btnRicalcola3.Click += new System.EventHandler(this.btnRicalcola3_Click);
@@ -1422,7 +1397,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtEsercizioFinEffettiva.TabIndex = 60;
 			this.txtEsercizioFinEffettiva.TabStop = false;
 			this.txtEsercizioFinEffettiva.Tag = "";
-			this.txtEsercizioFinEffettiva.Text = "";
 			this.txtEsercizioFinEffettiva.TextChanged += new System.EventHandler(this.txtEsercizioFinEffettiva_TextChanged);
 			// 
 			// tabPage4
@@ -1589,7 +1563,6 @@ namespace surplus_default {//situazioneammin//
 			this.textBox26.TabIndex = 99;
 			this.textBox26.TabStop = false;
 			this.textBox26.Tag = "surplus.!totrespassivi";
-			this.textBox26.Text = "";
 			// 
 			// label28
 			// 
@@ -1609,7 +1582,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtavanzoamm3112.TabIndex = 97;
 			this.txtavanzoamm3112.TabStop = false;
 			this.txtavanzoamm3112.Tag = "surplus.!avanzoamm3112";
-			this.txtavanzoamm3112.Text = "";
 			// 
 			// txtResiduiPassiviAnno
 			// 
@@ -1618,7 +1590,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtResiduiPassiviAnno.Size = new System.Drawing.Size(120, 20);
 			this.txtResiduiPassiviAnno.TabIndex = 94;
 			this.txtResiduiPassiviAnno.Tag = "surplus.currentexpenditure";
-			this.txtResiduiPassiviAnno.Text = "";
 			// 
 			// txtResiduiPassiviPrecEff
 			// 
@@ -1627,7 +1598,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtResiduiPassiviPrecEff.Size = new System.Drawing.Size(120, 20);
 			this.txtResiduiPassiviPrecEff.TabIndex = 92;
 			this.txtResiduiPassiviPrecEff.Tag = "surplus.previousexpenditure";
-			this.txtResiduiPassiviPrecEff.Text = "";
 			// 
 			// textBox31
 			// 
@@ -1638,7 +1608,6 @@ namespace surplus_default {//situazioneammin//
 			this.textBox31.TabIndex = 94;
 			this.textBox31.TabStop = false;
 			this.textBox31.Tag = "surplus.!totresattivi";
-			this.textBox31.Text = "";
 			// 
 			// labAvaCassa3112
 			// 
@@ -1683,7 +1652,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtResiduiAttiviAnno.Size = new System.Drawing.Size(120, 20);
 			this.txtResiduiAttiviAnno.TabIndex = 90;
 			this.txtResiduiAttiviAnno.Tag = "surplus.currentrevenue";
-			this.txtResiduiAttiviAnno.Text = "";
 			// 
 			// txtResiduiAttiviPrecEff
 			// 
@@ -1692,7 +1660,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtResiduiAttiviPrecEff.Size = new System.Drawing.Size(120, 20);
 			this.txtResiduiAttiviPrecEff.TabIndex = 88;
 			this.txtResiduiAttiviPrecEff.Tag = "surplus.previousrevenue";
-			this.txtResiduiAttiviPrecEff.Text = "";
 			// 
 			// txtfondocassa3112bis
 			// 
@@ -1703,7 +1670,6 @@ namespace surplus_default {//situazioneammin//
 			this.txtfondocassa3112bis.TabIndex = 87;
 			this.txtfondocassa3112bis.TabStop = false;
 			this.txtfondocassa3112bis.Tag = "surplus.!fondocassa3112";
-			this.txtfondocassa3112bis.Text = "";
 			// 
 			// labResAttiviAnnobis
 			// 
@@ -1736,6 +1702,7 @@ namespace surplus_default {//situazioneammin//
 			// 
 			this.btnRicalcola4.Location = new System.Drawing.Point(456, 16);
 			this.btnRicalcola4.Name = "btnRicalcola4";
+			this.btnRicalcola4.Size = new System.Drawing.Size(75, 23);
 			this.btnRicalcola4.TabIndex = 83;
 			this.btnRicalcola4.Text = "Ricalcola";
 			this.btnRicalcola4.Click += new System.EventHandler(this.btnRicalcola4_Click);
@@ -1750,19 +1717,19 @@ namespace surplus_default {//situazioneammin//
 			// 
 			// txtEsercizioAmmEffettiva
 			// 
-			this.txtEsercizioAmmEffettiva.Location = new System.Drawing.Point(104, 16);
+			this.txtEsercizioAmmEffettiva.Location = new System.Drawing.Point(111, 16);
 			this.txtEsercizioAmmEffettiva.Name = "txtEsercizioAmmEffettiva";
 			this.txtEsercizioAmmEffettiva.ReadOnly = true;
 			this.txtEsercizioAmmEffettiva.Size = new System.Drawing.Size(77, 20);
 			this.txtEsercizioAmmEffettiva.TabIndex = 81;
 			this.txtEsercizioAmmEffettiva.TabStop = false;
 			this.txtEsercizioAmmEffettiva.Tag = "";
-			this.txtEsercizioAmmEffettiva.Text = "";
 			this.txtEsercizioAmmEffettiva.Leave += new System.EventHandler(this.txtEsercizioAmmEffettiva_Leave);
 			// 
 			// DS
 			// 
 			this.DS.DataSetName = "DS";
+			this.DS.EnforceConstraints = false;
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
 			// Frm_surplus_default
@@ -1778,9 +1745,13 @@ namespace surplus_default {//situazioneammin//
 			this.Text = "frmSituazioneFinanziaria";
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
+			this.tabPage1.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
+			this.tabPage3.PerformLayout();
 			this.tabPage4.ResumeLayout(false);
+			this.tabPage4.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 

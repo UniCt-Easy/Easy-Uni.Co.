@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,9 @@ SET ANSI_NULLS ON
 GO
 
 
-
+-- setuser 'amm'
+-- setuser 'amministrazione'
+-- exec exp_attounderwritingupbfin 2022, 1, null, null, null, null, null
 CREATE    PROCEDURE [exp_attounderwritingupbfin]
 (
 	@yenactment int,
@@ -164,7 +166,8 @@ BEGIN
 			End as 'E/S',
 			W.title as 'Finanziamento',
 			U.codeupb as 'UPB',
-			F.codefin as 'Bilancio',
+			F.codefin as 'Codice Bilancio',
+			F.title as 'Descrizione Bilancio',
 			isnull(UUT.currentprev,0)+ISNULL(UUT.previsionvariation, 0)+ 
 				isnull(UT.currentprev,0)+ISNULL(UT.previsionvariation, 0)+ 
 					isnull(FV.previsionvariation,0)
@@ -279,7 +282,8 @@ BEGIN
 			End as 'E/S',
 			W.title as 'Finanziamento',
 			U.codeupb as 'UPB',
-			F.codefin as 'Bilancio',
+			F.codefin as 'Codice Bilancio',
+			F.title as 'Descrizione Bilancio',
 			isnull(UUT.currentprev,0)+ISNULL(UUT.previsionvariation, 0)+ 
 				isnull(UT.currentprev,0)+ISNULL(UT.previsionvariation, 0)+ 
 					isnull(FV.previsionvariation,0)
@@ -361,7 +365,8 @@ BEGIN
 			End as 'E/S',
 			W.title as 'Finanziamento',
 			U.codeupb as 'UPB',
-			F.codefin as 'Bilancio',
+			F.codefin as 'Codice Bilancio',
+			F.title as 'Descrizione Bilancio',
 			isnull(UUT.currentprev,0)+ISNULL(UUT.previsionvariation, 0)+ 
 				isnull(UT.currentprev,0)+ISNULL(UT.previsionvariation, 0)+ 
 					isnull(FV.previsionvariation,0)

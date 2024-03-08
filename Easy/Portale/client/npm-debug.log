@@ -1,0 +1,2071 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Professional\\Web\\External\\Node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Professional\\Web\\External\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@3.3.4
+3 info using node@v5.4.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly fetchNamedPackageData async-exec-cmd
+20 silly mapToRegistry name async-exec-cmd
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/async-exec-cmd
+24 silly fetchNamedPackageData grunt
+25 silly mapToRegistry name grunt
+26 silly mapToRegistry using default registry
+27 silly mapToRegistry registry https://registry.npmjs.org/
+28 silly mapToRegistry uri https://registry.npmjs.org/grunt
+29 silly fetchNamedPackageData grunt-contrib-watch
+30 silly mapToRegistry name grunt-contrib-watch
+31 silly mapToRegistry using default registry
+32 silly mapToRegistry registry https://registry.npmjs.org/
+33 silly mapToRegistry uri https://registry.npmjs.org/grunt-contrib-watch
+34 silly fetchNamedPackageData grunt-contrib-yuidoc
+35 silly mapToRegistry name grunt-contrib-yuidoc
+36 silly mapToRegistry using default registry
+37 silly mapToRegistry registry https://registry.npmjs.org/
+38 silly mapToRegistry uri https://registry.npmjs.org/grunt-contrib-yuidoc
+39 silly fetchNamedPackageData grunt-jasmine-nodejs
+40 silly mapToRegistry name grunt-jasmine-nodejs
+41 silly mapToRegistry using default registry
+42 silly mapToRegistry registry https://registry.npmjs.org/
+43 silly mapToRegistry uri https://registry.npmjs.org/grunt-jasmine-nodejs
+44 silly fetchNamedPackageData grunt-karma
+45 silly mapToRegistry name grunt-karma
+46 silly mapToRegistry using default registry
+47 silly mapToRegistry registry https://registry.npmjs.org/
+48 silly mapToRegistry uri https://registry.npmjs.org/grunt-karma
+49 silly fetchNamedPackageData jasmine-collection-matchers
+50 silly mapToRegistry name jasmine-collection-matchers
+51 silly mapToRegistry using default registry
+52 silly mapToRegistry registry https://registry.npmjs.org/
+53 silly mapToRegistry uri https://registry.npmjs.org/jasmine-collection-matchers
+54 silly fetchNamedPackageData jasmine-core
+55 silly mapToRegistry name jasmine-core
+56 silly mapToRegistry using default registry
+57 silly mapToRegistry registry https://registry.npmjs.org/
+58 silly mapToRegistry uri https://registry.npmjs.org/jasmine-core
+59 silly fetchNamedPackageData jasmine-node
+60 silly mapToRegistry name jasmine-node
+61 silly mapToRegistry using default registry
+62 silly mapToRegistry registry https://registry.npmjs.org/
+63 silly mapToRegistry uri https://registry.npmjs.org/jasmine-node
+64 silly fetchNamedPackageData karma
+65 silly mapToRegistry name karma
+66 silly mapToRegistry using default registry
+67 silly mapToRegistry registry https://registry.npmjs.org/
+68 silly mapToRegistry uri https://registry.npmjs.org/karma
+69 silly fetchNamedPackageData karma-chrome-launcher
+70 silly mapToRegistry name karma-chrome-launcher
+71 silly mapToRegistry using default registry
+72 silly mapToRegistry registry https://registry.npmjs.org/
+73 silly mapToRegistry uri https://registry.npmjs.org/karma-chrome-launcher
+74 silly fetchNamedPackageData karma-jasmine
+75 silly mapToRegistry name karma-jasmine
+76 silly mapToRegistry using default registry
+77 silly mapToRegistry registry https://registry.npmjs.org/
+78 silly mapToRegistry uri https://registry.npmjs.org/karma-jasmine
+79 silly fetchNamedPackageData karma-jasmine-html-reporter
+80 silly mapToRegistry name karma-jasmine-html-reporter
+81 silly mapToRegistry using default registry
+82 silly mapToRegistry registry https://registry.npmjs.org/
+83 silly mapToRegistry uri https://registry.npmjs.org/karma-jasmine-html-reporter
+84 silly fetchNamedPackageData karma-junit-reporter
+85 silly mapToRegistry name karma-junit-reporter
+86 silly mapToRegistry using default registry
+87 silly mapToRegistry registry https://registry.npmjs.org/
+88 silly mapToRegistry uri https://registry.npmjs.org/karma-junit-reporter
+89 silly fetchNamedPackageData karma-phantomjs-launcher
+90 silly mapToRegistry name karma-phantomjs-launcher
+91 silly mapToRegistry using default registry
+92 silly mapToRegistry registry https://registry.npmjs.org/
+93 silly mapToRegistry uri https://registry.npmjs.org/karma-phantomjs-launcher
+94 silly fetchNamedPackageData karma-sauce-launcher
+95 silly mapToRegistry name karma-sauce-launcher
+96 silly mapToRegistry using default registry
+97 silly mapToRegistry registry https://registry.npmjs.org/
+98 silly mapToRegistry uri https://registry.npmjs.org/karma-sauce-launcher
+99 silly fetchNamedPackageData karma-spec-reporter
+100 silly mapToRegistry name karma-spec-reporter
+101 silly mapToRegistry using default registry
+102 silly mapToRegistry registry https://registry.npmjs.org/
+103 silly mapToRegistry uri https://registry.npmjs.org/karma-spec-reporter
+104 silly fetchNamedPackageData load-grunt-tasks
+105 silly mapToRegistry name load-grunt-tasks
+106 silly mapToRegistry using default registry
+107 silly mapToRegistry registry https://registry.npmjs.org/
+108 silly mapToRegistry uri https://registry.npmjs.org/load-grunt-tasks
+109 silly fetchNamedPackageData lodash
+110 silly mapToRegistry name lodash
+111 silly mapToRegistry using default registry
+112 silly mapToRegistry registry https://registry.npmjs.org/
+113 silly mapToRegistry uri https://registry.npmjs.org/lodash
+114 silly fetchNamedPackageData observe-js
+115 silly mapToRegistry name observe-js
+116 silly mapToRegistry using default registry
+117 silly mapToRegistry registry https://registry.npmjs.org/
+118 silly mapToRegistry uri https://registry.npmjs.org/observe-js
+119 silly fetchNamedPackageData string.prototype.endswith
+120 silly mapToRegistry name string.prototype.endswith
+121 silly mapToRegistry using default registry
+122 silly mapToRegistry registry https://registry.npmjs.org/
+123 silly mapToRegistry uri https://registry.npmjs.org/string.prototype.endswith
+124 silly fetchNamedPackageData time-grunt
+125 silly mapToRegistry name time-grunt
+126 silly mapToRegistry using default registry
+127 silly mapToRegistry registry https://registry.npmjs.org/
+128 silly mapToRegistry uri https://registry.npmjs.org/time-grunt
+129 silly fetchOtherPackageData jsDataQuery@git+https://github.com/gaelazzo/jsDataQuery.git
+130 silly cache add args [ 'jsDataQuery@git+https://github.com/gaelazzo/jsDataQuery.git',
+130 silly cache add   null ]
+131 verbose cache add spec jsDataQuery@git+https://github.com/gaelazzo/jsDataQuery.git
+132 silly cache add parsed spec Result {
+132 silly cache add   raw: 'jsDataQuery@git+https://github.com/gaelazzo/jsDataQuery.git',
+132 silly cache add   scope: null,
+132 silly cache add   name: 'jsDataQuery',
+132 silly cache add   rawSpec: 'git+https://github.com/gaelazzo/jsDataQuery.git',
+132 silly cache add   spec: 'git+https://github.com/gaelazzo/jsDataQuery.git',
+132 silly cache add   type: 'hosted',
+132 silly cache add   hosted:
+132 silly cache add    { type: 'github',
+132 silly cache add      ssh: 'git@github.com:gaelazzo/jsDataQuery.git',
+132 silly cache add      sshUrl: 'git+ssh://git@github.com/gaelazzo/jsDataQuery.git',
+132 silly cache add      httpsUrl: 'git+https://github.com/gaelazzo/jsDataQuery.git',
+132 silly cache add      gitUrl: 'git://github.com/gaelazzo/jsDataQuery.git',
+132 silly cache add      shortcut: 'github:gaelazzo/jsDataQuery',
+132 silly cache add      directUrl: 'https://raw.githubusercontent.com/gaelazzo/jsDataQuery/master/package.json' } }
+133 verbose addRemoteGit caching git+https://github.com/gaelazzo/jsDataQuery.git
+134 verbose addRemoteGit git+https://github.com/gaelazzo/jsDataQuery.git is a repository hosted by github
+135 silly tryClone cloning git+https://github.com/gaelazzo/jsDataQuery.git via git+https://github.com/gaelazzo/jsDataQuery.git
+136 verbose tryClone git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084 not in flight; caching
+137 verbose request uri https://registry.npmjs.org/async-exec-cmd
+138 verbose request no auth needed
+139 info attempt registry request try #1 at 15:50:26
+140 verbose request id 72fbcfab2b206385
+141 verbose etag W/"4669d1a85e27b48b9cc98c51370ac39c"
+142 verbose lastModified Sat, 26 May 2018 17:30:28 GMT
+143 http request GET https://registry.npmjs.org/async-exec-cmd
+144 verbose request uri https://registry.npmjs.org/grunt-contrib-yuidoc
+145 verbose request no auth needed
+146 info attempt registry request try #1 at 15:50:26
+147 verbose etag W/"37dc89bcf5e37f2d659ef78bbdc01c37"
+148 verbose lastModified Sun, 27 May 2018 02:52:27 GMT
+149 http request GET https://registry.npmjs.org/grunt-contrib-yuidoc
+150 verbose request uri https://registry.npmjs.org/grunt-jasmine-nodejs
+151 verbose request no auth needed
+152 info attempt registry request try #1 at 15:50:26
+153 verbose etag W/"99b095170914b6b95366329543332c4e"
+154 verbose lastModified Sun, 27 May 2018 02:56:41 GMT
+155 http request GET https://registry.npmjs.org/grunt-jasmine-nodejs
+156 verbose request uri https://registry.npmjs.org/grunt-contrib-watch
+157 verbose request no auth needed
+158 info attempt registry request try #1 at 15:50:26
+159 verbose etag W/"f1c8d868fe5c324d8e58acfce70fb2ba"
+160 verbose lastModified Sun, 27 May 2018 02:52:26 GMT
+161 http request GET https://registry.npmjs.org/grunt-contrib-watch
+162 verbose request uri https://registry.npmjs.org/jasmine-collection-matchers
+163 verbose request no auth needed
+164 info attempt registry request try #1 at 15:50:26
+165 verbose etag W/"9eb238b980ab2b41268dc2668ab85ef5"
+166 verbose lastModified Sun, 27 May 2018 05:10:55 GMT
+167 http request GET https://registry.npmjs.org/jasmine-collection-matchers
+168 verbose request uri https://registry.npmjs.org/grunt
+169 verbose request no auth needed
+170 info attempt registry request try #1 at 15:50:26
+171 verbose etag W/"ab3e72be74e5f9b9d2a2102bcae55ae4"
+172 verbose lastModified Mon, 06 Aug 2018 14:29:44 GMT
+173 http request GET https://registry.npmjs.org/grunt
+174 verbose request uri https://registry.npmjs.org/jasmine-core
+175 verbose request no auth needed
+176 info attempt registry request try #1 at 15:50:26
+177 verbose etag W/"0a57bee7e5715ac59a4825b183eacbbb"
+178 verbose lastModified Wed, 15 Aug 2018 00:26:36 GMT
+179 http request GET https://registry.npmjs.org/jasmine-core
+180 verbose request uri https://registry.npmjs.org/grunt-karma
+181 verbose request no auth needed
+182 info attempt registry request try #1 at 15:50:26
+183 verbose etag W/"8342277219c6e1628f87663ba33e91d7"
+184 verbose lastModified Sat, 08 Sep 2018 15:17:06 GMT
+185 http request GET https://registry.npmjs.org/grunt-karma
+186 verbose request uri https://registry.npmjs.org/karma-jasmine-html-reporter
+187 verbose request no auth needed
+188 info attempt registry request try #1 at 15:50:26
+189 verbose etag W/"22eeb9f2dba54fda07e4fd8680e0b818"
+190 verbose lastModified Mon, 20 Aug 2018 16:16:18 GMT
+191 http request GET https://registry.npmjs.org/karma-jasmine-html-reporter
+192 verbose request uri https://registry.npmjs.org/karma-chrome-launcher
+193 verbose request no auth needed
+194 info attempt registry request try #1 at 15:50:26
+195 verbose etag W/"5c2daee5d7b9c9c36b7705636f1dd4b1"
+196 verbose lastModified Sun, 27 May 2018 05:56:05 GMT
+197 http request GET https://registry.npmjs.org/karma-chrome-launcher
+198 verbose request uri https://registry.npmjs.org/jasmine-node
+199 verbose request no auth needed
+200 info attempt registry request try #1 at 15:50:26
+201 verbose etag W/"d1558d691f064127793dca0a6c107f9e"
+202 verbose lastModified Tue, 04 Sep 2018 20:59:28 GMT
+203 http request GET https://registry.npmjs.org/jasmine-node
+204 verbose request uri https://registry.npmjs.org/karma-junit-reporter
+205 verbose request no auth needed
+206 info attempt registry request try #1 at 15:50:26
+207 verbose etag W/"5b32db22e9b7b1c42eac6e2fa427fa70"
+208 verbose lastModified Sun, 27 May 2018 05:56:36 GMT
+209 http request GET https://registry.npmjs.org/karma-junit-reporter
+210 verbose request uri https://registry.npmjs.org/karma-jasmine
+211 verbose request no auth needed
+212 info attempt registry request try #1 at 15:50:26
+213 verbose etag W/"52957763980faf8d561b9f26de611f44"
+214 verbose lastModified Sun, 27 May 2018 05:56:32 GMT
+215 http request GET https://registry.npmjs.org/karma-jasmine
+216 verbose request uri https://registry.npmjs.org/load-grunt-tasks
+217 verbose request no auth needed
+218 info attempt registry request try #1 at 15:50:26
+219 verbose etag W/"7ff4e6020f69561dcbb837342c62d95a"
+220 verbose lastModified Sun, 27 May 2018 06:55:05 GMT
+221 http request GET https://registry.npmjs.org/load-grunt-tasks
+222 verbose request uri https://registry.npmjs.org/karma-phantomjs-launcher
+223 verbose request no auth needed
+224 info attempt registry request try #1 at 15:50:26
+225 verbose etag W/"4a2ae931c1ed78e11e809098466f13a3"
+226 verbose lastModified Mon, 01 Oct 2018 02:15:42 GMT
+227 http request GET https://registry.npmjs.org/karma-phantomjs-launcher
+228 verbose request uri https://registry.npmjs.org/karma-spec-reporter
+229 verbose request no auth needed
+230 info attempt registry request try #1 at 15:50:26
+231 verbose etag W/"79308d234485867027306ed1f6e310b4"
+232 verbose lastModified Sun, 27 May 2018 05:57:06 GMT
+233 http request GET https://registry.npmjs.org/karma-spec-reporter
+234 verbose request uri https://registry.npmjs.org/karma-sauce-launcher
+235 verbose request no auth needed
+236 info attempt registry request try #1 at 15:50:26
+237 verbose etag W/"489a400d9a552f32c56f721e900c094e"
+238 verbose lastModified Sun, 27 May 2018 05:57:00 GMT
+239 http request GET https://registry.npmjs.org/karma-sauce-launcher
+240 verbose request uri https://registry.npmjs.org/observe-js
+241 verbose request no auth needed
+242 info attempt registry request try #1 at 15:50:26
+243 verbose etag W/"9c3d3f027e8056deaf7a3c196128dfbf"
+244 verbose lastModified Sun, 27 May 2018 10:59:52 GMT
+245 http request GET https://registry.npmjs.org/observe-js
+246 verbose request uri https://registry.npmjs.org/string.prototype.endswith
+247 verbose request no auth needed
+248 info attempt registry request try #1 at 15:50:26
+249 verbose etag W/"ff3f6e5792dd6bd08a259830842b8341"
+250 verbose lastModified Sun, 27 May 2018 18:25:34 GMT
+251 http request GET https://registry.npmjs.org/string.prototype.endswith
+252 verbose request uri https://registry.npmjs.org/time-grunt
+253 verbose request no auth needed
+254 info attempt registry request try #1 at 15:50:26
+255 verbose etag W/"128f1d7e6b145921fbc9ea5356fd10e0"
+256 verbose lastModified Sun, 27 May 2018 19:31:03 GMT
+257 http request GET https://registry.npmjs.org/time-grunt
+258 verbose request uri https://registry.npmjs.org/lodash
+259 verbose request no auth needed
+260 info attempt registry request try #1 at 15:50:26
+261 verbose etag W/"d9cb93f6fbf765b6d52d4cc209b84fc8"
+262 verbose lastModified Mon, 01 Oct 2018 09:55:12 GMT
+263 http request GET https://registry.npmjs.org/lodash
+264 verbose request uri https://registry.npmjs.org/karma
+265 verbose request no auth needed
+266 info attempt registry request try #1 at 15:50:26
+267 verbose etag W/"b25383a580f9feb3df0fe6e361a54318"
+268 verbose lastModified Thu, 09 Aug 2018 20:22:00 GMT
+269 http request GET https://registry.npmjs.org/karma
+270 http 304 https://registry.npmjs.org/grunt
+271 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+271 verbose headers   connection: 'keep-alive',
+271 verbose headers   'set-cookie': [ '__cfduid=d61070d8c41505ea9bd4721196654e49d1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+271 verbose headers   'cf-cache-status': 'HIT',
+271 verbose headers   'cache-control': 'max-age=300',
+271 verbose headers   'cf-ray': '46a2c1361ed64358-MXP',
+271 verbose headers   etag: '"ab3e72be74e5f9b9d2a2102bcae55ae4"',
+271 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+271 verbose headers   'last-modified': 'Mon, 06 Aug 2018 14:29:44 GMT',
+271 verbose headers   vary: 'accept-encoding, accept',
+271 verbose headers   server: 'cloudflare' }
+272 silly get cb [ 304,
+272 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+272 silly get     connection: 'keep-alive',
+272 silly get     'set-cookie': [ '__cfduid=d61070d8c41505ea9bd4721196654e49d1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+272 silly get     'cf-cache-status': 'HIT',
+272 silly get     'cache-control': 'max-age=300',
+272 silly get     'cf-ray': '46a2c1361ed64358-MXP',
+272 silly get     etag: '"ab3e72be74e5f9b9d2a2102bcae55ae4"',
+272 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+272 silly get     'last-modified': 'Mon, 06 Aug 2018 14:29:44 GMT',
+272 silly get     vary: 'accept-encoding, accept',
+272 silly get     server: 'cloudflare' } ]
+273 verbose etag https://registry.npmjs.org/grunt from cache
+274 verbose get saving grunt to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\grunt\.cache.json
+275 http 304 https://registry.npmjs.org/karma-junit-reporter
+276 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+276 verbose headers   connection: 'keep-alive',
+276 verbose headers   'set-cookie': [ '__cfduid=d00609e693517a4d6307d37222b290bc81539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+276 verbose headers   'cf-cache-status': 'HIT',
+276 verbose headers   'cache-control': 'max-age=300',
+276 verbose headers   'cf-ray': '46a2c1363cbf434c-MXP',
+276 verbose headers   etag: '"5b32db22e9b7b1c42eac6e2fa427fa70"',
+276 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+276 verbose headers   'last-modified': 'Sun, 27 May 2018 05:56:36 GMT',
+276 verbose headers   vary: 'accept-encoding, accept',
+276 verbose headers   server: 'cloudflare' }
+277 silly get cb [ 304,
+277 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+277 silly get     connection: 'keep-alive',
+277 silly get     'set-cookie': [ '__cfduid=d00609e693517a4d6307d37222b290bc81539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+277 silly get     'cf-cache-status': 'HIT',
+277 silly get     'cache-control': 'max-age=300',
+277 silly get     'cf-ray': '46a2c1363cbf434c-MXP',
+277 silly get     etag: '"5b32db22e9b7b1c42eac6e2fa427fa70"',
+277 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+277 silly get     'last-modified': 'Sun, 27 May 2018 05:56:36 GMT',
+277 silly get     vary: 'accept-encoding, accept',
+277 silly get     server: 'cloudflare' } ]
+278 verbose etag https://registry.npmjs.org/karma-junit-reporter from cache
+279 verbose get saving karma-junit-reporter to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\karma-junit-reporter\.cache.json
+280 http 304 https://registry.npmjs.org/load-grunt-tasks
+281 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+281 verbose headers   connection: 'keep-alive',
+281 verbose headers   'set-cookie': [ '__cfduid=d835b311a9a6324e53629848ca390a8161539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+281 verbose headers   'cf-cache-status': 'HIT',
+281 verbose headers   'cache-control': 'max-age=300',
+281 verbose headers   'cf-ray': '46a2c1364a124346-MXP',
+281 verbose headers   etag: '"7ff4e6020f69561dcbb837342c62d95a"',
+281 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+281 verbose headers   'last-modified': 'Sun, 27 May 2018 06:55:05 GMT',
+281 verbose headers   vary: 'accept-encoding, accept',
+281 verbose headers   server: 'cloudflare' }
+282 silly get cb [ 304,
+282 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+282 silly get     connection: 'keep-alive',
+282 silly get     'set-cookie': [ '__cfduid=d835b311a9a6324e53629848ca390a8161539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+282 silly get     'cf-cache-status': 'HIT',
+282 silly get     'cache-control': 'max-age=300',
+282 silly get     'cf-ray': '46a2c1364a124346-MXP',
+282 silly get     etag: '"7ff4e6020f69561dcbb837342c62d95a"',
+282 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+282 silly get     'last-modified': 'Sun, 27 May 2018 06:55:05 GMT',
+282 silly get     vary: 'accept-encoding, accept',
+282 silly get     server: 'cloudflare' } ]
+283 verbose etag https://registry.npmjs.org/load-grunt-tasks from cache
+284 verbose get saving load-grunt-tasks to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\load-grunt-tasks\.cache.json
+285 silly resolveWithNewModule grunt@1.0.3 checking installable status
+286 silly cache add args [ 'grunt@^1.0.3', null ]
+287 verbose cache add spec grunt@^1.0.3
+288 silly cache add parsed spec Result {
+288 silly cache add   raw: 'grunt@^1.0.3',
+288 silly cache add   scope: null,
+288 silly cache add   name: 'grunt',
+288 silly cache add   rawSpec: '^1.0.3',
+288 silly cache add   spec: '>=1.0.3-0 <2.0.0-0',
+288 silly cache add   type: 'range' }
+289 silly addNamed grunt@>=1.0.3-0 <2.0.0-0
+290 verbose addNamed ">=1.0.3-0 <2.0.0-0" is a valid semver range for grunt
+291 silly addNameRange { name: 'grunt', range: '>=1.0.3-0 <2.0.0-0', hasData: false }
+292 silly mapToRegistry name grunt
+293 silly mapToRegistry using default registry
+294 silly mapToRegistry registry https://registry.npmjs.org/
+295 silly mapToRegistry uri https://registry.npmjs.org/grunt
+296 verbose addNameRange registry:https://registry.npmjs.org/grunt not in flight; fetching
+297 http 304 https://registry.npmjs.org/jasmine-node
+298 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+298 verbose headers   connection: 'keep-alive',
+298 verbose headers   'set-cookie': [ '__cfduid=dae709489568da79e5cf0caf97f0690ac1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+298 verbose headers   'cf-cache-status': 'HIT',
+298 verbose headers   'cache-control': 'max-age=300',
+298 verbose headers   'cf-ray': '46a2c1364f153dad-MXP',
+298 verbose headers   etag: '"d1558d691f064127793dca0a6c107f9e"',
+298 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+298 verbose headers   'last-modified': 'Tue, 04 Sep 2018 20:59:28 GMT',
+298 verbose headers   vary: 'accept-encoding, accept',
+298 verbose headers   'x-amz-meta-rev': '193-e96c70d7bb572e7ed145dd08dec6a6fa',
+298 verbose headers   server: 'cloudflare' }
+299 silly get cb [ 304,
+299 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+299 silly get     connection: 'keep-alive',
+299 silly get     'set-cookie': [ '__cfduid=dae709489568da79e5cf0caf97f0690ac1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+299 silly get     'cf-cache-status': 'HIT',
+299 silly get     'cache-control': 'max-age=300',
+299 silly get     'cf-ray': '46a2c1364f153dad-MXP',
+299 silly get     etag: '"d1558d691f064127793dca0a6c107f9e"',
+299 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+299 silly get     'last-modified': 'Tue, 04 Sep 2018 20:59:28 GMT',
+299 silly get     vary: 'accept-encoding, accept',
+299 silly get     'x-amz-meta-rev': '193-e96c70d7bb572e7ed145dd08dec6a6fa',
+299 silly get     server: 'cloudflare' } ]
+300 verbose etag https://registry.npmjs.org/jasmine-node from cache
+301 verbose get saving jasmine-node to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\jasmine-node\.cache.json
+302 http 304 https://registry.npmjs.org/karma-chrome-launcher
+303 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+303 verbose headers   connection: 'keep-alive',
+303 verbose headers   'set-cookie': [ '__cfduid=dce197835b069b1475f68bf410b3327cf1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+303 verbose headers   'cf-cache-status': 'HIT',
+303 verbose headers   'cache-control': 'max-age=300',
+303 verbose headers   'cf-ray': '46a2c13638853dbf-MXP',
+303 verbose headers   etag: '"5c2daee5d7b9c9c36b7705636f1dd4b1"',
+303 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+303 verbose headers   'last-modified': 'Sun, 27 May 2018 05:56:05 GMT',
+303 verbose headers   vary: 'accept-encoding, accept',
+303 verbose headers   server: 'cloudflare' }
+304 silly get cb [ 304,
+304 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+304 silly get     connection: 'keep-alive',
+304 silly get     'set-cookie': [ '__cfduid=dce197835b069b1475f68bf410b3327cf1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+304 silly get     'cf-cache-status': 'HIT',
+304 silly get     'cache-control': 'max-age=300',
+304 silly get     'cf-ray': '46a2c13638853dbf-MXP',
+304 silly get     etag: '"5c2daee5d7b9c9c36b7705636f1dd4b1"',
+304 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+304 silly get     'last-modified': 'Sun, 27 May 2018 05:56:05 GMT',
+304 silly get     vary: 'accept-encoding, accept',
+304 silly get     server: 'cloudflare' } ]
+305 verbose etag https://registry.npmjs.org/karma-chrome-launcher from cache
+306 verbose get saving karma-chrome-launcher to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\karma-chrome-launcher\.cache.json
+307 http 304 https://registry.npmjs.org/grunt-jasmine-nodejs
+308 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+308 verbose headers   connection: 'keep-alive',
+308 verbose headers   'set-cookie': [ '__cfduid=d73df8a59c0138f5b37766b00633ce0bc1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+308 verbose headers   'cf-cache-status': 'HIT',
+308 verbose headers   'cache-control': 'max-age=300',
+308 verbose headers   'cf-ray': '46a2c1363f334316-MXP',
+308 verbose headers   etag: '"99b095170914b6b95366329543332c4e"',
+308 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+308 verbose headers   'last-modified': 'Sun, 27 May 2018 02:56:41 GMT',
+308 verbose headers   vary: 'accept-encoding, accept',
+308 verbose headers   server: 'cloudflare' }
+309 silly get cb [ 304,
+309 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+309 silly get     connection: 'keep-alive',
+309 silly get     'set-cookie': [ '__cfduid=d73df8a59c0138f5b37766b00633ce0bc1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+309 silly get     'cf-cache-status': 'HIT',
+309 silly get     'cache-control': 'max-age=300',
+309 silly get     'cf-ray': '46a2c1363f334316-MXP',
+309 silly get     etag: '"99b095170914b6b95366329543332c4e"',
+309 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+309 silly get     'last-modified': 'Sun, 27 May 2018 02:56:41 GMT',
+309 silly get     vary: 'accept-encoding, accept',
+309 silly get     server: 'cloudflare' } ]
+310 verbose etag https://registry.npmjs.org/grunt-jasmine-nodejs from cache
+311 verbose get saving grunt-jasmine-nodejs to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\grunt-jasmine-nodejs\.cache.json
+312 http 304 https://registry.npmjs.org/grunt-contrib-watch
+313 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+313 verbose headers   connection: 'keep-alive',
+313 verbose headers   'set-cookie': [ '__cfduid=dd76b7ab0aaac8e9466ea3c5753b71c061539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+313 verbose headers   'cf-cache-status': 'HIT',
+313 verbose headers   'cache-control': 'max-age=300',
+313 verbose headers   'cf-ray': '46a2c1364f413da1-MXP',
+313 verbose headers   etag: '"f1c8d868fe5c324d8e58acfce70fb2ba"',
+313 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+313 verbose headers   'last-modified': 'Sun, 27 May 2018 02:52:26 GMT',
+313 verbose headers   vary: 'accept-encoding, accept',
+313 verbose headers   server: 'cloudflare' }
+314 silly get cb [ 304,
+314 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+314 silly get     connection: 'keep-alive',
+314 silly get     'set-cookie': [ '__cfduid=dd76b7ab0aaac8e9466ea3c5753b71c061539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+314 silly get     'cf-cache-status': 'HIT',
+314 silly get     'cache-control': 'max-age=300',
+314 silly get     'cf-ray': '46a2c1364f413da1-MXP',
+314 silly get     etag: '"f1c8d868fe5c324d8e58acfce70fb2ba"',
+314 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+314 silly get     'last-modified': 'Sun, 27 May 2018 02:52:26 GMT',
+314 silly get     vary: 'accept-encoding, accept',
+314 silly get     server: 'cloudflare' } ]
+315 verbose etag https://registry.npmjs.org/grunt-contrib-watch from cache
+316 verbose get saving grunt-contrib-watch to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\grunt-contrib-watch\.cache.json
+317 http 304 https://registry.npmjs.org/lodash
+318 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+318 verbose headers   connection: 'keep-alive',
+318 verbose headers   'set-cookie': [ '__cfduid=dee650e2d689b4bbd7b63415f656ae5d01539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+318 verbose headers   'cf-cache-status': 'HIT',
+318 verbose headers   'cache-control': 'max-age=300',
+318 verbose headers   'cf-ray': '46a2c13659cb3d95-MXP',
+318 verbose headers   etag: '"d9cb93f6fbf765b6d52d4cc209b84fc8"',
+318 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+318 verbose headers   'last-modified': 'Mon, 01 Oct 2018 09:55:12 GMT',
+318 verbose headers   vary: 'accept-encoding, accept',
+318 verbose headers   'x-amz-meta-rev': '2455-49cf3eca00257822e3ec07a1c3d9cb6a',
+318 verbose headers   server: 'cloudflare' }
+319 silly get cb [ 304,
+319 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+319 silly get     connection: 'keep-alive',
+319 silly get     'set-cookie': [ '__cfduid=dee650e2d689b4bbd7b63415f656ae5d01539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+319 silly get     'cf-cache-status': 'HIT',
+319 silly get     'cache-control': 'max-age=300',
+319 silly get     'cf-ray': '46a2c13659cb3d95-MXP',
+319 silly get     etag: '"d9cb93f6fbf765b6d52d4cc209b84fc8"',
+319 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+319 silly get     'last-modified': 'Mon, 01 Oct 2018 09:55:12 GMT',
+319 silly get     vary: 'accept-encoding, accept',
+319 silly get     'x-amz-meta-rev': '2455-49cf3eca00257822e3ec07a1c3d9cb6a',
+319 silly get     server: 'cloudflare' } ]
+320 verbose etag https://registry.npmjs.org/lodash from cache
+321 verbose get saving lodash to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\lodash\.cache.json
+322 http 304 https://registry.npmjs.org/jasmine-core
+323 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+323 verbose headers   connection: 'keep-alive',
+323 verbose headers   'set-cookie': [ '__cfduid=d9f674d76abc83c69a4341e6f0dad630c1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+323 verbose headers   'cf-cache-status': 'HIT',
+323 verbose headers   'cache-control': 'max-age=300',
+323 verbose headers   'cf-ray': '46a2c1364f473dcb-MXP',
+323 verbose headers   etag: '"0a57bee7e5715ac59a4825b183eacbbb"',
+323 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+323 verbose headers   'last-modified': 'Wed, 15 Aug 2018 00:26:36 GMT',
+323 verbose headers   vary: 'accept-encoding, accept',
+323 verbose headers   server: 'cloudflare' }
+324 silly get cb [ 304,
+324 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+324 silly get     connection: 'keep-alive',
+324 silly get     'set-cookie': [ '__cfduid=d9f674d76abc83c69a4341e6f0dad630c1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+324 silly get     'cf-cache-status': 'HIT',
+324 silly get     'cache-control': 'max-age=300',
+324 silly get     'cf-ray': '46a2c1364f473dcb-MXP',
+324 silly get     etag: '"0a57bee7e5715ac59a4825b183eacbbb"',
+324 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+324 silly get     'last-modified': 'Wed, 15 Aug 2018 00:26:36 GMT',
+324 silly get     vary: 'accept-encoding, accept',
+324 silly get     server: 'cloudflare' } ]
+325 verbose etag https://registry.npmjs.org/jasmine-core from cache
+326 verbose get saving jasmine-core to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\jasmine-core\.cache.json
+327 http 304 https://registry.npmjs.org/karma-jasmine
+328 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+328 verbose headers   connection: 'keep-alive',
+328 verbose headers   'set-cookie': [ '__cfduid=dee650e2d689b4bbd7b63415f656ae5d01539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+328 verbose headers   'cf-cache-status': 'HIT',
+328 verbose headers   'cache-control': 'max-age=300',
+328 verbose headers   'cf-ray': '46a2c13649c83d95-MXP',
+328 verbose headers   etag: '"52957763980faf8d561b9f26de611f44"',
+328 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+328 verbose headers   'last-modified': 'Sun, 27 May 2018 05:56:32 GMT',
+328 verbose headers   vary: 'accept-encoding, accept',
+328 verbose headers   server: 'cloudflare' }
+329 silly get cb [ 304,
+329 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+329 silly get     connection: 'keep-alive',
+329 silly get     'set-cookie': [ '__cfduid=dee650e2d689b4bbd7b63415f656ae5d01539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+329 silly get     'cf-cache-status': 'HIT',
+329 silly get     'cache-control': 'max-age=300',
+329 silly get     'cf-ray': '46a2c13649c83d95-MXP',
+329 silly get     etag: '"52957763980faf8d561b9f26de611f44"',
+329 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+329 silly get     'last-modified': 'Sun, 27 May 2018 05:56:32 GMT',
+329 silly get     vary: 'accept-encoding, accept',
+329 silly get     server: 'cloudflare' } ]
+330 verbose etag https://registry.npmjs.org/karma-jasmine from cache
+331 verbose get saving karma-jasmine to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\karma-jasmine\.cache.json
+332 http 304 https://registry.npmjs.org/grunt-karma
+333 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+333 verbose headers   connection: 'keep-alive',
+333 verbose headers   'set-cookie': [ '__cfduid=d9f674d76abc83c69a4341e6f0dad630c1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+333 verbose headers   'cf-cache-status': 'HIT',
+333 verbose headers   'cache-control': 'max-age=300',
+333 verbose headers   'cf-ray': '46a2c1363f2a3dcb-MXP',
+333 verbose headers   etag: '"8342277219c6e1628f87663ba33e91d7"',
+333 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+333 verbose headers   'last-modified': 'Sat, 08 Sep 2018 15:17:06 GMT',
+333 verbose headers   vary: 'accept-encoding, accept',
+333 verbose headers   'x-amz-meta-rev': '116-4b7bb29073ae8153694e6ac07259b2c1',
+333 verbose headers   server: 'cloudflare' }
+334 silly get cb [ 304,
+334 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+334 silly get     connection: 'keep-alive',
+334 silly get     'set-cookie': [ '__cfduid=d9f674d76abc83c69a4341e6f0dad630c1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+334 silly get     'cf-cache-status': 'HIT',
+334 silly get     'cache-control': 'max-age=300',
+334 silly get     'cf-ray': '46a2c1363f2a3dcb-MXP',
+334 silly get     etag: '"8342277219c6e1628f87663ba33e91d7"',
+334 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+334 silly get     'last-modified': 'Sat, 08 Sep 2018 15:17:06 GMT',
+334 silly get     vary: 'accept-encoding, accept',
+334 silly get     'x-amz-meta-rev': '116-4b7bb29073ae8153694e6ac07259b2c1',
+334 silly get     server: 'cloudflare' } ]
+335 verbose etag https://registry.npmjs.org/grunt-karma from cache
+336 verbose get saving grunt-karma to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\grunt-karma\.cache.json
+337 http 304 https://registry.npmjs.org/karma-spec-reporter
+338 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+338 verbose headers   connection: 'keep-alive',
+338 verbose headers   'set-cookie': [ '__cfduid=dd76b7ab0aaac8e9466ea3c5753b71c061539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+338 verbose headers   'cf-cache-status': 'HIT',
+338 verbose headers   'cache-control': 'max-age=300',
+338 verbose headers   'cf-ray': '46a2c1365f553da1-MXP',
+338 verbose headers   etag: '"79308d234485867027306ed1f6e310b4"',
+338 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+338 verbose headers   'last-modified': 'Sun, 27 May 2018 05:57:06 GMT',
+338 verbose headers   vary: 'accept-encoding, accept',
+338 verbose headers   server: 'cloudflare' }
+339 silly get cb [ 304,
+339 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+339 silly get     connection: 'keep-alive',
+339 silly get     'set-cookie': [ '__cfduid=dd76b7ab0aaac8e9466ea3c5753b71c061539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+339 silly get     'cf-cache-status': 'HIT',
+339 silly get     'cache-control': 'max-age=300',
+339 silly get     'cf-ray': '46a2c1365f553da1-MXP',
+339 silly get     etag: '"79308d234485867027306ed1f6e310b4"',
+339 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+339 silly get     'last-modified': 'Sun, 27 May 2018 05:57:06 GMT',
+339 silly get     vary: 'accept-encoding, accept',
+339 silly get     server: 'cloudflare' } ]
+340 verbose etag https://registry.npmjs.org/karma-spec-reporter from cache
+341 verbose get saving karma-spec-reporter to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\karma-spec-reporter\.cache.json
+342 http 304 https://registry.npmjs.org/karma
+343 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+343 verbose headers   connection: 'keep-alive',
+343 verbose headers   'set-cookie': [ '__cfduid=d87a52782e906e3a2dbbf165d3c7c22181539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+343 verbose headers   'cf-cache-status': 'HIT',
+343 verbose headers   'cache-control': 'max-age=300',
+343 verbose headers   'cf-ray': '46a2c1365d8f3db3-MXP',
+343 verbose headers   etag: '"b25383a580f9feb3df0fe6e361a54318"',
+343 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+343 verbose headers   'last-modified': 'Thu, 09 Aug 2018 20:22:00 GMT',
+343 verbose headers   vary: 'accept-encoding, accept',
+343 verbose headers   server: 'cloudflare' }
+344 silly get cb [ 304,
+344 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+344 silly get     connection: 'keep-alive',
+344 silly get     'set-cookie': [ '__cfduid=d87a52782e906e3a2dbbf165d3c7c22181539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+344 silly get     'cf-cache-status': 'HIT',
+344 silly get     'cache-control': 'max-age=300',
+344 silly get     'cf-ray': '46a2c1365d8f3db3-MXP',
+344 silly get     etag: '"b25383a580f9feb3df0fe6e361a54318"',
+344 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+344 silly get     'last-modified': 'Thu, 09 Aug 2018 20:22:00 GMT',
+344 silly get     vary: 'accept-encoding, accept',
+344 silly get     server: 'cloudflare' } ]
+345 verbose etag https://registry.npmjs.org/karma from cache
+346 verbose get saving karma to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\karma\.cache.json
+347 http 304 https://registry.npmjs.org/time-grunt
+348 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+348 verbose headers   connection: 'keep-alive',
+348 verbose headers   'set-cookie': [ '__cfduid=d182497a2c44cc398e685b4c75de172f81539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+348 verbose headers   'cf-cache-status': 'HIT',
+348 verbose headers   'cache-control': 'max-age=300',
+348 verbose headers   'cf-ray': '46a2c1364880431c-MXP',
+348 verbose headers   etag: '"128f1d7e6b145921fbc9ea5356fd10e0"',
+348 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+348 verbose headers   'last-modified': 'Sun, 27 May 2018 19:31:03 GMT',
+348 verbose headers   vary: 'accept-encoding, accept',
+348 verbose headers   server: 'cloudflare' }
+349 silly get cb [ 304,
+349 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+349 silly get     connection: 'keep-alive',
+349 silly get     'set-cookie': [ '__cfduid=d182497a2c44cc398e685b4c75de172f81539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+349 silly get     'cf-cache-status': 'HIT',
+349 silly get     'cache-control': 'max-age=300',
+349 silly get     'cf-ray': '46a2c1364880431c-MXP',
+349 silly get     etag: '"128f1d7e6b145921fbc9ea5356fd10e0"',
+349 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+349 silly get     'last-modified': 'Sun, 27 May 2018 19:31:03 GMT',
+349 silly get     vary: 'accept-encoding, accept',
+349 silly get     server: 'cloudflare' } ]
+350 verbose etag https://registry.npmjs.org/time-grunt from cache
+351 verbose get saving time-grunt to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\time-grunt\.cache.json
+352 http 304 https://registry.npmjs.org/karma-jasmine-html-reporter
+353 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+353 verbose headers   connection: 'keep-alive',
+353 verbose headers   'set-cookie': [ '__cfduid=d87a52782e906e3a2dbbf165d3c7c22181539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+353 verbose headers   'cf-cache-status': 'HIT',
+353 verbose headers   'cache-control': 'max-age=300',
+353 verbose headers   'cf-ray': '46a2c1362d773db3-MXP',
+353 verbose headers   etag: '"22eeb9f2dba54fda07e4fd8680e0b818"',
+353 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+353 verbose headers   'last-modified': 'Mon, 20 Aug 2018 16:16:18 GMT',
+353 verbose headers   vary: 'accept-encoding, accept',
+353 verbose headers   server: 'cloudflare' }
+354 silly get cb [ 304,
+354 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+354 silly get     connection: 'keep-alive',
+354 silly get     'set-cookie': [ '__cfduid=d87a52782e906e3a2dbbf165d3c7c22181539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+354 silly get     'cf-cache-status': 'HIT',
+354 silly get     'cache-control': 'max-age=300',
+354 silly get     'cf-ray': '46a2c1362d773db3-MXP',
+354 silly get     etag: '"22eeb9f2dba54fda07e4fd8680e0b818"',
+354 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+354 silly get     'last-modified': 'Mon, 20 Aug 2018 16:16:18 GMT',
+354 silly get     vary: 'accept-encoding, accept',
+354 silly get     server: 'cloudflare' } ]
+355 verbose etag https://registry.npmjs.org/karma-jasmine-html-reporter from cache
+356 verbose get saving karma-jasmine-html-reporter to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\karma-jasmine-html-reporter\.cache.json
+357 http 304 https://registry.npmjs.org/karma-sauce-launcher
+358 verbose headers { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+358 verbose headers   connection: 'keep-alive',
+358 verbose headers   'set-cookie': [ '__cfduid=d87a52782e906e3a2dbbf165d3c7c22181539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+358 verbose headers   'cf-cache-status': 'HIT',
+358 verbose headers   'cache-control': 'max-age=300',
+358 verbose headers   'cf-ray': '46a2c1363d813db3-MXP',
+358 verbose headers   etag: '"489a400d9a552f32c56f721e900c094e"',
+358 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+358 verbose headers   'last-modified': 'Sun, 27 May 2018 05:57:00 GMT',
+358 verbose headers   vary: 'accept-encoding, accept',
+358 verbose headers   server: 'cloudflare' }
+359 silly get cb [ 304,
+359 silly get   { date: 'Mon, 15 Oct 2018 13:50:26 GMT',
+359 silly get     connection: 'keep-alive',
+359 silly get     'set-cookie': [ '__cfduid=d87a52782e906e3a2dbbf165d3c7c22181539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+359 silly get     'cf-cache-status': 'HIT',
+359 silly get     'cache-control': 'max-age=300',
+359 silly get     'cf-ray': '46a2c1363d813db3-MXP',
+359 silly get     etag: '"489a400d9a552f32c56f721e900c094e"',
+359 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+359 silly get     'last-modified': 'Sun, 27 May 2018 05:57:00 GMT',
+359 silly get     vary: 'accept-encoding, accept',
+359 silly get     server: 'cloudflare' } ]
+360 verbose etag https://registry.npmjs.org/karma-sauce-launcher from cache
+361 verbose get saving karma-sauce-launcher to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\karma-sauce-launcher\.cache.json
+362 verbose get https://registry.npmjs.org/grunt not expired, no request
+363 silly addNameRange number 2 { name: 'grunt', range: '>=1.0.3-0 <2.0.0-0', hasData: true }
+364 silly addNameRange versions [ 'grunt',
+364 silly addNameRange   [ '0.1.0',
+364 silly addNameRange     '0.1.1',
+364 silly addNameRange     '0.1.2',
+364 silly addNameRange     '0.2.0',
+364 silly addNameRange     '0.2.1',
+364 silly addNameRange     '0.2.2',
+364 silly addNameRange     '0.2.3',
+364 silly addNameRange     '0.2.4',
+364 silly addNameRange     '0.2.5',
+364 silly addNameRange     '0.2.6',
+364 silly addNameRange     '0.2.7',
+364 silly addNameRange     '0.2.8',
+364 silly addNameRange     '0.2.9',
+364 silly addNameRange     '0.2.10',
+364 silly addNameRange     '0.2.11',
+364 silly addNameRange     '0.2.12',
+364 silly addNameRange     '0.2.13',
+364 silly addNameRange     '0.2.14',
+364 silly addNameRange     '0.2.15',
+364 silly addNameRange     '0.3.0',
+364 silly addNameRange     '0.3.1',
+364 silly addNameRange     '0.3.2',
+364 silly addNameRange     '0.3.3',
+364 silly addNameRange     '0.3.4',
+364 silly addNameRange     '0.3.5',
+364 silly addNameRange     '0.3.6',
+364 silly addNameRange     '0.3.7',
+364 silly addNameRange     '0.3.8',
+364 silly addNameRange     '0.3.9',
+364 silly addNameRange     '0.3.10',
+364 silly addNameRange     '0.3.11',
+364 silly addNameRange     '0.3.12',
+364 silly addNameRange     '0.3.13',
+364 silly addNameRange     '0.3.14',
+364 silly addNameRange     '0.3.15',
+364 silly addNameRange     '0.3.16',
+364 silly addNameRange     '0.3.17',
+364 silly addNameRange     '0.4.0',
+364 silly addNameRange     '0.4.1',
+364 silly addNameRange     '0.4.2',
+364 silly addNameRange     '0.4.3',
+364 silly addNameRange     '0.4.4',
+364 silly addNameRange     '0.4.5',
+364 silly addNameRange     '1.0.0-rc1',
+364 silly addNameRange     '1.0.0',
+364 silly addNameRange     '1.0.1',
+364 silly addNameRange     '0.3.13-a',
+364 silly addNameRange     '0.4.0-a',
+364 silly addNameRange     '0.4.0-rc1',
+364 silly addNameRange     '0.4.0-rc2',
+364 silly addNameRange     '0.4.0-rc3',
+364 silly addNameRange     '0.4.0-rc4',
+364 silly addNameRange     '0.4.0-rc5',
+364 silly addNameRange     '0.4.0-rc6',
+364 silly addNameRange     '0.4.0-rc7',
+364 silly addNameRange     '0.4.0-rc8',
+364 silly addNameRange     '1.0.2',
+364 silly addNameRange     '1.0.3' ] ]
+365 silly addNamed grunt@1.0.3
+366 verbose addNamed "1.0.3" is a plain semver version for grunt
+367 silly resolveWithNewModule karma-junit-reporter@0.2.2 checking installable status
+368 silly cache add args [ 'karma-junit-reporter@^0.2.2', null ]
+369 verbose cache add spec karma-junit-reporter@^0.2.2
+370 silly cache add parsed spec Result {
+370 silly cache add   raw: 'karma-junit-reporter@^0.2.2',
+370 silly cache add   scope: null,
+370 silly cache add   name: 'karma-junit-reporter',
+370 silly cache add   rawSpec: '^0.2.2',
+370 silly cache add   spec: '>=0.2.2-0 <0.3.0-0',
+370 silly cache add   type: 'range' }
+371 silly addNamed karma-junit-reporter@>=0.2.2-0 <0.3.0-0
+372 verbose addNamed ">=0.2.2-0 <0.3.0-0" is a valid semver range for karma-junit-reporter
+373 silly addNameRange { name: 'karma-junit-reporter',
+373 silly addNameRange   range: '>=0.2.2-0 <0.3.0-0',
+373 silly addNameRange   hasData: false }
+374 silly mapToRegistry name karma-junit-reporter
+375 silly mapToRegistry using default registry
+376 silly mapToRegistry registry https://registry.npmjs.org/
+377 silly mapToRegistry uri https://registry.npmjs.org/karma-junit-reporter
+378 verbose addNameRange registry:https://registry.npmjs.org/karma-junit-reporter not in flight; fetching
+379 silly resolveWithNewModule load-grunt-tasks@3.5.2 checking installable status
+380 silly cache add args [ 'load-grunt-tasks@^3.5.2', null ]
+381 verbose cache add spec load-grunt-tasks@^3.5.2
+382 silly cache add parsed spec Result {
+382 silly cache add   raw: 'load-grunt-tasks@^3.5.2',
+382 silly cache add   scope: null,
+382 silly cache add   name: 'load-grunt-tasks',
+382 silly cache add   rawSpec: '^3.5.2',
+382 silly cache add   spec: '>=3.5.2-0 <4.0.0-0',
+382 silly cache add   type: 'range' }
+383 silly addNamed load-grunt-tasks@>=3.5.2-0 <4.0.0-0
+384 verbose addNamed ">=3.5.2-0 <4.0.0-0" is a valid semver range for load-grunt-tasks
+385 silly addNameRange { name: 'load-grunt-tasks',
+385 silly addNameRange   range: '>=3.5.2-0 <4.0.0-0',
+385 silly addNameRange   hasData: false }
+386 silly mapToRegistry name load-grunt-tasks
+387 silly mapToRegistry using default registry
+388 silly mapToRegistry registry https://registry.npmjs.org/
+389 silly mapToRegistry uri https://registry.npmjs.org/load-grunt-tasks
+390 verbose addNameRange registry:https://registry.npmjs.org/load-grunt-tasks not in flight; fetching
+391 silly resolveWithNewModule karma-chrome-launcher@2.2.0 checking installable status
+392 silly cache add args [ 'karma-chrome-launcher@^2.2.0', null ]
+393 verbose cache add spec karma-chrome-launcher@^2.2.0
+394 silly cache add parsed spec Result {
+394 silly cache add   raw: 'karma-chrome-launcher@^2.2.0',
+394 silly cache add   scope: null,
+394 silly cache add   name: 'karma-chrome-launcher',
+394 silly cache add   rawSpec: '^2.2.0',
+394 silly cache add   spec: '>=2.2.0-0 <3.0.0-0',
+394 silly cache add   type: 'range' }
+395 silly addNamed karma-chrome-launcher@>=2.2.0-0 <3.0.0-0
+396 verbose addNamed ">=2.2.0-0 <3.0.0-0" is a valid semver range for karma-chrome-launcher
+397 silly addNameRange { name: 'karma-chrome-launcher',
+397 silly addNameRange   range: '>=2.2.0-0 <3.0.0-0',
+397 silly addNameRange   hasData: false }
+398 silly mapToRegistry name karma-chrome-launcher
+399 silly mapToRegistry using default registry
+400 silly mapToRegistry registry https://registry.npmjs.org/
+401 silly mapToRegistry uri https://registry.npmjs.org/karma-chrome-launcher
+402 verbose addNameRange registry:https://registry.npmjs.org/karma-chrome-launcher not in flight; fetching
+403 silly resolveWithNewModule grunt-jasmine-nodejs@1.6.0 checking installable status
+404 silly cache add args [ 'grunt-jasmine-nodejs@1.6.0', null ]
+405 verbose cache add spec grunt-jasmine-nodejs@1.6.0
+406 silly cache add parsed spec Result {
+406 silly cache add   raw: 'grunt-jasmine-nodejs@1.6.0',
+406 silly cache add   scope: null,
+406 silly cache add   name: 'grunt-jasmine-nodejs',
+406 silly cache add   rawSpec: '1.6.0',
+406 silly cache add   spec: '1.6.0',
+406 silly cache add   type: 'version' }
+407 silly addNamed grunt-jasmine-nodejs@1.6.0
+408 verbose addNamed "1.6.0" is a plain semver version for grunt-jasmine-nodejs
+409 silly mapToRegistry name grunt-jasmine-nodejs
+410 silly mapToRegistry using default registry
+411 silly mapToRegistry registry https://registry.npmjs.org/
+412 silly mapToRegistry uri https://registry.npmjs.org/grunt-jasmine-nodejs
+413 verbose addNameVersion registry:https://registry.npmjs.org/grunt-jasmine-nodejs not in flight; fetching
+414 silly resolveWithNewModule jasmine-node@2.0.0-beta4 checking installable status
+415 silly cache add args [ 'jasmine-node@2.0.0-beta4', null ]
+416 verbose cache add spec jasmine-node@2.0.0-beta4
+417 silly cache add parsed spec Result {
+417 silly cache add   raw: 'jasmine-node@2.0.0-beta4',
+417 silly cache add   scope: null,
+417 silly cache add   name: 'jasmine-node',
+417 silly cache add   rawSpec: '2.0.0-beta4',
+417 silly cache add   spec: '2.0.0-beta4',
+417 silly cache add   type: 'version' }
+418 silly addNamed jasmine-node@2.0.0-beta4
+419 verbose addNamed "2.0.0-beta4" is a plain semver version for jasmine-node
+420 silly mapToRegistry name jasmine-node
+421 silly mapToRegistry using default registry
+422 silly mapToRegistry registry https://registry.npmjs.org/
+423 silly mapToRegistry uri https://registry.npmjs.org/jasmine-node
+424 verbose addNameVersion registry:https://registry.npmjs.org/jasmine-node not in flight; fetching
+425 silly resolveWithNewModule grunt-contrib-watch@1.0.0 checking installable status
+426 silly cache add args [ 'grunt-contrib-watch@1.0.0', null ]
+427 verbose cache add spec grunt-contrib-watch@1.0.0
+428 silly cache add parsed spec Result {
+428 silly cache add   raw: 'grunt-contrib-watch@1.0.0',
+428 silly cache add   scope: null,
+428 silly cache add   name: 'grunt-contrib-watch',
+428 silly cache add   rawSpec: '1.0.0',
+428 silly cache add   spec: '1.0.0',
+428 silly cache add   type: 'version' }
+429 silly addNamed grunt-contrib-watch@1.0.0
+430 verbose addNamed "1.0.0" is a plain semver version for grunt-contrib-watch
+431 silly mapToRegistry name grunt-contrib-watch
+432 silly mapToRegistry using default registry
+433 silly mapToRegistry registry https://registry.npmjs.org/
+434 silly mapToRegistry uri https://registry.npmjs.org/grunt-contrib-watch
+435 verbose addNameVersion registry:https://registry.npmjs.org/grunt-contrib-watch not in flight; fetching
+436 silly resolveWithNewModule lodash@4.17.11 checking installable status
+437 silly cache add args [ 'lodash@^4.17.11', null ]
+438 verbose cache add spec lodash@^4.17.11
+439 silly cache add parsed spec Result {
+439 silly cache add   raw: 'lodash@^4.17.11',
+439 silly cache add   scope: null,
+439 silly cache add   name: 'lodash',
+439 silly cache add   rawSpec: '^4.17.11',
+439 silly cache add   spec: '>=4.17.11-0 <5.0.0-0',
+439 silly cache add   type: 'range' }
+440 silly addNamed lodash@>=4.17.11-0 <5.0.0-0
+441 verbose addNamed ">=4.17.11-0 <5.0.0-0" is a valid semver range for lodash
+442 silly addNameRange { name: 'lodash', range: '>=4.17.11-0 <5.0.0-0', hasData: false }
+443 silly mapToRegistry name lodash
+444 silly mapToRegistry using default registry
+445 silly mapToRegistry registry https://registry.npmjs.org/
+446 silly mapToRegistry uri https://registry.npmjs.org/lodash
+447 verbose addNameRange registry:https://registry.npmjs.org/lodash not in flight; fetching
+448 silly resolveWithNewModule jasmine-core@2.9.0 checking installable status
+449 silly cache add args [ 'jasmine-core@2.9.0', null ]
+450 verbose cache add spec jasmine-core@2.9.0
+451 silly cache add parsed spec Result {
+451 silly cache add   raw: 'jasmine-core@2.9.0',
+451 silly cache add   scope: null,
+451 silly cache add   name: 'jasmine-core',
+451 silly cache add   rawSpec: '2.9.0',
+451 silly cache add   spec: '2.9.0',
+451 silly cache add   type: 'version' }
+452 silly addNamed jasmine-core@2.9.0
+453 verbose addNamed "2.9.0" is a plain semver version for jasmine-core
+454 silly mapToRegistry name jasmine-core
+455 silly mapToRegistry using default registry
+456 silly mapToRegistry registry https://registry.npmjs.org/
+457 silly mapToRegistry uri https://registry.npmjs.org/jasmine-core
+458 verbose addNameVersion registry:https://registry.npmjs.org/jasmine-core not in flight; fetching
+459 silly resolveWithNewModule grunt-karma@2.0.0 checking installable status
+460 silly cache add args [ 'grunt-karma@^2.0.0', null ]
+461 verbose cache add spec grunt-karma@^2.0.0
+462 silly cache add parsed spec Result {
+462 silly cache add   raw: 'grunt-karma@^2.0.0',
+462 silly cache add   scope: null,
+462 silly cache add   name: 'grunt-karma',
+462 silly cache add   rawSpec: '^2.0.0',
+462 silly cache add   spec: '>=2.0.0-0 <3.0.0-0',
+462 silly cache add   type: 'range' }
+463 silly addNamed grunt-karma@>=2.0.0-0 <3.0.0-0
+464 verbose addNamed ">=2.0.0-0 <3.0.0-0" is a valid semver range for grunt-karma
+465 silly addNameRange { name: 'grunt-karma',
+465 silly addNameRange   range: '>=2.0.0-0 <3.0.0-0',
+465 silly addNameRange   hasData: false }
+466 silly mapToRegistry name grunt-karma
+467 silly mapToRegistry using default registry
+468 silly mapToRegistry registry https://registry.npmjs.org/
+469 silly mapToRegistry uri https://registry.npmjs.org/grunt-karma
+470 verbose addNameRange registry:https://registry.npmjs.org/grunt-karma not in flight; fetching
+471 silly resolveWithNewModule karma-spec-reporter@0.0.32 checking installable status
+472 silly cache add args [ 'karma-spec-reporter@0.0.32', null ]
+473 verbose cache add spec karma-spec-reporter@0.0.32
+474 silly cache add parsed spec Result {
+474 silly cache add   raw: 'karma-spec-reporter@0.0.32',
+474 silly cache add   scope: null,
+474 silly cache add   name: 'karma-spec-reporter',
+474 silly cache add   rawSpec: '0.0.32',
+474 silly cache add   spec: '0.0.32',
+474 silly cache add   type: 'version' }
+475 silly addNamed karma-spec-reporter@0.0.32
+476 verbose addNamed "0.0.32" is a plain semver version for karma-spec-reporter
+477 silly mapToRegistry name karma-spec-reporter
+478 silly mapToRegistry using default registry
+479 silly mapToRegistry registry https://registry.npmjs.org/
+480 silly mapToRegistry uri https://registry.npmjs.org/karma-spec-reporter
+481 verbose addNameVersion registry:https://registry.npmjs.org/karma-spec-reporter not in flight; fetching
+482 silly resolveWithNewModule karma-jasmine@1.1.2 checking installable status
+483 silly cache add args [ 'karma-jasmine@^1.1.2', null ]
+484 verbose cache add spec karma-jasmine@^1.1.2
+485 silly cache add parsed spec Result {
+485 silly cache add   raw: 'karma-jasmine@^1.1.2',
+485 silly cache add   scope: null,
+485 silly cache add   name: 'karma-jasmine',
+485 silly cache add   rawSpec: '^1.1.2',
+485 silly cache add   spec: '>=1.1.2-0 <2.0.0-0',
+485 silly cache add   type: 'range' }
+486 silly addNamed karma-jasmine@>=1.1.2-0 <2.0.0-0
+487 verbose addNamed ">=1.1.2-0 <2.0.0-0" is a valid semver range for karma-jasmine
+488 silly addNameRange { name: 'karma-jasmine',
+488 silly addNameRange   range: '>=1.1.2-0 <2.0.0-0',
+488 silly addNameRange   hasData: false }
+489 silly mapToRegistry name karma-jasmine
+490 silly mapToRegistry using default registry
+491 silly mapToRegistry registry https://registry.npmjs.org/
+492 silly mapToRegistry uri https://registry.npmjs.org/karma-jasmine
+493 verbose addNameRange registry:https://registry.npmjs.org/karma-jasmine not in flight; fetching
+494 silly resolveWithNewModule karma@2.0.5 checking installable status
+495 silly cache add args [ 'karma@^2.0.5', null ]
+496 verbose cache add spec karma@^2.0.5
+497 silly cache add parsed spec Result {
+497 silly cache add   raw: 'karma@^2.0.5',
+497 silly cache add   scope: null,
+497 silly cache add   name: 'karma',
+497 silly cache add   rawSpec: '^2.0.5',
+497 silly cache add   spec: '>=2.0.5-0 <3.0.0-0',
+497 silly cache add   type: 'range' }
+498 silly addNamed karma@>=2.0.5-0 <3.0.0-0
+499 verbose addNamed ">=2.0.5-0 <3.0.0-0" is a valid semver range for karma
+500 silly addNameRange { name: 'karma', range: '>=2.0.5-0 <3.0.0-0', hasData: false }
+501 silly mapToRegistry name karma
+502 silly mapToRegistry using default registry
+503 silly mapToRegistry registry https://registry.npmjs.org/
+504 silly mapToRegistry uri https://registry.npmjs.org/karma
+505 verbose addNameRange registry:https://registry.npmjs.org/karma not in flight; fetching
+506 silly resolveWithNewModule time-grunt@1.4.0 checking installable status
+507 silly cache add args [ 'time-grunt@^1.4.0', null ]
+508 verbose cache add spec time-grunt@^1.4.0
+509 silly cache add parsed spec Result {
+509 silly cache add   raw: 'time-grunt@^1.4.0',
+509 silly cache add   scope: null,
+509 silly cache add   name: 'time-grunt',
+509 silly cache add   rawSpec: '^1.4.0',
+509 silly cache add   spec: '>=1.4.0-0 <2.0.0-0',
+509 silly cache add   type: 'range' }
+510 silly addNamed time-grunt@>=1.4.0-0 <2.0.0-0
+511 verbose addNamed ">=1.4.0-0 <2.0.0-0" is a valid semver range for time-grunt
+512 silly addNameRange { name: 'time-grunt',
+512 silly addNameRange   range: '>=1.4.0-0 <2.0.0-0',
+512 silly addNameRange   hasData: false }
+513 silly mapToRegistry name time-grunt
+514 silly mapToRegistry using default registry
+515 silly mapToRegistry registry https://registry.npmjs.org/
+516 silly mapToRegistry uri https://registry.npmjs.org/time-grunt
+517 verbose addNameRange registry:https://registry.npmjs.org/time-grunt not in flight; fetching
+518 silly resolveWithNewModule karma-jasmine-html-reporter@0.2.2 checking installable status
+519 silly cache add args [ 'karma-jasmine-html-reporter@^0.2.2', null ]
+520 verbose cache add spec karma-jasmine-html-reporter@^0.2.2
+521 silly cache add parsed spec Result {
+521 silly cache add   raw: 'karma-jasmine-html-reporter@^0.2.2',
+521 silly cache add   scope: null,
+521 silly cache add   name: 'karma-jasmine-html-reporter',
+521 silly cache add   rawSpec: '^0.2.2',
+521 silly cache add   spec: '>=0.2.2-0 <0.3.0-0',
+521 silly cache add   type: 'range' }
+522 silly addNamed karma-jasmine-html-reporter@>=0.2.2-0 <0.3.0-0
+523 verbose addNamed ">=0.2.2-0 <0.3.0-0" is a valid semver range for karma-jasmine-html-reporter
+524 silly addNameRange { name: 'karma-jasmine-html-reporter',
+524 silly addNameRange   range: '>=0.2.2-0 <0.3.0-0',
+524 silly addNameRange   hasData: false }
+525 silly mapToRegistry name karma-jasmine-html-reporter
+526 silly mapToRegistry using default registry
+527 silly mapToRegistry registry https://registry.npmjs.org/
+528 silly mapToRegistry uri https://registry.npmjs.org/karma-jasmine-html-reporter
+529 verbose addNameRange registry:https://registry.npmjs.org/karma-jasmine-html-reporter not in flight; fetching
+530 silly resolveWithNewModule karma-sauce-launcher@1.2.0 checking installable status
+531 silly cache add args [ 'karma-sauce-launcher@^1.2.0', null ]
+532 verbose cache add spec karma-sauce-launcher@^1.2.0
+533 silly cache add parsed spec Result {
+533 silly cache add   raw: 'karma-sauce-launcher@^1.2.0',
+533 silly cache add   scope: null,
+533 silly cache add   name: 'karma-sauce-launcher',
+533 silly cache add   rawSpec: '^1.2.0',
+533 silly cache add   spec: '>=1.2.0-0 <2.0.0-0',
+533 silly cache add   type: 'range' }
+534 silly addNamed karma-sauce-launcher@>=1.2.0-0 <2.0.0-0
+535 verbose addNamed ">=1.2.0-0 <2.0.0-0" is a valid semver range for karma-sauce-launcher
+536 silly addNameRange { name: 'karma-sauce-launcher',
+536 silly addNameRange   range: '>=1.2.0-0 <2.0.0-0',
+536 silly addNameRange   hasData: false }
+537 silly mapToRegistry name karma-sauce-launcher
+538 silly mapToRegistry using default registry
+539 silly mapToRegistry registry https://registry.npmjs.org/
+540 silly mapToRegistry uri https://registry.npmjs.org/karma-sauce-launcher
+541 verbose addNameRange registry:https://registry.npmjs.org/karma-sauce-launcher not in flight; fetching
+542 silly cache afterAdd grunt@1.0.3
+543 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt\1.0.3\package\package.json not in flight; writing
+544 verbose get https://registry.npmjs.org/karma-junit-reporter not expired, no request
+545 silly addNameRange number 2 { name: 'karma-junit-reporter',
+545 silly addNameRange   range: '>=0.2.2-0 <0.3.0-0',
+545 silly addNameRange   hasData: true }
+546 silly addNameRange versions [ 'karma-junit-reporter',
+546 silly addNameRange   [ '0.0.1',
+546 silly addNameRange     '0.0.2',
+546 silly addNameRange     '0.1.0',
+546 silly addNameRange     '0.2.1',
+546 silly addNameRange     '0.2.2',
+546 silly addNameRange     '0.3.0',
+546 silly addNameRange     '0.3.1',
+546 silly addNameRange     '0.3.2',
+546 silly addNameRange     '0.3.3',
+546 silly addNameRange     '0.3.4',
+546 silly addNameRange     '0.3.5',
+546 silly addNameRange     '0.3.6',
+546 silly addNameRange     '0.3.7',
+546 silly addNameRange     '0.3.8',
+546 silly addNameRange     '0.4.0',
+546 silly addNameRange     '0.4.1',
+546 silly addNameRange     '0.4.2',
+546 silly addNameRange     '2.0.0',
+546 silly addNameRange     '1.0.0',
+546 silly addNameRange     '1.1.0',
+546 silly addNameRange     '1.2.0' ] ]
+547 silly addNamed karma-junit-reporter@0.2.2
+548 verbose addNamed "0.2.2" is a plain semver version for karma-junit-reporter
+549 verbose get https://registry.npmjs.org/load-grunt-tasks not expired, no request
+550 silly addNameRange number 2 { name: 'load-grunt-tasks',
+550 silly addNameRange   range: '>=3.5.2-0 <4.0.0-0',
+550 silly addNameRange   hasData: true }
+551 silly addNameRange versions [ 'load-grunt-tasks',
+551 silly addNameRange   [ '0.1.0',
+551 silly addNameRange     '0.1.1',
+551 silly addNameRange     '0.1.2',
+551 silly addNameRange     '0.1.3',
+551 silly addNameRange     '0.2.0',
+551 silly addNameRange     '0.2.1',
+551 silly addNameRange     '0.3.0',
+551 silly addNameRange     '0.4.0',
+551 silly addNameRange     '0.5.0',
+551 silly addNameRange     '0.6.0',
+551 silly addNameRange     '1.0.0',
+551 silly addNameRange     '2.0.0',
+551 silly addNameRange     '3.0.0',
+551 silly addNameRange     '3.1.0',
+551 silly addNameRange     '3.2.0',
+551 silly addNameRange     '3.3.0',
+551 silly addNameRange     '3.4.0',
+551 silly addNameRange     '3.4.1',
+551 silly addNameRange     '3.5.0',
+551 silly addNameRange     '3.5.1',
+551 silly addNameRange     '3.5.2',
+551 silly addNameRange     '4.0.0' ] ]
+552 silly addNamed load-grunt-tasks@3.5.2
+553 verbose addNamed "3.5.2" is a plain semver version for load-grunt-tasks
+554 verbose get https://registry.npmjs.org/grunt-jasmine-nodejs not expired, no request
+555 warn deprecated grunt-jasmine-nodejs@1.6.0: Deprecated in favor of npm scripts.
+556 verbose get https://registry.npmjs.org/karma-chrome-launcher not expired, no request
+557 silly addNameRange number 2 { name: 'karma-chrome-launcher',
+557 silly addNameRange   range: '>=2.2.0-0 <3.0.0-0',
+557 silly addNameRange   hasData: true }
+558 silly addNameRange versions [ 'karma-chrome-launcher',
+558 silly addNameRange   [ '0.0.1',
+558 silly addNameRange     '0.0.2',
+558 silly addNameRange     '0.1.0',
+558 silly addNameRange     '0.1.1',
+558 silly addNameRange     '0.1.2',
+558 silly addNameRange     '0.1.3',
+558 silly addNameRange     '0.1.4',
+558 silly addNameRange     '0.1.5',
+558 silly addNameRange     '0.1.6',
+558 silly addNameRange     '0.1.7',
+558 silly addNameRange     '0.1.8',
+558 silly addNameRange     '0.1.9',
+558 silly addNameRange     '0.1.10',
+558 silly addNameRange     '0.1.11',
+558 silly addNameRange     '0.1.12',
+558 silly addNameRange     '0.2.0',
+558 silly addNameRange     '0.2.1',
+558 silly addNameRange     '0.2.2',
+558 silly addNameRange     '0.2.3',
+558 silly addNameRange     '1.0.1',
+558 silly addNameRange     '2.0.0',
+558 silly addNameRange     '2.1.0',
+558 silly addNameRange     '2.1.1',
+558 silly addNameRange     '2.2.0' ] ]
+559 silly addNamed karma-chrome-launcher@2.2.0
+560 verbose addNamed "2.2.0" is a plain semver version for karma-chrome-launcher
+561 verbose get https://registry.npmjs.org/jasmine-node not expired, no request
+562 verbose get https://registry.npmjs.org/grunt-contrib-watch not expired, no request
+563 verbose get https://registry.npmjs.org/lodash not expired, no request
+564 silly addNameRange number 2 { name: 'lodash', range: '>=4.17.11-0 <5.0.0-0', hasData: true }
+565 silly addNameRange versions [ 'lodash',
+565 silly addNameRange   [ '0.1.0',
+565 silly addNameRange     '0.2.0',
+565 silly addNameRange     '0.2.1',
+565 silly addNameRange     '0.2.2',
+565 silly addNameRange     '0.3.0',
+565 silly addNameRange     '0.3.1',
+565 silly addNameRange     '0.3.2',
+565 silly addNameRange     '0.4.0',
+565 silly addNameRange     '0.4.1',
+565 silly addNameRange     '0.4.2',
+565 silly addNameRange     '0.5.0-rc.1',
+565 silly addNameRange     '0.5.0',
+565 silly addNameRange     '0.5.1',
+565 silly addNameRange     '0.5.2',
+565 silly addNameRange     '0.6.0',
+565 silly addNameRange     '0.6.1',
+565 silly addNameRange     '0.7.0',
+565 silly addNameRange     '0.8.0',
+565 silly addNameRange     '0.8.1',
+565 silly addNameRange     '0.8.2',
+565 silly addNameRange     '0.9.0',
+565 silly addNameRange     '0.9.1',
+565 silly addNameRange     '0.9.2',
+565 silly addNameRange     '0.10.0',
+565 silly addNameRange     '1.0.0-rc.1',
+565 silly addNameRange     '1.0.0-rc.2',
+565 silly addNameRange     '1.0.0-rc.3',
+565 silly addNameRange     '1.0.0',
+565 silly addNameRange     '1.0.1',
+565 silly addNameRange     '1.1.0',
+565 silly addNameRange     '1.1.1',
+565 silly addNameRange     '1.2.0',
+565 silly addNameRange     '1.2.1',
+565 silly addNameRange     '1.3.0',
+565 silly addNameRange     '1.3.1',
+565 silly addNameRange     '2.0.0',
+565 silly addNameRange     '2.1.0',
+565 silly addNameRange     '2.2.0',
+565 silly addNameRange     '2.2.1',
+565 silly addNameRange     '2.3.0',
+565 silly addNameRange     '2.4.0',
+565 silly addNameRange     '2.4.1',
+565 silly addNameRange     '3.0.0',
+565 silly addNameRange     '3.0.1',
+565 silly addNameRange     '3.1.0',
+565 silly addNameRange     '3.2.0',
+565 silly addNameRange     '3.3.0',
+565 silly addNameRange     '3.3.1',
+565 silly addNameRange     '3.4.0',
+565 silly addNameRange     '3.5.0',
+565 silly addNameRange     '3.6.0',
+565 silly addNameRange     '1.0.2',
+565 silly addNameRange     '3.7.0',
+565 silly addNameRange     '2.4.2',
+565 silly addNameRange     '3.8.0',
+565 silly addNameRange     '3.9.0',
+565 silly addNameRange     '3.9.1',
+565 silly addNameRange     '3.9.2',
+565 silly addNameRange     '3.9.3',
+565 silly addNameRange     '3.10.0',
+565 silly addNameRange     '3.10.1',
+565 silly addNameRange     '4.0.0',
+565 silly addNameRange     '4.0.1',
+565 silly addNameRange     '4.1.0',
+565 silly addNameRange     '4.2.0',
+565 silly addNameRange     '4.2.1',
+565 silly addNameRange     '4.3.0',
+565 silly addNameRange     '4.4.0',
+565 silly addNameRange     '4.5.0',
+565 silly addNameRange     '4.5.1',
+565 silly addNameRange     '4.6.0',
+565 silly addNameRange     '4.6.1',
+565 silly addNameRange     '4.7.0',
+565 silly addNameRange     '4.8.0',
+565 silly addNameRange     '4.8.1',
+565 silly addNameRange     '4.8.2',
+565 silly addNameRange     '4.9.0',
+565 silly addNameRange     '4.10.0',
+565 silly addNameRange     '4.11.0',
+565 silly addNameRange     '4.11.1',
+565 silly addNameRange     '4.11.2',
+565 silly addNameRange     '4.12.0',
+565 silly addNameRange     '4.13.0',
+565 silly addNameRange     '4.13.1',
+565 silly addNameRange     '4.14.0',
+565 silly addNameRange     '4.14.1',
+565 silly addNameRange     '4.14.2',
+565 silly addNameRange     '4.15.0',
+565 silly addNameRange     '4.16.0',
+565 silly addNameRange     '4.16.1',
+565 silly addNameRange     '4.16.2',
+565 silly addNameRange     '4.16.3',
+565 silly addNameRange     '4.16.4',
+565 silly addNameRange     '4.16.5',
+565 silly addNameRange     '4.16.6',
+565 silly addNameRange     '4.17.0',
+565 silly addNameRange     '4.17.1',
+565 silly addNameRange     '4.17.2',
+565 silly addNameRange     '4.17.3',
+565 silly addNameRange     '4.17.4',
+565 silly addNameRange     '4.17.5',
+565 silly addNameRange     '4.17.9',
+565 silly addNameRange     '4.17.10',
+565 silly addNameRange     '4.17.11' ] ]
+566 silly addNamed lodash@4.17.11
+567 verbose addNamed "4.17.11" is a plain semver version for lodash
+568 verbose get https://registry.npmjs.org/jasmine-core not expired, no request
+569 verbose get https://registry.npmjs.org/karma-spec-reporter not expired, no request
+570 verbose get https://registry.npmjs.org/grunt-karma not expired, no request
+571 silly addNameRange number 2 { name: 'grunt-karma',
+571 silly addNameRange   range: '>=2.0.0-0 <3.0.0-0',
+571 silly addNameRange   hasData: true }
+572 silly addNameRange versions [ 'grunt-karma',
+572 silly addNameRange   [ '0.3.0',
+572 silly addNameRange     '0.4.0',
+572 silly addNameRange     '0.4.1',
+572 silly addNameRange     '0.4.2',
+572 silly addNameRange     '0.4.3',
+572 silly addNameRange     '0.4.4',
+572 silly addNameRange     '0.5.0',
+572 silly addNameRange     '0.4.5',
+572 silly addNameRange     '0.5.1',
+572 silly addNameRange     '0.5.2',
+572 silly addNameRange     '0.4.6',
+572 silly addNameRange     '0.5.3',
+572 silly addNameRange     '0.5.4',
+572 silly addNameRange     '0.6.0',
+572 silly addNameRange     '0.6.1',
+572 silly addNameRange     '0.7.0',
+572 silly addNameRange     '0.6.2',
+572 silly addNameRange     '0.7.1',
+572 silly addNameRange     '0.7.2',
+572 silly addNameRange     '0.7.3',
+572 silly addNameRange     '0.8.0',
+572 silly addNameRange     '0.8.1',
+572 silly addNameRange     '0.8.2',
+572 silly addNameRange     '0.8.3',
+572 silly addNameRange     '0.9.0',
+572 silly addNameRange     '0.10.0',
+572 silly addNameRange     '0.10.1',
+572 silly addNameRange     '0.11.0',
+572 silly addNameRange     '0.11.1',
+572 silly addNameRange     '0.11.2',
+572 silly addNameRange     '0.12.0',
+572 silly addNameRange     '0.12.1',
+572 silly addNameRange     '0.12.2',
+572 silly addNameRange     '1.0.0',
+572 silly addNameRange     '2.0.0',
+572 silly addNameRange     '3.0.0' ] ]
+573 silly addNamed grunt-karma@2.0.0
+574 verbose addNamed "2.0.0" is a plain semver version for grunt-karma
+575 verbose get https://registry.npmjs.org/time-grunt not expired, no request
+576 silly addNameRange number 2 { name: 'time-grunt',
+576 silly addNameRange   range: '>=1.4.0-0 <2.0.0-0',
+576 silly addNameRange   hasData: true }
+577 silly addNameRange versions [ 'time-grunt',
+577 silly addNameRange   [ '0.1.0',
+577 silly addNameRange     '0.1.1',
+577 silly addNameRange     '0.1.2',
+577 silly addNameRange     '0.2.0',
+577 silly addNameRange     '0.2.1',
+577 silly addNameRange     '0.2.2',
+577 silly addNameRange     '0.2.3',
+577 silly addNameRange     '0.2.4',
+577 silly addNameRange     '0.2.5',
+577 silly addNameRange     '0.2.6',
+577 silly addNameRange     '0.2.7',
+577 silly addNameRange     '0.2.8',
+577 silly addNameRange     '0.2.9',
+577 silly addNameRange     '0.2.10',
+577 silly addNameRange     '0.3.1',
+577 silly addNameRange     '0.3.2',
+577 silly addNameRange     '0.4.0',
+577 silly addNameRange     '1.0.0',
+577 silly addNameRange     '1.1.0',
+577 silly addNameRange     '1.1.1',
+577 silly addNameRange     '1.2.0',
+577 silly addNameRange     '1.2.1',
+577 silly addNameRange     '1.2.2',
+577 silly addNameRange     '1.3.0',
+577 silly addNameRange     '1.4.0' ] ]
+578 silly addNamed time-grunt@1.4.0
+579 verbose addNamed "1.4.0" is a plain semver version for time-grunt
+580 verbose get https://registry.npmjs.org/karma-jasmine not expired, no request
+581 silly addNameRange number 2 { name: 'karma-jasmine',
+581 silly addNameRange   range: '>=1.1.2-0 <2.0.0-0',
+581 silly addNameRange   hasData: true }
+582 silly addNameRange versions [ 'karma-jasmine',
+582 silly addNameRange   [ '0.0.1',
+582 silly addNameRange     '0.0.2',
+582 silly addNameRange     '0.0.3',
+582 silly addNameRange     '0.1.0',
+582 silly addNameRange     '0.1.1',
+582 silly addNameRange     '0.1.2',
+582 silly addNameRange     '0.1.3',
+582 silly addNameRange     '0.1.4',
+582 silly addNameRange     '0.1.5',
+582 silly addNameRange     '0.2.0',
+582 silly addNameRange     '0.2.1',
+582 silly addNameRange     '0.2.2',
+582 silly addNameRange     '0.2.3',
+582 silly addNameRange     '0.3.0',
+582 silly addNameRange     '0.3.1',
+582 silly addNameRange     '0.3.2',
+582 silly addNameRange     '0.3.3',
+582 silly addNameRange     '0.3.4',
+582 silly addNameRange     '0.3.5',
+582 silly addNameRange     '0.3.6',
+582 silly addNameRange     '0.1.6',
+582 silly addNameRange     '0.3.7',
+582 silly addNameRange     '0.3.8',
+582 silly addNameRange     '1.0.0',
+582 silly addNameRange     '1.0.2',
+582 silly addNameRange     '1.1.0',
+582 silly addNameRange     '1.1.1',
+582 silly addNameRange     '1.1.2' ] ]
+583 silly addNamed karma-jasmine@1.1.2
+584 verbose addNamed "1.1.2" is a plain semver version for karma-jasmine
+585 verbose get https://registry.npmjs.org/karma not expired, no request
+586 silly addNameRange number 2 { name: 'karma', range: '>=2.0.5-0 <3.0.0-0', hasData: true }
+587 silly addNameRange versions [ 'karma',
+587 silly addNameRange   [ '0.8.0',
+587 silly addNameRange     '0.9.0-dart',
+587 silly addNameRange     '0.8.1',
+587 silly addNameRange     '0.8.2',
+587 silly addNameRange     '0.8.3',
+587 silly addNameRange     '0.9.0',
+587 silly addNameRange     '0.8.4',
+587 silly addNameRange     '0.9.1',
+587 silly addNameRange     '0.8.5',
+587 silly addNameRange     '0.9.2',
+587 silly addNameRange     '0.9.2-dart',
+587 silly addNameRange     '0.9.3',
+587 silly addNameRange     '0.8.6',
+587 silly addNameRange     '0.9.4',
+587 silly addNameRange     '0.8.7',
+587 silly addNameRange     '0.9.5',
+587 silly addNameRange     '0.9.6',
+587 silly addNameRange     '0.8.8',
+587 silly addNameRange     '0.9.7',
+587 silly addNameRange     '0.9.8',
+587 silly addNameRange     '0.10.0',
+587 silly addNameRange     '0.10.1',
+587 silly addNameRange     '0.10.2',
+587 silly addNameRange     '0.11.0',
+587 silly addNameRange     '0.11.1',
+587 silly addNameRange     '0.10.3',
+587 silly addNameRange     '0.10.4',
+587 silly addNameRange     '0.11.2',
+587 silly addNameRange     '0.11.3',
+587 silly addNameRange     '0.10.5',
+587 silly addNameRange     '0.11.4',
+587 silly addNameRange     '0.11.5',
+587 silly addNameRange     '0.10.6',
+587 silly addNameRange     '0.11.6',
+587 silly addNameRange     '0.10.7',
+587 silly addNameRange     '0.11.7',
+587 silly addNameRange     '0.11.8',
+587 silly addNameRange     '0.11.9',
+587 silly addNameRange     '0.10.8',
+587 silly addNameRange     '0.11.10',
+587 silly addNameRange     '0.11.11',
+587 silly addNameRange     '0.11.12',
+587 silly addNameRange     '0.11.11-dev',
+587 silly addNameRange     '0.10.9',
+587 silly addNameRange     '0.11.12-dev',
+587 silly addNameRange     '0.11.12-dev2',
+587 silly addNameRange     '0.11.13',
+587 silly addNameRange     '0.11.14',
+587 silly addNameRange     '0.12.0',
+587 silly addNameRange     '0.10.10',
+587 silly addNameRange     '0.12.1',
+587 silly addNameRange     '0.12.2',
+587 silly addNameRange     '0.12.3',
+587 silly addNameRange     '0.12.4',
+587 silly addNameRange     '0.12.5',
+587 silly addNameRange     '0.12.6',
+587 silly addNameRange     '0.12.6-beta-43e6e28',
+587 silly addNameRange     '0.12.7',
+587 silly addNameRange     '0.12.8',
+587 silly addNameRange     '0.12.9',
+587 silly addNameRange     '0.12.10',
+587 silly addNameRange     '0.12.11',
+587 silly addNameRange     '0.12.12',
+587 silly addNameRange     '0.12.11-beta-3029418',
+587 silly addNameRange     '0.12.13',
+587 silly addNameRange     '0.12.14',
+587 silly addNameRange     '0.12.15',
+587 silly addNameRange     '0.12.16',
+587 silly addNameRange     '0.12.16-beta-905422d',
+587 silly addNameRange     '0.12.17',
+587 silly addNameRange     '0.12.18',
+587 silly addNameRange     '0.12.19',
+587 silly addNameRange     '0.12.20',
+587 silly addNameRange     '0.12.21',
+587 silly addNameRange     '0.12.22',
+587 silly addNameRange     '0.12.23',
+587 silly addNameRange     '0.12.24',
+587 silly addNameRange     '0.12.24-beta-6cf7955',
+587 silly addNameRange     '0.12.25',
+587 silly addNameRange     '0.12.25-beta-37a7958',
+587 silly addNameRange     '0.12.25-beta-ad5bc24',
+587 silly addNameRange     '0.12.26',
+587 silly addNameRange     '0.12.27',
+587 silly addNameRange     '0.12.28',
+587 silly addNameRange     '0.12.28-beta-b9be580',
+587 silly addNameRange     '0.12.29',
+587 silly addNameRange     '0.12.30',
+587 silly addNameRange     '0.12.31',
+587 silly addNameRange     '0.12.28-beta-f65c864',
+587 silly addNameRange     '0.12.24-dev-test',
+587 silly addNameRange     '0.12.24-dev-socketio10',
+587 silly addNameRange     '0.12.24-dev-socketio10-2',
+587 silly addNameRange     '0.12.32-beta.0',
+587 silly addNameRange     '0.12.32',
+587 silly addNameRange     '0.13.0-rc.0',
+587 silly addNameRange     '0.12.33',
+587 silly addNameRange     '0.13.0-rc.1',
+587 silly addNameRange     '0.12.34',
+587 silly addNameRange     '0.13.0-rc.2',
+587 silly addNameRange     '0.12.35',
+587 silly addNameRange     '0.13.0-rc.3',
+587 silly addNameRange     '0.12.36',
+587 silly addNameRange     '0.13.0-rc.4',
+587 silly addNameRange     '0.12.37',
+587 silly addNameRange     '0.13.0-rc.5',
+587 silly addNameRange     '0.13.0-rc.6',
+587 silly addNameRange     '0.13.0-rc.7',
+587 silly addNameRange     '0.13.0-rc.8',
+587 silly addNameRange     '0.13.0-rc.9',
+587 silly addNameRange     '0.13.0',
+587 silly addNameRange     '0.13.1',
+587 silly addNameRange     '0.13.2',
+587 silly addNameRange     '0.13.3',
+587 silly addNameRange     '0.13.4',
+587 silly addNameRange     '0.13.5',
+587 silly addNameRange     '0.13.6',
+587 silly addNameRange     '0.13.7',
+587 silly addNameRange     '0.13.8',
+587 silly addNameRange     '0.13.9',
+587 silly addNameRange     '0.13.10',
+587 silly addNameRange     '0.13.11',
+587 silly addNameRange     '0.13.12',
+587 silly addNameRange     '0.13.13',
+587 silly addNameRange     '0.13.14',
+587 silly addNameRange     '0.13.15',
+587 silly addNameRange     '0.13.16',
+587 silly addNameRange     '0.13.17',
+587 silly addNameRange     '0.13.18',
+587 silly addNameRange     '0.13.19',
+587 silly addNameRange     '0.13.20',
+587 silly addNameRange     '0.13.21',
+587 silly addNameRange     '0.13.22',
+587 silly addNameRange     '1.0.0',
+587 silly addNameRange     '1.1.0',
+587 silly addNameRange     '1.1.1',
+587 silly addNameRange     '1.1.2',
+587 silly addNameRange     '1.2.0',
+587 silly addNameRange     '1.3.0',
+587 silly addNameRange     '1.4.0',
+587 silly addNameRange     '1.4.1',
+587 silly addNameRange     '1.5.0',
+587 silly addNameRange     '1.6.0',
+587 silly addNameRange     '1.7.0',
+587 silly addNameRange     '1.7.1',
+587 silly addNameRange     '2.0.0',
+587 silly addNameRange     '2.0.2',
+587 silly addNameRange     '2.0.3',
+587 silly addNameRange     '2.0.4',
+587 silly addNameRange     '2.0.5',
+587 silly addNameRange     '3.0.0' ] ]
+588 silly addNamed karma@2.0.5
+589 verbose addNamed "2.0.5" is a plain semver version for karma
+590 verbose get https://registry.npmjs.org/karma-sauce-launcher not expired, no request
+591 silly addNameRange number 2 { name: 'karma-sauce-launcher',
+591 silly addNameRange   range: '>=1.2.0-0 <2.0.0-0',
+591 silly addNameRange   hasData: true }
+592 silly addNameRange versions [ 'karma-sauce-launcher',
+592 silly addNameRange   [ '0.0.2',
+592 silly addNameRange     '0.0.3',
+592 silly addNameRange     '0.0.4',
+592 silly addNameRange     '0.0.5',
+592 silly addNameRange     '0.0.6',
+592 silly addNameRange     '0.1.0',
+592 silly addNameRange     '0.1.1',
+592 silly addNameRange     '0.1.2',
+592 silly addNameRange     '0.1.3',
+592 silly addNameRange     '0.1.4',
+592 silly addNameRange     '0.1.5',
+592 silly addNameRange     '0.2.0',
+592 silly addNameRange     '0.1.7',
+592 silly addNameRange     '0.1.8',
+592 silly addNameRange     '0.2.1',
+592 silly addNameRange     '0.2.2',
+592 silly addNameRange     '0.2.3',
+592 silly addNameRange     '0.2.4',
+592 silly addNameRange     '0.2.5',
+592 silly addNameRange     '0.2.6',
+592 silly addNameRange     '0.2.7',
+592 silly addNameRange     '0.2.8',
+592 silly addNameRange     '0.2.9',
+592 silly addNameRange     '0.2.10',
+592 silly addNameRange     '0.2.11',
+592 silly addNameRange     '0.2.13',
+592 silly addNameRange     '0.2.14',
+592 silly addNameRange     '0.3.0',
+592 silly addNameRange     '0.3.1',
+592 silly addNameRange     '1.0.0',
+592 silly addNameRange     '1.1.0',
+592 silly addNameRange     '1.2.0' ] ]
+593 silly addNamed karma-sauce-launcher@1.2.0
+594 verbose addNamed "1.2.0" is a plain semver version for karma-sauce-launcher
+595 verbose get https://registry.npmjs.org/karma-jasmine-html-reporter not expired, no request
+596 silly addNameRange number 2 { name: 'karma-jasmine-html-reporter',
+596 silly addNameRange   range: '>=0.2.2-0 <0.3.0-0',
+596 silly addNameRange   hasData: true }
+597 silly addNameRange versions [ 'karma-jasmine-html-reporter',
+597 silly addNameRange   [ '0.1.4',
+597 silly addNameRange     '0.1.5',
+597 silly addNameRange     '0.1.6',
+597 silly addNameRange     '0.1.7',
+597 silly addNameRange     '0.1.8',
+597 silly addNameRange     '0.2.0',
+597 silly addNameRange     '0.2.1',
+597 silly addNameRange     '0.2.2',
+597 silly addNameRange     '1.0.0',
+597 silly addNameRange     '1.1.0',
+597 silly addNameRange     '1.2.0',
+597 silly addNameRange     '1.3.0',
+597 silly addNameRange     '1.3.1' ] ]
+598 silly addNamed karma-jasmine-html-reporter@0.2.2
+599 verbose addNamed "0.2.2" is a plain semver version for karma-jasmine-html-reporter
+600 silly cache afterAdd karma-junit-reporter@0.2.2
+601 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-junit-reporter\0.2.2\package\package.json not in flight; writing
+602 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt\1.0.3\package\package.json written
+603 silly cache afterAdd load-grunt-tasks@3.5.2
+604 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\load-grunt-tasks\3.5.2\package\package.json not in flight; writing
+605 silly cache afterAdd karma-chrome-launcher@2.2.0
+606 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-chrome-launcher\2.2.0\package\package.json not in flight; writing
+607 silly cache afterAdd grunt-jasmine-nodejs@1.6.0
+608 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt-jasmine-nodejs\1.6.0\package\package.json not in flight; writing
+609 silly cache afterAdd jasmine-core@2.9.0
+610 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\jasmine-core\2.9.0\package\package.json not in flight; writing
+611 silly cache afterAdd grunt-contrib-watch@1.0.0
+612 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt-contrib-watch\1.0.0\package\package.json not in flight; writing
+613 silly cache afterAdd lodash@4.17.11
+614 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\lodash\4.17.11\package\package.json not in flight; writing
+615 silly cache afterAdd grunt-karma@2.0.0
+616 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt-karma\2.0.0\package\package.json not in flight; writing
+617 silly cache afterAdd jasmine-node@2.0.0-beta4
+618 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\jasmine-node\2.0.0-beta4\package\package.json not in flight; writing
+619 silly cache afterAdd karma-jasmine@1.1.2
+620 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-jasmine\1.1.2\package\package.json not in flight; writing
+621 silly cache afterAdd time-grunt@1.4.0
+622 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\time-grunt\1.4.0\package\package.json not in flight; writing
+623 silly cache afterAdd karma-spec-reporter@0.0.32
+624 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-spec-reporter\0.0.32\package\package.json not in flight; writing
+625 silly cache afterAdd karma@2.0.5
+626 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma\2.0.5\package\package.json not in flight; writing
+627 silly cache afterAdd karma-sauce-launcher@1.2.0
+628 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-sauce-launcher\1.2.0\package\package.json not in flight; writing
+629 silly cache afterAdd karma-jasmine-html-reporter@0.2.2
+630 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-jasmine-html-reporter\0.2.2\package\package.json not in flight; writing
+631 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-junit-reporter\0.2.2\package\package.json written
+632 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\load-grunt-tasks\3.5.2\package\package.json written
+633 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-chrome-launcher\2.2.0\package\package.json written
+634 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt-jasmine-nodejs\1.6.0\package\package.json written
+635 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\jasmine-core\2.9.0\package\package.json written
+636 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt-contrib-watch\1.0.0\package\package.json written
+637 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\lodash\4.17.11\package\package.json written
+638 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt-karma\2.0.0\package\package.json written
+639 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\jasmine-node\2.0.0-beta4\package\package.json written
+640 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-jasmine\1.1.2\package\package.json written
+641 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\time-grunt\1.4.0\package\package.json written
+642 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-spec-reporter\0.0.32\package\package.json written
+643 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-jasmine-html-reporter\0.2.2\package\package.json written
+644 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-sauce-launcher\1.2.0\package\package.json written
+645 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma\2.0.5\package\package.json written
+646 info git [ 'config', '--get', 'remote.origin.url' ]
+647 silly validateExistingRemote git+https://github.com/gaelazzo/jsDataQuery.git remote.origin.url: https://github.com/gaelazzo/jsDataQuery.git
+648 verbose validateExistingRemote git+https://github.com/gaelazzo/jsDataQuery.git is updating existing cached remote C:\Users\Utente\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084
+649 info git [ 'fetch', '-a', 'origin' ]
+650 http 304 https://registry.npmjs.org/jasmine-collection-matchers
+651 verbose headers { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+651 verbose headers   connection: 'keep-alive',
+651 verbose headers   'set-cookie': [ '__cfduid=dae709489568da79e5cf0caf97f0690ac1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+651 verbose headers   'cf-cache-status': 'REVALIDATED',
+651 verbose headers   'cache-control': 'max-age=300',
+651 verbose headers   'cf-ray': '46a2c1363f113dad-MXP',
+651 verbose headers   etag: '"9eb238b980ab2b41268dc2668ab85ef5"',
+651 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+651 verbose headers   'last-modified': 'Sun, 27 May 2018 05:10:55 GMT',
+651 verbose headers   vary: 'accept-encoding, accept',
+651 verbose headers   server: 'cloudflare' }
+652 silly get cb [ 304,
+652 silly get   { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+652 silly get     connection: 'keep-alive',
+652 silly get     'set-cookie': [ '__cfduid=dae709489568da79e5cf0caf97f0690ac1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+652 silly get     'cf-cache-status': 'REVALIDATED',
+652 silly get     'cache-control': 'max-age=300',
+652 silly get     'cf-ray': '46a2c1363f113dad-MXP',
+652 silly get     etag: '"9eb238b980ab2b41268dc2668ab85ef5"',
+652 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+652 silly get     'last-modified': 'Sun, 27 May 2018 05:10:55 GMT',
+652 silly get     vary: 'accept-encoding, accept',
+652 silly get     server: 'cloudflare' } ]
+653 verbose etag https://registry.npmjs.org/jasmine-collection-matchers from cache
+654 verbose get saving jasmine-collection-matchers to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\jasmine-collection-matchers\.cache.json
+655 silly resolveWithNewModule jasmine-collection-matchers@0.2.0 checking installable status
+656 silly cache add args [ 'jasmine-collection-matchers@*', null ]
+657 verbose cache add spec jasmine-collection-matchers@*
+658 silly cache add parsed spec Result {
+658 silly cache add   raw: 'jasmine-collection-matchers@*',
+658 silly cache add   scope: null,
+658 silly cache add   name: 'jasmine-collection-matchers',
+658 silly cache add   rawSpec: '*',
+658 silly cache add   spec: '*',
+658 silly cache add   type: 'range' }
+659 silly addNamed jasmine-collection-matchers@*
+660 verbose addNamed "*" is a valid semver range for jasmine-collection-matchers
+661 silly addNameRange { name: 'jasmine-collection-matchers',
+661 silly addNameRange   range: '*',
+661 silly addNameRange   hasData: false }
+662 silly mapToRegistry name jasmine-collection-matchers
+663 silly mapToRegistry using default registry
+664 silly mapToRegistry registry https://registry.npmjs.org/
+665 silly mapToRegistry uri https://registry.npmjs.org/jasmine-collection-matchers
+666 verbose addNameRange registry:https://registry.npmjs.org/jasmine-collection-matchers not in flight; fetching
+667 http 304 https://registry.npmjs.org/observe-js
+668 verbose headers { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+668 verbose headers   connection: 'keep-alive',
+668 verbose headers   'set-cookie': [ '__cfduid=d61070d8c41505ea9bd4721196654e49d1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+668 verbose headers   'cf-cache-status': 'REVALIDATED',
+668 verbose headers   'cache-control': 'max-age=300',
+668 verbose headers   'cf-ray': '46a2c1364f064358-MXP',
+668 verbose headers   etag: '"9c3d3f027e8056deaf7a3c196128dfbf"',
+668 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+668 verbose headers   'last-modified': 'Sun, 27 May 2018 10:59:52 GMT',
+668 verbose headers   vary: 'accept-encoding, accept',
+668 verbose headers   server: 'cloudflare' }
+669 silly get cb [ 304,
+669 silly get   { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+669 silly get     connection: 'keep-alive',
+669 silly get     'set-cookie': [ '__cfduid=d61070d8c41505ea9bd4721196654e49d1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+669 silly get     'cf-cache-status': 'REVALIDATED',
+669 silly get     'cache-control': 'max-age=300',
+669 silly get     'cf-ray': '46a2c1364f064358-MXP',
+669 silly get     etag: '"9c3d3f027e8056deaf7a3c196128dfbf"',
+669 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+669 silly get     'last-modified': 'Sun, 27 May 2018 10:59:52 GMT',
+669 silly get     vary: 'accept-encoding, accept',
+669 silly get     server: 'cloudflare' } ]
+670 verbose etag https://registry.npmjs.org/observe-js from cache
+671 verbose get saving observe-js to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\observe-js\.cache.json
+672 verbose get https://registry.npmjs.org/jasmine-collection-matchers not expired, no request
+673 silly addNameRange number 2 { name: 'jasmine-collection-matchers',
+673 silly addNameRange   range: '*',
+673 silly addNameRange   hasData: true }
+674 silly addNameRange versions [ 'jasmine-collection-matchers',
+674 silly addNameRange   [ '0.0.0',
+674 silly addNameRange     '0.0.1',
+674 silly addNameRange     '0.0.2',
+674 silly addNameRange     '0.0.3',
+674 silly addNameRange     '0.0.4',
+674 silly addNameRange     '0.0.5',
+674 silly addNameRange     '0.0.6',
+674 silly addNameRange     '0.0.7',
+674 silly addNameRange     '0.0.8',
+674 silly addNameRange     '0.0.10',
+674 silly addNameRange     '0.1.0',
+674 silly addNameRange     '0.1.1',
+674 silly addNameRange     '0.1.2',
+674 silly addNameRange     '0.2.0' ] ]
+675 silly addNamed jasmine-collection-matchers@0.2.0
+676 verbose addNamed "0.2.0" is a plain semver version for jasmine-collection-matchers
+677 silly cache afterAdd jasmine-collection-matchers@0.2.0
+678 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\jasmine-collection-matchers\0.2.0\package\package.json not in flight; writing
+679 silly resolveWithNewModule observe-js@0.5.7 checking installable status
+680 silly cache add args [ 'observe-js@^0.5.7', null ]
+681 verbose cache add spec observe-js@^0.5.7
+682 silly cache add parsed spec Result {
+682 silly cache add   raw: 'observe-js@^0.5.7',
+682 silly cache add   scope: null,
+682 silly cache add   name: 'observe-js',
+682 silly cache add   rawSpec: '^0.5.7',
+682 silly cache add   spec: '>=0.5.7-0 <0.6.0-0',
+682 silly cache add   type: 'range' }
+683 silly addNamed observe-js@>=0.5.7-0 <0.6.0-0
+684 verbose addNamed ">=0.5.7-0 <0.6.0-0" is a valid semver range for observe-js
+685 silly addNameRange { name: 'observe-js',
+685 silly addNameRange   range: '>=0.5.7-0 <0.6.0-0',
+685 silly addNameRange   hasData: false }
+686 silly mapToRegistry name observe-js
+687 silly mapToRegistry using default registry
+688 silly mapToRegistry registry https://registry.npmjs.org/
+689 silly mapToRegistry uri https://registry.npmjs.org/observe-js
+690 verbose addNameRange registry:https://registry.npmjs.org/observe-js not in flight; fetching
+691 http 304 https://registry.npmjs.org/string.prototype.endswith
+692 verbose headers { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+692 verbose headers   connection: 'keep-alive',
+692 verbose headers   'set-cookie': [ '__cfduid=df193faf3dea241e92ad2bb2164d94f551539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+692 verbose headers   'cf-cache-status': 'REVALIDATED',
+692 verbose headers   'cache-control': 'max-age=300',
+692 verbose headers   'cf-ray': '46a2c13648013dc5-MXP',
+692 verbose headers   etag: '"ff3f6e5792dd6bd08a259830842b8341"',
+692 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+692 verbose headers   'last-modified': 'Sun, 27 May 2018 18:25:34 GMT',
+692 verbose headers   vary: 'accept-encoding, accept',
+692 verbose headers   server: 'cloudflare' }
+693 silly get cb [ 304,
+693 silly get   { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+693 silly get     connection: 'keep-alive',
+693 silly get     'set-cookie': [ '__cfduid=df193faf3dea241e92ad2bb2164d94f551539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+693 silly get     'cf-cache-status': 'REVALIDATED',
+693 silly get     'cache-control': 'max-age=300',
+693 silly get     'cf-ray': '46a2c13648013dc5-MXP',
+693 silly get     etag: '"ff3f6e5792dd6bd08a259830842b8341"',
+693 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+693 silly get     'last-modified': 'Sun, 27 May 2018 18:25:34 GMT',
+693 silly get     vary: 'accept-encoding, accept',
+693 silly get     server: 'cloudflare' } ]
+694 verbose etag https://registry.npmjs.org/string.prototype.endswith from cache
+695 verbose get saving string.prototype.endswith to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\string.prototype.endswith\.cache.json
+696 http 304 https://registry.npmjs.org/async-exec-cmd
+697 verbose headers { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+697 verbose headers   connection: 'keep-alive',
+697 verbose headers   'set-cookie': [ '__cfduid=d9f674d76abc83c69a4341e6f0dad630c1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+697 verbose headers   'cf-cache-status': 'REVALIDATED',
+697 verbose headers   'cache-control': 'max-age=300',
+697 verbose headers   'cf-ray': '46a2c1362f253dcb-MXP',
+697 verbose headers   etag: '"4669d1a85e27b48b9cc98c51370ac39c"',
+697 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+697 verbose headers   'last-modified': 'Sat, 26 May 2018 17:30:28 GMT',
+697 verbose headers   vary: 'accept-encoding, accept',
+697 verbose headers   server: 'cloudflare' }
+698 silly get cb [ 304,
+698 silly get   { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+698 silly get     connection: 'keep-alive',
+698 silly get     'set-cookie': [ '__cfduid=d9f674d76abc83c69a4341e6f0dad630c1539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+698 silly get     'cf-cache-status': 'REVALIDATED',
+698 silly get     'cache-control': 'max-age=300',
+698 silly get     'cf-ray': '46a2c1362f253dcb-MXP',
+698 silly get     etag: '"4669d1a85e27b48b9cc98c51370ac39c"',
+698 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+698 silly get     'last-modified': 'Sat, 26 May 2018 17:30:28 GMT',
+698 silly get     vary: 'accept-encoding, accept',
+698 silly get     server: 'cloudflare' } ]
+699 verbose etag https://registry.npmjs.org/async-exec-cmd from cache
+700 verbose get saving async-exec-cmd to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\async-exec-cmd\.cache.json
+701 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\jasmine-collection-matchers\0.2.0\package\package.json written
+702 verbose get https://registry.npmjs.org/observe-js not expired, no request
+703 silly addNameRange number 2 { name: 'observe-js',
+703 silly addNameRange   range: '>=0.5.7-0 <0.6.0-0',
+703 silly addNameRange   hasData: true }
+704 silly addNameRange versions [ 'observe-js', [ '0.1.0', '0.4.2', '0.5.7' ] ]
+705 silly addNamed observe-js@0.5.7
+706 verbose addNamed "0.5.7" is a plain semver version for observe-js
+707 silly cache afterAdd observe-js@0.5.7
+708 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\observe-js\0.5.7\package\package.json not in flight; writing
+709 silly resolveWithNewModule string.prototype.endswith@0.2.0 checking installable status
+710 silly cache add args [ 'string.prototype.endswith@^0.2.0', null ]
+711 verbose cache add spec string.prototype.endswith@^0.2.0
+712 silly cache add parsed spec Result {
+712 silly cache add   raw: 'string.prototype.endswith@^0.2.0',
+712 silly cache add   scope: null,
+712 silly cache add   name: 'string.prototype.endswith',
+712 silly cache add   rawSpec: '^0.2.0',
+712 silly cache add   spec: '>=0.2.0-0 <0.3.0-0',
+712 silly cache add   type: 'range' }
+713 silly addNamed string.prototype.endswith@>=0.2.0-0 <0.3.0-0
+714 verbose addNamed ">=0.2.0-0 <0.3.0-0" is a valid semver range for string.prototype.endswith
+715 silly addNameRange { name: 'string.prototype.endswith',
+715 silly addNameRange   range: '>=0.2.0-0 <0.3.0-0',
+715 silly addNameRange   hasData: false }
+716 silly mapToRegistry name string.prototype.endswith
+717 silly mapToRegistry using default registry
+718 silly mapToRegistry registry https://registry.npmjs.org/
+719 silly mapToRegistry uri https://registry.npmjs.org/string.prototype.endswith
+720 verbose addNameRange registry:https://registry.npmjs.org/string.prototype.endswith not in flight; fetching
+721 silly resolveWithNewModule async-exec-cmd@2.0.2 checking installable status
+722 silly cache add args [ 'async-exec-cmd@^2.0.2', null ]
+723 verbose cache add spec async-exec-cmd@^2.0.2
+724 silly cache add parsed spec Result {
+724 silly cache add   raw: 'async-exec-cmd@^2.0.2',
+724 silly cache add   scope: null,
+724 silly cache add   name: 'async-exec-cmd',
+724 silly cache add   rawSpec: '^2.0.2',
+724 silly cache add   spec: '>=2.0.2-0 <3.0.0-0',
+724 silly cache add   type: 'range' }
+725 silly addNamed async-exec-cmd@>=2.0.2-0 <3.0.0-0
+726 verbose addNamed ">=2.0.2-0 <3.0.0-0" is a valid semver range for async-exec-cmd
+727 silly addNameRange { name: 'async-exec-cmd',
+727 silly addNameRange   range: '>=2.0.2-0 <3.0.0-0',
+727 silly addNameRange   hasData: false }
+728 silly mapToRegistry name async-exec-cmd
+729 silly mapToRegistry using default registry
+730 silly mapToRegistry registry https://registry.npmjs.org/
+731 silly mapToRegistry uri https://registry.npmjs.org/async-exec-cmd
+732 verbose addNameRange registry:https://registry.npmjs.org/async-exec-cmd not in flight; fetching
+733 verbose get https://registry.npmjs.org/string.prototype.endswith not expired, no request
+734 silly addNameRange number 2 { name: 'string.prototype.endswith',
+734 silly addNameRange   range: '>=0.2.0-0 <0.3.0-0',
+734 silly addNameRange   hasData: true }
+735 silly addNameRange versions [ 'string.prototype.endswith', [ '0.1.0', '0.2.0' ] ]
+736 silly addNamed string.prototype.endswith@0.2.0
+737 verbose addNamed "0.2.0" is a plain semver version for string.prototype.endswith
+738 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\observe-js\0.5.7\package\package.json written
+739 verbose get https://registry.npmjs.org/async-exec-cmd not expired, no request
+740 silly addNameRange number 2 { name: 'async-exec-cmd',
+740 silly addNameRange   range: '>=2.0.2-0 <3.0.0-0',
+740 silly addNameRange   hasData: true }
+741 silly addNameRange versions [ 'async-exec-cmd',
+741 silly addNameRange   [ '0.0.0', '0.0.1', '0.0.2', '1.0.0', '2.0.0', '2.0.1', '2.0.2' ] ]
+742 silly addNamed async-exec-cmd@2.0.2
+743 verbose addNamed "2.0.2" is a plain semver version for async-exec-cmd
+744 silly cache afterAdd string.prototype.endswith@0.2.0
+745 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\string.prototype.endswith\0.2.0\package\package.json not in flight; writing
+746 silly cache afterAdd async-exec-cmd@2.0.2
+747 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\async-exec-cmd\2.0.2\package\package.json not in flight; writing
+748 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\string.prototype.endswith\0.2.0\package\package.json written
+749 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\async-exec-cmd\2.0.2\package\package.json written
+750 http 304 https://registry.npmjs.org/grunt-contrib-yuidoc
+751 verbose headers { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+751 verbose headers   connection: 'keep-alive',
+751 verbose headers   'set-cookie': [ '__cfduid=d87a52782e906e3a2dbbf165d3c7c22181539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+751 verbose headers   'cf-cache-status': 'REVALIDATED',
+751 verbose headers   'cache-control': 'max-age=300',
+751 verbose headers   'cf-ray': '46a2c1363d7d3db3-MXP',
+751 verbose headers   etag: '"37dc89bcf5e37f2d659ef78bbdc01c37"',
+751 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+751 verbose headers   'last-modified': 'Sun, 27 May 2018 02:52:27 GMT',
+751 verbose headers   vary: 'accept-encoding, accept',
+751 verbose headers   server: 'cloudflare' }
+752 silly get cb [ 304,
+752 silly get   { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+752 silly get     connection: 'keep-alive',
+752 silly get     'set-cookie': [ '__cfduid=d87a52782e906e3a2dbbf165d3c7c22181539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+752 silly get     'cf-cache-status': 'REVALIDATED',
+752 silly get     'cache-control': 'max-age=300',
+752 silly get     'cf-ray': '46a2c1363d7d3db3-MXP',
+752 silly get     etag: '"37dc89bcf5e37f2d659ef78bbdc01c37"',
+752 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+752 silly get     'last-modified': 'Sun, 27 May 2018 02:52:27 GMT',
+752 silly get     vary: 'accept-encoding, accept',
+752 silly get     server: 'cloudflare' } ]
+753 verbose etag https://registry.npmjs.org/grunt-contrib-yuidoc from cache
+754 verbose get saving grunt-contrib-yuidoc to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\grunt-contrib-yuidoc\.cache.json
+755 silly resolveWithNewModule grunt-contrib-yuidoc@1.0.0 checking installable status
+756 silly cache add args [ 'grunt-contrib-yuidoc@1.0.0', null ]
+757 verbose cache add spec grunt-contrib-yuidoc@1.0.0
+758 silly cache add parsed spec Result {
+758 silly cache add   raw: 'grunt-contrib-yuidoc@1.0.0',
+758 silly cache add   scope: null,
+758 silly cache add   name: 'grunt-contrib-yuidoc',
+758 silly cache add   rawSpec: '1.0.0',
+758 silly cache add   spec: '1.0.0',
+758 silly cache add   type: 'version' }
+759 silly addNamed grunt-contrib-yuidoc@1.0.0
+760 verbose addNamed "1.0.0" is a plain semver version for grunt-contrib-yuidoc
+761 silly mapToRegistry name grunt-contrib-yuidoc
+762 silly mapToRegistry using default registry
+763 silly mapToRegistry registry https://registry.npmjs.org/
+764 silly mapToRegistry uri https://registry.npmjs.org/grunt-contrib-yuidoc
+765 verbose addNameVersion registry:https://registry.npmjs.org/grunt-contrib-yuidoc not in flight; fetching
+766 verbose get https://registry.npmjs.org/grunt-contrib-yuidoc not expired, no request
+767 silly cache afterAdd grunt-contrib-yuidoc@1.0.0
+768 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt-contrib-yuidoc\1.0.0\package\package.json not in flight; writing
+769 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\grunt-contrib-yuidoc\1.0.0\package\package.json written
+770 http 304 https://registry.npmjs.org/karma-phantomjs-launcher
+771 verbose headers { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+771 verbose headers   connection: 'keep-alive',
+771 verbose headers   'set-cookie': [ '__cfduid=d967e9d535280c750aa2de9c7663bfa731539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+771 verbose headers   'cf-cache-status': 'REVALIDATED',
+771 verbose headers   'cache-control': 'max-age=300',
+771 verbose headers   'cf-ray': '46a2c1364d154352-MXP',
+771 verbose headers   etag: '"4a2ae931c1ed78e11e809098466f13a3"',
+771 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+771 verbose headers   'last-modified': 'Mon, 01 Oct 2018 02:15:42 GMT',
+771 verbose headers   vary: 'accept-encoding, accept',
+771 verbose headers   'x-amz-meta-rev': '71-a716e55ce8976d3a18f5383b5e889b62',
+771 verbose headers   server: 'cloudflare' }
+772 silly get cb [ 304,
+772 silly get   { date: 'Mon, 15 Oct 2018 13:50:27 GMT',
+772 silly get     connection: 'keep-alive',
+772 silly get     'set-cookie': [ '__cfduid=d967e9d535280c750aa2de9c7663bfa731539611426; expires=Tue, 15-Oct-19 13:50:26 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+772 silly get     'cf-cache-status': 'REVALIDATED',
+772 silly get     'cache-control': 'max-age=300',
+772 silly get     'cf-ray': '46a2c1364d154352-MXP',
+772 silly get     etag: '"4a2ae931c1ed78e11e809098466f13a3"',
+772 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+772 silly get     'last-modified': 'Mon, 01 Oct 2018 02:15:42 GMT',
+772 silly get     vary: 'accept-encoding, accept',
+772 silly get     'x-amz-meta-rev': '71-a716e55ce8976d3a18f5383b5e889b62',
+772 silly get     server: 'cloudflare' } ]
+773 verbose etag https://registry.npmjs.org/karma-phantomjs-launcher from cache
+774 verbose get saving karma-phantomjs-launcher to C:\Users\Utente\AppData\Roaming\npm-cache\registry.npmjs.org\karma-phantomjs-launcher\.cache.json
+775 silly resolveWithNewModule karma-phantomjs-launcher@1.0.4 checking installable status
+776 silly cache add args [ 'karma-phantomjs-launcher@^1.0.4', null ]
+777 verbose cache add spec karma-phantomjs-launcher@^1.0.4
+778 silly cache add parsed spec Result {
+778 silly cache add   raw: 'karma-phantomjs-launcher@^1.0.4',
+778 silly cache add   scope: null,
+778 silly cache add   name: 'karma-phantomjs-launcher',
+778 silly cache add   rawSpec: '^1.0.4',
+778 silly cache add   spec: '>=1.0.4-0 <2.0.0-0',
+778 silly cache add   type: 'range' }
+779 silly addNamed karma-phantomjs-launcher@>=1.0.4-0 <2.0.0-0
+780 verbose addNamed ">=1.0.4-0 <2.0.0-0" is a valid semver range for karma-phantomjs-launcher
+781 silly addNameRange { name: 'karma-phantomjs-launcher',
+781 silly addNameRange   range: '>=1.0.4-0 <2.0.0-0',
+781 silly addNameRange   hasData: false }
+782 silly mapToRegistry name karma-phantomjs-launcher
+783 silly mapToRegistry using default registry
+784 silly mapToRegistry registry https://registry.npmjs.org/
+785 silly mapToRegistry uri https://registry.npmjs.org/karma-phantomjs-launcher
+786 verbose addNameRange registry:https://registry.npmjs.org/karma-phantomjs-launcher not in flight; fetching
+787 verbose get https://registry.npmjs.org/karma-phantomjs-launcher not expired, no request
+788 silly addNameRange number 2 { name: 'karma-phantomjs-launcher',
+788 silly addNameRange   range: '>=1.0.4-0 <2.0.0-0',
+788 silly addNameRange   hasData: true }
+789 silly addNameRange versions [ 'karma-phantomjs-launcher',
+789 silly addNameRange   [ '0.0.1',
+789 silly addNameRange     '0.0.2',
+789 silly addNameRange     '0.0.3',
+789 silly addNameRange     '0.1.0',
+789 silly addNameRange     '0.1.1',
+789 silly addNameRange     '0.1.2',
+789 silly addNameRange     '0.1.3',
+789 silly addNameRange     '0.1.4',
+789 silly addNameRange     '0.2.0',
+789 silly addNameRange     '0.2.1',
+789 silly addNameRange     '0.2.2',
+789 silly addNameRange     '0.2.3',
+789 silly addNameRange     '1.0.0',
+789 silly addNameRange     '1.0.1',
+789 silly addNameRange     '1.0.2',
+789 silly addNameRange     '1.0.3',
+789 silly addNameRange     '1.0.4' ] ]
+790 silly addNamed karma-phantomjs-launcher@1.0.4
+791 verbose addNamed "1.0.4" is a plain semver version for karma-phantomjs-launcher
+792 silly cache afterAdd karma-phantomjs-launcher@1.0.4
+793 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-phantomjs-launcher\1.0.4\package\package.json not in flight; writing
+794 verbose afterAdd C:\Users\Utente\AppData\Roaming\npm-cache\karma-phantomjs-launcher\1.0.4\package\package.json written
+795 verbose updateRemote git fetch -a origin (https://github.com/gaelazzo/jsDataQuery.git)
+796 verbose setPermissions git+https://github.com/gaelazzo/jsDataQuery.git skipping chownr on Windows
+797 verbose resolveHead git+https://github.com/gaelazzo/jsDataQuery.git original treeish: master
+798 info git [ 'rev-list', '-n1', 'master' ]
+799 silly resolveHead git+https://github.com/gaelazzo/jsDataQuery.git resolved treeish: e6a09cab42ed157aea449409901cb471615edd11
+800 verbose resolveHead git+https://github.com/gaelazzo/jsDataQuery.git resolved Git URL: git+https://github.com/gaelazzo/jsDataQuery.git#e6a09cab42ed157aea449409901cb471615edd11
+801 silly resolveHead Git working directory: C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11
+802 info git [ 'clone',
+802 info git   'C:\\Users\\Utente\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084',
+802 info git   'C:\\Users\\Utente\\AppData\\Local\\Temp\\npm-7060-c7c32a1e\\git-cache-5cbaca209fef4ae54420c64e44ef95a2\\e6a09cab42ed157aea449409901cb471615edd11' ]
+803 error git clone C:\Users\Utente\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084 C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11: Cloning into 'C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11'...
+803 error git clone C:\Users\Utente\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084 C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11: error: cannot spawn sh: No such file or directory
+803 error git clone C:\Users\Utente\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084 C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11: fatal: unable to fork
+804 silly fetchPackageMetaData Error: Command failed: git -c core.longpaths=true clone C:\Users\Utente\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084 C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11
+804 silly fetchPackageMetaData Cloning into 'C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11'...
+804 silly fetchPackageMetaData error: cannot spawn sh: No such file or directory
+804 silly fetchPackageMetaData fatal: unable to fork
+804 silly fetchPackageMetaData
+804 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:213:12)
+804 silly fetchPackageMetaData     at emitTwo (events.js:87:13)
+804 silly fetchPackageMetaData     at ChildProcess.emit (events.js:172:7)
+804 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:821:16)
+804 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+804 silly fetchPackageMetaData  error for jsDataQuery@git+https://github.com/gaelazzo/jsDataQuery.git { [Error: Command failed: git -c core.longpaths=true clone C:\Users\Utente\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084 C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11
+804 silly fetchPackageMetaData Cloning into 'C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11'...
+804 silly fetchPackageMetaData error: cannot spawn sh: No such file or directory
+804 silly fetchPackageMetaData fatal: unable to fork
+804 silly fetchPackageMetaData ]
+804 silly fetchPackageMetaData   killed: false,
+804 silly fetchPackageMetaData   code: 128,
+804 silly fetchPackageMetaData   signal: null,
+804 silly fetchPackageMetaData   cmd: 'git -c core.longpaths=true clone C:\\Users\\Utente\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084 C:\\Users\\Utente\\AppData\\Local\\Temp\\npm-7060-c7c32a1e\\git-cache-5cbaca209fef4ae54420c64e44ef95a2\\e6a09cab42ed157aea449409901cb471615edd11' }
+805 silly rollbackFailedOptional Starting
+806 silly rollbackFailedOptional Finishing
+807 silly runTopLevelLifecycles Starting
+808 silly runTopLevelLifecycles Finishing
+809 silly install printInstalled
+810 verbose stack Error: Command failed: git -c core.longpaths=true clone C:\Users\Utente\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084 C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11
+810 verbose stack Cloning into 'C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11'...
+810 verbose stack error: cannot spawn sh: No such file or directory
+810 verbose stack fatal: unable to fork
+810 verbose stack
+810 verbose stack     at ChildProcess.exithandler (child_process.js:213:12)
+810 verbose stack     at emitTwo (events.js:87:13)
+810 verbose stack     at ChildProcess.emit (events.js:172:7)
+810 verbose stack     at maybeClose (internal/child_process.js:821:16)
+810 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+811 verbose cwd D:\progetti\Portale\client
+812 error Windows_NT 10.0.17134
+813 error argv "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Professional\\Web\\External\\Node.exe" "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Professional\\Web\\External\\node_modules\\npm\\bin\\npm-cli.js" "install"
+814 error node v5.4.1
+815 error npm  v3.3.4
+816 error code 128
+817 error Command failed: git -c core.longpaths=true clone C:\Users\Utente\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-gaelazzo-jsDataQuery-git-3104a5c8a8edf408cc8524390ef09084 C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11
+817 error Cloning into 'C:\Users\Utente\AppData\Local\Temp\npm-7060-c7c32a1e\git-cache-5cbaca209fef4ae54420c64e44ef95a2\e6a09cab42ed157aea449409901cb471615edd11'...
+817 error error: cannot spawn sh: No such file or directory
+817 error fatal: unable to fork
+818 error If you need help, you may report this error at:
+818 error     <https://github.com/npm/npm/issues>
+819 verbose exit [ 1, true ]

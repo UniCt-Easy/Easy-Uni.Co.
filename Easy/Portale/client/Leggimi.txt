@@ -1,0 +1,341 @@
+1. \client\bower_components\jstree\src\jstree.js
+../bower_components/jstree/dist/jstree.js
+ commentata riga #3823 poichÃƒÂ¨ la riga dopo extend non ha piÃƒÂ¹ getRow()
+------> node = $.extend(true, {}, node);
+
+nuovo jsTree la riga ÃƒÂ¨ : 3856
+
+2. Publish del backend su 10.10.10.201 RDP: administrator 123***********
+    Tasto dx su Backend , Pubblica...; Lasciare opzioni come sono. Una volta terminato il publish fai ctrl + click sul link.
+    Lui apre il filesystem nel punto dove ha compilato. copia e incolla del contenuto, tranne web.config, in cui potrebbero esserci customizzazioni
+    sulla folder del sito backend. Esegui stop e run del sito web da IIS.
+
+    Per forzare il downlaod dei js da ISS 2 modi:
+    1. ISS site -> (ISS HTTP RESPONSE) dbl click, -> Set Common Headers e quindi scegliere la politica
+    2. su index.htrml mettere ?<versione> sul js del bundle.js ogni volta che effettuo deploy
+
+2. publish client:
+
+    doppia configurazione:
+    1. semplice. fai root sito quindi copia  le varie folder:
+       - bower_components
+       -components
+       -componentsEasy
+       -dist
+       -<folderApp>
+       dentro la folderApp ci vanno i file come nell'alberatura di sviluppo + index.
+       Bisogna configurare basePathMetadata: "/<appFolder>/metadata/" sul file appMainconfig.js
+       Questo ÃƒÂ¨ l'unico file. il sito si richiama con ip/<appFolder>
+
+    2. complessa:
+    -copiare il client, bower_components, components, componentseasy e dist nella root del client
+    -modificare i path in appMainConfig.js (riga 16 basePathMetadata: Es: "/VisualMDLW/metadata/",)
+    -modificare i path in menubuidler.js (riga 70 Es:  var menuFirstlevel = appMeta.utils.syncGetHtml('VisualMDLW/menubuilder/MainItem_template.html');)
+    -modificare i path in index.html (stylesheet, custom, menubuilder, metadata, assets, localization, appmain)
+    - crea folder Upload sotto BE, e dai permsssi a ISS sulla folder padre. (prova se ÃƒÂ¨ raggiungibile da frontend, inserendo 1 allegato)
+
+    - bower_component sempre aggiornata
+    - copiare la cartella dist con il bundle
+    - aggiunge mime type application/woff e woff2 da iis
+
+* build: npm run build
+
+* debug stato appMeta.getDataUtils.getJsonFromJsDataSet(appMeta.currentMetaPage.state.DS)
+
+* script per login utente (per test)
+* lanciare script :r c:\<mioscript.sql>. da menÃƒÂ¹ query scegli "SQLCMD mode". copia incolla tutti i path degli script
+  copai incolla tutti i path di tutti gli script.
+
+* Gestione sicurezza:
+
+  1. Nella registrazione inseriamo su tabella "virtualuser". con "sys_user" si va su "customuser", con "username" su "registryreference"
+  2. Da Easy creo entry su dbaccess. stesso nome sys_user su virtual user
+     file -> Configurazione -> Configurazione TECNICA. 2a pag wizard metti dati connessione al db:
+     Nome server: 10.10.10.201
+     Nome Databse: Rettorato_Ok
+     Nome per connettersi: assistenza
+     Password dell'utente:123***********
+
+     -> Vai avanti fino al 5o tab
+     Fai Crea Nuova. inserisci un nome e una passoword (capire la pass se ÃƒÂ¨ quela per entrare sul db con quell'utente) . Premere ok
+     A questo punto crea una entry su "dbaccess"
+
+    ->  Seleziona login appena creata nella combo. e fai -> Aggiungi utente al dipartimento. poi premi annulla
+
+     Ora devi aggiungere su organigramma
+     2 strade:
+     A. Opzioni -> Gestione Sicurezza -> Organigramma -> utenti
+        inserisci il sys_user su virtual user e premi cerca! non dovrebbe trovare nulla!
+        Allora fai inserisci e digita su codice il sys_user.
+        Scegli come login nella combo la login scelta sopra quando hai creato la entry su dbaccess
+        Premi salva. Lui crea entry su "customuser". In cui "username" su "customuser" ÃƒÂ¨ login su "dbaccess"
+        Dopo salva si abilita pulsante applica.
+        Quando termina l'utnete sys_user verrÃƒÂ  aggiunto nell'organigramma con le sue userenvironment applicate
+
+        A questo punto si puÃƒÂ² aggiungere alla voce dell'organigramma con determinate funzioni abilitate
+        Opzioni -> Gestione Sicurezza -> Organigramma -> Organigramma
+        Seleziona la voce dall'albero
+        Vai su tab utenti e premi Aggiungi
+        Nel caso segreterie puoi aggiungere una voce nuova tipo admin segreterie. Dare i privilegi e poi aggiungere nel tab gli utenti
+        Scegli l'utente dalla lista, sarÃƒÂ  sempre il sys_usr, metti descrizione ruolo e premi ok
+        Premi salva sulla maschera. A questo punto l'utente avrÃƒÂ  i privilegi di quella voce nell'organigramma
+
+        Se fai  Opzioni -> Gestione Sicurezza -> Utenti Gruppi e cerchi il sys_usr avrÃƒÂ  il gruppo ORGANIGRAMMA
+
+        -> su flowchart c'ÃƒÂ¨ ayear. quindi fai attenzione nell'ambiente di sviluppo che il db sia allineato, altrimenti non calcola idflowchart e nDetail
+        Chiama la SP closeyear_flowchartcopy, sposta i virtual user nel 2020:
+
+        DECLARE	@return_value int
+        EXEC	@return_value = [amm].[closeyear_flowchartcopy]
+        		@startayear = 2019,
+        		@stopayear = 2020
+        SELECT	'Return Value' = @return_value
+        GO
+
+        -> Per impostare privilegio su una particolare tabella . Gestione Sicurezza -> Procedura guidata sicurezza Tabelle
+
+        -> http://localhost:54471/admin/clearCache + http://localhost:54471/admin/clearSessions
+
+        N.B se crei voce su organigramma puoi fare a n-esimo livello.
+        Configurabii qui:
+        Opzioni -> Gestione Sicurezza -> Organigramma -> Livelli Organigramma
+        La voce eredita tutti i privilegi della voce padre, ma poi posso sel/des ogni funzione.
+
+        * FlagAdmin su USERENVIRONMENT, indica N di tipo usr, S sys
+
+        * cambio data consentita. Legge data contabile da client. esegue la query su flowchartuser.
+        L'id deve iniziare per le 'rime 2 cifre dell'anno quindi 19 se 2019 o 20 se 2020.
+        (select * from amm.flowchartuser where idcustomuser= 'nino')
+
+        * QUERY UTILI:
+
+        select * from registry where idreg = 1040549
+        select * from registryreference  where userweb = 'studtest'
+        select * from registryclass
+        select * from dbaccess
+        select * from virtualuser where sys_user= 'studtest' --username su  customuser
+        select * from customuser where username= 'studtest' -- idcustomuser su customusergroup
+        select * from amm.flowchartuser where idcustomuser= 'studtest' -- idcustomuser su customusergroup
+        select * from customusergroup where idcustomuser= 'studtest' -- idcustomgroup su customgroup
+        select * from customgroup where idcustomgroup = 'manage_prestazioni' -- idgroup su customgroupoperation
+        select * from customgroupoperation where idgroup = 'manage_prestazioni'
+        select * from customgroupoperation where idgroup = 'ORGANIGRAMMA' and tablename = 'contrattokind'
+        select * from amm.flowchartuser where idflowchart = '1900010042' // nino 1900010004
+
+        // --> title: admin segreterei studenti il 1900010042
+        // --> title: admin il 1900010004
+        select * from securitycondition where idcustomgroup = 'manage_prestazioni' -- idrestrictedfunction su restrictedfunction
+        select * from securitycondition where idcustomgroup = 'ORGANIGRAMMA' and tablename = 'contrattokind'
+        select * from customgroupoperation where idgroup = 'ORGANIGRAMMA' and tablename = 'registry'
+        select * from restrictedfunction where idrestrictedfunction = 1
+        SELECT * FROM [Rettorato_Ok].[amm].[flowchartuser] where idflowchart = '1900010042' --idflowchart su flowchart
+        select * from securitycondition where idrestrictedfunction  = 54 and idcustomgroup = 'ORGANIGRAMMA'
+        select * from amm.USERENVIRONMENT where idcustomuser = 'studtest' and variablename='anagrafica_read'
+        select * from amm.FLOWCHARTRESTRICTEDFUNCTION where idflowchart = '1900010042'
+        select * from restrictedfunction where idrestrictedfunction in (1,54, 61)
+
+
+        /************ ALTRE QUERY UTILI CONFIG UTENTE*************** /
+        --setuser 'amministrazione'
+        --declare @user varchar(50) = 'l.salvatore@unifortunato.eu'; -- 'monitor'--'912917'  --1983 prova progetti (tutto) --1997 funz amm progetti
+        --declare @esercizio int = 2021;
+        ----select * from dbo.customgroupoperation  where allowcondition like '%mw_%' or allowcondition like '%mr_%'
+        --select 'dbo.customusergroup' as tablename,* from dbo.customusergroup where [idcustomuser]= @user --ÃƒÂ¨ ORGANIGRAMMA per tutti
+        --select 'userenvironment' as tablename,* from userenvironment where [idcustomuser]= @user order by variablename --variabili e utenti senza invÃƒÂ¬fluenza dell'esercizio
+        --select 'dbo.restrictedfunction' as tablename,* from dbo.restrictedfunction where idrestrictedfunction in (select idrestrictedfunction from FlowChartrestrictedfunction where idflowchart in (select idflowchart from FlowChartUser where [idcustomuser]= @user and idflowchart in (select idflowchart from flowchart where ayear= @esercizio)))
+        --select 'FlowChartrestrictedfunction ' as tablename,* from FlowChartrestrictedfunction where idflowchart in (select idflowchart from FlowChartUser where [idcustomuser]= @user and idflowchart in (select idflowchart from flowchart where ayear= @esercizio)) order by idflowchart--spunte tra in organigramma sulle singole varaibili
+        --select 'flowchart' as tablename,* from flowchart where idflowchart in (select idflowchart from FlowChartUser where [idcustomuser]= @user) and ayear= @esercizio;
+        --select 'FlowChartUser' as tablename,* from FlowChartUser where [idcustomuser]= @user and idflowchart in (select idflowchart from flowchart where ayear= @esercizio)-->>>>>>>>>>>>>>TENDINA DI SELEZIONE
+        ----select 'WebUser' as tablename,* from [WebUser] where [username]= @user --non serve MAI
+        --select 'dbo.customuser' as tablename,* from dbo.[customuser] where [username]= @user
+        --select 'dbo.dbuser' as tablename,* from dbo.[dbuser] where [login]= @user --non serve SSO
+        --select 'dbo.dbaccess' as tablename,* from dbo.[dbaccess] where [login]= @user --non serve SSO
+        --select 'dbo.virtualuser' as tablename,* from dbo.virtualuser where /*userkind = 5*/ username = @user or sys_user = @user --1 >> se c'ÃƒÂ¨ l'utente diventa sysuser se non c'ÃƒÂ¨ l'utente resta l'utente E VA AVANTI
+        --select 'dbo.registryreference' as tablename,* from dbo.registryreference where userweb = @user --2 ----------------------------------------------->>>>>>>>>>>>>>>>>registrati
+        --select 'dbo.registry' as tablename,* from dbo.registry where idreg = (select top 1 idreg from registryreference where userweb = @user) --3
+        --select 'dbo.registry_docenti' as tablename,* from dbo.registry_docenti where idreg = (select top 1 idreg from registryreference where userweb = @user) --3
+        --select 'dbo.registry_studenti' as tablename,* from dbo.registry_studenti where idreg = (select top 1 idreg from registryreference where userweb = @user) --3
+        --select 'dbo.registry_amministrativi' as tablename,* from dbo.registry_amministrativi where idreg = (select top 1 idreg from registryreference where userweb = @user)--3
+
+           /************ FINE ALTRE QUERY UTILI *************** /
+
+***  GESTIONE MENU ***
+1. creare Admin- > varie -> gestione Sicurezza -> funzioni di restrizione. crea mettendo "Menu web nome funzionalitÃƒÂ "
+nome_variabile = mw_<id_menuweb> e salva
+
+2. Admin- > varie -> gestione Sicurezza -> variabili sicurezza. metti nome variabile mw_<id_menuweb> Tipo "Lista da Store Procedure". metti "compute_set"
+Che calcolerÃƒÂ  'S' o 'N'. Salva
+
+3. Ora bisogna propagare la nuova var di sicurezza al virtual user.
+opzioni -> Gestione sicurezza -> Organigramma -> utenti.
+Scelgi il virtual user nel codice, e premi appplica.
+
+4. Assegna o disabilita su organigramma
+opzioni -> Gestione sicurezza -> Organigramma -> Organigramma.
+Tab funzioni puoi selezionare o deselezionare
+
+5. Lato client arriva appMeta.security.usrEnv[mw_<id_menuweb>] che varrÃƒÂ  S o N
+
+N.B: il menÃƒÂ¹ si carica una volta sola
+
+-> i menÃƒÂ¹ che appaiono come primo livello devono avere lo stesso padre cioÃƒÂ¨ colonna idmenuparent.
+A B C
+avranno come idmenuparent null ad esempio
+
+
+*** FINE GESTIONE MENU ***
+
+*** PORTALE SSO CONFIG ***
+
+1. FE -> bottone redirect su loginSAML BE
+2. sul BE invoca metodo della dll, prendendo le info da saml.config, in particolare la url del SSO idp, il certs e la password.
+il Be utlizza la dll di terze parti ComponentSpace.SAML2.dll
+3. se connesso ridireziona sulla consumer, la quale ridireziona a sua volta su FE costruendo una sessione sso ed invdiando al client questa info
+4. il client legge prm in get e automaticamente invoca login SSO con tale sessione
+5. il be confronta la sessione e vede se ÃƒÂ¨ scaduta, default 2 minuti.
+6. se ok rispeonde con solite info di login cioÃƒÂ¨ token generato, colelzione di usr env.
+
+FE:
+ssoEnable: false -> true su appMainConfig
+
+monitor password monitorpasswdk561
+
+BE:
+chiave appSetting frontendSSO, mettere la url del frontend, completa fino a index.html
+controllare userkind su AppSettings
+controllare cert e password su saml.config
+
+*** FINE SSO CONFIG ***
+
+*** didiprog pulizia se teste2e va male:
+declare @id int = 89;
+delete from didprog where iddidprog = @id
+delete from didprogcurr where iddidprog = @id
+delete from didprogcurrcaratteristica where iddidprog = @id
+delete from didprogori where iddidprog = @id
+delete from didproganno where iddidprog = @id
+delete from didprogporzanno where iddidprog = @id
+delete from attivform where iddidprog = @id
+delete from attivformcaratteristica where iddidprog = @id
+delete from attivformcaratteristicaora where iddidprog = @id
+delete from canale where iddidprog = @id
+delete from didprograppstud where iddidprog = @id
+delete from didprogclassconsorsuale where iddidprog = @id
+delete from affidamento where iddidprog = @id
+delete from affidamentoattach where iddidprog = @id
+delete from affidamentocaratteristica where iddidprog = @id
+delete from affidamentocaratteristicaora where iddidprog = @id
+delete from attivformproped where iddidprog = @id
+
+---------- log errori --------------------
+
+SELECT TOP (1000) [id]
+      ,[message]
+      ,[date]
+      ,[idapppages]
+  FROM [unibas_easy].[dbo].[applogging]
+  where idapppages is null  order by date desc
+
+
+----------apertura di una pagina-----------
+-afterLink : html disegnato; dataset vuoto.
+-beforeActivation
+-filteredPreFillCombo()
+-setCaption()
+
+-se principale e in stato di ricerca:
+    -afterActivation
+    -startClearMainRowEvent
+    -clear() la currentRow diventa null;
+    -stopClearMainRowEvent
+    -fine (pagina vuota pronta per la ricerca)
+
+-se dettaglio:
+    -doGET(): popola il dataset!!!!
+    -afterActivation
+    -startMainRowSelectionEvent
+    -reFillControl()
+        -beforeFill
+        -fillControl() i controlli vengono riempiti con i valori!!!!
+        -afterFill
+    -stopMainRowSelectionEvent
+
+-refreshToolbar()
+-optionalMainDoSearch(): se valorizzata la variabile firstSearchFilter
+
+----------scelgo un elemento da un elenco (principale) -----------
+-se premo cerca e produce l'elenco e io scelgo, oppure se ÃƒÂ¨ un risultato solo:
+    -clearDataset(): pulisce tabelle tranne le temporanee e cacheate
+    -startClearMainRowEvent
+    -clear() la currentRow diventa null;
+    -afterClear
+    -stopClearMainRowEvent
+    -getDSByRowKey(): riempie il dataset a pratire dalla riga principale (scantable lato backend)
+    -startMainRowSelectionEvent
+    -reFillControl()
+        -beforeFill
+        -fillControl() i controlli vengono riempiti con i valori!!!!
+        -afterFill
+    -stopMainRowSelectionEvent
+
+----------scelgo un elemento da un controllo (drodowngrid, autochoose, griglie, dropdown) -----------
+-quando un controllo di scelta cambia:
+    -beforeRowSelect(t,r)
+    -doGET(): popola il dataset!!!!
+    -reFillControl()
+        -beforeFill
+        -fillControl() i controlli vengono riempiti con i valori!!!!
+        -afterFill
+    -afterrowselect(t,r)
+
+
+
+****************************************************************************
+uni piemonte:
+
+accedere in desktop remoto su 193.206.62.206 con
+nome utente master e
+password asseasy
+l'accesso deve avvenire dal nostro indirizzo IP quindi se non ti ÃƒÂ¨ troppo scomodo puoi fare ponte dalla 201.
+database:
+Easy_Unico_Progetti
+utente easyweb_ro password #read_only_for_web_report#
+server sql 193.206.59.101,1433
+utente dipartimentale amministrazione con pwd AMMINSITRAZIONE
+Dipartimento Ã¢â‚¬ËœAmministrazioneÃ¢â‚¬â„¢
+******************************************************************************
+
+export dati tramite SMS:
+db_name > attivitÃƒÂ  > genera script > scegli la tabella > avanzate >solo dati.
+
+
+****************************************************************************
+Regole:
+Abilita Admin:
+Opzioni -> Regole -> Regola.
+Inserisci, metti codcie e descrizione -> Poi premi dettagli. Non dovrebbe trovare nulla oppure le regole figlie giÃƒÂ  impostate
+Premi inserisci. Seleziona la tabella, metti messaggio, seleziona pre o post. seleziona sotto applicazione le tre casse.
+Premi su sql ed inserisci la regola in posisitvo, cioÃƒÂ¨ quando va bene.
+Per l'ottimizzatore premi uno dei 6 rettangoli in alto.
+
+****************************************************************************
+url esempio con prm per apertura veloce
+http://localhost:63342/client/app_segreterie/indexDebug.html?tablename=registry&edittype=docenti&searchon=on
+http://localhost:63342/client/app_segreterie/indexDebug.html?tablename=registry&edittype=admin&searchon=off
+
+DEBUG SSO:
+1. usa questa url, simulando sso abbia rispsoto e be abbia creato una sessione:
+http://localhost:63342/client/app_segreterie/indexDebug.html?username=911322&session=123
+
+2. sul be in debug salta le seguenti righe (o commentale se non ÃƒÂ¨ in debug.):
+
+--> if (sessionInfoSSO == null)
+
+---> if (authenticatedSSO != null)
+
+nel caso di test registrazione metti sul web.config EnableSSORegistraton = true
+aggiungere un asessionInfo fake: sessionInfoSSO = new SessionInfoSSO(userName, "forenametest1", "surnametest1", "emailtest1", "codiceFiscale");
+con codiceFiscale nullo se vuoi testare utente senza codice fiscale
+
+***************************************************************************
+mail usiamo: https://www.nuget.org/packages/MailKit/

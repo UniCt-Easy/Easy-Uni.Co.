@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -43,10 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'raggruppamento', 'Raggruppamento', null, 10, 2048);
 						this.describeAColumn(table, 'workpackage_title', 'Workpackage', null, 20, 2048);
 						this.describeAColumn(table, 'progettotipocosto_title', 'Voce di costo', null, 30, 2048);
-						this.describeAColumn(table, 'ammissibilita', 'Ammissibilit‡', 'fixed.2', 40, null);
+						this.describeAColumn(table, 'ammissibilita', 'Ammissibilit√†', 'fixed.2', 40, null);
 						this.describeAColumn(table, 'amount', 'Importo', 'fixed.2', 50, null);
-						this.describeAColumn(table, 'contrattokind_title', 'Tipo di contratto', null, 60, 50);
-						this.describeAColumn(table, 'rendicontattivitaprogetto_description', 'Attivit‡ svolta', null, 70, -1);
+						this.describeAColumn(table, 'position_title', 'Tipo di contratto', null, 60, 50);
+						this.describeAColumn(table, 'rendicontattivitaprogetto_description', 'Attivit√† svolta', null, 70, -1);
 						this.describeAColumn(table, 'doc', 'Documento collegato', null, 80, 35);
 						this.describeAColumn(table, 'docdate', 'Data contabile', null, 90, null);
 						this.describeAColumn(table, 'adate', 'Data liquidazione', null, 100, null);
@@ -71,7 +54,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["adate"].caption = "Data liquidazione";
+						table.columns["ammissibilita"].caption = "Ammissibilit√†";
+						table.columns["amount"].caption = "Importo";
+						table.columns["cf"].caption = "CF fornitore";
+						table.columns["description"].caption = "Descrizione spesa";
+						table.columns["doc"].caption = "Documento collegato";
+						table.columns["docdate"].caption = "Data contabile";
+						table.columns["idprogetto"].caption = "Progetto";
+						table.columns["nmov"].caption = "N. movimento spesa";
+						table.columns["noperation"].caption = "Numero operazione";
+						table.columns["p_iva"].caption = "P. IVA fornitore";
+						table.columns["payment_adate"].caption = "Data mandato di pagamento ";
+						table.columns["pettycash_description"].caption = "Descrizione fondo economale";
+						table.columns["pettycash_pettycode"].caption = "Codice fondo economale";
+						table.columns["position_title"].caption = "Tipo di contratto";
+						table.columns["progettotipocosto_title"].caption = "Voce di costo";
+						table.columns["registry_title"].caption = "Fornitore";
+						table.columns["rendicontattivitaprogetto_description"].caption = "Attivit√† svolta";
+						table.columns["transactiondate"].caption = "Data quietanza banca";
+						table.columns["transmissiondate"].caption = "Data di trasmissione alla banca";
+						table.columns["workpackage_title"].caption = "Workpackage";
+						table.columns["ymov"].caption = "Anno movimento spesa";
+						table.columns["yoperation"].caption = "Esercizio operazione";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			primaryKey: function () {
 				return ["idprogetto", "idgetprogettocostoview"];

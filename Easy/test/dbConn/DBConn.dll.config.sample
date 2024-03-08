@@ -1,11 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <configuration>
-  <appSettings>
-    
-    <!-- Attenzione l'elenco dei parametri per l'accesso al database è posizionale e separato da ; -->
-    <!-- Di seguito la formattazione della stringa                                                 -->
-    <!-- DSN; HostName; DbName; DbUser; DbPass;                                                    -->
-    <add key="DSN1" value="descrizione;nome server;nome db;nome utente dipartimento;password utente dipartimento"/>
-    <add key="DSN2" value="DSNDescription;HostName;DbName;DbUser;DBPass"/>
-  </appSettings>
+Â  <appSettings>
+Â  Â  
+Â  Â  <!-- Attenzione l'elenco dei parametri per l'accesso al database Ã¨ posizionale e separato da ; -->
+Â  Â  <!-- Di seguito la formattazione della stringa Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  -->
+Â  Â  <!-- DSN; HostName; DbName; DbUser; DbPass; Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â -->
+Â  Â  <add key="DSN1" value="descrizione;nome server;nome db;nome utente dipartimento;password utente dipartimento"/>
+Â  Â  <add key="DSN2" value="DSNDescription;HostName;DbName;DbUser;DBPass"/>
+Â  Â  <add key="sample" value="Easy_Sample;10.10.10.122;Easy_Sample;amministrazione;assistenza;123***********"/>
+Â  Â  <add key="test" value="Easy_Test;10.10.10.122;Easy_Test;amministrazione;assistenza;123***********"/>
+Â  Â  <add key="sample_2" value="Easy_Sample_2;10.10.10.122;Easy_Sample_2;amministrazione;assistenza;123***********"/>
+Â  Â  <add key="test_2" value="Easy_Test_2;10.10.10.122;Easy_Test_2;amministrazione;assistenza;123***********"/>
+Â  Â  <add key="sample_3" value="Easy_Sample_3;10.10.10.122;Easy_Sample_3;amministrazione;assistenza;123***********"/>
+Â  Â  <add key="test_3" value="Easy_Test_3;10.10.10.122;Easy_Test_3;amministrazione;assistenza;123***********"/>
+Â  Â  <add key="sample_4" value="Easy_Sample_4;10.10.10.122;Easy_Sample_4;amministrazione;assistenza;123***********"/>
+Â  Â  <add key="test_4" value="Easy_Test_4;10.10.10.122;Easy_Test_4;amministrazione;assistenza;123***********"/>
+Â  </appSettings>
 </configuration>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -172,6 +172,7 @@ public partial class viterbo_finvar_default :MetaPage {
         DS.viterbo_finvardetailview.Columns["idsor1"].ExtendedProperties["ViewSource"] = "viterbo_finvardetail.idsor1";
         DS.viterbo_finvardetailview.Columns["idsor2"].ExtendedProperties["ViewSource"] = "viterbo_finvardetail.idsor2";
         DS.viterbo_finvardetailview.Columns["idsor3"].ExtendedProperties["ViewSource"] = "viterbo_finvardetail.idsor3";
+        DS.viterbo_finvardetailview.Columns["idsor4"].ExtendedProperties["ViewSource"] = "viterbo_finvardetail.idsor4";
 
         HelpForm.SetDenyNull(DS.Tables["viterbo_finvar"].Columns["official"], true);
 
@@ -420,7 +421,7 @@ public partial class viterbo_finvar_default :MetaPage {
 
         string SqlFilter = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
         GetData.CacheTable(DS.config, SqlFilter, null, false);
-        Meta.myGetData.ReadCached();
+        //Meta.GetFormData.myGetData.ReadCached();
         if (DS.Tables["config"].Rows.Count == 0)
             return;
         DataRow R = DS.Tables["config"].Rows[0];

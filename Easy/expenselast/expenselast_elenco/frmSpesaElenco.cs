@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -86,6 +86,9 @@ namespace expenselast_elenco//spesamodcreddebi//
 		private Button btnUpb;
 		private GroupBox groupCredDeb;
 		private TextBox txtCredDeb;
+		private GroupBox groupBox1;
+		private TextBox txtTreasurer;
+		private TextBox txtCodeTreasurer;
 
 		/// <summary>
 		/// Required designer variable.
@@ -164,6 +167,9 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.dataGrid1 = new System.Windows.Forms.DataGrid();
 			this.groupCredDeb = new System.Windows.Forms.GroupBox();
 			this.txtCredDeb = new System.Windows.Forms.TextBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.txtCodeTreasurer = new System.Windows.Forms.TextBox();
+			this.txtTreasurer = new System.Windows.Forms.TextBox();
 			this.grpDescrizione.SuspendLayout();
 			this.grpImporti.SuspendLayout();
 			this.gboxBolletta.SuspendLayout();
@@ -177,6 +183,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
 			this.groupCredDeb.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// grpDescrizione
@@ -184,7 +191,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.grpDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpDescrizione.Controls.Add(this.txtDescrizione);
-			this.grpDescrizione.Location = new System.Drawing.Point(25, 97);
+			this.grpDescrizione.Location = new System.Drawing.Point(22, 88);
 			this.grpDescrizione.Name = "grpDescrizione";
 			this.grpDescrizione.Size = new System.Drawing.Size(301, 56);
 			this.grpDescrizione.TabIndex = 63;
@@ -213,9 +220,9 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.grpImporti.Controls.Add(this.label12);
 			this.grpImporti.Controls.Add(this.txtImportoDisponibile);
 			this.grpImporti.Controls.Add(this.txtImportoCorrente);
-			this.grpImporti.Location = new System.Drawing.Point(24, 352);
+			this.grpImporti.Location = new System.Drawing.Point(22, 367);
 			this.grpImporti.Name = "grpImporti";
-			this.grpImporti.Size = new System.Drawing.Size(609, 64);
+			this.grpImporti.Size = new System.Drawing.Size(598, 64);
 			this.grpImporti.TabIndex = 62;
 			this.grpImporti.TabStop = false;
 			this.grpImporti.Text = "Situazione riassuntiva importo del movimento";
@@ -226,7 +233,7 @@ namespace expenselast_elenco//spesamodcreddebi//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox4.Location = new System.Drawing.Point(404, 38);
 			this.textBox4.Name = "textBox4";
-			this.textBox4.Size = new System.Drawing.Size(113, 20);
+			this.textBox4.Size = new System.Drawing.Size(102, 20);
 			this.textBox4.TabIndex = 2;
 			this.textBox4.TabStop = false;
 			this.textBox4.Tag = "expenselastview.notperformed?x";
@@ -264,7 +271,7 @@ namespace expenselast_elenco//spesamodcreddebi//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtImportoDisponibile.Location = new System.Drawing.Point(208, 40);
 			this.txtImportoDisponibile.Name = "txtImportoDisponibile";
-			this.txtImportoDisponibile.Size = new System.Drawing.Size(113, 20);
+			this.txtImportoDisponibile.Size = new System.Drawing.Size(102, 20);
 			this.txtImportoDisponibile.TabIndex = 0;
 			this.txtImportoDisponibile.TabStop = false;
 			this.txtImportoDisponibile.Tag = "expenselastview.performed?x";
@@ -275,7 +282,7 @@ namespace expenselast_elenco//spesamodcreddebi//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtImportoCorrente.Location = new System.Drawing.Point(208, 16);
 			this.txtImportoCorrente.Name = "txtImportoCorrente";
-			this.txtImportoCorrente.Size = new System.Drawing.Size(113, 20);
+			this.txtImportoCorrente.Size = new System.Drawing.Size(102, 20);
 			this.txtImportoCorrente.TabIndex = 0;
 			this.txtImportoCorrente.TabStop = false;
 			this.txtImportoCorrente.Tag = "expensetotal.curramount?expenselastview.curramount";
@@ -284,16 +291,16 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			this.gboxBolletta.Controls.Add(this.lblBolletta);
 			this.gboxBolletta.Controls.Add(this.SubEntity_txtBolletta);
-			this.gboxBolletta.Location = new System.Drawing.Point(184, 288);
+			this.gboxBolletta.Location = new System.Drawing.Point(181, 284);
 			this.gboxBolletta.Name = "gboxBolletta";
-			this.gboxBolletta.Size = new System.Drawing.Size(188, 36);
+			this.gboxBolletta.Size = new System.Drawing.Size(188, 46);
 			this.gboxBolletta.TabIndex = 58;
 			this.gboxBolletta.TabStop = false;
 			this.gboxBolletta.Tag = "AutoChoose.SubEntity_txtBolletta.spesa.(active=\'S\')";
 			// 
 			// lblBolletta
 			// 
-			this.lblBolletta.Location = new System.Drawing.Point(6, 12);
+			this.lblBolletta.Location = new System.Drawing.Point(2, 19);
 			this.lblBolletta.Name = "lblBolletta";
 			this.lblBolletta.Size = new System.Drawing.Size(50, 20);
 			this.lblBolletta.TabIndex = 2;
@@ -302,7 +309,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// SubEntity_txtBolletta
 			// 
-			this.SubEntity_txtBolletta.Location = new System.Drawing.Point(62, 12);
+			this.SubEntity_txtBolletta.Location = new System.Drawing.Point(58, 19);
 			this.SubEntity_txtBolletta.Name = "SubEntity_txtBolletta";
 			this.SubEntity_txtBolletta.Size = new System.Drawing.Size(100, 20);
 			this.SubEntity_txtBolletta.TabIndex = 1;
@@ -312,9 +319,9 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			this.grpMandato.Controls.Add(this.SubEntity_txtNumMandato);
 			this.grpMandato.Controls.Add(this.label28);
-			this.grpMandato.Location = new System.Drawing.Point(25, 288);
+			this.grpMandato.Location = new System.Drawing.Point(22, 283);
 			this.grpMandato.Name = "grpMandato";
-			this.grpMandato.Size = new System.Drawing.Size(153, 50);
+			this.grpMandato.Size = new System.Drawing.Size(153, 78);
 			this.grpMandato.TabIndex = 57;
 			this.grpMandato.TabStop = false;
 			this.grpMandato.Tag = "AutoChoose.SubEntity_txtNumMandato.default ";
@@ -322,7 +329,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// SubEntity_txtNumMandato
 			// 
-			this.SubEntity_txtNumMandato.Location = new System.Drawing.Point(59, 20);
+			this.SubEntity_txtNumMandato.Location = new System.Drawing.Point(54, 25);
 			this.SubEntity_txtNumMandato.Name = "SubEntity_txtNumMandato";
 			this.SubEntity_txtNumMandato.Size = new System.Drawing.Size(64, 20);
 			this.SubEntity_txtNumMandato.TabIndex = 2;
@@ -330,7 +337,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// label28
 			// 
-			this.label28.Location = new System.Drawing.Point(6, 20);
+			this.label28.Location = new System.Drawing.Point(6, 25);
 			this.label28.Name = "label28";
 			this.label28.Size = new System.Drawing.Size(48, 16);
 			this.label28.TabIndex = 13;
@@ -340,7 +347,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// SubEntity_chbCoperturaIniziativa
 			// 
 			this.SubEntity_chbCoperturaIniziativa.Enabled = false;
-			this.SubEntity_chbCoperturaIniziativa.Location = new System.Drawing.Point(184, 323);
+			this.SubEntity_chbCoperturaIniziativa.Location = new System.Drawing.Point(181, 332);
 			this.SubEntity_chbCoperturaIniziativa.Name = "SubEntity_chbCoperturaIniziativa";
 			this.SubEntity_chbCoperturaIniziativa.Size = new System.Drawing.Size(179, 29);
 			this.SubEntity_chbCoperturaIniziativa.TabIndex = 59;
@@ -349,7 +356,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// label11
 			// 
-			this.label11.Location = new System.Drawing.Point(19, 19);
+			this.label11.Location = new System.Drawing.Point(16, 11);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(40, 16);
 			this.label11.TabIndex = 51;
@@ -358,7 +365,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// txtNum
 			// 
-			this.txtNum.Location = new System.Drawing.Point(526, 21);
+			this.txtNum.Location = new System.Drawing.Point(523, 13);
 			this.txtNum.Name = "txtNum";
 			this.txtNum.Size = new System.Drawing.Size(99, 20);
 			this.txtNum.TabIndex = 56;
@@ -366,7 +373,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// label14
 			// 
-			this.label14.Location = new System.Drawing.Point(459, 21);
+			this.label14.Location = new System.Drawing.Point(456, 13);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(54, 16);
 			this.label14.TabIndex = 55;
@@ -375,7 +382,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// txtEserc
 			// 
-			this.txtEserc.Location = new System.Drawing.Point(385, 21);
+			this.txtEserc.Location = new System.Drawing.Point(382, 13);
 			this.txtEserc.Name = "txtEserc";
 			this.txtEserc.Size = new System.Drawing.Size(56, 20);
 			this.txtEserc.TabIndex = 54;
@@ -383,7 +390,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// label15
 			// 
-			this.label15.Location = new System.Drawing.Point(304, 22);
+			this.label15.Location = new System.Drawing.Point(301, 14);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(75, 16);
 			this.label15.TabIndex = 52;
@@ -396,7 +403,7 @@ namespace expenselast_elenco//spesamodcreddebi//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbFaseSpesa.DataSource = this.DS.expensephase;
 			this.cmbFaseSpesa.DisplayMember = "description";
-			this.cmbFaseSpesa.Location = new System.Drawing.Point(66, 20);
+			this.cmbFaseSpesa.Location = new System.Drawing.Point(63, 12);
 			this.cmbFaseSpesa.Name = "cmbFaseSpesa";
 			this.cmbFaseSpesa.Size = new System.Drawing.Size(232, 21);
 			this.cmbFaseSpesa.TabIndex = 53;
@@ -413,7 +420,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.grpDocCollegato.Controls.Add(this.label10);
 			this.grpDocCollegato.Controls.Add(this.txtDataDocumento);
 			this.grpDocCollegato.Controls.Add(this.label2);
-			this.grpDocCollegato.Location = new System.Drawing.Point(337, 97);
+			this.grpDocCollegato.Location = new System.Drawing.Point(334, 88);
 			this.grpDocCollegato.Name = "grpDocCollegato";
 			this.grpDocCollegato.Size = new System.Drawing.Size(302, 56);
 			this.grpDocCollegato.TabIndex = 64;
@@ -459,7 +466,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// grpResponsabile
 			// 
 			this.grpResponsabile.Controls.Add(this.SubEntity_txtResponsabile);
-			this.grpResponsabile.Location = new System.Drawing.Point(339, 155);
+			this.grpResponsabile.Location = new System.Drawing.Point(336, 146);
 			this.grpResponsabile.Name = "grpResponsabile";
 			this.grpResponsabile.Size = new System.Drawing.Size(300, 40);
 			this.grpResponsabile.TabIndex = 95;
@@ -482,9 +489,9 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.grpBilancio.Controls.Add(this.btnBilancio);
 			this.grpBilancio.Controls.Add(this.txtCodiceBilancio);
 			this.grpBilancio.Controls.Add(this.txtDenominazioneBilancio);
-			this.grpBilancio.Location = new System.Drawing.Point(339, 200);
+			this.grpBilancio.Location = new System.Drawing.Point(336, 192);
 			this.grpBilancio.Name = "grpBilancio";
-			this.grpBilancio.Size = new System.Drawing.Size(301, 86);
+			this.grpBilancio.Size = new System.Drawing.Size(300, 86);
 			this.grpBilancio.TabIndex = 93;
 			this.grpBilancio.TabStop = false;
 			this.grpBilancio.Tag = "AutoManage.txtCodiceBilancio.treealls";
@@ -512,7 +519,7 @@ namespace expenselast_elenco//spesamodcreddebi//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCodiceBilancio.Location = new System.Drawing.Point(11, 56);
 			this.txtCodiceBilancio.Name = "txtCodiceBilancio";
-			this.txtCodiceBilancio.Size = new System.Drawing.Size(285, 20);
+			this.txtCodiceBilancio.Size = new System.Drawing.Size(284, 20);
 			this.txtCodiceBilancio.TabIndex = 1;
 			this.txtCodiceBilancio.Tag = "fin.codefin?expenselastview.codefin";
 			// 
@@ -520,12 +527,12 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			this.txtDenominazioneBilancio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenominazioneBilancio.Location = new System.Drawing.Point(123, 8);
+			this.txtDenominazioneBilancio.Location = new System.Drawing.Point(129, 8);
 			this.txtDenominazioneBilancio.Multiline = true;
 			this.txtDenominazioneBilancio.Name = "txtDenominazioneBilancio";
 			this.txtDenominazioneBilancio.ReadOnly = true;
 			this.txtDenominazioneBilancio.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtDenominazioneBilancio.Size = new System.Drawing.Size(173, 45);
+			this.txtDenominazioneBilancio.Size = new System.Drawing.Size(166, 45);
 			this.txtDenominazioneBilancio.TabIndex = 2;
 			this.txtDenominazioneBilancio.TabStop = false;
 			this.txtDenominazioneBilancio.Tag = "fin.title";
@@ -535,7 +542,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.grpUpb.Controls.Add(this.btnUpb);
 			this.grpUpb.Controls.Add(this.txtUpb);
 			this.grpUpb.Controls.Add(this.textBox3);
-			this.grpUpb.Location = new System.Drawing.Point(25, 200);
+			this.grpUpb.Location = new System.Drawing.Point(22, 191);
 			this.grpUpb.Name = "grpUpb";
 			this.grpUpb.Size = new System.Drawing.Size(301, 86);
 			this.grpUpb.TabIndex = 96;
@@ -545,7 +552,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// btnUpb
 			// 
-			this.btnUpb.Location = new System.Drawing.Point(11, 33);
+			this.btnUpb.Location = new System.Drawing.Point(14, 31);
 			this.btnUpb.Name = "btnUpb";
 			this.btnUpb.Size = new System.Drawing.Size(104, 20);
 			this.btnUpb.TabIndex = 3;
@@ -566,7 +573,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox3.Location = new System.Drawing.Point(121, 8);
+			this.textBox3.Location = new System.Drawing.Point(124, 8);
 			this.textBox3.Multiline = true;
 			this.textBox3.Name = "textBox3";
 			this.textBox3.ReadOnly = true;
@@ -582,7 +589,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.grpDate.Controls.Add(this.txtDataCont);
 			this.grpDate.Controls.Add(this.txtScadenza);
 			this.grpDate.Controls.Add(this.label13);
-			this.grpDate.Location = new System.Drawing.Point(25, 155);
+			this.grpDate.Location = new System.Drawing.Point(22, 146);
 			this.grpDate.Name = "grpDate";
 			this.grpDate.Size = new System.Drawing.Size(301, 40);
 			this.grpDate.TabIndex = 97;
@@ -625,7 +632,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// label6
 			// 
-			this.label6.Location = new System.Drawing.Point(21, 420);
+			this.label6.Location = new System.Drawing.Point(19, 434);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(606, 16);
 			this.label6.TabIndex = 99;
@@ -637,7 +644,7 @@ namespace expenselast_elenco//spesamodcreddebi//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGrid2.DataMember = "";
 			this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGrid2.Location = new System.Drawing.Point(22, 434);
+			this.dataGrid2.Location = new System.Drawing.Point(20, 453);
 			this.dataGrid2.Name = "dataGrid2";
 			this.dataGrid2.Size = new System.Drawing.Size(610, 73);
 			this.dataGrid2.TabIndex = 98;
@@ -645,7 +652,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			// 
 			// label7
 			// 
-			this.label7.Location = new System.Drawing.Point(20, 518);
+			this.label7.Location = new System.Drawing.Point(18, 534);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(606, 16);
 			this.label7.TabIndex = 100;
@@ -657,7 +664,7 @@ namespace expenselast_elenco//spesamodcreddebi//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGrid1.DataMember = "";
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGrid1.Location = new System.Drawing.Point(23, 534);
+			this.dataGrid1.Location = new System.Drawing.Point(21, 553);
 			this.dataGrid1.Name = "dataGrid1";
 			this.dataGrid1.Size = new System.Drawing.Size(610, 65);
 			this.dataGrid1.TabIndex = 101;
@@ -668,7 +675,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.groupCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupCredDeb.Controls.Add(this.txtCredDeb);
-			this.groupCredDeb.Location = new System.Drawing.Point(25, 51);
+			this.groupCredDeb.Location = new System.Drawing.Point(22, 42);
 			this.groupCredDeb.Name = "groupCredDeb";
 			this.groupCredDeb.Size = new System.Drawing.Size(397, 40);
 			this.groupCredDeb.TabIndex = 102;
@@ -686,10 +693,38 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.txtCredDeb.TabIndex = 1;
 			this.txtCredDeb.Tag = "registry.title?expenselastview.registry";
 			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.txtTreasurer);
+			this.groupBox1.Controls.Add(this.txtCodeTreasurer);
+			this.groupBox1.Location = new System.Drawing.Point(375, 284);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(262, 46);
+			this.groupBox1.TabIndex = 103;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Cassiere del Sospeso";
+			// 
+			// txtCodeTreasurer
+			// 
+			this.txtCodeTreasurer.Location = new System.Drawing.Point(7, 19);
+			this.txtCodeTreasurer.Name = "txtCodeTreasurer";
+			this.txtCodeTreasurer.Size = new System.Drawing.Size(45, 20);
+			this.txtCodeTreasurer.TabIndex = 0;
+			this.txtCodeTreasurer.Tag = "expenselastview.codetreasurer?x";
+			// 
+			// txtTreasurer
+			// 
+			this.txtTreasurer.Location = new System.Drawing.Point(58, 19);
+			this.txtTreasurer.Name = "txtTreasurer";
+			this.txtTreasurer.Size = new System.Drawing.Size(189, 20);
+			this.txtTreasurer.TabIndex = 1;
+			this.txtTreasurer.Tag = "expenselastview.treasurer?x";
+			// 
 			// Frm_expenselast_elenco
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(646, 605);
+			this.ClientSize = new System.Drawing.Size(646, 632);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.groupCredDeb);
 			this.Controls.Add(this.dataGrid1);
 			this.Controls.Add(this.label7);
@@ -736,6 +771,8 @@ namespace expenselast_elenco//spesamodcreddebi//
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
 			this.groupCredDeb.ResumeLayout(false);
 			this.groupCredDeb.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -790,7 +827,9 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.grpUpb.Enabled = abilita;
 			this.grpDate.Enabled = abilita;
 			this.grpImporti.Enabled = abilita;
-	 
+
+			this.txtCodeTreasurer.Enabled = abilita;
+			this.txtTreasurer.Enabled = abilita;
 		}
 
  

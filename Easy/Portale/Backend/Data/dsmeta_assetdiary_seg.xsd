@@ -39,6 +39,7 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />

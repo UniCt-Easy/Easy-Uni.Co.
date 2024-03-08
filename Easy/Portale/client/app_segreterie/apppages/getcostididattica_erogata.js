@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -51,6 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var parentRow = self.state.currentRow;
 				
 				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#getcostididattica_erogata_idposition'), null);
+				} else {
+					this.helpForm.filter($('#getcostididattica_erogata_idposition'), this.q.eq('position_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#getcostididattica_erogata_idreg_docenti'), null);
 				} else {
 					this.helpForm.filter($('#getcostididattica_erogata_idreg_docenti'), this.q.eq('registry_active', 'Si'));
@@ -74,8 +62,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#getcostididattica_erogata_idposition'), null);
 				this.helpForm.filter($('#getcostididattica_erogata_idreg_docenti'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
@@ -88,7 +80,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				this.setDenyNull("getcostididattica","iddidprog");
 				this.setDenyNull("getcostididattica","iddidprogcurr");
 				this.setDenyNull("getcostididattica","idaffidamento");
-				this.setDenyNull("getcostididattica","idcontrattokind");
+				this.setDenyNull("getcostididattica","idposition");
+				appMeta.metaModel.insertFilter(this.getDataTable("affidamentokinddefaultview"), this.q.eq('affidamentokind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -99,12 +92,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-getcostididattica_erogata");
-				$('#getcostididattica_erogata_idcorsostudio').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#getcostididattica_erogata_idcorsostudio').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#getcostididattica_erogata_idsede').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#getcostididattica_erogata_idsede').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#getcostididattica_erogata_aa').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#getcostididattica_erogata_aa').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#getcostididattica_erogata_idcorsostudio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
+				$('#getcostididattica_erogata_idcorsostudio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
+				$('#getcostididattica_erogata_idsede').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idsede);
+				$('#getcostididattica_erogata_idsede').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idsede);
+				$('#getcostididattica_erogata_aa').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.aa);
+				$('#getcostididattica_erogata_aa').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.aa);
 				if (t.name === "corsostudiodefaultview" && r !== null) {
 					this.state.DS.tables.didprogdefaultview.staticFilter(window.jsDataQuery.eq("idcorsostudio", r.idcorsostudio));
 					if (this.state.DS.tables.didprogdefaultview.rows.length)
@@ -113,8 +106,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							$('#getcostididattica_erogata_iddidprog').val('');
 						}
 				}
-				$('#getcostididattica_erogata_iddidprog').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#getcostididattica_erogata_iddidprog').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#getcostididattica_erogata_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#getcostididattica_erogata_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#getcostididattica_erogata_idcorsostudio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#getcostididattica_erogata_idcorsostudio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
 				if (t.name === "didprogdefaultview" && r !== null) {
 					this.state.DS.tables.didprogcurr.staticFilter(window.jsDataQuery.eq("iddidprog", r.iddidprog));
 					if (this.state.DS.tables.didprogcurr.rows.length)
@@ -123,10 +118,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							$('#getcostididattica_erogata_iddidprogcurr').val('');
 						}
 				}
-				$('#getcostididattica_erogata_iddidprogcurr').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#getcostididattica_erogata_iddidprogcurr').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#getcostididattica_erogata_idcontrattokind').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#getcostididattica_erogata_idcontrattokind').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#getcostididattica_erogata_iddidprogcurr').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#getcostididattica_erogata_iddidprogcurr').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#getcostididattica_erogata_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#getcostididattica_erogata_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#getcostididattica_erogata_idposition').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idposition);
+				$('#getcostididattica_erogata_idposition').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idposition);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -153,14 +150,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				if (!$('#getcostididattica_erogata_iddidprogcurr').val() && this.children.includes(grid.dataSourceName)) {
 					return this.showMessageOk('Prima devi selezionare un valore per il campo Curriculum');
 				}
-				if (!$('#getcostididattica_erogata_idcontrattokind').val() && this.children.includes(grid.dataSourceName)) {
+				if (!$('#getcostididattica_erogata_idposition').val() && this.children.includes(grid.dataSourceName)) {
 					return this.showMessageOk('Prima devi selezionare un valore per il campo Ruolo');
 				}
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
 			},
 
-			//beforePost
+			beforePost: function () {
+				var self = this;
+				this.getDataTable('corsostudiodefaultview').acceptChanges();
+				this.getDataTable('sededefaultview').acceptChanges();
+				this.getDataTable('annoaccademico').acceptChanges();
+				this.getDataTable('didprogdefaultview').acceptChanges();
+				this.getDataTable('didprogcurr').acceptChanges();
+				this.getDataTable('insegndefaultview').acceptChanges();
+				this.getDataTable('insegnintegdefaultview').acceptChanges();
+				this.getDataTable('affidamentokinddefaultview').acceptChanges();
+				this.getDataTable('positiondefaultview').acceptChanges();
+				this.getDataTable('registrydocentiview').acceptChanges();
+				//innerBeforePost
+			},
 
 			children: [''],
 			haveChildren: function () {

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,6 +13,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[sp_mail_previsione_budget_insufficiente]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -87,15 +88,15 @@ CREATE TABLE ##previsioni(
 
 if ((select count(*) from ##previsioni) =0)
 Begin
-	drop table ##previsioni
-
-	RETURN --  se non ci sono dati, non invia la mail.
+	--drop table ##previsioni
+	--RETURN --  se non ci sono dati, non invia la mail.
+	set @message_subject = @message_subject + ' - NON CI SONO DATI DA MOSTRARE'
 End
 
 declare @message_toolong  NVARCHAR(MAX)
 set @message_toolong = ""
 
-if ((select count(*) from ##previsioni) >800)
+if ((select count(*) from ##previsioni) >100)
 Begin
 	set @message_toolong = char(13)+"Le dimensioni del file allegato o dei risultati sono superiori al valore consentito, per cui non verranno visualizzate tutte le righe. "+
 				"Eseguire l'esportazione da programma per visualizzare tutti i risultati."
@@ -105,7 +106,7 @@ DECLARE @StringSelect nvarchar(4000)
 
 
 	SET @StringSelect = 
-	' SELECT top 800' +
+	' SELECT top 100' +
 '		tipo_mov_budget , '+
 '		idupb  , '+
 '		codeupb  , '+
@@ -162,7 +163,7 @@ SET @StringSql =@StringSelect + @StringFrom
 
 		set @xml_contratti =
 		 cast(
-		 (select top 800
+		 (select top 100
 			isnull([tipo_mov_budget],'') as 'td' , ''
 			,isnull([idupb],'') as 'td' , ''
 			,isnull([Codeupb],'') as 'td' , ''
@@ -269,12 +270,15 @@ SET @StringSql =@StringSelect + @StringFrom
 declare @separatore char(1)
 set @separatore = char(9)
 declare @mittente varchar(100)
-set @mittente = 'notifiche@temposrl.com'
-IF EXISTS (select * from license where cf ='02044190615' )
+set @mittente = 'notifiche@temposrl.com' -- unitus
+IF ( exists (select * from license where cf ='02044190615' ) or exists (select * from license where cf ='94021400026' ))
 Begin
+	-- unina2 e PO
 	 set @mittente ='notifiche'
 End
- 
+
+
+
 EXEC msdb.dbo.sp_send_dbmail
  @profile_name = @mittente
 , @recipients = @email -- 'assistenzasw@temposrl.com'--'saradeca@inwind.it'--; carmela.luise@unicampania.it; Giovanni.RUSSO@unicampania.it; francesco.capruzzi@temposrl.com'
@@ -298,3 +302,4 @@ END
 go
 
 	  --exec sp_mail_previsione_budget_insufficiente 'assistenzasw@temposrl.com'
+	  

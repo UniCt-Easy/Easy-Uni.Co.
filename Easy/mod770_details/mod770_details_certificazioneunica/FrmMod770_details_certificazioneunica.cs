@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,7 +45,8 @@ namespace mod770_details_certificazioneunica
 		private System.Windows.Forms.Button btnSalvaIn;
 		public mod770_details_certificazioneunica.vistaForm DS;
 		private MetaData Meta;
-		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+		private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
+		private ISaveFileDialog saveFileDialog1;
         private Button buttonRecordG;
         private Button buttonRecordH;
         private GroupBox groupBox1;
@@ -71,7 +72,8 @@ namespace mod770_details_certificazioneunica
         private Button btnLegendaDH;
         private Button btnStampaH;
         private Button btnStampaG;
-        private FolderBrowserDialog folderBrowserDialog1;
+        private FolderBrowserDialog _folderBrowserDialog1;
+        private IFolderBrowserDialog folderBrowserDialog1;
         private GroupBox groupBox5;
         private DataGrid dataGrid;
         private CheckBox chkConpaginavuota;
@@ -80,7 +82,8 @@ namespace mod770_details_certificazioneunica
         private Label label2;
         private TextBox txtInputFile;
         private Button btnInputFile;
-        private OpenFileDialog MyOpenFile;
+        private OpenFileDialog _MyOpenFile;
+        private IOpenFileDialog MyOpenFile;
 		
 		/// <summary>
 		/// Required designer variable.
@@ -93,11 +96,13 @@ namespace mod770_details_certificazioneunica
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            MyOpenFile.FileName = "openFileDialog";
+            MyOpenFile.Title = "Selezionare il file Excel da importare";
+            saveFileDialog1.DefaultExt = "cur";
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -126,7 +131,7 @@ namespace mod770_details_certificazioneunica
             this.btnGenera770 = new System.Windows.Forms.Button();
             this.txtPercorso = new System.Windows.Forms.TextBox();
             this.btnSalvaIn = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.buttonRecordG = new System.Windows.Forms.Button();
             this.buttonRecordH = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -152,7 +157,7 @@ namespace mod770_details_certificazioneunica
             this.btnLegendaB = new System.Windows.Forms.Button();
             this.btnDatiA = new System.Windows.Forms.Button();
             this.btnLegendaA = new System.Windows.Forms.Button();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dataGrid = new System.Windows.Forms.DataGrid();
             this.chkConpaginavuota = new System.Windows.Forms.CheckBox();
@@ -162,7 +167,10 @@ namespace mod770_details_certificazioneunica
             this.label2 = new System.Windows.Forms.Label();
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnInputFile = new System.Windows.Forms.Button();
-            this.MyOpenFile = new System.Windows.Forms.OpenFileDialog();
+            this._MyOpenFile = new System.Windows.Forms.OpenFileDialog();
+            this.MyOpenFile = createOpenFileDialog(this._MyOpenFile);
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -215,7 +223,7 @@ namespace mod770_details_certificazioneunica
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "cur";
+            //this.saveFileDialog1.DefaultExt = "cur";
             // 
             // buttonRecordG
             // 
@@ -572,8 +580,8 @@ namespace mod770_details_certificazioneunica
             // 
             // MyOpenFile
             // 
-            this.MyOpenFile.FileName = "openFileDialog";
-            this.MyOpenFile.Title = "Selezionare il file Excel da importare";
+            //this.MyOpenFile.FileName = "openFileDialog";
+            //this.MyOpenFile.Title = "Selezionare il file Excel da importare";
             // 
             // Frmmod770_details_certificazioneunica
             // 

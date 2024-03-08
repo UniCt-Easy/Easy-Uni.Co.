@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
+ 
 --setuser 'amministrazione'
 CREATE PROCEDURE [exp_interscambio_compensi_csa]
 (
@@ -35,8 +35,8 @@ CREATE PROCEDURE [exp_interscambio_compensi_csa]
 @extmatricula varchar(40),
 @mask int
 )
- 
-
+--[exp_interscambio_compensi_csa] {d '2023-12-31'}, '2023', {d '2023-01-01'}, {d '2023-12-31'}, '001201', '2'
+-- exp_interscambio_csa_record08 {d '2023-12-31'}, '2023', '70049', 'U00007', {d '2023-01-01'}, {d '2023-12-31'}, '001201', '2'
  
 AS
 -- exec exp_interscambio_compensi_csa {ts '2017-02-01 01:02:03'} ,2017,{ts '2017-02-01 01:02:03'} ,{ts '2017-02-28 01:02:03'}, '001383', 1
@@ -246,6 +246,7 @@ WHERE (
 AND S.flagadvancebalance = 'S' -- Attenzione dobbiamo considerare solo le spese a saldo
 AND S.iditinerationrefundkind <> @idtipo_rimborso_forfettario
 GROUP BY  S.iditineration, S.flagadvancebalance, S.flag_geo, M.voce8000refund_i, M.voce8000refund_e
+HAVING SUM(S.amount) <> 0
 
 -- Consideriamo l'indennità kilometrica, calcolata come:  kmProprio * ImpProprio + KmAmm * ImpAmm + KmPiedi * ImpPiedi
 INSERT INTO #SpeseMissione(iditineration, flagadvancebalance, flag_geo, amount, voce8000refund_i,voce8000refund_e)
@@ -260,6 +261,7 @@ FROM itineration S
 JOIN #Missione M 
 	ON S.iditineration = M.iditineration
 where (select count(*) from itinerationrefund where  itinerationrefund.iditineration = S.iditineration)=0
+and 	round( convert(decimal(19,2), isnull(S.owncarkm,0)) * isnull(S.owncarkmcost,0) + convert(decimal(19,2), isnull(S.admincarkm,0)) *  isnull(S.admincarkmcost,0) + convert(decimal(19,2), isnull(S.footkm,0)) * isnull(S.footkmcost,0),2) <> 0
 
 
 -- Assumiamo per diaria il particolare tipo rimborso forfettario O7_FORFETTARIO
@@ -376,9 +378,11 @@ WHERE I.iditineration IS NOT NULL
 )
 where 	idregistrylegalstatus is null
 
---select * from #Missione
---select * from #SpeseMissione
+--select '#Missione',* from #Missione 
 
+--select '#Missione',* from #Missione-- where flag_geo <> 'I'
+--select '#SpeseMissione',* from #SpeseMissione where flag_geo = 'I'
+--select '#SpeseMissione',* from #SpeseMissione where flag_geo <> 'I'
 --SELECT
 --#Italia.*
 --FROM #Missione
@@ -400,7 +404,7 @@ Round((#Missione.curramount*#Italia.amount)/ ISNULL((SELECT SUM(#SpeseMissione.a
 #Missione.codeser,#Missione.service,#Missione.module,#Missione.itinerationvisible,#Missione.idregistrylegalstatus
 FROM #Missione
 	JOIN #SpeseMissione #Italia		ON #Missione.iditineration = #Italia.iditineration AND #Italia.flag_geo = 'I'
-	 
+		 
  --SELECT * from #pagamenti
 INSERT INTO #pagamenti( idexp,kind,voce8000refund_e,capitolo,importo,idreg,extmatricula,ymov,nmov,
 transmissiondate,codeser,service,module,itinerationvisible,idregistrylegalstatus)

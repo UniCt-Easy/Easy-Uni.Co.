@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,11 +37,34 @@ CREATE     PROCEDURE rpt_corrispettivi
 	@idsor05 int = null
 )
 AS BEGIN
- 
--- exec rpt_corrispettivi 2009, 9, 1, 'S'
--- exec rpt_corrispettivi 2009, 9, 5, 'N'
+
+-- setuser 'amministrazione'
+-- exec rpt_corrispettivi 2019, 3, 65, null, null, null, null, null, null 
+-- exec rpt_corrispettivi 2019, 4, 65, null, null, null, null, null, null
 
 CREATE TABLE #sales
+(
+	codeinvkind varchar(20),idinvkind int,	
+	codeivaregisterkind varchar(20),	
+	yinv int,
+	reg_day int,
+	reg_month varchar(20),
+	taxable decimal(19,2),
+	description  varchar(300),
+	tax_with_rate1 decimal(19,2),
+	tax_with_rate2 decimal(19,2),
+	tax_with_rate3 decimal(19,2),
+	tax_with_rate4 decimal(19,2),
+	zerorated decimal(19,2),
+
+	flagintracom char(1),
+	registerclass char(1),	--tipo registro A/V
+	kind char(1),			--tipo fattura A/V
+	flagvariation char(1)
+)
+
+-- tabella per inserire i dati dei mesi precedenti
+CREATE TABLE #sales_prev
 (
 	codeinvkind varchar(20),idinvkind int,	
 	codeivaregisterkind varchar(20),	
@@ -100,6 +123,12 @@ DECLARE @paramvalue4 varchar(10)
 SELECT @paramvalue4 = paramvalue
 FROM reportadditionalparam  
 WHERE reportname = 'registrocorrispettivi' AND paramname = 'Aliquota4'
+and (
+	(@year > year(start) and stop is null) or 
+	(@year = year(start) and @month >= month(start) and stop is null) or 
+	(@year = year(stop) and @month <= month(stop) and stop is not null) or 
+	(@year < year(stop) and stop is not null)
+)
 IF ( ISNUMERIC(@paramvalue4) = 1 )
 BEGIN
 	SET @rate4 = CONVERT(decimal(19,3),@paramvalue4)
@@ -111,35 +140,27 @@ SELECT  @rate5 = CONVERT(decimal(19,3),0)
 DECLARE @monthname varchar(20)
 SELECT  @monthname = title FROM monthname WHERE code = @month
 
--- Dati relativi ai mesi precedenti
-INSERT INTO #sales
+-- dati dei mesi precedenti
+INSERT INTO #sales_prev
 (
-	codeinvkind,			
+	codeinvkind,
+	idinvkind,
 	codeivaregisterkind,	
 	yinv,
+	reg_day,
 	reg_month,
-	taxable,
 	flagintracom,
 	registerclass,	--tipo registro A/V
 	kind, 			--tipo fattura A/V
 	flagvariation
 )
-
 SELECT
-	'RIPORTO',
-	'RIPORTO',
-	@year,
+	invoicekind.codeinvkind,
+	ivaregister.idinvkind,
+	ivaregisterkind.codeivaregisterkind,	
+	ivaregister.yinv,
+	datepart(dd,invoice.adate),
 	@monthname,
-	CONVERT(decimal(19,2),
-		ISNULL(SUM(
-			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
-				CONVERT(decimal(19,10),ISNULL(invoice.exchangerate,1)) *
-					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
-			)
-		),0)
-	)
-	+
-	ISNULL(SUM(invoicedetail.tax),0),
 	invoice.flagintracom,
 	ivaregisterkind.registerclass,		--tipo registro (A/V)
 	CASE WHEN (invoicekind.flag & 1)=0 THEN 'A'
@@ -155,11 +176,7 @@ JOIN invoice
 	AND invoice.yinv = ivaregister.yinv
 	AND invoice.ninv = ivaregister.ninv
 JOIN invoicekind
-	ON invoicekind.idinvkind = invoice.idinvkind
-JOIN invoicedetail
-	ON invoicedetail.idinvkind = invoice.idinvkind
-	AND invoicedetail.yinv = invoice.yinv
-	AND invoicedetail.ninv = invoice.ninv
+	ON invoicekind.idinvkind = ivaregister.idinvkind
 JOIN ivaregisterkind
 	ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
 WHERE ivaregister.idivaregisterkind = @idivaregisterkind
@@ -170,19 +187,475 @@ WHERE ivaregister.idivaregisterkind = @idivaregisterkind
 	AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
 	AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
-GROUP BY ivaregister.idivaregisterkind, ivaregister.yinv,
-		invoice.flagintracom,ivaregisterkind.registerclass, (invoicekind.flag & 1), (invoicekind.flag & 4),
-		invoice.idsor01, invoice.idsor02,invoice.idsor03,invoice.idsor04,invoice.idsor05
--- Stessa INSERT precedente ma interroga SOLO le Autofatture senza dettagli
+GROUP BY 
+	invoicekind.codeinvkind,ivaregister.idinvkind,
+	ivaregisterkind.codeivaregisterkind,	
+	ivaregister.yinv,
+	ivaregisterkind.description,
+	DATEPART(dd,invoice.adate),
+	invoice.flagintracom,ivaregisterkind.registerclass, (invoicekind.flag & 1), (invoicekind.flag & 4)
 
-UNION 
+UPDATE #sales_prev
+SET tax_with_rate1 =
+ISNULL(
+	(SELECT ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoicedetail
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN invoice
+		ON invoice.idinvkind = invoicedetail.idinvkind
+		AND invoice.yinv = invoicedetail.yinv
+		AND invoice.ninv = invoicedetail.ninv
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate1
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoicedetail.idinvkind = #sales_prev.idinvkind
 
-SELECT
-	'RIPORTO',
-	'RIPORTO',
-	@year,
-	@monthname,
-	CONVERT(decimal(19,2),
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+)
+,0)
++
+-- Aggiungiamo lo stesso valore leggendolo dalle Autofatture senza dettagli
+ISNULL(
+	(SELECT ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoice M --> fattura Madre
+	JOIN invoice
+		ON invoice.idinvkind_real = M.idinvkind
+		AND invoice.yinv_real = M.yinv
+		AND invoice.ninv_real = M.ninv
+	join invoicedetail 
+		ON invoicedetail.idinvkind = M.idinvkind
+		AND invoicedetail.yinv = M.yinv
+		AND invoicedetail.ninv = M.ninv
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate1
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		--AND invoicedetail.idinvkind = #sales.idinvkind
+		AND invoice.idinvkind = #sales_prev.idinvkind
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+)
+,0),
+
+tax_with_rate2 =
+ISNULL(
+	(SELECT ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoicedetail
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN invoice
+		ON invoice.idinvkind = invoicedetail.idinvkind
+		AND invoice.yinv = invoicedetail.yinv
+		AND invoice.ninv = invoicedetail.ninv
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate2
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoicedetail.idinvkind = #sales_prev.idinvkind
+
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+)
+,0)
++
+-- Aggiungiamo lo stesso valore leggendolo dalle Autofatture senza dettagli
+ISNULL(
+	(SELECT ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoice M --> fattura Madre
+	JOIN invoice
+		ON invoice.idinvkind_real = M.idinvkind
+		AND invoice.yinv_real = M.yinv
+		AND invoice.ninv_real = M.ninv
+	join invoicedetail 
+		ON invoicedetail.idinvkind = M.idinvkind
+		AND invoicedetail.yinv = M.yinv
+		AND invoicedetail.ninv = M.ninv
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate2
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoice.idinvkind = #sales_prev.idinvkind
+
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+)
+,0)
+
+,
+tax_with_rate3 =
+ISNULL(
+	(SELECT ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoicedetail
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN invoice
+		ON invoice.idinvkind = invoicedetail.idinvkind
+		AND invoice.yinv = invoicedetail.yinv
+		AND invoice.ninv = invoicedetail.ninv
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate3
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoicedetail.idinvkind = #sales_prev.idinvkind
+
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+)
+,0)
++
+-- Aggiungiamo lo stesso valore leggendolo dalle Autofatture senza dettagli
+ISNULL(
+	(SELECT ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoice M --> fattura Madre
+	JOIN invoice
+		ON invoice.idinvkind_real = M.idinvkind
+		AND invoice.yinv_real = M.yinv
+		AND invoice.ninv_real = M.ninv
+	join invoicedetail 
+		ON invoicedetail.idinvkind = M.idinvkind
+		AND invoicedetail.yinv = M.yinv
+		AND invoicedetail.ninv = M.ninv
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate3
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoice.idinvkind = #sales_prev.idinvkind
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+)
+,0),
+tax_with_rate4 =
+ISNULL(
+	(SELECT ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoicedetail
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN invoice
+		ON invoice.idinvkind = invoicedetail.idinvkind
+		AND invoice.yinv = invoicedetail.yinv
+		AND invoice.ninv = invoicedetail.ninv
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate4
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoicedetail.idinvkind = #sales_prev.idinvkind
+
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+)
+,0)
++
+-- Aggiungiamo lo stesso valore leggendolo dalle Autofatture senza dettagli
+ISNULL(
+	(SELECT ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoice M --> fattura Madre
+	JOIN invoice
+		ON invoice.idinvkind_real = M.idinvkind
+		AND invoice.yinv_real = M.yinv
+		AND invoice.ninv_real = M.ninv
+	join invoicedetail 
+		ON invoicedetail.idinvkind = M.idinvkind
+		AND invoicedetail.yinv = M.yinv
+		AND invoicedetail.ninv = M.ninv
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate4
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoice.idinvkind = #sales_prev.idinvkind
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+)
+,0),
+
+
+taxable = 
+ISNULL(
+	(select CONVERT(decimal(19,2),
+		ISNULL(SUM(
+			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+				CONVERT(decimal(19,10),ISNULL(invoice.exchangerate,1)) *
+					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+			)
+		),0)
+	)
+	--+
+	--ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoicedetail
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN invoice
+		ON invoice.idinvkind = invoicedetail.idinvkind
+		AND invoice.yinv = invoicedetail.yinv
+		AND invoice.ninv = invoicedetail.ninv
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) <> @rate5
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoicedetail.idinvkind = #sales_prev.idinvkind
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+	)
+,0)
++
+-- Aggiungiamo lo stesso valore leggendolo dalle Autofatture senza dettagli
+ISNULL(
+	(select CONVERT(decimal(19,2),
+		ISNULL(SUM(
+			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+				CONVERT(decimal(19,10),ISNULL(invoice.exchangerate,1)) *
+					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+			)
+		),0)
+	)
+	--+
+	--ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoice M --> fattura Madre
+	JOIN invoice
+		ON invoice.idinvkind_real = M.idinvkind
+		AND invoice.yinv_real = M.yinv
+		AND invoice.ninv_real = M.ninv
+	join invoicedetail 
+		ON invoicedetail.idinvkind = M.idinvkind
+		AND invoicedetail.yinv = M.yinv
+		AND invoicedetail.ninv = M.ninv
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) <> @rate5
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoice.idinvkind = #sales_prev.idinvkind
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+	)
+,0)
+, 
+
+-- importo non soggetto a IVA
+zerorated = 
+ISNULL(
+	(select CONVERT(decimal(19,2),
 		ISNULL(SUM(
 			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
 				CONVERT(decimal(19,10),ISNULL(invoice.exchangerate,1)) *
@@ -191,44 +664,120 @@ SELECT
 		),0)
 	)
 	+
-	ISNULL(SUM(invoicedetail.tax),0),
-	M.flagintracom,
-	ivaregisterkind.registerclass,		--tipo registro (A/V)
-	CASE WHEN (invoicekind.flag & 1)=0 THEN 'A'
-		 ELSE 'V'
-	END ,--kind		--tipo fattura (A/V)
-	CASE
-		WHEN (invoicekind.flag & 4) = 0 THEN 'N'
-		ELSE 'S'
-	END --flagvariation	
-FROM invoice M --> fattura Madre
-JOIN invoice 
-	ON invoice.idinvkind_real = M.idinvkind
-	AND invoice.yinv_real = M.yinv
-	AND invoice.ninv_real = M.ninv
-join invoicedetail 
-	ON invoicedetail.idinvkind = M.idinvkind
-	AND invoicedetail.yinv = M.yinv
-	AND invoicedetail.ninv = M.ninv
-JOIN ivaregister
-	ON invoice.idinvkind = ivaregister.idinvkind
-	AND invoice.yinv = ivaregister.yinv
-	AND invoice.ninv = ivaregister.ninv
-JOIN invoicekind
-	ON invoicekind.idinvkind = invoice.idinvkind
-JOIN ivaregisterkind
-	ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
-WHERE ivaregister.idivaregisterkind = @idivaregisterkind
-	AND DATEPART(year,M.adate) = @year
-	AND DATEPART(month,M.adate) < @month
-	AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
-	AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
-	AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
-	AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
-	AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
-GROUP BY ivaregister.idivaregisterkind, ivaregister.yinv,
-		M.flagintracom, ivaregisterkind.registerclass, (invoicekind.flag & 1), (invoicekind.flag & 4),
-		invoice.idsor01, invoice.idsor02,invoice.idsor03,invoice.idsor04,invoice.idsor05
+	ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoicedetail
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN invoice
+		ON invoice.idinvkind = invoicedetail.idinvkind
+		AND invoice.yinv = invoicedetail.yinv
+		AND invoice.ninv = invoicedetail.ninv
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate5
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoicedetail.idinvkind = #sales_prev.idinvkind
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+
+)
+,0)
++
+-- Aggiungiamo lo stesso valore leggendolo dalle Autofatture senza dettagli
+ISNULL(
+	(select CONVERT(decimal(19,2),
+		ISNULL(SUM(
+			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+				CONVERT(decimal(19,10),ISNULL(invoice.exchangerate,1)) *
+					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+			)
+		),0)
+	)
+	+
+	ISNULL(SUM(invoicedetail.tax),0)
+	FROM invoice M --> fattura Madre
+	JOIN invoice
+		ON invoice.idinvkind_real = M.idinvkind
+		AND invoice.yinv_real = M.yinv
+		AND invoice.ninv_real = M.ninv
+	join invoicedetail 
+		ON invoicedetail.idinvkind = M.idinvkind
+		AND invoicedetail.yinv = M.yinv
+		AND invoicedetail.ninv = M.ninv
+	JOIN ivakind
+		ON ivakind.idivakind = invoicedetail.idivakind
+	JOIN ivaregister
+		ON invoice.idinvkind = ivaregister.idinvkind
+		AND invoice.yinv = ivaregister.yinv
+		AND invoice.ninv = ivaregister.ninv
+	JOIN invoicekind
+		ON invoicekind.idinvkind = invoice.idinvkind
+	JOIN ivaregisterkind
+		ON ivaregisterkind.idivaregisterkind = ivaregister.idivaregisterkind
+	WHERE DATEPART(year,invoice.adate) = @year
+		AND DATEPART(month,invoice.adate) < @month
+		AND ROUND(ivakind.rate,3) = @rate5
+		AND DATEPART(dd,invoice.adate) = #sales_prev.reg_day
+		AND invoice.idinvkind = #sales_prev.idinvkind
+		AND invoice.flagintracom = #sales_prev.flagintracom
+		AND ivaregisterkind.registerclass = #sales_prev.registerclass
+		AND ((invoicekind.flag & 1)=0  AND  #sales_prev.kind = 'A'
+			OR 
+			(invoicekind.flag & 1)<> 0  AND  #sales_prev.kind = 'V'
+			)
+		AND ((invoicekind.flag & 4)=0  AND  #sales_prev.flagvariation = 'N'
+			OR 
+			(invoicekind.flag & 4)<> 0  AND  #sales_prev.flagvariation = 'S'
+			)
+		AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
+		AND (@idsor02 IS NULL OR invoice.idsor02 = @idsor02)
+		AND (@idsor03 IS NULL OR invoice.idsor03 = @idsor03)
+		AND (@idsor04 IS NULL OR invoice.idsor04 = @idsor04)
+		AND (@idsor05 IS NULL OR invoice.idsor05 = @idsor05)	
+
+)
+,0)
+WHERE  #sales_prev.reg_day is not null
+
+INSERT INTO #sales
+(
+	codeinvkind,			
+	codeivaregisterkind,	
+	yinv,
+	reg_month,
+	taxable
+)
+
+SELECT
+	'RIPORTO',
+	'RIPORTO',
+	@year,
+	@monthname,
+	sum(isnull(taxable, 0) + isnull(zerorated, 0) + isnull(tax_with_rate1, 0) +
+		isnull(tax_with_rate2, 0) + isnull(tax_with_rate3, 0) + isnull(tax_with_rate4, 0))
+FROM #sales_prev
+GROUP BY yinv
 
 -- Dati del mese corrente
 INSERT INTO #sales
@@ -283,8 +832,7 @@ GROUP BY
 	ivaregister.yinv,
 	ivaregisterkind.description,
 	DATEPART(dd,invoice.adate),
-	invoice.flagintracom,ivaregisterkind.registerclass, (invoicekind.flag & 1), (invoicekind.flag & 4),
-	invoice.idsor01, invoice.idsor02,invoice.idsor03,invoice.idsor04,invoice.idsor05
+	invoice.flagintracom,ivaregisterkind.registerclass, (invoicekind.flag & 1), (invoicekind.flag & 4)
 
 UPDATE #sales
 SET tax_with_rate1 =
@@ -638,16 +1186,18 @@ ISNULL(
 ,0),
 
 
-taxable =
+taxable = 
 ISNULL(
-	(SELECT ISNULL(CONVERT(decimal(19,2),
-		SUM(
+	(select CONVERT(decimal(19,2),
+		ISNULL(SUM(
 			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
 				CONVERT(decimal(19,10),ISNULL(invoice.exchangerate,1)) *
 					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
 			)
-		)
-	),0)
+		),0)
+	)
+	--+
+	--ISNULL(SUM(invoicedetail.tax),0)
 	FROM invoicedetail
 	JOIN ivakind
 		ON ivakind.idivakind = invoicedetail.idivakind
@@ -688,14 +1238,16 @@ ISNULL(
 +
 -- Aggiungiamo lo stesso valore leggendolo dalle Autofatture senza dettagli
 ISNULL(
-	(SELECT ISNULL(CONVERT(decimal(19,2),
-		SUM(
+	(select CONVERT(decimal(19,2),
+		ISNULL(SUM(
 			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
 				CONVERT(decimal(19,10),ISNULL(invoice.exchangerate,1)) *
 					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
 			)
-		)
-	),0)
+		),0)
+	)
+	--+
+	--ISNULL(SUM(invoicedetail.tax),0)
 	FROM invoice M --> fattura Madre
 	JOIN invoice
 		ON invoice.idinvkind_real = M.idinvkind
@@ -742,14 +1294,16 @@ ISNULL(
 -- importo non soggetto a IVA
 zerorated = 
 ISNULL(
-	(SELECT ISNULL(CONVERT(decimal(19,2),
-		SUM(
+	(select CONVERT(decimal(19,2),
+		ISNULL(SUM(
 			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
 				CONVERT(decimal(19,10),ISNULL(invoice.exchangerate,1)) *
 					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
 			)
-		)
-	),0)
+		),0)
+	)
+	+
+	ISNULL(SUM(invoicedetail.tax),0)
 	FROM invoicedetail
 	JOIN ivakind
 		ON ivakind.idivakind = invoicedetail.idivakind
@@ -791,14 +1345,16 @@ ISNULL(
 +
 -- Aggiungiamo lo stesso valore leggendolo dalle Autofatture senza dettagli
 ISNULL(
-	(SELECT ISNULL(CONVERT(decimal(19,2),
-		SUM(
+	(select CONVERT(decimal(19,2),
+		ISNULL(SUM(
 			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
 				CONVERT(decimal(19,10),ISNULL(invoice.exchangerate,1)) *
 					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
 			)
-		)
-	),0)
+		),0)
+	)
+	+
+	ISNULL(SUM(invoicedetail.tax),0)
 	FROM invoice M --> fattura Madre
 	JOIN invoice
 		ON invoice.idinvkind_real = M.idinvkind
@@ -861,7 +1417,6 @@ UPDATE #sales SET taxable = - taxable,
 				tax_with_rate3 = - tax_with_rate3,
 				tax_with_rate4 = - tax_with_rate4
 			WHERE flagvariation='S'
-
 
 DECLARE @description  varchar(300)
 DECLARE @description1 varchar(300)
@@ -972,6 +1527,7 @@ FROM #sales
 GROUP BY codeinvkind,codeivaregisterkind,yinv,reg_day,reg_month,description
 
 ORDER BY reg_day
+
 END
 
 
@@ -982,4 +1538,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-

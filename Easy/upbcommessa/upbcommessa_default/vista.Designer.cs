@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,15 +34,9 @@ namespace upbcommessa_default {
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Dati su commessa completata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbcommessaTable upbcommessa 		=> (upbcommessaTable)Tables["upbcommessa"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb 		=> (upbTable)Tables["upb"];
 
@@ -58,9 +52,6 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable accmotive_revenue 		=> (MetaTable)Tables["accmotive_revenue"];
 
-	///<summary>
-	///Tipo UPB nell'economico patrimoniale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public epupbkindTable epupbkind 		=> (epupbkindTable)Tables["epupbkind"];
 
@@ -79,9 +70,6 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epupbkind_original 		=> (MetaTable)Tables["epupbkind_original"];
 
-	///<summary>
-	///Tipo EP dell' upb, informazioni annuali su UPB nell'economico patrimoniale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public epupbkindyearTable epupbkindyear 		=> (epupbkindyearTable)Tables["epupbkindyear"];
 

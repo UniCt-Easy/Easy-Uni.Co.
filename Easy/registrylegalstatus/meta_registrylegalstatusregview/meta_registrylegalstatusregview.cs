@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -46,6 +46,7 @@ namespace meta_registrylegalstatusregview{//meta_posgiuridicaanagview//
                 DescribeAColumn(T, "registry", "Denominazione", nPos++);
                 DescribeAColumn(T, "start", "Decorrenza", nPos++);
                 DescribeAColumn(T, "position", "Qualifica", nPos++);
+                DescribeAColumn(T, "livello", "Livello", nPos++);
                 DescribeAColumn(T, "start", "Data", nPos++);
                 DescribeAColumn(T, "incomeclass", "Classe stip.", nPos++);
                 DescribeAColumn(T, "incomeclassvalidity", "Decorr. Classe", nPos++);

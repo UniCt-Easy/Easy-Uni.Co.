@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1232,7 +1232,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			impostaAmbiente();
 			if (!GenXML.GeneraFileXML(m_LocalDir, m_XMLFile, m_Filter, skiplist, chkFiltraGiornalieri.Checked,
 					out errori))
-				//    MessageBox.Show("File XML generato con successo", "Generazione file XML",
+				//    MetaFactory.factory.getSingleton<IMessageShower>().Show("File XML generato con successo", "Generazione file XML",
 				//        MessageBoxButtons.OK, MessageBoxIcon.Information);
 				//else
 				show($"Sono stati riscontrati i seguenti errori nella generazione:\r\n{errori}",
@@ -1330,7 +1330,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 				return;
 			}
 
-			////if (MessageBox.Show("Confermi la copia dei file generati?","Copia",
+			////if (MetaFactory.factory.getSingleton<IMessageShower>().Show("Confermi la copia dei file generati?","Copia",
 			////    MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)!=DialogResult.Yes) 
 			////    return;
 			string errori = copia();
@@ -1432,7 +1432,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			}
 
 			//else {
-			//    if (MessageBox.Show("La versione "+tipoversione+" verrà aggiornata. Continuare?",
+			//    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("La versione "+tipoversione+" verrà aggiornata. Continuare?",
 			//        "Attenzione",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)!=DialogResult.Yes) {
 			//        txtNew.Text="";
 			//        return;

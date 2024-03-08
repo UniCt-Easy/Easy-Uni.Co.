@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -44,6 +44,8 @@ namespace calcolooccasionale {
         public decimal G;//imp.netto previdenziale al lordo della quota esente = D- (F1+F2)
         public decimal H1;//Quota esente già applicata
         public decimal H2;//Quota esente residua
+        public decimal H1_contr;
+        public decimal H2_contr;
         public decimal I;// Imponibile previdenziale netto già pagato = G-H1
         public decimal delta;// Quota imponibile non eccedente il massimale della ritenuta previdenziale INPS
         
@@ -180,12 +182,15 @@ namespace calcolooccasionale {
                 C1 = CfgFn.GetNoNullDecimal(rall["F_refund_lastyear"]) - CfgFn.GetNoNullDecimal(R1["F_refund_lastyear"]);
                 //spese fiscali già dedotte da questo contratto nell'anno
                 C2 = CfgFn.GetNoNullDecimal(R1["F_refund_lastyear"]);
+                //Quota esente applicata sul PRESENTE CONTRATTO R1
+                H1_contr = CfgFn.GetNoNullDecimal(R1["exemptionquota_applied"]);//quota esente applicata
             }
             else {
                 //spese fiscali dedotte altri contratti nell'anno
                 C1 = CfgFn.GetNoNullDecimal(rall["F_refund_lastyear"]) ;
                 //spese fiscali già dedotte da questo contratto nell'anno
                 C2 = 0;
+                H1_contr = 0;
             }
 
             //impon.fiscale iniziale =  A+B1- (C1+C2)
@@ -213,10 +218,16 @@ namespace calcolooccasionale {
             //Quota esente applicata su tutti i contratti
             H1 = CfgFn.GetNoNullDecimal(rall["exemptionquota_applied"]);//quota esente applicata
 
+
             H1 = H1 + A;
             if (H1 > quotaesente) H1 = quotaesente;
 
-            H2 = quotaesente - H1;
+            // la quota esente residua totale deve essere ripartita tra tutti i contratti
+            // ove non è stata applicata
+    
+            H2 = quotaesente - H1; // quota esente residua totale 
+
+          
             //if (G >= quotaesente) {
             //    H1 = quotaesente;
             //    H2 = 0;
@@ -302,7 +313,7 @@ namespace calcolooccasionale {
             return x;
         }
         public decimal GetImponibilePrevidenzialeNetto(decimal lordo) {
-            decimal x = lordo - (H2 + C3 + F3);
+            decimal x = lordo - (H2 + H1_contr + C3 + F3);
             if (x < 0) x = 0;
             return x;
         }

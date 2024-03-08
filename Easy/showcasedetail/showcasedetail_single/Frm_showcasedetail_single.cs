@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -22,6 +22,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using funzioni_configurazione;
+using q = metadatalibrary.MetaExpression;
 
 namespace showcasedetail_single {
 
@@ -35,7 +36,6 @@ namespace showcasedetail_single {
         public Frm_showcasedetail_single() {
             InitializeComponent();
         }
-
         public void MetaData_AfterLink() {
 			DataAccess.SetTableForReading(DS.upb_iva, "upb");
 			Meta = MetaData.GetMetaData(this);
@@ -46,7 +46,10 @@ namespace showcasedetail_single {
 			DataAccess.SetTableForReading(DS.sorting1, "sorting");
 			DataAccess.SetTableForReading(DS.sorting2, "sorting");
 			DataAccess.SetTableForReading(DS.sorting3, "sorting");
-			DataTable tExpSetup = Conn.RUN_SELECT("config", "*", null,
+            DataAccess.SetTableForReading(DS.listview_related, "listview");
+            GetData.CacheTable(DS.listview, null, null, false);
+            GetData.CacheTable(DS.listview_related, null, null, false);
+            DataTable tExpSetup = Conn.RUN_SELECT("config", "*", null,
                 filter, null, null, true);
             if ((tExpSetup != null) && (tExpSetup.Rows.Count > 0)) {
                 DataRow r = tExpSetup.Rows[0];
@@ -57,6 +60,9 @@ namespace showcasedetail_single {
                 SetGBoxClass(2, idsorkind2);
                 SetGBoxClass(3, idsorkind3);
             }
+            
+            Meta.MarkTableAsNotEntityChild(DS.showcasedetail_related);
+
         }
         void SetGBoxClass(int num, object sortingkind) {
             if (sortingkind == DBNull.Value) {
@@ -153,7 +159,7 @@ namespace showcasedetail_single {
 
             if (chkFiltraDescrizioneClassificazione.Checked) {
                 FrmAskDescr FR = new FrmAskDescr(Meta.Dispatcher);
-
+                createForm(FR, this);
                 if (FR.ShowDialog(this) != DialogResult.OK) return;
 
                 if (FR.Selected != null) {
@@ -176,6 +182,11 @@ namespace showcasedetail_single {
             if (Meta.IsEmpty) return;
 
             if (txtCodiceListino.Text == "") {
+                txtDescrizioneListino.Text = "";
+                txtCodiceClassificazione.Text = "";
+                txtDescrizioneClassificazione.Text = "";
+                txtDescrTassonomia.Text = "";
+                txtCodiceTassonomia.Text = "";
                 FreshLogo();
 
                 return;
@@ -231,6 +242,11 @@ namespace showcasedetail_single {
             if (!Meta.DrawStateIsDone) return;
             CalcolaImporti(true);
         }
+
+		private void btnInserisci_Click(object sender, EventArgs e) {
+
+		}
+
     }
 
 }

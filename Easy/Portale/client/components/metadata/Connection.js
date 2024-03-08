@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module Connection
  * @description
@@ -58,12 +41,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         this.setCurrentBackend(this.backendType);
         this.context = {};
 
-        this.requestIdCurrent  = 0; // contatore delle richieste corrente
+        this.requestIdCurrent = 0; // contatore delle richieste corrente
+        this.testMode = false;
     };
 
 
     Connection.prototype = {
-
+        setTestMode: function (value) {
+            this.testMode = value;
+        },
         constructor: Connection,
 
         /**
@@ -95,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             }
 
             // recupero dal routing prm da passare alla chiamata
-            var callConfigObj = appMeta.routing.connObj[objConn.method];
+            var callConfigObj = appMeta.routing.getMethod(objConn.method);
 
             // Calcola id richiesta
             var currIdRequest = this.getRequestId();
@@ -105,7 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var self = this;
 
             // Rilancio al chiamante, aggiungendo logica in questa fase se necessario
-            // N.B la progress quin non serve gestirla, la gestisce direttamente il chimanante finale
+            // N.B la progress quindi non serve gestirla, la gestisce direttamente il chiamante finale
             // poichè inutile qui, non aggiungo logica
             return this.currentBackendManager.call(callConfigObj, objConn)
                 .then(
@@ -121,8 +107,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             var msg = appMeta.localResource.serverUnracheable;
                             if (err.status) {
 
-                                // ripulsico errore
-                                var serr = err.text.replace(/"/g, '');
+                                // ripulisco errore
+                                var serr = null;
+                                if (err.text) {
+                                    serr = err.text.replace(/"/g, '');
+                                }
 
                                 if (err.status === 401) {
                                     self.currentBackendManager.unsetToken(); // reset della'header dove c'è token di autenticazione
@@ -188,14 +177,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         var envs = [appMeta.config.envEnum.DEV, appMeta.config.envEnum.QA];
                         var showInfo = envs.includes(appMeta.config.env) || appMeta.config.forceShowErrorInfo;
 
-                        if (objConn.method === 'login' && objConn.prm) {
+                        //&& (objConn.method === 'login' || objConn.method === 'loginLDAP')
+                        if (objConn.prm && objConn.prm.password) {
                             objConn.prm.password = '************'
                         }
 
-                        logger.log(logtype, msg + " method: '" + objConn.method + "' ",
-                            showInfo ? " errors: " + JSON.stringify(err) : "",
-                            showInfo ? " prm: " + JSON.stringify(objConn.prm) : "");
-                        return def.reject(err);
+                        if (self.testMode) {
+                            console.log(err);
+                            def.reject(err);
+                        }
+                        else {
+                            logger.log(logtype, msg + " method: '" + objConn.method + "' ",
+                                showInfo ? " errors: " + JSON.stringify(err) : "",
+                                showInfo ? " prm: " + JSON.stringify(objConn.prm) : "").
+                                then(() => def.reject(err))
+                        }
+                        return def.promise();
                     })
         },
 
@@ -260,7 +257,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} token
          * @param {Date} expiresOn
          */
-        setToken: function (token, expiresOn) {
+        setToken: function (token, expiresOn) {            
             return this.currentBackendManager.setToken(token, expiresOn);
         },
 

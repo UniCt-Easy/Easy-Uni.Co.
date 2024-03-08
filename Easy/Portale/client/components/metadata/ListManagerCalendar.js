@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /// <reference path="MetaApp.js" />
 /**
  * @module ListManagerCalendar
@@ -38,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @param {string} listType
      * @param {jsDataQuery} filter
      * @param {boolean} isModal
-     * @param {Html node} rootElement
+     * @param {element} rootElement
      * @param {MetaPage} metaPage
      * @param {boolean} filterLocked true if filter can't be changed during row selection
      * @param {DataTable} toMerge. It contains the Rows to "merge" with those found in DB
@@ -70,20 +53,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         // creo rootElement in maniera dinamica. imposto la classe css custom listManagerContainer
 
         if (isModal){
-            this.myModalUnivoqueId = "#mymodal" + utils.getUnivoqueId();
+            this.myModalUnivoqueId = "#mymodal" + utils.getUniqueId();
             this.defModal = Deferred("ListManager");
             this.currentRootElement = $('<div class="listManagerContainer">'); // in alternativa aggiungi pure classe "container" di bootstrap, centra il tutto container
             $(this.rootElement).append(this.currentRootElement);
         }
         else {
-            this.dialogNotmodalId =  "dialog" + utils.getUnivoqueId();
+            this.dialogNotmodalId =  "dialog" + utils.getUniqueId();
             this.currentRootElement = $('<div id="' + this.dialogNotmodalId + '">'); // in alternativa aggiungi pure classe container di bootstrap, centra il tutto container
             // lo appendo al mio rootElement esterno
             $(this.rootElement).append(this.currentRootElement);
             var self = this;
             $("#"+this.dialogNotmodalId).dialog({ autoOpen: false,
-                width: appMeta.getScreenWidth() * 0.9,
-                height: appMeta.getScreenHeight() * 0.8,
+                width: appMeta.currApp.getScreenWidth() * 0.9,
+                height: appMeta.currApp.getScreenHeight() * 0.8,
                 close: _.partial(self.hideControl, self),
                 position: { my: "center bottom", at: "center bottom" }
             });
@@ -349,7 +332,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var res = self.calendarControl.fillControl()
                 .then(function() {
                     // aggiungo eventi
-                    self.calendarControl.addEvents(self, self, false);
+                    self.calendarControl.addEvents(self, self);
 
                     // nascondo loader, una volta caricati i dati
                     self.loader.hideControl();
@@ -391,7 +374,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // Delete from list those who have not the filter property in the ToMerge Table
             var toExclude = this.toMerge.select(q.not(noChildFilter));
             _.forEach(toExclude, function (r) {
-                var  cond = getData.getWhereKeyClause(r.getRow(), self.toMerge , self.toMerge, false);
+                var  cond = dt.keyFilter(r);
+                    //getData.getWhereKeyClause(r.getRow(), self.toMerge , self.toMerge, false);
 
                 var toDelete = dt.select(cond);
                 if (toDelete.length > 0) {
@@ -403,7 +387,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // Add to list those who are not present in the list and are present in the ToMerge table
             var toAdd = this.toMerge.select(noChildFilter);
             _.forEach(toAdd, function (r) {
-                var  cond = getData.getWhereKeyClause(r.getRow(), self.toMerge , self.toMerge, false);
+                var  cond =  dt.keyFilter(r);
+                        //getData.getWhereKeyClause(r.getRow(), self.toMerge , self.toMerge, false);
                 var toInsert = dt.select(cond);
                 // Removes eventually present row from DT
                 _.forEach(toInsert, function (rIns) {

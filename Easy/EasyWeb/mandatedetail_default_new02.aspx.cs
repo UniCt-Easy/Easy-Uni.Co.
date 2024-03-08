@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -381,6 +381,12 @@ public partial class mandatedetail_default_new02 : MetaPage {
                 Curr["idlist"] = R["idlist"];
                 Curr["unitsforpackage"] = R["unitsforpackage"];
                 Curr["detaildescription"] = R["description"];
+                if (CfgFn.GetNoNullDecimal(R["price"]) > 0) {
+                    Curr["taxable"] = R["price"];
+				}
+				else {
+                    Curr["taxable"] = DBNull.Value;
+                }
                 UpdateLabelQuantita();
                 UpdateLabelTotQuantita();
                 UpdateQuantity(CfgFn.GetNoNullInt32(Curr["unitsforpackage"]));

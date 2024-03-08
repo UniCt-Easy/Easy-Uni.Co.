@@ -3,6 +3,27 @@
   <xs:element name="dsmeta_progettocosto_segprg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="salprogettoassetworkpackagemesecostoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idsal" type="xs:int" />
+              <xs:element name="idsalprogettoassetworkpackage" type="xs:int" />
+              <xs:element name="idsalprogettoassetworkpackagemese" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetdiaryorasegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idassetdiary" type="xs:int" />
+              <xs:element name="idassetdiaryora" type="xs:int" />
+              <xs:element name="idworkpackage" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="pettycashsegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -16,18 +37,16 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idclawback" type="xs:int" minOccurs="0" />
               <xs:element name="idexp" type="xs:int" />
-              <xs:element name="idreg" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="contrattokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="positiondefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="contrattokind_active" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="position_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -61,6 +80,7 @@
               <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="registry_title" type="xs:string" minOccurs="0" />
@@ -68,11 +88,12 @@
               <xs:element name="rendicontattivitaprogetto_cu" type="xs:string" />
               <xs:element name="rendicontattivitaprogetto_datainizioprevista" type="xs:dateTime" minOccurs="0" />
               <xs:element name="rendicontattivitaprogetto_iditineration" type="xs:int" minOccurs="0" />
-              <xs:element name="rendicontattivitaprogetto_idreg" type="xs:int" />
+              <xs:element name="rendicontattivitaprogetto_idrendicontattivitaprogettokind" type="xs:int" minOccurs="0" />
               <xs:element name="rendicontattivitaprogetto_lt" type="xs:dateTime" />
               <xs:element name="rendicontattivitaprogetto_lu" type="xs:string" />
               <xs:element name="rendicontattivitaprogetto_orepreventivate" type="xs:int" minOccurs="0" />
               <xs:element name="rendicontattivitaprogetto_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogettokind_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -80,6 +101,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ammissibilita" type="xs:decimal" minOccurs="0" />
+              <xs:element name="budgetrichiesto" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
@@ -123,15 +145,17 @@
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idassetdiaryora" type="xs:int" minOccurs="0" />
               <xs:element name="idexp" type="xs:int" minOccurs="0" />
               <xs:element name="idpettycash" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettocosto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" minOccurs="0" />
               <xs:element name="idrelated" type="xs:string" minOccurs="0" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" minOccurs="0" />
               <xs:element name="idsal" type="xs:int" minOccurs="0" />
+              <xs:element name="idsalprogettoassetworkpackagemese" type="xs:int" minOccurs="0" />
               <xs:element name="idworkpackage" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
@@ -143,6 +167,19 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:salprogettoassetworkpackagemesecostoview" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idsal" />
+      <xs:field xpath="mstns:idsalprogettoassetworkpackage" />
+      <xs:field xpath="mstns:idsalprogettoassetworkpackagemese" />
+    </xs:unique>
+    <xs:unique name="assetdiaryorasegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetdiaryorasegview" />
+      <xs:field xpath="mstns:idassetdiary" />
+      <xs:field xpath="mstns:idassetdiaryora" />
+      <xs:field xpath="mstns:idworkpackage" />
+    </xs:unique>
+    <xs:unique name="pettycashsegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pettycashsegview" />
       <xs:field xpath="mstns:idpettycash" />
     </xs:unique>
@@ -150,12 +187,13 @@
       <xs:selector xpath=".//mstns:expensesegview" />
       <xs:field xpath="mstns:idexp" />
     </xs:unique>
-    <xs:unique name="contrattokinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokinddefaultview" />
-      <xs:field xpath="mstns:idcontrattokind" />
+    <xs:unique name="positiondefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:positiondefaultview" />
+      <xs:field xpath="mstns:idposition" />
     </xs:unique>
     <xs:unique name="saldefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:saldefaultview" />
+      <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idsal" />
     </xs:unique>
     <xs:unique name="entrydetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -166,7 +204,10 @@
     </xs:unique>
     <xs:unique name="rendicontattivitaprogettosegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:rendicontattivitaprogettosegview" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idrendicontattivitaprogetto" />
+      <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
     <xs:unique name="progettotipocosto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettotipocosto" />
@@ -175,6 +216,7 @@
     </xs:unique>
     <xs:unique name="workpackagesegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:workpackagesegview" />
+      <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
     <xs:unique name="progettocosto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -185,9 +227,11 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_progettocosto_salprogettoassetworkpackagemesecostoview_idsalprogettoassetworkpackagemese" msdata:parent="salprogettoassetworkpackagemesecostoview" msdata:child="progettocosto" msdata:parentkey="idsalprogettoassetworkpackagemese" msdata:childkey="idsalprogettoassetworkpackagemese" />
+      <msdata:Relationship name="FK_progettocosto_assetdiaryorasegview_idassetdiaryora" msdata:parent="assetdiaryorasegview" msdata:child="progettocosto" msdata:parentkey="idassetdiaryora" msdata:childkey="idassetdiaryora" />
       <msdata:Relationship name="FK_progettocosto_pettycashsegview_idpettycash" msdata:parent="pettycashsegview" msdata:child="progettocosto" msdata:parentkey="idpettycash" msdata:childkey="idpettycash" />
       <msdata:Relationship name="FK_progettocosto_expensesegview_idexp" msdata:parent="expensesegview" msdata:child="progettocosto" msdata:parentkey="idexp" msdata:childkey="idexp" />
-      <msdata:Relationship name="FK_progettocosto_contrattokinddefaultview_idcontrattokind" msdata:parent="contrattokinddefaultview" msdata:child="progettocosto" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
+      <msdata:Relationship name="FK_progettocosto_positiondefaultview_idposition" msdata:parent="positiondefaultview" msdata:child="progettocosto" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_progettocosto_saldefaultview_idsal" msdata:parent="saldefaultview" msdata:child="progettocosto" msdata:parentkey="idsal" msdata:childkey="idsal" />
       <msdata:Relationship name="FK_progettocosto_entrydetail_idrelated" msdata:parent="entrydetail" msdata:child="progettocosto" msdata:parentkey="idrelated" msdata:childkey="idrelated" />
       <msdata:Relationship name="FK_progettocosto_rendicontattivitaprogettosegview_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogettosegview" msdata:child="progettocosto" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />

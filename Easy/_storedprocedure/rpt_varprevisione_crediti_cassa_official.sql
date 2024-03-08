@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -78,11 +78,11 @@ CREATE   PROCEDURE rpt_varprevisione_crediti_cassa_official
 			AND (finvar.idenactment = @idenactment OR @idenactment IS NULL)	
 			AND ((finvar.nofficial BETWEEN @nvarbegin AND @nvarend) OR 
 			     (@nvarbegin IS NULL) OR (@nvarend IS NULL))
-			AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
-			AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02)
-			AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03)
-			AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
-			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
+			AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01 OR upb.idsor01 IS NULL)
+			AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02 OR upb.idsor02 IS NULL)
+			AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03 OR upb.idsor03 IS NULL)
+			AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04 OR upb.idsor04 IS NULL)
+			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05 OR upb.idsor05 IS NULL)
 		GROUP BY finvar.nvar 	
 	END
 	
@@ -101,11 +101,11 @@ CREATE   PROCEDURE rpt_varprevisione_crediti_cassa_official
 			AND finvar.flagcredit = 'S'
 			AND (finvar.idenactment = @idenactment OR @idenactment IS NULL)	
 			AND ((finvar.nofficial BETWEEN @nvarbegin AND @nvarend) OR (@nvarbegin IS NULL) OR (@nvarend IS NULL))
-			AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
-			AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02)
-			AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03)
-			AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
-			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
+			AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01 OR upb.idsor01 IS NULL)
+			AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02 OR upb.idsor02 IS NULL)
+			AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03 OR upb.idsor03 IS NULL)
+			AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04 OR upb.idsor04 IS NULL)
+			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05 OR upb.idsor05 IS NULL)
 	END
 	
 	IF @reportkind = 'CASSA'
@@ -123,11 +123,11 @@ CREATE   PROCEDURE rpt_varprevisione_crediti_cassa_official
 			AND  finvar.flagproceeds = 'S'
 			AND (finvar.idenactment = @idenactment OR @idenactment IS NULL)	
 			AND ((finvar.nofficial BETWEEN @nvarbegin AND @nvarend) OR (@nvarbegin IS NULL) OR (@nvarend IS NULL))
-			AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01)
-			AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02)
-			AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03)
-			AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04)
-			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)		
+			AND (@idsor01 IS NULL OR upb.idsor01 = @idsor01 OR upb.idsor01 IS NULL)
+			AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02 OR upb.idsor02 IS NULL)
+			AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03 OR upb.idsor03 IS NULL)
+			AND (@idsor04 IS NULL OR upb.idsor04 = @idsor04 OR upb.idsor04 IS NULL)
+			AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05 OR upb.idsor05 IS NULL)		
 	END
 
 	

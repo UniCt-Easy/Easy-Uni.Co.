@@ -612,7 +612,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="vistaDettaglioRitenute.xsc">
       <DependentUpon>vistaDettaglioRitenute.xsd</DependentUpon>
     </None>
@@ -1456,6 +1455,9 @@
       <Name>funzioni_configurazione</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

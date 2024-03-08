@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -108,7 +91,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				this.enableControl($('#assetdiary_seg_amount'), true);
+				//afterClearin
+			},
 
 			
 			afterLink: function () {
@@ -119,7 +105,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);
-				$('#assetdiary_seg_idpiece').on("change", _.partial(this.manageidpiece, self));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -128,7 +113,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				});
 			},
 
-			//afterRowSelect
+			afterRowSelect: function (t, r) {
+				var def = appMeta.Deferred("afterRowSelect-assetdiary_seg");
+				if (t.name === "assetsegview" && r !== null) {
+					return this.manageidpiece(this);
+				}
+				//afterRowSelectin
+				return def.resolve();
+			},
 
 			//afterActivation
 
@@ -191,7 +183,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				if (!this.isEmpty()) {
 					if (this.state.currentRow.idreg && this.state.currentRow.idassetdiary &&
 						this.state.currentRow.idasset && this.state.currentRow.idpiece) {
-						// carica tutte le attivit‡ dell'utente tranne quelle del diario d'uso corrente 
+						// carica tutte le attivit√† dell'utente tranne quelle del diario d'uso corrente 
 						var filterOthersActivities = self.q.and(
 							self.q.eq("idreg", this.state.currentRow.idreg),
 							self.q.ne("idassetdiary", this.state.currentRow.idassetdiary)
@@ -264,6 +256,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					});
 			},
 
+			manageassetdiary_seg_amount: function () {
+				var curr = this.state.currentRow;
+				var assetdiaryora = this.getDataTable('assetdiaryora');
+				curr["!amount"] = _.ceil(_.sumBy(
+					_.filter(assetdiaryora.rows, function(r){
+						return r.idassetdiary === curr.idassetdiary && !!r.amount; 
+					}),
+					'amount'), 2);
+			},
+
 			manageidpiece: function(that) { 
 				if ($('#assetdiary_seg_idpiece option:selected').text()) {
 					var matches = $('#assetdiary_seg_idpiece option:selected').text().match(new RegExp("Identificativo: " + "(.*)" + ";  Codice UPB:"));
@@ -276,16 +278,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						}
 					}
 				}
-			},
-
-			manageassetdiary_seg_amount: function () {
-				var curr = this.state.currentRow;
-				var assetdiaryora = this.getDataTable('assetdiaryora');
-				curr["!amount"] = _.ceil(_.sumBy(
-					_.filter(assetdiaryora.rows, function(r){
-						return r.idassetdiary === curr.idassetdiary && !!r.amount; 
-					}),
-					'amount'), 2);
 			},
 
 			//buttons

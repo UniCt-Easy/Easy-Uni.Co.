@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -57,9 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 65);
 						this.describeAColumn(table, 'start', 'data inizio', null, 60, null);
 						this.describeAColumn(table, 'stop', 'data fine', null, 70, null);
-						this.describeAColumn(table, '!newcity_geo_city_title', 'Nuovo comune in cui questo è confluito', null, 41, null);
+						this.describeAColumn(table, '!newcity_geo_city_title', 'Nuovo comune in cui questo Ã¨ confluito', null, 41, null);
 						objCalcFieldConfig['!newcity_geo_city_title'] = { tableNameLookup:'geo_city_alias1', columnNameLookup:'title', columnNamekey:'newcity' };
-						this.describeAColumn(table, '!oldcity_geo_city_title', 'id comune da cui questo è confluito', null, 51, null);
+						this.describeAColumn(table, '!oldcity_geo_city_title', 'id comune da cui questo Ã¨ confluito', null, 51, null);
 						objCalcFieldConfig['!oldcity_geo_city_title'] = { tableNameLookup:'geo_city_alias3', columnNameLookup:'title', columnNamekey:'oldcity' };
 //$objCalcFieldConfig_segchild$
 						break;
@@ -82,12 +65,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (edittype) {
 					case 'seg':
 						table.columns["idcountry"].caption = "Provincia";
-						table.columns["newcity"].caption = "Nuovo comune in cui questo è confluito";
+						table.columns["newcity"].caption = "Nuovo comune in cui questo Ã¨ confluito";
 //$innerSetCaptionConfig_seg$
 						break;
 					case 'segchild':
 						table.columns["idcountry"].caption = "Provincia";
-						table.columns["newcity"].caption = "Nuovo comune in cui questo è confluito";
+						table.columns["newcity"].caption = "Nuovo comune in cui questo Ã¨ confluito";
 //$innerSetCaptionConfig_segchild$
 						break;
 //$innerSetCaptionConfig$

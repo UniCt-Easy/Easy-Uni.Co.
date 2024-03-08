@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,79 +19,74 @@ using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
 using meta_grantload;
 using meta_assetgrant;
 using meta_assetgrantdetail;
+using meta_underwriting;
 using meta_accmotive;
 using metadatalibrary;
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace grantload_default {
-[Serializable()][DesignerCategoryAttribute("code")][System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-[System.Xml.Serialization.XmlRootAttribute("dsmeta")][System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Scarico risconti e contributi
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public grantloadTable grantload 		{get { return (grantloadTable )Tables["grantload"];}}
-	///<summary>
-	///Attribuzione di un contributo conto impianti ad un cespite
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public assetgrantTable assetgrant 		{get { return (assetgrantTable )Tables["assetgrant"];}}
-	///<summary>
-	///Risconto contributo conto impianti
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public assetgrantdetailTable assetgrantdetail 		{get { return (assetgrantdetailTable )Tables["assetgrantdetail"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public MetaTable assetview_grant 		{get { return (MetaTable)Tables["assetview_grant"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public MetaTable assetview_grantdetail 		{get { return (MetaTable)Tables["assetview_grantdetail"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public MetaTable epacc_grantdetail 		{get { return (MetaTable)Tables["epacc_grantdetail"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public MetaTable epacc_grant 		{get { return (MetaTable)Tables["epacc_grant"];}}
-	///<summary>
-	///Finanziamento
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public MetaTable underwriting 		{get { return (MetaTable)Tables["underwriting"];}}
-	///<summary>
-	///Piano dei conti
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public accmotiveTable accmotive 		{get { return (accmotiveTable )Tables["accmotive"];}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public grantloadTable grantload 		=> (grantloadTable)Tables["grantload"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public assetgrantTable assetgrant 		=> (assetgrantTable)Tables["assetgrant"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public assetgrantdetailTable assetgrantdetail 		=> (assetgrantdetailTable)Tables["assetgrantdetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable assetview_grant 		=> (MetaTable)Tables["assetview_grant"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable assetview_grantdetail 		=> (MetaTable)Tables["assetview_grantdetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epacc_grantdetail 		=> (MetaTable)Tables["epacc_grantdetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epacc_grant 		=> (MetaTable)Tables["epacc_grant"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public underwritingTable underwriting 		=> (underwritingTable)Tables["underwriting"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public accmotiveTable accmotive 		=> (accmotiveTable)Tables["accmotive"];
+
 	#endregion
 
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataTableCollection Tables {get {return base.Tables;}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
 
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 public dsmeta(){
 	BeginInit();
-	InitClass();
+	initClass();
 	EndInit();
 }
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 protected dsmeta (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
-[DebuggerNonUserCodeAttribute()]
-private void InitClass() {
+[DebuggerNonUserCode]
+private void initClass() {
 	DataSetName = "dsmeta";
 	Prefix = "";
 	Namespace = "http://tempuri.org/dsmeta.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
-	MetaTable T;
 	//////////////////// GRANTLOAD /////////////////////////////////
 	var tgrantload= new grantloadTable();
 	tgrantload.addBaseColumns("idgrantload","yload","kind","description","ct","cu","lt","lu","adate");
@@ -100,338 +95,323 @@ private void InitClass() {
 
 	//////////////////// ASSETGRANT /////////////////////////////////
 	var tassetgrant= new assetgrantTable();
-	tassetgrant.addBaseColumns("idasset","idgrant","idunderwriting","idaccmotive","amount","ygrant","description","doc","docdate","idgrantload","lt","lu","ct","cu","idpiece","idepacc");
-	tassetgrant.defineColumn("!ninventario", typeof(Int32));
-	tassetgrant.defineColumn("!inventario", typeof(String));
-	tassetgrant.defineColumn("!yepacc", typeof(Int16));
-	tassetgrant.defineColumn("!nepacc", typeof(Int32));
-	tassetgrant.defineColumn("!codemotive", typeof(String));
-	tassetgrant.defineColumn("!titlemotive", typeof(String));
-	tassetgrant.defineColumn("!codeunderwriting", typeof(String));
-	tassetgrant.defineColumn("!codeinv", typeof(String));
-	tassetgrant.defineColumn("!inventorytree", typeof(String));
-	tassetgrant.defineColumn("!inventoryagency", typeof(String));
-	tassetgrant.defineColumn("!titleunderwriting", typeof(String));
-	tassetgrant.defineColumn("!cost", typeof(Decimal));
+	tassetgrant.addBaseColumns("idasset","idgrant","idunderwriting","idaccmotive","amount","ygrant","description","doc","docdate","idgrantload","lt","lu","ct","cu","idpiece","idepacc","flag_entryprofitreservedone","flag_financesource");
+	tassetgrant.defineColumn("!ninventario", typeof(int));
+	tassetgrant.defineColumn("!inventario", typeof(string));
+	tassetgrant.defineColumn("!yepacc", typeof(short));
+	tassetgrant.defineColumn("!nepacc", typeof(int));
+	tassetgrant.defineColumn("!codemotive", typeof(string));
+	tassetgrant.defineColumn("!titlemotive", typeof(string));
+	tassetgrant.defineColumn("!codeunderwriting", typeof(string));
+	tassetgrant.defineColumn("!codeinv", typeof(string));
+	tassetgrant.defineColumn("!inventorytree", typeof(string));
+	tassetgrant.defineColumn("!inventoryagency", typeof(string));
+	tassetgrant.defineColumn("!titleunderwriting", typeof(string));
+	tassetgrant.defineColumn("!cost", typeof(decimal));
 	Tables.Add(tassetgrant);
 	tassetgrant.defineKey("idasset", "idgrant", "idpiece");
 
 	//////////////////// ASSETGRANTDETAIL /////////////////////////////////
 	var tassetgrantdetail= new assetgrantdetailTable();
 	tassetgrantdetail.addBaseColumns("idasset","idgrant","iddetail","ydetail","amount","idgrantload","ct","cu","lt","lu","idpiece","idepacc");
-	tassetgrantdetail.defineColumn("!ninventario", typeof(Int32));
-	tassetgrantdetail.defineColumn("!inventario", typeof(String));
-	tassetgrantdetail.defineColumn("!yepacc", typeof(Int16));
-	tassetgrantdetail.defineColumn("!nepacc", typeof(Int32));
-	tassetgrantdetail.defineColumn("!codeinv", typeof(String));
-	tassetgrantdetail.defineColumn("!inventorytree", typeof(String));
-	tassetgrantdetail.defineColumn("!inventoryagency", typeof(String));
-	tassetgrantdetail.defineColumn("!cost", typeof(Decimal));
+	tassetgrantdetail.defineColumn("!ninventario", typeof(int));
+	tassetgrantdetail.defineColumn("!inventario", typeof(string));
+	tassetgrantdetail.defineColumn("!yepacc", typeof(short));
+	tassetgrantdetail.defineColumn("!nepacc", typeof(int));
+	tassetgrantdetail.defineColumn("!codeinv", typeof(string));
+	tassetgrantdetail.defineColumn("!inventorytree", typeof(string));
+	tassetgrantdetail.defineColumn("!inventoryagency", typeof(string));
+	tassetgrantdetail.defineColumn("!cost", typeof(decimal));
 	Tables.Add(tassetgrantdetail);
 	tassetgrantdetail.defineKey("idasset", "idgrant", "iddetail", "idpiece");
 
 	//////////////////// ASSETVIEW_GRANT /////////////////////////////////
-	T= new MetaTable("assetview_grant");
-	T.defineColumn("idasset", typeof(Int32),false);
-	T.defineColumn("idpiece", typeof(Int32),false);
-	T.defineColumn("idasset_prev", typeof(Int32));
-	T.defineColumn("idpiece_prev", typeof(Int32));
-	T.defineColumn("idinventory_prev", typeof(Int32));
-	T.defineColumn("codeinventory_prev", typeof(String));
-	T.defineColumn("inventory_prev", typeof(String));
-	T.defineColumn("ninventory_prev", typeof(Int32));
-	T.defineColumn("idasset_next", typeof(Int32));
-	T.defineColumn("idpiece_next", typeof(Int32));
-	T.defineColumn("idinventory_next", typeof(Int32));
-	T.defineColumn("codeinventory_next", typeof(String));
-	T.defineColumn("inventory_next", typeof(String));
-	T.defineColumn("ninventory_next", typeof(Int32));
-	T.defineColumn("lifestart", typeof(DateTime));
-	T.defineColumn("yearstart", typeof(Int32),true,true);
-	T.defineColumn("nassetacquire", typeof(Int32));
-	T.defineColumn("ninventory", typeof(Int32));
-	T.defineColumn("idcurrlocation", typeof(Int32));
-	T.defineColumn("currlocationcode", typeof(String));
-	T.defineColumn("currlocation", typeof(String));
-	T.defineColumn("idcurrman", typeof(Int32));
-	T.defineColumn("currmanager", typeof(String));
-	T.defineColumn("idcurrsubman", typeof(Int32));
-	T.defineColumn("currsubmanager", typeof(String));
-	T.defineColumn("idinv", typeof(Int32),false);
-	T.defineColumn("codeinv", typeof(String),false);
-	T.defineColumn("idinv_lev1", typeof(Int32),false);
-	T.defineColumn("codeinv_lev1", typeof(String),false);
-	T.defineColumn("inventorytree", typeof(String),false);
-	T.defineColumn("inventorytree_lev1", typeof(String),false);
-	T.defineColumn("idinventory", typeof(Int32));
-	T.defineColumn("codeinventory", typeof(String),false);
-	T.defineColumn("inventory", typeof(String),false);
-	T.defineColumn("description", typeof(String),false);
-	T.defineColumn("idassetload", typeof(Int32));
-	T.defineColumn("idassetloadkind", typeof(Int32));
-	T.defineColumn("yassetload", typeof(Int16));
-	T.defineColumn("nassetload", typeof(Int32));
-	T.defineColumn("idloadmot", typeof(Int32),false);
-	T.defineColumn("loadmotive", typeof(String));
-	T.defineColumn("loaddescription", typeof(String));
-	T.defineColumn("ratificationdate", typeof(DateTime));
-	T.defineColumn("loaddate", typeof(DateTime));
-	T.defineColumn("loaddoc", typeof(String));
-	T.defineColumn("loaddocdate", typeof(DateTime));
-	T.defineColumn("loadenactment", typeof(String));
-	T.defineColumn("loadenactmentdate", typeof(DateTime));
-	T.defineColumn("loadprintdate", typeof(DateTime));
-	T.defineColumn("taxable", typeof(Decimal));
-	T.defineColumn("taxrate", typeof(Double));
-	T.defineColumn("tax", typeof(Decimal),true,true);
-	T.defineColumn("abatable", typeof(Decimal),true,true);
-	T.defineColumn("unabatable", typeof(Decimal),true,true);
-	T.defineColumn("number", typeof(Int32),false);
-	T.defineColumn("discount", typeof(Double));
-	T.defineColumn("cost", typeof(Decimal),true,true);
-	T.defineColumn("revals", typeof(Decimal),true,true);
-	T.defineColumn("revals_pending", typeof(Decimal),true,true);
-	T.defineColumn("subtractions", typeof(Decimal),true,true);
-	T.defineColumn("currentvalue", typeof(Decimal),true,true);
-	T.defineColumn("total", typeof(Decimal),true,true);
-	T.defineColumn("idassetunload", typeof(Int32));
-	T.defineColumn("idassetunloadkind", typeof(Int32));
-	T.defineColumn("yassetunload", typeof(Int16));
-	T.defineColumn("nassetunload", typeof(Int32));
-	T.defineColumn("unloaddate", typeof(DateTime));
-	T.defineColumn("idunloadmot", typeof(Int32));
-	T.defineColumn("unloadmotive", typeof(String));
-	T.defineColumn("unloaddescription", typeof(String));
-	T.defineColumn("unloaddoc", typeof(String));
-	T.defineColumn("unloaddocdate", typeof(DateTime));
-	T.defineColumn("unloadenactment", typeof(String));
-	T.defineColumn("unloadenactmentdate", typeof(DateTime));
-	T.defineColumn("unloadratificationdate", typeof(DateTime));
-	T.defineColumn("unloadregistry", typeof(String));
-	T.defineColumn("flag", typeof(Byte),false);
-	T.defineColumn("flagunload", typeof(String),true,true);
-	T.defineColumn("flagtransf", typeof(String),true,true);
-	T.defineColumn("transmitted", typeof(String));
-	T.defineColumn("flagload", typeof(String),true,true);
-	T.defineColumn("loadkind", typeof(String),true,true);
-	T.defineColumn("multifield", typeof(String));
-	T.defineColumn("idsor01", typeof(Int32),true,true);
-	T.defineColumn("idsor02", typeof(Int32),true,true);
-	T.defineColumn("idsor03", typeof(Int32),true,true);
-	T.defineColumn("idsor04", typeof(Int32),true,true);
-	T.defineColumn("idsor05", typeof(Int32),true,true);
-	T.defineColumn("is_unloaded", typeof(String),true,true);
-	T.defineColumn("is_loaded", typeof(String),true,true);
-	T.defineColumn("idupb", typeof(String));
-	T.defineColumn("codeupb", typeof(String));
-	T.defineColumn("upb", typeof(String));
-	T.defineColumn("cu", typeof(String),false);
-	T.defineColumn("ct", typeof(DateTime),false);
-	T.defineColumn("lu", typeof(String),false);
-	T.defineColumn("lt", typeof(DateTime),false);
-	T.defineColumn("rtf", typeof(Byte[]));
-	T.defineColumn("txt", typeof(String));
-	T.defineColumn("idinventoryagency", typeof(Int32),false);
-	T.defineColumn("inventoryagency", typeof(String),false);
-	T.defineColumn("idlist", typeof(Int32));
-	T.defineColumn("intcode", typeof(String));
-	T.defineColumn("list", typeof(String));
-	T.defineColumn("idinventoryamortization", typeof(Int32));
-	T.defineColumn("amortizationquota", typeof(Double));
-	T.defineColumn("historical", typeof(Decimal));
-	T.defineColumn("ispiece", typeof(String),true,true);
-	T.defineColumn("inventorykindvisible", typeof(String),true,true);
-	Tables.Add(T);
-	T.defineKey("idasset", "idpiece");
+	var tassetview_grant= new MetaTable("assetview_grant");
+	tassetview_grant.defineColumn("idasset", typeof(int),false);
+	tassetview_grant.defineColumn("idpiece", typeof(int),false);
+	tassetview_grant.defineColumn("idasset_prev", typeof(int));
+	tassetview_grant.defineColumn("idpiece_prev", typeof(int));
+	tassetview_grant.defineColumn("idinventory_prev", typeof(int));
+	tassetview_grant.defineColumn("codeinventory_prev", typeof(string));
+	tassetview_grant.defineColumn("inventory_prev", typeof(string));
+	tassetview_grant.defineColumn("ninventory_prev", typeof(int));
+	tassetview_grant.defineColumn("idasset_next", typeof(int));
+	tassetview_grant.defineColumn("idpiece_next", typeof(int));
+	tassetview_grant.defineColumn("idinventory_next", typeof(int));
+	tassetview_grant.defineColumn("codeinventory_next", typeof(string));
+	tassetview_grant.defineColumn("inventory_next", typeof(string));
+	tassetview_grant.defineColumn("ninventory_next", typeof(int));
+	tassetview_grant.defineColumn("lifestart", typeof(DateTime));
+	tassetview_grant.defineColumn("yearstart", typeof(int),true,true);
+	tassetview_grant.defineColumn("nassetacquire", typeof(int));
+	tassetview_grant.defineColumn("ninventory", typeof(int));
+	tassetview_grant.defineColumn("idcurrlocation", typeof(int));
+	tassetview_grant.defineColumn("currlocationcode", typeof(string));
+	tassetview_grant.defineColumn("currlocation", typeof(string));
+	tassetview_grant.defineColumn("idcurrman", typeof(int));
+	tassetview_grant.defineColumn("currmanager", typeof(string));
+	tassetview_grant.defineColumn("idcurrsubman", typeof(int));
+	tassetview_grant.defineColumn("currsubmanager", typeof(string));
+	tassetview_grant.defineColumn("idinv", typeof(int),false);
+	tassetview_grant.defineColumn("codeinv", typeof(string),false);
+	tassetview_grant.defineColumn("idinv_lev1", typeof(int),false);
+	tassetview_grant.defineColumn("codeinv_lev1", typeof(string),false);
+	tassetview_grant.defineColumn("inventorytree", typeof(string),false);
+	tassetview_grant.defineColumn("inventorytree_lev1", typeof(string),false);
+	tassetview_grant.defineColumn("idinventory", typeof(int));
+	tassetview_grant.defineColumn("codeinventory", typeof(string),false);
+	tassetview_grant.defineColumn("inventory", typeof(string),false);
+	tassetview_grant.defineColumn("description", typeof(string),false);
+	tassetview_grant.defineColumn("idassetload", typeof(int));
+	tassetview_grant.defineColumn("idassetloadkind", typeof(int));
+	tassetview_grant.defineColumn("yassetload", typeof(short));
+	tassetview_grant.defineColumn("nassetload", typeof(int));
+	tassetview_grant.defineColumn("idloadmot", typeof(int),false);
+	tassetview_grant.defineColumn("loadmotive", typeof(string));
+	tassetview_grant.defineColumn("loaddescription", typeof(string));
+	tassetview_grant.defineColumn("ratificationdate", typeof(DateTime));
+	tassetview_grant.defineColumn("loaddate", typeof(DateTime));
+	tassetview_grant.defineColumn("loaddoc", typeof(string));
+	tassetview_grant.defineColumn("loaddocdate", typeof(DateTime));
+	tassetview_grant.defineColumn("loadenactment", typeof(string));
+	tassetview_grant.defineColumn("loadenactmentdate", typeof(DateTime));
+	tassetview_grant.defineColumn("loadprintdate", typeof(DateTime));
+	tassetview_grant.defineColumn("taxable", typeof(decimal));
+	tassetview_grant.defineColumn("taxrate", typeof(double));
+	tassetview_grant.defineColumn("tax", typeof(decimal),true,true);
+	tassetview_grant.defineColumn("abatable", typeof(decimal),true,true);
+	tassetview_grant.defineColumn("unabatable", typeof(decimal),true,true);
+	tassetview_grant.defineColumn("number", typeof(int),false);
+	tassetview_grant.defineColumn("discount", typeof(double));
+	tassetview_grant.defineColumn("cost", typeof(decimal),true,true);
+	tassetview_grant.defineColumn("revals", typeof(decimal),true,true);
+	tassetview_grant.defineColumn("revals_pending", typeof(decimal),true,true);
+	tassetview_grant.defineColumn("subtractions", typeof(decimal),true,true);
+	tassetview_grant.defineColumn("currentvalue", typeof(decimal),true,true);
+	tassetview_grant.defineColumn("total", typeof(decimal),true,true);
+	tassetview_grant.defineColumn("idassetunload", typeof(int));
+	tassetview_grant.defineColumn("idassetunloadkind", typeof(int));
+	tassetview_grant.defineColumn("yassetunload", typeof(short));
+	tassetview_grant.defineColumn("nassetunload", typeof(int));
+	tassetview_grant.defineColumn("unloaddate", typeof(DateTime));
+	tassetview_grant.defineColumn("idunloadmot", typeof(int));
+	tassetview_grant.defineColumn("unloadmotive", typeof(string));
+	tassetview_grant.defineColumn("unloaddescription", typeof(string));
+	tassetview_grant.defineColumn("unloaddoc", typeof(string));
+	tassetview_grant.defineColumn("unloaddocdate", typeof(DateTime));
+	tassetview_grant.defineColumn("unloadenactment", typeof(string));
+	tassetview_grant.defineColumn("unloadenactmentdate", typeof(DateTime));
+	tassetview_grant.defineColumn("unloadratificationdate", typeof(DateTime));
+	tassetview_grant.defineColumn("unloadregistry", typeof(string));
+	tassetview_grant.defineColumn("flag", typeof(byte),false);
+	tassetview_grant.defineColumn("flagunload", typeof(string),true,true);
+	tassetview_grant.defineColumn("flagtransf", typeof(string),true,true);
+	tassetview_grant.defineColumn("transmitted", typeof(string));
+	tassetview_grant.defineColumn("flagload", typeof(string),true,true);
+	tassetview_grant.defineColumn("loadkind", typeof(string),true,true);
+	tassetview_grant.defineColumn("multifield", typeof(string));
+	tassetview_grant.defineColumn("idsor01", typeof(int),true,true);
+	tassetview_grant.defineColumn("idsor02", typeof(int),true,true);
+	tassetview_grant.defineColumn("idsor03", typeof(int),true,true);
+	tassetview_grant.defineColumn("idsor04", typeof(int),true,true);
+	tassetview_grant.defineColumn("idsor05", typeof(int),true,true);
+	tassetview_grant.defineColumn("is_unloaded", typeof(string),true,true);
+	tassetview_grant.defineColumn("is_loaded", typeof(string),true,true);
+	tassetview_grant.defineColumn("idupb", typeof(string));
+	tassetview_grant.defineColumn("codeupb", typeof(string));
+	tassetview_grant.defineColumn("upb", typeof(string));
+	tassetview_grant.defineColumn("cu", typeof(string),false);
+	tassetview_grant.defineColumn("ct", typeof(DateTime),false);
+	tassetview_grant.defineColumn("lu", typeof(string),false);
+	tassetview_grant.defineColumn("lt", typeof(DateTime),false);
+	tassetview_grant.defineColumn("rtf", typeof(Byte[]));
+	tassetview_grant.defineColumn("txt", typeof(string));
+	tassetview_grant.defineColumn("idinventoryagency", typeof(int),false);
+	tassetview_grant.defineColumn("inventoryagency", typeof(string),false);
+	tassetview_grant.defineColumn("idlist", typeof(int));
+	tassetview_grant.defineColumn("intcode", typeof(string));
+	tassetview_grant.defineColumn("list", typeof(string));
+	tassetview_grant.defineColumn("idinventoryamortization", typeof(int));
+	tassetview_grant.defineColumn("amortizationquota", typeof(double));
+	tassetview_grant.defineColumn("historical", typeof(decimal));
+	tassetview_grant.defineColumn("ispiece", typeof(string),true,true);
+	tassetview_grant.defineColumn("inventorykindvisible", typeof(string),true,true);
+	Tables.Add(tassetview_grant);
+	tassetview_grant.defineKey("idasset", "idpiece");
 
 	//////////////////// ASSETVIEW_GRANTDETAIL /////////////////////////////////
-	T= new MetaTable("assetview_grantdetail");
-	T.defineColumn("idasset", typeof(Int32),false);
-	T.defineColumn("idpiece", typeof(Int32),false);
-	T.defineColumn("idasset_prev", typeof(Int32));
-	T.defineColumn("idpiece_prev", typeof(Int32));
-	T.defineColumn("idinventory_prev", typeof(Int32));
-	T.defineColumn("codeinventory_prev", typeof(String));
-	T.defineColumn("inventory_prev", typeof(String));
-	T.defineColumn("ninventory_prev", typeof(Int32));
-	T.defineColumn("idasset_next", typeof(Int32));
-	T.defineColumn("idpiece_next", typeof(Int32));
-	T.defineColumn("idinventory_next", typeof(Int32));
-	T.defineColumn("codeinventory_next", typeof(String));
-	T.defineColumn("inventory_next", typeof(String));
-	T.defineColumn("ninventory_next", typeof(Int32));
-	T.defineColumn("lifestart", typeof(DateTime));
-	T.defineColumn("yearstart", typeof(Int32),true,true);
-	T.defineColumn("nassetacquire", typeof(Int32));
-	T.defineColumn("ninventory", typeof(Int32));
-	T.defineColumn("idcurrlocation", typeof(Int32));
-	T.defineColumn("currlocationcode", typeof(String));
-	T.defineColumn("currlocation", typeof(String));
-	T.defineColumn("idcurrman", typeof(Int32));
-	T.defineColumn("currmanager", typeof(String));
-	T.defineColumn("idcurrsubman", typeof(Int32));
-	T.defineColumn("currsubmanager", typeof(String));
-	T.defineColumn("idinv", typeof(Int32),false);
-	T.defineColumn("codeinv", typeof(String),false);
-	T.defineColumn("idinv_lev1", typeof(Int32),false);
-	T.defineColumn("codeinv_lev1", typeof(String),false);
-	T.defineColumn("inventorytree", typeof(String),false);
-	T.defineColumn("inventorytree_lev1", typeof(String),false);
-	T.defineColumn("idinventory", typeof(Int32));
-	T.defineColumn("codeinventory", typeof(String),false);
-	T.defineColumn("inventory", typeof(String),false);
-	T.defineColumn("description", typeof(String),false);
-	T.defineColumn("idassetload", typeof(Int32));
-	T.defineColumn("idassetloadkind", typeof(Int32));
-	T.defineColumn("yassetload", typeof(Int16));
-	T.defineColumn("nassetload", typeof(Int32));
-	T.defineColumn("idloadmot", typeof(Int32),false);
-	T.defineColumn("loadmotive", typeof(String));
-	T.defineColumn("loaddescription", typeof(String));
-	T.defineColumn("ratificationdate", typeof(DateTime));
-	T.defineColumn("loaddate", typeof(DateTime));
-	T.defineColumn("loaddoc", typeof(String));
-	T.defineColumn("loaddocdate", typeof(DateTime));
-	T.defineColumn("loadenactment", typeof(String));
-	T.defineColumn("loadenactmentdate", typeof(DateTime));
-	T.defineColumn("loadprintdate", typeof(DateTime));
-	T.defineColumn("taxable", typeof(Decimal));
-	T.defineColumn("taxrate", typeof(Double));
-	T.defineColumn("tax", typeof(Decimal),true,true);
-	T.defineColumn("abatable", typeof(Decimal),true,true);
-	T.defineColumn("unabatable", typeof(Decimal),true,true);
-	T.defineColumn("number", typeof(Int32),false);
-	T.defineColumn("discount", typeof(Double));
-	T.defineColumn("cost", typeof(Decimal),true,true);
-	T.defineColumn("revals", typeof(Decimal),true,true);
-	T.defineColumn("revals_pending", typeof(Decimal),true,true);
-	T.defineColumn("subtractions", typeof(Decimal),true,true);
-	T.defineColumn("currentvalue", typeof(Decimal),true,true);
-	T.defineColumn("total", typeof(Decimal),true,true);
-	T.defineColumn("idassetunload", typeof(Int32));
-	T.defineColumn("idassetunloadkind", typeof(Int32));
-	T.defineColumn("yassetunload", typeof(Int16));
-	T.defineColumn("nassetunload", typeof(Int32));
-	T.defineColumn("unloaddate", typeof(DateTime));
-	T.defineColumn("idunloadmot", typeof(Int32));
-	T.defineColumn("unloadmotive", typeof(String));
-	T.defineColumn("unloaddescription", typeof(String));
-	T.defineColumn("unloaddoc", typeof(String));
-	T.defineColumn("unloaddocdate", typeof(DateTime));
-	T.defineColumn("unloadenactment", typeof(String));
-	T.defineColumn("unloadenactmentdate", typeof(DateTime));
-	T.defineColumn("unloadratificationdate", typeof(DateTime));
-	T.defineColumn("unloadregistry", typeof(String));
-	T.defineColumn("flag", typeof(Byte),false);
-	T.defineColumn("flagunload", typeof(String),true,true);
-	T.defineColumn("flagtransf", typeof(String),true,true);
-	T.defineColumn("transmitted", typeof(String));
-	T.defineColumn("flagload", typeof(String),true,true);
-	T.defineColumn("loadkind", typeof(String),true,true);
-	T.defineColumn("multifield", typeof(String));
-	T.defineColumn("idsor01", typeof(Int32),true,true);
-	T.defineColumn("idsor02", typeof(Int32),true,true);
-	T.defineColumn("idsor03", typeof(Int32),true,true);
-	T.defineColumn("idsor04", typeof(Int32),true,true);
-	T.defineColumn("idsor05", typeof(Int32),true,true);
-	T.defineColumn("is_unloaded", typeof(String),true,true);
-	T.defineColumn("is_loaded", typeof(String),true,true);
-	T.defineColumn("idupb", typeof(String));
-	T.defineColumn("codeupb", typeof(String));
-	T.defineColumn("upb", typeof(String));
-	T.defineColumn("cu", typeof(String),false);
-	T.defineColumn("ct", typeof(DateTime),false);
-	T.defineColumn("lu", typeof(String),false);
-	T.defineColumn("lt", typeof(DateTime),false);
-	T.defineColumn("rtf", typeof(Byte[]));
-	T.defineColumn("txt", typeof(String));
-	T.defineColumn("idinventoryagency", typeof(Int32),false);
-	T.defineColumn("inventoryagency", typeof(String),false);
-	T.defineColumn("idlist", typeof(Int32));
-	T.defineColumn("intcode", typeof(String));
-	T.defineColumn("list", typeof(String));
-	T.defineColumn("idinventoryamortization", typeof(Int32));
-	T.defineColumn("amortizationquota", typeof(Double));
-	T.defineColumn("historical", typeof(Decimal));
-	T.defineColumn("ispiece", typeof(String),true,true);
-	T.defineColumn("inventorykindvisible", typeof(String),true,true);
-	Tables.Add(T);
-	T.defineKey("idasset", "idpiece");
+	var tassetview_grantdetail= new MetaTable("assetview_grantdetail");
+	tassetview_grantdetail.defineColumn("idasset", typeof(int),false);
+	tassetview_grantdetail.defineColumn("idpiece", typeof(int),false);
+	tassetview_grantdetail.defineColumn("idasset_prev", typeof(int));
+	tassetview_grantdetail.defineColumn("idpiece_prev", typeof(int));
+	tassetview_grantdetail.defineColumn("idinventory_prev", typeof(int));
+	tassetview_grantdetail.defineColumn("codeinventory_prev", typeof(string));
+	tassetview_grantdetail.defineColumn("inventory_prev", typeof(string));
+	tassetview_grantdetail.defineColumn("ninventory_prev", typeof(int));
+	tassetview_grantdetail.defineColumn("idasset_next", typeof(int));
+	tassetview_grantdetail.defineColumn("idpiece_next", typeof(int));
+	tassetview_grantdetail.defineColumn("idinventory_next", typeof(int));
+	tassetview_grantdetail.defineColumn("codeinventory_next", typeof(string));
+	tassetview_grantdetail.defineColumn("inventory_next", typeof(string));
+	tassetview_grantdetail.defineColumn("ninventory_next", typeof(int));
+	tassetview_grantdetail.defineColumn("lifestart", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("yearstart", typeof(int),true,true);
+	tassetview_grantdetail.defineColumn("nassetacquire", typeof(int));
+	tassetview_grantdetail.defineColumn("ninventory", typeof(int));
+	tassetview_grantdetail.defineColumn("idcurrlocation", typeof(int));
+	tassetview_grantdetail.defineColumn("currlocationcode", typeof(string));
+	tassetview_grantdetail.defineColumn("currlocation", typeof(string));
+	tassetview_grantdetail.defineColumn("idcurrman", typeof(int));
+	tassetview_grantdetail.defineColumn("currmanager", typeof(string));
+	tassetview_grantdetail.defineColumn("idcurrsubman", typeof(int));
+	tassetview_grantdetail.defineColumn("currsubmanager", typeof(string));
+	tassetview_grantdetail.defineColumn("idinv", typeof(int),false);
+	tassetview_grantdetail.defineColumn("codeinv", typeof(string),false);
+	tassetview_grantdetail.defineColumn("idinv_lev1", typeof(int),false);
+	tassetview_grantdetail.defineColumn("codeinv_lev1", typeof(string),false);
+	tassetview_grantdetail.defineColumn("inventorytree", typeof(string),false);
+	tassetview_grantdetail.defineColumn("inventorytree_lev1", typeof(string),false);
+	tassetview_grantdetail.defineColumn("idinventory", typeof(int));
+	tassetview_grantdetail.defineColumn("codeinventory", typeof(string),false);
+	tassetview_grantdetail.defineColumn("inventory", typeof(string),false);
+	tassetview_grantdetail.defineColumn("description", typeof(string),false);
+	tassetview_grantdetail.defineColumn("idassetload", typeof(int));
+	tassetview_grantdetail.defineColumn("idassetloadkind", typeof(int));
+	tassetview_grantdetail.defineColumn("yassetload", typeof(short));
+	tassetview_grantdetail.defineColumn("nassetload", typeof(int));
+	tassetview_grantdetail.defineColumn("idloadmot", typeof(int),false);
+	tassetview_grantdetail.defineColumn("loadmotive", typeof(string));
+	tassetview_grantdetail.defineColumn("loaddescription", typeof(string));
+	tassetview_grantdetail.defineColumn("ratificationdate", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("loaddate", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("loaddoc", typeof(string));
+	tassetview_grantdetail.defineColumn("loaddocdate", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("loadenactment", typeof(string));
+	tassetview_grantdetail.defineColumn("loadenactmentdate", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("loadprintdate", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("taxable", typeof(decimal));
+	tassetview_grantdetail.defineColumn("taxrate", typeof(double));
+	tassetview_grantdetail.defineColumn("tax", typeof(decimal),true,true);
+	tassetview_grantdetail.defineColumn("abatable", typeof(decimal),true,true);
+	tassetview_grantdetail.defineColumn("unabatable", typeof(decimal),true,true);
+	tassetview_grantdetail.defineColumn("number", typeof(int),false);
+	tassetview_grantdetail.defineColumn("discount", typeof(double));
+	tassetview_grantdetail.defineColumn("cost", typeof(decimal),true,true);
+	tassetview_grantdetail.defineColumn("revals", typeof(decimal),true,true);
+	tassetview_grantdetail.defineColumn("revals_pending", typeof(decimal),true,true);
+	tassetview_grantdetail.defineColumn("subtractions", typeof(decimal),true,true);
+	tassetview_grantdetail.defineColumn("currentvalue", typeof(decimal),true,true);
+	tassetview_grantdetail.defineColumn("total", typeof(decimal),true,true);
+	tassetview_grantdetail.defineColumn("idassetunload", typeof(int));
+	tassetview_grantdetail.defineColumn("idassetunloadkind", typeof(int));
+	tassetview_grantdetail.defineColumn("yassetunload", typeof(short));
+	tassetview_grantdetail.defineColumn("nassetunload", typeof(int));
+	tassetview_grantdetail.defineColumn("unloaddate", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("idunloadmot", typeof(int));
+	tassetview_grantdetail.defineColumn("unloadmotive", typeof(string));
+	tassetview_grantdetail.defineColumn("unloaddescription", typeof(string));
+	tassetview_grantdetail.defineColumn("unloaddoc", typeof(string));
+	tassetview_grantdetail.defineColumn("unloaddocdate", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("unloadenactment", typeof(string));
+	tassetview_grantdetail.defineColumn("unloadenactmentdate", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("unloadratificationdate", typeof(DateTime));
+	tassetview_grantdetail.defineColumn("unloadregistry", typeof(string));
+	tassetview_grantdetail.defineColumn("flag", typeof(byte),false);
+	tassetview_grantdetail.defineColumn("flagunload", typeof(string),true,true);
+	tassetview_grantdetail.defineColumn("flagtransf", typeof(string),true,true);
+	tassetview_grantdetail.defineColumn("transmitted", typeof(string));
+	tassetview_grantdetail.defineColumn("flagload", typeof(string),true,true);
+	tassetview_grantdetail.defineColumn("loadkind", typeof(string),true,true);
+	tassetview_grantdetail.defineColumn("multifield", typeof(string));
+	tassetview_grantdetail.defineColumn("idsor01", typeof(int),true,true);
+	tassetview_grantdetail.defineColumn("idsor02", typeof(int),true,true);
+	tassetview_grantdetail.defineColumn("idsor03", typeof(int),true,true);
+	tassetview_grantdetail.defineColumn("idsor04", typeof(int),true,true);
+	tassetview_grantdetail.defineColumn("idsor05", typeof(int),true,true);
+	tassetview_grantdetail.defineColumn("is_unloaded", typeof(string),true,true);
+	tassetview_grantdetail.defineColumn("is_loaded", typeof(string),true,true);
+	tassetview_grantdetail.defineColumn("idupb", typeof(string));
+	tassetview_grantdetail.defineColumn("codeupb", typeof(string));
+	tassetview_grantdetail.defineColumn("upb", typeof(string));
+	tassetview_grantdetail.defineColumn("cu", typeof(string),false);
+	tassetview_grantdetail.defineColumn("ct", typeof(DateTime),false);
+	tassetview_grantdetail.defineColumn("lu", typeof(string),false);
+	tassetview_grantdetail.defineColumn("lt", typeof(DateTime),false);
+	tassetview_grantdetail.defineColumn("rtf", typeof(Byte[]));
+	tassetview_grantdetail.defineColumn("txt", typeof(string));
+	tassetview_grantdetail.defineColumn("idinventoryagency", typeof(int),false);
+	tassetview_grantdetail.defineColumn("inventoryagency", typeof(string),false);
+	tassetview_grantdetail.defineColumn("idlist", typeof(int));
+	tassetview_grantdetail.defineColumn("intcode", typeof(string));
+	tassetview_grantdetail.defineColumn("list", typeof(string));
+	tassetview_grantdetail.defineColumn("idinventoryamortization", typeof(int));
+	tassetview_grantdetail.defineColumn("amortizationquota", typeof(double));
+	tassetview_grantdetail.defineColumn("historical", typeof(decimal));
+	tassetview_grantdetail.defineColumn("ispiece", typeof(string),true,true);
+	tassetview_grantdetail.defineColumn("inventorykindvisible", typeof(string),true,true);
+	Tables.Add(tassetview_grantdetail);
+	tassetview_grantdetail.defineKey("idasset", "idpiece");
 
 	//////////////////// EPACC_GRANTDETAIL /////////////////////////////////
-	T= new MetaTable("epacc_grantdetail");
-	T.defineColumn("idepacc", typeof(Int32),false);
-	T.defineColumn("adate", typeof(DateTime),false);
-	T.defineColumn("ct", typeof(DateTime),false);
-	T.defineColumn("cu", typeof(String),false);
-	T.defineColumn("description", typeof(String),false);
-	T.defineColumn("doc", typeof(String));
-	T.defineColumn("docdate", typeof(DateTime));
-	T.defineColumn("idman", typeof(Int32));
-	T.defineColumn("idreg", typeof(Int32));
-	T.defineColumn("idrelated", typeof(String));
-	T.defineColumn("lt", typeof(DateTime),false);
-	T.defineColumn("lu", typeof(String),false);
-	T.defineColumn("nepacc", typeof(Int32),false);
-	T.defineColumn("nphase", typeof(Int16),false);
-	T.defineColumn("paridepacc", typeof(Int32));
-	T.defineColumn("rtf", typeof(Byte[]));
-	T.defineColumn("start", typeof(DateTime));
-	T.defineColumn("stop", typeof(DateTime));
-	T.defineColumn("txt", typeof(String));
-	T.defineColumn("yepacc", typeof(Int16),false);
-	T.defineColumn("flagvariation", typeof(String));
-	T.defineColumn("idaccmotive", typeof(String));
-	Tables.Add(T);
-	T.defineKey("idepacc");
+	var tepacc_grantdetail= new MetaTable("epacc_grantdetail");
+	tepacc_grantdetail.defineColumn("idepacc", typeof(int),false);
+	tepacc_grantdetail.defineColumn("adate", typeof(DateTime),false);
+	tepacc_grantdetail.defineColumn("ct", typeof(DateTime),false);
+	tepacc_grantdetail.defineColumn("cu", typeof(string),false);
+	tepacc_grantdetail.defineColumn("description", typeof(string),false);
+	tepacc_grantdetail.defineColumn("doc", typeof(string));
+	tepacc_grantdetail.defineColumn("docdate", typeof(DateTime));
+	tepacc_grantdetail.defineColumn("idman", typeof(int));
+	tepacc_grantdetail.defineColumn("idreg", typeof(int));
+	tepacc_grantdetail.defineColumn("idrelated", typeof(string));
+	tepacc_grantdetail.defineColumn("lt", typeof(DateTime),false);
+	tepacc_grantdetail.defineColumn("lu", typeof(string),false);
+	tepacc_grantdetail.defineColumn("nepacc", typeof(int),false);
+	tepacc_grantdetail.defineColumn("nphase", typeof(short),false);
+	tepacc_grantdetail.defineColumn("paridepacc", typeof(int));
+	tepacc_grantdetail.defineColumn("rtf", typeof(Byte[]));
+	tepacc_grantdetail.defineColumn("start", typeof(DateTime));
+	tepacc_grantdetail.defineColumn("stop", typeof(DateTime));
+	tepacc_grantdetail.defineColumn("txt", typeof(string));
+	tepacc_grantdetail.defineColumn("yepacc", typeof(short),false);
+	tepacc_grantdetail.defineColumn("flagvariation", typeof(string));
+	tepacc_grantdetail.defineColumn("idaccmotive", typeof(string));
+	Tables.Add(tepacc_grantdetail);
+	tepacc_grantdetail.defineKey("idepacc");
 
 	//////////////////// EPACC_GRANT /////////////////////////////////
-	T= new MetaTable("epacc_grant");
-	T.defineColumn("idepacc", typeof(Int32),false);
-	T.defineColumn("adate", typeof(DateTime),false);
-	T.defineColumn("ct", typeof(DateTime),false);
-	T.defineColumn("cu", typeof(String),false);
-	T.defineColumn("description", typeof(String),false);
-	T.defineColumn("doc", typeof(String));
-	T.defineColumn("docdate", typeof(DateTime));
-	T.defineColumn("idman", typeof(Int32));
-	T.defineColumn("idreg", typeof(Int32));
-	T.defineColumn("idrelated", typeof(String));
-	T.defineColumn("lt", typeof(DateTime),false);
-	T.defineColumn("lu", typeof(String),false);
-	T.defineColumn("nepacc", typeof(Int32),false);
-	T.defineColumn("nphase", typeof(Int16),false);
-	T.defineColumn("paridepacc", typeof(Int32));
-	T.defineColumn("rtf", typeof(Byte[]));
-	T.defineColumn("start", typeof(DateTime));
-	T.defineColumn("stop", typeof(DateTime));
-	T.defineColumn("txt", typeof(String));
-	T.defineColumn("yepacc", typeof(Int16),false);
-	T.defineColumn("flagvariation", typeof(String));
-	T.defineColumn("idaccmotive", typeof(String));
-	Tables.Add(T);
-	T.defineKey("idepacc");
+	var tepacc_grant= new MetaTable("epacc_grant");
+	tepacc_grant.defineColumn("idepacc", typeof(int),false);
+	tepacc_grant.defineColumn("adate", typeof(DateTime),false);
+	tepacc_grant.defineColumn("ct", typeof(DateTime),false);
+	tepacc_grant.defineColumn("cu", typeof(string),false);
+	tepacc_grant.defineColumn("description", typeof(string),false);
+	tepacc_grant.defineColumn("doc", typeof(string));
+	tepacc_grant.defineColumn("docdate", typeof(DateTime));
+	tepacc_grant.defineColumn("idman", typeof(int));
+	tepacc_grant.defineColumn("idreg", typeof(int));
+	tepacc_grant.defineColumn("idrelated", typeof(string));
+	tepacc_grant.defineColumn("lt", typeof(DateTime),false);
+	tepacc_grant.defineColumn("lu", typeof(string),false);
+	tepacc_grant.defineColumn("nepacc", typeof(int),false);
+	tepacc_grant.defineColumn("nphase", typeof(short),false);
+	tepacc_grant.defineColumn("paridepacc", typeof(int));
+	tepacc_grant.defineColumn("rtf", typeof(Byte[]));
+	tepacc_grant.defineColumn("start", typeof(DateTime));
+	tepacc_grant.defineColumn("stop", typeof(DateTime));
+	tepacc_grant.defineColumn("txt", typeof(string));
+	tepacc_grant.defineColumn("yepacc", typeof(short),false);
+	tepacc_grant.defineColumn("flagvariation", typeof(string));
+	tepacc_grant.defineColumn("idaccmotive", typeof(string));
+	Tables.Add(tepacc_grant);
+	tepacc_grant.defineKey("idepacc");
 
 	//////////////////// UNDERWRITING /////////////////////////////////
-	T= new MetaTable("underwriting");
-	T.defineColumn("idunderwriting", typeof(Int32),false);
-	T.defineColumn("active", typeof(String));
-	T.defineColumn("codeunderwriting", typeof(String));
-	T.defineColumn("ct", typeof(DateTime),false);
-	T.defineColumn("cu", typeof(String),false);
-	T.defineColumn("doc", typeof(String));
-	T.defineColumn("docdate", typeof(DateTime));
-	T.defineColumn("idsor01", typeof(Int32));
-	T.defineColumn("idsor02", typeof(Int32));
-	T.defineColumn("idsor03", typeof(Int32));
-	T.defineColumn("idsor04", typeof(Int32));
-	T.defineColumn("idsor05", typeof(Int32));
-	T.defineColumn("idunderwriter", typeof(Int32));
-	T.defineColumn("lt", typeof(DateTime),false);
-	T.defineColumn("lu", typeof(String),false);
-	T.defineColumn("title", typeof(String),false);
-	Tables.Add(T);
-	T.defineKey("idunderwriting");
+	var tunderwriting= new underwritingTable();
+	tunderwriting.addBaseColumns("idunderwriting","active","codeunderwriting","ct","cu","doc","docdate","idsor01","idsor02","idsor03","idsor04","idsor05","idunderwriter","lt","lu","title");
+	Tables.Add(tunderwriting);
+	tunderwriting.defineKey("idunderwriting");
 
 	//////////////////// ACCMOTIVE /////////////////////////////////
 	var taccmotive= new accmotiveTable();
@@ -443,8 +423,6 @@ private void InitClass() {
 
 
 	#region DataRelation creation
-	DataColumn []CPar;
-	DataColumn []CChild;
 	this.defineRelation("grantload_assetgrantdetail","grantload","assetgrantdetail","idgrantload");
 	this.defineRelation("grantload_assetgrant","grantload","assetgrant","idgrantload");
 	this.defineRelation("assetview_grantdetail_assetgrantdetail","assetview_grantdetail","assetgrantdetail","idasset","idpiece");

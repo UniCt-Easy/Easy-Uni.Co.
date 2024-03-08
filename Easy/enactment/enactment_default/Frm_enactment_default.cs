@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -912,7 +912,8 @@ namespace enactment_default{
             //        DialogResult.OK;
 
             AskConfirm Ask = new AskConfirm(0);
-            DialogResult AskRes = Ask.ShowDialog(this);
+			createForm(Ask, this);
+			DialogResult AskRes = Ask.ShowDialog(this);
             if (AskRes != DialogResult.OK) return;
 
             do_update_enactment = Ask.chk_do_update_enactment.Checked;

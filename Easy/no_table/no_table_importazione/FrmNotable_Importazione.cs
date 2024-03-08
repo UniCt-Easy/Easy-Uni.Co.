@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -599,12 +599,13 @@ namespace notable_importazione {
 
 		string[] tracciato_responsabile =
 			new string[] {
-				"denominazione;usata negli elenchi;Stringa;150",
+				"denominazione;Denominazione;Stringa;150",
 				"codicesezione;Codice sezione;Stringa;20",
 				"descrsezione;Sezione;Stringa;150",
 				"email;Email;Stringa;200",
 				"telefono;Telefono;Stringa;30",
 				"attivo;Flag Utilizzabile;Stringa;1",
+				"attivofinanziario;Flag Attivo nel Modulo Finanziario;Stringa;1",
 				"userweb;Codice Utente WEB ;Stringa;40",
 				"passwordweb; Password WEB;Stringa;40",
 				"codtipoclass01;Codice Tipo class. 01;Stringa;20",
@@ -713,6 +714,7 @@ namespace notable_importazione {
 
 
 				NewManager["active"] = Reader.getCurrField("attivo");
+				NewManager["financeactive"] = Reader.getCurrField("attivofinanziario") == DBNull.Value ? "S" : Reader.getCurrField("attivofinanziario").ToString().ToUpper();
 				NewManager["lt"] = DateTime.Now;
 				NewManager["lu"] = "importazione";
 
@@ -919,6 +921,10 @@ namespace notable_importazione {
 			MetaRegistryPayM.SetDefaults(D.Tables["registrypaymethod"]);
 			MetaData MetaRegistryLegalStatus = Meta.Dispatcher.Get("registryplegalstatus");
 			MetaRegistryLegalStatus.SetDefaults(D.Tables["registrylegalstatus"]);
+			MetaData MetaRegistryDocenti = Meta.Dispatcher.Get("registry_docenti");
+			MetaRegistryDocenti.SetDefaults(D.Tables["registry_docenti"]);
+			MetaData MetaRegistryAamministrativi = Meta.Dispatcher.Get("registry_amministrativi");
+			MetaRegistryAamministrativi.SetDefaults(D.Tables["registry_amministrativi"]);
 			MetaData MetaRegistryTaxableStatus = Meta.Dispatcher.Get("registrytaxablestatus");
 			MetaRegistryTaxableStatus.SetDefaults(D.Tables["registrytaxablestatus"]);
 			MetaData MetaCentralizedCategory = Meta.Dispatcher.Get("centralizedcategory");
@@ -1116,7 +1122,7 @@ namespace notable_importazione {
 				GetCatastale(idreg_to_use.ToString(), cat, out idcity, out idnation);
 				Reg["idcity"] = idcity;
 				Reg["idnation"] = idnation;
-				Reg["authorization_free"] = Reader.getCurrField("esenteeq");
+				Reg["authorization_free"] = string.IsNullOrEmpty(Reader.getCurrField("esenteeq").ToString()) ? Reader.getCurrField("esenteeq") : "N";
 				Reg["multi_cf"] = Reader.getCurrField("cfduplicato");
 				Reg["active"] = attiva;
 
@@ -1207,6 +1213,7 @@ namespace notable_importazione {
 					DataRow RLS = MetaRegistryLegalStatus.Get_New_Row(Reg, D.Tables["registrylegalstatus"]);
 					RLS["idreg"] = idreg_to_use;
 					RLS["active"] = "S";
+					RLS["flagdefault"] = "S";
 					RLS["idposition"] = idposition;
 					RLS["start"] = SSToSmalldateTime(Reader.getCurrField("datainizioposgiurid"));
 					RLS["incomeclassvalidity"] = SSToSmalldateTime(Reader.getCurrField("datainizioposgiurid"));
@@ -1223,12 +1230,51 @@ namespace notable_importazione {
 					}
 				}
 
+				//Aggiunge le righe in "registry_docenti" o  "registry_amministrativi" ove assenti
+				int flag_seg = NoNullInt(Conn.DO_READ_VALUE("seg_config", null, "flag"));
+				// Il riempimento delle tabella avviene in base a come è stato settato il bit 0 di seg_config.flag
+				if ((flag_seg & 1) == 0) {
+						int n_regdoc_docenti = Conn.RUN_SELECT_COUNT("registry_docenti", QHS.CmpEq("idreg", Reg["idreg"]), true);
+						if (n_regdoc_docenti > 0) continue;
+						int n_regdoc_amm = Conn.RUN_SELECT_COUNT("registry_amministrativi", QHS.CmpEq("idreg", Reg["idreg"]), true);
+						if (n_regdoc_amm > 0) continue;
+
+						//object idposition = R["codicequalifica"];
+						if ((idposition != DBNull.Value) && (idposition != null)) {
+							object idcontrattokind = Conn.DO_READ_VALUE("contrattokindposition", QHS.CmpEq("idposition", idposition), "idcontrattokind");
+							object idreg_istituti = Conn.DO_READ_VALUE("istitutoprinc", null, "idreg");
+							object tipopersonale = Conn.DO_READ_VALUE("contrattokind", QHS.CmpEq("idcontrattokind", idcontrattokind), "tipopersonale");
+							if ((tipopersonale != DBNull.Value) && (tipopersonale != null)) {
+								if (tipopersonale.ToString() == "D" || tipopersonale.ToString() == "R") {
+									DataRow RegDoc = MetaRegistryDocenti.Get_New_Row(Reg, D.Tables["registry_docenti"]);
+									RegDoc["idreg"] = Reg["idreg"];
+									RegDoc["idcontrattokind"] = idcontrattokind ?? DBNull.Value;
+									RegDoc["idreg_istituti"] = idreg_istituti ?? DBNull.Value;
+									RegDoc["ct"] = DateTime.Now;
+									RegDoc["lt"] = DateTime.Now;
+									RegDoc["cu"] = "importazioneCSA";
+									RegDoc["lu"] = "importazioneCSA";
+								}
+								else {
+									DataRow RegAmm = MetaRegistryAamministrativi.Get_New_Row(Reg, D.Tables["registry_amministrativi"]);
+									RegAmm["idreg"] = Reg["idreg"];
+									RegAmm["idcontrattokind"] = idcontrattokind ?? DBNull.Value;
+									RegAmm["ct"] = DateTime.Now;
+									RegAmm["lt"] = DateTime.Now;
+									RegAmm["cu"] = "importazioneCSA";
+									RegAmm["lu"] = "importazioneCSA";
+								}
+							}
+						}
+				}
+
 				object supposedincome = Reader.getCurrField("imponpresunto");
 				// inserimento reddito annuo presunto
 				if (supposedincome != DBNull.Value) {
 					DataRow RTS = MetaRegistryTaxableStatus.Get_New_Row(Reg, D.Tables["registrytaxablestatus"]);
 					RTS["idreg"] = idreg_to_use;
 					RTS["active"] = "S";
+					RTS["flagdefault"] = "S"; 
 					RTS["start"] = SSToSmalldateTime(Reader.getCurrField("datainizioposgiurid"));
 					RTS["supposedincome"] = supposedincome;
 				}
@@ -1257,6 +1303,11 @@ namespace notable_importazione {
 			D.Clear();
 			return ShowMessages();
 
+		}
+
+		int NoNullInt(object o) {
+			if (o == DBNull.Value) return 0;
+			return Convert.ToInt32(o);
 		}
 
 		/// <summary>
@@ -4518,7 +4569,10 @@ namespace notable_importazione {
 			"datainizio;Data inzio esistenza;Data;8",
 			"datafine;Data fine;Data;8",
 			"cig;Codice CIG;Stringa;10",
-			"tipoupb;Tipo upb ai fini dell'economico patrimoniale(Descrizione breve);Stringa;50"
+			"tipoupb;Tipo upb ai fini dell'economico patrimoniale(Descrizione breve);Stringa;50",
+			"cofogmpcode;Codice COFOG (04.8/01.4/07.5);Stringa;10",
+			"codiceue;Codice Unione Europea (01/02/03/04);Stringa;10",
+			"limitespesa;Applica limiti di costo (S/N);Codificato;1;S|N"
 		};
 
 		private void btnUPB_Click(object sender, EventArgs e) {
@@ -4538,6 +4592,7 @@ namespace notable_importazione {
 			MetaData MetaDivision = Meta.Dispatcher.Get("division");
 			MetaData MetaTreasurer = Meta.Dispatcher.Get("treasurer");
 			MetaData MetaEpupbkind = Meta.Dispatcher.Get("epupbkind");
+			MetaData MetaUpbyear = Meta.Dispatcher.Get("upbyear");
 
 			DataTable Upb = D.Tables["upb"];
 			Conn.RUN_SELECT_INTO_TABLE(Upb, null, null, null, false);
@@ -4547,7 +4602,7 @@ namespace notable_importazione {
 			DataTable Division = D.Tables["division"];
 			DataTable Treasurer = D.Tables["treasurer"];
 			DataTable Epupbkind = D.Tables["epupbkind"];
-
+			DataTable Upbyear = D.Tables["upbyear"];
 
 
 			MetaUpb.SetDefaults(Upb);
@@ -4556,6 +4611,7 @@ namespace notable_importazione {
 			MetaDivision.SetDefaults(Division);
 			MetaTreasurer.SetDefaults(Treasurer);
 			MetaEpupbkind.SetDefaults(Epupbkind);
+			MetaUpbyear.SetDefaults(Upbyear);
 
 			Conn.RUN_SELECT_INTO_TABLE(Division, null, QHS.CmpEq("description", "Fittizia"), null, false);
 			Conn.RUN_SELECT_INTO_TABLE(Manager, null, null, null, false);
@@ -4570,6 +4626,7 @@ namespace notable_importazione {
 			tosync.Add("underwriter");
 			tosync.Add("treasurer");
 			tosync.Add("epupbkind");
+			tosync.Add("upbyear");
 			InitSpeedSaver(Conn, tosync);
 
 
@@ -4728,6 +4785,26 @@ namespace notable_importazione {
 						idepupbkid = DBNull.Value;
 					}
 					RUpb["idepupbkind"] = idepupbkid;
+
+					RUpb["cofogmpcode"] = Reader.getCurrField("cofogmpcode");
+
+					RUpb["uesiopecode"] = Reader.getCurrField("codiceue");
+
+					object limitespesa = Reader.getCurrField("limitespesa");
+
+					DataRow RUpbyear = null;
+
+					if (limitespesa != DBNull.Value)
+					{
+						RUpbyear = MetaUpbyear.Get_New_Row(RUpb, Upbyear);
+						RUpbyear["idupb"] = RUpb["idupb"];
+						RUpbyear["ct"] = DateTime.Now;
+						RUpbyear["lt"] = DateTime.Now;
+						RUpbyear["cu"] = "importazione";
+						RUpbyear["lu"] = "importazione";
+						if (limitespesa.ToString().ToUpper() == "S")
+							RUpbyear["locked"] = (int)(RUpbyear["locked"] ?? 0) | 4;
+					}
 
 					somethingdone = true;
 					Reader.GetNext();
@@ -5553,13 +5630,13 @@ namespace notable_importazione {
 
 			DataSet D = new VistaMovFin();
 
-			//Conn.SQLRunner("ALTER TABLE  EXPENSE DISABLE TRIGGER ALL");
-			//Conn.SQLRunner("ALTER TABLE  EXPENSEYEAR DISABLE TRIGGER ALL");
-			//Conn.SQLRunner("ALTER TABLE  EXPENSELAST DISABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  EXPENSE DISABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  EXPENSEYEAR DISABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  EXPENSELAST DISABLE TRIGGER ALL");
 
-			//Conn.SQLRunner("ALTER TABLE  INCOME DISABLE TRIGGER ALL");
-			//Conn.SQLRunner("ALTER TABLE  INCOMEYEAR DISABLE TRIGGER ALL");
-			//Conn.SQLRunner("ALTER TABLE  INCOMELAST DISABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  INCOME DISABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  INCOMEYEAR DISABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  INCOMELAST DISABLE TRIGGER ALL");
 
 			DataTable Expense = D.Tables["expense"];
 			MetaData MetaExpense = Meta.Dispatcher.Get("expense");
@@ -5654,12 +5731,13 @@ namespace notable_importazione {
 				int nfase = CfgFn.GetNoNullInt32(Reader.getCurrField("nliv"));
 				string sign = tipo + "-" + ymov.ToString() + "-" + nfase.ToString() + "-" + ayear.ToString();
 				if ((nrow > 0) && (nrow > 1000 || sign != last_sign)) {
-					//Salva i dati e azzera nrow
-					//Form F = new formtest(D.Tables["expense"], D.Tables["expenseyear"]);
+                    //Salva i dati e azzera nrow
+                    //Form F = new formtest(D.Tables["expense"], D.Tables["expenseyear"]);
 
-					//F.ShowDialog();
+                    //createForm(F, null);
+                    //F.ShowDialog();
 
-					if (!SaveData(D, false)) break;
+                    if (!SaveData(D, false)) break;
 
 					ExpenseLast.Clear();
 					IncomeLast.Clear();
@@ -6202,13 +6280,13 @@ namespace notable_importazione {
 
 
 			bool res = SaveData(D, true);
-			//Conn.SQLRunner("ALTER TABLE  EXPENSE ENABLE TRIGGER ALL");
-			//Conn.SQLRunner("ALTER TABLE  EXPENSEYEAR ENABLE TRIGGER ALL");
-			//Conn.SQLRunner("ALTER TABLE  EXPENSELAST ENABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  EXPENSE ENABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  EXPENSEYEAR ENABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  EXPENSELAST ENABLE TRIGGER ALL");
 
-			//Conn.SQLRunner("ALTER TABLE  INCOME ENABLE TRIGGER ALL");
-			//Conn.SQLRunner("ALTER TABLE  INCOMEYEAR ENABLE TRIGGER ALL");
-			//Conn.SQLRunner("ALTER TABLE  INCOMELAST ENABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  INCOME ENABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  INCOMEYEAR ENABLE TRIGGER ALL");
+			Conn.SQLRunner("ALTER TABLE  INCOMELAST ENABLE TRIGGER ALL");
 
 			return res;
 		}
@@ -13880,7 +13958,8 @@ namespace notable_importazione {
 			}
 
 			FrmShowTracciato FT = new FrmShowTracciato(tracciato, TableTracciato, "struttura");
-			FT.ShowDialog();
+            createForm(FT, null);
+            FT.ShowDialog();
 
 		}
 
@@ -13906,7 +13985,8 @@ namespace notable_importazione {
 
 			Reader.Close();
 			FrmShowTracciato FT = new FrmShowTracciato(rec, TableTracciato, "primo record");
-			FT.ShowDialog();
+            createForm(FT, null);
+            FT.ShowDialog();
 
 
 		}
@@ -14612,7 +14692,7 @@ namespace notable_importazione {
 				if (ErrorStatus) return null;
 				Reg["idcity"] = idcity;
 				Reg["idnation"] = idnation;
-				Reg["authorization_free"] = Reader.getCurrField("esenteeq");
+				Reg["authorization_free"] = string.IsNullOrEmpty(Reader.getCurrField("esenteeq").ToString()) ? Reader.getCurrField("esenteeq") : "N";
 				Reg["multi_cf"] = Reader.getCurrField("cfduplicato");
 
 				string AnagIsActive = Reader.getCurrField("attiva").ToString();
@@ -15698,24 +15778,25 @@ namespace notable_importazione {
 			return true;
 		}
 
-		//private void EsportaDati(object sender, EventArgs e) {
-		//    if (sender == null) return;
-		//    if (!(typeof(MenuItem).IsAssignableFrom(sender.GetType()))) return;
-		//    object mysender = ((MenuItem)sender).Parent.GetContextMenu().SourceControl;
-		//    string tracciato = "";
-		//    foreach (ImportButton Ib in AllButton) {
-		//        if (mysender == Ib.Btn) {
-		//            tracciato = GetTracciato(Ib.tracciato);
-		//            break;
-		//        }
-		//    }
+        //private void EsportaDati(object sender, EventArgs e) {
+        //    if (sender == null) return;
+        //    if (!(typeof(MenuItem).IsAssignableFrom(sender.GetType()))) return;
+        //    object mysender = ((MenuItem)sender).Parent.GetContextMenu().SourceControl;
+        //    string tracciato = "";
+        //    foreach (ImportButton Ib in AllButton) {
+        //        if (mysender == Ib.Btn) {
+        //            tracciato = GetTracciato(Ib.tracciato);
+        //            break;
+        //        }
+        //    }
 
-		//    FrmShowTracciato FT = new FrmShowTracciato(tracciato, "struttura");
-		//    FT.ShowDialog();
-		//}
+        //    FrmShowTracciato FT = new FrmShowTracciato(tracciato, "struttura");
+        //    createForm(FT, null);
+        //    FT.ShowDialog();
+        //}
 
 
-		string[] tracciato_cessati = new string[] {
+        string[] tracciato_cessati = new string[] {
 			"idmanager;Codice responsabile dip. origine;Intero;6",
 			"diporigine;Codice Dip. Origine;Stringa;50",
 			"dipdest;Codice Dip. Destinazione;Stringa;50",
@@ -16540,11 +16621,12 @@ namespace notable_importazione {
 
 			while (Reader.DataPresent()) {
 				if (nrow > 1000) {
-					//Salva i dati e azzera nrow
-					//Form F = new formtest(D.Tables["expense"], D.Tables["expenseyear"]);
+                    //Salva i dati e azzera nrow
+                    //Form F = new formtest(D.Tables["expense"], D.Tables["expenseyear"]);
 
-					//F.ShowDialog();
-					nrow = 0;
+                    //createForm(F, null);
+                    //F.ShowDialog();
+                    nrow = 0;
 					if (!SaveData(D, false)) break;
 					BT.Clear();
 				}
@@ -17412,9 +17494,12 @@ namespace notable_importazione {
 					rAccMot = metaAccMotive.Get_New_Row(parentRow, AccMotive);
 					foreach (
 						string field in
-						new string[] {"codemotive", "active", "flagamm", "flagdep", "expensekind", "title"}) {
+						new string[] {"codemotive", "active", "title"}) {
 						rAccMot[field] = Reader.getCurrField(field).ToString();
 					}
+					rAccMot["flagamm"] = !string.IsNullOrEmpty(Reader.getCurrField("flagamm").ToString()) ? Reader.getCurrField("flagamm") : DBNull.Value;
+					rAccMot["flagdep"] = !string.IsNullOrEmpty(Reader.getCurrField("flagdep").ToString()) ? Reader.getCurrField("flagdep") : DBNull.Value;
+					rAccMot["expensekind"] = !string.IsNullOrEmpty(Reader.getCurrField("expensekind").ToString()) ? Reader.getCurrField("expensekind") : DBNull.Value;
 
 					int flag = 0;
 					if (Reader.getCurrField("flagvietasalvataggiofattura_inassenzacontratto").ToString() == "S")
@@ -17484,9 +17569,10 @@ namespace notable_importazione {
 				return false;
 			}
 
-			//Form F = new formtest(D.Tables["accmotive"], D.Tables["accmotivedetail"], D.Tables["accmotiveepoperation"]);
-			//F.ShowDialog();
-			bool res = SaveData(D, true);
+            //Form F = new formtest(D.Tables["accmotive"], D.Tables["accmotivedetail"], D.Tables["accmotiveepoperation"]);
+            //createForm(F, null);
+            //F.ShowDialog();
+            bool res = SaveData(D, true);
 
 			D.Clear();
 			return res;
@@ -17731,7 +17817,12 @@ namespace notable_importazione {
 				RListClass["title"] = Reader.getCurrField("descrclassmerc").ToString();
 				RListClass["authrequired"] = Reader.getCurrField("autorizzazione_richiesta").ToString();
 				RListClass["assetkind"] = Reader.getCurrField("tipologiapatrimonio").ToString();
-				RListClass["va3type"] = Reader.getCurrField("tipologiaquadrovf25").ToString();
+				if(Reader.getCurrField("tipologiaquadrovf25").ToString() != ""){
+					RListClass["va3type"] = Reader.getCurrField("tipologiaquadrovf25").ToString();
+				}
+				else {
+					RListClass["va3type"] = DBNull.Value;
+				}
 				RListClass["intra12operationkind"] = Reader.getCurrField("tipologiaintra12").ToString();
 				RListClass["active"] = Reader.getCurrField("attivo").ToString();
 				RListClass["idintrastatsupplymethod"] = idintrastatsupplymethod;

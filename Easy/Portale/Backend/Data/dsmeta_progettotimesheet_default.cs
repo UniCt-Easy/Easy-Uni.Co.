@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,23 +27,26 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_progettotimesheet_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_progettotimesheet_default: DataSet {
+public partial class dsmeta_progettotimesheet_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable strumentofin 		=> (MetaTable)Tables["strumentofin"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registry_alias4 		=> (MetaTable)Tables["registry_alias4"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registry_alias3 		=> (MetaTable)Tables["registry_alias3"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable title 		=> (MetaTable)Tables["title"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry_alias1 		=> (MetaTable)Tables["registry_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry_aziende_alias1 		=> (MetaTable)Tables["registry_aziende_alias1"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry_aziende 		=> (MetaTable)Tables["registry_aziende"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettostatuskind 		=> (MetaTable)Tables["progettostatuskind"];
@@ -52,7 +55,7 @@ public class dsmeta_progettotimesheet_default: DataSet {
 	public MetaTable progettokind 		=> (MetaTable)Tables["progettokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable currency 		=> (MetaTable)Tables["currency"];
+	public MetaTable partnerkind 		=> (MetaTable)Tables["partnerkind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable corsostudio 		=> (MetaTable)Tables["corsostudio"];
@@ -64,10 +67,19 @@ public class dsmeta_progettotimesheet_default: DataSet {
 	public MetaTable progettotimesheetprogetto 		=> (MetaTable)Tables["progettotimesheetprogetto"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable year 		=> (MetaTable)Tables["year"];
+	public MetaTable salelenchiview 		=> (MetaTable)Tables["salelenchiview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable mese 		=> (MetaTable)Tables["mese"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable progettoelenchiview 		=> (MetaTable)Tables["progettoelenchiview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable timesheettemplate 		=> (MetaTable)Tables["timesheettemplate"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable year 		=> (MetaTable)Tables["year"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettotimesheet 		=> (MetaTable)Tables["progettotimesheet"];
@@ -99,148 +111,57 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// STRUMENTOFIN /////////////////////////////////
 	var tstrumentofin= new MetaTable("strumentofin");
+	tstrumentofin.defineColumn("active", typeof(string));
 	tstrumentofin.defineColumn("idstrumentofin", typeof(int),false);
 	tstrumentofin.defineColumn("title", typeof(string));
 	Tables.Add(tstrumentofin);
 	tstrumentofin.defineKey("idstrumentofin");
 
+	//////////////////// REGISTRY_ALIAS4 /////////////////////////////////
+	var tregistry_alias4= new MetaTable("registry_alias4");
+	tregistry_alias4.defineColumn("active", typeof(string),false);
+	tregistry_alias4.defineColumn("idreg", typeof(int),false);
+	tregistry_alias4.defineColumn("title", typeof(string),false);
+	tregistry_alias4.ExtendedProperties["TableForReading"]="registry";
+	Tables.Add(tregistry_alias4);
+	tregistry_alias4.defineKey("idreg");
+
+	//////////////////// REGISTRY_ALIAS3 /////////////////////////////////
+	var tregistry_alias3= new MetaTable("registry_alias3");
+	tregistry_alias3.defineColumn("active", typeof(string),false);
+	tregistry_alias3.defineColumn("idreg", typeof(int),false);
+	tregistry_alias3.defineColumn("title", typeof(string),false);
+	tregistry_alias3.ExtendedProperties["TableForReading"]="registry";
+	Tables.Add(tregistry_alias3);
+	tregistry_alias3.defineKey("idreg");
+
+	//////////////////// TITLE /////////////////////////////////
+	var ttitle= new MetaTable("title");
+	ttitle.defineColumn("active", typeof(string));
+	ttitle.defineColumn("description", typeof(string),false);
+	ttitle.defineColumn("idtitle", typeof(string),false);
+	Tables.Add(ttitle);
+	ttitle.defineKey("idtitle");
+
 	//////////////////// REGISTRY_ALIAS1 /////////////////////////////////
 	var tregistry_alias1= new MetaTable("registry_alias1");
 	tregistry_alias1.defineColumn("active", typeof(string),false);
-	tregistry_alias1.defineColumn("annotation", typeof(string));
-	tregistry_alias1.defineColumn("authorization_free", typeof(string));
-	tregistry_alias1.defineColumn("badgecode", typeof(string));
-	tregistry_alias1.defineColumn("birthdate", typeof(DateTime));
-	tregistry_alias1.defineColumn("ccp", typeof(string));
 	tregistry_alias1.defineColumn("cf", typeof(string));
-	tregistry_alias1.defineColumn("ct", typeof(DateTime),false);
-	tregistry_alias1.defineColumn("cu", typeof(string),false);
-	tregistry_alias1.defineColumn("email_fe", typeof(string));
-	tregistry_alias1.defineColumn("extension", typeof(string));
-	tregistry_alias1.defineColumn("extmatricula", typeof(string));
-	tregistry_alias1.defineColumn("flag_pa", typeof(string));
-	tregistry_alias1.defineColumn("flagbankitaliaproceeds", typeof(string));
-	tregistry_alias1.defineColumn("foreigncf", typeof(string));
 	tregistry_alias1.defineColumn("forename", typeof(string));
-	tregistry_alias1.defineColumn("gender", typeof(string));
-	tregistry_alias1.defineColumn("idaccmotivecredit", typeof(string));
-	tregistry_alias1.defineColumn("idaccmotivedebit", typeof(string));
-	tregistry_alias1.defineColumn("idcategory", typeof(string));
-	tregistry_alias1.defineColumn("idcentralizedcategory", typeof(string));
-	tregistry_alias1.defineColumn("idcity", typeof(int));
-	tregistry_alias1.defineColumn("idexternal", typeof(int));
-	tregistry_alias1.defineColumn("idmaritalstatus", typeof(string));
-	tregistry_alias1.defineColumn("idnation", typeof(int));
 	tregistry_alias1.defineColumn("idreg", typeof(int),false);
-	tregistry_alias1.defineColumn("idregistryclass", typeof(string));
-	tregistry_alias1.defineColumn("idregistrykind", typeof(int));
 	tregistry_alias1.defineColumn("idtitle", typeof(string));
-	tregistry_alias1.defineColumn("ipa_fe", typeof(string));
-	tregistry_alias1.defineColumn("ipa_perlapa", typeof(string));
-	tregistry_alias1.defineColumn("location", typeof(string));
-	tregistry_alias1.defineColumn("lt", typeof(DateTime),false);
-	tregistry_alias1.defineColumn("lu", typeof(string),false);
-	tregistry_alias1.defineColumn("maritalsurname", typeof(string));
-	tregistry_alias1.defineColumn("multi_cf", typeof(string));
-	tregistry_alias1.defineColumn("p_iva", typeof(string));
-	tregistry_alias1.defineColumn("pec_fe", typeof(string));
-	tregistry_alias1.defineColumn("residence", typeof(int),false);
-	tregistry_alias1.defineColumn("rtf", typeof(Byte[]));
-	tregistry_alias1.defineColumn("sdi_defrifamm", typeof(string));
-	tregistry_alias1.defineColumn("sdi_norifamm", typeof(string));
 	tregistry_alias1.defineColumn("surname", typeof(string));
-	tregistry_alias1.defineColumn("title", typeof(string),false);
-	tregistry_alias1.defineColumn("toredirect", typeof(int));
-	tregistry_alias1.defineColumn("txt", typeof(string));
 	tregistry_alias1.ExtendedProperties["TableForReading"]="registry";
 	Tables.Add(tregistry_alias1);
 	tregistry_alias1.defineKey("idreg");
 
-	//////////////////// REGISTRY_AZIENDE_ALIAS1 /////////////////////////////////
-	var tregistry_aziende_alias1= new MetaTable("registry_aziende_alias1");
-	tregistry_aziende_alias1.defineColumn("ct", typeof(DateTime),false);
-	tregistry_aziende_alias1.defineColumn("cu", typeof(string),false);
-	tregistry_aziende_alias1.defineColumn("idateco", typeof(int));
-	tregistry_aziende_alias1.defineColumn("idnace", typeof(string));
-	tregistry_aziende_alias1.defineColumn("idnaturagiur", typeof(int));
-	tregistry_aziende_alias1.defineColumn("idnumerodip", typeof(int));
-	tregistry_aziende_alias1.defineColumn("idreg", typeof(int),false);
-	tregistry_aziende_alias1.defineColumn("lt", typeof(DateTime),false);
-	tregistry_aziende_alias1.defineColumn("lu", typeof(string),false);
-	tregistry_aziende_alias1.defineColumn("pic", typeof(string));
-	tregistry_aziende_alias1.defineColumn("title_en", typeof(string));
-	tregistry_aziende_alias1.defineColumn("txt_en", typeof(string));
-	tregistry_aziende_alias1.ExtendedProperties["TableForReading"]="registry_aziende";
-	Tables.Add(tregistry_aziende_alias1);
-	tregistry_aziende_alias1.defineKey("idreg");
-
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
 	tregistry.defineColumn("active", typeof(string),false);
-	tregistry.defineColumn("annotation", typeof(string));
-	tregistry.defineColumn("authorization_free", typeof(string));
-	tregistry.defineColumn("badgecode", typeof(string));
-	tregistry.defineColumn("birthdate", typeof(DateTime));
-	tregistry.defineColumn("ccp", typeof(string));
-	tregistry.defineColumn("cf", typeof(string));
-	tregistry.defineColumn("ct", typeof(DateTime),false);
-	tregistry.defineColumn("cu", typeof(string),false);
-	tregistry.defineColumn("email_fe", typeof(string));
-	tregistry.defineColumn("extension", typeof(string));
-	tregistry.defineColumn("extmatricula", typeof(string));
-	tregistry.defineColumn("flag_pa", typeof(string));
-	tregistry.defineColumn("flagbankitaliaproceeds", typeof(string));
-	tregistry.defineColumn("foreigncf", typeof(string));
-	tregistry.defineColumn("forename", typeof(string));
-	tregistry.defineColumn("gender", typeof(string));
-	tregistry.defineColumn("idaccmotivecredit", typeof(string));
-	tregistry.defineColumn("idaccmotivedebit", typeof(string));
-	tregistry.defineColumn("idcategory", typeof(string));
-	tregistry.defineColumn("idcentralizedcategory", typeof(string));
-	tregistry.defineColumn("idcity", typeof(int));
-	tregistry.defineColumn("idexternal", typeof(int));
-	tregistry.defineColumn("idmaritalstatus", typeof(string));
-	tregistry.defineColumn("idnation", typeof(int));
 	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("idregistryclass", typeof(string));
-	tregistry.defineColumn("idregistrykind", typeof(int));
-	tregistry.defineColumn("idtitle", typeof(string));
-	tregistry.defineColumn("ipa_fe", typeof(string));
-	tregistry.defineColumn("ipa_perlapa", typeof(string));
-	tregistry.defineColumn("location", typeof(string));
-	tregistry.defineColumn("lt", typeof(DateTime),false);
-	tregistry.defineColumn("lu", typeof(string),false);
-	tregistry.defineColumn("maritalsurname", typeof(string));
-	tregistry.defineColumn("multi_cf", typeof(string));
-	tregistry.defineColumn("p_iva", typeof(string));
-	tregistry.defineColumn("pec_fe", typeof(string));
-	tregistry.defineColumn("residence", typeof(int),false);
-	tregistry.defineColumn("rtf", typeof(Byte[]));
-	tregistry.defineColumn("sdi_defrifamm", typeof(string));
-	tregistry.defineColumn("sdi_norifamm", typeof(string));
-	tregistry.defineColumn("surname", typeof(string));
 	tregistry.defineColumn("title", typeof(string),false);
-	tregistry.defineColumn("toredirect", typeof(int));
-	tregistry.defineColumn("txt", typeof(string));
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
-
-	//////////////////// REGISTRY_AZIENDE /////////////////////////////////
-	var tregistry_aziende= new MetaTable("registry_aziende");
-	tregistry_aziende.defineColumn("ct", typeof(DateTime),false);
-	tregistry_aziende.defineColumn("cu", typeof(string),false);
-	tregistry_aziende.defineColumn("idateco", typeof(int));
-	tregistry_aziende.defineColumn("idnace", typeof(string));
-	tregistry_aziende.defineColumn("idnaturagiur", typeof(int));
-	tregistry_aziende.defineColumn("idnumerodip", typeof(int));
-	tregistry_aziende.defineColumn("idreg", typeof(int),false);
-	tregistry_aziende.defineColumn("lt", typeof(DateTime),false);
-	tregistry_aziende.defineColumn("lu", typeof(string),false);
-	tregistry_aziende.defineColumn("pic", typeof(string));
-	tregistry_aziende.defineColumn("title_en", typeof(string));
-	tregistry_aziende.defineColumn("txt_en", typeof(string));
-	Tables.Add(tregistry_aziende);
-	tregistry_aziende.defineKey("idreg");
 
 	//////////////////// PROGETTOSTATUSKIND /////////////////////////////////
 	var tprogettostatuskind= new MetaTable("progettostatuskind");
@@ -251,17 +172,19 @@ private void initClass() {
 
 	//////////////////// PROGETTOKIND /////////////////////////////////
 	var tprogettokind= new MetaTable("progettokind");
+	tprogettokind.defineColumn("active", typeof(string));
 	tprogettokind.defineColumn("idprogettokind", typeof(int),false);
 	tprogettokind.defineColumn("title", typeof(string));
 	Tables.Add(tprogettokind);
 	tprogettokind.defineKey("idprogettokind");
 
-	//////////////////// CURRENCY /////////////////////////////////
-	var tcurrency= new MetaTable("currency");
-	tcurrency.defineColumn("codecurrency", typeof(string));
-	tcurrency.defineColumn("idcurrency", typeof(int),false);
-	Tables.Add(tcurrency);
-	tcurrency.defineKey("idcurrency");
+	//////////////////// PARTNERKIND /////////////////////////////////
+	var tpartnerkind= new MetaTable("partnerkind");
+	tpartnerkind.defineColumn("active", typeof(string));
+	tpartnerkind.defineColumn("idpartnerkind", typeof(int),false);
+	tpartnerkind.defineColumn("title", typeof(string));
+	Tables.Add(tpartnerkind);
+	tpartnerkind.defineKey("idpartnerkind");
 
 	//////////////////// CORSOSTUDIO /////////////////////////////////
 	var tcorsostudio= new MetaTable("corsostudio");
@@ -275,6 +198,7 @@ private void initClass() {
 	var tprogetto= new MetaTable("progetto");
 	tprogetto.defineColumn("!altreupb", typeof(string));
 	tprogetto.defineColumn("!filtraAsset", typeof(string));
+	tprogetto.defineColumn("bandoriferimentotxt", typeof(string));
 	tprogetto.defineColumn("budget", typeof(decimal));
 	tprogetto.defineColumn("budgetcalcolato", typeof(decimal));
 	tprogetto.defineColumn("budgetcalcolatodate", typeof(DateTime));
@@ -282,6 +206,10 @@ private void initClass() {
 	tprogetto.defineColumn("codiceidentificativo", typeof(string));
 	tprogetto.defineColumn("contributo", typeof(decimal));
 	tprogetto.defineColumn("contributoente", typeof(decimal));
+	tprogetto.defineColumn("contributoenterichiesto", typeof(decimal));
+	tprogetto.defineColumn("contributorichiesto", typeof(decimal));
+	tprogetto.defineColumn("costoapprovatoateneo", typeof(decimal));
+	tprogetto.defineColumn("costoapprovatoateneocalcolato", typeof(decimal));
 	tprogetto.defineColumn("ct", typeof(DateTime),false);
 	tprogetto.defineColumn("cu", typeof(string),false);
 	tprogetto.defineColumn("cup", typeof(string));
@@ -295,10 +223,12 @@ private void initClass() {
 	tprogetto.defineColumn("idcorsostudio", typeof(int));
 	tprogetto.defineColumn("idcurrency", typeof(int));
 	tprogetto.defineColumn("idduratakind", typeof(int));
+	tprogetto.defineColumn("idpartnerkind", typeof(int));
 	tprogetto.defineColumn("idprogetto", typeof(int),false);
 	tprogetto.defineColumn("idprogettokind", typeof(int));
 	tprogetto.defineColumn("idprogettostatuskind", typeof(int));
 	tprogetto.defineColumn("idreg", typeof(int));
+	tprogetto.defineColumn("idreg_amm", typeof(int));
 	tprogetto.defineColumn("idreg_aziende", typeof(int));
 	tprogetto.defineColumn("idreg_aziende_fin", typeof(int));
 	tprogetto.defineColumn("idregistryprogfin", typeof(int));
@@ -306,21 +236,33 @@ private void initClass() {
 	tprogetto.defineColumn("idstrumentofin", typeof(int));
 	tprogetto.defineColumn("lt", typeof(DateTime),false);
 	tprogetto.defineColumn("lu", typeof(string),false);
+	tprogetto.defineColumn("progfinanziamentotxt", typeof(string));
+	tprogetto.defineColumn("respamministrativi", typeof(string));
+	tprogetto.defineColumn("responsabiliamministrativi", typeof(string));
+	tprogetto.defineColumn("responsabiliscientifici", typeof(string));
+	tprogetto.defineColumn("respscientifici", typeof(string));
 	tprogetto.defineColumn("start", typeof(DateTime));
 	tprogetto.defineColumn("stop", typeof(DateTime));
 	tprogetto.defineColumn("title", typeof(string));
+	tprogetto.defineColumn("title_en", typeof(string));
 	tprogetto.defineColumn("titolobreve", typeof(string));
 	tprogetto.defineColumn("totalbudget", typeof(decimal));
 	tprogetto.defineColumn("totalcontributo", typeof(decimal));
+	tprogetto.defineColumn("ulteriorecup", typeof(string));
+	tprogetto.defineColumn("unitaorganizzativa", typeof(string));
 	tprogetto.defineColumn("url", typeof(string));
 	tprogetto.defineColumn("!idcorsostudio_corsostudio_title", typeof(string));
 	tprogetto.defineColumn("!idcorsostudio_corsostudio_annoistituz", typeof(int));
-	tprogetto.defineColumn("!idcurrency_currency_codecurrency", typeof(string));
+	tprogetto.defineColumn("!idpartnerkind_partnerkind_title", typeof(string));
 	tprogetto.defineColumn("!idprogettokind_progettokind_title", typeof(string));
 	tprogetto.defineColumn("!idprogettostatuskind_progettostatuskind_title", typeof(string));
 	tprogetto.defineColumn("!idreg_registry_title", typeof(string));
-	tprogetto.defineColumn("!idreg_aziende_registry_aziende_title", typeof(string));
-	tprogetto.defineColumn("!idreg_aziende_fin_registry_aziende_title", typeof(string));
+	tprogetto.defineColumn("!idreg_amm_registry_surname", typeof(string));
+	tprogetto.defineColumn("!idreg_amm_registry_forename", typeof(string));
+	tprogetto.defineColumn("!idreg_amm_registry_cf", typeof(string));
+	tprogetto.defineColumn("!idreg_amm_registry_idtitle_description", typeof(string));
+	tprogetto.defineColumn("!idreg_aziende_registry_title", typeof(string));
+	tprogetto.defineColumn("!idreg_aziende_fin_registry_title", typeof(string));
 	tprogetto.defineColumn("!idstrumentofin_strumentofin_title", typeof(string));
 	Tables.Add(tprogetto);
 	tprogetto.defineKey("idprogetto");
@@ -336,11 +278,100 @@ private void initClass() {
 	Tables.Add(tprogettotimesheetprogetto);
 	tprogettotimesheetprogetto.defineKey("idprogetto", "idprogettotimesheet");
 
-	//////////////////// YEAR /////////////////////////////////
-	var tyear= new MetaTable("year");
-	tyear.defineColumn("year", typeof(int),false);
-	Tables.Add(tyear);
-	tyear.defineKey("year");
+	//////////////////// SALELENCHIVIEW /////////////////////////////////
+	var tsalelenchiview= new MetaTable("salelenchiview");
+	tsalelenchiview.defineColumn("dropdown_title", typeof(string),false);
+	tsalelenchiview.defineColumn("idprogetto", typeof(int),false);
+	tsalelenchiview.defineColumn("idsal", typeof(int),false);
+	Tables.Add(tsalelenchiview);
+	tsalelenchiview.defineKey("idprogetto", "idsal");
+
+	//////////////////// MESE /////////////////////////////////
+	var tmese= new MetaTable("mese");
+	tmese.defineColumn("idmese", typeof(int),false);
+	tmese.defineColumn("title", typeof(string));
+	Tables.Add(tmese);
+	tmese.defineKey("idmese");
+
+	//////////////////// PROGETTOELENCHIVIEW /////////////////////////////////
+	var tprogettoelenchiview= new MetaTable("progettoelenchiview");
+	tprogettoelenchiview.defineColumn("corsostudio_annoistituz", typeof(int));
+	tprogettoelenchiview.defineColumn("corsostudio_title", typeof(string));
+	tprogettoelenchiview.defineColumn("currency_codecurrency", typeof(string));
+	tprogettoelenchiview.defineColumn("dropdown_title", typeof(string),false);
+	tprogettoelenchiview.defineColumn("duratakind_title", typeof(string));
+	tprogettoelenchiview.defineColumn("idcorsostudio", typeof(int));
+	tprogettoelenchiview.defineColumn("idcurrency", typeof(int));
+	tprogettoelenchiview.defineColumn("idprogetto", typeof(int),false);
+	tprogettoelenchiview.defineColumn("idreg", typeof(int));
+	tprogettoelenchiview.defineColumn("idreg_amm", typeof(int));
+	tprogettoelenchiview.defineColumn("idreg_aziende", typeof(int));
+	tprogettoelenchiview.defineColumn("idreg_aziende_fin", typeof(int));
+	tprogettoelenchiview.defineColumn("idstrumentofin", typeof(int));
+	tprogettoelenchiview.defineColumn("partnerkind_title", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_bandoriferimentotxt", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_budget", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_budgetcalcolato", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_budgetcalcolatodate", typeof(DateTime));
+	tprogettoelenchiview.defineColumn("progetto_capofilatxt", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_codiceidentificativo", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_contributo", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_contributoente", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_contributoenterichiesto", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_contributorichiesto", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_costoapprovatoateneo", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_costoapprovatoateneocalcolato", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_ct", typeof(DateTime),false);
+	tprogettoelenchiview.defineColumn("progetto_cu", typeof(string),false);
+	tprogettoelenchiview.defineColumn("progetto_cup", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_data", typeof(DateTime));
+	tprogettoelenchiview.defineColumn("progetto_datacontabile", typeof(DateTime));
+	tprogettoelenchiview.defineColumn("progetto_dataesito", typeof(DateTime));
+	tprogettoelenchiview.defineColumn("progetto_description", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_durata", typeof(int));
+	tprogettoelenchiview.defineColumn("progetto_finanziamento", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_finanziatoretxt", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_idduratakind", typeof(int));
+	tprogettoelenchiview.defineColumn("progetto_idpartnerkind", typeof(int));
+	tprogettoelenchiview.defineColumn("progetto_idprogettokind", typeof(int));
+	tprogettoelenchiview.defineColumn("progetto_idprogettostatuskind", typeof(int));
+	tprogettoelenchiview.defineColumn("progetto_idregistryprogfin", typeof(int));
+	tprogettoelenchiview.defineColumn("progetto_idregistryprogfinbando", typeof(int));
+	tprogettoelenchiview.defineColumn("progetto_lt", typeof(DateTime),false);
+	tprogettoelenchiview.defineColumn("progetto_lu", typeof(string),false);
+	tprogettoelenchiview.defineColumn("progetto_progfinanziamentotxt", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_respamministrativi", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_responsabiliamministrativi", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_responsabiliscientifici", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_respscientifici", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_start", typeof(DateTime));
+	tprogettoelenchiview.defineColumn("progetto_stop", typeof(DateTime));
+	tprogettoelenchiview.defineColumn("progetto_title", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_title_en", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_totalbudget", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_totalcontributo", typeof(decimal));
+	tprogettoelenchiview.defineColumn("progetto_ulteriorecup", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_unitaorganizzativa", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_url", typeof(string));
+	tprogettoelenchiview.defineColumn("progettokind_title", typeof(string));
+	tprogettoelenchiview.defineColumn("progettostatuskind_title", typeof(string));
+	tprogettoelenchiview.defineColumn("registry_title", typeof(string));
+	tprogettoelenchiview.defineColumn("registryamm_cf", typeof(string));
+	tprogettoelenchiview.defineColumn("registryamm_forename", typeof(string));
+	tprogettoelenchiview.defineColumn("registryamm_idtitle", typeof(string));
+	tprogettoelenchiview.defineColumn("registryamm_surname", typeof(string));
+	tprogettoelenchiview.defineColumn("registryaziende_fin_title", typeof(string));
+	tprogettoelenchiview.defineColumn("registryaziende_title", typeof(string));
+	tprogettoelenchiview.defineColumn("registryprogfin_code", typeof(string));
+	tprogettoelenchiview.defineColumn("registryprogfin_title", typeof(string));
+	tprogettoelenchiview.defineColumn("registryprogfinbando_number", typeof(string));
+	tprogettoelenchiview.defineColumn("registryprogfinbando_scadenza", typeof(DateTime));
+	tprogettoelenchiview.defineColumn("registryprogfinbando_title", typeof(string));
+	tprogettoelenchiview.defineColumn("strumentofin_title", typeof(string));
+	tprogettoelenchiview.defineColumn("title_description", typeof(string));
+	tprogettoelenchiview.defineColumn("titolobreve", typeof(string));
+	Tables.Add(tprogettoelenchiview);
+	tprogettoelenchiview.defineKey("idprogetto");
 
 	//////////////////// TIMESHEETTEMPLATE /////////////////////////////////
 	var ttimesheettemplate= new MetaTable("timesheettemplate");
@@ -348,19 +379,33 @@ private void initClass() {
 	Tables.Add(ttimesheettemplate);
 	ttimesheettemplate.defineKey("idtimesheettemplate");
 
+	//////////////////// YEAR /////////////////////////////////
+	var tyear= new MetaTable("year");
+	tyear.defineColumn("year", typeof(int),false);
+	Tables.Add(tyear);
+	tyear.defineKey("year");
+
 	//////////////////// PROGETTOTIMESHEET /////////////////////////////////
 	var tprogettotimesheet= new MetaTable("progettotimesheet");
+	tprogettotimesheet.defineColumn("collapseteachingother", typeof(string));
 	tprogettotimesheet.defineColumn("ct", typeof(DateTime));
 	tprogettotimesheet.defineColumn("cu", typeof(string));
+	tprogettotimesheet.defineColumn("idmese", typeof(int));
+	tprogettotimesheet.defineColumn("idprogetto", typeof(int));
 	tprogettotimesheet.defineColumn("idprogettotimesheet", typeof(int),false);
 	tprogettotimesheet.defineColumn("idreg", typeof(int),false);
+	tprogettotimesheet.defineColumn("idsal", typeof(int));
 	tprogettotimesheet.defineColumn("idtimesheettemplate", typeof(string));
 	tprogettotimesheet.defineColumn("intestazioneallsheet", typeof(string));
 	tprogettotimesheet.defineColumn("lt", typeof(DateTime));
 	tprogettotimesheet.defineColumn("lu", typeof(string));
+	tprogettotimesheet.defineColumn("multilinetype", typeof(string));
+	tprogettotimesheet.defineColumn("output", typeof(string));
 	tprogettotimesheet.defineColumn("riepilogoanno", typeof(string));
 	tprogettotimesheet.defineColumn("showactivitiesrow", typeof(string));
+	tprogettotimesheet.defineColumn("showotheractivitiesrow", typeof(string));
 	tprogettotimesheet.defineColumn("title", typeof(string));
+	tprogettotimesheet.defineColumn("withworkpackage", typeof(string));
 	tprogettotimesheet.defineColumn("year", typeof(int));
 	Tables.Add(tprogettotimesheet);
 	tprogettotimesheet.defineKey("idprogettotimesheet", "idreg");
@@ -381,21 +426,21 @@ private void initClass() {
 	cChild = new []{progetto.Columns["idstrumentofin"]};
 	Relations.Add(new DataRelation("FK_progetto_strumentofin_idstrumentofin",cPar,cChild,false));
 
-	cPar = new []{registry_alias1.Columns["idreg"]};
+	cPar = new []{registry_alias4.Columns["idreg"]};
 	cChild = new []{progetto.Columns["idreg_aziende_fin"]};
-	Relations.Add(new DataRelation("FK_progetto_registry_alias1_idreg_aziende_fin",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_progetto_registry_alias4_idreg_aziende_fin",cPar,cChild,false));
+
+	cPar = new []{registry_alias3.Columns["idreg"]};
+	cChild = new []{progetto.Columns["idreg_aziende"]};
+	Relations.Add(new DataRelation("FK_progetto_registry_alias3_idreg_aziende",cPar,cChild,false));
 
 	cPar = new []{registry_alias1.Columns["idreg"]};
-	cChild = new []{registry_aziende_alias1.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_alias1_registry_alias1_idreg",cPar,cChild,false));
+	cChild = new []{progetto.Columns["idreg_amm"]};
+	Relations.Add(new DataRelation("FK_progetto_registry_alias1_idreg_amm",cPar,cChild,false));
 
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{progetto.Columns["idreg_aziende"]};
-	Relations.Add(new DataRelation("FK_progetto_registry_idreg_aziende",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{registry_aziende.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_registry_idreg",cPar,cChild,false));
+	cPar = new []{title.Columns["idtitle"]};
+	cChild = new []{registry_alias1.Columns["idtitle"]};
+	Relations.Add(new DataRelation("FK_registry_alias1_title_idtitle",cPar,cChild,false));
 
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{progetto.Columns["idreg"]};
@@ -409,21 +454,37 @@ private void initClass() {
 	cChild = new []{progetto.Columns["idprogettokind"]};
 	Relations.Add(new DataRelation("FK_progetto_progettokind_idprogettokind",cPar,cChild,false));
 
-	cPar = new []{currency.Columns["idcurrency"]};
-	cChild = new []{progetto.Columns["idcurrency"]};
-	Relations.Add(new DataRelation("FK_progetto_currency_idcurrency",cPar,cChild,false));
+	cPar = new []{partnerkind.Columns["idpartnerkind"]};
+	cChild = new []{progetto.Columns["idpartnerkind"]};
+	Relations.Add(new DataRelation("FK_progetto_partnerkind_idpartnerkind",cPar,cChild,false));
 
 	cPar = new []{corsostudio.Columns["idcorsostudio"]};
 	cChild = new []{progetto.Columns["idcorsostudio"]};
 	Relations.Add(new DataRelation("FK_progetto_corsostudio_idcorsostudio",cPar,cChild,false));
 
-	cPar = new []{year.Columns["year"]};
-	cChild = new []{progettotimesheet.Columns["year"]};
-	Relations.Add(new DataRelation("FK_progettotimesheet_year_year",cPar,cChild,false));
+	cPar = new []{salelenchiview.Columns["idsal"]};
+	cChild = new []{progettotimesheet.Columns["idsal"]};
+	Relations.Add(new DataRelation("FK_progettotimesheet_salelenchiview_idsal",cPar,cChild,false));
+
+	cPar = new []{progettoelenchiview.Columns["idprogetto"]};
+	cChild = new []{salelenchiview.Columns["idprogetto"]};
+	Relations.Add(new DataRelation("FK_salelenchiview_progettoelenchiview_idprogetto",cPar,cChild,false));
+
+	cPar = new []{mese.Columns["idmese"]};
+	cChild = new []{progettotimesheet.Columns["idmese"]};
+	Relations.Add(new DataRelation("FK_progettotimesheet_mese_idmese",cPar,cChild,false));
+
+	cPar = new []{progettoelenchiview.Columns["idprogetto"]};
+	cChild = new []{progettotimesheet.Columns["idprogetto"]};
+	Relations.Add(new DataRelation("FK_progettotimesheet_progettoelenchiview_idprogetto",cPar,cChild,false));
 
 	cPar = new []{timesheettemplate.Columns["idtimesheettemplate"]};
 	cChild = new []{progettotimesheet.Columns["idtimesheettemplate"]};
 	Relations.Add(new DataRelation("FK_progettotimesheet_timesheettemplate_idtimesheettemplate",cPar,cChild,false));
+
+	cPar = new []{year.Columns["year"]};
+	cChild = new []{progettotimesheet.Columns["year"]};
+	Relations.Add(new DataRelation("FK_progettotimesheet_year_year",cPar,cChild,false));
 
 	#endregion
 

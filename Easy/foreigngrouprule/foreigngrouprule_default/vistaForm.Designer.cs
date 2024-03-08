@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,175 +15,156 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-namespace foreigngrouprule_default {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable foreigngrouprule{get { return Tables["foreigngrouprule"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable foreigngroupruledetail{get { return Tables["foreigngroupruledetail"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable position{get { return Tables["position"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace foreigngrouprule_default {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable foreigngrouprule 		=> Tables["foreigngrouprule"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable foreigngroupruledetail 		=> Tables["foreigngroupruledetail"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable position 		=> Tables["position"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaForm";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaForm.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("foreigngrouprule");
-	C= new DataColumn("idforeigngrouprule", typeof(System.Int32), "");
+	//////////////////// FOREIGNGROUPRULE /////////////////////////////////
+	var tforeigngrouprule= new DataTable("foreigngrouprule");
+	C= new DataColumn("idforeigngrouprule", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	tforeigngrouprule.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tforeigngrouprule.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tforeigngrouprule.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tforeigngrouprule.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tforeigngrouprule.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tforeigngrouprule.Columns.Add(C);
+	Tables.Add(tforeigngrouprule);
+	tforeigngrouprule.PrimaryKey =  new DataColumn[]{tforeigngrouprule.Columns["idforeigngrouprule"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idforeigngrouprule"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("foreigngroupruledetail");
-	C= new DataColumn("idforeigngrouprule", typeof(System.Int32), "");
+	//////////////////// FOREIGNGROUPRULEDETAIL /////////////////////////////////
+	var tforeigngroupruledetail= new DataTable("foreigngroupruledetail");
+	C= new DataColumn("idforeigngrouprule", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iddetail", typeof(System.Int32), "");
+	tforeigngroupruledetail.Columns.Add(C);
+	C= new DataColumn("iddetail", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idposition", typeof(System.Int32), "");
+	tforeigngroupruledetail.Columns.Add(C);
+	C= new DataColumn("idposition", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("!position", typeof(System.String), ""));
-	C= new DataColumn("minincomeclass", typeof(System.Int32), "");
+	tforeigngroupruledetail.Columns.Add(C);
+	tforeigngroupruledetail.Columns.Add( new DataColumn("!position", typeof(string)));
+	C= new DataColumn("minincomeclass", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("maxincomeclass", typeof(System.Int32), "");
+	tforeigngroupruledetail.Columns.Add(C);
+	C= new DataColumn("maxincomeclass", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("foreigngroupnumber", typeof(System.Int16), "");
+	tforeigngroupruledetail.Columns.Add(C);
+	C= new DataColumn("foreigngroupnumber", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tforeigngroupruledetail.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tforeigngroupruledetail.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tforeigngroupruledetail.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tforeigngroupruledetail.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tforeigngroupruledetail.Columns.Add(C);
+	tforeigngroupruledetail.Columns.Add( new DataColumn("livello", typeof(int)));
+	Tables.Add(tforeigngroupruledetail);
+	tforeigngroupruledetail.PrimaryKey =  new DataColumn[]{tforeigngroupruledetail.Columns["idforeigngrouprule"], tforeigngroupruledetail.Columns["iddetail"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idforeigngrouprule"], 	T.Columns["iddetail"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("position");
-	C= new DataColumn("idposition", typeof(System.Int32), "");
+	//////////////////// POSITION /////////////////////////////////
+	var tposition= new DataTable("position");
+	C= new DataColumn("idposition", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tposition.Columns.Add(C);
+	tposition.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tposition.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tposition.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tposition.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tposition.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("maxincomeclass", typeof(System.Int16), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idposition"]};
-	T.PrimaryKey = key;
+	tposition.Columns.Add(C);
+	tposition.Columns.Add( new DataColumn("maxincomeclass", typeof(short)));
+	Tables.Add(tposition);
+	tposition.PrimaryKey =  new DataColumn[]{tposition.Columns["idposition"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["position"];
-TChild= Tables["foreigngroupruledetail"];
-CPar = new DataColumn[1]{TPar.Columns["idposition"]};
-CChild = new DataColumn[1]{TChild.Columns["idposition"]};
-Relations.Add(new DataRelation("position_foreigngroupruledetail",CPar,CChild));
+	#endregion
 
-TPar= Tables["foreigngrouprule"];
-TChild= Tables["foreigngroupruledetail"];
-CPar = new DataColumn[1]{TPar.Columns["idforeigngrouprule"]};
-CChild = new DataColumn[1]{TChild.Columns["idforeigngrouprule"]};
-Relations.Add(new DataRelation("foreigngrouprule_foreigngroupruledetail",CPar,CChild));
+
+	#region DataRelation creation
+	var cPar = new []{position.Columns["idposition"]};
+	var cChild = new []{foreigngroupruledetail.Columns["idposition"]};
+	Relations.Add(new DataRelation("position_foreigngroupruledetail",cPar,cChild,false));
+
+	cPar = new []{foreigngrouprule.Columns["idforeigngrouprule"]};
+	cChild = new []{foreigngroupruledetail.Columns["idforeigngrouprule"]};
+	Relations.Add(new DataRelation("foreigngrouprule_foreigngroupruledetail",cPar,cChild,false));
+
+	#endregion
 
 }
 }

@@ -2,13 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tablearningagrstud_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tablearningagrstud_seg_0"><i class="fa fa-handshake mr-1"></i>Principale</a>
+		<a href="#tablearningagrstud_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tablearningagrstud_seg_0"><i class="fa fa-handshake mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tablearningagrstud_seg_3" class="nav-link" data-toggle="pill" data-target="#tablearningagrstud_seg_3"><i class="fa fa-language mr-1"></i>Lingua principale in cui vengono svolti gli insegnamenti e livello conosciuto</a>
+		<a href="#tablearningagrstud_seg_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tablearningagrstud_seg_3"><i class="fa fa-language mr-1"></i>Lingua principale in cui vengono svolti gli insegnamenti e livello conosciuto</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tablearningagrstud_seg_1" class="nav-link" data-toggle="pill" data-target="#tablearningagrstud_seg_1"><i class="fa fa-check-circle mr-1"></i>Convalide</a>
+		<a href="#tablearningagrstud_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tablearningagrstud_seg_1"><i class="fa fa-check-circle mr-1"></i>Convalide</a>
 	</li>
 
 	</ul>
@@ -37,7 +37,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#learningagrstud_seg_start").datepicker();
+    $("#learningagrstud_seg_start").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="learningagrstud_seg_start">Data di inizio</label>
@@ -46,7 +46,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#learningagrstud_seg_stop").datepicker();
+    $("#learningagrstud_seg_stop").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="learningagrstud_seg_stop">Data di fine</label>

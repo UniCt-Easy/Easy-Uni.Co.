@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -64,7 +64,7 @@ namespace ticket_default {
                  DataRow Curr = DS.ticket.Rows[0];
                 int idticket = Convert.ToInt32(Curr["idticket"]);
                 helpDeskService.doHelpDesk hds = new helpDeskService.doHelpDesk();
-                hds.Url = "https://ticket.temposrl.it/helpdeskservice/doHelpDesk.asmx";
+                hds.Url = "https://SERVER/helpdeskservice/doHelpDesk.asmx";
                 string res = hds.getStatoTicket(idticket);
                 if (res.StartsWith("Errori")) {
                     show(res, "Errore");

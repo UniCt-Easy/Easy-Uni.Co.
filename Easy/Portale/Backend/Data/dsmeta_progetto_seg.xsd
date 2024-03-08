@@ -22,17 +22,18 @@
               <xs:element name="costolordoannuo" type="xs:decimal" />
               <xs:element name="costomese" type="xs:decimal" minOccurs="0" />
               <xs:element name="costoora" type="xs:decimal" minOccurs="0" />
-              <xs:element name="idcontratto" type="xs:int" />
-              <xs:element name="idcontrattokind" type="xs:int" />
               <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="idstipendio" type="xs:int" />
+              <xs:element name="livello" type="xs:int" minOccurs="0" />
               <xs:element name="oremax" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxdida" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxgg" type="xs:int" minOccurs="0" />
               <xs:element name="oremindida" type="xs:int" minOccurs="0" />
               <xs:element name="parttime" type="xs:decimal" minOccurs="0" />
-              <xs:element name="scatto" type="xs:int" minOccurs="0" />
-              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="tempdef" type="xs:string" />
               <xs:element name="title" type="xs:string" />
@@ -40,6 +41,34 @@
               <xs:element name="totale_stipendioannuo" type="xs:decimal" minOccurs="0" />
               <xs:element name="totale_tabellastipendiale" type="xs:decimal" minOccurs="0" />
               <xs:element name="totale_tipologiacontrattuale" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sdgoals" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
+              <xs:element name="idsdgoals" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettosdgoals" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idsdgoals" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idsdgoals_sdgoals_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -63,15 +92,13 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idcorsostudio" type="xs:int" />
-              <xs:element name="idcorsostudiolivello" type="xs:int" minOccurs="0" />
-              <xs:element name="idcorsostudionorma" type="xs:int" minOccurs="0" />
-              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="currency" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="codecurrency" type="xs:string" minOccurs="0" />
               <xs:element name="idcurrency" type="xs:int" />
             </xs:sequence>
@@ -82,7 +109,12 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="duratakind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="duratakind_ans" type="xs:string" minOccurs="0" />
+              <xs:element name="duratakind_lt" type="xs:dateTime" />
+              <xs:element name="duratakind_lu" type="xs:string" />
+              <xs:element name="duratakind_sortcode" type="xs:int" />
               <xs:element name="idduratakind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -92,6 +124,9 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idpartnerkind" type="xs:int" />
               <xs:element name="partnerkind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="partnerkind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="partnerkind_sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -99,17 +134,8 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idateco" type="xs:int" minOccurs="0" />
-              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnace" type="xs:string" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
-              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
-              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="registry_active" type="xs:string" minOccurs="0" />
-              <xs:element name="residence" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -117,15 +143,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
-              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
-              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
-              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
-              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
               <xs:element name="registry_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -134,10 +152,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
               <xs:element name="registry_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -148,11 +163,13 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idprogettokind" type="xs:int" />
               <xs:element name="progettoactivitykind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="progettokind_active" type="xs:string" minOccurs="0" />
               <xs:element name="progettokind_ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="progettokind_cu" type="xs:string" minOccurs="0" />
               <xs:element name="progettokind_description" type="xs:string" minOccurs="0" />
               <xs:element name="progettokind_idcorsostudio" type="xs:string" minOccurs="0" />
               <xs:element name="progettokind_idprogettoactivitykind" type="xs:int" minOccurs="0" />
+              <xs:element name="progettokind_irap" type="xs:string" minOccurs="0" />
               <xs:element name="progettokind_lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="progettokind_lu" type="xs:string" minOccurs="0" />
               <xs:element name="progettokind_oredivisionecostostipendio" type="xs:int" minOccurs="0" />
@@ -194,37 +211,6 @@
               <xs:element name="registryprogfin_lt" type="xs:dateTime" />
               <xs:element name="registryprogfin_lu" type="xs:string" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="getprogettocostoview" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="ammissibilita" type="xs:decimal" minOccurs="0" />
-              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
-              <xs:element name="cf" type="xs:string" minOccurs="0" />
-              <xs:element name="contrattokind_title" type="xs:string" minOccurs="0" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="doc" type="xs:string" minOccurs="0" />
-              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="idgetprogettocostoview" type="xs:int" />
-              <xs:element name="idprogetto" type="xs:int" />
-              <xs:element name="nmov" type="xs:int" minOccurs="0" />
-              <xs:element name="noperation" type="xs:int" minOccurs="0" />
-              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
-              <xs:element name="payment_adate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="pettycash_description" type="xs:string" minOccurs="0" />
-              <xs:element name="pettycash_pettycode" type="xs:string" minOccurs="0" />
-              <xs:element name="progettotipocosto_title" type="xs:string" minOccurs="0" />
-              <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
-              <xs:element name="rendicontattivitaprogetto_description" type="xs:string" minOccurs="0" />
-              <xs:element name="transactiondate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="transmissiondate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="workpackage_title" type="xs:string" minOccurs="0" />
-              <xs:element name="ymov" type="xs:int" minOccurs="0" />
-              <xs:element name="yoperation" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -285,17 +271,8 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idateco" type="xs:int" minOccurs="0" />
-              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnace" type="xs:string" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
-              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
-              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="registry_active" type="xs:string" minOccurs="0" />
-              <xs:element name="residence" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -308,10 +285,45 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="numerodip" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idnumerodip" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="naturagiur" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idnaturagiur" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="geo_nation" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idnation" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nace" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="activity" type="xs:string" />
+              <xs:element name="idnace" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ateco" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="idateco" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -338,16 +350,26 @@
               <xs:element name="gender" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idateco" type="xs:int" minOccurs="0" />
               <xs:element name="idcategory" type="xs:string" minOccurs="0" />
               <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
               <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
               <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="location" type="xs:string" minOccurs="0" />
@@ -357,67 +379,18 @@
               <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
-              <xs:element name="residence" type="xs:int" />
+              <xs:element name="pic" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" minOccurs="0" />
+              <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
               <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="soggiorno" type="xs:string" minOccurs="0" />
               <xs:element name="surname" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
               <xs:element name="toredirect" type="xs:int" minOccurs="0" />
               <xs:element name="txt" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="numerodip" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idnumerodip" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="naturagiur" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idnaturagiur" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="nace" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="activity" type="xs:string" />
-              <xs:element name="idnace" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="ateco" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="codice" type="xs:string" minOccurs="0" />
-              <xs:element name="idateco" type="xs:int" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="registry_aziende" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="idateco" type="xs:int" minOccurs="0" />
-              <xs:element name="idnace" type="xs:string" minOccurs="0" />
-              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
-              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="pic" type="xs:string" minOccurs="0" />
-              <xs:element name="title_en" type="xs:string" minOccurs="0" />
-              <xs:element name="txt_en" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -446,15 +419,15 @@
               <xs:element name="_x0021_idreg_aziende_registry_cf" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_aziende_registry_p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_aziende_registry_active" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_aziende_geo_nation_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_aziende_registry_flag_pa" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_aziende_ateco_codice" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_aziende_ateco_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_aziende_naturagiur_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_aziende_numerodip_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_aziende_nace_idnace" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idreg_aziende_nace_activity" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_aziende_registry_aziende_pic" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_aziende_geo_nation_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_aziende_registry_pic" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_aziende_registry_flag_pa" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -497,6 +470,7 @@
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idinc" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettoricavo" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" minOccurs="0" />
@@ -534,15 +508,18 @@
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idassetdiaryora" type="xs:int" minOccurs="0" />
               <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idexp" type="xs:int" minOccurs="0" />
               <xs:element name="idpettycash" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettocosto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" />
               <xs:element name="idrelated" type="xs:string" minOccurs="0" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" minOccurs="0" />
               <xs:element name="idsal" type="xs:int" minOccurs="0" />
+              <xs:element name="idsalprogettoassetworkpackagemese" type="xs:int" minOccurs="0" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
@@ -557,7 +534,7 @@
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -642,7 +619,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rendicontattivitaprogettoitineration" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="rendicontattivitaprogettoitineration" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="iditineration" type="xs:int" />
@@ -652,7 +629,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rendicontattivitaprogettoyear" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="rendicontattivitaprogettoyear" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idprogetto" type="xs:int" />
@@ -664,13 +641,16 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rendicontattivitaprogettoora" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="rendicontattivitaprogettoora" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="_x0021_titleancestor" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idconsolidamento" type="xs:int" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
               <xs:element name="idrendicontattivitaprogettoora" type="xs:int" />
               <xs:element name="idsal" type="xs:int" minOccurs="0" />
@@ -681,10 +661,13 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rendicontattivitaprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="rendicontattivitaprogetto_alias1" msprop:TableForReading="rendicontattivitaprogetto" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="_x0021_orerendicont" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_raggruppamento" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_titolobreve" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_wp" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="datainizioprevista" type="xs:dateTime" />
@@ -693,11 +676,12 @@
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
+              <xs:element name="idrendicontattivitaprogettokind" type="xs:int" minOccurs="0" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="orepreventivate" type="xs:int" />
-              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -713,6 +697,7 @@
         <xs:element name="struttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="idstrutturakind" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
@@ -722,6 +707,7 @@
         <xs:element name="workpackage" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="_x0021_titolobreve" type="xs:string" minOccurs="0" />
               <xs:element name="acronimo" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
@@ -734,7 +720,7 @@
               <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
               <xs:element name="_x0021_idstruttura_struttura_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idstruttura_struttura_idstrutturakind_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -747,6 +733,8 @@
               <xs:element name="costoorario" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="fondiprogetto" type="xs:string" minOccurs="0" />
+              <xs:element name="giornipreventivati" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettoudr" type="xs:int" />
               <xs:element name="idprogettoudrmembro" type="xs:int" />
@@ -757,6 +745,8 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="orepreventivate" type="xs:int" minOccurs="0" />
               <xs:element name="ricavoorario" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -786,6 +776,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeinventory" type="xs:string" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="idinventory" type="xs:int" />
             </xs:sequence>
@@ -822,6 +813,7 @@
               <xs:element name="flag" type="xs:int" />
               <xs:element name="historicalvalue" type="xs:decimal" minOccurs="0" />
               <xs:element name="idassetload" type="xs:int" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
               <xs:element name="idinv" type="xs:int" />
               <xs:element name="idinventory" type="xs:int" />
               <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
@@ -901,11 +893,13 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idasset-idpiece_inventory_codeinventory" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idasset-idpiece_inventory_description" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idasset-idpiece_asset_ninventory" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idasset-idpiece_assetacquire_description" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idasset-idpiece_assetacquire_inventorytree_codeinv" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idasset-idpiece_assetacquire_inventorytree_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idasset-idpiece_assetacquire_upb_codeupb" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idasset-idpiece_assetacquire_upb_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idasset-idpiece_asset_rfid" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idasset-idpiece_asset_lifestart" type="xs:dateTime" minOccurs="0" />
@@ -935,7 +929,8 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
@@ -987,7 +982,8 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
@@ -1040,6 +1036,8 @@
               <xs:element name="contributoente" type="xs:decimal" minOccurs="0" />
               <xs:element name="contributoenterichiesto" type="xs:decimal" minOccurs="0" />
               <xs:element name="contributorichiesto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costoapprovatoateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costoapprovatoateneocalcolato" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="cup" type="xs:string" minOccurs="0" />
@@ -1067,6 +1065,10 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="progfinanziamentotxt" type="xs:string" minOccurs="0" />
+              <xs:element name="respamministrativi" type="xs:string" minOccurs="0" />
+              <xs:element name="responsabiliamministrativi" type="xs:string" minOccurs="0" />
+              <xs:element name="responsabiliscientifici" type="xs:string" minOccurs="0" />
+              <xs:element name="respscientifici" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
@@ -1074,6 +1076,8 @@
               <xs:element name="titolobreve" type="xs:string" minOccurs="0" />
               <xs:element name="totalbudget" type="xs:decimal" minOccurs="0" />
               <xs:element name="totalcontributo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ulteriorecup" type="xs:string" minOccurs="0" />
+              <xs:element name="unitaorganizzativa" type="xs:string" minOccurs="0" />
               <xs:element name="url" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -1087,7 +1091,18 @@
     </xs:unique>
     <xs:unique name="getcontratti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getcontratti" />
-      <xs:field xpath="mstns:idcontratto" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+      <xs:field xpath="mstns:idstipendio" />
+    </xs:unique>
+    <xs:unique name="sdgoals_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sdgoals" />
+      <xs:field xpath="mstns:idsdgoals" />
+    </xs:unique>
+    <xs:unique name="progettosdgoals_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettosdgoals" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idsdgoals" />
     </xs:unique>
     <xs:unique name="progettofinanziamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettofinanziamento" />
@@ -1141,11 +1156,6 @@
       <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idregistryprogfin" />
     </xs:unique>
-    <xs:unique name="getprogettocostoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getprogettocostoview" />
-      <xs:field xpath="mstns:idgetprogettocostoview" />
-      <xs:field xpath="mstns:idprogetto" />
-    </xs:unique>
     <xs:unique name="progettorp_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettorp" />
       <xs:field xpath="mstns:idprogetto" />
@@ -1173,14 +1183,6 @@
       <xs:selector xpath=".//mstns:registryclass" />
       <xs:field xpath="mstns:idregistryclass" />
     </xs:unique>
-    <xs:unique name="geo_nation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:geo_nation" />
-      <xs:field xpath="mstns:idnation" />
-    </xs:unique>
-    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
     <xs:unique name="numerodip_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:numerodip" />
       <xs:field xpath="mstns:idnumerodip" />
@@ -1188,6 +1190,10 @@
     <xs:unique name="naturagiur_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:naturagiur" />
       <xs:field xpath="mstns:idnaturagiur" />
+    </xs:unique>
+    <xs:unique name="geo_nation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_nation" />
+      <xs:field xpath="mstns:idnation" />
     </xs:unique>
     <xs:unique name="nace_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:nace" />
@@ -1197,8 +1203,8 @@
       <xs:selector xpath=".//mstns:ateco" />
       <xs:field xpath="mstns:idateco" />
     </xs:unique>
-    <xs:unique name="registry_aziende_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry_aziende" />
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="partnerkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -1288,13 +1294,16 @@
     </xs:unique>
     <xs:unique name="rendicontattivitaprogettoora_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:rendicontattivitaprogettoora" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idrendicontattivitaprogetto" />
       <xs:field xpath="mstns:idrendicontattivitaprogettoora" />
       <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
-    <xs:unique name="rendicontattivitaprogetto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:rendicontattivitaprogetto" />
+    <xs:unique name="rendicontattivitaprogetto_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontattivitaprogetto_alias1" />
       <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idrendicontattivitaprogetto" />
       <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
@@ -1355,7 +1364,7 @@
     </xs:unique>
     <xs:unique name="progettotiporicavocontrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettotiporicavocontrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idposition" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettotipocosto" />
     </xs:unique>
@@ -1379,7 +1388,7 @@
     </xs:unique>
     <xs:unique name="progettotipocostocontrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettotipocostocontrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idposition" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettotipocosto" />
     </xs:unique>
@@ -1401,6 +1410,8 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_progettosdgoals_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettosdgoals" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
+      <msdata:Relationship name="FK_progettosdgoals_sdgoals_idsdgoals" msdata:parent="sdgoals" msdata:child="progettosdgoals" msdata:parentkey="idsdgoals" msdata:childkey="idsdgoals" />
       <msdata:Relationship name="FK_progettofinanziamento_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettofinanziamento" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_progetto_corsostudiodefaultview_idcorsostudio" msdata:parent="corsostudiodefaultview" msdata:child="progetto" msdata:parentkey="idcorsostudio" msdata:childkey="idcorsostudio" />
       <msdata:Relationship name="FK_progetto_currency_idcurrency" msdata:parent="currency" msdata:child="progetto" msdata:parentkey="idcurrency" msdata:childkey="idcurrency" />
@@ -1415,20 +1426,18 @@
       <msdata:Relationship name="FK_registryprogfinbandosegview_registryprogfinsegview_idregistryprogfin" msdata:parent="registryprogfinsegview" msdata:child="registryprogfinbandosegview" msdata:parentkey="idregistryprogfin" msdata:childkey="idregistryprogfin" />
       <msdata:Relationship name="FK_progetto_registryprogfinsegview_idregistryprogfin" msdata:parent="registryprogfinsegview" msdata:child="progetto" msdata:parentkey="idregistryprogfin" msdata:childkey="idregistryprogfin" />
       <msdata:Relationship name="FK_progettorp_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettorp" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
-      <msdata:Relationship name="FK_getprogettocostoview_progettorp_idprogetto" msdata:parent="progettorp" msdata:child="getprogettocostoview" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_progettoproroga_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettoproroga" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_progettosettoreerc_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettosettoreerc" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_progettosettoreerc_settoreerc_idsettoreerc" msdata:parent="settoreerc" msdata:child="progettosettoreerc" msdata:parentkey="idsettoreerc" msdata:childkey="idsettoreerc" />
       <msdata:Relationship name="FK_progetto_registryaziendeview_idreg_aziende_fin" msdata:parent="registryaziendeview" msdata:child="progetto" msdata:parentkey="idreg" msdata:childkey="idreg_aziende_fin" />
       <msdata:Relationship name="FK_progettoregistry_aziende_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettoregistry_aziende" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_progettoregistry_aziende_registry_idreg_aziende" msdata:parent="registry" msdata:child="progettoregistry_aziende" msdata:parentkey="idreg" msdata:childkey="idreg_aziende" />
-      <msdata:Relationship name="FK_registry_aziende_registry_idreg" msdata:parent="registry" msdata:child="registry_aziende" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_registry_registryclass_idregistryclass" msdata:parent="registryclass" msdata:child="registry" msdata:parentkey="idregistryclass" msdata:childkey="idregistryclass" />
+      <msdata:Relationship name="FK_registry_numerodip_idnumerodip" msdata:parent="numerodip" msdata:child="registry" msdata:parentkey="idnumerodip" msdata:childkey="idnumerodip" />
+      <msdata:Relationship name="FK_registry_naturagiur_idnaturagiur" msdata:parent="naturagiur" msdata:child="registry" msdata:parentkey="idnaturagiur" msdata:childkey="idnaturagiur" />
       <msdata:Relationship name="FK_registry_geo_nation_idnation" msdata:parent="geo_nation" msdata:child="registry" msdata:parentkey="idnation" msdata:childkey="idnation" />
-      <msdata:Relationship name="FK_registry_aziende_numerodip_idnumerodip" msdata:parent="numerodip" msdata:child="registry_aziende" msdata:parentkey="idnumerodip" msdata:childkey="idnumerodip" />
-      <msdata:Relationship name="FK_registry_aziende_naturagiur_idnaturagiur" msdata:parent="naturagiur" msdata:child="registry_aziende" msdata:parentkey="idnaturagiur" msdata:childkey="idnaturagiur" />
-      <msdata:Relationship name="FK_registry_aziende_nace_idnace" msdata:parent="nace" msdata:child="registry_aziende" msdata:parentkey="idnace" msdata:childkey="idnace" />
-      <msdata:Relationship name="FK_registry_aziende_ateco_idateco" msdata:parent="ateco" msdata:child="registry_aziende" msdata:parentkey="idateco" msdata:childkey="idateco" />
+      <msdata:Relationship name="FK_registry_nace_idnace" msdata:parent="nace" msdata:child="registry" msdata:parentkey="idnace" msdata:childkey="idnace" />
+      <msdata:Relationship name="FK_registry_ateco_idateco" msdata:parent="ateco" msdata:child="registry" msdata:parentkey="idateco" msdata:childkey="idateco" />
       <msdata:Relationship name="FK_progettoregistry_aziende_partnerkind_idpartnerkind" msdata:parent="partnerkind" msdata:child="progettoregistry_aziende" msdata:parentkey="idpartnerkind" msdata:childkey="idpartnerkind" />
       <msdata:Relationship name="FK_progettoattach_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettoattach" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_progettotesto_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettotesto" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
@@ -1442,10 +1451,10 @@
       <msdata:Relationship name="FK_assetdiary_workpackage_idprogetto-idworkpackage" msdata:parent="workpackage" msdata:child="assetdiary" msdata:parentkey="idprogetto idworkpackage" msdata:childkey="idprogetto idworkpackage" />
       <msdata:Relationship name="FK_assetdiaryora_assetdiary_idassetdiary-idworkpackage" msdata:parent="assetdiary" msdata:child="assetdiaryora" msdata:parentkey="idassetdiary idworkpackage" msdata:childkey="idassetdiary idworkpackage" />
       <msdata:Relationship name="FK_workpackageupb_workpackage_idprogetto-idworkpackage" msdata:parent="workpackage" msdata:child="workpackageupb" msdata:parentkey="idprogetto idworkpackage" msdata:childkey="idprogetto idworkpackage" />
-      <msdata:Relationship name="FK_rendicontattivitaprogetto_workpackage_idprogetto-idworkpackage" msdata:parent="workpackage" msdata:child="rendicontattivitaprogetto" msdata:parentkey="idprogetto idworkpackage" msdata:childkey="idprogetto idworkpackage" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_idprogetto-idrendicontattivitaprogetto-idworkpackage" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoitineration" msdata:parentkey="idprogetto idrendicontattivitaprogetto idworkpackage" msdata:childkey="idprogetto idrendicontattivitaprogetto idworkpackage" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoyear_rendicontattivitaprogetto_idprogetto-idrendicontattivitaprogetto-idworkpackage" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoyear" msdata:parentkey="idprogetto idrendicontattivitaprogetto idworkpackage" msdata:childkey="idprogetto idrendicontattivitaprogetto idworkpackage" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_idrendicontattivitaprogetto-idworkpackage" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogetto idworkpackage" msdata:childkey="idrendicontattivitaprogetto idworkpackage" />
+      <msdata:Relationship name="FK_rendicontattivitaprogetto_alias1_workpackage_idprogetto-idworkpackage" msdata:parent="workpackage" msdata:child="rendicontattivitaprogetto_alias1" msdata:parentkey="idprogetto idworkpackage" msdata:childkey="idprogetto idworkpackage" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_alias1_idprogetto-idworkpackage-idrendicontattivitaprogetto-iditineration" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoitineration" msdata:parentkey="idprogetto idworkpackage idrendicontattivitaprogetto iditineration" msdata:childkey="idprogetto idworkpackage idrendicontattivitaprogetto iditineration" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoyear_rendicontattivitaprogetto_alias1_idprogetto-idworkpackage-idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoyear" msdata:parentkey="idprogetto idworkpackage idrendicontattivitaprogetto" msdata:childkey="idprogetto idworkpackage idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_alias1_idprogetto-idworkpackage-idrendicontattivitaprogetto-idreg" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idprogetto idworkpackage idrendicontattivitaprogetto idreg" msdata:childkey="idprogetto idworkpackage idrendicontattivitaprogetto idreg" />
       <msdata:Relationship name="FK_workpackage_struttura_idstruttura" msdata:parent="struttura" msdata:child="workpackage" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
       <msdata:Relationship name="FK_struttura_strutturakind_idstrutturakind" msdata:parent="strutturakind" msdata:child="struttura" msdata:parentkey="idstrutturakind" msdata:childkey="idstrutturakind" />
       <msdata:Relationship name="FK_progettoudr_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettoudr" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />

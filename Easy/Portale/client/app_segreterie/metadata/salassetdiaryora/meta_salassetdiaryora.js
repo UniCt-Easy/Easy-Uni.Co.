@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,21 +24,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_amount', 'Amount', 'fixed.2', 10, null);
-						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_!title', '!title', null, 11, null);
-						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_start', 'Data e ora di inizio', 'g', 10, null);
-						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_stop', 'Data e ora di fine', 'g', 10, null);
-						this.describeAColumn(table, '!idassetdiaryora_sal_alias1_start', 'Data di inizio Stato avanzamento lavori', null, 11, null);
-						this.describeAColumn(table, '!idassetdiaryora_sal_alias1_stop', 'Data di fine Stato avanzamento lavori', null, 12, null);
-						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_amount'] = { tableNameLookup:'assetdiaryora', columnNameLookup:'amount', columnNamekey:'idassetdiaryora' };
-						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_!title'] = { tableNameLookup:'assetdiaryora', columnNameLookup:'!title', columnNamekey:'idassetdiaryora' };
+						this.describeAColumn(table, '!idassetdiaryora_workpackage_raggruppamento', 'Raggruppamento Workpackage', null, 12, null);
+						this.describeAColumn(table, '!idassetdiaryora_workpackage_title', 'Titolo Workpackage', null, 13, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiary_asset_idinventory', 'Inventario Beni strumentali', null, 13, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiary_asset_ninventory', 'Numero inventario Beni strumentali', null, 14, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiary_asset_idpiece', 'Numero parte Beni strumentali', null, 16, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiary_asset_nassetacquire', 'Descrizione Beni strumentali', null, 17, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiary_asset_rfid', 'Codice RFID Beni strumentali', null, 18, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiary_registry_title', 'Denominazione Anagrafica generale', null, 13, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_start', 'Data e ora di inizio', 'g', 16, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_stop', 'Data e ora di fine', 'g', 18, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_amount', 'Importo', 'fixed.2', 15, null);
+						this.describeAColumn(table, '!idassetdiaryora_sal_alias1_start', 'Data di inizio Stato avanzamento lavori', null, 17, null);
+						this.describeAColumn(table, '!idassetdiaryora_sal_alias1_stop', 'Data di fine Stato avanzamento lavori', null, 18, null);
+						objCalcFieldConfig['!idassetdiaryora_workpackage_raggruppamento'] = { tableNameLookup:'workpackage', columnNameLookup:'raggruppamento', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_workpackage_title'] = { tableNameLookup:'workpackage', columnNameLookup:'title', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiary_asset_idinventory'] = { tableNameLookup:'asset', columnNameLookup:'idinventory', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiary_asset_ninventory'] = { tableNameLookup:'asset', columnNameLookup:'ninventory', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiary_asset_idpiece'] = { tableNameLookup:'asset', columnNameLookup:'idpiece', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiary_asset_nassetacquire'] = { tableNameLookup:'asset', columnNameLookup:'nassetacquire', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiary_asset_rfid'] = { tableNameLookup:'asset', columnNameLookup:'rfid', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiary_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idassetdiaryora' };
 						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_start'] = { tableNameLookup:'assetdiaryora', columnNameLookup:'start', columnNamekey:'idassetdiaryora' };
 						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_stop'] = { tableNameLookup:'assetdiaryora', columnNameLookup:'stop', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_amount'] = { tableNameLookup:'assetdiaryora', columnNameLookup:'amount', columnNamekey:'idassetdiaryora' };
 						objCalcFieldConfig['!idassetdiaryora_sal_alias1_start'] = { tableNameLookup:'sal_alias1', columnNameLookup:'start', columnNamekey:'idassetdiaryora' };
 						objCalcFieldConfig['!idassetdiaryora_sal_alias1_stop'] = { tableNameLookup:'sal_alias1', columnNameLookup:'stop', columnNamekey:'idassetdiaryora' };
-						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora__x0021_title', '!title', null, 11, null);
-						objCalcFieldConfig['!idassetdiaryora_assetdiaryora__x0021_title'] = { tableNameLookup:'assetdiaryora', columnNameLookup:'!title', columnNamekey:'idassetdiaryora' };
-						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora__x0021_title', 'Descrizione', null, 11, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -66,7 +60,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["idassetdiaryora"].caption = "Ore dei diari d'uso";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
 				var def = appMeta.Deferred("getNewRow-meta_salassetdiaryora");

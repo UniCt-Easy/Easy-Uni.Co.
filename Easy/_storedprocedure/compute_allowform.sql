@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -28,7 +28,7 @@ drop procedure [compute_allowform]
 GO
 --setuser 'amm'
 --setuser 'amministrazione'
---compute_allowform 2017,2,1
+--compute_allowform 2023,1,10
 CREATE PROCEDURE compute_allowform
 (
 	@ayear int,
@@ -253,7 +253,20 @@ BEGIN
 	JOIN menu M2 (nolock) 
 		ON M.idmenu = M2.paridmenu
 	WHERE M2.metadata IN('invoice','invoicedetail','ivaregister')
-	--AND NOT EXISTS	(SELECT * FROM #outtable O	WHERE O.tablename = M2.metadata)
+
+--- aggiungo la visualizzazione delle fatture elettroniche di vendita 
+--- e delle fatture elettroniche acquisto estere
+--- sul menu di secondo livello del Menu IVA
+	INSERT INTO #outtable
+	SELECT  M3.metadata
+	FROM menu M (nolock) 
+	JOIN menu M2 (nolock) 
+		ON M.idmenu = M2.paridmenu
+	JOIN menu M3 (nolock) 
+		ON M2.idmenu = M3.paridmenu
+	WHERE M.menucode = 'codiva'
+	AND (M3.metadata  IN ('sdi_vendita','sdi_acquistoestere'))
+	AND NOT EXISTS	(SELECT * FROM #outtable O	WHERE O.tablename = M3.metadata)
 END
 
 -- Gestione Magazzino
@@ -376,7 +389,7 @@ BEGIN
 	--AND NOT EXISTS		(SELECT * FROM #outtable O	WHERE O.tablename = M3.metadata)
 END
 
--- Gestione Compensi
+-- Gestione Compensi (Riguarda la configurazione)
 IF (
 	(SELECT COUNT(*)
 	FROM flowchartrestrictedfunction FF
@@ -441,6 +454,17 @@ BEGIN
 	WHERE M.menucode IN ( 'codcococo')
 	AND M2.metadata IS NOT NULL
 	--AND NOT EXISTS	(SELECT * FROM #outtable O	WHERE O.tablename = M2.metadata)
+
+
+	INSERT INTO #outtable
+	SELECT  M3.metadata
+	FROM menu M (nolock) 
+	JOIN menu M2 (nolock) 		ON M.idmenu = M2.paridmenu
+	JOIN menu M3 (nolock) 		ON M2.idmenu = M3.paridmenu
+	WHERE M.menucode IN ( 
+	'codcococo')
+	AND M3.metadata IS NOT NULL
+	AND NOT EXISTS	(SELECT * FROM #outtable O	WHERE O.tablename = M3.metadata)
 
 END
 
@@ -776,7 +800,7 @@ BEGIN
 	FROM menu M (nolock) 
 	JOIN menu M2 (nolock) 
 		ON M.idmenu = M2.paridmenu
-	WHERE  M2.metadata IN('f24ep','unifiedf24ep'))
+	WHERE  M2.metadata IN('f24ep','unifiedf24ep','f24ordinario'))
 END
 ELSE
 BEGIN
@@ -806,7 +830,7 @@ BEGIN
 	FROM menu M (nolock) 
 	JOIN menu M2 (nolock) 
 		ON M.idmenu = M2.paridmenu
-	WHERE M2.metadata IN('f24ep','unifiedf24ep')
+	WHERE M2.metadata IN('f24ep','unifiedf24ep','f24ordinario')
 	--AND NOT EXISTS	(SELECT * FROM #outtable O	WHERE O.tablename = M2.metadata)
 END
 -- Gestione Bilancio

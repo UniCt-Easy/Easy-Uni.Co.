@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -42,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return this.superClass.describeColumns(table, listType);
 					case 'isee_seg':
 						this.describeAColumn(table, 'anno', 'Anno', null, 510, null);
-						this.describeAColumn(table, 'conforme', 'Conformit‡', null, 520, null);
+						this.describeAColumn(table, 'conforme', 'Conformit√†', null, 520, null);
 						this.describeAColumn(table, 'dataauthdiff', 'Data autorizzazione', null, 530, null);
 						this.describeAColumn(table, 'datasottoscriz', 'Data di sottoscrizione', null, 540, null);
 						this.describeAColumn(table, 'enterilascio', 'Ente del rilascio', null, 550, 50);

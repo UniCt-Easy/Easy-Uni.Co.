@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,21 +23,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'progettotipocosto_title', 'Voce di costo', null, 10, 2048);
-						this.describeAColumn(table, 'progettocosto_amount', 'Importo', 'fixed.2', 20, null);
-						this.describeAColumn(table, 'contrattokind_title', 'Tipo di contratto', null, 30, 50);
-						this.describeAColumn(table, 'rendicontattivitaprogetto_description', 'Attivit‡ svolta', null, 40, -1);
-						this.describeAColumn(table, 'progettocosto_doc', 'Documento collegato', null, 50, 35);
-						this.describeAColumn(table, 'progettocosto_docdate', 'Data del documento collegato', null, 60, null);
-						this.describeAColumn(table, 'expense_description', 'Descrizione Spesa', null, 70, 150);
-						this.describeAColumn(table, 'expense_ymov', 'Anno movimento Spesa', null, 70, null);
-						this.describeAColumn(table, 'expense_nmov', 'N.movimento Spesa', null, 70, null);
-						this.describeAColumn(table, 'pettycash_description', 'Descrizione Fondo economale', null, 80, 50);
-						this.describeAColumn(table, 'pettycash_pettycode', 'Codice Fondo economale', null, 80, 20);
-						this.describeAColumn(table, 'progettocosto_yoperation', 'Esercizio operazione', null, 90, null);
-						this.describeAColumn(table, 'progettocosto_noperation', 'Numero operazione', null, 100, null);
-						this.describeAColumn(table, 'sal_start', 'Data di inizio Stato avanzamento lavori', null, 120, null);
-						this.describeAColumn(table, 'sal_stop', 'Data di fine Stato avanzamento lavori', null, 120, null);
+						this.describeAColumn(table, 'progettotipocosto_title', 'Voce di costo', null, 1100, 2048);
+						this.describeAColumn(table, 'progettocosto_amount', 'Importo', 'fixed.2', 2000, null);
+						this.describeAColumn(table, 'position_title', 'Tipo di contratto', null, 3200, 50);
+						this.describeAColumn(table, 'rendicontattivitaprogetto_idreg', 'Partecipante Attivit√† svolta', null, 4100, null);
+						this.describeAColumn(table, 'rendicontattivitaprogetto_description', 'Descrizione Attivit√† svolta', null, 4300, -1);
+						this.describeAColumn(table, 'progettocosto_doc', 'Documento collegato', null, 5000, 35);
+						this.describeAColumn(table, 'progettocosto_docdate', 'Data del documento collegato', null, 6000, null);
+						this.describeAColumn(table, 'expense_description', 'Descrizione Spesa', null, 7100, 150);
+						this.describeAColumn(table, 'expense_ymov', 'Anno movimento Spesa', null, 7200, null);
+						this.describeAColumn(table, 'expense_nmov', 'N.movimento Spesa', null, 7300, null);
+						this.describeAColumn(table, 'pettycash_description', 'Descrizione Fondo economale', null, 8200, 50);
+						this.describeAColumn(table, 'pettycash_pettycode', 'Codice Fondo economale', null, 8200, 20);
+						this.describeAColumn(table, 'progettocosto_yoperation', 'Esercizio operazione', null, 9000, null);
+						this.describeAColumn(table, 'progettocosto_noperation', 'Numero operazione', null, 10000, null);
+						this.describeAColumn(table, 'assetdiaryora_idassetdiary', 'Identificativo Diario d\'uso del bene strumentale', null, 14400, null);
+						this.describeAColumn(table, 'assetdiaryora_start', 'Data e ora di inizio Diario d\'uso del bene strumentale', 'g', 14800, null);
+						this.describeAColumn(table, 'assetdiaryora_stop', 'Data e ora di fine Diario d\'uso del bene strumentale', 'g', 14900, null);
+						this.describeAColumn(table, 'salprogettoassetworkpackagemese_idsalprogettoassetworkpackage', 'Identificativo Uso del bene strumentale', null, 15100, null);
+						this.describeAColumn(table, 'salprogettoassetworkpackagemese_year', 'Anno Uso del bene strumentale', null, 15200, null);
+						this.describeAColumn(table, 'mese_title', 'Mese Mese Uso del bene strumentale', null, 15320, 64);
+						this.describeAColumn(table, 'salprogettoassetworkpackagemese_amount', 'Importo Uso del bene strumentale', 'fixed.2', 15400, null);
+						this.describeAColumn(table, 'sal_start', 'Data di inizio Stato avanzamento lavori', null, 20100, null);
+						this.describeAColumn(table, 'sal_stop', 'Data di fine Stato avanzamento lavori', null, 20400, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

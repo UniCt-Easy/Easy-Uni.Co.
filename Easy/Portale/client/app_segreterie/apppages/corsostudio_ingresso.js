@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -67,8 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.idcorsostudiokind)
-					parentRow.idcorsostudiokind = 12;
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -117,11 +98,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				appMeta.metaModel.computeRowsAs(this.state.DS.tables.didprog, "ingresso", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("didprog");
+				this.state.DS.tables.corsostudio.defaults({ 'idcorsostudiokind': 12 });
 				$("#btn_add_didprogaccesso_iddidprog_acc").on("click", _.partial(this.searchAndAssigndidprog_alias2, self));
 				$("#btn_add_didprogaccesso_iddidprog_acc").prop("disabled", true);
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
 					$('#calendar49').fullCalendar('rerenderEvents');
 				});
+				$('#grid_graduatoriaesiti_default').data('mdlconditionallookup', 'provvisoria,P,Provvisoria;provvisoria,D,Definitiva;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

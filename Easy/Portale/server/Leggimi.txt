@@ -14,5 +14,5 @@ body row json
 
 
 // json dei dataset.
-Da chrome su sito qiualunque e pagina aperta:
+Da chrome su sito qualunque e pagina aperta:
 JSON.stringify(appMeta.currentMetaPage.state.DS.serialize(true))

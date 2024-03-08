@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -64,6 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.isNull(parentRow.completamento))
+					parentRow.completamento = 0;
 				this.manageperfvalutazionepersonaleobiettivo_default_completamento();
 				//beforeFillFilter
 				
@@ -71,7 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var def = appMeta.Deferred("beforeFill-perfvalutazionepersonaleobiettivo_default");
 				var arraydef = [];
 				
-				arraydef.push(this.insertSoglie());				//beforeFillInside
+				arraydef.push(this.insertSoglie());
+				this.EnableControl();
+				//beforeFillInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
@@ -111,13 +98,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//beforePost
 
 			configureDependencies: function () {
-            var valorenumericoCtrl = $('#perfvalutazionepersonaleobiettivo_default_valorenumerico');
+				var valorenumericoCtrl = $('#perfvalutazionepersonaleobiettivo_default_valorenumerico');
 
-            var completamentoCtrl = $('#perfvalutazionepersonaleobiettivo_default_completamento');
-            this.registerFormula(completamentoCtrl, this.manageperfvalutazionepersonaleobiettivo_default_completamento.bind(this));
-            this.addDependencies(valorenumericoCtrl, completamentoCtrl);
-         },
- insertSoglie: function (prm) {
+				var completamentoCtrl = $('#perfvalutazionepersonaleobiettivo_default_completamento');
+				this.registerFormula(completamentoCtrl, this.manageperfvalutazionepersonaleobiettivo_default_completamento.bind(this));
+				this.addDependencies(valorenumericoCtrl, completamentoCtrl);
+			},
+
+			insertSoglie: function (prm) {
 
 				var filterYear = window.jsDataQuery.eq('year', this.state.callerState.currentRow.year);
 
@@ -129,15 +117,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return this.superClass.insertSoglie({
 					table: "perfvalutazionepersonalesoglia", tableSoglie: "perfsoglia", keyColumns: "idperfvalutazionepersonaleobiettivo,idperfvalutazionepersonale", columnValueName: "percentuale", filter: filterYear, desMessage: message
 				});
-			  },
+			},
+			
+			EnableControl: function () {
+				if (this.state.callerPage.crea !== true) {
+					this.enableControl('#perfvalutazionepersonaleobiettivo_default_peso', false)
+					this.enableControl('#perfvalutazionepersonaleobiettivo_default_title', false)
+					this.enableControl('#perfvalutazionepersonaleobiettivo_default_description', false)					
+
+				}
+								
+				var goi = $('#grid_perfvalutazionepersonalesoglia_default').data("customController")
+				if (goi) {
+					if (this.state.callerPage.crea !== true) {
+						$(goi.el).css("pointer-events", "none")
+					} else {
+						$(goi.el).css("pointer-events", "unset")
+					}
+				}
+			},
 
 			manageperfvalutazionepersonaleobiettivo_default_completamento: function () {
-if (this.state.currentRow.valorenumerico !==undefined && this.state.currentRow.valorenumerico !== null) {
-	var arrSoglieObiettivi = _.map(this.state.callerState.DS.tables["perfvalutazionepersonalesoglia"].rows, function (r) { return { indicatore: r.valorenumerico, soglia: r.percentuale} })            
-               this.enableControl($('#perfvalutazionepersonaleobiettivo_default_completamento'), false);
-               return this.calculateCompletamentoByValoreNumerico(arrSoglieObiettivi , this.state.currentRow.valorenumerico);
-            }
-	else this.enableControl($('#perfvalutazionepersonaleobiettivo_default_completamento'), true);
+				var haveNumericSoglia = false;
+				var arrSoglieObiettivi = _.map(this.state.DS.tables["perfvalutazionepersonalesoglia"].rows, function (r) {
+					if (r.valorenumerico !== undefined && r.valorenumerico !== null) {
+						haveNumericSoglia = true;
+					}
+					return { indicatore: r.valorenumerico, soglia: r.percentuale }
+				})
+
+				if (this.state.currentRow.valorenumerico !== undefined && this.state.currentRow.valorenumerico !== null) {
+					this.enableControl($('#perfvalutazionepersonaleobiettivo_default_completamento'), false);
+					return this.calculateCompletamentoByValoreNumerico(arrSoglieObiettivi, this.state.currentRow.valorenumerico);
+				}
+				else this.enableControl($('#perfvalutazionepersonaleobiettivo_default_completamento'), true);
+
+				this.enableControl($('#perfvalutazionepersonaleobiettivo_default_valorenumerico'), haveNumericSoglia);
 			},
 
 			//buttons

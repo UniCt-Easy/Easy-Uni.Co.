@@ -13,6 +13,8 @@
               <xs:element name="description" type="xs:string" />
               <xs:element name="fiscaltaxcode" type="xs:string" minOccurs="0" />
               <xs:element name="fiscaltaxcodecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="fiscaltaxcodecreditf24ord" type="xs:string" minOccurs="0" />
+              <xs:element name="fiscaltaxcodef24ord" type="xs:string" minOccurs="0" />
               <xs:element name="flagunabatable" type="xs:string" minOccurs="0" />
               <xs:element name="geoappliance" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotive_cost" type="xs:string" minOccurs="0" />
@@ -42,6 +44,8 @@
               <xs:element name="_x0021_taxcode_tax_description" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_taxcode_tax_taxref" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_taxcode_tax_active" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_taxcode_tax_fiscaltaxcodecreditf24ord" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_taxcode_tax_fiscaltaxcodef24ord" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -94,23 +98,27 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="contrattokind_alias1" msprop:TableForReading="contrattokind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="position_alias1" msprop:TableForReading="position" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="assegnoaggiuntivo" type="xs:string" minOccurs="0" />
+              <xs:element name="codeposition" type="xs:string" />
               <xs:element name="costolordoannuo" type="xs:decimal" minOccurs="0" />
               <xs:element name="costolordoannuooneri" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
               <xs:element name="elementoperequativo" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="foreignclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="indennitadiateneo" type="xs:string" minOccurs="0" />
               <xs:element name="indennitadiposizione" type="xs:string" minOccurs="0" />
               <xs:element name="indvacancacontrattuale" type="xs:string" minOccurs="0" />
+              <xs:element name="livello" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="maxincomeclass" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxcompitididatempoparziale" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxcompitididatempopieno" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
@@ -126,13 +134,14 @@
               <xs:element name="oremintempopieno" type="xs:int" minOccurs="0" />
               <xs:element name="orestraordinariemax" type="xs:int" minOccurs="0" />
               <xs:element name="parttime" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:int" minOccurs="0" />
               <xs:element name="puntiorganico" type="xs:decimal" minOccurs="0" />
-              <xs:element name="scatto" type="xs:string" minOccurs="0" />
               <xs:element name="siglaesportazione" type="xs:string" minOccurs="0" />
               <xs:element name="siglaimportazione" type="xs:string" minOccurs="0" />
-              <xs:element name="sortcode" type="xs:int" />
               <xs:element name="tempdef" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="tipoente" type="xs:string" minOccurs="0" />
+              <xs:element name="tipopersonale" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="totaletredicesima" type="xs:string" minOccurs="0" />
               <xs:element name="tredicesimaindennitaintegrativaspeciale" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -143,7 +152,7 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
@@ -151,23 +160,27 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="contrattokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="assegnoaggiuntivo" type="xs:string" minOccurs="0" />
+              <xs:element name="codeposition" type="xs:string" />
               <xs:element name="costolordoannuo" type="xs:decimal" minOccurs="0" />
               <xs:element name="costolordoannuooneri" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
               <xs:element name="elementoperequativo" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="foreignclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="indennitadiateneo" type="xs:string" minOccurs="0" />
               <xs:element name="indennitadiposizione" type="xs:string" minOccurs="0" />
               <xs:element name="indvacancacontrattuale" type="xs:string" minOccurs="0" />
+              <xs:element name="livello" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="maxincomeclass" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxcompitididatempoparziale" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxcompitididatempopieno" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
@@ -183,13 +196,14 @@
               <xs:element name="oremintempopieno" type="xs:int" minOccurs="0" />
               <xs:element name="orestraordinariemax" type="xs:int" minOccurs="0" />
               <xs:element name="parttime" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:int" minOccurs="0" />
               <xs:element name="puntiorganico" type="xs:decimal" minOccurs="0" />
-              <xs:element name="scatto" type="xs:string" minOccurs="0" />
               <xs:element name="siglaesportazione" type="xs:string" minOccurs="0" />
               <xs:element name="siglaimportazione" type="xs:string" minOccurs="0" />
-              <xs:element name="sortcode" type="xs:int" />
               <xs:element name="tempdef" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="tipoente" type="xs:string" minOccurs="0" />
+              <xs:element name="tipopersonale" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="totaletredicesima" type="xs:string" minOccurs="0" />
               <xs:element name="tredicesimaindennitaintegrativaspeciale" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -200,7 +214,7 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
@@ -328,23 +342,23 @@
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettotipocosto" />
     </xs:unique>
-    <xs:unique name="contrattokind_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind_alias1" />
-      <xs:field xpath="mstns:idcontrattokind" />
+    <xs:unique name="position_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position_alias1" />
+      <xs:field xpath="mstns:idposition" />
     </xs:unique>
     <xs:unique name="progettotiporicavocontrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettotiporicavocontrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idposition" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettotipocosto" />
     </xs:unique>
-    <xs:unique name="contrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
+    <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
     </xs:unique>
     <xs:unique name="progettotipocostocontrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettotipocostocontrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
+      <xs:field xpath="mstns:idposition" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettotipocosto" />
     </xs:unique>
@@ -387,9 +401,9 @@
       <msdata:Relationship name="FK_progettotipocostoinventorytree_inventorytree_idinv" msdata:parent="inventorytree" msdata:child="progettotipocostoinventorytree" msdata:parentkey="idinv" msdata:childkey="idinv" />
       <msdata:Relationship name="FK_inventorytree_accmotive_alias2_idaccmotiveload" msdata:parent="accmotive_alias2" msdata:child="inventorytree" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiveload" />
       <msdata:Relationship name="FK_progettotiporicavocontrattokind_progettotipocosto_idprogetto-idprogettotipocosto" msdata:parent="progettotipocosto" msdata:child="progettotiporicavocontrattokind" msdata:parentkey="idprogetto idprogettotipocosto" msdata:childkey="idprogetto idprogettotipocosto" />
-      <msdata:Relationship name="FK_progettotiporicavocontrattokind_contrattokind_alias1_idcontrattokind" msdata:parent="contrattokind_alias1" msdata:child="progettotiporicavocontrattokind" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
+      <msdata:Relationship name="FK_progettotiporicavocontrattokind_position_alias1_idposition" msdata:parent="position_alias1" msdata:child="progettotiporicavocontrattokind" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_progettotipocostocontrattokind_progettotipocosto_idprogetto-idprogettotipocosto" msdata:parent="progettotipocosto" msdata:child="progettotipocostocontrattokind" msdata:parentkey="idprogetto idprogettotipocosto" msdata:childkey="idprogetto idprogettotipocosto" />
-      <msdata:Relationship name="FK_progettotipocostocontrattokind_contrattokind_idcontrattokind" msdata:parent="contrattokind" msdata:child="progettotipocostocontrattokind" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
+      <msdata:Relationship name="FK_progettotipocostocontrattokind_position_idposition" msdata:parent="position" msdata:child="progettotipocostocontrattokind" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_progettotipocosto_progettotipocostokind_idprogettotipocostokind" msdata:parent="progettotipocostokind" msdata:child="progettotipocosto" msdata:parentkey="idprogettotipocostokind" msdata:childkey="idprogettotipocostokind" />
       <msdata:Relationship name="FK_progettotiporicavoaccmotive_progettotipocosto_idprogetto-idprogettotipocosto" msdata:parent="progettotipocosto" msdata:child="progettotiporicavoaccmotive" msdata:parentkey="idprogetto idprogettotipocosto" msdata:childkey="idprogetto idprogettotipocosto" />
       <msdata:Relationship name="FK_progettotiporicavoaccmotive_accmotive_alias1_idaccmotive" msdata:parent="accmotive_alias1" msdata:child="progettotiporicavoaccmotive" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />

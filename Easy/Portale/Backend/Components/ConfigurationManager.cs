@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,12 +23,28 @@ using System.Web;
 using System.Web.Configuration;
 
 namespace Backend.Components {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IConfigurationManager {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// 
         string getAppSetting(string key);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         void setAppSetting(string key, string value);
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class ConfigurationManager : IConfigurationManager {
         Configuration config;
 

@@ -1,0 +1,5 @@
+D:\Easy\seg_config\meta_seg_config\bin\Debug\meta_seg_config.dll
+D:\Easy\seg_config\meta_seg_config\bin\Debug\meta_seg_config.pdb
+D:\Easy\seg_config\meta_seg_config\obj\Debug\meta_seg_config.csproj.CoreCompileInputs.cache
+D:\Easy\seg_config\meta_seg_config\obj\Debug\meta_seg_config.dll
+D:\Easy\seg_config\meta_seg_config\obj\Debug\meta_seg_config.pdb

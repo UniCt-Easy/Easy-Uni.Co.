@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -69,7 +69,7 @@ CREATE TABLE #Dettaglio1_BENI
 	iva decimal(19,2),
 	ivaindetraibile decimal(19,2),
 	importounitario decimal(19,5),
-	codTransazione char(1),				-- Codice della natura dela transazione
+	codTransazione char(10),				-- Codice della natura dela transazione
 	codNomenclatura varchar(8),			-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg int,						-- numerico Len. 10 -- Massa netta in kilogrammi
 	unitasupp int,						-- numerico Len. 10 -- Unità supplementari per l'acquisto / Quantità espressa nell'unità di misura supplementare

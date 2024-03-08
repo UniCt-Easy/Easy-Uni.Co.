@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,48 +29,27 @@ namespace assetunload_generauto {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Buono di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunload 		=> Tables["assetunload"];
 
-	///<summary>
-	///Causali di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunloadmotive 		=> Tables["assetunloadmotive"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Movimenti di entrata collegati a buoni di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunloadincome 		=> Tables["assetunloadincome"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeview 		=> Tables["incomeview"];
 
-	///<summary>
-	///Tipi di buoni di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunloadkind 		=> Tables["assetunloadkind"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
@@ -539,6 +518,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tassetamortizationunloadview.Columns.Add(C);
 	tassetamortizationunloadview.Columns.Add( new DataColumn("nassetacquire", typeof(int)));
+	tassetamortizationunloadview.Columns.Add( new DataColumn("idinv", typeof(int)));
 	Tables.Add(tassetamortizationunloadview);
 	tassetamortizationunloadview.PrimaryKey =  new DataColumn[]{tassetamortizationunloadview.Columns["namortization"]};
 

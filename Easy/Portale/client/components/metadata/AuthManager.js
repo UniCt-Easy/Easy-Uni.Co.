@@ -1,19 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+/*global appMeta_ */
 
 /**
  * @module AuthManager
@@ -28,7 +13,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     var EnumLoginType = {
         userPassword: 0,
-        sso: 1
+        sso: 1,
+        ldap: 2
     };
     /**
      * @method AuthManager
@@ -55,6 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
            return this.loginCore(EnumLoginType.userPassword, userName, password, datacontabile);
         },
 
+        loginLDAP:function(userName, password, datacontabile)  {
+            return this.loginCore(EnumLoginType.ldap, userName, password, datacontabile);
+        },
+
         /**
          * @method login
          * @public
@@ -65,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred} true if login is ok, false otherwise
          */
         loginSSO: function(userName, session, datacontabile) {
-            return this.loginCore(EnumLoginType.sso, userName, session, datacontabile)
+            return this.loginCore(EnumLoginType.sso, userName, session, datacontabile);
         },
 
         /**
@@ -104,15 +94,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 };
             }
 
+            if (type === EnumLoginType.ldap) {
+                objConn = {
+                    method: methodEnum.loginLDAP,
+                    prm: {
+                        userName: userName,
+                        password: password,
+                        datacontabile: datacontabile.toJSON()
+                    }
+                };
+            }
+
             appMeta.connection.call(objConn)
                 .then(function(data) {
                         if (data.token) {
-                            return def.from(self.callBackLoginWithToken(data))
+                            return def.from(self.callBackLoginWithToken(data));
                         }
-                        // se non arriva token devo valutare sia login sso con registrazione abilitata
-                        return def.from(self.callBackLoginWithoutToken(data))
+                        // se non arriva token devo valutare sia login sso oppure ldap con registrazione abilitata
+                        return def.from(self.callBackLoginWithoutToken(data));
                     },
-                    function() {
+                    function () { //Unauthorized error
                         return def.resolve(false);
                     });
 
@@ -122,9 +123,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         callBackLoginWithToken: function (data) {
             var self = this;
             var def  = Deferred("callBackLoginWithToken");
+            //console.log("received token "+data.token)
             // memorizzo token di autenticazione. verrà passato ad ogni chiamata
             appMeta.connection.setToken(data.token, data.expiresOn);
-            // salvo var ambiente di sicurezza tornate dal server sulla classe security
+            // salvo var ambiente di sicurezza restituite dal server sulla classe security
             self.setEnv(data.sys, data.usr);
 
             // intercetto i ruoli, se sono più di 1 allora lo faccio scegliere,
@@ -143,10 +145,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var def = Deferred("callBackLoginWithoutToken");
             if (this.isValidSsoRequest(data)) {
                 // in ogni caso devo riportare al login
-                appMeta.globalEventManager.trigger(appMeta.EventEnum.SSORegistration, self, 'SSORegistration', data);
-                return def.resolve();
+                def.from(appMeta.globalEventManager.trigger(appMeta.EventEnum.SSORegistration,
+                        self, 'SSORegistration', data))
+                
             }
-            return def.resolve(false);
+            else {
+                def.resolve(false);
+            }
+            return def.promise();
         },
 
         isValidSsoRequest:function(json) {
@@ -154,30 +160,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // sarà obbligatorio nella richiesta registrazione
             return true;
 
-            if (json && !!json.cf) {
-                return true
-            }
-            return false;
+            // if (json && !!json.cf) {
+            //     return true;
+            // }
+            // return false;
         },
 
         setSystemInfo:function() {
-            var calcFeVer = function () {
-                var currhtml = document.documentElement.outerHTML;
-                var firstvariable = '<script src="../dist/mdlw_bundle_';
-                var secondvariable = '.js"></script>';
-                var matches = currhtml.match(new RegExp(firstvariable + "(.*)" + secondvariable));
+            let calcFeVer = function () {
+                let currhtml = document.documentElement.outerHTML;
+                let firstvariable = '<script src="../dist/mdlw_bundle_';
+                let secondvariable = '.js"></script>';
+                let matches = currhtml.match(new RegExp(firstvariable + "(.*)" + secondvariable));
                 if (matches && matches.length > 1){
-                    var match = matches[1];
-                    return match.substring(match.indexOf('_') + 1)
+                    let match = matches[1];
+                    return match.substring(match.indexOf('_') + 1);
                 }
                 return 'Debug';
             };
-            var dbver = sec.sys('dbversion');
-            var bever = sec.sys('backendversion');
-            var fever = calcFeVer();
-            var systemInfo = 'DB ver: ' + dbver + ' - server version: ' + bever + ' - client ver: ' + fever;
-            var footer = $('.footer p');
-            var footerText = appMeta.appMainConfig.copyright;
+            let dbver = sec.sys('dbversion');
+            let bever = sec.sys('backendversion');
+            let fever = calcFeVer();
+            let systemInfo = 'DB ver: ' + dbver + ' - server version: ' + bever + ' - client ver: ' + fever;
+            let footer = $('.footer p');
+            let footerText = appMeta.appMainConfig.copyright;
             footer.text(footerText + ' - ' + systemInfo);
         },
 
@@ -187,8 +193,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred} true is logged ok, false otherwise
          */
         cambioRuolo:function(dtRoles) {
-          var def  = Deferred("cambioRuolo");
-          var self = this;
+          let def  = Deferred("cambioRuolo");
+          let self = this;
           // apre modale per la scelta del ruolo, quindi si mette in attesa
           var cambioRuolo = new appMeta.CambioRuolo();
           cambioRuolo.show(dtRoles)
@@ -309,9 +315,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         register:function (username, password, email, codiceFiscale, partitaIva, cognome, nome, dataNascita, role){
 
-            var def  = Deferred("register");
+            let def  = Deferred("register");
 
-            var objConn = {
+            let objConn = {
                 method: methodEnum.register,
                 prm: {
                     userName: username,
@@ -347,9 +353,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         resetPassword:function (email) {
-            var def  = Deferred("resetPassword");
+            let def  = Deferred("resetPassword");
 
-            var objConn = {
+            let objConn = {
                 method: methodEnum.resetPassword,
                 prm: {
                     email: email
@@ -368,9 +374,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         nuovaPassword:function (token, password) {
-            var def  = Deferred("nuovaPassword");
+            let def  = Deferred("nuovaPassword");
 
-            var objConn = {
+            let objConn = {
                 method: methodEnum.nuovaPassword,
                 prm: {
                     token: token,
@@ -390,9 +396,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         sendMail:function (emailDest, subject, htmlBody) {
-            var def  = Deferred("sendMail");
+            let def  = Deferred("sendMail");
 
-            var objConn = {
+            let objConn = {
                 method: methodEnum.sendMail,
                 prm: {
                     emailDest: emailDest,
@@ -414,6 +420,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     };
 
+     _.assign(methodEnum,
+        {
+            login : "login",
+            loginSSO : "loginSSO",
+            loginLDAP : "loginLDAP",
+            register : "register",
+            resetPassword : "resetPassword",
+            nuovaPassword: "nuovaPassword",
+            cambiaRuolo: "changeRole",
+            sendMail: "sendMail"
+        });
+     
+    // METODI LOGIN Autenticazione
+    appMeta.routing.registerService(methodEnum.login, 'POST', 'auth', false, false);
+    appMeta.routing.registerService(methodEnum.loginSSO, 'POST', 'auth', false, false);
+    appMeta.routing.registerService(methodEnum.loginLDAP, 'POST', 'auth', false, false);
+    appMeta.routing.registerService(methodEnum.register, 'POST', 'auth', false, false);
+    appMeta.routing.registerService(methodEnum.resetPassword, 'GET', 'auth', false, false);
+    appMeta.routing.registerService(methodEnum.nuovaPassword, 'GET', 'auth', false, false);
+    appMeta.routing.registerService(methodEnum.sendMail, 'POST', 'data', false, true);    
+    appMeta.routing.registerService(methodEnum.cambiaRuolo, 'POST', 'data', false, true);
+
+   
+
+      // cambio ruolo
     appMeta.authManager = new AuthManager();
 
 }());

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +24,7 @@ GO
 SET ANSI_NULLS ON 
 GO
  --setuser 'amministrazione'
-  -- exec trasmele_expense_opisiopeplus_ins 2020, 30
+-- exec trasmele_expense_opisiopeplus_ins 2021, 176
 if not exists (select * from systypes where name = 'int_list') begin 
 	CREATE TYPE dbo.int_list AS TABLE      ( n int)  
 end
@@ -843,7 +843,7 @@ Begin
 				ELSE 'N'
 			END,
 			CASE
-				WHEN (( el.paymethod_flag & 8)<>0) then 'S' --deny_bank_details
+				WHEN ((el.paymethod_flag & 8)<>0) and ((el.paymethod_flag & 2)=0) then  'S'
 				ELSE 'N'
 			END,
 			CASE
@@ -947,9 +947,12 @@ Begin
 				ELSE 'S'
 			END, --esenzione bollo
 			ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
-			 
-			'LIBERA', -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
-			NULL, -- informazioni obbligatorie solo per i girofondi in BI
+			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
+			CASE
+				WHEN (m.abi_label   not in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP'))  THEN NULL
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096)  <> 0)) THEN 'FRUTTIFERA'  
+			END, -- informazioni obbligatorie solo per i girofondi in BI
 			--- Considero la seguente mappatura tra la modalità di pagamento della disposizione
 			--  e la modalità di pagamento ABI 
 			CASE
@@ -958,6 +961,8 @@ Begin
 				WHEN pd.paymethodcode = 3 THEN  'ASSEGNOCIRCOLARE' -- assegno circolare
 				WHEN pd.paymethodcode = 4 THEN  'ASSEGNOCIRCOLARE' -- assegno circolare non trasferibile
 				WHEN pd.paymethodcode = 5 THEN  'ASSEGNOBANCARIOEPOSTALE' -- assegno quietanza
+				WHEN pd.paymethodcode = 6 THEN  'ACCREDITOTESORERIAPROVINCIALESTATOPERTABA' -- girofondo Tab A
+				WHEN pd.paymethodcode = 7 THEN  'ACCREDITOTESORERIAPROVINCIALESTATOPERTABB' -- girofondo Tab B
 				ELSE 'CASSA' --cassa 
 			END, --@len_ABI--LTRIM(RTRIM(m.abi_label)),
 			CASE
@@ -1007,10 +1012,26 @@ Begin
 				WHEN (( el.flag & 8)<>0) then 'S' --uncharged
 				ELSE 'N'
 			END, 
-			'N', -- non può essere girofondo 
-			'N', --deny_bank_details -- vieta  coordinate bancarie
-			SPACE(@lencodicecontabilitaspeciale), -- codice contabilità speciale, vale solo per i girofondi
-			null, -- non ammette delegato
+			CASE
+				WHEN
+				   (
+						m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB') 
+				   )   THEN 'S'		--girofondo
+				ELSE 'N'
+			END, -- può essere girofondo 
+			CASE
+				WHEN ((el.paymethod_flag & 8)<>0) and ((el.paymethod_flag & 2)=0) then  'S'
+				ELSE 'N'
+			END, --deny_bank_details -- vieta  coordinate bancarie
+			CASE
+				WHEN DATALENGTH (ISNULL(el.extracode,'')) <= @lencodicecontabilitaspeciale
+				THEN SUBSTRING(REPLICATE('0',@lencodicecontabilitaspeciale),1,@lencodicecontabilitaspeciale - DATALENGTH(ISNULL(el.extracode,''))) + ISNULL(el.extracode,'')
+				ELSE SUBSTRING(ISNULL(el.extracode,''),1,@lencodicecontabilitaspeciale)
+			END	, -- codice contabilità speciale, vale solo per i girofondi
+			CASE
+				WHEN m.allowdeputy = 'S' THEN el.iddeputy 
+				ELSE NULL
+			END, -- non ammette delegato
 			ISNULL(el.refexternaldoc,''),
 			null, -- numero bolletta, non può essere a regolarizzazione
 			el.idpay,
@@ -1036,6 +1057,7 @@ Begin
 		JOIN expensetotal i						ON i.idexp = s.idexp
 		JOIN expenseyear y						ON y.idexp = s.idexp 
 		JOIN expensephase eph					ON eph.nphase = s.nphase
+		LEFT OUTER JOIN paymethod m				ON el.idpaymethod = m.idpaymethod
 		JOIN upb								ON upb.idupb = y.idupb
 		JOIN fin								ON fin.idfin = y.idfin
 		JOIN finlevel							ON fin.nlevel = finlevel.nlevel	AND finlevel.ayear = y.ayear
@@ -1179,7 +1201,7 @@ Begin
 				ELSE 'N'
 			END,
 			CASE
-				WHEN (( el.paymethod_flag & 8)<>0) then 'S' --deny_bank_details
+				WHEN ((el.paymethod_flag & 8)<>0) and ((el.paymethod_flag & 2)=0) then  'S'--deny_bank_details 
 				ELSE 'N'
 			END,
 			CASE
@@ -1286,16 +1308,25 @@ Begin
 			--esenzione bollo
 			'N',
 			'12345678901234567890', --ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
-			'LIBERA', -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
-		    NULL, -- informazioni obbligatorie solo per i girofondi in BI
+			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
+			CASE
+				WHEN (m.abi_label   not in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP'))  THEN NULL
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096)  <> 0)) THEN 'FRUTTIFERA'  
+			END, -- informazioni obbligatorie solo per i girofondi in BI
+			--- Considero la seguente mappatura tra la modalità di pagamento della disposizione
+			--  e la modalità di pagamento ABI 
 			CASE
 				WHEN (pd.iban IS NOT NULL) THEN 'SEPACREDITTRANSFER' -- bonifico  -- paymethodcode = 1
 				WHEN ((pd.paymethodcode = 2) AND (pd.iban IS NULL)) THEN  'CASSA' -- cassa
 				WHEN pd.paymethodcode = 3 THEN  'ASSEGNOCIRCOLARE' -- assegno circolare
 				WHEN pd.paymethodcode = 4 THEN  'ASSEGNOCIRCOLARE' -- assegno circolare non trasferibile
 				WHEN pd.paymethodcode = 5 THEN  'ASSEGNOBANCARIOEPOSTALE' -- assegno quietanza
+				WHEN pd.paymethodcode = 6 THEN  'ACCREDITOTESORERIAPROVINCIALESTATOPERTABA' -- girofondo Tab A
+				WHEN pd.paymethodcode = 7 THEN  'ACCREDITOTESORERIAPROVINCIALESTATOPERTABB' -- girofondo Tab B
 				ELSE 'CASSA' --cassa 
 			END, --@len_ABI--LTRIM(RTRIM(m.abi_label)),
+
 			CASE
 				WHEN DATALENGTH(ISNULL(pd.abi,'')) <= @len_ABI
 				THEN ISNULL(pd.abi,'')
@@ -1431,6 +1462,15 @@ UPDATE #payment SET cigcodemandate =
 
 		)
 where cigcodeexpense is null and cigcodemandate is null		 
+
+-- Valorizza il codice CUP eventualmente presente nella fattura
+UPDATE #payment SET cupcodedetail = 
+	   (SELECT MAX( ltrim(rtrim(invoicedetail.cupcode)) )
+			FROM invoicedetail 
+		 WHERE (invoicedetail.idexp_taxable = #payment.idexp
+				OR invoicedetail.idexp_iva =#payment.idexp)
+		)	
+where cupcodeexpense is null and cupcodedetail is null		
 
 UPDATE #payment SET CIG = ISNULL(cigcodeexpense,ISNULL(cigcodemandate,''))  --Codice CIG
 UPDATE #payment SET CUP = ISNULL(cupcodeexpense,ISNULL(cupcodedetail, ISNULL(cupcodeupb, ISNULL(cupcodefin,'')))) --Codice CUP
@@ -2097,17 +2137,18 @@ CREATE TABLE #DocContabilizzato(
 
 		SELECT   
 			#payment.ydoc, #payment.ndoc, #payment.idpay, #payment.idexp,
-			case when invoicekind.enable_fe='S' THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end, -- (*1)
+			case when (invoicekind.enable_fe='S' or invoicekind.enable_fe_estera='S') THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end, -- (*1)
 			#payment.CIG,
 			nocigmotive.codenocigmotive,
-			isnull(I.ipa_acq,replicate('0',7)),
-			case when invoicekind.enable_fe='S' then 'ELETTRONICO' else 'ANALOGICO' end,
-			convert(varchar(20), sdi_acquisto.identificativo_sdi),
-			case when invoicekind.enable_fe='N' then 'FATT_ANALOGICA' else null end,
+			coalesce(I.ipa_acq, ipa_ven_emittente, replicate('0',7)),
+			case when (invoicekind.enable_fe='S' or invoicekind.enable_fe_estera='S') then 'ELETTRONICO' else 'ANALOGICO' end,
+			convert(varchar(20), isnull(sdi_acquisto.identificativo_sdi, sdi_acquistoestere.identificativo_sdi)),
+			case when (invoicekind.enable_fe='N' and invoicekind.enable_fe_estera='N') then 'FATT_ANALOGICA' else null end,
 			#payment.cf_ben,
 			year(I.docdate),
-			case when invoicekind.enable_fe='S'  then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) else substring(I.doc,1,20) end,  
-
+			case when (invoicekind.enable_fe='S') then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) 
+			else substring(I.doc,1,20) /*anche per le FE estere va bene I.doc*/
+			end,  
 			case when ((invoicekind.flag&4)<>0) then 'S' else 'N' end,
 			-- idsor_siope
 			D.idsor_siope,
@@ -2168,9 +2209,10 @@ CREATE TABLE #DocContabilizzato(
 		join invoice I					on I.idinvkind = D.idinvkind and I.yinv = D.yinv and I.ninv = D.ninv
 		join invoicekind				on I.idinvkind = invoicekind.idinvkind
 		left outer join sdi_acquisto	on I.idsdi_acquisto = sdi_acquisto.idsdi_acquisto
+		left outer join sdi_acquistoestere	on I.idsdi_acquistoestere = sdi_acquistoestere.idsdi_acquistoestere
 		left outer join nocigmotive		 on nocigmotive.idnocigmotive = I.idnocigmotive
 		where D.idexp_taxable = D.idexp_iva -- Contabilizzazione totale
-
+				--select '1 #DocContabilizzato', * from 	#DocContabilizzato 
 			INSERT INTO #DocContabilizzato(
 			ydoc, ndoc,	idpay, idexp, 
 
@@ -2199,13 +2241,13 @@ CREATE TABLE #DocContabilizzato(
 		)
 		SELECT   
 			#payment.ydoc, #payment.ndoc, #payment.idpay, #payment.idexp,
-			case when invoicekind.enable_fe='S' THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end, 
+			case when (invoicekind.enable_fe='S' or invoicekind.enable_fe_estera='S' )THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end, 
 			#payment.CIG,
 			nocigmotive.codenocigmotive,
-			isnull(I.ipa_acq,replicate('0',7)),
-			case when invoicekind.enable_fe='S' then 'ELETTRONICO' else 'ANALOGICO' end,
-			convert(varchar(20), sdi_acquisto.identificativo_sdi),
-			case when invoicekind.enable_fe='N' then 'FATT_ANALOGICA' else null end,
+			coalesce(I.ipa_acq, ipa_ven_emittente, replicate('0',7)),
+			case when (invoicekind.enable_fe='S'or invoicekind.enable_fe_estera='S') then 'ELETTRONICO' else 'ANALOGICO' end,
+			convert(varchar(20), isnull(sdi_acquisto.identificativo_sdi, sdi_acquistoestere.identificativo_sdi)),
+			case when (invoicekind.enable_fe='N' and invoicekind.enable_fe_estera='N') then 'FATT_ANALOGICA' else null end,
 			#payment.cf_ben,
 			year(I.docdate),
 			case when invoicekind.enable_fe='S'  then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) else substring(I.doc,1,20) end,  
@@ -2266,9 +2308,10 @@ CREATE TABLE #DocContabilizzato(
 		join invoice I					on I.idinvkind = D.idinvkind and I.yinv = D.yinv and I.ninv = D.ninv
 		join invoicekind				on I.idinvkind = invoicekind.idinvkind
 		left outer join sdi_acquisto	on I.idsdi_acquisto = sdi_acquisto.idsdi_acquisto
+		left outer join sdi_acquistoestere	on I.idsdi_acquistoestere = sdi_acquistoestere.idsdi_acquistoestere
 		left outer join nocigmotive		 on nocigmotive.idnocigmotive = I.idnocigmotive
 		where D.idexp_taxable is not null and (D.idexp_iva is null or D.idexp_taxable <> D.idexp_iva ) -- Contabilizzazione SOLO IMPON
-			
+					--select '1 #DocContabilizzato', * from 	#DocContabilizzato 
 			INSERT INTO #DocContabilizzato(
 			ydoc, ndoc,	idpay, idexp, 
 
@@ -2297,13 +2340,13 @@ CREATE TABLE #DocContabilizzato(
 		)
 		SELECT   
 			#payment.ydoc, #payment.ndoc, #payment.idpay, #payment.idexp,
-			case when invoicekind.enable_fe='S' THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end, 
+			case when (invoicekind.enable_fe='S' or invoicekind.enable_fe_estera='S' ) THEN 'COMMERCIALE' ELSE 'NON COMMERCIALE' end, 
 			#payment.CIG,
 			nocigmotive.codenocigmotive,
-			isnull(I.ipa_acq,replicate('0',7)),
-			case when invoicekind.enable_fe='S' then 'ELETTRONICO' else 'ANALOGICO' end,
-			convert(varchar(20), sdi_acquisto.identificativo_sdi),
-			case when invoicekind.enable_fe='N' then 'FATT_ANALOGICA' else null end,
+			coalesce(I.ipa_acq, ipa_ven_emittente, replicate('0',7)),
+			case when (invoicekind.enable_fe='S' or invoicekind.enable_fe_estera='S') then 'ELETTRONICO' else 'ANALOGICO' end,
+			convert(varchar(20), isnull(sdi_acquisto.identificativo_sdi, sdi_acquistoestere.identificativo_sdi)),
+			case when (invoicekind.enable_fe='N' and invoicekind.enable_fe_estera='N') then 'FATT_ANALOGICA' else null end,
 			#payment.cf_ben,
 			year(I.docdate),
 			case when invoicekind.enable_fe='S'  then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) else substring(I.doc,1,20) end,  
@@ -2359,9 +2402,13 @@ CREATE TABLE #DocContabilizzato(
 		join invoice I					on I.idinvkind = D.idinvkind and I.yinv = D.yinv and I.ninv = D.ninv
 		join invoicekind				on I.idinvkind = invoicekind.idinvkind
 		left outer join sdi_acquisto	on I.idsdi_acquisto = sdi_acquisto.idsdi_acquisto
+		left outer join sdi_acquistoestere	on I.idsdi_acquistoestere = sdi_acquistoestere.idsdi_acquistoestere
 		left outer join nocigmotive		on nocigmotive.idnocigmotive = I.idnocigmotive
 		where D.idexp_iva is not null and (D.idexp_taxable is null or D.idexp_taxable <> D.idexp_iva ) -- Contabilizzazione SOLO IVA
+		
 
+	 
+	 --select '1 #DocContabilizzato', * from 	#DocContabilizzato 
 update  #DocContabilizzato set contarigheDettaglioDistinte = (select count(*) /*AS distinct_count */
 from (SELECT DISTINCT numero_fattura_siope, motivo_scadenza_siope FROM #DocContabilizzato d where d.idexp= #DocContabilizzato.idexp ) as t
 )
@@ -3756,8 +3803,9 @@ SELECT
   				   null,
 				   -- Riferimento Documento Esterno  
 				   case when ((abi_label IN ('DISPOSIZIONEDOCUMENTOESTERNO','BONIFICOESTEROEURO'))   AND (fulfilled = 'N') AND autokind IN (20,21,30,31) AND (code <> 'SALA') ) 
-								then 'STIPENDI TX' 
-								else  SUBSTRING(isnull(expenselast_paymentdescr,''),1,400)  end,	 --+ ' '+ isnull(#payment.txt,'')
+						then 'STIPENDI TX' 
+						when abi_label='SEPACREDITTRANSFER' then null /* si Tipo pagamento SEPACREDITTRANSFER, non devono essere compilate le note al tesoriere perchè altrimenti il mandato viene scartato.*/
+						else  SUBSTRING(isnull(expenselast_paymentdescr,''),1,400)  end,	 --+ ' '+ isnull(#payment.txt,'')
 				   --avviso_pagopa
 				   pagopanoticenum,
 				   -- Informazioni Tesoriere
@@ -3998,12 +4046,7 @@ Begin
 End
 
 
--- select  distinct motivo_scadenza_siope
---		 from #DocContabilizzato d --where d.idexp= #DocContabilizzato.idexp 
 
---SELECT DISTINCT numero_fattura_siope, motivo_scadenza_siope FROM #DocContabilizzato d-- where d.idexp= #DocContabilizzato.idexp 
---select * from #DocContabilizzato
---select * from #siope
 END
 
 
@@ -4016,7 +4059,4 @@ GO
 SET ANSI_NULLS ON 
 GO
 
---exec  [trasmele_expense_opisiopeplus_ins] 2019, 1
-
---exec  trasmele_expense_opisiopeplus_ins 2019, 6
---exec  trasmele_expense_opisiopeplus_ins 2019, 1263, 'N'
+ 

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'idperfruolo', 'Chi lo può cambiare', null, 110, 50);
+						this.describeAColumn(table, 'idperfruolo', 'Chi lo puÃ² cambiare', null, 110, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -57,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'default':
 						table.columns["idperfprogettostatus"].caption = "Da";
 						table.columns["idperfprogettostatus_to"].caption = "A";
-						table.columns["idperfruolo"].caption = "Chi lo può cambiare";
+						table.columns["idperfruolo"].caption = "Chi lo puÃ² cambiare";
 						table.columns["idperfruolo_mail"].caption = "Chi viene avvisato via e-mail";
 //$innerSetCaptionConfig_default$
 						break;

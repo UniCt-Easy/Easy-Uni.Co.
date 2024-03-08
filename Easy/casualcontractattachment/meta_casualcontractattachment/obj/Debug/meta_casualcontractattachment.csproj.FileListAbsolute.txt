@@ -1,5 +1,0 @@
-D:\Easy\casualcontractattachment\meta_casualcontractattachment\bin\Debug\meta_casualcontractattachment.dll
-D:\Easy\casualcontractattachment\meta_casualcontractattachment\bin\Debug\meta_casualcontractattachment.pdb
-D:\Easy\casualcontractattachment\meta_casualcontractattachment\obj\Debug\meta_casualcontractattachment.csproj.CoreCompileInputs.cache
-D:\Easy\casualcontractattachment\meta_casualcontractattachment\obj\Debug\meta_casualcontractattachment.dll
-D:\Easy\casualcontractattachment\meta_casualcontractattachment\obj\Debug\meta_casualcontractattachment.pdb

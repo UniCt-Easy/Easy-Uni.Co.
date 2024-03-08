@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -60,17 +60,24 @@ namespace Backend.saml
             // Processa la risposta SAML dall'identity provider
             SAMLServiceProvider.ReceiveSSO(Request, out isInResponseTo, out partnerIdP, out userName, out attributes, out targetUrl);
 
-            String uname = "";
+            String uname = "NOTRETRIEVED";
             String name = "";
             String surname = "";
             String email = "";
             String cf = "";
             String matricola = "";
 
+            var ssoUsernameKey = WebConfigurationManager.AppSettings.Get("ssoUsernameKey");
+
             // Imposta l'identificativo utente nelle variabili di sessione.
-            if (attributes.ContainsKey(AttributeUID)){
+            if (attributes.ContainsKey(AttributeUID) && ssoUsernameKey == null) {
                 Session["samluser"] = attributes[AttributeUID];
                 uname = attributes[AttributeUID];
+            }
+
+            if (attributes.ContainsKey(AttributeEmail) && ssoUsernameKey == "email") {
+                Session["samluser"] = attributes[AttributeEmail];
+                uname = attributes[AttributeEmail];
             }
 
             if (attributes.ContainsKey(AttributeEmail)){

@@ -1,0 +1,6 @@
+D:\Easy\f24ordinario\meta_f24ordinario\bin\Debug\meta_f24ordinario.dll
+D:\Easy\f24ordinario\meta_f24ordinario\bin\Debug\meta_f24ordinario.pdb
+D:\Easy\f24ordinario\meta_f24ordinario\obj\Debug\meta_f24ordinario.csproj.CoreCompileInputs.cache
+D:\Easy\f24ordinario\meta_f24ordinario\obj\Debug\meta_f24ordinario.dll
+D:\Easy\f24ordinario\meta_f24ordinario\obj\Debug\meta_f24ordinario.pdb
+D:\Easy\f24ordinario\meta_f24ordinario\obj\Debug\meta_f24ordinario.csproj.AssemblyReference.cache

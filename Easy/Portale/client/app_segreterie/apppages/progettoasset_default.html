@@ -9,7 +9,7 @@
 					<div class="custom_lng_div" data-langkey="fieldlabelprogettoasset_default_idpiece" >E' possibile inserire esclusivamente beni strumentali il cui inventario sia classificato con una delle classificazioni inventariali associate alle voci di costo.</div>
 					<label class="col-form-label col-md-12" for="progettoasset_default_idpiece">Bene strumentale</label>
 					<div>
-						<input id="progettoasset_default_idpiece" name="progettoasset_default_idpiece" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="assetsegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="progettoasset_default_idpiece" name="progettoasset_default_idpiece" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="assetsegview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
 				</div>
 			</div>
@@ -39,22 +39,12 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#progettoasset_default_start").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="progettoasset_default_start">Data di inizio utilizzo preventivata</label>
-					<input id="progettoasset_default_start" type="text" class="form-control" data-tag="progettoasset.start"  />
+					<input id="progettoasset_default_start" type="text" class="form-control" data-tag="progettoasset.start"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#progettoasset_default_stop").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="progettoasset_default_stop">Data di fine utilizzo preventivata</label>
-					<input id="progettoasset_default_stop" type="text" class="form-control" data-tag="progettoasset.stop"  />
+					<input id="progettoasset_default_stop" type="text" class="form-control" data-tag="progettoasset.stop"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">

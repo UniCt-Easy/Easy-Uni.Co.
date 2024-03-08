@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -79,12 +62,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["cfminimi"].caption = "Crediti formativi minimi per l'accesso";
 						table.columns["codice"].caption = "Codice identificativo";
 						table.columns["datariferimentorequisiti"].caption = "Data di riferimento per il calcolo dei requisiti";
-						table.columns["idaccordoscambiomi"].caption = "Accordo di scambio per la mobilit‡ internazionale";
+						table.columns["idaccordoscambiomi"].caption = "Accordo di scambio per la mobilit√† internazionale";
 						table.columns["idassicurazione"].caption = "Assicurazione";
 						table.columns["idbandomobilitaintkind"].caption = "Tipologia";
 						table.columns["idduratakind"].caption = "Durata";
 						table.columns["idgraduatoria"].caption = "Graduatoria";
-						table.columns["idprogrammami"].caption = "Programma per la mobilit‡ di riferimento";
+						table.columns["idprogrammami"].caption = "Programma per la mobilit√† di riferimento";
 						table.columns["idresidence"].caption = "Residenza";
 						table.columns["idstruttura"].caption = "Struttura di riferimento";
 						table.columns["iscrittonellanno"].caption = "Solo per iscritti nell'anno";

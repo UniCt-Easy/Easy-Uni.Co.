@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_affidamento_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_affidamento_default: DataSet {
+public partial class dsmeta_affidamento_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -164,7 +164,6 @@ private void initClass() {
 	tgetdocentiperssd.defineColumn("struttura", typeof(string));
 	tgetdocentiperssd.defineColumn("tempodefinito", typeof(string),false);
 	tgetdocentiperssd.defineColumn("terminecontratto", typeof(DateTime),false);
-	tgetdocentiperssd.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tgetdocentiperssd);
 	tgetdocentiperssd.defineKey("aa", "idreg");
 
@@ -313,21 +312,24 @@ private void initClass() {
 
 	//////////////////// REGISTRYDOCENTIVIEW /////////////////////////////////
 	var tregistrydocentiview= new MetaTable("registrydocentiview");
+	tregistrydocentiview.defineColumn("accmotive_codemotive", typeof(string));
+	tregistrydocentiview.defineColumn("accmotive_registry_codemotive", typeof(string));
+	tregistrydocentiview.defineColumn("accmotive_registry_title", typeof(string));
+	tregistrydocentiview.defineColumn("accmotive_title", typeof(string));
 	tregistrydocentiview.defineColumn("classconsorsuale_title", typeof(string));
-	tregistrydocentiview.defineColumn("contrattokind_title", typeof(string));
 	tregistrydocentiview.defineColumn("dropdown_title", typeof(string),false);
 	tregistrydocentiview.defineColumn("fonteindicebibliometrico_title", typeof(string));
 	tregistrydocentiview.defineColumn("geo_city_title", typeof(string));
 	tregistrydocentiview.defineColumn("geo_nation_title", typeof(string));
+	tregistrydocentiview.defineColumn("idaccmotivecredit", typeof(string));
+	tregistrydocentiview.defineColumn("idaccmotivedebit", typeof(string));
 	tregistrydocentiview.defineColumn("idcity", typeof(int));
 	tregistrydocentiview.defineColumn("idclassconsorsuale", typeof(int));
 	tregistrydocentiview.defineColumn("idnation", typeof(int));
 	tregistrydocentiview.defineColumn("idreg", typeof(int),false);
 	tregistrydocentiview.defineColumn("idreg_istituti", typeof(int));
-	tregistrydocentiview.defineColumn("idregistryclass", typeof(string));
 	tregistrydocentiview.defineColumn("idsasd", typeof(int));
 	tregistrydocentiview.defineColumn("idstruttura", typeof(int));
-	tregistrydocentiview.defineColumn("idtitle", typeof(string));
 	tregistrydocentiview.defineColumn("maritalstatus_description", typeof(string));
 	tregistrydocentiview.defineColumn("registry_active", typeof(string));
 	tregistrydocentiview.defineColumn("registry_annotation", typeof(string));
@@ -341,7 +343,6 @@ private void initClass() {
 	tregistrydocentiview.defineColumn("registry_docenti_ct", typeof(DateTime),false);
 	tregistrydocentiview.defineColumn("registry_docenti_cu", typeof(string),false);
 	tregistrydocentiview.defineColumn("registry_docenti_cv", typeof(string));
-	tregistrydocentiview.defineColumn("registry_docenti_idcontrattokind", typeof(int));
 	tregistrydocentiview.defineColumn("registry_docenti_idfonteindicebibliometrico", typeof(int));
 	tregistrydocentiview.defineColumn("registry_docenti_idreg", typeof(int),false);
 	tregistrydocentiview.defineColumn("registry_docenti_indicebibliometrico", typeof(int));
@@ -358,13 +359,13 @@ private void initClass() {
 	tregistrydocentiview.defineColumn("registry_foreigncf", typeof(string));
 	tregistrydocentiview.defineColumn("registry_forename", typeof(string));
 	tregistrydocentiview.defineColumn("registry_gender", typeof(string));
-	tregistrydocentiview.defineColumn("registry_idaccmotivecredit", typeof(string));
-	tregistrydocentiview.defineColumn("registry_idaccmotivedebit", typeof(string));
 	tregistrydocentiview.defineColumn("registry_idcategory", typeof(string));
 	tregistrydocentiview.defineColumn("registry_idcentralizedcategory", typeof(string));
 	tregistrydocentiview.defineColumn("registry_idexternal", typeof(int));
 	tregistrydocentiview.defineColumn("registry_idmaritalstatus", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idregistryclass", typeof(string));
 	tregistrydocentiview.defineColumn("registry_idregistrykind", typeof(int));
+	tregistrydocentiview.defineColumn("registry_idtitle", typeof(string));
 	tregistrydocentiview.defineColumn("registry_ipa_fe", typeof(string));
 	tregistrydocentiview.defineColumn("registry_ipa_perlapa", typeof(string));
 	tregistrydocentiview.defineColumn("registry_location", typeof(string));
@@ -374,6 +375,7 @@ private void initClass() {
 	tregistrydocentiview.defineColumn("registry_multi_cf", typeof(string));
 	tregistrydocentiview.defineColumn("registry_p_iva", typeof(string));
 	tregistrydocentiview.defineColumn("registry_pec_fe", typeof(string));
+	tregistrydocentiview.defineColumn("registry_residence", typeof(int),false);
 	tregistrydocentiview.defineColumn("registry_rtf", typeof(Byte[]));
 	tregistrydocentiview.defineColumn("registry_sdi_defrifamm", typeof(string));
 	tregistrydocentiview.defineColumn("registry_sdi_norifamm", typeof(string));
@@ -382,7 +384,6 @@ private void initClass() {
 	tregistrydocentiview.defineColumn("registry_txt", typeof(string));
 	tregistrydocentiview.defineColumn("registryclass_description", typeof(string));
 	tregistrydocentiview.defineColumn("registryistituti_title", typeof(string));
-	tregistrydocentiview.defineColumn("registry_residence", typeof(int),false);
 	tregistrydocentiview.defineColumn("residence_description", typeof(string));
 	tregistrydocentiview.defineColumn("sasd_codice", typeof(string));
 	tregistrydocentiview.defineColumn("sasd_title", typeof(string));
@@ -398,7 +399,13 @@ private void initClass() {
 	var terogazkinddefaultview= new MetaTable("erogazkinddefaultview");
 	terogazkinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	terogazkinddefaultview.defineColumn("erogazkind_active", typeof(string));
+	terogazkinddefaultview.defineColumn("erogazkind_ans", typeof(string));
+	terogazkinddefaultview.defineColumn("erogazkind_description", typeof(string));
+	terogazkinddefaultview.defineColumn("erogazkind_lt", typeof(DateTime),false);
+	terogazkinddefaultview.defineColumn("erogazkind_lu", typeof(string),false);
+	terogazkinddefaultview.defineColumn("erogazkind_sortcode", typeof(int),false);
 	terogazkinddefaultview.defineColumn("iderogazkind", typeof(int),false);
+	terogazkinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(terogazkinddefaultview);
 	terogazkinddefaultview.defineKey("iderogazkind");
 
@@ -468,9 +475,9 @@ private void initClass() {
 	var cChild = new []{lezione.Columns["aa"], lezione.Columns["idaffidamento"], lezione.Columns["idattivform"], lezione.Columns["idcanale"], lezione.Columns["idcorsostudio"], lezione.Columns["iddidprog"], lezione.Columns["iddidproganno"], lezione.Columns["iddidprogcurr"], lezione.Columns["iddidprogori"], lezione.Columns["iddidprogporzanno"]};
 	Relations.Add(new DataRelation("FK_lezione_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno",cPar,cChild,false));
 
-	cPar = new []{affidamento.Columns["aa"], affidamento.Columns["idreg_docenti"]};
-	cChild = new []{getdocentiperssd.Columns["aa"], getdocentiperssd.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_getdocentiperssd_affidamento_aa-idreg",cPar,cChild,false));
+	cPar = new []{getdocentiperssd.Columns["aa"]};
+	cChild = new []{affidamento.Columns["aa"]};
+	Relations.Add(new DataRelation("FK_affidamento_getdocentiperssd_aa",cPar,cChild,false));
 
 	cPar = new []{affidamento.Columns["aa"], affidamento.Columns["idaffidamento"], affidamento.Columns["idattivform"], affidamento.Columns["idcanale"], affidamento.Columns["idcorsostudio"], affidamento.Columns["iddidprog"], affidamento.Columns["iddidproganno"], affidamento.Columns["iddidprogcurr"], affidamento.Columns["iddidprogori"], affidamento.Columns["iddidprogporzanno"]};
 	cChild = new []{affidamentocaratteristica.Columns["aa"], affidamentocaratteristica.Columns["idaffidamento"], affidamentocaratteristica.Columns["idattivform"], affidamentocaratteristica.Columns["idcanale"], affidamentocaratteristica.Columns["idcorsostudio"], affidamentocaratteristica.Columns["iddidprog"], affidamentocaratteristica.Columns["iddidproganno"], affidamentocaratteristica.Columns["iddidprogcurr"], affidamentocaratteristica.Columns["iddidprogori"], affidamentocaratteristica.Columns["iddidprogporzanno"]};

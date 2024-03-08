@@ -2,13 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabcorsostudio_dotmas_0" class="nav-link active show" data-toggle="pill" data-target="#tabcorsostudio_dotmas_0"><i class="fa fa-graduation-cap mr-1"></i>Principale</a>
+		<a href="#tabcorsostudio_dotmas_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabcorsostudio_dotmas_0"><i class="fa fa-graduation-cap mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabcorsostudio_dotmas_2" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_dotmas_2"><i class="fa fa-file-signature mr-1"></i>Iscrizioni</a>
+		<a href="#tabcorsostudio_dotmas_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcorsostudio_dotmas_2"><i class="fa fa-file-signature mr-1"></i>Iscrizioni</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabcorsostudio_dotmas_3" class="nav-link" data-toggle="pill" data-target="#tabcorsostudio_dotmas_3"><i class="fa fa-user-check mr-1"></i>Prove</a>
+		<a href="#tabcorsostudio_dotmas_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcorsostudio_dotmas_3"><i class="fa fa-user-check mr-1"></i>Prove</a>
 	</li>
 
 	</ul>
@@ -86,7 +86,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#didprog_dotmas_startiscrizioni").datetimepicker();
+    $("#didprog_dotmas_startiscrizioni").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="didprog_dotmas_startiscrizioni">Data di inizio delle iscrizioni</label>
@@ -97,7 +97,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#didprog_dotmas_stopiscrizioni").datetimepicker();
+    $("#didprog_dotmas_stopiscrizioni").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="didprog_dotmas_stopiscrizioni">Data di fine delle Iscrizioni</label>

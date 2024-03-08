@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -86,13 +86,15 @@ SELECT
 	itinerationrefundkind.codeitinerationrefundkind,  -- as 'Tipo',
 	itinerationrefund.description,      -- as 'Descrizione',
 	itinerationrefund.extraallowance,   -- as 'Indenn. supplementare',
-	--itinerationrefund.amount,
+	itinerationrefund.amount,
+	/*
 	CASE 
 		WHEN exchangerate > 0 THEN
 			ROUND(amount / exchangerate, 2)
 		ELSE
  				amount 
 	END,									   -- as 'Importo',
+	*/
 	itinerationrefund.advancepercentage*100,   -- as 'Perc. Anticipo',
 	itinerationrefund.starttime,			   -- as 'Inizio Spesa', 
 	itinerationrefund.stoptime,				   -- as 'Fine Spesa',

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -201,6 +201,31 @@ public partial class itineration_default_new02 : MetaPage {
             }
         }
 
+        string filterAttachment = "";
+        //Se ci sono spese di anticipo cancellato, prende la chiave.
+        if (DS.itinerationrefund_advance.Rows.Count > 0) {
+            foreach (DataRow A in DS.itinerationrefund_advance.Rows) {
+                if (A.RowState == DataRowState.Detached || A.RowState == DataRowState.Deleted) {
+                    filterAttachment = QHS.DoPar(QHS.AppOr(filterAttachment, QHS.CmpKey(A)));
+                }
+            }
+        }
+        //Se ci sono spese a rendiconto cancellate, prende la chiave.
+        if (DS.itinerationrefund_balance.Rows.Count > 0) {
+            foreach (DataRow A in DS.itinerationrefund_balance.Rows) {
+                if (A.RowState == DataRowState.Detached || A.RowState == DataRowState.Deleted) {
+                    filterAttachment = QHS.DoPar(QHS.AppOr(filterAttachment, QHS.CmpKey(A)));
+                }
+            }
+        }
+        //Se il filtro è stato valorizzato vuol dire che alcune spese sono in cancellazione, quindi calcella gli allegati ad esse associati.
+        if ((filterAttachment != "") && DS.itinerationrefundattachment.Rows.Count > 0) {
+            foreach (var Ritinerationrefundattachment in DS.itinerationrefundattachment.Select(filterAttachment)) {
+                if (Ritinerationrefundattachment.RowState != DataRowState.Deleted)
+                    Ritinerationrefundattachment.Delete();
+            }
+        }
+
         if (CurrRow.RowState != DataRowState.Deleted) {
             int CurrentStatus = CfgFn.GetNoNullInt32(CurrRow["iditinerationstatus"]);
             int OriginalStatus;
@@ -230,9 +255,17 @@ public partial class itineration_default_new02 : MetaPage {
         DataRow CurrRow = DS.itineration.Rows[0];
         string errormsg = "";
         if (DoSendMail) {
-            errormsg = MissFun.WebSendMails(Conn as DataAccess, CurrRow);
-            if (errormsg.Trim() != "")
-                ShowClientMessage(errormsg, "Errore");
+			try
+			{
+                errormsg = MissFun.WebSendMails(Conn as DataAccess, CurrRow);
+                if (errormsg.Trim() != "")
+                    ShowClientMessage(errormsg, "Errore");
+            }
+			catch
+			{
+                ShowClientMessage("Errore di invio mail", "Errore");
+            }
+            
             DoSendMail = false;
         }
     }
@@ -441,6 +474,7 @@ public partial class itineration_default_new02 : MetaPage {
         if (Meta.edit_type == "myteamnew02") {
             EnableDisableControls(txtapplierannotation, false);
         }
+
     }
 
 
@@ -496,12 +530,9 @@ public partial class itineration_default_new02 : MetaPage {
     public override void AfterRowSelect(DataTable T, DataRow R) {
         if (T.TableName == "registry") {
             ImpostaPosGiuridica(false); // ClearPosGiuridica();
-        }
-        if (T.TableName == "manager") {
-            ImpostaTageFiltriUPB(DBNull.Value);
-        }
+		}
 
-        if (T.TableName == "legalstatuscontract") {
+		if (T.TableName == "legalstatuscontract") {
             DataTable SelClass;
             QHS = Conn.GetQueryHelper();
             DataRow Curr = DS.itineration.Rows[0];
@@ -512,8 +543,8 @@ public partial class itineration_default_new02 : MetaPage {
 
             DataRow RcurrPosGiuridica = R;
             SelClass = Conn.RUN_SELECT("legalstatuscontract",
-                        "idposition, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
-                        null, QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("idregistrylegalstatus", RcurrPosGiuridica["idregistrylegalstatus"])), null, false);
+                        "idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+                        null, QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("idregistrylegalstatus", RcurrPosGiuridica["idregistrylegalstatus"]), QHS.CmpEq("active", "S")), null, false);
 
             DataRow RowClass = SelClass.Rows[0];
 
@@ -526,7 +557,7 @@ public partial class itineration_default_new02 : MetaPage {
 
             int incomeclass = CfgFn.GetNoNullInt32(RowClass["incomeclass"]);
             //////txtClassStip.Text = incomeclass.ToString();
-            setPosizioneGiuridica(RowClass["idposition"]);
+            setPosizioneGiuridica(RowClass["idposition"], RowClass["livello"]);
             //            MyCfg.idposition = RowClass["idposition"];
             MyCfg.matricula = matricula;
             MyCfg.incomeclass = incomeclass;
@@ -564,6 +595,7 @@ public partial class itineration_default_new02 : MetaPage {
             string filterGE;
             filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                             QHS.CmpEq("idposition", MyCfg.idposition),
+                            QHS.CmpEq("livello", MyCfg.livello),
                             "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 
@@ -631,7 +663,7 @@ public partial class itineration_default_new02 : MetaPage {
 
         Meta.SetDefaults(DS.itineration);
         DataRow ParentRow = DS.itineration.Rows[0];
-        MetaData MD = appState.Dispatcher.Get("itinerationauthagengy");
+        MetaData MD = appState.Dispatcher.Get("itinerationauthagency");
 
         DS.itinerationauthagency.RejectChanges();
 
@@ -663,6 +695,8 @@ public partial class itineration_default_new02 : MetaPage {
             MissAut["!title"] = Row["title"];
             MissAut["!priority"] = Row["priority"];
             MissAut["!description"] = Row["description"];
+            MD.DescribeColumns(DS.itinerationauthagency, "webdefault");
+            MD.CalculateFields(MissAut, "webdefault");
         }
 
     }
@@ -925,7 +959,7 @@ public partial class itineration_default_new02 : MetaPage {
         if (cf != null && idreg == null) {
             DataTable T = Conn.RUN_SELECT("registry", "*", null,
                 QHS.AppAnd(new string[]{QHS.CmpEq("cf", cf), QHS.CmpEq("active","S"), //QHS.CmpEq("human","S"),
-                      " (idreg IN(SELECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL))  " }),
+                      " (idreg IN(SELECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL and (active = 'S') ))  " }),
                 null, true);
             if (T.Rows.Count == 1) {
                 PState.var["idreg"] = idreg = T.Rows[0]["idreg"];
@@ -937,7 +971,7 @@ public partial class itineration_default_new02 : MetaPage {
 
         object hidecsa = PState.var["hidecsa"];
         if (hidecsa == null) {
-            int ncsa = Conn.RUN_SELECT_COUNT("legalstatuscontract", QHS.IsNotNull("csa_role"), false);
+            int ncsa = Conn.RUN_SELECT_COUNT("legalstatuscontract", QHS.AppAnd(QHS.IsNotNull("csa_role"), QHS.CmpEq("active", "S")), false);
             hidecsa = (ncsa == 0) ? "S" : "N";
             PState.var["hidecsa"] = hidecsa;
         }
@@ -1249,7 +1283,7 @@ public partial class itineration_default_new02 : MetaPage {
         string strdate = QueryCreator.quotedstrvalue((DateTime)datainizio, true);
         string strdatefine = QueryCreator.quotedstrvalue((DateTime)datafine, true);
 
-        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datafine));
+        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datafine),QHS.CmpEq("active", "S"));
 
         if ((LastFilterPosGiuridica == filter) && (!changerole))
             return;
@@ -1288,7 +1322,7 @@ public partial class itineration_default_new02 : MetaPage {
 
         if (NposGiuridiche == 1) {
             SelClass = Conn.RUN_SELECT("legalstatuscontract",
-                        "idposition, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+                        "idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
                         null, filter, null, false);
             btnCambiaRuolo.Visible = false;
         }
@@ -1310,7 +1344,7 @@ public partial class itineration_default_new02 : MetaPage {
 
         int incomeclass = CfgFn.GetNoNullInt32(RowClass["incomeclass"]);
         txtClassStip.Text = incomeclass.ToString();
-        setPosizioneGiuridica(RowClass["idposition"]);
+        setPosizioneGiuridica(RowClass["idposition"], RowClass["livello"]);
         //            MyCfg.idposition = RowClass["idposition"];
         MyCfg.matricula = matricula;
         MyCfg.incomeclass = incomeclass;
@@ -1348,6 +1382,7 @@ public partial class itineration_default_new02 : MetaPage {
         string filterGE;
         filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                         QHS.CmpEq("idposition", MyCfg.idposition),
+                        QHS.CmpEq("livello", MyCfg.livello),
                         "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 
@@ -1367,6 +1402,7 @@ public partial class itineration_default_new02 : MetaPage {
 
     void resetPosizioneGiuridica() {
         MyCfg.idposition = DBNull.Value;
+        MyCfg.livello = DBNull.Value;
         MyCfg.foreignclass = "";
         //grpTappe.Enabled = false;
         EnableDisableControls(btnInsertTappa, true);
@@ -1380,8 +1416,9 @@ public partial class itineration_default_new02 : MetaPage {
 
 
 
-    void setPosizioneGiuridica(object idposition) {
+    void setPosizioneGiuridica(object idposition, object livello) {
         MyCfg.idposition = idposition;
+        MyCfg.livello = livello;
         if (DS.position.Select(QHC.CmpEq("idposition", idposition)).Length > 0) {
             MyCfg.foreignclass = DS.position.Select(QHC.CmpEq("idposition", idposition))[0]["foreignclass"].ToString().ToUpper();
         }
@@ -1655,7 +1692,7 @@ public partial class itineration_default_new02 : MetaPage {
 
         if ((!PState.IsEmpty) && (PState.IsFirstFillForThisRow)) {
             grpIncaricato.Tag = "AutoChoose.txtIncaricato.default.((active = 'S')  AND " +
-                                " (idreg IN (SELECT idreg FROM registrylegalstatus)) AND " +
+                                " (idreg IN (SELECT idreg FROM registrylegalstatus where (active = 'S') )) AND " +
                 //" (idreg IN (SELECT idreg FROM registrytaxablestatus)) AND " +
                                 " (human = 'S'))";
 
@@ -1859,9 +1896,9 @@ public partial class itineration_default_new02 : MetaPage {
         //    "idposition, incomeclass, incomeclassvalidity, maxincomeclass", 
         //    sorting, filter, "1", false);
 
-        string filtroInquadramento = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("idregistrylegalstatus", Curr["idregistrylegalstatus"]));
+        string filtroInquadramento = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("idregistrylegalstatus", Curr["idregistrylegalstatus"]), QHS.CmpEq("active", "S"));
         DataTable SelClass = Conn.RUN_SELECT("legalstatuscontract",
-                    "idposition, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+                    "idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
                     null, filtroInquadramento, null, false);
 
         if (SelClass.Rows.Count == 0) {
@@ -1888,7 +1925,7 @@ public partial class itineration_default_new02 : MetaPage {
         object matricula = Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", codicecreddeb), "extmatricula");
         int incomeclass = CfgFn.GetNoNullInt32(RowClass["incomeclass"]);
         txtClassStip.Text = incomeclass.ToString();
-        setPosizioneGiuridica(RowClass["idposition"]);
+        setPosizioneGiuridica(RowClass["idposition"], RowClass["livello"]);
         MyCfg.matricula = matricula;
         MyCfg.incomeclass = incomeclass;
         MyCfg.incomeclassvalidity = RowClass["incomeclassvalidity"];
@@ -1974,6 +2011,7 @@ public partial class itineration_default_new02 : MetaPage {
         filterGE = QHS.AppAnd(
             QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
             QHS.CmpEq("idposition", MyCfg.idposition),
+            QHS.CmpEq("livello", MyCfg.livello),
             "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
         DataTable DettGruppoEstero = Conn.RUN_SELECT("foreigngroupruledetail", "foreigngroupnumber",
@@ -2177,7 +2215,7 @@ public partial class itineration_default_new02 : MetaPage {
         string strdate = QueryCreator.quotedstrvalue((DateTime)datainizio, true);
         string strdatefine = QueryCreator.quotedstrvalue((DateTime)datafine, true);
 
-        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datafine));
+        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datafine), QHS.CmpEq("active", "S"));
 
         int NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
         if (NposGiuridiche > 1)
@@ -2296,9 +2334,11 @@ public partial class itineration_default_new02 : MetaPage {
         //Set accorded refund = required refund
         foreach (DataRow S in DS.itinerationrefund_advance.Select()) {
             S["amount"] = S["requiredamount"];
+            S["amount_c"] = S["requiredamount_c"];
         }
         foreach (DataRow S in DS.itinerationrefund_balance.Select()) {
             S["amount"] = S["requiredamount"];
+            S["amount_c"] = S["requiredamount_c"];
         }
 
         //recalc totals
@@ -2462,7 +2502,7 @@ public partial class itineration_default_new02 : MetaPage {
         //Aggiorna / Crea le righe nella Tabella Autorizzazioni in base al Modello Autorizzativo selezionato
         MetaData MetaAutorizzazione = ApplicationState.GetApplicationState(this).Dispatcher.Get("itinerationauthagency");
         MetaAutorizzazione.SetDefaults(DS.itinerationauthagency);
-
+        MetaAutorizzazione.DescribeColumns(DS.itinerationauthagency, "webdefault");
         DataTable authModelAuthAgency = Conn.RUN_SELECT("authmodelauthagency", null, null,
                         QHS.CmpEq("idauthmodel", Curr["idauthmodel"]), null, true);
         //Elimina dalla tabella Autorizzazioni le righe che non saranno utilizzate

@@ -38,7 +38,7 @@ $sm-blue__desktop-vp:									768px !default;		// switch from collapsible to des
 // ----------------------------------------------------------
 
 // Import "PT Sans Narrow" font from Google fonts
-@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
+@import url('PT_Sans_Narrow.css');
 
 $sm-blue__font-family:									"PT Sans Narrow", "Arial Narrow", Arial, Helvetica, sans-serif !default;
 $sm-blue__font-size-base:								18px !default;

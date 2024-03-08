@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,8 +38,9 @@ namespace meta_stip_decodificaview {
                 DescribeAColumn(T, "tassa", "Tassa", nPos++);
                 DescribeAColumn(T, "codicevoce", "Codice Voce", nPos++);
                 DescribeAColumn(T, "voce", "Voce", nPos++);
-				DescribeAColumn(T, "codicecorsolaurea", "Codice Corso Laurea", nPos++);
-				DescribeAColumn(T, "corsolaurea", "Corso Laurea", nPos++);
+                DescribeAColumn(T, "anno", "Anno", nPos++);
+                DescribeAColumn(T, "codicecorsolaurea", "Codice Corso Laurea", nPos++);
+                DescribeAColumn(T, "corsolaurea", "Corso Laurea", nPos++);
 				DescribeAColumn(T, "voce", "Voce", nPos++);
 				DescribeAColumn(T, "codemotiverevenue", "Cod. Causale ricavo", nPos++);
                 DescribeAColumn(T, "accmotiverevenue", "Causale Ricavo", nPos++);

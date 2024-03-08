@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,7 +47,7 @@ namespace epexp_default {
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.GroupBox gBoxImporti;
 		public TextBox SubEntity_txtAnno1;
 		private System.Windows.Forms.GroupBox gboxClienteFornitore;
 		private System.Windows.Forms.TextBox txtClienteFornitore;
@@ -196,7 +196,7 @@ namespace epexp_default {
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.gBoxImporti = new System.Windows.Forms.GroupBox();
 			this.labdisponibile = new System.Windows.Forms.Label();
 			this.txtTotaleDisp = new System.Windows.Forms.TextBox();
 			this.txtCurrDisp5 = new System.Windows.Forms.TextBox();
@@ -251,7 +251,7 @@ namespace epexp_default {
 			this.gboxUPB.SuspendLayout();
 			this.groupBox19.SuspendLayout();
 			this.groupBox1.SuspendLayout();
-			this.groupBox2.SuspendLayout();
+			this.gBoxImporti.SuspendLayout();
 			this.gboxClienteFornitore.SuspendLayout();
 			this.gboxConto.SuspendLayout();
 			this.tabClassificazioni.SuspendLayout();
@@ -299,7 +299,7 @@ namespace epexp_default {
 			this.tabPrincipale.Controls.Add(this.label1);
 			this.tabPrincipale.Controls.Add(this.label2);
 			this.tabPrincipale.Controls.Add(this.label5);
-			this.tabPrincipale.Controls.Add(this.groupBox2);
+			this.tabPrincipale.Controls.Add(this.gBoxImporti);
 			this.tabPrincipale.Controls.Add(this.gboxClienteFornitore);
 			this.tabPrincipale.Controls.Add(this.gboxConto);
 			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
@@ -743,42 +743,42 @@ namespace epexp_default {
 			this.label5.Text = "Data contabile:";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// groupBox2
+			// gBoxImporti
 			// 
-			this.groupBox2.Controls.Add(this.labdisponibile);
-			this.groupBox2.Controls.Add(this.txtTotaleDisp);
-			this.groupBox2.Controls.Add(this.txtCurrDisp5);
-			this.groupBox2.Controls.Add(this.txtCurrDisp4);
-			this.groupBox2.Controls.Add(this.txtCurrDisp3);
-			this.groupBox2.Controls.Add(this.txtCurrDisp2);
-			this.groupBox2.Controls.Add(this.txtCurrDisp);
-			this.groupBox2.Controls.Add(this.label13);
-			this.groupBox2.Controls.Add(this.txtTotaleCorr);
-			this.groupBox2.Controls.Add(this.label12);
-			this.groupBox2.Controls.Add(this.txtTotale);
-			this.groupBox2.Controls.Add(this.labAnno5);
-			this.groupBox2.Controls.Add(this.txtImpCorr5);
-			this.groupBox2.Controls.Add(this.label8);
-			this.groupBox2.Controls.Add(this.txtImpCorr4);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno5);
-			this.groupBox2.Controls.Add(this.labAnno4);
-			this.groupBox2.Controls.Add(this.txtImpCorr3);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno4);
-			this.groupBox2.Controls.Add(this.labAnno3);
-			this.groupBox2.Controls.Add(this.txtImpCorr2);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno3);
-			this.groupBox2.Controls.Add(this.labAnno2);
-			this.groupBox2.Controls.Add(this.txtImpCorr);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno2);
-			this.groupBox2.Controls.Add(this.labAnno1);
-			this.groupBox2.Controls.Add(this.SubEntity_txtAnno1);
-			this.groupBox2.Location = new System.Drawing.Point(24, 248);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(847, 125);
-			this.groupBox2.TabIndex = 7;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Tag = "";
-			this.groupBox2.Text = "Importi";
+			this.gBoxImporti.Controls.Add(this.labdisponibile);
+			this.gBoxImporti.Controls.Add(this.txtTotaleDisp);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp5);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp4);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp3);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp2);
+			this.gBoxImporti.Controls.Add(this.txtCurrDisp);
+			this.gBoxImporti.Controls.Add(this.label13);
+			this.gBoxImporti.Controls.Add(this.txtTotaleCorr);
+			this.gBoxImporti.Controls.Add(this.label12);
+			this.gBoxImporti.Controls.Add(this.txtTotale);
+			this.gBoxImporti.Controls.Add(this.labAnno5);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr5);
+			this.gBoxImporti.Controls.Add(this.label8);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr4);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno5);
+			this.gBoxImporti.Controls.Add(this.labAnno4);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr3);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno4);
+			this.gBoxImporti.Controls.Add(this.labAnno3);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr2);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno3);
+			this.gBoxImporti.Controls.Add(this.labAnno2);
+			this.gBoxImporti.Controls.Add(this.txtImpCorr);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno2);
+			this.gBoxImporti.Controls.Add(this.labAnno1);
+			this.gBoxImporti.Controls.Add(this.SubEntity_txtAnno1);
+			this.gBoxImporti.Location = new System.Drawing.Point(24, 248);
+			this.gBoxImporti.Name = "gBoxImporti";
+			this.gBoxImporti.Size = new System.Drawing.Size(847, 125);
+			this.gBoxImporti.TabIndex = 7;
+			this.gBoxImporti.TabStop = false;
+			this.gBoxImporti.Tag = "";
+			this.gBoxImporti.Text = "Importi";
 			// 
 			// labdisponibile
 			// 
@@ -1279,8 +1279,8 @@ namespace epexp_default {
 			this.groupBox19.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			this.groupBox2.ResumeLayout(false);
-			this.groupBox2.PerformLayout();
+			this.gBoxImporti.ResumeLayout(false);
+			this.gBoxImporti.PerformLayout();
 			this.gboxClienteFornitore.ResumeLayout(false);
 			this.gboxClienteFornitore.PerformLayout();
 			this.gboxConto.ResumeLayout(false);
@@ -1487,6 +1487,7 @@ namespace epexp_default {
 			txtNumero.ReadOnly = !isEmpty;
 			abilitaDisabilitaSalvataggio();
 			chkFlagVariazione.Enabled = true;
+			EnableDisableImporti();
 		}
 
 		public void metaData_BeforeFill() {
@@ -1573,6 +1574,7 @@ namespace epexp_default {
 			}
 
 			abilitaDisabilitaSalvataggio();
+			EnableDisableImporti();
 		}
 
 		private void abilitaDisabilitaNotaVariazione() {
@@ -1720,6 +1722,33 @@ namespace epexp_default {
 			txtCodiceConto.ReadOnly = !radPreimpegno.Checked;
 			txtUPB.ReadOnly = !radPreimpegno.Checked;
 			txtCodiceCausale.ReadOnly = !radPreimpegno.Checked;
+		}
+		void EnableDisableImporti() {
+			if (!isEmpty) {
+				DataRow r = DS.epexpyear.Rows[0];
+				DataRow rMov = DS.epexp.Rows[0];
+				//Se siamo nell'esercizio successivo a quello di creazione, disabilita TUTTO ed esce
+				if ( (CfgFn.GetNoNullInt32(r["ayear"]) > CfgFn.GetNoNullInt32(rMov["yepexp"]))) {
+					gBoxImporti.Enabled = false;
+					return;
+				}
+				//Se siamo nell'esercizio di creazione, disabilita tutti gli importi se esiste la riga di imputazione nell'esercizio successivo.
+				string filterEpExpYearSucc = qhs.AppAnd(qhs.CmpEq("idepexp", r["idepexp"]), qhs.CmpEq("ayear", esercizio+1));
+				int rowsfound = conn.RUN_SELECT_COUNT("epexpyear", filterEpExpYearSucc, true);
+				if ((CfgFn.GetNoNullInt32(r["ayear"]) == CfgFn.GetNoNullInt32(rMov["yepexp"]))
+					&& rowsfound>0) {
+					gBoxImporti.Enabled = false;
+					return;
+				}
+			}
+			else {
+				// In ricerca, abilita tutto.
+				gBoxImporti.Enabled = true; 
+			}
+
+
+
+			
 		}
 
 		void calcolaTotale(bool read) {
@@ -2129,8 +2158,9 @@ namespace epexp_default {
 			foreach (string field in new[] {"amount", "amount2", "amount3", "amount4", "amount5"}) {
 				total += CfgFn.GetNoNullDecimal(r[field]);
 			}
-			var f = new FrmAskDataInizioFine(false);
-			var res = f.ShowDialog(this);
+            FrmAskDataInizioFine f = new FrmAskDataInizioFine(false);
+            createForm(f, this);
+            var res = f.ShowDialog(this);
 			if (res != DialogResult.OK) return;
 			DateTime inizio = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
 				f.txtDataInizio.Text.ToString(), "x.y");

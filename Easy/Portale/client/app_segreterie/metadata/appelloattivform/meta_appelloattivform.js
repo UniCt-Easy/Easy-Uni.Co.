@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -93,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idattivform_insegn_codice', 'Codice Insegnamento', null, 43, null);
 						this.describeAColumn(table, '!idattivform_insegninteg_denominazione', 'Denominazione Integrando', null, 43, null);
 						this.describeAColumn(table, '!idattivform_insegninteg_codice', 'Codice Integrando', null, 44, null);
-						this.describeAColumn(table, '!idattivform_attivform_tipovalutaz', 'Profitto o Idoneit‡', null, 48, null);
+						this.describeAColumn(table, '!idattivform_attivform_tipovalutaz', 'Profitto o Idoneit√†', null, 48, null);
 						this.describeAColumn(table, '!idattivform_sede_title', 'Sede', null, 54, null);
 						objCalcFieldConfig['!idattivform_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idattivform' };
 						objCalcFieldConfig['!idattivform_didprog_annoaccademico_alias1_aa'] = { tableNameLookup:'annoaccademico_alias1', columnNameLookup:'aa', columnNamekey:'idattivform' };

@@ -253,6 +253,8 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idtreasurer_main" type="xs:int" minOccurs="0" />
               <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="codetreasurer" type="xs:string" minOccurs="0" />
+              <xs:element name="treasurer" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

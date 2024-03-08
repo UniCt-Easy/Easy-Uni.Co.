@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -142,7 +142,7 @@ public class dsmeta_didprog_default: DataSet {
 	public MetaTable attivform 		=> (MetaTable)Tables["attivform"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable titolokind 		=> (MetaTable)Tables["titolokind"];
+	public MetaTable titolokinddefaultview 		=> (MetaTable)Tables["titolokinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sessionedefaultview 		=> (MetaTable)Tables["sessionedefaultview"];
@@ -169,7 +169,7 @@ public class dsmeta_didprog_default: DataSet {
 	public MetaTable erogazkinddefaultview 		=> (MetaTable)Tables["erogazkinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable didprogsuddannokind 		=> (MetaTable)Tables["didprogsuddannokind"];
+	public MetaTable didprogsuddannokinddefaultview 		=> (MetaTable)Tables["didprogsuddannokinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable didprognumchiusokind 		=> (MetaTable)Tables["didprognumchiusokind"];
@@ -860,34 +860,25 @@ private void initClass() {
 	Tables.Add(tattivform);
 	tattivform.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
-	//////////////////// TITOLOKIND /////////////////////////////////
-	var ttitolokind= new MetaTable("titolokind");
-	ttitolokind.defineColumn("active", typeof(string),false);
-	ttitolokind.defineColumn("idtitolokind", typeof(int),false);
-	ttitolokind.defineColumn("title", typeof(string),false);
-	Tables.Add(ttitolokind);
-	ttitolokind.defineKey("idtitolokind");
+	//////////////////// TITOLOKINDDEFAULTVIEW /////////////////////////////////
+	var ttitolokinddefaultview= new MetaTable("titolokinddefaultview");
+	ttitolokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	ttitolokinddefaultview.defineColumn("idtitolokind", typeof(int),false);
+	ttitolokinddefaultview.defineColumn("titolokind_active", typeof(string));
+	Tables.Add(ttitolokinddefaultview);
+	ttitolokinddefaultview.defineKey("idtitolokind");
 
 	//////////////////// SESSIONEDEFAULTVIEW /////////////////////////////////
 	var tsessionedefaultview= new MetaTable("sessionedefaultview");
 	tsessionedefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tsessionedefaultview.defineColumn("idsessione", typeof(int),false);
-	tsessionedefaultview.defineColumn("idsessionekind", typeof(int));
 	Tables.Add(tsessionedefaultview);
 	tsessionedefaultview.defineKey("idsessione");
 
 	//////////////////// REGISTRYDOCENTIVIEW /////////////////////////////////
 	var tregistrydocentiview= new MetaTable("registrydocentiview");
 	tregistrydocentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydocentiview.defineColumn("idcity", typeof(int));
-	tregistrydocentiview.defineColumn("idclassconsorsuale", typeof(int));
-	tregistrydocentiview.defineColumn("idnation", typeof(int));
 	tregistrydocentiview.defineColumn("idreg", typeof(int),false);
-	tregistrydocentiview.defineColumn("idreg_istituti", typeof(int));
-	tregistrydocentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrydocentiview.defineColumn("idsasd", typeof(int));
-	tregistrydocentiview.defineColumn("idstruttura", typeof(int));
-	tregistrydocentiview.defineColumn("idtitle", typeof(string));
 	tregistrydocentiview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistrydocentiview);
 	tregistrydocentiview.defineKey("idreg");
@@ -918,8 +909,6 @@ private void initClass() {
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");
 	tsededefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tsededefaultview.defineColumn("idcity", typeof(int));
-	tsededefaultview.defineColumn("idnation", typeof(int));
 	tsededefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tsededefaultview);
 	tsededefaultview.defineKey("idsede");
@@ -939,13 +928,13 @@ private void initClass() {
 	Tables.Add(terogazkinddefaultview);
 	terogazkinddefaultview.defineKey("iderogazkind");
 
-	//////////////////// DIDPROGSUDDANNOKIND /////////////////////////////////
-	var tdidprogsuddannokind= new MetaTable("didprogsuddannokind");
-	tdidprogsuddannokind.defineColumn("active", typeof(string));
-	tdidprogsuddannokind.defineColumn("iddidprogsuddannokind", typeof(int),false);
-	tdidprogsuddannokind.defineColumn("title", typeof(string));
-	Tables.Add(tdidprogsuddannokind);
-	tdidprogsuddannokind.defineKey("iddidprogsuddannokind");
+	//////////////////// DIDPROGSUDDANNOKINDDEFAULTVIEW /////////////////////////////////
+	var tdidprogsuddannokinddefaultview= new MetaTable("didprogsuddannokinddefaultview");
+	tdidprogsuddannokinddefaultview.defineColumn("didprogsuddannokind_active", typeof(string));
+	tdidprogsuddannokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tdidprogsuddannokinddefaultview.defineColumn("iddidprogsuddannokind", typeof(int),false);
+	Tables.Add(tdidprogsuddannokinddefaultview);
+	tdidprogsuddannokinddefaultview.defineKey("iddidprogsuddannokind");
 
 	//////////////////// DIDPROGNUMCHIUSOKIND /////////////////////////////////
 	var tdidprognumchiusokind= new MetaTable("didprognumchiusokind");
@@ -959,9 +948,6 @@ private void initClass() {
 	var tcorsostudiodefaultview= new MetaTable("corsostudiodefaultview");
 	tcorsostudiodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tcorsostudiodefaultview.defineColumn("idcorsostudio", typeof(int),false);
-	tcorsostudiodefaultview.defineColumn("idcorsostudiolivello", typeof(int));
-	tcorsostudiodefaultview.defineColumn("idcorsostudionorma", typeof(int));
-	tcorsostudiodefaultview.defineColumn("idstruttura", typeof(int));
 	Tables.Add(tcorsostudiodefaultview);
 	tcorsostudiodefaultview.defineKey("idcorsostudio");
 
@@ -1164,9 +1150,9 @@ private void initClass() {
 	cChild = new []{attivform.Columns["iddidproganno"]};
 	Relations.Add(new DataRelation("FK_attivform_didproganno_iddidproganno",cPar,cChild,false));
 
-	cPar = new []{titolokind.Columns["idtitolokind"]};
+	cPar = new []{titolokinddefaultview.Columns["idtitolokind"]};
 	cChild = new []{didprog.Columns["idtitolokind"]};
-	Relations.Add(new DataRelation("FK_didprog_titolokind_idtitolokind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_didprog_titolokinddefaultview_idtitolokind",cPar,cChild,false));
 
 	cPar = new []{sessionedefaultview.Columns["idsessione"]};
 	cChild = new []{didprog.Columns["idsessione"]};
@@ -1200,9 +1186,9 @@ private void initClass() {
 	cChild = new []{didprog.Columns["iderogazkind"]};
 	Relations.Add(new DataRelation("FK_didprog_erogazkinddefaultview_iderogazkind",cPar,cChild,false));
 
-	cPar = new []{didprogsuddannokind.Columns["iddidprogsuddannokind"]};
+	cPar = new []{didprogsuddannokinddefaultview.Columns["iddidprogsuddannokind"]};
 	cChild = new []{didprog.Columns["iddidprogsuddannokind"]};
-	Relations.Add(new DataRelation("FK_didprog_didprogsuddannokind_iddidprogsuddannokind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_didprog_didprogsuddannokinddefaultview_iddidprogsuddannokind",cPar,cChild,false));
 
 	cPar = new []{didprognumchiusokind.Columns["iddidprognumchiusokind"]};
 	cChild = new []{didprog.Columns["iddidprognumchiusokind"]};

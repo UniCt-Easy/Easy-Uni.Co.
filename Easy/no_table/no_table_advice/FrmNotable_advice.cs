@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,6 +24,8 @@ using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
 using System.Collections;
+using System.Linq;
+using Cronos;
 
 namespace no_table_advice {
     public partial class FrmNotable_advice : MetaDataForm {
@@ -48,33 +50,111 @@ namespace no_table_advice {
             Meta.Conn.RUN_SELECT_INTO_TABLE(DS.dbuseradvice, null, filtroLogin, null, true);
 
             // Visualizzo solo i 10 avvisi più recenti se no il form diventa enorme
-            string query = " SELECT TOP 10 advice.codeadvice from advice  " +
-                         " LEFT OUTER JOIN dbuseradvice ON " +
-                         " dbuseradvice.codeadvice = advice.codeadvice " +
-                         " AND " + filtroLogin +
-                         " WHERE " + QHS.IsNull("dbuseradvice.codeadvice")+
-                         " ORDER BY advice.adate DESC ";
+
+            //string query = " SELECT TOP 10 advice.codeadvice from advice  " +
+            //             " LEFT OUTER JOIN dbuseradvice ON " +
+            //             " dbuseradvice.codeadvice = advice.codeadvice " +
+            //             " AND " + filtroLogin +
+            //             " WHERE " + QHS.IsNull("dbuseradvice.codeadvice")+
+            //             " ORDER BY advice.adate DESC ";
+
+            string query = " SELECT TOP 10 advice.codeadvice, crontab, adate, stopdate, ISNULL(dbuseradvice.lastviewed, {d '1900-01-01'}) as lastviewed from advice  " +
+               " LEFT OUTER JOIN dbuseradvice ON " +
+               " dbuseradvice.codeadvice = advice.codeadvice " +
+               " AND " + filtroLogin +
+               " WHERE " + QHS.IsNull("dbuseradvice.codeadvice") +
+               " OR ISNULL(dbuseradvice.lastviewed, {d '1900-01-01'}) < advice.stopdate" +
+               " ORDER BY advice.adate DESC ";
+
             DataTable tAdvice = Meta.Conn.SQLRunner(query);
 
             if ((tAdvice != null) && (tAdvice.Rows.Count > 0)) {
-                 string filtroadvice = QHS.FieldIn("codeadvice", tAdvice.Select());
+
+                var advicesToShow = new List<DataRow>();
+
+                DateTimeOffset now = new DateTimeOffset((DateTime)conn.SQLRunner("select GETDATE() as now").Select()[0]["now"]);
+
+                foreach (DataRow advice in tAdvice.Rows) {
+
+                    if (advice["crontab"] == DBNull.Value) continue;
+
+                    var schedule = CronExpression.Parse(advice["crontab"].ToString());
+
+                    if (schedule != null) {
+                        DateTimeOffset lastViewed = new DateTimeOffset((DateTime)advice["lastviewed"]);
+
+                        DateTimeOffset start = new DateTimeOffset((DateTime)advice["adate"]);
+                        DateTimeOffset stop = new DateTimeOffset((DateTime)advice["stopdate"]);
+
+                        var occurrences = schedule.GetOccurrences(start, stop, TimeZoneInfo.Utc);
+
+                        // troviamo l'evento immediatamente precedente (checkpoint) alla data attuale
+                        try {
+                            DateTimeOffset checkpoint = occurrences.Where(o => { return o < now; }).Max();
+
+                            // aggiungiamo le comunicazioni da visualizzare
+                            if (lastViewed < checkpoint) advicesToShow.Add(advice);
+                        }
+                        catch (Exception) {
+                            continue;
+                        }
+                    }
+                    continue;
+                }
+
+                //string filtroadvice = QHS.FieldIn("codeadvice", tAdvice.Select());
+                string filtroadvice = QHS.FieldIn("codeadvice", advicesToShow.ToArray());
 
                 Meta.Conn.RUN_SELECT_INTO_TABLE(DS.advice, "adate desc", filtroadvice, null, true);
 
                 // inserisco in dbuseradvice tutti i codici dei messaggi 
                 // attualmente visualizzati, per evitare che ricompaiano al prossimo riavvio del programma
-                string insert = "INSERT INTO dbuseradvice  " +
-                   " (codeadvice, login, lt, lu)  " +
-                   " SELECT " +
-                   " advice.codeadvice, " +
-                   QHS.quote(Meta.GetSys("user")) + ", " +
-                   //QHS.quote(Meta.GetSys("datacontabile")) + ", " +
-                   " GetDate(), " +
-                   QHS.quote("assistenza") +
-                   " FROM advice WHERE " + filtroadvice
-                   ;
+                //string insert = "INSERT INTO dbuseradvice  " +
+                //   " (codeadvice, login, lt, lu)  " +
+                //   " SELECT " +
+                //   " advice.codeadvice, " +
+                //   user + ", " +
+                //   //QHS.quote(Meta.GetSys("datacontabile")) + ", " +
+                //   " GetDate(), " +
+                //   QHS.quote("assistenza") +
+                //   " FROM advice WHERE " + filtroadvice
+                //;
 
-                DataTable t = Meta.Conn.SQLRunner(insert);
+                string sql = @"
+                IF EXISTS(SELECT * FROM dbuseradvice WHERE {0})
+                BEGIN
+                    {1}
+                END
+                ELSE
+                BEGIN
+                    {2}
+                END";
+
+                advicesToShow._forEach( advice => {
+                    string filter = QHS.AppAnd(QHS.CmpEq("login", Meta.GetSys("user")), QHS.CmpEq("codeadvice", advice["codeadvice"]));
+
+                    string update = "UPDATE dbuseradvice " +
+                       " SET lastviewed = GETDATE()" +
+                       " WHERE " + filter
+                    ;
+
+                    string insert = "INSERT INTO dbuseradvice " +
+                       " (codeadvice, login, lt, lu, lastviewed)  " +
+                       " VALUES (" + 
+                       QHS.quote(advice["codeadvice"]) + ", " +
+                       QHS.quote(Meta.GetSys("user")) + ", " +
+                       " GETDATE(), " +
+                       QHS.quote("assistenza") + ", " +
+                       "GETDATE()" +
+                       ")";
+                    ;
+
+                    var asd = string.Format(sql, filter, update, insert);
+
+                    Meta.Conn.SQLRunner(asd); 
+                });
+
+                //DataTable t = Meta.Conn.SQLRunner(string.Format(sql, filtroadvice, update, insert));
 
                 GetData.DenyClear(DS.advice);
                 GetData.LockRead(DS.advice);
@@ -152,6 +232,7 @@ namespace no_table_advice {
                            radvice["title"].ToString(),
                            radvice["description"].ToString()
                            );
+            createForm(V, this);
             V.ShowDialog(this);
         }
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
---setuser'amministrazione'
+--setuser setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_unicredit_abi36_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_income_unicredit_abi36_var]
 GO
@@ -32,14 +32,20 @@ CREATE  PROCEDURE [trasmele_income_unicredit_abi36_var]
 	@n int
 )
 AS BEGIN
-
-
+ 
+--exec trasmele_income_unicredit_abi36_var 2023, 92
 ----------------------------------------------------------------
 --  STORED PROCEDURE PER LA TRASMISSIONE DELLE REVERSALI PER  --
 ------------------------ BANCA UNICREDIT ABI 36-----------------
 ----------------------------------------------------------------
 -- Inizio Sezione dichiarativa
-DECLARE @ABI_bancodisardegna varchar(5) = '01015'
+DECLARE @abi_bancodisardegna varchar(5) = '01015'
+DECLARE @ABI_mps varchar(5) ='01030'
+DECLARE @ABI_bpbari varchar(5) = '05424'
+DECLARE @codetreasurer_bpbari varchar(20) = 'BPB_PNRR'
+DECLARE @codetreasurer_bpbfacil varchar(20) = 'BPB_FACIL'
+
+DECLARE @istreasurer_pnrr char(1) = 'N'
 DECLARE @len_codentebt INT
 SET @len_codentebt = 12
 
@@ -94,6 +100,50 @@ DECLARE @ABI_code varchar(5)
 -- Fine Sezione Dichiarativa
 DECLARE @lenCC_vincolato int
 SET @lenCC_vincolato = 7
+
+DECLARE @treasurer_description varchar(150)
+DECLARE @treasurer_idbank varchar(20)
+DECLARE @treasurer_trasmcode varchar(7)
+DECLARE @treasurer_codetreasurer varchar(20)
+ 
+declare @CAB varchar(20)
+
+ 
+declare @CAB_bpbari_PNRR varchar(20)
+set  @CAB_bpbari_PNRR ='04297'
+
+--DECLARE @treasurer_trasmcode_bpbariPNRR varchar(7)
+--set @treasurer_trasmcode_bpbariPNRR ='01'
+
+SELECT @treasurer_idbank = idbank,
+	@treasurer_trasmcode = trasmcode,
+	@treasurer_description = description,
+	@treasurer_codetreasurer = codetreasurer,
+	@CAB = idcab
+FROM treasurer WHERE idtreasurer = @idtreasurer
+
+
+if (isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbari or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbfacil
+	)
+BEGIN
+		SET @istreasurer_pnrr = 'S'
+END
+-- Per la banca popolare di bari - pnrr il tag conto_evidenza deve essere di due caratteri
+-- quindi se trasmcode è maggiore di due caratteri restituisco un errore
+-- altrimenti valorizzo lenCC_vincolato a 2 invece di 7
+if (isnull(@treasurer_idbank, '') = @ABI_bpbari and 
+	ISNULL(@istreasurer_pnrr,'N') = 'S'
+)
+BEGIN
+	IF (DATALENGTH(CONVERT(varchar(7),ISNULL(@treasurer_trasmcode,'0'))) > 2)
+	BEGIN
+		SELECT 'Il codice conto tesoreria del tesoriere ' + (@treasurer_description) + ' deve essere di due caratteri.' as Errore
+		RETURN
+	END
+
+	SET @lenCC_vincolato = 2
+END
 
 DECLARE @cc_vincolato varchar(7)
 
@@ -167,13 +217,7 @@ BEGIN
 	INSERT INTO #error VALUES(@message)
 END
 
--- CONTROLLO N. 2. Lunghezza del codice ente
-IF (DATALENGTH(@cod_department) > @len_agencycode)
-BEGIN
-	INSERT INTO #error
-	VALUES ('Il codice Ente inserito è superiore alla lunghezza massima fissata a '
-	+ CONVERT(varchar(2),@len_agencycode))
-END
+ 
 
 -- CONTROLLO N. 3  Presenza tipologia dei creditori
 INSERT INTO #error (message)
@@ -442,8 +486,10 @@ SELECT
 		else 'CASSA'
 	END,
 	c.ccp,
+
 	CASE
 		WHEN (@ABI_code = @abi_bancodisardegna) THEN NULL 
+		WHEN (@ABI_code = @ABI_bpbari and ISNULL(@istreasurer_pnrr,'N') = 'S') THEN 'VINCOLATA'
 		ELSE 
 		CASE
 			WHEN ((il.flag&16) = 0) THEN 'LIBERA'
@@ -598,6 +644,7 @@ SELECT
 	 
 	CASE
 		WHEN (@ABI_code = @abi_bancodisardegna) THEN NULL 
+		WHEN (@ABI_code = @ABI_bpbari and ISNULL(@istreasurer_pnrr,'N') = 'S') THEN 'VINCOLATA'
 		ELSE 
 		CASE
 			WHEN ((il.flag&16) = 0) THEN 'LIBERA'
@@ -783,7 +830,7 @@ JOIN expenseyear sy
 JOIN proceeds di
 	ON di.kpro = il.kpro
 WHERE e.nphase = @maxincomephase
-AND e.idreg = p.idreg 
+AND ((e.idreg = p.idreg) or (e.autokind = 14) /*automatismo generico, non è richiesta la stessa anagrafica*/)
 AND ie.ayear = @y
  
 UPDATE #tax SET curramount = curramount + ISNULL((select SUM(amount) FROM incomevar WHERE incomevar.idinc = #tax.idinc AND incomevar.autokind NOT IN (10,11) ),0)
@@ -871,6 +918,14 @@ WHERE idinc in (select idinc FROM #admintax)
 UPDATE #proceeds SET flagcompensation = 'S' 
 WHERE idexp in (select idexp FROM #tax WHERE curramount_expense = 
 							isnull( (select sum(curramount) FROM #tax T1 where #tax.idexp = T1.idexp),0))
+--- solo per banca MPS, gli incassi di  ritenute  sono tutti a compensazione, anche se non azzerano il netto a pagare del pagamento principale
+--print @ABI_code
+--print @ABI_mps
+IF (@ABI_code = @ABI_mps)  
+BEGIN
+	UPDATE #proceeds SET flagcompensation = 'S' 
+	WHERE idexp in (select idexp FROM #tax WHERE #tax.idexp = #proceeds.idexp)
+END
 
 -- Gestione Indirizzi Versante 
 DECLARE @codenostand varchar(20)

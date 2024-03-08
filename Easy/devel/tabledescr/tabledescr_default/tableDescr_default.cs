@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -56,6 +56,7 @@ namespace tabledescr_default {
             string table = curr["tablename"].ToString();
             scegliTabella frm = new scegliTabella(1);
             frm.txtMeta.Text = table;
+            createForm(frm, this);
             if (frm.ShowDialog(this) != DialogResult.OK) return;
             table = frm.txtMeta.Text;
             LeggiCaption(table);
@@ -238,6 +239,7 @@ namespace tabledescr_default {
             string table = r["tablename"].ToString();
             DataTable t = conn.RUN_SELECT(table, "*", null, null, "1000", false);
             frmVediTabella f = new frmVediTabella(t);
+            createForm(f, null);
             f.Show();
         }
 

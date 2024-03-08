@@ -7,59 +7,86 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfruolo_default_idperfruolo">Ruolo</label>
-					<input id="perfruolo_default_idperfruolo" type="text" class="form-control" data-tag="perfruolo.idperfruolo?perfruolodefaultview.idperfruolo" data-subentity  data-mandatory />
+					<input id="perfruolo_default_idperfruolo" type="text" class="form-control" data-tag="perfruolo.idperfruolo?perfruolodefaultview.idperfruolo"  data-mandatory />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfruolo_default_oper">Operatività</label>
 					<div class="custom-control custom-radio">
-						<input id="perfruolo_default_operC" type="radio" name="perfruolo_default_oper" class="custom-control-input" data-tag="perfruolo.oper:C?perfruolodefaultview.perfruolo_oper:Solo nodo corrente" data-subentity  ><label for="perfruolo_default_operC"> Solo nodo corrente</label>
-						<input id="perfruolo_default_operS" type="radio" name="perfruolo_default_oper" class="custom-control-input" data-tag="perfruolo.oper:S?perfruolodefaultview.perfruolo_oper:Solo nodi sottostanti" data-subentity  ><label for="perfruolo_default_operS"> Solo nodi sottostanti</label>
-						<input id="perfruolo_default_operA" type="radio" name="perfruolo_default_oper" class="custom-control-input" data-tag="perfruolo.oper:A?perfruolodefaultview.perfruolo_oper:Nodo corrente e sottostanti" data-subentity  ><label for="perfruolo_default_operA"> Nodo corrente e sottostanti</label>
+						<input id="perfruolo_default_operC" type="radio" name="perfruolo_default_oper" class="custom-control-input" data-tag="perfruolo.oper:C?perfruolodefaultview.perfruolo_oper:Solo nodo corrente"  ><label for="perfruolo_default_operC"> Solo nodo corrente</label>
+						<input id="perfruolo_default_operS" type="radio" name="perfruolo_default_oper" class="custom-control-input" data-tag="perfruolo.oper:S?perfruolodefaultview.perfruolo_oper:Solo nodi sottostanti"  ><label for="perfruolo_default_operS"> Solo nodi sottostanti</label>
+						<input id="perfruolo_default_operA" type="radio" name="perfruolo_default_oper" class="custom-control-input" data-tag="perfruolo.oper:A?perfruolodefaultview.perfruolo_oper:Nodo corrente e sottostanti"  ><label for="perfruolo_default_operA"> Nodo corrente e sottostanti</label>
+						<input id="perfruolo_default_operO" type="radio" name="perfruolo_default_oper" class="custom-control-input" data-tag="perfruolo.oper:O?perfruolodefaultview.perfruolo_oper:Solo nodo sottostante"  ><label for="perfruolo_default_operO"> Solo nodo sottostante</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="perfruolo_default_aggiorna">Aggiorna scheda e obiettivi</label>
+					<div class="custom_lng_div" data-langkey="fieldlabelperfruolo_default_crea" >Crea la scheda, aggiunge nuovi obiettivi con i relativi pesi.</div>
+					<label class="col-form-label col-md-12" for="perfruolo_default_crea">Crea le schede e inserisce gli obiettivi</label>
 					<div class="custom-control custom-radio">
-						<input id="perfruolo_default_aggiornaSi" type="radio" name="perfruolo_default_aggiorna" class="custom-control-input" data-tag="perfruolo.aggiorna:S?perfruolodefaultview.perfruolo_aggiorna:Si" data-subentity  ><label for="perfruolo_default_aggiornaSi"> Si</label>
-						<input id="perfruolo_default_aggiornaNo" type="radio" name="perfruolo_default_aggiorna" class="custom-control-input" data-tag="perfruolo.aggiorna:N?perfruolodefaultview.perfruolo_aggiorna:No" data-subentity  ><label for="perfruolo_default_aggiornaNo"> No</label>
+						<input id="perfruolo_default_creaSi" type="radio" name="perfruolo_default_crea" class="custom-control-input" data-tag="perfruolo.crea:S?perfruolodefaultview.perfruolo_crea:Si"  ><label for="perfruolo_default_creaSi"> Si</label>
+						<input id="perfruolo_default_creaNo" type="radio" name="perfruolo_default_crea" class="custom-control-input" data-tag="perfruolo.crea:N?perfruolodefaultview.perfruolo_crea:No"  ><label for="perfruolo_default_creaNo"> No</label>
 					</div>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="perfruolo_default_crea">Crea scheda</label>
+					<div class="custom_lng_div" data-langkey="fieldlabelperfruolo_default_aggiorna" >Può aggiungere allegati, inserire il valore di completamento degli obiettivi, compilare le note.</div>
+					<label class="col-form-label col-md-12" for="perfruolo_default_aggiorna">Compila i completamenti degli obiettivi</label>
 					<div class="custom-control custom-radio">
-						<input id="perfruolo_default_creaSi" type="radio" name="perfruolo_default_crea" class="custom-control-input" data-tag="perfruolo.crea:S?perfruolodefaultview.perfruolo_crea:Si" data-subentity  ><label for="perfruolo_default_creaSi"> Si</label>
-						<input id="perfruolo_default_creaNo" type="radio" name="perfruolo_default_crea" class="custom-control-input" data-tag="perfruolo.crea:N?perfruolodefaultview.perfruolo_crea:No" data-subentity  ><label for="perfruolo_default_creaNo"> No</label>
+						<input id="perfruolo_default_aggiornaSi" type="radio" name="perfruolo_default_aggiorna" class="custom-control-input" data-tag="perfruolo.aggiorna:S?perfruolodefaultview.perfruolo_aggiorna:Si"  ><label for="perfruolo_default_aggiornaSi"> Si</label>
+						<input id="perfruolo_default_aggiornaNo" type="radio" name="perfruolo_default_aggiorna" class="custom-control-input" data-tag="perfruolo.aggiorna:N?perfruolodefaultview.perfruolo_aggiorna:No"  ><label for="perfruolo_default_aggiornaNo"> No</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="perfruolo_default_leggi">Visualizza scheda</label>
+					<div class="custom_lng_div" data-langkey="fieldlabelperfruolo_default_valuta" >Può modificare il valore di completamento e del peso degli obiettivi e compilare le note.</div>
+					<label class="col-form-label col-md-12" for="perfruolo_default_valuta">Valuta il completamento degli obiettivi</label>
 					<div class="custom-control custom-radio">
-						<input id="perfruolo_default_leggiSi" type="radio" name="perfruolo_default_leggi" class="custom-control-input" data-tag="perfruolo.leggi:S?perfruolodefaultview.perfruolo_leggi:Si" data-subentity  ><label for="perfruolo_default_leggiSi"> Si</label>
-						<input id="perfruolo_default_leggiNo" type="radio" name="perfruolo_default_leggi" class="custom-control-input" data-tag="perfruolo.leggi:N?perfruolodefaultview.perfruolo_leggi:No" data-subentity  ><label for="perfruolo_default_leggiNo"> No</label>
+						<input id="perfruolo_default_valutaSi" type="radio" name="perfruolo_default_valuta" class="custom-control-input" data-tag="perfruolo.valuta:S?perfruolodefaultview.perfruolo_valuta:Si"  ><label for="perfruolo_default_valutaSi"> Si</label>
+						<input id="perfruolo_default_valutaNo" type="radio" name="perfruolo_default_valuta" class="custom-control-input" data-tag="perfruolo.valuta:N?perfruolodefaultview.perfruolo_valuta:No"  ><label for="perfruolo_default_valutaNo"> No</label>
 					</div>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="perfruolo_default_valuta">Valuta obiettivi</label>
+					<label class="col-form-label col-md-12" for="perfruolo_default_leggi">Visualizza le schede</label>
 					<div class="custom-control custom-radio">
-						<input id="perfruolo_default_valutaSi" type="radio" name="perfruolo_default_valuta" class="custom-control-input" data-tag="perfruolo.valuta:S?perfruolodefaultview.perfruolo_valuta:Si" data-subentity  ><label for="perfruolo_default_valutaSi"> Si</label>
-						<input id="perfruolo_default_valutaNo" type="radio" name="perfruolo_default_valuta" class="custom-control-input" data-tag="perfruolo.valuta:N?perfruolodefaultview.perfruolo_valuta:No" data-subentity  ><label for="perfruolo_default_valutaNo"> No</label>
+						<input id="perfruolo_default_leggiSi" type="radio" name="perfruolo_default_leggi" class="custom-control-input" data-tag="perfruolo.leggi:S?perfruolodefaultview.perfruolo_leggi:Si"  ><label for="perfruolo_default_leggiSi"> Si</label>
+						<input id="perfruolo_default_leggiNo" type="radio" name="perfruolo_default_leggi" class="custom-control-input" data-tag="perfruolo.leggi:N?perfruolodefaultview.perfruolo_leggi:No"  ><label for="perfruolo_default_leggiNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfruolo_default_approva" >Consente di approvare le schede e abilita la cancellazione delle interazioni.</div>
+					<label class="col-form-label col-md-12" for="perfruolo_default_approva">Approva le schede</label>
+					<div class="custom-control custom-radio">
+						<input id="perfruolo_default_approvaSi" type="radio" name="perfruolo_default_approva" class="custom-control-input" data-tag="perfruolo.approva:S?perfruolodefaultview.perfruolo_approva:Si"  ><label for="perfruolo_default_approvaSi"> Si</label>
+						<input id="perfruolo_default_approvaNo" type="radio" name="perfruolo_default_approva" class="custom-control-input" data-tag="perfruolo.approva:N?perfruolodefaultview.perfruolo_approva:No"  ><label for="perfruolo_default_approvaNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="perfruolo_default_escluso">Non utilizzabile nelle schede</label>
+					<div class="custom-control custom-radio">
+						<input id="perfruolo_default_esclusoSi" type="radio" name="perfruolo_default_escluso" class="custom-control-input" data-tag="perfruolo.escluso:S?perfruolodefaultview.perfruolo_escluso:Si"  ><label for="perfruolo_default_esclusoSi"> Si</label>
+						<input id="perfruolo_default_esclusoNo" type="radio" name="perfruolo_default_escluso" class="custom-control-input" data-tag="perfruolo.escluso:N?perfruolodefaultview.perfruolo_escluso:No"  ><label for="perfruolo_default_esclusoNo"> No</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="custom_lng_div" data-langkey="fieldlabelperfruolo_default_XXperfruoloperfobiettivokind" >Obiettivi</div>
-		<div id="grid_perfruoloperfobiettivokind_default" data-tag="perfobiettivokind.default.default" data-custom-control="checklist" data-mdlconditionallookup="!idperfobiettivokind_perfobiettivokind_active,S,Si;!idperfobiettivokind_perfobiettivokind_active,N,No;" ></div>
+		<div id="grid_perfruoloperfobiettivokind_default" data-tag="perfobiettivokind.default.default" data-custom-control="checklist"  ></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="custom_lng_div" data-langkey="fieldlabelperfruolo_default_XXperfruolocontrattokind" >Figure contrattuali su cui può intervenire</div>
-		<div id="grid_perfruolocontrattokind_default" data-tag="contrattokind.default.default" data-custom-control="checklist" data-mdlconditionallookup="!idcontrattokind_contrattokind_active,S,Si;!idcontrattokind_contrattokind_active,N,No;" ></div>
+		<div id="grid_perfruolocontrattokind_default" data-tag="position.default.default" data-custom-control="checklist"  ></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelperfruolo_default_XXperfruolomansionekind" >Mansioni su cui può intervenire</div>
+		<div id="grid_perfruolomansionekind_default" data-tag="mansionekind.default.default" data-custom-control="checklist"  ></div>
 				</div>
 			</div>
 </form>

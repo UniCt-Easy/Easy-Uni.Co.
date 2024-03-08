@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,224 +19,216 @@ using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace assetgrant_single {
-[Serializable()][DesignerCategoryAttribute("code")][System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-[System.Xml.Serialization.XmlRootAttribute("vistaForm")][System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Piano dei conti
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable accmotive		{get { return Tables["accmotive"];}}
-	///<summary>
-	///Finanziamento
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable underwriting		{get { return Tables["underwriting"];}}
-	///<summary>
-	///Attribuzione di un contributo conto impianti ad un cespite
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable assetgrant		{get { return Tables["assetgrant"];}}
-	///<summary>
-	///Accertamento di Budget
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable epacc		{get { return Tables["epacc"];}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable accmotive 		=> Tables["accmotive"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable underwriting 		=> Tables["underwriting"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetgrant 		=> Tables["assetgrant"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable epacc 		=> Tables["epacc"];
+
 	#endregion
 
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataTableCollection Tables {get {return base.Tables;}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
 
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 public vistaForm(){
 	BeginInit();
-	InitClass();
+	initClass();
 	EndInit();
 }
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
-[DebuggerNonUserCodeAttribute()]
-private void InitClass() {
+[DebuggerNonUserCode]
+private void initClass() {
 	DataSetName = "vistaForm";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaForm.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
-	DataTable T;
 	DataColumn C;
 	//////////////////// ACCMOTIVE /////////////////////////////////
-	T= new DataTable("accmotive");
-	C= new DataColumn("idaccmotive", typeof(String));
+	var taccmotive= new DataTable("accmotive");
+	C= new DataColumn("idaccmotive", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("active", typeof(String)));
-	C= new DataColumn("codemotive", typeof(String));
+	taccmotive.Columns.Add(C);
+	taccmotive.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("codemotive", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	taccmotive.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("cu", typeof(String));
+	taccmotive.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("flagamm", typeof(String)));
-	T.Columns.Add( new DataColumn("flagdep", typeof(String)));
+	taccmotive.Columns.Add(C);
+	taccmotive.Columns.Add( new DataColumn("flagamm", typeof(string)));
+	taccmotive.Columns.Add( new DataColumn("flagdep", typeof(string)));
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	taccmotive.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("paridaccmotive", typeof(String)));
-	C= new DataColumn("title", typeof(String));
+	taccmotive.Columns.Add(C);
+	taccmotive.Columns.Add( new DataColumn("paridaccmotive", typeof(string)));
+	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("expensekind", typeof(String)));
-	T.Columns.Add( new DataColumn("flag", typeof(Int32)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idaccmotive"]};
+	taccmotive.Columns.Add(C);
+	taccmotive.Columns.Add( new DataColumn("expensekind", typeof(string)));
+	taccmotive.Columns.Add( new DataColumn("flag", typeof(int)));
+	Tables.Add(taccmotive);
+	taccmotive.PrimaryKey =  new DataColumn[]{taccmotive.Columns["idaccmotive"]};
 
 
 	//////////////////// UNDERWRITING /////////////////////////////////
-	T= new DataTable("underwriting");
-	C= new DataColumn("idunderwriting", typeof(Int32));
+	var tunderwriting= new DataTable("underwriting");
+	C= new DataColumn("idunderwriting", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("active", typeof(String)));
-	T.Columns.Add( new DataColumn("codeunderwriting", typeof(String)));
+	tunderwriting.Columns.Add(C);
+	tunderwriting.Columns.Add( new DataColumn("active", typeof(string)));
+	tunderwriting.Columns.Add( new DataColumn("codeunderwriting", typeof(string)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("cu", typeof(String));
+	tunderwriting.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("doc", typeof(String)));
-	T.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("idsor01", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor02", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor03", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor04", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor05", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idunderwriter", typeof(Int32)));
+	tunderwriting.Columns.Add(C);
+	tunderwriting.Columns.Add( new DataColumn("doc", typeof(string)));
+	tunderwriting.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tunderwriting.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tunderwriting.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tunderwriting.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tunderwriting.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tunderwriting.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tunderwriting.Columns.Add( new DataColumn("idunderwriter", typeof(int)));
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tunderwriting.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("title", typeof(String));
+	tunderwriting.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idunderwriting"]};
+	tunderwriting.Columns.Add(C);
+	Tables.Add(tunderwriting);
+	tunderwriting.PrimaryKey =  new DataColumn[]{tunderwriting.Columns["idunderwriting"]};
 
 
 	//////////////////// ASSETGRANT /////////////////////////////////
-	T= new DataTable("assetgrant");
-	C= new DataColumn("idasset", typeof(Int32));
+	var tassetgrant= new DataTable("assetgrant");
+	C= new DataColumn("idasset", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idgrant", typeof(Int32));
+	tassetgrant.Columns.Add(C);
+	C= new DataColumn("idgrant", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idunderwriting", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idaccmotive", typeof(String)));
-	C= new DataColumn("amount", typeof(Decimal));
+	tassetgrant.Columns.Add(C);
+	tassetgrant.Columns.Add( new DataColumn("idunderwriting", typeof(int)));
+	tassetgrant.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	C= new DataColumn("amount", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("ygrant", typeof(Int16)));
-	T.Columns.Add( new DataColumn("description", typeof(String)));
-	T.Columns.Add( new DataColumn("doc", typeof(String)));
-	T.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("idgrantload", typeof(Int32)));
-	T.Columns.Add( new DataColumn("lt", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("lu", typeof(String)));
-	T.Columns.Add( new DataColumn("ct", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("cu", typeof(String)));
-	C= new DataColumn("idpiece", typeof(Int32));
+	tassetgrant.Columns.Add(C);
+	tassetgrant.Columns.Add( new DataColumn("ygrant", typeof(short)));
+	tassetgrant.Columns.Add( new DataColumn("description", typeof(string)));
+	tassetgrant.Columns.Add( new DataColumn("doc", typeof(string)));
+	tassetgrant.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tassetgrant.Columns.Add( new DataColumn("idgrantload", typeof(int)));
+	tassetgrant.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tassetgrant.Columns.Add( new DataColumn("lu", typeof(string)));
+	tassetgrant.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tassetgrant.Columns.Add( new DataColumn("cu", typeof(string)));
+	C= new DataColumn("idpiece", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idepacc", typeof(Int32)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idasset"], T.Columns["idgrant"], T.Columns["idpiece"]};
+	tassetgrant.Columns.Add(C);
+	tassetgrant.Columns.Add( new DataColumn("idepacc", typeof(int)));
+	tassetgrant.Columns.Add( new DataColumn("flag_financesource", typeof(string)));
+	tassetgrant.Columns.Add( new DataColumn("flag_entryprofitreservedone", typeof(string)));
+	Tables.Add(tassetgrant);
+	tassetgrant.PrimaryKey =  new DataColumn[]{tassetgrant.Columns["idasset"], tassetgrant.Columns["idgrant"], tassetgrant.Columns["idpiece"]};
 
 
 	//////////////////// EPACC /////////////////////////////////
-	T= new DataTable("epacc");
-	C= new DataColumn("idepacc", typeof(Int32));
+	var tepacc= new DataTable("epacc");
+	C= new DataColumn("idepacc", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tepacc.Columns.Add(C);
 	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tepacc.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("cu", typeof(String));
+	tepacc.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("description", typeof(String));
+	tepacc.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("doc", typeof(String)));
-	T.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("idman", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idreg", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idrelated", typeof(String)));
+	tepacc.Columns.Add(C);
+	tepacc.Columns.Add( new DataColumn("doc", typeof(string)));
+	tepacc.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tepacc.Columns.Add( new DataColumn("idman", typeof(int)));
+	tepacc.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tepacc.Columns.Add( new DataColumn("idrelated", typeof(string)));
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tepacc.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("nepacc", typeof(Int32));
+	tepacc.Columns.Add(C);
+	C= new DataColumn("nepacc", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("nphase", typeof(Int16));
+	tepacc.Columns.Add(C);
+	C= new DataColumn("nphase", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("paridepacc", typeof(Int32)));
-	T.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	T.Columns.Add( new DataColumn("start", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("stop", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("txt", typeof(String)));
-	C= new DataColumn("yepacc", typeof(Int16));
+	tepacc.Columns.Add(C);
+	tepacc.Columns.Add( new DataColumn("paridepacc", typeof(int)));
+	tepacc.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tepacc.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tepacc.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tepacc.Columns.Add( new DataColumn("txt", typeof(string)));
+	C= new DataColumn("yepacc", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("flagvariation", typeof(String)));
-	T.Columns.Add( new DataColumn("idaccmotive", typeof(String)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idepacc"]};
+	tepacc.Columns.Add(C);
+	tepacc.Columns.Add( new DataColumn("flagvariation", typeof(string)));
+	tepacc.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	Tables.Add(tepacc);
+	tepacc.PrimaryKey =  new DataColumn[]{tepacc.Columns["idepacc"]};
 
 
 	#endregion
 
 
 	#region DataRelation creation
-	DataColumn []CPar;
-	DataColumn []CChild;
-	CPar = new DataColumn[1]{underwriting.Columns["idunderwriting"]};
-	CChild = new DataColumn[1]{assetgrant.Columns["idunderwriting"]};
-	Relations.Add(new DataRelation("underwriting_assetgrant",CPar,CChild,false));
+	var cPar = new []{underwriting.Columns["idunderwriting"]};
+	var cChild = new []{assetgrant.Columns["idunderwriting"]};
+	Relations.Add(new DataRelation("underwriting_assetgrant",cPar,cChild,false));
 
-	CPar = new DataColumn[1]{accmotive.Columns["idaccmotive"]};
-	CChild = new DataColumn[1]{assetgrant.Columns["idaccmotive"]};
-	Relations.Add(new DataRelation("accmotive_assetgrant",CPar,CChild,false));
+	cPar = new []{accmotive.Columns["idaccmotive"]};
+	cChild = new []{assetgrant.Columns["idaccmotive"]};
+	Relations.Add(new DataRelation("accmotive_assetgrant",cPar,cChild,false));
 
-	CPar = new DataColumn[1]{epacc.Columns["idepacc"]};
-	CChild = new DataColumn[1]{assetgrant.Columns["idepacc"]};
-	Relations.Add(new DataRelation("epacc_assetgrant",CPar,CChild,false));
+	cPar = new []{epacc.Columns["idepacc"]};
+	cChild = new []{assetgrant.Columns["idepacc"]};
+	Relations.Add(new DataRelation("epacc_assetgrant",cPar,cChild,false));
 
 	#endregion
 

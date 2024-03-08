@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -83,6 +83,7 @@ namespace meta_estimatedetail_extview {
                 DescribeAColumn(T, "yinciva", "Anno accertamento iva", nPos++);
                 DescribeAColumn(T, "ninciva", "N.accertamento iva", nPos++);
                 DescribeAColumn(T, "list", "Listino", nPos++);
+                DescribeAColumn(T, "codicetassonomia", "Codice tassonomia", nPos++);
                 HelpForm.SetFormatForColumn(T.Columns["number"], "n");
 			}
 		}   

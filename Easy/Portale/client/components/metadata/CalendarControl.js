@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module CalendarControl
  * @description
@@ -31,11 +14,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	var logType = appMeta.logTypeEnum;
     /**
      *
-     * @param {html node} el
+     * @param {element} el
      * @param {HelpForm} helpForm
      * @param {DataTable} table
      * @param {DataTable} primaryTable
      * @param {string} listType
+	 * @param {bool} isListManager
      * @constructor
      */
 	function CalendarControl(el, helpForm, table, primaryTable, listType, isListManager) {
@@ -107,6 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description SYNC
          * Builds an eventObject with the ObjectRow attached to the event
          * @param {ObjectRow} row
+		 * Configuration object typically to describe external events, events manipulated by the calendar haven't it 
          * @param {Object} {
 								startColumnName: 'start',
 								stopColumnName: 'stop',
@@ -162,7 +147,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				if ((colStart.sqltype && colStart.sqltype.toLowerCase() !== 'date')) stopColumnName = this.stopColumnName;
 			}
 
-			// se non è all day eseguo cehck su colonna di stop
+			// se non è all day eseguo check su colonna di stop
 			if (stopColumnName) {
 				var colStop = dtRow.table.columns[stopColumnName];
 				if (!colStop) {
@@ -187,7 +172,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			evObj.color = (objConfig && objConfig.color) ?
 				(objConfig.color === 'color' ? row.color : objConfig.color) //se ho passato come colore 'color' vuol dire che il colore è sulla riga
 				: this.mainColor;
-			evObj.allDay = !evObj.end;
+			evObj.allDay = !evObj.end || (evObj.start.getHours() === 0 && evObj.start.getMinutes() === 0);
 			evObj.mine = !objConfig;
 			return evObj;
 		},
@@ -427,7 +412,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				that.timeoutId = null;
 				that.rowClick(event);
 				Stabilizer.decreaseNesting("rowClickEv.timeout");
-			}, appMeta.dbClickTimeout);
+			}, appMeta.currApp.dbClickTimeout);
 		},
 
 
@@ -435,7 +420,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @method rowDblClick
          * @private
          * @description SYNC
-         * @param {EventObject} event
+         * @param {event} event
          * @returns {Deferred}
          */
 		rowDblClick: function (event) {
@@ -511,7 +496,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return true;
 			}
 
-			return this.metaPage.showMessageOkCancel(localResource.getDoYuoWantModifyEventResize(event.title, end.format("DD/MM/YYYY HH:mm")))
+			return this.metaPage.showMessageOkCancel(localResource.getDoYouWantModifyEventResize(event.title, end.format("DD/MM/YYYY HH:mm")))
 				.then(function (res) {
 					if (res) {
 						// bind valore sulla riga
@@ -548,15 +533,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			// se end non esiste , metto default 1 ora dallo start
 			var end = event.end ? event.end : event.start.add(moment.duration(1, 'hours'));
 
-			return this.metaPage.showMessageOkCancel(localResource.getDoYuoWantModifyEvent(event.title, start.format("DD/MM/YYYY HH:mm"), end.format("DD/MM/YYYY HH:mm")))
+			return this.metaPage.showMessageOkCancel(localResource.getDoYouWantModifyEvent(event.title, start.format("DD/MM/YYYY HH:mm"), end.format("DD/MM/YYYY HH:mm")))
 				.then(function (res) {
+
 					if (res) {
+
 						// bind valore sulla riga
 						event.row[self.startColumnName] = self.normalizeDatetime(start.toDate());
 						if (self.stopColumnName) {
 							event.row[self.stopColumnName] = self.normalizeDatetime(end.toDate());
-							return self.metaPage.freshForm();
 						}
+
+						// ====================================================================
+						// accorpamento
+						// ====================================================================
+						if (event.allDay) {
+
+							var managedTableName = self.dataTable.name															// nome della tabella gestita dal controllo
+
+							var currentKey = self.DS.tables[self.dataTable.name].myKey;											// chiave della tabella gestita dal controllo
+							var progenitorKey = self.DS.tables[self.helpForm.primaryTableName].myKey							// chiave della tabella principale
+
+							var mergeableKey = currentKey.filter(field => !progenitorKey.includes(field));						// chiave della tabella gestita dal controllo a meno della chiave della tabella principale
+
+							var allFields = Object.getOwnPropertyNames(self.DS.tables[managedTableName].columns)
+								.filter(colName => !colName.startsWith("!"));													// campi
+							var excludedFields = ["ore", "ct", "cu", "lt", "lu"].concat(mergeableKey);							// campi da non confrontare
+
+							var comparisonFields = allFields.filter(field => !excludedFields.includes(field));					// campi da confrontare
+
+							for (var i = 0; i < self.DS.tables[managedTableName].rows.count(); i++) {
+
+								var managedRow = self.DS.tables[managedTableName].rows[i];										// i-esima riga sul DS del controllo
+
+								var sameValues = comparisonFields
+									.every(fieldName => fieldName == self.startColumnName ?
+										managedRow[fieldName].toDateString() == event.row[fieldName].toDateString() :			// controlliamo che il valore data inizio dell'evento e della riga del DS del controllo
+										managedRow[fieldName] == event.row[fieldName]);											// e i valori delle altre colonne di comparazione sulla riga del DS del controllo
+								// e della colonna dell'evento siano uguali
+
+								var isEventRow = currentKey.every(fieldName => managedRow[fieldName] == event.row[fieldName]);
+
+								if (!isEventRow && sameValues) {
+
+									event.row["ore"] += managedRow["ore"];														// sommiamo le ore della riga a quelle dell'evento che stiamo spostando sul DS del controllo
+
+									var currentRow = appMeta.currApp.currentMetaPage.state.DS.tables[managedTableName].rows
+										.filter(row => currentKey.every(fieldName => row[fieldName] == event.row[fieldName]));
+									if (currentRow.length) {
+										currentRow[0] += managedRow["ore"];														// sommiamo le ore della riga a quelle dell'evento che stiamo spostando sul DS della pagina
+									};
+
+									self.DS.tables[managedTableName].rows[i].getRow().del();									// cancelliamo l'i-esima riga dal DS del controllo
+									appMeta.currApp.currentMetaPage.state.DS.tables[managedTableName].rows[i].getRow().del();	// cancelliamo l'i-esima riga dal DS della pagina
+								}
+							};
+						}
+						// ====================================================================
+
+						return self.metaPage.freshForm();
+
 					} else {
 						revertFunc();
 						return true;
@@ -617,6 +653,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param objConfig
          */
 		addExternalEvents: function (arrayDtConfig) {
+			this.externalEventsDt = arrayDtConfig[0].dt;
 			if (this.myEventsSourceSaved) $(this.el).fullCalendar('removeEventSource', this.myEventsSourceSaved);
 			var self = this;
 			var myEventsSource = _.reduce(arrayDtConfig, function (acc, obj) {
@@ -656,9 +693,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description ASYNC
          * @param {html node} el
          * @param {MetaPage} metaPage
-         * @param {boolean} subscribe
          */
-		addEvents: function (el, metaPage, subscribe) {
+		addEvents: function (el, metaPage) {
 			this.metaPage = metaPage;
 		},
 
@@ -781,7 +817,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			// aggiungo bottoni di editing se esistono
 			htmlInfo += '<br>';
-			var currid = utils.getUnivoqueId();
+			var currid = utils.getUniqueId();
 			if (event.mine) {
 				if (this.isDeleteBtnVisible) htmlInfo += '<span id="' + currid + 'deleteon" ><i class="fa fa-trash" style="cursor:pointer"></i></span>';
 				if (this.isEditBtnVisible) htmlInfo += '<span id="' + currid + 'editon">&nbsp;&nbsp;<i class="fa fa-edit" style="cursor:pointer"></i></span>';

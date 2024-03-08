@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -105,6 +105,13 @@ namespace payroll_default {//cedolino//
 		public TextBox txtUPB;
 		private TextBox txtDescrUPB;
 		private Button btnUPBCode;
+		public GroupBox groupBox7;
+		public Button btnCodRipartizione;
+		public TextBox txtDenRipartizione;
+		public TextBox txtCodiceRipartizione;
+		private Button btnRipartizione;
+		private TextBox txtIdCedolino;
+		private Label label7;
 
 		/// <summary>
 		/// Required designer variable.
@@ -192,6 +199,11 @@ namespace payroll_default {//cedolino//
 			this.btnModificaStorno = new System.Windows.Forms.Button();
 			this.btnInserisciStorno = new System.Windows.Forms.Button();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.btnCodRipartizione = new System.Windows.Forms.Button();
+			this.txtDenRipartizione = new System.Windows.Forms.TextBox();
+			this.txtCodiceRipartizione = new System.Windows.Forms.TextBox();
+			this.btnRipartizione = new System.Windows.Forms.Button();
 			this.gboxUPB = new System.Windows.Forms.GroupBox();
 			this.txtUPB = new System.Windows.Forms.TextBox();
 			this.txtDescrUPB = new System.Windows.Forms.TextBox();
@@ -206,6 +218,8 @@ namespace payroll_default {//cedolino//
 			this.btnOk = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.DS = new payroll_default.vistaForm();
+			this.txtIdCedolino = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
 			this.gboxContratto.SuspendLayout();
 			this.grpComune.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -219,6 +233,7 @@ namespace payroll_default {//cedolino//
 			this.tabStorno.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridStorno)).BeginInit();
 			this.tabPage1.SuspendLayout();
+			this.groupBox7.SuspendLayout();
 			this.gboxUPB.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
@@ -239,7 +254,7 @@ namespace payroll_default {//cedolino//
 			this.gboxContratto.Controls.Add(this.label1);
 			this.gboxContratto.Controls.Add(this.label6);
 			this.gboxContratto.Controls.Add(this.textBox6);
-			this.gboxContratto.Location = new System.Drawing.Point(8, 8);
+			this.gboxContratto.Location = new System.Drawing.Point(8, 40);
 			this.gboxContratto.Name = "gboxContratto";
 			this.gboxContratto.Size = new System.Drawing.Size(688, 80);
 			this.gboxContratto.TabIndex = 0;
@@ -356,7 +371,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// label8
 			// 
-			this.label8.Location = new System.Drawing.Point(264, 96);
+			this.label8.Location = new System.Drawing.Point(264, 128);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(72, 20);
 			this.label8.TabIndex = 3;
@@ -365,7 +380,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// label9
 			// 
-			this.label9.Location = new System.Drawing.Point(464, 256);
+			this.label9.Location = new System.Drawing.Point(464, 288);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(96, 23);
 			this.label9.TabIndex = 5;
@@ -374,7 +389,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// txtErogazione
 			// 
-			this.txtErogazione.Location = new System.Drawing.Point(576, 256);
+			this.txtErogazione.Location = new System.Drawing.Point(576, 288);
 			this.txtErogazione.Name = "txtErogazione";
 			this.txtErogazione.Size = new System.Drawing.Size(104, 20);
 			this.txtErogazione.TabIndex = 14;
@@ -385,7 +400,7 @@ namespace payroll_default {//cedolino//
 			this.grpComune.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpComune.Controls.Add(this.txtGeoComune);
-			this.grpComune.Location = new System.Drawing.Point(8, 120);
+			this.grpComune.Location = new System.Drawing.Point(8, 152);
 			this.grpComune.Name = "grpComune";
 			this.grpComune.Size = new System.Drawing.Size(688, 48);
 			this.grpComune.TabIndex = 9;
@@ -404,7 +419,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// label10
 			// 
-			this.label10.Location = new System.Drawing.Point(32, 240);
+			this.label10.Location = new System.Drawing.Point(32, 272);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(80, 23);
 			this.label10.TabIndex = 10;
@@ -413,7 +428,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// txtGGlavorati
 			// 
-			this.txtGGlavorati.Location = new System.Drawing.Point(120, 240);
+			this.txtGGlavorati.Location = new System.Drawing.Point(120, 272);
 			this.txtGGlavorati.Name = "txtGGlavorati";
 			this.txtGGlavorati.Size = new System.Drawing.Size(104, 20);
 			this.txtGGlavorati.TabIndex = 11;
@@ -421,7 +436,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// label11
 			// 
-			this.label11.Location = new System.Drawing.Point(232, 184);
+			this.label11.Location = new System.Drawing.Point(232, 216);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(88, 23);
 			this.label11.TabIndex = 12;
@@ -430,7 +445,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// txtCompensoLordo
 			// 
-			this.txtCompensoLordo.Location = new System.Drawing.Point(328, 184);
+			this.txtCompensoLordo.Location = new System.Drawing.Point(328, 216);
 			this.txtCompensoLordo.Name = "txtCompensoLordo";
 			this.txtCompensoLordo.Size = new System.Drawing.Size(104, 20);
 			this.txtCompensoLordo.TabIndex = 13;
@@ -438,7 +453,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// chkCompleto
 			// 
-			this.chkCompleto.Location = new System.Drawing.Point(528, 96);
+			this.chkCompleto.Location = new System.Drawing.Point(528, 128);
 			this.chkCompleto.Name = "chkCompleto";
 			this.chkCompleto.Size = new System.Drawing.Size(72, 24);
 			this.chkCompleto.TabIndex = 7;
@@ -447,7 +462,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// label12
 			// 
-			this.label12.Location = new System.Drawing.Point(432, 216);
+			this.label12.Location = new System.Drawing.Point(432, 248);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(136, 16);
 			this.label12.TabIndex = 15;
@@ -456,7 +471,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// txtArrotondamento
 			// 
-			this.txtArrotondamento.Location = new System.Drawing.Point(576, 216);
+			this.txtArrotondamento.Location = new System.Drawing.Point(576, 248);
 			this.txtArrotondamento.Name = "txtArrotondamento";
 			this.txtArrotondamento.Size = new System.Drawing.Size(104, 20);
 			this.txtArrotondamento.TabIndex = 12;
@@ -464,7 +479,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// labAnnoFiscale
 			// 
-			this.labAnnoFiscale.Location = new System.Drawing.Point(56, 96);
+			this.labAnnoFiscale.Location = new System.Drawing.Point(56, 128);
 			this.labAnnoFiscale.Name = "labAnnoFiscale";
 			this.labAnnoFiscale.Size = new System.Drawing.Size(88, 20);
 			this.labAnnoFiscale.TabIndex = 17;
@@ -473,7 +488,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// txtAnnoFiscale
 			// 
-			this.txtAnnoFiscale.Location = new System.Drawing.Point(120, 96);
+			this.txtAnnoFiscale.Location = new System.Drawing.Point(120, 128);
 			this.txtAnnoFiscale.Name = "txtAnnoFiscale";
 			this.txtAnnoFiscale.Size = new System.Drawing.Size(104, 20);
 			this.txtAnnoFiscale.TabIndex = 6;
@@ -481,7 +496,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// chktaxrelief
 			// 
-			this.chktaxrelief.Location = new System.Drawing.Point(16, 272);
+			this.chktaxrelief.Location = new System.Drawing.Point(16, 304);
 			this.chktaxrelief.Name = "chktaxrelief";
 			this.chktaxrelief.Size = new System.Drawing.Size(432, 24);
 			this.chktaxrelief.TabIndex = 18;
@@ -503,11 +518,13 @@ namespace payroll_default {//cedolino//
 			this.tabControl1.Location = new System.Drawing.Point(8, 8);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(712, 328);
+			this.tabControl1.Size = new System.Drawing.Size(712, 368);
 			this.tabControl1.TabIndex = 21;
 			// 
 			// tabGenerale
 			// 
+			this.tabGenerale.Controls.Add(this.txtIdCedolino);
+			this.tabGenerale.Controls.Add(this.label7);
 			this.tabGenerale.Controls.Add(this.txtNPayroll);
 			this.tabGenerale.Controls.Add(this.txtCompensoNetto);
 			this.tabGenerale.Controls.Add(this.label15);
@@ -533,14 +550,14 @@ namespace payroll_default {//cedolino//
 			this.tabGenerale.Controls.Add(this.gboxContratto);
 			this.tabGenerale.Location = new System.Drawing.Point(4, 22);
 			this.tabGenerale.Name = "tabGenerale";
-			this.tabGenerale.Size = new System.Drawing.Size(704, 302);
+			this.tabGenerale.Size = new System.Drawing.Size(704, 342);
 			this.tabGenerale.TabIndex = 0;
 			this.tabGenerale.Text = "Generale";
 			this.tabGenerale.UseVisualStyleBackColor = true;
 			// 
 			// txtNPayroll
 			// 
-			this.txtNPayroll.Location = new System.Drawing.Point(328, 96);
+			this.txtNPayroll.Location = new System.Drawing.Point(328, 128);
 			this.txtNPayroll.Name = "txtNPayroll";
 			this.txtNPayroll.Size = new System.Drawing.Size(104, 20);
 			this.txtNPayroll.TabIndex = 22;
@@ -548,7 +565,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// txtCompensoNetto
 			// 
-			this.txtCompensoNetto.Location = new System.Drawing.Point(328, 224);
+			this.txtCompensoNetto.Location = new System.Drawing.Point(328, 256);
 			this.txtCompensoNetto.Name = "txtCompensoNetto";
 			this.txtCompensoNetto.Size = new System.Drawing.Size(104, 20);
 			this.txtCompensoNetto.TabIndex = 21;
@@ -556,7 +573,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// label15
 			// 
-			this.label15.Location = new System.Drawing.Point(230, 221);
+			this.label15.Location = new System.Drawing.Point(230, 253);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(92, 23);
 			this.label15.TabIndex = 20;
@@ -565,7 +582,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// txtDataFine
 			// 
-			this.txtDataFine.Location = new System.Drawing.Point(120, 207);
+			this.txtDataFine.Location = new System.Drawing.Point(120, 239);
 			this.txtDataFine.Name = "txtDataFine";
 			this.txtDataFine.Size = new System.Drawing.Size(104, 20);
 			this.txtDataFine.TabIndex = 16;
@@ -573,7 +590,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// txtDataInizio
 			// 
-			this.txtDataInizio.Location = new System.Drawing.Point(120, 184);
+			this.txtDataInizio.Location = new System.Drawing.Point(120, 216);
 			this.txtDataInizio.Name = "txtDataInizio";
 			this.txtDataInizio.Size = new System.Drawing.Size(104, 20);
 			this.txtDataInizio.TabIndex = 15;
@@ -581,7 +598,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// label14
 			// 
-			this.label14.Location = new System.Drawing.Point(27, 207);
+			this.label14.Location = new System.Drawing.Point(27, 239);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(81, 23);
 			this.label14.TabIndex = 19;
@@ -590,7 +607,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// label13
 			// 
-			this.label13.Location = new System.Drawing.Point(24, 184);
+			this.label13.Location = new System.Drawing.Point(24, 216);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(88, 23);
 			this.label13.TabIndex = 18;
@@ -599,7 +616,7 @@ namespace payroll_default {//cedolino//
 			// 
 			// chkConguaglio
 			// 
-			this.chkConguaglio.Location = new System.Drawing.Point(528, 176);
+			this.chkConguaglio.Location = new System.Drawing.Point(528, 208);
 			this.chkConguaglio.Name = "chkConguaglio";
 			this.chkConguaglio.Size = new System.Drawing.Size(144, 24);
 			this.chkConguaglio.TabIndex = 17;
@@ -826,6 +843,8 @@ namespace payroll_default {//cedolino//
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.groupBox7);
+			this.tabPage1.Controls.Add(this.btnRipartizione);
 			this.tabPage1.Controls.Add(this.gboxUPB);
 			this.tabPage1.Controls.Add(this.btnGeneraPreImpegni);
 			this.tabPage1.Controls.Add(this.btnViewPreimpegni);
@@ -841,6 +860,61 @@ namespace payroll_default {//cedolino//
 			this.tabPage1.TabIndex = 5;
 			this.tabPage1.Text = "E/P";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// groupBox7
+			// 
+			this.groupBox7.Controls.Add(this.btnCodRipartizione);
+			this.groupBox7.Controls.Add(this.txtDenRipartizione);
+			this.groupBox7.Controls.Add(this.txtCodiceRipartizione);
+			this.groupBox7.Location = new System.Drawing.Point(356, 160);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Size = new System.Drawing.Size(315, 104);
+			this.groupBox7.TabIndex = 56;
+			this.groupBox7.TabStop = false;
+			this.groupBox7.Tag = "AutoChoose.txtCodiceRipartizione.default.(active=\'S\')";
+			this.groupBox7.Text = "Ripartizione dei Costi";
+			// 
+			// btnCodRipartizione
+			// 
+			this.btnCodRipartizione.Location = new System.Drawing.Point(8, 48);
+			this.btnCodRipartizione.Name = "btnCodRipartizione";
+			this.btnCodRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnCodRipartizione.TabIndex = 4;
+			this.btnCodRipartizione.Tag = "choose.costpartition.default.(active=\'S\')";
+			this.btnCodRipartizione.Text = "Codice";
+			this.btnCodRipartizione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenRipartizione
+			// 
+			this.txtDenRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenRipartizione.Location = new System.Drawing.Point(150, 8);
+			this.txtDenRipartizione.Multiline = true;
+			this.txtDenRipartizione.Name = "txtDenRipartizione";
+			this.txtDenRipartizione.ReadOnly = true;
+			this.txtDenRipartizione.Size = new System.Drawing.Size(157, 63);
+			this.txtDenRipartizione.TabIndex = 3;
+			this.txtDenRipartizione.TabStop = false;
+			this.txtDenRipartizione.Tag = "costpartition.title";
+			// 
+			// txtCodiceRipartizione
+			// 
+			this.txtCodiceRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceRipartizione.Location = new System.Drawing.Point(8, 78);
+			this.txtCodiceRipartizione.Name = "txtCodiceRipartizione";
+			this.txtCodiceRipartizione.Size = new System.Drawing.Size(299, 20);
+			this.txtCodiceRipartizione.TabIndex = 2;
+			this.txtCodiceRipartizione.Tag = "costpartition.costpartitioncode?x";
+			// 
+			// btnRipartizione
+			// 
+			this.btnRipartizione.Location = new System.Drawing.Point(364, 270);
+			this.btnRipartizione.Name = "btnRipartizione";
+			this.btnRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnRipartizione.TabIndex = 55;
+			this.btnRipartizione.Text = "Ripartizione";
+			this.btnRipartizione.Click += new System.EventHandler(this.btnRipartizione_Click);
 			// 
 			// gboxUPB
 			// 
@@ -951,7 +1025,7 @@ namespace payroll_default {//cedolino//
 			// btnOk
 			// 
 			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnOk.Location = new System.Drawing.Point(488, 352);
+			this.btnOk.Location = new System.Drawing.Point(488, 392);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(75, 23);
 			this.btnOk.TabIndex = 22;
@@ -962,7 +1036,7 @@ namespace payroll_default {//cedolino//
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(608, 352);
+			this.btnCancel.Location = new System.Drawing.Point(608, 392);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 23;
@@ -975,12 +1049,29 @@ namespace payroll_default {//cedolino//
 			this.DS.EnforceConstraints = false;
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
+			// txtIdCedolino
+			// 
+			this.txtIdCedolino.Location = new System.Drawing.Point(120, 10);
+			this.txtIdCedolino.Name = "txtIdCedolino";
+			this.txtIdCedolino.Size = new System.Drawing.Size(85, 20);
+			this.txtIdCedolino.TabIndex = 23;
+			this.txtIdCedolino.Tag = "payroll.idpayroll";
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(24, 8);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(88, 24);
+			this.label7.TabIndex = 24;
+			this.label7.Text = "Numero cedolino";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// Frm_payroll_default
 			// 
 			this.AcceptButton = this.btnOk;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(728, 390);
+			this.ClientSize = new System.Drawing.Size(728, 430);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnOk);
 			this.Controls.Add(this.tabControl1);
@@ -1002,6 +1093,8 @@ namespace payroll_default {//cedolino//
 			this.tabStorno.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.gridStorno)).EndInit();
 			this.tabPage1.ResumeLayout(false);
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
 			this.gboxUPB.ResumeLayout(false);
 			this.gboxUPB.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
@@ -1112,12 +1205,50 @@ namespace payroll_default {//cedolino//
             txtDataInizio.ReadOnly = !abilita;
             txtDataFine.ReadOnly = !abilita;
             chktaxrelief.Enabled = abilita;
+			txtIdCedolino.ReadOnly = !Meta.IsEmpty;
 		}
 
-       
+		private void btnRipartizione_Click(object sender, EventArgs e) {
 
+            if (Meta.IsEmpty)
+				return;
+			
+			if (DS.payroll.Rows.Count == 0)
+                return;
+            DataRow RC = DS.payroll.Rows[0];
+            if (RC == null)
+                return;
 
-      
+            object idcostpartition = RC["idcostpartition"];
 
+            if (idcostpartition != DBNull.Value) {
+                MetaData ToMeta = Meta.Dispatcher.Get("costpartition");
+                string checkfilter = QHS.CmpEq("idcostpartition", idcostpartition);
+                ToMeta.ContextFilter = checkfilter;
+                Form F = null;
+                if (Meta.linkedForm != null)
+                    F = Meta.linkedForm.ParentForm;
+                bool result = ToMeta.Edit(F, "default", false);
+
+                string listtype = ToMeta.DefaultListType;
+                DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
+                if (R != null)
+                    ToMeta.SelectRow(R, listtype);
+            }
+            else {
+                idcostpartition = EP_functions.importCostPartitionDetail(Meta);
+                if (idcostpartition == null)
+                    return;
+                RC["idcostpartition"] = idcostpartition;
+				DS.costpartition.Clear();
+				DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.costpartition, null, QHS.CmpEq("idcostpartition", idcostpartition), null, true);
+				if (DS.costpartition.Rows.Count > 0) {
+					DataRow rCostpartition = DS.costpartition.Rows[0];
+					txtDenRipartizione.Text = rCostpartition["title"].ToString();
+					txtCodiceRipartizione.Text = rCostpartition["costpartitioncode"].ToString();
+				}
+				
+			}
+		}
 	}
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,6 +39,23 @@ namespace meta_registry_amministrativi {
 
 		public override void DescribeColumns(DataTable T, string ListingType) {
 			base.DescribeColumns(T, ListingType);
+			if (ListingType == "anagraficadetail") {
+				foreach (DataColumn C in T.Columns)
+					DescribeAColumn(T, C.ColumnName, "", -1);
+				int nPos = 1;
+				DescribeAColumn(T, "idreg", "Codice", nPos++);
+			}
+		}
+
+		protected override Form GetForm(string FormName) {
+
+			if (FormName == "anagraficadetail") {
+				Name = "Amministrativi";
+				DefaultListType = "anagraficadetail";
+				return GetFormByDllName("registry_amministrativi_anagraficadetail");
+			}
+
+			return null;
 		}
 
 		public override bool IsValid(DataRow R, out string errmess, out string errfield) {

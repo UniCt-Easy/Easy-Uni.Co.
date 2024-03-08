@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabprogettotimesheet_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabprogettotimesheet_default_0"><i class="fa fa-calendar-day mr-1"></i>Principale</a>
+		<a href="#tabprogettotimesheet_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabprogettotimesheet_default_0"><i class="fa fa-calendar-day mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprogettotimesheet_default_1" class="nav-link" data-toggle="pill" data-target="#tabprogettotimesheet_default_1"><i class="fa fa-calendar-minus mr-1"></i>Progetti da visualizzare nel timesheet</a>
+		<a href="#tabprogettotimesheet_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogettotimesheet_default_1"><i class="fa fa-calendar-minus mr-1"></i>Progetti da visualizzare nel timesheet</a>
 	</li>
 
 	</ul>
@@ -13,28 +13,45 @@
 <div class="tab-content mt-2">
 	<div class="tab-pane fade active show" id="tabprogettotimesheet_default_0" role="tabpanel">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="progettotimesheet_default_title">Descrizione</label>
 					<input id="progettotimesheet_default_title" type="text" class="form-control" data-tag="progettotimesheet.title"  />
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="progettotimesheet_default_idtimesheettemplate">Intestazione</label>
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_year">Anno</label>
+					<select id="progettotimesheet_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-sort-member="" data-custom-control="combo" data-tag="progettotimesheet.year"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_idtimesheettemplate">Template</label>
+					<select id="progettotimesheet_default_idtimesheettemplate" class="custom-select d-block w-100"  data-source-name="timesheettemplate" data-value-member="idtimesheettemplate" data-display-member="idtimesheettemplate" data-sort-member="" data-custom-control="combo" data-tag="progettotimesheet.idtimesheettemplate"   > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_idprogetto">Progetto principale</label>
 					<div>
-						<input id="progettotimesheet_default_idtimesheettemplate" name="progettotimesheet_default_idtimesheettemplate" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="timesheettemplate.idtimesheettemplate" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="progettotimesheet_default_idprogetto" name="progettotimesheet_default_idprogetto" type="text" data-listtype="elenchi"  class="form-control" data-minchar="2" data-tag="progettoelenchiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="progettotimesheet_default_showactivitiesrow">Visualizza la riga con il totale giornaliero</label>
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettotimesheet_default_showactivitiesrow" >Aggiunge una riga al timesheet con la somma delle sole attività di ricerca, senza contare le altre attività, le ore di didattica, ecc.</div>
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_showactivitiesrow">Visualizza la riga con il totale in attività di ricerca</label>
 					<div class="custom-control custom-radio">
 						<input id="progettotimesheet_default_showactivitiesrowSi" type="radio" name="progettotimesheet_default_showactivitiesrow" class="custom-control-input" data-tag="progettotimesheet.showactivitiesrow:S"  ><label for="progettotimesheet_default_showactivitiesrowSi"> Si</label>
 						<input id="progettotimesheet_default_showactivitiesrowNo" type="radio" name="progettotimesheet_default_showactivitiesrow" class="custom-control-input" data-tag="progettotimesheet.showactivitiesrow:N"  ><label for="progettotimesheet_default_showactivitiesrowNo"> No</label>
 					</div>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="progettotimesheet_default_year">Anno</label>
-					<select id="progettotimesheet_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-custom-control="combo" data-tag="progettotimesheet.year"   > </select>
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettotimesheet_default_showotheractivitiesrow" >Da utilizzare solo in caso di presenza parziale dei dati sul sistema. Se attivato simula l'attività quotidiana per un massimo di ore al giorno impostato nella figura contrattuale che il membro del personale possiede, a prescindere da quanto abbia realmente rendicontato.</div>
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_showotheractivitiesrow">Visualizza la riga con la differenza con il totale giornaliero</label>
+					<div class="custom-control custom-radio">
+						<input id="progettotimesheet_default_showotheractivitiesrowSi" type="radio" name="progettotimesheet_default_showotheractivitiesrow" class="custom-control-input" data-tag="progettotimesheet.showotheractivitiesrow:S"  ><label for="progettotimesheet_default_showotheractivitiesrowSi"> Si</label>
+						<input id="progettotimesheet_default_showotheractivitiesrowNo" type="radio" name="progettotimesheet_default_showotheractivitiesrow" class="custom-control-input" data-tag="progettotimesheet.showotheractivitiesrow:N"  ><label for="progettotimesheet_default_showotheractivitiesrowNo"> No</label>
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -53,12 +70,57 @@
 					</div>
 				</div>
 			</div>
- <button id="timesheetReport" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-file-excel mr-1 mr-1" ></i>Genera il Timesheet Report
-    </button>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_withworkpackage">Visualizza i Workpackage</label>
+					<div class="custom-control custom-radio">
+						<input id="progettotimesheet_default_withworkpackageSi" type="radio" name="progettotimesheet_default_withworkpackage" class="custom-control-input" data-tag="progettotimesheet.withworkpackage:S"  ><label for="progettotimesheet_default_withworkpackageSi"> Si</label>
+						<input id="progettotimesheet_default_withworkpackageNo" type="radio" name="progettotimesheet_default_withworkpackage" class="custom-control-input" data-tag="progettotimesheet.withworkpackage:N"  ><label for="progettotimesheet_default_withworkpackageNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_multilinetype">Separa le ore per tipologia</label>
+					<div class="custom-control custom-radio">
+						<input id="progettotimesheet_default_multilinetypeSi" type="radio" name="progettotimesheet_default_multilinetype" class="custom-control-input" data-tag="progettotimesheet.multilinetype:S"  ><label for="progettotimesheet_default_multilinetypeSi"> Si</label>
+						<input id="progettotimesheet_default_multilinetypeNo" type="radio" name="progettotimesheet_default_multilinetype" class="custom-control-input" data-tag="progettotimesheet.multilinetype:N"  ><label for="progettotimesheet_default_multilinetypeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_output">Formato</label>
+					<div class="custom-control custom-radio">
+						<input id="progettotimesheet_default_outputP" type="radio" name="progettotimesheet_default_output" class="custom-control-input" data-tag="progettotimesheet.output:P"  ><label for="progettotimesheet_default_outputP"> PDF</label>
+						<input id="progettotimesheet_default_outputF" type="radio" name="progettotimesheet_default_output" class="custom-control-input" data-tag="progettotimesheet.output:F"  ><label for="progettotimesheet_default_outputF"> PDF firmato</label>
+						<input id="progettotimesheet_default_outputX" type="radio" name="progettotimesheet_default_output" class="custom-control-input" data-tag="progettotimesheet.output:X"  ><label for="progettotimesheet_default_outputX"> Excel</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_collapseteachingother">Mostra attività istituzionali su una sola riga</label>
+					<div class="custom-control custom-radio">
+						<input id="progettotimesheet_default_collapseteachingotherSi" type="radio" name="progettotimesheet_default_collapseteachingother" class="custom-control-input" data-tag="progettotimesheet.collapseteachingother:S"  ><label for="progettotimesheet_default_collapseteachingotherSi"> Si</label>
+						<input id="progettotimesheet_default_collapseteachingotherNo" type="radio" name="progettotimesheet_default_collapseteachingother" class="custom-control-input" data-tag="progettotimesheet.collapseteachingother:N"  ><label for="progettotimesheet_default_collapseteachingotherNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_idmese">Mese</label>
+					<div>
+						<input id="progettotimesheet_default_idmese" name="progettotimesheet_default_idmese" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="mese.title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_idsal">SAL</label>
+					<select id="progettotimesheet_default_idsal" class="custom-select d-block w-100"  data-source-name="salelenchiview" data-value-member="idsal" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="progettotimesheet.idsal"   data-master="progettoelenchiview"> </select>
+				</div>
+			</div>
+		<button id="timesheetReport" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-file-excel mr-1 mr-1" ></i>Genera il Timesheet Report
+		</button>
 	</div>
 	<div class="tab-pane fade" id="tabprogettotimesheet_default_1" role="tabpanel">
-		<div id="grid_progettotimesheetprogetto_default" data-tag="progetto.seg.seg" data-custom-control="checklist"  ></div>
+		<div id="grid_progettotimesheetprogetto_default" data-tag="progetto.griglie.griglie" data-custom-control="checklist"  ></div>
 	</div>
 </div>
 </form>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,45 +29,24 @@ namespace csa_import_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Importazione CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_import 		=> Tables["csa_import"];
 
-	///<summary>
-	///Importazione Riepiloghi CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importriep 		=> Tables["csa_importriep"];
 
-	///<summary>
-	///Importazione Versamenti CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importver 		=> Tables["csa_importver"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
@@ -80,27 +59,15 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeview 		=> Tables["incomeview"];
 
-	///<summary>
-	///Impegni di budget collegati ad un versamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importver_epexp 		=> Tables["csa_importver_epexp"];
 
-	///<summary>
-	///Movimenti di spesa collegati ad un versamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importver_expense 		=> Tables["csa_importver_expense"];
 
-	///<summary>
-	///Impegni di budget collegati ad un riepilogo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importriep_epexp 		=> Tables["csa_importriep_epexp"];
 
-	///<summary>
-	///Movimenti di spesa collegati ad un riepilogo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importriep_expense 		=> Tables["csa_importriep_expense"];
 
@@ -130,6 +97,39 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable bill_ripartizione 		=> Tables["bill_ripartizione"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_import 		=> Tables["emisti_import"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_01 		=> Tables["emisti_rec_01"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_10 		=> Tables["emisti_rec_10"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_02 		=> Tables["emisti_rec_02"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_03 		=> Tables["emisti_rec_03"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_04 		=> Tables["emisti_rec_04"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_05 		=> Tables["emisti_rec_05"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_06 		=> Tables["emisti_rec_06"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_07 		=> Tables["emisti_rec_07"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_08 		=> Tables["emisti_rec_08"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable emisti_rec_09 		=> Tables["emisti_rec_09"];
 
 	#endregion
 
@@ -191,6 +191,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tcsa_import.Columns.Add(C);
 	tcsa_import.Columns.Add( new DataColumn("refexternaldoc", typeof(string)));
+	tcsa_import.Columns.Add( new DataColumn("referencedate", typeof(DateTime)));
 	Tables.Add(tcsa_import);
 	tcsa_import.PrimaryKey =  new DataColumn[]{tcsa_import.Columns["idcsa_import"]};
 
@@ -1287,6 +1288,552 @@ private void initClass() {
 	tbill_ripartizione.PrimaryKey =  new DataColumn[]{tbill_ripartizione.Columns["ybill"], tbill_ripartizione.Columns["nbill"], tbill_ripartizione.Columns["billkind"]};
 
 
+	//////////////////// EMISTI_IMPORT /////////////////////////////////
+	var temisti_import= new DataTable("emisti_import");
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_import.Columns.Add(C);
+	C= new DataColumn("adate", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_import.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_import.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	temisti_import.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	temisti_import.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_import.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	temisti_import.Columns.Add(C);
+	C= new DataColumn("nimport", typeof(int));
+	C.AllowDBNull=false;
+	temisti_import.Columns.Add(C);
+	C= new DataColumn("yimport", typeof(short));
+	C.AllowDBNull=false;
+	temisti_import.Columns.Add(C);
+	temisti_import.Columns.Add( new DataColumn("refexternaldoc", typeof(string)));
+	temisti_import.Columns.Add( new DataColumn("idcsa_import", typeof(int)));
+	Tables.Add(temisti_import);
+	temisti_import.PrimaryKey =  new DataColumn[]{temisti_import.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_01 /////////////////////////////////
+	var temisti_rec_01= new DataTable("emisti_rec_01");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	temisti_rec_01.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("dataemissione", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	temisti_rec_01.Columns.Add( new DataColumn("dpt", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("codicefiscale", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("cognome1", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("nome1", typeof(string)));
+	C= new DataColumn("modalpagamento", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("tiposervizio", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	temisti_rec_01.Columns.Add( new DataColumn("iban", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("cin", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("abi", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("cab", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("contocorrente", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("ufficioservizio", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("capitolospesa", typeof(int)));
+	temisti_rec_01.Columns.Add( new DataColumn("capitolobilancio", typeof(int)));
+	temisti_rec_01.Columns.Add( new DataColumn("qualifica", typeof(string)));
+	C= new DataColumn("livello", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("classe", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("scatti", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("imponibilerataannocorrente", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("irpefrataannocorrente", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("irpefarretratiannocorrente", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("irpefarretratiannoprecedente", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("irpeftotalenetta", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("importoannuolordo", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("importomensilelordo", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("importomensilenetto", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("importonetto13ma", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("importoprev13ma", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("importoirpef13ma", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("detrazionibase", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("detrazioniconiuge", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("detrazionifigli", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("detrazionialtrifam", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	C= new DataColumn("totaledetrazioni", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	temisti_rec_01.Columns.Add( new DataColumn("codiceregimecontributivo", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("codregioneirap", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("codicecomuneaccon", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("codicecomunesaldo", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("irpefaccessorieac", typeof(int)));
+	temisti_rec_01.Columns.Add( new DataColumn("irpefaccessorieap", typeof(int)));
+	temisti_rec_01.Columns.Add( new DataColumn("regimecontributivocud", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("creditoirpef", typeof(int)));
+	temisti_rec_01.Columns.Add( new DataColumn("aliquotamedia", typeof(int)));
+	temisti_rec_01.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_01.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_01.Columns.Add( new DataColumn("lu", typeof(string)));
+	temisti_rec_01.Columns.Add( new DataColumn("iscrizione", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_01.Columns.Add(C);
+	temisti_rec_01.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	Tables.Add(temisti_rec_01);
+	temisti_rec_01.PrimaryKey =  new DataColumn[]{temisti_rec_01.Columns["nrec"], temisti_rec_01.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_10 /////////////////////////////////
+	var temisti_rec_10= new DataTable("emisti_rec_10");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	temisti_rec_10.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("emissione", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	C= new DataColumn("imponibileritenutaacconto", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	C= new DataColumn("imponibileritenutaaccontoiva", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	C= new DataColumn("importoritenutaacconto", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	C= new DataColumn("impcontrintegrcat", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	C= new DataColumn("impcontrintegrinps", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	C= new DataColumn("importoiva", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	C= new DataColumn("perccontrintegrcat", typeof(decimal));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	C= new DataColumn("perccontrintegrinps", typeof(decimal));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	temisti_rec_10.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_10.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_10.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_10.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_10.Columns.Add(C);
+	temisti_rec_10.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	Tables.Add(temisti_rec_10);
+	temisti_rec_10.PrimaryKey =  new DataColumn[]{temisti_rec_10.Columns["nrec"], temisti_rec_10.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_02 /////////////////////////////////
+	var temisti_rec_02= new DataTable("emisti_rec_02");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_02.Columns.Add(C);
+	temisti_rec_02.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("dataemissione", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_02.Columns.Add(C);
+	C= new DataColumn("codiceassegno", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_02.Columns.Add(C);
+	temisti_rec_02.Columns.Add( new DataColumn("sottocodiceassegno", typeof(string)));
+	C= new DataColumn("importolordotabellare", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_02.Columns.Add(C);
+	C= new DataColumn("importolordorata", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_02.Columns.Add(C);
+	C= new DataColumn("importoriduzionept", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_02.Columns.Add(C);
+	C= new DataColumn("importoriduzionete", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_02.Columns.Add(C);
+	C= new DataColumn("importoritprev", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_02.Columns.Add(C);
+	temisti_rec_02.Columns.Add( new DataColumn("datascadassegno", typeof(string)));
+	temisti_rec_02.Columns.Add( new DataColumn("flagimponfiscale", typeof(string)));
+	temisti_rec_02.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_02.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_02.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_02.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_02.Columns.Add(C);
+	temisti_rec_02.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	Tables.Add(temisti_rec_02);
+	temisti_rec_02.PrimaryKey =  new DataColumn[]{temisti_rec_02.Columns["nrec"], temisti_rec_02.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_03 /////////////////////////////////
+	var temisti_rec_03= new DataTable("emisti_rec_03");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	temisti_rec_03.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("dataemissione", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	C= new DataColumn("codiceassegno", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	temisti_rec_03.Columns.Add( new DataColumn("codritprevass", typeof(string)));
+	C= new DataColumn("aliquotalavoratore", typeof(decimal));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	C= new DataColumn("percentualeapplicazione", typeof(decimal));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	C= new DataColumn("imponibile", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	C= new DataColumn("importoritenuta", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	C= new DataColumn("aliquotadatore", typeof(decimal));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	C= new DataColumn("importodatore", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	temisti_rec_03.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_03.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_03.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_03.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_03.Columns.Add(C);
+	temisti_rec_03.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	Tables.Add(temisti_rec_03);
+	temisti_rec_03.PrimaryKey =  new DataColumn[]{temisti_rec_03.Columns["nrec"], temisti_rec_03.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_04 /////////////////////////////////
+	var temisti_rec_04= new DataTable("emisti_rec_04");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_04.Columns.Add(C);
+	temisti_rec_04.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("dataemissione", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_04.Columns.Add(C);
+	temisti_rec_04.Columns.Add( new DataColumn("codiceritenuta", typeof(string)));
+	temisti_rec_04.Columns.Add( new DataColumn("tiporitenuta", typeof(string)));
+	temisti_rec_04.Columns.Add( new DataColumn("importoritenuta", typeof(int)));
+	C= new DataColumn("importoritnetto", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_04.Columns.Add(C);
+	temisti_rec_04.Columns.Add( new DataColumn("codritoneremens", typeof(string)));
+	C= new DataColumn("importooneremens", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_04.Columns.Add(C);
+	temisti_rec_04.Columns.Add( new DataColumn("codrit1tantum", typeof(string)));
+	C= new DataColumn("importorit1tantum", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_04.Columns.Add(C);
+	temisti_rec_04.Columns.Add( new DataColumn("codcontratto", typeof(string)));
+	temisti_rec_04.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_04.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_04.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_04.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_04.Columns.Add(C);
+	temisti_rec_04.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	temisti_rec_04.Columns.Add( new DataColumn("flagriduzimpon", typeof(string)));
+	temisti_rec_04.Columns.Add( new DataColumn("progressivodebito", typeof(int)));
+	Tables.Add(temisti_rec_04);
+	temisti_rec_04.PrimaryKey =  new DataColumn[]{temisti_rec_04.Columns["nrec"], temisti_rec_04.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_05 /////////////////////////////////
+	var temisti_rec_05= new DataTable("emisti_rec_05");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_05.Columns.Add(C);
+	temisti_rec_05.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("dataemissione", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_05.Columns.Add(C);
+	temisti_rec_05.Columns.Add( new DataColumn("codiceritenutacategoria", typeof(string)));
+	C= new DataColumn("codiceassegno", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_05.Columns.Add(C);
+	C= new DataColumn("importoritenuta", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_05.Columns.Add(C);
+	temisti_rec_05.Columns.Add( new DataColumn("datascadritcat", typeof(DateTime)));
+	temisti_rec_05.Columns.Add( new DataColumn("tiporitcat", typeof(string)));
+	C= new DataColumn("percapplritcat", typeof(decimal));
+	C.AllowDBNull=false;
+	temisti_rec_05.Columns.Add(C);
+	C= new DataColumn("percritcat", typeof(decimal));
+	C.AllowDBNull=false;
+	temisti_rec_05.Columns.Add(C);
+	temisti_rec_05.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_05.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_05.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_05.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_05.Columns.Add(C);
+	temisti_rec_05.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	Tables.Add(temisti_rec_05);
+	temisti_rec_05.PrimaryKey =  new DataColumn[]{temisti_rec_05.Columns["nrec"], temisti_rec_05.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_06 /////////////////////////////////
+	var temisti_rec_06= new DataTable("emisti_rec_06");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	temisti_rec_06.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("dataemissione", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	C= new DataColumn("codiceassegno", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	temisti_rec_06.Columns.Add( new DataColumn("codicearretrato", typeof(string)));
+	C= new DataColumn("datalotto", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	C= new DataColumn("numlotto", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	C= new DataColumn("annoriferimento", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	C= new DataColumn("importolordorata", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	C= new DataColumn("importoriduzionept", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	C= new DataColumn("importoriduzionete", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	C= new DataColumn("importoritenute", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	temisti_rec_06.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_06.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_06.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_06.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_06.Columns.Add(C);
+	temisti_rec_06.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	Tables.Add(temisti_rec_06);
+	temisti_rec_06.PrimaryKey =  new DataColumn[]{temisti_rec_06.Columns["nrec"], temisti_rec_06.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_07 /////////////////////////////////
+	var temisti_rec_07= new DataTable("emisti_rec_07");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	temisti_rec_07.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("dataemissione", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	C= new DataColumn("codiceassegno", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	temisti_rec_07.Columns.Add( new DataColumn("codicearretrato", typeof(string)));
+	C= new DataColumn("datalotto", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	C= new DataColumn("numlotto", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	C= new DataColumn("annoriferimento", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	temisti_rec_07.Columns.Add( new DataColumn("codritprevass", typeof(string)));
+	C= new DataColumn("imponibile", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	C= new DataColumn("importoritlavoratore", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	C= new DataColumn("importoritdatore", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	temisti_rec_07.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_07.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_07.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_07.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_07.Columns.Add(C);
+	temisti_rec_07.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	Tables.Add(temisti_rec_07);
+	temisti_rec_07.PrimaryKey =  new DataColumn[]{temisti_rec_07.Columns["nrec"], temisti_rec_07.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_08 /////////////////////////////////
+	var temisti_rec_08= new DataTable("emisti_rec_08");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	temisti_rec_08.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("dataemissione", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("idelenco", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("codente", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("capbilstato", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("numpg", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	temisti_rec_08.Columns.Add( new DataColumn("tipotass", typeof(string)));
+	C= new DataColumn("annoriferimento", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	temisti_rec_08.Columns.Add( new DataColumn("compenso", typeof(string)));
+	temisti_rec_08.Columns.Add( new DataColumn("sottocompenso", typeof(string)));
+	C= new DataColumn("tipolcompenso", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("importo", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("inizio_comp", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("fine_comp", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("quantita", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("imp_unitario", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	C= new DataColumn("importoritenute", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	temisti_rec_08.Columns.Add( new DataColumn("ufficioresponsabilecomunicante", typeof(string)));
+	temisti_rec_08.Columns.Add( new DataColumn("ufficioserviziocomunicante", typeof(string)));
+	temisti_rec_08.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_08.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_08.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_08.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_08.Columns.Add(C);
+	temisti_rec_08.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	Tables.Add(temisti_rec_08);
+	temisti_rec_08.PrimaryKey =  new DataColumn[]{temisti_rec_08.Columns["nrec"], temisti_rec_08.Columns["idemisti_import"]};
+
+
+	//////////////////// EMISTI_REC_09 /////////////////////////////////
+	var temisti_rec_09= new DataTable("emisti_rec_09");
+	C= new DataColumn("nrec", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	temisti_rec_09.Columns.Add( new DataColumn("rata", typeof(string)));
+	C= new DataColumn("dataemissione", typeof(DateTime));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	C= new DataColumn("idelenco", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	C= new DataColumn("capbilstato", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	C= new DataColumn("numpg", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	C= new DataColumn("annoriferimento", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	temisti_rec_09.Columns.Add( new DataColumn("compenso", typeof(string)));
+	temisti_rec_09.Columns.Add( new DataColumn("sottocompenso", typeof(string)));
+	C= new DataColumn("tipolcompenso", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	temisti_rec_09.Columns.Add( new DataColumn("codritprevass", typeof(string)));
+	C= new DataColumn("imponibile", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	C= new DataColumn("importoritlavoratore", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	C= new DataColumn("importoritdatore", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	temisti_rec_09.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	temisti_rec_09.Columns.Add( new DataColumn("cu", typeof(string)));
+	temisti_rec_09.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	temisti_rec_09.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("idemisti_import", typeof(int));
+	C.AllowDBNull=false;
+	temisti_rec_09.Columns.Add(C);
+	temisti_rec_09.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
+	Tables.Add(temisti_rec_09);
+	temisti_rec_09.PrimaryKey =  new DataColumn[]{temisti_rec_09.Columns["nrec"], temisti_rec_09.Columns["idemisti_import"]};
+
+
 	#endregion
 
 
@@ -1306,10 +1853,6 @@ private void initClass() {
 	cPar = new []{csa_import.Columns["idcsa_import"]};
 	cChild = new []{csa_importver_epexp.Columns["idcsa_import"]};
 	Relations.Add(new DataRelation("csa_import_csa_importver_epexp",cPar,cChild,false));
-
-	cPar = new []{csa_import.Columns["idcsa_import"]};
-	cChild = new []{csa_importver.Columns["idcsa_import"]};
-	Relations.Add(new DataRelation("csa_import_csa_importver",cPar,cChild,false));
 
 	cPar = new []{csa_import.Columns["idcsa_import"]};
 	cChild = new []{csa_importriep.Columns["idcsa_import"]};
@@ -1354,6 +1897,54 @@ private void initClass() {
 	cPar = new []{bill_ripartizione.Columns["nbill"]};
 	cChild = new []{csa_bill.Columns["nbill"]};
 	Relations.Add(new DataRelation("bill_csa_bill",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_01.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_01",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_02.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_02",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_03.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_03",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_04.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_04",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_05.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_05",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_06.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_06",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_07.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_07",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_08.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_08",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_09.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_09",cPar,cChild,false));
+
+	cPar = new []{emisti_import.Columns["idemisti_import"]};
+	cChild = new []{emisti_rec_10.Columns["idemisti_import"]};
+	Relations.Add(new DataRelation("emisti_import_emisti_rec_10",cPar,cChild,false));
+
+	cPar = new []{csa_import.Columns["idcsa_import"]};
+	cChild = new []{emisti_import.Columns["idcsa_import"]};
+	Relations.Add(new DataRelation("csa_import_emisti_import",cPar,cChild,false));
+
+	cPar = new []{csa_import.Columns["idcsa_import"]};
+	cChild = new []{csa_importver.Columns["idcsa_import"]};
+	Relations.Add(new DataRelation("csa_import_csa_importver",cPar,cChild,false));
 
 	#endregion
 

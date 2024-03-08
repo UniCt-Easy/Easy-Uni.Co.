@@ -2,16 +2,16 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabappello_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabappello_default_0"><i class="fa fa-volume-up mr-1"></i>Principale</a>
+		<a href="#tabappello_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabappello_default_0"><i class="fa fa-volume-up mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabappello_default_1" class="nav-link" data-toggle="pill" data-target="#tabappello_default_1"><i class="fa fa-user-check mr-1"></i>Prove</a>
+		<a href="#tabappello_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabappello_default_1"><i class="fa fa-user-check mr-1"></i>Prove</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabappello_default_2" class="nav-link" data-toggle="pill" data-target="#tabappello_default_2"><i class="fa fa-circle mr-1"></i>Attività formative</a>
+		<a href="#tabappello_default_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabappello_default_2"><i class="fa fa-circle mr-1"></i>Attività formative</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabappello_default_3" class="nav-link" data-toggle="pill" data-target="#tabappello_default_3"><i class="fa fa-circle mr-1"></i>Prenotazioni</a>
+		<a href="#tabappello_default_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabappello_default_3"><i class="fa fa-circle mr-1"></i>Prenotazioni</a>
 	</li>
 
 	</ul>
@@ -25,13 +25,13 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="appello_default_aa">Anno accademico</label>
-					<select id="appello_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="appello.aa?appellodefaultview.aa" data-subentity   > </select>
+					<select id="appello_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-sort-member="" data-custom-control="combo" data-tag="appello.aa?appellodefaultview.aa" data-subentity   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="appello_default_idappellokind">Tipologia</label>
-					<select id="appello_default_idappellokind" class="custom-select d-block w-100"  data-source-name="appellokinddefaultview" data-value-member="idappellokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="appello.idappellokind?appellodefaultview.appello_idappellokind" data-subentity   > </select>
+					<select id="appello_default_idappellokind" class="custom-select d-block w-100"  data-source-name="appellokinddefaultview" data-value-member="idappellokind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="appello.idappellokind?appellodefaultview.appello_idappellokind" data-subentity   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="appello_default_basevoto">Votazione di base</label>
@@ -41,7 +41,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="appello_default_idappelloazionekind">Ordinario/Correttivo/Integrativo</label>
-					<select id="appello_default_idappelloazionekind" class="custom-select d-block w-100"  data-source-name="appelloazionekinddefaultview" data-value-member="idappelloazionekind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="appello.idappelloazionekind?appellodefaultview.appello_idappelloazionekind" data-subentity   > </select>
+					<select id="appello_default_idappelloazionekind" class="custom-select d-block w-100"  data-source-name="appelloazionekinddefaultview" data-value-member="idappelloazionekind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="appello.idappelloazionekind?appellodefaultview.appello_idappelloazionekind" data-subentity   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="appello_default_idsessione">Sessione</label>
@@ -71,7 +71,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#appello_default_prenotstart").datetimepicker();
+    $("#appello_default_prenotstart").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="appello_default_prenotstart">Data di inizio prenotazioni</label>
@@ -82,7 +82,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#appello_default_penotend").datetimepicker();
+    $("#appello_default_penotend").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="appello_default_penotend">Data fine delle prenotazioni</label>
@@ -114,7 +114,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#appello_default_esterostart").datepicker();
+    $("#appello_default_esterostart").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="appello_default_esterostart">Data inizio di permanenza dello studente all'estero </label>
@@ -125,7 +125,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#appello_default_esteroend").datepicker();
+    $("#appello_default_esteroend").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="appello_default_esteroend">Data fine di permanenza dello studente all'estero </label>
@@ -133,7 +133,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="appello_default_idstudprenotkind">Tipologia di studenti per la prenotazione</label>
-					<select id="appello_default_idstudprenotkind" class="custom-select d-block w-100"  data-source-name="studprenotkinddefaultview" data-value-member="idstudprenotkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="appello.idstudprenotkind?appellodefaultview.appello_idstudprenotkind" data-subentity   > </select>
+					<select id="appello_default_idstudprenotkind" class="custom-select d-block w-100"  data-source-name="studprenotkinddefaultview" data-value-member="idstudprenotkind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="appello.idstudprenotkind?appellodefaultview.appello_idstudprenotkind" data-subentity   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -160,7 +160,7 @@
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabappello_default_1" role="tabpanel">
-				<div class="gridx" id="grid_prova_default" data-tag="prova.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_prova_default" data-tag="prova.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabappello_default_2" role="tabpanel">
 			<div class="row">
@@ -174,10 +174,10 @@
 				</div>
 			</div>
 			<hr>
-				<div class="gridx" id="grid_appelloattivform_appello" data-tag="appelloattivform.appello.appello" data-custom-control="gridx" data-mdlbuttondelete data-mdlconditionallookup="!aa_attivform_tipovalutaz,S,Si;!aa_attivform_tipovalutaz,N,No;"  ></div>
+				<div class="gridx" id="grid_appelloattivform_appello" data-tag="appelloattivform.appello.appello" data-custom-control="gridx" data-mdlbuttondelete  ></div>
 	</div>
 	<div class="tab-pane fade" id="tabappello_default_3" role="tabpanel">
-				<div class="gridx" id="grid_prenotappello_appello" data-tag="prenotappello.appello.appello" data-custom-control="gridx" data-mdlbuttonedit  ></div>
+				<div class="gridx" id="grid_prenotappello_appello" data-tag="prenotappello.appello.appello" data-custom-control="gridx" data-mdlbuttonedit ></div>
 	</div>
 </div>
 </form>

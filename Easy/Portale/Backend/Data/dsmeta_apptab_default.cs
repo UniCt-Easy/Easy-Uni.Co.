@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,9 +27,12 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_apptab_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_apptab_default: DataSet {
+public partial class dsmeta_apptab_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable apptabcolsnumber 		=> (MetaTable)Tables["apptabcolsnumber"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable apptab 		=> (MetaTable)Tables["apptab"];
 
@@ -58,16 +61,31 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_apptab_default.xsd";
 
 	#region create DataTables
+	//////////////////// APPTABCOLSNUMBER /////////////////////////////////
+	var tapptabcolsnumber= new MetaTable("apptabcolsnumber");
+	tapptabcolsnumber.defineColumn("idapptabcolsnumber", typeof(int),false);
+	Tables.Add(tapptabcolsnumber);
+	tapptabcolsnumber.defineKey("idapptabcolsnumber");
+
 	//////////////////// APPTAB /////////////////////////////////
 	var tapptab= new MetaTable("apptab");
 	tapptab.defineColumn("header", typeof(string));
 	tapptab.defineColumn("icon", typeof(string));
 	tapptab.defineColumn("idapppages", typeof(int),false);
 	tapptab.defineColumn("idapptab", typeof(int),false);
+	tapptab.defineColumn("idapptabcolsnumber", typeof(int));
 	tapptab.defineColumn("position", typeof(int));
 	tapptab.defineColumn("title", typeof(string));
 	Tables.Add(tapptab);
 	tapptab.defineKey("idapppages", "idapptab");
+
+	#endregion
+
+
+	#region DataRelation creation
+	var cPar = new []{apptabcolsnumber.Columns["idapptabcolsnumber"]};
+	var cChild = new []{apptab.Columns["idapptabcolsnumber"]};
+	Relations.Add(new DataRelation("FK_apptab_apptabcolsnumber_idapptabcolsnumber",cPar,cChild,false));
 
 	#endregion
 

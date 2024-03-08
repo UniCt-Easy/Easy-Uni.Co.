@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -79,27 +79,27 @@ namespace stip_corsolaurea_default {
 			this.textBoxAnno = new System.Windows.Forms.TextBox();
 			this.labelAnno = new System.Windows.Forms.Label();
 			this.tabAnalitico = new System.Windows.Forms.TabPage();
-			this.gboxclass1 = new System.Windows.Forms.GroupBox();
-			this.btnCodice1 = new System.Windows.Forms.Button();
-			this.txtDenom1 = new System.Windows.Forms.TextBox();
-			this.txtCodice1 = new System.Windows.Forms.TextBox();
-			this.gboxclass2 = new System.Windows.Forms.GroupBox();
-			this.btnCodice2 = new System.Windows.Forms.Button();
-			this.txtDenom2 = new System.Windows.Forms.TextBox();
-			this.txtCodice2 = new System.Windows.Forms.TextBox();
 			this.gboxclass3 = new System.Windows.Forms.GroupBox();
 			this.btnCodice3 = new System.Windows.Forms.Button();
 			this.txtDenom3 = new System.Windows.Forms.TextBox();
 			this.txtCodice3 = new System.Windows.Forms.TextBox();
+			this.gboxclass2 = new System.Windows.Forms.GroupBox();
+			this.btnCodice2 = new System.Windows.Forms.Button();
+			this.txtDenom2 = new System.Windows.Forms.TextBox();
+			this.txtCodice2 = new System.Windows.Forms.TextBox();
+			this.gboxclass1 = new System.Windows.Forms.GroupBox();
+			this.btnCodice1 = new System.Windows.Forms.Button();
+			this.txtDenom1 = new System.Windows.Forms.TextBox();
+			this.txtCodice1 = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabCorso.SuspendLayout();
 			this.gboxUpb.SuspendLayout();
 			this.tabDettagli.SuspendLayout();
 			this.tabAnalitico.SuspendLayout();
-			this.gboxclass1.SuspendLayout();
-			this.gboxclass2.SuspendLayout();
 			this.gboxclass3.SuspendLayout();
+			this.gboxclass2.SuspendLayout();
+			this.gboxclass1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DS
@@ -119,7 +119,7 @@ namespace stip_corsolaurea_default {
 			this.tabControl1.Location = new System.Drawing.Point(5, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(512, 383);
+			this.tabControl1.Size = new System.Drawing.Size(512, 485);
 			this.tabControl1.TabIndex = 102;
 			// 
 			// tabCorso
@@ -138,19 +138,19 @@ namespace stip_corsolaurea_default {
 			this.tabCorso.Location = new System.Drawing.Point(4, 22);
 			this.tabCorso.Name = "tabCorso";
 			this.tabCorso.Padding = new System.Windows.Forms.Padding(3);
-			this.tabCorso.Size = new System.Drawing.Size(504, 357);
+			this.tabCorso.Size = new System.Drawing.Size(504, 459);
 			this.tabCorso.TabIndex = 0;
 			this.tabCorso.Text = "Corso Laurea";
 			this.tabCorso.UseVisualStyleBackColor = true;
 			// 
 			// cmbVoce
 			// 
-			this.cmbVoce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbVoce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbVoce.DataSource = this.DS.stip_voce;
 			this.cmbVoce.DisplayMember = "descrizione";
 			this.cmbVoce.FormattingEnabled = true;
-			this.cmbVoce.Location = new System.Drawing.Point(128, 186);
+			this.cmbVoce.Location = new System.Drawing.Point(128, 291);
 			this.cmbVoce.Name = "cmbVoce";
 			this.cmbVoce.Size = new System.Drawing.Size(346, 21);
 			this.cmbVoce.TabIndex = 112;
@@ -159,12 +159,12 @@ namespace stip_corsolaurea_default {
 			// 
 			// cmbTassa
 			// 
-			this.cmbTassa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbTassa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbTassa.DataSource = this.DS.stip_tassa;
 			this.cmbTassa.DisplayMember = "descrizione";
 			this.cmbTassa.FormattingEnabled = true;
-			this.cmbTassa.Location = new System.Drawing.Point(128, 154);
+			this.cmbTassa.Location = new System.Drawing.Point(128, 259);
 			this.cmbTassa.Name = "cmbTassa";
 			this.cmbTassa.Size = new System.Drawing.Size(346, 21);
 			this.cmbTassa.TabIndex = 111;
@@ -173,7 +173,9 @@ namespace stip_corsolaurea_default {
 			// 
 			// label13
 			// 
-			this.label13.Location = new System.Drawing.Point(29, 154);
+			this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label13.Location = new System.Drawing.Point(29, 259);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(80, 16);
 			this.label13.TabIndex = 110;
@@ -182,7 +184,9 @@ namespace stip_corsolaurea_default {
 			// 
 			// label14
 			// 
-			this.label14.Location = new System.Drawing.Point(29, 186);
+			this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label14.Location = new System.Drawing.Point(29, 291);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(80, 16);
 			this.label14.TabIndex = 109;
@@ -191,10 +195,12 @@ namespace stip_corsolaurea_default {
 			// 
 			// gboxUpb
 			// 
+			this.gboxUpb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxUpb.Controls.Add(this.txtDescrizioneUpb);
 			this.gboxUpb.Controls.Add(this.txtUpb);
 			this.gboxUpb.Controls.Add(this.btnUpbUscita);
-			this.gboxUpb.Location = new System.Drawing.Point(32, 224);
+			this.gboxUpb.Location = new System.Drawing.Point(32, 329);
 			this.gboxUpb.Name = "gboxUpb";
 			this.gboxUpb.Size = new System.Drawing.Size(443, 111);
 			this.gboxUpb.TabIndex = 108;
@@ -243,12 +249,13 @@ namespace stip_corsolaurea_default {
 			// 
 			// txtDescrizione
 			// 
-			this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescrizione.Location = new System.Drawing.Point(31, 70);
 			this.txtDescrizione.Multiline = true;
 			this.txtDescrizione.Name = "txtDescrizione";
-			this.txtDescrizione.Size = new System.Drawing.Size(443, 64);
+			this.txtDescrizione.Size = new System.Drawing.Size(443, 167);
 			this.txtDescrizione.TabIndex = 102;
 			this.txtDescrizione.Tag = "stip_corsolaurea.descrizione";
 			// 
@@ -322,7 +329,7 @@ namespace stip_corsolaurea_default {
 			this.tabDettagli.Location = new System.Drawing.Point(4, 22);
 			this.tabDettagli.Name = "tabDettagli";
 			this.tabDettagli.Padding = new System.Windows.Forms.Padding(3);
-			this.tabDettagli.Size = new System.Drawing.Size(504, 357);
+			this.tabDettagli.Size = new System.Drawing.Size(504, 459);
 			this.tabDettagli.TabIndex = 1;
 			this.tabDettagli.Text = "Dettagli";
 			this.tabDettagli.UseVisualStyleBackColor = true;
@@ -331,7 +338,7 @@ namespace stip_corsolaurea_default {
 			// 
 			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox1.Location = new System.Drawing.Point(151, 279);
+			this.textBox1.Location = new System.Drawing.Point(151, 324);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(325, 20);
 			this.textBox1.TabIndex = 19;
@@ -341,7 +348,7 @@ namespace stip_corsolaurea_default {
 			// 
 			this.textBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox9.Location = new System.Drawing.Point(151, 257);
+			this.textBox9.Location = new System.Drawing.Point(151, 290);
 			this.textBox9.Name = "textBox9";
 			this.textBox9.Size = new System.Drawing.Size(325, 20);
 			this.textBox9.TabIndex = 18;
@@ -350,7 +357,7 @@ namespace stip_corsolaurea_default {
 			// label11
 			// 
 			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(6, 286);
+			this.label11.Location = new System.Drawing.Point(6, 328);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(45, 13);
 			this.label11.TabIndex = 17;
@@ -359,7 +366,7 @@ namespace stip_corsolaurea_default {
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(6, 261);
+			this.label12.Location = new System.Drawing.Point(6, 294);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(81, 13);
 			this.label12.TabIndex = 16;
@@ -369,7 +376,7 @@ namespace stip_corsolaurea_default {
 			// 
 			this.textBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox8.Location = new System.Drawing.Point(151, 225);
+			this.textBox8.Location = new System.Drawing.Point(151, 60);
 			this.textBox8.Name = "textBox8";
 			this.textBox8.Size = new System.Drawing.Size(325, 20);
 			this.textBox8.TabIndex = 15;
@@ -379,7 +386,7 @@ namespace stip_corsolaurea_default {
 			// 
 			this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox7.Location = new System.Drawing.Point(151, 203);
+			this.textBox7.Location = new System.Drawing.Point(151, 159);
 			this.textBox7.Name = "textBox7";
 			this.textBox7.Size = new System.Drawing.Size(325, 20);
 			this.textBox7.TabIndex = 14;
@@ -389,7 +396,7 @@ namespace stip_corsolaurea_default {
 			// 
 			this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox6.Location = new System.Drawing.Point(151, 180);
+			this.textBox6.Location = new System.Drawing.Point(151, 225);
 			this.textBox6.Name = "textBox6";
 			this.textBox6.Size = new System.Drawing.Size(325, 20);
 			this.textBox6.TabIndex = 13;
@@ -399,7 +406,7 @@ namespace stip_corsolaurea_default {
 			// 
 			this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox5.Location = new System.Drawing.Point(151, 148);
+			this.textBox5.Location = new System.Drawing.Point(151, 93);
 			this.textBox5.Name = "textBox5";
 			this.textBox5.Size = new System.Drawing.Size(325, 20);
 			this.textBox5.TabIndex = 12;
@@ -409,7 +416,7 @@ namespace stip_corsolaurea_default {
 			// 
 			this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox4.Location = new System.Drawing.Point(151, 122);
+			this.textBox4.Location = new System.Drawing.Point(151, 193);
 			this.textBox4.Name = "textBox4";
 			this.textBox4.Size = new System.Drawing.Size(325, 20);
 			this.textBox4.TabIndex = 11;
@@ -419,7 +426,7 @@ namespace stip_corsolaurea_default {
 			// 
 			this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox3.Location = new System.Drawing.Point(151, 92);
+			this.textBox3.Location = new System.Drawing.Point(151, 257);
 			this.textBox3.Name = "textBox3";
 			this.textBox3.Size = new System.Drawing.Size(325, 20);
 			this.textBox3.TabIndex = 10;
@@ -429,7 +436,7 @@ namespace stip_corsolaurea_default {
 			// 
 			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox2.Location = new System.Drawing.Point(151, 61);
+			this.textBox2.Location = new System.Drawing.Point(151, 126);
 			this.textBox2.Name = "textBox2";
 			this.textBox2.Size = new System.Drawing.Size(325, 20);
 			this.textBox2.TabIndex = 9;
@@ -438,7 +445,7 @@ namespace stip_corsolaurea_default {
 			// label10
 			// 
 			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(6, 232);
+			this.label10.Location = new System.Drawing.Point(6, 63);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(128, 13);
 			this.label10.TabIndex = 8;
@@ -447,7 +454,7 @@ namespace stip_corsolaurea_default {
 			// label9
 			// 
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(6, 207);
+			this.label9.Location = new System.Drawing.Point(6, 163);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(68, 13);
 			this.label9.TabIndex = 7;
@@ -456,7 +463,7 @@ namespace stip_corsolaurea_default {
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(6, 177);
+			this.label8.Location = new System.Drawing.Point(6, 227);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(85, 13);
 			this.label8.TabIndex = 6;
@@ -465,7 +472,7 @@ namespace stip_corsolaurea_default {
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(6, 147);
+			this.label4.Location = new System.Drawing.Point(6, 92);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(59, 13);
 			this.label4.TabIndex = 5;
@@ -474,7 +481,7 @@ namespace stip_corsolaurea_default {
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(6, 119);
+			this.label3.Location = new System.Drawing.Point(6, 196);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(32, 13);
 			this.label3.TabIndex = 4;
@@ -483,7 +490,7 @@ namespace stip_corsolaurea_default {
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(6, 89);
+			this.label2.Location = new System.Drawing.Point(6, 261);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(49, 13);
 			this.label2.TabIndex = 3;
@@ -492,7 +499,7 @@ namespace stip_corsolaurea_default {
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(6, 58);
+			this.label1.Location = new System.Drawing.Point(6, 123);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(66, 13);
 			this.label1.TabIndex = 2;
@@ -511,7 +518,7 @@ namespace stip_corsolaurea_default {
 			// labelAnno
 			// 
 			this.labelAnno.AutoSize = true;
-			this.labelAnno.Location = new System.Drawing.Point(6, 29);
+			this.labelAnno.Location = new System.Drawing.Point(6, 31);
 			this.labelAnno.Name = "labelAnno";
 			this.labelAnno.Size = new System.Drawing.Size(32, 13);
 			this.labelAnno.TabIndex = 0;
@@ -525,104 +532,10 @@ namespace stip_corsolaurea_default {
 			this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
 			this.tabAnalitico.Name = "tabAnalitico";
 			this.tabAnalitico.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAnalitico.Size = new System.Drawing.Size(504, 357);
+			this.tabAnalitico.Size = new System.Drawing.Size(504, 459);
 			this.tabAnalitico.TabIndex = 2;
 			this.tabAnalitico.Text = "Analitico";
 			this.tabAnalitico.UseVisualStyleBackColor = true;
-			// 
-			// gboxclass1
-			// 
-			this.gboxclass1.Controls.Add(this.btnCodice1);
-			this.gboxclass1.Controls.Add(this.txtDenom1);
-			this.gboxclass1.Controls.Add(this.txtCodice1);
-			this.gboxclass1.Location = new System.Drawing.Point(19, 12);
-			this.gboxclass1.Name = "gboxclass1";
-			this.gboxclass1.Size = new System.Drawing.Size(458, 82);
-			this.gboxclass1.TabIndex = 18;
-			this.gboxclass1.TabStop = false;
-			this.gboxclass1.Tag = "AutoManage.txtCodice.treeclassmovimenti";
-			this.gboxclass1.Text = "Classificazione 1";
-			// 
-			// btnCodice1
-			// 
-			this.btnCodice1.Location = new System.Drawing.Point(8, 19);
-			this.btnCodice1.Name = "btnCodice1";
-			this.btnCodice1.Size = new System.Drawing.Size(88, 23);
-			this.btnCodice1.TabIndex = 4;
-			this.btnCodice1.Tag = "manage.sorting1.tree";
-			this.btnCodice1.Text = "Codice";
-			this.btnCodice1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			// 
-			// txtDenom1
-			// 
-			this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom1.Location = new System.Drawing.Point(295, 10);
-			this.txtDenom1.Multiline = true;
-			this.txtDenom1.Name = "txtDenom1";
-			this.txtDenom1.ReadOnly = true;
-			this.txtDenom1.Size = new System.Drawing.Size(155, 64);
-			this.txtDenom1.TabIndex = 3;
-			this.txtDenom1.TabStop = false;
-			this.txtDenom1.Tag = "sorting1.description";
-			// 
-			// txtCodice1
-			// 
-			this.txtCodice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.txtCodice1.Location = new System.Drawing.Point(6, 54);
-			this.txtCodice1.Name = "txtCodice1";
-			this.txtCodice1.Size = new System.Drawing.Size(283, 20);
-			this.txtCodice1.TabIndex = 2;
-			this.txtCodice1.Tag = "sorting1.sortcode?x";
-			// 
-			// gboxclass2
-			// 
-			this.gboxclass2.Controls.Add(this.btnCodice2);
-			this.gboxclass2.Controls.Add(this.txtDenom2);
-			this.gboxclass2.Controls.Add(this.txtCodice2);
-			this.gboxclass2.Location = new System.Drawing.Point(19, 100);
-			this.gboxclass2.Name = "gboxclass2";
-			this.gboxclass2.Size = new System.Drawing.Size(458, 84);
-			this.gboxclass2.TabIndex = 19;
-			this.gboxclass2.TabStop = false;
-			this.gboxclass2.Tag = "AutoManage.txtCodice.treeclassmovimenti";
-			this.gboxclass2.Text = "Classificazione 2";
-			// 
-			// btnCodice2
-			// 
-			this.btnCodice2.Location = new System.Drawing.Point(8, 19);
-			this.btnCodice2.Name = "btnCodice2";
-			this.btnCodice2.Size = new System.Drawing.Size(88, 23);
-			this.btnCodice2.TabIndex = 4;
-			this.btnCodice2.Tag = "manage.sorting2.tree";
-			this.btnCodice2.Text = "Codice";
-			this.btnCodice2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			// 
-			// txtDenom2
-			// 
-			this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom2.Location = new System.Drawing.Point(295, 11);
-			this.txtDenom2.Multiline = true;
-			this.txtDenom2.Name = "txtDenom2";
-			this.txtDenom2.ReadOnly = true;
-			this.txtDenom2.Size = new System.Drawing.Size(155, 66);
-			this.txtDenom2.TabIndex = 3;
-			this.txtDenom2.TabStop = false;
-			this.txtDenom2.Tag = "sorting2.description";
-			// 
-			// txtCodice2
-			// 
-			this.txtCodice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.txtCodice2.Location = new System.Drawing.Point(6, 57);
-			this.txtCodice2.Name = "txtCodice2";
-			this.txtCodice2.Size = new System.Drawing.Size(283, 20);
-			this.txtCodice2.TabIndex = 2;
-			this.txtCodice2.Tag = "sorting2.sortcode?x";
 			// 
 			// gboxclass3
 			// 
@@ -671,11 +584,105 @@ namespace stip_corsolaurea_default {
 			this.txtCodice3.TabIndex = 4;
 			this.txtCodice3.Tag = "sorting3.sortcode?x";
 			// 
+			// gboxclass2
+			// 
+			this.gboxclass2.Controls.Add(this.btnCodice2);
+			this.gboxclass2.Controls.Add(this.txtDenom2);
+			this.gboxclass2.Controls.Add(this.txtCodice2);
+			this.gboxclass2.Location = new System.Drawing.Point(19, 100);
+			this.gboxclass2.Name = "gboxclass2";
+			this.gboxclass2.Size = new System.Drawing.Size(458, 84);
+			this.gboxclass2.TabIndex = 19;
+			this.gboxclass2.TabStop = false;
+			this.gboxclass2.Tag = "AutoManage.txtCodice.treeclassmovimenti";
+			this.gboxclass2.Text = "Classificazione 2";
+			// 
+			// btnCodice2
+			// 
+			this.btnCodice2.Location = new System.Drawing.Point(8, 19);
+			this.btnCodice2.Name = "btnCodice2";
+			this.btnCodice2.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice2.TabIndex = 4;
+			this.btnCodice2.Tag = "manage.sorting2.tree";
+			this.btnCodice2.Text = "Codice";
+			this.btnCodice2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom2
+			// 
+			this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom2.Location = new System.Drawing.Point(295, 11);
+			this.txtDenom2.Multiline = true;
+			this.txtDenom2.Name = "txtDenom2";
+			this.txtDenom2.ReadOnly = true;
+			this.txtDenom2.Size = new System.Drawing.Size(155, 66);
+			this.txtDenom2.TabIndex = 3;
+			this.txtDenom2.TabStop = false;
+			this.txtDenom2.Tag = "sorting2.description";
+			// 
+			// txtCodice2
+			// 
+			this.txtCodice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtCodice2.Location = new System.Drawing.Point(6, 57);
+			this.txtCodice2.Name = "txtCodice2";
+			this.txtCodice2.Size = new System.Drawing.Size(283, 20);
+			this.txtCodice2.TabIndex = 2;
+			this.txtCodice2.Tag = "sorting2.sortcode?x";
+			// 
+			// gboxclass1
+			// 
+			this.gboxclass1.Controls.Add(this.btnCodice1);
+			this.gboxclass1.Controls.Add(this.txtDenom1);
+			this.gboxclass1.Controls.Add(this.txtCodice1);
+			this.gboxclass1.Location = new System.Drawing.Point(19, 12);
+			this.gboxclass1.Name = "gboxclass1";
+			this.gboxclass1.Size = new System.Drawing.Size(458, 82);
+			this.gboxclass1.TabIndex = 18;
+			this.gboxclass1.TabStop = false;
+			this.gboxclass1.Tag = "AutoManage.txtCodice.treeclassmovimenti";
+			this.gboxclass1.Text = "Classificazione 1";
+			// 
+			// btnCodice1
+			// 
+			this.btnCodice1.Location = new System.Drawing.Point(8, 19);
+			this.btnCodice1.Name = "btnCodice1";
+			this.btnCodice1.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice1.TabIndex = 4;
+			this.btnCodice1.Tag = "manage.sorting1.tree";
+			this.btnCodice1.Text = "Codice";
+			this.btnCodice1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom1
+			// 
+			this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenom1.Location = new System.Drawing.Point(295, 10);
+			this.txtDenom1.Multiline = true;
+			this.txtDenom1.Name = "txtDenom1";
+			this.txtDenom1.ReadOnly = true;
+			this.txtDenom1.Size = new System.Drawing.Size(155, 64);
+			this.txtDenom1.TabIndex = 3;
+			this.txtDenom1.TabStop = false;
+			this.txtDenom1.Tag = "sorting1.description";
+			// 
+			// txtCodice1
+			// 
+			this.txtCodice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtCodice1.Location = new System.Drawing.Point(6, 54);
+			this.txtCodice1.Name = "txtCodice1";
+			this.txtCodice1.Size = new System.Drawing.Size(283, 20);
+			this.txtCodice1.TabIndex = 2;
+			this.txtCodice1.Tag = "sorting1.sortcode?x";
+			// 
 			// Frm_stip_corsolaurea_default
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(520, 407);
+			this.ClientSize = new System.Drawing.Size(520, 509);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_stip_corsolaurea_default";
 			this.Text = "Frm_stip_corsolaurea_default";
@@ -688,12 +695,12 @@ namespace stip_corsolaurea_default {
 			this.tabDettagli.ResumeLayout(false);
 			this.tabDettagli.PerformLayout();
 			this.tabAnalitico.ResumeLayout(false);
-			this.gboxclass1.ResumeLayout(false);
-			this.gboxclass1.PerformLayout();
-			this.gboxclass2.ResumeLayout(false);
-			this.gboxclass2.PerformLayout();
 			this.gboxclass3.ResumeLayout(false);
 			this.gboxclass3.PerformLayout();
+			this.gboxclass2.ResumeLayout(false);
+			this.gboxclass2.PerformLayout();
+			this.gboxclass1.ResumeLayout(false);
+			this.gboxclass1.PerformLayout();
 			this.ResumeLayout(false);
 
         }

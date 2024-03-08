@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,10 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
+						this.describeAColumn(table, 'idperfcomportamento', 'Comportamento', null, 20, null);
+						this.describeAColumn(table, 'year_start', 'Anno inizio validità', null, 80, null);
+						this.describeAColumn(table, 'year_stop', 'Anno fine validità', null, 90, null);
 						this.describeAColumn(table, '!idperfcomportamento_perfcomportamento_title', 'Titolo', null, 23, null);
 						this.describeAColumn(table, '!idperfcomportamento_perfcomportamento_description', 'Descrizione', null, 23, null);
+						this.describeAColumn(table, '!idperfcomportamento_perfcomportamento_peso', 'Peso', 'fixed.2', 29, null);
 						objCalcFieldConfig['!idperfcomportamento_perfcomportamento_title'] = { tableNameLookup:'perfcomportamento', columnNameLookup:'title', columnNamekey:'idperfcomportamento' };
 						objCalcFieldConfig['!idperfcomportamento_perfcomportamento_description'] = { tableNameLookup:'perfcomportamento', columnNameLookup:'description', columnNamekey:'idperfcomportamento' };
+						objCalcFieldConfig['!idperfcomportamento_perfcomportamento_peso'] = { tableNameLookup:'perfcomportamento', columnNameLookup:'peso', columnNamekey:'idperfcomportamento' };
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -58,7 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
-						table.columns["idperfcomportamento"].caption = "Codice";
+						table.columns["idperfcomportamento"].caption = "Comportamento";
+						table.columns["year_start"].caption = "Anno inizio validità";
+						table.columns["year_stop"].caption = "Anno fine validità";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$

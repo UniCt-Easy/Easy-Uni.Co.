@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -55,7 +55,7 @@ namespace no_table_trasfdocreversale {
 			this.txtNumInizio = new System.Windows.Forms.TextBox();
 			this.labelEsercizio = new System.Windows.Forms.Label();
 			this.btnEseguidownload = new System.Windows.Forms.Button();
-			this.folderDlg = new System.Windows.Forms.FolderBrowserDialog();
+			this._folderDlg = new System.Windows.Forms.FolderBrowserDialog();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -244,7 +244,7 @@ namespace no_table_trasfdocreversale {
 		private System.Windows.Forms.Button btnEseguidownload;
 		private System.Windows.Forms.TextBox txtFolder;
 		private System.Windows.Forms.Button btnSelezionaFolder;
-		private System.Windows.Forms.FolderBrowserDialog folderDlg;
+		private System.Windows.Forms.FolderBrowserDialog _folderDlg;
 		public vistaForm DS;
 		private System.Windows.Forms.TextBox txtEsercizioReversale;
 		private System.Windows.Forms.Label label3;

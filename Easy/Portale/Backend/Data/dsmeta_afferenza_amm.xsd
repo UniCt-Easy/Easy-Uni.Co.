@@ -3,11 +3,11 @@
   <xs:element name="dsmeta_afferenza_amm" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="mansionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="mansionekinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idmansionekind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -16,8 +16,7 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idstruttura" type="xs:int" />
-              <xs:element name="idupb" type="xs:string" minOccurs="0" />
-              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -40,7 +39,7 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:mansionekind" />
+      <xs:selector xpath=".//mstns:mansionekinddefaultview" />
       <xs:field xpath="mstns:idmansionekind" />
     </xs:unique>
     <xs:unique name="strutturaperfelenchiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -55,7 +54,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_afferenza_mansionekind_idmansionekind" msdata:parent="mansionekind" msdata:child="afferenza" msdata:parentkey="idmansionekind" msdata:childkey="idmansionekind" />
+      <msdata:Relationship name="FK_afferenza_mansionekinddefaultview_idmansionekind" msdata:parent="mansionekinddefaultview" msdata:child="afferenza" msdata:parentkey="idmansionekind" msdata:childkey="idmansionekind" />
       <msdata:Relationship name="FK_afferenza_strutturaperfelenchiview_idstruttura" msdata:parent="strutturaperfelenchiview" msdata:child="afferenza" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
     </xs:appinfo>
   </xs:annotation>

@@ -1,28 +1,237 @@
-﻿<!--header-->
+﻿<div class="p-2 custom_lng_div" data-langkey="pageheader3" >Le ore per i compiti di ricerca e gestionali si ricavano per differenza tra il monte ore annuo complessivo e i compiti didattici istituzionali.</div>
+
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
-		
+			<li class="nav-item">
+		<a href="#tabposition_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabposition_default_0"><i class="fa fa-file-signature mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabposition_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabposition_default_1"><i class="fa fa-user-tie mr-1"></i>Inquadramento</a>
+	</li>
+
 	</ul>
 	<form>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabposition_default_0" role="tabpanel">
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="position_default_description">Descrizione</label>
-					<input id="position_default_description" type="text" class="form-control" data-tag="position.description?positiondefaultview.description" data-subentity  data-mandatory />
+					<label class="col-form-label col-md-12" for="position_default_title">Titolo</label>
+					<input id="position_default_title" type="text" class="form-control" data-tag="position.title?positiondefaultview.title"  />
 				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_description">Descrizione</label>
+					<input id="position_default_description" type="text" class="form-control" data-tag="position.description?positiondefaultview.position_description"  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="position_default_active">Attivo</label>
 					<div class="custom-control custom-radio">
-						<input id="position_default_activeSi" type="radio" name="position_default_active" class="custom-control-input" data-tag="position.active:S?positiondefaultview.position_active:Si" data-subentity  ><label for="position_default_activeSi"> Si</label>
-						<input id="position_default_activeNo" type="radio" name="position_default_active" class="custom-control-input" data-tag="position.active:N?positiondefaultview.position_active:No" data-subentity  ><label for="position_default_activeNo"> No</label>
+						<input id="position_default_activeSi" type="radio" name="position_default_active" class="custom-control-input" data-tag="position.active:S?positiondefaultview.position_active:Si"  ><label for="position_default_activeSi"> Si</label>
+						<input id="position_default_activeNo" type="radio" name="position_default_active" class="custom-control-input" data-tag="position.active:N?positiondefaultview.position_active:No"  ><label for="position_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_printingorder">Printingorder</label>
+					<input id="position_default_printingorder" type="text" class="form-control" data-tag="position.printingorder?positiondefaultview.position_printingorder"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremaxtempopieno">Ore massime a tempo pieno</label>
+					<input id="position_default_oremaxtempopieno" type="text" class="form-control" data-tag="position.oremaxtempopieno?positiondefaultview.position_oremaxtempopieno"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremaxtempoparziale">Ore massime a tempo parziale</label>
+					<input id="position_default_oremaxtempoparziale" type="text" class="form-control" data-tag="position.oremaxtempoparziale?positiondefaultview.position_oremaxtempoparziale"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremintempopieno">Ore minime a tempo pieno</label>
+					<input id="position_default_oremintempopieno" type="text" class="form-control" data-tag="position.oremintempopieno?positiondefaultview.position_oremintempopieno"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremintempoparziale">Ore minime a tempo parziale</label>
+					<input id="position_default_oremintempoparziale" type="text" class="form-control" data-tag="position.oremintempoparziale?positiondefaultview.position_oremintempoparziale"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremaxcompitididatempopieno">Ore massime per i compiti didattici a tempo pieno</label>
+					<input id="position_default_oremaxcompitididatempopieno" type="text" class="form-control" data-tag="position.oremaxcompitididatempopieno?positiondefaultview.position_oremaxcompitididatempopieno"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremaxcompitididatempoparziale">Ore massime per i compiti didattici a tempo parziale</label>
+					<input id="position_default_oremaxcompitididatempoparziale" type="text" class="form-control" data-tag="position.oremaxcompitididatempoparziale?positiondefaultview.position_oremaxcompitididatempoparziale"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremincompitididatempopieno">Ore minime per i compiti didattici a tempo pieno</label>
+					<input id="position_default_oremincompitididatempopieno" type="text" class="form-control" data-tag="position.oremincompitididatempopieno?positiondefaultview.position_oremincompitididatempopieno"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremincompitididatempoparziale">Ore minime per i compiti didattici a tempo parziale</label>
+					<input id="position_default_oremincompitididatempoparziale" type="text" class="form-control" data-tag="position.oremincompitididatempoparziale?positiondefaultview.position_oremincompitididatempoparziale"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremaxdidatempopieno">Ore massime per didattica frontale a tempo pieno</label>
+					<input id="position_default_oremaxdidatempopieno" type="text" class="form-control" data-tag="position.oremaxdidatempopieno?positiondefaultview.position_oremaxdidatempopieno"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremaxdidatempoparziale">Ore massime per didattica frontale a tempo parziale</label>
+					<input id="position_default_oremaxdidatempoparziale" type="text" class="form-control" data-tag="position.oremaxdidatempoparziale?positiondefaultview.position_oremaxdidatempoparziale"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremindidatempopieno">Ore minime di didattica frontale a tempo pieno</label>
+					<input id="position_default_oremindidatempopieno" type="text" class="form-control" data-tag="position.oremindidatempopieno?positiondefaultview.position_oremindidatempopieno"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremindidatempoparziale">Ore minime di didattica frontale a tempo parziale</label>
+					<input id="position_default_oremindidatempoparziale" type="text" class="form-control" data-tag="position.oremindidatempoparziale?positiondefaultview.position_oremindidatempoparziale"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_orestraordinariemax">Ore massime di straordinario rendicontabili</label>
+					<input id="position_default_orestraordinariemax" type="text" class="form-control" data-tag="position.orestraordinariemax?positiondefaultview.position_orestraordinariemax"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_oremaxgg">Ore di lavoro al giorno massime</label>
+					<input id="position_default_oremaxgg" type="text" class="form-control" data-tag="position.oremaxgg?positiondefaultview.position_oremaxgg"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelposition_default_costolordoannuo" >Stipendio e eventuali annessi che compongono la retribuzione annua lorda, esclusi gli oneri a carico ente, allo scatto massimo della tabella stipendiale.</div>
+					<label class="col-form-label col-md-12" for="position_default_costolordoannuo">Costo lordo annuo</label>
+					<input id="position_default_costolordoannuo" type="text" class="form-control" data-tag="position.costolordoannuo.fixed.2?positiondefaultview.position_costolordoannuo"  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelposition_default_costolordoannuooneri" >Stipendio e eventuali annessi che compongono la retribuzione annua lorda sommati gli oneri a carico ente, allo scatto massimo della tabella stipendiale.</div>
+					<label class="col-form-label col-md-12" for="position_default_costolordoannuooneri">Costo lordo annuo e oneri</label>
+					<input id="position_default_costolordoannuooneri" type="text" class="form-control" data-tag="position.costolordoannuooneri.fixed.2?positiondefaultview.position_costolordoannuooneri"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_parttime">Abilita part-time</label>
+					<input id="position_default_parttime" type="checkbox" class="custom-control-input big-checkbox" data-tag="position.parttime:S:N?positiondefaultview.position_parttime:Si:No" />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_tempdef">Abilita tempo definito o parziale</label>
+					<input id="position_default_tempdef" type="checkbox" class="custom-control-input big-checkbox" data-tag="position.tempdef:S:N?positiondefaultview.position_tempdef:Si:No" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_livello">Abilita scatti stipendio</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_livelloSi" type="radio" name="position_default_livello" class="custom-control-input" data-tag="position.livello:S?positiondefaultview.position_livello:Si"  ><label for="position_default_livelloSi"> Si</label>
+						<input id="position_default_livelloNo" type="radio" name="position_default_livello" class="custom-control-input" data-tag="position.livello:N?positiondefaultview.position_livello:No"  ><label for="position_default_livelloNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_assegnoaggiuntivo">Abilita assegno aggiuntivo</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_assegnoaggiuntivoSi" type="radio" name="position_default_assegnoaggiuntivo" class="custom-control-input" data-tag="position.assegnoaggiuntivo:S?positiondefaultview.position_assegnoaggiuntivo:Si"  ><label for="position_default_assegnoaggiuntivoSi"> Si</label>
+						<input id="position_default_assegnoaggiuntivoNo" type="radio" name="position_default_assegnoaggiuntivo" class="custom-control-input" data-tag="position.assegnoaggiuntivo:N?positiondefaultview.position_assegnoaggiuntivo:No"  ><label for="position_default_assegnoaggiuntivoNo"> No</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="position_default_codeposition">Codice</label>
-					<input id="position_default_codeposition" type="text" class="form-control" data-tag="position.codeposition?positiondefaultview.position_codeposition" data-subentity  data-mandatory />
+					<label class="col-form-label col-md-12" for="position_default_elementoperequativo">Abilita elemento perequativo</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_elementoperequativoSi" type="radio" name="position_default_elementoperequativo" class="custom-control-input" data-tag="position.elementoperequativo:S?positiondefaultview.position_elementoperequativo:Si"  ><label for="position_default_elementoperequativoSi"> Si</label>
+						<input id="position_default_elementoperequativoNo" type="radio" name="position_default_elementoperequativo" class="custom-control-input" data-tag="position.elementoperequativo:N?positiondefaultview.position_elementoperequativo:No"  ><label for="position_default_elementoperequativoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_indennitadiposizione">Abilita indennità di posizione</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_indennitadiposizioneSi" type="radio" name="position_default_indennitadiposizione" class="custom-control-input" data-tag="position.indennitadiposizione:S?positiondefaultview.position_indennitadiposizione:Si"  ><label for="position_default_indennitadiposizioneSi"> Si</label>
+						<input id="position_default_indennitadiposizioneNo" type="radio" name="position_default_indennitadiposizione" class="custom-control-input" data-tag="position.indennitadiposizione:N?positiondefaultview.position_indennitadiposizione:No"  ><label for="position_default_indennitadiposizioneNo"> No</label>
+					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_indennitadiateneo">Abilita indennità di ateneo</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_indennitadiateneoSi" type="radio" name="position_default_indennitadiateneo" class="custom-control-input" data-tag="position.indennitadiateneo:S?positiondefaultview.position_indennitadiateneo:Si"  ><label for="position_default_indennitadiateneoSi"> Si</label>
+						<input id="position_default_indennitadiateneoNo" type="radio" name="position_default_indennitadiateneo" class="custom-control-input" data-tag="position.indennitadiateneo:N?positiondefaultview.position_indennitadiateneo:No"  ><label for="position_default_indennitadiateneoNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_indvacancacontrattuale">Abilita ind. vacanza contrattuale</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_indvacancacontrattualeSi" type="radio" name="position_default_indvacancacontrattuale" class="custom-control-input" data-tag="position.indvacancacontrattuale:S?positiondefaultview.position_indvacancacontrattuale:Si"  ><label for="position_default_indvacancacontrattualeSi"> Si</label>
+						<input id="position_default_indvacancacontrattualeNo" type="radio" name="position_default_indvacancacontrattuale" class="custom-control-input" data-tag="position.indvacancacontrattuale:N?positiondefaultview.position_indvacancacontrattuale:No"  ><label for="position_default_indvacancacontrattualeNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_tredicesimaindennitaintegrativaspeciale">Abilita tredicesima indennità integrativa speciale</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_tredicesimaindennitaintegrativaspecialeSi" type="radio" name="position_default_tredicesimaindennitaintegrativaspeciale" class="custom-control-input" data-tag="position.tredicesimaindennitaintegrativaspeciale:S?positiondefaultview.position_tredicesimaindennitaintegrativaspeciale:Si"  ><label for="position_default_tredicesimaindennitaintegrativaspecialeSi"> Si</label>
+						<input id="position_default_tredicesimaindennitaintegrativaspecialeNo" type="radio" name="position_default_tredicesimaindennitaintegrativaspeciale" class="custom-control-input" data-tag="position.tredicesimaindennitaintegrativaspeciale:N?positiondefaultview.position_tredicesimaindennitaintegrativaspeciale:No"  ><label for="position_default_tredicesimaindennitaintegrativaspecialeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_totaletredicesima">Abilita totale tredicesima</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_totaletredicesimaSi" type="radio" name="position_default_totaletredicesima" class="custom-control-input" data-tag="position.totaletredicesima:S?positiondefaultview.position_totaletredicesima:Si"  ><label for="position_default_totaletredicesimaSi"> Si</label>
+						<input id="position_default_totaletredicesimaNo" type="radio" name="position_default_totaletredicesima" class="custom-control-input" data-tag="position.totaletredicesima:N?positiondefaultview.position_totaletredicesima:No"  ><label for="position_default_totaletredicesimaNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelposition_default_puntiorganico" >Proporzione (da 0 a 1) dove 1 è il docente ordinario e per ogni altra tipologia si considera il rapporto tra il costo di un docente ordinario e il costo dello scatto più costoso della tipologia</div>
+					<label class="col-form-label col-md-12" for="position_default_puntiorganico">Punti organico</label>
+					<input id="position_default_puntiorganico" type="text" class="form-control" data-tag="position.puntiorganico.fixed.2?positiondefaultview.position_puntiorganico"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="position_default_tipopersonale">Categoria di personale</label>
+					<div class="custom-control custom-radio">
+						<input id="position_default_tipopersonaleD" type="radio" name="position_default_tipopersonale" class="custom-control-input" data-tag="position.tipopersonale:D?positiondefaultview.position_tipopersonale:Docente"  ><label for="position_default_tipopersonaleD"> Docente</label>
+						<input id="position_default_tipopersonaleP" type="radio" name="position_default_tipopersonale" class="custom-control-input" data-tag="position.tipopersonale:P?positiondefaultview.position_tipopersonale:Personale tecnico-amministrativo"  ><label for="position_default_tipopersonaleP"> Personale tecnico-amministrativo</label>
+						<input id="position_default_tipopersonaleR" type="radio" name="position_default_tipopersonale" class="custom-control-input" data-tag="position.tipopersonale:R?positiondefaultview.position_tipopersonale:Ricercatore"  ><label for="position_default_tipopersonaleR"> Ricercatore</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelposition_default_siglaimportazione" >Sigla utilizzata dal sistema da cui si importano i dati</div>
+					<label class="col-form-label col-md-12" for="position_default_siglaimportazione">Sigla importazione</label>
+					<input id="position_default_siglaimportazione" type="text" class="form-control" data-tag="position.siglaimportazione?positiondefaultview.position_siglaimportazione"  />
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelposition_default_siglaesportazione" >Sigla utilizzata dal sistema verso cui si esportano i dati (solitamente il MIUR)</div>
+					<label class="col-form-label col-md-12" for="position_default_siglaesportazione">Sigla esportazione</label>
+					<input id="position_default_siglaesportazione" type="text" class="form-control" data-tag="position.siglaesportazione?positiondefaultview.position_siglaesportazione"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="position_default_codeposition">Codice qualifica</label>
+					<input id="position_default_codeposition" type="text" class="form-control" data-tag="position.codeposition?positiondefaultview.position_codeposition"  data-mandatory />
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabposition_default_1" role="tabpanel">
+				<div class="gridx" id="grid_inquadramento_default" data-tag="inquadramento.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+	</div>
+</div>
 </form>
 
 </div>

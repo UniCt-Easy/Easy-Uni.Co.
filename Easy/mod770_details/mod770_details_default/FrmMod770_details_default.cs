@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,7 +39,8 @@ namespace mod770_details_default
 		private System.Windows.Forms.Button btnSalvaIn;
 		public mod770_details_default.vistaForm DS;
 		private MetaData Meta;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
+        private ISaveFileDialog saveFileDialog1;
         private Button buttonGenera770;
         private GroupBox groupBox4;
         private Button buttonLegendaI;
@@ -66,11 +67,11 @@ namespace mod770_details_default
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            saveFileDialog1.DefaultExt = "77s";
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -98,7 +99,7 @@ namespace mod770_details_default
 			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.txtPercorso = new System.Windows.Forms.TextBox();
 			this.btnSalvaIn = new System.Windows.Forms.Button();
-			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
 			this.DS = new mod770_details_default.vistaForm();
 			this.buttonGenera770 = new System.Windows.Forms.Button();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -113,7 +114,8 @@ namespace mod770_details_default
 			this.dgrVerifiche = new System.Windows.Forms.DataGrid();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.btnRiepilogoRitenute = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			this.grpVerifiche.SuspendLayout();
@@ -154,7 +156,7 @@ namespace mod770_details_default
 			// 
 			// saveFileDialog1
 			// 
-			this.saveFileDialog1.DefaultExt = "77s";
+			//this.saveFileDialog1.DefaultExt = "77s";
 			// 
 			// DS
 			// 

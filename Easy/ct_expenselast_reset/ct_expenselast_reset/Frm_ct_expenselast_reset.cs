@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -325,7 +325,7 @@ namespace ct_expenselast_reset {
             if (res) {
                
                 string mess = "Operazione Eseguita con successo.";
-                show(mess);
+                show(mess, "");
                 btnAzzera.Visible = false;
                 btnAnnulla.Text = "Chiudi";
             }
@@ -499,8 +499,23 @@ namespace ct_expenselast_reset {
 
             foreach (DataColumn CC in dtExpLastNew.Columns) {
                 if (CC.ColumnName == "idexp" || CC.ColumnName == "kpay") continue;
-                rExpLastNew[CC.ColumnName] = CurrLast[CC.ColumnName];
+                if (CC.ColumnName == "idaccdebit") {
+                    object newidacc = Calcola_newidacc(CurrLast["idaccdebit"]);
+                    if (newidacc == null) {
+                        show($"Nell'anno {Conn.GetEsercizio()} non è stata trovata una voce del piano dei conti mappata alla voce di " +
+                            $" chiave {CurrLast["idaccdebit"]} (conto di debito) dell'anno precedente", "Errore");
+                        return false;
+                    }
+                    else {
+                        rExpLastNew["idaccdebit"] = newidacc;
+                    }
+                }
+                else {
+                    rExpLastNew[CC.ColumnName] = CurrLast[CC.ColumnName];
+                }
             }
+
+          
 
             foreach (DataColumn CC in dtExpYearNew.Columns) {
                 CC.DefaultValue = saveddefaults_ExpYearNew[CC.ColumnName];
@@ -520,6 +535,13 @@ namespace ct_expenselast_reset {
             object new_idfin = Conn.DO_READ_VALUE("finlookup", filter_lookup, "newidfin"); 
             return new_idfin;
 
+        }
+
+        private object Calcola_newidacc(object curr_idacc) {
+ 
+            string filter_lookup = QHS.CmpEq("oldidacc", curr_idacc);
+            object new_idacc = Conn.DO_READ_VALUE("accountlookup", filter_lookup, "newidacc");
+            return new_idacc;
         }
 
         private void btnMostraPagamenti_Click(object sender, EventArgs e) {

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,6 +35,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using LM=metadatalibrary.LanguageManager;
+using iText.Forms.Fields;
 
 namespace cu_details_default {
     /// <summary>
@@ -48,7 +49,8 @@ namespace cu_details_default {
         private System.Windows.Forms.Button btnSalvaIn;
         public cu_details_default.vistaForm DS;
         private MetaData Meta;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
+        private ISaveFileDialog saveFileDialog1;
         private Button buttonRecordG;
         private Button buttonRecordH;
         private GroupBox groupBox1;
@@ -71,7 +73,8 @@ namespace cu_details_default {
         private Button btnDatiDH;
         private Button btnLegendaDG;
         private Button btnLegendaDH;
-        private FolderBrowserDialog folderBrowserDialog1;
+        private FolderBrowserDialog _folderBrowserDialog1;
+        private IFolderBrowserDialog folderBrowserDialog1;
         private GroupBox groupBox5;
         private DataGrid dataGrid;
         private CheckBox chkConIndirizzo;
@@ -80,7 +83,8 @@ namespace cu_details_default {
         private Label label2;
         private TextBox txtInputFile;
         private Button btnInputFile;
-        private OpenFileDialog MyOpenFile;
+        private OpenFileDialog _MyOpenFile;
+        private IOpenFileDialog MyOpenFile;
         private CheckBox chkDonazione;
         private GroupBox groupBox7;
         private RadioButton radH;
@@ -106,7 +110,9 @@ namespace cu_details_default {
             // Required for Windows Form Designer support
             //
             InitializeComponent();
-
+            MyOpenFile.FileName = "openFileDialog";
+            MyOpenFile.Title = "Selezionare il file Excel da importare";
+            saveFileDialog1.DefaultExt = "cur";
             //
             // TODO: Add any constructor code after InitializeComponent call
             //
@@ -135,7 +141,7 @@ namespace cu_details_default {
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.txtPercorso = new System.Windows.Forms.TextBox();
             this.btnSalvaIn = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.buttonRecordG = new System.Windows.Forms.Button();
             this.buttonRecordH = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -158,7 +164,7 @@ namespace cu_details_default {
             this.btnLegendaB = new System.Windows.Forms.Button();
             this.btnDatiA = new System.Windows.Forms.Button();
             this.btnLegendaA = new System.Windows.Forms.Button();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dataGrid = new System.Windows.Forms.DataGrid();
             this.chkConIndirizzo = new System.Windows.Forms.CheckBox();
@@ -169,7 +175,8 @@ namespace cu_details_default {
             this.label2 = new System.Windows.Forms.Label();
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnInputFile = new System.Windows.Forms.Button();
-            this.MyOpenFile = new System.Windows.Forms.OpenFileDialog();
+            this._MyOpenFile = new System.Windows.Forms.OpenFileDialog();
+            this.MyOpenFile = createOpenFileDialog(this._MyOpenFile);
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.radH = new System.Windows.Forms.RadioButton();
             this.radG = new System.Windows.Forms.RadioButton();
@@ -182,6 +189,8 @@ namespace cu_details_default {
             this.pBarAvanzamento = new System.Windows.Forms.ProgressBar();
             this.txtInputFileSetCF = new System.Windows.Forms.TextBox();
             this.btnCUperSetdiCF = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -227,7 +236,7 @@ namespace cu_details_default {
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "cur";
+            //this.saveFileDialog1.DefaultExt = "cur";
             // 
             // buttonRecordG
             // 
@@ -566,8 +575,8 @@ namespace cu_details_default {
             // 
             // MyOpenFile
             // 
-            this.MyOpenFile.FileName = "openFileDialog";
-            this.MyOpenFile.Title = "Selezionare il file Excel da importare";
+            //this.MyOpenFile.FileName = "openFileDialog";
+            //this.MyOpenFile.Title = "Selezionare il file Excel da importare";
             // 
             // groupBox7
             // 
@@ -976,9 +985,9 @@ namespace cu_details_default {
                 campoCodice = r["quadro"].ToString() + r["colonna"].ToString();
             if (r["quadro"].ToString() == "SS")
                 return new string[] { campoCodice + getInt(r, out valore).ToString().PadLeft(16) };
-            if (r["quadro"].ToString() == "DC001" && r["colonna"].ToString() == "072") {
+            if (r["quadro"].ToString() == "DC001" && r["colonna"].ToString() == "092") { 
                 valore = r["stringa"].ToString();
-                string patcode = "DC001072" + (valore.ToString()).PadLeft(16);
+                string patcode = "DC001092" + (valore.ToString()).PadLeft(16); 
                 return new string[] { patcode };
             }
             string filtro = "(frame='" + r["quadro"] + "') and (colnumber='" + r["colonna"] + "')";
@@ -1272,6 +1281,7 @@ namespace cu_details_default {
             DataTable T = ds.Tables[0];
             if (T.Rows.Count > 0) {
                 frmErrori fErr = new frmErrori(T);
+                createForm(fErr, null);
                 DialogResult drErr = fErr.ShowDialog();
                 return false;
             }
@@ -3137,7 +3147,8 @@ namespace cu_details_default {
                 PdfAcroForm form = PdfAcroForm.GetAcroForm(document, false);
 
                 if (form != null) {
-                    form.SetGenerateAppearance(false);
+                    form.SetGenerateAppearance(true);
+                    form.SetNeedAppearances(true);
 
                     var fields = form.GetFormFields();
 
@@ -3185,9 +3196,13 @@ namespace cu_details_default {
                         }
                     }
 
+                    foreach (KeyValuePair<string, PdfFormField> entry in fields) {
+                        entry.Value.SetReadOnly(true);
+					}
+                    form.FlattenFields();
                     //indici delle pagine del template
-                    int indexFromRemove = (recordH) ? 3 : 6;
-                    int indexToRemove = (recordH) ? 10 : 7;
+                    int indexFromRemove = (recordH) ? 3 : 7;
+                    int indexToRemove = (recordH) ? 10 : 10;
 
                     if (chkConIndirizzo.Checked) {
                         indexFromRemove++;
@@ -3204,6 +3219,7 @@ namespace cu_details_default {
                     try {
                         writer.Flush();
                         document.Close();
+                        writer.Close();
                     }
                     catch (Exception e) {
                         QueryCreator.ShowError(this, "Errore salvando il file, probabilmente il percorso non esiste o il file è già aperto.", e.ToString());
@@ -3277,11 +3293,13 @@ namespace cu_details_default {
                 }
                 frmListaProblemi f = new frmListaProblemi(0);
                 f.txtProblemi.Text = s;
+                createForm(f, null);
                 f.Show();
                 return false;
             }
 
             frmAskMailData fM = new frmAskMailData(1);
+            createForm(fM, null);
             DialogResult r = fM.ShowDialog(this);
             if (r != DialogResult.OK) return false;
 
@@ -3378,8 +3396,8 @@ namespace cu_details_default {
                     }
 
                     //indici delle pagine del template
-                    int indexFromRemove = (recordH) ? 3 : 6;
-                    int indexToRemove = (recordH) ? 10 : 7;
+                    int indexFromRemove = (recordH) ? 3 : 7;
+                    int indexToRemove = (recordH) ? 10 : 10;
 
                     if (chkConIndirizzo.Checked) {
                         indexFromRemove++;
@@ -3561,6 +3579,17 @@ namespace cu_details_default {
             inviati.Tables.Add(dt);
             inviati.Tables[0].TableName = "Situazione";
             
+            
+
+            //string fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".xlsx";
+            string fileName = Path.ChangeExtension(Path.GetTempFileName(), "xlsx");
+            byte[] datatableBytes = dataTableToOfficeXML(inviati.Tables[0],/* false,*/ fileName);
+            if (datatableBytes.Length == 0 || datatableBytes == null) return false;
+        
+            frmSituazioneViewer View = new frmSituazioneViewer(inviati);
+            createForm(View, null);
+            View.Show();
+
             SendMail responsabile = new SendMail();
             responsabile.Conn = Meta.Conn;
             DataTable T = conn.RUN_SELECT("configsmtp", "responsabile_cu", null, null, null, false);
@@ -3569,20 +3598,13 @@ namespace cu_details_default {
                 responsabile.UseSMTPLoginAsFromField = true;
                 responsabile.Subject = "Resoconto Email Inviate/Non Inviate";
                 responsabile.MessageBody = "CU " + Meta.GetSys("esercizio");
-			}           
-
-            string fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".xlsx";   
-            byte[] datatableBytes = dataTableToOfficeXML(inviati.Tables[0],/* false,*/ fileName);
-            if (datatableBytes.Length == 0 || datatableBytes == null) return false;
-        
-            frmSituazioneViewer View = new frmSituazioneViewer(inviati);            
-            View.Show();
-
-            responsabile.addAttachment(datatableBytes, fileName);
-            if (!responsabile.Send()) {
-            if (responsabile.ErrorMessage.Trim() != "")
-                show(responsabile.ErrorMessage.Trim());
+                responsabile.addAttachment(datatableBytes, fileName);
+                if (!responsabile.Send()) {
+                    if (responsabile.ErrorMessage.Trim() != "")
+                        show(responsabile.ErrorMessage.Trim());
+                }
             }
+           
 
             return true;
         }
@@ -4158,6 +4180,7 @@ namespace cu_details_default {
 
             if (!ok) {
                 frmErrori View = new frmErrori(Out.Tables[0]);
+                createForm(View, null);
                 View.Show();
             }
 

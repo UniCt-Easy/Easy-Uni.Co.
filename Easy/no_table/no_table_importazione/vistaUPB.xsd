@@ -85,6 +85,8 @@
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cigcode" type="xs:string" minOccurs="0" />
               <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="cofogmpcode" type="xs:string" minOccurs="0" />
+              <xs:element name="uesiopecode" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -176,6 +178,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="upbyear">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="revenueprevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costprevision" type="xs:decimal" minOccurs="0" />
+              <xs:element name="locked" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -202,6 +219,11 @@
       <xs:selector xpath=".//mstns:epupbkind" />
       <xs:field xpath="mstns:idepupbkind" />
     </xs:unique>
+    <xs:unique name="upbyear_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upbyear" />
+      <xs:field xpath="mstns:idupb" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -211,6 +233,7 @@
       <msdata:Relationship name="underwriter_upb" msdata:parent="underwriter" msdata:child="upb" msdata:parentkey="idunderwriter" msdata:childkey="idunderwriter" />
       <msdata:Relationship name="division_manager" msdata:parent="division" msdata:child="manager" msdata:parentkey="iddivision" msdata:childkey="iddivision" />
       <msdata:Relationship name="epupbkind_upb" msdata:parent="epupbkind" msdata:child="upb" msdata:parentkey="idepupbkind" msdata:childkey="idepupbkind" />
+      <msdata:Relationship name="upbyear_upb" msdata:parent="upbyear" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="idupb" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

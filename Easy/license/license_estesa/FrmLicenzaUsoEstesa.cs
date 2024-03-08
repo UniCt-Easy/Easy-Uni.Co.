@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -185,7 +185,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(112, 23);
 			this.label3.TabIndex = 3;
-			this.label3.Text = "Nome Universit‡";
+			this.label3.Text = "Nome Universit√†";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// textBox2
@@ -430,7 +430,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 			this.groupBox1.Size = new System.Drawing.Size(552, 144);
 			this.groupBox1.TabIndex = 9;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Referente per le comunicazioni della Software and More. (*)";
+			this.groupBox1.Text = "Referente per le comunicazioni (*)";
 			// 
 			// label15
 			// 
@@ -438,8 +438,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(544, 40);
 			this.label15.TabIndex = 56;
-			this.label15.Text = "(*) Per le gestioni centralizzate (es. Perugia Stranieri, Piemonte Orientale) Ë i" +
-				"l nome di chi gestisce centralmente le assistenze. In tutti gli altri casi Ë il " +
+			this.label15.Text = "(*) Per le gestioni centralizzate (es. Piemonte Orientale) √® i" +
+				"l nome di chi gestisce centralmente le assistenze. In tutti gli altri casi √® il " +
 				"nome del segretario amministrativo, responsabile del dipartimento o dell\'amminis" +
 				"trazione.";
 			// 
@@ -566,7 +566,7 @@ namespace license_estesa//LicenzaUsoEstesa//
 			
 			if (R["checkflag"].ToString()!=CheckFlags.CalcolaCheckFlag(R)){
 				if (!MessaggioDisableVisualizzato){
-					show("Questo db non Ë autorizzato dalla Software & More. Contattare il servizio assistenza");
+					show("Questo db non √® autorizzato dalla Software & More. Contattare il servizio assistenza");
 					MessaggioDisableVisualizzato=true;
 				}
 				Meta.CanSave=false;
@@ -582,8 +582,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 				(R["dbname"].ToString()!= RealDBName)){				
 				show("Da questo accesso risulta che il db n."+
 					R["iddb"].ToString()+
-					" il nuovo server Ë "+RealServerName+
-					" ed il nuovo nomedb Ë "+RealDBName+
+					" il nuovo server √® "+RealServerName+
+					" ed il nuovo nomedb √® "+RealDBName+
 					". Contattare la software and more per fare (ri)abilitare questo db all'uso del programma.");
 
 				bool IsAdmin=false;
@@ -649,8 +649,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 				string SS2 = QueryCreator.ByteArrayToString(B2);
 				WebClient W = new WebClient();
                 W.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-                W.BaseAddress = "http://ticket.temposrl.it/LiveLog/";
-                byte[] B = W.DownloadData("http://ticket.temposrl.it/LiveLog/DoEasy.aspx?a=" + SS2);
+                W.BaseAddress = "http://SERVER/LiveLog/";
+                byte[] B = W.DownloadData("http://SERVER/LiveLog/DoEasy.aspx?a=" + SS2);
 				string resp="";
 				for (int i=0; i<B.Length;i++) resp=resp+ (char)B[i];
 				resp= resp.Trim();
@@ -686,12 +686,14 @@ namespace license_estesa//LicenzaUsoEstesa//
 						string pwdChangeServer;
 						FrmAskCode F= new FrmAskCode(0);
 						F.txtID.PasswordChar='?';
-						DialogResult D= F.ShowDialog(this);
+                        createForm(F, this);
+						DialogResult D = F.ShowDialog(this);
 						if (D!=DialogResult.OK)return;
 						pwdChangeServer=F.txtID.Text;
 						if (pwdChangeServer=="DoMasterSetDB"){
 							FrmAskCode FF= new FrmAskCode(0);
-							DialogResult DD= FF.ShowDialog(this);
+                            createForm(FF, this);
+                            DialogResult DD= FF.ShowDialog(this);
 							if (DD==DialogResult.OK){
 								mycode=CfgFn.GetNoNullInt32(
 									HelpForm.GetObjectFromString(typeof(int),FF.txtID.Text,"x.y"));
@@ -724,8 +726,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 
 		private void btnReset_Click(object sender, System.EventArgs e) {
 			if (show(this,
-				"Premere OK solo se si Ë esattamente CERTI di quello che si sta facendo e "+
-				"se si Ë sotto la STRETTISSIMA tutela di un tecnico della software and more.",
+				"Premere OK solo se si √® esattamente CERTI di quello che si sta facendo e "+
+				"se si √® sotto la STRETTISSIMA tutela di un tecnico della software and more.",
 				"Attenzione",MessageBoxButtons.OKCancel)!=DialogResult.OK){
 				btnReset.Visible=false;
 				btnRemoveLicense.Visible=false;
@@ -736,7 +738,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 			string pwdChangeServer;
 			FrmAskCode F= new FrmAskCode(0);
 			F.txtID.PasswordChar='?';
-			DialogResult D= F.ShowDialog(this);
+            createForm(F, this);
+            DialogResult D= F.ShowDialog(this);
 			if (D!=DialogResult.OK)return;
 			pwdChangeServer=F.txtID.Text;
 			if (pwdChangeServer!="DoMasterChangeServer") return;
@@ -757,8 +760,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 
 		private void btnRemoveLicense_Click(object sender, System.EventArgs e) {
 			if (show(this,
-				"Premere OK solo se si Ë esattamente CERTI di quello che si sta facendo e "+
-				"se si Ë sotto la STRETTISSIMA tutela di un tecnico della software and more.",
+				"Premere OK solo se si √® esattamente CERTI di quello che si sta facendo e "+
+				"se si √® sotto la STRETTISSIMA tutela di un tecnico della software and more.",
 				"Attenzione",MessageBoxButtons.OKCancel)!=DialogResult.OK){
 				btnReset.Visible=false;
 				btnRemoveLicense.Visible=false;
@@ -769,7 +772,8 @@ namespace license_estesa//LicenzaUsoEstesa//
 			string pwdChangeServer;
 			FrmAskCode F= new FrmAskCode(0);
 			F.txtID.PasswordChar='?';
-			DialogResult D= F.ShowDialog(this);
+            createForm(F, this);
+            DialogResult D= F.ShowDialog(this);
 			if (D!=DialogResult.OK)return;
 			pwdChangeServer=F.txtID.Text;
 			if (pwdChangeServer!="DoMasterChangeServer") return;

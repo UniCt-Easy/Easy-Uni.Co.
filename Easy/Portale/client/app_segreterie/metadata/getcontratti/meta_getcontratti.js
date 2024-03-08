@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -46,11 +29,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'costomese', 'Costo mensile', 'fixed.2', 30, null);
 						this.describeAColumn(table, 'costoora', 'Costo orario', 'fixed.2', 40, null);
 						this.describeAColumn(table, 'oremax', 'Oremax', null, 90, null);
+						this.describeAColumn(table, 'livello', 'Livello', null, 100, null);
 						this.describeAColumn(table, 'oremaxdida', 'Oremaxdida', null, 100, null);
 						this.describeAColumn(table, 'oremaxgg', 'Oremaxgg', null, 110, null);
 						this.describeAColumn(table, 'oremindida', 'Oremindida', null, 120, null);
 						this.describeAColumn(table, 'parttime', 'Percentuale part-time', 'fixed.2', 130, null);
-						this.describeAColumn(table, 'scatto', 'Scatto', null, 140, null);
 						this.describeAColumn(table, 'start', 'Inizio', null, 150, null);
 						this.describeAColumn(table, 'stop', 'Fine', null, 160, null);
 						this.describeAColumn(table, 'tempdef', 'Tempo definito', null, 170, null);
@@ -74,10 +57,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["costolordoannuo"].caption = "Costo lordo annuo";
 						table.columns["costomese"].caption = "Costo mensile";
 						table.columns["costoora"].caption = "Costo orario";
-						table.columns["idcontratto"].caption = "Contratto";
-						table.columns["idcontrattokind"].caption = "id Ruolo/Figura contrattuale";
 						table.columns["idinquadramento"].caption = "Inquadramento";
+						table.columns["idposition"].caption = "id Ruolo/Figura contrattuale";
 						table.columns["idreg"].caption = "Dipendente";
+						table.columns["idregistrylegalstatus"].caption = "Contratto";
 						table.columns["parttime"].caption = "Percentuale part-time";
 						table.columns["start"].caption = "Inizio";
 						table.columns["stop"].caption = "Fine";

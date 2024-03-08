@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -106,6 +106,8 @@ namespace paydispositiondetail_single {
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.cmbChargeHandling = new System.Windows.Forms.ComboBox();
 			this.grpModalitaPag = new System.Windows.Forms.GroupBox();
+			this.rdbGirofondoTabB = new System.Windows.Forms.RadioButton();
+			this.rdbGirofondoTabA = new System.Windows.Forms.RadioButton();
 			this.rdbAssegnoQuietanza = new System.Windows.Forms.RadioButton();
 			this.rdbAssegnoCircolare = new System.Windows.Forms.RadioButton();
 			this.rdbAssegno = new System.Windows.Forms.RadioButton();
@@ -856,6 +858,8 @@ namespace paydispositiondetail_single {
 			// 
 			// grpModalitaPag
 			// 
+			this.grpModalitaPag.Controls.Add(this.rdbGirofondoTabB);
+			this.grpModalitaPag.Controls.Add(this.rdbGirofondoTabA);
 			this.grpModalitaPag.Controls.Add(this.rdbAssegnoQuietanza);
 			this.grpModalitaPag.Controls.Add(this.rdbAssegnoCircolare);
 			this.grpModalitaPag.Controls.Add(this.rdbAssegno);
@@ -868,10 +872,36 @@ namespace paydispositiondetail_single {
 			this.grpModalitaPag.TabStop = false;
 			this.grpModalitaPag.Text = "Modalità di Pagamento";
 			// 
+			// rdbGirofondoTabB
+			// 
+			this.rdbGirofondoTabB.AutoSize = true;
+			this.rdbGirofondoTabB.Location = new System.Drawing.Point(327, 45);
+			this.rdbGirofondoTabB.Name = "rdbGirofondoTabB";
+			this.rdbGirofondoTabB.Size = new System.Drawing.Size(103, 17);
+			this.rdbGirofondoTabB.TabIndex = 8;
+			this.rdbGirofondoTabB.TabStop = true;
+			this.rdbGirofondoTabB.Tag = "paydispositiondetail.paymethodcode:7";
+			this.rdbGirofondoTabB.Text = "Girofondo Tab B";
+			this.rdbGirofondoTabB.UseVisualStyleBackColor = true;
+			this.rdbGirofondoTabB.CheckedChanged += new System.EventHandler(this.rdbBonifico_CheckedChanged);
+			// 
+			// rdbGirofondoTabA
+			// 
+			this.rdbGirofondoTabA.AutoSize = true;
+			this.rdbGirofondoTabA.Location = new System.Drawing.Point(192, 45);
+			this.rdbGirofondoTabA.Name = "rdbGirofondoTabA";
+			this.rdbGirofondoTabA.Size = new System.Drawing.Size(103, 17);
+			this.rdbGirofondoTabA.TabIndex = 7;
+			this.rdbGirofondoTabA.TabStop = true;
+			this.rdbGirofondoTabA.Tag = "paydispositiondetail.paymethodcode:6";
+			this.rdbGirofondoTabA.Text = "Girofondo Tab A";
+			this.rdbGirofondoTabA.UseVisualStyleBackColor = true;
+			this.rdbGirofondoTabA.CheckedChanged += new System.EventHandler(this.rdbGirofondoTabA_CheckedChanged);
+			// 
 			// rdbAssegnoQuietanza
 			// 
 			this.rdbAssegnoQuietanza.AutoSize = true;
-			this.rdbAssegnoQuietanza.Location = new System.Drawing.Point(438, 49);
+			this.rdbAssegnoQuietanza.Location = new System.Drawing.Point(25, 45);
 			this.rdbAssegnoQuietanza.Name = "rdbAssegnoQuietanza";
 			this.rdbAssegnoQuietanza.Size = new System.Drawing.Size(128, 17);
 			this.rdbAssegnoQuietanza.TabIndex = 6;
@@ -884,7 +914,7 @@ namespace paydispositiondetail_single {
 			// rdbAssegnoCircolare
 			// 
 			this.rdbAssegnoCircolare.AutoSize = true;
-			this.rdbAssegnoCircolare.Location = new System.Drawing.Point(174, 51);
+			this.rdbAssegnoCircolare.Location = new System.Drawing.Point(326, 22);
 			this.rdbAssegnoCircolare.Name = "rdbAssegnoCircolare";
 			this.rdbAssegnoCircolare.Size = new System.Drawing.Size(187, 17);
 			this.rdbAssegnoCircolare.TabIndex = 5;
@@ -897,7 +927,7 @@ namespace paydispositiondetail_single {
 			// rdbAssegno
 			// 
 			this.rdbAssegno.AutoSize = true;
-			this.rdbAssegno.Location = new System.Drawing.Point(25, 50);
+			this.rdbAssegno.Location = new System.Drawing.Point(192, 22);
 			this.rdbAssegno.Name = "rdbAssegno";
 			this.rdbAssegno.Size = new System.Drawing.Size(110, 17);
 			this.rdbAssegno.TabIndex = 4;
@@ -910,7 +940,7 @@ namespace paydispositiondetail_single {
 			// rdbCassa
 			// 
 			this.rdbCassa.AutoSize = true;
-			this.rdbCassa.Location = new System.Drawing.Point(174, 22);
+			this.rdbCassa.Location = new System.Drawing.Point(114, 22);
 			this.rdbCassa.Name = "rdbCassa";
 			this.rdbCassa.Size = new System.Drawing.Size(54, 17);
 			this.rdbCassa.TabIndex = 3;
@@ -955,11 +985,11 @@ namespace paydispositiondetail_single {
 			// 
 			// label18
 			// 
-			this.label18.Location = new System.Drawing.Point(62, 18);
+			this.label18.Location = new System.Drawing.Point(60, 18);
 			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(134, 16);
+			this.label18.Size = new System.Drawing.Size(255, 16);
 			this.label18.TabIndex = 36;
-			this.label18.Text = "Codice Pagamento";
+			this.label18.Text = "Codice Pagamento/ N.ro Conto Banca Italia";
 			// 
 			// textBox2
 			// 
@@ -1526,5 +1556,7 @@ namespace paydispositiondetail_single {
 		private System.Windows.Forms.ComboBox cmbChargeHandling;
 		private System.Windows.Forms.Button btnChargeHandling;
 		private System.Windows.Forms.CheckBox chk_bank_charges_exempt;
+		private System.Windows.Forms.RadioButton rdbGirofondoTabB;
+		private System.Windows.Forms.RadioButton rdbGirofondoTabA;
 	}
 }

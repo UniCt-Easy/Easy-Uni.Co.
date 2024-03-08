@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -46,8 +29,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'docdate', 'Data del documento collegato', null, 60, null);
 						this.describeAColumn(table, 'yoperation', 'Esercizio operazione', null, 90, null);
 						this.describeAColumn(table, 'noperation', 'Numero operazione', null, 100, null);
-						this.describeAColumn(table, '!idcontrattokind_contrattokind_title', 'Tipo di contratto', null, 31, null);
-						objCalcFieldConfig['!idcontrattokind_contrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idcontrattokind' };
+						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_start', 'Data e ora di inizio Diario d\'uso del bene strumentale', 'g', 142, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_stop', 'Data e ora di fine Diario d\'uso del bene strumentale', 'g', 143, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_idassetdiary_idpiece', 'Bene strumentale Diario d\'uso del bene strumentale', null, 141, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_idassetdiary_idreg', 'Operatore Diario d\'uso del bene strumentale', null, 142, null);
+						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_idassetdiary_orepreventivate', 'Ore di utilizzo complessive preventivate Diario d\'uso del bene strumentale', null, 143, null);
+						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_start'] = { tableNameLookup:'assetdiaryora', columnNameLookup:'start', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_stop'] = { tableNameLookup:'assetdiaryora', columnNameLookup:'stop', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_idassetdiary_idpiece'] = { tableNameLookup:'assetdiary', columnNameLookup:'idpiece', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_idassetdiary_idreg'] = { tableNameLookup:'assetdiary', columnNameLookup:'idreg', columnNamekey:'idassetdiaryora' };
+						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_idassetdiary_orepreventivate'] = { tableNameLookup:'assetdiary', columnNameLookup:'orepreventivate', columnNamekey:'idassetdiaryora' };
 						this.describeAColumn(table, '!idexp_expense_description', 'Descrizione Spesa', null, 71, null);
 						this.describeAColumn(table, '!idexp_expense_ymov', 'Anno movimento Spesa', null, 72, null);
 						this.describeAColumn(table, '!idexp_expense_nmov', 'N.movimento Spesa', null, 73, null);
@@ -58,14 +49,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idpettycash_pettycash_pettycode', 'Codice Fondo economale', null, 82, null);
 						objCalcFieldConfig['!idpettycash_pettycash_description'] = { tableNameLookup:'pettycash', columnNameLookup:'description', columnNamekey:'idpettycash' };
 						objCalcFieldConfig['!idpettycash_pettycash_pettycode'] = { tableNameLookup:'pettycash', columnNameLookup:'pettycode', columnNamekey:'idpettycash' };
+						this.describeAColumn(table, '!idposition_position_title', 'Tipo di contratto', null, 31, null);
+						objCalcFieldConfig['!idposition_position_title'] = { tableNameLookup:'position', columnNameLookup:'title', columnNamekey:'idposition' };
 						this.describeAColumn(table, '!idprogettotipocosto_progettotipocosto_title', 'Voce di costo', null, 11, null);
 						objCalcFieldConfig['!idprogettotipocosto_progettotipocosto_title'] = { tableNameLookup:'progettotipocosto_alias1', columnNameLookup:'title', columnNamekey:'idprogettotipocosto' };
-						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_description', 'Attivit� svolta', null, 41, null);
-						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_description'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'description', columnNamekey:'idrendicontattivitaprogetto' };
-						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio Stato avanzamento lavori', null, 121, null);
-						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine Stato avanzamento lavori', null, 122, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_description', 'Descrizione Attività svolta', null, 41, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_surname', 'Cognome Attività svolta', null, 41, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_forename', 'Nome Attività svolta', null, 42, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_extmatricula', 'Matricola Attività svolta', null, 43, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_contratto', 'Contratto Attività svolta', null, 44, null);
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_description'] = { tableNameLookup:'rendicontattivitaprogetto_alias1', columnNameLookup:'description', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_surname'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'surname', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_forename'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'forename', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'extmatricula', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_idreg_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'contratto', columnNamekey:'idrendicontattivitaprogetto' };
+						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio Stato avanzamento lavori', null, 201, null);
+						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine Stato avanzamento lavori', null, 202, null);
 						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal', columnNameLookup:'start', columnNamekey:'idsal' };
 						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal', columnNameLookup:'stop', columnNamekey:'idsal' };
+						this.describeAColumn(table, '!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_year', 'Anno Uso del bene strumentale', null, 152, null);
+						this.describeAColumn(table, '!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_amount', 'Importo Uso del bene strumentale', 'fixed.2', 154, null);
+						this.describeAColumn(table, '!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_idsalprogettoassetworkpackage_idpiece', 'Bene Strumentale Uso del bene strumentale', null, 151, null);
+						this.describeAColumn(table, '!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_idsalprogettoassetworkpackage_percentuale', 'Percentuale Uso del bene strumentale', 'fixed.2', 152, null);
+						this.describeAColumn(table, '!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_idmese_title', 'Mese Uso del bene strumentale', null, 150, null);
+						objCalcFieldConfig['!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_year'] = { tableNameLookup:'salprogettoassetworkpackagemese', columnNameLookup:'year', columnNamekey:'idsalprogettoassetworkpackagemese' };
+						objCalcFieldConfig['!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_amount'] = { tableNameLookup:'salprogettoassetworkpackagemese', columnNameLookup:'amount', columnNamekey:'idsalprogettoassetworkpackagemese' };
+						objCalcFieldConfig['!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_idsalprogettoassetworkpackage_idpiece'] = { tableNameLookup:'salprogettoassetworkpackage', columnNameLookup:'idpiece', columnNamekey:'idsalprogettoassetworkpackagemese' };
+						objCalcFieldConfig['!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_idsalprogettoassetworkpackage_percentuale'] = { tableNameLookup:'salprogettoassetworkpackage', columnNameLookup:'percentuale', columnNamekey:'idsalprogettoassetworkpackagemese' };
+						objCalcFieldConfig['!idsalprogettoassetworkpackagemese_salprogettoassetworkpackagemese_idmese_title'] = { tableNameLookup:'mese', columnNameLookup:'title', columnNamekey:'idsalprogettoassetworkpackagemese' };
 //$objCalcFieldConfig_seg$
 						break;
 					case 'segprg':
@@ -77,11 +88,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //$objCalcFieldConfig_segprg$
 						break;
 					case 'segsal':
-						this.describeAColumn(table, 'amount', 'Importo', 'fixed.2', 20, null);
-						this.describeAColumn(table, 'doc', 'Documento collegato', null, 50, 35);
-						this.describeAColumn(table, 'docdate', 'Data del documento collegato', null, 60, null);
-						this.describeAColumn(table, 'yoperation', 'Esercizio operazione', null, 90, null);
-						this.describeAColumn(table, 'noperation', 'Numero operazione', null, 100, null);
+						this.describeAColumn(table, 'amount', 'Importo', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'doc', 'Documento collegato', null, 60, 35);
+						this.describeAColumn(table, 'docdate', 'Data del documento collegato', null, 70, null);
+						this.describeAColumn(table, 'yoperation', 'Esercizio operazione', null, 100, null);
+						this.describeAColumn(table, 'noperation', 'Numero operazione', null, 110, null);
 //$objCalcFieldConfig_segsal$
 						break;
 //$objCalcFieldConfig$
@@ -98,25 +109,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["amount"].caption = "Importo";
 						table.columns["doc"].caption = "Documento collegato";
 						table.columns["docdate"].caption = "Data del documento collegato";
-						table.columns["idcontrattokind"].caption = "Tipo di contratto";
+						table.columns["idassetdiaryora"].caption = "Diario d'uso del bene strumentale";
 						table.columns["idexp"].caption = "Spesa";
 						table.columns["idpettycash"].caption = "Fondo economale";
+						table.columns["idposition"].caption = "Tipo di contratto";
 						table.columns["idprogetto"].caption = "Progetto";
 						table.columns["idprogettotipocosto"].caption = "Voce di costo";
 						table.columns["idrelated"].caption = "Chiave economico patrimoniale";
-						table.columns["idrendicontattivitaprogetto"].caption = "Attivit� svolta";
+						table.columns["idrendicontattivitaprogetto"].caption = "Attività svolta";
 						table.columns["idsal"].caption = "Stato avanzamento lavori";
+						table.columns["idsalprogettoassetworkpackagemese"].caption = "Uso del bene strumentale";
 						table.columns["idworkpackage"].caption = "Workpackage";
 						table.columns["noperation"].caption = "Numero operazione";
 						table.columns["yoperation"].caption = "Esercizio operazione";
 //$innerSetCaptionConfig_seg$
 						break;
 					case 'segprg':
-						table.columns["amount"].caption = "Importo";
 //$innerSetCaptionConfig_segprg$
 						break;
 					case 'segsal':
-						table.columns["amount"].caption = "Importo";
 //$innerSetCaptionConfig_segsal$
 						break;
 //$innerSetCaptionConfig$
@@ -158,6 +169,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					}
 					case "segsal": {
 						return "idprogettotipocosto asc , idworkpackage asc ";
+					}
+					case "segsal": {
+						return "idworkpackage asc , idprogettotipocosto asc ";
 					}
 					//$getSortingin$
 				}

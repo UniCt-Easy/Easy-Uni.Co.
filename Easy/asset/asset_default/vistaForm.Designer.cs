@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,18 +26,12 @@ using System.Runtime.Serialization;
 namespace asset_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Cespiti e accessori
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable asset 		=> Tables["asset"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
@@ -47,45 +41,24 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventorytreeview 		=> Tables["inventorytreeview"];
 
-	///<summary>
-	///Tipi di buoni di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetloadkind 		=> Tables["assetloadkind"];
 
-	///<summary>
-	///Tipi di buoni di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunloadkind 		=> Tables["assetunloadkind"];
 
-	///<summary>
-	///Inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventory 		=> Tables["inventory"];
 
-	///<summary>
-	///Buono di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunload 		=> Tables["assetunload"];
 
-	///<summary>
-	///Piano delle Ubicazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable location 		=> Tables["location"];
 
-	///<summary>
-	///Ubicazione cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetlocation 		=> Tables["assetlocation"];
 
-	///<summary>
-	///Responsabile cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetmanager 		=> Tables["assetmanager"];
 
@@ -95,27 +68,15 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventory2 		=> Tables["inventory2"];
 
-	///<summary>
-	///Causali di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetloadmotive 		=> Tables["assetloadmotive"];
 
-	///<summary>
-	///Causali di scarico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetunloadmotive 		=> Tables["assetunloadmotive"];
 
-	///<summary>
-	///Campi aggiuntivi per cespiti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable multifieldkind 		=> Tables["multifieldkind"];
 
-	///<summary>
-	///Configurazione multicampo per classificazione inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventorytreemultifieldkind 		=> Tables["inventorytreemultifieldkind"];
 
@@ -137,9 +98,6 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable locationview 		=> Tables["locationview"];
 
-	///<summary>
-	///Consegnatario cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetsubmanager 		=> Tables["assetsubmanager"];
 
@@ -152,39 +110,21 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable listview 		=> Tables["listview"];
 
-	///<summary>
-	///Tipo Ammortamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventoryamortization 		=> Tables["inventoryamortization"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotive 		=> Tables["accmotive"];
 
-	///<summary>
-	///Finanziamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwriting 		=> Tables["underwriting"];
 
-	///<summary>
-	///Risconto contributo conto impianti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetgrantdetail 		=> Tables["assetgrantdetail"];
 
-	///<summary>
-	///Attribuzione di un contributo conto impianti ad un cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetgrant 		=> Tables["assetgrant"];
 
@@ -1801,6 +1741,8 @@ private void initClass() {
 	tassetgrant.Columns.Add( new DataColumn("!titleMotive", typeof(string)));
 	tassetgrant.Columns.Add( new DataColumn("!codeunderwriting", typeof(string)));
 	tassetgrant.Columns.Add( new DataColumn("!titleunderwriting", typeof(string)));
+	tassetgrant.Columns.Add( new DataColumn("flag_entryprofitreservedone", typeof(string)));
+	tassetgrant.Columns.Add( new DataColumn("flag_financesource", typeof(string)));
 	Tables.Add(tassetgrant);
 	tassetgrant.PrimaryKey =  new DataColumn[]{tassetgrant.Columns["idasset"], tassetgrant.Columns["idgrant"], tassetgrant.Columns["idpiece"]};
 

@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 (function() {
     var q = window.jsDataQuery;
 
@@ -119,7 +102,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var numCols = self.numberOfColumns;
                 var numRows = Math.ceil(countChildsLev1 / numCols);
 
-                // contatore di child di primo livello. serve per recueperare da array di input l'item
+                // contatore di child di primo livello. serve per recuperare da array di input l'item
                 var countCurrChild = 0;
 
                 // 2. calcolo e disegno righe  e colonne html. per menù di primo livello
@@ -134,7 +117,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     // calcolo colonne e allo stesso tempo inserisco item li
                     for (var j = 0; j < numCols; j++) {
 
-                        // ovviamente non popolo tutte le celle calcolate, ma mi fermo quando li ho inseriti tuti
+                        // ovviamente non popolo tutte le celle calcolate, ma mi fermo quando li ho inseriti tutti
                         if (countCurrChild < countChildsLev1){
                             // creo colonna
                             var currColId = currRowid + "_col_" + currId + "_" + j;
@@ -146,7 +129,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             var idforloc = (currItemFirstLev.tableName && currItemFirstLev.editType) ? (currItemFirstLev.tableName + "_"  + currItemFirstLev.editType) : "idmenuweb" + currItemFirstLev.idmenuweb;
 
                             // creo <li> e assegno eventuali eventi
-                            var liFirstLev = $('<li class="nav-item"><a id="' + currItemFirstLev.idmenuweb + '" class="nav-link" href="#"><span id="' + idforloc + '">' + currItemFirstLev.label + '</span></a></li>');
+                            var liFirstLev = $('<li class="nav-item"><a id="' + currItemFirstLev.idmenuweb + '" class="nav-link" ><span id="' + idforloc + '">' + currItemFirstLev.label + '</span></a></li>');
                             if (currItemFirstLev.tableName && currItemFirstLev.editType){
                                 liFirstLev.on("click", _.partial(self.openPage, self, currItemFirstLev.tableName, currItemFirstLev.editType ));
                             } else if (currItemFirstLev.link){
@@ -156,7 +139,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             // elemento <ul> su cui appenderò gli item di 2o livello.il margin serve per allinearli un po' a destra ruspetto al parent
                             var ul = $('<ul class="nav flex-column" style="margin-left: 30px"></ul>');
 
-                            // appendo gli elementi row e col html, in cui imedditamente inserisco anche il link dell'item di primo livello
+                            // appendo gli elementi row e col html, in cui immediatamente inserisco anche il link dell'item di primo livello
                             currrow.append(currcol);
                             currcol.append(currul);
 
@@ -174,7 +157,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             _.forEach(secondLevChilds, function (currItemsecondLev) {
                                 // creo <li> e assegno eventuali eventi
                                 var idforloc = (currItemsecondLev.tableName && currItemsecondLev.editType) ? (currItemsecondLev.tableName + "_"  + currItemsecondLev.editType) : "idmenuweb" + currItemsecondLev.idmenuweb;
-                                var liSecondLev = $('<li class="nav-item" style="padding-left: 15px"><a id="' + currItemsecondLev.idmenuweb + '" class="nav-link" href="#"><span id="' + idforloc + '">' + currItemsecondLev.label + '</span></a></li>');
+                                var liSecondLev = $('<li class="nav-item" style="padding-left: 15px"><a id="' + currItemsecondLev.idmenuweb + '" class="nav-link" ><span id="' + idforloc + '">' + currItemsecondLev.label + '</span></a></li>');
                                 if (currItemsecondLev.tableName && currItemsecondLev.editType) {
                                     liSecondLev.on("click", _.partial(self.openPage, self, currItemsecondLev.tableName, currItemsecondLev.editType ));
                                 } else if (currItemsecondLev.link){
@@ -240,7 +223,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 // se uso stopPropagation per evitare il bubbling e quindi poer evitare che scatti 2 volte su item padre
                 // metto boolenao, di cui eseguo reset dopo un secodno
                 that.opened = true; // non esegue l'evento bubblato
-                appMeta.callPage(tableName, editType, false)
+                appMeta.currApp.callPage(tableName, editType, false)
                     .then(function (p) {
                         that.afterPageClose(p);
                     });

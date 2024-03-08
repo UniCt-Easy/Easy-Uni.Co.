@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,10 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-CREATE                                PROCEDURE [rpt_fondopsp_registro]
+-- setuser 'amm'
+-- setuser 'amministrazione'
+-- exec rpt_fondopsp_registro 2022, 4, 'N','%', 'N',{ts '2022-01-01 00:00:00'}, {ts '2022-12-31 00:00:00'}
+CREATE PROCEDURE [rpt_fondopsp_registro]
 	@ayear	smallint,
 	@idpettycash	int,
 	@showupb char(1),
@@ -64,6 +67,9 @@ CREATE TABLE #pettycashreg
 	kind char,
 	idexpIx int,
 	payment varchar(2000) ,
+	proceed_linked_payment varchar(2000) ,
+	proceed_economo varchar(2000),
+	expenseamount_economo decimal(19,2),
 	idman int
 )
 IF (DATEPART(yy, @start) <> @ayear OR DATEPART(mm, @start) <> 1	OR DATEPART(dd, @start) <> 1)
@@ -241,11 +247,56 @@ WHERE  incomeyear.ayear = @ayear
 	and pettycashincome.idpettycash=@idpettycash 
 	and #pettycashreg.kind='C'
 
-
 DECLARE @noperation int
 DECLARE @nrestore int 
 DECLARE @yrestore int
 DECLARE @detail varchar(2000)
+
+DECLARE @npro int
+DECLARE @ypro int
+DECLARE @idpayment int
+DECLARE @amount decimal(19, 2)
+DECLARE @inc_nph tinyint
+SET @inc_nph= (SELECT MAX(nphase) FROM incomephase)
+
+DECLARE cursore CURSOR FORWARD_ONLY for 
+	SELECT  #pettycashreg.noperation, proceeds.npro, income.ymov, income.idpayment, incometotal.curramount, datepart(yy,#pettycashreg.adate) 
+	FROM  #pettycashreg 
+	JOIN pettycashincome 
+		ON #pettycashreg.noperation=pettycashincome.noperation 
+		AND datepart(yy,#pettycashreg.adate)=pettycashincome.yoperation 
+	JOIN income 
+		ON pettycashincome.idinc=income.idinc
+	JOIN incometotal ON income.idinc = incometotal.idinc
+	LEFT OUTER JOIN 
+		incomelast
+		ON income.idinc = incomelast.idinc
+	left outer join proceeds 
+		on proceeds.kpro = incomelast.kpro
+	WHERE 	income.nphase=@inc_nph  and pettycashincome.idpettycash=@idpettycash 
+		and #pettycashreg.operation in('Chiusura')
+	
+	OPEN cursore
+	FETCH NEXT FROM cursore 
+	INTO @noperation, @npro, @ypro, @idpayment, @amount, @yrestore
+	
+	WHILE (@@fetch_status=0) BEGIN
+		UPDATE 	#pettycashreg set
+		proceed_linked_payment = substring( isnull(proceed_linked_payment,' n° ') + isnull(convert(varchar(10),@npro),'') + ' ',1,2000)
+		WHERE #pettycashreg.operation in('Chiusura')
+			and noperation=@noperation  and @npro is not null and @idpayment is not null
+
+		UPDATE #pettycashreg
+		set proceed_economo = substring( isnull(proceed_economo, ' n° ') + isnull(convert(varchar(10), @npro),'') + ' ', 1, 2000),
+		expenseamount_economo = @amount
+		WHERE #pettycashreg.operation in ('Chiusura')
+			and noperation = @noperation and @npro is not null and @idpayment is null
+
+		FETCH NEXT FROM cursore 
+		INTO @noperation, @npro, @ypro, @idpayment, @amount, @yrestore
+	END
+CLOSE cursore
+DEALLOCATE cursore
 
 
 UPDATE #pettycashreg
@@ -411,13 +462,24 @@ SELECT
 		else ''
 	end
 		as payment, 
+	case
+		when (ISNULL(proceed_linked_payment,'') <> '') then proceed_linked_payment
+		else ''
+	end
+		as proceed_linked_payment,
+	case
+		when (ISNULL(proceed_economo, '') <> '') then proceed_economo
+		else ''
+	end
+		as proceed_economo,
+	expenseamount_economo,
 	idexpIx
 FROM #pettycashreg 
 WHERE (idupb like @idupb OR idupb is null)
 ORDER BY idpettycash, adate, noperation
 
-
- -- exec rpt_fondopsp_registro 2015, 2, 'S','%', 'S',{ts '2010-01-01 00:00:00'}, {ts '2015-12-31 00:00:00'}
+-- setuser 'amministrazione'
+ -- exec rpt_fondopsp_registro 2022, 4, 'N','%', 'N',{ts '2022-01-01 00:00:00'}, {ts '2022-12-31 00:00:00'}
 
 
 END

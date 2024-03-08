@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,13 +15,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-
-
-if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicedebitamount]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-drop procedure [exp_invoicedebitamount]
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicedebitamount_mar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [exp_invoicedebitamount_mar]
 GO
 
-CREATE  PROCEDURE [exp_invoicedebitamount](
+CREATE  PROCEDURE [exp_invoicedebitamount_mar](
 	@year 			int,
 	@idivaregisterkind 	int,
 	@idinvkind int, 	  
@@ -36,10 +34,11 @@ CREATE  PROCEDURE [exp_invoicedebitamount](
 	@idsor05 int=null,
 	@excludefattest char(1) --- S: filtra, N: non filtra
 )  
+ 
 -- setuser 'amm'
 -- setuser 'amministrazione'
--- exec exp_invoicedebitamount 2018,null,null, '2018-01-01','2018-31-12','S','D',null,null,null,null,null,'S'
--- exp_invoicedebitamount '2019', '148', '271', {d '2019-01-01'}, {d '2019-12-31'}, 'N', 'D', null, null, null, null, null
+-- exec exp_invoicedebitamount_mar 2018,null,null, '2018-01-01','2018-31-12','S','D',null,null,null,null,null,'S'
+-- exp_invoicedebitamount '2019', '148', '271', {d '2019-01-01'}, {d '2019-12-31'}, 'N', 'D', null, null, null, null, null,'S'
 /*
 */
 
@@ -47,6 +46,26 @@ AS BEGIN
 	 declare @recuperosplit char(1)
 	 set @recuperosplit='N'
 	 if (select (flag & 1) from config where ayear=@year)<>0 set @recuperosplit='S'
+
+	--- MEMORIZZA I TIPI DOCUMENTO IVA INDICANDO IN PARTICOLARE SE SONO NOTE DI CREDITO DA INCASSARE
+	CREATE TABLE #invoicekind (idinvkind int,flagbuysell char(1),creditnotetocashin char(1))
+	INSERT INTO #invoicekind (idinvkind,flagbuysell,creditnotetocashin)
+
+	SELECT idinvkind,
+	CASE
+		WHEN (IK.flag&1<>0) THEN 'V'
+		ELSE 'A'
+	END,
+	CASE 
+		WHEN (IK.flag&1<>0)  AND (select count(*) from invoicekindregisterkind  IRK
+				join ivaregisterkind RK on RK.idivaregisterkind=IRK.idivaregisterkind
+				 where  IRK.idinvkind = IK.idinvkind
+					and RK.registerclass = 'A'
+				) >= 1  THEN 'S'
+		ELSE 'N'
+	END
+	from invoicekind IK 
+ --SELECT * FROM #invoicekind
 
 	CREATE TABLE #invoicedebitamount
 	(	
@@ -70,39 +89,43 @@ AS BEGIN
 		dateconsidered datetime,
 		paymentfromexpiring  int,
 		kind int,
-		idreg int
+		idreg int,
+		flagvariation char(1), 
+		creditnotetocashin char(1)  -- nota di credito da incassare
 	)
  	-- insert dei movimenti finanziari che contabilizzano le fatture
 
 -- insert se fattura di acquisto
 	INSERT INTO #invoicedebitamount 
 	(
-		idinvkind,		yinv,		ninv,		
+		idinvkind,		yinv,		ninv,		flagvariation,
 		adate,		protocoldate, docdate, expiring, dateconsidered,
 		taxable_euro, iva_euro,iva_euro_split_payment,
-		curr_amount, pettycash_amount, profservice_amount, kind, idreg
+		curr_amount, pettycash_amount, profservice_amount, kind, idreg 
 	 )
 	SELECT 
-		I.idinvkind,		I.yinv,		I.ninv,		
+		I.idinvkind,		I.yinv,		I.ninv,		I.flagvariation,
 		I.adate,	I.protocoldate,	I.docdate, I.paymentexpiring,	
 		coalesce(I.expiring,I.protocoldate,I.adate),
 		--escludo iva split dal calcolo secondo task 8647
-		case when ((IK.flag&4)<>0)
+		case when ((IK.flag&4)<>0)  OR (IK1.creditnotetocashin = 'S') /*le note di variazione vanno equiparate alle note di credito da incassare*/
 			then - isnull((select sum(taxable_euro) from invoicedetailview ID where  I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv and ( isnull(ID.idpccdebitstatus,'') <> 'SOSP' and isnull(ID.idpccdebitmotive,'') <> 'CONT' ) 
 			and not ( isnull(ID.idpccdebitstatus,'') = 'NOLIQ' and isnull(ID.idpccdebitmotive,'') ='NCRED' )),0) /*task 15343*/
+
 			else isnull((select sum(taxable_euro) from invoicedetailview ID where  I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv and ( isnull(ID.idpccdebitstatus,'') <> 'SOSP' and isnull(ID.idpccdebitmotive,'') <>'CONT' )
 			and not ( isnull(ID.idpccdebitstatus,'') = 'NOLIQ' and isnull(ID.idpccdebitmotive,'') ='ATTNC' )),0) /*task 15343*/
 		end,
 		-- IVA, rientra nell'ammontare del debito solo se la Fattura non è INTRA -EXTRA UE. In questi casi, la cosiddetta iva di integrazione non rientra
 		-- nell'ammontare del debito
-		case when ((IK.flag&4)<>0) 
+		case when ((IK.flag&4)<>0) OR (IK1.creditnotetocashin = 'S') /*le note di variazione vanno equiparate alle note di credito da incassare*/
 			then - isnull((select sum(iva_euro) from invoicedetailview ID where I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv and ( isnull(ID.idpccdebitstatus,'') <> 'SOSP' and isnull(ID.idpccdebitmotive,'') <>'CONT' )
 			and not ( isnull(ID.idpccdebitstatus,'') = 'NOLIQ' and isnull(ID.idpccdebitmotive,'') ='NCRED' )),0)  /*per le  NC */			
 			else isnull((select sum(iva_euro) from invoicedetailview ID where I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv and ( isnull(ID.idpccdebitstatus,'') <> 'SOSP' and isnull(ID.idpccdebitmotive,'') <>'CONT' ) 
 			and not ( isnull(ID.idpccdebitstatus,'') = 'NOLIQ' and isnull(ID.idpccdebitmotive,'') ='ATTNC' )),0) /*per le fatture */						
 		end,
 		--- IVA SPLIT, rientra nell'ammontare del debito
-		case when (I.flag_enable_split_payment='S'  OR (@recuperosplit='S' AND I.flagintracom<>'N')) and ((IK.flag&4)<>0) 
+		case when (I.flag_enable_split_payment='S'  OR (@recuperosplit='S' AND I.flagintracom<>'N')) and (((IK.flag&4)<>0) OR  (IK1.creditnotetocashin = 'S') )
+		 /*le note di variazione vanno equiparate alle note di credito da incassare*/
 				then - isnull((select sum(iva_euro) from invoicedetailview ID where I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv and ( isnull(ID.idpccdebitstatus,'') <> 'SOSP' and isnull(ID.idpccdebitmotive,'') <>'CONT' )
 				and not ( isnull(ID.idpccdebitstatus,'') = 'NOLIQ' and isnull(ID.idpccdebitmotive,'') ='NCRED' )),0)
 			 when (I.flag_enable_split_payment='S' OR (@recuperosplit='S' AND I.flagintracom<>'N')) and ((IK.flag&4)=0) 
@@ -110,9 +133,10 @@ AS BEGIN
 				and not ( isnull(ID.idpccdebitstatus,'') = 'NOLIQ' and isnull(ID.idpccdebitmotive,'') ='ATTNC' )),0)			 
 			 else 0
 		end,
-		0,0,0, 1,I.idreg
+		0,0,0, 1,I.idreg 
 	FROM invoiceview I 			 
 	JOIN invoicekind  IK  ON I.idinvkind = IK.idinvkind	 
+	JOIN #invoicekind  IK1  ON IK1.idinvkind = IK.idinvkind	 
    WHERE 
 	coalesce(I.expiring,I.protocoldate,I.adate)   between @start and @stop
 		AND (IK.idinvkind = @idinvkind OR @idinvkind is null)
@@ -129,9 +153,15 @@ AS BEGIN
 		AND (ISNULL(I.idsor03,IK.idsor03) = @idsor03 OR @idsor03 IS NULL)
 		AND (ISNULL(I.idsor04,IK.idsor04) = @idsor04 OR @idsor04 IS NULL)
 		AND (ISNULL(I.idsor05,IK.idsor05) = @idsor05 OR @idsor05 IS NULL)
-		AND (IK.flag&1=0)
+		AND (
+			(IK.flag&1=0)  --- prende le fatture di acquisto
+			OR  --- prende le NOTE DI CREDITO  SU acquisti DA INCASSARE
+			IK1.creditnotetocashin = 'S'  
+		)
+		 
 		AND (I.flagbit & 1 =0 ) -- Esclude le bollette doganali
 		AND ( (@excludefattest = 'S' and I.flagintracom ='N') OR (@excludefattest = 'N'))
+			--	AND I.idsdi_acquisto = 14118 --- DA RIMUOVERE
 
 --select * from #invoicedebitamount where idreg=70592
 --select * from invoice where yinv=2020 and ninv=1 and idinvkind=165
@@ -139,11 +169,11 @@ AS BEGIN
   		
 -- Contab. Fatture: considera l'importo del mov. principale, senza variazioni (le prenderà dopo)
 INSERT INTO #invoicedebitamount
-(idinvkind,		yinv,		ninv,		
+(idinvkind,		yinv,		ninv, flagvariation,	
 		curr_amount, pettycash_amount, profservice_amount, idreg,kind
 )
 SELECT 
-	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, 
+	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.flagvariation, 
 	sum(EY.amount), 0,0, #invoicedebitamount.idreg,2
 	FROM expenseinvoice EI
 	JOIN expenselast ELAST on ELAST.idexp= EI.idexp
@@ -152,17 +182,17 @@ SELECT
 	JOIN paymenttransmission PT ON	P.kpaymenttransmission = PT.kpaymenttransmission
 	JOIN #invoicedebitamount 	ON EI.idinvkind=#invoicedebitamount.idinvkind 	AND EI.yinv=#invoicedebitamount.yinv AND EI.ninv=#invoicedebitamount.ninv
 	WHERE  PT.transmissiondate <= @stop and isnull(#invoicedebitamount.kind,0) = 1
-	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg
+	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg,	#invoicedebitamount.flagvariation
 
 
 	
 -- Contab. Fatture: considera le var. del movimento. Prendere solo le var. del movimento, non le contabilizzazioni delle NC.
 INSERT INTO #invoicedebitamount
-(idinvkind,		yinv,		ninv,		
+(idinvkind,		yinv,		ninv,		flagvariation,
 		curr_amount, pettycash_amount, profservice_amount, idreg,kind
 )
 SELECT 
-	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, 
+	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.flagvariation, 
 	sum(EV.amount), 0,0, #invoicedebitamount.idreg,2
 	FROM expensevar EV
 	join expenseinvoice EI on EV.idexp= EI.idexp
@@ -176,19 +206,17 @@ SELECT
 		AND EI.ninv=#invoicedebitamount.ninv
 	WHERE  PT.transmissiondate <=@stop and isnull(#invoicedebitamount.kind,0) = 1
 		AND EV.idinvkind IS NULL -- deve prendere solo le var. del movimento, NON le contabilizzazioni delle NC
-	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg
-
-
-
+	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg,
+	#invoicedebitamount.flagvariation
 
 
 -- Contab. note di variazione : considera le var. del movimenti che contabilizzano NC
 INSERT INTO #invoicedebitamount
-(idinvkind,		yinv,		ninv,		
+(idinvkind,		yinv,		ninv,		flagvariation,
 		curr_amount, pettycash_amount, profservice_amount, idreg,kind
 )
 SELECT 
-	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, 
+	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, 	#invoicedebitamount.flagvariation,
 	sum(EI.amount), 0,0, #invoicedebitamount.idreg,2
 	FROM expensevar EI
 	JOIN expenselast ELAST on ELAST.idexp= EI.idexp
@@ -200,7 +228,9 @@ SELECT
 		AND EI.yinv=#invoicedebitamount.yinv 
 		AND EI.ninv=#invoicedebitamount.ninv
 	WHERE  PT.transmissiondate <= @stop and isnull(#invoicedebitamount.kind,0) = 1
-	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg
+	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg, 	#invoicedebitamount.flagvariation
+
+--select * from #invoicedebitamount  WHERE  IDINVKIND = 252 /*Note credito elettr. ricevute Comm - CAAD*/ AND yinv = 	2020	AND ninv = 1
 
 	
 --- Non Sottraggo eventuali recuperi dell'iva split 
@@ -212,11 +242,11 @@ SELECT
 -- Considero eventuali contabilizzazioni effettuate mediante fondo economale
 
 INSERT INTO #invoicedebitamount
-(idinvkind,		yinv,		ninv,		
+(idinvkind,		yinv,		ninv,		flagvariation,
 		curr_amount, pettycash_amount, profservice_amount,idreg
 )
 SELECT 
-	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, 
+	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.flagvariation,
 	0, sum(amount),0,#invoicedebitamount.idreg
 	FROM pettycashoperationinvoice PCOP 
 	JOIN pettycashoperation PCO 
@@ -227,15 +257,15 @@ SELECT
 		AND PCOP.yinv=#invoicedebitamount.yinv 
 		AND PCOP.ninv=#invoicedebitamount.ninv
 	WHERE   PCO.adate between @start and @stop and isnull(#invoicedebitamount.kind,0) = 1	
-	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv,#invoicedebitamount.idreg
+	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv,#invoicedebitamount.idreg,#invoicedebitamount.flagvariation
 
 
 INSERT INTO #invoicedebitamount
-(idinvkind,		yinv,		ninv,		
+(idinvkind,		yinv,		ninv,	flagvariation,
 		curr_amount, pettycash_amount, profservice_amount,idreg,kind
 )
 SELECT 
-	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, 
+	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv,#invoicedebitamount.flagvariation, 
 	0, 0, sum(ET.curramount) , #invoicedebitamount.idreg,2
 FROM expenseprofservice EP
 --FROM profservice 
@@ -253,17 +283,25 @@ JOIN paymenttransmission PT ON	P.kpaymenttransmission = PT.kpaymenttransmission
 WHERE   PT.transmissiondate between @start and @stop and isnull(#invoicedebitamount.kind,0) = 1
 and I.docdate < {ts '2017-07-01 00:00:00'} 
 and not exists(select * from #invoicedebitamount Q where Q.idinvkind = I.idinvkind	 AND	Q.ninv = I.ninv	 	 AND	Q.yinv = I.yinv	 and Q.kind=2)
-GROUP BY #invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg
+GROUP BY #invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg,
+#invoicedebitamount.flagvariation
 
+UPDATE #invoicedebitamount SET creditnotetocashin  = IK.creditnotetocashin
+from #invoicekind IK 
+where IK.idinvkind = #invoicedebitamount.idinvkind
 
+select * from #invoicedebitamount     
 
+--select * from #invoicedebitamount  WHERE  IDINVKIND = 252 /*Note credito elettr. ricevute Comm - CAAD*/ AND yinv = 	2020	AND ninv = 1
+
+--SELECT * FROM #invoicedebitamount where  creditnotetocashin = 'S'
 IF (
 	  @kind = 'D'  -- Vista Dettagliata
     )
 	SELECT 	 --  filtra  sugli attributi
 	@start as 'Inizio Scadenza',
 	@stop as 'Fine Scadenza',
-	I.idsdi_acquisto as 'Indentificativo SDI',
+	SDI.identificativo_sdi as 'Indentificativo SDI',
 	I.invoicekind AS 'Tipo', 
 	I.yinv AS 'Esercizio', 
 	I.ninv AS 'Numero', 	
@@ -286,47 +324,86 @@ IF (
 		 WHEN 'X' THEN 'Extra-UE'
 	END as 'Tipo',
 	SUM(CASE 
-		WHEN IC.kind = 1 and I.flagvariation = 'N' THEN I.total 
-		WHEN IC.kind = 1 and I.flagvariation = 'S' THEN - I.total 
+		WHEN IC.kind = 1 and I.flagvariation = 'N' AND creditnotetocashin = 'N'  THEN I.total 
+		WHEN IC.kind = 1 and (I.flagvariation = 'S' OR creditnotetocashin = 'S') THEN - I.total 
 		ELSE 0 END) AS 'Tot. fattura',
 	SUM(CASE WHEN IC.kind = 1 THEN IC.taxable_euro ELSE 0 END) AS 'Imponibile',
 	SUM(CASE WHEN IC.kind = 1 THEN IC.iva_euro ELSE 0 END) AS 'IVA',
 	CASE
 		WHEN (I.flag_enable_split_payment= 'S') AND (I.flagintracom = 'N')   THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro_split_payment,0) - 
-				(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) ) 
+				CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+				) 
 		WHEN (I.flagintracom <> 'N') AND  (@recuperosplit='N') THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  - 
-				(ISNULL(IC.curr_amount,0)  + ISNULL(IC.pettycash_amount,0)   + 	 ISNULL(IC.profservice_amount,0) ) ) 
+				CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+				) 
 		WHEN (I.flagintracom <> 'N') AND  (@recuperosplit='S') THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro_split_payment,0) - 
-				(ISNULL(IC.curr_amount,0)  + ISNULL(IC.pettycash_amount,0)   + 	 ISNULL(IC.profservice_amount,0) ) ) 
+				CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+				) 
 
 		ELSE 
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro,0) - 
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			) 
 	END  AS 'Totale debito' 
 	FROM invoiceview I 		
-		JOIN #invoicedebitamount IC ON IC.idinvkind = I.idinvkind	 AND	IC.yinv = I.yinv	 AND	IC.ninv = I.ninv  	
+		JOIN #invoicedebitamount IC ON IC.idinvkind = I.idinvkind	 AND	IC.yinv = I.yinv	 AND	IC.ninv = I.ninv  
+		LEFT OUTER JOIN sdi_acquisto SDI on I.idsdi_acquisto=SDI.idsdi_acquisto
 	--where   IC.idreg = 12063
-	group by I.idsdi_acquisto, I.invoicekind, I.idinvkind, I.yinv, I.ninv,I.ycon,I.ncon,I.doc,convert(varchar,I.docdate,105),I.cf,I.p_iva, I.registry,
+	--where     flagvariation = 'S' or creditnotetocashin = 'S'
+	group by I.idsdi_acquisto,SDI.identificativo_sdi, I.invoicekind, I.idinvkind, I.yinv, I.ninv,
+	I.ycon,I.ncon,I.doc,convert(varchar,I.docdate,105),I.cf,I.p_iva, I.registry,  I.flagvariation, 
 	I.description,convert(varchar,I.adate,105), convert(varchar,I.protocoldate,105),convert(varchar,I.expiring,105),
 	I.iduniqueregister, I.flag_enable_split_payment,  I.flagintracom
 		having CASE
 		WHEN (I.flag_enable_split_payment= 'S') AND (I.flagintracom <= 'N')   THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro_split_payment,0) - 
-				(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) ) 
+				CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+				) 
 		WHEN (I.flagintracom <> 'N') AND  (@recuperosplit='N') THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  - 
-				(ISNULL(IC.curr_amount,0)  + ISNULL(IC.pettycash_amount,0)   + 	 ISNULL(IC.profservice_amount,0) ) ) 
+				CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+				
+				) 
 		WHEN (I.flagintracom <> 'N') AND  (@recuperosplit='S') THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro_split_payment,0) - 
-				(ISNULL(IC.curr_amount,0)  + ISNULL(IC.pettycash_amount,0)   + 	 ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+				
+				) 
 
 		ELSE 
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro,0) - 
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+				CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			
+			) 
 	END   <> 0
+	AND SUM(ISNULL(IC.curr_amount,0)) >= 0 
 	order by I.idinvkind, I.yinv, I.ninv
 ELSE
 BEGIN
@@ -339,8 +416,8 @@ WITH to_sum (idinvkind, yinv, ninv, flag_enable_split_payment, total, taxable_eu
 		I.ninv, 	
 		I.flag_enable_split_payment ,
 		SUM(CASE 
-		WHEN IC.kind = 1 and I.flagvariation = 'N' THEN I.total 
-		WHEN IC.kind = 1 and I.flagvariation = 'S' THEN - I.total 
+		WHEN IC.kind = 1 and I.flagvariation = 'N' AND creditnotetocashin = 'N' THEN I.total 
+		WHEN IC.kind = 1 and (I.flagvariation = 'S' OR creditnotetocashin = 'S') THEN - I.total 
 		ELSE 0 END)  ,
 
 		SUM(CASE WHEN IC.kind = 1 THEN IC.taxable_euro ELSE 0 END)  ,
@@ -348,34 +425,68 @@ WITH to_sum (idinvkind, yinv, ninv, flag_enable_split_payment, total, taxable_eu
 		CASE
 		WHEN (I.flag_enable_split_payment= 'S') AND (I.flagintracom <= 'N') THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro_split_payment,0) - 
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			) 
 		WHEN (I.flagintracom <> 'N') AND  (@recuperosplit='N')THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  -
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			) 
 		WHEN (I.flagintracom <> 'N') AND  (@recuperosplit='S') THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro_split_payment,0) -
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			) 
 		ELSE 
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro,0) - 
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			) 
 		END 
 	FROM invoiceview  I 		
 		JOIN #invoicedebitamount IC ON IC.idinvkind = I.idinvkind	 AND	IC.yinv = I.yinv	 AND	IC.ninv = I.ninv  	
-	group by I.idinvkind, I.yinv, I.ninv, I.flag_enable_split_payment, I.flagintracom
+	group by I.idinvkind, I.yinv, I.ninv, I.flag_enable_split_payment, I.flagintracom, I.flagvariation 
 	having 	CASE
 		WHEN (I.flag_enable_split_payment= 'S') AND (I.flagintracom <= 'N') THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro_split_payment,0) - 
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			
+			) 
 		WHEN (I.flagintracom <> 'N') AND  (@recuperosplit='N')THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  -
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			) 
 		WHEN (I.flagintracom <> 'N') AND  (@recuperosplit='S') THEN  
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro_split_payment,0) -
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			) 
 		ELSE 
 			SUM(ISNULL(IC.taxable_euro,0)  + ISNULL(IC.iva_euro,0) - 
-			(ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   +  ISNULL(IC.profservice_amount,0) ) ) 
+			CASE WHEN I.flagvariation = 'N' AND creditnotetocashin = 'N'
+				 THEN (ISNULL(IC.curr_amount,0)  +  ISNULL(IC.pettycash_amount,0)   + ISNULL(IC.profservice_amount,0) ) 
+				 ELSE 0
+				END
+			) 
 		END   <> 0
+			AND SUM(ISNULL(IC.curr_amount,0)) >= 0 
 	)
 
 	SELECT  --  filtra  sugli attributi
@@ -397,7 +508,7 @@ WITH to_sum (idinvkind, yinv, ninv, flag_enable_split_payment, total, taxable_eu
 	FROM invoiceview I 
 		JOIN TO_SUM IC ON IC.idinvkind = I.idinvkind	 AND	IC.yinv = I.yinv	 AND	IC.ninv = I.ninv  		
 		--where IC.idreg = 12063
-	group by I.idreg, I.registry,I.cf ,I.p_iva, 
+	group by I.idreg, I.registry,I.cf ,I.p_iva, 	I.flagvariation,
 	I.flag_enable_split_payment  ,I.flagintracom
 	HAVING SUM(IC.invoicedebitamount) <> 0
 	order by I.registry, I.cf,I.p_iva	
@@ -410,4 +521,6 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
+--exp_invoicedebitamount '2019', null, NULL, {d '2018-01-01'}, {d '2019-12-31'}, 'N', 'N', null, null, null, null, null,'S'
+--go
+ 

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,14 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'surname', 'Cognome', null, 10, 50);
-						this.describeAColumn(table, 'getregistrydocentiamministrativi_forename', 'Nome', null, 20, 50);
-						this.describeAColumn(table, 'getregistrydocentiamministrativi_extmatricula', 'Extmatricula', null, 30, 40);
-						this.describeAColumn(table, 'getregistrydocentiamministrativi_cf', 'CF', null, 40, 16);
-						this.describeAColumn(table, 'getregistrydocentiamministrativi_contratto', 'Contratto', null, 50, 50);
-						this.describeAColumn(table, 'getregistrydocentiamministrativi_ssd', 'SSD', null, 60, 50);
-						this.describeAColumn(table, 'getregistrydocentiamministrativi_struttura', 'Struttura', null, 70, 1024);
-						this.describeAColumn(table, 'getregistrydocentiamministrativi_istituto', 'Istituto', null, 80, 101);
+						this.describeAColumn(table, 'surname', 'Cognome', null, 1000, 50);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_forename', 'Nome', null, 2000, 50);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_extmatricula', 'Matricola', null, 3000, 40);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_cf', 'CF', null, 4000, 16);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_contratto', 'Contratto', null, 5000, 50);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_ssd', 'SSD', null, 6000, 50);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_struttura', 'Struttura', null, 7000, 1024);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_istituto', 'Istituto', null, 8000, 101);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

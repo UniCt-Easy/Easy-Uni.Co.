@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -62,7 +62,8 @@ AS BEGIN
 		taxref varchar(50), 
 		tax varchar(100), 
 		taxablenet decimal(19,2),
-		employtax decimal(19,2)
+		employtax decimal(19,2),
+		spese_nonimp decimal(19,2)
 	)
 
 	CREATE TABLE #percipienti_record_H_2021
@@ -83,7 +84,8 @@ AS BEGIN
 		taxref varchar(50), 
 		tax varchar(100), 
 		taxablenet decimal(19,2),
-		employtax decimal(19,2)
+		employtax decimal(19,2),
+		spese_nonimp decimal(19,2)
 	)
 
 	----------------------------------------------------------
@@ -109,7 +111,8 @@ AS BEGIN
 			ncon,
 			ymov, 
 			nmov, 
-			curramount
+			curramount,
+			spese_nonimp
 		)
 	SELECT DISTINCT
 			expense.idexp,
@@ -129,7 +132,8 @@ AS BEGIN
 			P.ncon,
 			expense.ymov,
 			expense.nmov,
-			expenselastview.curramount
+			expenselastview.curramount,
+			ps.amount
 	FROM expense
 	JOIN expenselastview on expense.idexp = expenselastview.idexp
 	JOIN payment 
@@ -141,6 +145,8 @@ AS BEGIN
 	JOIN expenselink EL on EL.idchild=expenselastview.idexp	
 	JOIN expenseprofservice EP ON EL.idparent=EP.idexp	
 	JOIN profservice P ON P.ycon=EP.ycon and P.ncon=EP.ncon
+	left outer join profservicerefund ps on P.ycon = ps.ycon and P.ncon = ps.ncon
+	left outer join profrefund pr on pr.idlinkedrefund = ps.idlinkedrefund
 	LEFT OUTER JOIN   profservicetaxview PT 
 	ON PT.ycon=P.ycon and PT.ncon=P.ncon and PT.taxkind = 1									
 	JOIN ivakind IK ON P.idivakind = IK.idivakind
@@ -188,7 +194,8 @@ AS BEGIN
 			P.ncon,
 			expense.ymov,
 			expense.nmov,
-			expenselastview.curramount
+			expenselastview.curramount,
+			ps.amount
 	FROM expense
 	JOIN expenselastview on expense.idexp = expenselastview.idexp
 	JOIN payment 
@@ -199,7 +206,9 @@ AS BEGIN
 	JOIN registry ON expense.idreg = registry.idreg
 	JOIN expenselink EL on EL.idchild=expenselastview.idexp	
 	JOIN expenseprofservice EP ON EL.idparent=EP.idexp	
-	JOIN profservice P ON P.ycon=EP.ycon and P.ncon=EP.ncon					
+	JOIN profservice P ON P.ycon=EP.ycon and P.ncon=EP.ncon	
+	left outer join profservicerefund ps on P.ycon = ps.ycon and P.ncon = ps.ncon
+	left outer join profrefund pr on pr.idlinkedrefund = ps.idlinkedrefund
 	LEFT OUTER JOIN   profservicetaxview PT 
 	ON PT.ycon=P.ycon and PT.ncon=P.ncon and PT.taxkind = 1			
 	WHERE 	registry.idregistryclass <> '10' and registry.idregistryclass <> '24'
@@ -276,7 +285,8 @@ select #expense2021.idreg,
 		#expense2021.taxref, 
 		#expense2021.tax, 
 		#expense2021.taxablenet,
-		#expense2021.employtax
+		#expense2021.employtax,
+		#expense2021.spese_nonimp
 from #expense2021
 
 	SELECT 	
@@ -296,7 +306,8 @@ from #expense2021
 		ncon as 'Num.contratto',
 		ymov as 'Eserc. pagamento', 
 		nmov as 'Num. pagamento', 
-		curramount as 'Importo corrente'
+		curramount as 'Importo corrente',
+		spese_nonimp as 'Spese non Imponibili'
 	FROM	#percipienti_record_H_2021
  
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -703,30 +703,26 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 		
 		public void MetaData_AfterLink() {
 			Meta= MetaData.GetMetaData(this);
-			bool IsAdmin=false;
-
-			if (Meta.GetSys("manage_prestazioni")!=null) 
-				IsAdmin = (Meta.GetSys("manage_prestazioni").ToString()=="S");
-			Meta.CanSave=IsAdmin;
-			Meta.CanInsert=IsAdmin;
-			Meta.CanInsertCopy=IsAdmin;
-			Meta.CanCancel=IsAdmin;
+			
             string filterEpOperationSF = Meta.QHS.CmpEq("idepoperation", "missioni");
             string filterEpOperationEP = Meta.QHS.CmpEq("idepoperation", "missioni");
 			GetData.SetStaticFilter(DS.accmotiveapplied, filterEpOperationSF);
 			DS.accmotiveapplied.ExtendedProperties[MetaData.ExtraParams]=filterEpOperationEP;
             HelpForm.SetDenyNull(DS.itinerationrefundkind.Columns["flagbalance"], true);
             HelpForm.SetDenyNull(DS.itinerationrefundkind.Columns["flagadvance"], true);
+            GetData.CacheTable(DS.itinerationrefundkindgroup, null, "description", false);
         }
+
 
         public void MetaData_AfterFill () {
             if (Meta.EditMode) {
                 txtCodice.ReadOnly = true;
+                if(Meta.FirstFillForThisRow)
+                    Meta.getData.GetTemporaryValues(DS.itinerationrefundkind);
             }
             else {
                 txtCodice.ReadOnly = false;
             }
         }
-
 	}
 }

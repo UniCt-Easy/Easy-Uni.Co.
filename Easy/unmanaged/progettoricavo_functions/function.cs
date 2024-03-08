@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,12 +31,12 @@ namespace progettoricavo_functions {
         IDataAccess Conn;
         CQueryHelper QHC;
         QueryHelper QHS;
-        int esercizio;
+        //int esercizio;
         public progettoricavo_function(IDataAccess conn) {
             this.Conn = conn;
             QHC = new CQueryHelper();
             QHS = Conn.GetQueryHelper();
-            esercizio = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
+            //esercizio = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
         }
 
         public void InitMetaData(vistaForm ds, object idprogetto) {
@@ -237,7 +237,7 @@ namespace progettoricavo_functions {
 
         }
         public string filterForInvoicedetail(object idprogetto) {
-                string filter = QHS.AppAnd(QHS.CmpEq("yinv", esercizio), QHS.CmpEq("flagbuysell", "V"),
+                string filter = QHS.AppAnd(/*QHS.CmpEq("yinv", esercizio),*/ QHS.CmpEq("flagbuysell", "V"),
                     QHS.CmpEq("idprogetto", idprogetto), QHS.IsNull("idprogettoricavo"),
                     QHS.AppOr(QHS.IsNotNull("idinc_taxable"), QHS.IsNotNull("idinc_iva")));// Righe che hanno l'incasso in Easy
                 return filter;

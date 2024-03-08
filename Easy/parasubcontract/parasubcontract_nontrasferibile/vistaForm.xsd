@@ -27,6 +27,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -87,6 +88,7 @@
               <xs:element name="startcompetency" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stopcompetency" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_causa" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

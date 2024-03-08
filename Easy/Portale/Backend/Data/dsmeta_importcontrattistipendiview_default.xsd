@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_importcontrattistipendiview_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_importcontrattistipendiview_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="importcontrattistipendiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="anno" type="xs:int" />
+              <xs:element name="cognome" type="xs:string" minOccurs="0" />
+              <xs:element name="datafine" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizio" type="xs:dateTime" />
+              <xs:element name="datarivalutazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="idstipendio" type="xs:int" minOccurs="0" />
+              <xs:element name="idstipendioannuo" type="xs:int" />
+              <xs:element name="inquadramento" type="xs:string" minOccurs="0" />
+              <xs:element name="lordo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="nome" type="xs:string" minOccurs="0" />
+              <xs:element name="oneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ruolo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:importcontrattistipendiview" />
+      <xs:field xpath="mstns:anno" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+      <xs:field xpath="mstns:idstipendioannuo" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

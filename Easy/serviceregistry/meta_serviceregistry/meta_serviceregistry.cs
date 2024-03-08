@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -148,6 +148,9 @@ namespace meta_serviceregistry {
             if (!base.IsValid(R, out errmess, out errfield)) return false;
             string topublish = "";
             string totransmit = "";
+
+
+
             if (R["idreg"] == DBNull.Value) {
                 errmess = "Specificare l'incaricato";
                 errfield = "idreg";
@@ -158,6 +161,7 @@ namespace meta_serviceregistry {
                 totransmit = Conn.DO_READ_VALUE("serviceregistrykind", QHS.CmpEq("idserviceregistrykind", R["idserviceregistrykind"]), "totransmit").ToString();
             }
             if ((totransmit == "") || (totransmit == "S")) {
+
                 if (R["employkind"] == DBNull.Value) {
                     errmess = "Specificare il Tipo Incaricato";
                     errfield = "employkind";
@@ -169,6 +173,13 @@ namespace meta_serviceregistry {
 	                errfield = "ordinancelink";
 	                return false;
                 }
+
+                if (R["idthematicscope"] == DBNull.Value) {
+                    errmess = "Per gli incarichi da trasferire a Perla è obbligatorio specificare l'ambito tematico dell’incarico";
+                    errfield = "idthematicscope";
+                    return false;
+                }
+
                 ///tipologia società impostata
                 if (R["idconsultingkind"] != DBNull.Value) {
                     #region  tipologia società impostata
@@ -238,6 +249,28 @@ namespace meta_serviceregistry {
                 }
                 // x un consulente
                 if (R["employkind"].ToString().ToUpper() != "D") {
+
+                    #region task_17488
+                    //idpublicinstitutionservice
+                    //idthematicscope
+                    if (R["idpublicinstitutionservice"] == DBNull.Value) {
+                        errmess = "Per un Consulente è obbligatorio specificare il Servizio Pubblico";
+                        errfield = "idpublicinstitutionservice";
+                        return false;
+                    }
+                    if (R["idthematicscope"] == DBNull.Value) {
+                        errmess = "Per un Consulente è obbligatorio specificare l'Ambito Tematico";
+                        errfield = "idthematicscope";
+                        return false;
+                    }
+                    if (R["idapregistrykind"] != DBNull.Value) {
+                        errmess = "Per un Consulente la Tipologia dell'ente Conferente non deve essere inserita.";
+                        errfield = "idapregistrykind";
+                        return false;
+                    }
+
+                    #endregion
+
                     if (R["idconsultingkind"] == DBNull.Value && R["flaghuman"].ToString() == "N") {
                         errmess = "Per un Consulente è obbligatorio specificare la Tipologia";
                         errfield = "idconsultingkind";
@@ -519,6 +552,13 @@ namespace meta_serviceregistry {
             }//Fine controllo sulla trasmissione
 
             if (topublish == "S") {
+
+                if (R["ordinancelink"] != DBNull.Value && !Uri.TryCreate(R["ordinancelink"].ToString(), UriKind.Absolute, out var url)) {
+                    errmess = "Inserire un URL di pubblicazione valido (deve essere nella forma \"http(s):// ... \")";
+                    errfield = "ordinancelink";
+                    return false;
+                }
+
                 if ((R["employkind"].ToString().ToUpper() == "D") && (R["description"] == DBNull.Value)) {
                     errmess = "Per un Dipendente è obbligatorio specificare la descrizione dell'incarico, per la pubblicazione dei dati sul sito Web Istituzionale"; ;
                     errfield = "description";

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -140,6 +140,26 @@ namespace expense_wizardinvoicedetail {
         /// </summary>
         private void InitializeComponent() {
 			this.tabController = new Crownwood.Magic.Controls.TabControl();
+			this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
+			this.SubEntity_chkAutomRecuperi = new System.Windows.Forms.CheckBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.gboxBolletta = new System.Windows.Forms.GroupBox();
+			this.txtBolletta = new System.Windows.Forms.TextBox();
+			this.btnBolletta = new System.Windows.Forms.Button();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.lblCausale = new System.Windows.Forms.Label();
+			this.txtTotSelezionato = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.rdbSplittaUno = new System.Windows.Forms.RadioButton();
+			this.rdbSplittaTutti = new System.Windows.Forms.RadioButton();
+			this.label23 = new System.Windows.Forms.Label();
+			this.label22 = new System.Windows.Forms.Label();
+			this.txtPerc = new System.Windows.Forms.TextBox();
+			this.labelAttenzione = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.txtMessage = new System.Windows.Forms.TextBox();
+			this.txtDaPagare = new System.Windows.Forms.TextBox();
+			this.label12 = new System.Windows.Forms.Label();
 			this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
 			this.chk_Enable_Split_Payment = new System.Windows.Forms.CheckBox();
 			this.txtTotalePagatoGenerale = new System.Windows.Forms.TextBox();
@@ -175,39 +195,19 @@ namespace expense_wizardinvoicedetail {
 			this.txtNumDoc = new System.Windows.Forms.TextBox();
 			this.label10 = new System.Windows.Forms.Label();
 			this.txtEsercDoc = new System.Windows.Forms.TextBox();
-			this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
-			this.SubEntity_chkAutomRecuperi = new System.Windows.Forms.CheckBox();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.gboxBolletta = new System.Windows.Forms.GroupBox();
-			this.txtBolletta = new System.Windows.Forms.TextBox();
-			this.btnBolletta = new System.Windows.Forms.Button();
-			this.groupBox3 = new System.Windows.Forms.GroupBox();
-			this.lblCausale = new System.Windows.Forms.Label();
-			this.txtTotSelezionato = new System.Windows.Forms.TextBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.rdbSplittaUno = new System.Windows.Forms.RadioButton();
-			this.rdbSplittaTutti = new System.Windows.Forms.RadioButton();
-			this.label23 = new System.Windows.Forms.Label();
-			this.label22 = new System.Windows.Forms.Label();
-			this.txtPerc = new System.Windows.Forms.TextBox();
-			this.labelAttenzione = new System.Windows.Forms.Label();
-			this.label13 = new System.Windows.Forms.Label();
-			this.txtMessage = new System.Windows.Forms.TextBox();
-			this.txtDaPagare = new System.Windows.Forms.TextBox();
-			this.label12 = new System.Windows.Forms.Label();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnNext = new System.Windows.Forms.Button();
 			this.btnBack = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.tabController.SuspendLayout();
-			this.tabPage2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.gridDetails)).BeginInit();
 			this.tabPage3.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.gboxBolletta.SuspendLayout();
 			this.groupBox3.SuspendLayout();
+			this.tabPage2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridDetails)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -217,13 +217,231 @@ namespace expense_wizardinvoicedetail {
 			this.tabController.IDEPixelArea = true;
 			this.tabController.Location = new System.Drawing.Point(0, 0);
 			this.tabController.Name = "tabController";
-			this.tabController.SelectedIndex = 2;
+			this.tabController.SelectedIndex = 1;
 			this.tabController.SelectedTab = this.tabPage3;
 			this.tabController.Size = new System.Drawing.Size(704, 430);
 			this.tabController.TabIndex = 0;
 			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabPage2,
             this.tabPage3});
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabPage3.Controls.Add(this.SubEntity_chkAutomRecuperi);
+			this.tabPage3.Controls.Add(this.groupBox1);
+			this.tabPage3.Controls.Add(this.groupBox3);
+			this.tabPage3.Controls.Add(this.label23);
+			this.tabPage3.Controls.Add(this.label22);
+			this.tabPage3.Controls.Add(this.txtPerc);
+			this.tabPage3.Controls.Add(this.labelAttenzione);
+			this.tabPage3.Controls.Add(this.label13);
+			this.tabPage3.Controls.Add(this.txtMessage);
+			this.tabPage3.Controls.Add(this.txtDaPagare);
+			this.tabPage3.Controls.Add(this.label12);
+			this.tabPage3.Location = new System.Drawing.Point(0, 0);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Size = new System.Drawing.Size(704, 405);
+			this.tabPage3.TabIndex = 5;
+			this.tabPage3.Title = "Pagina 2 di 2";
+			// 
+			// SubEntity_chkAutomRecuperi
+			// 
+			this.SubEntity_chkAutomRecuperi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.SubEntity_chkAutomRecuperi.Location = new System.Drawing.Point(360, 358);
+			this.SubEntity_chkAutomRecuperi.Name = "SubEntity_chkAutomRecuperi";
+			this.SubEntity_chkAutomRecuperi.Size = new System.Drawing.Size(328, 24);
+			this.SubEntity_chkAutomRecuperi.TabIndex = 15;
+			this.SubEntity_chkAutomRecuperi.Tag = " ";
+			this.SubEntity_chkAutomRecuperi.Text = "Non generare automatismi per i Recuperi";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.groupBox1.Controls.Add(this.gboxBolletta);
+			this.groupBox1.Location = new System.Drawing.Point(16, 336);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(332, 59);
+			this.groupBox1.TabIndex = 14;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Informazioni da associare al pagamento (opzionali)";
+			// 
+			// gboxBolletta
+			// 
+			this.gboxBolletta.Controls.Add(this.txtBolletta);
+			this.gboxBolletta.Controls.Add(this.btnBolletta);
+			this.gboxBolletta.Location = new System.Drawing.Point(6, 13);
+			this.gboxBolletta.Name = "gboxBolletta";
+			this.gboxBolletta.Size = new System.Drawing.Size(312, 40);
+			this.gboxBolletta.TabIndex = 73;
+			this.gboxBolletta.TabStop = false;
+			this.gboxBolletta.Tag = "AutoChoose.txtBolletta.spesa.(active=\'S\')";
+			// 
+			// txtBolletta
+			// 
+			this.txtBolletta.Location = new System.Drawing.Point(104, 12);
+			this.txtBolletta.Name = "txtBolletta";
+			this.txtBolletta.Size = new System.Drawing.Size(100, 23);
+			this.txtBolletta.TabIndex = 1;
+			this.txtBolletta.Tag = "bill.nbill";
+			// 
+			// btnBolletta
+			// 
+			this.btnBolletta.Location = new System.Drawing.Point(8, 12);
+			this.btnBolletta.Name = "btnBolletta";
+			this.btnBolletta.Size = new System.Drawing.Size(88, 23);
+			this.btnBolletta.TabIndex = 0;
+			this.btnBolletta.TabStop = false;
+			this.btnBolletta.Tag = "choose.bill.spesa.((active=\'S\') AND (isnull(total,0)-isnull(reduction,0)>covered)" +
+    " AND (ISNULL(toregularize,0)>0))";
+			this.btnBolletta.Text = "N. bolletta";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox3.Controls.Add(this.lblCausale);
+			this.groupBox3.Controls.Add(this.txtTotSelezionato);
+			this.groupBox3.Controls.Add(this.label3);
+			this.groupBox3.Controls.Add(this.rdbSplittaUno);
+			this.groupBox3.Controls.Add(this.rdbSplittaTutti);
+			this.groupBox3.Location = new System.Drawing.Point(16, 19);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(672, 104);
+			this.groupBox3.TabIndex = 13;
+			this.groupBox3.TabStop = false;
+			// 
+			// lblCausale
+			// 
+			this.lblCausale.AutoSize = true;
+			this.lblCausale.Location = new System.Drawing.Point(14, 33);
+			this.lblCausale.Name = "lblCausale";
+			this.lblCausale.Size = new System.Drawing.Size(48, 15);
+			this.lblCausale.TabIndex = 0;
+			this.lblCausale.Text = "Causale";
+			// 
+			// txtTotSelezionato
+			// 
+			this.txtTotSelezionato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTotSelezionato.Location = new System.Drawing.Point(498, 26);
+			this.txtTotSelezionato.Name = "txtTotSelezionato";
+			this.txtTotSelezionato.ReadOnly = true;
+			this.txtTotSelezionato.Size = new System.Drawing.Size(151, 23);
+			this.txtTotSelezionato.TabIndex = 0;
+			this.txtTotSelezionato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label3
+			// 
+			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label3.Location = new System.Drawing.Point(283, 30);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(205, 13);
+			this.label3.TabIndex = 0;
+			this.label3.Text = "il totale dei dettagli selezionati è";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// rdbSplittaUno
+			// 
+			this.rdbSplittaUno.AutoSize = true;
+			this.rdbSplittaUno.Checked = true;
+			this.rdbSplittaUno.Location = new System.Drawing.Point(17, 52);
+			this.rdbSplittaUno.Name = "rdbSplittaUno";
+			this.rdbSplittaUno.Size = new System.Drawing.Size(565, 19);
+			this.rdbSplittaUno.TabIndex = 1;
+			this.rdbSplittaUno.TabStop = true;
+			this.rdbSplittaUno.Text = "Contabilizza interamente i dettagli fino a coprire l\'importo da pagare. Sarà sudd" +
+    "iviso al più un dettaglio";
+			this.rdbSplittaUno.UseVisualStyleBackColor = true;
+			this.rdbSplittaUno.CheckedChanged += new System.EventHandler(this.rdbSplittaUno_CheckedChanged);
+			// 
+			// rdbSplittaTutti
+			// 
+			this.rdbSplittaTutti.AutoSize = true;
+			this.rdbSplittaTutti.Location = new System.Drawing.Point(18, 76);
+			this.rdbSplittaTutti.Name = "rdbSplittaTutti";
+			this.rdbSplittaTutti.Size = new System.Drawing.Size(510, 19);
+			this.rdbSplittaTutti.TabIndex = 2;
+			this.rdbSplittaTutti.Text = "Distribuisci l\'importo da pagare su tutti i dettagli selezionati. Tutti i dettagl" +
+    "i saranno suddivisi";
+			this.rdbSplittaTutti.UseVisualStyleBackColor = true;
+			this.rdbSplittaTutti.CheckedChanged += new System.EventHandler(this.rdbSplittaTutti_CheckedChanged);
+			// 
+			// label23
+			// 
+			this.label23.Location = new System.Drawing.Point(324, 126);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(128, 16);
+			this.label23.TabIndex = 12;
+			this.label23.Text = "Importo";
+			this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label22
+			// 
+			this.label22.Location = new System.Drawing.Point(260, 126);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(56, 16);
+			this.label22.TabIndex = 11;
+			this.label22.Text = "%";
+			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtPerc
+			// 
+			this.txtPerc.Location = new System.Drawing.Point(256, 144);
+			this.txtPerc.Name = "txtPerc";
+			this.txtPerc.Size = new System.Drawing.Size(64, 23);
+			this.txtPerc.TabIndex = 10;
+			this.txtPerc.Leave += new System.EventHandler(this.txtPerc_Leave);
+			// 
+			// labelAttenzione
+			// 
+			this.labelAttenzione.Location = new System.Drawing.Point(16, 1);
+			this.labelAttenzione.Name = "labelAttenzione";
+			this.labelAttenzione.Size = new System.Drawing.Size(352, 16);
+			this.labelAttenzione.TabIndex = 8;
+			this.labelAttenzione.Text = "Attenzione! Ci sono impegni che non hanno disponibilità sufficiente";
+			this.labelAttenzione.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.labelAttenzione.Visible = false;
+			// 
+			// label13
+			// 
+			this.label13.Location = new System.Drawing.Point(16, 177);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(656, 16);
+			this.label13.TabIndex = 7;
+			this.label13.Text = "In base alle impostazioni attuali saranno effettuate le seguenti operazioni:";
+			// 
+			// txtMessage
+			// 
+			this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtMessage.Location = new System.Drawing.Point(16, 198);
+			this.txtMessage.Multiline = true;
+			this.txtMessage.Name = "txtMessage";
+			this.txtMessage.ReadOnly = true;
+			this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtMessage.Size = new System.Drawing.Size(672, 105);
+			this.txtMessage.TabIndex = 6;
+			// 
+			// txtDaPagare
+			// 
+			this.txtDaPagare.Location = new System.Drawing.Point(328, 144);
+			this.txtDaPagare.Name = "txtDaPagare";
+			this.txtDaPagare.Size = new System.Drawing.Size(112, 23);
+			this.txtDaPagare.TabIndex = 3;
+			this.txtDaPagare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.txtDaPagare.Leave += new System.EventHandler(this.txtDaPagare_Leave);
+			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(16, 144);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(224, 23);
+			this.label12.TabIndex = 2;
+			this.label12.Text = "Inserire il valore che si desidera pagare:";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// tabPage2
 			// 
@@ -262,7 +480,7 @@ namespace expense_wizardinvoicedetail {
 			this.tabPage2.Selected = false;
 			this.tabPage2.Size = new System.Drawing.Size(704, 405);
 			this.tabPage2.TabIndex = 4;
-			this.tabPage2.Title = "Pagina 2 di 3";
+			this.tabPage2.Title = "Pagina 1 di 2";
 			// 
 			// chk_Enable_Split_Payment
 			// 
@@ -595,223 +813,6 @@ namespace expense_wizardinvoicedetail {
 			this.txtEsercDoc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.txtEsercDoc.Leave += new System.EventHandler(this.txtEsercDoc_Leave);
 			// 
-			// tabPage3
-			// 
-			this.tabPage3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabPage3.Controls.Add(this.SubEntity_chkAutomRecuperi);
-			this.tabPage3.Controls.Add(this.groupBox1);
-			this.tabPage3.Controls.Add(this.groupBox3);
-			this.tabPage3.Controls.Add(this.label23);
-			this.tabPage3.Controls.Add(this.label22);
-			this.tabPage3.Controls.Add(this.txtPerc);
-			this.tabPage3.Controls.Add(this.labelAttenzione);
-			this.tabPage3.Controls.Add(this.label13);
-			this.tabPage3.Controls.Add(this.txtMessage);
-			this.tabPage3.Controls.Add(this.txtDaPagare);
-			this.tabPage3.Controls.Add(this.label12);
-			this.tabPage3.Location = new System.Drawing.Point(0, 0);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(704, 405);
-			this.tabPage3.TabIndex = 5;
-			this.tabPage3.Title = "Pagina 3 di 3";
-			// 
-			// SubEntity_chkAutomRecuperi
-			// 
-			this.SubEntity_chkAutomRecuperi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.SubEntity_chkAutomRecuperi.Location = new System.Drawing.Point(360, 358);
-			this.SubEntity_chkAutomRecuperi.Name = "SubEntity_chkAutomRecuperi";
-			this.SubEntity_chkAutomRecuperi.Size = new System.Drawing.Size(328, 24);
-			this.SubEntity_chkAutomRecuperi.TabIndex = 15;
-			this.SubEntity_chkAutomRecuperi.Tag = " ";
-			this.SubEntity_chkAutomRecuperi.Text = "Non generare automatismi per i Recuperi";
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Controls.Add(this.gboxBolletta);
-			this.groupBox1.Location = new System.Drawing.Point(16, 336);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(332, 59);
-			this.groupBox1.TabIndex = 14;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Informazioni da associare al pagamento (opzionali)";
-			// 
-			// gboxBolletta
-			// 
-			this.gboxBolletta.Controls.Add(this.txtBolletta);
-			this.gboxBolletta.Controls.Add(this.btnBolletta);
-			this.gboxBolletta.Location = new System.Drawing.Point(6, 13);
-			this.gboxBolletta.Name = "gboxBolletta";
-			this.gboxBolletta.Size = new System.Drawing.Size(312, 40);
-			this.gboxBolletta.TabIndex = 73;
-			this.gboxBolletta.TabStop = false;
-			this.gboxBolletta.Tag = "AutoChoose.txtBolletta.spesa.(active=\'S\')";
-			// 
-			// txtBolletta
-			// 
-			this.txtBolletta.Location = new System.Drawing.Point(104, 12);
-			this.txtBolletta.Name = "txtBolletta";
-			this.txtBolletta.Size = new System.Drawing.Size(100, 23);
-			this.txtBolletta.TabIndex = 1;
-			this.txtBolletta.Tag = "bill.nbill";
-			// 
-			// btnBolletta
-			// 
-			this.btnBolletta.Location = new System.Drawing.Point(8, 12);
-			this.btnBolletta.Name = "btnBolletta";
-			this.btnBolletta.Size = new System.Drawing.Size(88, 23);
-			this.btnBolletta.TabIndex = 0;
-			this.btnBolletta.TabStop = false;
-			this.btnBolletta.Tag = "choose.bill.spesa.((active=\'S\') AND (isnull(total,0)-isnull(reduction,0)>covered)" +
-    " AND (ISNULL(toregularize,0)>0))";
-			this.btnBolletta.Text = "N. bolletta";
-			// 
-			// groupBox3
-			// 
-			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox3.Controls.Add(this.lblCausale);
-			this.groupBox3.Controls.Add(this.txtTotSelezionato);
-			this.groupBox3.Controls.Add(this.label3);
-			this.groupBox3.Controls.Add(this.rdbSplittaUno);
-			this.groupBox3.Controls.Add(this.rdbSplittaTutti);
-			this.groupBox3.Location = new System.Drawing.Point(16, 19);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(672, 104);
-			this.groupBox3.TabIndex = 13;
-			this.groupBox3.TabStop = false;
-			// 
-			// lblCausale
-			// 
-			this.lblCausale.AutoSize = true;
-			this.lblCausale.Location = new System.Drawing.Point(14, 33);
-			this.lblCausale.Name = "lblCausale";
-			this.lblCausale.Size = new System.Drawing.Size(48, 15);
-			this.lblCausale.TabIndex = 0;
-			this.lblCausale.Text = "Causale";
-			// 
-			// txtTotSelezionato
-			// 
-			this.txtTotSelezionato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTotSelezionato.Location = new System.Drawing.Point(498, 26);
-			this.txtTotSelezionato.Name = "txtTotSelezionato";
-			this.txtTotSelezionato.ReadOnly = true;
-			this.txtTotSelezionato.Size = new System.Drawing.Size(151, 23);
-			this.txtTotSelezionato.TabIndex = 0;
-			this.txtTotSelezionato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label3
-			// 
-			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label3.Location = new System.Drawing.Point(283, 30);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(205, 13);
-			this.label3.TabIndex = 0;
-			this.label3.Text = "il totale dei dettagli selezionati è";
-			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// rdbSplittaUno
-			// 
-			this.rdbSplittaUno.AutoSize = true;
-			this.rdbSplittaUno.Checked = true;
-			this.rdbSplittaUno.Location = new System.Drawing.Point(17, 52);
-			this.rdbSplittaUno.Name = "rdbSplittaUno";
-			this.rdbSplittaUno.Size = new System.Drawing.Size(565, 19);
-			this.rdbSplittaUno.TabIndex = 1;
-			this.rdbSplittaUno.TabStop = true;
-			this.rdbSplittaUno.Text = "Contabilizza interamente i dettagli fino a coprire l\'importo da pagare. Sarà sudd" +
-    "iviso al più un dettaglio";
-			this.rdbSplittaUno.UseVisualStyleBackColor = true;
-			this.rdbSplittaUno.CheckedChanged += new System.EventHandler(this.rdbSplittaUno_CheckedChanged);
-			// 
-			// rdbSplittaTutti
-			// 
-			this.rdbSplittaTutti.AutoSize = true;
-			this.rdbSplittaTutti.Location = new System.Drawing.Point(18, 76);
-			this.rdbSplittaTutti.Name = "rdbSplittaTutti";
-			this.rdbSplittaTutti.Size = new System.Drawing.Size(511, 19);
-			this.rdbSplittaTutti.TabIndex = 2;
-			this.rdbSplittaTutti.Text = "Distribuisci l\'importo da pagare su tutti i dettagli selezionati. Tutti i dettagl" +
-    "i saranno suddivisi";
-			this.rdbSplittaTutti.UseVisualStyleBackColor = true;
-			this.rdbSplittaTutti.CheckedChanged += new System.EventHandler(this.rdbSplittaTutti_CheckedChanged);
-			// 
-			// label23
-			// 
-			this.label23.Location = new System.Drawing.Point(324, 126);
-			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(128, 16);
-			this.label23.TabIndex = 12;
-			this.label23.Text = "Importo";
-			this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// label22
-			// 
-			this.label22.Location = new System.Drawing.Point(260, 126);
-			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(56, 16);
-			this.label22.TabIndex = 11;
-			this.label22.Text = "%";
-			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// txtPerc
-			// 
-			this.txtPerc.Location = new System.Drawing.Point(256, 144);
-			this.txtPerc.Name = "txtPerc";
-			this.txtPerc.Size = new System.Drawing.Size(64, 23);
-			this.txtPerc.TabIndex = 10;
-			this.txtPerc.Leave += new System.EventHandler(this.txtPerc_Leave);
-			// 
-			// labelAttenzione
-			// 
-			this.labelAttenzione.Location = new System.Drawing.Point(16, 1);
-			this.labelAttenzione.Name = "labelAttenzione";
-			this.labelAttenzione.Size = new System.Drawing.Size(352, 16);
-			this.labelAttenzione.TabIndex = 8;
-			this.labelAttenzione.Text = "Attenzione! Ci sono impegni che non hanno disponibilità sufficiente";
-			this.labelAttenzione.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.labelAttenzione.Visible = false;
-			// 
-			// label13
-			// 
-			this.label13.Location = new System.Drawing.Point(16, 177);
-			this.label13.Name = "label13";
-			this.label13.Size = new System.Drawing.Size(656, 16);
-			this.label13.TabIndex = 7;
-			this.label13.Text = "In base alle impostazioni attuali saranno effettuate le seguenti operazioni:";
-			// 
-			// txtMessage
-			// 
-			this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtMessage.Location = new System.Drawing.Point(16, 198);
-			this.txtMessage.Multiline = true;
-			this.txtMessage.Name = "txtMessage";
-			this.txtMessage.ReadOnly = true;
-			this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtMessage.Size = new System.Drawing.Size(672, 105);
-			this.txtMessage.TabIndex = 6;
-			// 
-			// txtDaPagare
-			// 
-			this.txtDaPagare.Location = new System.Drawing.Point(328, 144);
-			this.txtDaPagare.Name = "txtDaPagare";
-			this.txtDaPagare.Size = new System.Drawing.Size(112, 23);
-			this.txtDaPagare.TabIndex = 3;
-			this.txtDaPagare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.txtDaPagare.Leave += new System.EventHandler(this.txtDaPagare_Leave);
-			// 
-			// label12
-			// 
-			this.label12.Location = new System.Drawing.Point(16, 144);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(224, 23);
-			this.label12.TabIndex = 2;
-			this.label12.Text = "Inserire il valore che si desidera pagare:";
-			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -866,12 +867,6 @@ namespace expense_wizardinvoicedetail {
 			this.Text = "FrmWizardInvoiceDetail";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmWizardInvoiceDetail_FormClosing);
 			this.tabController.ResumeLayout(false);
-			this.tabPage2.ResumeLayout(false);
-			this.tabPage2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-			this.groupBox2.ResumeLayout(false);
-			this.groupBox2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.gridDetails)).EndInit();
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
@@ -879,6 +874,12 @@ namespace expense_wizardinvoicedetail {
 			this.gboxBolletta.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
+			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridDetails)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -1613,11 +1614,10 @@ namespace expense_wizardinvoicedetail {
                     DataAccess.RUN_SELECT_INTO_TABLE(Conn, LiquidazioniView, null, filteridliquid, null, true);
                 }
                 if (LiquidazioniView.Select(filteridliquid).Length == 0) {
-                    show("Del dettaglio ordine " +
+                    show("La riga d'ordine " +
                                     ManDet["idmankind"].ToString() + "/" + ManDet["yman"].ToString() + "/" +
                                     ManDet["nman"].ToString() + "/" + ManDet["rownum"].ToString() +
-                                    " non è stata effettuata la contabilizzazione, quindi il dettaglio fattura " +
-                                    " non sarà disponibile in questa procedura.");
+                                    " non è stata contabilizzata");
                     continue;
                 }
                 DataRow Liquidazione = LiquidazioniView.Select(filteridliquid)[0];
@@ -2196,6 +2196,7 @@ namespace expense_wizardinvoicedetail {
             }
 
             Form F = ShowAutomatismi.Show(Meta, spesa, entrata, null, null);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 

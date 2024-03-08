@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -295,6 +295,8 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 		private TextBox txtCodiceCausaleEntrataIva;
 		private Button button4;
 		private TabPage tabPagoPA;
+		private Label label36;
+		private TextBox txtRownum_Main;
 		object AV;
 
         public Frm_invoicedetail_single() {
@@ -561,6 +563,8 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.btnTassonomia = new System.Windows.Forms.Button();
 			this.label13 = new System.Windows.Forms.Label();
 			this.grpInvMain = new System.Windows.Forms.GroupBox();
+			this.label36 = new System.Windows.Forms.Label();
+			this.txtRownum_Main = new System.Windows.Forms.TextBox();
 			this.label10 = new System.Windows.Forms.Label();
 			this.cmbInvKindMain = new System.Windows.Forms.ComboBox();
 			this.txtNinv_Main = new System.Windows.Forms.TextBox();
@@ -2737,7 +2741,6 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.label11.Size = new System.Drawing.Size(169, 13);
 			this.label11.TabIndex = 0;
 			this.label11.Text = "Escludi, il dettaglio fattura, perchè:";
-			this.label11.Click += new System.EventHandler(this.label11_Click);
 			// 
 			// tabFatturaElettronica
 			// 
@@ -2955,6 +2958,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			// btnCasuale
 			// 
 			this.btnCasuale.BackColor = System.Drawing.SystemColors.Control;
+			this.btnCasuale.Enabled = false;
 			this.btnCasuale.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnCasuale.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.btnCasuale.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2967,6 +2971,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.btnCasuale.Tag = "";
 			this.btnCasuale.Text = "Causale";
 			this.btnCasuale.UseVisualStyleBackColor = false;
+			this.btnCasuale.Visible = false;
 			this.btnCasuale.Click += new System.EventHandler(this.btnCasuale_Click);
 			// 
 			// txtCausale
@@ -2981,6 +2986,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.txtCausale.TabIndex = 24;
 			this.txtCausale.TabStop = false;
 			this.txtCausale.Tag = "";
+			this.txtCausale.Visible = false;
 			// 
 			// label30
 			// 
@@ -3171,6 +3177,8 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			// 
 			// grpInvMain
 			// 
+			this.grpInvMain.Controls.Add(this.label36);
+			this.grpInvMain.Controls.Add(this.txtRownum_Main);
 			this.grpInvMain.Controls.Add(this.label10);
 			this.grpInvMain.Controls.Add(this.cmbInvKindMain);
 			this.grpInvMain.Controls.Add(this.txtNinv_Main);
@@ -3179,10 +3187,28 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.grpInvMain.Controls.Add(this.label20);
 			this.grpInvMain.Location = new System.Drawing.Point(7, 2);
 			this.grpInvMain.Name = "grpInvMain";
-			this.grpInvMain.Size = new System.Drawing.Size(577, 37);
+			this.grpInvMain.Size = new System.Drawing.Size(775, 37);
 			this.grpInvMain.TabIndex = 1;
 			this.grpInvMain.TabStop = false;
 			this.grpInvMain.Text = " Fattura di riferimento";
+			// 
+			// label36
+			// 
+			this.label36.AutoSize = true;
+			this.label36.Location = new System.Drawing.Point(616, 16);
+			this.label36.Name = "label36";
+			this.label36.Size = new System.Drawing.Size(40, 13);
+			this.label36.TabIndex = 12;
+			this.label36.Text = "N.Riga";
+			// 
+			// txtRownum_Main
+			// 
+			this.txtRownum_Main.Location = new System.Drawing.Point(677, 14);
+			this.txtRownum_Main.Name = "txtRownum_Main";
+			this.txtRownum_Main.Size = new System.Drawing.Size(65, 20);
+			this.txtRownum_Main.TabIndex = 11;
+			this.txtRownum_Main.Tag = "invoicedetail.rownum_main";
+			this.txtRownum_Main.Leave += new System.EventHandler(this.txtRownum_Main_Leave);
 			// 
 			// label10
 			// 
@@ -4046,9 +4072,27 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             Curr["manrownum"] = DBNull.Value;
             DS.mandatekind.Clear();
             Meta.FreshForm(false);
+			var EPM = new EP_Manager(Meta , null, null, null, null, null, null, null, null, "invoicedetail");
 
-        }
+			if (EPM.UsaScritture && ExistDettNcAssociato()){
+				show("E' necessario richiamare la NC collegata alla fattura e Rigenerare le scritture in Partita Doppia", "Avviso");
+			}
 
+		}
+
+		private bool ExistDettNcAssociato() {
+			DataRow Curr = DS.invoicedetail.Rows[0];
+
+			string filter = QHS.AppAnd(QHS.CmpEq("idinvkind_main", Curr["idinvkind"]),
+					QHS.CmpEq("yinv_main", Curr["yinv"]),
+					QHS.CmpEq("ninv_main", Curr["ninv"]),
+					qhs.CmpEq("rownum_main", Curr["rownum"]));
+				if (Conn.RUN_SELECT_COUNT("invoicedetail", filter, true) > 0) {
+					return true;
+				}
+
+				return false;
+		}
         private void btnScollegaRigaContratto_Click(object sender, System.EventArgs e) {
             DataRow Curr = DS.invoicedetail.Rows[0];
             Curr["idestimkind"] = DBNull.Value;
@@ -4057,7 +4101,11 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             Curr["estimrownum"] = DBNull.Value;
             DS.estimatekind.Clear();
             Meta.FreshForm(false);
-        }
+			var EPM = new EP_Manager(Meta, null, null, null, null, null, null, null, null, "invoicedetail");
+			if (EPM.UsaScritture && ExistDettNcAssociato()) {
+				show("E' necessario richiamare la NC collegata alla fattura e Rigenerare le scritture in Partita Doppia", "Avviso");
+			}
+		}
 
         void visualizzaControlliContabilizzazioneImpAccBudget() {
             if (controller.IsEmpty || Meta.destroyed || Meta.formController.isClosing) return;
@@ -4361,6 +4409,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 
             if (chkListDescription.Checked) {
                 FrmAskDescr FR = new FrmAskDescr(dispatcher,Conn);
+                createForm(FR, this);
                 DialogResult D = FR.ShowDialog(this);
                 if (D != DialogResult.OK) return;
                 if (FR.Selected != null) {
@@ -4507,33 +4556,15 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             }
         }
 
-        private void txtNinv_Main_Leave(object sender, EventArgs e) {
-            object idinvkind_main = DBNull.Value;
-            if (cmbInvKindMain.SelectedIndex > 0) idinvkind_main = cmbInvKindMain.SelectedValue;
-            string yinv_main = txtYinv_Main.Text;
-            string ninv_main = txtNinv_Main.Text;
+		private void txtNinv_Main_Leave(object sender, EventArgs e) {
+			if (txtNinv_Main.ReadOnly) return;
+			if (Meta.IsEmpty) return;
+			if (txtNinv_Main.Text == "") return;
+			HelpForm.FocusControl(txtRownum_Main);
+		}
+		 
 
-            if ((idinvkind_main != DBNull.Value) && (yinv_main != "") && (ninv_main != "")) {
-                string filter = QHS.AppAnd(QHS.CmpEq("idinvkind", idinvkind_main),
-                    QHS.CmpEq("yinv", yinv_main),
-                    QHS.CmpEq("ninv", ninv_main));
-                if (Conn.RUN_SELECT_COUNT("invoice", filter, true) == 0) {
-                    show("Nessuna fattura trovata.", "Avviso");
-                    txtYinv_Main.Text = "";
-                    txtNinv_Main.Text = "";
-                    if (cmbInvKindMain.SelectedIndex > 0) {
-                        cmbInvKindMain.SelectedIndex = -1;
-                    }
-                            
-                    txtDescrizione.Focus();
-                    return;
-                }
-            }
-        }
-
-        private void label11_Click(object sender, EventArgs e) {
-
-        }
+        
 
         private void rdbBeniintra12_CheckedChanged(object sender, EventArgs e) {
             //chkmove12.Checked = rdbBeniintra12.Checked;
@@ -4891,7 +4922,8 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 
         public void MetaData_AfterPost() {
             Meta.SourceRow.Table.ExtendedProperties["RigaModificata"] = Meta.SourceRow;
-        }
+			Meta.SourceRow.Table.ExtendedProperties["RigaModificataPCC"] = Meta.SourceRow;
+		}
 
         public void MetaData_AfterFill() {
             DataRow Curr = DS.invoicedetail.Rows[0];
@@ -5642,6 +5674,134 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             txtPre_yepexp.Text = "";
             txtPre_nepexp.Text = "";
             Meta.FreshForm();
-        }        
-    }
+        }
+		private void btnCollegaRigaFatturaMadre_Click(object sender, System.EventArgs e) {
+
+			object idinvkind_main = DBNull.Value;
+			if (cmbInvKindMain.SelectedIndex > 0) idinvkind_main = cmbInvKindMain.SelectedValue;
+			string yinv_main = txtYinv_Main.Text;
+			string ninv_main = txtNinv_Main.Text;
+			string rownum_main = txtRownum_Main.Text;
+			if ((idinvkind_main != DBNull.Value) && (yinv_main != "") && (ninv_main != "") && (rownum_main!="")) {
+				string filter = QHS.AppAnd(QHS.CmpEq("idinvkind", idinvkind_main),
+					QHS.CmpEq("yinv", yinv_main),
+					QHS.CmpEq("ninv", ninv_main),
+					qhs.CmpEq("rownum", rownum_main));
+				if (Conn.RUN_SELECT_COUNT("invoicedetail", filter, true) == 0) {
+					show("Nessuna fattura trovata.", "Avviso");
+					txtYinv_Main.Text = "";
+					txtNinv_Main.Text = "";
+					txtRownum_Main.Text = "";
+					if (cmbInvKindMain.SelectedIndex > 0) {
+						cmbInvKindMain.SelectedIndex = -1;
+					}
+
+					txtDescrizione.Focus();
+					return;
+				}
+				DataRow Curr = DS.invoicedetail.Rows[0];
+
+				DataTable invdetail_listino = Conn.RUN_SELECT("invoicedetail", "*", null, QHS.AppAnd(filter, QHS.IsNotNull("idlist")), null, null, true);
+
+				//if ((invdetail_listino == null) || (invdetail_listino.Rows.Count == 0)) {
+
+				//	DataTable invdetail_accmotive = Conn.RUN_SELECT("invoicedetail", "*", null, QHS.AppAnd(filter, QHS.IsNotNull("idaccmotive")), null, null, true);
+
+				//	if ((invdetail_accmotive == null) || (invdetail_accmotive.Rows.Count == 0)) return;
+
+				//	string listaidaccmotive = QHS.DistinctVal(invdetail_accmotive.Select(), "idaccmotive");
+
+				//	// L'utente può scegliere la causale desiderata da un elenco 
+				//	MetaData accmotive = MetaData.GetMetaData(this, "accmotive");
+				//	accmotive.DS = DS.Clone();
+				//	accmotive.FilterLocked = true;
+				//	string filteracc = QHS.FieldInList("idaccmotive", listaidaccmotive);
+				//	DataRow rowSelected = accmotive.SelectOne("invdetail", filteracc, null, null);
+				//	if (rowSelected == null) return;
+
+				//	Curr["idaccmotive"] = rowSelected["idaccmotive"];
+				//	txtCodiceCausale.Text = rowSelected["codemotive"].ToString();
+				//	txtDescrizioneCausale.Text = rowSelected["title"].ToString();
+
+				//	Conn.RUN_SELECT_INTO_TABLE(DS.Tables["accmotiveapplied"], null, QHS.CmpEq("idaccmotive", Curr["idaccmotive"]), null, false);
+
+				//	return;
+				//}
+
+				if ((invdetail_listino != null) && (invdetail_listino.Rows.Count > 0)) {
+					string listaidlist = QHS.DistinctVal(invdetail_listino.Select(), "idlist");
+
+					MetaData list = MetaData.GetMetaData(this, "list");
+					list.DS = DS.Clone();
+					list.FilterLocked = true;
+					string filterlist = QHS.FieldInList("idlist", listaidlist);
+					DataRow rowSelect = list.SelectOne("default", filterlist, null, null);
+					if (rowSelect != null) {
+						Curr["idlist"] = rowSelect["idlist"];
+						txtListino.Text = rowSelect["intcode"].ToString();
+						txtDescrizioneListino.Text = rowSelect["description"].ToString();
+						cmbUnitaMisuraAcquisto.Text = rowSelect["idpackage"].ToString();
+						txtCoeffConversione.Text = rowSelect["unitsforpackage"].ToString();
+						cmbUnitaMisuraCS.Text = rowSelect["idunit"].ToString();
+						txtPrezzoUnitarioListino.Text = rowSelect["price"].ToString();
+					}
+				}
+				DataTable invdetail_main = Conn.RUN_SELECT("invoicedetail", "*", null, QHS.AppAnd(filter), null, null, true);
+				DataRow rowMain = invdetail_main.Rows[0];
+				 
+				//Aggiorna anche la Causale
+				if (rowMain["idaccmotive"] != DBNull.Value && rowMain["idaccmotive"] != null) {
+					Curr["idaccmotive"] = rowMain["idaccmotive"];
+					// Seleziono il contesto della nota di credito, su cui ho impostato un filtro statico all'inizio
+					Conn.RUN_SELECT_INTO_TABLE(DS.Tables["accmotiveapplied"], null, QHS.AppAnd(filterEpOperation, QHS.CmpEq("idaccmotive", rowMain["idaccmotive"])), null, false);
+					helpForm.FillControls(grpCausale.Controls);
+				}
+				//Aggiorno UPB e UPB iva
+				if (rowMain["idupb"] != DBNull.Value && rowMain["idupb"] != null) {
+					Curr["idupb"] = rowMain["idupb"];
+					DS.upb.Clear();
+					Conn.RUN_SELECT_INTO_TABLE(DS.upb, null, QHS.CmpEq("idupb", rowMain["idupb"]), null, false);
+					helpForm.FillControls(gboxUPB.Controls);
+				}
+				else {
+					Curr["idupb"] = DBNull.Value;
+					txtUPB.Text = "";
+					txtUPB.Text = "";
+					DS.upb.Clear();
+				}
+				if (rowMain["idupb_iva"] != DBNull.Value && rowMain["idupb_iva"] != null) {
+					Curr["idupb_iva"] = rowMain["idupb_iva"];
+					DS.upb_iva.Clear();
+					Conn.RUN_SELECT_INTO_TABLE(DS.upb_iva, null, QHS.CmpEq("idupb", rowMain["idupb_iva"]), null, false);
+					helpForm.FillControls(gBoxupbIVA.Controls);
+				}
+				else {
+					Curr["idupb_iva"] = DBNull.Value;
+					txtUPBiva.Text = "";
+					textBox4.Text = "";
+					DS.upb_iva.Clear();
+				}
+				//Aggiorno class. siope
+				if (rowMain["idsor_siope"] != DBNull.Value && rowMain["idsor_siope"] != null) {
+					Curr["idsor_siope"] = rowMain["idsor_siope"];
+					DS.sorting_siope .Clear();
+					Conn.RUN_SELECT_INTO_TABLE(DS.sorting_siope, null, QHS.CmpEq("idsor", rowMain["idsor_siope"]), null, false);
+					helpForm.FillControls(grpBoxSiopeEP.Controls);
+				}
+				else {
+					Curr["idsor_siope"] = DBNull.Value;
+					txtCodSiope.Text = "";
+					txtDescSiope.Text = "";
+					DS.sorting_siope.Clear();
+				}
+
+			}
+		}
+		private void txtRownum_Main_Leave(object sender, EventArgs e) {
+			if (txtRownum_Main.ReadOnly) return;
+			if (Meta.IsEmpty) return;
+			if (txtRownum_Main.Text == "") return;
+			btnCollegaRigaFatturaMadre_Click(sender, e);
+		}
+	}
 }

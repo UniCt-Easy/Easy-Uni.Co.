@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 	[Serializable, DesignerCategory("code"), System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 	[System.Xml.Serialization.XmlRoot("dsmeta_richitesi_segistcons"), System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-	public class dsmeta_richitesi_segistcons : DataSet {
+	public class dsmeta_richitesi_segistcons :DataSet {
 
 		#region Table members declaration
 		[DebuggerNonUserCode, DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
@@ -102,15 +102,14 @@ namespace Backend.Data {
 			var ttesikinddefaultview = new MetaTable("tesikinddefaultview");
 			ttesikinddefaultview.defineColumn("dropdown_title", typeof(string), false);
 			ttesikinddefaultview.defineColumn("idtesikind", typeof(int), false);
+			ttesikinddefaultview.defineColumn("tesikind_active", typeof(string));
 			Tables.Add(ttesikinddefaultview);
 			ttesikinddefaultview.defineKey("idtesikind");
 
 			//////////////////// INSEGNDEFAULTVIEW /////////////////////////////////
 			var tinsegndefaultview = new MetaTable("insegndefaultview");
 			tinsegndefaultview.defineColumn("dropdown_title", typeof(string), false);
-			tinsegndefaultview.defineColumn("idcorsostudio", typeof(int));
 			tinsegndefaultview.defineColumn("idinsegn", typeof(int), false);
-			tinsegndefaultview.defineColumn("idstruttura", typeof(int));
 			Tables.Add(tinsegndefaultview);
 			tinsegndefaultview.defineKey("idinsegn");
 
@@ -159,26 +158,24 @@ namespace Backend.Data {
 			//////////////////// REGISTRYDOCENTIVIEW /////////////////////////////////
 			var tregistrydocentiview = new MetaTable("registrydocentiview");
 			tregistrydocentiview.defineColumn("dropdown_title", typeof(string), false);
-			tregistrydocentiview.defineColumn("idcity", typeof(int));
-			tregistrydocentiview.defineColumn("idclassconsorsuale", typeof(int));
-			tregistrydocentiview.defineColumn("idnation", typeof(int));
 			tregistrydocentiview.defineColumn("idreg", typeof(int), false);
-			tregistrydocentiview.defineColumn("idreg_istituti", typeof(int));
-			tregistrydocentiview.defineColumn("idregistryclass", typeof(string));
-			tregistrydocentiview.defineColumn("idsasd", typeof(int));
-			tregistrydocentiview.defineColumn("idstruttura", typeof(int));
-			tregistrydocentiview.defineColumn("idtitle", typeof(string));
-			tregistrydocentiview.defineColumn("registry_residence", typeof(int), false);
+			tregistrydocentiview.defineColumn("registry_active", typeof(string));
 			Tables.Add(tregistrydocentiview);
 			tregistrydocentiview.defineKey("idreg");
 
 			//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
 			var tregistrydefaultview = new MetaTable("registrydefaultview");
+			tregistrydefaultview.defineColumn("accmotive_codemotive", typeof(string));
+			tregistrydefaultview.defineColumn("accmotive_registry_codemotive", typeof(string));
+			tregistrydefaultview.defineColumn("accmotive_registry_title", typeof(string));
+			tregistrydefaultview.defineColumn("accmotive_title", typeof(string));
 			tregistrydefaultview.defineColumn("category_description", typeof(string));
 			tregistrydefaultview.defineColumn("centralizedcategory_description", typeof(string));
 			tregistrydefaultview.defineColumn("dropdown_title", typeof(string), false);
 			tregistrydefaultview.defineColumn("geo_city_title", typeof(string));
 			tregistrydefaultview.defineColumn("geo_nation_title", typeof(string));
+			tregistrydefaultview.defineColumn("idaccmotivecredit", typeof(string));
+			tregistrydefaultview.defineColumn("idaccmotivedebit", typeof(string));
 			tregistrydefaultview.defineColumn("idcategory", typeof(string));
 			tregistrydefaultview.defineColumn("idcentralizedcategory", typeof(string));
 			tregistrydefaultview.defineColumn("idcity", typeof(int));

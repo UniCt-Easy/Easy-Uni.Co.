@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -67,9 +67,13 @@ namespace Backend.Components {
                 // caso mcmp, in cui il 2o prm è un JObject altrimenti andrebbe in errore
                 if (jObj["value"].GetType() == typeof(JObject)) {
                     Dictionary<string, object> dictFromJObject = new Dictionary<string, object>();
-                    // costrusice la dict con le chiavi valori del JObject
-                    var obj = (JObject) JsonConvert.DeserializeObject(jObj["value"].ToString());
-                    obj.Properties()._forEach(cond => dictFromJObject.Add(cond.Name, ((JValue) cond.Value).Value));
+                    // costruisce la dict con le chiavi valori del JObject
+                    //var obj = (JObject) JsonConvert.DeserializeObject(jObj["value"].ToString());
+                    var obj = (JObject)jObj["value"];
+
+                    obj.Properties()._forEach(cond => {
+                        dictFromJObject.Add(cond.Name, ((JValue)cond.Value).Value);
+                        });
                     // torno la dictionary ben popolata
                     return dictFromJObject;
                 }
@@ -643,8 +647,8 @@ namespace Backend.Components {
                     case "fieldNotIn":
                         root.Add("name", "isNotIn");
                         addAlias(m, root);
-                        root.Add("args", getArgsfieldIn(m));
-                        break;
+						root.Add("args", getArgsfieldIn(m));
+						break;
                     case "context.sys":
                         root.Add("name", m.Name);
                         addAlias(m, root);
@@ -741,13 +745,27 @@ namespace Backend.Components {
         }
 
         private static JArray getArgsfieldIn(q mExp) {
-            var arrayArgs = new JArray {serializeConstant(q.getField("sourceColumn", mExp))};
-            object[] parObject = (object[]) q.getField("parObject", mExp);
-            foreach (var el in parObject) {
-                arrayArgs.Add(serializeConstant(el));
-            }
+            //root["value"]= serializeConstant(q.getField("sourceColumn", mExp));
 
-            return arrayArgs;
+			//
+			var arr = new JArray();
+			arr.Add(serializeConstant(q.getField("sourceColumn", mExp)));
+
+			var innerArr = new JArray();
+			object[] parObject = (object[])q.getField("parObject", mExp);
+			foreach (var el in parObject) {
+				innerArr.Add(serializeConstant(el));
+			}
+            arr.Add(new JObject(new JProperty("array", innerArr)));
+			//root.Add("array",arr);
+
+            //root.Add("args", arg);
+			//var arrayArgs = new JArray {serializeConstant(q.getField("sourceColumn", mExp))};			
+			//arrayArgs.Add(new JObject("array", new JArray(parObject)));
+
+			
+
+            return arr;
         }
 
     }

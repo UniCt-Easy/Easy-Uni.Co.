@@ -96,6 +96,7 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
@@ -108,10 +109,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Frm_serviceregistry_default.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="vistaForm.Designer.cs">
+    <Compile Include="vistaForm.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaForm.xsd</DependentUpon>
@@ -122,8 +124,8 @@
     </EmbeddedResource>
     <Content Include="vistaForm.xsd">
       <Generator>HDSGene</Generator>
-      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>vistaForm.cs</LastGenOutput>
     </Content>
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
@@ -139,6 +141,10 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\servicetrasmission\servicetrasmission_default\servicetrasmission_default.csproj">
+      <Project>{CAC3481B-9057-41B3-ACD9-0C240334B9E3}</Project>
+      <Name>servicetrasmission_default</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
       <Name>funzioni_configurazione</Name>

@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaPatLista.xsd" xmlns:mstns="http://tempuri.org/VistaPatLista.xsd" xmlns="http://tempuri.org/VistaPatLista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaPatLista.xsd" xmlns:mstns="http://tempuri.org/VistaPatLista.xsd" xmlns="http://tempuri.org/VistaPatLista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -24,6 +24,24 @@
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cc" type="xs:string" minOccurs="0" />
+              <xs:element name="codicesede" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="f24sediinail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codicesede" type="xs:string" />
+              <xs:element name="nomesede" type="xs:string" minOccurs="0" />
+              <xs:element name="indirizzo" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="citta" type="xs:string" minOccurs="0" />
+              <xs:element name="provincia" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -33,5 +51,14 @@
       <xs:selector xpath=".//mstns:pat" />
       <xs:field xpath="mstns:idpat" />
     </xs:unique>
+    <xs:unique name="f24sediinail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24sediinail" />
+      <xs:field xpath="mstns:codicesede" />
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="f24sediinail_pat" msdata:parent="f24sediinail" msdata:child="pat" msdata:parentkey="codicesede" msdata:childkey="codicesede" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

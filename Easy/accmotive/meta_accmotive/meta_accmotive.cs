@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,6 +35,7 @@ namespace meta_accmotive {
 			EditTypes.Add("default");
 			EditTypes.Add("tree");
 			ListingTypes.Add("tree");
+			ListingTypes.Add("invdetail");
 			esercizio= Convert.ToInt32(GetSys("esercizio"));
 		}
 
@@ -105,7 +106,7 @@ namespace meta_accmotive {
 				//SetDefault(T,"paridaccmotive",GetSys("esercizio").ToString().Substring(2,2));
 			}
 			if (level > (maxDepth)){
-				//MessageBox .Show("Non è possibile inserire un livello inferiore a quello selezionato");
+				//MetaFactory.factory.getSingleton<IMessageShower>() .Show("Non è possibile inserire un livello inferiore a quello selezionato");
 				return null;
 			}
 
@@ -148,6 +149,13 @@ namespace meta_accmotive {
                 DescribeAColumn(T, "codemotive", "Codice", 1);
                 DescribeAColumn(T, "title", "Denominazione", 2);
             }
+			if (ListingType == "invdetail") {
+				Name = "Causali EP";
+				foreach (DataColumn C in T.Columns)
+                    DescribeAColumn(T, C.ColumnName, "", -1);
+                DescribeAColumn(T, "codemotive", "Codice Causale EP", 1);
+                DescribeAColumn(T, "title", "Denominazione Causale EP", 2);
+			}
 		}
 
 

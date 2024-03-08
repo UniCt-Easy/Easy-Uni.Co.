@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -180,7 +180,7 @@ namespace BancaSondrioFlusso {
                         break;
 
                         case "51":
-                        disposizione.NumeroDisposizione = ElaboraAlfanumerico(riga, 10, 10);    //identificativo_disposizione
+                        disposizione.NumeroDisposizione = ElaboraAlfanumerico(riga, 10, 50);    //identificativo_disposizione
                         disposizione.CodiceIdentificativoUnivoco = ElaboraAlfanumerico(riga, 74, 12);
                         disposizione.IdentificativoTransazione = ElaboraAlfanumerico(riga, 95, 25); //nostro id_transazione
 
@@ -193,10 +193,12 @@ namespace BancaSondrioFlusso {
                         disposizione.RiferimentoDebito = builder.ToString();
 
                         break;
-
+                        /*sempre sul record 70 come per il numero provvisorio, subito dopo il numero avviso, */
+                           /*da posizione 49 a 78, riportiamo il TRN del bonifico di riversamento*/
                         case "70":
                         disposizione.NumeroProvvisorio = ElaboraAlfanumerico(riga, 20, 7);
                         disposizione.CodiceAvviso = ElaboraAlfanumerico(riga, 30, 18);
+                        disposizione.TRNBonificoVersamento = ElaboraAlfanumerico(riga, 49, 30);
                         disposizione.TipoBollettino = ElaboraAlfanumerico(riga, 93, 1);
                         disposizione.ChiaviControllo = ElaboraAlfanumerico(riga, 100, 20);
                         disposizione.DataInizioValidità = ElaboraDataLunga(riga, 104, 8);
@@ -412,6 +414,7 @@ namespace BancaSondrioFlusso {
         public string ChiaviControllo { get; set; }
         public string NumeroProvvisorio { get; set; }
         public string CodiceAvviso { get; set; }
+        public string TRNBonificoVersamento { get; set; }
         public DateTime? DataInizioValidità { get; set; }
         public DateTime? DataFineValidità { get; set; }
 

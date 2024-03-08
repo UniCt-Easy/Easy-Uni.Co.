@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_rendicontattivitaprogettoora_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_rendicontattivitaprogettoora_seg: DataSet {
+public partial class dsmeta_rendicontattivitaprogettoora_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -66,8 +66,12 @@ private void initClass() {
 	tsaldefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tsaldefaultview.defineColumn("idprogetto", typeof(int),false);
 	tsaldefaultview.defineColumn("idsal", typeof(int),false);
+	tsaldefaultview.defineColumn("sal_budget", typeof(decimal));
+	tsaldefaultview.defineColumn("sal_datablocco", typeof(DateTime));
+	tsaldefaultview.defineColumn("sal_stop", typeof(DateTime));
+	tsaldefaultview.defineColumn("start", typeof(DateTime));
 	Tables.Add(tsaldefaultview);
-	tsaldefaultview.defineKey("idsal");
+	tsaldefaultview.defineKey("idprogetto", "idsal");
 
 	//////////////////// RENDICONTATTIVITAPROGETTOORA /////////////////////////////////
 	var trendicontattivitaprogettoora= new MetaTable("rendicontattivitaprogettoora");
@@ -75,6 +79,9 @@ private void initClass() {
 	trendicontattivitaprogettoora.defineColumn("ct", typeof(DateTime),false);
 	trendicontattivitaprogettoora.defineColumn("cu", typeof(string),false);
 	trendicontattivitaprogettoora.defineColumn("data", typeof(DateTime));
+	trendicontattivitaprogettoora.defineColumn("idconsolidamento", typeof(int));
+	trendicontattivitaprogettoora.defineColumn("idprogetto", typeof(int),false);
+	trendicontattivitaprogettoora.defineColumn("idreg", typeof(int),false);
 	trendicontattivitaprogettoora.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
 	trendicontattivitaprogettoora.defineColumn("idrendicontattivitaprogettoora", typeof(int),false);
 	trendicontattivitaprogettoora.defineColumn("idsal", typeof(int));
@@ -83,7 +90,7 @@ private void initClass() {
 	trendicontattivitaprogettoora.defineColumn("lu", typeof(string),false);
 	trendicontattivitaprogettoora.defineColumn("ore", typeof(int));
 	Tables.Add(trendicontattivitaprogettoora);
-	trendicontattivitaprogettoora.defineKey("idrendicontattivitaprogetto", "idrendicontattivitaprogettoora", "idworkpackage");
+	trendicontattivitaprogettoora.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idrendicontattivitaprogettoora", "idworkpackage");
 
 	#endregion
 

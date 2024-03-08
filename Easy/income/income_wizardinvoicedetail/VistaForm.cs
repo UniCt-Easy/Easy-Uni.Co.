@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -482,6 +482,10 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tivakind.Columns.Add(C);
 	tivakind.Columns.Add( new DataColumn("active", typeof(string)));
+	tivakind.Columns.Add( new DataColumn("codeivakind", typeof(string)));
+	tivakind.Columns.Add( new DataColumn("flag", typeof(int)));
+	tivakind.Columns.Add( new DataColumn("annotations", typeof(string)));
+	tivakind.Columns.Add( new DataColumn("idfenature", typeof(string)));
 	Tables.Add(tivakind);
 	tivakind.PrimaryKey =  new DataColumn[]{tivakind.Columns["idivakind"]};
 
@@ -657,6 +661,7 @@ private void initClass() {
 	testimatedetail.Columns.Add( new DataColumn("taxable", typeof(decimal)));
 	testimatedetail.Columns.Add( new DataColumn("taxrate", typeof(double)));
 	testimatedetail.Columns.Add( new DataColumn("toinvoice", typeof(string)));
+	testimatedetail.Columns.Add( new DataColumn("idrevenuepartition", typeof(int)));
 	testimatedetail.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
 	testimatedetail.Columns.Add( new DataColumn("idivakind", typeof(int)));
 	testimatedetail.Columns.Add( new DataColumn("idreg", typeof(int)));

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +19,6 @@ using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
 using meta_provisiondetail;
@@ -27,55 +26,51 @@ using meta_provision;
 using meta_registry;
 using meta_accmotiveapplied;
 using metadatalibrary;
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace provisiondetail_default {
-[Serializable()][DesignerCategoryAttribute("code")][System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-[System.Xml.Serialization.XmlRootAttribute("dsmeta")][System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Dettaglio accantonamento
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public provisiondetailTable provisiondetail 		{get { return (provisiondetailTable )Tables["provisiondetail"];}}
-	///<summary>
-	///Fondo accantonamento
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public provisionTable provision 		{get { return (provisionTable )Tables["provision"];}}
-	///<summary>
-	///Anagrafica
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public registryTable registry 		{get { return (registryTable )Tables["registry"];}}
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public accmotiveappliedTable accmotiveapplied 		{get { return (accmotiveappliedTable )Tables["accmotiveapplied"];}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public provisiondetailTable provisiondetail 		=> (provisiondetailTable)Tables["provisiondetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public provisionTable provision 		=> (provisionTable)Tables["provision"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public registryTable registry 		=> (registryTable)Tables["registry"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public accmotiveappliedTable accmotiveapplied 		=> (accmotiveappliedTable)Tables["accmotiveapplied"];
+
 	#endregion
 
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataTableCollection Tables {get {return base.Tables;}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
 
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 public dsmeta(){
 	BeginInit();
-	InitClass();
+	initClass();
 	EndInit();
 }
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 protected dsmeta (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
-[DebuggerNonUserCodeAttribute()]
-private void InitClass() {
+[DebuggerNonUserCode]
+private void initClass() {
 	DataSetName = "dsmeta";
 	Prefix = "";
 	Namespace = "http://tempuri.org/dsmeta.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
-	MetaTable T;
 	//////////////////// PROVISIONDETAIL /////////////////////////////////
 	var tprovisiondetail= new provisiondetailTable();
 	tprovisiondetail.addBaseColumns("idprovision","description","amount","cu","ct","lu","lt","rownum","adate","idaccmotive","ydetail");
@@ -84,7 +79,7 @@ private void InitClass() {
 
 	//////////////////// PROVISION /////////////////////////////////
 	var tprovision= new provisionTable();
-	tprovision.addBaseColumns("idprovision","description","idreg","idepexp","ct","cu","lt","lu","idsor01","idsor02","idsor03","idsor04","idsor05","active","adate");
+	tprovision.addBaseColumns("idprovision","description","idreg","idepexp","ct","cu","lt","lu","idsor01","idsor02","idsor03","idsor04","idsor05","active","adate","title");
 	Tables.Add(tprovision);
 	tprovision.defineKey("idprovision");
 
@@ -104,8 +99,6 @@ private void InitClass() {
 
 
 	#region DataRelation creation
-	DataColumn []CPar;
-	DataColumn []CChild;
 	this.defineRelation("registry_provision","registry","provision","idreg");
 	this.defineRelation("provision_provisiondetail","provision","provisiondetail","idprovision");
 	this.defineRelation("accmotiveapplied_provisiondetail","accmotiveapplied","provisiondetail","idaccmotive");

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,7 +53,7 @@ CREATE FUNCTION  [fn_decode_idrelated_tab_chiavi]
 	@lista_id dbo.idrelated_list  READONLY -- = 'inv§283§2017§29§8',
 ) 
 RETURNS @result TABLE (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON),	
-kind varchar(100), rifdoc varchar(200), docdate datetime, daterif datetime,
+kind varchar(max), rifdoc varchar(max), docdate datetime, daterif datetime,
   col1 varchar(50), col2 varchar(50), col3 varchar(50), col4 varchar(50), col5 varchar(50), col6 varchar(50), col7 varchar(50),col8 varchar(50)) 
 -- RETURNS  @result_set TABLE (idrelated varchar(150) PRIMARY KEY WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON), col1 varchar(20), col2 varchar(20), col3 varchar(20), col4 varchar(20), col5 varchar(20), col6 varchar(20), col7 varchar(20),col8 varchar(20))
   AS BEGIN
@@ -72,8 +72,8 @@ kind varchar(100), rifdoc varchar(200), docdate datetime, daterif datetime,
   DECLARE	@col7 varchar(50)
   DECLARE	@col8 varchar(50)
 
-  DECLARE	@kind varchar(100)
-  DECLARE	@rifdoc varchar(200)
+  DECLARE	@kind varchar(max)
+  DECLARE	@rifdoc varchar(max)
   DECLARE	@adate datetime
   DECLARE	@daterif datetime
   DECLARE   @maxincomephase  int
@@ -236,7 +236,8 @@ kind varchar(100), rifdoc varchar(200), docdate datetime, daterif datetime,
 		  IF (@kind is   null)	
 		  BEGIN
 			  SELECT @kind = 'Contratto Passivo', @rifdoc =   'C. Passivo ' + isnull(R.col2,'') + '-' + MK.description + '/' +  isnull(R.col3,'') + ' n° ' + isnull(R.col4,'') + 
-			  CASE WHEN isnull(R.col5,'') <>'' THEN ' dett.' + isnull(R.col5,'')  ELSE '' END  , 
+			  CASE WHEN isnull(M.description,'') <>'' THEN ' - ' + isnull(M.description,'')  ELSE '' END  +
+			  CASE WHEN isnull(R.col5,'') <>'' THEN '; dett.' + isnull(R.col5,'')  ELSE '' END  , 
 			  @adate = M.adate,@daterif = isnull(D.start,M.adate)
 			  FROM @result_set R
 			  LEFT OUTER JOIN  mandatedetail D ON D.idmankind =  isnull(R.col2,'') and D.yman =isnull(R.col3,'') and D.nman = isnull(R.col4,'')   and D.rownum = isnull(R.col5,'') 
@@ -247,8 +248,9 @@ kind varchar(100), rifdoc varchar(200), docdate datetime, daterif datetime,
 		  IF (@kind is   null)	
 		 
 		  BEGIN
-			  SELECT @kind = 'Contratto Attivo', @rifdoc =  'C. Attivo ' + isnull(R.col2,'') + '-' + EK.description + '/'  +  isnull(R.col3,'') + ' n° ' + isnull(R.col4,'') + CASE WHEN isnull(R.col5,'') <>'' THEN ' dett.' + isnull(R.col5,'')  ELSE '' END , 
-			  @adate = E.adate, @daterif = isnull(D.start,E.adate)
+			 SELECT @kind = 'Contratto Attivo', @rifdoc =  'C. Attivo ' + isnull(R.col2,'') + '/' + EK.description + '/'  +  isnull(R.col3,'') + ' n° ' + isnull(R.col4,'') + 
+			  CASE WHEN isnull(E.description,'') <>'' THEN ' - ' + isnull(E.description,'')  ELSE '' END  +
+			  CASE WHEN isnull(R.col5,'') <>'' THEN '; dett.' + isnull(R.col5,'')  ELSE '' END  ,   @adate = E.adate, @daterif = isnull(D.start,E.adate)
 			  FROM @result_set R
 			  LEFT OUTER JOIN estimatedetail D ON D.idestimkind =  isnull(R.col2,'') and D.yestim =isnull(R.col3,'') and D.nestim = isnull(R.col4,'')   and D.rownum = isnull(R.col5,'') 
 			  JOIN estimate E  ON E.idestimkind =  isnull(R.col2,'') and E.yestim =isnull(R.col3,'') and E.nestim = isnull(R.col4,'')  

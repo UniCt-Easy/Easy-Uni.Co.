@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_menuweb() {
 		MetaPage.apply(this, ['menuweb', 'tree', false]);
-        this.name = 'Menù';
+        this.name = 'MenÃ¹';
 		this.defaultListType = 'tree';
 		this.isList = true;
 		this.isTree = true;
@@ -79,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      prm4: self.state.currentRow.editType,
                      prm5: self.state.currentRow.label
                   });
-               } else if (!self.state.currentRow.getRow) { //se non ha getRow cancello perchè in caso di cancellazione formState risulta ancora in edit
+               } else if (!self.state.currentRow.getRow) { //se non ha getRow cancello perchÃ¨ in caso di cancellazione formState risulta ancora in edit
                  return appMeta.getData.launchCustomServerMethod("callSP", {
                      spname: "EraseSecureVariable",
                      prm1: "mr_" + self.state.currentRow.idmenuweb
@@ -96,7 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         });
                      }
                   }).then(function (resErase) {
-                     var msg = "OK. La voce è stata cancellata";
+                     var msg = "OK. La voce Ã¨ stata cancellata";
                      if (resErase.err) {
                         msg = "KO " + resErase.err;
                      }

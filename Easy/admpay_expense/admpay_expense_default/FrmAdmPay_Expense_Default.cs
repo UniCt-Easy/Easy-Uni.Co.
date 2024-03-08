@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1635,7 +1635,8 @@ namespace admpay_expense_default {
             D.Tables.Add(admpay_appropriationview_temp);
             
             Frm_AdmPay_Appropriation_Choose f = new Frm_AdmPay_Appropriation_Choose(admpay_appropriationview_temp, Meta);
-			f.ShowDialog(this);
+            createForm(f, this);
+            f.ShowDialog(this);
 			if (f.DialogResult != DialogResult.OK) return;
 			if (f.Choosen == null) return;
 			DataRow rImpSel = f.Choosen;

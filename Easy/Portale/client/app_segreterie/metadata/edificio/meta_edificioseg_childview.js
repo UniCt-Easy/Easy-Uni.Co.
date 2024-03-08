@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -44,10 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'edificio_address', 'Indirizzo', null, 30, 100);
 						this.describeAColumn(table, 'edificio_cap', 'CAP', null, 40, 20);
 						this.describeAColumn(table, 'edificio_code', 'Codice', null, 50, 128);
-						this.describeAColumn(table, 'geo_city_title', 'Citt‡', null, 60, 65);
+						this.describeAColumn(table, 'geo_city_title', 'Citt√†', null, 60, 65);
 						this.describeAColumn(table, 'geo_nation_title', 'Nazione', null, 70, 65);
 						this.describeAColumn(table, 'edificio_latitude', 'Latitudine', 'fixed.7', 90, null);
-						this.describeAColumn(table, 'edificio_location', 'Localit‡', null, 100, 20);
+						this.describeAColumn(table, 'edificio_location', 'Localit√†', null, 100, 20);
 						this.describeAColumn(table, 'edificio_longitude', 'Longitudine', 'fixed.7', 110, null);
 //$objCalcFieldConfig_seg_child$
 						break;

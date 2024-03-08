@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -184,7 +184,7 @@ namespace estimatedetail_single {
         private TextBox txtEsercPreImpegno;
 		private GroupBox gboxIncassato;
 		private TextBox txtIncassato;
-		private GroupBox groupBox4;
+		private GroupBox grpTassonomia;
 		private ComboBox cmbTassonomia;
 		private Button btnTassonomia;
 		private GroupBox gboxCausaleBilancioEntrataIva;
@@ -362,7 +362,7 @@ namespace estimatedetail_single {
 			this.TxtDescrCausaleDeb = new System.Windows.Forms.TextBox();
 			this.txtCodiceCausaleEntrata = new System.Windows.Forms.TextBox();
 			this.button6 = new System.Windows.Forms.Button();
-			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.grpTassonomia = new System.Windows.Forms.GroupBox();
 			this.cmbTassonomia = new System.Windows.Forms.ComboBox();
 			this.btnTassonomia = new System.Windows.Forms.Button();
 			this.textBox9 = new System.Windows.Forms.TextBox();
@@ -409,7 +409,7 @@ namespace estimatedetail_single {
 			this.tabPage1.SuspendLayout();
 			this.gboxCausaleBilancioEntrataIva.SuspendLayout();
 			this.gboxCausaleBilancioEntrata.SuspendLayout();
-			this.groupBox4.SuspendLayout();
+			this.grpTassonomia.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// txtDescrizione
@@ -1244,7 +1244,7 @@ namespace estimatedetail_single {
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(88, 23);
 			this.button3.TabIndex = 4;
-			this.button3.Tag = "choose.revenuepartition.default.(active=\'S\')";
+			this.button3.Tag = "choose.costpartition.default.(active=\'S\')";
 			this.button3.Text = "Codice";
 			this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
@@ -1259,7 +1259,7 @@ namespace estimatedetail_single {
 			this.textBox1.Size = new System.Drawing.Size(167, 72);
 			this.textBox1.TabIndex = 3;
 			this.textBox1.TabStop = false;
-			this.textBox1.Tag = "revenuepartition.title";
+			this.textBox1.Tag = "costpartition.title";
 			// 
 			// txtCodiceRipartizione
 			// 
@@ -1269,7 +1269,7 @@ namespace estimatedetail_single {
 			this.txtCodiceRipartizione.Name = "txtCodiceRipartizione";
 			this.txtCodiceRipartizione.Size = new System.Drawing.Size(289, 20);
 			this.txtCodiceRipartizione.TabIndex = 2;
-			this.txtCodiceRipartizione.Tag = "revenuepartition.revenuepartitioncode?x";
+			this.txtCodiceRipartizione.Tag = "costpartition.costpartitioncode?x";
 			// 
 			// gboxclass3
 			// 
@@ -1825,7 +1825,7 @@ namespace estimatedetail_single {
 			// 
 			this.tabPage1.Controls.Add(this.gboxCausaleBilancioEntrataIva);
 			this.tabPage1.Controls.Add(this.gboxCausaleBilancioEntrata);
-			this.tabPage1.Controls.Add(this.groupBox4);
+			this.tabPage1.Controls.Add(this.grpTassonomia);
 			this.tabPage1.Controls.Add(this.textBox9);
 			this.tabPage1.Controls.Add(this.textBox8);
 			this.tabPage1.Controls.Add(this.textBox7);
@@ -1938,21 +1938,20 @@ namespace estimatedetail_single {
 			this.button6.Tag = "manage.finmotive_income.tree";
 			this.button6.Text = "Causale";
 			// 
-			// groupBox4
+			// grpTassonomia
 			// 
-			this.groupBox4.Controls.Add(this.cmbTassonomia);
-			this.groupBox4.Controls.Add(this.btnTassonomia);
-			this.groupBox4.Location = new System.Drawing.Point(6, 295);
-			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(394, 86);
-			this.groupBox4.TabIndex = 8;
-			this.groupBox4.TabStop = false;
-			this.groupBox4.Tag = "";
-			this.groupBox4.Text = "Tassonomia PagoPA";
+			this.grpTassonomia.Controls.Add(this.cmbTassonomia);
+			this.grpTassonomia.Controls.Add(this.btnTassonomia);
+			this.grpTassonomia.Location = new System.Drawing.Point(6, 295);
+			this.grpTassonomia.Name = "grpTassonomia";
+			this.grpTassonomia.Size = new System.Drawing.Size(394, 86);
+			this.grpTassonomia.TabIndex = 8;
+			this.grpTassonomia.TabStop = false;
+			this.grpTassonomia.Tag = "";
+			this.grpTassonomia.Text = "Tassonomia PagoPA";
 			// 
 			// cmbTassonomia
 			// 
-			this.cmbTassonomia.Enabled = false;
 			this.cmbTassonomia.FormattingEnabled = true;
 			this.cmbTassonomia.Location = new System.Drawing.Point(6, 48);
 			this.cmbTassonomia.Name = "cmbTassonomia";
@@ -1962,11 +1961,11 @@ namespace estimatedetail_single {
 			// 
 			// btnTassonomia
 			// 
-			this.btnTassonomia.Enabled = false;
 			this.btnTassonomia.Location = new System.Drawing.Point(6, 19);
 			this.btnTassonomia.Name = "btnTassonomia";
 			this.btnTassonomia.Size = new System.Drawing.Size(124, 23);
 			this.btnTassonomia.TabIndex = 1;
+			this.btnTassonomia.Tag = "choose.tassonomia_pagopa.default";
 			this.btnTassonomia.Text = "Tassonomia PagoPA";
 			this.btnTassonomia.UseVisualStyleBackColor = true;
 			// 
@@ -2153,7 +2152,7 @@ namespace estimatedetail_single {
 			this.gboxCausaleBilancioEntrataIva.PerformLayout();
 			this.gboxCausaleBilancioEntrata.ResumeLayout(false);
 			this.gboxCausaleBilancioEntrata.PerformLayout();
-			this.groupBox4.ResumeLayout(false);
+			this.grpTassonomia.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -2432,9 +2431,16 @@ namespace estimatedetail_single {
             SiopeObj.setCausaleEPCorrente(Curr["idaccmotive"]);
 			int esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
 			object datacontabile = Meta.GetSys("datacontabile");
-			if ((CfgFn.GetNoNullInt32(Curr["yestim"]) < esercizio) && (Curr.RowState == DataRowState.Added)) {
+			if ((CfgFn.GetNoNullInt32(Curr["yestim"]) < esercizio) && (Curr.RowState == DataRowState.Added)
+				&& (Curr["stop"] == DBNull.Value)) {
 				txtstart.Text = HelpForm.StringValue(datacontabile,
 				txtstart.Tag.ToString());
+			}
+
+
+			if ((CfgFn.GetNoNullInt32(Curr["yestim"]) < esercizio) && (Curr.RowState == DataRowState.Added)
+				 && (Curr["stop"] != DBNull.Value)) {
+				 txtstart.ReadOnly = true;
 			}
 
 			if (Curr["idinc_iva"] != DBNull.Value) {
@@ -2492,7 +2498,8 @@ namespace estimatedetail_single {
 
         public void MetaData_AfterPost() {
             Meta.SourceRow.Table.ExtendedProperties["RigaModificata"] = Meta.SourceRow;
-        }
+			Meta.SourceRow.Table.ExtendedProperties["propagaCausaleUpb"] = Meta.SourceRow;
+		}
 
         public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
 	        if (!Meta.DrawStateIsDone) return;
@@ -2739,6 +2746,7 @@ namespace estimatedetail_single {
 
             if (chkListDescription.Checked) {
                 FrmAskDescr FR = new FrmAskDescr(Meta.Dispatcher);
+                createForm(FR, this);
                 DialogResult D = FR.ShowDialog(this);
                 if (D != DialogResult.OK)
                     return;

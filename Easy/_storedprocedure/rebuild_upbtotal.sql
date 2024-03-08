@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,11 +19,11 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-
+ 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rebuild_upbtotal]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rebuild_upbtotal]
 GO
-
+ 
 CREATE     PROCEDURE [rebuild_upbtotal]
 (
 	@ayear int = null
@@ -190,8 +190,7 @@ END
 ELSE -- @ayear specificato
 BEGIN 
 	DELETE FROM upbtotal WHERE EXISTS(SELECT fin.idfin FROM fin WHERE fin.idfin = upbtotal.idfin AND fin.ayear = @ayear)
-
-
+	
 	INSERT INTO upbtotal (idfin, idupb, previsionvariation, --previsionvariation_inserted,
 				 secondaryvariation, creditvariation, proceedsvariation) 
 	SELECT   F.idfin, D.idupb,
@@ -362,7 +361,7 @@ BEGIN
 		FROM fin
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.nlevel = @nlevel
-			AND previousprev IS NULL
+			AND ISNULL(upbtotal.previousprev,0) = 0
 	
 		UPDATE upbtotal SET 
 		currentprev =
@@ -376,7 +375,8 @@ BEGIN
 		FROM fin
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.nlevel = @nlevel
-			AND currentprev IS NULL
+			AND ISNULL(upbtotal.currentprev,0) = 0
+ 
 	
 		UPDATE upbtotal SET 
 		previoussecondaryprev =
@@ -390,8 +390,8 @@ BEGIN
 		FROM fin
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.nlevel = @nlevel
-			AND previoussecondaryprev IS NULL
-	
+			AND ISNULL(upbtotal.previoussecondaryprev,0) = 0
+		 
 		UPDATE upbtotal SET 
 		currentsecondaryprev =
 			(SELECT SUM(t2.currentsecondaryprev)
@@ -404,8 +404,8 @@ BEGIN
 		FROM fin
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.nlevel = @nlevel
-			AND currentsecondaryprev IS NULL
-	
+			AND ISNULL(upbtotal.currentsecondaryprev,0) = 0
+		 
 		UPDATE upbtotal SET 
 		previousarrears =
 			(SELECT SUM(t2.previousarrears)
@@ -418,8 +418,8 @@ BEGIN
 		FROM fin
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.nlevel = @nlevel
-			AND previousarrears IS NULL
-	
+			AND ISNULL(upbtotal.previousarrears,0) = 0
+		 
 		UPDATE upbtotal SET 
 		currentarrears =
 			(SELECT SUM(t2.currentarrears)
@@ -432,7 +432,8 @@ BEGIN
 		FROM fin
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.nlevel = @nlevel
-			AND currentarrears IS NULL
+			AND ISNULL(upbtotal.currentarrears,0) = 0
+		 
 	END
 	ELSE
 	BEGIN
@@ -448,7 +449,7 @@ BEGIN
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.ayear = @ayear
 			AND fin.nlevel = @nlevel
-			AND previousprev IS NULL
+			AND isnull(upbtotal.previousprev,0) = 0
 	
 		UPDATE upbtotal SET 
 		currentprev =
@@ -463,7 +464,8 @@ BEGIN
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.ayear = @ayear
 			AND fin.nlevel = @nlevel
-			AND currentprev IS NULL
+			AND isnull(upbtotal.currentprev,0) = 0
+ 
 	
 		UPDATE upbtotal SET 
 		previoussecondaryprev =
@@ -478,8 +480,8 @@ BEGIN
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.ayear = @ayear
 			AND fin.nlevel = @nlevel
-			AND previoussecondaryprev IS NULL
-	
+			AND isnull(upbtotal.previoussecondaryprev,0) = 0
+		 
 		UPDATE upbtotal SET 
 		currentsecondaryprev =
 			(SELECT SUM(t2.currentsecondaryprev)
@@ -493,8 +495,8 @@ BEGIN
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.ayear = @ayear
 			AND fin.nlevel = @nlevel
-			AND currentsecondaryprev IS NULL
-	
+			AND isnull(upbtotal.currentsecondaryprev,0) = 0
+		 
 		UPDATE upbtotal SET 
 		previousarrears =
 			(SELECT SUM(t2.previousarrears)
@@ -508,8 +510,8 @@ BEGIN
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.ayear = @ayear
 			AND fin.nlevel = @nlevel
-			AND previousarrears IS NULL
-	
+			AND isnull(upbtotal.previousarrears,0) = 0
+		 
 		UPDATE upbtotal SET 
 		currentarrears =
 			(SELECT SUM(t2.currentarrears)
@@ -523,7 +525,7 @@ BEGIN
 		WHERE fin.idfin = upbtotal.idfin
 			AND fin.ayear = @ayear
 			AND fin.nlevel = @nlevel
-			AND upbtotal.currentarrears IS NULL
+			AND isnull(upbtotal.currentarrears,0) = 0
 	END
 	PRINT 'iterazione ' + CONVERT(varchar(4),@nlevel)
 	SET @nlevel = @nlevel - 1

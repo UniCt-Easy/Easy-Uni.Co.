@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabistanza_cert_cert_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabistanza_cert_cert_seg_0"><i class="fa fa-pencil-alt mr-1"></i>Principale</a>
+		<a href="#tabistanza_cert_cert_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabistanza_cert_cert_seg_0"><i class="fa fa-pencil-alt mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabistanza_cert_cert_seg_1" class="nav-link" data-toggle="pill" data-target="#tabistanza_cert_cert_seg_1"><i class="fa fa-paperclip mr-1"></i>Certificati</a>
+		<a href="#tabistanza_cert_cert_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabistanza_cert_cert_seg_1"><i class="fa fa-paperclip mr-1"></i>Certificati</a>
 	</li>
 
 	</ul>
@@ -28,7 +28,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#istanza_cert_seg_data").datetimepicker();
+    $("#istanza_cert_seg_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="istanza_cert_seg_data">Data</label>

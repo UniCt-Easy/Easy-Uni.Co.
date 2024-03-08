@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -23,6 +6,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		MetaPage.apply(this, ['rendicont', 'default', true]);
         this.name = 'Scheda di rendicontazione / registro elettronico';
 		this.defaultListType = 'default';
+		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
+		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
     }
 
@@ -66,13 +51,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var parentRow = self.state.currentRow;
 				
 				_.forEach(this.getDataTable("rendicontaltro").rows, function (r) {
-					var title = r.ore + ' ore';
-					if(r.idrendicontaltrokind) {
-						var tipoRows = self.getDataTable("rendicontaltrokind").select(self.q.eq('idrendicontaltrokind', r.idrendicontaltrokind));
-						title += ' per ' + tipoRows[0].title;
-					}
-					r['!title'] = title;
-				});				this.managerendicont_default_title();
+    var title = r.ore + ' ore';
+    if(r.idrendicontaltrokind) {
+        var tipoRows = self.getDataTable("rendicontaltrokind").select(self.q.eq('idrendicontaltrokind', r.idrendicontaltrokind));
+        if (tipoRows.length) {
+            title += ' per ' + tipoRows[0].title;
+        }
+    }
+    r['!title'] = title;
+});				this.managerendicont_default_title();
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -103,6 +90,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
 					$('#calendar8').fullCalendar('rerenderEvents');
 				});
+				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
+				$("#OpenScheduleConfig").prop("disabled", true);
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -113,17 +102,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-rendicont_default");
-				$('#rendicont_default_aa').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#rendicont_default_aa').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#rendicont_default_aa').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.aa);
+				$('#rendicont_default_aa').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.aa);
 				//afterRowSelectin
 				return def.resolve();
 			},
 
 			//afterActivation
 
-			//rowSelected
+			rowSelected: function (dataRow) {
+				$("#OpenScheduleConfig").prop("disabled", false);
+				//firerowSelected
+			},
 
-			//buttonClickEnd
+
+			buttonClickEnd: function (currMetaPage, cmd) {
+				//fireRelButtonClickEnd
+				cmd = cmd.toLowerCase();
+				if (cmd === "mainsetsearch") {
+					$("#OpenScheduleConfig").prop("disabled", true);
+					//firebuttonClickEnd
+				}
+				return this.superClass.buttonClickEnd(currMetaPage, cmd);
+			},
+
 
 			insertClick: function (that, grid) {
 				if (!$('#rendicont_default_aa').val() && this.children.includes(grid.dataSourceName)) {
@@ -140,7 +142,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 				var self = this;
 				if (!this.isEmpty()) {
-					// carica tutte le attivit‡ dell'utente. seve per visualizzarle sul calendario
+					// carica tutte le attivit√† dell'utente. seve per visualizzarle sul calendario
 					var filter = self.q.and(
 						self.q.eq("idreg", this.state.currentRow.idreg_docenti),
 						self.q.eq("idrendicontaltro",0)
@@ -182,6 +184,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					});
 				return def.promise();
 			},
+
+			fireOpenScheduleConfig: function (that) {
+	if (!that.state.currentRow.idreg_docenti)
+		return that.showMessageOk('Occorre indicare chi svolge l\'attivit√† e salvare');
+	var aa = that.state.currentRow.aa.split("/");
+	var start = new Date(aa[0], 10, 1); //inizio anno accademico
+	var stop = new Date(aa[1], 9, 31); //fine anno accademico
+	let maxHoursPerDayTable = null;
+	let idreg_docenti = that.state.currentRow.idreg_docenti;
+	let filter = that.q.and([
+		that.q.eq("idreg", idreg_docenti),
+		that.q.or(that.q.isNull("start"), that.q.le("start", start)),
+		that.q.or(that.q.isNull("stop"), that.q.ge("stop", stop))
+	]);
+	appMeta.getData.runSelect("getoremaxgg" , "*" , filter, null)
+		.then(function (dt) {
+			maxHoursPerDayTable = dt;
+			return that.getFormData(true);
+		}).then(function () {
+				var scheduler = new appMeta.scheduleConfig(that,
+					{
+						endDate: stop,
+						minDateValue : start,
+						maxHours: 1500, //massimo ore lavorabili per docente per anno
+						tableNameSchedule: 'rendicontaltro',
+						columnDate: 'data',
+						columnOre: 'ore',
+						columnTitle : '!title',
+						columnTitleValue : "schedulazione",
+						calendarTag : "rendicontaltro.default.default",
+						maxHoursPerDayTable : maxHoursPerDayTable,
+						chooseKind : true
+					});
+				return scheduler.show();
+			});
+}
+,
 
 			managerendicont_default_title: function () {
 				this.state.currentRow.title = "Rendicontazione " + this.state.currentRow.aa;

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -28,7 +28,7 @@ GO
 -- protocollate nel R.U.
 --setuser'amm'
 -- setuser 'amministrazione'
--- exec compute_pccoperation {d '2017-12-31'},null,null,null,null,null ,'S','N','N'
+--exec compute_pccoperation {d '2022-10-20'},null,null,null,null,null ,'S','N','N'
 CREATE procedure compute_pccoperation( 
 	@adate datetime,
 	@idsor01 int=null,
@@ -45,6 +45,15 @@ begin
  DECLARE @31dic2018 datetime
  SET @31dic2018 = CONVERT(datetime,'31-12-' + CONVERT(varchar(4),2018),105)
 
+ declare @OPIattivo char  
+ set @OPIattivo='S'
+ if (	(select count(*) from opisiopeplus_config)=0 
+		OR (select top 1 code from opisiopeplus_config)<>'opi_siopeplus' 
+		)
+ Begin
+	set @OPIattivo = 'N'
+ End
+ 
 -- setuser 'amministrazione'
 -- exec compute_pccoperation {d '2017-10-23'},null,null,null,null,null ,'S','N','S'
 
@@ -69,6 +78,8 @@ create table #invoicew (
 	ipa_acq varchar(6),
 	flag_reverse_charge char,
 	idsdi_acquisto int,
+	idsdi_acquistoestere int,
+	identificativo_sdi bigint,
 	idsor01 int,
 	idsor02 int,
 	idsor03 int,
@@ -77,11 +88,13 @@ create table #invoicew (
 	flag_enable_split_payment char,
 	exchangerate float,
 	description varchar(150),
-	 CONSTRAINT xpkinvoicepcc_temppcc PRIMARY KEY (idinvkind,yinv,ninv)
+	flagvariation char(1)
+	 CONSTRAINT xpkinvoicepcc_temppcc PRIMARY KEY (idinvkind,yinv,ninv) 
 )
 if(@co='S')
 Begin
-	insert into #invoicew (idinvkind ,yinv ,ninv, taxable, total, rounding, idreg, docdate, adate, doc, ipa_acq, flag_reverse_charge, idsdi_acquisto, 	idsor01 ,idsor02 ,idsor03 ,idsor04 ,idsor05 ,flag_enable_split_payment ,exchangerate, description 
+	insert into #invoicew (idinvkind ,yinv ,ninv, taxable, total, rounding, idreg, docdate, adate, doc, ipa_acq, flag_reverse_charge, 
+	idsdi_acquisto, idsdi_acquistoestere,identificativo_sdi,idsor01 ,idsor02 ,idsor03 ,idsor04 ,idsor05 ,flag_enable_split_payment ,exchangerate, description ,flagvariation
 	)
 
 	select I.idinvkind, I.yinv, I.ninv, 
@@ -112,24 +125,38 @@ Begin
 									 WHERE        (D.idinvkind = I.idinvkind) AND (D.yinv = I.yinv) AND (D.ninv = I.ninv) AND (ISNULL(D.rounding, 'N') = 'S') OR
 															  (D.idinvkind = I.idinvkind) AND (D.yinv = I.yinv) AND (D.ninv = I.ninv) AND (ISNULL(D.flagbit, 0) & 4 <> 0)), 0) AS rounding, 
 	I.idreg, I.docdate, I.adate, I.doc, I.ipa_acq, I.flag_reverse_charge, 
-	I.idsdi_acquisto, I.idsor01, I.idsor02, I.idsor03, I.idsor04 ,I.idsor05 ,I.flag_enable_split_payment ,I.exchangerate, I.description
+	I.idsdi_acquisto, I.idsdi_acquistoestere, isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi ),I.idsor01, I.idsor02, I.idsor03, I.idsor04 ,I.idsor05 ,I.flag_enable_split_payment ,I.exchangerate,
+	I.description,
+		CASE
+		WHEN ((ik.flag&4)=0) THEN 'N'--flagvariation
+		WHEN ((ik.flag&4)<>0) THEN 'S'
+	END 
 	from invoice I WITH (nolock)
 	join invoicekind ik on I.idinvkind = IK.idinvkind
+	left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+	left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 	where   ((ik.flag&1)=0) -- Fatt. di acquisto
 		and (exists (select * from pccsend P (nolock) where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 		OR 
 		I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
+		OR 
+		-- Prendiamo anche le FE di acquisto estere trasmesse allo SdI senza scarto.
+		exists (select * from sdi_acquistoestere sdi where sdi.idsdi_acquistoestere = I.idsdi_acquistoestere and 
+		sdi.identificativo_sdi is not null and (sdi.flag_unseen&1)=0) 
 		)
 	AND (@idsor01 IS NULL OR I.idsor01 = @idsor01)
 	AND (@idsor02 IS NULL OR I.idsor02 = @idsor02)
 	AND (@idsor03 IS NULL OR I.idsor03 = @idsor03)
 	AND (@idsor04 IS NULL OR I.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR I.idsor05 = @idsor05)
+
 End
+
 
 if(@cs='S')
 Begin
-	insert into #invoicew (idinvkind ,yinv ,ninv, taxable, total, rounding, idreg, docdate, adate, doc, ipa_acq, flag_reverse_charge, idsdi_acquisto, 	idsor01 ,idsor02 ,idsor03 ,idsor04 ,idsor05 ,flag_enable_split_payment ,exchangerate, description 
+	insert into #invoicew (idinvkind ,yinv ,ninv, taxable, total, rounding, idreg, docdate, adate, doc, ipa_acq, flag_reverse_charge, 
+	idsdi_acquisto, idsdi_acquistoestere,identificativo_sdi,	idsor01 ,idsor02 ,idsor03 ,idsor04 ,idsor05 ,flag_enable_split_payment ,exchangerate, description 
 	)
 
 	select I.idinvkind, I.yinv, I.ninv, 
@@ -160,9 +187,12 @@ Begin
 									 WHERE        (D.idinvkind = I.idinvkind) AND (D.yinv = I.yinv) AND (D.ninv = I.ninv) AND (ISNULL(D.rounding, 'N') = 'S') OR
 															  (D.idinvkind = I.idinvkind) AND (D.yinv = I.yinv) AND (D.ninv = I.ninv) AND (ISNULL(D.flagbit, 0) & 4 <> 0)), 0) AS rounding, 
 	I.idreg, I.docdate, I.adate, I.doc, I.ipa_acq, I.flag_reverse_charge, 
-	I.idsdi_acquisto, I.idsor01, I.idsor02, I.idsor03, I.idsor04 ,I.idsor05 ,I.flag_enable_split_payment ,I.exchangerate, I.description
+	I.idsdi_acquisto, I.idsdi_acquistoestere,isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi ), I.idsor01, I.idsor02, I.idsor03, I.idsor04 ,I.idsor05 ,I.flag_enable_split_payment ,I.exchangerate, I.description
 	from invoice I WITH (nolock)
 	join invoicekind ik on I.idinvkind = IK.idinvkind
+	left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+	left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
+
 	where   ((ik.flag&1)=0) -- FE di acquisto
 			and exists (select * from pccexpense P 
 									where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
@@ -171,12 +201,19 @@ Begin
 	AND (@idsor02 IS NULL OR I.idsor02 = @idsor02)
 	AND (@idsor03 IS NULL OR I.idsor03 = @idsor03)
 	AND (@idsor04 IS NULL OR I.idsor04 = @idsor04)
-	AND (@idsor05 IS NULL OR I.idsor05 = @idsor05)			
+	AND (@idsor05 IS NULL OR I.idsor05 = @idsor05)		
+	and not exists (select * from #invoicew V 
+									where V.idinvkind = I.idinvkind and V.yinv = I.yinv and V.ninv = I.ninv)
+	--and ((I.idinvkind = 283 and I.yinv = 2016 and I.ninv = 20) 
+	--or 
+	--(I.idinvkind = 60 and I.yinv = 2015 and I.ninv = 512) )
 End
 
 if(@CP='S')
 Begin
-	insert into #invoicew (idinvkind ,yinv ,ninv, taxable, total, rounding, idreg, docdate, adate, doc, ipa_acq, flag_reverse_charge, idsdi_acquisto, 	idsor01 ,idsor02 ,idsor03 ,idsor04 ,idsor05 ,flag_enable_split_payment ,exchangerate, description 
+	-- Per le comunicazioni di pagamento le FE di acquisto estere vanno escluse.
+	insert into #invoicew (idinvkind ,yinv ,ninv, taxable, total, rounding, idreg, docdate, adate, doc, ipa_acq, flag_reverse_charge, 
+	idsdi_acquisto, 	identificativo_sdi, idsor01 ,idsor02 ,idsor03 ,idsor04 ,idsor05 ,flag_enable_split_payment ,exchangerate, description 
 	)
 
 	select I.idinvkind, I.yinv, I.ninv, 
@@ -207,17 +244,24 @@ Begin
 									 WHERE        (D.idinvkind = I.idinvkind) AND (D.yinv = I.yinv) AND (D.ninv = I.ninv) AND (ISNULL(D.rounding, 'N') = 'S') OR
 															  (D.idinvkind = I.idinvkind) AND (D.yinv = I.yinv) AND (D.ninv = I.ninv) AND (ISNULL(D.flagbit, 0) & 4 <> 0)), 0) AS rounding, 
 	I.idreg, I.docdate, I.adate, I.doc, I.ipa_acq, I.flag_reverse_charge, 
-	I.idsdi_acquisto, I.idsor01, I.idsor02, I.idsor03, I.idsor04 ,I.idsor05 ,I.flag_enable_split_payment ,I.exchangerate, I.description
+	I.idsdi_acquisto, sdi.identificativo_sdi, I.idsor01, I.idsor02, I.idsor03, I.idsor04 ,I.idsor05 ,I.flag_enable_split_payment ,I.exchangerate, I.description
 	from invoice I WITH (nolock)
 	join invoicekind ik on I.idinvkind = IK.idinvkind
+	left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
 	where   ((ik.flag&1)=0) -- FE di acquisto
 	and not exists(select * from pccpayment P (nolock) where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
+	and I.idsdi_acquistoestere is null -- Dobbiamo escludere le FE di acquisto estere.
 	AND (@idsor01 IS NULL OR I.idsor01 = @idsor01)
 	AND (@idsor02 IS NULL OR I.idsor02 = @idsor02)
 	AND (@idsor03 IS NULL OR I.idsor03 = @idsor03)
 	AND (@idsor04 IS NULL OR I.idsor04 = @idsor04)
 	AND (@idsor05 IS NULL OR I.idsor05 = @idsor05)
+	and not exists (select * from #invoicew V 
+									where V.idinvkind = I.idinvkind and V.yinv = I.yinv and V.ninv = I.ninv)
+	 
 End
+
+
 
 create table #dati(
 	nriga int identity(1,1),
@@ -226,6 +270,7 @@ create table #dati(
 	yinv smallint, 
 	ninv int,
 	invrownum int,
+	identificativo_sdi bigint,
 	idmankind varchar(20),
 	yman smallint,
 	nman int,
@@ -274,6 +319,7 @@ create table #contabilizzazioni(
 	yinv smallint, 
 	ninv int,
 	invrownum int,
+	identificativo_sdi bigint,
 	idmankind varchar(20),
 	yman smallint,
 	nman int,
@@ -294,7 +340,7 @@ Begin
 		-- CONTABILIZZAZIONI Fatture Collegate a C.P.
 		INSERT INTO #dati(
 			opkind,
-			idinvkind, yinv, ninv, invrownum, 
+			idinvkind, yinv, ninv, invrownum, identificativo_sdi,
 			idreg,	
 			dataemissione,
 			numerodocumento,
@@ -313,7 +359,7 @@ Begin
 
 		select 
 			case when (select count(*) from invoicedetail ID2 (nolock) where I.idinvkind = ID2.idinvkind and I.yinv = ID2.yinv and I.ninv = ID2.ninv)=1 then 'CO'else 'COF' end,
-			I.idinvkind, I.yinv, I.ninv, ID.rownum, 
+			I.idinvkind, I.yinv, I.ninv, ID.rownum, I.identificativo_sdi,
 			I.idreg	,
 			I.docdate , -- dataemissione
 			substring(I.doc,1,20),		-- numerodocumento
@@ -402,6 +448,8 @@ Begin
 					exists (select * from pccsend P (nolock) where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv)
 					OR 
 					I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
+					OR 
+					I.idsdi_acquistoestere is not null -- Prendiamo anche le Fe di acqsuito estere
 					)
 				and (
 					-- se non esiste
@@ -429,22 +477,36 @@ Begin
 				AND (isnull(ID.taxable,0) <> 0  )-- le righe con imponibile a 0 vengono rifiutate
 				AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 				and (isnull(ID.flagbit,0) & 4) = 0
-				and RR.coderesidence='I'
+				--Dobbiamo inglobare anche le FE di acqsuito estere
+				and (RR.coderesidence='I' or RR.coderesidence<>'I' and I.idsdi_acquistoestere is not null)
 				-- non è stata trasmesso alcun pagamento, task 7277 
 				AND not exists (select TOP 1 idpcc from pccpayment P (nolock) where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 				-- non ci sono dettagli che restano negativi dopo l'aggregazione, altrimenti scarta tutta la fattura
-				AND (select count(*) from invoiceresidualmandate IR
-								where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) = 0 
+				AND (
+					(select count(*) from invoiceresidualmandate IR
+								where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0 ) = 0 
+					or
+					(	flagvariation='S' -- il problema dei dettagli negativi non deve valere per le NC, se i looro dettagli si compensando e non danno un importo negativo
+						and 
+						(select sum(IR.taxabletotal + IR.ivatotal) from invoiceresidualmandate IR
+									where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv )>=0
+						)
+					)
 				AND isnull(I.taxable,0) >0 -- Solo fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
-				and not exists (select T.idexp from expenselast T			 
+				-- Qualora sia già stato eseguito il pagamento tramite opi, non dovranno essere trasmesse operazioni di contabilizzazione e scadenza,
+				-- Questo però non vale per gli enti che usando ancora OIL, essi dovranno continuare a inviare il pagamento.
+				-- Dobbiamo inglobare anche le FE di acquisto estere ma per esse non sarà inviato il pagamento CP, per cui evitiamo di controllare che vi sia.
+				and (not exists (select T.idexp from expenselast T			 
 								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
+							or  I.idsdi_acquistoestere is not null
+							or @OPIattivo='N')
 
 
 		-- CONTABILIZZAZIONI Fatture non collegate a C.P.
 		-- Tipo contabilizzazione:  totale e solo iva, considera solo le fatture NO Split-payment
 		INSERT INTO #dati(
 			opkind,
-			idinvkind,  yinv, ninv, invrownum, 
+			idinvkind,  yinv, ninv, invrownum, identificativo_sdi,
 			idreg,	
 			dataemissione,
 			numerodocumento,
@@ -464,7 +526,7 @@ Begin
 		select 
 			case when (select count(*) from invoicedetail ID2 where I.idinvkind = ID2.idinvkind and I.yinv = ID2.yinv and I.ninv = ID2.ninv)=1 then 'CO'
 			else 'COF' end,
-			I.idinvkind, I.yinv, I.ninv, ID.rownum, 
+			I.idinvkind, I.yinv, I.ninv, ID.rownum, I.identificativo_sdi,
 			I.idreg	,
 			I.docdate , -- dataemissione
 			substring(I.doc,1,20),		-- numerodocumento
@@ -522,6 +584,8 @@ Begin
 			and (exists (select * from pccsend P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 				OR 
 				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
+					OR 
+				I.idsdi_acquistoestere is not null -- Prendiamo anche le Fe di acqsuito estere
 				)
 			and (
 				-- se non esiste
@@ -550,20 +614,35 @@ Begin
 			AND (isnull(ID.taxable,0) <> 0  )-- le righe con imponibile a 0 vengono rifiutate
 			AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 			and (isnull(ID.flagbit,0) & 4) = 0
-			and RR.coderesidence='I'
+			--Dobbiamo inglobare anche le FE di acqsuito estere
+			and (RR.coderesidence='I' or RR.coderesidence<>'I' and I.idsdi_acquistoestere is not null)
 			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			---AND not exists (select * from profservice P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )	--	RIMOSSO
 				-- non ci sono dettagli che restano negativi dopo l'aggregazione, altrimenti scarta tutta la fattura
-			AND (select count(*) from invoiceresidualmandate IR
+			AND (
+				(select count(*) from invoiceresidualmandate IR
 					where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) = 0 
+					or
+					(	I.flagvariation='S' -- il problema dei dettagli negativi non deve valere per le NC, se i looro dettagli si compensando e non danno un importo negativo
+						and 
+						(select sum(IR.taxabletotal + IR.ivatotal) from invoiceresidualmandate IR
+									where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv )>=0
+						)
+					)
 			AND isnull(I.taxable,0) >0 -- Solo fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
-			and not exists (select T.idexp from expenselast T			 
+				-- Qualora sia già stato eseguito il pagamento tramite opi, non dovranno essere trasmesse operazioni di contabilizzazione e scadenza,
+				-- Questo però non vale per gli enti che usando ancora OIL, essi dovranno continuare a inviare il pagamento.
+				-- Dobbiamo inglobare anche le FE di acquisto estere ma per esse non sarà inviato il pagamento CP, per cui evitiamo di controllare che vi sia.
+				and (not exists (select T.idexp from expenselast T			 
 								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
+							or  I.idsdi_acquistoestere is not null
+							or @OPIattivo='N')
+
 -- Topo contabilizzazione:  solo imponibile, considera sia le fatture Split-payment, che quelle NO split-payment
 		INSERT INTO #dati(
 			opkind,
-			idinvkind,  yinv, ninv, invrownum, 
+			idinvkind,  yinv, ninv, invrownum, identificativo_sdi,
 			idreg,	
 			dataemissione,
 			numerodocumento,
@@ -583,7 +662,7 @@ Begin
 		select 
 			case when (select count(*) from invoicedetail ID2 where I.idinvkind = ID2.idinvkind and I.yinv = ID2.yinv and I.ninv = ID2.ninv)=1 then 'CO'
 			else 'COF' end,
-			I.idinvkind, I.yinv, I.ninv, ID.rownum, 
+			I.idinvkind, I.yinv, I.ninv, ID.rownum, I.identificativo_sdi,
 			I.idreg	,
 			I.docdate , -- dataemissione
 			substring(I.doc,1,20),		-- numerodocumento
@@ -623,6 +702,8 @@ Begin
 			and (exists (select TOP 1 idpcc from pccsend P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 				OR 
 				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
+					OR 
+				I.idsdi_acquistoestere is not null -- Prendiamo anche le Fe di acqsuito estere
 				)
 			and (
 				-- se non esiste
@@ -652,222 +733,38 @@ Begin
 			AND (isnull(ID.taxable,0) <> 0  )-- le righe con imponibile a 0 vengono rifiutate
 			AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 			and (isnull(ID.flagbit,0) & 4) = 0
-			and RR.coderesidence='I'
+			--Dobbiamo inglobare anche le FE di acqsuito estere
+			and (RR.coderesidence='I' or RR.coderesidence<>'I' and I.idsdi_acquistoestere is not null)
 			-- non è stata trasmesso alcun pagamento, task 7277 
 			---AND not exists (select * from profservice P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )--	RIMOSSO
 			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			-- non ci sono dettagli che restano negativi dopo l'aggregazione, altrimenti scarta tutta la fattura
-			AND (select count(*) from invoiceresidualmandate IR
+			AND (
+				(select count(*) from invoiceresidualmandate IR
 							where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) = 0 
+					or
+					(	I.flagvariation='S' -- il problema dei dettagli negativi non deve valere per le NC, se i looro dettagli si compensando e non danno un importo negativo
+						and 
+						(select sum(IR.taxabletotal + IR.ivatotal) from invoiceresidualmandate IR
+									where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv )>=0
+						)
+				)
 			AND isnull(I.taxable,0) >0 -- Solo fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
-			and not exists (select T.idexp from expenselast T			 
+				-- Qualora sia già stato eseguito il pagamento tramite opi, non dovranno essere trasmesse operazioni di contabilizzazione e scadenza,
+				-- Questo però non vale per gli enti che usando ancora OIL, essi dovranno continuare a inviare il pagamento.
+				-- Dobbiamo inglobare anche le FE di acquisto estere ma per esse non sarà inviato il pagamento CP, per cui evitiamo di controllare che vi sia.
+				and (not exists (select T.idexp from expenselast T			 
 								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
+							or  I.idsdi_acquistoestere is not null
+							or @OPIattivo='N')
 
-		-- CONTABILIZZAZIONI Fatture collegate a Parcella Professionale(nuova gestione, collegamento nei dettagli)
 
-		/*INSERT INTO #dati(
-			opkind,
-			idinvkind, yinv, ninv, invrownum, 
-			idreg,	
-			dataemissione,
-			numerodocumento,
-			importototaledocumento,
-		-- CONTABILIZZAZIONE
-			datacontabiledocumento,
-			importodelmovimento ,
-			naturadispesa,
-			statodeldebito,
-			causale ,
-			idexpimpegno,
-			cigcode ,
-			cupcode ,
-			ipa 
-			)
-	
-		select 
-			case when (select count(*) from invoicedetail ID2 where I.idinvkind = ID2.idinvkind and I.yinv = ID2.yinv and I.ninv = ID2.ninv)=1 then 'CO'
-			else 'COF' end,
-			I.idinvkind, I.yinv, I.ninv, ID.rownum, 
-			I.idreg	,
-			I.docdate , -- dataemissione
-			substring(I.doc,1,20),		-- numerodocumento
-			-- ImportoTotaleDocumento:
-			case when isnull(I.flag_reverse_charge,'N')='S' then (I.taxable-I.rounding) else  (I.total-I.rounding) end,--vedi task 7360 per il rounding
-			I.adate,
-			--importodelmovimento
-			case when isnull(I.flag_reverse_charge,'N')='S' then isnull(ID.taxable_euro,0) else isnull(ID.iva_euro,0) + isnull(ID.taxable_euro,0) end,
-			case	when ID.idpccdebitstatus in ('LIQ','LIQdaSOSP', 'LIQdaNL', 'SOSPdaLIQ','NLdaLIQ') then ID.expensekind
-					else 'NA'
-			end, -- natura di spesa
-			ID.idpccdebitstatus, -- statodeldebito
-			ID.idpccdebitmotive, -- causale
-			EPS.idexp,
-			case	when ID.idpccdebitstatus in ('SOSP','NOLIQ') then 'NA'
-					else isnull(E.cigcode,(select top 1 ID.cigcode from invoicedetail ID where ID.idinvkind = I.idinvkind and ID.yinv = I.yinv and ID.ninv = I.ninv))	--> CIG
-			end,
-			case	when ID.idpccdebitstatus in ('SOSP','NOLIQ') then 'NA'
-					else isnull(E.cupcode,(select top 1 ID.cupcode from invoicedetail ID where ID.idinvkind = I.idinvkind and ID.yinv = I.yinv and ID.ninv = I.ninv))	--> CUP 
-			end,
-			I.ipa_acq
-		from invoicedetailview ID
-		join #invoicew I			on ID.idinvkind = I.idinvkind and ID.yinv = I.yinv and ID.ninv = I.ninv
-		join profservice P				on P.ycon = ID.ycon and P.ncon = ID.ncon 
-		join expenseprofservice EPS		on EPS.ycon = P.ycon		and EPS.ncon = P.ncon
-		join expense E					on EPS.idexp = E.idexp
-		join expensetotal ET			on E.idexp = ET.idexp 
-		join registry R on I.idreg = R.idreg
-		join residence RR  on R.residence=RR.idresidence
-		where I.docdate between @1luglio2014 and @adate 
-			and ET.ayear = year(@adate)
-			and (exists (select * from pccsend S where S.idinvkind = I.idinvkind and S.yinv = I.yinv and S.ninv = I.ninv)
-				OR 
-				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
-				)
-			and (
-				-- se non esiste
-				(
-				not exists(select * from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum is null)
-				AND
-				not exists(select * from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum  = ID.rownum)
-				)
-				or
-				-- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
-				ID.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense C where C.idinvkind = ID.idinvkind and C.yinv = ID.yinv and C.ninv = ID.ninv and C.invrownum = ID.rownum
-										order by idpcc desc)
-			)
-			-- non è stata trasmessa la scadenza
-			--and not exists (select * from pccexpiring P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
-			AND (@idsor01 IS NULL OR P.idsor01 = @idsor01)
-			AND (@idsor02 IS NULL OR P.idsor02 = @idsor02)
-			AND (@idsor03 IS NULL OR P.idsor03 = @idsor03)
-			AND (@idsor04 IS NULL OR P.idsor04 = @idsor04)
-			AND (@idsor05 IS NULL OR P.idsor05 = @idsor05)
-			AND isnull(ET.curramount,0) <> 0  --non inserire righe di importo 0, task 6213
-			AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
-			AND (isnull(ID.taxable,0) > 0  )-- le righe con imponibile a 0 vengono rifiutate
-			and (isnull(ID.flagbit,0) & 4) = 0
-				and RR.coderesidence='I'
-			-- non è stata trasmesso alcun pagamento, task 7277 
-			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
-			-- task 7247 se pccexpense non esiste un suo fratello trasmesso	con l'operazione di CO.
-			and not exists(select * from pccexpense P
-								join invoicedetail ID2
-									on P.idinvkind = ID2.idinvkind and P.yinv = ID2.yinv and P.ninv = ID2.ninv and P.invrownum  = ID2.rownum
-								where ID2.idinvkind = ID.idinvkind and ID2.yinv = ID.yinv and ID2.ninv = ID.ninv and ID2.idgroup  = ID.idgroup and ID2.rownum  <> ID.rownum)
-			and I.docdate >= @1luglio2017_splitparcelle
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_taxable and T.transmissiondate<=@adate and P.ypay>=2019 )
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_iva and T.transmissiondate<=@adate and P.ypay>=2019 )
-							*/
-		--CONTABILIZZAZIONI Fatture collegate a Parcella Professionale(collegamento nella Fattura)
-		/*INSERT INTO #dati(
-			opkind,
-			idinvkind, yinv, ninv, invrownum, 
-			idreg,	
-			dataemissione,
-			numerodocumento,
-			importototaledocumento,
-		-- CONTABILIZZAZIONE
-			datacontabiledocumento,
-			importodelmovimento ,
-			naturadispesa,
-			statodeldebito,
-			causale ,
-			idexpimpegno,
-			cigcode ,
-			cupcode ,
-			ipa 
-			)
-	
-		select 
-			case when (select count(*) from invoicedetail ID2 where I.idinvkind = ID2.idinvkind and I.yinv = ID2.yinv and I.ninv = ID2.ninv)=1 then 'CO'
-			else 'COF' end,
-			I.idinvkind, I.yinv, I.ninv, ID.rownum, 
-			I.idreg	,
-			I.docdate , -- dataemissione
-			substring(I.doc,1,20),		-- numerodocumento
-			-- ImportoTotaleDocumento:
-			case when isnull(I.flag_reverse_charge,'N')='S' then (I.taxable-I.rounding) else  (I.total-I.rounding) end,--vedi task 7360 per il rounding
-			I.adate,
-			--importodelmovimento
-			case when isnull(I.flag_reverse_charge,'N')='S' then isnull(ID.taxable_euro,0) else isnull(ID.iva_euro,0) + isnull(ID.taxable_euro,0) end,
-			case	when ID.idpccdebitstatus in ('LIQ','LIQdaSOSP', 'LIQdaNL', 'SOSPdaLIQ','NLdaLIQ') then ID.expensekind
-					else 'NA'
-			end, -- natura di spesa
-			ID.idpccdebitstatus, -- statodeldebito
-			ID.idpccdebitmotive, -- causale
-			EPS.idexp,
-			case	when ID.idpccdebitstatus in ('SOSP','NOLIQ') then 'NA'
-					else isnull(E.cigcode,(select top 1 ID.cigcode from invoicedetail ID where ID.idinvkind = I.idinvkind and ID.yinv = I.yinv and ID.ninv = I.ninv))	--> CIG
-			end,
-			case	when ID.idpccdebitstatus in ('SOSP','NOLIQ') then 'NA'
-					else isnull(E.cupcode,(select top 1 ID.cupcode from invoicedetail ID where ID.idinvkind = I.idinvkind and ID.yinv = I.yinv and ID.ninv = I.ninv))	--> CUP 
-			end,
-			I.ipa_acq
-		from invoicedetailview ID
-		join #invoicew I			on ID.idinvkind = I.idinvkind and ID.yinv = I.yinv and ID.ninv = I.ninv
-		join profservice P				on P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv 
-		join expenseprofservice EPS		on EPS.ycon = P.ycon	and EPS.ncon = P.ncon
-		join expense E					on EPS.idexp = E.idexp
-		join expensetotal ET			on E.idexp = ET.idexp 
-		join registry R on I.idreg = R.idreg
-		join residence RR  on R.residence=RR.idresidence
-		where ID.ycon is null 		--and I.docdate < @1luglio2017_splitparcelle -- professionale associato alla fattura, non al dettaglio fattura
-			and I.docdate between @1luglio2014 and @adate and I.docdate  < @1luglio2017_splitparcelle 
-			and ET.ayear = year(@adate)
-			and (exists (select * from pccsend S where S.idinvkind = I.idinvkind and S.yinv = I.yinv and S.ninv = I.ninv)
-				OR 
-				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
-				)
-			and (
-				-- se non esiste
-				(
-				not exists(select * from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum is null)
-				AND
-				not exists(select * from pccexpense P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv and P.invrownum  = ID.rownum)
-				)
-				or
-				-- oppure esiste ma lo stato è diverso da quello della ultima trasmissione del dettaglio in oggetto
-				ID.idpccdebitstatus <>(select top 1 expensetaxkind from pccexpense C where C.idinvkind = ID.idinvkind and C.yinv = ID.yinv and C.ninv = ID.ninv and C.invrownum = ID.rownum
-										order by idpcc desc)
-			)
-			-- non è stata trasmessa la scadenza
-			AND (@idsor01 IS NULL OR P.idsor01 = @idsor01)
-			AND (@idsor02 IS NULL OR P.idsor02 = @idsor02)
-			AND (@idsor03 IS NULL OR P.idsor03 = @idsor03)
-			AND (@idsor04 IS NULL OR P.idsor04 = @idsor04)
-			AND (@idsor05 IS NULL OR P.idsor05 = @idsor05)
-			AND isnull(ET.curramount,0) <> 0  --non inserire righe di importo 0, task 6213
-			AND (isnull(ID.taxable,0) > 0  )-- le righe con imponibile a 0 vengono rifiutate
-			AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
-			and (isnull(ID.flagbit,0) & 4) = 0
-				and RR.coderesidence='I'
-			-- non è stata trasmesso alcun pagamento, task 7277 
-			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
-			-- task 7247 se pccexpense non esiste un suo fratello trasmesso	con l'operazione di CO.
-			and not exists(select * from pccexpense P
-								join invoicedetail ID2
-									on P.idinvkind = ID2.idinvkind and P.yinv = ID2.yinv and P.ninv = ID2.ninv and P.invrownum  = ID2.rownum
-								where ID2.idinvkind = ID.idinvkind and ID2.yinv = ID.yinv and ID2.ninv = ID.ninv and ID2.idgroup  = ID.idgroup and ID2.rownum  <> ID.rownum)
-			and I.docdate < @1luglio2017_splitparcelle
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_taxable and T.transmissiondate<=@adate and P.ypay>=2019 )
-			and not exists (select T.transmissiondate from expenselast 
-												JOIN payment P ON P.kpay = expenselast.kpay
-												JOIN paymenttransmission T ON T.kpaymenttransmission = P.kpaymenttransmission
-							where expenselast.idexp = ID.idexp_iva and T.transmissiondate<=@adate and P.ypay>=2019 )
-*/
-		-- CONTABILIZZAZIONI Fatture NON contabilizzate
+
+
+		-- CONTABILIZZAZIONI Fatture NON contabilizzate 
 		INSERT INTO #dati(
 			opkind,
-			idinvkind, yinv, ninv,invrownum, 
+			idinvkind, yinv, ninv,invrownum, identificativo_sdi,
 			descrizione,
 			idreg,	
 			dataemissione,
@@ -888,7 +785,7 @@ Begin
 		select 
 			case when (select count(*) from invoicedetail ID2 where I.idinvkind = ID2.idinvkind and I.yinv = ID2.yinv and I.ninv = ID2.ninv)=1 then 'CO'
 			else 'COF' end,
-			I.idinvkind, I.yinv, I.ninv,ID.rownum, 
+			I.idinvkind, I.yinv, I.ninv,ID.rownum, I.identificativo_sdi,
 			substring(I.description, 1,100),
 			I.idreg	,
 			I.docdate , -- dataemissione
@@ -924,6 +821,8 @@ Begin
 			and (exists (select * from pccsend P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 				OR 
 				I.idsdi_acquisto is not null -- Le FE non sono presenti in pccsend, perchè è il SdI che le invia alla PCC e non più noi.
+				OR 
+				I.idsdi_acquistoestere is not null -- Prendiamo anche le FE di acquisto estere
 				)
 			and (
 				-- se non esiste
@@ -953,15 +852,32 @@ Begin
 			AND ISNULL(ID.rounding,'N') <>'S'  --salta i dettagli di arrotondamento, task 7360
 			and (isnull(ID.flagbit,0) & 4) = 0
 			AND (isnull(ID.taxable,0) <> 0  )-- le righe con imponibile a 0 vengono rifiutate
-			and RR.coderesidence='I'
+			--Dobbiamo inglobare anche le FE di acqsuito estere
+			and (RR.coderesidence='I' or RR.coderesidence<>'I' and I.idsdi_acquistoestere is not null)
 			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P where P.idinvkind = ID.idinvkind and P.yinv = ID.yinv and P.ninv = ID.ninv )
 			-- non ci sono dettagli che restano negativi dopo l'aggregazione, altrimenti scarta tutta la fattura
-			AND (select count(*) from invoiceresidualmandate IR
+			AND (
+				(select count(*) from invoiceresidualmandate IR
 							where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv and (IR.taxabletotal + IR.ivatotal) <0) = 0 		
+					or
+					(	I.flagvariation='S' -- il problema dei dettagli negativi non deve valere per le NC, se i looro dettagli si compensando e non danno un importo negativo
+						and 
+						(select sum(IR.taxabletotal + IR.ivatotal) from invoiceresidualmandate IR
+									where I.idinvkind = IR.idinvkind and I.yinv = IR.yinv and I.ninv = IR.ninv )>=0
+						)
+			)
 			AND isnull(I.taxable,0) >0 -- Solo fatture con imponibile maggiore di zero. Vi possono essere fatture con impon. 0 e iva >0
-			and not exists (select T.idexp from expenselast T			 
+				-- Qualora sia già stato eseguito il pagamento tramite opi, non dovranno essere trasmesse operazioni di contabilizzazione e scadenza,
+				-- Questo però non vale per gli enti che usando ancora OIL, essi dovranno continuare a inviare il pagamento.
+				-- Dobbiamo inglobare anche le FE di acquisto estere ma per esse non sarà inviato il pagamento CP, per cui evitiamo di controllare che vi sia.
+				and (not exists (select T.idexp from expenselast T			 
 								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
+							or  I.idsdi_acquistoestere is not null
+							or @OPIattivo='N')
+
+
+
 -- Contabilizzazione COTRATTI PASSIVI non collegabili a Fattura
 		INSERT INTO #dati(
 			opkind,
@@ -1039,7 +955,7 @@ Begin
 				AND (@idsor04 IS NULL OR M.idsor04 = @idsor04)
 				AND (@idsor05 IS NULL OR M.idsor05 = @idsor05)
 				AND isnull(MD.rowtotal,0) <> 0  --non inserire righe di importo 0, task 6213
-				and RR.coderesidence='I'
+			    and RR.coderesidence='I' 
 			-- non è stata trasmesso alcun pagamento, task 7277 
 			AND not exists (select * from pccpayment P  where P.idmankind = MD.idmankind and P.yman = MD.yman and P.nman = MD.nman )
 			-- task 7247 se pccexpense non esiste un suo fratello trasmesso	con l'operazione di CO.
@@ -1189,7 +1105,7 @@ if (@cs = 'S')
 Begin
 		INSERT INTO #dati(
 			opkind,
-			idinvkind, yinv, ninv,invrownum,
+			idinvkind, yinv, ninv,invrownum,identificativo_sdi,
 			idreg,	
 			dataemissione,
 			numerodocumento,
@@ -1200,7 +1116,7 @@ Begin
 			)
 		select 
 			'CS',
-			I.idinvkind, I.yinv, I.ninv,ID.rownum,
+			I.idinvkind, I.yinv, I.ninv,ID.rownum,ISNULL(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
 			I.idreg,	
 			I.docdate ,				-- dataemissione
 			substring(I.doc,1,20),	-- numerodocumento
@@ -1236,6 +1152,8 @@ Begin
 			on I.yinv = ID.yinv and I.ninv = ID.ninv and I.idinvkind = ID.idinvkind
 		join registry R on I.idreg = R.idreg
 		join residence RR  on R.residence=RR.idresidence
+		left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+		left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 		where I.docdate between @1luglio2014 and @adate 
 			and exists (select * from pccexpense P 
 									where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
@@ -1259,9 +1177,18 @@ Begin
 			AND (@idsor03 IS NULL OR I.idsor03 = @idsor03)
 			AND (@idsor04 IS NULL OR I.idsor04 = @idsor04)
 			AND (@idsor05 IS NULL OR I.idsor05 = @idsor05)
-			and RR.coderesidence='I'
-			and not exists (select T.idexp from expenselast T			 
+			--Dobbiamo inglobare anche le FE di acqsuito estere
+			and (RR.coderesidence='I' or RR.coderesidence<>'I' and I.idsdi_acquistoestere is not null)
+				-- Qualora sia già stato eseguito il pagamento tramite opi, non dovranno essere trasmesse operazioni di contabilizzazione e scadenza,
+				-- Questo però non vale per gli enti che usando ancora OIL, essi dovranno continuare a inviare il pagamento.
+				-- Dobbiamo inglobare anche le FE di acquisto estere ma per esse non sarà inviato il pagamento CP, per cui evitiamo di controllare che vi sia.
+				and (not exists (select T.idexp from expenselast T			 
 								where T.idexp = ID.idexp_taxable OR T.idexp = ID.idexp_iva )
+							or  I.idsdi_acquistoestere is not null
+							or @OPIattivo='N')
+
+
+
 		
 		-- inserisce i contratti passivi
 		INSERT INTO #dati(
@@ -1499,7 +1426,7 @@ Begin
 		join expenseview E
 			on Elast.idexp = E.idexp
 		where M.docdate between @1luglio2014 and @adate 
-			and E.transmissiondate <= @adate AND E.transmissiondate <= @31dic2018
+			and E.transmissiondate <= @adate AND (E.transmissiondate <= @31dic2018 OR @OPIattivo='N')
 		group by M.idmankind, M.yman, M.nman,
 			M.idreg,M.docdate,substring(M.doc,1,20),M.total,
 			Expfinphase.idexp,Elast.kpay,Elast.idexp ,isnull(Expfinphase.cigcode, MD.cigcode), isnull(Expfinphase.cupcode, MD.cupcode),MD.expensekind
@@ -1545,7 +1472,7 @@ Begin
 		join residence RR  on R.residence=RR.idresidence
 		where C.adate between @1luglio2014 and @adate 
 			--and Elast.kpay is not null
-			and E.transmissiondate <= @adate AND E.transmissiondate <= @31dic2018
+			and E.transmissiondate <= @adate AND (E.transmissiondate <= @31dic2018 OR @OPIattivo='N')
 			and (exists (select * from pccexpense P where P.ycon = C.ycon and P.ncon = C.ncon)
 				or
 				exists (select * from #dati D where D.opkind IN ('CO','COF') and D.ycon = C.ycon and D.ncon = C.ncon)
@@ -1604,7 +1531,7 @@ Begin
 		join registry R on C.idreg = R.idreg
 		join residence RR  on R.residence=RR.idresidence
 		where C.adate between @1luglio2014 and @adate 
-			and PO.adate <= @adate AND PO.adate <= @31dic2018
+			and PO.adate <= @adate AND (PO.adate <= @31dic2018 OR @OPIattivo='N')
 			and (
 				exists (select * from pccexpense P where P.ycon = C.ycon and P.ncon = C.ncon)
 				or
@@ -1621,9 +1548,9 @@ Begin
 		delete from #contabilizzazioni
 
 		-- PAGAMENTO fatture con o senza C.P. 
-		insert into #contabilizzazioni  (idinvkind, yinv, ninv,  idexp, amount, cigcode, cupcode, expensekind,ipa)
+		insert into #contabilizzazioni  (idinvkind, yinv, ninv, identificativo_sdi, idexp, amount, cigcode, cupcode, expensekind,ipa)
 		select 
-				I.idinvkind, I.yinv, I.ninv, 
+				I.idinvkind, I.yinv, I.ninv, ISNULL(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
 				I.idexp_iva, -- pagamento
 				case when isnull(IV.flag_reverse_charge,'N')='S' then sum(  
 						isnull(CONVERT(decimal(19,2),ROUND(I.taxable * ISNULL(I.npackage,I.number) * 
@@ -1650,6 +1577,8 @@ Begin
 			join invoicedetail I 	(nolock)	on IV.idinvkind = I.idinvkind and IV.yinv = I.yinv and IV.ninv = I.ninv
 			join registry R (nolock)				on IV.idreg = R.idreg
 			join residence RR  (nolock)				on R.residence=RR.idresidence
+			left outer join sdi_acquisto sdi on IV.idsdi_acquisto = sdi.idsdi_acquisto
+			left outer join sdi_acquistoestere sdi_estere on IV.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 			where I.idexp_iva = I.idexp_taxable
 				and isnull(IV.flag_enable_split_payment,'N') = 'N'
 				and IV.docdate between @1luglio2014 and @adate 
@@ -1675,11 +1604,11 @@ Begin
 				AND (@idsor04 IS NULL OR isnull(iv.idsor04,ik.idsor04) = @idsor04)
 				AND (@idsor05 IS NULL OR isnull(iv.idsor05,ik.idsor05) = @idsor05)
 				and RR.coderesidence='I'
-			group by I.idinvkind, I.yinv, I.ninv, I.idexp_iva,I.cigcode, I.cupcode, I.expensekind,IV.ipa_acq, IV.flag_reverse_charge
+			group by I.idinvkind, I.yinv, I.ninv, ISNULL(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),I.idexp_iva,I.cigcode, I.cupcode, I.expensekind,IV.ipa_acq, IV.flag_reverse_charge
 
-		insert into #contabilizzazioni  (idinvkind, yinv, ninv,  idexp, amount, cigcode, cupcode, expensekind, ipa)
+		insert into #contabilizzazioni  (idinvkind, yinv, ninv, identificativo_sdi, idexp, amount, cigcode, cupcode, expensekind, ipa)
 			select 
-				I.idinvkind, I.yinv, I.ninv, 
+				I.idinvkind, I.yinv, I.ninv, ISNULL(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
 				I.idexp_iva, -- pagamento
 				case when isnull(IV.flag_reverse_charge,'N')='S' then 0	else sum(iva_euro)end,
 				I.cigcode, I.cupcode,
@@ -1690,6 +1619,8 @@ Begin
 				on IV.idinvkind = I.idinvkind and IV.yinv = I.yinv and IV.ninv = I.ninv
 			join registry R on IV.idreg = R.idreg
 			join residence RR  on R.residence=RR.idresidence
+			left outer join sdi_acquisto sdi on IV.idsdi_acquisto = sdi.idsdi_acquisto
+			left outer join sdi_acquistoestere sdi_estere on IV.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 			where I.idexp_iva is not null and  I.idexp_iva <> isnull(I.idexp_taxable,'')
 				and isnull(IV.flag_enable_split_payment,'N') = 'N'
 				and IV.docdate between @1luglio2014 and @adate 
@@ -1715,11 +1646,12 @@ Begin
 				AND (@idsor04 IS NULL OR I.idsor04 = @idsor04)
 				AND (@idsor05 IS NULL OR I.idsor05 = @idsor05)
 				and RR.coderesidence='I'
-			group by I.idinvkind, I.yinv, I.ninv, I.idexp_iva,I.cigcode, I.cupcode,I.expensekind,IV.ipa_acq, IV.flag_reverse_charge
+			group by I.idinvkind, I.yinv, I.ninv, ISNULL(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
+			I.idexp_iva,I.cigcode, I.cupcode,I.expensekind,IV.ipa_acq, IV.flag_reverse_charge
 
-		insert into #contabilizzazioni  (idinvkind, yinv, ninv,  idexp, amount, cigcode, cupcode,expensekind, ipa)
+		insert into #contabilizzazioni  (idinvkind, yinv, ninv, identificativo_sdi, idexp, amount, cigcode, cupcode,expensekind, ipa)
 			select 
-				I.idinvkind, I.yinv, I.ninv, 
+				I.idinvkind, I.yinv, I.ninv, ISNULL(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
 				I.idexp_taxable, -- pagamento
 				sum(I.taxable_euro),
 				I.cigcode, I.cupcode, I.expensekind,
@@ -1728,6 +1660,8 @@ Begin
 			join invoicedetailview I 	on IV.idinvkind = I.idinvkind and IV.yinv = I.yinv and IV.ninv = I.ninv
 			join registry R on IV.idreg = R.idreg
 			join residence RR  on R.residence=RR.idresidence
+			left outer join sdi_acquisto sdi on IV.idsdi_acquisto = sdi.idsdi_acquisto
+			left outer join sdi_acquistoestere sdi_estere on IV.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 			where I.idexp_taxable is not null  and  I.idexp_taxable <> isnull(I.idexp_iva,'')
 				and isnull(IV.flag_enable_split_payment,'N') = 'N'
 				and IV.docdate between @1luglio2014 and @adate 
@@ -1753,12 +1687,13 @@ Begin
 				AND (@idsor04 IS NULL OR I.idsor04 = @idsor04)
 				AND (@idsor05 IS NULL OR I.idsor05 = @idsor05)
 				and RR.coderesidence='I'
-			group by I.idinvkind, I.yinv, I.ninv, I.idexp_taxable, I.cigcode, I.cupcode, I.expensekind, IV.ipa_acq
+			group by I.idinvkind, I.yinv, I.ninv,ISNULL(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
+			I.idexp_taxable, I.cigcode, I.cupcode, I.expensekind, IV.ipa_acq
 			
-			
-		insert into #contabilizzazioni  (idinvkind, yinv, ninv,  idexp, amount, cigcode, cupcode,expensekind, ipa)
+						
+		insert into #contabilizzazioni  (idinvkind, yinv, ninv, identificativo_sdi, idexp, amount, cigcode, cupcode,expensekind, ipa)
 			select 
-				I.idinvkind, I.yinv, I.ninv, 
+				I.idinvkind, I.yinv, I.ninv, ISNULL(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
 				I.idexp_taxable, -- pagamento
 				sum(I.taxable_euro),
 				I.cigcode, I.cupcode, I.expensekind,
@@ -1767,6 +1702,8 @@ Begin
 			join invoicedetailview I 	on IV.idinvkind = I.idinvkind and IV.yinv = I.yinv and IV.ninv = I.ninv
 			join registry R on IV.idreg = R.idreg
 			join residence RR  on R.residence=RR.idresidence
+			left outer join sdi_acquisto sdi on IV.idsdi_acquisto = sdi.idsdi_acquisto
+			left outer join sdi_acquistoestere sdi_estere on IV.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
 			where I.idexp_taxable is not null  
 				and isnull(IV.flag_enable_split_payment,'N') = 'S'
 				and IV.docdate between @1luglio2014 and @adate 
@@ -1792,11 +1729,12 @@ Begin
 				AND (@idsor04 IS NULL OR I.idsor04 = @idsor04)
 				AND (@idsor05 IS NULL OR I.idsor05 = @idsor05)
 				and RR.coderesidence='I'
-			group by I.idinvkind, I.yinv, I.ninv, I.idexp_taxable, I.cigcode, I.cupcode, I.expensekind, IV.ipa_acq
-			
+			group by I.idinvkind, I.yinv, I.ninv, ISNULL(sdi.identificativo_sdi,sdi_estere.identificativo_sdi),
+			I.idexp_taxable, I.cigcode, I.cupcode, I.expensekind, IV.ipa_acq
+
 		INSERT INTO #dati(
 			opkind,
-			idinvkind, yinv, ninv,
+			idinvkind, yinv, ninv,identificativo_sdi,
 			idreg,	
 			dataemissione,
 			numerodocumento,
@@ -1812,7 +1750,7 @@ Begin
 			idexppagamento
 		)
 		select 'CP',
-			I.idinvkind, I.yinv, I.ninv,
+			I.idinvkind, I.yinv, I.ninv,I.identificativo_sdi,
 			I.idreg	,
 			I.docdate , -- dataemissione
 			substring(I.doc,1,20),		-- numerodocumento
@@ -1838,13 +1776,12 @@ Begin
 		join residence RR  on R.residence=RR.idresidence
 		where I.docdate between @1luglio2014 and @adate 
 			--and Elast.kpay is not null
-			and T.transmissiondate <= @adate AND T.transmissiondate <=@31dic2018
+			and T.transmissiondate <= @adate AND (T.transmissiondate <=@31dic2018  OR @OPIattivo='N')
 			and RR.coderesidence='I'
-		group by I.idinvkind, I.yinv, I.ninv,I.idreg	,
+		group by I.idinvkind, I.yinv, I.ninv, I.identificativo_sdi,I.idreg	,
 			I.docdate , substring(I.doc,1,20),	I.total-I.rounding ,	I.taxable-I.rounding,I.flag_reverse_charge,
 			Expfinphase.idexp,Elast.kpay,Elast.idexp ,
 			isnull(Expfinphase.cigcode, ID.cigcode), isnull(Expfinphase.cupcode, ID.cupcode),ID.expensekind,ID.ipa
-
 
 		delete from #contabilizzazioni
 
@@ -1914,6 +1851,7 @@ Begin
 			idinvkind,  
 			yinv, 
 			ninv,
+			identificativo_sdi,
 			idpettycash, yoperation, noperation,
 			idreg,	
 			dataemissione,
@@ -1932,7 +1870,7 @@ Begin
 			ipa
 			)
 		select 'CP',
-			I.idinvkind, I.yinv, I.ninv,
+			I.idinvkind, I.yinv, I.ninv,I.identificativo_sdi,
 			PO.idpettycash,
 			PO.yoperation,
 			PO.noperation,
@@ -1965,7 +1903,7 @@ Begin
 		join registry R on I.idreg = R.idreg
 		join residence RR  on R.residence=RR.idresidence		
 		where I.docdate between @1luglio2014 and @adate 
-			and PO.adate <= @adate AND PO.adate <=@31dic2018
+			and PO.adate <= @adate AND (PO.adate <=@31dic2018  OR @OPIattivo='N')
 			and (
 				exists (select * from pccexpense P where P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv)
 				or
@@ -1991,6 +1929,7 @@ select @cf = cf from license
 /* non lo fa sempre, altrimenti sarebbe troppo lenta, lo fa solo se ci delle righe negative	*/
 			create table #raggruppoCO(
 				idinvkind int,  yinv smallint, 	ninv int,
+				identificativo_sdi bigint,
 				idexpimpegno int,
 				descrizione varchar(100),
 				cigcode varchar(15),
@@ -2005,11 +1944,11 @@ if (select count(nriga) from #dati where opkind in ('CO','COF') and ISNULL(impor
 Begin
 
 			insert into #raggruppoCO(
-				idinvkind, 	yinv, 	ninv,idexpimpegno,descrizione, naturadispesa,cigcode,cupcode,
+				idinvkind, 	yinv, 	ninv, identificativo_sdi,idexpimpegno,descrizione, naturadispesa,cigcode,cupcode,
 				importodelmovimento, 				statodeldebito,	causale,idfin
 				)
 			select 
-				D.idinvkind, D.yinv ,D.ninv, E.idexp,	substring(E.description,1, 100) as descrizione,
+				D.idinvkind, D.yinv ,D.ninv, D.identificativo_sdi,E.idexp,	substring(E.description,1, 100) as descrizione,
 				D.naturadispesa,		isnull(D.cigcode, ISNULL(E.cigcode,isnull(U.cigcode,'NA'))) as codicecig, 
 				ISNULL(D.cupcode, ISNULL(E.cupcode, ISNULL(U.cupcode, ISNULL(Flast.cupcode, 'NA')))) as codicecup,
 				isnull(sum(D.importodelmovimento),0),  			D.statodeldebito,	D.causale, EY.idfin
@@ -2019,19 +1958,19 @@ Begin
 			join finlast Flast	 	on EY.idfin = Flast.idfin
 			join upb U				on EY.idupb = U.idupb
 			where opkind in ('CO','COF') and ISNULL(D.importototaledocumento,0) <> 0
-			group by D.idinvkind, D.yinv ,D.ninv, 
+			group by D.idinvkind, D.yinv ,D.ninv, D.identificativo_sdi,
 				E.idexp,	substring(E.description,1, 100),	D.naturadispesa,
 				isnull(D.cigcode, ISNULL(E.cigcode,isnull(U.cigcode,'NA'))), 
 				ISNULL(D.cupcode, ISNULL(E.cupcode, ISNULL(U.cupcode, ISNULL(Flast.cupcode, 'NA')))),
 				D.statodeldebito,	D.causale, EY.idfin
 			UNION ALL
 			select 
-				D.idinvkind, D.yinv ,D.ninv,  null,null, D.naturadispesa,	isnull(D.cigcode,'NA') as codicecig, 
+				D.idinvkind, D.yinv ,D.ninv,D.identificativo_sdi,  null,null, D.naturadispesa,	isnull(D.cigcode,'NA') as codicecig, 
 				ISNULL(D.cupcode, 'NA') as codicecup,
 				isnull(sum(D.importodelmovimento),0), 	D.statodeldebito,	D.causale,null
 			from #dati D
 			where opkind in('CO','COF') and D.idexpimpegno is null  and ISNULL(D.importototaledocumento,0) <> 0
-			group by 	D.idinvkind, D.yinv ,D.ninv,
+			group by 	D.idinvkind, D.yinv ,D.ninv,D.identificativo_sdi,
 				D.naturadispesa,	isnull(D.cigcode,'NA'), 	ISNULL(D.cupcode, 'NA'),
 				D.statodeldebito,	D.causale
 
@@ -2042,14 +1981,13 @@ Begin
 END
 --------------------------------------------------------------------------------
 
-
 update #dati set ipa = (select ipa_fe from invoicekind I where #dati.idinvkind = I.idinvkind) where idinvkind is not null AND ipa is null
 update #dati set ipa = (select ipa_fe from mandatekind I where #dati.idmankind = I.idmankind) where idmankind is not null
 update #dati set ipa = (select ipa_fe from casualcontract I where #dati.ycon = I.ycon and #dati.ncon = I.ncon) where ycon is not null
 
 select 
 	nriga,
-	D.idinvkind, D.yinv ,D.ninv, D.invrownum, 
+	D.idinvkind, D.yinv ,D.ninv, D.invrownum, D.identificativo_sdi,
 	IK.description as invoicekind,
 	D.idmankind, D.yman, D.nman ,D.manrownum,
 	MK.description as mandatekind,
@@ -2125,7 +2063,7 @@ UNION ALL
 
 select 
 	nriga,
-	D.idinvkind, D.yinv ,D.ninv, D.invrownum, 
+	D.idinvkind, D.yinv ,D.ninv, D.invrownum, D.identificativo_sdi,
 	IK.description as invoicekind,
 	D.idmankind, D.yman, D.nman ,D.manrownum,
 	MK.description as mandatekind,
@@ -2193,7 +2131,7 @@ UNION ALL
 
 select 
 	nriga,
-	D.idinvkind, D.yinv ,D.ninv, D.invrownum, 
+	D.idinvkind, D.yinv ,D.ninv, D.invrownum, D.identificativo_sdi,
 	IK.description as invoicekind,
 	D.idmankind, D.yman, D.nman ,D.manrownum,
 	MK.description as mandatekind,
@@ -2272,7 +2210,7 @@ UNION ALL
 -- FATTURE PAGATE COL FONDO ECONOMALE
 select 
 	nriga,
-	D.idinvkind, D.yinv ,D.ninv, D.invrownum, 
+	D.idinvkind, D.yinv ,D.ninv, D.invrownum, D.identificativo_sdi,
 	IK.description as invoicekind,
 	D.idmankind, D.yman, D.nman ,D.manrownum,
 	MK.description as mandatekind,
@@ -2346,7 +2284,7 @@ where opkind='CP' and piccolaspesa IS NOT NULL  and ISNULL(D.importototaledocume
 UNION ALL
 select 
 	nriga,
-	D.idinvkind, D.yinv ,D.ninv, D.invrownum, 
+	D.idinvkind, D.yinv ,D.ninv, D.invrownum, D.identificativo_sdi,
 	IK.description as invoicekind,
 	D.idmankind, D.yman, D.nman ,D.manrownum,
 	MK.description as mandatekind,

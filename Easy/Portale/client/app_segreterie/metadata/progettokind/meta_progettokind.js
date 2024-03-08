@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -45,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'oredivisionecostostipendio', 'Numero ore lavorate in un anno dal personale', null, 30, null);
 						this.describeAColumn(table, 'stipendioannoprec', 'Usa stipendi anno precedente', null, 80, null);
 						this.describeAColumn(table, 'stipendiocomericavo', 'Usa stipendi come ricavi', null, 90, null);
+						this.describeAColumn(table, 'active', 'Attivo', null, 100, null);
+						this.describeAColumn(table, 'irap', 'Includi l\'IRAP nei costi del personale', null, 110, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -58,13 +43,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'seg':
+						table.columns["active"].caption = "Attivo";
 						table.columns["description"].caption = "Descrizione";
 						table.columns["idcorsostudio"].caption = "Abilita il corso di studio";
 						table.columns["idprogettoactivitykind"].caption = "Tipologia";
+						table.columns["irap"].caption = "Includi l'IRAP nei costi del personale";
 						table.columns["oredivisionecostostipendio"].caption = "Numero ore lavorate in un anno dal personale";
 						table.columns["stipendioannoprec"].caption = "Usa stipendi anno precedente";
-						table.columns["title"].caption = "Titolo";
 						table.columns["stipendiocomericavo"].caption = "Usa stipendi come ricavi";
+						table.columns["title"].caption = "Titolo";
 //$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
+--setuser 'amministrazione'
 
 
 CREATE PROCEDURE [rpt_buono_carico_consegnatario]
@@ -39,7 +39,7 @@ CREATE PROCEDURE [rpt_buono_carico_consegnatario]
 	@official char(1)
 )
 AS BEGIN
--- exec rpt_buono_carico_consegnatario 2014, 'I', 4, 1, 1, {d '2014-01-31'},'N' 
+-- exec rpt_buono_carico_consegnatario 2023, 'I', 247, 22, 22, {d '2023-03-27'},'N' 
 CREATE TABLE #printing (
 	num int  
 )
@@ -163,8 +163,12 @@ SELECT
 	assetacquire.description,
 	--	Calcolo del valore unitario aggiornato con la gestione dello sconto :
 	assetview_current.start,
-	(SELECT idlocation FROM assetlocation l WHERE l.idasset = asset.idasset AND l.start IS NULL),
-	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL),
+	(SELECT top 1 idlocation FROM assetlocation l 
+		WHERE l.idasset = asset.idasset AND (@printdate >= l.start or l.start IS NULL)
+		order by l.start desc),
+	(SELECT top 1 idman FROM assetmanager m 
+		WHERE m.idasset = asset.idasset AND (@printdate >= m.start or m.start IS NULL)
+		order by m.start desc),
 	CONVERT(decimal(19,2),ROUND(
 			ROUND(ISNULL(assetacquire.taxable, 0),2)
 			+ ROUND(ISNULL(assetacquire.taxable,0) * isnull(assetacquire.taxrate,0),2)-- IVA calcolata PRIMA dello sconto
@@ -175,7 +179,7 @@ SELECT
 	asset.rfid,
 	(SELECT TOP 1 idmanager
 				FROM assetsubmanager
-				WHERE assetsubmanager.idasset = asset.idasset
+				WHERE assetsubmanager.idasset = asset.idasset AND (@printdate >= assetsubmanager.start or assetsubmanager.start IS NULL)
 				ORDER BY start desc) 
 FROM assetacquire
 JOIN assetload
@@ -277,8 +281,12 @@ SELECT
 	assetacquire.description,
 	--Calcolo del valore unitario 
 	assetview_current.start,
-	(SELECT idlocation FROM assetlocation l WHERE l.idasset = asset.idasset AND l.start IS NULL),
-	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL),
+	(SELECT top 1 idlocation FROM assetlocation l 
+		WHERE l.idasset = asset.idasset AND (@printdate >= l.start or l.start IS NULL)
+		order by l.start desc),
+	(SELECT top 1 idman FROM assetmanager m 
+		WHERE m.idasset = asset.idasset AND (@printdate >= m.start or m.start IS NULL) 
+		order by m.start desc),
 	CONVERT(decimal(19,2),ROUND(
 		ROUND(ISNULL(assetacquire.taxable, 0),2)
 		+ ROUND(ISNULL(assetacquire.taxable,0) * isnull(assetacquire.taxrate,1),2)-- IVA calcolata PRIMA dello sconto
@@ -289,7 +297,7 @@ SELECT
 	asset.rfid ,
 	(SELECT TOP 1 idmanager
 				FROM assetsubmanager
-				WHERE assetsubmanager.idasset = asset.idasset
+				WHERE assetsubmanager.idasset = asset.idasset AND (@printdate >= assetsubmanager.start or assetsubmanager.start IS NULL)
 				ORDER BY start desc)
 FROM assetacquire
 JOIN assetload
@@ -397,12 +405,16 @@ SELECT
 	IL4.idparent,
 	inventoryamortization.description + ' n. '+ convert(varchar(4),namortization) + char(13) + assetamortization.description,
 	ROUND(ISNULL(assetamortization.assetvalue,0) * ISNULL(assetamortization.amortizationquota,0),2),
-	(SELECT idlocation FROM assetlocation l WHERE l.idasset = asset.idasset AND l.start IS NULL),
-	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL),
+	(SELECT top 1 idlocation FROM assetlocation l 
+		WHERE l.idasset = asset.idasset AND (@printdate >= l.start or l.start IS NULL)
+		order by l.start desc),
+	(SELECT top 1 idman FROM assetmanager m 
+		WHERE m.idasset = asset.idasset AND (@printdate >= m.start or m.start IS NULL) 
+		order by m.start desc),
 	asset.rfid,
 	(SELECT TOP 1 idmanager
 				FROM assetsubmanager
-				WHERE assetsubmanager.idasset = asset.idasset
+				WHERE assetsubmanager.idasset = asset.idasset AND (@printdate >= assetsubmanager.start or assetsubmanager.start IS NULL)
 				ORDER BY start desc)
 FROM assetload
 JOIN assetloadkind
@@ -505,12 +517,16 @@ SELECT
 	IL4.idparent,
 	inventoryamortization.description + ' n. '+ convert(varchar(4),namortization) + char(13) + assetamortization.description,
 	ROUND(ISNULL(assetamortization.assetvalue,0) * ISNULL(assetamortization.amortizationquota,0),2),
-	(SELECT idlocation FROM assetlocation l WHERE l.idasset = asset.idasset AND l.start IS NULL),
-	(SELECT idman FROM assetmanager m WHERE m.idasset = asset.idasset AND m.start IS NULL),
+	(SELECT top 1 idlocation FROM assetlocation l 
+		WHERE l.idasset = asset.idasset AND (@printdate >= l.start or l.start IS NULL)
+		order by l.start desc),
+	(SELECT top 1 idman FROM assetmanager m 
+		WHERE m.idasset = asset.idasset AND (@printdate >= m.start or m.start IS NULL) 
+		order by m.start desc),
 	asset.rfid,
 	(SELECT TOP 1 idmanager
 				FROM assetsubmanager
-				WHERE assetsubmanager.idasset = asset.idasset
+				WHERE assetsubmanager.idasset = asset.idasset AND (@printdate >= assetsubmanager.start or assetsubmanager.start IS NULL)
 				ORDER BY start desc) 
 FROM assetload
 JOIN assetloadkind

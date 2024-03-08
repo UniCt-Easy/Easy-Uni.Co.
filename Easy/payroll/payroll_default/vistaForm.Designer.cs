@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,101 +32,59 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable geo_cityview 		=> Tables["geo_cityview"];
 
-	///<summary>
-	///Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payroll 		=> Tables["payroll"];
 
-	///<summary>
-	///Ritenuta Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolltax 		=> Tables["payrolltax"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable parasubcontractview 		=> Tables["parasubcontractview"];
 
-	///<summary>
-	///Nomi e codici dei mesi nel codice fiscale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable monthname 		=> Tables["monthname"];
 
-	///<summary>
-	///Dettaglio Deduzioni Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolldeduction 		=> Tables["payrolldeduction"];
 
-	///<summary>
-	///Dettaglio Detrazioni Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrollabatement 		=> Tables["payrollabatement"];
 
-	///<summary>
-	///Codici Deduzioni per Esercizio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable deduction 		=> Tables["deduction"];
 
-	///<summary>
-	///Tipo detrazione, usato nei contratti parasubordinati
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable abatement 		=> Tables["abatement"];
 
-	///<summary>
-	///Imputazione tipo deduzione 
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable deductioncode 		=> Tables["deductioncode"];
 
-	///<summary>
-	///Informazioni su una detrazione per un determinato esercizo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable abatementcode 		=> Tables["abatementcode"];
 
-	///<summary>
-	///Tipo Imponibile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable taxablekind 		=> Tables["taxablekind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrollview 		=> Tables["payrollview"];
 
-	///<summary>
-	///Scaglione di un cedolino parasubordinato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolltaxbracket 		=> Tables["payrolltaxbracket"];
 
-	///<summary>
-	///Storni Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payrolltaxcorrige 		=> Tables["payrolltaxcorrige"];
 
-	///<summary>
-	///Tipo Prestazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable service 		=> Tables["service"];
 
-	///<summary>
-	///Tipi di ritenuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable costpartition 		=> Tables["costpartition"];
 
 	#endregion
 
@@ -229,6 +187,7 @@ private void initClass() {
 	tpayroll.Columns.Add( new DataColumn("stop", typeof(DateTime)));
 	tpayroll.Columns.Add( new DataColumn("flagsummarybalance", typeof(string)));
 	tpayroll.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tpayroll);
 	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 
@@ -344,6 +303,7 @@ private void initClass() {
 	tparasubcontractview.Columns.Add( new DataColumn("idaccmotivedebit", typeof(string)));
 	tparasubcontractview.Columns.Add( new DataColumn("idaccmotivedebit_crg", typeof(string)));
 	tparasubcontractview.Columns.Add( new DataColumn("idaccmotivedebit_datacrg", typeof(DateTime)));
+	tparasubcontractview.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tparasubcontractview);
 	tparasubcontractview.PrimaryKey =  new DataColumn[]{tparasubcontractview.Columns["idcon"]};
 
@@ -587,6 +547,7 @@ private void initClass() {
 	tpayrollview.Columns.Add( new DataColumn("flagbalance", typeof(string)));
 	tpayrollview.Columns.Add( new DataColumn("netfee", typeof(decimal)));
 	tpayrollview.Columns.Add( new DataColumn("sortcode1", typeof(string)));
+	tpayrollview.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tpayrollview);
 	tpayrollview.PrimaryKey =  new DataColumn[]{tpayrollview.Columns["idpayroll"]};
 
@@ -782,6 +743,24 @@ private void initClass() {
 	tupb.PrimaryKey =  new DataColumn[]{tupb.Columns["idupb"]};
 
 
+	//////////////////// COSTPARTITION /////////////////////////////////
+	var tcostpartition= new DataTable("costpartition");
+	C= new DataColumn("idcostpartition", typeof(int));
+	C.AllowDBNull=false;
+	tcostpartition.Columns.Add(C);
+	tcostpartition.Columns.Add( new DataColumn("title", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("kind", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("lu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tcostpartition.Columns.Add( new DataColumn("cu", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("costpartitioncode", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("active", typeof(string)));
+	tcostpartition.Columns.Add( new DataColumn("description", typeof(string)));
+	Tables.Add(tcostpartition);
+	tcostpartition.PrimaryKey =  new DataColumn[]{tcostpartition.Columns["idcostpartition"]};
+
+
 	#endregion
 
 
@@ -861,6 +840,10 @@ private void initClass() {
 	cPar = new []{upb.Columns["idupb"]};
 	cChild = new []{payroll.Columns["idupb"]};
 	Relations.Add(new DataRelation("upb_payroll",cPar,cChild,false));
+
+	cPar = new []{costpartition.Columns["idcostpartition"]};
+	cChild = new []{payroll.Columns["idcostpartition"]};
+	Relations.Add(new DataRelation("costpartition_payroll",cPar,cChild,false));
 
 	#endregion
 

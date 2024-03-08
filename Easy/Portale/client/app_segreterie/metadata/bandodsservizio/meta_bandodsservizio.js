@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -46,8 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'borsainsede', 'Importo annuo borsa contributi (in sede)', 'fixed.2', 40, null);
 						this.describeAColumn(table, 'borsapendolari', 'Importo annuo borsa contributi (pendolari)', 'fixed.2', 50, null);
 						this.describeAColumn(table, 'contributo', 'Contributo', 'fixed.2', 60, null);
-						this.describeAColumn(table, 'contributomiimporto', 'Importo contributi per mobilit‡ internazionale', 'fixed.2', 70, null);
-						this.describeAColumn(table, 'contributomimesi', 'Numero mesi contributi mobilit‡ internazionale', null, 80, null);
+						this.describeAColumn(table, 'contributomiimporto', 'Importo contributi per mobilit√† internazionale', 'fixed.2', 70, null);
+						this.describeAColumn(table, 'contributomimesi', 'Numero mesi contributi mobilit√† internazionale', null, 80, null);
 						this.describeAColumn(table, 'fuoricorso', 'Fuori corso', null, 90, null);
 						this.describeAColumn(table, 'iseemax', 'ISEE massimo', 'fixed.2', 140, null);
 						this.describeAColumn(table, 'ispemax', 'ISPE massimo', 'fixed.2', 150, null);
@@ -80,8 +63,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["borsafuorisede"].caption = "Importo annuo borsa contributi (fuori sede)";
 						table.columns["borsainsede"].caption = "Importo annuo borsa contributi (in sede)";
 						table.columns["borsapendolari"].caption = "Importo annuo borsa contributi (pendolari)";
-						table.columns["contributomiimporto"].caption = "Importo contributi per mobilit‡ internazionale";
-						table.columns["contributomimesi"].caption = "Numero mesi contributi mobilit‡ internazionale";
+						table.columns["contributomiimporto"].caption = "Importo contributi per mobilit√† internazionale";
+						table.columns["contributomimesi"].caption = "Numero mesi contributi mobilit√† internazionale";
 						table.columns["fuoricorso"].caption = "Fuori corso";
 						table.columns["idbandodsserviziokind"].caption = "Tipo servizio offerto";
 						table.columns["idesonero"].caption = "Esonero";

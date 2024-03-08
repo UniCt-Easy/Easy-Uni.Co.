@@ -59,6 +59,7 @@
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -148,6 +149,7 @@
               <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit_crg" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit_datacrg" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -297,17 +299,15 @@
               <xs:element name="service" type="xs:string" />
               <xs:element name="residencecity" type="xs:string" minOccurs="0" />
               <xs:element name="flagsummarybalance" type="xs:string" minOccurs="0" />
-              <xs:element name="npay" type="xs:int" minOccurs="0" />
-              <xs:element name="nmov_lastphase" type="xs:int" minOccurs="0" />
               <xs:element name="idsor01" type="xs:int" minOccurs="0" />
               <xs:element name="idsor02" type="xs:int" minOccurs="0" />
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
-              <xs:element name="ymov_lastphase" type="xs:int" minOccurs="0" />
               <xs:element name="flagbalance" type="xs:string" minOccurs="0" />
               <xs:element name="netfee" type="xs:decimal" minOccurs="0" />
               <xs:element name="sortcode1" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -432,6 +432,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="costpartition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostpartition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="costpartitioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -515,6 +531,10 @@
       <xs:selector xpath=".//mstns:upb" />
       <xs:field xpath="mstns:idupb" />
     </xs:unique>
+    <xs:unique name="costpartition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costpartition" />
+      <xs:field xpath="mstns:idcostpartition" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -537,6 +557,7 @@
       <msdata:Relationship name="parasubcontractviewpayroll" msdata:parent="parasubcontractview" msdata:child="payroll" msdata:parentkey="idcon" msdata:childkey="idcon" />
       <msdata:Relationship name="monthnamepayroll" msdata:parent="monthname" msdata:child="payroll" msdata:parentkey="code" msdata:childkey="npayroll" />
       <msdata:Relationship name="upb_payroll" msdata:parent="upb" msdata:child="payroll" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="costpartition_payroll" msdata:parent="costpartition" msdata:child="payroll" msdata:parentkey="idcostpartition" msdata:childkey="idcostpartition" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

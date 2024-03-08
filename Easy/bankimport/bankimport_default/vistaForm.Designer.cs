@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,33 +32,18 @@ namespace bankimport_default {
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Importazione esiti e sospesi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public bankimportTable bankimport 		=> (bankimportTable)Tables["bankimport"];
 
-	///<summary>
-	///Operazione su Partita Pendente
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable bankimportbill 		=> (MetaTable)Tables["bankimportbill"];
 
-	///<summary>
-	///Movimento bancario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public banktransactionTable banktransaction 		=> (banktransactionTable)Tables["banktransaction"];
 
-	///<summary>
-	///Banca
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable bank 		=> (MetaTable)Tables["bank"];
 
-	///<summary>
-	///Operazione su sospeso (bolletta)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable billtransaction 		=> (MetaTable)Tables["billtransaction"];
 

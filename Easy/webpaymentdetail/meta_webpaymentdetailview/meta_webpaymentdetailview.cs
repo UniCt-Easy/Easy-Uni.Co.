@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -60,16 +60,19 @@ namespace meta_webpaymentdetailview {
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 }
                 int nPos = 1;
-
+                DescribeAColumn(T, "idwebpayment", "#Prenotazione", nPos++);
                 DescribeAColumn(T, "ywebpayment", "Esercizio", nPos++);
                 DescribeAColumn(T, "nwebpayment", "Progressivo", nPos++);
-                DescribeAColumn(T, "ndetail", "n.Dettaglio", nPos++);
+                DescribeAColumn(T, "webpaymentstatus", "Stato Corrente", nPos++);
+                DescribeAColumn(T, "iddetail", "n.Dettaglio", nPos++);
+                DescribeAColumn(T, "registry", "Anagrafica", nPos++);
                 DescribeAColumn(T, "intcode", "Cod. Art.", nPos++);
                 DescribeAColumn(T, "list", "Descrizione", nPos++);
                 DescribeAColumn(T, "number", "Quantità", nPos++);
                 //DescribeAColumn(T, "fulfilled", "Evasa", nPos++);
-                DescribeAColumn(T, "listclass", "Class. Merceologica", nPos++);
-                DescribeAColumn(T, "store", "Magazzino", nPos++);
+                DescribeAColumn(T, "listclass", "Class. Merceologica", nPos++);                
+                DescribeAColumn(T, "iuv", "IUV", nPos++);
+                DescribeAColumn(T, "idflussocrediti", "N. Flusso Crediti", nPos++);
 
                 HelpForm.SetFormatForColumn(T.Columns["number"], "n");
                 //HelpForm.SetFormatForColumn(T.Columns["fulfilled"], "n");
@@ -83,6 +86,10 @@ namespace meta_webpaymentdetailview {
                 sorting = "ywebpayment desc,nwebpayment desc, list asc, listclass asc, store asc";
                 return sorting;
             }
+            if (ListingType == "default") {
+                sorting = "idwebpayment desc, ywebpayment desc, nwebpayment desc, iddetail desc";
+                return sorting;
+			}
             return base.GetSorting(ListingType);
         }
 

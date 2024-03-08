@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_progettoregistry_aziende_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_progettoregistry_aziende_seg: DataSet {
+public partial class dsmeta_progettoregistry_aziende_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -69,26 +69,33 @@ private void initClass() {
 	tpartnerkinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tpartnerkinddefaultview.defineColumn("idpartnerkind", typeof(int),false);
 	tpartnerkinddefaultview.defineColumn("partnerkind_active", typeof(string));
+	tpartnerkinddefaultview.defineColumn("partnerkind_description", typeof(string));
+	tpartnerkinddefaultview.defineColumn("partnerkind_sortcode", typeof(int));
+	tpartnerkinddefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tpartnerkinddefaultview);
 	tpartnerkinddefaultview.defineKey("idpartnerkind");
 
 	//////////////////// REGISTRYAZIENDEVIEW /////////////////////////////////
 	var tregistryaziendeview= new MetaTable("registryaziendeview");
+	tregistryaziendeview.defineColumn("accmotive_codemotive", typeof(string));
+	tregistryaziendeview.defineColumn("accmotive_registry_codemotive", typeof(string));
+	tregistryaziendeview.defineColumn("accmotive_registry_title", typeof(string));
+	tregistryaziendeview.defineColumn("accmotive_title", typeof(string));
 	tregistryaziendeview.defineColumn("ateco_codice", typeof(string));
 	tregistryaziendeview.defineColumn("ateco_title", typeof(string));
 	tregistryaziendeview.defineColumn("category_description", typeof(string));
 	tregistryaziendeview.defineColumn("dropdown_title", typeof(string),false);
 	tregistryaziendeview.defineColumn("geo_city_title", typeof(string));
 	tregistryaziendeview.defineColumn("geo_nation_title", typeof(string));
+	tregistryaziendeview.defineColumn("idaccmotivecredit", typeof(string));
+	tregistryaziendeview.defineColumn("idaccmotivedebit", typeof(string));
 	tregistryaziendeview.defineColumn("idateco", typeof(int));
 	tregistryaziendeview.defineColumn("idcategory", typeof(string));
 	tregistryaziendeview.defineColumn("idcity", typeof(int));
 	tregistryaziendeview.defineColumn("idnace", typeof(string));
 	tregistryaziendeview.defineColumn("idnation", typeof(int));
 	tregistryaziendeview.defineColumn("idnaturagiur", typeof(int));
-	tregistryaziendeview.defineColumn("idnumerodip", typeof(int));
 	tregistryaziendeview.defineColumn("idreg", typeof(int),false);
-	tregistryaziendeview.defineColumn("idregistryclass", typeof(string));
 	tregistryaziendeview.defineColumn("nace_activity", typeof(string));
 	tregistryaziendeview.defineColumn("nace_idnace", typeof(string));
 	tregistryaziendeview.defineColumn("naturagiur_title", typeof(string));
@@ -96,14 +103,6 @@ private void initClass() {
 	tregistryaziendeview.defineColumn("registry_active", typeof(string));
 	tregistryaziendeview.defineColumn("registry_annotation", typeof(string));
 	tregistryaziendeview.defineColumn("registry_authorization_free", typeof(string));
-	tregistryaziendeview.defineColumn("registry_aziende_ct", typeof(DateTime),false);
-	tregistryaziendeview.defineColumn("registry_aziende_cu", typeof(string),false);
-	tregistryaziendeview.defineColumn("registry_aziende_idreg", typeof(int),false);
-	tregistryaziendeview.defineColumn("registry_aziende_lt", typeof(DateTime),false);
-	tregistryaziendeview.defineColumn("registry_aziende_lu", typeof(string),false);
-	tregistryaziendeview.defineColumn("registry_aziende_pic", typeof(string));
-	tregistryaziendeview.defineColumn("registry_aziende_title_en", typeof(string));
-	tregistryaziendeview.defineColumn("registry_aziende_txt_en", typeof(string));
 	tregistryaziendeview.defineColumn("registry_badgecode", typeof(string));
 	tregistryaziendeview.defineColumn("registry_birthdate", typeof(DateTime));
 	tregistryaziendeview.defineColumn("registry_ccp", typeof(string));
@@ -118,13 +117,19 @@ private void initClass() {
 	tregistryaziendeview.defineColumn("registry_foreigncf", typeof(string));
 	tregistryaziendeview.defineColumn("registry_forename", typeof(string));
 	tregistryaziendeview.defineColumn("registry_gender", typeof(string));
-	tregistryaziendeview.defineColumn("registry_idaccmotivecredit", typeof(string));
-	tregistryaziendeview.defineColumn("registry_idaccmotivedebit", typeof(string));
 	tregistryaziendeview.defineColumn("registry_idcentralizedcategory", typeof(string));
+	tregistryaziendeview.defineColumn("registry_idclassconsorsuale", typeof(int));
 	tregistryaziendeview.defineColumn("registry_idexternal", typeof(int));
+	tregistryaziendeview.defineColumn("registry_idfonteindicebibliometrico", typeof(int));
 	tregistryaziendeview.defineColumn("registry_idmaritalstatus", typeof(string));
+	tregistryaziendeview.defineColumn("registry_idnumerodip", typeof(int));
+	tregistryaziendeview.defineColumn("registry_idreg_istituti", typeof(int));
+	tregistryaziendeview.defineColumn("registry_idregistryclass", typeof(string));
 	tregistryaziendeview.defineColumn("registry_idregistrykind", typeof(int));
+	tregistryaziendeview.defineColumn("registry_idsasd", typeof(int));
+	tregistryaziendeview.defineColumn("registry_idstruttura", typeof(int));
 	tregistryaziendeview.defineColumn("registry_idtitle", typeof(string));
+	tregistryaziendeview.defineColumn("registry_indicebibliometrico", typeof(int));
 	tregistryaziendeview.defineColumn("registry_ipa_fe", typeof(string));
 	tregistryaziendeview.defineColumn("registry_ipa_perlapa", typeof(string));
 	tregistryaziendeview.defineColumn("registry_location", typeof(string));
@@ -134,15 +139,19 @@ private void initClass() {
 	tregistryaziendeview.defineColumn("registry_multi_cf", typeof(string));
 	tregistryaziendeview.defineColumn("registry_p_iva", typeof(string));
 	tregistryaziendeview.defineColumn("registry_pec_fe", typeof(string));
+	tregistryaziendeview.defineColumn("registry_pic", typeof(string));
+	tregistryaziendeview.defineColumn("registry_residence", typeof(int),false);
+	tregistryaziendeview.defineColumn("registry_ricevimento", typeof(string));
 	tregistryaziendeview.defineColumn("registry_rtf", typeof(Byte[]));
 	tregistryaziendeview.defineColumn("registry_sdi_defrifamm", typeof(string));
 	tregistryaziendeview.defineColumn("registry_sdi_norifamm", typeof(string));
+	tregistryaziendeview.defineColumn("registry_soggiorno", typeof(string));
 	tregistryaziendeview.defineColumn("registry_surname", typeof(string));
+	tregistryaziendeview.defineColumn("registry_title_en", typeof(string));
 	tregistryaziendeview.defineColumn("registry_toredirect", typeof(int));
 	tregistryaziendeview.defineColumn("registry_txt", typeof(string));
 	tregistryaziendeview.defineColumn("registryclass_description", typeof(string));
 	tregistryaziendeview.defineColumn("registrykind_description", typeof(string));
-	tregistryaziendeview.defineColumn("residence", typeof(int),false);
 	tregistryaziendeview.defineColumn("residence_description", typeof(string));
 	tregistryaziendeview.defineColumn("title", typeof(string),false);
 	Tables.Add(tregistryaziendeview);

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,14 +27,11 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_diderog_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_diderog_default: DataSet {
+public partial class dsmeta_diderog_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable getcostididattica 		=> (MetaTable)Tables["getcostididattica"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable getdocentiperssd 		=> (MetaTable)Tables["getdocentiperssd"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable affidamentoattach 		=> (MetaTable)Tables["affidamentoattach"];
@@ -187,12 +184,12 @@ private void initClass() {
 	tgetcostididattica.defineColumn("docente", typeof(string));
 	tgetcostididattica.defineColumn("idaffidamento", typeof(int),false);
 	tgetcostididattica.defineColumn("idaffidamentokind", typeof(int),false);
-	tgetcostididattica.defineColumn("idcontrattokind", typeof(int),false);
 	tgetcostididattica.defineColumn("idcorsostudio", typeof(int),false);
 	tgetcostididattica.defineColumn("iddidprog", typeof(int),false);
 	tgetcostididattica.defineColumn("iddidprogcurr", typeof(int),false);
 	tgetcostididattica.defineColumn("idinsegn", typeof(int),false);
 	tgetcostididattica.defineColumn("idinsegninteg", typeof(int));
+	tgetcostididattica.defineColumn("idposition", typeof(int),false);
 	tgetcostididattica.defineColumn("idreg_docenti", typeof(int));
 	tgetcostididattica.defineColumn("idsede", typeof(int),false);
 	tgetcostididattica.defineColumn("insegnamento", typeof(string));
@@ -200,31 +197,7 @@ private void initClass() {
 	tgetcostididattica.defineColumn("ruolo", typeof(string),false);
 	tgetcostididattica.defineColumn("sede", typeof(string));
 	Tables.Add(tgetcostididattica);
-	tgetcostididattica.defineKey("aa", "idaffidamento", "idcontrattokind", "idcorsostudio", "iddidprog", "iddidprogcurr", "idsede");
-
-	//////////////////// GETDOCENTIPERSSD /////////////////////////////////
-	var tgetdocentiperssd= new MetaTable("getdocentiperssd");
-	tgetdocentiperssd.defineColumn("aa", typeof(string),false);
-	tgetdocentiperssd.defineColumn("cognome", typeof(string));
-	tgetdocentiperssd.defineColumn("contratto", typeof(string),false);
-	tgetdocentiperssd.defineColumn("costoorario", typeof(decimal));
-	tgetdocentiperssd.defineColumn("idreg", typeof(int),false);
-	tgetdocentiperssd.defineColumn("idsasd", typeof(int),false);
-	tgetdocentiperssd.defineColumn("iniziocontratto", typeof(DateTime),false);
-	tgetdocentiperssd.defineColumn("matricola", typeof(string));
-	tgetdocentiperssd.defineColumn("nome", typeof(string));
-	tgetdocentiperssd.defineColumn("oremaxdida", typeof(int));
-	tgetdocentiperssd.defineColumn("oremindida", typeof(int));
-	tgetdocentiperssd.defineColumn("oreperaaaffidamento", typeof(int));
-	tgetdocentiperssd.defineColumn("oreperaacontratto", typeof(int));
-	tgetdocentiperssd.defineColumn("parttime", typeof(decimal));
-	tgetdocentiperssd.defineColumn("ssd", typeof(string),false);
-	tgetdocentiperssd.defineColumn("struttura", typeof(string));
-	tgetdocentiperssd.defineColumn("tempodefinito", typeof(string),false);
-	tgetdocentiperssd.defineColumn("terminecontratto", typeof(DateTime),false);
-	tgetdocentiperssd.ExtendedProperties["NotEntityChild"]="true";
-	Tables.Add(tgetdocentiperssd);
-	tgetdocentiperssd.defineKey("aa", "idreg");
+	tgetcostididattica.defineKey("aa", "idaffidamento", "idcorsostudio", "iddidprog", "iddidprogcurr", "idposition", "idsede");
 
 	//////////////////// AFFIDAMENTOATTACH /////////////////////////////////
 	var taffidamentoattach= new MetaTable("affidamentoattach");
@@ -822,8 +795,6 @@ private void initClass() {
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");
 	tsededefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tsededefaultview.defineColumn("idcity", typeof(int));
-	tsededefaultview.defineColumn("idnation", typeof(int));
 	tsededefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tsededefaultview);
 	tsededefaultview.defineKey("idsede");
@@ -838,9 +809,6 @@ private void initClass() {
 	var tcorsostudiodefaultview= new MetaTable("corsostudiodefaultview");
 	tcorsostudiodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tcorsostudiodefaultview.defineColumn("idcorsostudio", typeof(int),false);
-	tcorsostudiodefaultview.defineColumn("idcorsostudiolivello", typeof(int));
-	tcorsostudiodefaultview.defineColumn("idcorsostudionorma", typeof(int));
-	tcorsostudiodefaultview.defineColumn("idstruttura", typeof(int));
 	Tables.Add(tcorsostudiodefaultview);
 	tcorsostudiodefaultview.defineKey("idcorsostudio");
 
@@ -857,9 +825,9 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{diderog.Columns["aa"], diderog.Columns["idcorsostudio"], diderog.Columns["idsede"]};
-	var cChild = new []{getcostididattica.Columns["aa"], getcostididattica.Columns["idcorsostudio"], getcostididattica.Columns["idsede"]};
-	Relations.Add(new DataRelation("FK_getcostididattica_diderog_aa-idcorsostudio-idsede",cPar,cChild,false));
+	var cPar = new []{getcostididattica.Columns["aa"], getcostididattica.Columns["idcorsostudio"], getcostididattica.Columns["idsede"]};
+	var cChild = new []{diderog.Columns["aa"], diderog.Columns["idcorsostudio"], diderog.Columns["idsede"]};
+	Relations.Add(new DataRelation("FK_diderog_getcostididattica_aa-idcorsostudio-idsede",cPar,cChild,false));
 
 	cPar = new []{diderog.Columns["aa"], diderog.Columns["idcorsostudio"], diderog.Columns["idsede"]};
 	cChild = new []{canale.Columns["aa"], canale.Columns["idcorsostudio"], canale.Columns["idsede"]};
@@ -868,10 +836,6 @@ private void initClass() {
 	cPar = new []{canale.Columns["aa"], canale.Columns["idattivform"], canale.Columns["idcanale"], canale.Columns["idcorsostudio"], canale.Columns["iddidprog"], canale.Columns["iddidproganno"], canale.Columns["iddidprogcurr"], canale.Columns["iddidprogori"], canale.Columns["iddidprogporzanno"]};
 	cChild = new []{affidamento.Columns["aa"], affidamento.Columns["idattivform"], affidamento.Columns["idcanale"], affidamento.Columns["idcorsostudio"], affidamento.Columns["iddidprog"], affidamento.Columns["iddidproganno"], affidamento.Columns["iddidprogcurr"], affidamento.Columns["iddidprogori"], affidamento.Columns["iddidprogporzanno"]};
 	Relations.Add(new DataRelation("FK_affidamento_canale_aa-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno",cPar,cChild,false));
-
-	cPar = new []{affidamento.Columns["aa"], affidamento.Columns["idreg_docenti"]};
-	cChild = new []{getdocentiperssd.Columns["aa"], getdocentiperssd.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_getdocentiperssd_affidamento_aa-idreg",cPar,cChild,false));
 
 	cPar = new []{affidamento.Columns["aa"], affidamento.Columns["idaffidamento"], affidamento.Columns["idattivform"], affidamento.Columns["idcanale"], affidamento.Columns["idcorsostudio"], affidamento.Columns["iddidprog"], affidamento.Columns["iddidproganno"], affidamento.Columns["iddidprogcurr"], affidamento.Columns["iddidprogori"], affidamento.Columns["iddidprogporzanno"]};
 	cChild = new []{affidamentoattach.Columns["aa"], affidamentoattach.Columns["idaffidamento"], affidamentoattach.Columns["idattivform"], affidamentoattach.Columns["idcanale"], affidamentoattach.Columns["idcorsostudio"], affidamentoattach.Columns["iddidprog"], affidamentoattach.Columns["iddidproganno"], affidamentoattach.Columns["iddidprogcurr"], affidamentoattach.Columns["iddidprogori"], affidamentoattach.Columns["iddidprogporzanno"]};

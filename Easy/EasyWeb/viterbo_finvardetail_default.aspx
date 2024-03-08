@@ -307,89 +307,102 @@
                     
             </div>
         </div>
-        <div class="row" style="padding:10px">
-            <div class="col-xs-12 col-md-6">
-            <cc1:hwPanel GroupingText="Conto" CssClass="gbox scheduler-border form-group" ID="grpConto" runat="server"
-                        Tag="AutoManage.txtCodiceConto.treeminusable">
-                    <div class="col-md-7">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <cc1:hwButton runat="server" Text="Conto" ID="btnConto" class="btn btn-primary" Tag="manage.account.treeminusable" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                 <cc1:hwTextBox TabIndex="20" ID="txtCodiceConto" CssClass="form-control input-md" Tag="account.codeacc?x" runat="server"></cc1:hwTextBox>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-           <cc1:hwTextBox runat="server" ID="txtDenominazioneConto" CssClass="form-control input-md" Tag="account.title" TextMode="MultiLine" Rows="3" ReadOnly="True"></cc1:hwTextBox>
-                    </div>
-                </cc1:hwPanel>
-        </div>
-            <div class="col-xs-12 col-md-6">
-            <cc1:hwPanel ID="gboxclass1" runat="server" GroupingText="Ordinamento 1">
-                <div class="row">
-                    <div class="col-md-6">
-                        <cc1:hwButton runat="server" ID="btnCodice1" Tag="manage.sorting1.tree" TabIndex="4" class="btn btn-primary" Text="Codice" />
-                        <cc1:hwTextBox runat="server" ID="txtCodice1" Tag="sorting1.sortcode?x" CssClass="input-md form-control" TabIndex="2"></cc1:hwTextBox>
-                    </div>
-                    <div class="col-md-6">
-                        <cc1:hwTextBox runat="server" ID="txtDenom1" Tag="sorting1.description" CssClass="input-md form-control" TextMode="MultiLine" Rows="3" TabIndex="3" ReadOnly="true"></cc1:hwTextBox>
-                    </div>
-                </div>
-            </cc1:hwPanel>
-        </div>
-        </div>
-        <div class="row" style="padding:10px">
-        <div class="col-xs-12 col-md-4">
-            <cc1:hwPanel ID="gboxclass2" runat="server" GroupingText="Ordinamento 2">
-                <div class="row">
-                    <div class="col-md-6">
-                        <cc1:hwButton runat="server" ID="btnCodice2" Tag="manage.sorting2.tree" class="btn btn-primary" Text="Codice" />
-                        <cc1:hwTextBox runat="server" ID="txtCodice2" Tag="sorting2.sortcode?x" CssClass="input-md form-control" TabIndex="2"></cc1:hwTextBox>
-                    </div>
-                    <div class="col-md-6">
-                        <cc1:hwTextBox runat="server" ID="txtDenom2" Tag="sorting2.description" CssClass="input-md form-control"
-                            TextMode="MultiLine" Rows="3" TabIndex="3" ReadOnly="true"></cc1:hwTextBox>
-                    </div>
-                </div>
-            </cc1:hwPanel>
-        </div>
-        <div class="col-xs-12 col-md-4">
-            <cc1:hwPanel ID="gboxclass3" runat="server" GroupingText="Ordinamento 3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <cc1:hwButton runat="server" ID="btnCodice3" Tag="manage.sorting3.tree" TabIndex="4" class="btn btn-primary" Text="Codice" />
-                        <cc1:hwTextBox runat="server" ID="txtCodice3" Tag="sorting3.sortcode?x" CssClass="input-md form-control" TabIndex="4"></cc1:hwTextBox>
-                    </div>
-                    <div class="col-md-6">
-                        <cc1:hwTextBox runat="server" ID="txtDenom3" Tag="sorting3.description" CssClass="input-md form-control"
-                            TextMode="MultiLine" Rows="3" TabIndex="3" ReadOnly="true"></cc1:hwTextBox>
-                    </div>
-                </div>
-            </cc1:hwPanel>
-        </div>
-    </div>
-        <div class="row" style="padding:10px">
-            <div class="col-xs-12">
-            <cc1:hwPanel ID="grpRipartizioneCosti" GroupingText="Ripartizione Costi" Tag="AutoChoose.txtRipartizione.default.(active='S')" runat="server">
-                <div class="row">
-                    <div class="col-md-6">
-                        <cc1:hwButton runat="server" ID="btnRipartizione" Tag="choose.costpartition.default.(active='S')" TabIndex="4" Text="Codice" />
-                        <cc1:hwTextBox runat="server" ID="txtCodiceRipartizione" Tag="costpartition.costpartitioncode?x" CssClass="input-md form-control" TabIndex="4"></cc1:hwTextBox>
-                    </div>
-                    <div class="col-md-6">
-                        <cc1:hwTextBox runat="server" ID="txtRipartizione" Tag="costpartition.title" CssClass="input-md form-control"
-                            TextMode="MultiLine" Rows="3" TabIndex="3" ReadOnly="true"></cc1:hwTextBox>
-                    </div>
-                </div>
-            </cc1:hwPanel>
-        </div>
+	<div class="row" style="padding: 10px">
+		<div class="col-xs-12 col-md-6">
+			<cc1:hwPanel GroupingText="Conto" CssClass="gbox scheduler-border form-group" ID="grpConto" runat="server"
+				Tag="AutoManage.txtCodiceConto.treeminusable">
+				<div class="col-md-7">
+					<div class="row">
+						<div class="col-md-12">
+							<cc1:hwButton runat="server" Text="Conto" ID="btnConto" class="btn btn-primary" Tag="manage.account.treeminusable" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<cc1:hwTextBox TabIndex="20" ID="txtCodiceConto" CssClass="form-control input-md" Tag="account.codeacc?x" runat="server"></cc1:hwTextBox>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<cc1:hwTextBox runat="server" ID="txtDenominazioneConto" CssClass="form-control input-md" Tag="account.title" TextMode="MultiLine" Rows="3" ReadOnly="True"></cc1:hwTextBox>
+				</div>
+			</cc1:hwPanel>
+		</div>
+		<div class="col-xs-12 col-md-4">
+			<cc1:hwPanel ID="grpRipartizioneCosti" GroupingText="Ripartizione Costi" Tag="AutoChoose.txtRipartizione.default.(active='S')" runat="server">
+				<div class="row">
+					<div class="col-md-6">
+						<cc1:hwButton runat="server" ID="btnRipartizione" Tag="choose.costpartition.default.(active='S')" TabIndex="4" Text="Codice" />
+						<cc1:hwTextBox runat="server" ID="txtCodiceRipartizione" Tag="costpartition.costpartitioncode?x" CssClass="input-md form-control" TabIndex="4"></cc1:hwTextBox>
+					</div>
+					<div class="col-md-6">
+						<cc1:hwTextBox runat="server" ID="txtRipartizione" Tag="costpartition.title" CssClass="input-md form-control"
+							TextMode="MultiLine" Rows="3" TabIndex="3" ReadOnly="true"></cc1:hwTextBox>
+					</div>
+				</div>
+			</cc1:hwPanel>
+		</div>
+	</div>
+	<div class="row" style="padding: 10px">
+        		<div class="col-xs-12 col-md-6">
+			<cc1:hwPanel ID="gboxclass1" runat="server" GroupingText="Ordinamento 1">
+				<div class="row">
+					<div class="col-md-6">
+						<cc1:hwButton runat="server" ID="btnCodice1" Tag="manage.sorting1.tree" TabIndex="4" class="btn btn-primary" Text="Codice" />
+						<cc1:hwTextBox runat="server" ID="txtCodice1" Tag="sorting1.sortcode?x" CssClass="input-md form-control" TabIndex="2"></cc1:hwTextBox>
+					</div>
+					<div class="col-md-6">
+						<cc1:hwTextBox runat="server" ID="txtDenom1" Tag="sorting1.description" CssClass="input-md form-control" TextMode="MultiLine" Rows="3" TabIndex="3" ReadOnly="true"></cc1:hwTextBox>
+					</div>
+				</div>
+			</cc1:hwPanel>
+		</div>
+		<div class="col-xs-12 col-md-6">
+			<cc1:hwPanel ID="gboxclass2" runat="server" GroupingText="Ordinamento 2">
+				<div class="row">
+					<div class="col-md-6">
+						<cc1:hwButton runat="server" ID="btnCodice2" Tag="manage.sorting2.tree" class="btn btn-primary" Text="Codice" />
+						<cc1:hwTextBox runat="server" ID="txtCodice2" Tag="sorting2.sortcode?x" CssClass="input-md form-control" TabIndex="2"></cc1:hwTextBox>
+					</div>
+					<div class="col-md-6">
+						<cc1:hwTextBox runat="server" ID="txtDenom2" Tag="sorting2.description" CssClass="input-md form-control"
+							TextMode="MultiLine" Rows="3" TabIndex="3" ReadOnly="true"></cc1:hwTextBox>
+					</div>
+				</div>
+			</cc1:hwPanel>
+		</div>
+	</div>
+	<div class="row" style="padding: 10px">
+		<div class="col-xs-12 col-md-6">
+			<cc1:hwPanel ID="gboxclass3" runat="server" GroupingText="Ordinamento 3">
+				<div class="row">
+					<div class="col-md-6">
+						<cc1:hwButton runat="server" ID="btnCodice3" Tag="manage.sorting3.tree" TabIndex="4" class="btn btn-primary" Text="Codice" />
+						<cc1:hwTextBox runat="server" ID="txtCodice3" Tag="sorting3.sortcode?x" CssClass="input-md form-control" TabIndex="4"></cc1:hwTextBox>
+					</div>
+					<div class="col-md-6">
+						<cc1:hwTextBox runat="server" ID="txtDenom3" Tag="sorting3.description" CssClass="input-md form-control"
+							TextMode="MultiLine" Rows="3" TabIndex="3" ReadOnly="true"></cc1:hwTextBox>
+					</div>
+				</div>
+			</cc1:hwPanel>
+		</div>
 
-
-
+		<div class="col-xs-12 col-md-6">
+			<cc1:hwPanel ID="gboxclass4" runat="server" GroupingText="Ordinamento 4">
+				<div class="row">
+					<div class="col-md-6">
+						<cc1:hwButton runat="server" ID="btnCodice4" Tag="manage.sorting4.tree" TabIndex="4" class="btn btn-primary" Text="Codice" />
+						<cc1:hwTextBox runat="server" ID="txtCodice4" Tag="sorting4.sortcode?x" CssClass="input-md form-control" TabIndex="4"></cc1:hwTextBox>
+					</div>
+					<div class="col-md-6">
+						<cc1:hwTextBox runat="server" ID="txtDenom4" Tag="sorting4.description" CssClass="input-md form-control"
+							TextMode="MultiLine" Rows="3" TabIndex="3" ReadOnly="true"></cc1:hwTextBox>
+					</div>
+				</div>
+			</cc1:hwPanel>
+		</div>
+	</div>
 
     <div class="row" style="padding:10px">
       <cc1:hwPanel ID="divCampiStat" runat="server">

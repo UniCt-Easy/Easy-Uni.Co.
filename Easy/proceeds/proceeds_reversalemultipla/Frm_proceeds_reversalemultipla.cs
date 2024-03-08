@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1772,8 +1772,9 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 				);
 			if (Out==null) return;
 			Out.Tables[0].TableName= "Situazione documento";
-			var View = new frmSituazioneViewer(Out);
-			View.Show();		
+            frmSituazioneViewer View = new frmSituazioneViewer(Out);
+            createForm(View, null);
+            View.Show();		
 		}
 
 
@@ -1905,7 +1906,8 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
                  QHS.AppAnd(QHS.CmpEq("tablename", "banktransaction"), QHS.CmpEq("field", "bankreference")), 
                  "col_len");
 			var F = new frmAskInfo(lenBankReference);
-			if (F.ShowDialog(this)!=DialogResult.OK) return;
+            createForm(F, this);
+            if (F.ShowDialog(this)!=DialogResult.OK) return;
 			object dataOperazione = F.dataOperazione;
 			object dataValuta = F.dataValuta;
 			object rifBanca = F.rifBanca;
@@ -1979,6 +1981,8 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
                 MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore leggendo gli incassi da includere", "Avviso");
                 return;
             }
+
+            createForm(f, this);
             if (f.ShowDialog(this) != DialogResult.OK) {
                 btnFlussoCrediti.Visible = true;
                 return;

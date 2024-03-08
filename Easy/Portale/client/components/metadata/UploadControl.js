@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * Custom Control for the upload of the attachment
  * @module UploadControl
@@ -123,7 +106,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Builds the upload control and appends to the parent
          */
         buildTemplateHtml:function () {
-            var uniqueid = appMeta.utils.getUnivoqueId();
+            var uniqueid = appMeta.utils.getUniqueId();
             this.idUploadFile = "upload_file" + uniqueid;
             this.idBtnUpload = "btn_upload_file" + uniqueid;
             this.idlbl_file_uploaded = "lbl_file_uploaded" + uniqueid;
@@ -195,7 +178,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     var dtattach = dsattach.tables[self.tableAttachNameOnDsAttach];
                     var idattach = dtattach.rows[0][self.idAttachColumnName];
                     var mainRow = self.getMainRow(); //this.metaPage.state.currentRow;
-                    // popolo tab attach, mergiando la riga tornata dal nuovo allegato
+                    // popolo tab attach, mergiando la riga ricevuta dal nuovo allegato
                     appMeta.getDataUtils.mergeRowsIntoTable(tableAttach, dtattach.rows, true);
                     // valorizzo il campo/i campi necessari per la logica di assegnazione dell'allegato alla riga principale del ds
                     // Qui son sicuro che la riga principale Ã¨ ok, i controlli di conf esatta li ho fatti all'inizio del emtodo
@@ -348,6 +331,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         getOriginalFileName:function (fileName) {
             var fname = fileName;
             var sep = appMeta.config.separatorFileName;
+            if (!fileName) {
+                return 'NO_FILE_NAME';
+            }
             var sepIndex = fileName.indexOf(sep);
             if (sepIndex) fname = fileName.substring(sepIndex + 4, fileName.length);
             return fname;
@@ -418,7 +404,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         getControl: function() {
             // TODO. LA GET NON DOVREBBE ESSER NECESSARIA, IL BIND VIENE FATTO SULLA UPLOAD STESSA, QUANDO ESEGUO L'ASSEGNAZIONE
-            // DEL VALORE DELL'ID ATTACH TORNATO DAL SERVER
+            // DEL VALORE DELL'ID ATTACH restituito DAL SERVER
         },
 
         /**

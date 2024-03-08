@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -286,9 +286,11 @@ INSERT INTO #dati  SELECT 5,'RISULTATO A PAREGGIO', null, 0,0,0,0,0,0,0,0, 'TOT'
 			WHERE accountyear.ayear = @ayear
 			AND U.idupb like @idupb
 			AND A.nlevel = @nlevel
-			AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+			AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
+			AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
 			AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
-			AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
+			AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)
+			AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 			AND S.sortcode LIKE @sortcode),0)
 
 			
@@ -402,9 +404,11 @@ INSERT INTO #dati  SELECT 5,'RISULTATO A PAREGGIO', null, 0,0,0,0,0,0,0,0, 'TOT'
 					WHERE entry.yentry = @ayear AND entry.identrykind not in (6,11,12) -- DEVO ESCLUDERE LE SCRITTURE DI EPILOGO
 						AND adate <= @adate
 						AND entrydetail.idupb like @idupb
-						AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+						AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
+						AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
 						AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
-						AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
+						AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)
+						AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 						AND(
 						(( A.flagaccountusage & 64) <> 0)    -- Costi
 						OR

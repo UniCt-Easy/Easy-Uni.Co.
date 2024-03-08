@@ -420,6 +420,10 @@
               <xs:element name="description" type="xs:string" />
               <xs:element name="rate" type="xs:decimal" />
               <xs:element name="unabatabilitypercentage" type="xs:decimal" />
+              <xs:element name="codeivakind" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idfenature" type="xs:string" minOccurs="0" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />

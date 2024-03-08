@@ -7488,3 +7488,36 @@ button.close.btn.btn-info {
 .ui-dialog[aria-describedby="mainhwlist"] {
     position: fixed !important;
 }
+
+@media screen and (max-width:800px) {
+    .ui-dialog {
+        left: 2% !important;
+        right: 2% !important;
+        bottom: 2% !important;
+        width: inherit !important;
+        top: 28% !important;
+    }
+
+    div#mainhwlist {
+        height: calc(100% - 50px) !important;
+    }
+
+    .ui-widget .ui-widget {
+        height: 91% !important;
+    }
+
+    .ui-pgrid-table-viewport {
+        height: 100% !important;
+    }
+
+    .ui-pgrid-table-container {
+        height: 100% !important;
+    }
+
+    .tblFooter {
+        margin-top: 10px;
+        white-space: nowrap;
+        overflow-x: scroll !important;
+        padding-bottom: 8px;
+    }
+}

@@ -2,19 +2,19 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabprova_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabprova_default_0"><i class="fa fa-user-check mr-1"></i>Principale</a>
+		<a href="#tabprova_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabprova_default_0"><i class="fa fa-user-check mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprova_default_4" class="nav-link" data-toggle="pill" data-target="#tabprova_default_4"><i class="fa fa-circle mr-1"></i>Commissione</a>
+		<a href="#tabprova_default_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_4"><i class="fa fa-circle mr-1"></i>Commissione</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprova_default_1" class="nav-link" data-toggle="pill" data-target="#tabprova_default_1"><i class="fa fa-chalkboard mr-1"></i>Aule</a>
+		<a href="#tabprova_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_1"><i class="fa fa-chalkboard mr-1"></i>Aule</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprova_default_5" class="nav-link" data-toggle="pill" data-target="#tabprova_default_5"><i class="fa fa-circle mr-1"></i>Membri</a>
+		<a href="#tabprova_default_5" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_5"><i class="fa fa-circle mr-1"></i>Membri</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprova_default_3" class="nav-link" data-toggle="pill" data-target="#tabprova_default_3"><i class="fa fa-circle mr-1"></i>Sostenimenti</a>
+		<a href="#tabprova_default_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_3"><i class="fa fa-circle mr-1"></i>Sostenimenti</a>
 	</li>
 
 	</ul>
@@ -29,7 +29,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#prova_default_start").datetimepicker();
+    $("#prova_default_start").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="prova_default_start">Data e ora inizio</label>
@@ -40,7 +40,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#prova_default_stop").datetimepicker();
+    $("#prova_default_stop").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="prova_default_stop">Data e ora fine</label>
@@ -56,13 +56,13 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="prova_default_idvalutazionekind">Tipologia di valutazione</label>
-					<select id="prova_default_idvalutazionekind" class="custom-select d-block w-100"  data-source-name="valutazionekind" data-value-member="idvalutazionekind" data-display-member="title" data-custom-control="combo" data-tag="prova.idvalutazionekind?provadefaultview.prova_idvalutazionekind" data-subentity   > </select>
+					<select id="prova_default_idvalutazionekind" class="custom-select d-block w-100"  data-source-name="valutazionekind" data-value-member="idvalutazionekind" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="prova.idvalutazionekind?provadefaultview.prova_idvalutazionekind" data-subentity   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="prova_default_programma">Programma</label>
-					<textarea class="textarea form-control" id="prova_default_programma" type="text"  rows="4" data-tag="prova.programma?provadefaultview.prova_programma" data-subentity></textarea>
+					<textarea class="textarea form-control" id="prova_default_programma" type="text"  rows="4" data-tag="prova.programma?provadefaultview.prova_programma" data-subentity  ></textarea>
 				</div>
 			</div>
 	</div>
@@ -88,7 +88,7 @@
 				</div>
 			</div>
 			<hr>
-				<div class="gridx" id="grid_provaaula_appelli" data-tag="provaaula.appelli.appelli" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+				<div class="gridx" id="grid_provaaula_appelli" data-tag="provaaula.appelli.appelli" data-custom-control="gridx" data-mdlbuttondelete  ></div>
 	</div>
 	<div class="tab-pane fade" id="tabprova_default_5" role="tabpanel">
 			<div class="row">
@@ -102,10 +102,10 @@
 				</div>
 			</div>
 			<hr>
-				<div class="gridx" id="grid_commissregistry_docenti_default" data-tag="commissregistry_docenti.default.default" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+				<div class="gridx" id="grid_commissregistry_docenti_default" data-tag="commissregistry_docenti.default.default" data-custom-control="gridx" data-mdlbuttondelete  ></div>
 	</div>
 	<div class="tab-pane fade" id="tabprova_default_3" role="tabpanel">
-				<div class="gridx" id="grid_sostenimento_default" data-tag="sostenimento.default.default" data-custom-control="gridx" data-mdlbuttonedit data-mdlconditionallookup="livello,A,A ;livello,B,B ;livello,C,C ;livello,D,D ;votolode,S,Si;votolode,N,No;" ></div>
+				<div class="gridx" id="grid_sostenimento_default" data-tag="sostenimento.default.default" data-custom-control="gridx" data-mdlbuttonedit ></div>
 	</div>
 </div>
 </form>

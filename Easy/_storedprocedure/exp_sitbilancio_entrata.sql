@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -452,7 +452,7 @@ Begin
 			WHERE ((F.flag & 1) = 1) and F.ayear = @ayear
 				AND (@idfin IS NULL OR  FLK.idparent = @idfin)
 				AND (F.nlevel >=  @nlevel)
-				AND (U.idupb LIKE @idupb and U.active = 'S')
+				AND (U.idupb LIKE @idupb /*and U.active = 'S'*/)
 			GROUP BY F.idfin, F.nlevel,   F.ayear,F.flag
 		END
 	ELSE
@@ -466,7 +466,7 @@ Begin
 			WHERE  	((F.flag & 1 ) <>0) AND F.ayear =@ayear	
 				AND (@idfin IS NULL OR  FLK.idparent = @idfin)
 				AND (F.nlevel = @nlevel)
-				AND (U.idupb LIKE @idupb and U.active = 'S')
+				AND (U.idupb LIKE @idupb /*and U.active = 'S'*/)
 			GROUP BY F.idfin, F.nlevel 	
 		END
 end
@@ -496,7 +496,7 @@ else
 			JOIN finlink FLK						ON FLK.idchild = F.idfin AND FLK.nlevel = @level_input		AND (@idfin IS NULL OR FLK.idparent = @idfin)
 			WHERE  ((F.flag & 1) = 1) and F.ayear = @ayear
 				AND (@idfin IS NULL OR  FLK.idparent = @idfin)
-				AND (U.idupb LIKE @idupb and U.active = 'S')
+				AND (U.idupb LIKE @idupb /*and U.active = 'S'*/)
 				AND (F.nlevel >=  @nlevel)
 				AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
 				AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)
@@ -522,7 +522,7 @@ else
 			LEFT OUTER JOIN finlink FLK2		ON FLK2.idparent = F.idfin 
 			WHERE  	((F.flag & 1 ) <> 0) AND F.ayear =@ayear	
 				AND (@idfin IS NULL OR  FLK.idparent = @idfin)
-				AND (U.idupb LIKE @idupb and U.active = 'S')
+				AND (U.idupb LIKE @idupb /*and U.active = 'S'*/)
 				AND (F.nlevel = @nlevel)
 				AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
 				AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -133,9 +133,17 @@ public partial class itinerationauth_default_new02 : MetaPage {
         }
         string errormsg = "";
         if (PMC.Count == 0) {
-            errormsg = MissFun.WebSendMails(Conn as DataAccess, DTItineration.Rows[0]);
-            if (errormsg != "")
-                ShowClientMessage(errormsg, "Errore");
+			try
+			{
+                errormsg = MissFun.WebSendMails(Conn as DataAccess, DTItineration.Rows[0]);
+                if (errormsg != "")
+                    ShowClientMessage(errormsg, "Errore");
+            }
+			catch
+			{
+                ShowClientMessage("Errore di invio mail", "Errore");
+            }
+            
         }
 
         CommFun.FreshPage(false, true);
@@ -227,11 +235,21 @@ public partial class itinerationauth_default_new02 : MetaPage {
         if (PMC.Count > 0) {
 	        PD.DO_POST_SERVICE();
         }
-        errormsg = MissFun.WebSendMails(Conn as DataAccess, DTItineration.Rows[0]);
-        if (errormsg != "") {
-              ShowClientMessage(errormsg, "Errore");
-              return false;
+		try
+		{
+            errormsg = MissFun.WebSendMails(Conn as DataAccess, DTItineration.Rows[0]);
+            if (errormsg != "")
+            {
+                ShowClientMessage(errormsg, "Errore");
+                return false;
+            }
         }
+		catch 
+		{
+            ShowClientMessage("Errore di invio mail", "Errore");
+            return false;
+        }
+        
         
         return true;
     }
@@ -417,7 +435,15 @@ public partial class itinerationauth_default_new02 : MetaPage {
         panelAutorizzazioni.Visible = false;
         //lblauthagency.Visible = false;
         ImpostaTageFiltriUPB(DBNull.Value);
-        PanelUpb.Enabled = true;
+        //PanelUpb.Enabled = false;//ex true
+        object catCfg =Session["system_config_catania_missioni"];
+        //Solo per Catania viene disabilitata la scelta dell'ubp in fase di ricerca.
+        if (catCfg != null && catCfg.ToString().ToUpper() == "S") {
+            PanelUpb.Enabled = false;
+		}
+		else {
+            PanelUpb.Enabled = true;
+        }
     }
 
     private string CalcolaFiltroUPB() {

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -215,7 +215,7 @@ private void initClass() {
 	tregistry.defineColumn("annotation", typeof(string));
 	tregistry.defineColumn("authorization_free", typeof(string));
 	tregistry.defineColumn("badgecode", typeof(string));
-	tregistry.defineColumn("birthdate", typeof(DateTime));
+	tregistry.defineColumn("birthdate", typeof(DateTime),false);
 	tregistry.defineColumn("ccp", typeof(string));
 	tregistry.defineColumn("cf", typeof(string));
 	tregistry.defineColumn("ct", typeof(DateTime),false);
@@ -226,13 +226,13 @@ private void initClass() {
 	tregistry.defineColumn("flag_pa", typeof(string));
 	tregistry.defineColumn("flagbankitaliaproceeds", typeof(string));
 	tregistry.defineColumn("foreigncf", typeof(string));
-	tregistry.defineColumn("forename", typeof(string));
-	tregistry.defineColumn("gender", typeof(string));
+	tregistry.defineColumn("forename", typeof(string),false);
+	tregistry.defineColumn("gender", typeof(string),false);
 	tregistry.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry.defineColumn("idaccmotivedebit", typeof(string));
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
-	tregistry.defineColumn("idcity", typeof(int));
+	tregistry.defineColumn("idcity", typeof(int),false);
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
 	tregistry.defineColumn("idnation", typeof(int));
@@ -253,7 +253,7 @@ private void initClass() {
 	tregistry.defineColumn("rtf", typeof(Byte[]));
 	tregistry.defineColumn("sdi_defrifamm", typeof(string));
 	tregistry.defineColumn("sdi_norifamm", typeof(string));
-	tregistry.defineColumn("surname", typeof(string));
+	tregistry.defineColumn("surname", typeof(string),false);
 	tregistry.defineColumn("title", typeof(string),false);
 	tregistry.defineColumn("toredirect", typeof(int));
 	tregistry.defineColumn("txt", typeof(string));
@@ -338,30 +338,16 @@ private void initClass() {
 	//////////////////// REGISTRYDOCENTIVIEW /////////////////////////////////
 	var tregistrydocentiview= new MetaTable("registrydocentiview");
 	tregistrydocentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydocentiview.defineColumn("idcity", typeof(int));
-	tregistrydocentiview.defineColumn("idclassconsorsuale", typeof(int));
-	tregistrydocentiview.defineColumn("idnation", typeof(int));
 	tregistrydocentiview.defineColumn("idreg", typeof(int),false);
-	tregistrydocentiview.defineColumn("idreg_istituti", typeof(int));
-	tregistrydocentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrydocentiview.defineColumn("idsasd", typeof(int));
-	tregistrydocentiview.defineColumn("idstruttura", typeof(int));
-	tregistrydocentiview.defineColumn("idtitle", typeof(string));
 	tregistrydocentiview.defineColumn("registry_active", typeof(string));
-	tregistrydocentiview.defineColumn("registry_residence", typeof(int),false);
 	Tables.Add(tregistrydocentiview);
 	tregistrydocentiview.defineKey("idreg");
 
 	//////////////////// REGISTRYSTUDENTIVIEW /////////////////////////////////
 	var tregistrystudentiview= new MetaTable("registrystudentiview");
 	tregistrystudentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrystudentiview.defineColumn("idcity", typeof(int));
-	tregistrystudentiview.defineColumn("idnation", typeof(int));
 	tregistrystudentiview.defineColumn("idreg", typeof(int),false);
-	tregistrystudentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrystudentiview.defineColumn("idtitle", typeof(string));
 	tregistrystudentiview.defineColumn("registry_active", typeof(string));
-	tregistrystudentiview.defineColumn("residence", typeof(int),false);
 	Tables.Add(tregistrystudentiview);
 	tregistrystudentiview.defineKey("idreg");
 

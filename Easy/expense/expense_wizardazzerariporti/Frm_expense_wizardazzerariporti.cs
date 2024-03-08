@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -667,6 +667,7 @@ namespace expense_wizardazzerariporti//wizard_spesaazzerariporti//
             }
 
             Form F = ShowAutomatismi.Show(Meta, spesa, null, null, null);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 
@@ -676,13 +677,13 @@ namespace expense_wizardazzerariporti//wizard_spesaazzerariporti//
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.finvar, null, filterAssestamento, null, true);
 
             if ((fasebilancio == faseimpegno) && (DS.finvar.Rows.Count == 0) && (esisteNextYear.ToString().ToUpper() == "S")) {
-                if (MessageBox.Show("Attenzione la FASE BILANCIO e la FASE IMPEGNO sono coincidenti." +
+                if (show("Attenzione la FASE BILANCIO e la FASE IMPEGNO sono coincidenti." +
                     "Si desidera effettuare una variazione di dotazione crediti contestualmente all'azzeramento della disponibilità dei movimenti?",
                     "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) creaVarCrediti = true;
             }
 
             if ((fasebilancio == faseimpegno) && (DS.finvar.Rows.Count > 0) && (esisteNextYear.ToString().ToUpper() == "S")) {
-                if (MessageBox.Show("Attenzione la FASE BILANCIO e la FASE IMPEGNO sono coincidenti ed esiste una variazione di assestamento dei crediti nell'esercizio successivo." +
+                if (show("Attenzione la FASE BILANCIO e la FASE IMPEGNO sono coincidenti ed esiste una variazione di assestamento dei crediti nell'esercizio successivo." +
                     " Si desidera effettuare una variazione di dotazione crediti contestualmente all'azzeramento della disponibilità dei movimenti?",
                     "Conferma", MessageBoxButtons.OKCancel) == DialogResult.OK) creaVarCrediti = true;
             }
@@ -695,7 +696,7 @@ namespace expense_wizardazzerariporti//wizard_spesaazzerariporti//
             CurrencyManager cm = (CurrencyManager)dgMovSpesa.BindingContext[DS, dataMember];
             DataView view = cm.List as DataView;
             if (view == null) {
-                MessageBox.Show(this, "Lista vuota!");
+                show(this, "Lista vuota!");
                 return;
             }
             ArrayList movimenti = new ArrayList();
@@ -712,7 +713,7 @@ namespace expense_wizardazzerariporti//wizard_spesaazzerariporti//
             }
 
             if (movimenti.Count == 0) {
-                MessageBox.Show(this, "Nessun movimento di spesa selezionato!");
+                show(this, "Nessun movimento di spesa selezionato!");
                 return;
             }
 
@@ -739,7 +740,7 @@ namespace expense_wizardazzerariporti//wizard_spesaazzerariporti//
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res)
             {
-                MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+                show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 Resetta();
                 return;
             }

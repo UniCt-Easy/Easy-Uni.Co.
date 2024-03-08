@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -114,17 +97,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				$("#grid_istanza_alias3_seganagstu").data("customParentRelation", finalfilteristanza_alias365);
 				if (self.isNullOrMinDate(parentRow.birthdate))
 					parentRow.birthdate = new Date();
-				if (!parentRow.idregistrykind)
-					parentRow.idregistrykind = "05";
-				if (!parentRow.residence)
-					parentRow.residence = 1;
 				parentRow.extension = "studenti";
 				
 				//tolgo i sostenimenti che non sono figli di iscrizione a corsi normali
 				this.deleteNotDescendants('sostenimento', 0, 'iscrizione', 0);
 				//tolgo i piano studio alias 1 che non sono figli di iscrizione corsi singoli
 				this.deleteNotDescendants('pianostudio', 1, 'iscrizione', 4);
-				//tolgo le attivit‡ formative che non sono figlie dei piano studio figli di iscrizione corsi singoli
+				//tolgo le attivit√† formative che non sono figlie dei piano studio figli di iscrizione corsi singoli
 				this.deleteNotDescendants('pianostudioattivform', 1, 'iscrizione', 4);
 				//tolgo i sostenimenti che non sono figli di iscrizione corsi singoli
 				this.deleteNotDescendants('sostenimento', 1, 'iscrizione', 4);
@@ -212,8 +191,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('decadenza'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm'), this.getDataTable('diniego_alias2'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias1'), this.getDataTable('diniego_alias1'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias2'), this.getDataTable('diniego_alias2'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('diniego_alias3'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias2'), this.getDataTable('diniego_alias3'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('diniego_alias4'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('nullaosta_alias3'));
 				//afterClearin
 			},
@@ -223,8 +202,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('decadenza'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm'), this.getDataTable('diniego_alias2'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias1'), this.getDataTable('diniego_alias1'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias2'), this.getDataTable('diniego_alias2'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('diniego_alias3'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias2'), this.getDataTable('diniego_alias3'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('diniego_alias4'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('nullaosta_alias3'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
@@ -233,13 +212,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			afterLink: function () {
 				var self = this;
 				this.configureDependencies();
+				this.state.DS.tables.registry.defaults({ 'idcentralizedcategory': '01' });
+				this.state.DS.tables.registry.defaults({ 'idregistryclass': '22' });
+				this.state.DS.tables.registry.defaults({ 'idregistrykind': '21' });
+				this.state.DS.tables.registry.defaults({ 'residence': 1 });
 				this.setDenyNull("registry","gender");
 				this.setDenyNull("registry","surname");
 				this.setDenyNull("registry","forename");
 				this.setDenyNull("registry","idnation");
 				this.setDenyNull("registry","idcity");
 				this.setDenyNull("registry","birthdate");
-				//indico al framework che la tabella corsostudio Ë cached
+				$('#grid_registryaddress_seg').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;');
+				$('#grid_registryreference_persone').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;');
+				$('#grid_titolostudio_docenti').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
+				$('#grid_istanza_imm_seganagstupre').data('mdlconditionallookup', 'parttime,S,Si;parttime,N,No;');
+				$('#grid_istanza_imm_alias1_seganagstu').data('mdlconditionallookup', 'parttime,S,Si;parttime,N,No;');
+				$('#grid_istanza_imm_alias2_seganagsturin').data('mdlconditionallookup', 'parttime,S,Si;parttime,N,No;');
+				//indico al framework che la tabella corsostudio √® cached
 				var corsostudioTable = this.getDataTable("corsostudio");
 				appMeta.metaModel.cachedTable(corsostudioTable, true);
 				//fireAfterLink

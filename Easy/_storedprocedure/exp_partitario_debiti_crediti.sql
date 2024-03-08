@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -219,10 +219,11 @@ INSERT INTO #bilanciostatopatrimoniale(
  --select *  from #bilanciostatopatrimoniale  where idrelated is not null ORDER BY idrelated
  -- select *  from #bilanciostatopatrimoniale  where idrelated is   null 
  --SELECT * FROM @lista_id
-CREATE  TABLE #Tdrel (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON),	kind varchar(100), rifdoc varchar(200), docdate datetime, daterif datetime )
+CREATE  TABLE #Tdrel (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON),
+kind varchar(max), rifdoc varchar(max), docdate datetime, daterif datetime )
 --select * from [fn_decode_idrelated_tab] (@lista_id) 
 --select distinct  from @lista_id  where idrelated is null 
---select *  from @lista_id  
+--select *  from @lista_id  where  
 insert into #Tdrel
 select * from [fn_decode_idrelated_tab] (@lista_id) 
 IF (@showupb ='N')

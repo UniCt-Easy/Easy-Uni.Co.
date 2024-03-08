@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+﻿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -47,6 +30,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.isNull(parentRow.collapseteachingother) || parentRow.collapseteachingother == '')
+					parentRow.collapseteachingother = "S";
+				if (this.isNull(parentRow.intestazioneallsheet) || parentRow.intestazioneallsheet == '')
+					parentRow.intestazioneallsheet = 'N';
+				if (this.isNull(parentRow.multilinetype) || parentRow.multilinetype == '')
+					parentRow.multilinetype = 'N';
+				if (this.isNull(parentRow.output) || parentRow.output == '')
+					parentRow.output = 'P';
+				if (this.isNull(parentRow.riepilogoanno) || parentRow.riepilogoanno == '')
+					parentRow.riepilogoanno = 'S';
+				if (this.isNull(parentRow.showactivitiesrow) || parentRow.showactivitiesrow == '')
+					parentRow.showactivitiesrow = 'S';
+				if (this.isNull(parentRow.showotheractivitiesrow) || parentRow.showotheractivitiesrow == '')
+					parentRow.showotheractivitiesrow = 'N';
+				if (this.isNull(parentRow.withworkpackage) || parentRow.withworkpackage == '')
+					parentRow.withworkpackage = 'S';
+				if (this.isNull(parentRow.year))
+					parentRow.year = new Date().getFullYear();
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -65,31 +66,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
-				//afterClearin
-			},
+			//afterClear
 
-			afterFill: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
-				//afterFillin
-				return this.superClass.afterFill.call(this);
-			},
+			//afterFill
 
-			afterLink: function () {
-				var self = this;
-				$("#timesheetReport").on("click", _.partial(this.firetimesheetReport, this));
-				$("#timesheetReport").prop("disabled", true);
-				$('#progettotimesheet_default_year').on("select2:select", _.partial(this.manageyear, self));
-				//fireAfterLink
-				return this.superClass.afterLink.call(this).then(function () {
-					var arraydef = [];
-					//fireAfterLinkAsinc
-					return $.when.apply($, arraydef);
-				});
+			
+			afterRowSelect: function (t, r) {
+				var def = appMeta.Deferred("afterRowSelect-progettotimesheet_default");
+				if (t.name === "year" && r !== null) {
+					return this.manageyear(this).then(function () {
+						return def.resolve();
+					});
+				}
+				//afterRowSelectin
+				return def.resolve();
 			},
-
-			//afterRowSelect
 
 			//afterActivation
 
@@ -115,32 +106,79 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//beforePost
 
 			projectGridfilter: function () {
+				this.currentYearSearch = this.state.currentRow.year;
 				var self = this;
 				var def = appMeta.Deferred("projectGridfilter");
-				//costruzione filtro per determinare i progetti coinvolti
-				var filter = self.q.eq("idreg", self.state.currentRow.idreg);
-				if (self.state.currentRow.year) {
-					filter = self.q.and(self.q.eq("anno", self.state.currentRow.year), filter);
+				if (this.lastYearSearch != this.currentYearSearch) {
+					this.lastYearSearch = this.currentYearSearch
+					//costruzione filtro per determinare i progetti coinvolti
+					var filter = self.q.eq("idreg", self.state.currentRow.idreg);
+					if (self.state.currentRow.year) {
+						filter = self.q.and(self.q.eq("anno", self.state.currentRow.year), filter);
+					}
+					//query su timesheetview con il filtro calcolato
+					appMeta.getData.runSelect("timesheetview", "idprogetto", filter)
+						.then(function (dt) {
+							//id dei progetti dell'utente e dell'anno selezionato
+							var progettiRows = _.filter(dt.rows, function (r) { return !!r.idprogetto });
+							var filterProgetti = self.q.isIn('idprogetto',
+								_.map(progettiRows, function (r) {
+									return r.idprogetto;
+								}));
+							self.getDataTable('progetto').clear();
+							var selBuilderArray = [];
+							//faccio la query su sql e aggiorno contemporaneamente il dataset
+							selBuilderArray.push({ filter: filterProgetti, top: null, tableName: 'progetto', table: self.getDataTable('progetto') });
+							return appMeta.getData.multiRunSelect(selBuilderArray);
+						})
+						.then(function () {
+							return def.resolve();
+						});
+					return def.promise();
 				}
-				//query su timesheetview con il filtro calcolato
-				appMeta.getData.runSelect("timesheetview", "idprogetto", filter)
+				else {
+					return def.resolve();
+				}
+			},
+			
+			afterLink: function () {
+				var self = this;
+				//indico al framework che la tabella progetto non va caricata tutta ma per ora con solo i progetti già selezionati
+				this.getDataTable("progetto").staticFilter(this.q.isIn('idprogetto',
+					_.map(this.state.callerState.DS.tables.progettotimesheetprogetto.rows, function (r) {
+						return r.idprogetto;
+					})));
+				$("#timesheetReport").on("click", _.partial(this.firetimesheetReport, this));
+				$("#timesheetReport").prop("disabled", true);
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					arraydef.push(self.filterProgettiIniziale());
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
+
+			filterProgettiIniziale: function () {
+				var self = this;
+				var def = appMeta.Deferred("filterMembri");
+				//recupero tutti i progetti  dove...
+				var filter = 
+					//...sono membro
+					this.q.eq('idreg_membro', self.state.callerState.currentRow.idreg);
+
+				appMeta.getData.runSelect("progettoresponsabiliview", "idreg, idreg_membro, idprogetto", filter)
 					.then(function (dt) {
-						//id dei progetti dell'utente e dell'anno selezionato
-						var progettiRows = _.filter(dt.rows, function (r) { return !!r.idprogetto });
-						var filterProgetti = self.q.isIn('idprogetto',
-							_.map(progettiRows, function (r) {
-							return r.idprogetto;
-						}));
-						self.getDataTable('progetto').clear();
-						var selBuilderArray = [];
-						//faccio la query su sql e aggiorno contemporaneamente il dataset
-						selBuilderArray.push({ filter: filterProgetti, top: null, tableName: 'progetto', table: self.getDataTable('progetto') });
-						return appMeta.getData.multiRunSelect(selBuilderArray);
-					})
-					.then(function () {
+
+						//filtro i progetti ...
+						self.state.DS.tables.progettoelenchiview.staticFilter(
+							self.q.isIn('idprogetto', _.map(dt.rows, function (r) {
+								//...vanno bene tutti perchè potrei fare timesheet per me (righe in cui sono membro) oppure per quelli di cui sono responsabile (righe in cui sono responsabile)
+								return r.idprogetto;
+							}))
+						);
 						return def.resolve();
 					});
-				return def.promise();
 			},
 
 			firetimesheetReport: function (that) {
@@ -162,16 +200,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							return r.idprogetto;
 						}));
 						var showactivitiesrow = (row.showactivitiesrow === 'S');
+						var showotheractivitiesrow = (row.showotheractivitiesrow=== 'S');
 						var riepilogoanno = (row.riepilogoanno === 'S');
 						var intestazioneallsheet = (row.intestazioneallsheet === 'S');
+						var withWorkpackage = (row.withworkpackage === 'S');
+						var multilineType = (row.multilinetype === 'S');
+						var collapseteachingother = (row.collapseteachingother === 'S');
 						return that.buildAndGetTimesheet({
 							filterProgetti: filterProgetti,
 							idreg: row.idreg,
 							year: row.year,
 							showactivitiesrow: showactivitiesrow,
+							showOtherActivitiesrow: showotheractivitiesrow ,
 							riepilogoanno: riepilogoanno,
 							intestazioneallsheet: intestazioneallsheet,
-							idtimesheettemplate: row.idtimesheettemplate
+							idtimesheettemplate: row.idtimesheettemplate,
+							withWorkpackage: withWorkpackage,
+							idprogetto: progettoPrincipale,
+							output: row.output,
+							mese: row.idmese,
+							idsal: row.idsal,
+							metaPage: that,
+							multilineType: multilineType,
+							collapseteachingother: collapseteachingother
 						});
 					});
 			},
@@ -179,13 +230,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			manageyear: function(that) { 
 				var def = appMeta.Deferred("manageYearfilter");
 				var waitingHandler = that.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
-				that.getFormData(true)
+				var grid_progettotimesheetprogetto_defaultCtrl = $('#grid_progettotimesheetprogetto_default').data("customController");
+
+				//faccio una sorta di getFormData puntuale perchè facendo quello vero cancellerei i record da progettotimesheetprogetto
+				that.state.currentRow.year = parseInt($('#progettotimesheet_default_year').val());
+
+				return that.projectGridfilter()
 					.then(function () {
-						return that.projectGridfilter();
+						//ripulisco la checkbox dei progetti
+						return grid_progettotimesheetprogetto_defaultCtrl.clearControl();
 					})
 					.then(function () {
-						return that.freshForm(true, false);
+						//faccio il fill control della checkbox dei progetti
+						return grid_progettotimesheetprogetto_defaultCtrl.fillControl($('#grid_progettotimesheetprogetto_default'));
 					})
+
 					.then(function () {
 						that.hideWaitingIndicator(waitingHandler);
 						return def.resolve();

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_stipendioannuo_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_stipendioannuo_default: DataSet {
+public partial class dsmeta_stipendioannuo_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -72,8 +72,8 @@ private void initClass() {
 	tstipendioannuo.defineColumn("caricoente", typeof(decimal));
 	tstipendioannuo.defineColumn("ct", typeof(DateTime));
 	tstipendioannuo.defineColumn("cu", typeof(string));
-	tstipendioannuo.defineColumn("idcontratto", typeof(int),false);
 	tstipendioannuo.defineColumn("idreg", typeof(int),false);
+	tstipendioannuo.defineColumn("idregistrylegalstatus", typeof(int),false);
 	tstipendioannuo.defineColumn("idstipendioannuo", typeof(int),false);
 	tstipendioannuo.defineColumn("irap", typeof(decimal));
 	tstipendioannuo.defineColumn("lordo", typeof(decimal));
@@ -82,7 +82,7 @@ private void initClass() {
 	tstipendioannuo.defineColumn("totale", typeof(decimal));
 	tstipendioannuo.defineColumn("year", typeof(int),false);
 	Tables.Add(tstipendioannuo);
-	tstipendioannuo.defineKey("idcontratto", "idreg", "idstipendioannuo", "year");
+	tstipendioannuo.defineKey("idreg", "idregistrylegalstatus", "idstipendioannuo", "year");
 
 	#endregion
 

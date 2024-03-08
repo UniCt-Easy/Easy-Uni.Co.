@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -77,7 +77,7 @@ namespace Backend.CommonBackend
         /// <param name="messages"></param>
         /// <param name="canIgnore"></param>
         /// <returns></returns>
-        private static JObject buildJObjectSaveDataSetAnswer(string dsSerialized, object messages, Boolean success, Boolean canIgnore)
+        private static JObject buildJObjectSaveDataSetAnswer(JObject dsSerialized, object messages, Boolean success, Boolean canIgnore)
         {
             return new JObject {
                 {"dataset", dsSerialized},
@@ -108,10 +108,10 @@ namespace Backend.CommonBackend
         /// <param name="dsSerialized">string</param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public static string getJsonSaveDataSetAnswer(string dsSerialized, object messages, Boolean success, Boolean canIgnore)
+        public static JObject getJsonSaveDataSetAnswer(JObject dsSerialized, object messages, Boolean success, Boolean canIgnore)
         {
             var jobj = buildJObjectSaveDataSetAnswer(dsSerialized, messages, success, canIgnore);
-            return jObjectToJSon(jobj);
+            return jobj; //jObjectToJSon(jobj);
         }
 
 
@@ -120,9 +120,9 @@ namespace Backend.CommonBackend
         /// </summary>
         /// <param name="ds">DataSet to serialize in json string</param>
         /// <returns>the json string serialized of a DataSet</returns>
-        public static string dataSetToJSon(DataSet ds)
+        public static JObject dataSetToJSon(DataSet ds, bool serializeStructure)
         {
-            return DataSetSerializer.serialize(ds).ToString(Newtonsoft.Json.Formatting.None);
+            return DataSetSerializer.serialize(ds, serializeStructure); //.ToString(Newtonsoft.Json.Formatting.None);
 
             //var serializer = new JavaScriptSerializer {MaxJsonLength = int.MaxValue};
             //return serializer.Serialize(DataSetSerializer.serialize(ds));
@@ -133,10 +133,12 @@ namespace Backend.CommonBackend
         /// Serialize a DataTable into a json string (JsDataTable) 
         /// </summary>
         /// <param name="dt">DataTable to serialize in json string</param>
+        /// <param name="serializeStructure"></param>
+        /// <param name="withName"></param>
         /// <returns>the json string serialized of a DataTable</returns>
-        public static string dataTableToJSon(DataTable dt)
+        public static JObject dataTableToJSon(DataTable dt,bool serializeStructure,bool withName)
         {
-            return DataSetSerializer.serializeDataTable(dt).ToString(Newtonsoft.Json.Formatting.None);
+            return DataSetSerializer.serializeDataTable(dt, serializeStructure,withName); //.ToString(Newtonsoft.Json.Formatting.None);
 
             // var serializer = new JavaScriptSerializer {MaxJsonLength = int.MaxValue};
             // return serializer.Serialize(DataSetSerializer.serializeDataTable(dt));
@@ -149,9 +151,9 @@ namespace Backend.CommonBackend
         /// <param name="selBuilderArr">json of array selBuilderArr serilized from js</param>
         /// <param name="dispatcher"></param>
         /// <returns></returns>
-        public static List<SelectBuilder> getSelList(string selBuilderArr, Dispatcher dispatcher)
+        public static List<SelectBuilder> getSelList(JToken selBuilderArr, Dispatcher dispatcher)
         {
-            var sel = JObject.Parse(selBuilderArr);
+            var sel = (JObject) selBuilderArr; //JObject.Parse(selBuilderArr);
             var arr = JArray.FromObject(sel["arr"]);
 
             var ds = new DataSet();
@@ -162,7 +164,7 @@ namespace Backend.CommonBackend
             {
                 var expr = objSelBuild["filter"];
                 var tableName = objSelBuild["tableName"].ToString();
-                var table = DataSetSerializer.jTokenToTable(objSelBuild["table"], dispatcher);
+                var table = DataSetSerializer.jTokenToTable(objSelBuild["table"],false, dispatcher,tableName);
                 string top = null;
                 if (!String.IsNullOrEmpty(objSelBuild["top"].ToString()))
                 {
@@ -190,7 +192,7 @@ namespace Backend.CommonBackend
             MetaExpression q = null;
             if (JObject.Parse(filter.ToString()).Count != 0)
             {
-                q = MetaExpressionSerializer.deserialize(JObject.Parse(filter.ToString())) as MetaExpression;
+                q = MetaExpressionSerializer.deserialize(filter) as MetaExpression;
             }
 
             var sFilter = q?.toSql(dispatcher.conn.GetQueryHelper(), dispatcher.conn);
@@ -209,7 +211,7 @@ namespace Backend.CommonBackend
             MetaExpression q = null;
             if (JObject.Parse(filter.ToString()).Count != 0)
             {
-                q = MetaExpressionSerializer.deserialize(JObject.Parse(filter.ToString())) as MetaExpression;
+                q = MetaExpressionSerializer.deserialize(filter) as MetaExpression;
             }
 
             return q;
@@ -226,7 +228,7 @@ namespace Backend.CommonBackend
         {
             MetaExpression q = null;
             if (JObject.Parse(filter.ToString()).Count != 0) {
-                q = MetaExpressionSerializer.deserialize(JObject.Parse(filter.ToString())) as MetaExpression;
+                q = MetaExpressionSerializer.deserialize(filter) as MetaExpression;
             }
  
             return q;
@@ -237,10 +239,10 @@ namespace Backend.CommonBackend
         /// </summary>
         /// <param name="me">MetaExpression</param>
         /// <returns>json string of metaExpression</returns>
-        public static string metaExpressionToJson(MetaExpression m)
+        public static JObject metaExpressionToJson(MetaExpression m)
         {
             var filterOutObj = MetaExpressionSerializer.serialize(m);
-            return filterOutObj.ToString(Newtonsoft.Json.Formatting.None);
+            return filterOutObj; //.ToString(Newtonsoft.Json.Formatting.None);
             //var filterOutObjJson = filterOutObj.ToString(Newtonsoft.Json.Formatting.None);
             //return filterOutObjJson;
             //var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
@@ -353,7 +355,6 @@ namespace Backend.CommonBackend
 
                 if (ds == null) return null;
                 ds.DataSetName = $"{tableName}_{editType}";
-
 
                 // imposto proprietà specifiche per il dataset, invocando il metodo "initCustom"
                 var dispatcher = HttpContext.Current.getDataDispatcher();

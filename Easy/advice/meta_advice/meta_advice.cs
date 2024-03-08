@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -22,6 +22,7 @@ using metadatalibrary;
 using metaeasylibrary;
 using System.Data;
 using System.Windows.Forms;
+using funzioni_configurazione;
 
 namespace meta_advice {
     public class Meta_advice : Meta_easydata {
@@ -47,6 +48,7 @@ namespace meta_advice {
             DescribeAColumn(T, "codeadvice", "Codice",nPos++);
             DescribeAColumn(T, "adate", "Del", nPos++);
             DescribeAColumn(T, "title", "Titolo", nPos++);
+            DescribeAColumn(T, "stopdate", "Data fine", nPos++);
         }
 
         public override bool IsValid (DataRow R, out string errmess, out string errfield) {
@@ -56,11 +58,15 @@ namespace meta_advice {
                 errfield = "codeadvice";
                 return false;
             }
-
+            if (R["stopdate"] != DBNull.Value && (DateTime)R["stopdate"] < (DateTime)R["adate"]) {
+                errmess = "La \"Data Fine\" non può essere precedente alla \"Data Comunicazione\"";
+                errfield = "stopdate";
+                return false;
+            }
             return true;
         }
 
-        public override void SetDefaults (DataTable PrimaryTable) {
+public override void SetDefaults (DataTable PrimaryTable) {
             base.SetDefaults(PrimaryTable);
 
             SetDefault(PrimaryTable, "adate", GetSys("datacontabile"));

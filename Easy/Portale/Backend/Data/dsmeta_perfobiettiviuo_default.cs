@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,6 +30,9 @@ namespace Backend.Data {
 public class dsmeta_perfobiettiviuo_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfobiettiviuoattach 		=> (MetaTable)Tables["perfobiettiviuoattach"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfsogliakind 		=> (MetaTable)Tables["perfsogliakind"];
 
@@ -64,6 +67,16 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_perfobiettiviuo_default.xsd";
 
 	#region create DataTables
+	//////////////////// PERFOBIETTIVIUOATTACH /////////////////////////////////
+	var tperfobiettiviuoattach= new MetaTable("perfobiettiviuoattach");
+	tperfobiettiviuoattach.defineColumn("idattach", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("idperfobiettiviuo", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("idperfobiettiviuoattach", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("idperfvalutazioneuo", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("title", typeof(string),false);
+	Tables.Add(tperfobiettiviuoattach);
+	tperfobiettiviuoattach.defineKey("idattach", "idperfobiettiviuo", "idperfobiettiviuoattach", "idperfvalutazioneuo");
+
 	//////////////////// PERFSOGLIAKIND /////////////////////////////////
 	var tperfsogliakind= new MetaTable("perfsogliakind");
 	tperfsogliakind.defineColumn("idperfsogliakind", typeof(string),false);
@@ -89,9 +102,15 @@ private void initClass() {
 	//////////////////// PERFOBIETTIVIUO /////////////////////////////////
 	var tperfobiettiviuo= new MetaTable("perfobiettiviuo");
 	tperfobiettiviuo.defineColumn("completamento", typeof(decimal));
+	tperfobiettiviuo.defineColumn("ct", typeof(DateTime));
+	tperfobiettiviuo.defineColumn("cu", typeof(string));
 	tperfobiettiviuo.defineColumn("description", typeof(string));
 	tperfobiettiviuo.defineColumn("idperfobiettiviuo", typeof(int),false);
+	tperfobiettiviuo.defineColumn("idperfvalutazionepersonale", typeof(int));
 	tperfobiettiviuo.defineColumn("idperfvalutazioneuo", typeof(int),false);
+	tperfobiettiviuo.defineColumn("lt", typeof(DateTime));
+	tperfobiettiviuo.defineColumn("lu", typeof(string));
+	tperfobiettiviuo.defineColumn("note", typeof(string));
 	tperfobiettiviuo.defineColumn("peso", typeof(decimal));
 	tperfobiettiviuo.defineColumn("title", typeof(string));
 	tperfobiettiviuo.defineColumn("valorenumerico", typeof(decimal));
@@ -103,7 +122,11 @@ private void initClass() {
 
 	#region DataRelation creation
 	var cPar = new []{perfobiettiviuo.Columns["idperfobiettiviuo"], perfobiettiviuo.Columns["idperfvalutazioneuo"]};
-	var cChild = new []{perfobiettiviuosoglia.Columns["idperfobiettiviuo"], perfobiettiviuosoglia.Columns["idperfvalutazioneuo"]};
+	var cChild = new []{perfobiettiviuoattach.Columns["idperfobiettiviuo"], perfobiettiviuoattach.Columns["idperfvalutazioneuo"]};
+	Relations.Add(new DataRelation("FK_perfobiettiviuoattach_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo",cPar,cChild,false));
+
+	cPar = new []{perfobiettiviuo.Columns["idperfobiettiviuo"], perfobiettiviuo.Columns["idperfvalutazioneuo"]};
+	cChild = new []{perfobiettiviuosoglia.Columns["idperfobiettiviuo"], perfobiettiviuosoglia.Columns["idperfvalutazioneuo"]};
 	Relations.Add(new DataRelation("FK_perfobiettiviuosoglia_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo",cPar,cChild,false));
 
 	cPar = new []{perfsogliakind.Columns["idperfsogliakind"]};

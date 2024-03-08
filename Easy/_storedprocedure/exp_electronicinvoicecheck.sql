@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,9 +24,10 @@ GO
 SET ANSI_NULLS ON 
 GO
  
+
 --setuser 'amministrazione'
 
-CREATE procedure exp_electronicinvoicecheck(@yelectronicinvoice smallint, @nelectronicinvoice int) as
+CREATE procedure exp_electronicinvoicecheck (@yelectronicinvoice smallint=null, @nelectronicinvoice int=null, @yinv int=null,	@ninv int=null,	@idinvkind int=null) as
 begin
 -- exec exp_electronicinvoicecheck 2015, 1
 CREATE TABLE #error (message varchar(4000))
@@ -42,12 +43,22 @@ select 'Inserire la Partita IVA di ' +agencyname +' in Informazioni Ente'
 from license
 where p_iva is null
 
+--- CONTROLLO CON electronicinvoice
 INSERT INTO #error(message)
 select 'Anagrafica senza IPA o pec o mail f.e. specificati :' + R.title
 from electronicinvoice E 
 join registry R
 	on E.idreg = R.idreg
 where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yelectronicinvoice
+	and R.ipa_fe is null and R.email_fe is null and R.pec_fe is null
+
+--- CONTROLLO SENZA electronicinvoice
+INSERT INTO #error(message)
+select 'Anagrafica senza IPA o pec o mail f.e. specificati :' + R.title
+from invoice I 
+join registry R
+	on I.idreg = R.idreg
+where I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind 
 	and R.ipa_fe is null and R.email_fe is null and R.pec_fe is null
 
 -- Se l'aliquota è 0, va trasmessa la natura dell'operazione se non rientra tra quelle imponibili (il campo 2.2.1.12 deve essere valorizzato a zero)
@@ -58,7 +69,9 @@ select 'Specificare la Natura dell''aliquota: '+  convert(varchar(50), ivakind.d
 from invoice I 
 join invoicedetailview ID		on I.ninv = ID.ninv and I.yinv = ID.yinv and I.idinvkind = ID.idinvkind
 join ivakind					on ivakind.idivakind = ID.idivakind
-where I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+where (I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+		or
+		 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind )
 and isnull(ID.rate,0) = 0 and ivakind.idfenature is null
 
 
@@ -70,7 +83,9 @@ select 'Specificare il Riferimento Normativo nel dettaglio fattura ' + convert(v
 from invoice I 
 join invoicedetailview ID
 	on I.ninv = ID.ninv and I.yinv = ID.yinv and I.idinvkind = ID.idinvkind
-where I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+where (I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+		or
+		 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind )
 and isnull(ID.rate,0) = 0 and ID.fereferencerule is null
 
 
@@ -78,7 +93,9 @@ INSERT INTO #error(message)
 select 'Specificare le Condizioni di Pagamento nella fattura: ' + convert(varchar(50), I.invoicekind) + convert(varchar(10),I.yinv)
 		+ ' N.'+convert(varchar(10),I.ninv)+ '.'
 from invoiceview I 
-where I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+where (I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+		or
+		 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind )
 and I.flagvariation = 'N'
 and I.idfepaymethodcondition is null
 
@@ -86,7 +103,9 @@ INSERT INTO #error(message)
 select 'Specificare la Modalita Pagamento nella fattura: ' + convert(varchar(50), I.invoicekind) + convert(varchar(10),I.yinv)
 		+ ' N.'+convert(varchar(10),I.ninv)+ '.'
 from invoiceview I 
-where I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+where (I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+		or
+		 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind )
 and I.flagvariation = 'N'
 and I.idfepaymethod is null
 
@@ -110,7 +129,9 @@ select 'Inserire il documento collegato nel contratto attivo ' + convert(varchar
 from invoice I 
 join invoicedetailview ID 	on I.ninv = ID.ninv and I.yinv = ID.yinv and I.idinvkind = ID.idinvkind
 join estimate E on ID.idestimkind=E.idestimkind and ID.yestim = E.yestim and ID.nestim=E.nestim 
-where I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+where (I.nelectronicinvoice = @nelectronicinvoice and I.yelectronicinvoice = @yelectronicinvoice
+		or
+		 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind )
 and E.doc is null and ID.cigcode is not null
 
 
@@ -137,9 +158,7 @@ and E.doc is null and ID.cigcode is not null
 
 
 
-
-
-
+--- CONTROLLO CON electronicinvoice
 INSERT INTO #error(message)
 select 'Per l''anagrafica: '+ R.title+' Il primo carattere della Partita IVA è numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES …..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
 from electronicinvoice E 
@@ -147,7 +166,18 @@ join registry R		on E.idreg = R.idreg
 join residence RR	on RR.idresidence = R.residence
 where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yelectronicinvoice
 	and RR.coderesidence = 'J' and ASCII(SUBSTRING(R.p_iva,1,1)) BETWEEN 48 AND 57 -- 0..9
-	
+
+--- CONTROLLO SENZA electronicinvoice
+INSERT INTO #error(message)
+select 'Per l''anagrafica: '+ R.title+' Il primo carattere della Partita IVA è numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES …..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
+from invoice E 
+join registry R		on E.idreg = R.idreg
+join residence RR	on RR.idresidence = R.residence
+where E.yinv = @yinv and E.ninv = @ninv and E.idinvkind = @idinvkind 
+	and RR.coderesidence = 'J' and ASCII(SUBSTRING(R.p_iva,1,1)) BETWEEN 48 AND 57 -- 0..9
+
+
+--- CONTROLLO CON electronicinvoice	
 INSERT INTO #error(message)
 select 'Per l''anagrafica: '+ R.title+' Il primo carattere del CF estero/Passaporto è numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES …..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
 from electronicinvoice E 
@@ -156,7 +186,17 @@ join residence RR	on RR.idresidence = R.residence
 where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yelectronicinvoice
 	and  RR.coderesidence = 'X' and ASCII(SUBSTRING(R.foreigncf,1,1)) BETWEEN 48 AND 57 -- 0..9
 
+--- CONTROLLO SENZA electronicinvoice
+INSERT INTO #error(message)
+select 'Per l''anagrafica: '+ R.title+' Il primo carattere del CF estero/Passaporto è numerico. I primi due caratteri dovrebbero rappresentano il paese ( IT, DE, ES …..) ed i restanti (fino ad un massimo di 28) il codice vero e proprio.'
+from invoice E 
+join registry R		on E.idreg = R.idreg
+join residence RR	on RR.idresidence = R.residence
+where E.yinv = @yinv and E.ninv = @ninv and E.idinvkind = @idinvkind 
+	and  RR.coderesidence = 'X' and ASCII(SUBSTRING(R.foreigncf,1,1)) BETWEEN 48 AND 57 -- 0..9
 
+
+--- CONTROLLO CON electronicinvoice
 INSERT INTO #error(message)
 select 'Per l''anagrafica: '+ R.title+' non è stato specificato nè Codice Fiscale nè Partita IVA.'
 from electronicinvoice E 
@@ -166,14 +206,68 @@ where E.nelectronicinvoice = @nelectronicinvoice and E.yelectronicinvoice = @yel
 	and R.p_iva is null
 	and R.cf is null
 	and R.foreigncf is null
+
+--- CONTROLLO SENZA electronicinvoice
+INSERT INTO #error(message)
+select 'Per l''anagrafica: '+ R.title+' non è stato specificato nè Codice Fiscale nè Partita IVA.'
+from invoice E 
+join registry R		on E.idreg = R.idreg
+join residence RR	on RR.idresidence = R.residence
+where E.yinv = @yinv and E.ninv = @ninv and E.idinvkind = @idinvkind 
+	and R.p_iva is null
+	and R.cf is null
+	and R.foreigncf is null
+
+INSERT INTO #error(message)
+select 'Il dettaglio ' + CONVERT(varchar(10), id.rownum) + ' di ''' + ik.description + ''' numero ' + CONVERT(varchar(10), i.ninv) + ' del ' + CONVERT(varchar(10), i.yinv) + ' non è collegato a fattura'
+from
+	electronicinvoice ei 
+		join invoice i on ei.yelectronicinvoice = i.yelectronicinvoice and ei.nelectronicinvoice = i.nelectronicinvoice
+		join invoicedetail id on id.yinv = i.yinv and id.ninv = i.ninv and id.idinvkind = i.idinvkind
+		join invoicekind ik on i.idinvkind = ik.idinvkind
+where
+	i.nelectronicinvoice = @nelectronicinvoice and i.yelectronicinvoice = @yelectronicinvoice AND
+	ik.flag&4 != 0 AND
+	id.ninv_main is NULL
+
+INSERT INTO #error(message)
+select 'Il dettaglio ' + CONVERT(varchar(10), id.rownum) + ' di ''' + ik.description + ''' numero ' + CONVERT(varchar(10), i.ninv) + ' del ' + CONVERT(varchar(10), i.yinv) + ' non è collegato a fattura'
+from invoice i 
+		join invoicedetail id on id.yinv = i.yinv and id.ninv = i.ninv and id.idinvkind = i.idinvkind
+		join invoicekind ik on i.idinvkind = ik.idinvkind
+where
+	 I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind
+	and ik.flag&4 != 0 
+	AND	id.ninv_main is NULL
+
+
+INSERT INTO #error(message)
+select 'Specificare il Dipartimento o l''Amministrazione da inserire nella FE, nella fattura: ' + convert(varchar(50), I.invoicekind) + convert(varchar(10),I.yinv)
+		+ ' N.'+convert(varchar(10),I.ninv)+ '.'
+from invoiceview I 
+where  I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind
+and idtreasurer_acq_estere is null ---viene utilizzato lo stesso campo delle fatture di acquisto estere
+
+insert into #error(message)
+select 'Nella fattura ' + convert(varchar(50), I.invoicekind) + convert(varchar(10), I.yinv) + ' N.' + convert(varchar(10), I.ninv) + 
+' il legale rappresentante del destinatario della fattura elettronica ' + I.registry_sostituto + ' non ha la partita iva valorizzata'
+from invoiceview I
+where I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind
+and I.idreg_sostituto is not null and I.p_iva_sostituto is null
+
+
 ----------------- Calcola la Sede del Cliente ------------------------------------------
 declare @idreg int
 select @idreg = idreg from electronicinvoice where yelectronicinvoice = @yelectronicinvoice and nelectronicinvoice = @nelectronicinvoice
+if (@idreg is null)
+Begin
+	select @idreg = idreg from invoice where yinv = @yinv and ninv = @ninv and idinvkind = @idinvkind
+End
 declare @registry varchar(100)
 select @registry = title from registry where idreg = @idreg
 
 DECLARE @dateindi datetime
-SELECT @dateindi = CONVERT(datetime, '31-12-'+ CONVERT(varchar(4),@yelectronicinvoice), 105)
+SELECT @dateindi = CONVERT(datetime, '31-12-'+ CONVERT(varchar(4),isnull(@yelectronicinvoice, @yinv) ), 105)
 
 DECLARE @codenostand varchar(20)
 SET @codenostand = '07_SW_FAT'
@@ -246,39 +340,44 @@ DELETE #SedeCliente
 	)>1
 
 -------------------- Fine calcolo della Sede del Cliente -------------------------------------------------
-if(select count(*) from #SedeCliente where address is null)>0
-Begin
-	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non è stato specificato un Indirizzo valido.'
-End
+	if(select count(*) from #SedeCliente where address is null)>0
+	Begin
+		INSERT INTO #error(message)
+		select 'Per l''anagrafica: '+ @registry +' non è stato specificato un Indirizzo valido.'
+	End
 
-if(select count(*) from #SedeCliente where location is null)>0
-Begin
-	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non è stato specificato un Comune valido.'
-End
+	if(select count(*) from #SedeCliente where location is null)>0
+	Begin
+		INSERT INTO #error(message)
+		select 'Per l''anagrafica: '+ @registry +' non è stato specificato un Comune valido.'
+	End
 
-if(select count(*) from #SedeCliente where cap is null and province is null)>0
-Begin
-	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non è stato specificato un CAP valido.'
-End
+	if(select count(*) from #SedeCliente where cap is null and province is null)>0
+	Begin
+		INSERT INTO #error(message)
+		select 'Per l''anagrafica: '+ @registry +' non è stato specificato un CAP valido.'
+	End
 
-if(select count(*) from #SedeCliente where nation is null)>0
-Begin
-	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non è stata specificata una Nazione valida.'
-End
+	if(select count(*) from #SedeCliente where nation is null)>0
+	Begin
+		INSERT INTO #error(message)
+		select 'Per l''anagrafica: '+ @registry +' non è stata specificata una Nazione valida.'
+	End
 
-if(select count(*) from #SedeCliente)=0
-Begin
-	INSERT INTO #error(message)
-	select 'Per l''anagrafica: '+ @registry +' non è stato indicato alcun Indirizzo.'
-End
+	if(select count(*) from #SedeCliente)=0
+	Begin
+		INSERT INTO #error(message)
+		select 'Per l''anagrafica: '+ @registry +' non è stato indicato alcun Indirizzo.'
+	End
 
 select * from #error
 
 end
+
+
+
+
+
 
 GO
 
@@ -288,3 +387,4 @@ SET ANSI_NULLS ON
 GO
  
  
+--exec exp_electronicinvoicecheck null, null, 2022,1,86

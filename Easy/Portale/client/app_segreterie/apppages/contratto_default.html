@@ -1,54 +1,60 @@
 ﻿<!--header-->
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
-			<li class="nav-item">
-		<a href="#tabcontratto_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabcontratto_default_0"><i class="fa fa-file-signature mr-1"></i>Principale</a>
-	</li>
-	<li class="nav-item">
-		<a href="#tabcontratto_default_1" class="nav-link" data-toggle="pill" data-target="#tabcontratto_default_1"><i class="fa fa-file-invoice-dollar mr-1"></i>Stipendio annuo</a>
-	</li>
-	<li class="nav-item">
-		<a href="#tabcontratto_default_2" class="nav-link" data-toggle="pill" data-target="#tabcontratto_default_2"><i class="fa fa-file-invoice-dollar mr-1"></i>Cedolino</a>
-	</li>
-
+		
 	</ul>
 	<form>
-<div class="tab-content mt-2">
-	<div class="tab-pane fade active show" id="tabcontratto_default_0" role="tabpanel">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label class="col-form-label col-md-12" for="contratto_default_idcontrattokind">Tipologia di contratto</label>
-					<select id="contratto_default_idcontrattokind" class="custom-select d-block w-100"  data-source-name="contrattokinddefaultview" data-value-member="idcontrattokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="contratto.idcontrattokind?contrattodefaultview.idcontrattokind" data-subentity  data-mandatory  > </select>
+					<select id="contratto_default_idcontrattokind" class="custom-select d-block w-100"  data-source-name="contrattokinddefaultview" data-value-member="idcontrattokind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="contratto.idcontrattokind?contrattodefaultview.idcontrattokind" data-subentity   > </select>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label class="col-form-label col-md-12" for="contratto_default_idinquadramento">Inquadramento</label>
-					<select id="contratto_default_idinquadramento" class="custom-select d-block w-100"  data-source-name="inquadramentodefaultview" data-value-member="idinquadramento" data-display-member="dropdown_title" data-custom-control="combo" data-tag="contratto.idinquadramento?contrattodefaultview.contratto_idinquadramento" data-subentity   data-master="contrattokinddefaultview"> </select>
+					<select id="contratto_default_idinquadramento" class="custom-select d-block w-100"  data-source-name="inquadramentodefaultview" data-value-member="idinquadramento" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="contratto.idinquadramento?contrattodefaultview.contratto_idinquadramento" data-subentity   data-master="contrattokinddefaultview"> </select>
+				</div>
+				<div class="col-md-4">
+					<label class="col-form-label col-md-12" for="contratto_default_percentualesufondiateneo">Percentuale su fondi interni</label>
+					<input id="contratto_default_percentualesufondiateneo" type="text" class="form-control" data-tag="contratto.percentualesufondiateneo.fixed.2?contrattodefaultview.contratto_percentualesufondiateneo" data-subentity  />
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label class="col-form-label col-md-12" for="contratto_default_classe">Classe</label>
 					<input id="contratto_default_classe" type="text" class="form-control" data-tag="contratto.classe?contrattodefaultview.contratto_classe" data-subentity  />
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label class="col-form-label col-md-12" for="contratto_default_scatto">Scatto</label>
 					<input id="contratto_default_scatto" type="text" class="form-control" data-tag="contratto.scatto?contrattodefaultview.contratto_scatto" data-subentity  />
 				</div>
+				<div class="col-md-4">
+					<label class="col-form-label col-md-12" for="contratto_default_estremibando">Estremi del bando di contratto</label>
+					<input id="contratto_default_estremibando" type="text" class="form-control" data-tag="contratto.estremibando?contrattodefaultview.contratto_estremibando" data-subentity  />
+				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-4">
 <script>
   $( function () {
-    $("#contratto_default_start").datepicker();
+    $("#contratto_default_start").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="contratto_default_start">Inizio</label>
-					<input id="contratto_default_start" type="text" class="form-control" data-tag="contratto.start?contrattodefaultview.contratto_start" data-subentity  data-mandatory />
+					<input id="contratto_default_start" type="text" class="form-control" data-tag="contratto.start?contrattodefaultview.contratto_start" data-subentity  />
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 <script>
   $( function () {
-    $("#contratto_default_stop").datepicker();
+    $("#contratto_default_datarivalutazione").datepicker({ dateFormat: 'dd/mm/yy' });
+  } );
+  </script>
+					<label class="col-form-label col-md-12" for="contratto_default_datarivalutazione">Data di prossima rivalutazione</label>
+					<input id="contratto_default_datarivalutazione" type="text" class="form-control" data-tag="contratto.datarivalutazione?contrattodefaultview.contratto_datarivalutazione" data-subentity  />
+				</div>
+				<div class="col-md-4">
+<script>
+  $( function () {
+    $("#contratto_default_stop").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="contratto_default_stop">Fine</label>
@@ -56,54 +62,39 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-4">
+					<label class="col-form-label col-md-12" for="contratto_default_tempdef">Tempo definito</label>
+					<div class="custom-control custom-radio">
+						<input id="contratto_default_tempdefSi" type="radio" name="contratto_default_tempdef" class="custom-control-input" data-tag="contratto.tempdef:S?contrattodefaultview.contratto_tempdef:Si" data-subentity  ><label for="contratto_default_tempdefSi"> Si</label>
+						<input id="contratto_default_tempdefNo" type="radio" name="contratto_default_tempdef" class="custom-control-input" data-tag="contratto.tempdef:N?contrattodefaultview.contratto_tempdef:No" data-subentity  ><label for="contratto_default_tempdefNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-4">
 					<label class="col-form-label col-md-12" for="contratto_default_parttime">Part-time %</label>
 					<input id="contratto_default_parttime" type="text" class="form-control" data-tag="contratto.parttime.fixed.2?contrattodefaultview.contratto_parttime" data-subentity  />
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label class="col-form-label col-md-12" for="contratto_default_tempindet">Tempo indeterminato</label>
 					<div class="custom-control custom-radio">
-						<input id="contratto_default_tempindetSi" type="radio" name="contratto_default_tempindet" class="custom-control-input" data-tag="contratto.tempindet:S?contrattodefaultview.contratto_tempindet:Si" data-subentity  data-mandatory ><label for="contratto_default_tempindetSi"> Si</label>
-						<input id="contratto_default_tempindetNo" type="radio" name="contratto_default_tempindet" class="custom-control-input" data-tag="contratto.tempindet:N?contrattodefaultview.contratto_tempindet:No" data-subentity  data-mandatory ><label for="contratto_default_tempindetNo"> No</label>
+						<input id="contratto_default_tempindetSi" type="radio" name="contratto_default_tempindet" class="custom-control-input" data-tag="contratto.tempindet:S?contrattodefaultview.contratto_tempindet:Si" data-subentity  ><label for="contratto_default_tempindetSi"> Si</label>
+						<input id="contratto_default_tempindetNo" type="radio" name="contratto_default_tempindet" class="custom-control-input" data-tag="contratto.tempindet:N?contrattodefaultview.contratto_tempindet:No" data-subentity  ><label for="contratto_default_tempindetNo"> No</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="contratto_default_tempdef">Tempo definito</label>
-					<div class="custom-control custom-radio">
-						<input id="contratto_default_tempdefSi" type="radio" name="contratto_default_tempdef" class="custom-control-input" data-tag="contratto.tempdef:S?contrattodefaultview.contratto_tempdef:Si" data-subentity  data-mandatory ><label for="contratto_default_tempdefSi"> Si</label>
-						<input id="contratto_default_tempdefNo" type="radio" name="contratto_default_tempdef" class="custom-control-input" data-tag="contratto.tempdef:N?contrattodefaultview.contratto_tempdef:No" data-subentity  data-mandatory ><label for="contratto_default_tempdefNo"> No</label>
-					</div>
+				<div class="col-md-4">
+					<label class="col-form-label col-md-12" for="contratto_default_anni">Anni</label>
+					<input id="contratto_default_anni" type="text" class="form-control" data-tag="contratto.anni?contrattodefaultview.contratto_anni" data-subentity  />
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="contratto_default_estremibando">Estremi del bando di contratto</label>
-					<input id="contratto_default_estremibando" type="text" class="form-control" data-tag="contratto.estremibando?contrattodefaultview.contratto_estremibando" data-subentity  />
+				<div class="col-md-4">
+					<label class="col-form-label col-md-12" for="contratto_default_mesi">Mesi</label>
+					<input id="contratto_default_mesi" type="text" class="form-control" data-tag="contratto.mesi?contrattodefaultview.contratto_mesi" data-subentity  />
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#contratto_default_datarivalutazione").datepicker();
-  } );
-  </script>
-					<label class="col-form-label col-md-12" for="contratto_default_datarivalutazione">Data di prossima rivalutazione</label>
-					<input id="contratto_default_datarivalutazione" type="text" class="form-control" data-tag="contratto.datarivalutazione?contrattodefaultview.contratto_datarivalutazione" data-subentity  />
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="contratto_default_percentualesufondiateneo">Percentuale su fondi interni</label>
-					<input id="contratto_default_percentualesufondiateneo" type="text" class="form-control" data-tag="contratto.percentualesufondiateneo.fixed.2?contrattodefaultview.contratto_percentualesufondiateneo" data-subentity  />
+				<div class="col-md-4">
+					<label class="col-form-label col-md-12" for="contratto_default_giorni">Giorni</label>
+					<input id="contratto_default_giorni" type="text" class="form-control" data-tag="contratto.giorni?contrattodefaultview.contratto_giorni" data-subentity  />
 				</div>
 			</div>
-	</div>
-	<div class="tab-pane fade" id="tabcontratto_default_1" role="tabpanel">
-				<div class="gridx" id="grid_stipendioannuo_default" data-tag="stipendioannuo.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
-	</div>
-	<div class="tab-pane fade" id="tabcontratto_default_2" role="tabpanel">
-				<div class="gridx" id="grid_cedolino_default" data-tag="cedolino.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
-	</div>
-</div>
 </form>
 
 </div>

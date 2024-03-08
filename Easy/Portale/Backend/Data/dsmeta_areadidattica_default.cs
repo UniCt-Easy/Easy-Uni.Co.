@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,6 +30,9 @@ namespace Backend.Data {
 public class dsmeta_areadidattica_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable macroareadidattica 		=> (MetaTable)Tables["macroareadidattica"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable corsostudiokinddefaultview 		=> (MetaTable)Tables["corsostudiokinddefaultview"];
 
@@ -61,6 +64,13 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_areadidattica_default.xsd";
 
 	#region create DataTables
+	//////////////////// MACROAREADIDATTICA /////////////////////////////////
+	var tmacroareadidattica= new MetaTable("macroareadidattica");
+	tmacroareadidattica.defineColumn("idmacroareadidattica", typeof(int),false);
+	tmacroareadidattica.defineColumn("title", typeof(string));
+	Tables.Add(tmacroareadidattica);
+	tmacroareadidattica.defineKey("idmacroareadidattica");
+
 	//////////////////// CORSOSTUDIOKINDDEFAULTVIEW /////////////////////////////////
 	var tcorsostudiokinddefaultview= new MetaTable("corsostudiokinddefaultview");
 	tcorsostudiokinddefaultview.defineColumn("corsostudiokind_active", typeof(string));
@@ -76,6 +86,7 @@ private void initClass() {
 	tareadidattica.defineColumn("cu", typeof(string),false);
 	tareadidattica.defineColumn("idareadidattica", typeof(int),false);
 	tareadidattica.defineColumn("idcorsostudiokind", typeof(int),false);
+	tareadidattica.defineColumn("idmacroareadidattica", typeof(int));
 	tareadidattica.defineColumn("lt", typeof(DateTime),false);
 	tareadidattica.defineColumn("lu", typeof(string),false);
 	tareadidattica.defineColumn("sortcode", typeof(int),false);
@@ -88,8 +99,12 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{corsostudiokinddefaultview.Columns["idcorsostudiokind"]};
-	var cChild = new []{areadidattica.Columns["idcorsostudiokind"]};
+	var cPar = new []{macroareadidattica.Columns["idmacroareadidattica"]};
+	var cChild = new []{areadidattica.Columns["idmacroareadidattica"]};
+	Relations.Add(new DataRelation("FK_areadidattica_macroareadidattica_idmacroareadidattica",cPar,cChild,false));
+
+	cPar = new []{corsostudiokinddefaultview.Columns["idcorsostudiokind"]};
+	cChild = new []{areadidattica.Columns["idcorsostudiokind"]};
 	Relations.Add(new DataRelation("FK_areadidattica_corsostudiokinddefaultview_idcorsostudiokind",cPar,cChild,false));
 
 	#endregion

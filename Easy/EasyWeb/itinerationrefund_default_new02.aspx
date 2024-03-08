@@ -50,25 +50,29 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-4 col-md-3 w-100 align-self-end">
-                                <label>Valuta</label>
-                                <cc1:hwButton runat="server" ID="btnValuta" Tag="choose.currency.lista" CssClass="w-100 btn btn-primary" TabIndex="-1" Text="Valuta:" />
-                            </div>
-                            <div class="col-4 col-md-6 align-self-end">
-                                <cc1:hwDropDownList runat="server" AutoPostBack="true" ID="cmbValuta" CssClass="input-md form-control" Tag="itinerationrefund.idcurrency" TabIndex="-1"></cc1:hwDropDownList>
-                            </div>
-                            <div class="col-4 col-md-3 align-self-end">
-                                <asp:Panel ID="grpCambio" runat="server">
-                                    <div class="row mb-0">
-                                        <div class="col-md-12">
-                                            <label for="txtCambio">Tasso di Cambio:</label>
-                                            <cc1:hwTextBox runat="server" ID="txtCambio" CssClass="form-control" Tag="itinerationrefund.exchangerate.fixed.8...1" TabIndex="-1"></cc1:hwTextBox>
-                                        </div>
-                                    </div>
-                                </asp:Panel>
-                            </div>
-                        </div>
+						<div class="row">
+							<cc1:hwPanel GroupingText="" CssClass="gbox scheduler-border form-group" ID="grpValuta" runat="server" Tag="AutoChoose.txtValuta.default.(active='S')" Style="width: 100%">
+								<div class="col-md-2 ">
+									<cc1:hwButton runat="server" ID="btnValuta" class="btn btn-primary" Tag="choose.currency.lista.(active='S')" data-toggle="tooltip" data-placement="top" title="Inserire alcune lettere per filtrare la ricerca e premere sul bottone Valuta" CssClass="w-100 btn btn-primary" TabIndex="-1" Text="Valuta:" />
+								</div>
+
+								<div class="col-md-4">
+									<cc1:hwTextBox TabIndex="300" ID="txtValuta" CssClass="form-control input-md" Tag="currency.description?x" runat="server"></cc1:hwTextBox>
+								</div>
+
+									<asp:Panel ID="grpCambio" runat="server">
+										<div class="col-md-2">
+											<label for="txtCambio">Tasso di Cambio:</label>
+										</div>
+										<div class="col-md-4">
+											<cc1:hwTextBox runat="server" ID="txtCambio" CssClass="form-control" Tag="itinerationrefund.exchangerate.fixed.8...1" TabIndex="-1"></cc1:hwTextBox>
+										</div>
+									</asp:Panel>
+							</cc1:hwPanel>
+
+
+
+						</div>
                     </asp:Panel>
                 </fieldset>
                 <!-- chiude Dati Generali-->
@@ -194,7 +198,7 @@
 									<label for="">Importo</label>
 								</div>
 								<div class="col-md-2">
-									<cc1:hwTextBox runat="server" data-change_customfun="CalcImpDocEuro" data-enterdec="fixed.8...1" ID="txtImportoDocValuta" CssClass="form-control" TabIndex="8"></cc1:hwTextBox>
+									<cc1:hwTextBox runat="server" data-change_customfun="CalcImpDocEuro" ID="txtImportoDocValuta" Tag="itinerationrefund.docamount_c.fixed.8...1" CssClass="form-control" TabIndex="8"></cc1:hwTextBox>
 								</div>
 								<div class="col-md-2">
 									<cc1:hwTextBox runat="server" ID="txtImportoDocEUR" CssClass="form-control" Tag="itinerationrefund.docamount.c" TabIndex="8"></cc1:hwTextBox>
@@ -235,7 +239,7 @@
 										<label for="txtImportoRichiestoEUR">Richiesto</label>
 									</div>
 									<div class="col-4">
-										<cc1:hwTextBox runat="server" data-change_customfun="CalcImpRichEuro" data-enterdec="fixed.8...1" ID="txtImportoRichiestoValuta" TabIndex="9" CssClass="form-control"></cc1:hwTextBox>
+										<cc1:hwTextBox runat="server" data-change_customfun="CalcImpRichEuro" ID="txtImportoRichiestoValuta" Tag="itinerationrefund.requiredamount_c.fixed.8...1" TabIndex="9" CssClass="form-control"></cc1:hwTextBox>
 									</div>
 									<div class="col-4">
 										<cc1:hwTextBox runat="server" ID="txtImportoRichiestoEUR" Tag="itinerationrefund.requiredamount.c" TabIndex="-1" CssClass="form-control"></cc1:hwTextBox>
@@ -249,7 +253,7 @@
 										<label for="txtImportoEffettivoEUR">Accordato</label>
 									</div>
 									<div class="col-4">
-										<cc1:hwTextBox runat="server" data-change_customfun="CalcImpEffEuro" data-enterdec="fixed.8...1" ID="txtImportoEffettivoValuta" CssClass="form-control" ReadOnly="true" TabIndex="-1"></cc1:hwTextBox>
+										<cc1:hwTextBox runat="server" data-change_customfun="CalcImpEffEuro" ID="txtImportoEffettivoValuta" Tag="itinerationrefund.amount_c.fixed.8...1" CssClass="form-control" ReadOnly="true" TabIndex="-1"></cc1:hwTextBox>
 									</div>
 									<div class="col-4">
 										<cc1:hwTextBox runat="server" ID="txtImportoEffettivoEUR" Tag="itinerationrefund.amount.c" TabIndex="-1" CssClass="form-control"></cc1:hwTextBox>
@@ -386,7 +390,7 @@
         var InEur = new Object();
         InEur.Obj = ImpRichValuta.Obj * TassoCambio.Obj;
         InEur.TypeName = "Decimal";
-        document.getElementById("<%=txtImportoRichiestoEUR.ClientID%>").value = StringValue(InEur, "c.2...1");
+		document.getElementById("<%=txtImportoRichiestoEUR.ClientID%>").value = StringValue(InEur, "c.2...1");
         // Se l'importo richiesto in euro supera il limite max, imposta il richiesto uguale al limite
         <%-- 
         var LimiteMax;
@@ -439,8 +443,8 @@
         InEur.TypeName = "Decimal";
 
         document.getElementById("<%=txtImportoDocEUR.ClientID%>").value = StringValue(InEur, "c.2...1");
-        document.getElementById("<%=txtImportoRichiestoEUR.ClientID%>").value = StringValue(InEur, "c.2...1");
-        document.getElementById("<%=txtImportoRichiestoValuta.ClientID%>").value = StringValue(ImpDocValuta, "c.2...1");
+		document.getElementById("<%=txtImportoRichiestoEUR.ClientID%>").value = StringValue(InEur, "c.2...1");
+		document.getElementById("<%=txtImportoRichiestoValuta.ClientID%>").value = StringValue(ImpDocValuta, "fixed.8...1");
         // Se l'importo documento in euro supera il limite max, imposta il richiesto uguale al limite
 <%--        var LimiteMax;
         var LMax = document.getElementById("<%=txtLimiteMax.ClientID%>");

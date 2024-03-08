@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -135,6 +135,7 @@ namespace assetsetup_uniformadati {
 
             if (!fillDsDaFile()) return;
             AskInventoryAgency aia = new AskInventoryAgency(dsFile.Tables["inventoryagency"]);
+            createForm(aia, null);
             DialogResult dr = aia.ShowDialog();
             if (dr != DialogResult.OK) {
                 show(this, "Ente inventariale non selezionato, processo interrotto", "Errore");
@@ -164,6 +165,7 @@ namespace assetsetup_uniformadati {
             bool res = verificaSeChiamareFormRiepilogo();
             if (res) {
                 FrmRiepilogo fr = new FrmRiepilogo(Meta, dsLookUp);
+                createForm(fr, null);
                 DialogResult drRiep = fr.ShowDialog();
                 if (drRiep != DialogResult.OK) {
                     show(this, "Il processo sarà interrotto", "Errore");
@@ -337,6 +339,7 @@ namespace assetsetup_uniformadati {
                     if (((rDB["!linked"] == DBNull.Value) || (rDB["!linked"].ToString().ToUpper() == "N")) && (nRow > 0)) {
                         rDB["!linked"] = "S";
                         AskObject ao = new AskObject(rDB[code_field].ToString(), rDB[descr_field].ToString(), id_field, descr_field, tDS);
+                        createForm(ao, null);
                         DialogResult dr = ao.ShowDialog();
                         if (dr != DialogResult.OK) {
                             show(this, "Look up non impostato");

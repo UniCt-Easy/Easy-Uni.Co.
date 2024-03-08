@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_progettokind_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_progettokind_seg: DataSet {
+public partial class dsmeta_progettokind_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -38,6 +38,12 @@ public class dsmeta_progettokind_seg: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettotestokind 		=> (MetaTable)Tables["progettotestokind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable position 		=> (MetaTable)Tables["position"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable progettokindcontrattokind 		=> (MetaTable)Tables["progettokindcontrattokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettoattachkindprogettostatuskind 		=> (MetaTable)Tables["progettoattachkindprogettostatuskind"];
@@ -133,6 +139,27 @@ private void initClass() {
 	Tables.Add(tprogettotestokind);
 	tprogettotestokind.defineKey("idprogettokind", "idprogettotestokind");
 
+	//////////////////// POSITION /////////////////////////////////
+	var tposition= new MetaTable("position");
+	tposition.defineColumn("active", typeof(string));
+	tposition.defineColumn("idposition", typeof(int),false);
+	tposition.defineColumn("title", typeof(string));
+	Tables.Add(tposition);
+	tposition.defineKey("idposition");
+
+	//////////////////// PROGETTOKINDCONTRATTOKIND /////////////////////////////////
+	var tprogettokindcontrattokind= new MetaTable("progettokindcontrattokind");
+	tprogettokindcontrattokind.defineColumn("costostandard", typeof(decimal));
+	tprogettokindcontrattokind.defineColumn("ct", typeof(DateTime),false);
+	tprogettokindcontrattokind.defineColumn("cu", typeof(string),false);
+	tprogettokindcontrattokind.defineColumn("idposition", typeof(int),false);
+	tprogettokindcontrattokind.defineColumn("idprogettokind", typeof(int),false);
+	tprogettokindcontrattokind.defineColumn("lt", typeof(DateTime),false);
+	tprogettokindcontrattokind.defineColumn("lu", typeof(string),false);
+	tprogettokindcontrattokind.defineColumn("!idposition_position_title", typeof(string));
+	Tables.Add(tprogettokindcontrattokind);
+	tprogettokindcontrattokind.defineKey("idposition", "idprogettokind");
+
 	//////////////////// PROGETTOATTACHKINDPROGETTOSTATUSKIND /////////////////////////////////
 	var tprogettoattachkindprogettostatuskind= new MetaTable("progettoattachkindprogettostatuskind");
 	tprogettoattachkindprogettostatuskind.defineColumn("ct", typeof(DateTime));
@@ -178,13 +205,13 @@ private void initClass() {
 	var tprogettotiporicavokindcontrattokind= new MetaTable("progettotiporicavokindcontrattokind");
 	tprogettotiporicavokindcontrattokind.defineColumn("ct", typeof(DateTime));
 	tprogettotiporicavokindcontrattokind.defineColumn("cu", typeof(string));
-	tprogettotiporicavokindcontrattokind.defineColumn("idcontrattokind", typeof(int),false);
+	tprogettotiporicavokindcontrattokind.defineColumn("idposition", typeof(int),false);
 	tprogettotiporicavokindcontrattokind.defineColumn("idprogettokind", typeof(int),false);
 	tprogettotiporicavokindcontrattokind.defineColumn("idprogettotipocostokind", typeof(int),false);
 	tprogettotiporicavokindcontrattokind.defineColumn("lt", typeof(DateTime));
 	tprogettotiporicavokindcontrattokind.defineColumn("lu", typeof(string));
 	Tables.Add(tprogettotiporicavokindcontrattokind);
-	tprogettotiporicavokindcontrattokind.defineKey("idcontrattokind", "idprogettokind", "idprogettotipocostokind");
+	tprogettotiporicavokindcontrattokind.defineKey("idposition", "idprogettokind", "idprogettotipocostokind");
 
 	//////////////////// PROGETTOTIPORICAVOKINDACCMOTIVE /////////////////////////////////
 	var tprogettotiporicavokindaccmotive= new MetaTable("progettotiporicavokindaccmotive");
@@ -226,13 +253,13 @@ private void initClass() {
 	var tprogettotipocostokindcontrattokind= new MetaTable("progettotipocostokindcontrattokind");
 	tprogettotipocostokindcontrattokind.defineColumn("ct", typeof(DateTime));
 	tprogettotipocostokindcontrattokind.defineColumn("cu", typeof(string));
-	tprogettotipocostokindcontrattokind.defineColumn("idcontrattokind", typeof(int),false);
+	tprogettotipocostokindcontrattokind.defineColumn("idposition", typeof(int),false);
 	tprogettotipocostokindcontrattokind.defineColumn("idprogettokind", typeof(int),false);
 	tprogettotipocostokindcontrattokind.defineColumn("idprogettotipocostokind", typeof(int),false);
 	tprogettotipocostokindcontrattokind.defineColumn("lt", typeof(DateTime));
 	tprogettotipocostokindcontrattokind.defineColumn("lu", typeof(string));
 	Tables.Add(tprogettotipocostokindcontrattokind);
-	tprogettotipocostokindcontrattokind.defineKey("idcontrattokind", "idprogettokind", "idprogettotipocostokind");
+	tprogettotipocostokindcontrattokind.defineKey("idposition", "idprogettokind", "idprogettotipocostokind");
 
 	//////////////////// PROGETTOTIPOCOSTOKINDACCMOTIVE /////////////////////////////////
 	var tprogettotipocostokindaccmotive= new MetaTable("progettotipocostokindaccmotive");
@@ -264,20 +291,29 @@ private void initClass() {
 	tprogettoactivitykinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tprogettoactivitykinddefaultview.defineColumn("idprogettoactivitykind", typeof(int),false);
 	tprogettoactivitykinddefaultview.defineColumn("progettoactivitykind_active", typeof(string));
+	tprogettoactivitykinddefaultview.defineColumn("progettoactivitykind_ct", typeof(DateTime),false);
+	tprogettoactivitykinddefaultview.defineColumn("progettoactivitykind_cu", typeof(string),false);
+	tprogettoactivitykinddefaultview.defineColumn("progettoactivitykind_description", typeof(string));
+	tprogettoactivitykinddefaultview.defineColumn("progettoactivitykind_lt", typeof(DateTime),false);
+	tprogettoactivitykinddefaultview.defineColumn("progettoactivitykind_lu", typeof(string),false);
+	tprogettoactivitykinddefaultview.defineColumn("progettoactivitykind_sortcode", typeof(int));
+	tprogettoactivitykinddefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tprogettoactivitykinddefaultview);
 	tprogettoactivitykinddefaultview.defineKey("idprogettoactivitykind");
 
 	//////////////////// PROGETTOKIND /////////////////////////////////
 	var tprogettokind= new MetaTable("progettokind");
+	tprogettokind.defineColumn("active", typeof(string));
 	tprogettokind.defineColumn("ct", typeof(DateTime));
 	tprogettokind.defineColumn("cu", typeof(string));
 	tprogettokind.defineColumn("description", typeof(string));
 	tprogettokind.defineColumn("idcorsostudio", typeof(string));
 	tprogettokind.defineColumn("idprogettoactivitykind", typeof(int));
 	tprogettokind.defineColumn("idprogettokind", typeof(int),false);
+	tprogettokind.defineColumn("irap", typeof(string));
 	tprogettokind.defineColumn("lt", typeof(DateTime));
 	tprogettokind.defineColumn("lu", typeof(string));
-	tprogettokind.defineColumn("oredivisionecostostipendio", typeof(int));
+	tprogettokind.defineColumn("oredivisionecostostipendio", typeof(int),false);
 	tprogettokind.defineColumn("stipendioannoprec", typeof(string));
 	tprogettokind.defineColumn("stipendiocomericavo", typeof(string));
 	tprogettokind.defineColumn("title", typeof(string));
@@ -299,6 +335,14 @@ private void initClass() {
 	cPar = new []{progettotestokind.Columns["idprogettotestokind"]};
 	cChild = new []{progettotestokindprogettostatuskind.Columns["idprogettotestokind"]};
 	Relations.Add(new DataRelation("FK_progettotestokindprogettostatuskind_progettotestokind_idprogettotestokind",cPar,cChild,false));
+
+	cPar = new []{progettokind.Columns["idprogettokind"]};
+	cChild = new []{progettokindcontrattokind.Columns["idprogettokind"]};
+	Relations.Add(new DataRelation("FK_progettokindcontrattokind_progettokind_idprogettokind",cPar,cChild,false));
+
+	cPar = new []{position.Columns["idposition"]};
+	cChild = new []{progettokindcontrattokind.Columns["idposition"]};
+	Relations.Add(new DataRelation("FK_progettokindcontrattokind_position_idposition",cPar,cChild,false));
 
 	cPar = new []{progettokind.Columns["idprogettokind"]};
 	cChild = new []{progettoattachkind.Columns["idprogettokind"]};

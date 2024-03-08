@@ -1,29 +1,13 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_perfprogettoobiettivoattivita() {
 		MetaPage.apply(this, ['perfprogettoobiettivoattivita', 'docenti', false]);
-        this.name = 'Le mie attivit‡ sui progetti strategici';
+        this.name = 'Le mie attivit√† sui progetti strategici';
 		this.defaultListType = 'docenti';
 		this.firstSearchFilter = window.jsDataQuery.constant(true);
+		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
     }
 
@@ -46,8 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.idreg)
-					parentRow.idreg = this.sec.usr('idreg');
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#perfprogettoobiettivoattivita_docenti_idupb'), null);
+				} else {
+					this.helpForm.filter($('#perfprogettoobiettivoattivita_docenti_idupb'), this.q.eq('upb_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -66,43 +53,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#perfprogettoobiettivoattivita_docenti_idupb'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
-			//afterFill
+			afterFill: function () {
+				this.enableControl($("#XXperfprogettoattivitainterazione"), this.state.isEditState());
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
 			
 			afterRowSelect: function (t, r) {
+				var def = appMeta.Deferred("afterRowSelect-perfprogettoobiettivoattivita_docenti");
 				$('#perfprogettoobiettivoattivita_docenti_idperfprogetto').prop("disabled", this.state.isEditState() || this.haveChildren());
 				$('#perfprogettoobiettivoattivita_docenti_idperfprogetto').prop("readonly", this.state.isEditState() || this.haveChildren());
 				$('#perfprogettoobiettivoattivita_docenti_idperfprogettoobiettivo').prop("disabled", this.state.isEditState() || this.haveChildren());
 				$('#perfprogettoobiettivoattivita_docenti_idperfprogettoobiettivo').prop("readonly", this.state.isEditState() || this.haveChildren());
 				//afterRowSelectin
-				var arraydef = [];
-				var self = this;
-				if (t.name === "perfprogettodefaultview" && r !== null) {
-					appMeta.metaModel.cachedTable(this.getDataTable("perfprogettoobiettivo"), false);
-					var perfprogettoobiettivoattivita_docenti_idperfprogettoobiettivoCtrl = $('#perfprogettoobiettivoattivita_docenti_idperfprogettoobiettivo').data("customController");
-					arraydef.push(perfprogettoobiettivoattivita_docenti_idperfprogettoobiettivoCtrl.filteredPreFillCombo(window.jsDataQuery.eq("idperfprogetto", r ? r.idperfprogetto : null), null, true)
-						.then(function (dt) {
-							if (self.state.currentRow && self.state.currentRow.idperfprogettoobiettivo)
-								return perfprogettoobiettivoattivita_docenti_idperfprogettoobiettivoCtrl.fillControl(null, self.state.currentRow.idperfprogettoobiettivo);
-						})
-						.then(function (dt) {
-							var ctrl = $('#perfprogettoobiettivoattivita_docenti_paridperfprogettoobiettivoattivita').data("customController");
-							if (self.state.currentRow && self.state.currentRow.idperfprogettoobiettivoattivita)
-								return ctrl.fillControl(null, self.state.currentRow.idperfprogettoobiettivoattivita);
-						})
-					);
-				}
-				//afterRowSelectAsincIn
-				return $.when.apply($, arraydef);
+				return def.resolve();
 			},
 
 			//afterActivation
 
 			//rowSelected
 
-			//buttonClickEnd
+			buttonClickEnd: function (currMetaPage, cmd) {
+				if ($("#XXperfprogettoattivitainterazione").length) {
+					$("#XXperfprogettoattivitainterazione").prop("disabled", !currMetaPage.state.isEditState());
+				}
+				//fireRelButtonClickEnd
+				cmd = cmd.toLowerCase();
+				if (cmd === "mainsetsearch") {
+					//firebuttonClickEnd
+				}
+				return this.superClass.buttonClickEnd(currMetaPage, cmd);
+			},
+
 
 			insertClick: function (that, grid) {
 				if (!$('#perfprogettoobiettivoattivita_docenti_idperfprogetto').val() && this.children.includes(grid.dataSourceName)) {
@@ -119,8 +110,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
-				appMeta.metaModel.cachedTable(this.getDataTable("perfprogettoobiettivo"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("perfprogettoobiettivo"));
+				this.state.DS.tables.perfprogettoobiettivoattivita.defaults({ 'idreg': this.sec.usr('idreg') });
+				$("#XXperfprogettoattivitainterazione").prop("disabled", true);
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -142,7 +133,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				});
 			},
 
-			children: [''],
+			children: ['perfprogettoobiettivoattivitaattach'],
 			haveChildren: function () {
 				var self = this;
 				return _.some(this.children, function (child) {

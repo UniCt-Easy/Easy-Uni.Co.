@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -81,17 +81,23 @@ namespace meta_sdi_acquistoestere {
         }
 
         private object CalcID(DataRow R, DataColumn C, DataAccess Conn) {
-            object o = Conn.DO_READ_VALUE("sdi_vendita", null, "max(idsdi_vendita)");
-            int num = CfgFn.GetNoNullInt32(o);
+            object oFEvendita = Conn.DO_READ_VALUE("sdi_vendita", null, "max(idsdi_vendita)");
+            int nFEvendita = CfgFn.GetNoNullInt32(oFEvendita);
 
-            if (num == 0) {
-                o = Conn.DO_READ_VALUE("electronicinvoice", null, "max(nelectronicinvoice)");
-                num = CfgFn.GetNoNullInt32(o);
+            if (nFEvendita == 0) {
+                oFEvendita = Conn.DO_READ_VALUE("electronicinvoice", null, "max(nelectronicinvoice)");
+                nFEvendita = CfgFn.GetNoNullInt32(oFEvendita);
             }
-            object o2 = Conn.DO_READ_VALUE("sdi_acquistoestere", null, "max(idsdi_acquistoestere)");
-            int num2 = CfgFn.GetNoNullInt32(o2);
+            object oFEacquistostere = Conn.DO_READ_VALUE("sdi_acquistoestere", null, "max(idsdi_acquistoestere)");
+            int nFEacquistostere = CfgFn.GetNoNullInt32(oFEacquistostere);
 
-            num = num + num2 + 1;
+            int num;
+            if (nFEvendita > nFEacquistostere) {
+                num = nFEvendita + 1;
+            }
+            else {
+                num = nFEacquistostere + 1;
+            }
 
             object CFTrasmittente = Conn.DO_READ_VALUE("license", null, "max(cf)");
 
@@ -103,19 +109,25 @@ namespace meta_sdi_acquistoestere {
 
         }
         private object CalcIDacquistoestere(DataRow R, DataColumn C, DataAccess Conn) {
-            object o = Conn.DO_READ_VALUE("sdi_vendita", null, "max(idsdi_vendita)");
-            int num = CfgFn.GetNoNullInt32(o);
+            object oFEvendita = Conn.DO_READ_VALUE("sdi_vendita", null, "max(idsdi_vendita)");
+            int nFEvendita = CfgFn.GetNoNullInt32(oFEvendita);
 
-            if (num == 0) {
-                o = Conn.DO_READ_VALUE("electronicinvoice", null, "max(nelectronicinvoice)");
-                num = CfgFn.GetNoNullInt32(o);
+            if (nFEvendita == 0) {
+                oFEvendita = Conn.DO_READ_VALUE("electronicinvoice", null, "max(nelectronicinvoice)");
+                nFEvendita = CfgFn.GetNoNullInt32(oFEvendita);
             }
-            object o2 = Conn.DO_READ_VALUE("sdi_acquistoestere", null, "max(idsdi_acquistoestere)");
-            int num2 = CfgFn.GetNoNullInt32(o2);
 
-            num = num + num2 + 1;
+            object oFEacquistostere = Conn.DO_READ_VALUE("sdi_acquistoestere", null, "max(idsdi_acquistoestere)");
+            int nFEacquistostere = CfgFn.GetNoNullInt32(oFEacquistostere);
+            int n;
+            if (nFEvendita > nFEacquistostere) {
+                n = nFEvendita + 1;
+            }
+            else {
+                n = nFEacquistostere + 1;
 
-            return num;
+            }
+            return n;
 
         }
 

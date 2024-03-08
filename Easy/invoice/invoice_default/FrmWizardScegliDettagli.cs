@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -179,202 +179,203 @@ namespace invoice_default
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.tabController = new Crownwood.Magic.Controls.TabControl();
-            this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
-            this.lblValuta = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblselezautomaticamente = new System.Windows.Forms.Label();
-            this.btnSelezionaTutto = new System.Windows.Forms.Button();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.gridDettagli = new System.Windows.Forms.DataGrid();
-            this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
-            this.labelMsg = new System.Windows.Forms.Label();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.labDDT = new System.Windows.Forms.Label();
-            this.tabController.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridDettagli)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // tabController
-            // 
-            this.tabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabController.IDEPixelArea = true;
-            this.tabController.Location = new System.Drawing.Point(8, 8);
-            this.tabController.Name = "tabController";
-            this.tabController.SelectedIndex = 0;
-            this.tabController.SelectedTab = this.tabPage1;
-            this.tabController.Size = new System.Drawing.Size(779, 479);
-            this.tabController.TabIndex = 14;
-            this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
+			this.tabController = new Crownwood.Magic.Controls.TabControl();
+			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
+			this.labDDT = new System.Windows.Forms.Label();
+			this.lblValuta = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.lblselezautomaticamente = new System.Windows.Forms.Label();
+			this.btnSelezionaTutto = new System.Windows.Forms.Button();
+			this.label16 = new System.Windows.Forms.Label();
+			this.label14 = new System.Windows.Forms.Label();
+			this.gridDettagli = new System.Windows.Forms.DataGrid();
+			this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
+			this.labelMsg = new System.Windows.Forms.Label();
+			this.btnNext = new System.Windows.Forms.Button();
+			this.btnBack = new System.Windows.Forms.Button();
+			this.btnCancel = new System.Windows.Forms.Button();
+			this.tabController.SuspendLayout();
+			this.tabPage1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridDettagli)).BeginInit();
+			this.tabPage2.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// tabController
+			// 
+			this.tabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabController.IDEPixelArea = true;
+			this.tabController.Location = new System.Drawing.Point(8, 8);
+			this.tabController.Name = "tabController";
+			this.tabController.SelectedIndex = 0;
+			this.tabController.SelectedTab = this.tabPage1;
+			this.tabController.Size = new System.Drawing.Size(779, 479);
+			this.tabController.TabIndex = 14;
+			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabPage1,
             this.tabPage2});
-            this.tabController.SelectionChanged += new System.EventHandler(this.tabControl1_SelectionChanged);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.labDDT);
-            this.tabPage1.Controls.Add(this.lblValuta);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.lblselezautomaticamente);
-            this.tabPage1.Controls.Add(this.btnSelezionaTutto);
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.label14);
-            this.tabPage1.Controls.Add(this.gridDettagli);
-            this.tabPage1.Location = new System.Drawing.Point(0, 0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(779, 454);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Title = "Pagina 1 di 2";
-            // 
-            // lblValuta
-            // 
-            this.lblValuta.AutoSize = true;
-            this.lblValuta.Location = new System.Drawing.Point(341, 72);
-            this.lblValuta.Name = "lblValuta";
-            this.lblValuta.Size = new System.Drawing.Size(187, 13);
-            this.lblValuta.TabIndex = 34;
-            this.lblValuta.Text = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(8, 72);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(315, 16);
-            this.label1.TabIndex = 33;
-            this.label1.Text = "Attenzione: i dettagli si riferiscono a contratti passivi in valuta:";
-            // 
-            // lblselezautomaticamente
-            // 
-            this.lblselezautomaticamente.Location = new System.Drawing.Point(8, 40);
-            this.lblselezautomaticamente.Name = "lblselezautomaticamente";
-            this.lblselezautomaticamente.Size = new System.Drawing.Size(568, 16);
-            this.lblselezautomaticamente.TabIndex = 31;
-            this.lblselezautomaticamente.Text = "NB: Saranno selezionati automaticamente tutti i detttagli dello stesso gruppo del" +
-                "la riga del contratto scelta.";
-            // 
-            // btnSelezionaTutto
-            // 
-            this.btnSelezionaTutto.Location = new System.Drawing.Point(8, 8);
-            this.btnSelezionaTutto.Name = "btnSelezionaTutto";
-            this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
-            this.btnSelezionaTutto.TabIndex = 30;
-            this.btnSelezionaTutto.Text = "Seleziona tutto";
-            this.btnSelezionaTutto.Click += new System.EventHandler(this.btnSelezionaTutto_Click);
-            // 
-            // label16
-            // 
-            this.label16.Location = new System.Drawing.Point(112, 8);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(464, 32);
-            this.label16.TabIndex = 29;
-            this.label16.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
-                "per selezionare più dettagli da inserire in fattura";
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(8, 56);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(192, 16);
-            this.label14.TabIndex = 28;
-            this.label14.Text = "Dettagli ordine da inserire in fattura";
-            // 
-            // gridDettagli
-            // 
-            this.gridDettagli.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridDettagli.CaptionVisible = false;
-            this.gridDettagli.DataMember = "";
-            this.gridDettagli.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridDettagli.Location = new System.Drawing.Point(8, 120);
-            this.gridDettagli.Name = "gridDettagli";
-            this.gridDettagli.Size = new System.Drawing.Size(763, 319);
-            this.gridDettagli.TabIndex = 27;
-            this.gridDettagli.Paint += new System.Windows.Forms.PaintEventHandler(this.gridDettagli_Paint);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.labelMsg);
-            this.tabPage2.Location = new System.Drawing.Point(0, 0);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Selected = false;
-            this.tabPage2.Size = new System.Drawing.Size(779, 454);
-            this.tabPage2.TabIndex = 0;
-            this.tabPage2.Title = "Pagina 2 di 2";
-            // 
-            // labelMsg
-            // 
-            this.labelMsg.Location = new System.Drawing.Point(8, 8);
-            this.labelMsg.Name = "labelMsg";
-            this.labelMsg.Size = new System.Drawing.Size(576, 23);
-            this.labelMsg.TabIndex = 0;
-            this.labelMsg.Text = "label1";
-            // 
-            // btnNext
-            // 
-            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Location = new System.Drawing.Point(611, 495);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(72, 23);
-            this.btnNext.TabIndex = 12;
-            this.btnNext.Text = "Avanti >";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnBack
-            // 
-            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBack.Location = new System.Drawing.Point(531, 495);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(72, 23);
-            this.btnBack.TabIndex = 11;
-            this.btnBack.Text = "< Indietro";
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(715, 495);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 13;
-            this.btnCancel.Text = "Cancel";
-            // 
-            // labDDT
-            // 
-            this.labDDT.AutoSize = true;
-            this.labDDT.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-            this.labDDT.Location = new System.Drawing.Point(8, 104);
-            this.labDDT.Name = "labDDT";
-            this.labDDT.Size = new System.Drawing.Size(616, 13);
-            this.labDDT.TabIndex = 35;
-            this.labDDT.Text = "La merce  arrivata con DDT deve essere caricata col pulsante \"Inserisci da DDT\" e" +
-                " non con questa maschera";
-            // 
-            // FrmWizardScegliDettagli
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(795, 532);
-            this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.tabController);
-            this.Name = "FrmWizardScegliDettagli";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Selezione dettagli ordine";
-            this.tabController.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridDettagli)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.ResumeLayout(false);
+			this.tabController.SelectionChanged += new System.EventHandler(this.tabControl1_SelectionChanged);
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.labDDT);
+			this.tabPage1.Controls.Add(this.lblValuta);
+			this.tabPage1.Controls.Add(this.label1);
+			this.tabPage1.Controls.Add(this.lblselezautomaticamente);
+			this.tabPage1.Controls.Add(this.btnSelezionaTutto);
+			this.tabPage1.Controls.Add(this.label16);
+			this.tabPage1.Controls.Add(this.label14);
+			this.tabPage1.Controls.Add(this.gridDettagli);
+			this.tabPage1.Location = new System.Drawing.Point(0, 0);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Size = new System.Drawing.Size(779, 454);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Title = "Pagina 1 di 2";
+			// 
+			// labDDT
+			// 
+			this.labDDT.AutoSize = true;
+			this.labDDT.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
+			this.labDDT.Location = new System.Drawing.Point(8, 104);
+			this.labDDT.Name = "labDDT";
+			this.labDDT.Size = new System.Drawing.Size(616, 13);
+			this.labDDT.TabIndex = 35;
+			this.labDDT.Text = "La merce  arrivata con DDT deve essere caricata col pulsante \"Inserisci da DDT\" e" +
+    " non con questa maschera";
+			// 
+			// lblValuta
+			// 
+			this.lblValuta.AutoSize = true;
+			this.lblValuta.Location = new System.Drawing.Point(341, 72);
+			this.lblValuta.Name = "lblValuta";
+			this.lblValuta.Size = new System.Drawing.Size(217, 15);
+			this.lblValuta.TabIndex = 34;
+			this.lblValuta.Text = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(8, 72);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(315, 16);
+			this.label1.TabIndex = 33;
+			this.label1.Text = "Attenzione: i dettagli si riferiscono a contratti passivi in valuta:";
+			// 
+			// lblselezautomaticamente
+			// 
+			this.lblselezautomaticamente.Location = new System.Drawing.Point(8, 40);
+			this.lblselezautomaticamente.Name = "lblselezautomaticamente";
+			this.lblselezautomaticamente.Size = new System.Drawing.Size(568, 16);
+			this.lblselezautomaticamente.TabIndex = 31;
+			this.lblselezautomaticamente.Text = "NB: Saranno selezionati automaticamente tutti i detttagli dello stesso gruppo del" +
+    "la riga del contratto scelta.";
+			// 
+			// btnSelezionaTutto
+			// 
+			this.btnSelezionaTutto.Location = new System.Drawing.Point(8, 8);
+			this.btnSelezionaTutto.Name = "btnSelezionaTutto";
+			this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
+			this.btnSelezionaTutto.TabIndex = 30;
+			this.btnSelezionaTutto.Text = "Seleziona tutto";
+			this.btnSelezionaTutto.Click += new System.EventHandler(this.btnSelezionaTutto_Click);
+			// 
+			// label16
+			// 
+			this.label16.Location = new System.Drawing.Point(112, 8);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(464, 32);
+			this.label16.TabIndex = 29;
+			this.label16.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
+    "per selezionare più dettagli da inserire in fattura";
+			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(8, 56);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(192, 16);
+			this.label14.TabIndex = 28;
+			this.label14.Text = "Dettagli ordine da inserire in fattura";
+			// 
+			// gridDettagli
+			// 
+			this.gridDettagli.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gridDettagli.CaptionVisible = false;
+			this.gridDettagli.DataMember = "";
+			this.gridDettagli.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridDettagli.Location = new System.Drawing.Point(8, 120);
+			this.gridDettagli.Name = "gridDettagli";
+			this.gridDettagli.Size = new System.Drawing.Size(763, 319);
+			this.gridDettagli.TabIndex = 27;
+			this.gridDettagli.Paint += new System.Windows.Forms.PaintEventHandler(this.gridDettagli_Paint);
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.labelMsg);
+			this.tabPage2.Location = new System.Drawing.Point(0, 0);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Selected = false;
+			this.tabPage2.Size = new System.Drawing.Size(779, 454);
+			this.tabPage2.TabIndex = 0;
+			this.tabPage2.Title = "Pagina 2 di 2";
+			// 
+			// labelMsg
+			// 
+			this.labelMsg.Location = new System.Drawing.Point(8, 8);
+			this.labelMsg.Name = "labelMsg";
+			this.labelMsg.Size = new System.Drawing.Size(576, 23);
+			this.labelMsg.TabIndex = 0;
+			this.labelMsg.Text = "label1";
+			// 
+			// btnNext
+			// 
+			this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnNext.Location = new System.Drawing.Point(611, 495);
+			this.btnNext.Name = "btnNext";
+			this.btnNext.Size = new System.Drawing.Size(72, 23);
+			this.btnNext.TabIndex = 12;
+			this.btnNext.Text = "Avanti >";
+			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+			// 
+			// btnBack
+			// 
+			this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnBack.Location = new System.Drawing.Point(531, 495);
+			this.btnBack.Name = "btnBack";
+			this.btnBack.Size = new System.Drawing.Size(72, 23);
+			this.btnBack.TabIndex = 11;
+			this.btnBack.Text = "< Indietro";
+			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnCancel.Location = new System.Drawing.Point(715, 495);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.TabIndex = 13;
+			this.btnCancel.Text = "Cancel";
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			// 
+			// FrmWizardScegliDettagli
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(795, 532);
+			this.Controls.Add(this.btnNext);
+			this.Controls.Add(this.btnBack);
+			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.tabController);
+			this.Name = "FrmWizardScegliDettagli";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "Selezione dettagli ordine";
+			this.tabController.ResumeLayout(false);
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridDettagli)).EndInit();
+			this.tabPage2.ResumeLayout(false);
+			this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -652,8 +653,8 @@ namespace invoice_default
 		
 		}
 
-     
+		private void btnCancel_Click(object sender, EventArgs e) {
 
-
+		}
 	}
 }

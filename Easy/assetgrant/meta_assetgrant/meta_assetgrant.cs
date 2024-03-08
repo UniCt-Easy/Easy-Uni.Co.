@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,11 +53,15 @@ namespace meta_assetgrant {
         /// <param name="FormName"></param>
         /// <returns></returns>
         protected override Form GetForm(string FormName) {
-            Name = "Contributi in conto impianti associati al cespite";
-            if (FormName == "single")
+
+            if (FormName == "single") {
+                Name = "Contributi in conto impianti associati al cespite";
                 return MetaData.GetFormByDllName("assetgrant_single");
-            if (FormName == "default") 
+            }
+            if (FormName == "default") {
+                Name= "Finanziamento su cespite";
                 return MetaData.GetFormByDllName("assetgrant_default");
+            }
             
 
             return null;
@@ -74,6 +78,8 @@ namespace meta_assetgrant {
             base.SetDefaults(PrimaryTable);
 
             SetDefault(PrimaryTable, "ygrant", GetSys("esercizio"));
+            SetDefault(PrimaryTable, "flag_entryprofitreservedone", "N");
+           
         }
 
 
@@ -86,16 +92,26 @@ namespace meta_assetgrant {
                 int nPos = 1;
 
                 DescribeAColumn(T, "ygrant", "Anno", nPos++);
-                DescribeAColumn(T, "doc", "Documento", nPos++);
-                DescribeAColumn(T, "docdate", "Data del Documento", nPos++);
-                DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "amount", "Importo", nPos++);
+                DescribeAColumn(T, "!inventario", "Inventario", "assetview_grant.inventory", nPos++);
+                DescribeAColumn(T, "!ninventario", "N.inventario", "assetview_grant.ninventory", nPos++);
+                DescribeAColumn(T, "idasset", "Numero cespite", nPos++);
                 DescribeAColumn(T, "idpiece", "Numero parte", nPos++);
-                DescribeAColumn(T, "idasset", ".#", nPos++);
-                DescribeAColumn(T, "!codemotive", "Cod.Causale Ricavo", "accmotive.codemotive", nPos++);
-                DescribeAColumn(T, "!titlemotive", "Causale Ricavo", "accmotive.title", nPos++);
-                DescribeAColumn(T, "!codeunderwriting", "Cod.Finanziamento", "underwriting.codeunderwriting", nPos++);
-                DescribeAColumn(T, "!titleunderwriting", "Finanziamento", "underwriting.title", nPos++);
+                DescribeAColumn(T, "!codeinv", "Cod. Class. Inv.", "assetview_grant.codeinv", nPos++);
+                DescribeAColumn(T, "!inventorytree", "Class. Inv.", "assetview_grant.inventorytree", nPos++);
+                DescribeAColumn(T, "!inventoryagency", "Ente inventariale", "assetview_grant.inventoryagency", nPos++);
+                DescribeAColumn(T, "idgrant", "Numero contributo", nPos++);
+                DescribeAColumn(T, "flag_financesource", "Tipo finanziamento", nPos++);
+                DescribeAColumn(T, "description", "Descrizione contributo", nPos++);
+                //DescribeAColumn(T, "doc", "Documento", nPos++);
+                //DescribeAColumn(T, "docdate", "Data del Documento", nPos++);
+                //DescribeAColumn(T, "description", "Descrizione", nPos++);
+
+                //DescribeAColumn(T, "idasset", ".#", nPos++);
+                //DescribeAColumn(T, "!codemotive", "Cod.Causale Ricavo", "accmotive.codemotive", nPos++);
+                //DescribeAColumn(T, "!titlemotive", "Causale Ricavo", "accmotive.title", nPos++);
+                //DescribeAColumn(T, "!codeunderwriting", "Cod.Finanziamento", "underwriting.codeunderwriting", nPos++);
+                //DescribeAColumn(T, "!titleunderwriting", "Finanziamento", "underwriting.title", nPos++);
 
             }
 
@@ -134,6 +150,7 @@ namespace meta_assetgrant {
         public override bool FilterRow(DataRow R, string list_type) {
             if (list_type == "collegati") {
                 if (R["idgrantload"] == DBNull.Value) return false;
+                //if((R["flag_financesource"].ToString()=="U") && (R["flag_entryprofitreservedone"].ToString()=="S")) return false;
                 return true;
             }
             return true;
@@ -152,6 +169,11 @@ namespace meta_assetgrant {
                 if (R["ygrant"] == DBNull.Value) {
                     errmess = "E' necessario specificare l'anno";
                     errfield = "ygrant";
+                    return false;
+                }
+                if (R["flag_financesource"] == DBNull.Value) {
+                    errmess = "E' necessario specificare il Tipo Finanziamento";
+                    errfield = "flag_financesource";
                     return false;
                 }
             }

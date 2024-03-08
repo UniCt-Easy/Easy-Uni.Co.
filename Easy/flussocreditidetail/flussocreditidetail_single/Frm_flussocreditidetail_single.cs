@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,11 +33,17 @@ namespace flussocreditidetail_single {
     public partial class Frm_flussocreditidetail_single : MetaDataForm {
         MetaData Meta;
         DataAccess Conn;
+                
         public Frm_flussocreditidetail_single() {
             InitializeComponent();
+            fileSave.DefaultExt = "pdf";
+            fileSave.OverwritePrompt = false;
         }
         CQueryHelper QHC;
         QueryHelper QHS;
+
+        string partner = "";
+
         public void MetaData_AfterLink() {
 			DataAccess.SetTableForReading(DS.upb_iva, "upb");
 			Meta = MetaData.GetMetaData(this);
@@ -96,10 +102,6 @@ namespace flussocreditidetail_single {
             if (idsorkind1 == DBNull.Value && idsorkind2 == DBNull.Value && idsorkind3 == DBNull.Value) {
                 tabControl1.TabPages.Remove(tabAnalitico);
             }
-
-
-
-
         }
 
         public void MetaData_AfterFill() {
@@ -108,7 +110,19 @@ namespace flussocreditidetail_single {
                 AbilitaDisabilitaModificaCausali(Curr.idestimkind == null && Curr.idinvkind == null);
                 AbilitaDisabilitaSalvataggio(Curr.iuv == null);
                 btnRicevuta.Visible = (Curr.iuv != null);
+                var obj = Conn.DO_READ_VALUE("partner_config", QHS.CmpEq("attivo", "S"), "code");
+                if (obj != null) {
+                    partner = obj.ToString().ToLower();
+			    }
+                btnRicevutaEng.Visible = partner.Contains("unicredit") && (Curr.iuv != null);
             }
+            if (Meta.InsertMode) {
+                btnRicevuta.Visible = false;
+                btnRicevutaEng.Visible = false;
+                btnCheckIncassi.Visible = false;
+                button5.Visible = false;
+                btnEmailToCc.Visible = false;
+			}
         }
 
         public void AbilitaDisabilitaModificaCausali(bool abilita) {
@@ -154,8 +168,17 @@ namespace flussocreditidetail_single {
         }
 
         private void btnRicevuta_Click(object sender, EventArgs e) {
+            Ricevuta(false);
+        }
+
+        private void btnRicevutaEng_Click(object sender, EventArgs e) {
+            Ricevuta(true);
+		}
+
+        private void Ricevuta(bool isEng) {
             var curr = DS.flussocreditidetail._First();
             string error;
+            PagoPaService.SetLanguage(isEng);
             var avviso = PagoPaService.ottieniAvvisoPagamento(Conn, curr.iuv,  out error);
             if (error != null) {
                 show(error, "Errore");
@@ -177,8 +200,7 @@ namespace flussocreditidetail_single {
             catch(Exception E) {
                 QueryCreator.ShowException(E);
             }
-
-        }
+		}
 
         private void btnCheckIncassi_Click(object sender, EventArgs e) {
             DataRow curr = DS.flussocreditidetail.Rows[0];

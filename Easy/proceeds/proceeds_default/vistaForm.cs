@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,24 +26,15 @@ using System.Runtime.Serialization;
 namespace proceeds_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Documento di incasso
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable proceeds 		=> Tables["proceeds"];
 
-	///<summary>
-	///Tesoriere
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable treasurer 		=> Tables["treasurer"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
@@ -53,15 +44,9 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomelastview 		=> Tables["incomelastview"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
-	///<summary>
-	///Trattamento del bollo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stamphandling 		=> Tables["stamphandling"];
 
@@ -322,6 +307,8 @@ private void initClass() {
 	tincomelastview.Columns.Add( new DataColumn("idsor03", typeof(int)));
 	tincomelastview.Columns.Add( new DataColumn("idsor04", typeof(int)));
 	tincomelastview.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tincomelastview.Columns.Add( new DataColumn("codetreasurer", typeof(string)));
+	tincomelastview.Columns.Add( new DataColumn("treasurer", typeof(string)));
 	Tables.Add(tincomelastview);
 	tincomelastview.PrimaryKey =  new DataColumn[]{tincomelastview.Columns["idinc"]};
 

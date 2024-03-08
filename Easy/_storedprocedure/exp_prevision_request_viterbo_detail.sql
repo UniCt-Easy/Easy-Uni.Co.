@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +19,7 @@ if OBJECTPROPERTY(object_id('exp_prevision_request_viterbo_detail'), 'IsProcedur
 	drop procedure exp_prevision_request_viterbo_detail
 go
 
-
+--setuser 'amministrazione'
 CREATE      PROCEDURE [exp_prevision_request_viterbo_detail]
 (
 	@ayear int,			--> anno del bilancio di previsione
@@ -37,7 +37,7 @@ CREATE      PROCEDURE [exp_prevision_request_viterbo_detail]
 
 AS BEGIN
 /*
-exec exp_prevision_request_viterbo_detail 2019, {ts '2019-12-31 00:00:00'} ,'E', '%','N', null,null, null, null,null, 'N'
+exec exp_prevision_request_viterbo_detail 2022, {ts '2022-06-09 00:00:00'} ,'S', '%','N', null,null, null, null,null, 'N'
 */
 
 -- Dalla exp originale
@@ -132,6 +132,8 @@ BEGIN
 		,case when  (@finpart='E') then SS2.sortcode else null end as [DI_394_08.06.2017 Entrate]--idsor1
 		,case when  (@finpart='S') then SS3.sortcode else null end as [DI_394_08.06.2017 Uscite] --idsor1
 		,prevcassa as [Prev. Cassa DI 394/2017]
+		,obiettivi.sortcode as [Cod. Obiettivo]
+		,obiettivi.description as [Descr. Obiettivo]
 	FROM viterbo_finvardetailview v
 	LEFT OUTER JOIN costpartition d 		ON v.idcostpartition = d.idcostpartition --Driver di ripartizione
 	LEFT OUTER JOIN sorting c 		ON c.idsor = v.idsor1
@@ -142,6 +144,7 @@ BEGIN
 	LEFT OUTER JOIN sorting s4 		ON v.idsor04 = s4.idsor
 	LEFT OUTER JOIN sorting SS2 		ON v.idsor2 = SS2.idsor
 	LEFT OUTER JOIN sorting SS3 		ON v.idsor3 = SS3.idsor
+	LEFT OUTER JOIN sorting obiettivi 		ON v.idsor4 = obiettivi.idsor
 	WHERE v.yvar = @ayear
 		AND v.adate <= @date
 		AND (v.idupb LIKE @idupb)
@@ -211,6 +214,8 @@ BEGIN
 		,case when  (@finpart='E') then SS2.sortcode else null end as [DI_394_08.06.2017 Entrate]--idsor1
 		,case when  (@finpart='S') then SS3.sortcode else null end as [DI_394_08.06.2017 Uscite] --idsor1
 		,prevcassa as [Prev. Cassa DI 394/2017]
+		,obiettivi.sortcode as [Cod. Obiettivo]
+		,obiettivi.description as [Descr. Obiettivo]
 	FROM viterbo_finvardetailview v
 	LEFT OUTER JOIN costpartition d 			on v.idcostpartition = d.idcostpartition --Driver di ripartizione
 	LEFT OUTER JOIN costpartitiondetail dc 		on dc.idcostpartition = d.idcostpartition 
@@ -222,6 +227,7 @@ BEGIN
 	LEFT OUTER JOIN sorting s4 		on v.idsor04 = s4.idsor
 	LEFT OUTER JOIN sorting SS2 		ON v.idsor2 = SS2.idsor
 	LEFT OUTER JOIN sorting SS3 		ON v.idsor3 = SS3.idsor
+	LEFT OUTER JOIN sorting obiettivi 		ON v.idsor4 = obiettivi.idsor
 	WHERE v.yvar = @ayear
 		AND v.adate <= @date
 		AND (v.idupb LIKE @idupb)

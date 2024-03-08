@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="registry_aziende">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="idateco" type="xs:int" minOccurs="0" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
+              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
+              <xs:element name="txt_en" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="pic" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ateco">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idateco" type="xs:int" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nace">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnace" type="xs:string" />
+              <xs:element name="activity" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="naturagiur">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnaturagiur" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="sortcode" type="xs:int" />
+              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="numerodip">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnumerodip" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="sortcode" type="xs:int" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_aziende" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="ateco_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ateco" />
+      <xs:field xpath="mstns:idateco" />
+    </xs:unique>
+    <xs:unique name="nace_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nace" />
+      <xs:field xpath="mstns:idnace" />
+    </xs:unique>
+    <xs:unique name="naturagiur_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:naturagiur" />
+      <xs:field xpath="mstns:idnaturagiur" />
+    </xs:unique>
+    <xs:unique name="numerodip_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:numerodip" />
+      <xs:field xpath="mstns:idnumerodip" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="ateco_registry_aziende" msdata:parent="ateco" msdata:child="registry_aziende" msdata:parentkey="idateco" msdata:childkey="idateco" />
+      <msdata:Relationship name="nace_registry_aziende" msdata:parent="nace" msdata:child="registry_aziende" msdata:parentkey="idnace" msdata:childkey="idnace" />
+      <msdata:Relationship name="naturagiur_registry_aziende" msdata:parent="naturagiur" msdata:child="registry_aziende" msdata:parentkey="idnaturagiur" msdata:childkey="idnaturagiur" />
+      <msdata:Relationship name="numerodip_registry_aziende" msdata:parent="numerodip" msdata:child="registry_aziende" msdata:parentkey="idnumerodip" msdata:childkey="idnumerodip" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

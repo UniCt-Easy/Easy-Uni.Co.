@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
---setuser 'amm'
+--setuser 'amministrazione'
  
 -- exp_invoicescadenza '2020', {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, 'N','N', NULL, NULL, NULL, NULL, NULL
 CREATE  PROCEDURE [exp_invoicescadenza](
@@ -60,6 +60,22 @@ SELECT distinct
 	WHEN (profservice.idinvkind is null) THEN
 				ISNULL(totinvoiceview.taxabletotal, 0.0) +
 				ISNULL(totinvoiceview.ivatotal, 0.0) - 
+
+				-- sottraggo i dettagli NOLIQ
+				CASE @flag_nascondi_noliq 
+				WHEN 'S' THEN 
+				(SELECT sum(rowtotal) 
+				 FROM invoicedetailview det 
+				 WHERE
+				 det.idinvkind = totinvoiceview.idinvkind and
+				 det.yinv = totinvoiceview.yinv and
+				 det.ninv = totinvoiceview.ninv and
+				 ISNULL(det.idpccdebitstatus,'N') in ( 'NOLIQ','NLdaLIQ','NLdaSOSP')  
+				)
+				ELSE 0
+				END 
+
+				- 
 				CONVERT(decimal(23,5),
 				CASE 
 				--pagato con mandato
@@ -178,12 +194,41 @@ SELECT distinct
 	END  [Tot. Da trasmettere],
 
 	CASE 
-		WHEN (profservice.idinvkind is null) THEN	totinvoiceview.taxabletotal 
+		WHEN (profservice.idinvkind is null) THEN	isnull(totinvoiceview.taxabletotal,0)   - 
+
+				-- sottraggo i dettagli NOLIQ
+				CASE @flag_nascondi_noliq 
+				WHEN 'S' THEN 
+				(SELECT sum(taxable_euro) 
+				 FROM invoicedetailview det 
+				 WHERE
+				 det.idinvkind = totinvoiceview.idinvkind and
+				 det.yinv = totinvoiceview.yinv and
+				 det.ninv = totinvoiceview.ninv and
+				 ISNULL(det.idpccdebitstatus,'N') in ( 'NOLIQ','NLdaLIQ','NLdaSOSP')  
+				)
+				ELSE 0
+				END 
 		WHEN (profservice.idinvkind is not null) THEN	CONVERT(decimal(19,2), ROUND(profservice.totalgross - ISNULL(profservice.ivaamount,0),2))
 	END	 [Tot. Imponibile],
 	
 	CASE 
-		WHEN (profservice.idinvkind is null) THEN	totinvoiceview.ivatotal 
+		WHEN (profservice.idinvkind is null) THEN	isnull(totinvoiceview.ivatotal,0)
+		 - 
+
+				-- sottraggo i dettagli NOLIQ
+				CASE @flag_nascondi_noliq 
+				WHEN 'S' THEN 
+				(SELECT sum(iva_euro) 
+				 FROM invoicedetailview det 
+				 WHERE
+				 det.idinvkind = totinvoiceview.idinvkind and
+				 det.yinv = totinvoiceview.yinv and
+				 det.ninv = totinvoiceview.ninv and
+				 ISNULL(det.idpccdebitstatus,'N') in ( 'NOLIQ','NLdaLIQ','NLdaSOSP')  
+				)
+				ELSE 0
+				END 
 		WHEN (profservice.idinvkind is not null) THEN	profservice.ivaamount
 	END [Tot. Iva],
 
@@ -472,7 +517,12 @@ SELECT distinct
 
 	--imponibile dettaglio
 	
-	invdet.taxable [Imponibile dettaglio],
+	  CONVERT(decimal(19,2),
+		ROUND(invdet.taxable * ISNULL(invdet.npackage,invdet.number) * 
+		  CONVERT(DECIMAL(19,10),invoice.exchangerate) *
+		  (1 - CONVERT(DECIMAL(19,6),ISNULL(invdet.discount, 0.0)))
+		 ,2
+		)) [Imponibile dettaglio],
 	
 	--iva dettaglio
 	invdet.tax [Iva dettaglio],

@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabgraduatoriaesiti_default_0" class="nav-link active show" data-toggle="pill" data-target="#tabgraduatoriaesiti_default_0"><i class="fa fa-list-ol mr-1"></i>Principale</a>
+		<a href="#tabgraduatoriaesiti_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabgraduatoriaesiti_default_0"><i class="fa fa-list-ol mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabgraduatoriaesiti_default_1" class="nav-link" data-toggle="pill" data-target="#tabgraduatoriaesiti_default_1"><i class="fa fa-list-ol mr-1"></i>Esiti</a>
+		<a href="#tabgraduatoriaesiti_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabgraduatoriaesiti_default_1"><i class="fa fa-list-ol mr-1"></i>Esiti</a>
 	</li>
 
 	</ul>
@@ -16,7 +16,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#graduatoriaesiti_default_datachiusura").datetimepicker();
+    $("#graduatoriaesiti_default_datachiusura").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="graduatoriaesiti_default_datachiusura">Data di chiusura</label>

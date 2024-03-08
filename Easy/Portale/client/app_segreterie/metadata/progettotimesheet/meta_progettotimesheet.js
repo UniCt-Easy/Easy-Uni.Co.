@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -42,12 +25,61 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
 						this.describeAColumn(table, 'year', 'Anno', null, 10, null);
-						this.describeAColumn(table, 'title', 'Descrizione', null, 30, 2048);
-						this.describeAColumn(table, 'idtimesheettemplate', 'Intestazione', null, 40, 60);
-						this.describeAColumn(table, 'showactivitiesrow', 'Visualizza la riga con il totale giornaliero', null, 50, null);
-						this.describeAColumn(table, 'intestazioneallsheet', 'Intestazione in  tutti i fogli', null, 110, null);
-						this.describeAColumn(table, 'riepilogoanno', 'Inserisci il riepilogo annuale', null, 120, null);
+						this.describeAColumn(table, 'idmese', 'Mese', null, 20, null);
+						this.describeAColumn(table, 'idsal', 'SAL', null, 30, null);
+						this.describeAColumn(table, 'idtimesheettemplate', 'Template', null, 40, 60);
+						this.describeAColumn(table, 'idprogetto', 'Progetto principale', null, 50, null);
+						this.describeAColumn(table, 'title', 'Descrizione', null, 60, 2048);
+						this.describeAColumn(table, 'output', 'Formato', null, 70, null);
+						this.describeAColumn(table, 'multilinetype', 'Separa le ore per tipologia', null, 150, null);
+						this.describeAColumn(table, '!idmese_mese_title', 'Mese', null, 21, null);
+						objCalcFieldConfig['!idmese_mese_title'] = { tableNameLookup:'mese_alias1', columnNameLookup:'title', columnNamekey:'idmese' };
+						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo Progetto principale', null, 51, null);
+						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio Progetto principale', null, 52, null);
+						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine Progetto principale', null, 53, null);
+						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto_alias1', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto_alias1', columnNameLookup:'start', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto_alias1', columnNameLookup:'stop', columnNamekey:'idprogetto' };
+						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio SAL', null, 31, null);
+						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine SAL', null, 32, null);
+						this.describeAColumn(table, '!idsal_sal_datablocco', 'Data di Blocco SAL', null, 33, null);
+						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal', columnNameLookup:'start', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal', columnNameLookup:'stop', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idsal_sal_datablocco'] = { tableNameLookup:'sal', columnNameLookup:'datablocco', columnNamekey:'idsal' };
 //$objCalcFieldConfig_default$
+						break;
+					case 'personale':
+						this.describeAColumn(table, 'year', 'Anno', null, 20, null);
+						this.describeAColumn(table, 'idtimesheettemplate', 'Template', null, 50, 60);
+						this.describeAColumn(table, 'title', 'Descrizione', null, 70, 2048);
+						this.describeAColumn(table, 'output', 'Formato', null, 150, null);
+						this.describeAColumn(table, 'multilinetype', 'Separa le ore per tipologia', null, 160, null);
+//$objCalcFieldConfig_personale$
+						break;
+					case 'datipersonali':
+						this.describeAColumn(table, 'year', 'Anno', null, 10, null);
+						this.describeAColumn(table, 'idmese', 'Mese', null, 20, null);
+						this.describeAColumn(table, 'idsal', 'SAL', null, 30, null);
+						this.describeAColumn(table, 'idtimesheettemplate', 'Template', null, 40, 60);
+						this.describeAColumn(table, 'idprogetto', 'Progetto principale', null, 50, null);
+						this.describeAColumn(table, 'title', 'Descrizione', null, 60, 2048);
+						this.describeAColumn(table, 'output', 'Formato', null, 70, null);
+						this.describeAColumn(table, 'multilinetype', 'Separa le ore per tipologia', null, 150, null);
+						this.describeAColumn(table, '!idmese_mese_title', 'Mese', null, 21, null);
+						objCalcFieldConfig['!idmese_mese_title'] = { tableNameLookup:'mese', columnNameLookup:'title', columnNamekey:'idmese' };
+						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo Progetto principale', null, 51, null);
+						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio Progetto principale', null, 52, null);
+						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine Progetto principale', null, 53, null);
+						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto', columnNameLookup:'start', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto', columnNameLookup:'stop', columnNamekey:'idprogetto' };
+						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio SAL', null, 31, null);
+						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine SAL', null, 32, null);
+						this.describeAColumn(table, '!idsal_sal_datablocco', 'Data di Blocco SAL', null, 33, null);
+						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal', columnNameLookup:'start', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal', columnNameLookup:'stop', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idsal_sal_datablocco'] = { tableNameLookup:'sal', columnNameLookup:'datablocco', columnNamekey:'idsal' };
+//$objCalcFieldConfig_datipersonali$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -57,7 +89,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'personale':
+						table.columns["collapseteachingother"].caption = "Mostra attività istituzionali su una sola riga";
+						table.columns["idmese"].caption = "Mese";
+						table.columns["idprogetto"].caption = "Progetto principale";
+						table.columns["idreg"].caption = "Membro del progetto";
+						table.columns["idsal"].caption = "SAL";
+						table.columns["idtimesheettemplate"].caption = "Template";
+						table.columns["intestazioneallsheet"].caption = "Intestazione in  tutti i fogli";
+						table.columns["multilinetype"].caption = "Separa le ore per tipologia";
+						table.columns["output"].caption = "Formato";
+						table.columns["riepilogoanno"].caption = "Inserisci il riepilogo annuale";
+						table.columns["showactivitiesrow"].caption = "Visualizza la riga con il totale in attività di ricerca";
+						table.columns["showotheractivitiesrow"].caption = "Visualizza la riga con la differenza con il totale giornaliero";
+						table.columns["title"].caption = "Descrizione";
+						table.columns["withworkpackage"].caption = "Visualizza i Workpackage";
+						table.columns["year"].caption = "Anno";
+//$innerSetCaptionConfig_personale$
+						break;
+					case 'default':
+//$innerSetCaptionConfig_default$
+						break;
+					case 'datipersonali':
+//$innerSetCaptionConfig_datipersonali$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_progettotimesheet");
@@ -84,6 +145,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (listType) {
 					case "default": {
 						return "year desc, title asc ";
+					}
+					case "personale": {
+						return "year desc, title asc ";
+					}
+					case "datipersonali": {
+						return "year desc, title asc ";
+					}
+					case "personale": {
+						return "idreg asc , year desc, idmese asc , title asc ";
+					}
+					case "datipersonali": {
+						return "year desc, idmese asc , title asc ";
+					}
+					case "default": {
+						return "year desc, idmese asc , title asc ";
 					}
 					//$getSortingin$
 				}

@@ -1,5 +1,0 @@
-D:\Easy\flussoincassi\meta_flussoincassiview\obj\Debug\meta_flussoincassiview.csproj.CoreCompileInputs.cache
-D:\Easy\flussoincassi\meta_flussoincassiview\bin\Debug\meta_flussoincassiview.dll
-D:\Easy\flussoincassi\meta_flussoincassiview\bin\Debug\meta_flussoincassiview.pdb
-D:\Easy\flussoincassi\meta_flussoincassiview\obj\Debug\meta_flussoincassiview.dll
-D:\Easy\flussoincassi\meta_flussoincassiview\obj\Debug\meta_flussoincassiview.pdb

@@ -15,7 +15,7 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="description" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idperfsogliakind" type="xs:string" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazionepersonalecomportamento" type="xs:int" />

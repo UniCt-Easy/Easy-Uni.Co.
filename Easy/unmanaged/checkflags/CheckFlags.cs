@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -88,10 +88,10 @@ namespace checkflags//checkflags//
 				byte [] B2 = DataAccess.CryptString(XX);
 				string SS2 = QueryCreator.ByteArrayToString(B2);
 				WebClient W = new WebClient();
-				W.BaseAddress = MetaData.errorLogBaseAddress; //"http://ticket.temposrl.it/LiveLog/";
+				W.BaseAddress = MetaData.errorLogBaseAddress; //"http://SERVER/LiveLog/";
                 W.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
                 W.Headers.Add("Accept-Language", "it-IT,it;q=0.8,en-US;q=0.6,en;q=0.4,bg;q=0.2,es;q=0.2,vi;q=0.2");
-                byte[] B = W.DownloadData(MetaData.errorLogUrl+"?c=" + SS2); //" "http://ticket.temposrl.it/LiveLog/DoEasy.aspx
+                byte[] B = W.DownloadData(MetaData.errorLogUrl+"?c=" + SS2); //" "http://SERVER/LiveLog/DoEasy.aspx
 				string resp="";
 				for (int i=0; i<B.Length;i++) resp=resp+ (char)B[i];
 				resp= resp.Trim();
@@ -201,9 +201,9 @@ namespace checkflags//checkflags//
 				string SS= QueryCreator.ByteArrayToString(BB);
 
 				WebClient W = new WebClient();
-				W.BaseAddress = MetaData.errorLogBaseAddress;// "http://ticket.temposrl.it/LiveLog/";
+				W.BaseAddress = MetaData.errorLogBaseAddress;// "http://SERVER/LiveLog/";
                 W.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-                byte[] B = W.DownloadData(MetaData.errorLogUrl + "?d=" + SS); //"http://ticket.temposrl.it/LiveLog/DoEasy.aspx
+                byte[] B = W.DownloadData(MetaData.errorLogUrl + "?d=" + SS); //"http://SERVER/LiveLog/DoEasy.aspx
 				string resp="";
 				for (int i=0; i<B.Length;i++) resp=resp+ (char)B[i];
 				resp= resp.Trim();

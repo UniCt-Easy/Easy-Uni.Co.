@@ -1,30 +1,11 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_perfprogettouo() {
 		MetaPage.apply(this, ['perfprogettouo', 'default', true]);
-        this.name = 'Unit‡ organizzative';
+        this.name = 'Unit√† di lavoro';
 		this.defaultListType = 'default';
-		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
-		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
     }
 
@@ -85,7 +66,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#perfprogettouo_default_struttura'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#perfprogettouo_default_struttura'), false);
@@ -95,8 +82,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
-				$("#btn_add_perfprogettouomembro_idreg").on("click", _.partial(this.searchAndAssigngetregistrydocentiamministrativi, self));
-				$("#btn_add_perfprogettouomembro_idreg").prop("disabled", true);
+				$('#grid_perfprogettouomembro_default').data('mdlconditionallookup', 'agile,S,Si;agile,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -109,39 +95,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterActivation
 
-			rowSelected: function (dataRow) {
-				$("#btn_add_perfprogettouomembro_idreg").prop("disabled", false);
-				//firerowSelected
-			},
+			//rowSelected
 
-
-			buttonClickEnd: function (currMetaPage, cmd) {
-				//fireRelButtonClickEnd
-				cmd = cmd.toLowerCase();
-				if (cmd === "mainsetsearch") {
-					$("#btn_add_perfprogettouomembro_idreg").prop("disabled", true);
-					//firebuttonClickEnd
-				}
-				return this.superClass.buttonClickEnd(currMetaPage, cmd);
-			},
-
+			//buttonClickEnd
 
 			//insertClick
 
 			//beforePost
-
-			searchAndAssigngetregistrydocentiamministrativi: function (that) {
-				return that.searchAndAssign({
-					tableName: "getregistrydocentiamministrativi",
-					listType: "default",
-					idControl: "txt_perfprogettouomembro_idreg",
-					tagSearch: "getregistrydocentiamministratividefaultview.dropdown_title",
-					columnNameText: "surname",
-					columnSource: "idreg",
-					columnToFill: "idreg",
-					tableToFill: "perfprogettouomembro"
-				});
-			},
 
 			manageperfprogettouo_default_struttura: function () {
            //campo calcolato

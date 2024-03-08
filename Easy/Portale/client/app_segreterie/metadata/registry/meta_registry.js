@@ -1,37 +1,20 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
-
+	var utils = appMeta.utils;
     function meta_registry() {
         MetaData.apply(this, ["registry"]);
         this.name = 'meta_registry';
     }
 
-    meta_registry.prototype = _.extend(
-        new MetaData(),
-        {
-            constructor: meta_registry,
+	meta_registry.prototype = _.extend(
+		new MetaData(),
+		{
+			constructor: meta_registry,
 			superClass: MetaData.prototype,
 
 			describeColumns: function (table, listType) {
-				var nPos=1;
+				var nPos = 1;
 				var objCalcFieldConfig = {};
 				var self = this;
 				_.forEach(table.columns, function (c) {
@@ -70,21 +53,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'toredirect', 'E\' stato usato in qualche migrazione', null, 400, null);
 						this.describeAColumn(table, 'txt', 'note testuali', null, 410, null);
 						this.describeAColumn(table, 'ipa_perlapa', 'Ipa_perlapa', null, 460, 100);
-//$objCalcFieldConfig_istituti_princ$
+						//$objCalcFieldConfig_istituti_princ$
 						break;
 					case 'istituti':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 101);
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
-//$objCalcFieldConfig_istituti$
+						//$objCalcFieldConfig_istituti$
 						break;
 					case 'studenti':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 101);
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
-//$objCalcFieldConfig_studenti$
+						//$objCalcFieldConfig_studenti$
 						break;
 					case 'amministrativi_personale':
 						this.describeAColumn(table, 'surname', 'Cognome', null, 20, 50);
@@ -108,10 +91,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
-//$objCalcFieldConfig_docenti_doc$
+						//$objCalcFieldConfig_docenti_doc$
 						break;
 					case 'docenti':
-						this.describeAColumn(table, 'idreg', 'Identificativo', null, 10, null);
 						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 101);
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
@@ -123,13 +105,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
-//$objCalcFieldConfig_user$
+						//$objCalcFieldConfig_user$
 						break;
 					case 'aziende':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 101);
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
+						this.describeAColumn(table, 'pic', 'Participant Identification Code (PIC)', null, 120, 10);
 						this.describeAColumn(table, 'flag_pa', 'Ente pubblico', null, 1000, null);
 //$objCalcFieldConfig_aziende$
 						break;
@@ -138,7 +121,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
-//$objCalcFieldConfig_istitutiesteri$
+						//$objCalcFieldConfig_istitutiesteri$
 						break;
 					case 'default':
 						this.describeAColumn(table, 'idreg', 'Identificativo', null, 10, null);
@@ -146,7 +129,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
-//$objCalcFieldConfig_default$
+						//$objCalcFieldConfig_default$
 						break;
 					case 'docenti_docente':
 						this.describeAColumn(table, 'idreg', 'Identificativo', null, 10, null);
@@ -161,6 +144,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
+						this.describeAColumn(table, 'pic', 'Participant Identification Code (PIC)', null, 120, 10);
 						this.describeAColumn(table, 'flag_pa', 'Ente pubblico', null, 1000, null);
 //$objCalcFieldConfig_aziende_ro$
 						break;
@@ -171,14 +155,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
 						this.describeAColumn(table, 'extmatricula', 'Matricola', null, 70, 40);
-//$objCalcFieldConfig_uncategorized$
+						//$objCalcFieldConfig_uncategorized$
 						break;
 					case 'persone':
 						this.describeAColumn(table, 'extmatricula', 'Matricola', null, 10, 40);
 						this.describeAColumn(table, 'title', 'Cognome Nome', null, 20, 101);
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 30, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 40, 15);
-//$objCalcFieldConfig_persone$
+						//$objCalcFieldConfig_persone$
+						break;
+					case 'servizi':
+						this.describeAColumn(table, 'surname', 'Cognome', null, 20, 50);
+						this.describeAColumn(table, 'forename', 'Nome', null, 30, 50);
+						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
+						this.describeAColumn(table, 'badgecode', 'Codice badge', null, 50, 20);
+						this.describeAColumn(table, 'active', 'Attivo', null, 100, null);
+//$objCalcFieldConfig_servizi$
+						break;
+					case 'solotitle':
+						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 101);
+						//$objCalcFieldConfig_solotitle$
+						break;
+					case 'docenti_docentenoaltro':
+						this.describeAColumn(table, 'idreg', 'Identificativo', null, 10, null);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 101);
+						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
+						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
+						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
+//$objCalcFieldConfig_docenti_docentenoaltro$
+						break;
+										case 'didattica':
+						this.describeAColumn(table, '!datafine', 'Data fine', null, 0, null);
+						this.describeAColumn(table, '!datainizio', 'Data inizio', null, 0, null);
+						this.describeAColumn(table, '!importattivita', 'Importa attivit√† didattica', null, 0, null);
+						this.describeAColumn(table, 'surname', 'Cognome', null, 20, 50);
+						this.describeAColumn(table, 'forename', 'Nome', null, 30, 50);
+						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
+						this.describeAColumn(table, 'badgecode', 'Codice badge', null, 50, 20);
+						this.describeAColumn(table, 'active', 'Attivo', null, 100, null);
+//$objCalcFieldConfig_didattica$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -193,13 +208,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'istituti':
 						table.columns["idcity"].caption = "Comune";
 						table.columns["idregistryclass"].caption = "Tipologia";
-						table.columns["location"].caption = "Localit‡";
-//$innerSetCaptionConfig_istituti$
+						table.columns["location"].caption = "Localit√†";
+						table.columns["active"].caption = "attivo";
+						table.columns["annotation"].caption = "Annotazioni";
+						table.columns["authorization_free"].caption = "Esente ai fini dell'autorizzazione EQUITALIA. (S/N)";
+						table.columns["badgecode"].caption = "Codice badge";
+						table.columns["birthdate"].caption = "Data di nascita";
+						table.columns["ccp"].caption = "Conto corrente postale di Riscossione";
+						table.columns["cf"].caption = "Codice fiscale";
+						table.columns["ct"].caption = "data creazione";
+						table.columns["cu"].caption = "nome utente creazione";
+						table.columns["extension"].caption = "tabella che estende il record";
+						table.columns["extmatricula"].caption = "Matricola";
+						table.columns["flag_pa"].caption = "Applica lo split payment  (per le fatture di vendita)";
+						table.columns["flagbankitaliaproceeds"].caption = "Regolarizzazione Riscossioni presso  T.P.S. - Banca d'Italia";
+						table.columns["foreigncf"].caption = "Codice fiscale estero";
+						table.columns["forename"].caption = "Nome";
+						table.columns["gender"].caption = "Sesso (M/F)";
+						table.columns["idaccmotivecredit"].caption = "ID Causale per i crediti (tabella accmotive)";
+						table.columns["idaccmotivedebit"].caption = "Id della causale di debito (tabella accmotive) ";
+						table.columns["idcategory"].caption = "ID Categoria (tabella category)";
+						table.columns["idcentralizedcategory"].caption = "ID Classificazione centralizzata anagrafica (tabella centralizedcategory)";
+						table.columns["idexternal"].caption = "Id chiave in altri database, usato in migrazioni o simili";
+						table.columns["idmaritalstatus"].caption = "ID Stato civile (tabella maritalstatus)";
+						table.columns["idnation"].caption = "Id nazione (tabella geo_nation)";
+						table.columns["idreg"].caption = "id anagrafica (tabella registry)";
+						table.columns["idregistrykind"].caption = "ID Classificazione Anagrafica (tabella registrykind)";
+						table.columns["idtitle"].caption = "ID Titolo (tabella title)";
+						table.columns["ipa_fe"].caption = "Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, prelevato dal sito www.indicepa.gov.it.";
+						table.columns["lt"].caption = "data ultima modifica";
+						table.columns["lu"].caption = "nome ultimo utente modifica";
+						table.columns["maritalsurname"].caption = "Cognome acquisito";
+						table.columns["multi_cf"].caption = "Consenti duplicazione CF/P. IVA (S/N)";
+						table.columns["p_iva"].caption = "Partita iva";
+						table.columns["residence"].caption = "Tipo residenza (chiave di tabella residence)";
+						table.columns["rtf"].caption = "allegati";
+						table.columns["sdi_defrifamm"].caption = "Rif.Amministrazione di default per fattura elettronica";
+						table.columns["sdi_norifamm"].caption = "Consenti al fornitore di non specificare il riferimento amministrativo in fatt.elettronica";
+						table.columns["surname"].caption = "Cognome";
+						table.columns["title"].caption = "Denominazione";
+						table.columns["toredirect"].caption = "E' stato usato in qualche migrazione";
+						table.columns["txt"].caption = "note testuali";
+						//$innerSetCaptionConfig_istituti$
 						break;
 					case 'studenti':
 						table.columns["idcity"].caption = "Comune di nascita";
 						table.columns["idmaritalstatus"].caption = "Stato civile";
-						table.columns["idnation"].caption = "Nazionalit‡";
+						table.columns["idnation"].caption = "Nazionalit√†";
 						table.columns["idreg"].caption = "Identificativo";
 						table.columns["idregistryclass"].caption = "Tipologia fiscale";
 						table.columns["idtitle"].caption = "Titolo";
@@ -240,28 +295,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["title"].caption = "Denominazione";
 						table.columns["toredirect"].caption = "E' stato usato in qualche migrazione";
 						table.columns["txt"].caption = "note testuali";
-//$innerSetCaptionConfig_studenti$
+						//$innerSetCaptionConfig_studenti$
 						break;
 					case 'amministrativi_personale':
 						table.columns["active"].caption = "Attivo";
 						table.columns["annotation"].caption = "Note";
 						table.columns["badgecode"].caption = "Codice bedge";
-						table.columns["birthdate"].caption = "Data di nascita";
-						table.columns["cf"].caption = "Codice fiscale";
 						table.columns["foreigncf"].caption = "Codice Fiscale estero";
-						table.columns["forename"].caption = "Nome";
 						table.columns["gender"].caption = "Genere";
+						table.columns["idateco"].caption = "Classificazione Ateco";
 						table.columns["idcategory"].caption = "Categoria protetta";
-						table.columns["idcity"].caption = "Comune di nascita";
-						table.columns["idmaritalstatus"].caption = "Stato civile";
-						table.columns["idnation"].caption = "Nazionalit‡";
-						table.columns["idregistryclass"].caption = "Tipologia fiscale";
+						table.columns["idclassconsorsuale"].caption = "Classe consorsuale";
+						table.columns["idfonteindicebibliometrico"].caption = "Fonte";
+						table.columns["idnace"].caption = "NACE";
+						table.columns["idnaturagiur"].caption = "Natura Giuridica";
+						table.columns["idnumerodip"].caption = "Numero di dipendenti";
+						table.columns["idreg_istituti"].caption = "Istituto, Ente o Azienda";
 						table.columns["idregistrykind"].caption = "Tipologia rapporto";
-						table.columns["idtitle"].caption = "Titolo";
+						table.columns["idsasd"].caption = "SASD";
+						table.columns["idstruttura"].caption = "Struttura di afferenza";
+						table.columns["indicebibliometrico"].caption = "Indice bibliometrico (H-Index)";
 						table.columns["p_iva"].caption = "Partita IVA";
-						table.columns["residence"].caption = "Residenza";
-						table.columns["surname"].caption = "Cognome";
-						table.columns["idreg"].caption = "id anagrafica (tabella registry)";
+						table.columns["pic"].caption = "Participant Identification Code (PIC)";
+						table.columns["ricevimento"].caption = "Orari di ricevimento";
+						table.columns["soggiorno"].caption = "Permesso di soggiorno";
+						table.columns["title_en"].caption = "Denominazione (ENG)";
 //$innerSetCaptionConfig_amministrativi_personale$
 						break;
 					case 'amministrativi':
@@ -276,7 +334,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["idcategory"].caption = "Categoria protetta";
 						table.columns["idcity"].caption = "Comune di nascita";
 						table.columns["idmaritalstatus"].caption = "Stato civile";
-						table.columns["idnation"].caption = "Nazionalit‡";
+						table.columns["idnation"].caption = "Nazionalit√†";
 						table.columns["idregistryclass"].caption = "Tipologia fiscale";
 						table.columns["idregistrykind"].caption = "Tipologia rapporto";
 						table.columns["idtitle"].caption = "Titolo";
@@ -293,8 +351,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["extmatricula"].caption = "Matricola";
 						table.columns["flag_pa"].caption = "Applica lo split payment  (per le fatture di vendita)";
 						table.columns["flagbankitaliaproceeds"].caption = "Regolarizzazione Riscossioni presso  T.P.S. - Banca d'Italia";
-						table.columns["idaccmotivecredit"].caption = "ID Causale per i crediti (tabella accmotive)";
-						table.columns["idaccmotivedebit"].caption = "Id della causale di debito (tabella accmotive) ";
 						table.columns["idcentralizedcategory"].caption = "ID Classificazione centralizzata anagrafica (tabella centralizedcategory)";
 						table.columns["idexternal"].caption = "Id chiave in altri database, usato in migrazioni o simili";
 						table.columns["idreg"].caption = "id anagrafica (tabella registry)";
@@ -319,8 +375,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["extmatricula"].caption = "Matricola";
 						table.columns["flag_pa"].caption = "Applica lo split payment  (per le fatture di vendita)";
 						table.columns["flagbankitaliaproceeds"].caption = "Regolarizzazione Riscossioni presso  T.P.S. - Banca d'Italia";
-						table.columns["idaccmotivecredit"].caption = "ID Causale per i crediti (tabella accmotive)";
-						table.columns["idaccmotivedebit"].caption = "Id della causale di debito (tabella accmotive) ";
 						table.columns["idcentralizedcategory"].caption = "ID Classificazione centralizzata anagrafica (tabella centralizedcategory)";
 						table.columns["idexternal"].caption = "Id chiave in altri database, usato in migrazioni o simili";
 						table.columns["idreg"].caption = "id anagrafica (tabella registry)";
@@ -345,8 +399,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["extmatricula"].caption = "Matricola";
 						table.columns["flag_pa"].caption = "Applica lo split payment  (per le fatture di vendita)";
 						table.columns["flagbankitaliaproceeds"].caption = "Regolarizzazione Riscossioni presso  T.P.S. - Banca d'Italia";
-						table.columns["idaccmotivecredit"].caption = "ID Causale per i crediti (tabella accmotive)";
-						table.columns["idaccmotivedebit"].caption = "Id della causale di debito (tabella accmotive) ";
 						table.columns["idcentralizedcategory"].caption = "ID Classificazione centralizzata anagrafica (tabella centralizedcategory)";
 						table.columns["idexternal"].caption = "Id chiave in altri database, usato in migrazioni o simili";
 						table.columns["idreg"].caption = "id anagrafica (tabella registry)";
@@ -362,22 +414,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["title"].caption = "Denominazione";
 						table.columns["toredirect"].caption = "E' stato usato in qualche migrazione";
 						table.columns["txt"].caption = "note testuali";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+												table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
+						table.columns["idaccmotivecredit"].caption = "Causale di credito";
+						table.columns["idaccmotivedebit"].caption = "Causale di debito";
 //$innerSetCaptionConfig_amministrativi$
 						break;
 					case 'docenti_doc':
 						table.columns["idcity"].caption = "Comune di nascita";
 						table.columns["idmaritalstatus"].caption = "Stato civile";
-						table.columns["idnation"].caption = "Nazionalit‡";
+						table.columns["idnation"].caption = "Nazionalit√†";
 						table.columns["idreg"].caption = "Identificativo";
 						table.columns["idregistryclass"].caption = "Tipologia fiscale";
 						table.columns["idtitle"].caption = "Titolo";
 						table.columns["residence"].caption = "Residenza";
-//$innerSetCaptionConfig_docenti_doc$
+						//$innerSetCaptionConfig_docenti_doc$
 						break;
 					case 'docenti':
 						table.columns["idcity"].caption = "Comune di nascita";
 						table.columns["idmaritalstatus"].caption = "Stato civile";
-						table.columns["idnation"].caption = "Nazionalit‡";
+						table.columns["idnation"].caption = "Nazionalit√†";
 						table.columns["idreg"].caption = "Identificativo";
 						table.columns["idregistryclass"].caption = "Tipologia fiscale";
 						table.columns["idtitle"].caption = "Titolo";
@@ -413,7 +503,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["title"].caption = "Denominazione";
 						table.columns["toredirect"].caption = "E' stato usato in qualche migrazione";
 						table.columns["txt"].caption = "note testuali";
-//$innerSetCaptionConfig_docenti$
+						//$innerSetCaptionConfig_docenti$
 						break;
 					case 'istituti_princ':
 						table.columns["idcity"].caption = "Comune";
@@ -422,69 +512,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["idregistryclass"].caption = "ID Tipologie classificazione (tabella registryclass)";
 						table.columns["idtitle"].caption = "ID Titolo (tabella title)";
 						table.columns["residence"].caption = "Tipo residenza (chiave di tabella residence)";
-//$innerSetCaptionConfig_istituti_princ$
+						//$innerSetCaptionConfig_istituti_princ$
 						break;
 					case 'user':
 						table.columns["idcity"].caption = "Comune di nascita";
 						table.columns["idmaritalstatus"].caption = "Stato civile";
-						table.columns["idnation"].caption = "Nazionalit‡";
+						table.columns["idnation"].caption = "Nazionalit√†";
 						table.columns["idreg"].caption = "Identificativo";
 						table.columns["idregistryclass"].caption = "Tipologia fiscale";
 						table.columns["idtitle"].caption = "Titolo";
 						table.columns["residence"].caption = "Residenza";
 						table.columns["title"].caption = "Nome e Cognome";
-//$innerSetCaptionConfig_user$
+						//$innerSetCaptionConfig_user$
 						break;
 					case 'aziende':
-						table.columns["idcategory"].caption = "Categoria";
-						table.columns["idcity"].caption = "Comune";
-						table.columns["idnation"].caption = "Nazionalit‡";
-						table.columns["idregistryclass"].caption = "Tipologia";
-						table.columns["idregistrykind"].caption = "Classificazione";
-						table.columns["location"].caption = "Localit‡";
-						table.columns["residence"].caption = "Residenza";
 						table.columns["flag_pa"].caption = "Ente pubblico";
+						table.columns["idcategory"].caption = "Categoria";
+						table.columns["idregistrykind"].caption = "Classificazione";
 //$innerSetCaptionConfig_aziende$
 						break;
 					case 'istitutiesteri':
-						table.columns["idcity"].caption = "Citt‡";
+						table.columns["idcity"].caption = "Citt√†";
 						table.columns["idnation"].caption = "Nazione";
 						table.columns["idregistryclass"].caption = "Tipologia";
-						table.columns["location"].caption = "Citt‡";
+						table.columns["location"].caption = "Citt√†";
 						table.columns["residence"].caption = "UE/Extra UE";
-//$innerSetCaptionConfig_istitutiesteri$
+						//$innerSetCaptionConfig_istitutiesteri$
 						break;
 					case 'default':
 						table.columns["idreg"].caption = "Identificativo";
 						table.columns["idregistryclass"].caption = "Tipologia";
-						table.columns["idcity"].caption = "id citt‡ (tabella geo_city)";
-//$innerSetCaptionConfig_default$
+						table.columns["idcity"].caption = "id citt√† (tabella geo_city)";
+						//$innerSetCaptionConfig_default$
 						break;
 					case 'docenti_docente':
-						table.columns["idcity"].caption = "Comune di nascita";
-						table.columns["idmaritalstatus"].caption = "Stato civile";
-						table.columns["idnation"].caption = "Nazionalit‡";
-						table.columns["idreg"].caption = "Identificativo";
-						table.columns["idregistryclass"].caption = "Tipologia fiscale";
-						table.columns["idtitle"].caption = "Titolo";
-						table.columns["residence"].caption = "Residenza";
 //$innerSetCaptionConfig_docenti_docente$
 						break;
 					case 'aziende_ro':
-						table.columns["flag_pa"].caption = "Ente pubblico";
-						table.columns["idcategory"].caption = "Categoria";
-						table.columns["idcity"].caption = "Comune";
-						table.columns["idnation"].caption = "Nazionalit‡";
-						table.columns["idregistryclass"].caption = "Tipologia";
-						table.columns["idregistrykind"].caption = "Classificazione";
-						table.columns["location"].caption = "Localit‡";
-						table.columns["residence"].caption = "Residenza";
 //$innerSetCaptionConfig_aziende_ro$
 						break;
 					case 'uncategorized':
 						table.columns["idaccmotivecredit"].caption = "Causale per i crediti";
 						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-//$innerSetCaptionConfig_uncategorized$
+						//$innerSetCaptionConfig_uncategorized$
 						break;
 					case 'persone':
 						table.columns["active"].caption = "attivo";
@@ -507,7 +577,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["idaccmotivedebit"].caption = "Id della causale di debito (tabella accmotive) ";
 						table.columns["idcategory"].caption = "ID Categoria (tabella category)";
 						table.columns["idcentralizedcategory"].caption = "ID Classificazione centralizzata anagrafica (tabella centralizedcategory)";
-						table.columns["idcity"].caption = "id citt‡ (tabella geo_city)";
+						table.columns["idcity"].caption = "id citt√† (tabella geo_city)";
 						table.columns["idexternal"].caption = "Id chiave in altri database, usato in migrazioni o simili";
 						table.columns["idmaritalstatus"].caption = "ID Stato civile (tabella maritalstatus)";
 						table.columns["idnation"].caption = "Id nazione (tabella geo_nation)";
@@ -530,15 +600,72 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["title"].caption = "Cognome Nome";
 						table.columns["toredirect"].caption = "E' stato usato in qualche migrazione";
 						table.columns["txt"].caption = "note testuali";
-//$innerSetCaptionConfig_persone$
+						//$innerSetCaptionConfig_persone$
+						break;
+					case 'servizi':
+//$innerSetCaptionConfig_servizi$
+						break;
+					case 'solotitle':
+						table.columns["active"].caption = "attivo";
+						table.columns["annotation"].caption = "Annotazioni";
+						table.columns["authorization_free"].caption = "Esente ai fini dell'autorizzazione EQUITALIA. (S/N)";
+						table.columns["badgecode"].caption = "Codice badge";
+						table.columns["birthdate"].caption = "Data di nascita";
+						table.columns["ccp"].caption = "Conto corrente postale di Riscossione";
+						table.columns["cf"].caption = "Codice fiscale";
+						table.columns["ct"].caption = "data creazione";
+						table.columns["cu"].caption = "nome utente creazione";
+						table.columns["extension"].caption = "tabella che estende il record";
+						table.columns["extmatricula"].caption = "Matricola";
+						table.columns["flag_pa"].caption = "Applica lo split payment  (per le fatture di vendita)";
+						table.columns["flagbankitaliaproceeds"].caption = "Regolarizzazione Riscossioni presso  T.P.S. - Banca d'Italia";
+						table.columns["foreigncf"].caption = "Codice fiscale estero";
+						table.columns["forename"].caption = "Nome";
+						table.columns["gender"].caption = "Sesso (M/F)";
+						table.columns["idaccmotivecredit"].caption = "ID Causale per i crediti (tabella accmotive)";
+						table.columns["idaccmotivedebit"].caption = "Id della causale di debito (tabella accmotive) ";
+						table.columns["idcategory"].caption = "ID Categoria (tabella category)";
+						table.columns["idcentralizedcategory"].caption = "ID Classificazione centralizzata anagrafica (tabella centralizedcategory)";
+						table.columns["idcity"].caption = "id citt√† (tabella geo_city)";
+						table.columns["idexternal"].caption = "Id chiave in altri database, usato in migrazioni o simili";
+						table.columns["idmaritalstatus"].caption = "ID Stato civile (tabella maritalstatus)";
+						table.columns["idnation"].caption = "Id nazione (tabella geo_nation)";
+						table.columns["idreg"].caption = "Identificativo";
+						table.columns["idregistryclass"].caption = "Tipologia";
+						table.columns["idregistrykind"].caption = "ID Classificazione Anagrafica (tabella registrykind)";
+						table.columns["idtitle"].caption = "ID Titolo (tabella title)";
+						table.columns["ipa_fe"].caption = "Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, prelevato dal sito www.indicepa.gov.it.";
+						table.columns["location"].caption = "ubicazione";
+						table.columns["lt"].caption = "data ultima modifica";
+						table.columns["lu"].caption = "nome ultimo utente modifica";
+						table.columns["maritalsurname"].caption = "Cognome acquisito";
+						table.columns["multi_cf"].caption = "Consenti duplicazione CF/P. IVA (S/N)";
+						table.columns["p_iva"].caption = "Partita iva";
+						table.columns["residence"].caption = "Tipo residenza (chiave di tabella residence)";
+						table.columns["rtf"].caption = "allegati";
+						table.columns["sdi_defrifamm"].caption = "Rif.Amministrazione di default per fattura elettronica";
+						table.columns["sdi_norifamm"].caption = "Consenti al fornitore di non specificare il riferimento amministrativo in fatt.elettronica";
+						table.columns["surname"].caption = "Cognome";
+						table.columns["title"].caption = "Denominazione";
+						table.columns["toredirect"].caption = "E' stato usato in qualche migrazione";
+						table.columns["txt"].caption = "note testuali";
+						//$innerSetCaptionConfig_solotitle$
+						break;
+					case 'docenti_docentenoaltro':
+//$innerSetCaptionConfig_docenti_docentenoaltro$
+						break;
+										case 'didattica':
+						table.columns["!datafine"].caption = "Data fine";
+						table.columns["!datainizio"].caption = "Data inizio";
+//$innerSetCaptionConfig_didattica$
 						break;
 //$innerSetCaptionConfig$
 				}
 			},
 
 
-			getNewRow: function (parentRow, dt, editType){
-               var def = appMeta.Deferred("getNewRow-meta_registry");
+			getNewRow: function (parentRow, dt, editType) {
+				var def = appMeta.Deferred("getNewRow-meta_registry");
 
 				//$getNewRowInside$
 
@@ -554,6 +681,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+
+			isValid: function (r) {
+				var def = appMeta.Deferred("isValid-meta_registry");
+				var self = this;
+				utils._if((r.current.cf != null) || (r.p_iva != null))
+					._then(function () {
+						appMeta.CodiceFiscale.CodiceFiscaleValido(r, self.q).then((res) => {
+							var obj = res;
+							if (!obj.isValid) {
+								// CF valorizzato ma errato
+								def.resolve(obj);
+								return $.Deferred().reject().promise();
+							}
+						})
+					}).run()
+					.then(function () {
+						appMeta.PartitaIva.controllaPartitaIva(r).then((res) => {
+							var obj = res;
+							if (!obj.isValid) {
+								// Piva valorizzata ma errata
+								def.resolve(obj);
+								return $.Deferred().reject().promise();
+							}
+							else {
+								// Piva valorizzata e corretta
+								return def.from(self.superClass.isValid.call(self, r)).promise();
+							}
+						})
+					})
+					;
+
+				return def.promise();
+			},
+		
+
+
 			//$isValidFunction$
 
 			//$getStaticFilter$
@@ -567,6 +730,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						return "title asc , idregistryclass asc ";
 					}
 					case "persone": {
+						return "title asc ";
+					}
+					case "solotitle": {
+						return "title asc ";
+					}
+					case "docenti_docentenoaltro": {
+						return "title asc ";
+					}
+					case "aziende_ro": {
+						return "title asc ";
+					}
+					case "docenti_docente": {
+						return "title asc ";
+					}
+					case "amministrativi": {
+						return "surname asc , forename asc ";
+					}
+					case "aziende": {
+						return "title asc ";
+					}
+					case "docenti": {
 						return "title asc ";
 					}
 					//$getSortingin$

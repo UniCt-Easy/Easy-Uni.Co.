@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,16 +31,37 @@ public class dsmeta_perfvalutazioneuo_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable attach 		=> (MetaTable)Tables["attach"];
+	public MetaTable getdocentiamministrativiresponsabilinomcognview_alias5 		=> (MetaTable)Tables["getdocentiamministrativiresponsabilinomcognview_alias5"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable perfvalutazioneuoattach 		=> (MetaTable)Tables["perfvalutazioneuoattach"];
+	public MetaTable getdocentiamministrativiresponsabilinomcognview_alias4 		=> (MetaTable)Tables["getdocentiamministrativiresponsabilinomcognview_alias4"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable getdocentiamministrativiresponsabilinomcognview_alias3 		=> (MetaTable)Tables["getdocentiamministrativiresponsabilinomcognview_alias3"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable getdocentiamministrativiresponsabilinomcognview_alias2 		=> (MetaTable)Tables["getdocentiamministrativiresponsabilinomcognview_alias2"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfobiettiviuoattach 		=> (MetaTable)Tables["perfobiettiviuoattach"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfobiettiviuosoglia 		=> (MetaTable)Tables["perfobiettiviuosoglia"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfobiettiviuo 		=> (MetaTable)Tables["perfobiettiviuo"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable attach 		=> (MetaTable)Tables["attach"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfvalutazioneuoattach 		=> (MetaTable)Tables["perfvalutazioneuoattach"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable getdocentiamministrativiresponsabilinomcognview_alias1 		=> (MetaTable)Tables["getdocentiamministrativiresponsabilinomcognview_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable getdocentiamministrativiresponsabilinomcognview 		=> (MetaTable)Tables["getdocentiamministrativiresponsabilinomcognview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfvalutazioneuoindicatorisoglia 		=> (MetaTable)Tables["perfvalutazioneuoindicatorisoglia"];
@@ -52,22 +73,22 @@ public class dsmeta_perfvalutazioneuo_default: DataSet {
 	public MetaTable perfvalutazioneuoindicatori 		=> (MetaTable)Tables["perfvalutazioneuoindicatori"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfprogettosoglia_alias1 		=> (MetaTable)Tables["perfprogettosoglia_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettoobiettivosoglia_alias1 		=> (MetaTable)Tables["perfprogettoobiettivosoglia_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettoobiettivopersonaleview 		=> (MetaTable)Tables["perfprogettoobiettivopersonaleview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable perfprogettosoglia 		=> (MetaTable)Tables["perfprogettosoglia"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettoobiettivosoglia 		=> (MetaTable)Tables["perfprogettoobiettivosoglia"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettoobiettivouoview 		=> (MetaTable)Tables["perfprogettoobiettivouoview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable getregistrydocentiamministratividefaultview_alias1 		=> (MetaTable)Tables["getregistrydocentiamministratividefaultview_alias1"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable getregistrydocentiamministratividefaultview 		=> (MetaTable)Tables["getregistrydocentiamministratividefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfschedastatusdefaultview 		=> (MetaTable)Tables["perfschedastatusdefaultview"];
@@ -106,33 +127,63 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_perfvalutazioneuo_default.xsd";
 
 	#region create DataTables
-	//////////////////// ATTACH /////////////////////////////////
-	var tattach= new MetaTable("attach");
-	tattach.defineColumn("attachment", typeof(Byte[]));
-	tattach.defineColumn("ct", typeof(DateTime),false);
-	tattach.defineColumn("cu", typeof(string),false);
-	tattach.defineColumn("filename", typeof(string),false);
-	tattach.defineColumn("hash", typeof(string),false);
-	tattach.defineColumn("idattach", typeof(int),false);
-	tattach.defineColumn("lt", typeof(DateTime),false);
-	tattach.defineColumn("lu", typeof(string),false);
-	tattach.defineColumn("size", typeof(int),false);
-	Tables.Add(tattach);
-	tattach.defineKey("idattach");
+	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW_ALIAS5 /////////////////////////////////
+	var tgetdocentiamministrativiresponsabilinomcognview_alias5= new MetaTable("getdocentiamministrativiresponsabilinomcognview_alias5");
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("dropdown_title", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("ruolo", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
+	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias5);
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineKey("idreg", "ruolo", "struttura");
 
-	//////////////////// PERFVALUTAZIONEUOATTACH /////////////////////////////////
-	var tperfvalutazioneuoattach= new MetaTable("perfvalutazioneuoattach");
-	tperfvalutazioneuoattach.defineColumn("ct", typeof(DateTime),false);
-	tperfvalutazioneuoattach.defineColumn("cu", typeof(string),false);
-	tperfvalutazioneuoattach.defineColumn("idattach", typeof(int));
-	tperfvalutazioneuoattach.defineColumn("idperfvalutazioneuo", typeof(int),false);
-	tperfvalutazioneuoattach.defineColumn("idperfvalutazioneuoattach", typeof(int),false);
-	tperfvalutazioneuoattach.defineColumn("lt", typeof(DateTime),false);
-	tperfvalutazioneuoattach.defineColumn("lu", typeof(string),false);
-	tperfvalutazioneuoattach.defineColumn("!idattach_attach_filename", typeof(string));
-	tperfvalutazioneuoattach.ExtendedProperties["NotEntityChild"]="true";
-	Tables.Add(tperfvalutazioneuoattach);
-	tperfvalutazioneuoattach.defineKey("idperfvalutazioneuo", "idperfvalutazioneuoattach");
+	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW_ALIAS4 /////////////////////////////////
+	var tgetdocentiamministrativiresponsabilinomcognview_alias4= new MetaTable("getdocentiamministrativiresponsabilinomcognview_alias4");
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("dropdown_title", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_cf", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_contratto", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_extmatricula", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_forename", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_istituto", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_resplevel", typeof(int));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_ssd", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("ruolo", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("surname", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
+	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias4);
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineKey("idreg", "ruolo", "struttura");
+
+	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW_ALIAS3 /////////////////////////////////
+	var tgetdocentiamministrativiresponsabilinomcognview_alias3= new MetaTable("getdocentiamministrativiresponsabilinomcognview_alias3");
+	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineColumn("dropdown_title", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineColumn("ruolo", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias3.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
+	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias3);
+	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineKey("idreg", "ruolo", "struttura");
+
+	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW_ALIAS2 /////////////////////////////////
+	var tgetdocentiamministrativiresponsabilinomcognview_alias2= new MetaTable("getdocentiamministrativiresponsabilinomcognview_alias2");
+	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineColumn("dropdown_title", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineColumn("ruolo", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias2.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
+	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias2);
+	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineKey("idreg", "ruolo", "struttura");
+
+	//////////////////// PERFOBIETTIVIUOATTACH /////////////////////////////////
+	var tperfobiettiviuoattach= new MetaTable("perfobiettiviuoattach");
+	tperfobiettiviuoattach.defineColumn("idattach", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("idperfobiettiviuo", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("idperfobiettiviuoattach", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("idperfvalutazioneuo", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("title", typeof(string),false);
+	Tables.Add(tperfobiettiviuoattach);
+	tperfobiettiviuoattach.defineKey("idattach", "idperfobiettiviuo", "idperfobiettiviuoattach", "idperfvalutazioneuo");
 
 	//////////////////// PERFOBIETTIVIUOSOGLIA /////////////////////////////////
 	var tperfobiettiviuosoglia= new MetaTable("perfobiettiviuosoglia");
@@ -153,9 +204,15 @@ private void initClass() {
 	//////////////////// PERFOBIETTIVIUO /////////////////////////////////
 	var tperfobiettiviuo= new MetaTable("perfobiettiviuo");
 	tperfobiettiviuo.defineColumn("completamento", typeof(decimal));
+	tperfobiettiviuo.defineColumn("ct", typeof(DateTime));
+	tperfobiettiviuo.defineColumn("cu", typeof(string));
 	tperfobiettiviuo.defineColumn("description", typeof(string));
 	tperfobiettiviuo.defineColumn("idperfobiettiviuo", typeof(int),false);
+	tperfobiettiviuo.defineColumn("idperfvalutazionepersonale", typeof(int));
 	tperfobiettiviuo.defineColumn("idperfvalutazioneuo", typeof(int),false);
+	tperfobiettiviuo.defineColumn("lt", typeof(DateTime));
+	tperfobiettiviuo.defineColumn("lu", typeof(string));
+	tperfobiettiviuo.defineColumn("note", typeof(string));
 	tperfobiettiviuo.defineColumn("peso", typeof(decimal));
 	tperfobiettiviuo.defineColumn("title", typeof(string));
 	tperfobiettiviuo.defineColumn("valorenumerico", typeof(decimal));
@@ -163,6 +220,54 @@ private void initClass() {
 	tperfobiettiviuo.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfobiettiviuo);
 	tperfobiettiviuo.defineKey("idperfobiettiviuo", "idperfvalutazioneuo");
+
+	//////////////////// ATTACH /////////////////////////////////
+	var tattach= new MetaTable("attach");
+	tattach.defineColumn("attachment", typeof(Byte[]));
+	tattach.defineColumn("ct", typeof(DateTime),false);
+	tattach.defineColumn("cu", typeof(string),false);
+	tattach.defineColumn("filename", typeof(string),false);
+	tattach.defineColumn("hash", typeof(string),false);
+	tattach.defineColumn("idattach", typeof(int),false);
+	tattach.defineColumn("lt", typeof(DateTime),false);
+	tattach.defineColumn("lu", typeof(string),false);
+	tattach.defineColumn("size", typeof(int),false);
+	Tables.Add(tattach);
+	tattach.defineKey("idattach");
+
+	//////////////////// PERFVALUTAZIONEUOATTACH /////////////////////////////////
+	var tperfvalutazioneuoattach= new MetaTable("perfvalutazioneuoattach");
+	tperfvalutazioneuoattach.defineColumn("ct", typeof(DateTime),false);
+	tperfvalutazioneuoattach.defineColumn("cu", typeof(string),false);
+	tperfvalutazioneuoattach.defineColumn("data", typeof(DateTime));
+	tperfvalutazioneuoattach.defineColumn("idattach", typeof(int));
+	tperfvalutazioneuoattach.defineColumn("idperfvalutazioneuo", typeof(int),false);
+	tperfvalutazioneuoattach.defineColumn("idperfvalutazioneuoattach", typeof(int),false);
+	tperfvalutazioneuoattach.defineColumn("lt", typeof(DateTime),false);
+	tperfvalutazioneuoattach.defineColumn("lu", typeof(string),false);
+	tperfvalutazioneuoattach.defineColumn("!idattach_attach_filename", typeof(string));
+	tperfvalutazioneuoattach.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tperfvalutazioneuoattach);
+	tperfvalutazioneuoattach.defineKey("idperfvalutazioneuo", "idperfvalutazioneuoattach");
+
+	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW_ALIAS1 /////////////////////////////////
+	var tgetdocentiamministrativiresponsabilinomcognview_alias1= new MetaTable("getdocentiamministrativiresponsabilinomcognview_alias1");
+	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineColumn("dropdown_title", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineColumn("ruolo", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias1.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
+	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias1);
+	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineKey("idreg", "ruolo", "struttura");
+
+	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW /////////////////////////////////
+	var tgetdocentiamministrativiresponsabilinomcognview= new MetaTable("getdocentiamministrativiresponsabilinomcognview");
+	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("dropdown_title", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("ruolo", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("struttura", typeof(string),false);
+	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview);
+	tgetdocentiamministrativiresponsabilinomcognview.defineKey("idreg", "ruolo", "struttura");
 
 	//////////////////// PERFVALUTAZIONEUOINDICATORISOGLIA /////////////////////////////////
 	var tperfvalutazioneuoindicatorisoglia= new MetaTable("perfvalutazioneuoindicatorisoglia");
@@ -201,7 +306,6 @@ private void initClass() {
 	tperfvalutazioneuoindicatori.defineColumn("ct", typeof(DateTime),false);
 	tperfvalutazioneuoindicatori.defineColumn("cu", typeof(string),false);
 	tperfvalutazioneuoindicatori.defineColumn("idperfindicatore", typeof(int),false);
-	tperfvalutazioneuoindicatori.defineColumn("idperfstruttura", typeof(int),false);
 	tperfvalutazioneuoindicatori.defineColumn("idperfvalutazioneuo", typeof(int),false);
 	tperfvalutazioneuoindicatori.defineColumn("idperfvalutazioneuoindicatori", typeof(int),false);
 	tperfvalutazioneuoindicatori.defineColumn("lt", typeof(DateTime),false);
@@ -212,7 +316,24 @@ private void initClass() {
 	tperfvalutazioneuoindicatori.defineColumn("!perfvalutazioneuoindicatorisoglia", typeof(string));
 	tperfvalutazioneuoindicatori.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfvalutazioneuoindicatori);
-	tperfvalutazioneuoindicatori.defineKey("idperfindicatore", "idperfstruttura", "idperfvalutazioneuo", "idperfvalutazioneuoindicatori");
+	tperfvalutazioneuoindicatori.defineKey("idperfindicatore", "idperfvalutazioneuo", "idperfvalutazioneuoindicatori");
+
+	//////////////////// PERFPROGETTOSOGLIA_ALIAS1 /////////////////////////////////
+	var tperfprogettosoglia_alias1= new MetaTable("perfprogettosoglia_alias1");
+	tperfprogettosoglia_alias1.defineColumn("ct", typeof(DateTime),false);
+	tperfprogettosoglia_alias1.defineColumn("cu", typeof(string),false);
+	tperfprogettosoglia_alias1.defineColumn("description", typeof(string));
+	tperfprogettosoglia_alias1.defineColumn("idperfprogetto", typeof(int),false);
+	tperfprogettosoglia_alias1.defineColumn("idperfprogettosoglia", typeof(int),false);
+	tperfprogettosoglia_alias1.defineColumn("idperfsogliakind", typeof(string));
+	tperfprogettosoglia_alias1.defineColumn("lt", typeof(DateTime),false);
+	tperfprogettosoglia_alias1.defineColumn("lu", typeof(string),false);
+	tperfprogettosoglia_alias1.defineColumn("percentuale", typeof(decimal));
+	tperfprogettosoglia_alias1.defineColumn("valorenumerico", typeof(decimal));
+	tperfprogettosoglia_alias1.ExtendedProperties["TableForReading"]="perfprogettosoglia";
+	tperfprogettosoglia_alias1.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tperfprogettosoglia_alias1);
+	tperfprogettosoglia_alias1.defineKey("idperfprogetto", "idperfprogettosoglia");
 
 	//////////////////// PERFPROGETTOOBIETTIVOSOGLIA_ALIAS1 /////////////////////////////////
 	var tperfprogettoobiettivosoglia_alias1= new MetaTable("perfprogettoobiettivosoglia_alias1");
@@ -246,9 +367,27 @@ private void initClass() {
 	tperfprogettoobiettivopersonaleview.defineColumn("peso", typeof(decimal));
 	tperfprogettoobiettivopersonaleview.defineColumn("progetto_title", typeof(string));
 	tperfprogettoobiettivopersonaleview.defineColumn("title", typeof(string));
+	tperfprogettoobiettivopersonaleview.defineColumn("year", typeof(int),false);
 	tperfprogettoobiettivopersonaleview.defineColumn("!perfprogettoobiettivosoglia_alias1", typeof(string));
+	tperfprogettoobiettivopersonaleview.defineColumn("!perfprogettosoglia_alias1", typeof(string));
 	Tables.Add(tperfprogettoobiettivopersonaleview);
-	tperfprogettoobiettivopersonaleview.defineKey("idperfprogettoobiettivo", "idperfvalutazioneuo", "idstruttura");
+	tperfprogettoobiettivopersonaleview.defineKey("idperfprogetto", "idperfprogettoobiettivo", "idperfvalutazioneuo", "idstruttura", "year");
+
+	//////////////////// PERFPROGETTOSOGLIA /////////////////////////////////
+	var tperfprogettosoglia= new MetaTable("perfprogettosoglia");
+	tperfprogettosoglia.defineColumn("ct", typeof(DateTime),false);
+	tperfprogettosoglia.defineColumn("cu", typeof(string),false);
+	tperfprogettosoglia.defineColumn("description", typeof(string));
+	tperfprogettosoglia.defineColumn("idperfprogetto", typeof(int),false);
+	tperfprogettosoglia.defineColumn("idperfprogettosoglia", typeof(int),false);
+	tperfprogettosoglia.defineColumn("idperfsogliakind", typeof(string));
+	tperfprogettosoglia.defineColumn("lt", typeof(DateTime),false);
+	tperfprogettosoglia.defineColumn("lu", typeof(string),false);
+	tperfprogettosoglia.defineColumn("percentuale", typeof(decimal));
+	tperfprogettosoglia.defineColumn("valorenumerico", typeof(decimal));
+	tperfprogettosoglia.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tperfprogettosoglia);
+	tperfprogettosoglia.defineKey("idperfprogetto", "idperfprogettosoglia");
 
 	//////////////////// PERFPROGETTOOBIETTIVOSOGLIA /////////////////////////////////
 	var tperfprogettoobiettivosoglia= new MetaTable("perfprogettoobiettivosoglia");
@@ -278,46 +417,24 @@ private void initClass() {
 	tperfprogettoobiettivouoview.defineColumn("peso", typeof(decimal));
 	tperfprogettoobiettivouoview.defineColumn("progetto_title", typeof(string));
 	tperfprogettoobiettivouoview.defineColumn("title", typeof(string));
+	tperfprogettoobiettivouoview.defineColumn("year", typeof(int),false);
 	tperfprogettoobiettivouoview.defineColumn("!perfprogettoobiettivosoglia", typeof(string));
+	tperfprogettoobiettivouoview.defineColumn("!perfprogettosoglia", typeof(string));
+	tperfprogettoobiettivouoview.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfprogettoobiettivouoview);
-	tperfprogettoobiettivouoview.defineKey("idperfprogettoobiettivo", "idperfvalutazioneuo", "idstruttura");
-
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW_ALIAS1 /////////////////////////////////
-	var tgetregistrydocentiamministratividefaultview_alias1= new MetaTable("getregistrydocentiamministratividefaultview_alias1");
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("dropdown_title", typeof(string),false);
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("getregistrydocentiamministrativi_cf", typeof(string));
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("getregistrydocentiamministrativi_contratto", typeof(string));
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("getregistrydocentiamministrativi_extmatricula", typeof(string));
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("getregistrydocentiamministrativi_forename", typeof(string));
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("getregistrydocentiamministrativi_istituto", typeof(string));
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("getregistrydocentiamministrativi_ssd", typeof(string));
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("getregistrydocentiamministrativi_struttura", typeof(string));
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("idreg", typeof(int),false);
-	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("surname", typeof(string));
-	tgetregistrydocentiamministratividefaultview_alias1.ExtendedProperties["TableForReading"]="getregistrydocentiamministratividefaultview";
-	Tables.Add(tgetregistrydocentiamministratividefaultview_alias1);
-	tgetregistrydocentiamministratividefaultview_alias1.defineKey("idreg");
-
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
-	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");
-	tgetregistrydocentiamministratividefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_cf", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_contratto", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_extmatricula", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_forename", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_istituto", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_ssd", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_struttura", typeof(string));
-	tgetregistrydocentiamministratividefaultview.defineColumn("idreg", typeof(int),false);
-	tgetregistrydocentiamministratividefaultview.defineColumn("surname", typeof(string));
-	Tables.Add(tgetregistrydocentiamministratividefaultview);
-	tgetregistrydocentiamministratividefaultview.defineKey("idreg");
+	tperfprogettoobiettivouoview.defineKey("idperfprogetto", "idperfprogettoobiettivo", "idperfvalutazioneuo", "idstruttura");
 
 	//////////////////// PERFSCHEDASTATUSDEFAULTVIEW /////////////////////////////////
 	var tperfschedastatusdefaultview= new MetaTable("perfschedastatusdefaultview");
 	tperfschedastatusdefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tperfschedastatusdefaultview.defineColumn("idperfschedastatus", typeof(int),false);
 	tperfschedastatusdefaultview.defineColumn("perfschedastatus_active", typeof(string));
+	tperfschedastatusdefaultview.defineColumn("perfschedastatus_ct", typeof(DateTime),false);
+	tperfschedastatusdefaultview.defineColumn("perfschedastatus_cu", typeof(string),false);
+	tperfschedastatusdefaultview.defineColumn("perfschedastatus_description", typeof(string));
+	tperfschedastatusdefaultview.defineColumn("perfschedastatus_lt", typeof(DateTime),false);
+	tperfschedastatusdefaultview.defineColumn("perfschedastatus_lu", typeof(string),false);
+	tperfschedastatusdefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tperfschedastatusdefaultview);
 	tperfschedastatusdefaultview.defineKey("idperfschedastatus");
 
@@ -329,6 +446,7 @@ private void initClass() {
 	tstrutturaperfelenchiview.defineColumn("idupb", typeof(string));
 	tstrutturaperfelenchiview.defineColumn("paridstruttura", typeof(int));
 	tstrutturaperfelenchiview.defineColumn("sede_title", typeof(string));
+	tstrutturaperfelenchiview.defineColumn("struttura_active", typeof(string));
 	tstrutturaperfelenchiview.defineColumn("struttura_codice", typeof(string));
 	tstrutturaperfelenchiview.defineColumn("struttura_codiceipa", typeof(string));
 	tstrutturaperfelenchiview.defineColumn("struttura_ct", typeof(DateTime),false);
@@ -369,7 +487,11 @@ private void initClass() {
 	tperfvalutazioneuo.defineColumn("idperfschedastatus", typeof(int));
 	tperfvalutazioneuo.defineColumn("idperfvalutazioneuo", typeof(int),false);
 	tperfvalutazioneuo.defineColumn("idreg_appr", typeof(int));
+	tperfvalutazioneuo.defineColumn("idreg_comp", typeof(int));
+	tperfvalutazioneuo.defineColumn("idreg_compobborg", typeof(int));
+	tperfvalutazioneuo.defineColumn("idreg_create", typeof(int));
 	tperfvalutazioneuo.defineColumn("idreg_val", typeof(int));
+	tperfvalutazioneuo.defineColumn("idreg_valobborg", typeof(int));
 	tperfvalutazioneuo.defineColumn("idstruttura", typeof(int),false);
 	tperfvalutazioneuo.defineColumn("indicatori", typeof(decimal));
 	tperfvalutazioneuo.defineColumn("lt", typeof(DateTime),false);
@@ -380,29 +502,57 @@ private void initClass() {
 	tperfvalutazioneuo.defineColumn("pesoprogaltreuo", typeof(decimal));
 	tperfvalutazioneuo.defineColumn("pesoproguo", typeof(decimal));
 	tperfvalutazioneuo.defineColumn("risultato", typeof(decimal));
-	tperfvalutazioneuo.defineColumn("year", typeof(int));
+	tperfvalutazioneuo.defineColumn("year", typeof(int),false);
 	Tables.Add(tperfvalutazioneuo);
-	tperfvalutazioneuo.defineKey("idperfvalutazioneuo", "idstruttura");
+	tperfvalutazioneuo.defineKey("idperfvalutazioneuo", "idstruttura", "year");
 
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{perfvalutazioneuo.Columns["idperfvalutazioneuo"]};
-	var cChild = new []{perfvalutazioneuoattach.Columns["idperfvalutazioneuo"]};
-	Relations.Add(new DataRelation("FK_perfvalutazioneuoattach_perfvalutazioneuo_idperfvalutazioneuo",cPar,cChild,false));
+	var cPar = new []{getdocentiamministrativiresponsabilinomcognview_alias5.Columns["idreg"]};
+	var cChild = new []{perfvalutazioneuo.Columns["idreg_appr"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneuo_getdocentiamministrativiresponsabilinomcognview_alias5_idreg_appr",cPar,cChild,false));
 
-	cPar = new []{attach.Columns["idattach"]};
-	cChild = new []{perfvalutazioneuoattach.Columns["idattach"]};
-	Relations.Add(new DataRelation("FK_perfvalutazioneuoattach_attach_idattach",cPar,cChild,false));
+	cPar = new []{getdocentiamministrativiresponsabilinomcognview_alias4.Columns["idreg"]};
+	cChild = new []{perfvalutazioneuo.Columns["idreg_val"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneuo_getdocentiamministrativiresponsabilinomcognview_alias4_idreg_val",cPar,cChild,false));
+
+	cPar = new []{getdocentiamministrativiresponsabilinomcognview_alias3.Columns["idreg"]};
+	cChild = new []{perfvalutazioneuo.Columns["idreg_comp"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneuo_getdocentiamministrativiresponsabilinomcognview_alias3_idreg_comp",cPar,cChild,false));
+
+	cPar = new []{getdocentiamministrativiresponsabilinomcognview_alias2.Columns["idreg"]};
+	cChild = new []{perfvalutazioneuo.Columns["idreg_create"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneuo_getdocentiamministrativiresponsabilinomcognview_alias2_idreg_create",cPar,cChild,false));
 
 	cPar = new []{perfvalutazioneuo.Columns["idperfvalutazioneuo"]};
 	cChild = new []{perfobiettiviuo.Columns["idperfvalutazioneuo"]};
 	Relations.Add(new DataRelation("FK_perfobiettiviuo_perfvalutazioneuo_idperfvalutazioneuo",cPar,cChild,false));
 
 	cPar = new []{perfobiettiviuo.Columns["idperfobiettiviuo"], perfobiettiviuo.Columns["idperfvalutazioneuo"]};
+	cChild = new []{perfobiettiviuoattach.Columns["idperfobiettiviuo"], perfobiettiviuoattach.Columns["idperfvalutazioneuo"]};
+	Relations.Add(new DataRelation("FK_perfobiettiviuoattach_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo",cPar,cChild,false));
+
+	cPar = new []{perfobiettiviuo.Columns["idperfobiettiviuo"], perfobiettiviuo.Columns["idperfvalutazioneuo"]};
 	cChild = new []{perfobiettiviuosoglia.Columns["idperfobiettiviuo"], perfobiettiviuosoglia.Columns["idperfvalutazioneuo"]};
 	Relations.Add(new DataRelation("FK_perfobiettiviuosoglia_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo",cPar,cChild,false));
+
+	cPar = new []{perfvalutazioneuo.Columns["idperfvalutazioneuo"]};
+	cChild = new []{perfvalutazioneuoattach.Columns["idperfvalutazioneuo"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneuoattach_perfvalutazioneuo_idperfvalutazioneuo",cPar,cChild,false));
+
+	cPar = new []{attach.Columns["idattach"]};
+	cChild = new []{perfvalutazioneuoattach.Columns["idattach"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneuoattach_attach_idattach",cPar,cChild,false));
+
+	cPar = new []{getdocentiamministrativiresponsabilinomcognview_alias1.Columns["idreg"]};
+	cChild = new []{perfvalutazioneuo.Columns["idreg_valobborg"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneuo_getdocentiamministrativiresponsabilinomcognview_alias1_idreg_valobborg",cPar,cChild,false));
+
+	cPar = new []{getdocentiamministrativiresponsabilinomcognview.Columns["idreg"]};
+	cChild = new []{perfvalutazioneuo.Columns["idreg_compobborg"]};
+	Relations.Add(new DataRelation("FK_perfvalutazioneuo_getdocentiamministrativiresponsabilinomcognview_idreg_compobborg",cPar,cChild,false));
 
 	cPar = new []{perfvalutazioneuo.Columns["idperfvalutazioneuo"]};
 	cChild = new []{perfvalutazioneuoindicatori.Columns["idperfvalutazioneuo"]};
@@ -416,29 +566,29 @@ private void initClass() {
 	cChild = new []{perfvalutazioneuoindicatori.Columns["idperfindicatore"]};
 	Relations.Add(new DataRelation("FK_perfvalutazioneuoindicatori_perfindicatore_idperfindicatore",cPar,cChild,false));
 
-	cPar = new []{perfvalutazioneuo.Columns["idperfvalutazioneuo"], perfvalutazioneuo.Columns["idstruttura"]};
-	cChild = new []{perfprogettoobiettivopersonaleview.Columns["idperfvalutazioneuo"], perfprogettoobiettivopersonaleview.Columns["idstruttura"]};
-	Relations.Add(new DataRelation("FK_perfprogettoobiettivopersonaleview_perfvalutazioneuo_idperfvalutazioneuo-idstruttura",cPar,cChild,false));
+	cPar = new []{perfvalutazioneuo.Columns["idperfvalutazioneuo"], perfvalutazioneuo.Columns["idstruttura"], perfvalutazioneuo.Columns["year"]};
+	cChild = new []{perfprogettoobiettivopersonaleview.Columns["idperfvalutazioneuo"], perfprogettoobiettivopersonaleview.Columns["idstruttura"], perfprogettoobiettivopersonaleview.Columns["year"]};
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivopersonaleview_perfvalutazioneuo_idperfvalutazioneuo-idstruttura-year",cPar,cChild,false));
+
+	cPar = new []{perfprogettoobiettivopersonaleview.Columns["idperfprogetto"]};
+	cChild = new []{perfprogettosoglia_alias1.Columns["idperfprogetto"]};
+	Relations.Add(new DataRelation("FK_perfprogettosoglia_alias1_perfprogettoobiettivopersonaleview_idperfprogetto",cPar,cChild,false));
 
 	cPar = new []{perfprogettoobiettivopersonaleview.Columns["idperfprogetto"], perfprogettoobiettivopersonaleview.Columns["idperfprogettoobiettivo"]};
 	cChild = new []{perfprogettoobiettivosoglia_alias1.Columns["idperfprogetto"], perfprogettoobiettivosoglia_alias1.Columns["idperfprogettoobiettivo"]};
 	Relations.Add(new DataRelation("FK_perfprogettoobiettivosoglia_alias1_perfprogettoobiettivopersonaleview_idperfprogetto-idperfprogettoobiettivo",cPar,cChild,false));
 
-	cPar = new []{perfvalutazioneuo.Columns["idperfvalutazioneuo"], perfvalutazioneuo.Columns["idstruttura"]};
-	cChild = new []{perfprogettoobiettivouoview.Columns["idperfvalutazioneuo"], perfprogettoobiettivouoview.Columns["idstruttura"]};
-	Relations.Add(new DataRelation("FK_perfprogettoobiettivouoview_perfvalutazioneuo_idperfvalutazioneuo-idstruttura",cPar,cChild,false));
+	cPar = new []{perfvalutazioneuo.Columns["idperfvalutazioneuo"], perfvalutazioneuo.Columns["idstruttura"], perfvalutazioneuo.Columns["year"]};
+	cChild = new []{perfprogettoobiettivouoview.Columns["idperfvalutazioneuo"], perfprogettoobiettivouoview.Columns["idstruttura"], perfprogettoobiettivouoview.Columns["year"]};
+	Relations.Add(new DataRelation("FK_perfprogettoobiettivouoview_perfvalutazioneuo_idperfvalutazioneuo-idstruttura-year",cPar,cChild,false));
+
+	cPar = new []{perfprogettoobiettivouoview.Columns["idperfprogetto"]};
+	cChild = new []{perfprogettosoglia.Columns["idperfprogetto"]};
+	Relations.Add(new DataRelation("FK_perfprogettosoglia_perfprogettoobiettivouoview_idperfprogetto",cPar,cChild,false));
 
 	cPar = new []{perfprogettoobiettivouoview.Columns["idperfprogetto"], perfprogettoobiettivouoview.Columns["idperfprogettoobiettivo"]};
 	cChild = new []{perfprogettoobiettivosoglia.Columns["idperfprogetto"], perfprogettoobiettivosoglia.Columns["idperfprogettoobiettivo"]};
 	Relations.Add(new DataRelation("FK_perfprogettoobiettivosoglia_perfprogettoobiettivouoview_idperfprogetto-idperfprogettoobiettivo",cPar,cChild,false));
-
-	cPar = new []{getregistrydocentiamministratividefaultview_alias1.Columns["idreg"]};
-	cChild = new []{perfvalutazioneuo.Columns["idreg_appr"]};
-	Relations.Add(new DataRelation("FK_perfvalutazioneuo_getregistrydocentiamministratividefaultview_alias1_idreg_appr",cPar,cChild,false));
-
-	cPar = new []{getregistrydocentiamministratividefaultview.Columns["idreg"]};
-	cChild = new []{perfvalutazioneuo.Columns["idreg_val"]};
-	Relations.Add(new DataRelation("FK_perfvalutazioneuo_getregistrydocentiamministratividefaultview_idreg_val",cPar,cChild,false));
 
 	cPar = new []{perfschedastatusdefaultview.Columns["idperfschedastatus"]};
 	cChild = new []{perfvalutazioneuo.Columns["idperfschedastatus"]};

@@ -2,16 +2,16 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabattivform_erogata_0" class="nav-link active show" data-toggle="pill" data-target="#tabattivform_erogata_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
+		<a href="#tabattivform_erogata_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabattivform_erogata_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabattivform_erogata_1" class="nav-link" data-toggle="pill" data-target="#tabattivform_erogata_1"><i class="fa fa-user-check mr-1"></i>Tipo di valutazione</a>
+		<a href="#tabattivform_erogata_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabattivform_erogata_1"><i class="fa fa-user-check mr-1"></i>Tipo di valutazione</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabattivform_erogata_2" class="nav-link" data-toggle="pill" data-target="#tabattivform_erogata_2"><i class="fa fa-volume-up mr-1"></i>Appelli</a>
+		<a href="#tabattivform_erogata_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabattivform_erogata_2"><i class="fa fa-volume-up mr-1"></i>Appelli</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabattivform_erogata_3" class="nav-link" data-toggle="pill" data-target="#tabattivform_erogata_3"><i class="fa fa-layer-group mr-1"></i>Caratteristiche dell'attività formativa</a>
+		<a href="#tabattivform_erogata_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabattivform_erogata_3"><i class="fa fa-layer-group mr-1"></i>Caratteristiche dell'attività formativa</a>
 	</li>
 
 	</ul>
@@ -62,7 +62,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#attivform_erogata_start").datepicker();
+    $("#attivform_erogata_start").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="attivform_erogata_start">Dal</label>
@@ -71,7 +71,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#attivform_erogata_stop").datepicker();
+    $("#attivform_erogata_stop").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="attivform_erogata_stop">Al</label>

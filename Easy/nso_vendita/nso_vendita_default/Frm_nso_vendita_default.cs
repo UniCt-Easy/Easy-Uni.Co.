@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,9 +39,10 @@ namespace nso_vendita_default {
         public const string ns_ord = "urn:oasis:names:specification:ubl:schema:xsd:Order-2";
 
         // OV => Ordine di Vendita
-
+        
         public Frm_nso_vendita_default() {
             InitializeComponent();
+            saveFileDialog1.SupportMultiDottedExtensions = true;
             HelpForm.SetDenyNull(DS.nso_vendita.Columns["ec_sent"], true);
         }
 
@@ -64,7 +65,7 @@ namespace nso_vendita_default {
             QHC = new CQueryHelper();
             Conn = Meta.Conn;
             int esercizio = Conn.GetEsercizio();
-            Meta.additional_search_condition = QHS.CmpLe("year(protocoldate)", esercizio);
+            Meta.additional_search_condition = QHS.CmpLe("year(adate)", esercizio);
             GetData.CacheTable(DS.uniconfig, null, null, false);
 
             Meta.CanInsert = false;
@@ -191,20 +192,20 @@ namespace nso_vendita_default {
 
             /*Disabilito il bottone "Rifiuta" se la data corrente è maggiore della decorrenza dei termini*/
             DataRow dr = DS.nso_vendita.Rows[0];
-            object protocolDate = dr["data_ricezione"];
+            object data_ricezione = dr["data_ricezione"];
 
-            if (protocolDate != DBNull.Value) {
-                DateTime dataRicezione = (DateTime)protocolDate; //Convert.ToDateTime(protocolDate);
-                DateTime decorrenzaTermini = dataRicezione.AddDays(15);
+            if (data_ricezione != DBNull.Value) {
+                DateTime dataRicezione = (DateTime)data_ricezione; //Convert.ToDateTime(protocolDate);
+                DateTime decorrenzaTermini = new DateTime(); ;
                 object orderDataScadenza = dr["order_data_scadenza"];
                 if (orderDataScadenza != DBNull.Value) {
                     decorrenzaTermini = (DateTime)orderDataScadenza;
+                    DateTime endDay = decorrenzaTermini.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    if (DateTime.Now.CompareTo(endDay) >= 0) {
+                        btnRifiuta.Visible = false;
+                    }
                 }
-                DateTime endDay = decorrenzaTermini.AddHours(23).AddMinutes(59).AddSeconds(59);
-
-                if (DateTime.Now.CompareTo(endDay) >= 0) {
-                    btnRifiuta.Visible = false;
-                }
+              
             }
 
             // ==========================================================================================
@@ -226,7 +227,7 @@ namespace nso_vendita_default {
                 //                                      ACCETTA
                 // ==========================================================================================
                 btnAccetta.Enabled = false;
-                // La posso ACCETTARE se: in Attesa e la lunghezza dell'ipa è 6
+                // La posso ACCETTARE se: Ricevuta e la lunghezza dell'ipa è 6
                 if (stato == 1 && (Curr["codice_ipa"].ToString().Length == 6)) {                                     
                     //Nessuna restrizione oppure è abilitato alla funzione accetta_fe 
                     if ((idflowchart == null || idflowchart == DBNull.Value) || (accetta_ov != null && accetta_ov.ToString().ToUpper() == "'S'")) {
@@ -251,7 +252,7 @@ namespace nso_vendita_default {
                 // ==========================================================================================
                 btnRifiuta.Enabled = false;
                 txtRifiuto.ReadOnly = true;
-                // La posso RIFIUTARE se: in Attesa e la lunghezza dell'ipa è 6
+                // La posso RIFIUTARE se:   Ricevuto e la lunghezza dell'ipa è 6
                 if (stato == 1 && (Curr["codice_ipa"].ToString().Length == 6)) {
                     //Nessuna restrizione oppure è abilitato alla funzione Rifiuta_fe
                     if ((idflowchart == null || idflowchart == DBNull.Value) || (rifiuta_ov != null && rifiuta_ov.ToString().ToUpper() == "'S'")) {
@@ -263,7 +264,7 @@ namespace nso_vendita_default {
                 btnToProtocol.Enabled = false;
                 txtProtocolDate.ReadOnly = true;
                 txtDataRicezioneSdI.ReadOnly = true;
-                if (stato == 5 || stato == 6) {
+                if (stato == 5) {
                     btnToProtocol.Enabled = true;
                     txtProtocolDate.ReadOnly = false;
                     txtDataRicezioneSdI.ReadOnly = false;
@@ -286,10 +287,10 @@ namespace nso_vendita_default {
 
             DataRow Curr = DS.nso_vendita.Rows[0];
             if (Curr.RowState == DataRowState.Deleted) return;
-            btnXMLDT.Visible = Curr["dt"] != DBNull.Value;
+            
             btnXMLMT.Visible = Curr["mt"] != DBNull.Value;
-            btnXMLEC.Visible = Curr["ec"] != DBNull.Value;
-            btnXMLSE.Visible = Curr["se"] != DBNull.Value;
+            btnXMLRESP.Visible = Curr["ec"] != DBNull.Value;
+ 
         }
 
         public void MetaData_BeforePost() {
@@ -327,10 +328,10 @@ namespace nso_vendita_default {
             txtIdentificativoSdI.Enabled = true;
             txtTipoDocumento.Enabled = true;
             txtRifAmm.ReadOnly = false;
-            btnXMLDT.Visible = true;
+ 
             btnXMLMT.Visible = true;
-            btnXMLEC.Visible = true;
-            btnXMLSE.Visible = true;
+            btnXMLRESP.Visible = true;
+  
             txtDataAccettata.ReadOnly = false;
             txtDataRifiutata.ReadOnly = false;
             txtUserAccettata.ReadOnly = false;
@@ -504,6 +505,7 @@ namespace nso_vendita_default {
                 show(this, messaggio, "Avviso");
                 //Apre un form per consentire all'utente la scelta dell'Anagrafica
                 FrmAskAnagrafica F = new FrmAskAnagrafica(Meta, Meta.Dispatcher);
+                createForm(F, this);
                 if (F.ShowDialog(this) != DialogResult.OK)
                     return;
                 idreg = F.idreg;
@@ -567,7 +569,7 @@ namespace nso_vendita_default {
             MetaData.SetDefault(Estimate, "officiallyprinted", "N");
 
             // EstimateDetail.idivakind
-            int idnsovendita = CfgFn.GetNoNullInt32(DS.nso_vendita.Rows[0]["idnso_vendita"]);
+            int idnsovendita = CfgFn.GetNoNullInt32(Curr["idnso_vendita"]);
             MetaData.SetDefault(Estimate, "idnso_vendita", idnsovendita);
 
             // Estimate.currency
@@ -591,7 +593,7 @@ namespace nso_vendita_default {
             MetaData.SetDefault(Estimate, "flagintracom", "N");
 
             // CIG
-            string OriginDocRef = DS.nso_vendita.Rows[0]["codice_identificativo_gara"].ToString();
+            string OriginDocRef = Curr["codice_identificativo_gara"].ToString();
             if (OriginDocRef.Length == 10) {
                 // Estimate.cigcode
                 MetaData.SetDefault(Estimate, "cigcode", OriginDocRef);
@@ -601,23 +603,24 @@ namespace nso_vendita_default {
             }
 
             // Estimate.doc
-            MetaData.SetDefault(Estimate, "doc", DS.nso_vendita.Rows[0]["order_id"]);
+            MetaData.SetDefault(Estimate, "doc", Curr["order_id"]);
 
             // Estimate.docdate, contiene il campo issuedate, copiato in DS.nso_vendita.Rows[0]["adate"]
             // MetaData.SetDefault(Estimate, "docdate", DS.nso_vendita.Rows[0]["adate"]);
 
-            // Estimate.docdate
-            string issuedate = getXmlText(document, "cbc:IssueDate");
-            if (issuedate != null) {
-                DateTime docdate = XmlConvert.ToDateTime(issuedate, XmlDateTimeSerializationMode.Unspecified);
-                MetaData.SetDefault(Estimate, "docdate", docdate);
+            // Estimate.docdate : viene valorizzata con nso_vendita.adate che contiene "IssueDate",
+            // qualora dovesse essere null (ma non dovrebbe mai accadere perchè è la data Emissione),
+            // valorizzeremo con la data contabile.
+
+            if (Curr["adate"] != DBNull.Value) {
+                MetaData.SetDefault(Estimate, "docdate", Curr["adate"]);  
             }
             else {
-                MetaData.SetDefault(Estimate, "docdate", DS.nso_vendita.Rows[0]["adate"]);
+                MetaData.SetDefault(Estimate, "docdate", Meta.GetSys("datacontabile"));
             }
 
             // Estimate.description
-            MetaData.SetDefault(Estimate, "description", DS.nso_vendita.Rows[0]["description"]);
+            MetaData.SetDefault(Estimate, "description", Curr["description"]);
 
             // =====================================================
             // DELIVERY LOCATION
@@ -673,85 +676,152 @@ namespace nso_vendita_default {
 
             Button btnVisualizza = (Button)sender;
 
-            // Visualizza file xml
-            //Stream transformedData = new MemoryStream();
-            string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
-
-            XmlWriter xw = XmlWriter.Create(tempFileName);
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(DS.nso_vendita.Rows[0]["xml"].ToString());
-
-            string xsl = "NSO-Stylesheet-Ver_5_0.xslt";
-
             if (DS.nso_vendita.Rows[0]["xml"] == DBNull.Value) return;
 
-            try {
-                XslCompiledTransform xsltransform = new XslCompiledTransform();
-                xsltransform.Load(AppDomain.CurrentDomain.BaseDirectory + xsl);
+            string xsl = "NSO-Stylesheet-Ver_5_0.xslt";
+            string xlst = AppDomain.CurrentDomain.BaseDirectory + xsl;
+            //string xml = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".xml";
+            //string html = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".html";
+            string xml = Path.ChangeExtension(Path.GetTempFileName(), "xml");
+            string html = Path.ChangeExtension(Path.GetTempFileName(), "html");
 
-                xsltransform.Transform(doc, null, xw);
-                xw.Flush();
-                xw.Close();
-            } catch (Exception E) {
+            try
+            {
+                // Scrive il file Xml
+                File.WriteAllText(xml, DS.nso_vendita.Rows[0]["xml"].ToString());
+
+                // Xlst Compiler
+                XslCompiledTransform xslct = new XslCompiledTransform();
+
+                // Carica il template
+                xslct.Load(xlst);
+
+                // Trasforma Xml in Html usando il template
+                xslct.Transform(xml, html);
+            }
+            catch (Exception E)
+            {
                 show("Errore aprendo l'ordine selezionato", "Errore");
                 DataRow Curr = DS.nso_vendita.Rows[0];
                 string errmsg = "Frm_nso_vendita_default: Errore su " + xsl + ", Ordine : " + Curr["idnso_vendita"];
                 Meta.LogError(errmsg, E);
             }
 
+            try
+            {
+                // Lancia l'html
+                runProcess(html, true);
 
-            try {
-                runProcess(tempFileName, true);
-            } catch (Exception ee) {
-                QueryCreator.ShowException("Errore nella visualizzazione del file", ee);
+                // Elimina il file xml che non serve più
+                File.Delete(xml);
             }
-
-        }
-
-
-        private void VisualizzaXMLMessaggi(string tipomessaggio) {
-            // mt (metadato)
-            // ec (esito committente)
-            // se (scarto esito)
-            // dt (decorrenza termini)
-            if (DS.nso_vendita.Rows.Count == 0) {
-                return;
-            }
-
-            if (!Meta.GetFormData(false))
-                return;
-            // Visualizza file xml
-            string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
-            XmlWriter xw = XmlWriter.Create(tempFileName);
-            XmlDocument doc = new XmlDocument();
-
-
-            if (DS.nso_vendita.Rows[0][tipomessaggio] == DBNull.Value)
-                return;
-            try {
-                doc.LoadXml(DS.nso_vendita.Rows[0][tipomessaggio].ToString());
-            } catch {
-                return;
-            }
-
-            XslCompiledTransform xsltransform = new XslCompiledTransform();
-            string filexls = "";
-            if (tipomessaggio == "AT")
-                filexls = tipomessaggio.ToUpper() + "_v1.1.xslt";
-            else
-                filexls = tipomessaggio.ToUpper() + "_v1.0.xslt";
-            xsltransform.Load(AppDomain.CurrentDomain.BaseDirectory + filexls);
-
-            xsltransform.Transform(doc, null, xw);
-
-            xw.Flush();
-            xw.Close();
-            try {
-                runProcess(tempFileName, true);
-            } catch (Exception ee) {
+            catch (Exception ee)
+            {
                 QueryCreator.ShowException("Errore nella visualizzazione del file", ee);
             }
         }
+
+
+        private void VisualizzaXMLMessaggi(string tipomessaggio)
+        {
+            try
+            {
+                // mt (metadato)
+                // ec (esito committente)
+                if (DS.nso_vendita.Rows.Count == 0)
+                {
+                    return;
+                }
+
+                if (!Meta.GetFormData(false))
+                    return;
+                // Visualizza file xml
+                //string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+                string tempFileName = Path.ChangeExtension(Path.GetTempFileName(), "htm");
+                XmlWriter xw = XmlWriter.Create(tempFileName);
+                XmlDocument doc = new XmlDocument();
+                XmlAttribute attr;
+
+
+				if (DS.nso_vendita.Rows[0][tipomessaggio] == DBNull.Value)
+                    return;
+
+                string xml = DS.nso_vendita.Rows[0][tipomessaggio].ToString();
+
+                doc.LoadXml(xml);
+
+                foreach (XmlNode item in doc.ChildNodes)
+                {
+                    if (item.Name == "Order" || item.Name == "OrderResponse" || item.Name == "StandardBusinessDocument")
+					{
+						attr = doc.CreateAttribute("xmlns:n1");
+						attr.Value = "urn:oasis:names:specification:ubl:schema:xsd:Order-2";
+						item.Attributes.Append(attr);
+
+						attr = doc.CreateAttribute("xmlns:n2");
+						attr.Value = "urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2";
+						item.Attributes.Append(attr);
+
+						attr = doc.CreateAttribute("xmlns:n3");
+						attr.Value = "http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader";
+						item.Attributes.Append(attr);
+
+						attr = doc.CreateAttribute("xmlns:cac");
+						attr.Value = "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2";
+						item.Attributes.Append(attr);
+
+						attr = doc.CreateAttribute("xmlns:cbc");
+						attr.Value = "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2";
+						item.Attributes.Append(attr);
+
+						adjustNodes(item);
+
+                        xml = doc.OuterXml;
+                        xml = xml.Replace(" xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2\"", "")
+                            .Replace(" xmlns:cbc=\"urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2\"", "");
+
+						doc.LoadXml(xml);                        
+					}
+				}
+
+
+                XslCompiledTransform xsltransform = new XslCompiledTransform();
+                string filexls = "";
+
+                string xsl = "NSO-Stylesheet-Ver_5_0.xslt";
+                string xlst = AppDomain.CurrentDomain.BaseDirectory + xsl;
+
+                xsltransform.Load(xlst);
+
+                xsltransform.Transform(doc, null, xw);
+
+                xw.Flush();
+                xw.Close();
+
+                runProcess(tempFileName, true);
+            }
+            catch (Exception ee)
+            {
+                QueryCreator.ShowException("Errore nella visualizzazione del file", ee);
+            }
+        }
+
+        private void adjustNodes(XmlNode n)
+        {
+            foreach (XmlNode node in n.ChildNodes)
+            {
+                if (!(node.Name == "Order" || node.Name == "OrderResponse" || node.Name == "StandardBusinessDocument"))
+                {
+                    if (node.NodeType == XmlNodeType.Element)
+                    {
+                        node.Prefix = (node.FirstChild.NodeType == XmlNodeType.Text ? "cbc" : "cac");
+                        XmlElement x = (XmlElement)node;
+                        x.RemoveAllAttributes();
+                        adjustNodes(node);
+                    }
+                }
+			}
+		}
 
         //bool AvvisoMostrato = false;
         private void btnRifiuta_Click(object sender, EventArgs e) {
@@ -924,6 +994,7 @@ namespace nso_vendita_default {
 
             if (arrivalProtocol == DBNull.Value) {
                 FrmAskProtocollo FP = new FrmAskProtocollo(0);
+                createForm(FP, this);
                 if (FP.ShowDialog(this) == DialogResult.OK) {
                     arrivalProtocol = FP.Protocollo;
                 }
@@ -1097,13 +1168,6 @@ namespace nso_vendita_default {
         private void btnXMLNEC_Click(object sender, EventArgs e) {
             VisualizzaXMLMessaggi("ec");
         }
-
-        private void btnXMLSEC_Click(object sender, EventArgs e) {
-            VisualizzaXMLMessaggi("se");
-        }
-
-        private void btnXMLDC_Click(object sender, EventArgs e) {
-            VisualizzaXMLMessaggi("dt");
-        }
+ 
     }
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_rendicontaltro_docente"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_rendicontaltro_docente: DataSet {
+public partial class dsmeta_rendicontaltro_docente: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -68,6 +68,14 @@ private void initClass() {
 	var trendicontaltrokinddefaultview= new MetaTable("rendicontaltrokinddefaultview");
 	trendicontaltrokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	trendicontaltrokinddefaultview.defineColumn("idrendicontaltrokind", typeof(int),false);
+	trendicontaltrokinddefaultview.defineColumn("rendicontaltrokind_active", typeof(string));
+	trendicontaltrokinddefaultview.defineColumn("rendicontaltrokind_ct", typeof(DateTime),false);
+	trendicontaltrokinddefaultview.defineColumn("rendicontaltrokind_cu", typeof(string),false);
+	trendicontaltrokinddefaultview.defineColumn("rendicontaltrokind_description", typeof(string));
+	trendicontaltrokinddefaultview.defineColumn("rendicontaltrokind_lt", typeof(DateTime),false);
+	trendicontaltrokinddefaultview.defineColumn("rendicontaltrokind_lu", typeof(string),false);
+	trendicontaltrokinddefaultview.defineColumn("rendicontaltrokind_sortcode", typeof(int),false);
+	trendicontaltrokinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(trendicontaltrokinddefaultview);
 	trendicontaltrokinddefaultview.defineKey("idrendicontaltrokind");
 

@@ -90,11 +90,20 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
-	<Reference Include="meta_dalia_dipartimento">
-      <HintPath>..\..\dalia_funzionale\meta_dalia_funzionale\bin\Debug\meta_dalia_funzionale.dll</HintPath>
-    </Reference>
     <Reference Include="meta_dalia_dipartimento">
       <HintPath>..\..\dalia_dipartimento\meta_dalia_dipartimento\bin\Debug\meta_dalia_dipartimento.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_dalia_funzionale">
+      <HintPath>..\..\dalia_funzionale\meta_dalia_funzionale\bin\Debug\meta_dalia_funzionale.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_itinerationrefund, Version=1.0.32.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\itinerationrefund\meta_itinerationrefund\bin\Debug\meta_itinerationrefund.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_registry, Version=1.2.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -136,12 +145,6 @@
       <Project>{304173CA-4579-4FF3-AECA-63AECC6B8CD3}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <Reference Include="meta_registry">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_registry</Name>
-      <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="meta_sorting">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sorting</Name>
@@ -180,12 +183,6 @@
       <HintPath>..\..\accmotive\meta_accmotiveapplied\bin\Debug\meta_accmotiveapplied.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_accmotiveapplied</Name>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="meta_itinerationrefund">
-      <HintPath>..\..\itinerationrefund\meta_itinerationrefund\bin\Debug\meta_itinerationrefund.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_itinerationrefund</Name>
       <Private>True</Private>
     </Reference>
     <Reference Include="meta_itinerationlap">
@@ -240,6 +237,9 @@
     <None Include="vistaForm.xss">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

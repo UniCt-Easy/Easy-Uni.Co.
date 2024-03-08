@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -66,6 +49,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idccnl_ccnl_sortcode', 'Sortcode', null, 19, null);
 						this.describeAColumn(table, '!idccnl_ccnl_stipula', 'Stipula', null, 20, null);
 						this.describeAColumn(table, '!idccnl_ccnl_sortcode', 'Ordinamento', null, 19, null);
+						this.describeAColumn(table, '!idccnl_ccnl_title', 'Denominazione Tipologia di contratto', null, 13, null);
+						this.describeAColumn(table, '!idccnl_ccnl_active', 'Attivo Tipologia di contratto', null, 13, null);
+						this.describeAColumn(table, '!idccnl_ccnl_area', 'Area Tipologia di contratto', null, 14, null);
+						this.describeAColumn(table, '!idccnl_ccnl_decorrenza', 'Decorrenza Tipologia di contratto', null, 16, null);
+						this.describeAColumn(table, '!idccnl_ccnl_scadec', 'Scadenza ec. Tipologia di contratto', null, 17, null);
+						this.describeAColumn(table, '!idccnl_ccnl_scadenza', 'Scadenza Tipologia di contratto', null, 18, null);
+						this.describeAColumn(table, '!idccnl_ccnl_sortcode', 'Ordinamento Tipologia di contratto', null, 19, null);
+						this.describeAColumn(table, '!idccnl_ccnl_stipula', 'Stipula Tipologia di contratto', null, 20, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

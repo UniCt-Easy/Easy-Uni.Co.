@@ -1,9 +1,25 @@
 ﻿<!--header-->
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
-		
+		<!--tabString-->
 	</ul>
 	<form>
+	<div class="row">
+		<div class="col-md-4" style="background-color: white; align-self:flex-start">
+			<div id="menuweb_upb" data-tag="struttura.default" data-custom-control="tree"></div>
+		</div>
+		<div class="col-md-8"  style="background-color: white; align-self:flex-start">
+		<ul class="nav nav-tabs">
+				<li class="nav-item">
+		<a href="#tabstruttura_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabstruttura_default_0"><i class="fa fa-warehouse mr-1"></i>Principale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabstruttura_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabstruttura_default_1"><i class="fa fa-calendar-alt mr-1"></i>Personale afferente</a>
+	</li>
+
+		</ul>
+<div class="tab-content mt-2">
+	<div class="tab-pane fade active show" id="tabstruttura_default_0" role="tabpanel">
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_default_title">Denominazione</label>
@@ -17,17 +33,17 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_default_idsede">Sede</label>
-					<select id="struttura_default_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idsede?strutturadefaultview.struttura_idsede" data-subentity  data-mandatory  > </select>
+					<select id="struttura_default_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="struttura.idsede?strutturadefaultview.struttura_idsede" data-subentity  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_default_idstrutturakind">Tipo</label>
-					<select id="struttura_default_idstrutturakind" class="custom-select d-block w-100"  data-source-name="strutturakinddefaultview" data-value-member="idstrutturakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idstrutturakind?strutturadefaultview.struttura_idstrutturakind" data-subentity  data-mandatory  > </select>
+					<select id="struttura_default_idstrutturakind" class="custom-select d-block w-100"  data-source-name="strutturakinddefaultview" data-value-member="idstrutturakind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="struttura.idstrutturakind?strutturadefaultview.struttura_idstrutturakind" data-subentity  data-mandatory  > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_default_idaoo">AOO</label>
-					<select id="struttura_default_idaoo" class="custom-select d-block w-100"  data-source-name="aoodefaultview" data-value-member="idaoo" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idaoo?strutturadefaultview.struttura_idaoo" data-subentity   > </select>
+					<select id="struttura_default_idaoo" class="custom-select d-block w-100"  data-source-name="aoodefaultview" data-value-member="idaoo" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="struttura.idaoo?strutturadefaultview.struttura_idaoo" data-subentity   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_default_idupb">Unità previsionale di base (bilancio)</label>
@@ -61,7 +77,22 @@
 					<label class="col-form-label col-md-12" for="struttura_default_telefono">Telefono</label>
 					<input id="struttura_default_telefono" type="text" class="form-control" data-tag="struttura.telefono?strutturadefaultview.struttura_telefono" data-subentity  />
 				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="struttura_default_activeSi" type="radio" name="struttura_default_active" class="custom-control-input" data-tag="struttura.active:S?strutturadefaultview.struttura_active:Si" data-subentity  ><label for="struttura_default_activeSi"> Si</label>
+						<input id="struttura_default_activeNo" type="radio" name="struttura_default_active" class="custom-control-input" data-tag="struttura.active:N?strutturadefaultview.struttura_active:No" data-subentity  ><label for="struttura_default_activeNo"> No</label>
+					</div>
+				</div>
 			</div>
+	</div>
+	<div class="tab-pane fade" id="tabstruttura_default_1" role="tabpanel">
+				<div class="gridx" id="grid_afferenza_stru" data-tag="afferenza.stru.stru" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+	</div>
+</div>
+			</div>
+		</div>
+	</div>
 </form>
 
 </div>

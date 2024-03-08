@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -157,6 +157,24 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registryattachment 		=> (MetaTable)Tables["registryattachment"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registrypattointegrita 		=> (MetaTable)Tables["registrypattointegrita"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable nace 		=> (MetaTable)Tables["nace"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable naturagiur 		=> (MetaTable)Tables["naturagiur"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable numerodip 		=> (MetaTable)Tables["numerodip"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable ateco 		=> (MetaTable)Tables["ateco"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registry_istituti 		=> (MetaTable)Tables["registry_istituti"];
+
 	#endregion
 
 
@@ -184,7 +202,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new registryTable();
-	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","idregistrykind","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","extmatricula","idregistryclass","idcentralizedcategory","idtitle","idmaritalstatus","badgecode","maritalsurname","idcategory","idcity","location","idnation","authorization_free","multi_cf","idaccmotivecredit","idaccmotivedebit","ccp","flagbankitaliaproceeds","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe","ipa_perlapa");
+	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","idregistrykind","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","extmatricula","idregistryclass","idcentralizedcategory","idtitle","idmaritalstatus","badgecode","maritalsurname","idcategory","idcity","location","idnation","authorization_free","multi_cf","idaccmotivecredit","idaccmotivedebit","ccp","flagbankitaliaproceeds","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe","ipa_perlapa","idnace","idnaturagiur","idnumerodip","idclassconsorsuale","idfonteindicebibliometrico","indicebibliometrico","ricevimento","soggiorno","idstruttura","idreg_istituti","idateco","extension");
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
 
@@ -233,6 +251,41 @@ private void initClass() {
 	tposition.defineColumn("ct", typeof(DateTime),false);
 	tposition.defineColumn("lu", typeof(string),false);
 	tposition.defineColumn("lt", typeof(DateTime),false);
+	tposition.defineColumn("codeposition", typeof(string),false);
+	tposition.defineColumn("foreignclass", typeof(string));
+	tposition.defineColumn("assegnoaggiuntivo", typeof(string));
+	tposition.defineColumn("costolordoannuo", typeof(decimal));
+	tposition.defineColumn("costolordoannuooneri", typeof(decimal));
+	tposition.defineColumn("elementoperequativo", typeof(string));
+	tposition.defineColumn("indennitadiateneo", typeof(string));
+	tposition.defineColumn("indennitadiposizione", typeof(string));
+	tposition.defineColumn("indvacancacontrattuale", typeof(string));
+	tposition.defineColumn("oremaxcompitididatempoparziale", typeof(int));
+	tposition.defineColumn("oremaxcompitididatempopieno", typeof(int));
+	tposition.defineColumn("oremaxdidatempoparziale", typeof(int));
+	tposition.defineColumn("oremaxdidatempopieno", typeof(int));
+	tposition.defineColumn("oremaxgg", typeof(int));
+	tposition.defineColumn("oremaxtempoparziale", typeof(int));
+	tposition.defineColumn("oremaxtempopieno", typeof(int));
+	tposition.defineColumn("oremincompitididatempoparziale", typeof(int));
+	tposition.defineColumn("oremincompitididatempopieno", typeof(int));
+	tposition.defineColumn("oremindidatempoparziale", typeof(int));
+	tposition.defineColumn("oremindidatempopieno", typeof(int));
+	tposition.defineColumn("oremintempoparziale", typeof(int));
+	tposition.defineColumn("oremintempopieno", typeof(int));
+	tposition.defineColumn("orestraordinariemax", typeof(int));
+	tposition.defineColumn("parttime", typeof(string));
+	tposition.defineColumn("puntiorganico", typeof(decimal));
+	tposition.defineColumn("siglaesportazione", typeof(string));
+	tposition.defineColumn("siglaimportazione", typeof(string));
+	tposition.defineColumn("printingorder", typeof(int));
+	tposition.defineColumn("tempdef", typeof(string));
+	tposition.defineColumn("tipopersonale", typeof(string));
+	tposition.defineColumn("title", typeof(string));
+	tposition.defineColumn("totaletredicesima", typeof(string));
+	tposition.defineColumn("tredicesimaindennitaintegrativaspeciale", typeof(string));
+	tposition.defineColumn("tipoente", typeof(string));
+	tposition.defineColumn("livello", typeof(string));
 	Tables.Add(tposition);
 	tposition.defineKey("idposition");
 
@@ -257,12 +310,15 @@ private void initClass() {
 	tregistrylegalstatus.defineColumn("idregistrylegalstatus", typeof(int),false);
 	tregistrylegalstatus.defineColumn("stop", typeof(DateTime));
 	tregistrylegalstatus.defineColumn("iddaliaposition", typeof(int));
+	tregistrylegalstatus.defineColumn("idinquadramento", typeof(int));
+	tregistrylegalstatus.defineColumn("livello", typeof(int));
+	tregistrylegalstatus.defineColumn("flagdefault", typeof(string));
 	Tables.Add(tregistrylegalstatus);
 	tregistrylegalstatus.defineKey("idreg", "idregistrylegalstatus");
 
 	//////////////////// REGISTRYREFERENCE /////////////////////////////////
 	var tregistryreference= new registryreferenceTable();
-	tregistryreference.addBaseColumns("referencename","idreg","registryreferencerole","phonenumber","faxnumber","mobilenumber","email","userweb","passwordweb","txt","rtf","cu","ct","lu","lt","flagdefault","idregistryreference","skypenumber","msnnumber","pec");
+	tregistryreference.addBaseColumns("referencename","idreg","registryreferencerole","phonenumber","faxnumber","mobilenumber","email","userweb","passwordweb","txt","rtf","cu","ct","lu","lt","flagdefault","idregistryreference","skypenumber","msnnumber","pec","activeweb");
 	Tables.Add(tregistryreference);
 	tregistryreference.defineKey("idreg", "idregistryreference");
 
@@ -496,6 +552,18 @@ private void initClass() {
 	tregistrymainview.defineColumn("email_fe", typeof(string));
 	tregistrymainview.defineColumn("pec_fe", typeof(string));
 	tregistrymainview.defineColumn("ipa_perlapa", typeof(string));
+	tregistrymainview.defineColumn("idnace", typeof(string));
+	tregistrymainview.defineColumn("idnaturagiur", typeof(int));
+	tregistrymainview.defineColumn("idnumerodip", typeof(int));
+	tregistrymainview.defineColumn("idclassconsorsuale", typeof(int));
+	tregistrymainview.defineColumn("idfonteindicebibliometrico", typeof(int));
+	tregistrymainview.defineColumn("indicebibliometrico", typeof(int));
+	tregistrymainview.defineColumn("ricevimento", typeof(string));
+	tregistrymainview.defineColumn("soggiorno", typeof(string));
+	tregistrymainview.defineColumn("idstruttura", typeof(int));
+	tregistrymainview.defineColumn("idreg_istituti", typeof(int));
+	tregistrymainview.defineColumn("idateco", typeof(int));
+	tregistrymainview.defineColumn("extension", typeof(string));
 	Tables.Add(tregistrymainview);
 	tregistrymainview.defineKey("idreg");
 
@@ -796,6 +864,81 @@ private void initClass() {
 	Tables.Add(tregistryattachment);
 	tregistryattachment.defineKey("idreg", "idattachment");
 
+	//////////////////// REGISTRYPATTOINTEGRITA /////////////////////////////////
+	var tregistrypattointegrita= new MetaTable("registrypattointegrita");
+	tregistrypattointegrita.defineColumn("idregistrypattointegrita", typeof(int),false);
+	tregistrypattointegrita.defineColumn("idreg", typeof(int),false);
+	tregistrypattointegrita.defineColumn("ct", typeof(DateTime),false);
+	tregistrypattointegrita.defineColumn("cu", typeof(string),false);
+	tregistrypattointegrita.defineColumn("lt", typeof(DateTime),false);
+	tregistrypattointegrita.defineColumn("lu", typeof(string),false);
+	tregistrypattointegrita.defineColumn("start", typeof(DateTime));
+	tregistrypattointegrita.defineColumn("stop", typeof(DateTime));
+	tregistrypattointegrita.defineColumn("pattointegritacertification", typeof(Byte[]));
+	Tables.Add(tregistrypattointegrita);
+	tregistrypattointegrita.defineKey("idregistrypattointegrita", "idreg");
+
+	//////////////////// NACE /////////////////////////////////
+	var tnace= new MetaTable("nace");
+	tnace.defineColumn("idnace", typeof(string),false);
+	tnace.defineColumn("activity", typeof(string),false);
+	tnace.defineColumn("lt", typeof(DateTime));
+	tnace.defineColumn("lu", typeof(string));
+	Tables.Add(tnace);
+	tnace.defineKey("idnace");
+
+	//////////////////// NATURAGIUR /////////////////////////////////
+	var tnaturagiur= new MetaTable("naturagiur");
+	tnaturagiur.defineColumn("idnaturagiur", typeof(int),false);
+	tnaturagiur.defineColumn("title", typeof(string),false);
+	tnaturagiur.defineColumn("sortcode", typeof(int),false);
+	tnaturagiur.defineColumn("flagforeign", typeof(string));
+	tnaturagiur.defineColumn("active", typeof(string),false);
+	tnaturagiur.defineColumn("lt", typeof(DateTime));
+	tnaturagiur.defineColumn("lu", typeof(string));
+	Tables.Add(tnaturagiur);
+	tnaturagiur.defineKey("idnaturagiur");
+
+	//////////////////// NUMERODIP /////////////////////////////////
+	var tnumerodip= new MetaTable("numerodip");
+	tnumerodip.defineColumn("idnumerodip", typeof(int),false);
+	tnumerodip.defineColumn("title", typeof(string),false);
+	tnumerodip.defineColumn("sortcode", typeof(int),false);
+	tnumerodip.defineColumn("active", typeof(string),false);
+	tnumerodip.defineColumn("lt", typeof(DateTime));
+	tnumerodip.defineColumn("lu", typeof(string));
+	Tables.Add(tnumerodip);
+	tnumerodip.defineKey("idnumerodip");
+
+	//////////////////// ATECO /////////////////////////////////
+	var tateco= new MetaTable("ateco");
+	tateco.defineColumn("idateco", typeof(int),false);
+	tateco.defineColumn("codice", typeof(string));
+	tateco.defineColumn("title", typeof(string));
+	tateco.defineColumn("lt", typeof(DateTime));
+	tateco.defineColumn("lu", typeof(string));
+	Tables.Add(tateco);
+	tateco.defineKey("idateco");
+
+	//////////////////// REGISTRY_ISTITUTI /////////////////////////////////
+	var tregistry_istituti= new MetaTable("registry_istituti");
+	tregistry_istituti.defineColumn("idreg", typeof(int),false);
+	tregistry_istituti.defineColumn("idistitutoustat", typeof(int));
+	tregistry_istituti.defineColumn("idistitutokind", typeof(int),false);
+	tregistry_istituti.defineColumn("title", typeof(string));
+	tregistry_istituti.defineColumn("title_en", typeof(string));
+	tregistry_istituti.defineColumn("nome", typeof(string));
+	tregistry_istituti.defineColumn("codicemiur", typeof(string));
+	tregistry_istituti.defineColumn("codiceustat", typeof(string));
+	tregistry_istituti.defineColumn("sortcode", typeof(int));
+	tregistry_istituti.defineColumn("ct", typeof(DateTime));
+	tregistry_istituti.defineColumn("cu", typeof(string),false);
+	tregistry_istituti.defineColumn("lt", typeof(DateTime),false);
+	tregistry_istituti.defineColumn("lu", typeof(string),false);
+	tregistry_istituti.defineColumn("comune", typeof(string));
+	Tables.Add(tregistry_istituti);
+	tregistry_istituti.defineKey("idreg");
+
 	#endregion
 
 
@@ -850,6 +993,15 @@ private void initClass() {
 	this.defineRelation("registry_registryregolaritafiscale","registry","registryregolaritafiscale","idreg");
 	this.defineRelation("registry_registryverificaanac","registry","registryverificaanac","idreg");
 	this.defineRelation("registry_registryattachment","registry","registryattachment","idreg");
+	this.defineRelation("registry_registrypattointegrita","registry","registrypattointegrita","idreg");
+	this.defineRelation("nace_registry_aziende","nace","registry","idnace");
+	cPar = new []{registry_istituti.Columns["idreg"]};
+	cChild = new []{registry.Columns["idreg_istituti"]};
+	Relations.Add(new DataRelation("registry_istituti_registry_docenti",cPar,cChild,false));
+
+	this.defineRelation("ateco_registry_aziende","ateco","registry","idateco");
+	this.defineRelation("numerodip_registry","numerodip","registry","idnumerodip");
+	this.defineRelation("naturagiur_registry","naturagiur","registry","idnaturagiur");
 	#endregion
 
 }

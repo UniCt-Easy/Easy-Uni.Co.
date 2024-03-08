@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -63,6 +63,7 @@ namespace inventorytree_uniforma {
             if (!verificaValiditaFile()) return;
 
             AskClassificazione frm = new AskClassificazione(Meta);
+            createForm(frm, null);
             DialogResult dr2 = frm.ShowDialog();
             if (dr2 != DialogResult.OK) {
                 show(this, "Non è sta scelta la classificazione, la procedura sarà interrotta");
@@ -83,6 +84,7 @@ namespace inventorytree_uniforma {
             DataTable tCheck = dsCheck.Tables[0];
             if (tCheck.Rows.Count != 0) {
                 FrmError fe = new FrmError(tCheck);
+                createForm(fe, null);
                 fe.Show();
                 return;
             }

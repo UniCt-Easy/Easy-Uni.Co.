@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfobiettiviuo_onlyunatantum" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfobiettiviuo_onlyunatantum" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfobiettiviuoattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idperfobiettiviuo" type="xs:int" />
+              <xs:element name="idperfobiettiviuoattach" type="xs:int" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfobiettiviuosoglia" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfobiettiviuo" type="xs:int" />
+              <xs:element name="idperfobiettiviuosoglia" type="xs:int" />
+              <xs:element name="idperfsogliakind" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="percentuale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazionepersonaletusciaview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idafferenza" type="xs:int" />
+              <xs:element name="idperfvalutazionepersonale" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfobiettiviuo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="completamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfobiettiviuo" type="xs:int" />
+              <xs:element name="idperfvalutazionepersonale" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfobiettiviuoattach" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idperfobiettiviuo" />
+      <xs:field xpath="mstns:idperfobiettiviuoattach" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+    </xs:unique>
+    <xs:unique name="perfobiettiviuosoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfobiettiviuosoglia" />
+      <xs:field xpath="mstns:idperfobiettiviuo" />
+      <xs:field xpath="mstns:idperfobiettiviuosoglia" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+    </xs:unique>
+    <xs:unique name="perfvalutazionepersonaletusciaview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazionepersonaletusciaview" />
+      <xs:field xpath="mstns:idafferenza" />
+      <xs:field xpath="mstns:idperfvalutazionepersonale" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="perfobiettiviuo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfobiettiviuo" />
+      <xs:field xpath="mstns:idperfobiettiviuo" />
+      <xs:field xpath="mstns:idperfvalutazioneuo" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfobiettiviuoattach_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo" msdata:parent="perfobiettiviuo" msdata:child="perfobiettiviuoattach" msdata:parentkey="idperfobiettiviuo idperfvalutazioneuo" msdata:childkey="idperfobiettiviuo idperfvalutazioneuo" />
+      <msdata:Relationship name="FK_perfobiettiviuosoglia_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo" msdata:parent="perfobiettiviuo" msdata:child="perfobiettiviuosoglia" msdata:parentkey="idperfobiettiviuo idperfvalutazioneuo" msdata:childkey="idperfobiettiviuo idperfvalutazioneuo" />
+      <msdata:Relationship name="FK_perfobiettiviuo_perfvalutazionepersonaletusciaview_idperfvalutazionepersonale" msdata:parent="perfvalutazionepersonaletusciaview" msdata:child="perfobiettiviuo" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -141,7 +141,10 @@ namespace meta_expenselastview {//meta_spesaview//
                         DescribeAColumn(T, "manager", "Resp. bil.", nPos++);
                         DescribeAColumn(T, "curramount", "Importo", nPos++);
 						DescribeAColumn(T, "net", "Netto", nPos++);
-						FilterRows(T);
+                        DescribeAColumn(T, "nbill", "N. sospeso", nPos++);
+                        DescribeAColumn(T, "codetreasurer", "Codice Cassiere Sospeso", nPos++);
+                        DescribeAColumn(T, "treasurer", "Cassiere Sospeso", nPos++);
+                        FilterRows(T);
                         break;
                     }
 
@@ -263,7 +266,10 @@ namespace meta_expenselastview {//meta_spesaview//
                         DescribeAColumn(T, "description", "Descrizione", nPos++);
                         DescribeAColumn(T, "curramount", "Importo", nPos++);
 						DescribeAColumn(T, "net", "Netto", nPos++);
-						break;
+                        DescribeAColumn(T, "nbill", "N. sospeso", nPos++);
+                        DescribeAColumn(T, "codetreasurer", "Codice Cassiere Sospeso", nPos++);
+                        DescribeAColumn(T, "treasurer", "Cassiere Sospeso", nPos++);
+                        break;
                     }
 
 
@@ -308,8 +314,11 @@ namespace meta_expenselastview {//meta_spesaview//
                         DescribeAColumn(T, "npay", "Mandato", nPos++);
                         DescribeAColumn(T, "idpay", "Numero movimento bancario", nPos++);
                         DescribeAColumn(T, "npaymenttransmission", "Numero distinta", nPos++);
-                        DescribeAColumn(T, "transmissiondate", "Data trasmissione", nPos++); 
-						FilterRows(T);
+                        DescribeAColumn(T, "transmissiondate", "Data trasmissione", nPos++);
+                        DescribeAColumn(T, "nbill", "N. sospeso", nPos++);
+                        DescribeAColumn(T, "codetreasurer", "Codice Cassiere Sospeso", nPos++);
+                        DescribeAColumn(T, "treasurer", "Cassiere Sospeso", nPos++);
+                        FilterRows(T);
                         break;
                     }
 
@@ -360,6 +369,8 @@ namespace meta_expenselastview {//meta_spesaview//
                         DescribeAColumn(T, "flagarrear", ".Competenza", -1);
                         DescribeAColumn(T, "expiration", ".Data Scadenza", -1);
                         DescribeAColumn(T, "nbill", "Bolletta", nPos++);
+                        DescribeAColumn(T, "codetreasurer", "Codice Cassiere Sospeso", nPos++);
+                        DescribeAColumn(T, "treasurer", "Cassiere Sospeso", nPos++);
 
                         break;
                     }

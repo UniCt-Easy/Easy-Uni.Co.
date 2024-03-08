@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,11 +27,11 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_progettotimesheetprogetto_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_progettotimesheetprogetto_default: DataSet {
+public partial class dsmeta_progettotimesheetprogetto_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable progettosegview 		=> (MetaTable)Tables["progettosegview"];
+	public MetaTable progettogriglieview 		=> (MetaTable)Tables["progettogriglieview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettotimesheetprogetto 		=> (MetaTable)Tables["progettotimesheetprogetto"];
@@ -61,60 +61,83 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_progettotimesheetprogetto_default.xsd";
 
 	#region create DataTables
-	//////////////////// PROGETTOSEGVIEW /////////////////////////////////
-	var tprogettosegview= new MetaTable("progettosegview");
-	tprogettosegview.defineColumn("corsostudio_annoistituz", typeof(int));
-	tprogettosegview.defineColumn("corsostudio_title", typeof(string));
-	tprogettosegview.defineColumn("currency_codecurrency", typeof(string));
-	tprogettosegview.defineColumn("dropdown_title", typeof(string),false);
-	tprogettosegview.defineColumn("duratakind_title", typeof(string));
-	tprogettosegview.defineColumn("idcorsostudio", typeof(int));
-	tprogettosegview.defineColumn("idcurrency", typeof(int));
-	tprogettosegview.defineColumn("idprogetto", typeof(int),false);
-	tprogettosegview.defineColumn("idreg", typeof(int));
-	tprogettosegview.defineColumn("idreg_aziende", typeof(int));
-	tprogettosegview.defineColumn("idreg_aziende_fin", typeof(int));
-	tprogettosegview.defineColumn("progetto_budget", typeof(decimal));
-	tprogettosegview.defineColumn("progetto_budgetcalcolato", typeof(decimal));
-	tprogettosegview.defineColumn("progetto_budgetcalcolatodate", typeof(DateTime));
-	tprogettosegview.defineColumn("progetto_capofilatxt", typeof(string));
-	tprogettosegview.defineColumn("progetto_codiceidentificativo", typeof(string));
-	tprogettosegview.defineColumn("progetto_contributo", typeof(decimal));
-	tprogettosegview.defineColumn("progetto_contributoente", typeof(decimal));
-	tprogettosegview.defineColumn("progetto_ct", typeof(DateTime),false);
-	tprogettosegview.defineColumn("progetto_cu", typeof(string),false);
-	tprogettosegview.defineColumn("progetto_cup", typeof(string));
-	tprogettosegview.defineColumn("progetto_data", typeof(DateTime));
-	tprogettosegview.defineColumn("progetto_datacontabile", typeof(DateTime));
-	tprogettosegview.defineColumn("progetto_description", typeof(string));
-	tprogettosegview.defineColumn("progetto_durata", typeof(int));
-	tprogettosegview.defineColumn("progetto_finanziatoretxt", typeof(string));
-	tprogettosegview.defineColumn("progetto_idduratakind", typeof(int));
-	tprogettosegview.defineColumn("progetto_idprogettokind", typeof(int));
-	tprogettosegview.defineColumn("progetto_idprogettostatuskind", typeof(int));
-	tprogettosegview.defineColumn("progetto_idregistryprogfin", typeof(int));
-	tprogettosegview.defineColumn("progetto_idregistryprogfinbando", typeof(int));
-	tprogettosegview.defineColumn("progetto_lt", typeof(DateTime),false);
-	tprogettosegview.defineColumn("progetto_lu", typeof(string),false);
-	tprogettosegview.defineColumn("progetto_start", typeof(DateTime));
-	tprogettosegview.defineColumn("progetto_stop", typeof(DateTime));
-	tprogettosegview.defineColumn("progetto_title", typeof(string));
-	tprogettosegview.defineColumn("progetto_totalbudget", typeof(decimal));
-	tprogettosegview.defineColumn("progetto_totalcontributo", typeof(decimal));
-	tprogettosegview.defineColumn("progetto_url", typeof(string));
-	tprogettosegview.defineColumn("progettokind_title", typeof(string));
-	tprogettosegview.defineColumn("progettostatuskind_title", typeof(string));
-	tprogettosegview.defineColumn("registry_title", typeof(string));
-	tprogettosegview.defineColumn("registryaziende_fin_title", typeof(string));
-	tprogettosegview.defineColumn("registryaziende_title", typeof(string));
-	tprogettosegview.defineColumn("registryprogfin_code", typeof(string));
-	tprogettosegview.defineColumn("registryprogfin_title", typeof(string));
-	tprogettosegview.defineColumn("registryprogfinbando_number", typeof(string));
-	tprogettosegview.defineColumn("registryprogfinbando_scadenza", typeof(DateTime));
-	tprogettosegview.defineColumn("registryprogfinbando_title", typeof(string));
-	tprogettosegview.defineColumn("titolobreve", typeof(string));
-	Tables.Add(tprogettosegview);
-	tprogettosegview.defineKey("idprogetto");
+	//////////////////// PROGETTOGRIGLIEVIEW /////////////////////////////////
+	var tprogettogriglieview= new MetaTable("progettogriglieview");
+	tprogettogriglieview.defineColumn("corsostudio_annoistituz", typeof(int));
+	tprogettogriglieview.defineColumn("corsostudio_title", typeof(string));
+	tprogettogriglieview.defineColumn("currency_codecurrency", typeof(string));
+	tprogettogriglieview.defineColumn("dropdown_title", typeof(string),false);
+	tprogettogriglieview.defineColumn("duratakind_title", typeof(string));
+	tprogettogriglieview.defineColumn("idcorsostudio", typeof(int));
+	tprogettogriglieview.defineColumn("idcurrency", typeof(int));
+	tprogettogriglieview.defineColumn("idprogetto", typeof(int),false);
+	tprogettogriglieview.defineColumn("idreg", typeof(int));
+	tprogettogriglieview.defineColumn("idreg_amm", typeof(int));
+	tprogettogriglieview.defineColumn("idreg_aziende", typeof(int));
+	tprogettogriglieview.defineColumn("idreg_aziende_fin", typeof(int));
+	tprogettogriglieview.defineColumn("idstrumentofin", typeof(int));
+	tprogettogriglieview.defineColumn("partnerkind_title", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_bandoriferimentotxt", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_budget", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_budgetcalcolato", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_budgetcalcolatodate", typeof(DateTime));
+	tprogettogriglieview.defineColumn("progetto_capofilatxt", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_codiceidentificativo", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_contributo", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_contributoente", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_contributoenterichiesto", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_contributorichiesto", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_costoapprovatoateneo", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_costoapprovatoateneocalcolato", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_ct", typeof(DateTime),false);
+	tprogettogriglieview.defineColumn("progetto_cu", typeof(string),false);
+	tprogettogriglieview.defineColumn("progetto_cup", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_data", typeof(DateTime));
+	tprogettogriglieview.defineColumn("progetto_datacontabile", typeof(DateTime));
+	tprogettogriglieview.defineColumn("progetto_dataesito", typeof(DateTime));
+	tprogettogriglieview.defineColumn("progetto_description", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_durata", typeof(int));
+	tprogettogriglieview.defineColumn("progetto_finanziamento", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_finanziatoretxt", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_idduratakind", typeof(int));
+	tprogettogriglieview.defineColumn("progetto_idpartnerkind", typeof(int));
+	tprogettogriglieview.defineColumn("progetto_idprogettokind", typeof(int));
+	tprogettogriglieview.defineColumn("progetto_idprogettostatuskind", typeof(int));
+	tprogettogriglieview.defineColumn("progetto_idregistryprogfin", typeof(int));
+	tprogettogriglieview.defineColumn("progetto_idregistryprogfinbando", typeof(int));
+	tprogettogriglieview.defineColumn("progetto_lt", typeof(DateTime),false);
+	tprogettogriglieview.defineColumn("progetto_lu", typeof(string),false);
+	tprogettogriglieview.defineColumn("progetto_progfinanziamentotxt", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_responsabiliamministrativi", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_responsabiliscientifici", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_start", typeof(DateTime));
+	tprogettogriglieview.defineColumn("progetto_stop", typeof(DateTime));
+	tprogettogriglieview.defineColumn("progetto_title", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_title_en", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_totalbudget", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_totalcontributo", typeof(decimal));
+	tprogettogriglieview.defineColumn("progetto_ulteriorecup", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_unitaorganizzativa", typeof(string));
+	tprogettogriglieview.defineColumn("progetto_url", typeof(string));
+	tprogettogriglieview.defineColumn("progettokind_title", typeof(string));
+	tprogettogriglieview.defineColumn("progettostatuskind_title", typeof(string));
+	tprogettogriglieview.defineColumn("registry_title", typeof(string));
+	tprogettogriglieview.defineColumn("registryamm_cf", typeof(string));
+	tprogettogriglieview.defineColumn("registryamm_forename", typeof(string));
+	tprogettogriglieview.defineColumn("registryamm_idtitle", typeof(string));
+	tprogettogriglieview.defineColumn("registryamm_surname", typeof(string));
+	tprogettogriglieview.defineColumn("registryaziende_fin_title", typeof(string));
+	tprogettogriglieview.defineColumn("registryaziende_title", typeof(string));
+	tprogettogriglieview.defineColumn("registryprogfin_code", typeof(string));
+	tprogettogriglieview.defineColumn("registryprogfin_title", typeof(string));
+	tprogettogriglieview.defineColumn("registryprogfinbando_number", typeof(string));
+	tprogettogriglieview.defineColumn("registryprogfinbando_scadenza", typeof(DateTime));
+	tprogettogriglieview.defineColumn("registryprogfinbando_title", typeof(string));
+	tprogettogriglieview.defineColumn("strumentofin_title", typeof(string));
+	tprogettogriglieview.defineColumn("title_description", typeof(string));
+	tprogettogriglieview.defineColumn("titolobreve", typeof(string));
+	Tables.Add(tprogettogriglieview);
+	tprogettogriglieview.defineKey("idprogetto");
 
 	//////////////////// PROGETTOTIMESHEETPROGETTO /////////////////////////////////
 	var tprogettotimesheetprogetto= new MetaTable("progettotimesheetprogetto");
@@ -131,9 +154,9 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{progettosegview.Columns["idprogetto"]};
+	var cPar = new []{progettogriglieview.Columns["idprogetto"]};
 	var cChild = new []{progettotimesheetprogetto.Columns["idprogetto"]};
-	Relations.Add(new DataRelation("FK_progettotimesheetprogetto_progettosegview_idprogetto",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_progettotimesheetprogetto_progettogriglieview_idprogetto",cPar,cChild,false));
 
 	#endregion
 

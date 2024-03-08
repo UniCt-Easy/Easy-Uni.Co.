@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -408,6 +408,20 @@ namespace itineration_default { //missione//
 		public TextBox txtDaliaDipartimento;
 		private GroupBox groupBox3;
 		private ComboBox cmbDaliaFunzionale;
+		public GroupBox groupBox7;
+		public Button btnCodRipartizione;
+		public TextBox txtDenRipartizione;
+		public TextBox txtCodiceRipartizione;
+		private Button btnRipartizione;
+		private GroupBox grpAltro;
+		private TextBox textBox24;
+		private Label label63;
+		private Label label64;
+		private TextBox textBox26;
+		private Label label66;
+		private TextBox textBox25;
+		private Label label65;
+		private TextBox txtPercAnticipoItaliaEstero;
 		private EP_Manager EPM;
 
         public Frm_itineration_default() {
@@ -661,6 +675,11 @@ namespace itineration_default { //missione//
 			this.txtDescrUPB = new System.Windows.Forms.TextBox();
 			this.btnUPBCode = new System.Windows.Forms.Button();
 			this.tabAnalitico = new System.Windows.Forms.TabPage();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.btnCodRipartizione = new System.Windows.Forms.Button();
+			this.txtDenRipartizione = new System.Windows.Forms.TextBox();
+			this.txtCodiceRipartizione = new System.Windows.Forms.TextBox();
+			this.btnRipartizione = new System.Windows.Forms.Button();
 			this.gboxclass3 = new System.Windows.Forms.GroupBox();
 			this.btnCodice3 = new System.Windows.Forms.Button();
 			this.txtDenom3 = new System.Windows.Forms.TextBox();
@@ -769,11 +788,26 @@ namespace itineration_default { //missione//
 			this.textBox19 = new System.Windows.Forms.TextBox();
 			this.cmb_dalia_position = new System.Windows.Forms.ComboBox();
 			this.tabCTanticipo = new System.Windows.Forms.TabPage();
-			this.txtDataOraInizio = new System.Windows.Forms.TextBox();
+			this.grpAltro = new System.Windows.Forms.GroupBox();
 			this.label60 = new System.Windows.Forms.Label();
-			this.label61 = new System.Windows.Forms.Label();
-			this.txtDataOraTermine = new System.Windows.Forms.TextBox();
+			this.grpTratte = new System.Windows.Forms.GroupBox();
+			this.dataGrid4 = new System.Windows.Forms.DataGrid();
+			this.checkBox4 = new System.Windows.Forms.CheckBox();
+			this.checkBox3 = new System.Windows.Forms.CheckBox();
+			this.button4 = new System.Windows.Forms.Button();
+			this.button8 = new System.Windows.Forms.Button();
+			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.button9 = new System.Windows.Forms.Button();
+			this.label52 = new System.Windows.Forms.Label();
 			this.grpAnticipoTramiteCosti = new System.Windows.Forms.GroupBox();
+			this.textBox26 = new System.Windows.Forms.TextBox();
+			this.label66 = new System.Windows.Forms.Label();
+			this.textBox25 = new System.Windows.Forms.TextBox();
+			this.label65 = new System.Windows.Forms.Label();
+			this.txtPercAnticipoItaliaEstero = new System.Windows.Forms.TextBox();
+			this.label64 = new System.Windows.Forms.Label();
+			this.textBox24 = new System.Windows.Forms.TextBox();
+			this.label63 = new System.Windows.Forms.Label();
 			this.textBox23 = new System.Windows.Forms.TextBox();
 			this.label59 = new System.Windows.Forms.Label();
 			this.groupBox14 = new System.Windows.Forms.GroupBox();
@@ -791,15 +825,9 @@ namespace itineration_default { //missione//
 			this.label55 = new System.Windows.Forms.Label();
 			this.textBox20 = new System.Windows.Forms.TextBox();
 			this.label56 = new System.Windows.Forms.Label();
-			this.grpTratte = new System.Windows.Forms.GroupBox();
-			this.dataGrid4 = new System.Windows.Forms.DataGrid();
-			this.checkBox4 = new System.Windows.Forms.CheckBox();
-			this.checkBox3 = new System.Windows.Forms.CheckBox();
-			this.button4 = new System.Windows.Forms.Button();
-			this.button8 = new System.Windows.Forms.Button();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.button9 = new System.Windows.Forms.Button();
-			this.label52 = new System.Windows.Forms.Label();
+			this.txtDataOraInizio = new System.Windows.Forms.TextBox();
+			this.txtDataOraTermine = new System.Windows.Forms.TextBox();
+			this.label61 = new System.Windows.Forms.Label();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.myTip = new System.Windows.Forms.ToolTip(this.components);
 			this.tabCtrlMissione.SuspendLayout();
@@ -840,6 +868,7 @@ namespace itineration_default { //missione//
 			this.tabPage1.SuspendLayout();
 			this.gboxUPB.SuspendLayout();
 			this.tabAnalitico.SuspendLayout();
+			this.groupBox7.SuspendLayout();
 			this.gboxclass3.SuspendLayout();
 			this.gboxclass2.SuspendLayout();
 			this.gboxclass1.SuspendLayout();
@@ -874,10 +903,11 @@ namespace itineration_default { //missione//
 			this.grpCausaliAssunzioneDalia.SuspendLayout();
 			this.groupBox9.SuspendLayout();
 			this.tabCTanticipo.SuspendLayout();
-			this.grpAnticipoTramiteCosti.SuspendLayout();
-			this.groupBox14.SuspendLayout();
+			this.grpAltro.SuspendLayout();
 			this.grpTratte.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).BeginInit();
+			this.grpAnticipoTramiteCosti.SuspendLayout();
+			this.groupBox14.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabCtrlMissione
@@ -935,7 +965,7 @@ namespace itineration_default { //missione//
 			this.tabGeneralita.Controls.Add(this.btnAggiorna);
 			this.tabGeneralita.Location = new System.Drawing.Point(4, 23);
 			this.tabGeneralita.Name = "tabGeneralita";
-			this.tabGeneralita.Size = new System.Drawing.Size(956, 500);
+			this.tabGeneralita.Size = new System.Drawing.Size(963, 500);
 			this.tabGeneralita.TabIndex = 0;
 			this.tabGeneralita.Tag = "";
 			this.tabGeneralita.Text = "Principale";
@@ -1652,7 +1682,7 @@ namespace itineration_default { //missione//
 			this.grpIncaricato.TabIndex = 5;
 			this.grpIncaricato.TabStop = false;
 			this.grpIncaricato.Tag = "AutoChoose.txtIncaricato.default.((human=\'S\') and (active = \'S\') AND (idreg IN(SE" +
-    "LECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL)))";
+	"LECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL and (active = \'S\')  ))";
 			this.grpIncaricato.Text = "Percipiente";
 			// 
 			// txtIncaricato
@@ -1678,7 +1708,7 @@ namespace itineration_default { //missione//
 			this.tabTappeSpese.Controls.Add(this.grpTappe);
 			this.tabTappeSpese.Location = new System.Drawing.Point(4, 23);
 			this.tabTappeSpese.Name = "tabTappeSpese";
-			this.tabTappeSpese.Size = new System.Drawing.Size(956, 500);
+			this.tabTappeSpese.Size = new System.Drawing.Size(963, 500);
 			this.tabTappeSpese.TabIndex = 2;
 			this.tabTappeSpese.Text = "Tappe e spese";
 			this.tabTappeSpese.UseVisualStyleBackColor = true;
@@ -1696,7 +1726,7 @@ namespace itineration_default { //missione//
 			this.grpTappe.Controls.Add(this.btnInsertTappa);
 			this.grpTappe.Location = new System.Drawing.Point(8, 3);
 			this.grpTappe.Name = "grpTappe";
-			this.grpTappe.Size = new System.Drawing.Size(932, 478);
+			this.grpTappe.Size = new System.Drawing.Size(939, 478);
 			this.grpTappe.TabIndex = 28;
 			this.grpTappe.TabStop = false;
 			this.grpTappe.Text = "Tappe";
@@ -1712,7 +1742,7 @@ namespace itineration_default { //missione//
 			this.grpSpeseRendiconto.Controls.Add(this.btnInsertSpesaSaldo);
 			this.grpSpeseRendiconto.Location = new System.Drawing.Point(480, 191);
 			this.grpSpeseRendiconto.Name = "grpSpeseRendiconto";
-			this.grpSpeseRendiconto.Size = new System.Drawing.Size(436, 280);
+			this.grpSpeseRendiconto.Size = new System.Drawing.Size(443, 280);
 			this.grpSpeseRendiconto.TabIndex = 31;
 			this.grpSpeseRendiconto.TabStop = false;
 			this.grpSpeseRendiconto.Tag = "";
@@ -1746,7 +1776,7 @@ namespace itineration_default { //missione//
 			this.dataGrid2.Location = new System.Drawing.Point(8, 48);
 			this.dataGrid2.Name = "dataGrid2";
 			this.dataGrid2.ReadOnly = true;
-			this.dataGrid2.Size = new System.Drawing.Size(420, 224);
+			this.dataGrid2.Size = new System.Drawing.Size(427, 224);
 			this.dataGrid2.TabIndex = 7;
 			this.dataGrid2.Tag = "itinerationrefund_balance.balance.balance";
 			// 
@@ -1843,7 +1873,7 @@ namespace itineration_default { //missione//
 			this.dgrTappe.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrTappe.Location = new System.Drawing.Point(8, 48);
 			this.dgrTappe.Name = "dgrTappe";
-			this.dgrTappe.Size = new System.Drawing.Size(908, 136);
+			this.dgrTappe.Size = new System.Drawing.Size(915, 136);
 			this.dgrTappe.TabIndex = 7;
 			this.dgrTappe.Tag = "itinerationlap.default.default";
 			// 
@@ -1867,7 +1897,7 @@ namespace itineration_default { //missione//
 			this.tabRitenute.Controls.Add(this.txtCoeffLord);
 			this.tabRitenute.Location = new System.Drawing.Point(4, 23);
 			this.tabRitenute.Name = "tabRitenute";
-			this.tabRitenute.Size = new System.Drawing.Size(956, 500);
+			this.tabRitenute.Size = new System.Drawing.Size(963, 500);
 			this.tabRitenute.TabIndex = 5;
 			this.tabRitenute.Text = "Ritenute";
 			this.tabRitenute.UseVisualStyleBackColor = true;
@@ -1900,7 +1930,7 @@ namespace itineration_default { //missione//
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid1.Location = new System.Drawing.Point(8, 168);
 			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(932, 318);
+			this.dataGrid1.Size = new System.Drawing.Size(939, 318);
 			this.dataGrid1.TabIndex = 63;
 			this.dataGrid1.Tag = "itinerationtax.default";
 			// 
@@ -2215,7 +2245,7 @@ namespace itineration_default { //missione//
 			this.tabIndKm.Controls.Add(this.grpIndAPiedi);
 			this.tabIndKm.Location = new System.Drawing.Point(4, 23);
 			this.tabIndKm.Name = "tabIndKm";
-			this.tabIndKm.Size = new System.Drawing.Size(956, 500);
+			this.tabIndKm.Size = new System.Drawing.Size(963, 500);
 			this.tabIndKm.TabIndex = 4;
 			this.tabIndKm.Text = "Ind. km";
 			this.tabIndKm.UseVisualStyleBackColor = true;
@@ -2237,7 +2267,7 @@ namespace itineration_default { //missione//
 			this.txtDatiMezzoProprio.Location = new System.Drawing.Point(8, 413);
 			this.txtDatiMezzoProprio.Multiline = true;
 			this.txtDatiMezzoProprio.Name = "txtDatiMezzoProprio";
-			this.txtDatiMezzoProprio.Size = new System.Drawing.Size(940, 52);
+			this.txtDatiMezzoProprio.Size = new System.Drawing.Size(947, 52);
 			this.txtDatiMezzoProprio.TabIndex = 8;
 			this.txtDatiMezzoProprio.Tag = "itineration.vehicle_info";
 			// 
@@ -2258,7 +2288,7 @@ namespace itineration_default { //missione//
 			this.txtCausaleMezzoProprio.Location = new System.Drawing.Point(8, 289);
 			this.txtCausaleMezzoProprio.Multiline = true;
 			this.txtCausaleMezzoProprio.Name = "txtCausaleMezzoProprio";
-			this.txtCausaleMezzoProprio.Size = new System.Drawing.Size(940, 88);
+			this.txtCausaleMezzoProprio.Size = new System.Drawing.Size(947, 88);
 			this.txtCausaleMezzoProprio.TabIndex = 7;
 			this.txtCausaleMezzoProprio.Tag = "itineration.vehicle_motive";
 			// 
@@ -2270,7 +2300,7 @@ namespace itineration_default { //missione//
 			this.txtClause.Multiline = true;
 			this.txtClause.Name = "txtClause";
 			this.txtClause.ReadOnly = true;
-			this.txtClause.Size = new System.Drawing.Size(940, 88);
+			this.txtClause.Size = new System.Drawing.Size(947, 88);
 			this.txtClause.TabIndex = 7;
 			// 
 			// chkClauseMezzoProprio
@@ -2554,7 +2584,7 @@ namespace itineration_default { //missione//
 			this.tabClassSuppl.ImageIndex = 0;
 			this.tabClassSuppl.Location = new System.Drawing.Point(4, 23);
 			this.tabClassSuppl.Name = "tabClassSuppl";
-			this.tabClassSuppl.Size = new System.Drawing.Size(956, 500);
+			this.tabClassSuppl.Size = new System.Drawing.Size(963, 500);
 			this.tabClassSuppl.TabIndex = 7;
 			this.tabClassSuppl.Text = "Classificazione";
 			this.tabClassSuppl.UseVisualStyleBackColor = true;
@@ -2569,7 +2599,7 @@ namespace itineration_default { //missione//
 			this.dgrClassSuppl.Location = new System.Drawing.Point(16, 48);
 			this.dgrClassSuppl.Name = "dgrClassSuppl";
 			this.dgrClassSuppl.ReadOnly = true;
-			this.dgrClassSuppl.Size = new System.Drawing.Size(932, 438);
+			this.dgrClassSuppl.Size = new System.Drawing.Size(939, 438);
 			this.dgrClassSuppl.TabIndex = 19;
 			this.dgrClassSuppl.Tag = "itinerationsorting.default.default";
 			// 
@@ -2631,7 +2661,7 @@ namespace itineration_default { //missione//
 			this.tabCalcolo.Controls.Add(this.labelSpeseSost);
 			this.tabCalcolo.Location = new System.Drawing.Point(4, 23);
 			this.tabCalcolo.Name = "tabCalcolo";
-			this.tabCalcolo.Size = new System.Drawing.Size(956, 500);
+			this.tabCalcolo.Size = new System.Drawing.Size(963, 500);
 			this.tabCalcolo.TabIndex = 6;
 			this.tabCalcolo.Text = "Riepilogo";
 			this.tabCalcolo.UseVisualStyleBackColor = true;
@@ -3058,7 +3088,7 @@ namespace itineration_default { //missione//
 			this.tabEP.Controls.Add(this.tabControl2);
 			this.tabEP.Location = new System.Drawing.Point(4, 23);
 			this.tabEP.Name = "tabEP";
-			this.tabEP.Size = new System.Drawing.Size(956, 500);
+			this.tabEP.Size = new System.Drawing.Size(963, 500);
 			this.tabEP.TabIndex = 8;
 			this.tabEP.Text = "E/P";
 			this.tabEP.UseVisualStyleBackColor = true;
@@ -3130,7 +3160,7 @@ namespace itineration_default { //missione//
 			this.tabControl2.Location = new System.Drawing.Point(8, 136);
 			this.tabControl2.Name = "tabControl2";
 			this.tabControl2.SelectedIndex = 0;
-			this.tabControl2.Size = new System.Drawing.Size(940, 358);
+			this.tabControl2.Size = new System.Drawing.Size(947, 358);
 			this.tabControl2.TabIndex = 19;
 			// 
 			// tabPage1
@@ -3138,7 +3168,7 @@ namespace itineration_default { //missione//
 			this.tabPage1.Controls.Add(this.gboxUPB);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(932, 332);
+			this.tabPage1.Size = new System.Drawing.Size(939, 332);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Finanziario";
 			// 
@@ -3193,15 +3223,72 @@ namespace itineration_default { //missione//
 			// 
 			// tabAnalitico
 			// 
+			this.tabAnalitico.Controls.Add(this.groupBox7);
+			this.tabAnalitico.Controls.Add(this.btnRipartizione);
 			this.tabAnalitico.Controls.Add(this.gboxclass3);
 			this.tabAnalitico.Controls.Add(this.gboxclass2);
 			this.tabAnalitico.Controls.Add(this.gboxclass1);
 			this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
 			this.tabAnalitico.Name = "tabAnalitico";
-			this.tabAnalitico.Size = new System.Drawing.Size(932, 332);
+			this.tabAnalitico.Size = new System.Drawing.Size(939, 332);
 			this.tabAnalitico.TabIndex = 3;
 			this.tabAnalitico.Text = "Analitico";
 			this.tabAnalitico.Visible = false;
+			// 
+			// groupBox7
+			// 
+			this.groupBox7.Controls.Add(this.btnCodRipartizione);
+			this.groupBox7.Controls.Add(this.txtDenRipartizione);
+			this.groupBox7.Controls.Add(this.txtCodiceRipartizione);
+			this.groupBox7.Location = new System.Drawing.Point(490, 3);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Size = new System.Drawing.Size(433, 89);
+			this.groupBox7.TabIndex = 54;
+			this.groupBox7.TabStop = false;
+			this.groupBox7.Tag = "AutoChoose.txtCodiceRipartizione.default.(active=\'S\')";
+			this.groupBox7.Text = "Ripartizione dei Costi";
+			// 
+			// btnCodRipartizione
+			// 
+			this.btnCodRipartizione.Location = new System.Drawing.Point(8, 37);
+			this.btnCodRipartizione.Name = "btnCodRipartizione";
+			this.btnCodRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnCodRipartizione.TabIndex = 4;
+			this.btnCodRipartizione.Tag = "choose.costpartition.default.(active=\'S\')";
+			this.btnCodRipartizione.Text = "Codice";
+			this.btnCodRipartizione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenRipartizione
+			// 
+			this.txtDenRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenRipartizione.Location = new System.Drawing.Point(150, 8);
+			this.txtDenRipartizione.Multiline = true;
+			this.txtDenRipartizione.Name = "txtDenRipartizione";
+			this.txtDenRipartizione.ReadOnly = true;
+			this.txtDenRipartizione.Size = new System.Drawing.Size(275, 52);
+			this.txtDenRipartizione.TabIndex = 3;
+			this.txtDenRipartizione.TabStop = false;
+			this.txtDenRipartizione.Tag = "costpartition.title";
+			// 
+			// txtCodiceRipartizione
+			// 
+			this.txtCodiceRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceRipartizione.Location = new System.Drawing.Point(8, 63);
+			this.txtCodiceRipartizione.Name = "txtCodiceRipartizione";
+			this.txtCodiceRipartizione.Size = new System.Drawing.Size(417, 20);
+			this.txtCodiceRipartizione.TabIndex = 2;
+			this.txtCodiceRipartizione.Tag = "costpartition.costpartitioncode?x";
+			// 
+			// btnRipartizione
+			// 
+			this.btnRipartizione.Location = new System.Drawing.Point(499, 132);
+			this.btnRipartizione.Name = "btnRipartizione";
+			this.btnRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnRipartizione.TabIndex = 53;
+			this.btnRipartizione.Text = "Ripartizione";
+			this.btnRipartizione.Click += new System.EventHandler(this.btnRipartizione_Click);
 			// 
 			// gboxclass3
 			// 
@@ -3354,7 +3441,7 @@ namespace itineration_default { //missione//
 			this.tabPage2.Controls.Add(this.gBoxCausaleCosto);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(932, 332);
+			this.tabPage2.Size = new System.Drawing.Size(939, 332);
 			this.tabPage2.TabIndex = 4;
 			this.tabPage2.Text = "E/P";
 			this.tabPage2.Visible = false;
@@ -3555,7 +3642,7 @@ namespace itineration_default { //missione//
 			this.tabAnagPrest.Controls.Add(this.labAPgenerato);
 			this.tabAnagPrest.Location = new System.Drawing.Point(4, 23);
 			this.tabAnagPrest.Name = "tabAnagPrest";
-			this.tabAnagPrest.Size = new System.Drawing.Size(956, 500);
+			this.tabAnagPrest.Size = new System.Drawing.Size(963, 500);
 			this.tabAnagPrest.TabIndex = 9;
 			this.tabAnagPrest.Text = "Anagrafe Prestazioni";
 			this.tabAnagPrest.UseVisualStyleBackColor = true;
@@ -3729,7 +3816,7 @@ namespace itineration_default { //missione//
 			this.tabAutorizzazioni.Location = new System.Drawing.Point(4, 23);
 			this.tabAutorizzazioni.Name = "tabAutorizzazioni";
 			this.tabAutorizzazioni.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAutorizzazioni.Size = new System.Drawing.Size(956, 500);
+			this.tabAutorizzazioni.Size = new System.Drawing.Size(963, 500);
 			this.tabAutorizzazioni.TabIndex = 10;
 			this.tabAutorizzazioni.Text = "Autorizzazioni e avvisi";
 			this.tabAutorizzazioni.UseVisualStyleBackColor = true;
@@ -3741,7 +3828,7 @@ namespace itineration_default { //missione//
 			this.groupBox13.Controls.Add(this.textBox12);
 			this.groupBox13.Location = new System.Drawing.Point(16, 270);
 			this.groupBox13.Name = "groupBox13";
-			this.groupBox13.Size = new System.Drawing.Size(925, 134);
+			this.groupBox13.Size = new System.Drawing.Size(932, 134);
 			this.groupBox13.TabIndex = 109;
 			this.groupBox13.TabStop = false;
 			this.groupBox13.Text = "Avvisi per il Richiedente";
@@ -3754,7 +3841,7 @@ namespace itineration_default { //missione//
 			this.textBox12.Multiline = true;
 			this.textBox12.Name = "textBox12";
 			this.textBox12.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox12.Size = new System.Drawing.Size(903, 106);
+			this.textBox12.Size = new System.Drawing.Size(910, 106);
 			this.textBox12.TabIndex = 5;
 			this.textBox12.Tag = "itineration.webwarn";
 			// 
@@ -3765,7 +3852,7 @@ namespace itineration_default { //missione//
 			this.groupBox12.Controls.Add(this.dgrAutorizzazioni);
 			this.groupBox12.Location = new System.Drawing.Point(16, 75);
 			this.groupBox12.Name = "groupBox12";
-			this.groupBox12.Size = new System.Drawing.Size(925, 189);
+			this.groupBox12.Size = new System.Drawing.Size(932, 189);
 			this.groupBox12.TabIndex = 108;
 			this.groupBox12.TabStop = false;
 			this.groupBox12.Text = "Autorizzazioni";
@@ -3780,7 +3867,7 @@ namespace itineration_default { //missione//
 			this.dgrAutorizzazioni.Location = new System.Drawing.Point(12, 18);
 			this.dgrAutorizzazioni.Name = "dgrAutorizzazioni";
 			this.dgrAutorizzazioni.ReadOnly = true;
-			this.dgrAutorizzazioni.Size = new System.Drawing.Size(903, 162);
+			this.dgrAutorizzazioni.Size = new System.Drawing.Size(910, 162);
 			this.dgrAutorizzazioni.TabIndex = 107;
 			this.dgrAutorizzazioni.Tag = "itinerationauthagency.default";
 			// 
@@ -3855,7 +3942,7 @@ namespace itineration_default { //missione//
 			this.tabPagamenti.Location = new System.Drawing.Point(4, 23);
 			this.tabPagamenti.Name = "tabPagamenti";
 			this.tabPagamenti.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPagamenti.Size = new System.Drawing.Size(956, 500);
+			this.tabPagamenti.Size = new System.Drawing.Size(963, 500);
 			this.tabPagamenti.TabIndex = 11;
 			this.tabPagamenti.Text = "Annotazioni";
 			this.tabPagamenti.UseVisualStyleBackColor = true;
@@ -3867,7 +3954,7 @@ namespace itineration_default { //missione//
 			this.groupBox10.Controls.Add(this.txt_additionalannotations);
 			this.groupBox10.Location = new System.Drawing.Point(8, 237);
 			this.groupBox10.Name = "groupBox10";
-			this.groupBox10.Size = new System.Drawing.Size(918, 200);
+			this.groupBox10.Size = new System.Drawing.Size(925, 200);
 			this.groupBox10.TabIndex = 7;
 			this.groupBox10.TabStop = false;
 			this.groupBox10.Text = "Richieste aggiuntive sulla missione";
@@ -3880,7 +3967,7 @@ namespace itineration_default { //missione//
 			this.txt_additionalannotations.Multiline = true;
 			this.txt_additionalannotations.Name = "txt_additionalannotations";
 			this.txt_additionalannotations.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txt_additionalannotations.Size = new System.Drawing.Size(905, 175);
+			this.txt_additionalannotations.Size = new System.Drawing.Size(912, 175);
 			this.txt_additionalannotations.TabIndex = 5;
 			this.txt_additionalannotations.Tag = "itineration.additionalannotations";
 			// 
@@ -3891,7 +3978,7 @@ namespace itineration_default { //missione//
 			this.groupBox8.Controls.Add(this.textBox13);
 			this.groupBox8.Location = new System.Drawing.Point(8, 17);
 			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.Size = new System.Drawing.Size(918, 200);
+			this.groupBox8.Size = new System.Drawing.Size(925, 200);
 			this.groupBox8.TabIndex = 6;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Appunti per il Pagamento";
@@ -3904,7 +3991,7 @@ namespace itineration_default { //missione//
 			this.textBox13.Multiline = true;
 			this.textBox13.Name = "textBox13";
 			this.textBox13.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox13.Size = new System.Drawing.Size(905, 175);
+			this.textBox13.Size = new System.Drawing.Size(912, 175);
 			this.textBox13.TabIndex = 5;
 			this.textBox13.Tag = "itineration.applierannotations";
 			// 
@@ -3918,7 +4005,7 @@ namespace itineration_default { //missione//
 			this.tabAttributi.Location = new System.Drawing.Point(4, 23);
 			this.tabAttributi.Name = "tabAttributi";
 			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAttributi.Size = new System.Drawing.Size(956, 500);
+			this.tabAttributi.Size = new System.Drawing.Size(963, 500);
 			this.tabAttributi.TabIndex = 13;
 			this.tabAttributi.Text = "Attributi";
 			this.tabAttributi.UseVisualStyleBackColor = true;
@@ -3932,7 +4019,7 @@ namespace itineration_default { //missione//
 			this.gboxclass05.Controls.Add(this.txtDenom05);
 			this.gboxclass05.Location = new System.Drawing.Point(8, 286);
 			this.gboxclass05.Name = "gboxclass05";
-			this.gboxclass05.Size = new System.Drawing.Size(654, 64);
+			this.gboxclass05.Size = new System.Drawing.Size(661, 64);
 			this.gboxclass05.TabIndex = 33;
 			this.gboxclass05.TabStop = false;
 			this.gboxclass05.Tag = "";
@@ -3964,7 +4051,7 @@ namespace itineration_default { //missione//
 			this.txtDenom05.Multiline = true;
 			this.txtDenom05.Name = "txtDenom05";
 			this.txtDenom05.ReadOnly = true;
-			this.txtDenom05.Size = new System.Drawing.Size(412, 52);
+			this.txtDenom05.Size = new System.Drawing.Size(419, 52);
 			this.txtDenom05.TabIndex = 3;
 			this.txtDenom05.TabStop = false;
 			this.txtDenom05.Tag = "sorting05.description";
@@ -3978,7 +4065,7 @@ namespace itineration_default { //missione//
 			this.gboxclass04.Controls.Add(this.txtDenom04);
 			this.gboxclass04.Location = new System.Drawing.Point(8, 216);
 			this.gboxclass04.Name = "gboxclass04";
-			this.gboxclass04.Size = new System.Drawing.Size(654, 64);
+			this.gboxclass04.Size = new System.Drawing.Size(661, 64);
 			this.gboxclass04.TabIndex = 32;
 			this.gboxclass04.TabStop = false;
 			this.gboxclass04.Tag = "";
@@ -4010,7 +4097,7 @@ namespace itineration_default { //missione//
 			this.txtDenom04.Multiline = true;
 			this.txtDenom04.Name = "txtDenom04";
 			this.txtDenom04.ReadOnly = true;
-			this.txtDenom04.Size = new System.Drawing.Size(412, 46);
+			this.txtDenom04.Size = new System.Drawing.Size(419, 46);
 			this.txtDenom04.TabIndex = 3;
 			this.txtDenom04.TabStop = false;
 			this.txtDenom04.Tag = "sorting04.description";
@@ -4024,7 +4111,7 @@ namespace itineration_default { //missione//
 			this.gboxclass03.Controls.Add(this.txtDenom03);
 			this.gboxclass03.Location = new System.Drawing.Point(8, 146);
 			this.gboxclass03.Name = "gboxclass03";
-			this.gboxclass03.Size = new System.Drawing.Size(654, 64);
+			this.gboxclass03.Size = new System.Drawing.Size(661, 64);
 			this.gboxclass03.TabIndex = 30;
 			this.gboxclass03.TabStop = false;
 			this.gboxclass03.Tag = "";
@@ -4056,7 +4143,7 @@ namespace itineration_default { //missione//
 			this.txtDenom03.Multiline = true;
 			this.txtDenom03.Name = "txtDenom03";
 			this.txtDenom03.ReadOnly = true;
-			this.txtDenom03.Size = new System.Drawing.Size(413, 52);
+			this.txtDenom03.Size = new System.Drawing.Size(420, 52);
 			this.txtDenom03.TabIndex = 3;
 			this.txtDenom03.TabStop = false;
 			this.txtDenom03.Tag = "sorting03.description";
@@ -4070,7 +4157,7 @@ namespace itineration_default { //missione//
 			this.gboxclass02.Controls.Add(this.txtDenom02);
 			this.gboxclass02.Location = new System.Drawing.Point(8, 76);
 			this.gboxclass02.Name = "gboxclass02";
-			this.gboxclass02.Size = new System.Drawing.Size(654, 64);
+			this.gboxclass02.Size = new System.Drawing.Size(661, 64);
 			this.gboxclass02.TabIndex = 31;
 			this.gboxclass02.TabStop = false;
 			this.gboxclass02.Tag = "";
@@ -4102,7 +4189,7 @@ namespace itineration_default { //missione//
 			this.txtDenom02.Multiline = true;
 			this.txtDenom02.Name = "txtDenom02";
 			this.txtDenom02.ReadOnly = true;
-			this.txtDenom02.Size = new System.Drawing.Size(413, 52);
+			this.txtDenom02.Size = new System.Drawing.Size(420, 52);
 			this.txtDenom02.TabIndex = 3;
 			this.txtDenom02.TabStop = false;
 			this.txtDenom02.Tag = "sorting02.description";
@@ -4116,7 +4203,7 @@ namespace itineration_default { //missione//
 			this.gboxclass01.Controls.Add(this.txtDenom01);
 			this.gboxclass01.Location = new System.Drawing.Point(8, 6);
 			this.gboxclass01.Name = "gboxclass01";
-			this.gboxclass01.Size = new System.Drawing.Size(654, 64);
+			this.gboxclass01.Size = new System.Drawing.Size(661, 64);
 			this.gboxclass01.TabIndex = 29;
 			this.gboxclass01.TabStop = false;
 			this.gboxclass01.Tag = "";
@@ -4148,7 +4235,7 @@ namespace itineration_default { //missione//
 			this.txtDenom01.Multiline = true;
 			this.txtDenom01.Name = "txtDenom01";
 			this.txtDenom01.ReadOnly = true;
-			this.txtDenom01.Size = new System.Drawing.Size(413, 52);
+			this.txtDenom01.Size = new System.Drawing.Size(420, 52);
 			this.txtDenom01.TabIndex = 3;
 			this.txtDenom01.TabStop = false;
 			this.txtDenom01.Tag = "sorting01.description";
@@ -4162,7 +4249,7 @@ namespace itineration_default { //missione//
 			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
 			this.tabAllegati.Name = "tabAllegati";
 			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(956, 500);
+			this.tabAllegati.Size = new System.Drawing.Size(963, 500);
 			this.tabAllegati.TabIndex = 12;
 			this.tabAllegati.Text = "Allegati";
 			this.tabAllegati.UseVisualStyleBackColor = true;
@@ -4177,7 +4264,7 @@ namespace itineration_default { //missione//
 			this.dataGrid3.Location = new System.Drawing.Point(18, 64);
 			this.dataGrid3.Name = "dataGrid3";
 			this.dataGrid3.ReadOnly = true;
-			this.dataGrid3.Size = new System.Drawing.Size(917, 342);
+			this.dataGrid3.Size = new System.Drawing.Size(924, 342);
 			this.dataGrid3.TabIndex = 23;
 			this.dataGrid3.Tag = "itinerationattachment.default.default";
 			// 
@@ -4403,251 +4490,36 @@ namespace itineration_default { //missione//
 			// 
 			// tabCTanticipo
 			// 
-			this.tabCTanticipo.Controls.Add(this.txtDataOraInizio);
-			this.tabCTanticipo.Controls.Add(this.label60);
-			this.tabCTanticipo.Controls.Add(this.label61);
-			this.tabCTanticipo.Controls.Add(this.txtDataOraTermine);
-			this.tabCTanticipo.Controls.Add(this.grpAnticipoTramiteCosti);
-			this.tabCTanticipo.Controls.Add(this.grpTratte);
+			this.tabCTanticipo.Controls.Add(this.grpAltro);
 			this.tabCTanticipo.Location = new System.Drawing.Point(4, 23);
 			this.tabCTanticipo.Name = "tabCTanticipo";
-			this.tabCTanticipo.Size = new System.Drawing.Size(956, 500);
+			this.tabCTanticipo.Size = new System.Drawing.Size(963, 500);
 			this.tabCTanticipo.TabIndex = 15;
 			this.tabCTanticipo.Text = "Altro";
 			this.tabCTanticipo.UseVisualStyleBackColor = true;
 			// 
-			// txtDataOraInizio
+			// grpAltro
 			// 
-			this.txtDataOraInizio.Location = new System.Drawing.Point(144, 30);
-			this.txtDataOraInizio.Name = "txtDataOraInizio";
-			this.txtDataOraInizio.Size = new System.Drawing.Size(160, 20);
-			this.txtDataOraInizio.TabIndex = 29;
-			this.txtDataOraInizio.Tag = "itineration.starttime.g";
+			this.grpAltro.Controls.Add(this.label60);
+			this.grpAltro.Controls.Add(this.grpTratte);
+			this.grpAltro.Controls.Add(this.grpAnticipoTramiteCosti);
+			this.grpAltro.Controls.Add(this.txtDataOraInizio);
+			this.grpAltro.Controls.Add(this.txtDataOraTermine);
+			this.grpAltro.Controls.Add(this.label61);
+			this.grpAltro.Location = new System.Drawing.Point(8, 3);
+			this.grpAltro.Name = "grpAltro";
+			this.grpAltro.Size = new System.Drawing.Size(947, 489);
+			this.grpAltro.TabIndex = 33;
+			this.grpAltro.TabStop = false;
 			// 
 			// label60
 			// 
-			this.label60.Location = new System.Drawing.Point(40, 30);
+			this.label60.Location = new System.Drawing.Point(44, 38);
 			this.label60.Name = "label60";
 			this.label60.Size = new System.Drawing.Size(96, 23);
 			this.label60.TabIndex = 30;
 			this.label60.Text = "Data/ora inizio:";
 			this.label60.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label61
-			// 
-			this.label61.Location = new System.Drawing.Point(32, 62);
-			this.label61.Name = "label61";
-			this.label61.Size = new System.Drawing.Size(100, 23);
-			this.label61.TabIndex = 31;
-			this.label61.Text = "Data/ora termine:";
-			this.label61.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtDataOraTermine
-			// 
-			this.txtDataOraTermine.Location = new System.Drawing.Point(144, 62);
-			this.txtDataOraTermine.Name = "txtDataOraTermine";
-			this.txtDataOraTermine.Size = new System.Drawing.Size(160, 20);
-			this.txtDataOraTermine.TabIndex = 32;
-			this.txtDataOraTermine.Tag = "itineration.stoptime.g";
-			// 
-			// grpAnticipoTramiteCosti
-			// 
-			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox23);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.label59);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.groupBox14);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox22);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.label58);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox21);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.label57);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox15);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.label53);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox17);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.label54);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox18);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.label55);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox20);
-			this.grpAnticipoTramiteCosti.Controls.Add(this.label56);
-			this.grpAnticipoTramiteCosti.Location = new System.Drawing.Point(374, 187);
-			this.grpAnticipoTramiteCosti.Name = "grpAnticipoTramiteCosti";
-			this.grpAnticipoTramiteCosti.Size = new System.Drawing.Size(567, 289);
-			this.grpAnticipoTramiteCosti.TabIndex = 28;
-			this.grpAnticipoTramiteCosti.TabStop = false;
-			this.grpAnticipoTramiteCosti.Text = "Anticipo";
-			// 
-			// textBox23
-			// 
-			this.textBox23.Location = new System.Drawing.Point(96, 245);
-			this.textBox23.Name = "textBox23";
-			this.textBox23.Size = new System.Drawing.Size(172, 20);
-			this.textBox23.TabIndex = 31;
-			this.textBox23.TabStop = false;
-			this.textBox23.Tag = "registrypaymethod.iban?x";
-			this.textBox23.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label59
-			// 
-			this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label59.Location = new System.Drawing.Point(37, 244);
-			this.label59.Name = "label59";
-			this.label59.Size = new System.Drawing.Size(57, 23);
-			this.label59.TabIndex = 30;
-			this.label59.Text = "IBAN";
-			this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// groupBox14
-			// 
-			this.groupBox14.Controls.Add(this.radioButton2);
-			this.groupBox14.Controls.Add(this.radioButton3);
-			this.groupBox14.Location = new System.Drawing.Point(193, 19);
-			this.groupBox14.Name = "groupBox14";
-			this.groupBox14.Size = new System.Drawing.Size(192, 40);
-			this.groupBox14.TabIndex = 29;
-			this.groupBox14.TabStop = false;
-			this.groupBox14.Text = "Richiesta anticipo";
-			// 
-			// radioButton2
-			// 
-			this.radioButton2.AutoSize = true;
-			this.radioButton2.Location = new System.Drawing.Point(58, 19);
-			this.radioButton2.Name = "radioButton2";
-			this.radioButton2.Size = new System.Drawing.Size(34, 17);
-			this.radioButton2.TabIndex = 14;
-			this.radioButton2.TabStop = true;
-			this.radioButton2.Tag = "itineration.advanceapplied:S";
-			this.radioButton2.Text = "Si";
-			this.radioButton2.UseVisualStyleBackColor = true;
-			// 
-			// radioButton3
-			// 
-			this.radioButton3.AutoSize = true;
-			this.radioButton3.Location = new System.Drawing.Point(126, 19);
-			this.radioButton3.Name = "radioButton3";
-			this.radioButton3.Size = new System.Drawing.Size(39, 17);
-			this.radioButton3.TabIndex = 15;
-			this.radioButton3.TabStop = true;
-			this.radioButton3.Tag = "itineration.advanceapplied:N";
-			this.radioButton3.Text = "No";
-			this.radioButton3.UseVisualStyleBackColor = true;
-			// 
-			// textBox22
-			// 
-			this.textBox22.Location = new System.Drawing.Point(376, 85);
-			this.textBox22.Name = "textBox22";
-			this.textBox22.Size = new System.Drawing.Size(100, 20);
-			this.textBox22.TabIndex = 23;
-			this.textBox22.TabStop = false;
-			this.textBox22.Tag = "itineration.supposedamount";
-			this.textBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label58
-			// 
-			this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label58.Location = new System.Drawing.Point(285, 82);
-			this.label58.Name = "label58";
-			this.label58.Size = new System.Drawing.Size(89, 23);
-			this.label58.TabIndex = 22;
-			this.label58.Text = "Importo presunto";
-			this.label58.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox21
-			// 
-			this.textBox21.Location = new System.Drawing.Point(168, 192);
-			this.textBox21.Name = "textBox21";
-			this.textBox21.Size = new System.Drawing.Size(100, 20);
-			this.textBox21.TabIndex = 21;
-			this.textBox21.TabStop = false;
-			this.textBox21.Tag = "itineration.supposedfood.c";
-			this.textBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label57
-			// 
-			this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label57.Location = new System.Drawing.Point(37, 191);
-			this.label57.Name = "label57";
-			this.label57.Size = new System.Drawing.Size(123, 23);
-			this.label57.TabIndex = 20;
-			this.label57.Text = "Costo presunto pasti";
-			this.label57.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox15
-			// 
-			this.textBox15.Location = new System.Drawing.Point(168, 168);
-			this.textBox15.Name = "textBox15";
-			this.textBox15.Size = new System.Drawing.Size(40, 20);
-			this.textBox15.TabIndex = 19;
-			this.textBox15.TabStop = false;
-			this.textBox15.Tag = "itineration.nfood";
-			this.textBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label53
-			// 
-			this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label53.Location = new System.Drawing.Point(110, 168);
-			this.label53.Name = "label53";
-			this.label53.Size = new System.Drawing.Size(50, 23);
-			this.label53.TabIndex = 18;
-			this.label53.Text = "N.Pasti";
-			this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox17
-			// 
-			this.textBox17.Location = new System.Drawing.Point(168, 129);
-			this.textBox17.Name = "textBox17";
-			this.textBox17.Size = new System.Drawing.Size(100, 20);
-			this.textBox17.TabIndex = 17;
-			this.textBox17.TabStop = false;
-			this.textBox17.Tag = "itineration.supposedliving.c";
-			this.textBox17.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label54
-			// 
-			this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label54.Location = new System.Drawing.Point(1, 129);
-			this.label54.Name = "label54";
-			this.label54.Size = new System.Drawing.Size(161, 23);
-			this.label54.TabIndex = 16;
-			this.label54.Text = "Costo presunto soggiorno";
-			this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox18
-			// 
-			this.textBox18.Location = new System.Drawing.Point(168, 106);
-			this.textBox18.Name = "textBox18";
-			this.textBox18.Size = new System.Drawing.Size(100, 20);
-			this.textBox18.TabIndex = 15;
-			this.textBox18.TabStop = false;
-			this.textBox18.Tag = "itineration.supposedtravel.c";
-			this.textBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label55
-			// 
-			this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label55.Location = new System.Drawing.Point(5, 106);
-			this.label55.Name = "label55";
-			this.label55.Size = new System.Drawing.Size(153, 23);
-			this.label55.TabIndex = 14;
-			this.label55.Text = "Costo presunto viaggio";
-			this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox20
-			// 
-			this.textBox20.Location = new System.Drawing.Point(168, 82);
-			this.textBox20.Name = "textBox20";
-			this.textBox20.Size = new System.Drawing.Size(100, 20);
-			this.textBox20.TabIndex = 13;
-			this.textBox20.TabStop = false;
-			this.textBox20.Tag = "itineration.advancepercentage.fixed.4..%.100";
-			this.textBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label56
-			// 
-			this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label56.Location = new System.Drawing.Point(34, 82);
-			this.label56.Name = "label56";
-			this.label56.Size = new System.Drawing.Size(127, 23);
-			this.label56.TabIndex = 12;
-			this.label56.Text = "Percentuale anticipo richiesta";
-			this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// grpTratte
 			// 
@@ -4659,7 +4531,7 @@ namespace itineration_default { //missione//
 			this.grpTratte.Controls.Add(this.checkBox2);
 			this.grpTratte.Controls.Add(this.button9);
 			this.grpTratte.Controls.Add(this.label52);
-			this.grpTratte.Location = new System.Drawing.Point(379, 17);
+			this.grpTratte.Location = new System.Drawing.Point(379, 19);
 			this.grpTratte.Name = "grpTratte";
 			this.grpTratte.Size = new System.Drawing.Size(562, 164);
 			this.grpTratte.TabIndex = 0;
@@ -4749,6 +4621,309 @@ namespace itineration_default { //missione//
 			this.label52.Text = "Autorizzazione uso";
 			this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// grpAnticipoTramiteCosti
+			// 
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox26);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label66);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox25);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label65);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.txtPercAnticipoItaliaEstero);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label64);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox24);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label63);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox23);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label59);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.groupBox14);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox22);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label58);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox21);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label57);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox15);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label53);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox17);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label54);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox18);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label55);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.textBox20);
+			this.grpAnticipoTramiteCosti.Controls.Add(this.label56);
+			this.grpAnticipoTramiteCosti.Location = new System.Drawing.Point(374, 194);
+			this.grpAnticipoTramiteCosti.Name = "grpAnticipoTramiteCosti";
+			this.grpAnticipoTramiteCosti.Size = new System.Drawing.Size(567, 289);
+			this.grpAnticipoTramiteCosti.TabIndex = 28;
+			this.grpAnticipoTramiteCosti.TabStop = false;
+			this.grpAnticipoTramiteCosti.Text = "Anticipo";
+			// 
+			// textBox26
+			// 
+			this.textBox26.Location = new System.Drawing.Point(414, 132);
+			this.textBox26.Name = "textBox26";
+			this.textBox26.Size = new System.Drawing.Size(100, 20);
+			this.textBox26.TabIndex = 67;
+			this.textBox26.Tag = "itineration.advancepercentageliving.fixed.4..%.100";
+			// 
+			// label66
+			// 
+			this.label66.AutoSize = true;
+			this.label66.Location = new System.Drawing.Point(297, 135);
+			this.label66.Name = "label66";
+			this.label66.Size = new System.Drawing.Size(107, 13);
+			this.label66.TabIndex = 66;
+			this.label66.Text = "% Anticipo Soggiorno";
+			// 
+			// textBox25
+			// 
+			this.textBox25.Location = new System.Drawing.Point(414, 223);
+			this.textBox25.Name = "textBox25";
+			this.textBox25.Size = new System.Drawing.Size(100, 20);
+			this.textBox25.TabIndex = 65;
+			this.textBox25.Tag = "itineration.advancepercentagefood.fixed.4..%.100";
+			// 
+			// label65
+			// 
+			this.label65.AutoSize = true;
+			this.label65.Location = new System.Drawing.Point(317, 226);
+			this.label65.Name = "label65";
+			this.label65.Size = new System.Drawing.Size(82, 13);
+			this.label65.TabIndex = 64;
+			this.label65.Text = "% Anticipo Pasti";
+			// 
+			// txtPercAnticipoItaliaEstero
+			// 
+			this.txtPercAnticipoItaliaEstero.Location = new System.Drawing.Point(414, 108);
+			this.txtPercAnticipoItaliaEstero.Name = "txtPercAnticipoItaliaEstero";
+			this.txtPercAnticipoItaliaEstero.Size = new System.Drawing.Size(100, 20);
+			this.txtPercAnticipoItaliaEstero.TabIndex = 63;
+			this.txtPercAnticipoItaliaEstero.Tag = "itineration.advancepercentagetravel.fixed.4..%.100";
+			// 
+			// label64
+			// 
+			this.label64.AutoSize = true;
+			this.label64.Location = new System.Drawing.Point(317, 112);
+			this.label64.Name = "label64";
+			this.label64.Size = new System.Drawing.Size(88, 13);
+			this.label64.TabIndex = 34;
+			this.label64.Text = "% Anticipo Viaggi";
+			// 
+			// textBox24
+			// 
+			this.textBox24.Location = new System.Drawing.Point(414, 158);
+			this.textBox24.Name = "textBox24";
+			this.textBox24.Size = new System.Drawing.Size(100, 20);
+			this.textBox24.TabIndex = 33;
+			this.textBox24.TabStop = false;
+			this.textBox24.Tag = "itineration.supposedcourse.c";
+			this.textBox24.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label63
+			// 
+			this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label63.Location = new System.Drawing.Point(1, 157);
+			this.label63.Name = "label63";
+			this.label63.Size = new System.Drawing.Size(341, 23);
+			this.label63.TabIndex = 32;
+			this.label63.Text = "Spese di iscrizione a convegno o corso (non soggette ad anticipo)";
+			this.label63.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox23
+			// 
+			this.textBox23.Location = new System.Drawing.Point(96, 256);
+			this.textBox23.Name = "textBox23";
+			this.textBox23.Size = new System.Drawing.Size(172, 20);
+			this.textBox23.TabIndex = 31;
+			this.textBox23.TabStop = false;
+			this.textBox23.Tag = "registrypaymethod.iban?x";
+			this.textBox23.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label59
+			// 
+			this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label59.Location = new System.Drawing.Point(37, 255);
+			this.label59.Name = "label59";
+			this.label59.Size = new System.Drawing.Size(57, 23);
+			this.label59.TabIndex = 30;
+			this.label59.Text = "IBAN";
+			this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// groupBox14
+			// 
+			this.groupBox14.Controls.Add(this.radioButton2);
+			this.groupBox14.Controls.Add(this.radioButton3);
+			this.groupBox14.Location = new System.Drawing.Point(193, 19);
+			this.groupBox14.Name = "groupBox14";
+			this.groupBox14.Size = new System.Drawing.Size(192, 40);
+			this.groupBox14.TabIndex = 29;
+			this.groupBox14.TabStop = false;
+			this.groupBox14.Text = "Richiesta anticipo";
+			// 
+			// radioButton2
+			// 
+			this.radioButton2.AutoSize = true;
+			this.radioButton2.Location = new System.Drawing.Point(58, 19);
+			this.radioButton2.Name = "radioButton2";
+			this.radioButton2.Size = new System.Drawing.Size(34, 17);
+			this.radioButton2.TabIndex = 14;
+			this.radioButton2.TabStop = true;
+			this.radioButton2.Tag = "itineration.advanceapplied:S";
+			this.radioButton2.Text = "Si";
+			this.radioButton2.UseVisualStyleBackColor = true;
+			// 
+			// radioButton3
+			// 
+			this.radioButton3.AutoSize = true;
+			this.radioButton3.Location = new System.Drawing.Point(126, 19);
+			this.radioButton3.Name = "radioButton3";
+			this.radioButton3.Size = new System.Drawing.Size(39, 17);
+			this.radioButton3.TabIndex = 15;
+			this.radioButton3.TabStop = true;
+			this.radioButton3.Tag = "itineration.advanceapplied:N";
+			this.radioButton3.Text = "No";
+			this.radioButton3.UseVisualStyleBackColor = true;
+			// 
+			// textBox22
+			// 
+			this.textBox22.Location = new System.Drawing.Point(414, 82);
+			this.textBox22.Name = "textBox22";
+			this.textBox22.Size = new System.Drawing.Size(100, 20);
+			this.textBox22.TabIndex = 23;
+			this.textBox22.TabStop = false;
+			this.textBox22.Tag = "itineration.supposedamount";
+			this.textBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label58
+			// 
+			this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label58.Location = new System.Drawing.Point(316, 83);
+			this.label58.Name = "label58";
+			this.label58.Size = new System.Drawing.Size(89, 23);
+			this.label58.TabIndex = 22;
+			this.label58.Text = "Importo presunto";
+			this.label58.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox21
+			// 
+			this.textBox21.Location = new System.Drawing.Point(168, 224);
+			this.textBox21.Name = "textBox21";
+			this.textBox21.Size = new System.Drawing.Size(100, 20);
+			this.textBox21.TabIndex = 21;
+			this.textBox21.TabStop = false;
+			this.textBox21.Tag = "itineration.supposedfood.c";
+			this.textBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label57
+			// 
+			this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label57.Location = new System.Drawing.Point(37, 223);
+			this.label57.Name = "label57";
+			this.label57.Size = new System.Drawing.Size(123, 23);
+			this.label57.TabIndex = 20;
+			this.label57.Text = "Costo presunto pasti";
+			this.label57.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox15
+			// 
+			this.textBox15.Location = new System.Drawing.Point(168, 200);
+			this.textBox15.Name = "textBox15";
+			this.textBox15.Size = new System.Drawing.Size(40, 20);
+			this.textBox15.TabIndex = 19;
+			this.textBox15.TabStop = false;
+			this.textBox15.Tag = "itineration.nfood";
+			this.textBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label53
+			// 
+			this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label53.Location = new System.Drawing.Point(110, 200);
+			this.label53.Name = "label53";
+			this.label53.Size = new System.Drawing.Size(50, 23);
+			this.label53.TabIndex = 18;
+			this.label53.Text = "N.Pasti";
+			this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox17
+			// 
+			this.textBox17.Location = new System.Drawing.Point(168, 129);
+			this.textBox17.Name = "textBox17";
+			this.textBox17.Size = new System.Drawing.Size(100, 20);
+			this.textBox17.TabIndex = 17;
+			this.textBox17.TabStop = false;
+			this.textBox17.Tag = "itineration.supposedliving.c";
+			this.textBox17.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label54
+			// 
+			this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label54.Location = new System.Drawing.Point(1, 129);
+			this.label54.Name = "label54";
+			this.label54.Size = new System.Drawing.Size(161, 23);
+			this.label54.TabIndex = 16;
+			this.label54.Text = "Costo presunto soggiorno";
+			this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox18
+			// 
+			this.textBox18.Location = new System.Drawing.Point(168, 106);
+			this.textBox18.Name = "textBox18";
+			this.textBox18.Size = new System.Drawing.Size(100, 20);
+			this.textBox18.TabIndex = 15;
+			this.textBox18.TabStop = false;
+			this.textBox18.Tag = "itineration.supposedtravel.c";
+			this.textBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label55
+			// 
+			this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label55.Location = new System.Drawing.Point(5, 106);
+			this.label55.Name = "label55";
+			this.label55.Size = new System.Drawing.Size(153, 23);
+			this.label55.TabIndex = 14;
+			this.label55.Text = "Costo presunto viaggio";
+			this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox20
+			// 
+			this.textBox20.Location = new System.Drawing.Point(168, 82);
+			this.textBox20.Name = "textBox20";
+			this.textBox20.Size = new System.Drawing.Size(100, 20);
+			this.textBox20.TabIndex = 13;
+			this.textBox20.TabStop = false;
+			this.textBox20.Tag = "itineration.advancepercentage.fixed.4..%.100";
+			this.textBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label56
+			// 
+			this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label56.Location = new System.Drawing.Point(34, 82);
+			this.label56.Name = "label56";
+			this.label56.Size = new System.Drawing.Size(127, 23);
+			this.label56.TabIndex = 12;
+			this.label56.Text = "Percentuale anticipo richiesta";
+			this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataOraInizio
+			// 
+			this.txtDataOraInizio.Location = new System.Drawing.Point(148, 38);
+			this.txtDataOraInizio.Name = "txtDataOraInizio";
+			this.txtDataOraInizio.Size = new System.Drawing.Size(160, 20);
+			this.txtDataOraInizio.TabIndex = 29;
+			this.txtDataOraInizio.Tag = "itineration.starttime.g";
+			// 
+			// txtDataOraTermine
+			// 
+			this.txtDataOraTermine.Location = new System.Drawing.Point(148, 70);
+			this.txtDataOraTermine.Name = "txtDataOraTermine";
+			this.txtDataOraTermine.Size = new System.Drawing.Size(160, 20);
+			this.txtDataOraTermine.TabIndex = 32;
+			this.txtDataOraTermine.Tag = "itineration.stoptime.g";
+			// 
+			// label61
+			// 
+			this.label61.Location = new System.Drawing.Point(36, 70);
+			this.label61.Name = "label61";
+			this.label61.Size = new System.Drawing.Size(100, 23);
+			this.label61.TabIndex = 31;
+			this.label61.Text = "Data/ora termine:";
+			this.label61.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// imageList1
 			// 
 			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -4830,6 +5005,8 @@ namespace itineration_default { //missione//
 			this.gboxUPB.ResumeLayout(false);
 			this.gboxUPB.PerformLayout();
 			this.tabAnalitico.ResumeLayout(false);
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
 			this.gboxclass3.ResumeLayout(false);
 			this.gboxclass3.PerformLayout();
 			this.gboxclass2.ResumeLayout(false);
@@ -4888,14 +5065,15 @@ namespace itineration_default { //missione//
 			this.groupBox9.ResumeLayout(false);
 			this.groupBox9.PerformLayout();
 			this.tabCTanticipo.ResumeLayout(false);
-			this.tabCTanticipo.PerformLayout();
+			this.grpAltro.ResumeLayout(false);
+			this.grpAltro.PerformLayout();
+			this.grpTratte.ResumeLayout(false);
+			this.grpTratte.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).EndInit();
 			this.grpAnticipoTramiteCosti.ResumeLayout(false);
 			this.grpAnticipoTramiteCosti.PerformLayout();
 			this.groupBox14.ResumeLayout(false);
 			this.groupBox14.PerformLayout();
-			this.grpTratte.ResumeLayout(false);
-			this.grpTratte.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -4934,6 +5112,9 @@ namespace itineration_default { //missione//
             HelpForm.SetDenyNull(DS.itineration.Columns["active"], true);
             HelpForm.SetDenyNull(DS.itineration.Columns["completed"], true);
             HelpForm.SetDenyNull(DS.itineration.Columns["flagweb"], true);
+
+			string filterService = QHS.CmpEq("itinerationvisible", "S");
+			GetData.SetStaticFilter(DS.service, filterService);
 
             HelpForm.SetFormatForColumn(DS.itinerationlap.Columns["stoptime"], "g");
             HelpForm.SetFormatForColumn(DS.itinerationlap.Columns["starttime"], "g");
@@ -5145,7 +5326,7 @@ namespace itineration_default { //missione//
             helpForm.PreFillControlsTable(cmbPrestazione, null);
             PostData.MarkAsTemporaryTable((DataTable) cmbPrestazione.DataSource, false);
             grpIncaricato.Tag = "AutoChoose.txtIncaricato.default.((active = 'S') AND (human='S') " +
-                                "AND (idreg IN(SELECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL)) ) ";
+								"AND (idreg IN(SELECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL and (active = \'S\') )) ) ";
             // il task 6807 prevede sia rimosso questo vincolo
             //  + "AND (idreg IN (SELECT idreg FROM registrytaxablestatus)))";
             controller.SetAutoMode(grpIncaricato);
@@ -5165,6 +5346,7 @@ namespace itineration_default { //missione//
             grpTratte.Enabled = false;
             txtDataOraInizio.Enabled = false;
             txtDataOraTermine.Enabled = false;
+			grpAltro.Enabled = false;
         }
 
         private void azzeraTxtRitenute() {
@@ -5274,8 +5456,7 @@ namespace itineration_default { //missione//
             else {
                 btnInserisciAnticipo.Visible = false;
             }
-
-        }
+		}
 
         bool CheckWeb() {
             if (controller.IsEmpty) return true;
@@ -5462,7 +5643,7 @@ namespace itineration_default { //missione//
 
             if ((!controller.IsEmpty) && (controller.firstFillForThisRow)) {
                 grpIncaricato.Tag = "AutoChoose.txtIncaricato.default.((active = 'S') AND (human='S') AND " +
-                                    " (idreg IN (SELECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL))  " +
+									" (idreg IN (SELECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL and (active = \'S\') ))  " +
                                     // task 6807 richiede la rimozione di questo vincolo
                                     //" AND (idreg IN (SELECT idreg FROM registrytaxablestatus))  " +
                                     " )";
@@ -5472,55 +5653,56 @@ namespace itineration_default { //missione//
             SiopeObj.setCausaleEPCorrente(curr["idaccmotive"]);
             grpTratte.Enabled = AbilitaRichiestaAnticipo();
 			model.MarkTableAsNotEntityChild(DS.itineration, DS.itinerationrefundattachment);
+			
 			if (chkPagabile.CheckState == CheckState.Checked) {
 				//disabilita tutto, la missione è solo consultabile ma non si può modificare niente
 				EnableDisableAll(false);
 			}
+			grpAltro.Enabled = false;
 		}
 
 		public void EnableDisableAll(bool abilita) {
-			return;
-
 			//Qui abilita o disabilita tutto
-			foreach (TabPage T in tabCtrlMissione.Controls) {
-				foreach (Control c in T.Controls) {
-					c.Enabled = abilita;
-				}
-			}
-			//Qui va a rifinire il lavoro, cioè se Abilita è true, non lo esegue. Vale quello di sopra.
-			//Se Abilita è false, vuol dire che sta disabilitando tutto, però deve abilitare i button Edit dei DataGrid
-			if (!abilita) {
-				grpTappe.Enabled =  true;
-				btnEditTappa.Enabled = true;
-				btnInsertTappa.Enabled = false;
-				btnDelTappa.Enabled = false;
+			//foreach (TabPage T in tabCtrlMissione.Controls) {
+			//	foreach (Control c in T.Controls) {
+			//		c.Enabled = abilita;
+			//	}
+			//}
+			////Qui va a rifinire il lavoro, cioè se Abilita è true, non lo esegue. Vale quello di sopra.
+			////Se Abilita è false, vuol dire che sta disabilitando tutto, però deve abilitare i button Edit dei DataGrid
+			//if (!abilita) {
+			//	grpTappe.Enabled =  true;
+			//	btnEditTappa.Enabled = true;
+			//	btnInsertTappa.Enabled = false;
+			//	btnDelTappa.Enabled = false;
 
-				grpSpese.Enabled = true;
-				btnInsertSpesa.Enabled = false;
-				btnEditSpesa.Enabled = true;
-				btnDelSpesa.Enabled = false;
+			//	grpSpese.Enabled = true;
+			//	btnInsertSpesa.Enabled = false;
+			//	btnEditSpesa.Enabled = true;
+			//	btnDelSpesa.Enabled = false;
 
-				grpSpeseRendiconto.Enabled = true;
-				btnInsertSpesaSaldo.Enabled = false;
-				btnEditSpesaSaldo.Enabled = true;
-				btnDeleteSpesaSaldo.Enabled = false;
-				btnClassModifica.Enabled = true;
-				button3.Enabled = true;
-				tabControl2.Enabled = true;
-				foreach (TabPage T in tabControl2.Controls) {
-					foreach (Control c in T.Controls) {
-						c.Enabled = abilita;//mette a false tutti i controlli del Tab secondario
-					}
-				}
-			}
-			else {
-				btnInsertTappa.Enabled = true;
-				btnDelTappa.Enabled = true;
-				btnInsertSpesa.Enabled = true;
-				btnDelSpesa.Enabled = true;
-				btnInsertSpesaSaldo.Enabled = true;
-				btnDeleteSpesaSaldo.Enabled = true;
-			}
+			//	grpSpeseRendiconto.Enabled = true;
+			//	btnInsertSpesaSaldo.Enabled = false;
+			//	btnEditSpesaSaldo.Enabled = true;
+			//	btnDeleteSpesaSaldo.Enabled = false;
+			//	btnClassModifica.Enabled = true;
+			//	button3.Enabled = true;
+			//	tabControl2.Enabled = true;
+			//	foreach (TabPage T in tabControl2.Controls) {
+			//		foreach (Control c in T.Controls) {
+			//			c.Enabled = abilita;//mette a false tutti i controlli del Tab secondario
+			//		}
+			//	}
+			//}
+			//else {
+			//	btnInsertTappa.Enabled = true;
+			//	btnDelTappa.Enabled = true;
+			//	btnInsertSpesa.Enabled = true;
+			//	btnDelSpesa.Enabled = true;
+			//	btnInsertSpesaSaldo.Enabled = true;
+			//	btnDeleteSpesaSaldo.Enabled = true;
+			//}
+			return;
 		}
 
         public void MetaData_BeforePost() {
@@ -5535,6 +5717,31 @@ namespace itineration_default { //missione//
 						A.Delete();
 				}
 			}
+			string filterAttachment = "";
+			//Se ci sono spese di anticipo cancellato, prende la chiave.
+			if (DS.itinerationrefund_advance.Rows.Count > 0) {
+				foreach (var A in DS.itinerationrefund_advance) {
+					if (A.RowState == DataRowState.Detached || A.RowState == DataRowState.Deleted) {
+						filterAttachment = QHS.DoPar(QHS.AppOr(filterAttachment, QHS.CmpKey(A)));
+					}
+				}
+			}
+			//Se ci sono spese a rendiconto cancellate, prende la chiave.
+			if (DS.itinerationrefund_balance.Rows.Count > 0) {
+				foreach (var A in DS.itinerationrefund_balance) {
+					if (A.RowState == DataRowState.Detached || A.RowState == DataRowState.Deleted) {
+						filterAttachment = QHS.DoPar(QHS.AppOr(filterAttachment, QHS.CmpKey(A)));
+					}
+				}
+			}
+			//Se il filtro è stato valorizzato vuol dire che alcune spese sono in cancellazione, quindi calcella gli allegati ad esse associati.
+			if ((filterAttachment != "") && DS.itinerationrefundattachment.Rows.Count>0 ) {
+				foreach (var Ritinerationrefundattachment in DS.itinerationrefundattachment.Select(filterAttachment)) {
+					if (Ritinerationrefundattachment.RowState != DataRowState.Deleted)
+						Ritinerationrefundattachment.Delete();
+				}
+			}
+
 			EPM.beforePost();
             //non imposto più in automatico quel flag se ci sono spese a saldo, sotto richiesta di Emilia
             //DataRow Curr = DS.itineration.Rows[0];        
@@ -5838,15 +6045,17 @@ namespace itineration_default { //missione//
 
         void resetPosizioneGiuridica() {
             MyCfg.idposition = DBNull.Value;
-            MyCfg.foreignclass = "";
+			MyCfg.livello = DBNull.Value;
+			MyCfg.foreignclass = "";
             grpTappe.Enabled = false;
             if (controller.IsEmpty) return;
             DataRow Curr = DS.itineration.Rows[0];
             Curr["idregistrylegalstatus"] = DBNull.Value;
         }
 
-        void setPosizioneGiuridica(object idposition) {
+        void setPosizioneGiuridica(object idposition, object livello) {
             MyCfg.idposition = idposition;
+			MyCfg.livello = livello;
             if (DS.position.Select(QHC.CmpEq("idposition", idposition)).Length > 0) {
                 MyCfg.foreignclass =
                     DS.position.Select(QHC.CmpEq("idposition", idposition))[0]["foreignclass"].ToString().ToUpper();
@@ -5978,7 +6187,7 @@ namespace itineration_default { //missione//
             string filtroInquadramento = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb),
                 QHS.CmpEq("idregistrylegalstatus", Curr["idregistrylegalstatus"]));
             DataTable SelClass = Conn.RUN_SELECT("legalstatuscontract",
-                "idposition, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+                "idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
                 null, filtroInquadramento, null, false);
 
             if (SelClass.Rows.Count == 0) {
@@ -6006,7 +6215,7 @@ namespace itineration_default { //missione//
             object matricula = Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", codicecreddeb), "extmatricula");
             int incomeclass = CfgFn.GetNoNullInt32(RowClass["incomeclass"]);
             txtClassStip.Text = incomeclass.ToString();
-            setPosizioneGiuridica(RowClass["idposition"]);
+            setPosizioneGiuridica(RowClass["idposition"], RowClass["livello"]);
             MyCfg.matricula = matricula;
             MyCfg.incomeclass = incomeclass;
             MyCfg.incomeclassvalidity = RowClass["incomeclassvalidity"];
@@ -6087,7 +6296,9 @@ namespace itineration_default { //missione//
             filterGE = QHS.AppAnd(
                 QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                 QHS.CmpEq("idposition", MyCfg.idposition),
-                "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
+				QHS.NullOrEq("livello", MyCfg.livello),
+				//QHS.CmpEq("livello", MyCfg.livello),
+				"(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
             DataTable DettGruppoEstero = Conn.RUN_SELECT("foreigngroupruledetail", "foreigngroupnumber",
                 null, filterGE, "1", false);
@@ -6371,7 +6582,7 @@ namespace itineration_default { //missione//
             string strdate = QueryCreator.quotedstrvalue((DateTime) datainizio, true);
             string strdatefine = QueryCreator.quotedstrvalue((DateTime) datafine, true);
 
-            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio),
+            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.CmpEq("active","S"),
                 QHS.NullOrGe("stop", datafine));
 
             if ((LastFilterPosGiuridica == filter) && (!changerole)) return;
@@ -6411,7 +6622,7 @@ namespace itineration_default { //missione//
                 }
                 CurrPosGiuridica = RcurrPosGiuridica["idregistrylegalstatus"];
                 SelClass = Conn.RUN_SELECT("legalstatuscontract",
-                    "idposition, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+                    "idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
                     null,
                     QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb),
                         QHS.CmpEq("idregistrylegalstatus", RcurrPosGiuridica["idregistrylegalstatus"])), null, false);
@@ -6419,7 +6630,7 @@ namespace itineration_default { //missione//
             }
             if (NposGiuridiche == 1) {
                 SelClass = Conn.RUN_SELECT("legalstatuscontract",
-                    "idposition, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+					"idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
                     null, filter, null, false);
                 btnCambiaRuolo.Visible = false;
             }
@@ -6429,6 +6640,11 @@ namespace itineration_default { //missione//
             txtCompartoCSA.Text = RowClass["csa_compartment"].ToString();
             txtInquadrcsa.Text = RowClass["csa_class"].ToString();
             Curr["idregistrylegalstatus"] = RowClass["idregistrylegalstatus"];
+
+			DataTable Dalia = Conn.RUN_SELECT("registrylegalstatus", "*", null, QHS.AppAnd(filter, QHS.CmpEq("idregistrylegalstatus", Curr["idregistrylegalstatus"])), null, true);
+
+			Curr["iddaliaposition"] = Dalia.Rows[0]["iddaliaposition"];
+			cmb_dalia_position.SelectedValue = Curr["iddaliaposition"];
 
 
             //Aboliamo virtualmente il flagquotaesente mettendolo sempre a S
@@ -6441,9 +6657,9 @@ namespace itineration_default { //missione//
 
             int incomeclass = CfgFn.GetNoNullInt32(RowClass["incomeclass"]);
             txtClassStip.Text = incomeclass.ToString();
-            setPosizioneGiuridica(RowClass["idposition"]);
-            //            MyCfg.idposition = RowClass["idposition"];
-            MyCfg.matricula = matricula;
+			setPosizioneGiuridica(RowClass["idposition"], RowClass["livello"]);
+			//            MyCfg.idposition = RowClass["idposition"];
+			MyCfg.matricula = matricula;
             MyCfg.incomeclass = incomeclass;
             MyCfg.incomeclassvalidity = RowClass["incomeclassvalidity"];
 
@@ -6483,7 +6699,9 @@ namespace itineration_default { //missione//
             string filterGE;
             filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                 QHS.CmpEq("idposition", MyCfg.idposition),
-                "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
+				//QHS.CmpEq("livello", MyCfg.livello),
+				QHS.NullOrEq("livello", MyCfg.livello),
+				"(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 
             DataTable DettGruppoEstero = Conn.RUN_SELECT("foreigngroupruledetail", "foreigngroupnumber",
@@ -7337,7 +7555,7 @@ namespace itineration_default { //missione//
                 if (MissFun.TappaIsItalia(Tappa)) {
                     object idallowancerule = Conn.DO_READ_VALUE("allowancerule", filterstart,
                         "max(idallowancerule)");
-                    string filter = MissFun.GetQualificaClasseFilter(MyCfg.idposition, MyCfg.incomeclass);
+                    string filter = MissFun.GetQualificaClasseFilter(MyCfg.idposition, MyCfg.livello, MyCfg.incomeclass);
                     filter = QHS.AppAnd(filter, QHS.CmpEq("idallowancerule", idallowancerule));
 
                     DataTable TempItalia = Conn.RUN_SELECT("allowanceruledetail",
@@ -7390,9 +7608,9 @@ namespace itineration_default { //missione//
 
             //Ricalcola Spese 
             MissFun.RicalcolaSpese(Conn as DataAccess, CurrMiss, DS.itinerationrefund_advance,
-                MyCfg.idposition, MyCfg.incomeclass);
+                MyCfg.idposition, MyCfg.livello, MyCfg.incomeclass);
             MissFun.RicalcolaSpese(Conn as DataAccess, CurrMiss, DS.itinerationrefund_balance,
-                MyCfg.idposition, MyCfg.incomeclass);
+                MyCfg.idposition,MyCfg.livello, MyCfg.incomeclass);
 
             CalcolaRitenute(true);
             RicalcolaRimborsiKilometrici();
@@ -7533,6 +7751,7 @@ namespace itineration_default { //missione//
                 if (Out == null) return;
                 Out.Tables[0].TableName = "Situazione missione";
                 frmSituazioneViewer FrmSit = new frmSituazioneViewer(Out);
+                createForm(FrmSit, null);
                 FrmSit.Show();
             }
             catch (Exception E) {
@@ -7950,6 +8169,7 @@ namespace itineration_default { //missione//
             DataRow Curr = DS.itineration.Rows[0];
             if (CfgFn.GetNoNullDecimal(Curr["totadvance", DataRowVersion.Original]) == 0) {
                 frmAskAdvance F = new frmAskAdvance(3);
+                createForm(F, this);
                 if (F.ShowDialog(this) != DialogResult.OK) return;
                 object advance = F.importo;
                 object totalgross = Curr["totalgross"];
@@ -8120,7 +8340,7 @@ namespace itineration_default { //missione//
             if (datafine.ToString() == empty.ToString()) datafine = DBNull.Value;
 
 
-            string filter = QHS.AppAnd(QHS.CmpEq("idreg", idreg), QHS.IsNotNull("iddaliaposition"));
+            string filter = QHS.AppAnd(QHS.CmpEq("idreg", idreg), QHS.IsNotNull("iddaliaposition"), QHS.CmpEq("active", "S"));
             if (datainizio != DBNull.Value) {
                 filter = QHS.AppAnd(filter, QHS.NullOrLe("start", datainizio));
             }
@@ -8142,6 +8362,48 @@ namespace itineration_default { //missione//
                 //Il resto lo fa in automatico essendo dalia_position parent della tabella principale
             }
 
+        }
+
+		private void btnRipartizione_Click(object sender, EventArgs e) {
+
+            if (controller.IsEmpty)
+				return;
+			
+			if (DS.itineration.Rows.Count == 0)
+                return;
+            DataRow RC = DS.itineration.Rows[0];
+            if (RC == null)
+                return;
+
+            object idcostpartition = RC["idcostpartition"];
+
+            if (idcostpartition != DBNull.Value) {
+                MetaData ToMeta = dispatcher.Get("costpartition");
+                string checkfilter = QHS.CmpEq("idcostpartition", idcostpartition);
+                ToMeta.ContextFilter = checkfilter;
+                Form F = null;
+                if (controller.linkedForm != null)
+                    F = controller.linkedForm.ParentForm;
+                bool result = ToMeta.Edit(F, "default", false);
+
+                string listtype = ToMeta.DefaultListType;
+                DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
+                if (R != null)
+                    ToMeta.SelectRow(R, listtype);
+            }
+            else {
+                idcostpartition = EP_functions.importCostPartitionDetail((MetaData)Meta);
+                if (idcostpartition == null)
+                    return;
+                RC["idcostpartition"] = idcostpartition;
+				DS.costpartition.Clear();
+				Conn.RUN_SELECT_INTO_TABLE(DS.costpartition, null, QHS.CmpEq("idcostpartition", idcostpartition), null, true);
+				if (DS.costpartition.Rows.Count > 0) {
+					DataRow rCostpartition = DS.costpartition.Rows[0];
+					txtDenRipartizione.Text = rCostpartition["title"].ToString();
+					txtCodiceRipartizione.Text = rCostpartition["costpartitioncode"].ToString();
+				}
+			}
         }
     }
 }

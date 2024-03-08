@@ -2,19 +2,19 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabtirocinioprogetto_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabtirocinioprogetto_seg_0"><i class="fa fa-project-diagram mr-1"></i>Principale</a>
+		<a href="#tabtirocinioprogetto_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabtirocinioprogetto_seg_0"><i class="fa fa-project-diagram mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabtirocinioprogetto_seg_5" class="nav-link" data-toggle="pill" data-target="#tabtirocinioprogetto_seg_5"><i class="fa fa-file-alt mr-1"></i>Relazione conclusiva</a>
+		<a href="#tabtirocinioprogetto_seg_5" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabtirocinioprogetto_seg_5"><i class="fa fa-file-alt mr-1"></i>Relazione conclusiva</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabtirocinioprogetto_seg_1" class="nav-link" data-toggle="pill" data-target="#tabtirocinioprogetto_seg_1"><i class="fa fa-calendar-alt mr-1"></i>Diario</a>
+		<a href="#tabtirocinioprogetto_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabtirocinioprogetto_seg_1"><i class="fa fa-calendar-alt mr-1"></i>Diario</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabtirocinioprogetto_seg_3" class="nav-link" data-toggle="pill" data-target="#tabtirocinioprogetto_seg_3"><i class="fa fa-share-square mr-1"></i>Invii all’azienda o ente</a>
+		<a href="#tabtirocinioprogetto_seg_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabtirocinioprogetto_seg_3"><i class="fa fa-share-square mr-1"></i>Invii all’azienda o ente</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabtirocinioprogetto_seg_4" class="nav-link" data-toggle="pill" data-target="#tabtirocinioprogetto_seg_4"><i class="fa fa-user-check mr-1"></i>Accettazioni o rifiuti dello studente o del referente</a>
+		<a href="#tabtirocinioprogetto_seg_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabtirocinioprogetto_seg_4"><i class="fa fa-user-check mr-1"></i>Accettazioni o rifiuti dello studente o del referente</a>
 	</li>
 
 	</ul>
@@ -24,26 +24,26 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_title">Titolo</label>
-					<textarea class="textarea form-control" id="tirocinioprogetto_seg_title" type="text"  rows="4" data-tag="tirocinioprogetto.title?tirocinioprogettosegview.title" data-subentity  data-mandatory></textarea>
+					<textarea class="textarea form-control" id="tirocinioprogetto_seg_title" type="text"  rows="4" data-tag="tirocinioprogetto.title?tirocinioprogettosegview.title" data-subentity  data-mandatory ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_description">Descrizione</label>
-					<textarea class="textarea form-control" id="tirocinioprogetto_seg_description" type="text"  rows="4" data-tag="tirocinioprogetto.description?tirocinioprogettosegview.tirocinioprogetto_description" data-subentity  data-mandatory></textarea>
+					<textarea class="textarea form-control" id="tirocinioprogetto_seg_description" type="text"  rows="4" data-tag="tirocinioprogetto.description?tirocinioprogettosegview.tirocinioprogetto_description" data-subentity  data-mandatory ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_competenze">Competenze</label>
-					<textarea class="textarea form-control" id="tirocinioprogetto_seg_competenze" type="text"  rows="4" data-tag="tirocinioprogetto.competenze?tirocinioprogettosegview.tirocinioprogetto_competenze" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirocinioprogetto_seg_competenze" type="text"  rows="4" data-tag="tirocinioprogetto.competenze?tirocinioprogettosegview.tirocinioprogetto_competenze" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#tirocinioprogetto_seg_datafineeffettiva").datepicker();
+    $("#tirocinioprogetto_seg_datafineeffettiva").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_datafineeffettiva">Data fine effettiva</label>
@@ -52,7 +52,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#tirocinioprogetto_seg_datafineprevista").datepicker();
+    $("#tirocinioprogetto_seg_datafineprevista").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_datafineprevista">Data fine prevista</label>
@@ -63,7 +63,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#tirocinioprogetto_seg_datainizioeffettiva").datepicker();
+    $("#tirocinioprogetto_seg_datainizioeffettiva").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_datainizioeffettiva">Data inizio effettiva</label>
@@ -72,7 +72,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#tirocinioprogetto_seg_datainizioprevista").datepicker();
+    $("#tirocinioprogetto_seg_datainizioprevista").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_datainizioprevista">Data inizio prevista</label>
@@ -83,7 +83,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#tirocinioprogetto_seg_dataverbale").datepicker();
+    $("#tirocinioprogetto_seg_dataverbale").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_dataverbale">Data verbale</label>
@@ -93,7 +93,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_description_en">Descrizione in inglese</label>
-					<textarea class="textarea form-control" id="tirocinioprogetto_seg_description_en" type="text"  rows="4" data-tag="tirocinioprogetto.description_en?tirocinioprogettosegview.tirocinioprogetto_description_en" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirocinioprogetto_seg_description_en" type="text"  rows="4" data-tag="tirocinioprogetto.description_en?tirocinioprogettosegview.tirocinioprogetto_description_en" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
@@ -127,7 +127,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_idtirociniostato">Stato del tirocinio</label>
-					<select id="tirocinioprogetto_seg_idtirociniostato" class="custom-select d-block w-100"  data-source-name="tirociniostatodefaultview" data-value-member="idtirociniostato" data-display-member="dropdown_title" data-custom-control="combo" data-tag="tirocinioprogetto.idtirociniostato?tirocinioprogettosegview.tirocinioprogetto_idtirociniostato" data-subentity  data-mandatory  > </select>
+					<select id="tirocinioprogetto_seg_idtirociniostato" class="custom-select d-block w-100"  data-source-name="tirociniostatodefaultview" data-value-member="idtirociniostato" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="tirocinioprogetto.idtirociniostato?tirocinioprogettosegview.tirocinioprogetto_idtirociniostato" data-subentity  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_ore">Ore</label>
@@ -137,13 +137,13 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_tempiaccesso">Tempi di accesso</label>
-					<textarea class="textarea form-control" id="tirocinioprogetto_seg_tempiaccesso" type="text"  rows="4" data-tag="tirocinioprogetto.tempiaccesso?tirocinioprogettosegview.tirocinioprogetto_tempiaccesso" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirocinioprogetto_seg_tempiaccesso" type="text"  rows="4" data-tag="tirocinioprogetto.tempiaccesso?tirocinioprogettosegview.tirocinioprogetto_tempiaccesso" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirocinioprogetto_seg_title_en">Titolo in inglese</label>
-					<textarea class="textarea form-control" id="tirocinioprogetto_seg_title_en" type="text"  rows="4" data-tag="tirocinioprogetto.title_en?tirocinioprogettosegview.tirocinioprogetto_title_en" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirocinioprogetto_seg_title_en" type="text"  rows="4" data-tag="tirocinioprogetto.title_en?tirocinioprogettosegview.tirocinioprogetto_title_en" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
@@ -164,54 +164,54 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirociniorelazione_seg_attivitasvolta">Attività svolta</label>
-					<textarea class="textarea form-control" id="tirociniorelazione_seg_attivitasvolta" type="text"  rows="4" data-tag="tirociniorelazione.attivitasvolta?tirocinioprogettosegview.tirociniorelazione_attivitasvolta" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirociniorelazione_seg_attivitasvolta" type="text"  rows="4" data-tag="tirociniorelazione.attivitasvolta?tirocinioprogettosegview.tirociniorelazione_attivitasvolta" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirociniorelazione_seg_autovalutazione">Auto valutazione</label>
-					<textarea class="textarea form-control" id="tirociniorelazione_seg_autovalutazione" type="text"  rows="4" data-tag="tirociniorelazione.autovalutazione?tirocinioprogettosegview.tirociniorelazione_autovalutazione" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirociniorelazione_seg_autovalutazione" type="text"  rows="4" data-tag="tirociniorelazione.autovalutazione?tirocinioprogettosegview.tirociniorelazione_autovalutazione" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirociniorelazione_seg_competenze">Competenze</label>
-					<textarea class="textarea form-control" id="tirociniorelazione_seg_competenze" type="text"  rows="4" data-tag="tirociniorelazione.competenze?tirocinioprogettosegview.tirociniorelazione_competenze" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirociniorelazione_seg_competenze" type="text"  rows="4" data-tag="tirociniorelazione.competenze?tirocinioprogettosegview.tirociniorelazione_competenze" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirociniorelazione_seg_conclusioni">Conclusioni</label>
-					<textarea class="textarea form-control" id="tirociniorelazione_seg_conclusioni" type="text"  rows="4" data-tag="tirociniorelazione.conclusioni?tirocinioprogettosegview.tirociniorelazione_conclusioni" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirociniorelazione_seg_conclusioni" type="text"  rows="4" data-tag="tirociniorelazione.conclusioni?tirocinioprogettosegview.tirociniorelazione_conclusioni" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirociniorelazione_seg_considerazioni">Considerazioni</label>
-					<textarea class="textarea form-control" id="tirociniorelazione_seg_considerazioni" type="text"  rows="4" data-tag="tirociniorelazione.considerazioni?tirocinioprogettosegview.tirociniorelazione_considerazioni" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirociniorelazione_seg_considerazioni" type="text"  rows="4" data-tag="tirociniorelazione.considerazioni?tirocinioprogettosegview.tirociniorelazione_considerazioni" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirociniorelazione_seg_descrazienda">Descrizione dell'azienda</label>
-					<textarea class="textarea form-control" id="tirociniorelazione_seg_descrazienda" type="text"  rows="4" data-tag="tirociniorelazione.descrazienda?tirocinioprogettosegview.tirociniorelazione_descrazienda" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirociniorelazione_seg_descrazienda" type="text"  rows="4" data-tag="tirociniorelazione.descrazienda?tirocinioprogettosegview.tirociniorelazione_descrazienda" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="tirociniorelazione_seg_introduzione">Introduzione</label>
-					<textarea class="textarea form-control" id="tirociniorelazione_seg_introduzione" type="text"  rows="4" data-tag="tirociniorelazione.introduzione?tirocinioprogettosegview.tirociniorelazione_introduzione" data-subentity></textarea>
+					<textarea class="textarea form-control" id="tirociniorelazione_seg_introduzione" type="text"  rows="4" data-tag="tirociniorelazione.introduzione?tirocinioprogettosegview.tirociniorelazione_introduzione" data-subentity  ></textarea>
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabtirocinioprogetto_seg_1" role="tabpanel">
-				<div class="gridx" id="grid_tirociniodiario_seg" data-tag="tirociniodiario.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_tirociniodiario_seg" data-tag="tirociniodiario.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabtirocinioprogetto_seg_3" role="tabpanel">
-				<div class="gridx" id="grid_tirocinioinvioazienda_seg" data-tag="tirocinioinvioazienda.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_tirocinioinvioazienda_seg" data-tag="tirocinioinvioazienda.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabtirocinioprogetto_seg_4" role="tabpanel">
-				<div class="gridx" id="grid_tirocinioappr_seg" data-tag="tirocinioappr.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="approvazione,S,Si;approvazione,N,No;" ></div>
+				<div class="gridx" id="grid_tirocinioappr_seg" data-tag="tirocinioappr.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

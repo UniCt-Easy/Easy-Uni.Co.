@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -242,7 +242,7 @@ namespace meta_expense//meta_spesa//
 		}
 
 		protected override void InsertCopyColumn(DataColumn C, DataRow Source, DataRow Dest) {
-			if (C.ColumnName == "idinc_linked") return;
+			if ((C.ColumnName == "idinc_linked")||(C.ColumnName == "idformerexpense"))  return;
 			base.InsertCopyColumn (C, Source, Dest);
 		}
 

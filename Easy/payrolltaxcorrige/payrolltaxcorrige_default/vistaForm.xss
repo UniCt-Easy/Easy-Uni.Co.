@@ -8,7 +8,7 @@
   <Shapes>
     <Shape ID="DesignTable:payrolltaxcorrige" ZOrder="5" X="268" Y="106" Height="249" Width="163" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="245" />
     <Shape ID="DesignTable:tax" ZOrder="4" X="583" Y="60" Height="275" Width="160" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="271" />
-    <Shape ID="DesignTable:payroll" ZOrder="3" X="565" Y="366" Height="275" Width="181" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="271" />
+    <Shape ID="DesignTable:payroll" ZOrder="3" X="565" Y="366" Height="275" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="271" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:payrollpayrolltaxcorrige" ZOrder="2" LineWidth="11">

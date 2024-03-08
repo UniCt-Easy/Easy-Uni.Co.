@@ -228,6 +228,10 @@
               <xs:element name="rate" type="xs:decimal" />
               <xs:element name="unabatabilitypercentage" type="xs:decimal" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeivakind" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idfenature" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -339,6 +343,7 @@
               <xs:element name="taxable" type="xs:decimal" minOccurs="0" />
               <xs:element name="taxrate" type="xs:double" minOccurs="0" />
               <xs:element name="toinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="idrevenuepartition" type="xs:int" minOccurs="0" />
               <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
               <xs:element name="idivakind" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" minOccurs="0" />

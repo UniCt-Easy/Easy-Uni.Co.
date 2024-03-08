@@ -37,13 +37,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="usertype" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="usertype" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="registrationuserstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -52,17 +45,29 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="usertype" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="usertype" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="registrationuser" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="email" type="xs:string" minOccurs="0" />
               <xs:element name="esercizio" type="xs:int" minOccurs="0" />
               <xs:element name="forename" type="xs:string" minOccurs="0" />
               <xs:element name="idregistrationuser" type="xs:int" />
               <xs:element name="idregistrationuserstatus" type="xs:int" minOccurs="0" />
               <xs:element name="login" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="requesttimestamp" type="xs:dateTime" minOccurs="0" />
               <xs:element name="surname" type="xs:string" minOccurs="0" />
               <xs:element name="userkind" type="xs:int" minOccurs="0" />
               <xs:element name="usertype" type="xs:string" minOccurs="0" />
@@ -80,13 +85,13 @@
       <xs:field xpath="mstns:idflowchart" />
       <xs:field xpath="mstns:idregistrationuser" />
     </xs:unique>
-    <xs:unique name="usertype_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:usertype" />
-      <xs:field xpath="mstns:usertype" />
-    </xs:unique>
     <xs:unique name="registrationuserstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:registrationuserstatus" />
       <xs:field xpath="mstns:idregistrationuserstatus" />
+    </xs:unique>
+    <xs:unique name="usertype_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:usertype" />
+      <xs:field xpath="mstns:usertype" />
     </xs:unique>
     <xs:unique name="registrationuser_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:registrationuser" />
@@ -97,8 +102,8 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_registrationuserflowchart_registrationuser_idregistrationuser" msdata:parent="registrationuser" msdata:child="registrationuserflowchart" msdata:parentkey="idregistrationuser" msdata:childkey="idregistrationuser" />
       <msdata:Relationship name="FK_registrationuserflowchart_flowchart_idflowchart" msdata:parent="flowchart" msdata:child="registrationuserflowchart" msdata:parentkey="idflowchart" msdata:childkey="idflowchart" />
-      <msdata:Relationship name="FK_registrationuser_usertype_usertype" msdata:parent="usertype" msdata:child="registrationuser" msdata:parentkey="usertype" msdata:childkey="usertype" />
       <msdata:Relationship name="FK_registrationuser_registrationuserstatus_idregistrationuserstatus" msdata:parent="registrationuserstatus" msdata:child="registrationuser" msdata:parentkey="idregistrationuserstatus" msdata:childkey="idregistrationuserstatus" />
+      <msdata:Relationship name="FK_registrationuser_usertype_usertype" msdata:parent="usertype" msdata:child="registrationuser" msdata:parentkey="usertype" msdata:childkey="usertype" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -6,23 +6,28 @@
         <xs:element name="progettocostosegsalview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="assetdiaryora_idassetdiary" type="xs:int" minOccurs="0" />
+              <xs:element name="assetdiaryora_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="assetdiaryora_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="contrattokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="entrydetail_description" type="xs:string" minOccurs="0" />
               <xs:element name="expense_description" type="xs:string" minOccurs="0" />
               <xs:element name="expense_nmov" type="xs:int" minOccurs="0" />
               <xs:element name="expense_ymov" type="xs:int" minOccurs="0" />
+              <xs:element name="idassetdiaryora" type="xs:int" minOccurs="0" />
               <xs:element name="idexp" type="xs:int" minOccurs="0" />
               <xs:element name="idpettycash" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettocosto" type="xs:int" />
-              <xs:element name="idprogettotipocosto" type="xs:int" minOccurs="0" />
+              <xs:element name="idprogettotipocosto" type="xs:int" />
               <xs:element name="idrelated" type="xs:string" minOccurs="0" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" minOccurs="0" />
-              <xs:element name="idworkpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="idsalprogettoassetworkpackagemese" type="xs:int" minOccurs="0" />
+              <xs:element name="idworkpackage" type="xs:int" />
+              <xs:element name="mese_title" type="xs:string" minOccurs="0" />
               <xs:element name="pettycash_description" type="xs:string" minOccurs="0" />
               <xs:element name="pettycash_pettycode" type="xs:string" minOccurs="0" />
-              <xs:element name="progetto_titolobreve" type="xs:string" minOccurs="0" />
               <xs:element name="progettocosto_amount" type="xs:decimal" minOccurs="0" />
               <xs:element name="progettocosto_ct" type="xs:dateTime" />
               <xs:element name="progettocosto_cu" type="xs:string" />
@@ -35,10 +40,15 @@
               <xs:element name="progettocosto_noperation" type="xs:int" minOccurs="0" />
               <xs:element name="progettocosto_yoperation" type="xs:int" minOccurs="0" />
               <xs:element name="progettotipocosto_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
               <xs:element name="rendicontattivitaprogetto_description" type="xs:string" minOccurs="0" />
-              <xs:element name="rendicontattivitaprogetto_idworkpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogetto_idreg" type="xs:int" minOccurs="0" />
               <xs:element name="sal_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sal_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="salprogettoassetworkpackagemese_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="salprogettoassetworkpackagemese_idmese" type="xs:int" minOccurs="0" />
+              <xs:element name="salprogettoassetworkpackagemese_idsalprogettoassetworkpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="salprogettoassetworkpackagemese_year" type="xs:int" minOccurs="0" />
               <xs:element name="workpackage_raggruppamento" type="xs:string" minOccurs="0" />
               <xs:element name="workpackage_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -61,7 +71,10 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettocostosegsalview" />
+      <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettocosto" />
+      <xs:field xpath="mstns:idprogettotipocosto" />
+      <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
     <xs:unique name="salprogettocosto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:salprogettocosto" />

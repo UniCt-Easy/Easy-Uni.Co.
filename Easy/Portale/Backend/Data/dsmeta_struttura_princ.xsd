@@ -7,11 +7,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
-              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" />
-              <xs:element name="idupb_capofila" type="xs:string" minOccurs="0" />
-              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
               <xs:element name="upb_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -29,8 +25,6 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idsede" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
@@ -40,13 +34,13 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idaoo" type="xs:int" />
-              <xs:element name="idsede" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="struttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="codice" type="xs:string" minOccurs="0" />
               <xs:element name="codiceipa" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
@@ -58,7 +52,7 @@
               <xs:element name="idsede" type="xs:int" />
               <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="idstrutturakind" type="xs:int" />
-              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />

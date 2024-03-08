@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -46,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idasset-idpiece_asset_idasset', 'Identificativo Bene strumentale', null, 13, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_idpiece', 'Numero parte Bene strumentale', null, 14, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_rfid', 'Codice RFID Bene strumentale', null, 16, null);
-						this.describeAColumn(table, '!idasset-idpiece_asset_idinventory_description', 'Descrizione Bene strumentale', null, 12, null);
+						this.describeAColumn(table, '!idasset-idpiece_asset_idinventory_description', 'Inventario Bene strumentale', null, 10, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_nassetacquire_description', 'Descrizione Bene strumentale', null, 11, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_nassetacquire_idinv', 'Class. Inv. Bene strumentale', null, 12, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_nassetacquire_idupb', 'UPB Bene strumentale', null, 13, null);
@@ -64,6 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idworkpackage_workpackage_title', 'Titolo Workpackage', null, 52, null);
 						objCalcFieldConfig['!idworkpackage_workpackage_raggruppamento'] = { tableNameLookup:'workpackage', columnNameLookup:'raggruppamento', columnNamekey:'idworkpackage' };
 						objCalcFieldConfig['!idworkpackage_workpackage_title'] = { tableNameLookup:'workpackage', columnNameLookup:'title', columnNamekey:'idworkpackage' };
+						this.describeAColumn(table, '!idasset-idpiece_asset_idinventory_codeinventory', 'Codice Bene strumentale', null, 11, null);
+						this.describeAColumn(table, '!idasset-idpiece_asset_idinventory_description', 'Descrizione Bene strumentale', null, 12, null);
+						objCalcFieldConfig['!idasset-idpiece_asset_idinventory_codeinventory'] = { tableNameLookup:'inventory', columnNameLookup:'codeinventory', columnNamekey:'idasset-idpiece' };
 //$objCalcFieldConfig_seganag$
 						break;
 					case 'seg':
@@ -73,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idasset-idpiece_asset_idasset', 'Identificativo Bene strumentale', null, 13, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_idpiece', 'Numero parte Bene strumentale', null, 14, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_rfid', 'Codice RFID Bene strumentale', null, 16, null);
-						this.describeAColumn(table, '!idasset-idpiece_asset_idinventory_description', 'Descrizione Bene strumentale', null, 12, null);
+						this.describeAColumn(table, '!idasset-idpiece_asset_idinventory_description', 'Inventario Bene strumentale', null, 10, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_nassetacquire_description', 'Descrizione Bene strumentale', null, 11, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_nassetacquire_idinv', 'Class. Inv. Bene strumentale', null, 12, null);
 						this.describeAColumn(table, '!idasset-idpiece_asset_nassetacquire_idupb', 'UPB Bene strumentale', null, 13, null);
@@ -85,13 +71,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idasset-idpiece_asset_nassetacquire_description'] = { tableNameLookup:'assetacquire', columnNameLookup:'description', columnNamekey:'idasset-idpiece' };
 						objCalcFieldConfig['!idasset-idpiece_asset_nassetacquire_idinv'] = { tableNameLookup:'assetacquire', columnNameLookup:'idinv', columnNamekey:'idasset-idpiece' };
 						objCalcFieldConfig['!idasset-idpiece_asset_nassetacquire_idupb'] = { tableNameLookup:'assetacquire', columnNameLookup:'idupb', columnNamekey:'idasset-idpiece' };
-						this.describeAColumn(table, '!idreg_registry_title', 'Operatore', null, 41, null);
-						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg' };
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_surname', 'Cognome Operatore', null, 41, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_forename', 'Nome Operatore', null, 42, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_extmatricula', 'Matricola Operatore', null, 43, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_contratto', 'Contratto Operatore', null, 44, null);
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_surname'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'surname', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_forename'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'forename', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'extmatricula', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'contratto', columnNamekey:'idreg' };
+						this.describeAColumn(table, '!idasset-idpiece_asset_idinventory_codeinventory', 'Codice Bene strumentale', null, 11, null);
+						this.describeAColumn(table, '!idasset-idpiece_asset_idinventory_description', 'Descrizione Bene strumentale', null, 12, null);
+						objCalcFieldConfig['!idasset-idpiece_asset_idinventory_codeinventory'] = { tableNameLookup:'inventory', columnNameLookup:'codeinventory', columnNamekey:'idasset-idpiece' };
 //$objCalcFieldConfig_seg$
 						break;
 					case 'docente':
 						this.describeAColumn(table, 'orepreventivate', 'Ore di utilizzo complessive preventivate', null, 60, null);
 //$objCalcFieldConfig_docente$
+						break;
+					case 'segsal':
+						this.describeAColumn(table, 'orepreventivate', 'Ore di utilizzo complessive preventivate', null, 60, null);
+//$objCalcFieldConfig_segsal$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -122,11 +121,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
 						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
 						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
+						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
+						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
+						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
+						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
+						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
+						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
+						table.columns["!amount"].caption = "Costo di ammortamento calcolato";
 //$innerSetCaptionConfig_seg$
 						break;
 					case 'docente':
-						table.columns["idpiece"].caption = "Bene strumentale";
 //$innerSetCaptionConfig_docente$
+						break;
+					case 'segsal':
+						table.columns["idasset"].caption = "Bene strumentale";
+						table.columns["idpiece"].caption = "Parte";
+						table.columns["idprogetto"].caption = "Progetto";
+						table.columns["idreg"].caption = "Operatore";
+						table.columns["idworkpackage"].caption = "Workpackage";
+						table.columns["orepreventivate"].caption = "Ore di utilizzo complessive preventivate";
+//$innerSetCaptionConfig_segsal$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -158,6 +172,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (listType) {
 					case "docente": {
 						return "idprogetto asc ";
+					}
+					case "segsal": {
+						return "idreg asc ";
 					}
 					//$getSortingin$
 				}

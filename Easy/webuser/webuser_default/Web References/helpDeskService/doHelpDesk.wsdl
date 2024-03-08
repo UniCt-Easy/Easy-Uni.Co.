@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ticket.temposrl.it/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ticket.temposrl.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://SERVER/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://SERVER/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://ticket.temposrl.it/">
+    <s:schema elementFormDefault="qualified" targetNamespace="http://SERVER/">
       <s:element name="registerCliente">
         <s:complexType>
           <s:sequence>
@@ -205,7 +205,7 @@
   <wsdl:binding name="doHelpDeskSoap" type="tns:doHelpDeskSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="registerCliente">
-      <soap:operation soapAction="http://ticket.temposrl.it/registerCliente" style="document" />
+      <soap:operation soapAction="http://SERVER/registerCliente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -214,7 +214,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="aggiornaCliente">
-      <soap:operation soapAction="http://ticket.temposrl.it/aggiornaCliente" style="document" />
+      <soap:operation soapAction="http://SERVER/aggiornaCliente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -223,7 +223,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="registerStruttura">
-      <soap:operation soapAction="http://ticket.temposrl.it/registerStruttura" style="document" />
+      <soap:operation soapAction="http://SERVER/registerStruttura" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -232,7 +232,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="registerEnte">
-      <soap:operation soapAction="http://ticket.temposrl.it/registerEnte" style="document" />
+      <soap:operation soapAction="http://SERVER/registerEnte" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -241,7 +241,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="elencaEnti">
-      <soap:operation soapAction="http://ticket.temposrl.it/elencaEnti" style="document" />
+      <soap:operation soapAction="http://SERVER/elencaEnti" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -250,7 +250,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getStatoTicket">
-      <soap:operation soapAction="http://ticket.temposrl.it/getStatoTicket" style="document" />
+      <soap:operation soapAction="http://SERVER/getStatoTicket" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -259,7 +259,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="creaTicket">
-      <soap:operation soapAction="http://ticket.temposrl.it/creaTicket" style="document" />
+      <soap:operation soapAction="http://SERVER/creaTicket" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -271,7 +271,7 @@
   <wsdl:binding name="doHelpDeskSoap12" type="tns:doHelpDeskSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="registerCliente">
-      <soap12:operation soapAction="http://ticket.temposrl.it/registerCliente" style="document" />
+      <soap12:operation soapAction="http://SERVER/registerCliente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -280,7 +280,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="aggiornaCliente">
-      <soap12:operation soapAction="http://ticket.temposrl.it/aggiornaCliente" style="document" />
+      <soap12:operation soapAction="http://SERVER/aggiornaCliente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -289,7 +289,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="registerStruttura">
-      <soap12:operation soapAction="http://ticket.temposrl.it/registerStruttura" style="document" />
+      <soap12:operation soapAction="http://SERVER/registerStruttura" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -298,7 +298,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="registerEnte">
-      <soap12:operation soapAction="http://ticket.temposrl.it/registerEnte" style="document" />
+      <soap12:operation soapAction="http://SERVER/registerEnte" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -307,7 +307,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="elencaEnti">
-      <soap12:operation soapAction="http://ticket.temposrl.it/elencaEnti" style="document" />
+      <soap12:operation soapAction="http://SERVER/elencaEnti" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -316,7 +316,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getStatoTicket">
-      <soap12:operation soapAction="http://ticket.temposrl.it/getStatoTicket" style="document" />
+      <soap12:operation soapAction="http://SERVER/getStatoTicket" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -325,7 +325,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="creaTicket">
-      <soap12:operation soapAction="http://ticket.temposrl.it/creaTicket" style="document" />
+      <soap12:operation soapAction="http://SERVER/creaTicket" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module MultiSelectControl
  * @description
@@ -56,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         this.notEntityChildFilter = model.notEntityChildFilter(this.sourceTable);
 
         // recupero file del template del controllo
-        this.templateFileHtmlPath  = appMeta.basePath + appMeta.config.path_multiSelectTemplate;
+        this.templateFileHtmlPath  =  appMeta.config.path_multiSelectTemplate;
         this.rootElement = rootElement || document.body;
 
         this.addedTable  = null;
@@ -83,8 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             // avvio loader
             self.loader.showControl();
             // carico il template del multiSelect
-            var htmlFileName =  self.templateFileHtmlPath;
-
+            var htmlFileName = appMeta.basePath + self.templateFileHtmlPath;
             $.get(htmlFileName)
                 .done(
                     function (data) {
@@ -92,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         $(self.rootElement).append(data);
 
                         // ora posso eseguire la fill del controllo.
-                        return self.innerFillControl().then(function() {
+                        return self.innerFillControl().then(function () {
                             // nascondo loader
                             self.loader.hideControl();
                             self.showControl(true);
@@ -101,6 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     })
                 .fail(
                     function (e) {
+
                         logger.log(logType.ERROR, "MultiSelectControl.fillControl", JSON.stringify(e));
                         self.loader.hideControl();
                         def.reject();
@@ -143,17 +126,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description ASYNC
          * Inits the grids with the DataTable
-         * @returns {Deferred}
+         * @returns Promise
          */
         initTables:function () {
             var def = Deferred('MultiSelectControl.initTables');
             var self = this;
             var columnList =  this.metaPage.state.meta.sortedColumnNameList(this.sourceTable);
-
             var res =  getData.createTableByName(this.tablename, columnList)
                 .then(function (dt) {
                     self.addedTable = dt;
-
                     self.addedTable.name = "added";
                     self.addedTable.tableForReading(self.tablename);
                     self.copyKeyWhenBlank(self.sourceTable, self.addedTable);
@@ -171,7 +152,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             // Inoltre va integrata con righe che erano "added" e sono state rimosse
                             // in memoria
                             return getData.runSelectIntoTable(self.toAddTable, self.filter, null).then(function () {
-
                                 // Riempie la Table delle righe "Added". Questa contiene anche righe che sono
                                 // state rimosse in memoria, e quindi vanno rimosse (e integrate a "toAddTable")
                                 self.addedTable.merge(self.sourceTable);

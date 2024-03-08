@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -55,7 +55,8 @@ namespace purchasesubmission_single {
             this.txtAnnotazioni = new System.Windows.Forms.TextBox();
             this.btnAnnulla = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
-            this.dialogSalvaAvviso = new System.Windows.Forms.SaveFileDialog();
+            this._dialogSalvaAvviso = new System.Windows.Forms.SaveFileDialog();
+            this.dialogSalvaAvviso = createSaveFileDialog(_dialogSalvaAvviso);
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.gbxVersante.SuspendLayout();
             this.gbxPagoPA.SuspendLayout();
@@ -219,7 +220,7 @@ namespace purchasesubmission_single {
             // 
             // dialogSalvaAvviso
             // 
-            this.dialogSalvaAvviso.Title = "Salva avviso di pagamento";
+            //this.dialogSalvaAvviso.Title = "Salva avviso di pagamento";
             // 
             // Frm_purchasesubmission_single
             // 
@@ -261,6 +262,7 @@ namespace purchasesubmission_single {
         private System.Windows.Forms.Button btnAvviso;
         private System.Windows.Forms.Button btnAnnulla;
         private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.SaveFileDialog dialogSalvaAvviso;
+        private System.Windows.Forms.SaveFileDialog _dialogSalvaAvviso;
+        private metadatalibrary.ISaveFileDialog dialogSalvaAvviso;
     }
 }

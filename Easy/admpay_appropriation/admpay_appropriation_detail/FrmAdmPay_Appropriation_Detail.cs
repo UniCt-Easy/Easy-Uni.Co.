@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -682,9 +682,9 @@ namespace admpay_appropriation_detail {
 		    f.allowSelectPhase("Seleziona la fase del movimento a cui collegare il pagamento degli stipendi");
 		    f.askUpbAs("UPB da associare ai dettagli ai quali non è stato attribuito");
 
-			//FrmAskFase F = new FrmAskFase("S", importo, Fasi2, DS.upb, DS.finview, Meta.Dispatcher, Meta.Conn);
-            
-			if (f.ShowDialog()!=DialogResult.OK) return;
+            //FrmAskFase F = new FrmAskFase("S", importo, Fasi2, DS.upb, DS.finview, Meta.Dispatcher, Meta.Conn);
+            createForm(f, null);
+            if (f.ShowDialog()!=DialogResult.OK) return;
 			int selectedfase = CfgFn.GetNoNullInt32(f.GetFaseMovimento() );//F.cmbFasi.SelectedValue
 			string filter="";
 			string filterUpb = QHS.CmpEq("idupb", "0001");
@@ -773,7 +773,8 @@ namespace admpay_appropriation_detail {
             QHS.CmpEq("ayear", Meta.GetSys("esercizio")) + "))";
 			if (chkListTitle.Checked){
 				FrmAskDescr FR= new FrmAskDescr(0);
-				DialogResult D = FR.ShowDialog(this);
+                createForm(FR, this);
+                DialogResult D = FR.ShowDialog(this);
 				if (D!= DialogResult.OK) return;
 				filter = GetData.MergeFilters(filter, QHS.Like("title", "%"+FR.txtDescrizione.Text+"%"));
 				filter= GetData.MergeFilters(filter,filteroperativo);

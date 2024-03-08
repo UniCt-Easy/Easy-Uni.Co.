@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,21 +31,12 @@ namespace csa_import_inail_maxphase {
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Importazione CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable csa_import 		=> (MetaTable)Tables["csa_import"];
 
-	///<summary>
-	///Importazione Versamenti CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable csa_importver 		=> (MetaTable)Tables["csa_importver"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 

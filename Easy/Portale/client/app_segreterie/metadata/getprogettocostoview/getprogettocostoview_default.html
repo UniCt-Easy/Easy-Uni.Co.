@@ -20,8 +20,8 @@
 					<input id="getprogettocostoview_default_amount" type="text" class="form-control" data-tag="getprogettocostoview.amount.fixed.2"  />
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="getprogettocostoview_default_contrattokind_title">Tipo di contratto</label>
-					<input id="getprogettocostoview_default_contrattokind_title" type="text" class="form-control" data-tag="getprogettocostoview.contrattokind_title"  />
+					<label class="col-form-label col-md-12" for="getprogettocostoview_default_position_title">Tipo di contratto</label>
+					<input id="getprogettocostoview_default_position_title" type="text" class="form-control" data-tag="getprogettocostoview.position_title"  />
 				</div>
 			</div>
 			<div class="row">
@@ -30,13 +30,8 @@
 					<input id="getprogettocostoview_default_doc" type="text" class="form-control" data-tag="getprogettocostoview.doc"  />
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#getprogettocostoview_default_docdate").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="getprogettocostoview_default_docdate">Data contabile</label>
-					<input id="getprogettocostoview_default_docdate" type="text" class="form-control" data-tag="getprogettocostoview.docdate"  />
+					<input id="getprogettocostoview_default_docdate" type="text" class="form-control" data-tag="getprogettocostoview.docdate"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
@@ -72,18 +67,13 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="getprogettocostoview_default_rendicontattivitaprogetto_description">Attività svolta</label>
-					<textarea class="textarea form-control" id="getprogettocostoview_default_rendicontattivitaprogetto_description" type="text"  rows="4" data-tag="getprogettocostoview.rendicontattivitaprogetto_description"></textarea>
+					<textarea class="textarea form-control" id="getprogettocostoview_default_rendicontattivitaprogetto_description" type="text"  rows="4" data-tag="getprogettocostoview.rendicontattivitaprogetto_description"  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#getprogettocostoview_default_transactiondate").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="getprogettocostoview_default_transactiondate">Data quietanza banca</label>
-					<input id="getprogettocostoview_default_transactiondate" type="text" class="form-control" data-tag="getprogettocostoview.transactiondate"  />
+					<input id="getprogettocostoview_default_transactiondate" type="text" class="form-control" data-tag="getprogettocostoview.transactiondate"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="getprogettocostoview_default_workpackage_title">Workpackage</label>
@@ -102,13 +92,8 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#getprogettocostoview_default_adate").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="getprogettocostoview_default_adate">Data liquidazione</label>
-					<input id="getprogettocostoview_default_adate" type="text" class="form-control" data-tag="getprogettocostoview.adate"  />
+					<input id="getprogettocostoview_default_adate" type="text" class="form-control" data-tag="getprogettocostoview.adate"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="getprogettocostoview_default_cf">CF fornitore</label>
@@ -121,13 +106,8 @@
 					<input id="getprogettocostoview_default_p_iva" type="text" class="form-control" data-tag="getprogettocostoview.p_iva"  />
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#getprogettocostoview_default_payment_adate").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="getprogettocostoview_default_payment_adate">Data mandato di pagamento </label>
-					<input id="getprogettocostoview_default_payment_adate" type="text" class="form-control" data-tag="getprogettocostoview.payment_adate"  />
+					<input id="getprogettocostoview_default_payment_adate" type="text" class="form-control" data-tag="getprogettocostoview.payment_adate"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
@@ -136,13 +116,8 @@
 					<input id="getprogettocostoview_default_registry_title" type="text" class="form-control" data-tag="getprogettocostoview.registry_title"  />
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#getprogettocostoview_default_transmissiondate").datepicker();
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="getprogettocostoview_default_transmissiondate">Data di trasmissione alla banca</label>
-					<input id="getprogettocostoview_default_transmissiondate" type="text" class="form-control" data-tag="getprogettocostoview.transmissiondate"  />
+					<input id="getprogettocostoview_default_transmissiondate" type="text" class="form-control" data-tag="getprogettocostoview.transmissiondate"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 </form>

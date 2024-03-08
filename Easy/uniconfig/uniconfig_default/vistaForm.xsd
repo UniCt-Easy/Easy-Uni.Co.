@@ -49,8 +49,8 @@
               <xs:element name="rea_closingstatus" type="xs:string" minOccurs="0" />
               <xs:element name="webprotaddress" type="xs:string" minOccurs="0" />
               <xs:element name="attachment_max_size_mb" type="xs:int" minOccurs="0" />
-              <xs:element name="pwd_requiredlength" type="xs:int"/>
-              <xs:element name="pwd_requireduniquechars" type="xs:int"/>
+              <xs:element name="pwd_requiredlength" type="xs:int" />
+              <xs:element name="pwd_requireduniquechars" type="xs:int" />
               <xs:element name="pwd_requirenonalphanumeric">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -79,6 +79,8 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="perla_user" type="xs:string" minOccurs="0" />
+              <xs:element name="perla_pwd" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

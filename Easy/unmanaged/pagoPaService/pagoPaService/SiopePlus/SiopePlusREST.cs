@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -195,7 +195,7 @@ namespace SiopePlus {
                     var m = objSelBuild["message"];
                     errore =errore + c.ToString() +"-"+ m.ToString() + "\r\n";
                 }
-                return esito.ToUpper() == "OK" ? null : errore;
+                return esito.ToUpperInvariant() == "OK" ? null : errore;
                 //return "Risposta malformata";
 
                 //var prms = (JObject)objMessage["prm"];

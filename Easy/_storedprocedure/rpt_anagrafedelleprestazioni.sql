@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -91,10 +91,12 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
---setuser setuser 'amministrazione'
--- rpt_anagrafedelleprestazioni 2019, 0 ,{ts '1900-01-01 00:00:00'},{ts '2019-12-31 00:00:00'},'N'
  
+--setuser setuser 'amministrazione'
+-- rpt_anagrafedelleprestazioni 2023, 0 ,{ts '2023-05-15 00:00:00'},{ts '2023-06-15 00:00:00'},'N'
+--go
+--  rpt_unifiedanagrafedelleprestazioni 2023, 0 ,{ts '2023-05-15 00:00:00'},{ts '2023-06-15 00:00:00'},'N','S'
+-- rpt_anagrafedelleprestazioni 2023, 0 ,{ts '2023-05-15 00:00:00'},{ts '2023-06-15 00:00:00'},'N'
 CREATE   PROCEDURE [rpt_anagrafedelleprestazioni]
 (
 	@ayear smallint, 
@@ -134,7 +136,7 @@ CREATE TABLE #expensetax
 	descriptioncontract varchar(150),
 	start datetime,
 	stop datetime,
-
+	transmissiondate datetime,
 	authdoc	varchar(35),
 	authdocdate	datetime,
 	authneeded	char(1),
@@ -185,6 +187,7 @@ SELECT  @dateaddress = CONVERT(datetime, '31-12-'+ CONVERT(varchar(4),@ayear), 1
 INSERT INTO #expensetax
 (
 	idexp,
+	transmissiondate,
 	idreg,
 	registry,
 	birthdate,
@@ -205,6 +208,7 @@ INSERT INTO #expensetax
 )
 SELECT
 	T.idexp,
+	paymenttransmission.transmissiondate,
 	T.idreg,
 	registry.title,
 	registry.birthdate,
@@ -213,7 +217,12 @@ SELECT
 	T.description,
 	SUM(T.taxablenet),
 	SUM(T.employtax),
-	expensetotal.curramount,
+	--- importo corrente al lordo delle ritenute a carico del beneficiario
+	expensetotal.curramount  	- ISNULL(
+				(SELECT SUM(amount) FROM expensevar
+				WHERE expensevar.idexp = T.idexp
+				AND ISNULL(autokind,0) = 4)
+			,0)   ,
 	service.description,
 	service.idser,
 	upb.title,
@@ -271,7 +280,7 @@ WHERE (paymenttransmission.transmissiondate BETWEEN @start AND @stop)
 	AND (@idsor05 IS NULL OR upb.idsor05 = @idsor05)
 
 GROUP BY T.idreg, T.idexp, registry.title, registry.birthdate, registry.cf,
-	T.taxcode, T.description, expensetotal.curramount, service.description,
+	T.taxcode, T.description, expensetotal.curramount, service.description,paymenttransmission.transmissiondate,
 	service.idser, upb.title, fin.title, fin.codefin, payment.npay, manager.title
     
 -- A partire dall'idexp del pagamento risale alla contabilizzazione e quindi al contratto. Dal contratto legge le info relative all'autorizzazione.
@@ -553,6 +562,7 @@ BEGIN
 	SELECT
 		@departmentname as departmentname,
 		#expensetax.idexp,
+		#expensetax.transmissiondate,
 		#expensetax.idreg,
 		#expensetax.registry,
 		#registry_birth.city_title AS b_city,
@@ -614,6 +624,7 @@ BEGIN
 		SELECT
 		@departmentname as departmentname,
 		#expensetax.idexp,
+		#expensetax.transmissiondate,
 		#expensetax.idreg,
 		#expensetax.registry,
 		#registry_birth.city_title AS b_city,

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,7 +39,8 @@ namespace bankdispositionsetup_creditosiciliano {
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-            SaveFileDialog sf = new SaveFileDialog();
+            SaveFileDialog _sf = new SaveFileDialog();
+            ISaveFileDialog sf = createSaveFileDialog(_sf);
             sf.Title = "Selezionare il file in cui verranno memorizzati " +
                 "gli errori";
             if (sf.ShowDialog() != DialogResult.OK) return;

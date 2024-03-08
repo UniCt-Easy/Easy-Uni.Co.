@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+﻿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_rendicontattivitaprogetto() {
 		MetaPage.apply(this, ['rendicontattivitaprogetto', 'anag', true]);
-        this.name = 'Attivit� di ricerca';
+        this.name = 'Attività di ricerca';
 		this.defaultListType = 'anag';
 		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
 		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
@@ -68,6 +51,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				
 				if (self.isNullOrMinDate(parentRow.datainizioprevista))
 					parentRow.datainizioprevista = new Date();
+				if (this.isNull(parentRow.idrendicontattivitaprogettokind))
+					parentRow.idrendicontattivitaprogettokind = 1;
+				if (self.isNullOrMinDate(parentRow.stop))
+					parentRow.stop = new Date();
 				this.managerendicontattivitaprogetto_anag_orerendicont();
 				//beforeFillFilter
 				
@@ -75,22 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var def = appMeta.Deferred("beforeFill-rendicontattivitaprogetto_anag");
 				var arraydef = [];
 				
-				var p = [];
-					if (self.getDataTable("rendicontattivitaprogettoora").rows.length)
-						arraydef.push(appMeta.getData.runSelect('progetto', 'title', self.q.eq('idprogetto', self.state.currentRow.idprogetto), null)
-							.then(function (dt) {
-								p.push([dt.rows[0].title, null, 'Progetto']);
-								return appMeta.getData.runSelect('workpackage', 'title', self.q.eq('idworkpackage', self.state.currentRow.idworkpackage), null);
-							}).then(function (dt) {
-								p.push([dt.rows[0].title, null, 'Workpackage']);
-								p.push([self.state.currentRow.description, null, 'Attivit�']);
-								_.forEach(self.getDataTable("rendicontattivitaprogettoora").rows, function (r) {
-									var pcurr = p.slice();
-									pcurr.push([r.ore, null, 'Ore']);
-									r['!titleancestor'] = self.stringify(pcurr, 'string');
-								});
-								return true;
-							}));
+				arraydef.push(this.buildRendicontattivitaprogettooraTitle());
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -104,69 +76,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoora'));
+				//parte sincrona
+				this.enableControl($('#rendicontattivitaprogetto_anag_orerendicont'), true);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			
-			afterLink: function () {
-				var self = this;
-				this.setFilterRendicontattivitaprogetto_seg_itineration();
-				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar14').fullCalendar('rerenderEvents');
-				});
-				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
-				$("#OpenScheduleConfig").prop("disabled", true);
-				$('#rendicontattivitaprogetto_anag_datainizioprevista').on("change", _.partial(this.managedatainizioprevista, self));
-				$('#rendicontattivitaprogetto_anag_stop').on("change", _.partial(this.managestop, self));
-				this.setDenyNull("rendicontattivitaprogetto","orepreventivate");
-				this.setDenyNull("rendicontattivitaprogetto","datainizioprevista");
-				appMeta.metaModel.cachedTable(this.getDataTable("workpackagesegview"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("workpackagesegview"));
-				//fireAfterLink
-				return this.superClass.afterLink.call(this).then(function () {
-					var arraydef = [];
-					//fireAfterLinkAsinc
-					return $.when.apply($, arraydef);
-				});
-			},
-
-			afterRowSelect: function (t, r) {
-				$('#rendicontattivitaprogetto_anag_idprogetto').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#rendicontattivitaprogetto_anag_idprogetto').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#rendicontattivitaprogetto_anag_idworkpackage').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#rendicontattivitaprogetto_anag_idworkpackage').prop("readonly", this.state.isEditState() || this.haveChildren());
-				//afterRowSelectin
-				var arraydef = [];
-				var self = this;
-				if (t.name === "progettosegview" && r !== null) {
-					appMeta.metaModel.cachedTable(this.getDataTable("workpackagesegview"), false);
-					var rendicontattivitaprogetto_anag_idworkpackageCtrl = $('#rendicontattivitaprogetto_anag_idworkpackage').data("customController");
-					arraydef.push(rendicontattivitaprogetto_anag_idworkpackageCtrl.filteredPreFillCombo(window.jsDataQuery.eq("idprogetto", r ? r.idprogetto : null), null, true)
-						.then(function (dt) {
-							if (self.state.currentRow && self.state.currentRow.idworkpackage)
-								rendicontattivitaprogetto_anag_idworkpackageCtrl.fillControl(null, self.state.currentRow.idworkpackage);
-							return true;
-						})
-);
-				}
-				//afterRowSelectAsincIn
-				return $.when.apply($, arraydef);
-			},
-
-			afterActivation: function () {
-				var parentRow = this.state.currentRow;
-				var self = this;
-				//afterActivationin
-				var arraydef = [];
-				if (parentRow.idprogetto) {
-					appMeta.metaModel.cachedTable(this.getDataTable("workpackagesegview"), false);
-					var rendicontattivitaprogetto_anag_idworkpackageCtrl = $('#rendicontattivitaprogetto_anag_idworkpackage').data("customController");
-					arraydef.push(rendicontattivitaprogetto_anag_idworkpackageCtrl.filteredPreFillCombo(window.jsDataQuery.eq("idprogetto", parentRow.idprogetto), null, true));
-				}
-				//afterActivationAsincIn
-				return $.when.apply($, arraydef);
-			},
+			
+			
+			//afterActivation
 
 			rowSelected: function (dataRow) {
 				$("#OpenScheduleConfig").prop("disabled", false);
@@ -196,25 +117,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return this.superClass.insertClick(that, grid);
 			},
 
-			//beforePost
-
-			setFilterRendicontattivitaprogetto_seg_itineration: function () {
+			beforePost: function () {
 				var self = this;
-				var filtermembro = self.q.eq('idreg', self.state.callerState.currentRow.idreg);
-				var filterstart = self.q.lt('start', self.state.currentRow ? (self.state.currentRow.stop ? self.state.currentRow.stop : new Date()) : new Date());
-				var filterstop = self.q.gt('stop', self.state.currentRow ? (self.state.currentRow.datainizioprevista ? self.state.currentRow.datainizioprevista : new Date()) : new Date());
-				var filter = self.q.and([filtermembro, filterstart, filterstop]);
-				self.state.DS.tables.itineration.staticFilter(filter);
+				this.getDataTable('rendicontattivitaprogettowpview').acceptChanges();
+				//innerBeforePost
+			},
+
+			afterRowSelect: function (t, r) {
+				var def = appMeta.Deferred("afterRowSelect-rendicontattivitaprogetto_anag");
+				if (t.name === "progettoelenchiview" && r !== null) {
+					let self = this;
+					if (this.state.isEditState())
+						return this.getProroghe()
+							.then(function () {
+								return self.getMembro();
+							})
+							.then(function () {
+								return def.resolve();
+							});
+				}
+
+				$('#rendicontattivitaprogetto_anag_idprogetto').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idprogetto);
+				$('#rendicontattivitaprogetto_anag_idprogetto').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idprogetto);
+				$('#rendicontattivitaprogetto_anag_idworkpackage').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idworkpackage);
+				$('#rendicontattivitaprogetto_anag_idworkpackage').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idworkpackage);
+				$('#rendicontattivitaprogetto_anag_idprogetto').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idworkpackage);
+				$('#rendicontattivitaprogetto_anag_idprogetto').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idworkpackage);
+				//afterRowSelectin
+				return def.resolve();
+			},
+
+			afterLink: function () {
+				var self = this;
+				this.setFilterRendicontattivitaprogettoItineration();
+				$('.nav-tabs').on('shown.bs.tab', function (e) {
+					$('#calendar15').fullCalendar('rerenderEvents');
+				});
+				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
+				$("#OpenScheduleConfig").prop("disabled", true);
+				this.setDenyNull("rendicontattivitaprogetto","orepreventivate");
+				this.setDenyNull("rendicontattivitaprogetto","datainizioprevista");
+				this.setDenyNull("rendicontattivitaprogetto","stop");
+				appMeta.metaModel.insertFilter(this.getDataTable("rendicontattivitaprogettokinddefaultview"), this.q.eq('rendicontattivitaprogettokind_active', 'Si'));
+				$('#rendicontattivitaprogetto_anag_datainizioprevista').on("change", _.partial(this.managedatainizioprevista, self));
+				$('#rendicontattivitaprogetto_anag_stop').on("change", _.partial(this.managestop, self));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
 			},
 
 			afterFill: function () {
 				this.enableControl($('#rendicontattivitaprogetto_anag_orerendicont'), false);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoora'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				//afterFillin
 
 				var self = this;
 				if (!this.isEmpty()) {
-					// carica tutte le attivit� dell'utente. seve per visualizzarle sul calendario
+					// carica tutte le attività dell'utente. seve per visualizzarle sul calendario
 					var filter = self.q.and(
 						self.q.eq("idreg", this.state.currentRow.idreg),
 						self.q.ne("idrendicontattivitaprogetto", self.state.currentRow.idrendicontattivitaprogetto)
@@ -227,19 +189,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			fireOpenScheduleConfig: function (that) {
-				// calcola titolo e apre scheduler con tutte le info
-
-				var maxHoursPerDayTable = null;
-				var idreg = that.state.currentRow.idreg;
-				var filter = that.q.eq("idreg", idreg);
+				if (!that.state.currentRow.idreg)
+					return that.showMessageOk('Occorre indicare chi svolge l\'attività e salvare');
+				let datafine = that.getRealStopForSchedulingResearchActivity();
+				if (!datafine)
+					return that.showMessageOk('Occorre indicare la data di fine attività e salvare');
+				let datainizio = that.getRealStartForSchedulingResearchActivity();
+				if (!datainizio)
+					return that.showMessageOk('Occorre indicare la data di inizio attività e salvare');
+				let maxHoursPerDayTable = null;
+				let idreg = that.state.currentRow.idreg;
+				let filter = that.q.and([
+					that.q.eq("idreg", idreg),
+					that.q.or(that.q.isNull("start"), that.q.le("start", datafine)),
+					that.q.or(that.q.isNull("stop"), that.q.ge("stop", datainizio ))
+				]);
 				appMeta.getData.runSelect("getoremaxgg" , "*" , filter, null)
 					.then(function (dt) {
 						maxHoursPerDayTable = dt;
 						return that.getFormData(true);
 					}).then(function () {
 
-						if (!that.state.currentRow.description
-							|| !that.state.currentRow.orepreventivate
+						if (!that.state.currentRow.description) {
+							if (that.state.currentRow.idrendicontattivitaprogettokind)
+								that.state.currentRow.description = that.state.DS.tables.rendicontattivitaprogettokinddefaultview.select(that.q.eq("idrendicontattivitaprogettokind", that.state.currentRow.idrendicontattivitaprogettokind))[0].title;
+							else
+								that.state.currentRow.description = '-';
+						}
+
+						if (!that.state.currentRow.orepreventivate
 							|| !that.state.currentRow.idprogetto
 							|| !that.state.currentRow.idworkpackage) return that.showMessageOk(that.localResource.scheduler_fields_mandatory_msg1);
 
@@ -250,11 +228,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								return appMeta.getData.runSelect('workpackage', 'title', that.q.eq('idworkpackage', that.state.currentRow.idworkpackage), null);
 							}).then(function (dt) {
 								if (dt.rows.length) p.push([dt.rows[0].title, null, 'Workpackage']);
-								p.push([that.state.currentRow.description, null, 'Attivit�']);
+								p.push([that.state.currentRow.description, null, 'Attività']);
 								var columnTitleValue = that.stringify(p, 'string');
 								var scheduler = new appMeta.scheduleConfig(that,
 									{
-										minDateValue: that.state.currentRow.data,
+										endDate: datafine,
+										minDateValue: datainizio,
 										maxHours: that.state.currentRow.orepreventivate,
 										tableNameSchedule: 'rendicontattivitaprogettoora',
 										columnDate: 'data',
@@ -270,29 +249,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					});
 			},
 
-			managedatainizioprevista: function(that) { 
-				that.setFilterRendicontattivitaprogetto_seg_itineration();
-				var checkListCtrl = $("[data-tag='itineration.seg.seg']");
-				var ctrl = checkListCtrl.data("customController");
-				that.getDataTable('itineration').clear();
-				ctrl.loadCheckBoxList();
-			},
-
-			managestop: function(that) { 
-				that.setFilterRendicontattivitaprogetto_seg_itineration();
-				var checkListCtrl = $("[data-tag='itineration.seg.seg']");
-				var ctrl = checkListCtrl.data("customController");
-				that.getDataTable('itineration').clear();
-				ctrl.loadCheckBoxList();
-			},
-
 			managerendicontattivitaprogetto_anag_orerendicont: function () {
 				this.state.currentRow['!orerendicont'] = _.sumBy(this.getDataTable('rendicontattivitaprogettoora').rows, function (r) {
 					return r.ore;
 				});
 			},
 
-			children: ['rendicontattivitaprogettoitineration', 'rendicontattivitaprogettoora'],
+			children: ['rendicontattivitaprogettoitineration', 'rendicontattivitaprogettoora', 'rendicontattivitaprogettowpview'],
 			haveChildren: function () {
 				var self = this;
 				return _.some(this.children, function (child) {
@@ -301,6 +264,105 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					else
 						return false;
 				});
+			},
+
+			managedatainizioprevista: function(that) { 
+				if (that.state.isEditState()) {
+					//inizio controllo intervallo date
+
+					if (!$("#rendicontattivitaprogetto_anag_datainizioprevista").val()) {
+						return;
+					}
+
+					//mini getFormData necessario
+					that.state.currentRow.idworkpackage = parseInt($("#rendicontattivitaprogetto_anag_idworkpackage").val());
+
+					var tempDate = $("#rendicontattivitaprogetto_anag_datainizioprevista").val();
+					let tempStart = that.getDateTimeFromString(tempDate);
+
+					let wpStop = that.state.DS.tables.workpackageelenchiview.select(that.q.eq('idworkpackage', that.state.currentRow.idworkpackage))[0].workpackage_stop;
+					let wpStart = that.state.DS.tables.workpackageelenchiview.select(that.q.eq('idworkpackage', that.state.currentRow.idworkpackage))[0].workpackage_start;
+
+					let membroStart = null;
+					let membroStop = null;
+					if (that.Membro) {
+						membroStart = that.Membro.start;
+						membroStop = that.Membro.stop;
+					}
+					that.setRealStartStop(wpStart, wpStop, membroStart, membroStop, that.lastProroga);
+
+					if (that.start) {
+						if (that.start > tempStart) {
+							$("#rendicontattivitaprogetto_anag_datainizioprevista").val(that.stringFromDate_ddmmyyyy(that.start));
+							return that.showMessageOk('La data di inizio dell\'attività deve essere successiva ' + that.startMessage);
+						}
+					}
+
+					if (that.stop) {
+						if (that.stop < tempStart) {
+							$("#rendicontattivitaprogetto_anag_datainizioprevista").val(that.stringFromDate_ddmmyyyy(that.stop));
+							return that.showMessageOk('La data di inizio dell\'attività deve essere precedente ' + that.stopMessage);
+						}
+					}
+
+					if ($("#rendicontattivitaprogetto_anag_stop").val() && that.getDateTimeFromString($("#rendicontattivitaprogetto_anag_stop").val()) < tempStart) {
+						$("#rendicontattivitaprogetto_anag_datainizioprevista").val($("#rendicontattivitaprogetto_anag_stop").val());
+						return that.showMessageOk('La data di inizio dell\'attività deve essere precedente a quella finale');
+					}
+					//fine controllo intervallo date
+
+					that.setFilterRendicontattivitaprogettoItineration();
+				}
+			},
+
+			managestop: function(that) { 
+				if (that.state.isEditState()) {
+
+					//inizio controllo intervallo date
+					if (!$("#rendicontattivitaprogetto_anag_stop").val()) {
+						return;
+					}
+					if (!$("#rendicontattivitaprogetto_anag_idworkpackage").val()) {
+						return;
+					}
+					//mini getFormData necessario
+					that.state.currentRow.idworkpackage = parseInt($("#rendicontattivitaprogetto_anag_idworkpackage").val());
+
+					var tempDate = $("#rendicontattivitaprogetto_anag_stop").val();
+					let tempStop = that.getDateTimeFromString(tempDate);
+
+					let wpStop = that.state.DS.tables.workpackageelenchiview.select(that.q.eq('idworkpackage', that.state.currentRow.idworkpackage))[0].workpackage_stop;
+					let wpStart = that.state.DS.tables.workpackageelenchiview.select(that.q.eq('idworkpackage', that.state.currentRow.idworkpackage))[0].workpackage_start;
+					let membroStart = null;
+					let membroStop = null;
+					if (that.Membro) {
+						membroStart = that.Membro.start;
+						membroStop = that.Membro.stop;
+					}
+					that.setRealStartStop(wpStart, wpStop, membroStart, membroStop, that.lastProroga);
+
+					if (that.start) {
+						if (that.start > tempStop) {
+							$("#rendicontattivitaprogetto_anag_stop").val(that.stringFromDate_ddmmyyyy(that.start));
+							return that.showMessageOk('La data di fine dell\'attività deve essere successiva ' + that.startMessage);
+						}
+					}
+
+					if (that.stop) {
+						if (that.stop < tempStop) {
+							$("#rendicontattivitaprogetto_anag_stop").val(that.stringFromDate_ddmmyyyy(that.stop));
+							return that.showMessageOk('La data di fine dell\'attività deve essere precedente ' + that.stopMessage);
+						}
+					}
+
+					if ($("#rendicontattivitaprogetto_anag_datainizioprevista").val() && that.getDateTimeFromString($("#rendicontattivitaprogetto_anag_datainizioprevista").val()) > tempStop) {
+						$("#rendicontattivitaprogetto_anag_stop").val($("#rendicontattivitaprogetto_anag_datainizioprevista").val());
+						return that.showMessageOk('La data finale dell\'attività deve essere successiva a quella iniziale');
+					}
+					//fine controllo intervallo date
+
+					that.setFilterRendicontattivitaprogettoItineration();
+				}
 			},
 
 			//buttons

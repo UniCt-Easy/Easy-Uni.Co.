@@ -90,6 +90,9 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_income">
+      <HintPath>..\..\income\meta_income\bin\Debug\meta_income.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -159,12 +162,6 @@
       <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_sorting</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_income">
-      <HintPath>..\..\income\meta_income\bin\Debug\meta_income.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_income</Name>
       <Private>False</Private>
     </Reference>
     <Reference Include="meta_tassonomia_pagopa">

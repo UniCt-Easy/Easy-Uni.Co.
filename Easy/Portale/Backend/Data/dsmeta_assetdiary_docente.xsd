@@ -78,20 +78,6 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
-              <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
-              <xs:element name="struttura_idstrutturakind" type="xs:int" minOccurs="0" />
-              <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
-              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
-              <xs:element name="workpackage_acronimo" type="xs:string" minOccurs="0" />
-              <xs:element name="workpackage_ct" type="xs:dateTime" />
-              <xs:element name="workpackage_cu" type="xs:string" />
-              <xs:element name="workpackage_description" type="xs:string" minOccurs="0" />
-              <xs:element name="workpackage_idstruttura" type="xs:int" minOccurs="0" />
-              <xs:element name="workpackage_lt" type="xs:dateTime" />
-              <xs:element name="workpackage_lu" type="xs:string" />
-              <xs:element name="workpackage_start" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="workpackage_stop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="workpackage_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -132,6 +118,10 @@
               <xs:element name="progetto_codiceidentificativo" type="xs:string" minOccurs="0" />
               <xs:element name="progetto_contributo" type="xs:decimal" minOccurs="0" />
               <xs:element name="progetto_contributoente" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_contributoenterichiesto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_contributorichiesto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_costoapprovatoateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_costoapprovatoateneocalcolato" type="xs:decimal" minOccurs="0" />
               <xs:element name="progetto_ct" type="xs:dateTime" />
               <xs:element name="progetto_cu" type="xs:string" />
               <xs:element name="progetto_cup" type="xs:string" minOccurs="0" />
@@ -151,12 +141,18 @@
               <xs:element name="progetto_lt" type="xs:dateTime" />
               <xs:element name="progetto_lu" type="xs:string" />
               <xs:element name="progetto_progfinanziamentotxt" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_respamministrativi" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_responsabiliamministrativi" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_responsabiliscientifici" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_respscientifici" type="xs:string" minOccurs="0" />
               <xs:element name="progetto_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="progetto_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="progetto_title" type="xs:string" minOccurs="0" />
               <xs:element name="progetto_title_en" type="xs:string" minOccurs="0" />
               <xs:element name="progetto_totalbudget" type="xs:decimal" minOccurs="0" />
               <xs:element name="progetto_totalcontributo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="progetto_ulteriorecup" type="xs:string" minOccurs="0" />
+              <xs:element name="progetto_unitaorganizzativa" type="xs:string" minOccurs="0" />
               <xs:element name="progetto_url" type="xs:string" minOccurs="0" />
               <xs:element name="progettokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="progettostatuskind_title" type="xs:string" minOccurs="0" />
@@ -239,6 +235,7 @@
       <msdata:Relationship name="FK_assetdiaryora_sal_idsal" msdata:parent="sal" msdata:child="assetdiaryora" msdata:parentkey="idsal" msdata:childkey="idsal" />
       <msdata:Relationship name="FK_assetdiary_assetsegview_idasset-idpiece" msdata:parent="assetsegview" msdata:child="assetdiary" msdata:parentkey="idasset idpiece" msdata:childkey="idasset idpiece" />
       <msdata:Relationship name="FK_assetdiary_workpackagesegview_idworkpackage" msdata:parent="workpackagesegview" msdata:child="assetdiary" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
+      <msdata:Relationship name="FK_workpackagesegview_progettosegview_idprogetto" msdata:parent="progettosegview" msdata:child="workpackagesegview" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_assetdiary_asset_idasset" msdata:parent="asset" msdata:child="assetdiary" msdata:parentkey="idasset" msdata:childkey="idasset" />
       <msdata:Relationship name="FK_assetdiary_progettosegview_idprogetto" msdata:parent="progettosegview" msdata:child="assetdiary" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
     </xs:appinfo>

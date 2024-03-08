@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit� degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -28,37 +28,28 @@ public class ivapayRow: MetaRow  {
 	public ivapayRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	///<summary>
-	///Numero
-	///</summary>
-	public Int32? nivapay{ 
-		get {if (this["nivapay"]==DBNull.Value)return null; return  (Int32?)this["nivapay"];}
-		set {if (value==null) this["nivapay"]= DBNull.Value; else this["nivapay"]= value;}
+	public Int32 nivapay{ 
+		get {return  (Int32)this["nivapay"];}
+		set {this["nivapay"]= value;}
 	}
 	public object nivapayValue { 
 		get{ return this["nivapay"];}
-		set {if (value==null|| value==DBNull.Value) this["nivapay"]= DBNull.Value; else this["nivapay"]= value;}
+		set {this["nivapay"]= value;}
 	}
-	public Int32? nivapayOriginal { 
-		get {if (this["nivapay",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["nivapay",DataRowVersion.Original];}
+	public Int32 nivapayOriginal { 
+		get {return  (Int32)this["nivapay",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Esercizio
-	///</summary>
-	public Int32? yivapay{ 
-		get {if (this["yivapay"]==DBNull.Value)return null; return  (Int32?)this["yivapay"];}
-		set {if (value==null) this["yivapay"]= DBNull.Value; else this["yivapay"]= value;}
+	public Int32 yivapay{ 
+		get {return  (Int32)this["yivapay"];}
+		set {this["yivapay"]= value;}
 	}
 	public object yivapayValue { 
 		get{ return this["yivapay"];}
-		set {if (value==null|| value==DBNull.Value) this["yivapay"]= DBNull.Value; else this["yivapay"]= value;}
+		set {this["yivapay"]= value;}
 	}
-	public Int32? yivapayOriginal { 
-		get {if (this["yivapay",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["yivapay",DataRowVersion.Original];}
+	public Int32 yivapayOriginal { 
+		get {return  (Int32)this["yivapay",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Data regolamento
-	///</summary>
 	public DateTime? assesmentdate{ 
 		get {if (this["assesmentdate"]==DBNull.Value)return null; return  (DateTime?)this["assesmentdate"];}
 		set {if (value==null) this["assesmentdate"]= DBNull.Value; else this["assesmentdate"]= value;}
@@ -70,9 +61,6 @@ public class ivapayRow: MetaRow  {
 	public DateTime? assesmentdateOriginal { 
 		get {if (this["assesmentdate",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["assesmentdate",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Importo credito
-	///</summary>
 	public Decimal? creditamount{ 
 		get {if (this["creditamount"]==DBNull.Value)return null; return  (Decimal?)this["creditamount"];}
 		set {if (value==null) this["creditamount"]= DBNull.Value; else this["creditamount"]= value;}
@@ -84,9 +72,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? creditamountOriginal { 
 		get {if (this["creditamount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["creditamount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Credito iva differita
-	///</summary>
 	public Decimal? creditamountdeferred{ 
 		get {if (this["creditamountdeferred"]==DBNull.Value)return null; return  (Decimal?)this["creditamountdeferred"];}
 		set {if (value==null) this["creditamountdeferred"]= DBNull.Value; else this["creditamountdeferred"]= value;}
@@ -98,51 +83,39 @@ public class ivapayRow: MetaRow  {
 	public Decimal? creditamountdeferredOriginal { 
 		get {if (this["creditamountdeferred",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["creditamountdeferred",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data creazione
-	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome utente creazione
-	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Data Contabile
-	///</summary>
-	public DateTime? dateivapay{ 
-		get {if (this["dateivapay"]==DBNull.Value)return null; return  (DateTime?)this["dateivapay"];}
-		set {if (value==null) this["dateivapay"]= DBNull.Value; else this["dateivapay"]= value;}
+	public DateTime dateivapay{ 
+		get {return  (DateTime)this["dateivapay"];}
+		set {this["dateivapay"]= value;}
 	}
 	public object dateivapayValue { 
 		get{ return this["dateivapay"];}
-		set {if (value==null|| value==DBNull.Value) this["dateivapay"]= DBNull.Value; else this["dateivapay"]= value;}
+		set {this["dateivapay"]= value;}
 	}
-	public DateTime? dateivapayOriginal { 
-		get {if (this["dateivapay",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["dateivapay",DataRowVersion.Original];}
+	public DateTime dateivapayOriginal { 
+		get {return  (DateTime)this["dateivapay",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Importo iva immediata a debito
-	///</summary>
 	public Decimal? debitamount{ 
 		get {if (this["debitamount"]==DBNull.Value)return null; return  (Decimal?)this["debitamount"];}
 		set {if (value==null) this["debitamount"]= DBNull.Value; else this["debitamount"]= value;}
@@ -154,9 +127,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? debitamountOriginal { 
 		get {if (this["debitamount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["debitamount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Importo dedito differito
-	///</summary>
 	public Decimal? debitamountdeferred{ 
 		get {if (this["debitamountdeferred"]==DBNull.Value)return null; return  (Decimal?)this["debitamountdeferred"];}
 		set {if (value==null) this["debitamountdeferred"]= DBNull.Value; else this["debitamountdeferred"]= value;}
@@ -168,37 +138,28 @@ public class ivapayRow: MetaRow  {
 	public Decimal? debitamountdeferredOriginal { 
 		get {if (this["debitamountdeferred",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["debitamountdeferred",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data ultima modifica
-	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome ultimo utente modifica
-	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///% di Promiscuo applicato
-	///</summary>
 	public Decimal? mixed{ 
 		get {if (this["mixed"]==DBNull.Value)return null; return  (Decimal?)this["mixed"];}
 		set {if (value==null) this["mixed"]= DBNull.Value; else this["mixed"]= value;}
@@ -210,13 +171,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? mixedOriginal { 
 		get {if (this["mixed",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["mixed",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Versamenti
-	///Importi liquidati da considerare ai fini dei calcoli successivi 
-	///Mese per mese si ha che
-	///nuovo saldo_precedente = saldo iniziale + sum(totaldebit) - sum(paymentamount) - sum(totalcredit) + sum(refundamount)
-	///ove la somma è fatta su tutte le liq. dell'anno
-	///</summary>
 	public Decimal? paymentamount{ 
 		get {if (this["paymentamount"]==DBNull.Value)return null; return  (Decimal?)this["paymentamount"];}
 		set {if (value==null) this["paymentamount"]= DBNull.Value; else this["paymentamount"]= value;}
@@ -228,9 +182,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? paymentamountOriginal { 
 		get {if (this["paymentamount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["paymentamount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Estremi versamento
-	///</summary>
 	public String paymentdetails{ 
 		get {if (this["paymentdetails"]==DBNull.Value)return null; return  (String)this["paymentdetails"];}
 		set {if (value==null) this["paymentdetails"]= DBNull.Value; else this["paymentdetails"]= value;}
@@ -242,25 +193,17 @@ public class ivapayRow: MetaRow  {
 	public String paymentdetailsOriginal { 
 		get {if (this["paymentdetails",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["paymentdetails",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Tipo
-	///	 A: Acconto
-	///	 C: Liquidazione periodica
-	///</summary>
 	public String paymentkind{ 
-		get {if (this["paymentkind"]==DBNull.Value)return null; return  (String)this["paymentkind"];}
-		set {if (value==null) this["paymentkind"]= DBNull.Value; else this["paymentkind"]= value;}
+		get {return  (String)this["paymentkind"];}
+		set {this["paymentkind"]= value;}
 	}
 	public object paymentkindValue { 
 		get{ return this["paymentkind"];}
-		set {if (value==null|| value==DBNull.Value) this["paymentkind"]= DBNull.Value; else this["paymentkind"]= value;}
+		set {this["paymentkind"]= value;}
 	}
 	public String paymentkindOriginal { 
-		get {if (this["paymentkind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["paymentkind",DataRowVersion.Original];}
+		get {return  (String)this["paymentkind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///% di Pro rata applicato
-	///</summary>
 	public Decimal? prorata{ 
 		get {if (this["prorata"]==DBNull.Value)return null; return  (Decimal?)this["prorata"];}
 		set {if (value==null) this["prorata"]= DBNull.Value; else this["prorata"]= value;}
@@ -272,13 +215,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? prorataOriginal { 
 		get {if (this["prorata",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["prorata",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Incassi
-	///  Importi liquidati da considerare ai fini dei calcoli successivi
-	///Mese per mese si ha che
-	///nuovo saldo_precedente = saldo iniziale + sum(totaldebit) - sum(paymentamount) - sum(totalcredit) + sum(refundamount)
-	///ove la somma è fatta su tutte le liq. dell'anno
-	///</summary>
 	public Decimal? refundamount{ 
 		get {if (this["refundamount"]==DBNull.Value)return null; return  (Decimal?)this["refundamount"];}
 		set {if (value==null) this["refundamount"]= DBNull.Value; else this["refundamount"]= value;}
@@ -290,40 +226,28 @@ public class ivapayRow: MetaRow  {
 	public Decimal? refundamountOriginal { 
 		get {if (this["refundamount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["refundamount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data inizio
-	///</summary>
-	public DateTime? start{ 
-		get {if (this["start"]==DBNull.Value)return null; return  (DateTime?)this["start"];}
-		set {if (value==null) this["start"]= DBNull.Value; else this["start"]= value;}
+	public DateTime start{ 
+		get {return  (DateTime)this["start"];}
+		set {this["start"]= value;}
 	}
 	public object startValue { 
 		get{ return this["start"];}
-		set {if (value==null|| value==DBNull.Value) this["start"]= DBNull.Value; else this["start"]= value;}
+		set {this["start"]= value;}
 	}
-	public DateTime? startOriginal { 
-		get {if (this["start",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["start",DataRowVersion.Original];}
+	public DateTime startOriginal { 
+		get {return  (DateTime)this["start",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data fine
-	///</summary>
-	public DateTime? stop{ 
-		get {if (this["stop"]==DBNull.Value)return null; return  (DateTime?)this["stop"];}
-		set {if (value==null) this["stop"]= DBNull.Value; else this["stop"]= value;}
+	public DateTime stop{ 
+		get {return  (DateTime)this["stop"];}
+		set {this["stop"]= value;}
 	}
 	public object stopValue { 
 		get{ return this["stop"];}
-		set {if (value==null|| value==DBNull.Value) this["stop"]= DBNull.Value; else this["stop"]= value;}
+		set {this["stop"]= value;}
 	}
-	public DateTime? stopOriginal { 
-		get {if (this["stop",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["stop",DataRowVersion.Original];}
+	public DateTime stopOriginal { 
+		get {return  (DateTime)this["stop",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Totale iva a credito (esclusa intra e split)
-	///Mese per mese si ha che
-	///nuovo saldo_precedente = saldo iniziale + sum(totaldebit) - sum(paymentamount) - sum(totalcredit) + sum(refundamount)
-	///ove la somma è fatta su tutte le liq. dell'anno
-	///</summary>
 	public Decimal? totalcredit{ 
 		get {if (this["totalcredit"]==DBNull.Value)return null; return  (Decimal?)this["totalcredit"];}
 		set {if (value==null) this["totalcredit"]= DBNull.Value; else this["totalcredit"]= value;}
@@ -335,12 +259,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? totalcreditOriginal { 
 		get {if (this["totalcredit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["totalcredit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Totale iva a debito (esclusa intra e split)
-	///Mese per mese si ha che
-	///nuovo saldo_precedente = saldo iniziale + sum(totaldebit) - sum(paymentamount) - sum(totalcredit) + sum(refundamount)
-	///ove la somma è fatta su tutte le liq. dell'anno
-	///</summary>
 	public Decimal? totaldebit{ 
 		get {if (this["totaldebit"]==DBNull.Value)return null; return  (Decimal?)this["totaldebit"];}
 		set {if (value==null) this["totaldebit"]= DBNull.Value; else this["totaldebit"]= value;}
@@ -352,9 +270,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? totaldebitOriginal { 
 		get {if (this["totaldebit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["totaldebit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Iva intrastat liquidata
-	///</summary>
 	public Decimal? ivaintrastat12{ 
 		get {if (this["ivaintrastat12"]==DBNull.Value)return null; return  (Decimal?)this["ivaintrastat12"];}
 		set {if (value==null) this["ivaintrastat12"]= DBNull.Value; else this["ivaintrastat12"]= value;}
@@ -366,9 +281,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? ivaintrastat12Original { 
 		get {if (this["ivaintrastat12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["ivaintrastat12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Imponibile intrastat
-	///</summary>
 	public Decimal? taxableintrastat12{ 
 		get {if (this["taxableintrastat12"]==DBNull.Value)return null; return  (Decimal?)this["taxableintrastat12"];}
 		set {if (value==null) this["taxableintrastat12"]= DBNull.Value; else this["taxableintrastat12"]= value;}
@@ -380,9 +292,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? taxableintrastat12Original { 
 		get {if (this["taxableintrastat12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["taxableintrastat12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Credito iva intrastat immediata 
-	///</summary>
 	public Decimal? creditamount12{ 
 		get {if (this["creditamount12"]==DBNull.Value)return null; return  (Decimal?)this["creditamount12"];}
 		set {if (value==null) this["creditamount12"]= DBNull.Value; else this["creditamount12"]= value;}
@@ -394,9 +303,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? creditamount12Original { 
 		get {if (this["creditamount12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["creditamount12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Credito iva differita intrastat
-	///</summary>
 	public Decimal? creditamountdeferred12{ 
 		get {if (this["creditamountdeferred12"]==DBNull.Value)return null; return  (Decimal?)this["creditamountdeferred12"];}
 		set {if (value==null) this["creditamountdeferred12"]= DBNull.Value; else this["creditamountdeferred12"]= value;}
@@ -408,9 +314,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? creditamountdeferred12Original { 
 		get {if (this["creditamountdeferred12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["creditamountdeferred12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Debito iva intrastat immediata
-	///</summary>
 	public Decimal? debitamount12{ 
 		get {if (this["debitamount12"]==DBNull.Value)return null; return  (Decimal?)this["debitamount12"];}
 		set {if (value==null) this["debitamount12"]= DBNull.Value; else this["debitamount12"]= value;}
@@ -422,9 +325,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? debitamount12Original { 
 		get {if (this["debitamount12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["debitamount12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Debito iva intrastat differita
-	///</summary>
 	public Decimal? debitamountdeferred12{ 
 		get {if (this["debitamountdeferred12"]==DBNull.Value)return null; return  (Decimal?)this["debitamountdeferred12"];}
 		set {if (value==null) this["debitamountdeferred12"]= DBNull.Value; else this["debitamountdeferred12"]= value;}
@@ -436,10 +336,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? debitamountdeferred12Original { 
 		get {if (this["debitamountdeferred12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["debitamountdeferred12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Vesamenti iva Intra ed Extra UE
-	///Importi liquidati da considerare ai fini dei calcoli successivi (INSERIMENTO MANUALE)
-	///</summary>
 	public Decimal? paymentamount12{ 
 		get {if (this["paymentamount12"]==DBNull.Value)return null; return  (Decimal?)this["paymentamount12"];}
 		set {if (value==null) this["paymentamount12"]= DBNull.Value; else this["paymentamount12"]= value;}
@@ -451,10 +347,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? paymentamount12Original { 
 		get {if (this["paymentamount12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["paymentamount12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Incassi  iva Intra ed Extra UE
-	///Importi liquidati da considerare ai fini dei calcoli successivi (INSERIMENTO MANUALE)
-	///</summary>
 	public Decimal? refundamount12{ 
 		get {if (this["refundamount12"]==DBNull.Value)return null; return  (Decimal?)this["refundamount12"];}
 		set {if (value==null) this["refundamount12"]= DBNull.Value; else this["refundamount12"]= value;}
@@ -466,9 +358,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? refundamount12Original { 
 		get {if (this["refundamount12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["refundamount12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Totale iva a credito intra ed extra-UE
-	///</summary>
 	public Decimal? totalcredit12{ 
 		get {if (this["totalcredit12"]==DBNull.Value)return null; return  (Decimal?)this["totalcredit12"];}
 		set {if (value==null) this["totalcredit12"]= DBNull.Value; else this["totalcredit12"]= value;}
@@ -480,9 +369,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? totalcredit12Original { 
 		get {if (this["totalcredit12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["totalcredit12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Totale iva a debitointra ed extra-UE
-	///</summary>
 	public Decimal? totaldebit12{ 
 		get {if (this["totaldebit12"]==DBNull.Value)return null; return  (Decimal?)this["totaldebit12"];}
 		set {if (value==null) this["totaldebit12"]= DBNull.Value; else this["totaldebit12"]= value;}
@@ -494,9 +380,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? totaldebit12Original { 
 		get {if (this["totaldebit12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["totaldebit12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Tipo iva liquidata
-	///</summary>
 	public Byte? flag{ 
 		get {if (this["flag"]==DBNull.Value)return null; return  (Byte?)this["flag"];}
 		set {if (value==null) this["flag"]= DBNull.Value; else this["flag"]= value;}
@@ -508,9 +391,6 @@ public class ivapayRow: MetaRow  {
 	public Byte? flagOriginal { 
 		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Byte?)this["flag",DataRowVersion.Original];}
 	}
-	///<summary>
-	///SaldoPrecedente
-	///</summary>
 	public Decimal? prev_debit{ 
 		get {if (this["prev_debit"]==DBNull.Value)return null; return  (Decimal?)this["prev_debit"];}
 		set {if (value==null) this["prev_debit"]= DBNull.Value; else this["prev_debit"]= value;}
@@ -522,9 +402,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? prev_debitOriginal { 
 		get {if (this["prev_debit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["prev_debit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///SaldoPrecedente iva intra ed extra UE
-	///</summary>
 	public Decimal? prev_debit12{ 
 		get {if (this["prev_debit12"]==DBNull.Value)return null; return  (Decimal?)this["prev_debit12"];}
 		set {if (value==null) this["prev_debit12"]= DBNull.Value; else this["prev_debit12"]= value;}
@@ -536,9 +413,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? prev_debit12Original { 
 		get {if (this["prev_debit12",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["prev_debit12",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Totale iva split a debito 
-	///</summary>
 	public Decimal? totaldebitsplit{ 
 		get {if (this["totaldebitsplit"]==DBNull.Value)return null; return  (Decimal?)this["totaldebitsplit"];}
 		set {if (value==null) this["totaldebitsplit"]= DBNull.Value; else this["totaldebitsplit"]= value;}
@@ -550,10 +424,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? totaldebitsplitOriginal { 
 		get {if (this["totaldebitsplit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["totaldebitsplit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Versamenti iva Split
-	///Importi liquidati da considerare ai fini dei calcoli successivi (INSERIMENTO MANUALE)
-	///</summary>
 	public Decimal? paymentamountsplit{ 
 		get {if (this["paymentamountsplit"]==DBNull.Value)return null; return  (Decimal?)this["paymentamountsplit"];}
 		set {if (value==null) this["paymentamountsplit"]= DBNull.Value; else this["paymentamountsplit"]= value;}
@@ -565,9 +435,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? paymentamountsplitOriginal { 
 		get {if (this["paymentamountsplit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["paymentamountsplit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Debito iva split immediata
-	///</summary>
 	public Decimal? debitamountsplit{ 
 		get {if (this["debitamountsplit"]==DBNull.Value)return null; return  (Decimal?)this["debitamountsplit"];}
 		set {if (value==null) this["debitamountsplit"]= DBNull.Value; else this["debitamountsplit"]= value;}
@@ -579,9 +446,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? debitamountsplitOriginal { 
 		get {if (this["debitamountsplit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["debitamountsplit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Debito iva split differita
-	///</summary>
 	public Decimal? debitamountdeferredsplit{ 
 		get {if (this["debitamountdeferredsplit"]==DBNull.Value)return null; return  (Decimal?)this["debitamountdeferredsplit"];}
 		set {if (value==null) this["debitamountdeferredsplit"]= DBNull.Value; else this["debitamountdeferredsplit"]= value;}
@@ -593,9 +457,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? debitamountdeferredsplitOriginal { 
 		get {if (this["debitamountdeferredsplit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["debitamountdeferredsplit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Imponibile split
-	///</summary>
 	public Decimal? taxablesplit{ 
 		get {if (this["taxablesplit"]==DBNull.Value)return null; return  (Decimal?)this["taxablesplit"];}
 		set {if (value==null) this["taxablesplit"]= DBNull.Value; else this["taxablesplit"]= value;}
@@ -607,9 +468,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? taxablesplitOriginal { 
 		get {if (this["taxablesplit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["taxablesplit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Iva split liquidata
-	///</summary>
 	public Decimal? ivasplit{ 
 		get {if (this["ivasplit"]==DBNull.Value)return null; return  (Decimal?)this["ivasplit"];}
 		set {if (value==null) this["ivasplit"]= DBNull.Value; else this["ivasplit"]= value;}
@@ -621,9 +479,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? ivasplitOriginal { 
 		get {if (this["ivasplit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["ivasplit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///SaldoPrecedente iva Split
-	///</summary>
 	public Decimal? prev_debitsplit{ 
 		get {if (this["prev_debitsplit"]==DBNull.Value)return null; return  (Decimal?)this["prev_debitsplit"];}
 		set {if (value==null) this["prev_debitsplit"]= DBNull.Value; else this["prev_debitsplit"]= value;}
@@ -635,9 +490,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? prev_debitsplitOriginal { 
 		get {if (this["prev_debitsplit",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["prev_debitsplit",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Credito anno precedente utilizzato (comunicazione periodica)
-	///</summary>
 	public Decimal? startcredit_applied{ 
 		get {if (this["startcredit_applied"]==DBNull.Value)return null; return  (Decimal?)this["startcredit_applied"];}
 		set {if (value==null) this["startcredit_applied"]= DBNull.Value; else this["startcredit_applied"]= value;}
@@ -649,13 +501,6 @@ public class ivapayRow: MetaRow  {
 	public Decimal? startcredit_appliedOriginal { 
 		get {if (this["startcredit_applied",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["startcredit_applied",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Indica il metodo di calcolo usato per determinare l'acconto
-	///1 - Metodo storico
-	///2 - Metodo previsionale
-	///3 - Metodo analitico effettivo
-	///4 - Soggetti operanti nei settori delle telecomunicazioni, somministrazione di acqua, energia elettrica, raccolta e smaltimento rifiuti, eccetera
-	///</summary>
 	public String advancecomputemethod{ 
 		get {if (this["advancecomputemethod"]==DBNull.Value)return null; return  (String)this["advancecomputemethod"];}
 		set {if (value==null) this["advancecomputemethod"]= DBNull.Value; else this["advancecomputemethod"]= value;}
@@ -678,12 +523,20 @@ public class ivapayRow: MetaRow  {
 	public Int32? idf24epOriginal { 
 		get {if (this["idf24ep",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idf24ep",DataRowVersion.Original];}
 	}
+	public Int32? idf24ordinario{ 
+		get {if (this["idf24ordinario"]==DBNull.Value)return null; return  (Int32?)this["idf24ordinario"];}
+		set {if (value==null) this["idf24ordinario"]= DBNull.Value; else this["idf24ordinario"]= value;}
+	}
+	public object idf24ordinarioValue { 
+		get{ return this["idf24ordinario"];}
+		set {if (value==null|| value==DBNull.Value) this["idf24ordinario"]= DBNull.Value; else this["idf24ordinario"]= value;}
+	}
+	public Int32? idf24ordinarioOriginal { 
+		get {if (this["idf24ordinario",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idf24ordinario",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
-///<summary>
-///Liquidazione IVA
-///</summary>
 public class ivapayTable : MetaTableBase<ivapayRow> {
 	public ivapayTable() : base("ivapay"){
 		baseColumns = new Dictionary<string, DataColumn>(){
@@ -732,6 +585,7 @@ public class ivapayTable : MetaTableBase<ivapayRow> {
 			{"startcredit_applied",createColumn("startcredit_applied",typeof(decimal),true,false)},
 			{"advancecomputemethod",createColumn("advancecomputemethod",typeof(string),true,false)},
 			{"idf24ep",createColumn("idf24ep",typeof(int),true,false)},
+			{"idf24ordinario",createColumn("idf24ordinario",typeof(int),true,false)},
 		};
 	}
 }

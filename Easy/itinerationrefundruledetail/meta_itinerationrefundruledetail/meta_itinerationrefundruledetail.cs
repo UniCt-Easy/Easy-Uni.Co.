@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -51,21 +51,27 @@ namespace meta_itinerationrefundruledetail {
         public override void DescribeColumns(DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
             if (ListingType == "default") {
-                DescribeAColumn(T, "iditinerationrefundrule", "");
-                DescribeAColumn(T, "iddetail", "");
-                DescribeAColumn(T, "iditinerationrefundkindgroup", "");
-                DescribeAColumn(T, "!itinerationrefundkindgroup", "Gruppo di class.spese missione", "itinerationrefundkindgroup.description");
-                DescribeAColumn(T, "idposition", "");
-                DescribeAColumn(T, "!position", "Qualifica", "position.description");
-                DescribeAColumn(T, "minincomeclass", "Min.classe stip.");
-                DescribeAColumn(T, "maxincomeclass", "Max.classe stip.");
-                DescribeAColumn(T, "flag_italy", "Italia");
-                DescribeAColumn(T, "flag_eu", "Europa");
-                DescribeAColumn(T, "flag_extraeu", "Altro");
-                DescribeAColumn(T, "nhour_min", "Min. ore");
-                DescribeAColumn(T, "nhour_max", "Max. ore");
-                DescribeAColumn(T, "limit", "Limite");
-                DescribeAColumn(T, "advancepercentage", "Perc.anticipo");
+                foreach (DataColumn C in T.Columns)
+                {
+                    DescribeAColumn(T, C.ColumnName, "", -1);
+                }
+                int nPos = 1;
+                DescribeAColumn(T, "iditinerationrefundrule", "", nPos++);
+                DescribeAColumn(T, "iddetail", "", nPos++);
+                DescribeAColumn(T, "iditinerationrefundkindgroup", "", nPos++);
+                DescribeAColumn(T, "!itinerationrefundkindgroup", "Gruppo di class.spese missione", "itinerationrefundkindgroup.description", nPos++);
+                DescribeAColumn(T, "idposition", "", nPos++);
+                DescribeAColumn(T, "!position", "Qualifica", "position.description", nPos++);
+                DescribeAColumn(T, "livello", "Livello", nPos++);
+                DescribeAColumn(T, "minincomeclass", "Min.classe stip.", nPos++);
+                DescribeAColumn(T, "maxincomeclass", "Max.classe stip.", nPos++);
+                DescribeAColumn(T, "flag_italy", "Italia", nPos++);
+                DescribeAColumn(T, "flag_eu", "Europa", nPos++);
+                DescribeAColumn(T, "flag_extraeu", "Altro", nPos++);
+                DescribeAColumn(T, "nhour_min", "Min. ore", nPos++);
+                DescribeAColumn(T, "nhour_max", "Max. ore", nPos++);
+                DescribeAColumn(T, "limit", "Limite", nPos++);
+                DescribeAColumn(T, "advancepercentage", "Perc.anticipo", nPos++);
                 HelpForm.SetFormatForColumn(T.Columns["advancepercentage"], "p");
             }
             return;

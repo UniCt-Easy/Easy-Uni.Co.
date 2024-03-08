@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfateneostakeholderperfateneoindicatore_obiettivi" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfateneostakeholder" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idperfateneostakeholder" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfateneostakeholderperfateneoindicatore" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idperfateneoindicatore" type="xs:int" />
+              <xs:element name="idperfateneoobiettivo" type="xs:int" />
+              <xs:element name="idperfateneostakeholder" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneo" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfateneostakeholder" />
+      <xs:field xpath="mstns:idperfateneostakeholder" />
+    </xs:unique>
+    <xs:unique name="perfateneostakeholderperfateneoindicatore_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfateneostakeholderperfateneoindicatore" />
+      <xs:field xpath="mstns:idperfateneoindicatore" />
+      <xs:field xpath="mstns:idperfateneoobiettivo" />
+      <xs:field xpath="mstns:idperfateneostakeholder" />
+      <xs:field xpath="mstns:idperfvalutazioneateneo" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfateneostakeholderperfateneoindicatore_perfateneostakeholder_idperfateneostakeholder" msdata:parent="perfateneostakeholder" msdata:child="perfateneostakeholderperfateneoindicatore" msdata:parentkey="idperfateneostakeholder" msdata:childkey="idperfateneostakeholder" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

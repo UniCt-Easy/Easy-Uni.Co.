@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,8 +24,8 @@ GO
 SET ANSI_NULLS ON 
 GO
 --setuser 'amministrazione'
--- exec rpt_registro_ammortamenti_ente_con_simulazione 2021, 172, {d '2021-11-15'},'N', 9005501, 9005495
---- exec rpt_registro_ammortamenti_ente_con_simulazione 2015, 1, null,'S'
+-- exec rpt_registro_ammortamenti_ente_con_simulazione 2020, 8, {d '2023-03-16'},'N', 8024, 8024
+-- exec rpt_registro_ammortamenti_ente_con_simulazione 2015, 1, null,'S'
 CREATE    PROCEDURE [rpt_registro_ammortamenti_ente_con_simulazione]
 (
 	@year int,
@@ -36,10 +36,44 @@ CREATE    PROCEDURE [rpt_registro_ammortamenti_ente_con_simulazione]
 	@ninvstop int = null
 )
 AS BEGIN
+-- setuser 'amm'
 -- ATTENZIONE: la sp alimenta anche il report : registro_ammortamenti_ente_suduerighe.rpt, realizzato col task 8499
 declare @SS1 datetime
 declare @SS2 datetime
 
+IF (@simulation_on_to_adate IS NULL OR
+   YEAR(@simulation_on_to_adate)<  @year)
+   BEGIN
+		SELECT
+			NULL AS idasset,
+			NULL AS idpiece,
+			NULL AS lifestart,
+			NULL AS idinventoryagency,
+			NULL AS acquirekind,
+			NULL AS inventoryagency,
+			NULL AS inventory,
+			NULL AS inventorykind,
+			NULL AS ninventory,
+			NULL AS assetloadkind, 
+			NULL AS idassetloadkind,
+			NULL AS yassetload,
+			NULL AS nassetload,
+			NULL AS category,
+			NULL AS idinv,
+			NULL AS codeinv,
+			NULL AS description,
+			NULL AS assetdescription,
+			NULL AS assetoriginalvalue,
+			NULL AS startvalue,
+			NULL AS finalvalue,
+			NULL AS namortization,
+			NULL AS amortizationquota,
+			NULL AS assetvalue,
+			NULL AS adate,
+			NULL AS amortizationvalue,
+			NULL AS real_or_simulation
+		RETURN
+END
 -------------------------------------------------------------------------------------
 -------------- Elenco cespiti e accessori  ammortizzati nell'anno -------------------
 -------------------------------------------------------------------------------------
@@ -58,6 +92,7 @@ CREATE TABLE #assetamortization
 (
 	idasset int,
 	idpiece int,
+	lifestart datetime,
 	idinventoryagency int,
 	acquirekind varchar(20),
 	inventoryagency varchar(150),
@@ -102,12 +137,13 @@ set @ss1= getdate()
 print 'INSERT INTO #assetamortization'
 -- INSERIMENTO DEGLI AMMORTAMENTI REALI
 
-if( @mostrabenitotammortizzati ='N')
-Begin
-	INSERT INTO #assetamortization
+ 
+ 
+INSERT INTO #assetamortization
 	(	
 		idasset,
 		idpiece,
+		lifestart,
 		acquirekind,
 		idinventoryagency,
 		inventoryagency,
@@ -133,6 +169,7 @@ Begin
 		SELECT  
 		cespite_o_accessorio.idasset,
 		cespite_o_accessorio.idpiece,
+		cespite_o_accessorio.lifestart,
 		CASE 
 			WHEN cespite_o_accessorio.idpiece = 1 THEN 'Cespite' 
 			WHEN cespite_o_accessorio.idpiece > 1 THEN 'Accessorio'
@@ -242,163 +279,7 @@ Begin
 	AND (
 	 		     (assetamortization.amortizationquota >0 AND 
 			      (
-			       ((assetamortization.flag & 1 = 0) AND YEAR(assetamortization.adate)= @year) OR 
-			       ((assetamortization.flag & 1 <> 0) AND YEAR(assetload.ratificationdate)= @year)
-				  )
-			     )
-				OR
-	 		     (assetamortization.amortizationquota <0 AND 
-			      (
-			       ((assetamortization.flag & 1 = 0) AND YEAR(assetamortization.adate) = @year) OR 
-			       ((assetamortization.flag & 1 <> 0) AND YEAR(assetunload.adate)= @year)
-				  )
-			     )
-			    )
-	and	(cespite_o_accessorio.ninventory >=  @ninvstart or @ninvstart is null)
-	and (cespite_o_accessorio.ninventory <= @ninvstop or @ninvstop is null)
-	--select * from #assetamortization
-end
-else
-Begin
-	INSERT INTO #assetamortization
-	(	
-		idasset,
-		idpiece,
-		acquirekind,
-		idinventoryagency,
-		inventoryagency,
-		inventory,
-		inventorykind,
-		ninventory,
-		description,
-		assetdescription,
-		idinv,
-		category,
-		assetloadkind,
-		idassetloadkind,  
-		yassetload,  
-		nassetload,
-		namortization,
-		amortizationquota,
-		assetvalue,
-		adate,
-		assetoriginalvalue,
-		real_or_simulation
-	)
-
-		SELECT  
-		cespite_o_accessorio.idasset,
-		cespite_o_accessorio.idpiece,
-		CASE 
-			WHEN cespite_o_accessorio.idpiece = 1 THEN 'Cespite' 
-			WHEN cespite_o_accessorio.idpiece > 1 THEN 'Accessorio'
-		END,
-		inventory.idinventoryagency,
-		inventoryagency.description,
-		inventory.description,
-		inventorykind.description,
-		cespite.ninventory,
-		carico.description,
-		CASE 
-			WHEN cespite_o_accessorio.idpiece = 1 THEN NULL
-			WHEN cespite_o_accessorio.idpiece > 1 THEN caricocespite.description
-		END,
-		inventorytree.idinv, 
-		inventorytree.description,
-		assetloadkind.description,
-		buono_carico.idassetloadkind,
-		buono_carico.yassetload,
-		buono_carico.nassetload,
-		assetamortization.namortization,
-		assetamortization.amortizationquota,
-		assetamortization.assetvalue,
-		CASE 
-			WHEN assetamortization.flag & 1 =0 THEN assetamortization.adate
-			WHEN assetamortization.flag & 1<>0 THEN isnull(assetunload.adate,assetload.ratificationdate)
-		END,
-
-		CASE	
-				----------------------------------------------------------------------------------
-				----------------- Considera i buoni di carico cespiti precedenti al 2005   -------
-				----------------------------------------------------------------------------------
-				WHEN cespite_o_accessorio.idpiece=1 AND
-		 			((inventorykind.flag & 1 <> 0) OR ISNULL(buono_carico.yassetload,2006)<2005 
-						OR(carico.idassetload IS NULL AND (carico.flag & 2 <> 0)))	
-				THEN
-				CONVERT(decimal(19,2),ROUND(
-					ROUND(ISNULL(carico.taxable, 0)
-					* (1 - CONVERT(decimal(19,6),ISNULL(carico.discount, 0))),2)
-					+ ROUND(ISNULL(carico.tax,0) / carico.number,2)
-					- ROUND(ISNULL(carico.abatable,0) / carico.number,2) 
-				,2))
-				----------------------------------------------------------------------------------
-				------- Considera i buoni di carico del 2005 e i successivi  SENZA SCONTO --------
-				----------------------------------------------------------------------------------			
-				WHEN cespite_o_accessorio.idpiece= 1 AND
-						NOT ((inventorykind.flag & 1 <> 0) OR ISNULL(buono_carico.yassetload,2006)<2005
-								 OR  (carico.idassetload IS NULL AND (carico.flag & 2 <> 0)) )	
-				THEN
-				CONVERT(decimal(19,2),ROUND(
-				ROUND(ISNULL(carico.taxable, 0),2)
-				+ ROUND(ISNULL(carico.tax,0) / carico.number,2)
-				- ROUND(ISNULL(carico.abatable,0) / carico.number,2) 
-				,2))
-				WHEN cespite_o_accessorio.idpiece>1 THEN
-				CONVERT(decimal(19,2),ROUND(
-						ROUND(ISNULL(carico.taxable, 0)
-						* (1 - CONVERT(decimal(19,6),ISNULL(carico.discount, 0))),2)
-					+ ROUND(ISNULL(carico.tax,0) / carico.number,2)
-					- ROUND(ISNULL(carico.abatable,0) / carico.number,2) 
-					,2))				
-		 
-		
-		END,
-		'R'  --reali
-	FROM  assetacquire as carico
-	JOIN	asset as cespite_o_accessorio
-		ON carico.nassetacquire = cespite_o_accessorio.nassetacquire
-	LEFT OUTER JOIN assetload buono_carico
-		ON buono_carico.idassetload = carico.idassetload
-	JOIN asset as cespite
-		ON cespite.idasset = cespite_o_accessorio.idasset and cespite.idpiece = 1 
-	JOIN assetacquire as caricocespite
-		ON caricocespite.nassetacquire = cespite.nassetacquire
-	LEFT OUTER JOIN assetloadkind
-		ON  buono_carico.idassetloadkind = assetloadkind.idassetloadkind
-	JOIN inventory
-		ON carico.idinventory = inventory.idinventory
-	JOIN inventoryagency
-		ON inventory.idinventoryagency = inventoryagency.idinventoryagency
-	JOIN inventorykind
-		ON inventory.idinventorykind = inventorykind.idinventorykind   
-	JOIN inventorytreelink
-		ON inventorytreelink.idchild = carico.idinv
-	JOIN inventorytree
-		ON inventorytree.idinv = inventorytreelink.idparent
-	JOIN assetamortization
-		ON assetamortization.idasset = cespite_o_accessorio.idasset
-		AND assetamortization.idpiece = cespite_o_accessorio.idpiece 
-	JOIN inventoryamortization
-		ON assetamortization.idinventoryamortization = inventoryamortization.idinventoryamortization
-	LEFT OUTER JOIN assetunload
-			ON  assetamortization.idassetunload = assetunload.idassetunload
-	LEFT OUTER JOIN assetload
-			ON  assetamortization.idassetload = assetload.idassetload
-
-	WHERE   carico.idinventory = @idinventory
-		--and cespite_o_accessorio.idasset = 27505 -- SARa
-		AND (carico.idassetload IS NOT NULL OR ((carico.flag & 1 = 0) ))   --AND (carico.flag & 2 = 0)
-		AND (inventoryamortization.flag & 2 <> 0)
-		--AND assetamortization.adate >= @firstday
-		AND ( 
-			( @MostraClassificazioneCompleta = 'N' AND inventorytreelink.nlevel = 1 )
-			OR
-			(@MostraClassificazioneCompleta = 'S' AND inventorytreelink.idparent = inventorytreelink.idchild )
-			)
-	AND (
-	 		     (assetamortization.amortizationquota >0 AND 
-			      (
-			       ((assetamortization.flag & 1 = 0) AND YEAR(assetamortization.adate)<= @year) OR 
+			       ((assetamortization.flag & 1 = 0) AND YEAR(assetamortization.adate) <= @year) OR 
 			       ((assetamortization.flag & 1 <> 0) AND YEAR(assetload.ratificationdate)<= @year)
 				  )
 			     )
@@ -410,14 +291,15 @@ Begin
 				  )
 			     )
 			    )
-	and (cespite_o_accessorio.ninventory >=  @ninvstart or @ninvstart is null)
-	and (cespite_o_accessorio.ninventory <= @ninvstop or @ninvstop is null)
-End
+	and	(cespite.ninventory >=  @ninvstart or @ninvstart is null)
+	and (cespite.ninventory <= @ninvstop or @ninvstop is null)
+	--select * from #assetamortization
+ 
 	
-	--SELECT '#assetamortization',* FROM #assetamortization
+
 -- ORDER BY carico.nassetacquire
 -- se desidero effettuare la simulazione alla data chiamo la sp che simula il valore attuale del cespite e le quote ricalcolate alla data
---select * from #assetamortization SARA
+-- select * from #assetamortization  
 if (@simulation_on_to_adate IS NOT NULL)
 BEGIN
 	INSERT INTO #simula_assetamortization
@@ -441,6 +323,7 @@ BEGIN
 	(	
 		idasset,
 		idpiece,
+		lifestart,
 		acquirekind,
 		idinventoryagency,
 		inventoryagency,
@@ -465,6 +348,7 @@ BEGIN
 		SELECT  
 		cespite_o_accessorio.idasset,
 		cespite_o_accessorio.idpiece,
+		cespite_o_accessorio.lifestart,
 		CASE 
 			WHEN cespite_o_accessorio.idpiece = 1 THEN 'Cespite' 
 			WHEN cespite_o_accessorio.idpiece > 1 THEN 'Accessorio'
@@ -526,7 +410,7 @@ BEGIN
 		 
 		
 		END,
-		'S'  --reali
+		'S'  --simulati
 	FROM  assetacquire as carico
 	JOIN	asset as cespite_o_accessorio
 		ON carico.nassetacquire = cespite_o_accessorio.nassetacquire
@@ -562,8 +446,8 @@ BEGIN
 			OR
 			(@MostraClassificazioneCompleta = 'S' AND inventorytreelink.idparent = inventorytreelink.idchild )
 			)
-	 	and (cespite_o_accessorio.ninventory >=  @ninvstart or @ninvstart is null)
-		and (cespite_o_accessorio.ninventory <= @ninvstop or @ninvstop is null)
+	 	and (cespite.ninventory >=  @ninvstart or @ninvstart is null)
+		and (cespite.ninventory <= @ninvstop or @ninvstop is null)
 
 	END
 print 'end if'
@@ -580,16 +464,19 @@ ISNULL(
 WHERE #assetamortization.real_or_simulation IN ('R', 'S')
 
 
+--SELECT * FROM #assetamortization
+
 ----------------------------------------------------------
 --------- CALCOLO DEL FINALVALUE -------------------------
 ----------------------------------------------------------
 
 -- vale per tutti gli ammortamenti reali o simulati
 UPDATE #assetamortization
-SET finalvalue = assetoriginalvalue
+SET finalvalue = isnull(assetoriginalvalue,0)
 WHERE   #assetamortization.real_or_simulation IN ('R', 'S')
+--SELECT 1, * FROM #assetamortization
 
---select 'assetoriginalvalue',finalvalue,* from #assetamortization
+--- AGGIUNGE AMMORTAMENTI REALI DI TUTTI GLI ANNI
 print '	UPDATE #assetamortization SET amortizationvalue + '
 set @ss1= getdate()
 UPDATE #assetamortization
@@ -599,26 +486,23 @@ ISNULL(
 		SUM(ROUND(ISNULL(assetamortization.assetvalue,0) * 
 		ISNULL(assetamortization.amortizationquota,0),2))
 	FROM assetamortization
-	JOIN inventoryamortization
-		ON assetamortization.idinventoryamortization=inventoryamortization.idinventoryamortization
-	LEFT OUTER JOIN assetunload
-		ON  assetamortization.idassetunload = assetunload.idassetunload
-	LEFT OUTER JOIN assetload
-		ON  assetamortization.idassetload = assetload.idassetload
-	WHERE assetamortization.idasset = #assetamortization.idasset AND assetamortization.idpiece = 1
+	JOIN inventoryamortization		ON assetamortization.idinventoryamortization=inventoryamortization.idinventoryamortization
+	LEFT OUTER JOIN assetunload		ON  assetamortization.idassetunload = assetunload.idassetunload
+	LEFT OUTER JOIN assetload		ON  assetamortization.idassetload = assetload.idassetload
+	WHERE assetamortization.idasset = #assetamortization.idasset AND assetamortization.idpiece = #assetamortization.idpiece
 		
 			AND (
 	 		     (assetamortization.amortizationquota >0 AND 
 			      (
-			       ((assetamortization.flag & 1 = 0) AND assetamortization.adate <= ISNULL(@simulation_on_to_adate, @lastday) ) OR 
-			       ((assetamortization.flag & 1 <> 0) AND assetload.ratificationdate <= ISNULL(@simulation_on_to_adate, @lastday))
+			       ((assetamortization.flag & 1 = 0) AND assetamortization.adate <= #assetamortization.adate ) OR 
+			       ((assetamortization.flag & 1 <> 0) AND assetload.ratificationdate <= #assetamortization.adate) 
 				  )
 			     )
 				OR
 	 		     (assetamortization.amortizationquota <0 AND 
 			      (
-			       ((assetamortization.flag & 1 = 0) AND assetamortization.adate <= ISNULL(@simulation_on_to_adate, @lastday)) OR 
-			       ((assetamortization.flag & 1 <> 0) AND assetunload.adate <= ISNULL(@simulation_on_to_adate, @lastday))
+			       ((assetamortization.flag & 1 = 0) AND assetamortization.adate <= #assetamortization.adate ) OR 
+			       ((assetamortization.flag & 1 <> 0) AND assetunload.adate <= #assetamortization.adate)
 				  )
 			     )
 			    )
@@ -627,13 +511,16 @@ ISNULL(
 		
 		)
 ,0)
-WHERE #assetamortization.idpiece = 1 AND #assetamortization.real_or_simulation IN('R','S')
+WHERE  #assetamortization.real_or_simulation IN('R','S')  
 
---select 'ammortamenti reali di tutti gli anni cespiti principali',finalvalue,* from #assetamortization
+--SELECT '1#simula_assetamortization',* FROM #simula_assetamortization
+--SELECT '1#assetamortization',* FROM #assetamortization
+--select 'ammortamenti reali di tutti gli anni cespiti/accessori',finalvalue,* from #assetamortization
 
 -------------------------------------------------------------------------------------
 ------------------------- AMMORTAMENTI SIMULATI -------------------------------------
 -------------------------------------------------------------------------------------
+--SELECT 2, * FROM #assetamortization
 
 UPDATE #assetamortization
 SET finalvalue = finalvalue + 
@@ -644,335 +531,60 @@ ISNULL(
 	FROM #simula_assetamortization
 	JOIN inventoryamortization
 		ON #simula_assetamortization.idinventoryamortization=inventoryamortization.idinventoryamortization
-	WHERE #assetamortization.idasset = #simula_assetamortization.idasset AND #simula_assetamortization.idpiece = 1
-
+	WHERE #assetamortization.idasset = #simula_assetamortization.idasset AND #simula_assetamortization.idpiece = #assetamortization.idpiece
 	AND (inventoryamortization.flag & 2 <> 0)  
 )
 ,0)
-WHERE #assetamortization.idpiece = 1 AND #assetamortization.real_or_simulation  = 'S'
-
-set @ss2= getdate()
-print datediff(ms,@ss1,@ss2)
-
---select 'ammortamenti simulati di quest''anno cespiti principali',finalvalue,* from #assetamortization
-	
-	-------------------------------------------------------------------------------------------------
-	------ CARICHI ACCESSORI  DI BENI ---------------------------------------------------------------
-	-------------------------------------------------------------------------------------------------
-
-set @ss1= getdate()
+WHERE   #assetamortization.real_or_simulation  = 'S'
+--select 'ammortamenti simulati di quest''anno cespiti/accessori',finalvalue,* from #assetamortization
+ 
+ 
+--SELECT '2#assetamortization',* FROM #assetamortization
 
 UPDATE #assetamortization
-SET finalvalue = finalvalue +
-ISNULL(
-	(SELECT 
-		SUM(
-		ROUND(ISNULL(caricoaccessorio.taxable, 0)
-		* (1 - CONVERT(decimal(19,6),ISNULL(caricoaccessorio.discount, 0))),2)
-		+ ROUND(ISNULL(caricoaccessorio.tax,0) / caricoaccessorio.number,2)
-		- ROUND(ISNULL(caricoaccessorio.abatable,0) / caricoaccessorio.number,2))
-	FROM assetacquire as caricoaccessorio 
-	JOIN asset as accessorio 
-		ON caricoaccessorio.nassetacquire = accessorio.nassetacquire
-	WHERE accessorio.idpiece > 1
-		AND caricoaccessorio.adate <= ISNULL(@simulation_on_to_adate, @lastday) --
-		AND accessorio.idasset = #assetamortization.idasset
-		AND caricoaccessorio.idassetload IS NOT NULL
-		)
-,0.0)
-WHERE #assetamortization.idpiece = 1 AND #assetamortization.real_or_simulation iN ('R', 'S')
-	
-set @ss2= getdate()
-print datediff(ms,@ss1,@ss2)
+SET startvalue = isnull(finalvalue,0) - isnull(amortizationvalue,0)
+ 
+--SELECT '3#assetamortization',* FROM #assetamortization
 
---select 'carichi accessori beni cespiti principali',finalvalue,* from #assetamortization
+--select 'assetoriginalvalue',finalvalue,* from #assetamortization
+--UPDATE #assetamortization
+--SET startvalue = isnull(finalvalue,0)  
 
-
-set @ss1= getdate()
-	-------------------------------------------------------------------------------------------------
-	------ RIVALUTAZIONI DEGLI ACCESSORI DEI BENI ---------------------------------------------------
-	-------------------------------------------------------------------------------------------------
-
-UPDATE #assetamortization
-SET finalvalue = finalvalue +
-ISNULL(
-	(SELECT
-		SUM(ROUND(ISNULL(assetamortization.assetvalue,0) * 
-			  ISNULL(assetamortization.amortizationquota,0),2))
-	FROM assetacquire as caricoaccessorio 
-	JOIN asset as accessorio 
-		ON caricoaccessorio.nassetacquire = accessorio.nassetacquire
-	JOIN assetamortization
-		ON assetamortization.idasset = accessorio.idasset and assetamortization.idpiece = accessorio.idpiece
-	LEFT OUTER JOIN assetunload
-		ON assetamortization.idassetunload = assetunload.idassetunload
-	LEFT OUTER JOIN assetload
-		ON assetamortization.idassetload = assetload.idassetload
-	JOIN inventoryamortization
-		ON inventoryamortization.idinventoryamortization = assetamortization.idinventoryamortization
-	WHERE accessorio.idasset = #assetamortization.idasset
-		AND assetamortization.idpiece > 1
-		AND (
-				(
-			     (ISNULL(assetamortization.amortizationquota,0)>0) AND 
-		             ((assetamortization.flag & 1 = 0) OR 
-			      (assetamortization.idassetload IS NOT NULL))
-			     )		
-			OR 
-		       (
-			     (ISNULL(assetamortization.amortizationquota,0)<0) AND 
-		             ((assetamortization.flag & 1 = 0) OR 
-			      (assetamortization.idassetunload IS NOT NULL))
-			     )
-			    )
-		AND (inventoryamortization.flag & 2 <> 0)
-		AND caricoaccessorio.adate <= ISNULL(@simulation_on_to_adate, @lastday)
-		AND caricoaccessorio.idassetload IS NOT NULL
-		)
-, 0.0)
-WHERE #assetamortization.idpiece = 1 AND #assetamortization.real_or_simulation IN ('R','S')
-
---select 'ammortamenti reali carichi accessori beni di cespiti principali',finalvalue,* from #assetamortization
-
-
--------------------------------------------------------------------------------------
-------------------------- AMMORTAMENTI SIMULATI -------------------------------------
--------------------------------------------------------------------------------------
-
-UPDATE #assetamortization
-SET finalvalue = finalvalue +
-ISNULL(
-	(SELECT
-		SUM(ROUND(ISNULL(#simula_assetamortization.assetvalue_on_the_date,0) * 
-			  ISNULL(#simula_assetamortization.actual_amortizationquota,0),2))
-	FROM assetacquire as caricoaccessorio 
-	JOIN asset as accessorio 
-		ON caricoaccessorio.nassetacquire = accessorio.nassetacquire
-	JOIN #simula_assetamortization
-		ON #simula_assetamortization.idasset = accessorio.idasset and #simula_assetamortization.idpiece = accessorio.idpiece
-	JOIN inventoryamortization
-		ON inventoryamortization.idinventoryamortization = #simula_assetamortization.idinventoryamortization
-	WHERE accessorio.idasset = #assetamortization.idasset
-		AND #simula_assetamortization.idpiece > 1
-		AND (inventoryamortization.flag & 2 <> 0)
-		AND caricoaccessorio.adate <= ISNULL(@simulation_on_to_adate, @lastday)
-		AND caricoaccessorio.idassetload IS NOT NULL
-		)
-, 0.0)
-WHERE #assetamortization.idpiece = 1 AND #assetamortization.real_or_simulation = 'S'
-
---select 'ammortamenti simulati su carichi accessori beni di cespiti principali',finalvalue,* from #assetamortization
-
-set @ss2= getdate()
-print datediff(ms,@ss1,@ss2)
-
-print '	UPDATE #assetamortization SET finalvalue -'
-set @ss1= getdate()
-	
-	-------------------------------------------------------------------------------------------------
-	--------------------- SCARICHI ACCESSORI  DI BENI -----------------------------------------------
-	-------------------------------------------------------------------------------------------------
-	-- Non consideriamo gli scarichi accessori associati allo scarico cespite
-	-- ossia il valore del cespite rimane congelato al momento dello scarico
-UPDATE #assetamortization
-SET finalvalue = finalvalue -
-ISNULL(
-	(SELECT 
-		SUM(
-		ROUND(ISNULL(caricoaccessorio.taxable, 0)
-		* (1 - CONVERT(decimal(19,6),ISNULL(caricoaccessorio.discount, 0))),2)
-		+ ROUND(ISNULL(caricoaccessorio.tax,0) / caricoaccessorio.number,2)
-		- ROUND(ISNULL(caricoaccessorio.abatable,0) / caricoaccessorio.number,2))
-	FROM assetacquire as caricoaccessorio 
-	JOIN asset as accessorio 
-		ON caricoaccessorio.nassetacquire = accessorio.nassetacquire
-	JOIN asset as cespite 
-		ON cespite.idasset = #assetamortization.idasset
-		AND cespite.idpiece = 1
-	WHERE 
-		accessorio.idpiece > 1 
-		AND  accessorio.idasset = #assetamortization.idasset 
-		AND (accessorio.idassetunload IS NOT NULL OR (accessorio.flag & 1 = 0))  --accessorio scaricato    
-		AND (accessorio.idassetunload IS NULL OR       -- accessorio non scaricato esplicitamente
-		    (cespite.idassetunload IS NULL AND (cespite.flag & 1 <> 0))  OR --cespite non scaricato
-		    (cespite.idassetunload <> accessorio.idassetunload) --buono scarico distinto
-		)
-		)
-, 0.0)
-WHERE #assetamortization.idpiece = 1 AND #assetamortization.real_or_simulation IN ('R','S')
---select 'scarichi accessori beni di cespiti principali',finalvalue,* from #assetamortization
-
-set @ss2= getdate()
-print datediff(ms,@ss1,@ss2)
-
-
-set @ss1= getdate()
-
-
-	-------------------------------------------------------------------------------------------------
-	-------------------- RIVALUTAZIONI DEGLI ACCESSORI SCARICATI DEI BENI ---------------------------
-	-------------------------------------------------------------------------------------------------
-UPDATE #assetamortization
-SET finalvalue = finalvalue - 
-ISNULL(
-	(SELECT
-	SUM(ROUND(ISNULL(assetamortization.assetvalue,0) * 
-		  ISNULL(assetamortization.amortizationquota,0),2))
-	FROM assetacquire as caricoaccessorio 
-	JOIN asset as accessorio 
-		ON caricoaccessorio.nassetacquire = accessorio.nassetacquire
-	JOIN asset as cespite 
-		ON cespite.idasset = #assetamortization.idasset
-		AND cespite.idpiece = 1
-	JOIN assetamortization
-		ON assetamortization.idasset = accessorio.idasset
-		AND assetamortization.idpiece = accessorio.idpiece
-	JOIN inventoryamortization
-		ON inventoryamortization.idinventoryamortization = assetamortization.idinventoryamortization
-	WHERE accessorio.idasset = #assetamortization.idasset 
-		AND assetamortization.idpiece > 1
-		AND (inventoryamortization.flag & 2 <> 0)
-		AND (
-	            (
-			     (ISNULL(assetamortization.amortizationquota,0)>0) AND 
-		             ((assetamortization.flag & 1 = 0) OR 
-			      (assetamortization.idassetload IS NOT NULL))
-			     )
-			 OR 
-	            (
-			     (ISNULL(assetamortization.amortizationquota,0)<0) AND 
-		             ((assetamortization.flag & 1 = 0) OR 
-			      (assetamortization.idassetunload IS NOT NULL))
-			     )
-			    )
-		AND (accessorio.idassetunload IS NOT NULL OR (accessorio.flag & 1 = 0)) 
-		AND (accessorio.idassetunload IS NULL OR      --accessorio non scaricato esplicitamente
-		    (cespite.idassetunload IS NULL AND (cespite.flag & 1 <> 0))  OR --cespite non scaricato
-		    (cespite.idassetunload <> accessorio.idassetunload) --buono scarico distinto
-		 )
-		)
-, 0.0)
-WHERE #assetamortization.idpiece = 1 AND #assetamortization.real_or_simulation IN ('R', 'S')
-
---select 'rivalutazioni reali di scarichi accessori beni di cespiti principali',finalvalue,* from #assetamortization
--------------------------------------------------------------------------------------
-------------------------- AMMORTAMENTI SIMULATI -------------------------------------
--------------------------------------------------------------------------------------
-
-UPDATE #assetamortization
-SET finalvalue = finalvalue - 
-ISNULL(
-	(SELECT
-	SUM(ROUND(ISNULL(#simula_assetamortization.assetvalue_on_the_date,0) * 
-		  ISNULL(#simula_assetamortization.actual_amortizationquota,0),2))
-	FROM assetacquire as caricoaccessorio 
-	JOIN asset as accessorio 
-		ON caricoaccessorio.nassetacquire = accessorio.nassetacquire
-	JOIN asset as cespite 
-		ON cespite.idasset = #assetamortization.idasset
-		AND cespite.idpiece = 1
-	JOIN #simula_assetamortization
-		ON #simula_assetamortization.idasset = accessorio.idasset
-		AND #simula_assetamortization.idpiece = accessorio.idpiece
-	JOIN inventoryamortization
-		ON inventoryamortization.idinventoryamortization = #simula_assetamortization.idinventoryamortization
-	WHERE accessorio.idasset = #assetamortization.idasset 
-		AND #simula_assetamortization.idpiece > 1
-		AND (inventoryamortization.flag & 2 <> 0)
-		AND (accessorio.idassetunload IS NOT NULL OR (accessorio.flag & 1 = 0)) 
-		AND (accessorio.idassetunload IS NULL OR      --accessorio non scaricato esplicitamente
-		    (cespite.idassetunload IS NULL AND (cespite.flag & 1 <> 0))  OR --cespite non scaricato
-		    (cespite.idassetunload <> accessorio.idassetunload) --buono scarico distinto
-		 )
-		)
-, 0.0)
-WHERE #assetamortization.idpiece = 1 AND #assetamortization.real_or_simulation = 'S'
-
---select 'rivalutazioni simulate di scarichi accessori beni di cespiti principali',finalvalue,* from #assetamortization
-set @ss2= getdate()
-print datediff(ms,@ss1,@ss2)
-
-
-set @ss1= getdate()
-UPDATE #assetamortization
-SET finalvalue = finalvalue +
-ISNULL(
-	(SELECT
-		 SUM(ROUND(ISNULL(assetamortization.assetvalue,0) * 
-		 ISNULL(assetamortization.amortizationquota,0),2))
-	FROM assetamortization
-	JOIN asset
-		ON  assetamortization.idasset=asset.idasset
-		AND assetamortization.idpiece=asset.idpiece
-	JOIN inventoryamortization
-		ON assetamortization.idinventoryamortization=inventoryamortization.idinventoryamortization
-	LEFT OUTER JOIN assetunload
-		ON assetamortization.idassetunload = assetunload.idassetunload
-	LEFT OUTER JOIN assetload
-		ON assetamortization.idassetload = assetload.idassetload
-	WHERE asset.idasset = #assetamortization.idasset AND asset.idpiece > 1
-		AND (
-	 	     (assetamortization.amortizationquota >0 AND 
-				(	
-				 ((assetamortization.flag & 1 = 0) AND assetamortization.adate <= ISNULL(@simulation_on_to_adate, @lastday)) OR 
-				 ((assetamortization.flag & 1 <> 0) AND assetload.ratificationdate <= ISNULL(@simulation_on_to_adate, @lastday))
-				)
-	 	     )
-			OR
-	 	     (assetamortization.amortizationquota <0 AND 
-				(	
-				 ((assetamortization.flag & 1 = 0) AND assetamortization.adate <= ISNULL(@simulation_on_to_adate, @lastday)) OR 
-				 ((assetamortization.flag & 1 <> 0) AND assetunload.adate <= ISNULL(@simulation_on_to_adate, @lastday))
-				)
-	 	     )
-		    )
-		AND (inventoryamortization.flag & 2 <> 0)
-		AND asset.idasset = #assetamortization.idasset
-		AND asset.idpiece = #assetamortization.idpiece),0)
-WHERE #assetamortization.idpiece > 1 AND #assetamortization.real_or_simulation IN ('R', 'S') 
---select 'ammortamenti reali  accessori beni  ', finalvalue from #assetamortization	
-
-
--------------------------------------------------------------------------------------
-------------------------- AMMORTAMENTI SIMULATI -------------------------------------
--------------------------------------------------------------------------------------
-UPDATE #assetamortization
-SET finalvalue = finalvalue +
-ISNULL(
-	(SELECT
-		 SUM(ROUND(ISNULL(#simula_assetamortization.assetvalue_on_the_date,0) * 
-		 ISNULL(#simula_assetamortization.actual_amortizationquota,0),2))
-	FROM #simula_assetamortization
-	JOIN asset
-		ON  #simula_assetamortization.idasset=asset.idasset
-		AND #simula_assetamortization.idpiece=asset.idpiece
-	JOIN inventoryamortization
-		ON #simula_assetamortization.idinventoryamortization=inventoryamortization.idinventoryamortization
-	WHERE asset.idasset = #assetamortization.idasset AND asset.idpiece > 1
-		AND (inventoryamortization.flag & 2 <> 0)
-		AND asset.idasset = #assetamortization.idasset
-		AND asset.idpiece = #assetamortization.idpiece),0)
-WHERE #assetamortization.idpiece > 1 AND #assetamortization.real_or_simulation  = 'S'  
-
-
-UPDATE #assetamortization
-SET startvalue = finalvalue - amortizationvalue
 --select 'ammortamenti simulati  accessori beni  ', finalvalue from #assetamortization
-	
+	--SELECT '#assetamortization',* FROM #assetamortization
 set @ss2= getdate()
 print datediff(ms,@ss1,@ss2)
+ 
 
-if (@mostrabenitotammortizzati='S')
-begin
-	-- se deve mostare anche i beni tot. ammortizzati, cancella le righe degli ammortamenti anni precedenti
-	-- prechè se il parametro vale S le ha inserite tutte
-	delete from #assetamortization where exists (select * from #assetamortization A where A.idasset = #assetamortization.idasset and A.idpiece = #assetamortization.idpiece and year(A.adate) = @year)
-				and year(adate)<@year
-	-- Azzare i valori per gli ammortamenti di eserc. prec. perchè se il bene è completamente  amm. ci saranno tante righe quanti sono gli ammort. negli anni precedenti, ma ora il suo valore sarà sempre 0
-	update #assetamortization set startvalue=0, namortization=null, amortizationquota = null , amortizationvalue = null , adate=null where year(adate)<@year and finalvalue=0
-	SELECT distinct
+ 
+-- Azzera i valori per gli ammortamenti di eserc. prec. perchè se il bene è completamente  amm. ci saranno tante righe quanti sono gli ammort. negli anni precedenti, 
+-- ma ora il suo valore sarà sempre 0
+update #assetamortization set startvalue=0, namortization=null, amortizationquota = null , amortizationvalue = null 
+where year(adate)<@year and finalvalue=0
+
+--- CANCELLO AMMORTAMENTI REALI ANNI PRECEDENTI SU CESPITI COMPLETAMENTE AMMORTIZZATI
+delete from #assetamortization where exists 
+	(select * from #assetamortization A 
+	where A.idasset = #assetamortization.idasset and A.idpiece = #assetamortization.idpiece
+	AND startvalue=0 AND  finalvalue=0 
+	AND year(A.adate) < @year   AND #assetamortization.adate < A.adate
+	)
+and year(#assetamortization.adate) <= @year -1
+AND adate IS NOT NULL
+AND  real_or_simulation = 'R' 
+
+--- CANCELLO AMMORTAMENTI REALI ANNI PRECEDENTI SU CESPITI NON COMPLETAMENTE AMMORTIZZATI (SCARICATI PRIMA DELL'AMMORTAMENTO TOTALE)
+--- /* DEGLI ANNI PRECEDENTI MOSTRO SOLO ULTIMO AMMORTAMENTO CHE AMMORTIZZA IL CESPITE ESCLUDENDO GLI ALTRI*/
+delete from #assetamortization where  
+year(#assetamortization.adate) <= @year -1
+AND adate IS NOT NULL AND NOT (startvalue=0 AND  finalvalue=0 )
+AND  real_or_simulation = 'R' 
+ 
+
+SELECT distinct
 		idasset,
 		idpiece,
+		lifestart,
 		idinventoryagency,
 		acquirekind,
 		inventoryagency,
@@ -989,7 +601,10 @@ begin
 		#assetamortization.description,
 		assetdescription,
 		assetoriginalvalue,
-		startvalue,
+		CASE --- non mostro il valore iniziale dato dai cespiti con inizio esistenza maggiore dell'esercizio precedente
+			WHEN YEAR(lifestart)<= (@year-1) THEN  startvalue
+			ELSE 0
+		END as startvalue,
 		finalvalue,
 		namortization,
 		amortizationquota,
@@ -1000,41 +615,9 @@ begin
 	FROM #assetamortization
 	JOIN inventorytree
 		on #assetamortization.idinv = inventorytree.idinv
+	WHERE ISNULL(finalvalue, 0) <> 0 OR ISNULL(@mostrabenitotammortizzati,'N') = 'S'
+	OR ISNULL(real_or_simulation,'N') = 'S'
 	ORDER BY adate, ninventory
-
-RETURN
-end
-SELECT 
-	idasset,
-	idpiece,
-	idinventoryagency,
-	acquirekind,
-	inventoryagency,
-	inventory,
-	inventorykind,
-	ninventory,
-	assetloadkind, 
-	idassetloadkind,
-	yassetload,
-	nassetload,
-	category,
-	#assetamortization.idinv,
-	inventorytree.codeinv,
-	#assetamortization.description,
-	assetdescription,
-	assetoriginalvalue,
-	startvalue,
-	finalvalue,
-	namortization,
-	amortizationquota,
-	assetvalue,
-	adate,
-	amortizationvalue,
-	real_or_simulation
-FROM #assetamortization
-JOIN inventorytree
-	on #assetamortization.idinv = inventorytree.idinv
-ORDER BY adate, ninventory
 END
 
 GO
@@ -1042,5 +625,65 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
---exec rpt_registro_ammortamenti_ente_con_simulazione 2021, 172, {d '2021-11-15'},'N', 9005495, 9005501 
---exec rpt_registro_ammortamenti_ente_con_simulazione 2015, 1, null,'S'
+ 
+--exec [rpt_registro_ammortamenti_ente_con_simulazione]  2022, 12, {d '2022-12-31'},'S', 5119, 5119 
+--go
+--exec [rpt_registro_ammortamenti_ente_con_simulazione1]  2023, 12, {d '2024-12-31'},'S', 5119, 5119 
+--go
+
+
+
+--exec [rpt_registro_ammortamenti_ente_con_simulazione]  2022, 12, {d '2022-12-31'},'S', null, null 
+
+--exec [rpt_registro_ammortamenti_ente_con_simulazione]  2021, 12, {d '2023-12-31'},'S', null, null 
+--go
+--exec simulation_asset_ammortization_on_the_date 2023, {d '2028-12-31'}, 12, NULL, NULL   --112289
+
+--exec simulation_asset_ammortization_on_the_date 2023, {d '2023-12-31'}, 12, 5119, 5119   --112289
+--go
+--exec simulation_asset_ammortization_on_the_date 2023, {d '2023-01-01'}, 12, 5119, 5119   --112289
+--go
+--exec simulation_asset_ammortization_on_the_date 2023, {d '2023-01-15'}, 12, 5119, 5119   --112289
+--go
+--exec simulation_asset_ammortization_on_the_date 2023, {d '2023-02-15'}, 12, 5119, 5119   --112289
+
+--select * from assetview where ninventory= 8304  --110606
+
+--declare @originalvalue	decimal (19,2) ;
+--declare @totale  decimal (19,2) ;
+--exec get_assetvalueatdate 110606,1,'12-31-2017', @originalvalue output ,@totale output
+
+--select @originalvalue
+--select @totale
+
+
+--exec [rpt_registro_ammortamenti_ente_con_simulazione]  2024, 8, {d '2025-12-31'},'S', 8304, 8304 
+--exec simulation_asset_ammortization_on_the_date 2023, {d '2023-12-31'}, 8, 8304, 8304   --112289
+
+
+--exec simulation_asset_ammortization_on_the_date 2023, {d '2023-01-31'}, 8, 8304, 8304   --112289
+--GO
+
+--exec simulation_asset_ammortization_on_the_date 2023, {d '2025-12-31'}, 8, 8304, 8304   --112289
+
+--exec simulation_asset_ammortization_on_the_date 2023, {d '2029-09-30'}, 8, 8304, 8304   --112289
+
+--exec [rpt_registro_ammortamenti_ente_con_simulazione]  2023, 8, {d '2024-12-31'},'N', 8304, 8304 
+
+--exec [rpt_registro_ammortamenti_ente_con_simulazione]  2023, 8, {d '2029-12-31'},'N', 8304, 8304 
+
+--exec [rpt_registro_ammortamenti_ente_con_simulazione]  2023, 12, {d '2025-12-31'},'S', 5119, 5119 
+--exec  rpt_registro_ammortamenti_ente_con_simulazione  2022, 8, {ts '2022-12-31 00:00:00'}, 'S', 8304, 8304
+
+--exec  rpt_registro_ammortamenti_ente_con_simulazione  2024, 8, {ts '2027-01-16 00:00:00'}, 'S', 8304, 8304
+
+--exec  rpt_registro_ammortamenti_ente_con_simulazione  2015, 8, {ts '2019-12-31 00:00:00'}, 'S', 7019, 7019
+
+-- exec simulation_asset_ammortization_on_the_date 2024, {d '2025-01-16'}, 8, 7019, 7019   --112289
+
+
+
+
+
+
+

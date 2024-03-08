@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -100,7 +100,8 @@ BEGIN
 		flagepexp		= oldconfig.flagepexp,
 		mainidacc_unabatable = MAININD_C.newidacc,
 		mainidacc_unabatable_refund = MAININD_R.newidacc,
-		idaccmotive_forwarder = oldconfig.idaccmotive_forwarder
+		idaccmotive_forwarder = oldconfig.idaccmotive_forwarder,
+		idivakind_forwarder = oldconfig.idivakind_forwarder
 	FROM  config, config oldconfig
 	LEFT OUTER JOIN accountlookup CUST 		ON CUST.oldidacc = oldconfig.idacc_customer
 	LEFT OUTER JOIN accountlookup DEF_C		ON DEF_C.oldidacc = oldconfig.idacc_deferredcredit

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,13 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'amministrativi':
-						this.describeAColumn(table, 'title_description', 'Titolo', null, 10, 50);
-						this.describeAColumn(table, 'registry_surname', 'Cognome', null, 20, 50);
-						this.describeAColumn(table, 'registry_forename', 'Nome', null, 30, 50);
-						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 40, 16);
-						this.describeAColumn(table, 'registry_badgecode', 'Codice badge', null, 50, 20);
-						this.describeAColumn(table, 'registry_active', 'Attivo', null, 100, null);
-						this.describeAColumn(table, 'contrattokind_title', 'Tipo', null, 520, 50);
+						this.describeAColumn(table, 'title_description', 'Titolo', null, 1200, 50);
+						this.describeAColumn(table, 'registry_surname', 'Cognome', null, 2000, 50);
+						this.describeAColumn(table, 'registry_forename', 'Nome', null, 3000, 50);
+						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 4000, 16);
+						this.describeAColumn(table, 'registry_badgecode', 'Codice badge', null, 5000, 20);
+						this.describeAColumn(table, 'registry_active', 'Attivo', null, 10000, null);
+						this.describeAColumn(table, 'XXregistrylegalstatus', 'Servizi di ruolo - Contratti', null, 52000, null);
 //$objCalcFieldConfig_amministrativi$
 						break;
 //$objCalcFieldConfig$
@@ -66,7 +49,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "amministrativi": {
+						return "title asc ";
+					}
+					case "amministrativi": {
+						return "registry_surname asc , registry_forename asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

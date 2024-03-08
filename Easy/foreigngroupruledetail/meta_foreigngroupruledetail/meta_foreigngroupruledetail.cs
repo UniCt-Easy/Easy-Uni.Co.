@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -51,13 +51,19 @@ namespace meta_foreigngroupruledetail {
         public override void DescribeColumns(DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
             if (ListingType == "default") {
-                DescribeAColumn(T, "idforeigngrouprule", "Id.regola");
-                DescribeAColumn(T, "iddetail", "Id.dettaglio");
-                DescribeAColumn(T, "idposition", "");
-                DescribeAColumn(T, "!position", "Qualifica", "position.description");
-                DescribeAColumn(T, "minincomeclass", "Min.classe");
-                DescribeAColumn(T, "maxincomeclass", "Max classe");
-                DescribeAColumn(T, "foreigngroupnumber", "Gruppo estero");
+                foreach (DataColumn C in T.Columns)
+                {
+                    DescribeAColumn(T, C.ColumnName, "", -1);
+                }
+                int nPos = 1;
+                DescribeAColumn(T, "idforeigngrouprule", "Id.regola", nPos++);
+                DescribeAColumn(T, "iddetail", "Id.dettaglio", nPos++);
+                DescribeAColumn(T, "idposition", "", nPos++);
+                DescribeAColumn(T, "!position", "Qualifica", "position.description", nPos++);
+                DescribeAColumn(T, "livello", "Livello", nPos++);
+                DescribeAColumn(T, "minincomeclass", "Min.classe", nPos++);
+                DescribeAColumn(T, "maxincomeclass", "Max classe", nPos++);
+                DescribeAColumn(T, "foreigngroupnumber", "Gruppo estero", nPos++);
             }
         }
         public override bool IsValid(DataRow R, out string errmess, out string errfield) {

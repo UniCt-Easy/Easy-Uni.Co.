@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -120,16 +120,20 @@ namespace meta_incomelastview {//meta_entrataview//
 
                 case "documentocollegato": {
                         foreach (DataColumn C in T.Columns) {
-                            DescribeAColumn(T, C.ColumnName, "");
+                            DescribeAColumn(T, C.ColumnName, "", -1);
                         }
-                        DescribeAColumn(T, "ymov", "Eserc.");
-                        DescribeAColumn(T, "nmov", "Numero");
-                        DescribeAColumn(T, "description", "Descrizione");
-                        DescribeAColumn(T, "registry", "Versante");
-                        DescribeAColumn(T, "codefin", "Bilancio");
-                        DescribeAColumn(T, "codeupb", "U.P.B.");
-                        DescribeAColumn(T, "manager", "Resp. bil.");
-                        DescribeAColumn(T, "curramount", "Importo");
+                        int nPos = 1;
+                        DescribeAColumn(T, "ymov", "Eserc.", nPos++);
+                        DescribeAColumn(T, "nmov", "Numero", nPos++);
+                        DescribeAColumn(T, "description", "Descrizione", nPos++);
+                        DescribeAColumn(T, "registry", "Versante", nPos++);
+                        DescribeAColumn(T, "codefin", "Bilancio", nPos++);
+                        DescribeAColumn(T, "codeupb", "U.P.B.", nPos++);
+                        DescribeAColumn(T, "manager", "Resp. bil.", nPos++);
+                        DescribeAColumn(T, "curramount", "Importo", nPos++);
+                        DescribeAColumn(T, "nbill", "N. sospeso", nPos++);
+                        DescribeAColumn(T, "codetreasurer", "Codice Cassiere Sospeso", nPos++);
+                        DescribeAColumn(T, "treasurer", "Cassiere Sospeso", nPos++);
                         FilterRows(T);
                         break;
                     }
@@ -204,15 +208,20 @@ namespace meta_incomelastview {//meta_entrataview//
                         foreach (DataColumn C in T.Columns) {
                             DescribeAColumn(T, C.ColumnName, "", -1);
                         }
-                        DescribeAColumn(T, "idinc", ".identrata", 1);
-                        DescribeAColumn(T, "ymov", "Eserc.", 2);
-                        DescribeAColumn(T, "nmov", "Numero", 3);
-                        DescribeAColumn(T, "registry", "Versante", 4);
-                        DescribeAColumn(T, "codefin", "Bilancio", 5);
-                        DescribeAColumn(T, "codeupb", "U.P.B.", 6);
-                        DescribeAColumn(T, "manager", "Resp. bil.", 7);
-                        DescribeAColumn(T, "description", "Descrizione", 8);
-                        DescribeAColumn(T, "curramount", "Importo", 9);
+                        int nPos = 1;
+                        DescribeAColumn(T, "idinc", ".identrata", nPos++);
+                        DescribeAColumn(T, "ymov", "Eserc.", nPos++);
+                        DescribeAColumn(T, "nmov", "Numero", nPos++);
+                        DescribeAColumn(T, "registry", "Versante", nPos++);
+                        DescribeAColumn(T, "codefin", "Bilancio", nPos++);
+                        DescribeAColumn(T, "codeupb", "U.P.B.", nPos++);
+                        DescribeAColumn(T, "manager", "Resp. bil.", nPos++);
+                        DescribeAColumn(T, "description", "Descrizione", nPos++);
+                        DescribeAColumn(T, "curramount", "Importo", nPos++);
+                        DescribeAColumn(T, "nbill", "N. sospeso", nPos++);
+                        DescribeAColumn(T, "codetreasurer", "Codice Cassiere Sospeso", nPos++);
+                        DescribeAColumn(T, "treasurer", "Cassiere Sospeso", nPos++);
+                        FilterRows(T);
                         break;
                     }
                 /*if (ListingType=="movbancario") {
@@ -280,7 +289,7 @@ namespace meta_incomelastview {//meta_entrataview//
                         DescribeAColumn(T, "nbill", "Bolletta", nPos++);
                         DescribeAColumn(T, "npro", "Reversale", nPos++);
                         DescribeAColumn(T, "idpro", "Numero movimento bancario", nPos++);
-						FilterRows(T);
+                        FilterRows(T);
                         break;
                     }
                 case "default": {
@@ -313,6 +322,8 @@ namespace meta_incomelastview {//meta_entrataview//
                         DescribeAColumn(T, "expiration", ".Data Scadenza", -1);
                         DescribeAColumn(T, "adate", "Data Contabile", npos++);
                         DescribeAColumn(T, "nbill", "Bolletta", npos++);
+                        DescribeAColumn(T, "codetreasurer", "Codice Cassiere Sospeso", npos++);
+                        DescribeAColumn(T, "treasurer", "Cassiere Sospeso", npos++);
                         break;
                     }
             }

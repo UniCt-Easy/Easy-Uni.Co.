@@ -47,7 +47,9 @@
             this.localizeMenuOnTheFly();
 
             // localizzo pagina corrente. controlli standard (tab, label, nomi colonna...)
-            this.localizePage(appMeta.currentMetaPage);
+            if (appMeta.currApp.currentMetaPage) {
+                this.localizePage(appMeta.currApp.currentMetaPage);
+            }
 
         },
 
@@ -284,6 +286,7 @@
             $('#logoutButton').text(this["logoutButton"]);
             $('#welcome_lbl_id').text(this["welcome_lbl_id"]);
             $('#loginButton').text(this["loginButton"]);
+            $('#resetPwdMailId').text(this["resetPwdMailId"]);
             $('#gotoLogin_id').text(this["gotoLogin_id"]);
             $('#gotoRegister_id').text(this["gotoRegister_id"]);
         },
@@ -329,6 +332,13 @@
                 currday : currday,
                 maxTotPerDay: maxTotPerDay
             }, this.schedulerLastDay);
+        },
+
+        getLogSchedulerTooManyHours: function(remaininghours, endDate) {
+            return appMeta.localResource.replaceWordsInPhrase({
+                remaininghours : remaininghours,
+                endDate: endDate
+            }, this.schedulerTooManyHours);
         },
 
         getSospDay:function (currday) {

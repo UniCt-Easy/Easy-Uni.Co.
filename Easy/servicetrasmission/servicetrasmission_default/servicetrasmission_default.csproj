@@ -80,6 +80,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ADPv2">
+      <HintPath>..\..\dll\ADPv2.dll</HintPath>
+    </Reference>
+    <Reference Include="ANP2018">
+      <HintPath>..\..\dll\ANP2018.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -93,12 +99,15 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms">
@@ -109,7 +118,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ANP2018.designer.cs" />
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -119,20 +127,12 @@
     <Compile Include="frmAskPassword.Designer.cs">
       <DependentUpon>frmAskPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmError.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Frm_servicetrasmission_default.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Service References\ServicePerla\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\service\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="ServizioPerla.cs" />
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -141,52 +141,19 @@
     <EmbeddedResource Include="frmAskPassword.resx">
       <DependentUpon>frmAskPassword.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmError.resx">
+      <DependentUpon>FrmError.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_servicetrasmission_default.resx">
       <DependentUpon>Frm_servicetrasmission_default.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="ANP2018.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePerla\anp2018.wsdl" />
-    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.cancellazioneIncaricoResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.inserimentoIncarico_ConsulenteResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.inserimentoIncarico_DipendenteResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.variazioneIncarico_ConsulenteResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.variazioneIncarico_DipendenteResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\service\configuration91.svcinfo" />
-    <None Include="Service References\service\configuration.svcinfo" />
-    <None Include="Service References\service\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ServicePerla\configuration91.svcinfo" />
-    <None Include="Service References\ServicePerla\configuration.svcinfo" />
-    <None Include="Service References\ServicePerla\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="vistaForm.xsd">
       <Generator>HDSGene</Generator>
       <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="app.config" />
-    <None Include="Service References\service\AnagrafePrestazioniService.wsdl" />
-    <None Include="Service References\service\servicetrasmission_default.service.InserimentoIncarichiResponse1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="System.Xml.XmlNode.datasource" />
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
@@ -198,18 +165,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Translator\Translator.csproj">
+      <Project>{6929169D-78F4-41B7-880F-ED9A8A271C84}</Project>
+      <Name>Translator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Project>{C0DACF4D-2F3E-44D6-A718-7C9821A1BDCD}</Project>
       <Name>funzioni_configurazione</Name>
       <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ServicePerla\" />
-    <WCFMetadataStorage Include="Service References\service\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

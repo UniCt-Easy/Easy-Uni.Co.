@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,7 +38,7 @@ namespace admpay_splitcolumn {
 		private System.Windows.Forms.TextBox txtInputFile;
 		private System.Windows.Forms.Button btnFileLordi;
 		private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
-		private System.Windows.Forms.SaveFileDialog saveOutputFileDlg;
+		private System.Windows.Forms.SaveFileDialog _saveOutputFileDlg;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Button btnFileReversali;
@@ -46,6 +46,7 @@ namespace admpay_splitcolumn {
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         public IOpenFileDialog openInputFileDlg;
+        public ISaveFileDialog saveOutputFileDlg;
 		/// <summary>
 		/// Variabile di progettazione necessaria.
 		/// </summary>
@@ -54,6 +55,7 @@ namespace admpay_splitcolumn {
 		public FrmAdmPay_SplitColumn() {
 			InitializeComponent();
             openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
+            saveOutputFileDlg = createSaveFileDialog(_saveOutputFileDlg);
 		}
 
 		/// <summary>
@@ -79,7 +81,7 @@ namespace admpay_splitcolumn {
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnFileLordi = new System.Windows.Forms.Button();
             this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
-            this.saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
+            this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblTask = new System.Windows.Forms.Label();
             this.btnFileReversali = new System.Windows.Forms.Button();

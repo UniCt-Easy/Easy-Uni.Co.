@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,18 +26,12 @@ using System.Runtime.Serialization;
 namespace parasubcontract_senzacedolini {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Contratto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable parasubcontract 		=> Tables["parasubcontract"];
 
-	///<summary>
-	///Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payroll 		=> Tables["payroll"];
 
@@ -114,6 +108,7 @@ private void initClass() {
 	tparasubcontract.Columns.Add( new DataColumn("ct", typeof(DateTime)));
 	tparasubcontract.Columns.Add( new DataColumn("lu", typeof(string)));
 	tparasubcontract.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tparasubcontract.Columns.Add( new DataColumn("idcostpartitioin", typeof(int)));
 	Tables.Add(tparasubcontract);
 	tparasubcontract.PrimaryKey =  new DataColumn[]{tparasubcontract.Columns["idcon"]};
 
@@ -161,6 +156,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tpayroll.Columns.Add(C);
 	tpayroll.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tpayroll);
 	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 
@@ -248,6 +244,7 @@ private void initClass() {
 	tparasubcontractview.Columns.Add( new DataColumn("taxablenet", typeof(decimal)));
 	tparasubcontractview.Columns.Add( new DataColumn("startcompetency", typeof(DateTime)));
 	tparasubcontractview.Columns.Add( new DataColumn("stopcompetency", typeof(DateTime)));
+	tparasubcontractview.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tparasubcontractview);
 
 	#endregion

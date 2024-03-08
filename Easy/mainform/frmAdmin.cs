@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,7 +33,7 @@ namespace mainform//CompEc//
 		public System.Windows.Forms.TextBox txtPwd;
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnAnnulla;
-        public bool LittleAdmin = false;
+        public bool ********** = false;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -153,7 +153,7 @@ namespace mainform//CompEc//
 
 		private void btnOK_Click(object sender, System.EventArgs e) {
             if (txtPwd.Text == L_PASSWORD) {
-                LittleAdmin = true;
+                ********** = true;
                 this.DialogResult = DialogResult.OK;
                 return;
             }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -107,6 +107,18 @@ namespace IntesaSanPaolo
             return importoTotale;
         }
 
+        public static bool getDate(object o) {
+            if (o == null) return false;
+            if (o == DBNull.Value) return false;
+            if (o.GetType().ToString() == "DateTme") return true;
+
+            DateTime d;
+            var res = DateTime.TryParse(o.ToString(), out d);
+            if (res) return true;
+            return false;
+        }
+
+
         public static RendicontaPlus ElaboraXml_RT(XmlDocument Xdoc) {
             RendicontaPlus M = new RendicontaPlus();
 
@@ -168,8 +180,10 @@ namespace IntesaSanPaolo
                             RT.DataEsecuzionePagamento = (DateTime)XmlHelper.AsOptionalDate(CurrNode, PreRoot + "dataEsecuzionePagamento");
                         }
 
-                        if (CurrNode[PreRoot + "dataInvioRt"] != null) {
-                            RT.DataInvioRt = (DateTime)XmlHelper.AsOptionalDate(CurrNode, PreRoot + "dataInvioRt");
+ 
+                        if (CurrNode[PreRoot + "dataInvioRt"]!= null){
+                            if (DateTime.TryParse(CurrNode[PreRoot + "dataInvioRt"].InnerText, out DateTime dataInvioRT)) 
+                                RT.DataInvioRt = dataInvioRT;
                         }
  
                     

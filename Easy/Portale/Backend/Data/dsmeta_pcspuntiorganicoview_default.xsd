@@ -6,7 +6,7 @@
         <xs:element name="pcspuntiorganicoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="contrattokind_title" type="xs:string" />
+              <xs:element name="idanalisiannuale" type="xs:int" />
               <xs:element name="importo0" type="xs:decimal" minOccurs="0" />
               <xs:element name="importo1" type="xs:decimal" minOccurs="0" />
               <xs:element name="importo2" type="xs:decimal" minOccurs="0" />
@@ -20,6 +20,7 @@
               <xs:element name="importoesterno2" type="xs:decimal" minOccurs="0" />
               <xs:element name="importoesterno3" type="xs:decimal" minOccurs="0" />
               <xs:element name="isdoc" type="xs:string" />
+              <xs:element name="position_title" type="xs:string" />
               <xs:element name="puntimeno0" type="xs:decimal" minOccurs="0" />
               <xs:element name="puntimeno1" type="xs:decimal" minOccurs="0" />
               <xs:element name="puntimeno2" type="xs:decimal" minOccurs="0" />
@@ -36,7 +37,8 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pcspuntiorganicoview" />
-      <xs:field xpath="mstns:contrattokind_title" />
+      <xs:field xpath="mstns:idanalisiannuale" />
+      <xs:field xpath="mstns:position_title" />
       <xs:field xpath="mstns:year" />
     </xs:unique>
   </xs:element>

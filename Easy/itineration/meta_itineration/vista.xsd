@@ -86,6 +86,12 @@
               <xs:element name="stoptime" type="xs:dateTime" minOccurs="0" />
               <xs:element name="iddalia_funzionale" type="xs:int" minOccurs="0" />
               <xs:element name="iddalia_dipartimento" type="xs:int" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
+              <xs:element name="advancepercentageliving" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentagetravel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentagefood" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedcourse" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentagecourse" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

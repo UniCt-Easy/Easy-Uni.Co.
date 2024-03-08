@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -132,7 +132,7 @@ namespace estimatedetail_default {
 
         private void enableControls(bool abilita) {
             bool readOnly = !abilita;
-
+            grpTassonomia.Enabled = abilita;
             btnTassonomia.Enabled = abilita;
             cmbTassonomia.Enabled = abilita;
 
@@ -311,6 +311,7 @@ namespace estimatedetail_default {
             Mlistino.DS = DS.Clone();
             if (chkListDescription.Checked) {
                 FrmAskDescr FR = new FrmAskDescr(Meta.Dispatcher);
+                createForm(FR, this);
                 DialogResult D = FR.ShowDialog(this);
                 if (D != DialogResult.OK)
                     return;

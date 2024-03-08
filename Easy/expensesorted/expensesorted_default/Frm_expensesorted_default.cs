@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1021,7 +1021,7 @@ namespace expensesorted_default//impclassspesasingle//
 			this.labelV5.Size = new System.Drawing.Size(144, 16);
 			this.labelV5.TabIndex = 200;
 			this.labelV5.Tag = "";
-			this.labelV5.Text = "labelN5";
+			this.labelV5.Text = "labelV5";
 			this.labelV5.Visible = false;
 			// 
 			// labelV4
@@ -1031,7 +1031,7 @@ namespace expensesorted_default//impclassspesasingle//
 			this.labelV4.Size = new System.Drawing.Size(144, 16);
 			this.labelV4.TabIndex = 199;
 			this.labelV4.Tag = "";
-			this.labelV4.Text = "labelN4";
+			this.labelV4.Text = "labelV4";
 			this.labelV4.Visible = false;
 			// 
 			// labelV3
@@ -1041,7 +1041,7 @@ namespace expensesorted_default//impclassspesasingle//
 			this.labelV3.Size = new System.Drawing.Size(144, 16);
 			this.labelV3.TabIndex = 195;
 			this.labelV3.Tag = "";
-			this.labelV3.Text = "labelN3";
+			this.labelV3.Text = "labelV3";
 			this.labelV3.Visible = false;
 			// 
 			// labelV2
@@ -1051,7 +1051,7 @@ namespace expensesorted_default//impclassspesasingle//
 			this.labelV2.Size = new System.Drawing.Size(144, 16);
 			this.labelV2.TabIndex = 194;
 			this.labelV2.Tag = "";
-			this.labelV2.Text = "labelN2";
+			this.labelV2.Text = "labelV2";
 			this.labelV2.Visible = false;
 			// 
 			// labelV1
@@ -1061,7 +1061,7 @@ namespace expensesorted_default//impclassspesasingle//
 			this.labelV1.Size = new System.Drawing.Size(144, 16);
 			this.labelV1.TabIndex = 193;
 			this.labelV1.Tag = "";
-			this.labelV1.Text = "labelN1";
+			this.labelV1.Text = "labelV1";
 			this.labelV1.Visible = false;
 			// 
 			// groupBox2

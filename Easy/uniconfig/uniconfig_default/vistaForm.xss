@@ -7,7 +7,7 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="-47" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:expensephase_fin" ZOrder="5" X="309" Y="19" Height="129" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="125" />
-    <Shape ID="DesignTable:uniconfig" ZOrder="1" X="186" Y="191" Height="752" Width="187" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="748" />
+    <Shape ID="DesignTable:uniconfig" ZOrder="1" X="186" Y="191" Height="752" Width="204" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="748" />
     <Shape ID="DesignTable:expensephase_registry" ZOrder="6" X="6" Y="30" Height="129" Width="176" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="125" />
     <Shape ID="DesignTable:incomephase_fin" ZOrder="21" X="13" Y="483" Height="129" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="125" />
     <Shape ID="DesignTable:incomephase_registry" ZOrder="20" X="315" Y="483" Height="129" Width="169" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="125" />
@@ -75,7 +75,7 @@
           <Y>267</Y>
         </Point>
         <Point>
-          <X>373</X>
+          <X>390</X>
           <Y>267</Y>
         </Point>
       </RoutePoints>
@@ -91,7 +91,7 @@
           <Y>216</Y>
         </Point>
         <Point>
-          <X>373</X>
+          <X>390</X>
           <Y>216</Y>
         </Point>
       </RoutePoints>
@@ -103,7 +103,7 @@
           <Y>304</Y>
         </Point>
         <Point>
-          <X>373</X>
+          <X>390</X>
           <Y>304</Y>
         </Point>
       </RoutePoints>
@@ -115,7 +115,7 @@
           <Y>438</Y>
         </Point>
         <Point>
-          <X>373</X>
+          <X>390</X>
           <Y>438</Y>
         </Point>
       </RoutePoints>
@@ -147,7 +147,7 @@
           <Y>666</Y>
         </Point>
         <Point>
-          <X>373</X>
+          <X>390</X>
           <Y>666</Y>
         </Point>
       </RoutePoints>

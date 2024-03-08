@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -974,6 +974,17 @@ public class invoiceRow: MetaRow  {
 	public Int32? idfedocumentkindOriginal { 
 		get {if (this["idfedocumentkind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idfedocumentkind",DataRowVersion.Original];}
 	}
+	public Int32? idintrastatkinddet{ 
+		get {if (this["idintrastatkinddet"]==DBNull.Value)return null; return  (Int32?)this["idintrastatkinddet"];}
+		set {if (value==null) this["idintrastatkinddet"]= DBNull.Value; else this["idintrastatkinddet"]= value;}
+	}
+	public object idintrastatkinddetValue { 
+		get{ return this["idintrastatkinddet"];}
+		set {if (value==null|| value==DBNull.Value) this["idintrastatkinddet"]= DBNull.Value; else this["idintrastatkinddet"]= value;}
+	}
+	public Int32? idintrastatkinddetOriginal { 
+		get {if (this["idintrastatkinddet",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idintrastatkinddet",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -1066,6 +1077,7 @@ public class invoiceTable : MetaTableBase<invoiceRow> {
 			{"idtreasurer_acq_estere",createColumn("idtreasurer_acq_estere",typeof(int),true,false)},
 			{"idsdi_acquistoestere",createColumn("idsdi_acquistoestere",typeof(int),true,false)},
 			{"idfedocumentkind",createColumn("idfedocumentkind",typeof(int),true,false)},
+			{"idintrastatkinddet",createColumn("idintrastatkinddet",typeof(int),true,false)},
 		};
 	}
 }

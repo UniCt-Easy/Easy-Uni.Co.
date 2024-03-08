@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -46,6 +46,9 @@ public partial class vistaUPB: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable epupbkind 		=> Tables["epupbkind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable upbyear 		=> Tables["upbyear"];
 
 	#endregion
 
@@ -198,6 +201,8 @@ private void initClass() {
 	tupb.Columns.Add( new DataColumn("stop", typeof(DateTime)));
 	tupb.Columns.Add( new DataColumn("cigcode", typeof(string)));
 	tupb.Columns.Add( new DataColumn("idepupbkind", typeof(int)));
+	tupb.Columns.Add( new DataColumn("cofogmpcode", typeof(string)));
+	tupb.Columns.Add( new DataColumn("uesiopecode", typeof(string)));
 	Tables.Add(tupb);
 	tupb.PrimaryKey =  new DataColumn[]{tupb.Columns["idupb"]};
 
@@ -324,6 +329,25 @@ private void initClass() {
 	tepupbkind.PrimaryKey =  new DataColumn[]{tepupbkind.Columns["idepupbkind"]};
 
 
+	//////////////////// UPBYEAR /////////////////////////////////
+	var tupbyear= new DataTable("upbyear");
+	C= new DataColumn("idupb", typeof(string));
+	C.AllowDBNull=false;
+	tupbyear.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(short));
+	C.AllowDBNull=false;
+	tupbyear.Columns.Add(C);
+	tupbyear.Columns.Add( new DataColumn("revenueprevision", typeof(decimal)));
+	tupbyear.Columns.Add( new DataColumn("costprevision", typeof(decimal)));
+	tupbyear.Columns.Add( new DataColumn("locked", typeof(int)));
+	tupbyear.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tupbyear.Columns.Add( new DataColumn("lu", typeof(string)));
+	tupbyear.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tupbyear.Columns.Add( new DataColumn("cu", typeof(string)));
+	Tables.Add(tupbyear);
+	tupbyear.PrimaryKey =  new DataColumn[]{tupbyear.Columns["idupb"], tupbyear.Columns["ayear"]};
+
+
 	#endregion
 
 
@@ -351,6 +375,10 @@ private void initClass() {
 	cPar = new []{epupbkind.Columns["idepupbkind"]};
 	cChild = new []{upb.Columns["idepupbkind"]};
 	Relations.Add(new DataRelation("epupbkind_upb",cPar,cChild,false));
+
+	cPar = new []{upbyear.Columns["idupb"]};
+	cChild = new []{upb.Columns["idupb"]};
+	Relations.Add(new DataRelation("upbyear_upb",cPar,cChild,false));
 
 	#endregion
 

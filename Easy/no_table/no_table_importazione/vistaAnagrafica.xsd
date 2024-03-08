@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaAnagrafica" targetNamespace="http://tempuri.org/vistaAnagrafica.xsd" xmlns:mstns="http://tempuri.org/vistaAnagrafica.xsd" xmlns="http://tempuri.org/vistaAnagrafica.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaAnagrafica" targetNamespace="http://tempuri.org/vistaAnagrafica.xsd" xmlns:mstns="http://tempuri.org/vistaAnagrafica.xsd" xmlns="http://tempuri.org/vistaAnagrafica.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaAnagrafica" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -113,6 +113,7 @@
               <xs:element name="txt" type="xs:string" minOccurs="0" />
               <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="flagdefault" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -158,6 +159,42 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="registry_docenti">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="soggiorno" type="xs:string" minOccurs="0" />
+              <xs:element name="matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
+              <xs:element name="cv" type="xs:string" minOccurs="0" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
+              <xs:element name="idlocation_struttura" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_amministrativi">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="cv" type="xs:string" minOccurs="0" />
+              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -193,29 +230,25 @@
       <xs:selector xpath=".//mstns:registrykind" />
       <xs:field xpath="mstns:idregistrykind" />
     </xs:unique>
-    <xs:keyref name="FK_registry_registrytaxablestatus" refer="Constraint1">
-      <xs:selector xpath=".//mstns:registrytaxablestatus" />
+    <xs:unique name="registry_docenti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_docenti" />
       <xs:field xpath="mstns:idreg" />
-    </xs:keyref>
-    <xs:keyref name="registry_registrylegalstatus" refer="Constraint1">
-      <xs:selector xpath=".//mstns:registrylegalstatus" />
+    </xs:unique>
+    <xs:unique name="registry_amministrativi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_amministrativi" />
       <xs:field xpath="mstns:idreg" />
-    </xs:keyref>
-    <xs:keyref name="registry_registrypaymethod" refer="Constraint1">
-      <xs:selector xpath=".//mstns:registrypaymethod" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:keyref>
-    <xs:keyref name="registry_registryaddress" refer="Constraint1">
-      <xs:selector xpath=".//mstns:registryaddress" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:keyref>
-    <xs:keyref name="registrykind_registry" refer="registrykind_Constraint1">
-      <xs:selector xpath=".//mstns:registry" />
-      <xs:field xpath="mstns:idregistrykind" />
-    </xs:keyref>
-    <xs:keyref name="centralizedcategory_registry" refer="centralizedcategory_Constraint1">
-      <xs:selector xpath=".//mstns:registry" />
-      <xs:field xpath="mstns:idcentralizedcategory" />
-    </xs:keyref>
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_registry_registrytaxablestatus" msdata:parent="registry" msdata:child="registrytaxablestatus" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_registrylegalstatus" msdata:parent="registry" msdata:child="registrylegalstatus" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_registrypaymethod" msdata:parent="registry" msdata:child="registrypaymethod" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_registryaddress" msdata:parent="registry" msdata:child="registryaddress" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="centralizedcategory_registry" msdata:parent="centralizedcategory" msdata:child="registry" msdata:parentkey="idcentralizedcategory" msdata:childkey="idcentralizedcategory" />
+      <msdata:Relationship name="registrykind_registry" msdata:parent="registrykind" msdata:child="registry" msdata:parentkey="idregistrykind" msdata:childkey="idregistrykind" />
+      <msdata:Relationship name="registry_docenti_registry" msdata:parent="registry" msdata:child="registry_docenti" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_amministrativi_registry" msdata:parent="registry" msdata:child="registry_amministrativi" msdata:parentkey="idreg" msdata:childkey="idreg" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

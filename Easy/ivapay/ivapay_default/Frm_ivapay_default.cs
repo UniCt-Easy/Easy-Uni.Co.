@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -323,16 +323,36 @@ namespace ivapay_default {//liquidazioneiva//
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtEsercizio = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.label24 = new System.Windows.Forms.Label();
-			this.label23 = new System.Windows.Forms.Label();
-			this.dataGrid2 = new System.Windows.Forms.DataGrid();
-			this.dataGrid1 = new System.Windows.Forms.DataGrid();
-			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.label19 = new System.Windows.Forms.Label();
-			this.label18 = new System.Windows.Forms.Label();
-			this.dataGrid4 = new System.Windows.Forms.DataGrid();
-			this.dataGrid3 = new System.Windows.Forms.DataGrid();
+			this.tabSplitPayment = new System.Windows.Forms.TabPage();
+			this.gboxmanualeSplit = new System.Windows.Forms.GroupBox();
+			this.textBox12 = new System.Windows.Forms.TextBox();
+			this.label32 = new System.Windows.Forms.Label();
+			this.label41 = new System.Windows.Forms.Label();
+			this.gboxmovimentiSplit = new System.Windows.Forms.GroupBox();
+			this.txtTotaleMovSpeSplit = new System.Windows.Forms.TextBox();
+			this.label42 = new System.Windows.Forms.Label();
+			this.groupBox11 = new System.Windows.Forms.GroupBox();
+			this.txtLiquidMeseSplit = new System.Windows.Forms.TextBox();
+			this.label44 = new System.Windows.Forms.Label();
+			this.lblcredito4_split = new System.Windows.Forms.Label();
+			this.lblcredito3_split = new System.Windows.Forms.Label();
+			this.txtNuovoSaldoSplit = new System.Windows.Forms.TextBox();
+			this.label47 = new System.Windows.Forms.Label();
+			this.panel3 = new System.Windows.Forms.Panel();
+			this.label48 = new System.Windows.Forms.Label();
+			this.label49 = new System.Windows.Forms.Label();
+			this.lblcredito5_split = new System.Windows.Forms.Label();
+			this.lblcredito2_split = new System.Windows.Forms.Label();
+			this.lblcredito1_split = new System.Windows.Forms.Label();
+			this.txtIvaPeriodoSplit = new System.Windows.Forms.TextBox();
+			this.label53 = new System.Windows.Forms.Label();
+			this.txtTotaleIvaSplit = new System.Windows.Forms.TextBox();
+			this.label54 = new System.Windows.Forms.Label();
+			this.txtSaldoPrecSplit = new System.Windows.Forms.TextBox();
+			this.label55 = new System.Windows.Forms.Label();
+			this.groupBox12 = new System.Windows.Forms.GroupBox();
+			this.textBox25 = new System.Windows.Forms.TextBox();
+			this.label56 = new System.Windows.Forms.Label();
 			this.tabPgINTRA = new System.Windows.Forms.TabPage();
 			this.gboxmanuale12 = new System.Windows.Forms.GroupBox();
 			this.textBox9 = new System.Windows.Forms.TextBox();
@@ -369,36 +389,16 @@ namespace ivapay_default {//liquidazioneiva//
 			this.label38 = new System.Windows.Forms.Label();
 			this.textBox19 = new System.Windows.Forms.TextBox();
 			this.label40 = new System.Windows.Forms.Label();
-			this.tabSplitPayment = new System.Windows.Forms.TabPage();
-			this.gboxmanualeSplit = new System.Windows.Forms.GroupBox();
-			this.textBox12 = new System.Windows.Forms.TextBox();
-			this.label32 = new System.Windows.Forms.Label();
-			this.label41 = new System.Windows.Forms.Label();
-			this.gboxmovimentiSplit = new System.Windows.Forms.GroupBox();
-			this.txtTotaleMovSpeSplit = new System.Windows.Forms.TextBox();
-			this.label42 = new System.Windows.Forms.Label();
-			this.groupBox11 = new System.Windows.Forms.GroupBox();
-			this.txtLiquidMeseSplit = new System.Windows.Forms.TextBox();
-			this.label44 = new System.Windows.Forms.Label();
-			this.lblcredito4_split = new System.Windows.Forms.Label();
-			this.lblcredito3_split = new System.Windows.Forms.Label();
-			this.txtNuovoSaldoSplit = new System.Windows.Forms.TextBox();
-			this.label47 = new System.Windows.Forms.Label();
-			this.panel3 = new System.Windows.Forms.Panel();
-			this.label48 = new System.Windows.Forms.Label();
-			this.label49 = new System.Windows.Forms.Label();
-			this.lblcredito5_split = new System.Windows.Forms.Label();
-			this.lblcredito2_split = new System.Windows.Forms.Label();
-			this.lblcredito1_split = new System.Windows.Forms.Label();
-			this.txtIvaPeriodoSplit = new System.Windows.Forms.TextBox();
-			this.label53 = new System.Windows.Forms.Label();
-			this.txtTotaleIvaSplit = new System.Windows.Forms.TextBox();
-			this.label54 = new System.Windows.Forms.Label();
-			this.txtSaldoPrecSplit = new System.Windows.Forms.TextBox();
-			this.label55 = new System.Windows.Forms.Label();
-			this.groupBox12 = new System.Windows.Forms.GroupBox();
-			this.textBox25 = new System.Windows.Forms.TextBox();
-			this.label56 = new System.Windows.Forms.Label();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.label24 = new System.Windows.Forms.Label();
+			this.label23 = new System.Windows.Forms.Label();
+			this.dataGrid2 = new System.Windows.Forms.DataGrid();
+			this.dataGrid1 = new System.Windows.Forms.DataGrid();
+			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.label19 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.dataGrid4 = new System.Windows.Forms.DataGrid();
+			this.dataGrid3 = new System.Windows.Forms.DataGrid();
 			this.tabFatture = new System.Windows.Forms.TabPage();
 			this.tabControl2 = new System.Windows.Forms.TabControl();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -447,22 +447,22 @@ namespace ivapay_default {//liquidazioneiva//
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.tabSplitPayment.SuspendLayout();
+			this.gboxmanualeSplit.SuspendLayout();
+			this.gboxmovimentiSplit.SuspendLayout();
+			this.groupBox11.SuspendLayout();
+			this.groupBox12.SuspendLayout();
+			this.tabPgINTRA.SuspendLayout();
+			this.gboxmanuale12.SuspendLayout();
+			this.gboxmovimenti12.SuspendLayout();
+			this.groupBox9.SuspendLayout();
+			this.groupBox10.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
 			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).BeginInit();
-			this.tabPgINTRA.SuspendLayout();
-			this.gboxmanuale12.SuspendLayout();
-			this.gboxmovimenti12.SuspendLayout();
-			this.groupBox9.SuspendLayout();
-			this.groupBox10.SuspendLayout();
-			this.tabSplitPayment.SuspendLayout();
-			this.gboxmanualeSplit.SuspendLayout();
-			this.gboxmovimentiSplit.SuspendLayout();
-			this.groupBox11.SuspendLayout();
-			this.groupBox12.SuspendLayout();
 			this.tabFatture.SuspendLayout();
 			this.tabControl2.SuspendLayout();
 			this.tabPage6.SuspendLayout();
@@ -1174,117 +1174,297 @@ namespace ivapay_default {//liquidazioneiva//
 			this.label1.Text = "Esercizio";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
-			// tabPage2
+			// tabSplitPayment
 			// 
-			this.tabPage2.Controls.Add(this.label24);
-			this.tabPage2.Controls.Add(this.label23);
-			this.tabPage2.Controls.Add(this.dataGrid2);
-			this.tabPage2.Controls.Add(this.dataGrid1);
-			this.tabPage2.Location = new System.Drawing.Point(4, 22);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(646, 523);
-			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "Iva per registro";
-			this.tabPage2.UseVisualStyleBackColor = true;
+			this.tabSplitPayment.Controls.Add(this.gboxmanualeSplit);
+			this.tabSplitPayment.Controls.Add(this.label41);
+			this.tabSplitPayment.Controls.Add(this.gboxmovimentiSplit);
+			this.tabSplitPayment.Controls.Add(this.groupBox11);
+			this.tabSplitPayment.Controls.Add(this.groupBox12);
+			this.tabSplitPayment.Location = new System.Drawing.Point(4, 22);
+			this.tabSplitPayment.Name = "tabSplitPayment";
+			this.tabSplitPayment.Padding = new System.Windows.Forms.Padding(3);
+			this.tabSplitPayment.Size = new System.Drawing.Size(646, 523);
+			this.tabSplitPayment.TabIndex = 6;
+			this.tabSplitPayment.Text = "Iva Istituzionale Split Payment";
+			this.tabSplitPayment.UseVisualStyleBackColor = true;
 			// 
-			// label24
+			// gboxmanualeSplit
 			// 
-			this.label24.Location = new System.Drawing.Point(8, 232);
-			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(100, 16);
-			this.label24.TabIndex = 3;
-			this.label24.Text = "IVA a Credito:";
+			this.gboxmanualeSplit.Controls.Add(this.textBox12);
+			this.gboxmanualeSplit.Controls.Add(this.label32);
+			this.gboxmanualeSplit.Location = new System.Drawing.Point(18, 307);
+			this.gboxmanualeSplit.Name = "gboxmanualeSplit";
+			this.gboxmanualeSplit.Size = new System.Drawing.Size(620, 64);
+			this.gboxmanualeSplit.TabIndex = 56;
+			this.gboxmanualeSplit.TabStop = false;
+			this.gboxmanualeSplit.Text = "Importi liquidati da considerare ai fini dei calcoli successivi (INSERIMENTO MANU" +
+    "ALE)";
 			// 
-			// label23
+			// textBox12
 			// 
-			this.label23.Location = new System.Drawing.Point(8, 8);
-			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(100, 16);
-			this.label23.TabIndex = 2;
-			this.label23.Text = "IVA a Debito:";
+			this.textBox12.Location = new System.Drawing.Point(161, 40);
+			this.textBox12.Name = "textBox12";
+			this.textBox12.Size = new System.Drawing.Size(128, 20);
+			this.textBox12.TabIndex = 12;
+			this.textBox12.TabStop = false;
+			this.textBox12.Tag = "ivapay.paymentamountsplit";
+			this.textBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
-			// dataGrid2
+			// label32
 			// 
-			this.dataGrid2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGrid2.CaptionVisible = false;
-			this.dataGrid2.DataMember = "";
-			this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGrid2.Location = new System.Drawing.Point(8, 248);
-			this.dataGrid2.Name = "dataGrid2";
-			this.dataGrid2.Size = new System.Drawing.Size(630, 271);
-			this.dataGrid2.TabIndex = 1;
-			this.dataGrid2.Tag = "ivapaydetailview.liquidazione_credito";
+			this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label32.Location = new System.Drawing.Point(161, 16);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(112, 16);
+			this.label32.TabIndex = 11;
+			this.label32.Text = "Versamenti";
+			this.label32.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
 			// 
-			// dataGrid1
+			// label41
 			// 
-			this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGrid1.CaptionVisible = false;
-			this.dataGrid1.DataMember = "";
-			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGrid1.Location = new System.Drawing.Point(8, 24);
-			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(630, 200);
-			this.dataGrid1.TabIndex = 0;
-			this.dataGrid1.Tag = "dettliquidazioneivaview_debito.liquidazione_debito";
+			this.label41.AutoSize = true;
+			this.label41.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label41.Location = new System.Drawing.Point(22, 22);
+			this.label41.Name = "label41";
+			this.label41.Size = new System.Drawing.Size(251, 13);
+			this.label41.TabIndex = 55;
+			this.label41.Text = "Liquidazione iva istituzionale Split Payment";
 			// 
-			// tabPage4
+			// gboxmovimentiSplit
 			// 
-			this.tabPage4.Controls.Add(this.label19);
-			this.tabPage4.Controls.Add(this.label18);
-			this.tabPage4.Controls.Add(this.dataGrid4);
-			this.tabPage4.Controls.Add(this.dataGrid3);
-			this.tabPage4.Location = new System.Drawing.Point(4, 22);
-			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(646, 523);
-			this.tabPage4.TabIndex = 3;
-			this.tabPage4.Text = "Movimenti";
-			this.tabPage4.UseVisualStyleBackColor = true;
+			this.gboxmovimentiSplit.Controls.Add(this.txtTotaleMovSpeSplit);
+			this.gboxmovimentiSplit.Controls.Add(this.label42);
+			this.gboxmovimentiSplit.Location = new System.Drawing.Point(260, 237);
+			this.gboxmovimentiSplit.Name = "gboxmovimentiSplit";
+			this.gboxmovimentiSplit.Size = new System.Drawing.Size(378, 64);
+			this.gboxmovimentiSplit.TabIndex = 54;
+			this.gboxmovimentiSplit.TabStop = false;
+			this.gboxmovimentiSplit.Text = "Totale movimenti finanziari collegati";
 			// 
-			// label19
+			// txtTotaleMovSpeSplit
 			// 
-			this.label19.Location = new System.Drawing.Point(8, 200);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(160, 16);
-			this.label19.TabIndex = 3;
-			this.label19.Text = "Movimenti di spesa collegati:";
+			this.txtTotaleMovSpeSplit.Location = new System.Drawing.Point(160, 40);
+			this.txtTotaleMovSpeSplit.Name = "txtTotaleMovSpeSplit";
+			this.txtTotaleMovSpeSplit.ReadOnly = true;
+			this.txtTotaleMovSpeSplit.Size = new System.Drawing.Size(128, 20);
+			this.txtTotaleMovSpeSplit.TabIndex = 12;
+			this.txtTotaleMovSpeSplit.TabStop = false;
+			this.txtTotaleMovSpeSplit.Tag = "ivapay.importocorrente";
+			this.txtTotaleMovSpeSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
-			// label18
+			// label42
 			// 
-			this.label18.Location = new System.Drawing.Point(8, 8);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(232, 16);
-			this.label18.TabIndex = 2;
-			this.label18.Text = "Movimenti di entrata collegati:";
+			this.label42.Location = new System.Drawing.Point(160, 16);
+			this.label42.Name = "label42";
+			this.label42.Size = new System.Drawing.Size(48, 16);
+			this.label42.TabIndex = 11;
+			this.label42.Text = "Spese";
+			this.label42.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
 			// 
-			// dataGrid4
+			// groupBox11
 			// 
-			this.dataGrid4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGrid4.CaptionVisible = false;
-			this.dataGrid4.DataMember = "";
-			this.dataGrid4.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGrid4.Location = new System.Drawing.Point(8, 216);
-			this.dataGrid4.Name = "dataGrid4";
-			this.dataGrid4.Size = new System.Drawing.Size(630, 295);
-			this.dataGrid4.TabIndex = 1;
-			this.dataGrid4.Tag = "ivapayexpenseview.liquidazioneiva";
+			this.groupBox11.Controls.Add(this.txtLiquidMeseSplit);
+			this.groupBox11.Controls.Add(this.label44);
+			this.groupBox11.Controls.Add(this.lblcredito4_split);
+			this.groupBox11.Controls.Add(this.lblcredito3_split);
+			this.groupBox11.Controls.Add(this.txtNuovoSaldoSplit);
+			this.groupBox11.Controls.Add(this.label47);
+			this.groupBox11.Controls.Add(this.panel3);
+			this.groupBox11.Controls.Add(this.label48);
+			this.groupBox11.Controls.Add(this.label49);
+			this.groupBox11.Controls.Add(this.lblcredito5_split);
+			this.groupBox11.Controls.Add(this.lblcredito2_split);
+			this.groupBox11.Controls.Add(this.lblcredito1_split);
+			this.groupBox11.Controls.Add(this.txtIvaPeriodoSplit);
+			this.groupBox11.Controls.Add(this.label53);
+			this.groupBox11.Controls.Add(this.txtTotaleIvaSplit);
+			this.groupBox11.Controls.Add(this.label54);
+			this.groupBox11.Controls.Add(this.txtSaldoPrecSplit);
+			this.groupBox11.Controls.Add(this.label55);
+			this.groupBox11.Location = new System.Drawing.Point(260, 43);
+			this.groupBox11.Name = "groupBox11";
+			this.groupBox11.Size = new System.Drawing.Size(378, 188);
+			this.groupBox11.TabIndex = 53;
+			this.groupBox11.TabStop = false;
+			this.groupBox11.Text = "Saldo";
 			// 
-			// dataGrid3
+			// txtLiquidMeseSplit
 			// 
-			this.dataGrid3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGrid3.CaptionVisible = false;
-			this.dataGrid3.DataMember = "";
-			this.dataGrid3.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGrid3.Location = new System.Drawing.Point(8, 24);
-			this.dataGrid3.Name = "dataGrid3";
-			this.dataGrid3.Size = new System.Drawing.Size(630, 168);
-			this.dataGrid3.TabIndex = 0;
-			this.dataGrid3.Tag = "ivapayincomeview.liquidazioneiva";
+			this.txtLiquidMeseSplit.Location = new System.Drawing.Point(133, 128);
+			this.txtLiquidMeseSplit.Name = "txtLiquidMeseSplit";
+			this.txtLiquidMeseSplit.ReadOnly = true;
+			this.txtLiquidMeseSplit.Size = new System.Drawing.Size(96, 20);
+			this.txtLiquidMeseSplit.TabIndex = 48;
+			this.txtLiquidMeseSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label44
+			// 
+			this.label44.AutoSize = true;
+			this.label44.Location = new System.Drawing.Point(8, 131);
+			this.label44.Name = "label44";
+			this.label44.Size = new System.Drawing.Size(111, 13);
+			this.label44.TabIndex = 47;
+			this.label44.Text = "Liquidazione del mese";
+			// 
+			// lblcredito4_split
+			// 
+			this.lblcredito4_split.Location = new System.Drawing.Point(244, 131);
+			this.lblcredito4_split.Name = "lblcredito4_split";
+			this.lblcredito4_split.Size = new System.Drawing.Size(72, 16);
+			this.lblcredito4_split.TabIndex = 46;
+			// 
+			// lblcredito3_split
+			// 
+			this.lblcredito3_split.Location = new System.Drawing.Point(244, 92);
+			this.lblcredito3_split.Name = "lblcredito3_split";
+			this.lblcredito3_split.Size = new System.Drawing.Size(72, 16);
+			this.lblcredito3_split.TabIndex = 45;
+			// 
+			// txtNuovoSaldoSplit
+			// 
+			this.txtNuovoSaldoSplit.Location = new System.Drawing.Point(132, 156);
+			this.txtNuovoSaldoSplit.Name = "txtNuovoSaldoSplit";
+			this.txtNuovoSaldoSplit.ReadOnly = true;
+			this.txtNuovoSaldoSplit.Size = new System.Drawing.Size(96, 20);
+			this.txtNuovoSaldoSplit.TabIndex = 44;
+			this.txtNuovoSaldoSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label47
+			// 
+			this.label47.Location = new System.Drawing.Point(17, 159);
+			this.label47.Name = "label47";
+			this.label47.Size = new System.Drawing.Size(112, 16);
+			this.label47.TabIndex = 43;
+			this.label47.Text = "Nuovo saldo";
+			this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// panel3
+			// 
+			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel3.Location = new System.Drawing.Point(20, 77);
+			this.panel3.Name = "panel3";
+			this.panel3.Size = new System.Drawing.Size(316, 2);
+			this.panel3.TabIndex = 42;
+			// 
+			// label48
+			// 
+			this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label48.Location = new System.Drawing.Point(324, 48);
+			this.label48.Name = "label48";
+			this.label48.Size = new System.Drawing.Size(16, 16);
+			this.label48.TabIndex = 41;
+			this.label48.Text = "=";
+			// 
+			// label49
+			// 
+			this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label49.Location = new System.Drawing.Point(324, 27);
+			this.label49.Name = "label49";
+			this.label49.Size = new System.Drawing.Size(16, 16);
+			this.label49.TabIndex = 40;
+			this.label49.Text = "+";
+			// 
+			// lblcredito5_split
+			// 
+			this.lblcredito5_split.Location = new System.Drawing.Point(244, 159);
+			this.lblcredito5_split.Name = "lblcredito5_split";
+			this.lblcredito5_split.Size = new System.Drawing.Size(72, 16);
+			this.lblcredito5_split.TabIndex = 39;
+			// 
+			// lblcredito2_split
+			// 
+			this.lblcredito2_split.Location = new System.Drawing.Point(244, 50);
+			this.lblcredito2_split.Name = "lblcredito2_split";
+			this.lblcredito2_split.Size = new System.Drawing.Size(72, 16);
+			this.lblcredito2_split.TabIndex = 38;
+			// 
+			// lblcredito1_split
+			// 
+			this.lblcredito1_split.Location = new System.Drawing.Point(244, 27);
+			this.lblcredito1_split.Name = "lblcredito1_split";
+			this.lblcredito1_split.Size = new System.Drawing.Size(72, 16);
+			this.lblcredito1_split.TabIndex = 37;
+			// 
+			// txtIvaPeriodoSplit
+			// 
+			this.txtIvaPeriodoSplit.Location = new System.Drawing.Point(132, 50);
+			this.txtIvaPeriodoSplit.Name = "txtIvaPeriodoSplit";
+			this.txtIvaPeriodoSplit.ReadOnly = true;
+			this.txtIvaPeriodoSplit.Size = new System.Drawing.Size(96, 20);
+			this.txtIvaPeriodoSplit.TabIndex = 36;
+			this.txtIvaPeriodoSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label53
+			// 
+			this.label53.Location = new System.Drawing.Point(20, 50);
+			this.label53.Name = "label53";
+			this.label53.Size = new System.Drawing.Size(112, 16);
+			this.label53.TabIndex = 35;
+			this.label53.Text = "Iva del periodo";
+			// 
+			// txtTotaleIvaSplit
+			// 
+			this.txtTotaleIvaSplit.Location = new System.Drawing.Point(132, 87);
+			this.txtTotaleIvaSplit.Name = "txtTotaleIvaSplit";
+			this.txtTotaleIvaSplit.ReadOnly = true;
+			this.txtTotaleIvaSplit.Size = new System.Drawing.Size(96, 20);
+			this.txtTotaleIvaSplit.TabIndex = 34;
+			this.txtTotaleIvaSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label54
+			// 
+			this.label54.Location = new System.Drawing.Point(17, 92);
+			this.label54.Name = "label54";
+			this.label54.Size = new System.Drawing.Size(112, 16);
+			this.label54.TabIndex = 33;
+			this.label54.Text = "Totale iva";
+			// 
+			// txtSaldoPrecSplit
+			// 
+			this.txtSaldoPrecSplit.Location = new System.Drawing.Point(132, 26);
+			this.txtSaldoPrecSplit.Name = "txtSaldoPrecSplit";
+			this.txtSaldoPrecSplit.ReadOnly = true;
+			this.txtSaldoPrecSplit.Size = new System.Drawing.Size(96, 20);
+			this.txtSaldoPrecSplit.TabIndex = 32;
+			this.txtSaldoPrecSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label55
+			// 
+			this.label55.Location = new System.Drawing.Point(21, 29);
+			this.label55.Name = "label55";
+			this.label55.Size = new System.Drawing.Size(112, 16);
+			this.label55.TabIndex = 31;
+			this.label55.Text = "Saldo precedente";
+			// 
+			// groupBox12
+			// 
+			this.groupBox12.Controls.Add(this.textBox25);
+			this.groupBox12.Controls.Add(this.label56);
+			this.groupBox12.Location = new System.Drawing.Point(20, 43);
+			this.groupBox12.Name = "groupBox12";
+			this.groupBox12.Size = new System.Drawing.Size(234, 80);
+			this.groupBox12.TabIndex = 52;
+			this.groupBox12.TabStop = false;
+			this.groupBox12.Text = "Liquidazione corrente";
+			// 
+			// textBox25
+			// 
+			this.textBox25.Location = new System.Drawing.Point(144, 48);
+			this.textBox25.Name = "textBox25";
+			this.textBox25.ReadOnly = true;
+			this.textBox25.Size = new System.Drawing.Size(80, 20);
+			this.textBox25.TabIndex = 2;
+			this.textBox25.Tag = "ivapay.totaldebitsplit";
+			// 
+			// label56
+			// 
+			this.label56.Location = new System.Drawing.Point(8, 48);
+			this.label56.Name = "label56";
+			this.label56.Size = new System.Drawing.Size(128, 16);
+			this.label56.TabIndex = 11;
+			this.label56.Text = "Totale iva a debito";
+			this.label56.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// tabPgINTRA
 			// 
@@ -1642,297 +1822,117 @@ namespace ivapay_default {//liquidazioneiva//
 			this.label40.Text = "Totale iva a credito";
 			this.label40.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
-			// tabSplitPayment
+			// tabPage2
 			// 
-			this.tabSplitPayment.Controls.Add(this.gboxmanualeSplit);
-			this.tabSplitPayment.Controls.Add(this.label41);
-			this.tabSplitPayment.Controls.Add(this.gboxmovimentiSplit);
-			this.tabSplitPayment.Controls.Add(this.groupBox11);
-			this.tabSplitPayment.Controls.Add(this.groupBox12);
-			this.tabSplitPayment.Location = new System.Drawing.Point(4, 22);
-			this.tabSplitPayment.Name = "tabSplitPayment";
-			this.tabSplitPayment.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSplitPayment.Size = new System.Drawing.Size(646, 523);
-			this.tabSplitPayment.TabIndex = 6;
-			this.tabSplitPayment.Text = "Iva Istituzionale Split Payment";
-			this.tabSplitPayment.UseVisualStyleBackColor = true;
+			this.tabPage2.Controls.Add(this.label24);
+			this.tabPage2.Controls.Add(this.label23);
+			this.tabPage2.Controls.Add(this.dataGrid2);
+			this.tabPage2.Controls.Add(this.dataGrid1);
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Size = new System.Drawing.Size(646, 523);
+			this.tabPage2.TabIndex = 1;
+			this.tabPage2.Text = "Iva per registro";
+			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
-			// gboxmanualeSplit
+			// label24
 			// 
-			this.gboxmanualeSplit.Controls.Add(this.textBox12);
-			this.gboxmanualeSplit.Controls.Add(this.label32);
-			this.gboxmanualeSplit.Location = new System.Drawing.Point(18, 307);
-			this.gboxmanualeSplit.Name = "gboxmanualeSplit";
-			this.gboxmanualeSplit.Size = new System.Drawing.Size(620, 64);
-			this.gboxmanualeSplit.TabIndex = 56;
-			this.gboxmanualeSplit.TabStop = false;
-			this.gboxmanualeSplit.Text = "Importi liquidati da considerare ai fini dei calcoli successivi (INSERIMENTO MANU" +
-    "ALE)";
+			this.label24.Location = new System.Drawing.Point(8, 232);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(100, 16);
+			this.label24.TabIndex = 3;
+			this.label24.Text = "IVA a Credito:";
 			// 
-			// textBox12
+			// label23
 			// 
-			this.textBox12.Location = new System.Drawing.Point(161, 40);
-			this.textBox12.Name = "textBox12";
-			this.textBox12.Size = new System.Drawing.Size(128, 20);
-			this.textBox12.TabIndex = 12;
-			this.textBox12.TabStop = false;
-			this.textBox12.Tag = "ivapay.paymentamountsplit";
-			this.textBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.label23.Location = new System.Drawing.Point(8, 8);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(100, 16);
+			this.label23.TabIndex = 2;
+			this.label23.Text = "IVA a Debito:";
 			// 
-			// label32
+			// dataGrid2
 			// 
-			this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label32.Location = new System.Drawing.Point(161, 16);
-			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(112, 16);
-			this.label32.TabIndex = 11;
-			this.label32.Text = "Versamenti";
-			this.label32.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+			this.dataGrid2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid2.CaptionVisible = false;
+			this.dataGrid2.DataMember = "";
+			this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid2.Location = new System.Drawing.Point(8, 248);
+			this.dataGrid2.Name = "dataGrid2";
+			this.dataGrid2.Size = new System.Drawing.Size(630, 271);
+			this.dataGrid2.TabIndex = 1;
+			this.dataGrid2.Tag = "ivapaydetailview.liquidazione_credito";
 			// 
-			// label41
+			// dataGrid1
 			// 
-			this.label41.AutoSize = true;
-			this.label41.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label41.Location = new System.Drawing.Point(22, 22);
-			this.label41.Name = "label41";
-			this.label41.Size = new System.Drawing.Size(251, 13);
-			this.label41.TabIndex = 55;
-			this.label41.Text = "Liquidazione iva istituzionale Split Payment";
+			this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid1.CaptionVisible = false;
+			this.dataGrid1.DataMember = "";
+			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid1.Location = new System.Drawing.Point(8, 24);
+			this.dataGrid1.Name = "dataGrid1";
+			this.dataGrid1.Size = new System.Drawing.Size(630, 200);
+			this.dataGrid1.TabIndex = 0;
+			this.dataGrid1.Tag = "dettliquidazioneivaview_debito.liquidazione_debito";
 			// 
-			// gboxmovimentiSplit
+			// tabPage4
 			// 
-			this.gboxmovimentiSplit.Controls.Add(this.txtTotaleMovSpeSplit);
-			this.gboxmovimentiSplit.Controls.Add(this.label42);
-			this.gboxmovimentiSplit.Location = new System.Drawing.Point(260, 237);
-			this.gboxmovimentiSplit.Name = "gboxmovimentiSplit";
-			this.gboxmovimentiSplit.Size = new System.Drawing.Size(378, 64);
-			this.gboxmovimentiSplit.TabIndex = 54;
-			this.gboxmovimentiSplit.TabStop = false;
-			this.gboxmovimentiSplit.Text = "Totale movimenti finanziari collegati";
+			this.tabPage4.Controls.Add(this.label19);
+			this.tabPage4.Controls.Add(this.label18);
+			this.tabPage4.Controls.Add(this.dataGrid4);
+			this.tabPage4.Controls.Add(this.dataGrid3);
+			this.tabPage4.Location = new System.Drawing.Point(4, 22);
+			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.Size = new System.Drawing.Size(646, 523);
+			this.tabPage4.TabIndex = 3;
+			this.tabPage4.Text = "Movimenti";
+			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
-			// txtTotaleMovSpeSplit
+			// label19
 			// 
-			this.txtTotaleMovSpeSplit.Location = new System.Drawing.Point(160, 40);
-			this.txtTotaleMovSpeSplit.Name = "txtTotaleMovSpeSplit";
-			this.txtTotaleMovSpeSplit.ReadOnly = true;
-			this.txtTotaleMovSpeSplit.Size = new System.Drawing.Size(128, 20);
-			this.txtTotaleMovSpeSplit.TabIndex = 12;
-			this.txtTotaleMovSpeSplit.TabStop = false;
-			this.txtTotaleMovSpeSplit.Tag = "ivapay.importocorrente";
-			this.txtTotaleMovSpeSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.label19.Location = new System.Drawing.Point(8, 200);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(160, 16);
+			this.label19.TabIndex = 3;
+			this.label19.Text = "Movimenti di spesa collegati:";
 			// 
-			// label42
+			// label18
 			// 
-			this.label42.Location = new System.Drawing.Point(160, 16);
-			this.label42.Name = "label42";
-			this.label42.Size = new System.Drawing.Size(48, 16);
-			this.label42.TabIndex = 11;
-			this.label42.Text = "Spese";
-			this.label42.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+			this.label18.Location = new System.Drawing.Point(8, 8);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(232, 16);
+			this.label18.TabIndex = 2;
+			this.label18.Text = "Movimenti di entrata collegati:";
 			// 
-			// groupBox11
+			// dataGrid4
 			// 
-			this.groupBox11.Controls.Add(this.txtLiquidMeseSplit);
-			this.groupBox11.Controls.Add(this.label44);
-			this.groupBox11.Controls.Add(this.lblcredito4_split);
-			this.groupBox11.Controls.Add(this.lblcredito3_split);
-			this.groupBox11.Controls.Add(this.txtNuovoSaldoSplit);
-			this.groupBox11.Controls.Add(this.label47);
-			this.groupBox11.Controls.Add(this.panel3);
-			this.groupBox11.Controls.Add(this.label48);
-			this.groupBox11.Controls.Add(this.label49);
-			this.groupBox11.Controls.Add(this.lblcredito5_split);
-			this.groupBox11.Controls.Add(this.lblcredito2_split);
-			this.groupBox11.Controls.Add(this.lblcredito1_split);
-			this.groupBox11.Controls.Add(this.txtIvaPeriodoSplit);
-			this.groupBox11.Controls.Add(this.label53);
-			this.groupBox11.Controls.Add(this.txtTotaleIvaSplit);
-			this.groupBox11.Controls.Add(this.label54);
-			this.groupBox11.Controls.Add(this.txtSaldoPrecSplit);
-			this.groupBox11.Controls.Add(this.label55);
-			this.groupBox11.Location = new System.Drawing.Point(260, 43);
-			this.groupBox11.Name = "groupBox11";
-			this.groupBox11.Size = new System.Drawing.Size(378, 188);
-			this.groupBox11.TabIndex = 53;
-			this.groupBox11.TabStop = false;
-			this.groupBox11.Text = "Saldo";
+			this.dataGrid4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid4.CaptionVisible = false;
+			this.dataGrid4.DataMember = "";
+			this.dataGrid4.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid4.Location = new System.Drawing.Point(8, 216);
+			this.dataGrid4.Name = "dataGrid4";
+			this.dataGrid4.Size = new System.Drawing.Size(630, 295);
+			this.dataGrid4.TabIndex = 1;
+			this.dataGrid4.Tag = "ivapayexpenseview.liquidazioneiva";
 			// 
-			// txtLiquidMeseSplit
+			// dataGrid3
 			// 
-			this.txtLiquidMeseSplit.Location = new System.Drawing.Point(133, 128);
-			this.txtLiquidMeseSplit.Name = "txtLiquidMeseSplit";
-			this.txtLiquidMeseSplit.ReadOnly = true;
-			this.txtLiquidMeseSplit.Size = new System.Drawing.Size(96, 20);
-			this.txtLiquidMeseSplit.TabIndex = 48;
-			this.txtLiquidMeseSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label44
-			// 
-			this.label44.AutoSize = true;
-			this.label44.Location = new System.Drawing.Point(8, 131);
-			this.label44.Name = "label44";
-			this.label44.Size = new System.Drawing.Size(111, 13);
-			this.label44.TabIndex = 47;
-			this.label44.Text = "Liquidazione del mese";
-			// 
-			// lblcredito4_split
-			// 
-			this.lblcredito4_split.Location = new System.Drawing.Point(244, 131);
-			this.lblcredito4_split.Name = "lblcredito4_split";
-			this.lblcredito4_split.Size = new System.Drawing.Size(72, 16);
-			this.lblcredito4_split.TabIndex = 46;
-			// 
-			// lblcredito3_split
-			// 
-			this.lblcredito3_split.Location = new System.Drawing.Point(244, 92);
-			this.lblcredito3_split.Name = "lblcredito3_split";
-			this.lblcredito3_split.Size = new System.Drawing.Size(72, 16);
-			this.lblcredito3_split.TabIndex = 45;
-			// 
-			// txtNuovoSaldoSplit
-			// 
-			this.txtNuovoSaldoSplit.Location = new System.Drawing.Point(132, 156);
-			this.txtNuovoSaldoSplit.Name = "txtNuovoSaldoSplit";
-			this.txtNuovoSaldoSplit.ReadOnly = true;
-			this.txtNuovoSaldoSplit.Size = new System.Drawing.Size(96, 20);
-			this.txtNuovoSaldoSplit.TabIndex = 44;
-			this.txtNuovoSaldoSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label47
-			// 
-			this.label47.Location = new System.Drawing.Point(17, 159);
-			this.label47.Name = "label47";
-			this.label47.Size = new System.Drawing.Size(112, 16);
-			this.label47.TabIndex = 43;
-			this.label47.Text = "Nuovo saldo";
-			this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// panel3
-			// 
-			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel3.Location = new System.Drawing.Point(20, 77);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(316, 2);
-			this.panel3.TabIndex = 42;
-			// 
-			// label48
-			// 
-			this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label48.Location = new System.Drawing.Point(324, 48);
-			this.label48.Name = "label48";
-			this.label48.Size = new System.Drawing.Size(16, 16);
-			this.label48.TabIndex = 41;
-			this.label48.Text = "=";
-			// 
-			// label49
-			// 
-			this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label49.Location = new System.Drawing.Point(324, 27);
-			this.label49.Name = "label49";
-			this.label49.Size = new System.Drawing.Size(16, 16);
-			this.label49.TabIndex = 40;
-			this.label49.Text = "+";
-			// 
-			// lblcredito5_split
-			// 
-			this.lblcredito5_split.Location = new System.Drawing.Point(244, 159);
-			this.lblcredito5_split.Name = "lblcredito5_split";
-			this.lblcredito5_split.Size = new System.Drawing.Size(72, 16);
-			this.lblcredito5_split.TabIndex = 39;
-			// 
-			// lblcredito2_split
-			// 
-			this.lblcredito2_split.Location = new System.Drawing.Point(244, 50);
-			this.lblcredito2_split.Name = "lblcredito2_split";
-			this.lblcredito2_split.Size = new System.Drawing.Size(72, 16);
-			this.lblcredito2_split.TabIndex = 38;
-			// 
-			// lblcredito1_split
-			// 
-			this.lblcredito1_split.Location = new System.Drawing.Point(244, 27);
-			this.lblcredito1_split.Name = "lblcredito1_split";
-			this.lblcredito1_split.Size = new System.Drawing.Size(72, 16);
-			this.lblcredito1_split.TabIndex = 37;
-			// 
-			// txtIvaPeriodoSplit
-			// 
-			this.txtIvaPeriodoSplit.Location = new System.Drawing.Point(132, 50);
-			this.txtIvaPeriodoSplit.Name = "txtIvaPeriodoSplit";
-			this.txtIvaPeriodoSplit.ReadOnly = true;
-			this.txtIvaPeriodoSplit.Size = new System.Drawing.Size(96, 20);
-			this.txtIvaPeriodoSplit.TabIndex = 36;
-			this.txtIvaPeriodoSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label53
-			// 
-			this.label53.Location = new System.Drawing.Point(20, 50);
-			this.label53.Name = "label53";
-			this.label53.Size = new System.Drawing.Size(112, 16);
-			this.label53.TabIndex = 35;
-			this.label53.Text = "Iva del periodo";
-			// 
-			// txtTotaleIvaSplit
-			// 
-			this.txtTotaleIvaSplit.Location = new System.Drawing.Point(132, 87);
-			this.txtTotaleIvaSplit.Name = "txtTotaleIvaSplit";
-			this.txtTotaleIvaSplit.ReadOnly = true;
-			this.txtTotaleIvaSplit.Size = new System.Drawing.Size(96, 20);
-			this.txtTotaleIvaSplit.TabIndex = 34;
-			this.txtTotaleIvaSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label54
-			// 
-			this.label54.Location = new System.Drawing.Point(17, 92);
-			this.label54.Name = "label54";
-			this.label54.Size = new System.Drawing.Size(112, 16);
-			this.label54.TabIndex = 33;
-			this.label54.Text = "Totale iva";
-			// 
-			// txtSaldoPrecSplit
-			// 
-			this.txtSaldoPrecSplit.Location = new System.Drawing.Point(132, 26);
-			this.txtSaldoPrecSplit.Name = "txtSaldoPrecSplit";
-			this.txtSaldoPrecSplit.ReadOnly = true;
-			this.txtSaldoPrecSplit.Size = new System.Drawing.Size(96, 20);
-			this.txtSaldoPrecSplit.TabIndex = 32;
-			this.txtSaldoPrecSplit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label55
-			// 
-			this.label55.Location = new System.Drawing.Point(21, 29);
-			this.label55.Name = "label55";
-			this.label55.Size = new System.Drawing.Size(112, 16);
-			this.label55.TabIndex = 31;
-			this.label55.Text = "Saldo precedente";
-			// 
-			// groupBox12
-			// 
-			this.groupBox12.Controls.Add(this.textBox25);
-			this.groupBox12.Controls.Add(this.label56);
-			this.groupBox12.Location = new System.Drawing.Point(20, 43);
-			this.groupBox12.Name = "groupBox12";
-			this.groupBox12.Size = new System.Drawing.Size(234, 80);
-			this.groupBox12.TabIndex = 52;
-			this.groupBox12.TabStop = false;
-			this.groupBox12.Text = "Liquidazione corrente";
-			// 
-			// textBox25
-			// 
-			this.textBox25.Location = new System.Drawing.Point(144, 48);
-			this.textBox25.Name = "textBox25";
-			this.textBox25.ReadOnly = true;
-			this.textBox25.Size = new System.Drawing.Size(80, 20);
-			this.textBox25.TabIndex = 2;
-			this.textBox25.Tag = "ivapay.totaldebitsplit";
-			// 
-			// label56
-			// 
-			this.label56.Location = new System.Drawing.Point(8, 48);
-			this.label56.Name = "label56";
-			this.label56.Size = new System.Drawing.Size(128, 16);
-			this.label56.TabIndex = 11;
-			this.label56.Text = "Totale iva a debito";
-			this.label56.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			this.dataGrid3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid3.CaptionVisible = false;
+			this.dataGrid3.DataMember = "";
+			this.dataGrid3.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid3.Location = new System.Drawing.Point(8, 24);
+			this.dataGrid3.Name = "dataGrid3";
+			this.dataGrid3.Size = new System.Drawing.Size(630, 168);
+			this.dataGrid3.TabIndex = 0;
+			this.dataGrid3.Tag = "ivapayincomeview.liquidazioneiva";
 			// 
 			// tabFatture
 			// 
@@ -1977,11 +1977,11 @@ namespace ivapay_default {//liquidazioneiva//
 			// label39
 			// 
 			this.label39.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.label39.Location = new System.Drawing.Point(374, 423);
+			this.label39.Location = new System.Drawing.Point(9, 423);
 			this.label39.Name = "label39";
-			this.label39.Size = new System.Drawing.Size(104, 16);
+			this.label39.Size = new System.Drawing.Size(469, 16);
 			this.label39.TabIndex = 4;
-			this.label39.Text = "Totale IVA";
+			this.label39.Text = "Totale IVA da fatture di vendita (esclusa IVA a debito per Inversione Contabile)";
 			this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// lblMessaggi
@@ -2393,22 +2393,6 @@ namespace ivapay_default {//liquidazioneiva//
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			this.tabPage2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
-			this.tabPage4.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
-			this.tabPgINTRA.ResumeLayout(false);
-			this.tabPgINTRA.PerformLayout();
-			this.gboxmanuale12.ResumeLayout(false);
-			this.gboxmanuale12.PerformLayout();
-			this.gboxmovimenti12.ResumeLayout(false);
-			this.gboxmovimenti12.PerformLayout();
-			this.groupBox9.ResumeLayout(false);
-			this.groupBox9.PerformLayout();
-			this.groupBox10.ResumeLayout(false);
-			this.groupBox10.PerformLayout();
 			this.tabSplitPayment.ResumeLayout(false);
 			this.tabSplitPayment.PerformLayout();
 			this.gboxmanualeSplit.ResumeLayout(false);
@@ -2419,6 +2403,22 @@ namespace ivapay_default {//liquidazioneiva//
 			this.groupBox11.PerformLayout();
 			this.groupBox12.ResumeLayout(false);
 			this.groupBox12.PerformLayout();
+			this.tabPgINTRA.ResumeLayout(false);
+			this.tabPgINTRA.PerformLayout();
+			this.gboxmanuale12.ResumeLayout(false);
+			this.gboxmanuale12.PerformLayout();
+			this.gboxmovimenti12.ResumeLayout(false);
+			this.gboxmovimenti12.PerformLayout();
+			this.groupBox9.ResumeLayout(false);
+			this.groupBox9.PerformLayout();
+			this.groupBox10.ResumeLayout(false);
+			this.groupBox10.PerformLayout();
+			this.tabPage2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
+			this.tabPage4.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
 			this.tabFatture.ResumeLayout(false);
 			this.tabControl2.ResumeLayout(false);
 			this.tabPage6.ResumeLayout(false);
@@ -2547,7 +2547,7 @@ namespace ivapay_default {//liquidazioneiva//
                                     )));
             decimal IvaLiquidata = 0;
             foreach (DataRow rDettaglio in DS.deferredview_fatture_vendita.Select(filterIvaVendita)) {
-                IvaLiquidata = IvaLiquidata + CfgFn.GetNoNullDecimal(rDettaglio["tax"]);
+                IvaLiquidata = IvaLiquidata + CfgFn.GetNoNullDecimal(rDettaglio["ivatotalpayed"]);
             }
             txtIvaVendita.Text = IvaLiquidata.ToString("c");
 
@@ -3059,6 +3059,7 @@ namespace ivapay_default {//liquidazioneiva//
                 if (Out == null) return;
                 Out.Tables[0].TableName = "Situazione liquidazione";
                 frmSituazioneViewer view = new frmSituazioneViewer(Out);
+                createForm(view, null);
                 view.Show();
 
 

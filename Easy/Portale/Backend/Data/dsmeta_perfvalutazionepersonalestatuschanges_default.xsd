@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfvalutazionepersonalestatuschanges_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfvalutazionepersonalestatuschanges_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfschedastatusdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfschedastatus" type="xs:int" />
+              <xs:element name="perfschedastatus_active" type="xs:string" minOccurs="0" />
+              <xs:element name="perfschedastatus_ct" type="xs:dateTime" />
+              <xs:element name="perfschedastatus_cu" type="xs:string" />
+              <xs:element name="perfschedastatus_description" type="xs:string" minOccurs="0" />
+              <xs:element name="perfschedastatus_lt" type="xs:dateTime" />
+              <xs:element name="perfschedastatus_lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazionepersonalestatuschanges" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="changedate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="changeuser" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfschedastatus" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfvalutazionepersonale" type="xs:int" />
+              <xs:element name="idperfvalutazionepersonalestatuschanges" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfschedastatusdefaultview" />
+      <xs:field xpath="mstns:idperfschedastatus" />
+    </xs:unique>
+    <xs:unique name="perfvalutazionepersonalestatuschanges_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazionepersonalestatuschanges" />
+      <xs:field xpath="mstns:idperfvalutazionepersonale" />
+      <xs:field xpath="mstns:idperfvalutazionepersonalestatuschanges" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfvalutazionepersonalestatuschanges_perfschedastatusdefaultview_idperfschedastatus" msdata:parent="perfschedastatusdefaultview" msdata:child="perfvalutazionepersonalestatuschanges" msdata:parentkey="idperfschedastatus" msdata:childkey="idperfschedastatus" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

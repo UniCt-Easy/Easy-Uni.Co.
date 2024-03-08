@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+﻿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,13 +23,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'docente':
-						this.describeAColumn(table, 'progetto_titolobreve', 'Progetto', null, 1500, 2048);
+						this.describeAColumn(table, 'progetto_titolobreve', 'Titolo breve o acronimo Progetto', null, 1100, 2048);
 						this.describeAColumn(table, 'workpackage_raggruppamento', 'Raggruppamento Workpackage', null, 2100, 2048);
 						this.describeAColumn(table, 'workpackage_title', 'Titolo Workpackage', null, 2200, 2048);
+						this.describeAColumn(table, 'workpackage_start', 'Data di inizio Workpackage', null, 3000, null);
 						this.describeAColumn(table, 'rendicontattivitaprogetto_description', 'Descrizione', null, 3000, -1);
+						this.describeAColumn(table, 'workpackage_stop', 'Data di fine Workpackage', null, 3100, null);
+						this.describeAColumn(table, 'progetto_start', 'Data di inizio Progetto', null, 4000, null);
+						this.describeAColumn(table, 'progetto_stop', 'Data di fine Progetto', null, 4100, null);
 						this.describeAColumn(table, 'rendicontattivitaprogetto_orepreventivate', 'Numero di ore preventivate', null, 7000, null);
 						this.describeAColumn(table, 'rendicontattivitaprogetto_datainizioprevista', 'Data inizio prevista', null, 11000, null);
 						this.describeAColumn(table, 'rendicontattivitaprogetto_stop', 'Data fine prevista', null, 12000, null);
+						this.describeAColumn(table, 'rendicontattivitaprogettokind_title', 'Tipo di attività', null, 13200, 255);
 //$objCalcFieldConfig_docente$
 						break;
 //$objCalcFieldConfig$

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -100,8 +100,8 @@ namespace customdirectrel_default {
             this.FromTable.Size = new System.Drawing.Size(413, 40);
             this.FromTable.TabIndex = 3;
             this.FromTable.TabStop = false;
-            this.FromTable.Tag = "AutoChoose.txtFromTable.default.(isreal=\'S\')";
-            this.FromTable.Text = "Tabella di partenza";
+            this.FromTable.Tag = "AutoChoose.txtFromTable.default";
+            this.FromTable.Text = "Tabella o vista di partenza";
             // 
             // txtFromTable
             // 

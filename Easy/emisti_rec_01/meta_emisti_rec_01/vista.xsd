@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="emisti_rec_01">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nrec" type="xs:int" />
+              <xs:element name="rata" type="xs:string" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" />
+              <xs:element name="dpt" type="xs:string" minOccurs="0" />
+              <xs:element name="codicefiscale" type="xs:string" minOccurs="0" />
+              <xs:element name="cognome1" type="xs:string" minOccurs="0" />
+              <xs:element name="nome1" type="xs:string" minOccurs="0" />
+              <xs:element name="modalpagamento" type="xs:int" />
+              <xs:element name="tiposervizio" type="xs:int" />
+              <xs:element name="iban" type="xs:string" minOccurs="0" />
+              <xs:element name="cin" type="xs:string" minOccurs="0" />
+              <xs:element name="abi" type="xs:string" minOccurs="0" />
+              <xs:element name="cab" type="xs:string" minOccurs="0" />
+              <xs:element name="contocorrente" type="xs:string" minOccurs="0" />
+              <xs:element name="ufficioservizio" type="xs:string" minOccurs="0" />
+              <xs:element name="capitolospesa" type="xs:int" minOccurs="0" />
+              <xs:element name="capitolobilancio" type="xs:int" minOccurs="0" />
+              <xs:element name="qualifica" type="xs:string" minOccurs="0" />
+              <xs:element name="livello" type="xs:int" />
+              <xs:element name="classe" type="xs:int" />
+              <xs:element name="scatti" type="xs:int" />
+              <xs:element name="imponibilerataannocorrente" type="xs:int" />
+              <xs:element name="irpefrataannocorrente" type="xs:int" />
+              <xs:element name="irpefarretratiannocorrente" type="xs:int" />
+              <xs:element name="irpefarretratiannoprecedente" type="xs:int" />
+              <xs:element name="irpeftotalenetta" type="xs:int" />
+              <xs:element name="importoannuolordo" type="xs:int" />
+              <xs:element name="importomensilelordo" type="xs:int" />
+              <xs:element name="importomensilenetto" type="xs:int" />
+              <xs:element name="importonetto13ma" type="xs:int" />
+              <xs:element name="importoprev13ma" type="xs:int" />
+              <xs:element name="importoirpef13ma" type="xs:int" />
+              <xs:element name="detrazionibase" type="xs:int" />
+              <xs:element name="detrazioniconiuge" type="xs:int" />
+              <xs:element name="detrazionifigli" type="xs:int" />
+              <xs:element name="detrazionialtrifam" type="xs:int" />
+              <xs:element name="totaledetrazioni" type="xs:int" />
+              <xs:element name="codiceregimecontributivo" type="xs:string" minOccurs="0" />
+              <xs:element name="codregioneirap" type="xs:string" minOccurs="0" />
+              <xs:element name="codicecomuneaccon" type="xs:string" minOccurs="0" />
+              <xs:element name="codicecomunesaldo" type="xs:string" minOccurs="0" />
+              <xs:element name="irpefaccessorieac" type="xs:int" minOccurs="0" />
+              <xs:element name="irpefaccessorieap" type="xs:int" minOccurs="0" />
+              <xs:element name="regimecontributivocud" type="xs:string" minOccurs="0" />
+              <xs:element name="creditoirpef" type="xs:int" minOccurs="0" />
+              <xs:element name="aliquotamedia" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="iscrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="idemisti_import" type="xs:int" />
+              <xs:element name="progressivo_rec_01" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:emisti_rec_01" />
+      <xs:field xpath="mstns:nrec" />
+      <xs:field xpath="mstns:idemisti_import" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

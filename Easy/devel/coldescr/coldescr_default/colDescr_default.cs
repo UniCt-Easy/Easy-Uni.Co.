@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -101,6 +101,7 @@ namespace coldescr_default {
             if (meta.IsEmpty) return;
             DataRow curr = DS.coldescr.Rows[0];
             selezionaCampi f = new selezionaCampi(1);
+            createForm(f, null);
             if (f.ShowDialog() != DialogResult.OK) return;
             string table = f.txtTable.Text;
             string chiave = f.txtKey.Text;

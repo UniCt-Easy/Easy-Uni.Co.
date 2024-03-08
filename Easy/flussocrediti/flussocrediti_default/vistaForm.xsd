@@ -581,6 +581,7 @@
               <xs:element name="move12" type="xs:string" minOccurs="0" />
               <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
               <xs:element name="idinvkind_main" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
               <xs:element name="leasing" type="xs:string" minOccurs="0" />
               <xs:element name="usedmodesospesometro" type="xs:string" minOccurs="0" />
               <xs:element name="resetresidualmandate" type="xs:string" minOccurs="0" />

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -534,6 +534,127 @@ public class registryRow: MetaRow  {
 	public String ipa_perlapaOriginal { 
 		get {if (this["ipa_perlapa",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["ipa_perlapa",DataRowVersion.Original];}
 	}
+	public String idnace{ 
+		get {if (this["idnace"]==DBNull.Value)return null; return  (String)this["idnace"];}
+		set {if (value==null) this["idnace"]= DBNull.Value; else this["idnace"]= value;}
+	}
+	public object idnaceValue { 
+		get{ return this["idnace"];}
+		set {if (value==null|| value==DBNull.Value) this["idnace"]= DBNull.Value; else this["idnace"]= value;}
+	}
+	public String idnaceOriginal { 
+		get {if (this["idnace",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idnace",DataRowVersion.Original];}
+	}
+	public Int32? idnaturagiur{ 
+		get {if (this["idnaturagiur"]==DBNull.Value)return null; return  (Int32?)this["idnaturagiur"];}
+		set {if (value==null) this["idnaturagiur"]= DBNull.Value; else this["idnaturagiur"]= value;}
+	}
+	public object idnaturagiurValue { 
+		get{ return this["idnaturagiur"];}
+		set {if (value==null|| value==DBNull.Value) this["idnaturagiur"]= DBNull.Value; else this["idnaturagiur"]= value;}
+	}
+	public Int32? idnaturagiurOriginal { 
+		get {if (this["idnaturagiur",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idnaturagiur",DataRowVersion.Original];}
+	}
+	public Int32? idnumerodip{ 
+		get {if (this["idnumerodip"]==DBNull.Value)return null; return  (Int32?)this["idnumerodip"];}
+		set {if (value==null) this["idnumerodip"]= DBNull.Value; else this["idnumerodip"]= value;}
+	}
+	public object idnumerodipValue { 
+		get{ return this["idnumerodip"];}
+		set {if (value==null|| value==DBNull.Value) this["idnumerodip"]= DBNull.Value; else this["idnumerodip"]= value;}
+	}
+	public Int32? idnumerodipOriginal { 
+		get {if (this["idnumerodip",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idnumerodip",DataRowVersion.Original];}
+	}
+	public Int32? idclassconsorsuale{ 
+		get {if (this["idclassconsorsuale"]==DBNull.Value)return null; return  (Int32?)this["idclassconsorsuale"];}
+		set {if (value==null) this["idclassconsorsuale"]= DBNull.Value; else this["idclassconsorsuale"]= value;}
+	}
+	public object idclassconsorsualeValue { 
+		get{ return this["idclassconsorsuale"];}
+		set {if (value==null|| value==DBNull.Value) this["idclassconsorsuale"]= DBNull.Value; else this["idclassconsorsuale"]= value;}
+	}
+	public Int32? idclassconsorsualeOriginal { 
+		get {if (this["idclassconsorsuale",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idclassconsorsuale",DataRowVersion.Original];}
+	}
+	public Int32? idfonteindicebibliometrico{ 
+		get {if (this["idfonteindicebibliometrico"]==DBNull.Value)return null; return  (Int32?)this["idfonteindicebibliometrico"];}
+		set {if (value==null) this["idfonteindicebibliometrico"]= DBNull.Value; else this["idfonteindicebibliometrico"]= value;}
+	}
+	public object idfonteindicebibliometricoValue { 
+		get{ return this["idfonteindicebibliometrico"];}
+		set {if (value==null|| value==DBNull.Value) this["idfonteindicebibliometrico"]= DBNull.Value; else this["idfonteindicebibliometrico"]= value;}
+	}
+	public Int32? idfonteindicebibliometricoOriginal { 
+		get {if (this["idfonteindicebibliometrico",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idfonteindicebibliometrico",DataRowVersion.Original];}
+	}
+	public Int32? indicebibliometrico{ 
+		get {if (this["indicebibliometrico"]==DBNull.Value)return null; return  (Int32?)this["indicebibliometrico"];}
+		set {if (value==null) this["indicebibliometrico"]= DBNull.Value; else this["indicebibliometrico"]= value;}
+	}
+	public object indicebibliometricoValue { 
+		get{ return this["indicebibliometrico"];}
+		set {if (value==null|| value==DBNull.Value) this["indicebibliometrico"]= DBNull.Value; else this["indicebibliometrico"]= value;}
+	}
+	public Int32? indicebibliometricoOriginal { 
+		get {if (this["indicebibliometrico",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["indicebibliometrico",DataRowVersion.Original];}
+	}
+	public String ricevimento{ 
+		get {if (this["ricevimento"]==DBNull.Value)return null; return  (String)this["ricevimento"];}
+		set {if (value==null) this["ricevimento"]= DBNull.Value; else this["ricevimento"]= value;}
+	}
+	public object ricevimentoValue { 
+		get{ return this["ricevimento"];}
+		set {if (value==null|| value==DBNull.Value) this["ricevimento"]= DBNull.Value; else this["ricevimento"]= value;}
+	}
+	public String ricevimentoOriginal { 
+		get {if (this["ricevimento",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["ricevimento",DataRowVersion.Original];}
+	}
+	public String soggiorno{ 
+		get {if (this["soggiorno"]==DBNull.Value)return null; return  (String)this["soggiorno"];}
+		set {if (value==null) this["soggiorno"]= DBNull.Value; else this["soggiorno"]= value;}
+	}
+	public object soggiornoValue { 
+		get{ return this["soggiorno"];}
+		set {if (value==null|| value==DBNull.Value) this["soggiorno"]= DBNull.Value; else this["soggiorno"]= value;}
+	}
+	public String soggiornoOriginal { 
+		get {if (this["soggiorno",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["soggiorno",DataRowVersion.Original];}
+	}
+	public Int32? idstruttura{ 
+		get {if (this["idstruttura"]==DBNull.Value)return null; return  (Int32?)this["idstruttura"];}
+		set {if (value==null) this["idstruttura"]= DBNull.Value; else this["idstruttura"]= value;}
+	}
+	public object idstrutturaValue { 
+		get{ return this["idstruttura"];}
+		set {if (value==null|| value==DBNull.Value) this["idstruttura"]= DBNull.Value; else this["idstruttura"]= value;}
+	}
+	public Int32? idstrutturaOriginal { 
+		get {if (this["idstruttura",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idstruttura",DataRowVersion.Original];}
+	}
+	public Int32? idreg_istituti{ 
+		get {if (this["idreg_istituti"]==DBNull.Value)return null; return  (Int32?)this["idreg_istituti"];}
+		set {if (value==null) this["idreg_istituti"]= DBNull.Value; else this["idreg_istituti"]= value;}
+	}
+	public object idreg_istitutiValue { 
+		get{ return this["idreg_istituti"];}
+		set {if (value==null|| value==DBNull.Value) this["idreg_istituti"]= DBNull.Value; else this["idreg_istituti"]= value;}
+	}
+	public Int32? idreg_istitutiOriginal { 
+		get {if (this["idreg_istituti",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idreg_istituti",DataRowVersion.Original];}
+	}
+	public Int32? idateco{ 
+		get {if (this["idateco"]==DBNull.Value)return null; return  (Int32?)this["idateco"];}
+		set {if (value==null) this["idateco"]= DBNull.Value; else this["idateco"]= value;}
+	}
+	public object idatecoValue { 
+		get{ return this["idateco"];}
+		set {if (value==null|| value==DBNull.Value) this["idateco"]= DBNull.Value; else this["idateco"]= value;}
+	}
+	public Int32? idatecoOriginal { 
+		get {if (this["idateco",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idateco",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -586,6 +707,17 @@ public class registryTable : MetaTableBase<registryRow> {
 			{"extension",createColumn("extension",typeof(string),true,false)},
 			{"email_fe",createColumn("email_fe",typeof(string),true,false)},
 			{"ipa_perlapa",createColumn("ipa_perlapa",typeof(string),true,false)},
+			{"idnace",createColumn("idnace",typeof(string),true,false)},
+			{"idnaturagiur",createColumn("idnaturagiur",typeof(int),true,false)},
+			{"idnumerodip",createColumn("idnumerodip",typeof(int),true,false)},
+			{"idclassconsorsuale",createColumn("idclassconsorsuale",typeof(int),true,false)},
+			{"idfonteindicebibliometrico",createColumn("idfonteindicebibliometrico",typeof(int),true,false)},
+			{"indicebibliometrico",createColumn("indicebibliometrico",typeof(int),true,false)},
+			{"ricevimento",createColumn("ricevimento",typeof(string),true,false)},
+			{"soggiorno",createColumn("soggiorno",typeof(string),true,false)},
+			{"idstruttura",createColumn("idstruttura",typeof(int),true,false)},
+			{"idreg_istituti",createColumn("idreg_istituti",typeof(int),true,false)},
+			{"idateco",createColumn("idateco",typeof(int),true,false)},
 		};
 	}
 }

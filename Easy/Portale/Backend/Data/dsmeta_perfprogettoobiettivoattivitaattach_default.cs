@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -79,6 +79,7 @@ private void initClass() {
 	var tperfprogettoobiettivoattivitaattach= new MetaTable("perfprogettoobiettivoattivitaattach");
 	tperfprogettoobiettivoattivitaattach.defineColumn("ct", typeof(DateTime),false);
 	tperfprogettoobiettivoattivitaattach.defineColumn("cu", typeof(string),false);
+	tperfprogettoobiettivoattivitaattach.defineColumn("data", typeof(DateTime));
 	tperfprogettoobiettivoattivitaattach.defineColumn("idattach", typeof(int),false);
 	tperfprogettoobiettivoattivitaattach.defineColumn("idperfprogetto", typeof(int),false);
 	tperfprogettoobiettivoattivitaattach.defineColumn("idperfprogettoobiettivo", typeof(int),false);

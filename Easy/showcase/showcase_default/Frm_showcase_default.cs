@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,19 +31,37 @@ namespace showcase_default
     {
         MetaData Meta;
 
-        public Frm_showcase_default()
-        {
+        public Frm_showcase_default(){
             InitializeComponent();
         }
+        public void MetaData_AfterClear() {
+            Meta.UnMarkTableAsNotEntityChild(DS.showcasedetail_related);
+        }
 
-        public void MetaData_AfterLink()
-        {
+            public void MetaData_AfterLink(){
             Meta = MetaData.GetMetaData(this);
             Meta.DefaultListType = "default";
 			GetData.CacheTable(DS.invoicekind);
-			DataAccess.SetTableForReading(DS.upb_iva, "upb");
-		}
+			DataAccess.SetTableForReading(DS.upb_iva1, "upb");
+            Meta.MarkTableAsNotEntityChild(DS.showcasedetail_related);
+        }
 
+        public void MetaData_AfterFill() {
+            Meta.MarkTableAsNotEntityChild(DS.showcasedetail_related);
+        }
+        public void MetaData_BeforePost() {
+            if (DS.showcase.Rows.Count == 0) {
+                DS.showcasedetail.Clear();
+                return; //Insert/Cancel sequence
+            }
+            var R = DS.showcase.Rows[0];
+            if (R.RowState == DataRowState.Deleted) {
+                foreach (var A in DS.showcasedetail_related.Select()) {
+                    if (A.RowState != DataRowState.Deleted)
+                        A.Delete();
+                }
+            }
+        }
 
     }
 }

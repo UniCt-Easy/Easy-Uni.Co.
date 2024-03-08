@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,13 +31,22 @@ namespace meta_flussoincassiview
 			Name= "Flusso incassi";
 			ListingTypes.Add("default");
 		}
-		
+
+		public override string GetSorting(string ListingType) {
+			string sorting;
+			if (ListingType == "default") {
+				sorting = "idflusso desc";
+				return sorting;
+			}
+			return base.GetSorting(ListingType);
+		}
 		public override void DescribeColumns(DataTable T, string ListingType) {
 			base.DescribeColumns(T, ListingType);
 			if (ListingType=="default") {
 				foreach (DataColumn C in T.Columns)
 					DescribeAColumn(T, C.ColumnName, "",-1);
 			    int nPos = 1;
+				DescribeAColumn(T, "idflusso", "ID Flusso", nPos++);
 				DescribeAColumn(T, "codiceflusso", "Codice", nPos++);
                 DescribeAColumn(T, "trn", "TRN", nPos++);
                 DescribeAColumn(T, "ayear", "Esercizio", nPos++);

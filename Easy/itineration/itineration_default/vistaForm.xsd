@@ -85,6 +85,12 @@
               <xs:element name="stoptime" type="xs:dateTime" minOccurs="0" />
               <xs:element name="iddalia_dipartimento" type="xs:int" minOccurs="0" />
               <xs:element name="iddalia_funzionale" type="xs:int" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
+              <xs:element name="advancepercentageliving" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentagetravel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentagefood" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedcourse" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentagecourse" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -161,6 +167,9 @@
               <xs:element name="_x0021_classificazione" type="xs:string" minOccurs="0" />
               <xs:element name="idforeigncountry" type="xs:int" minOccurs="0" />
               <xs:element name="noaccount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="docamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="requiredamount_c" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -690,6 +699,9 @@
               <xs:element name="_x0021_classificazione" type="xs:string" minOccurs="0" />
               <xs:element name="idforeigncountry" type="xs:int" minOccurs="0" />
               <xs:element name="noaccount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="docamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="requiredamount_c" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -779,6 +791,8 @@
               <xs:element name="_x0021_description" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_status" type="xs:string" minOccurs="0" />
               <xs:element name="annotationsrejectapproval" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_priority" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_priorityorder" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1315,6 +1329,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="costpartition" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostpartition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="costpartitioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -1515,6 +1545,10 @@
       <xs:field xpath="mstns:iditineration" />
       <xs:field xpath="mstns:nrefund" />
     </xs:unique>
+    <xs:unique name="costpartition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costpartition" />
+      <xs:field xpath="mstns:idcostpartition" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1558,6 +1592,7 @@
       <msdata:Relationship name="dalia_dipartimento_itineration" msdata:parent="dalia_dipartimento" msdata:child="itineration" msdata:parentkey="iddalia_dipartimento" msdata:childkey="iddalia_dipartimento" />
       <msdata:Relationship name="itinerationrefund_advance_itinerationrefundattachment" msdata:parent="itinerationrefund_advance" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
       <msdata:Relationship name="itinerationrefund_balance_itinerationrefundattachment" msdata:parent="itinerationrefund_balance" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
+      <msdata:Relationship name="costpartition_itineration" msdata:parent="costpartition" msdata:child="itineration" msdata:parentkey="idcostpartition" msdata:childkey="idcostpartition" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -106,6 +106,9 @@
     <Reference Include="meta_expenselast">
       <HintPath>..\..\expenselast\meta_expenselast\bin\Debug\meta_expenselast.dll</HintPath>
     </Reference>
+    <Reference Include="meta_expenseyear">
+      <HintPath>..\..\expenseyear\meta_expenseyear\bin\Debug\meta_expenseyear.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -165,12 +168,6 @@
       <Project>{42D2BFEA-1727-4039-A978-5D366E5479D3}</Project>
       <Private>False</Private>
     </ProjectReference>
-    <Reference Include="meta_expenseyear">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_expenseyear</Name>
-      <HintPath>..\..\expenseyear\meta_expenseyear\bin\Debug\meta_expenseyear.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="meta_manager">
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_manager</Name>

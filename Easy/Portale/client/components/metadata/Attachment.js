@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 (function() {
     var Deferred = appMeta.Deferred;
 
@@ -166,7 +149,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var FD = new FormData();
             FD.append('file', chunk, fileName);
             // recupero dal routing prm da passare alla chiamata
-           var callConfigObj = appMeta.routing.connObj['uploadChunk'];
+            var callConfigObj = appMeta.routing.getMethod('uploadChunk');
            var myInit = {
                 method: callConfigObj.type,
                 body: FD,
@@ -196,7 +179,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var def = Deferred("download");
             var self = this;
             var token = appMeta.connection.getAuthToken();
-            var callConfigObj = appMeta.routing.connObj['download'];
+            var callConfigObj = appMeta.routing.getMethod('download');
             var url = callConfigObj.url + '?idattach=' + idAttach;
             var filename = 'default';
             var myInit = { method: callConfigObj.type,
@@ -209,7 +192,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 var a = document.createElement("a");
                 document.body.appendChild(a);
                 a.style = "display: none";
-                console.log(fileURL);
                 a.href = fileURL;
                 a.download = filename;
                 a.click();
@@ -218,8 +200,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             return def.promise();
         },
 
-		getFileNameFromContentDisposition: function (contentDisposition) {
-			var filename = contentDisposition.split('filename=')[1].split(';')[0];
+        getFileNameByUTF8: function (str) {
+
+            // Convert Base64 encoded bytes to percent-encoding, and then get the original string.
+            var start = "=?utf-8?B?";
+            var input = str.substring(str.indexOf(start) + start.length, str.lastIndexOf("?="));
+            percentEncodedStr = atob(input).split('').map(function (c) {
+                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join('');
+
+            return decodeURIComponent(percentEncodedStr);
+        },
+
+        getFileNameFromContentDisposition: function (contentDisposition) {
+            
+            var filename = contentDisposition.split('filename=')[1].split(';')[0];
+            if (filename.indexOf("utf-8") > 0)
+                filename = this.getFileNameByUTF8(filename);
 			return this.getOriginalFileName(filename.replaceAll('"',''));
         },
 
@@ -250,7 +247,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 filter: appMeta.getDataUtils.getJsonFromJsDataQuery(filter)
             };
 
-             // parametri da apssare nella query string
+             // parametri da passare nella query string
             serialize = function(obj) {
                 var str = [];
                 for (var p in obj)
@@ -262,7 +259,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             var def = Deferred("downloadDbField");
             var token = appMeta.connection.getAuthToken();
-            var callConfigObj = appMeta.routing.connObj['downloadDbField'];
+            var callConfigObj = appMeta.routing.getMethod('downloadDbField');
             var url = callConfigObj.url + "?" + serialize(prms);
             var fname = '';
 
@@ -304,7 +301,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //removeAttachment:function (idAttach) {
         //    var def = Deferred("removeAttachment");
         //    var token = appMeta.connection.getAuthToken();
-        //    var callConfigObj = appMeta.routing.connObj['remove'];
+        //    var callConfigObj = appMeta.routing.getMethod('remove');
         //    $.ajax({
         //        type: callConfigObj.type,
         //        url: callConfigObj.url +  "?idattach=" + idAttach,//appMeta.routing.backendUrl + '/file/remove?idattach=' + idAttach,

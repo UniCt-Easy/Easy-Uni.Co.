@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,11 +27,11 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_apppagesbutton_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_apppagesbutton_default: DataSet {
+public partial class dsmeta_apppagesbutton_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable apptab 		=> (MetaTable)Tables["apptab"];
+	public MetaTable apptabdefaultview 		=> (MetaTable)Tables["apptabdefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable apppagesbutton 		=> (MetaTable)Tables["apppagesbutton"];
@@ -61,16 +61,18 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_apppagesbutton_default.xsd";
 
 	#region create DataTables
-	//////////////////// APPTAB /////////////////////////////////
-	var tapptab= new MetaTable("apptab");
-	tapptab.defineColumn("header", typeof(string));
-	tapptab.defineColumn("icon", typeof(string));
-	tapptab.defineColumn("idapppages", typeof(int),false);
-	tapptab.defineColumn("idapptab", typeof(int),false);
-	tapptab.defineColumn("position", typeof(int));
-	tapptab.defineColumn("title", typeof(string));
-	Tables.Add(tapptab);
-	tapptab.defineKey("idapppages", "idapptab");
+	//////////////////// APPTABDEFAULTVIEW /////////////////////////////////
+	var tapptabdefaultview= new MetaTable("apptabdefaultview");
+	tapptabdefaultview.defineColumn("apptab_header", typeof(string));
+	tapptabdefaultview.defineColumn("apptab_icon", typeof(string));
+	tapptabdefaultview.defineColumn("apptab_position", typeof(int));
+	tapptabdefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tapptabdefaultview.defineColumn("idapppages", typeof(int),false);
+	tapptabdefaultview.defineColumn("idapptab", typeof(int),false);
+	tapptabdefaultview.defineColumn("idapptabcolsnumber", typeof(int));
+	tapptabdefaultview.defineColumn("title", typeof(string));
+	Tables.Add(tapptabdefaultview);
+	tapptabdefaultview.defineKey("idapppages", "idapptab");
 
 	//////////////////// APPPAGESBUTTON /////////////////////////////////
 	var tapppagesbutton= new MetaTable("apppagesbutton");
@@ -93,9 +95,9 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{apptab.Columns["idapptab"]};
+	var cPar = new []{apptabdefaultview.Columns["idapptab"]};
 	var cChild = new []{apppagesbutton.Columns["idapptab"]};
-	Relations.Add(new DataRelation("FK_apppagesbutton_apptab_idapptab",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_apppagesbutton_apptabdefaultview_idapptab",cPar,cChild,false));
 
 	#endregion
 

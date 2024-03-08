@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +24,6 @@ GO
 SET ANSI_NULLS ON 
 GO
 
--- exec import_inquadranagrafiche_csa null
 CREATE  PROCEDURE [import_inquadranagrafiche_csa](
 	@LinkedServer varchar(200),
 	@dbservername varchar(200),
@@ -81,12 +80,15 @@ CREATE TABLE #INQUADRAMENTI
 	in_vigore_giur datetime, 
 	imponpresunto decimal(19,2),	-- reddito annuo presunto
 	classestipendiale int,			-- classe stipendiale
-	codicequalifica	varchar(20),	-- codice qualifica
+	codicequalifica	varchar(20),	-- codice qualifica in Easy
+	codiceinquadramento int,		-- id inquadramento in Easy
+	livello int,
 	codicequalifica_bdm	varchar(20),	-- codice qualifica
 	iddaliaposition int,
-	ruolo	varchar(4),
+	ruolo	varchar(4),				-- valore che arriva da CSA
+	inquadramento varchar(20),		-- valore che arriva da CSA
+	comparto	char (1),			-- valore che arriva da CSA
 	termine datetime, 
-	comparto	char (1),
 	------------------------ note per l'utente ---------------------
 	dettaglio varchar(300)
 )
@@ -112,39 +114,120 @@ ELSE
 		' WHERE (XXX.matricola <= ' +  CONVERT(varchar(20),@matricolastop) + ' ) '
 	END
 
-SET @query_EASY_INQUADRAMENTI = '
- INSERT INTO #INQUADRAMENTI(
-	matricola,
-	ruolo,
-	comparto,
-	datadecorrenza,
-	termine,
-	in_vigore_giur,
-	imponpresunto
-)
 
-SELECT 
-	I.matricola, 
-	I.ruolo,
-	I.comparto,
-	I.datadecorrenza,
-	I.termine,
-	isnull(I.datadelibera,I.datadecorrenza),
-	null--	I.imponibilepresunto
-FROM ' + @EASY_INQUADRAMENTI + ' as I ' +
-ISNULL(REPLACE(@where_ANAGRAFICA,'XXX.','I.'),'')  + 
-' GROUP BY I.matricola,I.ruolo,I.comparto,I.datadecorrenza,
-	I.termine,
-	I.datadelibera' 
+------------------
+DECLARE @COL_Inq int
 
-EXEC (@query_EASY_INQUADRAMENTI) 
+BEGIN TRY
 
--- UPDATE per valorizzare EVENTUALMENTE idposition
+	DECLARE @SqlQuery NVARCHAR(MAX) = 
+	'declare @x varchar(50)
+	set @x = (select top 1 Inquadramento 
+	FROM ' + @EASY_INQUADRAMENTI + ' ) ' 
+
+--print @SqlQuery
+	EXEC sp_executesql @SqlQuery
+  -- PRINT 'La colonna esiste sulla tabella.';
+	set @COL_Inq=1
+END TRY
+BEGIN CATCH
+	--PRINT 'Errore durante la verifica della colonna o linked server non disponibile.';
+	set @COL_Inq=0
+    
+END CATCH;
+------------------
+
+if (@COL_Inq <> 0) -- colonna INQUADRAMENTO presente
+Begin
+ 
+	-- Viste che hanno anche la colonna inquadramento
+	SET @query_EASY_INQUADRAMENTI = '
+	 INSERT INTO #INQUADRAMENTI(
+		matricola,
+		ruolo,
+		comparto,
+		datadecorrenza,
+		termine,
+		in_vigore_giur,
+		imponpresunto,
+		inquadramento,
+		classestipendiale
+	)
+	
+	SELECT 
+		I.matricola, 
+		I.ruolo,
+		I.comparto,
+		I.datadecorrenza,
+		I.termine,
+		isnull(I.datadelibera,I.datadecorrenza),
+		null, --	I.imponibilepresunto
+		I.inquadramento,
+		CASE 
+			WHEN SUBSTRING(I.inquadramento,0,3) in (''PN'',''PV'',''DN'',''DV'') THEN CAST(SUBSTRING(I.inquadramento,5,2)as int) 
+			WHEN SUBSTRING(I.inquadramento,4,3) in ('' ND'','' NP'') THEN CAST(SUBSTRING(I.inquadramento,2,2)as int) 
+		ELSE 0
+		END
+	FROM ' + @EASY_INQUADRAMENTI + ' as I ' +
+	ISNULL(REPLACE(@where_ANAGRAFICA,'XXX.','I.'),'')  + 
+	' GROUP BY I.matricola,I.ruolo,I.inquadramento, I.comparto,I.datadecorrenza,
+		I.termine,
+		I.datadelibera' 
+-- IMPORTANTE: lo spazio presente davanti a (' ND',' NP') non va rimosso.
+
+	EXEC (@query_EASY_INQUADRAMENTI) 
+	print @query_EASY_INQUADRAMENTI
+	-- UPDATE per valorizzare EVENTUALMENTE idposition
+	UPDATE #INQUADRAMENTI SET codicequalifica = CSA_P.idposition, 
+			codiceinquadramento = CSA_P.idinquadramento, 
+			livello = CSA_P.livello,
+			imponpresunto = CSA_P.supposedtaxable
+			FROM csapositionlookup CSA_P
+			WHERE CSA_P.csa_compartment = #INQUADRAMENTI.comparto /* fa il match fra la tripla che arriva dalla view e la tripla presente nel LookUp, e prende il valore corrispondente in Easy di idposition e idinquadramento*/
+				AND CSA_P.csa_role = #INQUADRAMENTI.Ruolo 
+				AND CSA_P.csa_class = #INQUADRAMENTI.Inquadramento
+				
+End
+Else
+Begin
+	-- Viste che NON hanno anche la colonna inquadramento
+	SET @query_EASY_INQUADRAMENTI = '
+	 INSERT INTO #INQUADRAMENTI(
+		matricola,
+		ruolo,
+		comparto,
+		datadecorrenza,
+		termine,
+		in_vigore_giur,
+		imponpresunto,
+		classestipendiale
+	)
+	--
+	SELECT 
+		I.matricola, 
+		I.ruolo,
+		I.comparto,
+		I.datadecorrenza,
+		I.termine,
+		isnull(I.datadelibera,I.datadecorrenza),
+		null,--	I.imponibilepresunto
+		0
+	FROM ' + @EASY_INQUADRAMENTI + ' as I ' +
+	ISNULL(REPLACE(@where_ANAGRAFICA,'XXX.','I.'),'')  + 
+	' GROUP BY I.matricola,I.ruolo,I.comparto,I.datadecorrenza,
+		I.termine,
+		I.datadelibera' 
+
+	EXEC (@query_EASY_INQUADRAMENTI) 
+
+	-- UPDATE per valorizzare EVENTUALMENTE idposition
 UPDATE #INQUADRAMENTI SET codicequalifica = idposition, 
 				imponpresunto = supposedtaxable
 			FROM csapositionlookup CSA_P
 			WHERE CSA_P.csa_compartment = #INQUADRAMENTI.comparto 
 				AND CSA_P.csa_role = #INQUADRAMENTI.Ruolo 
+End
+
 
 -- UPDATE per valorizzare EVENTUALMENTE iddaliaposition
 UPDATE #INQUADRAMENTI SET iddaliaposition = dalia_position.iddaliaposition 
@@ -255,14 +338,18 @@ SELECT
 	C.classestipendiale,
 
 	C.codicequalifica ,-- è l'idposition di Easy
+	C.codiceinquadramento, -- è l'idinquadramento di Easy
+	C.livello,
 	C.iddaliaposition ,-- è l'iddaliaposition di Easy
 	C.imponpresunto	,  -- è l'imponibile presunto di Easy
 	'N' as avviso,
 	null as dettaglio,
 	C.comparto,
 	C.ruolo,
+	C.inquadramento,
 	'I' as rowkind
 FROM #INQUADRAMENTI C
+where C.codicequalifica  is not null
 
 UNION 
 
@@ -293,6 +380,8 @@ SELECT
 	null as classestipendiale,
 
 	null as codicequalifica ,-- è l'idposition di Easy
+	null as codiceinquadramento, -- è l'idinquadramento di Easy
+	null as livello,
 	null as iddaliaposition,-- è l'iddaliaposition di Easy
 	null as imponpresunto	,  -- è l'imponibile presunto di Easy
 	isnull(p.avviso,'N') as avviso,
@@ -302,6 +391,7 @@ SELECT
 	end as dettaglio,
 	null as comparto,
 	null as ruolo,
+	null as inquadramento,
 	'P' as rowkind
  FROM #ModPagamento P
 ordER BY matricola
@@ -314,4 +404,6 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
+
+
 

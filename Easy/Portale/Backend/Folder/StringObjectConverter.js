@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-function GetObjectFromString(pType, pString, pTag) {
+Ôªøfunction GetObjectFromString(pType, pString, pTag) {
     /*
-    GetObjectFromString data una stringa ìpStringî, una definizione di tipo ìpTypeî 
-    ed un tag ìpTagî, ritorna un oggetto che consta di due membri: 
+    GetObjectFromString data una stringa ‚ÄúpString‚Äù, una definizione di tipo ‚ÄúpType‚Äù 
+    ed un tag ‚ÄúpTag‚Äù, ritorna un oggetto che consta di due membri: 
     -	TypeName che contiene uno dei seguenti valori: 
-        ìStringî, ìCharî, ìDoubleî, ìSingleî, ìDecimalî, ìDateTimeî, ìByteî, ìInt16î, ìInt32î;
-    -	Obj che contiene líoggetto del tipo appropriato (String, Float, Int, Date) ricavato da pString. 
+        ‚ÄúString‚Äù, ‚ÄúChar‚Äù, ‚ÄúDouble‚Äù, ‚ÄúSingle‚Äù, ‚ÄúDecimal‚Äù, ‚ÄúDateTime‚Äù, ‚ÄúByte‚Äù, ‚ÄúInt16‚Äù, ‚ÄúInt32‚Äù;
+    -	Obj che contiene l‚Äôoggetto del tipo appropriato (String, Float, Int, Date) ricavato da pString. 
     */
 
     if (pType == null)
@@ -265,7 +248,7 @@ function GetObjectFromString(pType, pString, pTag) {
                     }
 
                     if (IsStandardNumericFormatStyle(FieldType)) {
-                        // forse questo pezzo qui non servir‡...
+                        // forse questo pezzo qui non servir√†...
                         I11 = parseInt(S);
                         if (isNaN(I11)) return null;
                         //I11 = Byte.Parse(S, System.Globalization.NumberStyles.Currency, NumberFormatInfo.CurrentInfo);
@@ -289,7 +272,7 @@ function GetObjectFromString(pType, pString, pTag) {
                         return RetObj;
                     }
                     if (IsStandardNumericFormatStyle(FieldType)) {
-                        // neanche questo pezzo servir‡ forse...
+                        // neanche questo pezzo servir√† forse...
                         // I1 = Int16.Parse(S, System.Globalization.NumberStyles.Currency, NumberFormatInfo.CurrentInfo);                
 
                         I1 = parseInt(S);
@@ -386,7 +369,7 @@ function GetObjectFromString(pType, pString, pTag) {
 
 function StringValue(pObject, pTag, pType) {
     /*
-    StringValue Ë la funzione duale di GetObjectFromString. A partire da pObject, 
+    StringValue √® la funzione duale di GetObjectFromString. A partire da pObject, 
     fornisce in output una stringa formattata secondo pTag e pType.    
     */
 
@@ -456,8 +439,8 @@ function StringValue(pObject, pTag, pType) {
 
 function GetFieldLower(pTag, pTagNumber) {
     /*
-    Ritorna líelemento di posto pTagNumber (
-    líultimo elemento se pTagNumber > lunghezza del tag) 
+    Ritorna l‚Äôelemento di posto pTagNumber (
+    l‚Äôultimo elemento se pTagNumber > lunghezza del tag) 
     presente in pTag e lo converte tutto in minuscole.
     */
 
@@ -480,7 +463,7 @@ function GetFieldLower(pTag, pTagNumber) {
 
 function IsStandardDateFormatStyle(fmt) {
     /*
-    Ritorna true se il formato data fmt Ë standard. False altrimenti.    
+    Ritorna true se il formato data fmt √® standard. False altrimenti.    
     */
     switch (fmt) {
         case "d":
@@ -568,7 +551,7 @@ function IsStandardDateFormatStyle(fmt) {
 function ConvertDateToDateString(pObject, pStdDateFormat) {
     /*
     Funzione duale della precedente. Dato un pObject (presumibilmente di tipo Date Javascript) 
-    ed un formato data pStdDateFormat (i formati supportati al momento sono ìdî e ìgî di cui sopra), 
+    ed un formato data pStdDateFormat (i formati supportati al momento sono ‚Äúd‚Äù e ‚Äúg‚Äù di cui sopra), 
     ritorna una stringa formattata secondo pStdDateFormat.    
     */
 
@@ -663,8 +646,8 @@ function ConvertDateToDateString(pObject, pStdDateFormat) {
 function ConvertToNumberString(pNumber, pPrecision, pNumberStyle) {
     /*
     Dato un pNumber (numero Javascript), una precisione pPrecision ed un pNumberStyle, 
-    lo converte dal formato Javascript in stringa. Ad es. 1234673.33 verr‡ convertito 
-    in 1.234.673,33. Se pNumberStyle vale ìCurrencyî, aggiunge anche il simbolo di valuta. 
+    lo converte dal formato Javascript in stringa. Ad es. 1234673.33 verr√† convertito 
+    in 1.234.673,33. Se pNumberStyle vale ‚ÄúCurrency‚Äù, aggiunge anche il simbolo di valuta. 
     Questa funzione viene richiamata da StringValue.
     */
 
@@ -747,7 +730,7 @@ function ConvertToNumberString(pNumber, pPrecision, pNumberStyle) {
 
 function IsStandardNumericFormatStyle(fmt) {
     /*
-    Ritorna true se il formato numerico fmt Ë standard. False altrimenti.
+    Ritorna true se il formato numerico fmt √® standard. False altrimenti.
     */
 
     switch (fmt) {

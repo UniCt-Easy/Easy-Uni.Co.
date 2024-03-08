@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,7 +37,8 @@ namespace EasyWebReport {
     public class MyMenuClass {
         string text = null;
         string classfun = null;
-        List <MyMenuClass> submenu = new List<MyMenuClass>() ; 
+        List<MyMenuClass> submenu = new List<MyMenuClass>();
+        public bool HasSubMenus { get { return submenu.Count > 0; } }
         string tag = null;
         bool canskip = false;
         public MyMenuClass(string text, string classfun, string tag, bool canskip) {
@@ -180,8 +181,8 @@ namespace EasyWebReport {
         bool MissioniAuth = true;
         bool MissioniMyTeam = true;
         bool CanChangePassword = true;
-        bool RicaricaCard = true;
-        bool GestisciCard = true;
+        bool RicaricaCard = false;
+        bool GestisciCard = false;
         bool Upb = true;
         bool Finanziamento = true;
         bool IngressoMagazzino = true;
@@ -441,11 +442,9 @@ namespace EasyWebReport {
                         lastgroupname = DrReport["groupname"].ToString().ToLower();
                     }
 
-
                     MyMenuClass voce = new MyMenuClass(DrReport["Description"].ToString(), "r",
                         DrReport["ModuleName"].ToString() + "." + DrReport["ReportName"].ToString());
                     menuGruppo.AddChild(voce);
-
                 }
             }
 
@@ -792,33 +791,27 @@ namespace EasyWebReport {
             if (MissioniMyTeam || MissioniAuth ||  Missioni  || CataniaMissioni) {
                 mis = new MyMenuClass("Missioni");
                 if (Missioni) {
+
+                    if (MissioniAuth) {
+                        mis.AddChild(new MyMenuClass("Autorizza Missioni", "f", "itinerationauthview.defaultnew02"));
+                    }
+
                     if (_ShowMenuItineration) {
-                        MyMenuClass m1 = new MyMenuClass("Richiesta Missione", "f", "itineration.autoinsertnew02");
-                        mis.AddChild(m1);
+                        string missionsInsertTag = "itineration.autoinsertnew02";
+                        string missionsListTag = "itineration.autolistnew02";
+
+                        if (!CataniaMissioni) {
+                            mis.AddChild(new MyMenuClass("Missioni", "f", "itineration.defaultnew02"));
+                            if (MissioniMyTeam) mis.AddChild(new MyMenuClass("Missioni sui miei fondi", "f", "itineration.myteamnew02"));
+                        }
+                        else {
+                            missionsInsertTag = "itineration.ct_default";
+                            missionsListTag = "itineration.ct_autolist";
+                        }
+
+                        mis.AddChild(new MyMenuClass("Richiesta Missione", "f", missionsInsertTag));
+                        mis.AddChild(new MyMenuClass("Elenco Missioni", "f", missionsListTag));
                     }
-                    if (true || menuitinerationlist) {
-                        MyMenuClass m2 = new MyMenuClass("Elenco Missioni", "f", "itineration.autolistnew02");
-                        mis.AddChild(m2);
-                    }
-
-                    MyMenuClass m = new MyMenuClass("Missioni", "f", "itineration.defaultnew02");
-                    mis.AddChild(m);
-                }
-
-                if (MissioniMyTeam && _ShowMenuItineration) {
-                    MyMenuClass m = new MyMenuClass("Missioni sui miei fondi", "f", "itineration.myteamnew02");
-                    mis.AddChild(m);
-                }
-                if (MissioniAuth) {
-                    MyMenuClass m = new MyMenuClass("Autorizza Missioni", "f", "itinerationauthview.defaultnew02");
-                    mis.AddChild(m);
-                }
-                if (CataniaMissioni) {
-                    MyMenuClass m = new MyMenuClass("Richiesta Missione(Catania)", "f", "itineration.ct_default");
-                    mis.AddChild(m);
-
-                    MyMenuClass m3 = new MyMenuClass("Elenco Missioni(Catania)", "f", "itineration.ct_autolist");
-                    mis.AddChild(m3);
                 }
             }
 
@@ -826,12 +819,12 @@ namespace EasyWebReport {
                 MyMenuClass funz = new MyMenuClass("Funzioni");
                 myMenu.AddChild(funz);
 
-                if (bil != null) funz.AddChild(bil);
-                if (acq != null) funz.AddChild(acq);
-                if (fin != null) funz.AddChild(fin);
-                if (mag != null) funz.AddChild(mag);
-                if (mis != null) funz.AddChild(mis);
-                if (ep != null)  funz.AddChild(ep);
+                if (bil != null && bil.HasSubMenus) funz.AddChild(bil);
+                if (acq != null && acq.HasSubMenus) funz.AddChild(acq);
+                if (fin != null && fin.HasSubMenus) funz.AddChild(fin);
+                if (mag != null && mag.HasSubMenus) funz.AddChild(mag);
+                if (mis != null && mis.HasSubMenus) funz.AddChild(mis);
+                if (ep != null && ep.HasSubMenus) funz.AddChild(ep);
             }
             // Vanno aggiunti i filtri per la vetrina e la prenotazione
             UsrConn.Close();

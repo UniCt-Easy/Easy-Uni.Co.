@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -233,6 +233,9 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tregistrylegalstatus.Columns.Add(C);
 	tregistrylegalstatus.Columns.Add( new DataColumn("iddaliaposition", typeof(int)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("livello", typeof(int)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("idinquadramento", typeof(int)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("flagdefault", typeof(string)));
 	Tables.Add(tregistrylegalstatus);
 	tregistrylegalstatus.PrimaryKey =  new DataColumn[]{tregistrylegalstatus.Columns["idreg"], tregistrylegalstatus.Columns["idregistrylegalstatus"]};
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -57,7 +57,7 @@ namespace Backend.Controllers {
         /// <param name="prms">customEventQueryParameters</param>
         /// <returns></returns>
         [HttpPost, Route("computeComune")]
-        public IHttpActionResult computeComune(computeComunePrms prms) {
+        public IHttpActionResult computeComune([FromBody] computeComunePrms prms) {
             string idcomune = comune(prms.codicefiscale);
             return Content(HttpStatusCode.OK, idcomune);
 
@@ -86,7 +86,7 @@ namespace Backend.Controllers {
         /// <param name="prms">customEventQueryParameters</param>
         /// <returns></returns>
         [HttpPost, Route("computeNazione")]
-        public IHttpActionResult computeNazione(computeComunePrms prms) {
+        public IHttpActionResult computeNazione([FromBody] computeComunePrms prms) {
             string idnazione = nazione(prms.codicefiscale);
             return Content(HttpStatusCode.OK, idnazione);
 
@@ -118,7 +118,7 @@ namespace Backend.Controllers {
         /// <param name="prms">customEventQueryParameters</param>
         /// <returns></returns>
         [HttpPost, Route("computeHistoryCity")]
-        public IHttpActionResult computeHistoryCity(computeHistoryCityPrms prms) {
+        public IHttpActionResult computeHistoryCity([FromBody] computeHistoryCityPrms prms) {
             var jsonDataSet = computeGeoHistory("compute_history_city", prms.idcomune);
             return Content(HttpStatusCode.OK, jsonDataSet);
 
@@ -134,7 +134,7 @@ namespace Backend.Controllers {
         /// <param name="prms">customEventQueryParameters</param>
         /// <returns></returns>
         [HttpPost, Route("computeHistoryNation")]
-        public IHttpActionResult computeHistoryNation(computeHistoryNationPrms prms) {
+        public IHttpActionResult computeHistoryNation([FromBody] computeHistoryNationPrms prms) {
             var jsonDataSet = computeGeoHistory("compute_history_nation", prms.idstatoestero);
             return Content(HttpStatusCode.OK, jsonDataSet);
         }
@@ -146,11 +146,11 @@ namespace Backend.Controllers {
         /// <param name="spName"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        private string computeGeoHistory(string spName, string id) {
+        private JObject computeGeoHistory(string spName, string id) {
             var dispatcher = HttpContext.Current.getDataDispatcher();
             object[] list = new object[] {id, "S"};
             DataSet DSout = dispatcher.conn.CallSP(spName, list, true, -1);
-            var jsonResDataSet = DataUtils.dataSetToJSon(DSout);
+            var jsonResDataSet = DataUtils.dataSetToJSon(DSout,true);
             return jsonResDataSet;
         }
 

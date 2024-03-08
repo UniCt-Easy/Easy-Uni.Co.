@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
+using Cronos;
 
 namespace advice_default {
     public partial class FrmAldviceDefault : MetaDataForm {
@@ -42,6 +43,39 @@ namespace advice_default {
             Meta.CanCancel = IsAdmin;
             GetData.SetSorting(DS.advice, "adate desc");
         }
-       
+
+        private void genCrontab_Click(object sender, EventArgs e) {
+
+            using (var form = new FrmCrontabGen()) {
+
+                createForm(form, null);
+                var result = form.ShowDialog();
+
+                if (result == DialogResult.OK) {
+                    txtCrontab.Text = form.Crontab;
+                }
+            }
+        }
+
+        private void btnTestCrontabGen_Click(object sender, EventArgs e) {
+
+            try {
+                DateTimeOffset start = new DateTimeOffset(DateTime.SpecifyKind(DateTime.Parse(textBox2.Text), DateTimeKind.Local));
+                DateTimeOffset stop = new DateTimeOffset(DateTime.SpecifyKind(DateTime.Parse(txtStopdate.Text), DateTimeKind.Local));
+
+                if (start > stop) {
+                    MetaFactory.factory.getSingleton<IMessageShower>().Show("Le date di inizio e fine non sono compatibili", "Attenzione");
+                    return;
+                }
+
+                var summary = new FrmCrontabSummary(start, stop, txtCrontab.Text);
+                createForm(summary, null);
+                summary.Show();
+            }
+            catch (Exception) {
+                MetaFactory.factory.getSingleton<IMessageShower>().Show("La schedulazione non sarà applicata in quanto le date non sono valide", "Attenzione");
+                return;
+            }
+        }
     }
 }

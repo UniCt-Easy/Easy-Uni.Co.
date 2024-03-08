@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -213,6 +213,7 @@ as begin
 		insert into entrydetail(nentry, yentry, ndetail, amount, idacc,	idreg ,	idupb,	idaccmotive,  idepexp,idepacc, ct, cu, lt, lu,idrelated)
 		select nentry, yentry, ndetail, amount, idacc,	idreg ,	idupb,	idaccmotive,  idepexp,idepacc, getdate(), 'compute_epilogo', getdate(),'compute_epilogo',idrelated
 		from @MyEntrydetail
+		where isnull(amount,0)<>0
 End
 
 GO

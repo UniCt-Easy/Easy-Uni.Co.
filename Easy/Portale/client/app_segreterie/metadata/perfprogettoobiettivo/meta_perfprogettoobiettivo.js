@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,11 +24,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Titolo', null, 20, 1024);
+						this.describeAColumn(table, 'title', 'Titolo', null, 10, 1024);
 						this.describeAColumn(table, 'description', 'Descrizione', null, 30, -1);
 						this.describeAColumn(table, 'peso', 'Peso per il progetto', 'fixed.2', 60, null);
 						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 130, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_surname', 'Cognome Referente dell\'obiettivo', null, 21, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_forename', 'Nome Referente dell\'obiettivo', null, 22, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_extmatricula', 'Matricola Referente dell\'obiettivo', null, 23, null);
+						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_contratto', 'Contratto Referente dell\'obiettivo', null, 24, null);
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_surname'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'surname', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_forename'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'forename', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'extmatricula', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'contratto', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_surname'] = { tableNameLookup:'getregistrydocentiamministrativi_alias1', columnNameLookup:'surname', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_forename'] = { tableNameLookup:'getregistrydocentiamministrativi_alias1', columnNameLookup:'forename', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi_alias1', columnNameLookup:'extmatricula', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_getregistrydocentiamministrativi_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi_alias1', columnNameLookup:'contratto', columnNamekey:'idreg' };
 //$objCalcFieldConfig_default$
+						break;
+					case 'amministrativi':
+						this.describeAColumn(table, 'title', 'Titolo', null, 20, 1024);
+						this.describeAColumn(table, 'description', 'Descrizione', null, 40, -1);
+						this.describeAColumn(table, 'peso', 'Peso per il progetto', 'fixed.2', 50, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 100, null);
+//$objCalcFieldConfig_amministrativi$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -63,7 +65,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["peso"].caption = "Peso per il progetto";
 						table.columns["title"].caption = "Titolo";
 						table.columns["idattach"].caption = "Relazione finale";
+						table.columns["idreg"].caption = "Referente del progetto";
+						table.columns["idreg"].caption = "Referente dell'obiettivo";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'amministrativi':
+						table.columns["completamento"].caption = "Percentuale di completamento";
+						table.columns["description"].caption = "Descrizione";
+						table.columns["idattach"].caption = "Relazione finale";
+						table.columns["idreg"].caption = "Referente dell'obiettivo";
+						table.columns["peso"].caption = "Peso per il progetto";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_amministrativi$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -93,6 +106,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "title desc";
+					}
+					case "amministrativi": {
 						return "title desc";
 					}
 					//$getSortingin$

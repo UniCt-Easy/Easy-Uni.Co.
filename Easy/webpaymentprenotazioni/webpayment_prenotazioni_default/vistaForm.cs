@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -91,7 +91,7 @@ private void initClass() {
 
 	//////////////////// WEBPAYMENTDETAIL /////////////////////////////////
 	var twebpaymentdetail= new webpaymentdetailTable();
-	twebpaymentdetail.addBaseColumns("idwebpayment","idlist","idstore","ct","cu","idsor1","idsor2","idsor3","lt","lu","number","price","iddetail","idupb","idestimkind","paymentexpiring","idivakind","tax","annotations","idinvkind","competencystart","competencystop","idupb_iva");
+	twebpaymentdetail.addBaseColumns("idwebpayment","idlist","idstore","ct","cu","idsor1","idsor2","idsor3","lt","lu","number","price","iddetail","idupb","idestimkind","paymentexpiring","idivakind","tax","annotations","idinvkind","competencystart","competencystop","idupb_iva","description");
 	twebpaymentdetail.defineColumn("!list", typeof(string));
 	twebpaymentdetail.defineColumn("!store", typeof(string));
 	twebpaymentdetail.defineColumn("!totale", typeof(decimal));

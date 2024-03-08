@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -18,44 +18,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using metadatalibrary;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace meta_assetgrantdetail {
 public class assetgrantdetailRow: MetaRow  {
 	public assetgrantdetailRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	public Int32? idasset{ 
-		get {if (this["idasset"]==DBNull.Value)return null; return  (Int32?)this["idasset"];}
-		set {if (value==null) this["idasset"]= DBNull.Value; else this["idasset"]= value;}
+	public Int32 idasset{ 
+		get {return  (Int32)this["idasset"];}
+		set {this["idasset"]= value;}
 	}
 	public object idassetValue { 
 		get{ return this["idasset"];}
-		set {if (value==null|| value==DBNull.Value) this["idasset"]= DBNull.Value; else this["idasset"]= value;}
+		set {this["idasset"]= value;}
 	}
-	public Int32? idassetOriginal { 
-		get {if (this["idasset",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idasset",DataRowVersion.Original];}
+	public Int32 idassetOriginal { 
+		get {return  (Int32)this["idasset",DataRowVersion.Original];}
 	}
-	public Int32? idgrant{ 
-		get {if (this["idgrant"]==DBNull.Value)return null; return  (Int32?)this["idgrant"];}
-		set {if (value==null) this["idgrant"]= DBNull.Value; else this["idgrant"]= value;}
+	public Int32 idgrant{ 
+		get {return  (Int32)this["idgrant"];}
+		set {this["idgrant"]= value;}
 	}
 	public object idgrantValue { 
 		get{ return this["idgrant"];}
-		set {if (value==null|| value==DBNull.Value) this["idgrant"]= DBNull.Value; else this["idgrant"]= value;}
+		set {this["idgrant"]= value;}
 	}
-	public Int32? idgrantOriginal { 
-		get {if (this["idgrant",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idgrant",DataRowVersion.Original];}
+	public Int32 idgrantOriginal { 
+		get {return  (Int32)this["idgrant",DataRowVersion.Original];}
 	}
-	public Int32? iddetail{ 
-		get {if (this["iddetail"]==DBNull.Value)return null; return  (Int32?)this["iddetail"];}
-		set {if (value==null) this["iddetail"]= DBNull.Value; else this["iddetail"]= value;}
+	public Int32 iddetail{ 
+		get {return  (Int32)this["iddetail"];}
+		set {this["iddetail"]= value;}
 	}
 	public object iddetailValue { 
 		get{ return this["iddetail"];}
-		set {if (value==null|| value==DBNull.Value) this["iddetail"]= DBNull.Value; else this["iddetail"]= value;}
+		set {this["iddetail"]= value;}
 	}
-	public Int32? iddetailOriginal { 
-		get {if (this["iddetail",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iddetail",DataRowVersion.Original];}
+	public Int32 iddetailOriginal { 
+		get {return  (Int32)this["iddetail",DataRowVersion.Original];}
 	}
 	public Int16? ydetail{ 
 		get {if (this["ydetail"]==DBNull.Value)return null; return  (Int16?)this["ydetail"];}
@@ -134,16 +138,16 @@ public class assetgrantdetailRow: MetaRow  {
 	public String luOriginal { 
 		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
 	}
-	public Int32? idpiece{ 
-		get {if (this["idpiece"]==DBNull.Value)return null; return  (Int32?)this["idpiece"];}
-		set {if (value==null) this["idpiece"]= DBNull.Value; else this["idpiece"]= value;}
+	public Int32 idpiece{ 
+		get {return  (Int32)this["idpiece"];}
+		set {this["idpiece"]= value;}
 	}
 	public object idpieceValue { 
 		get{ return this["idpiece"];}
-		set {if (value==null|| value==DBNull.Value) this["idpiece"]= DBNull.Value; else this["idpiece"]= value;}
+		set {this["idpiece"]= value;}
 	}
-	public Int32? idpieceOriginal { 
-		get {if (this["idpiece",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idpiece",DataRowVersion.Original];}
+	public Int32 idpieceOriginal { 
+		get {return  (Int32)this["idpiece",DataRowVersion.Original];}
 	}
 	public Int32? idepacc{ 
 		get {if (this["idepacc"]==DBNull.Value)return null; return  (Int32?)this["idepacc"];}
@@ -160,50 +164,21 @@ public class assetgrantdetailRow: MetaRow  {
 
 }
 public class assetgrantdetailTable : MetaTableBase<assetgrantdetailRow> {
-	public assetgrantdetailTable() : base("assetgrantdetail"){}
-	public override void addBaseColumns(params string [] cols){
-		Dictionary<string,bool> definedColums=new Dictionary<string, bool>();
-		foreach(string col in cols) definedColums[col] = true;
-
-		#region add DataColumns
-		if (definedColums.ContainsKey("idasset")){ 
-			defineColumn("idasset", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("idgrant")){ 
-			defineColumn("idgrant", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("iddetail")){ 
-			defineColumn("iddetail", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("ydetail")){ 
-			defineColumn("ydetail", typeof(System.Int16));
-		}
-		if (definedColums.ContainsKey("amount")){ 
-			defineColumn("amount", typeof(System.Decimal));
-		}
-		if (definedColums.ContainsKey("idgrantload")){ 
-			defineColumn("idgrantload", typeof(System.Int32));
-		}
-		if (definedColums.ContainsKey("ct")){ 
-			defineColumn("ct", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("cu")){ 
-			defineColumn("cu", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("lt")){ 
-			defineColumn("lt", typeof(System.DateTime));
-		}
-		if (definedColums.ContainsKey("lu")){ 
-			defineColumn("lu", typeof(System.String));
-		}
-		if (definedColums.ContainsKey("idpiece")){ 
-			defineColumn("idpiece", typeof(System.Int32),false);
-		}
-		if (definedColums.ContainsKey("idepacc")){ 
-			defineColumn("idepacc", typeof(System.Int32));
-		}
-		#endregion
-
+	public assetgrantdetailTable() : base("assetgrantdetail"){
+		baseColumns = new Dictionary<string, DataColumn>(){
+			{"idasset",createColumn("idasset",typeof(int),false,false)},
+			{"idgrant",createColumn("idgrant",typeof(int),false,false)},
+			{"iddetail",createColumn("iddetail",typeof(int),false,false)},
+			{"ydetail",createColumn("ydetail",typeof(short),true,false)},
+			{"amount",createColumn("amount",typeof(decimal),true,false)},
+			{"idgrantload",createColumn("idgrantload",typeof(int),true,false)},
+			{"ct",createColumn("ct",typeof(DateTime),true,false)},
+			{"cu",createColumn("cu",typeof(string),true,false)},
+			{"lt",createColumn("lt",typeof(DateTime),true,false)},
+			{"lu",createColumn("lu",typeof(string),true,false)},
+			{"idpiece",createColumn("idpiece",typeof(int),false,false)},
+			{"idepacc",createColumn("idepacc",typeof(int),true,false)},
+		};
 	}
 }
 }

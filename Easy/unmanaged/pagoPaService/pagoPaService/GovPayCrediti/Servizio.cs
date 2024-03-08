@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,6 +33,9 @@ using funzioni_configurazione;
 using System.Net.Security;
 using metadatalibrary;
 using System.ServiceModel.Dispatcher;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace pagoPaService.govPayReference {
 	//public interface PagamentiTelematiciGPApp invece di IServizio
@@ -81,6 +84,67 @@ namespace pagoPaService.govPayReference {
 			}
 
 			return request;
+		}
+	}
+
+	class CustomHttpBinding : BasicHttpBinding
+	{
+		public override BindingElementCollection CreateBindingElements()
+		{
+			var elements = base.CreateBindingElements();
+			var transport = elements.Find<HttpsTransportBindingElement>();
+			if (transport != null)
+			{
+				elements.Remove(transport);
+				elements.Add(CustomHttpsTransportBindingElement.CreateFromHttpsTransportBindingElement(transport));
+			}
+			return elements;
+		}
+	}
+
+	class CustomHttpsTransportBindingElement : HttpsTransportBindingElement
+	{
+		private Func<HttpClientHandler, HttpMessageHandler> _createDelegatingHandler = client => new CustomHttpMessageHandler(client);
+		public override IChannelFactory<TChannel> BuildChannelFactory<TChannel>(BindingContext context)
+		{
+			context.BindingParameters.Add(_createDelegatingHandler);
+			return base.BuildChannelFactory<TChannel>(context);
+		}
+
+		public override BindingElement Clone()
+		{
+			return CreateFromHttpsTransportBindingElement(this);
+		}
+
+		public static CustomHttpsTransportBindingElement CreateFromHttpsTransportBindingElement(HttpsTransportBindingElement from)
+		{
+			return new CustomHttpsTransportBindingElement
+			{
+				AllowCookies = from.AllowCookies,
+				AuthenticationScheme = from.AuthenticationScheme,
+				BypassProxyOnLocal = from.BypassProxyOnLocal,
+				ManualAddressing = from.ManualAddressing,
+				MaxBufferSize = from.MaxBufferSize,
+				MaxReceivedMessageSize = from.MaxReceivedMessageSize,
+				ProxyAddress = from.ProxyAddress,
+				ProxyAuthenticationScheme = from.ProxyAuthenticationScheme,
+				RequireClientCertificate = from.RequireClientCertificate,
+				TransferMode = from.TransferMode,
+				UseDefaultWebProxy = from.UseDefaultWebProxy,
+				WebSocketSettings = from.WebSocketSettings
+			};
+		}
+	}
+
+	class CustomHttpMessageHandler : DelegatingHandler
+	{
+		public CustomHttpMessageHandler(HttpMessageHandler innerHandler) : base(innerHandler)
+		{
+		}
+		protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+		{
+			request.Headers.ExpectContinue = false;
+			return base.SendAsync(request, cancellationToken);
 		}
 	}
 
@@ -143,9 +207,10 @@ namespace pagoPaService.govPayReference {
 			// }
 			//);
 
-			var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+			var binding = new CustomHttpBinding();
+			binding.Security.Mode = BasicHttpSecurityMode.Transport;
 			binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
-			
+
 
 			binding.SendTimeout = new TimeSpan(0, 60, 0);
 			binding.MaxReceivedMessageSize = 65536 * 1000;
@@ -194,7 +259,7 @@ namespace pagoPaService.govPayReference {
 						"8a653ab1eb3f30341baa7e442a81d22e42751e46");//8a653ab1eb3f30341baa7e442a81d22e42751e46
 				factory.Credentials.ClientCertificate.Certificate =
 					pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
-						"218fff5ce170503dae33fde182d2b22f5457f391");//218fff5ce170503dae33fde182d2b22f5457f391
+						"f97ca7a94989c9556b2f527c532b63342b4c8af8");//218fff5ce170503dae33fde182d2b22f5457f391
 			}
 			else {
 				factory.Credentials.ServiceCertificate.DefaultCertificate =
@@ -203,7 +268,7 @@ namespace pagoPaService.govPayReference {
 
 				factory.Credentials.ClientCertificate.Certificate =
 					pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
-						"218fff5ce170503dae33fde182d2b22f5457f391");
+						"f97ca7a94989c9556b2f527c532b63342b4c8af8");
 			}
 
 			

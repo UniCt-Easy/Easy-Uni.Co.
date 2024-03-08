@@ -92,6 +92,7 @@
               <xs:element name="idtreasurer_acq_estere" type="xs:int" minOccurs="0" />
               <xs:element name="idsdi_acquistoestere" type="xs:int" minOccurs="0" />
               <xs:element name="idfedocumentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idintrastatkinddet" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

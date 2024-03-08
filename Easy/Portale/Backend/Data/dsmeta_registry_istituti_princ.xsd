@@ -40,6 +40,7 @@
         <xs:element name="struttura" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="codice" type="xs:string" minOccurs="0" />
               <xs:element name="codiceipa" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
@@ -51,7 +52,7 @@
               <xs:element name="idsede" type="xs:int" />
               <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="idstrutturakind" type="xs:int" />
-              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />

@@ -3,12 +3,15 @@
   <xs:element name="dsmeta_progettoudr_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="getregistrydocentiamministrativi" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
+              <xs:element name="contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="macroareadidattica" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -28,6 +31,8 @@
               <xs:element name="costoorario" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="fondiprogetto" type="xs:string" minOccurs="0" />
+              <xs:element name="giornipreventivati" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettoudr" type="xs:int" />
               <xs:element name="idprogettoudrmembro" type="xs:int" />
@@ -38,8 +43,14 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="orepreventivate" type="xs:int" minOccurs="0" />
               <xs:element name="ricavoorario" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idprogettoudrmembrokind_progettoudrmembrokind_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getregistrydocentiamministrativi_macroareadidattica" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -68,7 +79,7 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry" />
+      <xs:selector xpath=".//mstns:getregistrydocentiamministrativi" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="progettoudrmembrokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -90,7 +101,7 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_progettoudrmembro_progettoudr_idprogetto-idprogettoudr" msdata:parent="progettoudr" msdata:child="progettoudrmembro" msdata:parentkey="idprogetto idprogettoudr" msdata:childkey="idprogetto idprogettoudr" />
-      <msdata:Relationship name="FK_progettoudrmembro_registry_idreg" msdata:parent="registry" msdata:child="progettoudrmembro" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_progettoudrmembro_getregistrydocentiamministrativi_idreg" msdata:parent="getregistrydocentiamministrativi" msdata:child="progettoudrmembro" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_progettoudrmembro_progettoudrmembrokind_idprogettoudrmembrokind" msdata:parent="progettoudrmembrokind" msdata:child="progettoudrmembro" msdata:parentkey="idprogettoudrmembrokind" msdata:childkey="idprogettoudrmembrokind" />
     </xs:appinfo>
   </xs:annotation>

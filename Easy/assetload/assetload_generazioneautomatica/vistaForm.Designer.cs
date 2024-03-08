@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,57 +29,33 @@ namespace assetload_generazioneautomatica {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Buono di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetload 		=> Tables["assetload"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Tipi di buoni di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetloadkind 		=> Tables["assetloadkind"];
 
-	///<summary>
-	///Causali di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetloadmotive 		=> Tables["assetloadmotive"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetacquireview 		=> Tables["assetacquireview"];
 
-	///<summary>
-	///Movimenti di spesa collegati a buoni di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetloadexpense 		=> Tables["assetloadexpense"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
-	///<summary>
-	///Movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expense 		=> Tables["expense"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseview 		=> Tables["expenseview"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
@@ -334,6 +310,7 @@ private void initClass() {
 	tassetacquireview.Columns.Add( new DataColumn("cost_discounted", typeof(decimal)));
 	tassetacquireview.Columns.Add( new DataColumn("yinv", typeof(short)));
 	tassetacquireview.Columns.Add( new DataColumn("ninv", typeof(int)));
+	tassetacquireview.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
 	Tables.Add(tassetacquireview);
 	tassetacquireview.PrimaryKey =  new DataColumn[]{tassetacquireview.Columns["nassetacquire"]};
 

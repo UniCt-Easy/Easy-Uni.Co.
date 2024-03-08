@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,16 +40,15 @@ namespace no_table_f24ep {
         MetaData Meta;
         DataAccess Conn;
         CultureInfo cultureInfo = CultureInfo.GetCultureInfo(0x0410);
-        public IOpenFileDialog openInputFileDlg;
-
+        
         public Frmf24ep() {
             InitializeComponent();
+            saveOutputFileDlg.DefaultExt = "T24";
             string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "f24ep/prog/temp");
             if (Directory.Exists(dir))
             {
                 saveOutputFileDlg.InitialDirectory = dir;
             }
-            openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
         }
 
         public void MetaData_AfterLink() {

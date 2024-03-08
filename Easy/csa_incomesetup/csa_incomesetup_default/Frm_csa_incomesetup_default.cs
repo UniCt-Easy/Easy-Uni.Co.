@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1168,7 +1168,7 @@ namespace csa_incomesetup_default
 			this.grpSiopeEntrataRit.Size = new System.Drawing.Size(355, 72);
 			this.grpSiopeEntrataRit.TabIndex = 15;
 			this.grpSiopeEntrataRit.TabStop = false;
-			this.grpSiopeEntrataRit.Tag = "AutoManage.txtCodiceSiopeRit.treeclassmovimenti";
+			this.grpSiopeEntrataRit.Tag = "AutoManage.txtSiopeEntrataRit.treeclassmovimenti";
 			this.grpSiopeEntrataRit.Text = "Siope Entrate (Ritenuta partita di giro)";
 			// 
 			// btnSiopeEntrataRit
@@ -1511,16 +1511,22 @@ namespace csa_incomesetup_default
 	    string [] ritenuteFields= new string[] 
 	        {"idfin_income","idfin_expense","idsor_siope_income","idsor_siope_expense","idacc_expense","idacc_agency_credit"};
             //finincome && finexpense && sortingincome && sortingexpense && accountente && accountcreditente;
+		string [] ritenuteFieldsNoSiope= new string[] 
+	        {"idfin_income","idfin_expense","idacc_expense","idacc_agency_credit"};
 
 	    string []  recuperiFields= new string[] {
             "idfin_incomeclawback","idsor_siope_incomeclawback","idacc_revenue","idfin_cost","idsor_siope_cost",
                     "idacc_cost","idupb"
 	    };// finincomeclawback && sortingincomeclawback && account_revenue && finexpensecost  && sortingexpensecost  && account_cost && upb;
+		string []  recuperiFieldsNoSiope= new string[] {
+            "idfin_incomeclawback","idacc_revenue","idfin_cost","idacc_cost","idupb"};
 
 
 	    string [] contributiFields = new string[] {
             "idfin_incomeclawback","idsor_siope_incomeclawback","idacc_revenue","idacc_expense","idacc_agency_credit"
 	    };//finincomeclawback && sortingincomeclawback && account_revenue && accountente && accountcreditente;
+		string [] contributiFieldsNoSiope = new string[] {
+            "idfin_incomeclawback","idacc_revenue","idacc_expense","idacc_agency_credit"};
 
 	    bool checkConfigurazione(DataRow r, string[] cfg) {
 	        List<string> elencoVietati = new List<string>();
@@ -1602,21 +1608,44 @@ namespace csa_incomesetup_default
 
 	        Meta.GetFormData(true);
 	        DataRow r = DS.csa_incomesetup.Rows[0];
-	        if (checkConfigurazione(r, ritenuteFields)) {
-	            lblEsitoConfigurazione.Text = "Configurazione RITENUTE";
-	            return;
-	        }
 
-	        if (checkConfigurazione(r, recuperiFields)) {
-	            lblEsitoConfigurazione.Text = "Configurazione RECUPERI";
-	            return;
-	        }
+			int flagSiope = CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("sortingkind", QHS.CmpEq("codesorkind", "SIOPE_U_18"), "flag"));
 
-	        if (checkConfigurazione(r, contributiFields)) {
-	            lblEsitoConfigurazione.Text = "Configurazione CONTRIBUTI";
-	            return;
-	        }
+			string SiopeObb = ((CfgFn.GetNoNullInt32(flagSiope) & 1) != 0) ? "S" : "N";
 
+			if (SiopeObb == "N") {
+				if (checkConfigurazione(r, ritenuteFieldsNoSiope)) {
+					lblEsitoConfigurazione.Text = "Configurazione RITENUTE";
+					return;
+				}
+
+				if (checkConfigurazione(r, recuperiFieldsNoSiope)) {
+					lblEsitoConfigurazione.Text = "Configurazione RECUPERI";
+					return;
+				}
+
+				if (checkConfigurazione(r, contributiFieldsNoSiope)) {
+					lblEsitoConfigurazione.Text = "Configurazione CONTRIBUTI";
+					return;
+				}
+			}
+			else {
+				if (checkConfigurazione(r, ritenuteFields)) {
+					lblEsitoConfigurazione.Text = "Configurazione RITENUTE";
+					return;
+				}
+
+				if (checkConfigurazione(r, recuperiFields)) {
+					lblEsitoConfigurazione.Text = "Configurazione RECUPERI";
+					return;
+				}
+
+				if (checkConfigurazione(r, contributiFields)) {
+					lblEsitoConfigurazione.Text = "Configurazione CONTRIBUTI";
+					return;
+				}
+			}
+	        
 	        lblEsitoConfigurazione.Text = "Configurazione incompleta o errata";
 	    }
 

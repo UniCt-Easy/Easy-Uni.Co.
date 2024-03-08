@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module Toast
  * @description
@@ -52,7 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 position: 'bottom-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
                 textAlign: 'left',  // Text alignment i.e. left, right or center
                 loader: false,  // Whether to show loader or not. True by default
-                loaderBg: '#ebf5f3'  // Background color of the toast loader
+                bgColor: 'var(--toolbar-bg-color)',  // Background color of the toast loader,
+                textColor: 'var(--nav-link-forecolor)'
             });
         }
 

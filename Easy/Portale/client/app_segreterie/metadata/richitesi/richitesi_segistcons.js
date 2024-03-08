@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -45,8 +28,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.accettata)
-					parentRow.accettata = 'N';
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#richitesi_segistcons_idreg'), null);
+				} else {
+					this.helpForm.filter($('#richitesi_segistcons_idreg'), this.q.eq('registry_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#richitesi_segistcons_idreg_docenti'), null);
+				} else {
+					this.helpForm.filter($('#richitesi_segistcons_idreg_docenti'), this.q.eq('registry_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -67,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				}
 
 				//beforeFillInside
-
+				
 				$.when.apply($, arraydef)
 					.then(function () {
 						return self.superClass.beforeFill.call(self)
@@ -78,7 +69,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				this.helpForm.filter($('#richitesi_segistcons_idreg'), null);
+				this.helpForm.filter($('#richitesi_segistcons_idreg_docenti'), null);
+				//afterClearin
+			},
 
 			//afterFill
 
@@ -86,6 +81,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				appMeta.metaModel.computeRowsAs(this.state.DS.tables.tesi, "segistcons", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("tesi");
+				this.state.DS.tables.richitesi.defaults({ 'accettata': 'N' });
+				$('#grid_tesikeyword_segistcons').data('mdlconditionallookup', 'lang,S,Si;lang,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -46,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idreg_aziende_registry_cf', 'Codice fiscale', null, 10, null);
 						this.describeAColumn(table, '!idreg_aziende_registry_p_iva', 'Partita iva', null, 10, null);
 						this.describeAColumn(table, '!idreg_aziende_registry_active', 'attivo', null, 10, null);
-						this.describeAColumn(table, '!idreg_aziende_geo_nation_alias2_title', 'Nazionalit‡', null, 11, null);
+						this.describeAColumn(table, '!idreg_aziende_geo_nation_alias2_title', 'Nazionalit√†', null, 11, null);
 						this.describeAColumn(table, '!idreg_aziende_ateco_codice', 'Codice Classificazione Ateco', null, 11, null);
 						this.describeAColumn(table, '!idreg_aziende_ateco_title', 'Titolo Classificazione Ateco', null, 12, null);
 						this.describeAColumn(table, '!idreg_aziende_naturagiur_title', 'Natura Giuridica', null, 11, null);
@@ -72,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idreg_aziende_registry_cf', 'Codice fiscale', null, 14, null);
 						this.describeAColumn(table, '!idreg_aziende_registry_p_iva', 'Partita iva', null, 15, null);
 						this.describeAColumn(table, '!idreg_aziende_registry_active', 'attivo', null, 16, null);
-						this.describeAColumn(table, '!idreg_aziende_geo_nation_alias2_title', 'Nazionalit‡', null, 22, null);
+						this.describeAColumn(table, '!idreg_aziende_geo_nation_alias2_title', 'Nazionalit√†', null, 22, null);
 						this.describeAColumn(table, '!idreg_aziende_registry_flag_pa', 'Ente pubblico', null, 110, null);
 						this.describeAColumn(table, '!idreg_aziende_ateco_codice', 'Codice Classificazione Ateco', null, 18, null);
 						this.describeAColumn(table, '!idreg_aziende_ateco_title', 'Titolo Classificazione Ateco', null, 19, null);

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -287,7 +287,7 @@ namespace meta_registryaddress //meta_cdindirizzo//
                     DataRow[] r1 = t.Select("value=" + QueryCreator.quotedstrvalue(cap, false));
                     if (r1.Length == 0) {
 
-                        //DialogResult dr = MessageBox. Show(LinkedForm, "Il C.A.P. non è coerente o non è più valido per il comune inserito. Salvare ugualmente?", "Avviso", MessageBoxButtons.YesNo);
+                        //DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>(). Show(LinkedForm, "Il C.A.P. non è coerente o non è più valido per il comune inserito. Salvare ugualmente?", "Avviso", MessageBoxButtons.YesNo);
                         //if (dr==DialogResult.No) 
                         //{
                         object comune = Conn.readValue("geo_city", q.eq("idcity", R["idcity"]), "title") ?? "(Comune non trovato)";

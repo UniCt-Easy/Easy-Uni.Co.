@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -18,12 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_contoeconomico_tree]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_contoeconomico_tree]
 GO
-
+--setuser'amm'
+--setuser 'amministrazione'
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
-
+--exec  rpt_contoeconomico_tree 2023, {ts '2023-01-01 00:00:00'}, {ts '2023-07-03 00:00:00'}
 CREATE PROCEDURE [rpt_contoeconomico_tree]
 (
 @ayear int,
@@ -31,10 +32,11 @@ CREATE PROCEDURE [rpt_contoeconomico_tree]
 @stop datetime
 )
 AS BEGIN
-
+DECLARE @ayearprec int
+SET @ayearprec = @ayear -1
 CREATE TABLE #placcountlookup (oldidplaccount varchar(31), newidplaccount varchar(31))
 INSERT #placcountlookup
-EXECUTE closeyear_fillplaccountlookup @ayear
+EXECUTE closeyear_fillplaccountlookup @ayearprec
 
 -- Conto Economico Anno Precedente
 DECLARE @firstdayPY datetime
@@ -113,41 +115,59 @@ select placcount.idplaccount,  sum(entrydetail.amount)
 		AND placcount.placcpart = 'R'
 	group by placcount.idplaccount	
 	
-	insert into #dati(idplaccount, amountprec, amountcurr) values ('19R000200010001', 100, 200)
-	insert into #dati(idplaccount, amountprec, amountcurr) values ('19R0002000200010001',10, 300)
+	--insert into #dati(idplaccount, amountprec, amountcurr) values ('19R000200010001', 100, 200)
+	--insert into #dati(idplaccount, amountprec, amountcurr) values ('19R0002000200010001',10, 300)
 	
-	insert into #dati(idplaccount, amountprec, amountcurr) values ('19C000200010001', -30, -100)
-	insert into #dati(idplaccount, amountprec, amountcurr) values ('19R00020003', -20, -50)
-		
+	--insert into #dati(idplaccount, amountprec, amountcurr) values ('19C000200010001', -30, -100)
+	--insert into #dati(idplaccount, amountprec, amountcurr) values ('19R00020003', -20, -50)
+	
+--select * from #dati
+--	NumberVar diff;
+
+--if (Not IsNull({rpt_contoeconomico_dm2012.TOTRICAVI})) THEN
+-- diff := {rpt_contoeconomico_dm2012.TOTRICAVI};
+
+--if (Not IsNull({rpt_contoeconomico_dm2012.TOTCOSTI})) THEN
+-- diff := diff - {rpt_contoeconomico_dm2012.TOTCOSTI};
+
+--diff;
+ 
+
 select --placcount.idplaccount,
+	case when placcount.codeplaccount like '%20%' then '999999' + placcount.printingorder
+	when placcount.codeplaccount like '%21%' then '999999' + placcount.printingorder
+	else  placcount.printingorder end as capogruppo_printingorder,
 	case
 		when placcount.nlevel = 2 then replicate(' ',2) + placcount.codeplaccount
 	 	when placcount.nlevel = 3 then replicate(' ',4) + placcount.codeplaccount
 		when placcount.nlevel = 3 then replicate(' ',6) + placcount.codeplaccount
 	else placcount.codeplaccount
-	end as codeplaccount,
+	end as codeplaccount, 
 	placcount.title, placcount.placcpart, 
-	isnull(sum(OLD.amountprec),0) AS amountprec,
-	isnull(sum(CURR.amountcurr),0) AS amountcurr,
-	isnull(sum(CURR.amountcurr),0) - isnull(sum(OLD.amountprec),0) AS DIFFERENZA,
+	isnull(sum(dati_compatta.amountprec),0)  AS amountprec,
+	isnull(sum(dati_compatta.amountcurr),0)  AS amountcurr,
+	isnull(sum(dati_compatta.amountcurr),0)  -  isnull(sum(dati_compatta.amountprec),0)  AS DIFFERENZA,
 case 
 	when placcount.placcpart ='R' and placcount.codeplaccount like 'A)%' then 'A) VALORE DELLA PRODUZIONE'
 	when placcount.placcpart ='C' and placcount.codeplaccount like 'B)%' then 'B) COSTI DELLA PRODUZIONE'
-	when placcount.codeplaccount like 'C)%' then 'C) PROVENIENTI ONERI FINANZIARI'
+	when placcount.codeplaccount like 'C)%' then 'C) PROVENTI ONERI FINANZIARI'
 	when placcount.codeplaccount like 'D)%' then 'D) RETTIFICHE DI VALORE DI ATTIVITA FINANZIARIE'
 	when placcount.codeplaccount like 'E)%' then 'E) PROVENTI ED ONERI STRAORDINARI'
+	when placcount.codeplaccount like 'F)%' then 'F) IMPOSTE SUL REDDITO DELL''ESERCIZIO CORRENTI, DIFFERITE, ANTICIPATE'
+	when placcount.codeplaccount like '%I)%' then 'I) IMPOSTE SUL REDDITO DELL''ESERCIZIO CORRENTI, DIFFERITE, ANTICIPATE'
+	when placcount.placcpart ='C' and (placcount.codeplaccount like '%20%'  or placcount.codeplaccount  like '%.%' ) then 'IMPOSTE SUL REDDITO DELL''ESERCIZIO'
+	when placcount.placcpart ='R' and (placcount.codeplaccount like '%21%' or placcount.codeplaccount  like '%.%' )  then 'UTILE(PERDITE) DELL''ESERCIZIO'
 	ELSE 'x SENZA NOME x'
  END AS 'CAPO_GRUPPO',
  placcount.printingorder	
 from placcount
-left outer join #dati CURR 
-	ON placcount.idplaccount = CURR.idplaccount
-left outer join  #dati OLD
-	on placcount.idplaccount = OLD.idplaccount 
-where placcount.ayear = @ayear
+left outer join ( SELECT idplaccount, ISNULL(SUM(amountprec),0) as amountprec,ISNULL(SUM(amountcurr),0) as amountcurr FROM #dati group by idplaccount ) as dati_compatta
+on placcount.idplaccount = dati_compatta.idplaccount
+where placcount.ayear = @ayear and placcount.codeplaccount <> '.'
 group by placcount.idplaccount,placcount.codeplaccount,placcount.nlevel, placcount.printingorder, placcount.title, placcount.placcpart
-ORDER BY placcount.printingorder
-
+ORDER BY case when placcount.codeplaccount like '%20%' then '999999' + placcount.printingorder
+	when placcount.codeplaccount like '%21%' then '999999' + placcount.printingorder
+	else  placcount.printingorder	  end  
 
 	drop table #placcountlookup
 	drop table #dati

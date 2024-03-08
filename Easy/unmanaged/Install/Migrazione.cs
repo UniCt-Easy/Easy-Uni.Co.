@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -80,7 +80,8 @@ namespace Install
 				FM.StartPosition= FormStartPosition.CenterScreen;
 				FM.Text=title; //"Copia della tabella "+TT.TableName;
 				FM.pBar.Maximum= TT.Rows.Count;
-				FM.Show();
+                MetaFactory.factory.getSingleton<IFormCreationListener>().create(FM, null);
+                FM.Show();
 
 				foreach (DataRow row in TT.Rows) {
 					FM.pBar.Increment(1);

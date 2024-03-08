@@ -69,7 +69,7 @@
         
         <div class="row">
             <div class="col-md-12">
-                <cc1:hwPanel GroupingText="Progetto-UPB" CssClass="gbox scheduler-border form-group" ID="PanelUpb" runat="server" Tag="AutoManage.txtCodiceUPB.tree">
+                <cc1:hwPanel GroupingText="Progetto-UPB" CssClass="gbox scheduler-border form-group" ID="PanelUpb" runat="server" Tag="AutoManage.txtCodiceUPB.tree.(active=\'S\')">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-4 col-lg-3">

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,7 +35,7 @@ CREATE PROCEDURE [exp_interscambio_csa_record08]
 	@extmatricula varchar(40),
 	@mask int   
 )
- 
+ --setuser'amministrazione'
 -- exec exp_interscambio_csa_record08 {ts '2014-12-31 01:02:03'} ,2014, '70049', 'U00003',{ts '2014-01-01 01:02:03'},{ts '2014-12-31 01:02:03'},null, 2
 -- exec exp_interscambio_csa_record08 {ts '2011-12-31 01:02:03'} ,2011, '70049', 'U00003',{ts '2011-01-01 01:02:03'},{ts '2011-12-31 01:02:03'}, 2
 -- exec exp_interscambio_csa_record08 {ts '2012-12-31 01:02:03'} ,2012, '70049', 'U00003',{ts '2012-01-01 01:02:03'},{ts '2012-12-31 01:02:03'},'3'
@@ -256,7 +256,7 @@ SELECT
 	'000000000',
 	0,
 	0,
-	importo,
+	sum(importo),
 	'0',
 	0,
 	'E',
@@ -282,7 +282,11 @@ SELECT
 		ELSE null
 	END
     FROM  #Compensi
-    
+    GROUP BY ISNULL(csa_compartment,'0'), -- Comparto
+    ISNULL(csa_role,REPLICATE('0',4)),    -- Ruolo
+    SUBSTRING(ISNULL(extmatricula,REPLICATE('0',6)),1,6),   -- Matricola
+    COALESCE(voce8000,voce8000refund_i,voce8000refund_e),
+	transmissiondate,capitolo, csa_role
     --SELECT 'Compensi',* FROM #Compensi
     --SELECT 'Record08',* FROM #Record08
       

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -545,7 +545,7 @@ namespace no_table_flowchart_massive {
             "attr03_childs;Include i nodi figli per attributo 3 (S/N);Codificato;1;S|N",
             "attr04_childs;Include i nodi figli per attributo 4 (S/N);Codificato;1;S|N",
             "attr05_childs;Include i nodi figli per attributo 5 (S/N);Codificato;1;S|N",
-            "ruolo;Nome del ruolo;Stringa;30",
+            "ruolo;Nome del ruolo;Stringa;150",
             "datainizio;Data inizio ruolo;data;8"
 
         };

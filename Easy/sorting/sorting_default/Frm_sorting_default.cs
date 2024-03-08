@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -2306,8 +2306,9 @@ namespace sorting_default {//classmovimenti//
 				);
 			if (Out==null) return;
 			Out.Tables[0].TableName= "Situazione classificazione";
-			frmSituazioneViewer View= new frmSituazioneViewer(Out);
-			View.Show();
+            frmSituazioneViewer View = new frmSituazioneViewer(Out);
+            createForm(View, null);
+            View.Show();
 		}
 
 		private void btnBudget_Click(object sender, System.EventArgs e) {

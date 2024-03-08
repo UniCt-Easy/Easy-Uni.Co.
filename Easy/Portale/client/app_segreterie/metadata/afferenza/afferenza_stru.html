@@ -7,7 +7,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="afferenza_stru_idmansionekind">Mansione</label>
-					<select id="afferenza_stru_idmansionekind" class="custom-select d-block w-100"  data-source-name="mansionekind" data-value-member="idmansionekind" data-display-member="title" data-custom-control="combo" data-tag="afferenza.idmansionekind?afferenzastruview.afferenza_idmansionekind" data-subentity   > </select>
+					<select id="afferenza_stru_idmansionekind" class="custom-select d-block w-100"  data-source-name="mansionekinddefaultview" data-value-member="idmansionekind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="afferenza.idmansionekind?afferenzastruview.afferenza_idmansionekind" data-subentity   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="afferenza_stru_idreg">Membro del personale</label>
@@ -20,20 +20,20 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#afferenza_stru_start").datepicker();
+    $("#afferenza_stru_start").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="afferenza_stru_start">Dal </label>
-					<input id="afferenza_stru_start" type="text" class="form-control" data-tag="afferenza.start?afferenzastruview.afferenza_start" data-subentity  />
+					<input id="afferenza_stru_start" type="text" class="form-control" data-tag="afferenza.start.g?afferenzastruview.afferenza_start.g" data-subentity  />
 				</div>
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#afferenza_stru_stop").datepicker();
+    $("#afferenza_stru_stop").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="afferenza_stru_stop">Al </label>
-					<input id="afferenza_stru_stop" type="text" class="form-control" data-tag="afferenza.stop?afferenzastruview.afferenza_stop" data-subentity  />
+					<input id="afferenza_stru_stop" type="text" class="form-control" data-tag="afferenza.stop.g?afferenzastruview.afferenza_stop.g" data-subentity  />
 				</div>
 			</div>
 </form>

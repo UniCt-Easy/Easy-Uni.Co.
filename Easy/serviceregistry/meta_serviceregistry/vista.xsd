@@ -98,6 +98,8 @@
               <xs:element name="certinterestconflicts" type="xs:string" minOccurs="0" />
               <xs:element name="website_annulled" type="xs:string" minOccurs="0" />
               <xs:element name="perla_error" type="xs:string" minOccurs="0" />
+              <xs:element name="idpublicinstitutionservice" type="xs:int" minOccurs="0" />
+              <xs:element name="idthematicscope" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

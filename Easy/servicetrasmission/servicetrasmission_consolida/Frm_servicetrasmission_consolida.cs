@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,12 +36,11 @@ namespace servicetrasmission_consolida{
         private XmlTextWriter writer;
         public DataTable tServiceRegistry ;
         public DataTable tServicePayment;
-        public IOpenFileDialog openFileDialog1;
         
         public Frm_servicetrasmission_consolida()
         {
             InitializeComponent();
-            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1.DefaultExt = "xml";
         }
         CQueryHelper QHC;
         QueryHelper QHS;
@@ -247,7 +246,7 @@ namespace servicetrasmission_consolida{
             StreamWriter stw = new StreamWriter(saveFileDialog1.OpenFile());
             stw.Write(sw.ToString());
             stw.Close();
-            show(this, "Operazione Eseguita");
+            show(this, "Operazione Eseguita", "");
         }
 
         private void InsertConsulenti(){
@@ -501,7 +500,8 @@ namespace servicetrasmission_consolida{
 
         private void ElaboraFileRitorno(XmlDocument document){
             // definizione file da creare
-            SaveFileDialog dlg = new SaveFileDialog();
+            SaveFileDialog _dlg = new SaveFileDialog();
+            ISaveFileDialog dlg = createSaveFileDialog(_dlg);
             string filename = "";
             if (dlg.ShowDialog() == DialogResult.OK)
                 filename = dlg.FileName;

@@ -1,0 +1,710 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="listview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="intcode" type="xs:string" />
+              <xs:element name="intbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="validitystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="package" type="xs:string" minOccurs="0" />
+              <xs:element name="idunit" type="xs:int" minOccurs="0" />
+              <xs:element name="unit" type="xs:string" minOccurs="0" />
+              <xs:element name="unitsforpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="has_expiry" type="xs:string" />
+              <xs:element name="idlistclass" type="xs:string" />
+              <xs:element name="codelistclass" type="xs:string" />
+              <xs:element name="listclass" type="xs:string" />
+              <xs:element name="pic" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="timesupply" type="xs:int" minOccurs="0" />
+              <xs:element name="nmaxorder" type="xs:decimal" minOccurs="0" />
+              <xs:element name="authrequired" type="xs:string" minOccurs="0" />
+              <xs:element name="assetkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagvisiblekind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="tassonomia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="showcasedetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idshowcase" type="xs:int" />
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="availability" type="xs:int" minOccurs="0" />
+              <xs:element name="idivakind" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="unitprice" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idestimkind" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
+              <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ivakind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rate" type="xs:decimal" />
+              <xs:element name="unabatabilitypercentage" type="xs:decimal" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idivataxablekind" type="xs:int" minOccurs="0" />
+              <xs:element name="idivakind" type="xs:int" />
+              <xs:element name="codeivakind" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idfenature" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="estimatekind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idestimkind" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="faxnumber" type="xs:string" minOccurs="0" />
+              <xs:element name="office" type="xs:string" minOccurs="0" />
+              <xs:element name="phonenumber" type="xs:string" minOccurs="0" />
+              <xs:element name="linktoinvoice" type="xs:string" minOccurs="0" />
+              <xs:element name="multireg" type="xs:string" minOccurs="0" />
+              <xs:element name="deltaamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="deltapercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flag_autodocnumbering" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="idivakind_forced" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="newcodeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="invoicekind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="codeinvkind" type="xs:string" />
+              <xs:element name="idinvkind" type="xs:int" />
+              <xs:element name="flag" type="xs:unsignedByte" />
+              <xs:element name="flag_autodocnumbering" type="xs:string" minOccurs="0" />
+              <xs:element name="formatstring" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idinvkind_auto" type="xs:int" minOccurs="0" />
+              <xs:element name="printingcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="header" type="xs:string" minOccurs="0" />
+              <xs:element name="notes1" type="xs:string" minOccurs="0" />
+              <xs:element name="notes2" type="xs:string" minOccurs="0" />
+              <xs:element name="notes3" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimento_amministrazione" type="xs:string" minOccurs="0" />
+              <xs:element name="enable_fe" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb_iva">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="newcodeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sorting3">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="movkind" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sorting1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="movkind" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sorting2">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="defaultN1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultN5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultS1" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS2" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS3" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS4" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultS5" type="xs:string" minOccurs="0" />
+              <xs:element name="defaultv1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="defaultv5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagnodate" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="movkind" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idsorkind" type="xs:int" />
+              <xs:element name="idsor" type="xs:int" />
+              <xs:element name="paridsor" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:unsignedByte" />
+              <xs:element name="start" type="xs:short" minOccurs="0" />
+              <xs:element name="stop" type="xs:short" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="listview1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="intcode" type="xs:string" />
+              <xs:element name="intbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="validitystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="package" type="xs:string" minOccurs="0" />
+              <xs:element name="idunit" type="xs:int" minOccurs="0" />
+              <xs:element name="unit" type="xs:string" minOccurs="0" />
+              <xs:element name="unitsforpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="has_expiry" type="xs:string" />
+              <xs:element name="idlistclass" type="xs:string" />
+              <xs:element name="codelistclass" type="xs:string" />
+              <xs:element name="listclass" type="xs:string" />
+              <xs:element name="pic" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="timesupply" type="xs:int" minOccurs="0" />
+              <xs:element name="nmaxorder" type="xs:decimal" minOccurs="0" />
+              <xs:element name="authrequired" type="xs:string" minOccurs="0" />
+              <xs:element name="assetkind" type="xs:string" minOccurs="0" />
+              <xs:element name="flagvisiblekind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="tassonomia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="showcasedetail_related">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idshowcase" type="xs:int" />
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="idlist_related" type="xs:int" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="availability" type="xs:int" minOccurs="0" />
+              <xs:element name="idivakind" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="unitprice" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idupb_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_intcode" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_listclass" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codicetassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_tassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codeinvkind" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_codeupb_iva" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ivakind1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="rate" type="xs:decimal" />
+              <xs:element name="unabatabilitypercentage" type="xs:decimal" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idivataxablekind" type="xs:int" minOccurs="0" />
+              <xs:element name="idivakind" type="xs:int" />
+              <xs:element name="codeivakind" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idfenature" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="newcodeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="upb_iva1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="assured" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="expiration" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="granted" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="previousappropriation" type="xs:decimal" minOccurs="0" />
+              <xs:element name="previousassessment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="requested" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
+              <xs:element name="flagkind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="newcodeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="listview_related">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idlist" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="intcode" type="xs:string" />
+              <xs:element name="intbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extcode" type="xs:string" minOccurs="0" />
+              <xs:element name="extbarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="validitystop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="package" type="xs:string" minOccurs="0" />
+              <xs:element name="idunit" type="xs:int" minOccurs="0" />
+              <xs:element name="unit" type="xs:string" minOccurs="0" />
+              <xs:element name="unitsforpackage" type="xs:int" minOccurs="0" />
+              <xs:element name="has_expiry" type="xs:string" />
+              <xs:element name="idlistclass" type="xs:string" />
+              <xs:element name="codelistclass" type="xs:string" />
+              <xs:element name="listclass" type="xs:string" />
+              <xs:element name="pic" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="timesupply" type="xs:int" minOccurs="0" />
+              <xs:element name="nmaxorder" type="xs:decimal" minOccurs="0" />
+              <xs:element name="authrequired" type="xs:string" minOccurs="0" />
+              <xs:element name="assetkind" type="xs:string" minOccurs="0" />
+              <xs:element name="assetkinddescr" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="flagvisiblekind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="codeinv" type="xs:string" minOccurs="0" />
+              <xs:element name="inventorytree" type="xs:string" minOccurs="0" />
+              <xs:element name="codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="insinfo" type="xs:string" minOccurs="0" />
+              <xs:element name="descrforuser" type="xs:string" minOccurs="0" />
+              <xs:element name="ntoreorder" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
+              <xs:element name="tassonomia" type="xs:string" minOccurs="0" />
+              <xs:element name="codicetassonomia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="showcase">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idshowcase" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idstore" type="xs:int" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="paymentexpiring" type="xs:short" minOccurs="0" />
+              <xs:element name="flagldapvisibility" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="store">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstore" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="deliveryaddress" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="virtual" type="xs:string" minOccurs="0" />
+              <xs:element name="idestimkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:listview" />
+      <xs:field xpath="mstns:idlist" />
+    </xs:unique>
+    <xs:unique name="showcasedetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:showcasedetail" />
+      <xs:field xpath="mstns:idshowcase" />
+      <xs:field xpath="mstns:idlist" />
+    </xs:unique>
+    <xs:unique name="ivakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ivakind" />
+      <xs:field xpath="mstns:idivakind" />
+    </xs:unique>
+    <xs:unique name="estimatekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:estimatekind" />
+      <xs:field xpath="mstns:idestimkind" />
+    </xs:unique>
+    <xs:unique name="upb_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="invoicekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:invoicekind" />
+      <xs:field xpath="mstns:idinvkind" />
+    </xs:unique>
+    <xs:unique name="upb_iva_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_iva" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="sorting3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting3" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="sorting1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting1" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="sorting2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sorting2" />
+      <xs:field xpath="mstns:idsor" />
+    </xs:unique>
+    <xs:unique name="listview1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:listview1" />
+      <xs:field xpath="mstns:idlist" />
+    </xs:unique>
+    <xs:unique name="showcasedetail_related_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:showcasedetail_related" />
+      <xs:field xpath="mstns:idshowcase" />
+      <xs:field xpath="mstns:idlist" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
+    <xs:unique name="ivakind1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ivakind1" />
+      <xs:field xpath="mstns:idivakind" />
+    </xs:unique>
+    <xs:unique name="upb1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb1" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="upb_iva1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb_iva1" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="listview_related_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:listview_related" />
+      <xs:field xpath="mstns:idlist" />
+    </xs:unique>
+    <xs:unique name="showcase_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:showcase" />
+      <xs:field xpath="mstns:idshowcase" />
+    </xs:unique>
+    <xs:unique name="store_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:store" />
+      <xs:field xpath="mstns:idstore" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="upb_showcasedetail" msdata:parent="upb" msdata:child="showcasedetail" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="estimatekind_showcasedetail" msdata:parent="estimatekind" msdata:child="showcasedetail" msdata:parentkey="idestimkind" msdata:childkey="idestimkind" />
+      <msdata:Relationship name="ivakind_showcasedetail" msdata:parent="ivakind" msdata:child="showcasedetail" msdata:parentkey="idivakind" msdata:childkey="idivakind" />
+      <msdata:Relationship name="invoicekind_showcasedetail" msdata:parent="invoicekind" msdata:child="showcasedetail" msdata:parentkey="idinvkind" msdata:childkey="idinvkind" />
+      <msdata:Relationship name="upb_iva_showcasedetail" msdata:parent="upb_iva" msdata:child="showcasedetail" msdata:parentkey="idupb" msdata:childkey="idupb_iva" />
+      <msdata:Relationship name="listview_showcasedetail" msdata:parent="listview" msdata:child="showcasedetail" msdata:parentkey="idlist" msdata:childkey="idlist" />
+      <msdata:Relationship name="sorting1_showcasedetail" msdata:parent="sorting1" msdata:child="showcasedetail" msdata:parentkey="idsor" msdata:childkey="idsor1" />
+      <msdata:Relationship name="sorting2_showcasedetail" msdata:parent="sorting2" msdata:child="showcasedetail" msdata:parentkey="idsor" msdata:childkey="idsor2" />
+      <msdata:Relationship name="sorting3_showcasedetail" msdata:parent="sorting3" msdata:child="showcasedetail" msdata:parentkey="idsor" msdata:childkey="idsor3" />
+      <msdata:Relationship name="upb_showcasedetail_related" msdata:parent="upb1" msdata:child="showcasedetail_related" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="ivakind_showcasedetail_related" msdata:parent="ivakind1" msdata:child="showcasedetail_related" msdata:parentkey="idivakind" msdata:childkey="idivakind" />
+      <msdata:Relationship name="upb_iva_showcasedetail_related" msdata:parent="upb_iva1" msdata:child="showcasedetail_related" msdata:parentkey="idupb" msdata:childkey="idupb_iva" />
+      <msdata:Relationship name="listview_showcasedetail_related" msdata:parent="listview1" msdata:child="showcasedetail_related" msdata:parentkey="idlist" msdata:childkey="idlist" />
+      <msdata:Relationship name="listview1_showcasedetail_related" msdata:parent="listview_related" msdata:child="showcasedetail_related" msdata:parentkey="idlist" msdata:childkey="idlist_related" />
+      <msdata:Relationship name="showcasedetail_showcasedetail_related" msdata:parent="showcasedetail" msdata:child="showcasedetail_related" msdata:parentkey="idshowcase idlist" msdata:childkey="idshowcase idlist" />
+      <msdata:Relationship name="FK_showcasedetail_showcase" msdata:parent="showcase" msdata:child="showcasedetail" msdata:parentkey="idshowcase" msdata:childkey="idshowcase" />
+      <msdata:Relationship name="FK_showcase_store" msdata:parent="store" msdata:child="showcase" msdata:parentkey="idstore" msdata:childkey="idstore" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

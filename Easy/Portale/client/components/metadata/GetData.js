@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-/**
+Ôªø/**
  * @module GetData
  * @description
  * Access data through server services
@@ -37,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
 	function GetData() {
 		"use strict";
-		// cache dei DataTable di cui Ë stata gi‡ recuperata la conf. lato server
+		// cache dei DataTable di cui √® stata gi√† recuperata la conf. lato server
 		this.cachedDescribedColumnTable = {};
 		this.cachedDescribedTree = {};
 		this.cachedSyncGetResults = {};
-	}
+	};
 
 	GetData.prototype = {
 		constructor: GetData,
@@ -58,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		cachedSyncGetHtml: function (url) {
 			var htmlCached = this.cachedSyncGetResults[url];
 			if (htmlCached) return htmlCached;
-
 			var htmlCached = $.get({
 				url: url,
 				async: false,
@@ -87,6 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					if (!model.canRead(t)) return;
 					allPromises.push(that.doGetTable(t, null, true, null, selectList));
 				});
+			if (allPromises.length===0){
+				return Deferred("readCached").resolve(true).promise();
+			}
 			return Deferred("readCached").from(
 				$.when(allPromises)
 					.then(function () {
@@ -99,7 +84,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 									});
 								return true;
 							});
-					}));
+					})
+			);
 
 		},
 
@@ -117,7 +103,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
 		doGetTable: function (t, filter, clear, top, selectList) {
 			var def = Deferred("doGetTable");
-			// log per controllo se il filtro di tipo mcmp non Ë su colonne presenti sulla tabella.
+
+			// log per controllo se il filtro di tipo mcmp non √® su colonne presenti sulla tabella.
 			var columnFilterInTable = function (t, f) {
 				if (!t || !f) return true;
 				if (f.myName === "mcmp") return _.every(f.myArguments[0], function (c) { return !!t.columns[c] })
@@ -137,11 +124,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			if (filter && mergedFilter) {
 				mergedFilter = q.and(filter, mergedFilter);
 				mergedFilter.isTrue = filter.isTrue;
-			} else {
+			} 
+			else {
 				mergedFilter = filter ? filter : mergedFilter;
 			}
-
-
 
 			var mySel = null;
 			var doGetResult = true;
@@ -241,11 +227,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {string} columnList
          * @param {jsDataQuery} filter
          * @param {number} top
-         * @returns {Deferred(DataTable)}
+         * @returns Promise<DataTable>
          */
 		runSelect: function (tableName, columnList, filter, top) {
 			var def = Deferred('runSelect');
 			var filterSerialized = filter ? getDataUtils.getJsonFromJsDataQuery(filter) : null;
+
 			var objConn = {
 				method: methodEnum.select,
 				prm: {
@@ -255,10 +242,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					filter: filterSerialized
 				}
 			};
-			return appMeta.connection.call(objConn)
+			appMeta.connection.call(objConn)
 				.then(function (dataJson) {
 					return def.resolve(getDataUtils.getJsDataTableFromJson(dataJson));
-				});
+				},
+				err => { def.reject(err); }
+			);
+			return def.promise();
 		},
 
         /**
@@ -279,7 +269,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				}
 			});
 
-			t.add(newRow);
+			//t.add(newRow);
 			newRow.getRow().acceptChanges();
 			return newRow;
 		},
@@ -302,7 +292,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						filter: getDataUtils.getJsonFromJsDataQuery(sel.filter)
 					};
 				});
-			return JSON.stringify({ arr: ar });
+			return { arr: ar };// JSON.stringify({ arr: ar });
 		},
 
         /**
@@ -342,7 +332,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				.then(
 					function () {
 						// vanno serializzate le chiamate alle sel.onRead(), ove siano definite
-
 						var allDeferredOnRead = utils.filterArrayOnField(selectList, 'onRead');
 
 						return utils.thenSequence(allDeferredOnRead);
@@ -355,7 +344,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description ASYNC
          * Executes a bunch of select, based on "selectList". Not much different from a multiple runSelectIntoTable
          * @param {SelectBuilder[]} selectList
-         * @returns {Deferred}
+         * @returns {Promise}
          */
 		multiRunSelect: function (selectList) {
 
@@ -364,34 +353,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return Deferred("multiRunSelect").resolve();
 			}
 
-			var selBuilderArr = this.selectBuilderArraySerialize(selectList);
-			var objConn = {
+			let selBuilderArr = this.selectBuilderArraySerialize(selectList);
+			let objConn = {
 				method: methodEnum.multiRunSelect,
 				prm: { selBuilderArr: selBuilderArr }
 			};
-
 			return appMeta.connection.call(objConn)
 				.then(
 					function (data) {
-
-						var ds = getDataUtils.getJsDataSetFromJson(data);
+						let ds = getDataUtils.getJsDataSetFromJson(data);
 						// vanno serializzate le chiamate alle sel.onRead(), ove siano definite
 
-						// loop sulle select , metto i dati del server sulle table in memoria sulla selList
+						// loop sulle select, metto i dati del server sulle table in memoria sulla selList
 						_.forEach(selectList, function (sel) {
-							var destTable = sel.table;
-							var inputTable = ds.tables[sel.table.name];
-							if (destTable) {
-								var tableWasEmpty = (destTable.rows.length === 0);
+							let destTable = sel.table;
+							let inputTable = ds.tables[sel.table.name];
+							if (inputTable && destTable) {
+								let tableWasEmpty = (destTable.rows.length === 0);
 								getDataUtils.mergeRowsIntoTable(destTable, inputTable.rows, !tableWasEmpty);
 							}
-
 						});
 
 						var allDeferredOnRead = utils.filterArrayOnField(selectList, 'onRead');
-
 						return utils.thenSequence(allDeferredOnRead);
-					});
+					}					
+				);
 		},
 
         /**
@@ -402,7 +388,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {DataTable} t
          * @param {jsDataQuery} filter. The filter to apply to the select
          * @param {number} top. Max num of rows to read
-         * @returns {DataTable} The table with the rows read
+         * @returns DataTable The table with the rows read
          */
 		runSelectIntoTable: function (t, filter, top) {
 			var def = Deferred("runSelectIntoTable");
@@ -422,7 +408,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Creates and returns a DataTable "tableName" with the specified columns
          * @param {string} tableName
          * @param {string} columnList
-         * @returns {Deferred(DataTable)}
+         * @returns Promise<DataTable>
          */
 		createTableByName: function (tableName, columnList) {
 			var def = Deferred('createTableByName');
@@ -435,7 +421,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				.then(function (jsonDataTable) {
 					var dt = getDataUtils.getJsDataTableFromJson(jsonDataTable);
 					// check di robustezza. Se capita che il server non invia chiave, la deserialize crea comunqnue un array di 1 elemento
-					// che Ë stringa vuota. Ed 'Ë errato! Deve creare un array vuoto
+					// che √® stringa vuota. Ed '√® errato! Deve creare un array vuoto
 					if (dt.key().length === 1) {
 						if (dt.key()[0] === "") {
 							dt.key([]);
@@ -464,8 +450,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		getPagedTable: function (tableName, nPage, nRowPerPage, filter, listType, sortby) {
 			var def = Deferred('getPagedTable');
 			// se non passo il filtro, quindi non ho messo filtri, passo stringa vuota
-			var prmfilter = getDataUtils.getJsonFromJsDataQuery(filter);
-			var objConn = {
+			let prmfilter = getDataUtils.getJsonFromJsDataQuery(filter);
+			let objConn = {
 				method: methodEnum.getPagedTable,
 				prm: {
 					tableName: tableName,
@@ -479,12 +465,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			appMeta.connection.call(objConn)
 				.then(function (json) {
+					let jsonDtOut = json.dt;
+					let totpage = json.totpage;
+					let totrows = json.totrows;
 
-					var jsonDtOut = json.dt;
-					var totpage = json.totpage;
-					var totrows = json.totrows;
-
-					var dt = getDataUtils.getJsDataTableFromJson(jsonDtOut);
+					let dt = getDataUtils.getJsDataTableFromJson(jsonDtOut);
 					def.resolve(dt, totpage, totrows);
 				});
 
@@ -499,25 +484,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {DataRow} dataRow
          * @param {DataTable} table primaryTable
          * @param {string} editType
-         * @returns {Deferred}
+         * @returns Promise<object>
          */
-		getDsByRowKey: function (dataRow, table, editType) {
+		getDsByRowKey: function (dataRow, table, editType){
 
-			var def = Deferred('getDsByRowKey');
+			let def = Deferred('getDsByRowKey');
 
 			if (!model.canRead(table)) return def.resolve(null);
 
 			// trovo il filtro date le chiavi della riga
-			var filter = table.keyFilter(dataRow.current);
+			let filter = table.keyFilter(dataRow.current);
 
 			// check su eventuale errore
-			if (_.some(table.key(), function (cname) {
+			if (_.some(table.key(), function (cname){
 				return dataRow.current[cname] === undefined;
-			})) console.log("Table view " + dataRow.table.name + " has different column key name respect to the " + table.name);
+			}))
+			console.log("Table view " + dataRow.table.name + " has different key column name from " + table.name);
 
 			if (filter !== null && table.staticFilter()) filter = q.and(filter, table.staticFilter());
 
-			var objConn = {
+			let objConn = {
 				method: methodEnum.getDsByRowKey,
 				prm: {
 					tableName: table.name,
@@ -529,17 +515,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			return appMeta.connection.call(objConn)
 				.then(function (res) {
 					// deserializzo il json in ds
-					var ds = getDataUtils.getJsDataSetFromJson(res);
+					let ds = getDataUtils.getJsDataSetFromJson(res);
 					// eseguo merge con ds di input
 					getDataUtils.mergeDataSet(table.dataset, ds, true);
-
-					_.forEach(table.childRelations(), function (rel) {
+					_.forEach(table.childRelations(), function (rel){
 						var childtable = table.dataset.tables[rel.childTable];
-						if ((!model.isSubEntityRelation(rel, childtable, table)) && model.allowClear(childtable)) return true;
+						if ((!model.isSubEntityRelation(rel, childtable, table))
+							&& model.allowClear(childtable)) return true;
 						model.getTemporaryValues(childtable);
 					});
 					model.getTemporaryValues(table);
-
 					return def.resolve(table.dataset);
 				}, function (err) {
 					return def.reject(err);
@@ -611,19 +596,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred (DataSet|err})
          */
 		getDataSet: function (tableName, editType) {
-			var def = Deferred("getDataSet");
-			var objConn = {
+			let def = Deferred("getDataSet");
+			let objConn = {
 				method: methodEnum.getDataSet,
 				prm: { tableName: tableName, editType: editType }
-			}
+			};
 
 			return appMeta.connection.call(objConn)
 				.then(function (dsJson) {
 					return def.resolve(getDataUtils.getJsDataSetFromJson(dsJson));
 				}, function (err) {
+					console.log("dataset not received " + tableName+"-"+editType
+						+JSON.stringify(err));
 					return def.reject(err).promise();
 				}
-				)
+				);
 		},
 
         /**
@@ -648,8 +635,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCachedTableFilter[t.name] = getDataUtils.getJsonFromJsDataQuery(t.staticFilter());
 					}
 				});
-			// passo l'oggetto al server come json, cosÏ Ë comodo da deserializzare lato backend
-			var filter = JSON.stringify(objCachedTableFilter);
+			// passo l'oggetto al server come json, cos√¨ √® comodo da deserializzare lato backend
+			var filter = objCachedTableFilter; // JSON.stringify(objCachedTableFilter);
 
 			var objConn = {
 				method: methodEnum.prefillDataSet,
@@ -686,10 +673,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				method: methodEnum.fillDataSet,
 				prm: { tableName: tableName, editType: editType, filter: getDataUtils.getJsonFromJsDataQuery(filter) }
 			};
+			
 			return appMeta.connection.call(objConn)
 				.then(function (dsJson) {
 					var myDS = getDataUtils.getJsDataSetFromJson(dsJson);
+
 					getDataUtils.mergeDataSet(dsTarget, myDS, false);
+
 					return def.resolve(dsTarget);
 				}, function (err) {
 					return def.reject(err).promise();
@@ -714,9 +704,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			// invio al server non la datarow che per ora non serializzo, ma la coppia tabella + filtro che individuano appunto la riga in questione
 			if (dataRow) {
+				//console.log("doGet has datarow "+JSON.stringify(dataRow.current));
 				filter = dataRow.table.keyFilter(dataRow.current); // this.getWhereKeyClause(dataRow, dataRow.table, dataRow.table, false);
 			}
-
 			var objConn = {
 				method: methodEnum.doGet,
 				prm: {
@@ -729,14 +719,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			var res = appMeta.connection.call(objConn)
 				.then(function (dsJson) {
-					var myDS = getDataUtils.getJsDataSetFromJson(dsJson);
+					let myDS = getDataUtils.getJsDataSetFromJson(dsJson);
 					getDataUtils.mergeDataSet(ds, myDS, true);
-
 					if (onlyPeripherals) {
-						var primaryDataTable = ds.tables[primaryTableName];
+						let primaryDataTable = ds.tables[primaryTableName];
 						_.forEach(primaryDataTable.childRelations(), function (rel) {
-							var childtable = ds.tables[rel.childTable];
-							if ((!model.isSubEntityRelation(rel, childtable, primaryDataTable)) && model.allowClear(childtable)) {
+							let childtable = ds.tables[rel.childTable];
+							if ((!model.isSubEntityRelation(rel, childtable, primaryDataTable)) &&
+									 model.allowClear(childtable)) {
 								return true;
 							}
 							model.getTemporaryValues(childtable);
@@ -760,11 +750,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {DataRow} valueRow Row to use for getting values to compare
          * @param {DataColumn[]} valueCol Columns  of ParentRow from which values to be compare have to be taken
          * @param {DataColumn[]} filterCol Columns  of ChildRows for which the Column NAMES have to be taken
-         * @param {DataTable} filterColTable table linked to the filtercolcolumns
+         * @param {DataTable} filterColTable table linked to the filtercol columns
+		 * @paran {bool} sql
          * @returns {jsDataQuery}
          */
-		getWhereKeyClauseByColumns: function (valueRow, valueCol, filterCol, filterColTable, sql) {
+		getWhereKeyClauseByColumns: function (valueRow, valueCol,
+											  filterCol, filterColTable, sql) {
 			var conditions = [];
+
 			_.forEach(valueCol, function (c, index) {
 				var val = valueRow.current[c.name] ? valueRow.current[c.name] : null;
 				var filterColumn = filterCol[index];
@@ -775,7 +768,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 				if (val === null || val === undefined) {
 					conditions.push(q.isNull(q.field(fieldName)));
-				} else {
+				}
+				else {
 					conditions.push(q.eq(q.field(fieldName), val));
 				}
 
@@ -793,31 +787,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			return q.and(conditions);
 		},
 
-        /**
-         * @method getWhereKeyClause
-         * @public
-         * @description SYNC
-         * Builds a DataQuery clause where the keys are the columns in "filterColTable" and the values are those in "valueRow" DataRow
-         * @param {DataRow} valueRow Row to use for getting values to compare
-         * @param {DataTable} valueColTable Row Columns  of ParentRow from which values to be compare have to be taken
-         * @param {DataTable} filterColTable Row Column  of ChildRows for which the Column NAMES have to be taken
-         * @param {boolean} sql
-         * @returns {jsDataQuery}
-         */
-		getWhereKeyClause: function (valueRow, valueColTable, filterColTable, sql) {
-
-			var valueCol = _.map(valueColTable.key(),
-				function (cName) {
-					return valueColTable.columns[cName];
-				});
-
-			var filterCol = _.map(filterColTable.key(),
-				function (cName) {
-					return filterColTable.columns[cName];
-				});
-
-			return this.getWhereKeyClauseByColumns(valueRow, valueCol, filterCol, filterColTable, sql);
-		},
+        // /**
+        //  * @method getWhereKeyClause
+        //  * @public
+        //  * @description SYNC
+        //  * Builds a DataQuery clause where the keys are the columns in "filterColTable" and the values are those in "valueRow" DataRow
+        //  * @param {DataRow} valueRow Row to use for getting values to compare
+        //  * @param {DataTable} valueColTable Row Columns  of ParentRow from which values to be compare have to be taken
+        //  * @param {DataTable} filterColTable Row Column  of ChildRows for which the Column NAMES have to be taken
+        //  * @param {boolean} sql
+        //  * @returns {jsDataQuery}
+        //  */
+		// getWhereKeyClause: function (valueRow, valueColTable, filterColTable, sql) {
+		//
+		// 	var valueCol = _.map(valueColTable.key(),
+		// 		function (cName) {
+		// 			return valueColTable.columns[cName];
+		// 		});
+		//
+		// 	var filterCol = _.map(filterColTable.key(),
+		// 		function (cName) {
+		// 			return filterColTable.columns[cName];
+		// 		});
+		//
+		// 	return this.getWhereKeyClauseByColumns(valueRow, valueCol, filterCol, filterColTable, sql);
+		// },
 
         /**
          * @method doGetTableRoots
@@ -845,7 +839,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {DataTable} table
          * @param {string} listType
          * Calls the describeColumns server side method on "tableName" and "listType"
-         * @returns {Deferred(DataTable)}
+         * @returns Promise(DataTable)
          */
 		describeColumns: function (table, listType) {
 			var def = Deferred('describeColumns');
@@ -869,7 +863,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			appMeta.connection.call(objConn)
 				.then(function (jsonDataTable) {
-					var dtDescribed = getDataUtils.getJsDataTableFromJson(jsonDataTable);
+					let dtDescribed = getDataUtils.getJsDataTableFromJson(jsonDataTable);
 
 					// salvo nella cache
 					self.cachedDescribedColumnTable[key] = dtDescribed;
@@ -886,20 +880,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {DataTable} table
          * @param {string} listType
          * Calls the describeTree server side method on "tableName" and "listType"
-         * @returns {Deferred(DataTable)}
+         * @returns Promise(DataTable)
          */
 		describeTree: function (table, listType) {
-			var def = Deferred('describeColumns');
-			var self = this;
+			let def = Deferred('describeColumns');
+			let self = this;
 
-			var key = table.name + "-" + listType;
+			let key = table.name + "-" + listType;
 			// se ho in cache le info del tree di cui ho fatto la describeTree risolvo immediatamente
 			if (this.cachedDescribedTree[key]) {
 				return def.resolve(this.cachedDescribedTree[key]);
 			}
 
-			// invio solo strruutra, quindi clono e tolgo righe
-			var dtCloned = table.clone();
+			// invio solo struttura, quindi clono e tolgo righe
+			let dtCloned = table.clone();
 			dtCloned.clear();
 
 			var objConn = {
@@ -908,7 +902,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			};
 
 			// Torna un json con i campi a seconda del tree che si sta descrivendo. dipende da tableName e listType apssati.
-			// Il client nel meta_dato derivato sapr‡ quali campi si aspetta nella resolve
+			// Il client nel meta_dato derivato sapr√† quali campi si aspetta nella resolve
 			appMeta.connection.call(objConn)
 				.then(function (jsonRes) {
 					// salvo nella cache
@@ -931,14 +925,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {jsDataQuery} startCondition
          * @param {string} startValueWanted
          * @param {string} startFieldWanted
-         * @returns {Deferred(ObjectRow)}
+         * @returns Promise<ObjectRow>
          */
 		getSpecificChild: function (table, startCondition, startValueWanted, startFieldWanted) {
 			var def = Deferred("getSpecificChild");
 
-			var prmfilter = getDataUtils.getJsonFromJsDataQuery(startCondition);
-			var jsonTable = getDataUtils.getJsonFromDataTable(table);
-			var objConn = {
+			let prmfilter = getDataUtils.getJsonFromJsDataQuery(startCondition);
+			let jsonTable = getDataUtils.getJsonFromDataTable(table);
+			let objConn = {
 				method: methodEnum.getSpecificChild,
 				prm: {
 					dt: jsonTable,
@@ -950,14 +944,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			var res = appMeta.connection.call(objConn)
 				.then(function (jsonRes) {
-					var jsonDtOut = jsonRes.dt;
-					var jsonFilterOut = jsonRes.filter;
+					let jsonDtOut = jsonRes.dt;
+					let jsonFilterOut = jsonRes.filter;
 					// deserializzo
-					var dtOut = getDataUtils.getJsDataTableFromJson(jsonDtOut);
-					var filter = jsonFilterOut ? getDataUtils.getJsDataQueryFromJson(jsonFilterOut) : null;
+					let dtOut = getDataUtils.getJsDataTableFromJson(jsonDtOut);
+					let filter = jsonFilterOut ? getDataUtils.getJsDataQueryFromJson(jsonFilterOut) : null;
 
 					// recupero riga
-					var rowFound = dtOut.select(filter);
+					let rowFound = dtOut.select(filter);
 
 					if (rowFound.length === 1) {
 						// eseguo merge delle righe
@@ -982,7 +976,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description ASYNC
          * Launches a post call to the server with eventName that is the method custom to call, and with custom "prms"
          * @param {string} eventName
-         * @param {object} prm
+         * @param {object} prms
          * @returns {Deferred}
          */
 		launchCustomServerMethod: function (eventName, prms) {
@@ -990,15 +984,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			var objConn = {
 				method: methodEnum.customServerMethod,
-				prm: { eventName: eventName, parameters: JSON.stringify(prms) }
+				prm: { eventName: eventName, parameters: JSON.stringify(prms, appMeta.getDataUtils.dataTransformToJSON) }
 			};
 			appMeta.connection.call(objConn)
 				.then(function (jsonRes) {
-					// non fa altro che risolvere il risultato, Lo s‡ chi lo chiama cosa fare con il risultato
+					// non fa altro che risolvere il risultato, Lo s√† chi lo chiama cosa fare con il risultato
 					def.resolve(jsonRes);
 				});
 
 			return def.promise();
+		},
+
+		/**
+		 * @method launchCustomServerMethodAsync
+		 * @public
+		 * @description ASYNC
+		 * Launches a post call to the server with eventName that is the method custom to call, and with custom "prms"
+		 * in asyncronous mode
+		 * @param {string} eventName
+		 * @param {object} prms
+		 * @returns {Deferred}
+		 */
+		launchCustomServerMethodAsync: function (eventName, prms) {
+			var objConn = {
+				method: methodEnum.customServerMethod,
+				prm: { eventName: eventName, parameters: JSON.stringify(prms, appMeta.getDataUtils.dataTransformToJSON) }
+			};
+
+			// recupero dal routing prm da passare alla chiamata
+			var callConfigObj = appMeta.routing.getMethod(objConn.method);
+
+			var options   = {
+				url: callConfigObj.url,
+				type: callConfigObj.type,
+				data: objConn.prm,
+			};
+
+			// passo header per autorizzazione solo se metodo lo richiede
+			if (callConfigObj.auth){
+				var token = appMeta.connection.getAuthToken();
+				options["headers"] = {
+					'Authorization':  "Bearer " + token
+				}
+			}
+			// Aggiungo solo se necessario il prm datatype
+			if (callConfigObj.dataType)  options.datatype = callConfigObj.dataType;
+
+			$.ajax(options);
 		},
 
         /**
@@ -1013,9 +1045,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
 		doReadValue: function (tableName, filter, expr, orderby) {
-			var def = Deferred('doReadValue');
-			var filterSer = getDataUtils.getJsonFromJsDataQuery(filter);
-			var objConn = {
+			let def = Deferred('doReadValue');
+			let filterSer = getDataUtils.getJsonFromJsDataQuery(filter);
+			let objConn = {
 				method: methodEnum.doReadValue,
 				prm: {
 					table: tableName,
@@ -1026,7 +1058,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			};
 			appMeta.connection.call(objConn)
 				.then(function (jsonRes) {
-					// non fa altro che risolvere il risultato, Lo s‡ chi lo chiama cosa fare con il risultato
+					// non fa altro che risolvere il risultato, Lo s√† chi lo chiama cosa fare con il risultato
 					def.resolve(jsonRes);
 				});
 

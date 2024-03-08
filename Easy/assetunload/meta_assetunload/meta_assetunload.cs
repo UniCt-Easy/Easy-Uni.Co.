@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -20,6 +20,7 @@ using System.Data;
 using System.Windows.Forms;
 using metadatalibrary;
 using metaeasylibrary;
+using ep_functions;
 //Pino: using buonoscaricoinventario; diventato inutile
 //Pino: using buonoscaricoinv_gen_auto; diventato inutile
 using funzioni_configurazione;//funzioni_configurazione
@@ -114,6 +115,19 @@ namespace meta_assetunload { //meta_buonoscaricoinventario//
 					}
 				}
 			}
+
+			if (R.RowState == DataRowState.Modified) {
+                if (R["adate"].ToString() != R["adate", DataRowVersion.Original].ToString()) {
+                    string idrel = EP_functions.GetIdForDocument(R);
+                    if (Conn.RUN_SELECT_COUNT("entry", QHS.CmpEq("idrelated", idrel), false) > 0) {
+                        errmess =
+                            "Il buono di scarico ha già delle scritture collegate, occorre eliminarle prima di modificare " +
+                            "la data di registrazione";
+                        errfield = "adate";
+                        return false;
+                    }
+                }
+            }
 
 			return true;
 		}

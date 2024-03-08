@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -54,7 +54,8 @@ namespace exportdata//exportdata//
 
 		public static void dataTableToFixedLengthFile(System.Data.DataTable dt, object fileExtension, bool header) 
 		{
-			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			SaveFileDialog _saveFileDialog = new SaveFileDialog();
+			ISaveFileDialog saveFileDialog = MetaFactory.factory.create<ISaveFileDialog>().init(_saveFileDialog);
             if ((fileExtension != DBNull.Value)&&(fileExtension!= null)) {
                 string ext = fileExtension.ToString().Trim();
                 if (ext.Substring(0,1) == ".") ext = ext.Substring(1);
@@ -125,7 +126,8 @@ namespace exportdata//exportdata//
 /// <param name="separator">carattere separatore delle colonne</param>
 		private static void dataTableToSeparatedValues(System.Data.DataTable dt, bool header, char separator) 
 		{
-			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			SaveFileDialog _saveFileDialog = new SaveFileDialog();
+			ISaveFileDialog saveFileDialog = MetaFactory.factory.create<ISaveFileDialog>().init(_saveFileDialog);
 			if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
 
 			string fileName  = saveFileDialog.FileName;

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -361,6 +361,11 @@ namespace parasubcontract_default { //contratto//
 		private Button btnDelAtt;
 		private Button btnEditAtt;
 		private Button btnInsAtt;
+		public GroupBox grpRipartizione;
+		public Button btnCodRipartizione;
+		public TextBox txtCostpartitionTitle;
+		public TextBox txtCostpartitionCode;
+		private Button btnRipartizione;
 		private System.ComponentModel.IContainer components;
 
         #endregion
@@ -1450,6 +1455,11 @@ namespace parasubcontract_default { //contratto//
 			this.txtDescrUPB = new System.Windows.Forms.TextBox();
 			this.btnUPBCode = new System.Windows.Forms.Button();
 			this.tabAnalitico = new System.Windows.Forms.TabPage();
+			this.grpRipartizione = new System.Windows.Forms.GroupBox();
+			this.btnCodRipartizione = new System.Windows.Forms.Button();
+			this.txtCostpartitionTitle = new System.Windows.Forms.TextBox();
+			this.txtCostpartitionCode = new System.Windows.Forms.TextBox();
+			this.btnRipartizione = new System.Windows.Forms.Button();
 			this.gboxclass3 = new System.Windows.Forms.GroupBox();
 			this.btnCodice3 = new System.Windows.Forms.Button();
 			this.txtDenom3 = new System.Windows.Forms.TextBox();
@@ -1525,14 +1535,14 @@ namespace parasubcontract_default { //contratto//
 			this.btnQualificaDalia = new System.Windows.Forms.Button();
 			this.textBox11 = new System.Windows.Forms.TextBox();
 			this.cmb_dalia_position = new System.Windows.Forms.ComboBox();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.dataGrid3 = new System.Windows.Forms.DataGrid();
-			this.myTip = new System.Windows.Forms.ToolTip(this.components);
 			this.tabAllegati = new System.Windows.Forms.TabPage();
 			this.dgrAllegati = new System.Windows.Forms.DataGrid();
 			this.btnDelAtt = new System.Windows.Forms.Button();
 			this.btnEditAtt = new System.Windows.Forms.Button();
 			this.btnInsAtt = new System.Windows.Forms.Button();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.dataGrid3 = new System.Windows.Forms.DataGrid();
+			this.myTip = new System.Windows.Forms.ToolTip(this.components);
 			this.tabGenerale.SuspendLayout();
 			this.grpCertificatiNecessari.SuspendLayout();
 			this.groupBox24.SuspendLayout();
@@ -1596,6 +1606,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabFinanziario.SuspendLayout();
 			this.gboxUPB.SuspendLayout();
 			this.tabAnalitico.SuspendLayout();
+			this.grpRipartizione.SuspendLayout();
 			this.gboxclass3.SuspendLayout();
 			this.gboxclass2.SuspendLayout();
 			this.gboxclass1.SuspendLayout();
@@ -1616,9 +1627,9 @@ namespace parasubcontract_default { //contratto//
 			this.gboxDipartimento.SuspendLayout();
 			this.grpCausaliAssunzioneDalia.SuspendLayout();
 			this.groupBox18.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).BeginInit();
 			this.tabAllegati.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrAllegati)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabGenerale
@@ -2241,7 +2252,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabImponibili.Controls.Add(this.groupBox7);
 			this.tabImponibili.Location = new System.Drawing.Point(4, 22);
 			this.tabImponibili.Name = "tabImponibili";
-			this.tabImponibili.Size = new System.Drawing.Size(869, 530);
+			this.tabImponibili.Size = new System.Drawing.Size(879, 530);
 			this.tabImponibili.TabIndex = 9;
 			this.tabImponibili.Text = "Imponibili";
 			this.tabImponibili.UseVisualStyleBackColor = true;
@@ -2604,7 +2615,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabFamiliare.Controls.Add(this.button11);
 			this.tabFamiliare.Location = new System.Drawing.Point(4, 22);
 			this.tabFamiliare.Name = "tabFamiliare";
-			this.tabFamiliare.Size = new System.Drawing.Size(869, 530);
+			this.tabFamiliare.Size = new System.Drawing.Size(879, 530);
 			this.tabFamiliare.TabIndex = 7;
 			this.tabFamiliare.Text = "Familiari";
 			this.tabFamiliare.UseVisualStyleBackColor = true;
@@ -2630,7 +2641,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid8.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid8.Location = new System.Drawing.Point(8, 74);
 			this.dataGrid8.Name = "dataGrid8";
-			this.dataGrid8.Size = new System.Drawing.Size(853, 450);
+			this.dataGrid8.Size = new System.Drawing.Size(863, 450);
 			this.dataGrid8.TabIndex = 3;
 			this.dataGrid8.Tag = "parasubcontractfamily.contrattodetail.contrattodetail";
 			// 
@@ -2669,7 +2680,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabAltreCollINAIL.Controls.Add(this.button14);
 			this.tabAltreCollINAIL.Location = new System.Drawing.Point(4, 22);
 			this.tabAltreCollINAIL.Name = "tabAltreCollINAIL";
-			this.tabAltreCollINAIL.Size = new System.Drawing.Size(869, 530);
+			this.tabAltreCollINAIL.Size = new System.Drawing.Size(879, 530);
 			this.tabAltreCollINAIL.TabIndex = 11;
 			this.tabAltreCollINAIL.Text = "Altre Coll. INAIL";
 			this.tabAltreCollINAIL.UseVisualStyleBackColor = true;
@@ -2684,7 +2695,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid10.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid10.Location = new System.Drawing.Point(8, 48);
 			this.dataGrid10.Name = "dataGrid10";
-			this.dataGrid10.Size = new System.Drawing.Size(853, 476);
+			this.dataGrid10.Size = new System.Drawing.Size(863, 476);
 			this.dataGrid10.TabIndex = 3;
 			this.dataGrid10.Tag = "otherinail.default.default";
 			// 
@@ -2723,7 +2734,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabOneri.Controls.Add(this.groupBox16);
 			this.tabOneri.Location = new System.Drawing.Point(4, 22);
 			this.tabOneri.Name = "tabOneri";
-			this.tabOneri.Size = new System.Drawing.Size(869, 530);
+			this.tabOneri.Size = new System.Drawing.Size(879, 530);
 			this.tabOneri.TabIndex = 4;
 			this.tabOneri.Text = "Oneri";
 			this.tabOneri.UseVisualStyleBackColor = true;
@@ -2736,7 +2747,7 @@ namespace parasubcontract_default { //contratto//
 			this.textBox6.Multiline = true;
 			this.textBox6.Name = "textBox6";
 			this.textBox6.ReadOnly = true;
-			this.textBox6.Size = new System.Drawing.Size(853, 37);
+			this.textBox6.Size = new System.Drawing.Size(863, 37);
 			this.textBox6.TabIndex = 7;
 			this.textBox6.Text = resources.GetString("textBox6.Text");
 			// 
@@ -2758,7 +2769,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox15.Controls.Add(this.button5);
 			this.groupBox15.Location = new System.Drawing.Point(8, 333);
 			this.groupBox15.Name = "groupBox15";
-			this.groupBox15.Size = new System.Drawing.Size(861, 191);
+			this.groupBox15.Size = new System.Drawing.Size(871, 191);
 			this.groupBox15.TabIndex = 5;
 			this.groupBox15.TabStop = false;
 			this.groupBox15.Text = "Oneri detraibili";
@@ -2773,7 +2784,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid4.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid4.Location = new System.Drawing.Point(8, 40);
 			this.dataGrid4.Name = "dataGrid4";
-			this.dataGrid4.Size = new System.Drawing.Size(845, 143);
+			this.dataGrid4.Size = new System.Drawing.Size(855, 143);
 			this.dataGrid4.TabIndex = 3;
 			this.dataGrid4.Tag = "abatableexpense.contrattodetail.contrattodetail";
 			// 
@@ -2815,7 +2826,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox16.Controls.Add(this.button4);
 			this.groupBox16.Location = new System.Drawing.Point(8, 48);
 			this.groupBox16.Name = "groupBox16";
-			this.groupBox16.Size = new System.Drawing.Size(861, 279);
+			this.groupBox16.Size = new System.Drawing.Size(871, 279);
 			this.groupBox16.TabIndex = 4;
 			this.groupBox16.TabStop = false;
 			this.groupBox16.Text = "Oneri deducibili";
@@ -2848,7 +2859,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid2.Location = new System.Drawing.Point(8, 40);
 			this.dataGrid2.Name = "dataGrid2";
-			this.dataGrid2.Size = new System.Drawing.Size(845, 231);
+			this.dataGrid2.Size = new System.Drawing.Size(855, 231);
 			this.dataGrid2.TabIndex = 3;
 			this.dataGrid2.Tag = "deductibleexpense.contrattodetail.contrattodetail";
 			// 
@@ -2866,7 +2877,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabCUD.Controls.Add(this.groupBox4);
 			this.tabCUD.Location = new System.Drawing.Point(4, 22);
 			this.tabCUD.Name = "tabCUD";
-			this.tabCUD.Size = new System.Drawing.Size(869, 530);
+			this.tabCUD.Size = new System.Drawing.Size(879, 530);
 			this.tabCUD.TabIndex = 6;
 			this.tabCUD.Text = "CUD";
 			this.tabCUD.UseVisualStyleBackColor = true;
@@ -2886,7 +2897,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox4.Controls.Add(this.dgrid_CUD);
 			this.groupBox4.Location = new System.Drawing.Point(8, 3);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(853, 521);
+			this.groupBox4.Size = new System.Drawing.Size(863, 521);
 			this.groupBox4.TabIndex = 4;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Dati CUD Presentati";
@@ -2900,9 +2911,9 @@ namespace parasubcontract_default { //contratto//
 			this.textBox7.Multiline = true;
 			this.textBox7.Name = "textBox7";
 			this.textBox7.ReadOnly = true;
-			this.textBox7.Size = new System.Drawing.Size(837, 24);
+			this.textBox7.Size = new System.Drawing.Size(847, 24);
 			this.textBox7.TabIndex = 10;
-			this.textBox7.Text = "Gli oneri deducibili e detraibili presenti nei CUD sono considerati solo in fase " +
+			this.textBox7.Text = "Gli oneri deducibili, detraibili e le detrazioni di imposta presenti nei CUD sono considerati solo in fase " +
     "di conguaglio ";
 			// 
 			// btnVerificaProblemi
@@ -2924,7 +2935,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox6.Controls.Add(this.btnInsertDet);
 			this.groupBox6.Location = new System.Drawing.Point(8, 388);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(837, 125);
+			this.groupBox6.Size = new System.Drawing.Size(847, 125);
 			this.groupBox6.TabIndex = 5;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Dettagli Detrazioni CUD Presentato";
@@ -2939,7 +2950,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgrid_DetCud.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrid_DetCud.Location = new System.Drawing.Point(8, 40);
 			this.dgrid_DetCud.Name = "dgrid_DetCud";
-			this.dgrid_DetCud.Size = new System.Drawing.Size(821, 77);
+			this.dgrid_DetCud.Size = new System.Drawing.Size(831, 77);
 			this.dgrid_DetCud.TabIndex = 3;
 			this.dgrid_DetCud.Tag = "exhibitedcudabatement.default.default";
 			// 
@@ -2980,7 +2991,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox5.Controls.Add(this.btnInsertDed);
 			this.groupBox5.Location = new System.Drawing.Point(8, 252);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(839, 130);
+			this.groupBox5.Size = new System.Drawing.Size(849, 130);
 			this.groupBox5.TabIndex = 4;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Dettagli Deduzioni CUD Presentato";
@@ -2995,7 +3006,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgrid_DedCud.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrid_DedCud.Location = new System.Drawing.Point(14, 39);
 			this.dgrid_DedCud.Name = "dgrid_DedCud";
-			this.dgrid_DedCud.Size = new System.Drawing.Size(823, 85);
+			this.dgrid_DedCud.Size = new System.Drawing.Size(833, 85);
 			this.dgrid_DedCud.TabIndex = 3;
 			this.dgrid_DedCud.Tag = "exhibitedcuddeduction.default.default";
 			// 
@@ -3065,7 +3076,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgrid_CUD.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrid_CUD.Location = new System.Drawing.Point(8, 74);
 			this.dgrid_CUD.Name = "dgrid_CUD";
-			this.dgrid_CUD.Size = new System.Drawing.Size(837, 142);
+			this.dgrid_CUD.Size = new System.Drawing.Size(847, 142);
 			this.dgrid_CUD.TabIndex = 3;
 			this.dgrid_CUD.Tag = "exhibitedcud.default.default";
 			// 
@@ -3076,7 +3087,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabAddizionali.Controls.Add(this.grpAddizionaliPassate);
 			this.tabAddizionali.Location = new System.Drawing.Point(4, 22);
 			this.tabAddizionali.Name = "tabAddizionali";
-			this.tabAddizionali.Size = new System.Drawing.Size(869, 530);
+			this.tabAddizionali.Size = new System.Drawing.Size(879, 530);
 			this.tabAddizionali.TabIndex = 3;
 			this.tabAddizionali.Text = "Addizionali";
 			this.tabAddizionali.UseVisualStyleBackColor = true;
@@ -3095,7 +3106,7 @@ namespace parasubcontract_default { //contratto//
 			this.grpAccontoAddCom.Controls.Add(this.label14);
 			this.grpAccontoAddCom.Location = new System.Drawing.Point(429, 256);
 			this.grpAccontoAddCom.Name = "grpAccontoAddCom";
-			this.grpAccontoAddCom.Size = new System.Drawing.Size(437, 268);
+			this.grpAccontoAddCom.Size = new System.Drawing.Size(447, 268);
 			this.grpAccontoAddCom.TabIndex = 5;
 			this.grpAccontoAddCom.TabStop = false;
 			this.grpAccontoAddCom.Text = "Acconto dell\'addizionale comunale per l\'esercizio XXX";
@@ -3106,7 +3117,7 @@ namespace parasubcontract_default { //contratto//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCalcAcconto.Location = new System.Drawing.Point(160, 107);
 			this.btnCalcAcconto.Name = "btnCalcAcconto";
-			this.btnCalcAcconto.Size = new System.Drawing.Size(269, 23);
+			this.btnCalcAcconto.Size = new System.Drawing.Size(279, 23);
 			this.btnCalcAcconto.TabIndex = 6;
 			this.btnCalcAcconto.Text = "Calcola Acconto";
 			this.btnCalcAcconto.UseVisualStyleBackColor = true;
@@ -3121,7 +3132,7 @@ namespace parasubcontract_default { //contratto//
 			this.SubEntity_cmbMeseInizioAcconto.FormattingEnabled = true;
 			this.SubEntity_cmbMeseInizioAcconto.Location = new System.Drawing.Point(191, 75);
 			this.SubEntity_cmbMeseInizioAcconto.Name = "SubEntity_cmbMeseInizioAcconto";
-			this.SubEntity_cmbMeseInizioAcconto.Size = new System.Drawing.Size(238, 21);
+			this.SubEntity_cmbMeseInizioAcconto.Size = new System.Drawing.Size(248, 21);
 			this.SubEntity_cmbMeseInizioAcconto.TabIndex = 5;
 			this.SubEntity_cmbMeseInizioAcconto.Tag = "parasubcontractyear.startmonth_account?parasubcontractview.startmonth_account";
 			this.SubEntity_cmbMeseInizioAcconto.ValueMember = "code";
@@ -3132,7 +3143,7 @@ namespace parasubcontract_default { //contratto//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.SubEntity_txtNumRateAcconto.Location = new System.Drawing.Point(191, 49);
 			this.SubEntity_txtNumRateAcconto.Name = "SubEntity_txtNumRateAcconto";
-			this.SubEntity_txtNumRateAcconto.Size = new System.Drawing.Size(238, 20);
+			this.SubEntity_txtNumRateAcconto.Size = new System.Drawing.Size(248, 20);
 			this.SubEntity_txtNumRateAcconto.TabIndex = 4;
 			this.SubEntity_txtNumRateAcconto.Tag = "parasubcontractyear.ratequantity_account?parasubcontractview.ratequantity_account" +
     "";
@@ -3143,7 +3154,7 @@ namespace parasubcontract_default { //contratto//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.SubEntity_txtImportoAcconto.Location = new System.Drawing.Point(191, 23);
 			this.SubEntity_txtImportoAcconto.Name = "SubEntity_txtImportoAcconto";
-			this.SubEntity_txtImportoAcconto.Size = new System.Drawing.Size(238, 20);
+			this.SubEntity_txtImportoAcconto.Size = new System.Drawing.Size(248, 20);
 			this.SubEntity_txtImportoAcconto.TabIndex = 3;
 			this.SubEntity_txtImportoAcconto.Tag = "parasubcontractyear.citytax_account?parasubcontractview.citytax_account";
 			// 
@@ -3190,7 +3201,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox3.Controls.Add(this.dataGrid11);
 			this.groupBox3.Location = new System.Drawing.Point(8, 8);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(853, 248);
+			this.groupBox3.Size = new System.Drawing.Size(863, 248);
 			this.groupBox3.TabIndex = 4;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Comunicazioni dal Centro di Assistenza Fiscale";
@@ -3233,7 +3244,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid11.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid11.Location = new System.Drawing.Point(8, 56);
 			this.dataGrid11.Name = "dataGrid11";
-			this.dataGrid11.Size = new System.Drawing.Size(837, 186);
+			this.dataGrid11.Size = new System.Drawing.Size(847, 186);
 			this.dataGrid11.TabIndex = 3;
 			this.dataGrid11.Tag = "cafdocument.contratto.contratto";
 			// 
@@ -3405,7 +3416,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabCedolini.Controls.Add(this.dgCedolini);
 			this.tabCedolini.Location = new System.Drawing.Point(4, 22);
 			this.tabCedolini.Name = "tabCedolini";
-			this.tabCedolini.Size = new System.Drawing.Size(869, 530);
+			this.tabCedolini.Size = new System.Drawing.Size(879, 530);
 			this.tabCedolini.TabIndex = 8;
 			this.tabCedolini.Text = "Cedolini";
 			this.tabCedolini.UseVisualStyleBackColor = true;
@@ -3426,7 +3437,7 @@ namespace parasubcontract_default { //contratto//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label23.Location = new System.Drawing.Point(16, 264);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(848, 20);
+			this.label23.Size = new System.Drawing.Size(858, 20);
 			this.label23.TabIndex = 8;
 			this.label23.Text = "Altri Esercizi";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -3441,7 +3452,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgCedoliniAltriEsercizi.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgCedoliniAltriEsercizi.Location = new System.Drawing.Point(8, 287);
 			this.dgCedoliniAltriEsercizi.Name = "dgCedoliniAltriEsercizi";
-			this.dgCedoliniAltriEsercizi.Size = new System.Drawing.Size(853, 238);
+			this.dgCedoliniAltriEsercizi.Size = new System.Drawing.Size(863, 238);
 			this.dgCedoliniAltriEsercizi.TabIndex = 7;
 			this.dgCedoliniAltriEsercizi.Tag = "payroll_altriesercizi.default";
 			this.dgCedoliniAltriEsercizi.DoubleClick += new System.EventHandler(this.dgCedoliniAltriEsercizi_DoubleClick);
@@ -3486,7 +3497,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgCedolini.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgCedolini.Location = new System.Drawing.Point(8, 62);
 			this.dgCedolini.Name = "dgCedolini";
-			this.dgCedolini.Size = new System.Drawing.Size(853, 188);
+			this.dgCedolini.Size = new System.Drawing.Size(863, 188);
 			this.dgCedolini.TabIndex = 1;
 			this.dgCedolini.Tag = "payroll.default";
 			// 
@@ -3495,7 +3506,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabErogazioni.Controls.Add(this.groupBox1);
 			this.tabErogazioni.Location = new System.Drawing.Point(4, 22);
 			this.tabErogazioni.Name = "tabErogazioni";
-			this.tabErogazioni.Size = new System.Drawing.Size(869, 530);
+			this.tabErogazioni.Size = new System.Drawing.Size(879, 530);
 			this.tabErogazioni.TabIndex = 2;
 			this.tabErogazioni.Text = "Erogazioni";
 			this.tabErogazioni.UseVisualStyleBackColor = true;
@@ -3508,7 +3519,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox1.Controls.Add(this.dataGrid1);
 			this.groupBox1.Location = new System.Drawing.Point(8, 8);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(853, 516);
+			this.groupBox1.Size = new System.Drawing.Size(863, 516);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Erogazioni legate al contratto corrente";
@@ -3523,7 +3534,7 @@ namespace parasubcontract_default { //contratto//
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid1.Location = new System.Drawing.Point(8, 24);
 			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(837, 484);
+			this.dataGrid1.Size = new System.Drawing.Size(847, 484);
 			this.dataGrid1.TabIndex = 3;
 			this.dataGrid1.Tag = "expensepayrollview.contratto";
 			// 
@@ -3541,7 +3552,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabDatiRiepilogativi.Controls.Add(this.groupBox13);
 			this.tabDatiRiepilogativi.Location = new System.Drawing.Point(4, 22);
 			this.tabDatiRiepilogativi.Name = "tabDatiRiepilogativi";
-			this.tabDatiRiepilogativi.Size = new System.Drawing.Size(869, 530);
+			this.tabDatiRiepilogativi.Size = new System.Drawing.Size(879, 530);
 			this.tabDatiRiepilogativi.TabIndex = 12;
 			this.tabDatiRiepilogativi.Text = "Riepilogo";
 			this.tabDatiRiepilogativi.UseVisualStyleBackColor = true;
@@ -3566,7 +3577,7 @@ namespace parasubcontract_default { //contratto//
 			this.gridRitenute.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.gridRitenute.Location = new System.Drawing.Point(8, 208);
 			this.gridRitenute.Name = "gridRitenute";
-			this.gridRitenute.Size = new System.Drawing.Size(853, 316);
+			this.gridRitenute.Size = new System.Drawing.Size(863, 316);
 			this.gridRitenute.TabIndex = 8;
 			// 
 			// txtCompensoNetto
@@ -3850,7 +3861,7 @@ namespace parasubcontract_default { //contratto//
 			this.TabClassSuppl.ImageIndex = 0;
 			this.TabClassSuppl.Location = new System.Drawing.Point(4, 22);
 			this.TabClassSuppl.Name = "TabClassSuppl";
-			this.TabClassSuppl.Size = new System.Drawing.Size(869, 530);
+			this.TabClassSuppl.Size = new System.Drawing.Size(879, 530);
 			this.TabClassSuppl.TabIndex = 13;
 			this.TabClassSuppl.Text = "Classificazione";
 			this.TabClassSuppl.UseVisualStyleBackColor = true;
@@ -3893,7 +3904,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgrClassSuppl.Location = new System.Drawing.Point(8, 48);
 			this.dgrClassSuppl.Name = "dgrClassSuppl";
 			this.dgrClassSuppl.ReadOnly = true;
-			this.dgrClassSuppl.Size = new System.Drawing.Size(853, 476);
+			this.dgrClassSuppl.Size = new System.Drawing.Size(863, 476);
 			this.dgrClassSuppl.TabIndex = 23;
 			this.dgrClassSuppl.Tag = "parasubcontractsorting.default.default";
 			// 
@@ -3902,7 +3913,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabEconoPatr.Controls.Add(this.tabControl2);
 			this.tabEconoPatr.Location = new System.Drawing.Point(4, 22);
 			this.tabEconoPatr.Name = "tabEconoPatr";
-			this.tabEconoPatr.Size = new System.Drawing.Size(869, 530);
+			this.tabEconoPatr.Size = new System.Drawing.Size(879, 530);
 			this.tabEconoPatr.TabIndex = 14;
 			this.tabEconoPatr.Text = "E/P";
 			this.tabEconoPatr.UseVisualStyleBackColor = true;
@@ -3916,7 +3927,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabControl2.Location = new System.Drawing.Point(0, 0);
 			this.tabControl2.Name = "tabControl2";
 			this.tabControl2.SelectedIndex = 0;
-			this.tabControl2.Size = new System.Drawing.Size(869, 530);
+			this.tabControl2.Size = new System.Drawing.Size(879, 530);
 			this.tabControl2.TabIndex = 0;
 			// 
 			// tabFinanziario
@@ -3924,7 +3935,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabFinanziario.Controls.Add(this.gboxUPB);
 			this.tabFinanziario.Location = new System.Drawing.Point(4, 22);
 			this.tabFinanziario.Name = "tabFinanziario";
-			this.tabFinanziario.Size = new System.Drawing.Size(861, 504);
+			this.tabFinanziario.Size = new System.Drawing.Size(871, 504);
 			this.tabFinanziario.TabIndex = 0;
 			this.tabFinanziario.Text = "Finanziario";
 			// 
@@ -3979,14 +3990,71 @@ namespace parasubcontract_default { //contratto//
 			// 
 			// tabAnalitico
 			// 
+			this.tabAnalitico.Controls.Add(this.grpRipartizione);
+			this.tabAnalitico.Controls.Add(this.btnRipartizione);
 			this.tabAnalitico.Controls.Add(this.gboxclass3);
 			this.tabAnalitico.Controls.Add(this.gboxclass2);
 			this.tabAnalitico.Controls.Add(this.gboxclass1);
 			this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
 			this.tabAnalitico.Name = "tabAnalitico";
-			this.tabAnalitico.Size = new System.Drawing.Size(861, 504);
+			this.tabAnalitico.Size = new System.Drawing.Size(871, 504);
 			this.tabAnalitico.TabIndex = 1;
 			this.tabAnalitico.Text = "Analitico";
+			// 
+			// grpRipartizione
+			// 
+			this.grpRipartizione.Controls.Add(this.btnCodRipartizione);
+			this.grpRipartizione.Controls.Add(this.txtCostpartitionTitle);
+			this.grpRipartizione.Controls.Add(this.txtCostpartitionCode);
+			this.grpRipartizione.Location = new System.Drawing.Point(12, 302);
+			this.grpRipartizione.Name = "grpRipartizione";
+			this.grpRipartizione.Size = new System.Drawing.Size(433, 89);
+			this.grpRipartizione.TabIndex = 58;
+			this.grpRipartizione.TabStop = false;
+			this.grpRipartizione.Tag = "AutoChoose.txtCostpartitionCode.default.(active=\'S\')";
+			this.grpRipartizione.Text = "Ripartizione dei Costi";
+			// 
+			// btnCodRipartizione
+			// 
+			this.btnCodRipartizione.Location = new System.Drawing.Point(8, 37);
+			this.btnCodRipartizione.Name = "btnCodRipartizione";
+			this.btnCodRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnCodRipartizione.TabIndex = 4;
+			this.btnCodRipartizione.Tag = "choose.costpartition.default.(active=\'S\')";
+			this.btnCodRipartizione.Text = "Codice";
+			this.btnCodRipartizione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtCostpartitionTitle
+			// 
+			this.txtCostpartitionTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCostpartitionTitle.Location = new System.Drawing.Point(150, 8);
+			this.txtCostpartitionTitle.Multiline = true;
+			this.txtCostpartitionTitle.Name = "txtCostpartitionTitle";
+			this.txtCostpartitionTitle.ReadOnly = true;
+			this.txtCostpartitionTitle.Size = new System.Drawing.Size(275, 52);
+			this.txtCostpartitionTitle.TabIndex = 3;
+			this.txtCostpartitionTitle.TabStop = false;
+			this.txtCostpartitionTitle.Tag = "costpartition.title";
+			// 
+			// txtCostpartitionCode
+			// 
+			this.txtCostpartitionCode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCostpartitionCode.Location = new System.Drawing.Point(8, 63);
+			this.txtCostpartitionCode.Name = "txtCostpartitionCode";
+			this.txtCostpartitionCode.Size = new System.Drawing.Size(417, 20);
+			this.txtCostpartitionCode.TabIndex = 2;
+			this.txtCostpartitionCode.Tag = "costpartition.costpartitioncode?x";
+			// 
+			// btnRipartizione
+			// 
+			this.btnRipartizione.Location = new System.Drawing.Point(21, 410);
+			this.btnRipartizione.Name = "btnRipartizione";
+			this.btnRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnRipartizione.TabIndex = 57;
+			this.btnRipartizione.Text = "Ripartizione";
+			this.btnRipartizione.Click += new System.EventHandler(this.btnRipartizione_Click);
 			// 
 			// gboxclass3
 			// 
@@ -4139,7 +4207,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabEP.Controls.Add(this.gBoxCausaleCosto);
 			this.tabEP.Location = new System.Drawing.Point(4, 22);
 			this.tabEP.Name = "tabEP";
-			this.tabEP.Size = new System.Drawing.Size(861, 504);
+			this.tabEP.Size = new System.Drawing.Size(871, 504);
 			this.tabEP.TabIndex = 2;
 			this.tabEP.Text = "E/P";
 			// 
@@ -4337,7 +4405,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabAttributi.Location = new System.Drawing.Point(4, 22);
 			this.tabAttributi.Name = "tabAttributi";
 			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAttributi.Size = new System.Drawing.Size(869, 530);
+			this.tabAttributi.Size = new System.Drawing.Size(879, 530);
 			this.tabAttributi.TabIndex = 16;
 			this.tabAttributi.Text = "Attributi";
 			this.tabAttributi.UseVisualStyleBackColor = true;
@@ -4351,7 +4419,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass05.Controls.Add(this.txtDenom05);
 			this.gboxclass05.Location = new System.Drawing.Point(6, 286);
 			this.gboxclass05.Name = "gboxclass05";
-			this.gboxclass05.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass05.Size = new System.Drawing.Size(581, 64);
 			this.gboxclass05.TabIndex = 38;
 			this.gboxclass05.TabStop = false;
 			this.gboxclass05.Tag = "";
@@ -4383,7 +4451,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom05.Multiline = true;
 			this.txtDenom05.Name = "txtDenom05";
 			this.txtDenom05.ReadOnly = true;
-			this.txtDenom05.Size = new System.Drawing.Size(329, 52);
+			this.txtDenom05.Size = new System.Drawing.Size(339, 52);
 			this.txtDenom05.TabIndex = 3;
 			this.txtDenom05.TabStop = false;
 			this.txtDenom05.Tag = "sorting05.description";
@@ -4397,7 +4465,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass04.Controls.Add(this.txtDenom04);
 			this.gboxclass04.Location = new System.Drawing.Point(6, 216);
 			this.gboxclass04.Name = "gboxclass04";
-			this.gboxclass04.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass04.Size = new System.Drawing.Size(581, 64);
 			this.gboxclass04.TabIndex = 37;
 			this.gboxclass04.TabStop = false;
 			this.gboxclass04.Tag = "";
@@ -4429,7 +4497,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom04.Multiline = true;
 			this.txtDenom04.Name = "txtDenom04";
 			this.txtDenom04.ReadOnly = true;
-			this.txtDenom04.Size = new System.Drawing.Size(329, 46);
+			this.txtDenom04.Size = new System.Drawing.Size(339, 46);
 			this.txtDenom04.TabIndex = 3;
 			this.txtDenom04.TabStop = false;
 			this.txtDenom04.Tag = "sorting04.description";
@@ -4443,7 +4511,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass03.Controls.Add(this.txtDenom03);
 			this.gboxclass03.Location = new System.Drawing.Point(6, 146);
 			this.gboxclass03.Name = "gboxclass03";
-			this.gboxclass03.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass03.Size = new System.Drawing.Size(581, 64);
 			this.gboxclass03.TabIndex = 35;
 			this.gboxclass03.TabStop = false;
 			this.gboxclass03.Tag = "";
@@ -4475,7 +4543,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom03.Multiline = true;
 			this.txtDenom03.Name = "txtDenom03";
 			this.txtDenom03.ReadOnly = true;
-			this.txtDenom03.Size = new System.Drawing.Size(330, 52);
+			this.txtDenom03.Size = new System.Drawing.Size(340, 52);
 			this.txtDenom03.TabIndex = 3;
 			this.txtDenom03.TabStop = false;
 			this.txtDenom03.Tag = "sorting03.description";
@@ -4489,7 +4557,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass02.Controls.Add(this.txtDenom02);
 			this.gboxclass02.Location = new System.Drawing.Point(6, 76);
 			this.gboxclass02.Name = "gboxclass02";
-			this.gboxclass02.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass02.Size = new System.Drawing.Size(581, 64);
 			this.gboxclass02.TabIndex = 36;
 			this.gboxclass02.TabStop = false;
 			this.gboxclass02.Tag = "";
@@ -4521,7 +4589,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom02.Multiline = true;
 			this.txtDenom02.Name = "txtDenom02";
 			this.txtDenom02.ReadOnly = true;
-			this.txtDenom02.Size = new System.Drawing.Size(330, 52);
+			this.txtDenom02.Size = new System.Drawing.Size(340, 52);
 			this.txtDenom02.TabIndex = 3;
 			this.txtDenom02.TabStop = false;
 			this.txtDenom02.Tag = "sorting02.description";
@@ -4535,7 +4603,7 @@ namespace parasubcontract_default { //contratto//
 			this.gboxclass01.Controls.Add(this.txtDenom01);
 			this.gboxclass01.Location = new System.Drawing.Point(6, 6);
 			this.gboxclass01.Name = "gboxclass01";
-			this.gboxclass01.Size = new System.Drawing.Size(571, 64);
+			this.gboxclass01.Size = new System.Drawing.Size(581, 64);
 			this.gboxclass01.TabIndex = 34;
 			this.gboxclass01.TabStop = false;
 			this.gboxclass01.Tag = "";
@@ -4567,7 +4635,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtDenom01.Multiline = true;
 			this.txtDenom01.Name = "txtDenom01";
 			this.txtDenom01.ReadOnly = true;
-			this.txtDenom01.Size = new System.Drawing.Size(330, 52);
+			this.txtDenom01.Size = new System.Drawing.Size(340, 52);
 			this.txtDenom01.TabIndex = 3;
 			this.txtDenom01.TabStop = false;
 			this.txtDenom01.Tag = "sorting01.description";
@@ -4581,7 +4649,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabAP.Controls.Add(this.labAPgenerato);
 			this.tabAP.Location = new System.Drawing.Point(4, 22);
 			this.tabAP.Name = "tabAP";
-			this.tabAP.Size = new System.Drawing.Size(869, 530);
+			this.tabAP.Size = new System.Drawing.Size(879, 530);
 			this.tabAP.TabIndex = 15;
 			this.tabAP.Text = "A/P";
 			this.tabAP.UseVisualStyleBackColor = true;
@@ -4641,7 +4709,7 @@ namespace parasubcontract_default { //contratto//
 			this.tabDALIA.Location = new System.Drawing.Point(4, 22);
 			this.tabDALIA.Name = "tabDALIA";
 			this.tabDALIA.Padding = new System.Windows.Forms.Padding(3);
-			this.tabDALIA.Size = new System.Drawing.Size(869, 530);
+			this.tabDALIA.Size = new System.Drawing.Size(879, 530);
 			this.tabDALIA.TabIndex = 17;
 			this.tabDALIA.Text = "DALIA";
 			this.tabDALIA.UseVisualStyleBackColor = true;
@@ -4747,7 +4815,7 @@ namespace parasubcontract_default { //contratto//
 			this.txtVoceSpesaDalia.Location = new System.Drawing.Point(206, 129);
 			this.txtVoceSpesaDalia.Name = "txtVoceSpesaDalia";
 			this.txtVoceSpesaDalia.ReadOnly = true;
-			this.txtVoceSpesaDalia.Size = new System.Drawing.Size(616, 20);
+			this.txtVoceSpesaDalia.Size = new System.Drawing.Size(626, 20);
 			this.txtVoceSpesaDalia.TabIndex = 112;
 			// 
 			// btnVoceSpesaDalia
@@ -4770,7 +4838,7 @@ namespace parasubcontract_default { //contratto//
 			this.groupBox18.Controls.Add(this.cmb_dalia_position);
 			this.groupBox18.Location = new System.Drawing.Point(21, 23);
 			this.groupBox18.Name = "groupBox18";
-			this.groupBox18.Size = new System.Drawing.Size(818, 80);
+			this.groupBox18.Size = new System.Drawing.Size(828, 80);
 			this.groupBox18.TabIndex = 110;
 			this.groupBox18.TabStop = false;
 			this.groupBox18.Text = "Banca Dati DALIA";
@@ -4779,7 +4847,7 @@ namespace parasubcontract_default { //contratto//
 			// 
 			this.label91.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label91.AutoSize = true;
-			this.label91.Location = new System.Drawing.Point(685, 26);
+			this.label91.Location = new System.Drawing.Point(695, 26);
 			this.label91.Name = "label91";
 			this.label91.Size = new System.Drawing.Size(118, 13);
 			this.label91.TabIndex = 110;
@@ -4798,7 +4866,7 @@ namespace parasubcontract_default { //contratto//
 			// textBox11
 			// 
 			this.textBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox11.Location = new System.Drawing.Point(685, 42);
+			this.textBox11.Location = new System.Drawing.Point(695, 42);
 			this.textBox11.Name = "textBox11";
 			this.textBox11.ReadOnly = true;
 			this.textBox11.Size = new System.Drawing.Size(116, 20);
@@ -4814,32 +4882,10 @@ namespace parasubcontract_default { //contratto//
 			this.cmb_dalia_position.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmb_dalia_position.Location = new System.Drawing.Point(185, 40);
 			this.cmb_dalia_position.Name = "cmb_dalia_position";
-			this.cmb_dalia_position.Size = new System.Drawing.Size(477, 21);
+			this.cmb_dalia_position.Size = new System.Drawing.Size(487, 21);
 			this.cmb_dalia_position.TabIndex = 6;
 			this.cmb_dalia_position.Tag = "parasubcontract.iddaliaposition";
 			this.cmb_dalia_position.ValueMember = "iddaliaposition";
-			// 
-			// imageList1
-			// 
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.imageList1.Images.SetKeyName(0, "");
-			// 
-			// dataGrid3
-			// 
-			this.dataGrid3.DataMember = "";
-			this.dataGrid3.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGrid3.Location = new System.Drawing.Point(0, 0);
-			this.dataGrid3.Name = "dataGrid3";
-			this.dataGrid3.Size = new System.Drawing.Size(130, 80);
-			this.dataGrid3.TabIndex = 0;
-			// 
-			// myTip
-			// 
-			this.myTip.AutomaticDelay = 30;
-			this.myTip.AutoPopDelay = 30000;
-			this.myTip.InitialDelay = 30;
-			this.myTip.ReshowDelay = 6;
 			// 
 			// tabAllegati
 			// 
@@ -4894,6 +4940,28 @@ namespace parasubcontract_default { //contratto//
 			this.btnInsAtt.TabIndex = 24;
 			this.btnInsAtt.Tag = "insert.detail";
 			this.btnInsAtt.Text = "Inserisci...";
+			// 
+			// imageList1
+			// 
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.imageList1.Images.SetKeyName(0, "");
+			// 
+			// dataGrid3
+			// 
+			this.dataGrid3.DataMember = "";
+			this.dataGrid3.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid3.Location = new System.Drawing.Point(0, 0);
+			this.dataGrid3.Name = "dataGrid3";
+			this.dataGrid3.Size = new System.Drawing.Size(130, 80);
+			this.dataGrid3.TabIndex = 0;
+			// 
+			// myTip
+			// 
+			this.myTip.AutomaticDelay = 30;
+			this.myTip.AutoPopDelay = 30000;
+			this.myTip.InitialDelay = 30;
+			this.myTip.ReshowDelay = 6;
 			// 
 			// Frm_parasubcontract_default
 			// 
@@ -4987,6 +5055,8 @@ namespace parasubcontract_default { //contratto//
 			this.gboxUPB.ResumeLayout(false);
 			this.gboxUPB.PerformLayout();
 			this.tabAnalitico.ResumeLayout(false);
+			this.grpRipartizione.ResumeLayout(false);
+			this.grpRipartizione.PerformLayout();
 			this.gboxclass3.ResumeLayout(false);
 			this.gboxclass3.PerformLayout();
 			this.gboxclass2.ResumeLayout(false);
@@ -5024,14 +5094,49 @@ namespace parasubcontract_default { //contratto//
 			this.grpCausaliAssunzioneDalia.PerformLayout();
 			this.groupBox18.ResumeLayout(false);
 			this.groupBox18.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
 			this.tabAllegati.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgrAllegati)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
 			this.ResumeLayout(false);
 
         }
 
         #endregion
+
+		private void btnRipartizione_Click(object sender, EventArgs e) {
+
+            if (Meta.IsEmpty)
+				return;
+			
+			if (DS.parasubcontract.Rows.Count == 0)
+                return;
+            DataRow RC = DS.parasubcontract.Rows[0];
+            if (RC == null)
+                return;
+
+            object idcostpartition = RC["idcostpartition"];
+
+            if (idcostpartition != DBNull.Value) {
+                MetaData ToMeta = Meta.Dispatcher.Get("costpartition");
+                string checkfilter = QHS.CmpEq("idcostpartition", idcostpartition);
+                ToMeta.ContextFilter = checkfilter;
+                Form F = null;
+                if (Meta.linkedForm != null)
+                    F = Meta.linkedForm.ParentForm;
+                bool result = ToMeta.Edit(F, "default", false);
+
+                string listtype = ToMeta.DefaultListType;
+                DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
+                if (R != null)
+                    ToMeta.SelectRow(R, listtype);
+            }
+            else {
+                idcostpartition = EP_functions.importCostPartitionDetail(Meta);
+                if (idcostpartition == null)
+                    return;
+                RC["idcostpartition"] = idcostpartition;
+            }
+        }
 
         private void txtDataInizio_TextChanged(object sender, System.EventArgs e) {
             if (!Meta.DrawStateIsDone) return;
@@ -5819,7 +5924,7 @@ namespace parasubcontract_default { //contratto//
 					DS.parasubcontract.Rows[0]["idupb"],
 					rCedoliniErogati
                     );
-
+                createForm(frmGenCed, null);
                 DialogResult dr = frmGenCed.ShowDialog();
 
                 comingFromBtnGeneraCedolini = false;
@@ -7370,6 +7475,7 @@ namespace parasubcontract_default { //contratto//
             Out.Tables[0].TableName = "Situazione Contratto";
 
             frmSituazioneViewer view = new frmSituazioneViewer(Out);
+            createForm(view, null);
             view.Show();
         }
 
@@ -7744,6 +7850,7 @@ namespace parasubcontract_default { //contratto//
                 return;
             }
             FrmCalcAcconto frm = new FrmCalcAcconto(Conn, idreg, annualincome, idcity, Curr["idser"]);
+            createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) return;
             decimal newRC = frm.annualincome;

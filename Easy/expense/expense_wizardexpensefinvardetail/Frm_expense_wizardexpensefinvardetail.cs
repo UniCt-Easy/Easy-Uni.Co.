@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -213,6 +213,7 @@ namespace expense_wizardexpensefinvardetail {
             }
 
             Form F = ShowAutomatismi.Show(Meta, spesa, null, null, null);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 
@@ -220,7 +221,7 @@ namespace expense_wizardexpensefinvardetail {
         private void btnCrea_Click(object sender, System.EventArgs e) {
             DataRow[] sel = GetRigheSelezionate();
             if (sel==null || sel.Length == 0) {
-                MessageBox.Show(this, "Nessuna riga selezionata");
+                show(this, "Nessuna riga selezionata");
                 return;
             }
            
@@ -239,7 +240,7 @@ namespace expense_wizardexpensefinvardetail {
 
             bool res = ga.GeneraAutomatismiAfterPost(true);
             if (!res) {
-                MessageBox.Show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+                show(this, "Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
                 Resetta();
                 return;
             }

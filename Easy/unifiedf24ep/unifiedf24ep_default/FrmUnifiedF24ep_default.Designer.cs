@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -61,7 +61,7 @@ namespace unifiedf24ep_default {
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtDataGenerazione = new System.Windows.Forms.TextBox();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSanzioni = new System.Windows.Forms.TabPage();
             this.btnEliminaSanzione = new System.Windows.Forms.Button();
@@ -75,6 +75,7 @@ namespace unifiedf24ep_default {
             this.label6 = new System.Windows.Forms.Label();
             this.cmbMese = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -292,7 +293,7 @@ namespace unifiedf24ep_default {
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "T24";
+            //this.saveFileDialog1.DefaultExt = "T24";
             // 
             // tabControl1
             // 
@@ -498,7 +499,7 @@ namespace unifiedf24ep_default {
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtDataGenerazione;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageSanzioni;
         private System.Windows.Forms.DataGrid gridSanzioni;
@@ -513,5 +514,6 @@ namespace unifiedf24ep_default {
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Button button1;
+        private metadatalibrary.ISaveFileDialog saveFileDialog1;
     }
 }

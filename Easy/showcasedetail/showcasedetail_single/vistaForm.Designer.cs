@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -58,6 +58,12 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting2 		=> Tables["sorting2"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable showcasedetail_related 		=> Tables["showcasedetail_related"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable listview_related 		=> Tables["listview_related"];
 
 	#endregion
 
@@ -127,6 +133,8 @@ private void initClass() {
 	tlistview.Columns.Add( new DataColumn("assetkind", typeof(string)));
 	tlistview.Columns.Add( new DataColumn("flagvisiblekind", typeof(byte)));
 	tlistview.Columns.Add( new DataColumn("idtassonomia", typeof(string)));
+	tlistview.Columns.Add( new DataColumn("codicetassonomia", typeof(string)));
+	tlistview.Columns.Add( new DataColumn("tassonomia", typeof(string)));
 	Tables.Add(tlistview);
 	tlistview.PrimaryKey =  new DataColumn[]{tlistview.Columns["idlist"]};
 
@@ -598,6 +606,110 @@ private void initClass() {
 	tsorting2.PrimaryKey =  new DataColumn[]{tsorting2.Columns["idsor"]};
 
 
+	//////////////////// SHOWCASEDETAIL_RELATED /////////////////////////////////
+	var tshowcasedetail_related= new DataTable("showcasedetail_related");
+	C= new DataColumn("idshowcase", typeof(int));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("idlist", typeof(int));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("rownum", typeof(int));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	tshowcasedetail_related.Columns.Add( new DataColumn("idlist_related", typeof(int)));
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tshowcasedetail_related.Columns.Add(C);
+	tshowcasedetail_related.Columns.Add( new DataColumn("availability", typeof(int)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idivakind", typeof(int)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("title", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("unitprice", typeof(decimal)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idsor1", typeof(int)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idsor2", typeof(int)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("idsor3", typeof(int)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("!intcode", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("!listclass", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("!description", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("!codicetassonomia", typeof(string)));
+	tshowcasedetail_related.Columns.Add( new DataColumn("!tassonomia", typeof(string)));
+	Tables.Add(tshowcasedetail_related);
+	tshowcasedetail_related.PrimaryKey =  new DataColumn[]{tshowcasedetail_related.Columns["idshowcase"], tshowcasedetail_related.Columns["idlist"], tshowcasedetail_related.Columns["rownum"]};
+
+
+	//////////////////// LISTVIEW_RELATED /////////////////////////////////
+	var tlistview_related= new DataTable("listview_related");
+	C= new DataColumn("idlist", typeof(int));
+	C.AllowDBNull=false;
+	tlistview_related.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tlistview_related.Columns.Add(C);
+	C= new DataColumn("intcode", typeof(string));
+	C.AllowDBNull=false;
+	tlistview_related.Columns.Add(C);
+	tlistview_related.Columns.Add( new DataColumn("intbarcode", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("extcode", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("extbarcode", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("validitystop", typeof(DateTime)));
+	C= new DataColumn("active", typeof(string));
+	C.AllowDBNull=false;
+	tlistview_related.Columns.Add(C);
+	tlistview_related.Columns.Add( new DataColumn("idpackage", typeof(int)));
+	tlistview_related.Columns.Add( new DataColumn("package", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("idunit", typeof(int)));
+	tlistview_related.Columns.Add( new DataColumn("unit", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("unitsforpackage", typeof(int)));
+	C= new DataColumn("has_expiry", typeof(string));
+	C.AllowDBNull=false;
+	tlistview_related.Columns.Add(C);
+	C= new DataColumn("idlistclass", typeof(string));
+	C.AllowDBNull=false;
+	tlistview_related.Columns.Add(C);
+	C= new DataColumn("codelistclass", typeof(string));
+	C.AllowDBNull=false;
+	tlistview_related.Columns.Add(C);
+	C= new DataColumn("listclass", typeof(string));
+	C.AllowDBNull=false;
+	tlistview_related.Columns.Add(C);
+	tlistview_related.Columns.Add( new DataColumn("pic", typeof(Byte[])));
+	tlistview_related.Columns.Add( new DataColumn("timesupply", typeof(int)));
+	tlistview_related.Columns.Add( new DataColumn("nmaxorder", typeof(decimal)));
+	tlistview_related.Columns.Add( new DataColumn("authrequired", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("assetkind", typeof(string)));
+	C= new DataColumn("assetkinddescr", typeof(string));
+	C.ReadOnly=true;
+	tlistview_related.Columns.Add(C);
+	tlistview_related.Columns.Add( new DataColumn("flagvisiblekind", typeof(byte)));
+	tlistview_related.Columns.Add( new DataColumn("idinv", typeof(int)));
+	tlistview_related.Columns.Add( new DataColumn("codeinv", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("inventorytree", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("codemotive", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("accmotive", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("price", typeof(decimal)));
+	tlistview_related.Columns.Add( new DataColumn("insinfo", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("descrforuser", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("ntoreorder", typeof(decimal)));
+	tlistview_related.Columns.Add( new DataColumn("idtassonomia", typeof(int)));
+	tlistview_related.Columns.Add( new DataColumn("tassonomia", typeof(string)));
+	tlistview_related.Columns.Add( new DataColumn("codicetassonomia", typeof(string)));
+	Tables.Add(tlistview_related);
+	tlistview_related.PrimaryKey =  new DataColumn[]{tlistview_related.Columns["idlist"]};
+
+
 	#endregion
 
 
@@ -637,6 +749,14 @@ private void initClass() {
 	cPar = new []{sorting3.Columns["idsor"]};
 	cChild = new []{showcasedetail.Columns["idsor3"]};
 	Relations.Add(new DataRelation("sorting3_showcasedetail",cPar,cChild,false));
+
+	cPar = new []{showcasedetail.Columns["idshowcase"], showcasedetail.Columns["idlist"]};
+	cChild = new []{showcasedetail_related.Columns["idshowcase"], showcasedetail_related.Columns["idlist"]};
+	Relations.Add(new DataRelation("showcasedetail_showcasedetail_related",cPar,cChild,false));
+
+	cPar = new []{listview_related.Columns["idlist"]};
+	cChild = new []{showcasedetail_related.Columns["idlist_related"]};
+	Relations.Add(new DataRelation("listview_related_showcasedetail_related",cPar,cChild,false));
 
 	#endregion
 

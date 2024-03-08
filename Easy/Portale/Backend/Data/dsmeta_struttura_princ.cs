@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -73,11 +73,7 @@ private void initClass() {
 	//////////////////// UPBDEFAULTVIEW /////////////////////////////////
 	var tupbdefaultview= new MetaTable("upbdefaultview");
 	tupbdefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tupbdefaultview.defineColumn("idtreasurer", typeof(int));
-	tupbdefaultview.defineColumn("idunderwriter", typeof(int));
 	tupbdefaultview.defineColumn("idupb", typeof(string),false);
-	tupbdefaultview.defineColumn("idupb_capofila", typeof(string));
-	tupbdefaultview.defineColumn("paridupb", typeof(string));
 	tupbdefaultview.defineColumn("upb_active", typeof(string));
 	Tables.Add(tupbdefaultview);
 	tupbdefaultview.defineKey("idupb");
@@ -93,8 +89,6 @@ private void initClass() {
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");
 	tsededefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tsededefaultview.defineColumn("idcity", typeof(int));
-	tsededefaultview.defineColumn("idnation", typeof(int));
 	tsededefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tsededefaultview);
 	tsededefaultview.defineKey("idsede");
@@ -103,12 +97,12 @@ private void initClass() {
 	var taoodefaultview= new MetaTable("aoodefaultview");
 	taoodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	taoodefaultview.defineColumn("idaoo", typeof(int),false);
-	taoodefaultview.defineColumn("idsede", typeof(int));
 	Tables.Add(taoodefaultview);
 	taoodefaultview.defineKey("idaoo");
 
 	//////////////////// STRUTTURA /////////////////////////////////
 	var tstruttura= new MetaTable("struttura");
+	tstruttura.defineColumn("active", typeof(string));
 	tstruttura.defineColumn("codice", typeof(string));
 	tstruttura.defineColumn("codiceipa", typeof(string));
 	tstruttura.defineColumn("ct", typeof(DateTime),false);
@@ -120,7 +114,7 @@ private void initClass() {
 	tstruttura.defineColumn("idsede", typeof(int),false);
 	tstruttura.defineColumn("idstruttura", typeof(int),false);
 	tstruttura.defineColumn("idstrutturakind", typeof(int),false);
-	tstruttura.defineColumn("idupb", typeof(string),false);
+	tstruttura.defineColumn("idupb", typeof(string));
 	tstruttura.defineColumn("lt", typeof(DateTime),false);
 	tstruttura.defineColumn("lu", typeof(string),false);
 	tstruttura.defineColumn("paridstruttura", typeof(int));

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -345,7 +345,7 @@ namespace pagoPaService.Utils {
         /// <returns>Il check-code della stringa</returns>
         private static string CalcolaCheckCode(string reference) {
             StringBuilder buffer = new StringBuilder();
-            reference.ToUpper().ToList().ForEach(c => buffer.Append(checkReference[c]));
+            reference.ToUpperInvariant().ToList().ForEach(c => buffer.Append(checkReference[c]));
             buffer.Append("271500");
 
             long checkCode = 98 - (long.Parse(buffer.ToString()) % 97);
@@ -362,7 +362,7 @@ namespace pagoPaService.Utils {
         /// <returns></returns>
         private static string CalcolaCheckCode(string reference, int auxDigit, int applicationCode) {
             StringBuilder buffer = new StringBuilder();
-            reference.ToUpper().ToList().ForEach(c => buffer.Append(checkReference[c]));
+            reference.ToUpperInvariant().ToList().ForEach(c => buffer.Append(checkReference[c]));
             //buffer.Append("271500");
 
             string checkString = $"{auxDigit,1:D1}{applicationCode,2:D2}{buffer}";
@@ -451,7 +451,10 @@ namespace pagoPaService.Utils {
         /// <returns>13 cifre del progressivo + 2 cifre di check digit</returns>
         public static string Genera(string reference, int auxDigit, int applicationCode) {
             string checkCode = CalcolaCheckCode(reference, auxDigit, applicationCode);
-            return $"{reference}{checkCode}";
+            if (auxDigit == 0)
+                return $"{reference}{checkCode}";
+            else
+                return $"{applicationCode,2:D2}{reference}{checkCode}";
         }
 
         /// <summary>

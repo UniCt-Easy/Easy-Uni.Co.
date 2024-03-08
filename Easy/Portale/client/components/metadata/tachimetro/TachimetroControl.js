@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * Custom Control for the Tachimetro
  * @module Tachimetro
@@ -42,9 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         this.helpForm = helpForm;
         this.tag = $(el).data("tag");
         this.el = el;
-
         // disegna sempre tutto il tachimetro. se true allora non arriva al amx se questo Ã¨ > del maxValue
         this.limitMax = false;
+
+        this.green = "#30B32D";
+        this.yellow = "#f9c802";
+        this.red = "#ff0000";
 
         // recupero tableName  e columnName dal tag del controllo
         this.tableName = helpForm.getField(this.tag, 0);
@@ -78,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Builds the upload control and appends to the parent
          */
         buildTemplateHtml:function () {
-            var uniqueid = appMeta.utils.getUnivoqueId();
+            var uniqueid = appMeta.utils.getUniqueId();
             this.idLbValue = "tach_lbl" + uniqueid;
             this.idTachimetro = "tach_" + uniqueid;
             var htmlCodeTemplate = '';
@@ -132,7 +118,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 gradientType: 0,
                 strokeColor: "#e0e0e0",
                 generateGradient: true,
-                percentColors: [[0.0, "#a9d70b" ], [0.50, "#f9c802"], [1.0, "#ff0000"]],
+                percentColors: [[0.0, this.green ], [0.50, this.yellow], [1.0, this.red]],
                 // customize pointer
                 pointer: {
                 length: 0.57,
@@ -147,9 +133,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 },
                 // static zones
                 staticZones: [
-                    {strokeStyle: "#30B32D", min: this.min, max: this.th1},
-                    {strokeStyle: "#FFDD00", min: this.th1, max: this.th2},
-                    {strokeStyle: "#F03E3E", min: this.th2, max: this.max}
+                    {strokeStyle: this.green, min: this.min, max: this.th1},
+                    {strokeStyle: this.yellow, min: this.th1, max: this.th2},
+                    {strokeStyle: this.red, min: this.th2, max: this.max}
                 ],
                     // render ticks
                     renderTicks: {
@@ -241,8 +227,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /**
          * @method addEvents
          * @public
-         * @description ASYNC
-         * @param {html node} el
+         * @param {node} el
          * @param {MetaPage} metaPage
          * @param {boolean} subscribe
          */
@@ -255,7 +240,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @public
          * @description ASYNC
          * Executes a prefill of the control
-         * @param {Html node} el
+         * @param {node} el
          * @param {Object} param {tableWantedName:tableWantedName, filter:filter, selList:selList}
          * @returns {Deferred}
          */

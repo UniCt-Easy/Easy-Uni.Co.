@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -58,6 +58,18 @@ namespace invoicedetail_default {
 			this.txtstart = new System.Windows.Forms.TextBox();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.button7 = new System.Windows.Forms.Button();
+			this.comboBox2 = new System.Windows.Forms.ComboBox();
+			this.textBox10 = new System.Windows.Forms.TextBox();
+			this.textBox11 = new System.Windows.Forms.TextBox();
+			this.textBox12 = new System.Windows.Forms.TextBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.button5 = new System.Windows.Forms.Button();
+			this.textBox14 = new System.Windows.Forms.TextBox();
+			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.textBox15 = new System.Windows.Forms.TextBox();
+			this.textBox16 = new System.Windows.Forms.TextBox();
 			this.gboxProfessionale = new System.Windows.Forms.GroupBox();
 			this.txtNcon = new System.Windows.Forms.TextBox();
 			this.label38 = new System.Windows.Forms.Label();
@@ -280,11 +292,15 @@ namespace invoicedetail_default {
 			this.txtDescrizioneListino = new System.Windows.Forms.TextBox();
 			this.chkSpeseAnticipateSpedizioniere = new System.Windows.Forms.CheckBox();
 			this.chkBollaDoganale = new System.Windows.Forms.CheckBox();
+			this.label43 = new System.Windows.Forms.Label();
+			this.txtRownumMain = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox4.SuspendLayout();
 			this.gboxCompetenza.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.gboxProfessionale.SuspendLayout();
 			this.grpCupCig.SuspendLayout();
 			this.gBoxupbIVA.SuspendLayout();
@@ -342,7 +358,7 @@ namespace invoicedetail_default {
 			// 
 			// textBox1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(884, 35);
+			this.textBox1.Location = new System.Drawing.Point(369, 40);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(74, 20);
 			this.textBox1.TabIndex = 3;
@@ -352,11 +368,11 @@ namespace invoicedetail_default {
 			// label26
 			// 
 			this.label26.AutoSize = true;
-			this.label26.Location = new System.Drawing.Point(866, 9);
+			this.label26.Location = new System.Drawing.Point(299, 42);
 			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(92, 13);
+			this.label26.Size = new System.Drawing.Size(66, 13);
 			this.label26.TabIndex = 37;
-			this.label26.Text = "Numero Dettaglio:";
+			this.label26.Text = "N. Dettaglio:";
 			// 
 			// groupBox4
 			// 
@@ -366,9 +382,11 @@ namespace invoicedetail_default {
 			this.groupBox4.Controls.Add(this.label24);
 			this.groupBox4.Controls.Add(this.cmbTipoDocIVA);
 			this.groupBox4.Controls.Add(this.btnDocumentoIva);
+			this.groupBox4.Controls.Add(this.label26);
+			this.groupBox4.Controls.Add(this.textBox1);
 			this.groupBox4.Location = new System.Drawing.Point(12, 2);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(387, 68);
+			this.groupBox4.Size = new System.Drawing.Size(449, 68);
 			this.groupBox4.TabIndex = 1;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Tag = "AutoChoose.txtNumero.default";
@@ -376,16 +394,16 @@ namespace invoicedetail_default {
 			// 
 			// txtNumero
 			// 
-			this.txtNumero.Location = new System.Drawing.Point(288, 42);
+			this.txtNumero.Location = new System.Drawing.Point(217, 40);
 			this.txtNumero.Name = "txtNumero";
-			this.txtNumero.Size = new System.Drawing.Size(89, 20);
+			this.txtNumero.Size = new System.Drawing.Size(72, 20);
 			this.txtNumero.TabIndex = 5;
 			this.txtNumero.Tag = "invoice.ninv?invoicedetail.ninv";
 			// 
 			// label25
 			// 
 			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(238, 46);
+			this.label25.Location = new System.Drawing.Point(163, 45);
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(44, 13);
 			this.label25.TabIndex = 3;
@@ -393,7 +411,7 @@ namespace invoicedetail_default {
 			// 
 			// txtEsercizio
 			// 
-			this.txtEsercizio.Location = new System.Drawing.Point(164, 42);
+			this.txtEsercizio.Location = new System.Drawing.Point(84, 42);
 			this.txtEsercizio.Name = "txtEsercizio";
 			this.txtEsercizio.Size = new System.Drawing.Size(61, 20);
 			this.txtEsercizio.TabIndex = 3;
@@ -402,7 +420,7 @@ namespace invoicedetail_default {
 			// label24
 			// 
 			this.label24.AutoSize = true;
-			this.label24.Location = new System.Drawing.Point(109, 46);
+			this.label24.Location = new System.Drawing.Point(25, 46);
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(49, 13);
 			this.label24.TabIndex = 2;
@@ -416,7 +434,7 @@ namespace invoicedetail_default {
 			this.cmbTipoDocIVA.FormattingEnabled = true;
 			this.cmbTipoDocIVA.Location = new System.Drawing.Point(84, 15);
 			this.cmbTipoDocIVA.Name = "cmbTipoDocIVA";
-			this.cmbTipoDocIVA.Size = new System.Drawing.Size(297, 21);
+			this.cmbTipoDocIVA.Size = new System.Drawing.Size(358, 21);
 			this.cmbTipoDocIVA.TabIndex = 1;
 			this.cmbTipoDocIVA.Tag = "invoice.idinvkind?invoicedetail.idinvkind";
 			this.cmbTipoDocIVA.ValueMember = "idinvkind";
@@ -499,12 +517,14 @@ namespace invoicedetail_default {
 			this.tabControl1.Location = new System.Drawing.Point(16, 323);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(948, 343);
+			this.tabControl1.Size = new System.Drawing.Size(949, 343);
 			this.tabControl1.TabIndex = 11;
 			this.tabControl1.TabStop = false;
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.groupBox1);
+			this.tabPage1.Controls.Add(this.groupBox2);
 			this.tabPage1.Controls.Add(this.gboxProfessionale);
 			this.tabPage1.Controls.Add(this.grpCupCig);
 			this.tabPage1.Controls.Add(this.gBoxupbIVA);
@@ -515,10 +535,144 @@ namespace invoicedetail_default {
 			this.tabPage1.Controls.Add(this.grpRiga);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(940, 317);
+			this.tabPage1.Size = new System.Drawing.Size(941, 317);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Finanziario";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.button7);
+			this.groupBox1.Controls.Add(this.comboBox2);
+			this.groupBox1.Controls.Add(this.textBox10);
+			this.groupBox1.Controls.Add(this.textBox11);
+			this.groupBox1.Controls.Add(this.textBox12);
+			this.groupBox1.Location = new System.Drawing.Point(6, 199);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(552, 41);
+			this.groupBox1.TabIndex = 76;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Riga del contratto attivo:Tipo/Eserc./Num./Riga";
+			// 
+			// button7
+			// 
+			this.button7.Location = new System.Drawing.Point(9, 12);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(75, 23);
+			this.button7.TabIndex = 79;
+			this.button7.Tag = "choose.estimatekind.default";
+			this.button7.Text = "Tipo";
+			this.button7.UseVisualStyleBackColor = true;
+			// 
+			// comboBox2
+			// 
+			this.comboBox2.DataSource = this.DS.estimatekind;
+			this.comboBox2.DisplayMember = "description";
+			this.comboBox2.Location = new System.Drawing.Point(98, 14);
+			this.comboBox2.Name = "comboBox2";
+			this.comboBox2.Size = new System.Drawing.Size(320, 21);
+			this.comboBox2.TabIndex = 77;
+			this.comboBox2.Tag = "estimatekind.idestimkind?invoicedetailview.idestimkind";
+			this.comboBox2.ValueMember = "idestimkind";
+			// 
+			// textBox10
+			// 
+			this.textBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox10.Location = new System.Drawing.Point(514, 12);
+			this.textBox10.Name = "textBox10";
+			this.textBox10.Size = new System.Drawing.Size(32, 20);
+			this.textBox10.TabIndex = 4;
+			this.textBox10.TabStop = false;
+			this.textBox10.Tag = "invoicedetail.estimrownum";
+			// 
+			// textBox11
+			// 
+			this.textBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox11.Location = new System.Drawing.Point(468, 12);
+			this.textBox11.Name = "textBox11";
+			this.textBox11.Size = new System.Drawing.Size(40, 20);
+			this.textBox11.TabIndex = 3;
+			this.textBox11.TabStop = false;
+			this.textBox11.Tag = "invoicedetail.nestim";
+			// 
+			// textBox12
+			// 
+			this.textBox12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox12.Location = new System.Drawing.Point(430, 12);
+			this.textBox12.Name = "textBox12";
+			this.textBox12.Size = new System.Drawing.Size(32, 20);
+			this.textBox12.TabIndex = 2;
+			this.textBox12.TabStop = false;
+			this.textBox12.Tag = "invoicedetail.yestim.year";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.groupBox2.Controls.Add(this.button5);
+			this.groupBox2.Controls.Add(this.textBox14);
+			this.groupBox2.Controls.Add(this.comboBox1);
+			this.groupBox2.Controls.Add(this.textBox15);
+			this.groupBox2.Controls.Add(this.textBox16);
+			this.groupBox2.Location = new System.Drawing.Point(6, 153);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(552, 40);
+			this.groupBox2.TabIndex = 75;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Tag = "";
+			this.groupBox2.Text = "Riga del buono d\'ordine: Tipo/Eserc./Num./Riga";
+			// 
+			// button5
+			// 
+			this.button5.Location = new System.Drawing.Point(9, 14);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(75, 23);
+			this.button5.TabIndex = 78;
+			this.button5.Tag = "choose.mandatekind.default";
+			this.button5.Text = "Tipo";
+			this.button5.UseVisualStyleBackColor = true;
+			// 
+			// textBox14
+			// 
+			this.textBox14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox14.Location = new System.Drawing.Point(514, 14);
+			this.textBox14.Name = "textBox14";
+			this.textBox14.Size = new System.Drawing.Size(32, 20);
+			this.textBox14.TabIndex = 4;
+			this.textBox14.TabStop = false;
+			this.textBox14.Tag = "invoicedetail.manrownum";
+			// 
+			// comboBox1
+			// 
+			this.comboBox1.DataSource = this.DS.mandatekind;
+			this.comboBox1.DisplayMember = "description";
+			this.comboBox1.Location = new System.Drawing.Point(98, 14);
+			this.comboBox1.Name = "comboBox1";
+			this.comboBox1.Size = new System.Drawing.Size(320, 21);
+			this.comboBox1.TabIndex = 77;
+			this.comboBox1.Tag = "mandatekind.idmankind?invoicedetailview.idmankind";
+			this.comboBox1.ValueMember = "idmankind";
+			// 
+			// textBox15
+			// 
+			this.textBox15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox15.Location = new System.Drawing.Point(468, 14);
+			this.textBox15.Name = "textBox15";
+			this.textBox15.Size = new System.Drawing.Size(40, 20);
+			this.textBox15.TabIndex = 3;
+			this.textBox15.TabStop = false;
+			this.textBox15.Tag = "invoicedetail.nman";
+			// 
+			// textBox16
+			// 
+			this.textBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox16.Location = new System.Drawing.Point(430, 14);
+			this.textBox16.Name = "textBox16";
+			this.textBox16.Size = new System.Drawing.Size(32, 20);
+			this.textBox16.TabIndex = 2;
+			this.textBox16.TabStop = false;
+			this.textBox16.Tag = "invoicedetail.yman.year";
 			// 
 			// gboxProfessionale
 			// 
@@ -573,15 +727,15 @@ namespace invoicedetail_default {
 			this.grpCupCig.Controls.Add(this.lblcig);
 			this.grpCupCig.Controls.Add(this.label87);
 			this.grpCupCig.Controls.Add(this.txtCUP);
-			this.grpCupCig.Location = new System.Drawing.Point(647, 158);
+			this.grpCupCig.Location = new System.Drawing.Point(627, 160);
 			this.grpCupCig.Name = "grpCupCig";
-			this.grpCupCig.Size = new System.Drawing.Size(288, 58);
+			this.grpCupCig.Size = new System.Drawing.Size(305, 71);
 			this.grpCupCig.TabIndex = 70;
 			this.grpCupCig.TabStop = false;
 			// 
 			// txtCIG
 			// 
-			this.txtCIG.Location = new System.Drawing.Point(153, 33);
+			this.txtCIG.Location = new System.Drawing.Point(168, 35);
 			this.txtCIG.Name = "txtCIG";
 			this.txtCIG.Size = new System.Drawing.Size(129, 20);
 			this.txtCIG.TabIndex = 72;
@@ -589,7 +743,7 @@ namespace invoicedetail_default {
 			// 
 			// lblcig
 			// 
-			this.lblcig.Location = new System.Drawing.Point(139, 11);
+			this.lblcig.Location = new System.Drawing.Point(156, 13);
 			this.lblcig.Name = "lblcig";
 			this.lblcig.Size = new System.Drawing.Size(143, 19);
 			this.lblcig.TabIndex = 71;
@@ -599,7 +753,7 @@ namespace invoicedetail_default {
 			// 
 			// label87
 			// 
-			this.label87.Location = new System.Drawing.Point(8, 10);
+			this.label87.Location = new System.Drawing.Point(20, 13);
 			this.label87.Name = "label87";
 			this.label87.Size = new System.Drawing.Size(113, 19);
 			this.label87.TabIndex = 70;
@@ -608,9 +762,9 @@ namespace invoicedetail_default {
 			// 
 			// txtCUP
 			// 
-			this.txtCUP.Location = new System.Drawing.Point(6, 33);
+			this.txtCUP.Location = new System.Drawing.Point(18, 36);
 			this.txtCUP.Name = "txtCUP";
-			this.txtCUP.Size = new System.Drawing.Size(127, 20);
+			this.txtCUP.Size = new System.Drawing.Size(129, 20);
 			this.txtCUP.TabIndex = 69;
 			this.txtCUP.Tag = "invoicedetail.cupcode";
 			// 
@@ -833,7 +987,7 @@ namespace invoicedetail_default {
 			this.grpRigaContratto.Controls.Add(this.txtEsercContratto);
 			this.grpRigaContratto.Location = new System.Drawing.Point(6, 192);
 			this.grpRigaContratto.Name = "grpRigaContratto";
-			this.grpRigaContratto.Size = new System.Drawing.Size(635, 42);
+			this.grpRigaContratto.Size = new System.Drawing.Size(0, 42);
 			this.grpRigaContratto.TabIndex = 4;
 			this.grpRigaContratto.TabStop = false;
 			this.grpRigaContratto.Text = "Riga del contratto attivo";
@@ -901,7 +1055,7 @@ namespace invoicedetail_default {
 			this.grpRiga.Controls.Add(this.txtEsercordine);
 			this.grpRiga.Location = new System.Drawing.Point(6, 148);
 			this.grpRiga.Name = "grpRiga";
-			this.grpRiga.Size = new System.Drawing.Size(635, 38);
+			this.grpRiga.Size = new System.Drawing.Size(0, 38);
 			this.grpRiga.TabIndex = 3;
 			this.grpRiga.TabStop = false;
 			this.grpRiga.Text = "Riga del contratto passivo";
@@ -966,7 +1120,7 @@ namespace invoicedetail_default {
 			this.tabAnalitico.Controls.Add(this.gboxclass1);
 			this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
 			this.tabAnalitico.Name = "tabAnalitico";
-			this.tabAnalitico.Size = new System.Drawing.Size(940, 317);
+			this.tabAnalitico.Size = new System.Drawing.Size(941, 317);
 			this.tabAnalitico.TabIndex = 3;
 			this.tabAnalitico.Text = "Analitico";
 			this.tabAnalitico.UseVisualStyleBackColor = true;
@@ -1168,7 +1322,7 @@ namespace invoicedetail_default {
 			this.tabEP.Controls.Add(this.gboxCompetenza);
 			this.tabEP.Location = new System.Drawing.Point(4, 22);
 			this.tabEP.Name = "tabEP";
-			this.tabEP.Size = new System.Drawing.Size(940, 317);
+			this.tabEP.Size = new System.Drawing.Size(941, 317);
 			this.tabEP.TabIndex = 4;
 			this.tabEP.Text = "E/P";
 			this.tabEP.UseVisualStyleBackColor = true;
@@ -1365,7 +1519,7 @@ namespace invoicedetail_default {
 			this.tabLiquidazioneIVA.Location = new System.Drawing.Point(4, 22);
 			this.tabLiquidazioneIVA.Name = "tabLiquidazioneIVA";
 			this.tabLiquidazioneIVA.Padding = new System.Windows.Forms.Padding(3);
-			this.tabLiquidazioneIVA.Size = new System.Drawing.Size(940, 317);
+			this.tabLiquidazioneIVA.Size = new System.Drawing.Size(941, 317);
 			this.tabLiquidazioneIVA.TabIndex = 5;
 			this.tabLiquidazioneIVA.Text = "Liquidazione IVA";
 			this.tabLiquidazioneIVA.UseVisualStyleBackColor = true;
@@ -1418,7 +1572,7 @@ namespace invoicedetail_default {
 			this.tabIntrastat.Controls.Add(this.grpBeni);
 			this.tabIntrastat.Location = new System.Drawing.Point(4, 22);
 			this.tabIntrastat.Name = "tabIntrastat";
-			this.tabIntrastat.Size = new System.Drawing.Size(940, 317);
+			this.tabIntrastat.Size = new System.Drawing.Size(941, 317);
 			this.tabIntrastat.TabIndex = 6;
 			this.tabIntrastat.Text = "Intrastat";
 			this.tabIntrastat.UseVisualStyleBackColor = true;
@@ -1622,7 +1776,7 @@ namespace invoicedetail_default {
 			this.tabPage3.Controls.Add(this.gboxva3);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(940, 317);
+			this.tabPage3.Size = new System.Drawing.Size(941, 317);
 			this.tabPage3.TabIndex = 7;
 			this.tabPage3.Text = "Quadro VF";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -1694,7 +1848,7 @@ namespace invoicedetail_default {
 			this.tabComunicazioni.Location = new System.Drawing.Point(4, 22);
 			this.tabComunicazioni.Name = "tabComunicazioni";
 			this.tabComunicazioni.Padding = new System.Windows.Forms.Padding(3);
-			this.tabComunicazioni.Size = new System.Drawing.Size(940, 317);
+			this.tabComunicazioni.Size = new System.Drawing.Size(941, 317);
 			this.tabComunicazioni.TabIndex = 8;
 			this.tabComunicazioni.Text = "Comunicazioni";
 			this.tabComunicazioni.UseVisualStyleBackColor = true;
@@ -1755,7 +1909,7 @@ namespace invoicedetail_default {
 			this.tabPage2.Controls.Add(this.chkexception12);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(940, 317);
+			this.tabPage2.Size = new System.Drawing.Size(941, 317);
 			this.tabPage2.TabIndex = 9;
 			this.tabPage2.Text = "INTRA-12";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -1813,7 +1967,7 @@ namespace invoicedetail_default {
 			this.tabAppunti.Controls.Add(this.txtAppunti);
 			this.tabAppunti.Location = new System.Drawing.Point(4, 22);
 			this.tabAppunti.Name = "tabAppunti";
-			this.tabAppunti.Size = new System.Drawing.Size(940, 317);
+			this.tabAppunti.Size = new System.Drawing.Size(941, 317);
 			this.tabAppunti.TabIndex = 10;
 			this.tabAppunti.Text = "Appunti";
 			this.tabAppunti.UseVisualStyleBackColor = true;
@@ -1825,7 +1979,7 @@ namespace invoicedetail_default {
 			this.txtAppunti.Multiline = true;
 			this.txtAppunti.Name = "txtAppunti";
 			this.txtAppunti.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtAppunti.Size = new System.Drawing.Size(940, 317);
+			this.txtAppunti.Size = new System.Drawing.Size(941, 317);
 			this.txtAppunti.TabIndex = 13;
 			this.txtAppunti.Tag = "invoicedetail.annotations";
 			// 
@@ -1835,7 +1989,7 @@ namespace invoicedetail_default {
 			this.tabSospesometro.Controls.Add(this.grpDettaglioSpesometro);
 			this.tabSospesometro.Location = new System.Drawing.Point(4, 22);
 			this.tabSospesometro.Name = "tabSospesometro";
-			this.tabSospesometro.Size = new System.Drawing.Size(940, 317);
+			this.tabSospesometro.Size = new System.Drawing.Size(941, 317);
 			this.tabSospesometro.TabIndex = 11;
 			this.tabSospesometro.Text = "Spesometro";
 			this.tabSospesometro.UseVisualStyleBackColor = true;
@@ -2022,7 +2176,7 @@ namespace invoicedetail_default {
 			this.tabFatturaElettronica.Controls.Add(this.label28);
 			this.tabFatturaElettronica.Location = new System.Drawing.Point(4, 22);
 			this.tabFatturaElettronica.Name = "tabFatturaElettronica";
-			this.tabFatturaElettronica.Size = new System.Drawing.Size(940, 317);
+			this.tabFatturaElettronica.Size = new System.Drawing.Size(941, 317);
 			this.tabFatturaElettronica.TabIndex = 12;
 			this.tabFatturaElettronica.Text = "Fattura Elettronica";
 			this.tabFatturaElettronica.UseVisualStyleBackColor = true;
@@ -2106,7 +2260,7 @@ namespace invoicedetail_default {
 			this.txtRiferimentoNormativo.Location = new System.Drawing.Point(162, 69);
 			this.txtRiferimentoNormativo.Multiline = true;
 			this.txtRiferimentoNormativo.Name = "txtRiferimentoNormativo";
-			this.txtRiferimentoNormativo.Size = new System.Drawing.Size(287, 54);
+			this.txtRiferimentoNormativo.Size = new System.Drawing.Size(0, 54);
 			this.txtRiferimentoNormativo.TabIndex = 2;
 			this.txtRiferimentoNormativo.Tag = "invoicedetail.fereferencerule";
 			// 
@@ -2128,7 +2282,7 @@ namespace invoicedetail_default {
 			this.cmbTipocessioneprestazione.DisplayMember = "description";
 			this.cmbTipocessioneprestazione.Location = new System.Drawing.Point(162, 29);
 			this.cmbTipocessioneprestazione.Name = "cmbTipocessioneprestazione";
-			this.cmbTipocessioneprestazione.Size = new System.Drawing.Size(287, 21);
+			this.cmbTipocessioneprestazione.Size = new System.Drawing.Size(0, 21);
 			this.cmbTipocessioneprestazione.TabIndex = 1;
 			this.cmbTipocessioneprestazione.Tag = "invoicedetail.idfetransfer";
 			this.cmbTipocessioneprestazione.ValueMember = "idfetransfer";
@@ -2147,7 +2301,7 @@ namespace invoicedetail_default {
 			this.tabPage4.Controls.Add(this.grpPcc);
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(940, 317);
+			this.tabPage4.Size = new System.Drawing.Size(941, 317);
 			this.tabPage4.TabIndex = 13;
 			this.tabPage4.Text = "PCC";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -2272,7 +2426,7 @@ namespace invoicedetail_default {
 			this.tabPagoPA.Location = new System.Drawing.Point(4, 22);
 			this.tabPagoPA.Name = "tabPagoPA";
 			this.tabPagoPA.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPagoPA.Size = new System.Drawing.Size(940, 317);
+			this.tabPagoPA.Size = new System.Drawing.Size(941, 317);
 			this.tabPagoPA.TabIndex = 14;
 			this.tabPagoPA.Text = "PagoPA";
 			this.tabPagoPA.UseVisualStyleBackColor = true;
@@ -2386,12 +2540,16 @@ namespace invoicedetail_default {
 			// 
 			// cmbTassonomia
 			// 
-			this.cmbTassonomia.FormattingEnabled = true;
+			this.cmbTassonomia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbTassonomia.DataSource = this.DS.tassonomia_pagopa;
+			this.cmbTassonomia.DisplayMember = "title";
 			this.cmbTassonomia.Location = new System.Drawing.Point(6, 38);
 			this.cmbTassonomia.Name = "cmbTassonomia";
 			this.cmbTassonomia.Size = new System.Drawing.Size(382, 21);
 			this.cmbTassonomia.TabIndex = 2;
-			this.cmbTassonomia.Tag = "invoicedetail.idtassonomia";
+			this.cmbTassonomia.Tag = "invoicedetail.idtassonomia?invoicedetailview.idtassonomia";
+			this.cmbTassonomia.ValueMember = "idtassonomia";
 			// 
 			// btnTassonomia
 			// 
@@ -2399,6 +2557,7 @@ namespace invoicedetail_default {
 			this.btnTassonomia.Name = "btnTassonomia";
 			this.btnTassonomia.Size = new System.Drawing.Size(124, 23);
 			this.btnTassonomia.TabIndex = 1;
+			this.btnTassonomia.Tag = "choose.tassonomia_pagopa.default";
 			this.btnTassonomia.Text = "Tassonomia PagoPA";
 			this.btnTassonomia.UseVisualStyleBackColor = true;
 			// 
@@ -2699,15 +2858,17 @@ namespace invoicedetail_default {
 			// 
 			// grpInvMain
 			// 
+			this.grpInvMain.Controls.Add(this.label43);
+			this.grpInvMain.Controls.Add(this.txtRownumMain);
 			this.grpInvMain.Controls.Add(this.label10);
 			this.grpInvMain.Controls.Add(this.cmbInvKindMain);
 			this.grpInvMain.Controls.Add(this.txtNinvMain);
 			this.grpInvMain.Controls.Add(this.label19);
 			this.grpInvMain.Controls.Add(this.txtYinvMain);
 			this.grpInvMain.Controls.Add(this.label20);
-			this.grpInvMain.Location = new System.Drawing.Point(436, 2);
+			this.grpInvMain.Location = new System.Drawing.Point(471, 3);
 			this.grpInvMain.Name = "grpInvMain";
-			this.grpInvMain.Size = new System.Drawing.Size(421, 68);
+			this.grpInvMain.Size = new System.Drawing.Size(490, 68);
 			this.grpInvMain.TabIndex = 2;
 			this.grpInvMain.TabStop = false;
 			this.grpInvMain.Text = " Fattura di riferimento";
@@ -2715,7 +2876,7 @@ namespace invoicedetail_default {
 			// label10
 			// 
 			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(11, 13);
+			this.label10.Location = new System.Drawing.Point(5, 13);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(28, 13);
 			this.label10.TabIndex = 12;
@@ -2725,16 +2886,16 @@ namespace invoicedetail_default {
 			// 
 			this.cmbInvKindMain.DataSource = this.DS.invoicekind1;
 			this.cmbInvKindMain.DisplayMember = "description";
-			this.cmbInvKindMain.Location = new System.Drawing.Point(12, 31);
+			this.cmbInvKindMain.Location = new System.Drawing.Point(58, 16);
 			this.cmbInvKindMain.Name = "cmbInvKindMain";
-			this.cmbInvKindMain.Size = new System.Drawing.Size(242, 21);
+			this.cmbInvKindMain.Size = new System.Drawing.Size(429, 21);
 			this.cmbInvKindMain.TabIndex = 1;
 			this.cmbInvKindMain.Tag = "invoicedetail.idinvkind_main";
 			this.cmbInvKindMain.ValueMember = "idinvkind";
 			// 
 			// txtNinvMain
 			// 
-			this.txtNinvMain.Location = new System.Drawing.Point(338, 35);
+			this.txtNinvMain.Location = new System.Drawing.Point(187, 41);
 			this.txtNinvMain.Name = "txtNinvMain";
 			this.txtNinvMain.Size = new System.Drawing.Size(65, 20);
 			this.txtNinvMain.TabIndex = 3;
@@ -2743,7 +2904,7 @@ namespace invoicedetail_default {
 			// label19
 			// 
 			this.label19.AutoSize = true;
-			this.label19.Location = new System.Drawing.Point(334, 16);
+			this.label19.Location = new System.Drawing.Point(130, 43);
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(44, 13);
 			this.label19.TabIndex = 8;
@@ -2751,7 +2912,7 @@ namespace invoicedetail_default {
 			// 
 			// txtYinvMain
 			// 
-			this.txtYinvMain.Location = new System.Drawing.Point(268, 33);
+			this.txtYinvMain.Location = new System.Drawing.Point(59, 41);
 			this.txtYinvMain.Name = "txtYinvMain";
 			this.txtYinvMain.Size = new System.Drawing.Size(47, 20);
 			this.txtYinvMain.TabIndex = 2;
@@ -2760,7 +2921,7 @@ namespace invoicedetail_default {
 			// label20
 			// 
 			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(265, 15);
+			this.label20.Location = new System.Drawing.Point(4, 42);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(49, 13);
 			this.label20.TabIndex = 6;
@@ -2803,7 +2964,7 @@ namespace invoicedetail_default {
 			this.gboxListino.Controls.Add(this.txtDescrizioneListino);
 			this.gboxListino.Location = new System.Drawing.Point(277, 74);
 			this.gboxListino.Name = "gboxListino";
-			this.gboxListino.Size = new System.Drawing.Size(683, 103);
+			this.gboxListino.Size = new System.Drawing.Size(684, 103);
 			this.gboxListino.TabIndex = 5;
 			this.gboxListino.TabStop = false;
 			this.gboxListino.Tag = "";
@@ -2831,7 +2992,7 @@ namespace invoicedetail_default {
 			// txtCoeffConversione
 			// 
 			this.txtCoeffConversione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCoeffConversione.Location = new System.Drawing.Point(562, 33);
+			this.txtCoeffConversione.Location = new System.Drawing.Point(563, 33);
 			this.txtCoeffConversione.Name = "txtCoeffConversione";
 			this.txtCoeffConversione.ReadOnly = true;
 			this.txtCoeffConversione.Size = new System.Drawing.Size(67, 20);
@@ -2844,7 +3005,7 @@ namespace invoicedetail_default {
 			// 
 			this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label29.AutoSize = true;
-			this.label29.Location = new System.Drawing.Point(445, 36);
+			this.label29.Location = new System.Drawing.Point(446, 36);
 			this.label29.Name = "label29";
 			this.label29.Size = new System.Drawing.Size(107, 13);
 			this.label29.TabIndex = 22;
@@ -2857,7 +3018,7 @@ namespace invoicedetail_default {
 			this.cmbUnitaMisuraAcquisto.DisplayMember = "description";
 			this.cmbUnitaMisuraAcquisto.Enabled = false;
 			this.cmbUnitaMisuraAcquisto.FormattingEnabled = true;
-			this.cmbUnitaMisuraAcquisto.Location = new System.Drawing.Point(562, 10);
+			this.cmbUnitaMisuraAcquisto.Location = new System.Drawing.Point(563, 10);
 			this.cmbUnitaMisuraAcquisto.Name = "cmbUnitaMisuraAcquisto";
 			this.cmbUnitaMisuraAcquisto.Size = new System.Drawing.Size(115, 21);
 			this.cmbUnitaMisuraAcquisto.TabIndex = 7;
@@ -2869,7 +3030,7 @@ namespace invoicedetail_default {
 			// 
 			this.lblIcmbdpackage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblIcmbdpackage.AutoSize = true;
-			this.lblIcmbdpackage.Location = new System.Drawing.Point(451, 13);
+			this.lblIcmbdpackage.Location = new System.Drawing.Point(452, 13);
 			this.lblIcmbdpackage.Name = "lblIcmbdpackage";
 			this.lblIcmbdpackage.Size = new System.Drawing.Size(106, 13);
 			this.lblIcmbdpackage.TabIndex = 21;
@@ -2879,7 +3040,7 @@ namespace invoicedetail_default {
 			// 
 			this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label31.AutoSize = true;
-			this.label31.Location = new System.Drawing.Point(484, 57);
+			this.label31.Location = new System.Drawing.Point(485, 57);
 			this.label31.Name = "label31";
 			this.label31.Size = new System.Drawing.Size(71, 13);
 			this.label31.TabIndex = 23;
@@ -2892,7 +3053,7 @@ namespace invoicedetail_default {
 			this.cmbUnitaMisuraCS.DisplayMember = "description";
 			this.cmbUnitaMisuraCS.Enabled = false;
 			this.cmbUnitaMisuraCS.FormattingEnabled = true;
-			this.cmbUnitaMisuraCS.Location = new System.Drawing.Point(561, 55);
+			this.cmbUnitaMisuraCS.Location = new System.Drawing.Point(562, 55);
 			this.cmbUnitaMisuraCS.Name = "cmbUnitaMisuraCS";
 			this.cmbUnitaMisuraCS.Size = new System.Drawing.Size(117, 21);
 			this.cmbUnitaMisuraCS.TabIndex = 9;
@@ -2946,7 +3107,7 @@ namespace invoicedetail_default {
 			this.txtDescrizioneListino.Multiline = true;
 			this.txtDescrizioneListino.Name = "txtDescrizioneListino";
 			this.txtDescrizioneListino.ReadOnly = true;
-			this.txtDescrizioneListino.Size = new System.Drawing.Size(200, 65);
+			this.txtDescrizioneListino.Size = new System.Drawing.Size(201, 65);
 			this.txtDescrizioneListino.TabIndex = 9;
 			this.txtDescrizioneListino.TabStop = false;
 			this.txtDescrizioneListino.Tag = "";
@@ -2973,11 +3134,29 @@ namespace invoicedetail_default {
 			this.chkBollaDoganale.Text = "Valore doganale";
 			this.chkBollaDoganale.UseVisualStyleBackColor = true;
 			// 
+			// label43
+			// 
+			this.label43.AutoSize = true;
+			this.label43.Location = new System.Drawing.Point(317, 44);
+			this.label43.Name = "label43";
+			this.label43.Size = new System.Drawing.Size(66, 13);
+			this.label43.TabIndex = 39;
+			this.label43.Text = "N. Dettaglio:";
+			// 
+			// txtRownumMain
+			// 
+			this.txtRownumMain.Location = new System.Drawing.Point(412, 40);
+			this.txtRownumMain.Name = "txtRownumMain";
+			this.txtRownumMain.Size = new System.Drawing.Size(74, 20);
+			this.txtRownumMain.TabIndex = 38;
+			this.txtRownumMain.TabStop = false;
+			this.txtRownumMain.Tag = "invoicedetail.rownum_main";
+			// 
 			// FrmInvoiceDetail_Default
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(972, 669);
+			this.ClientSize = new System.Drawing.Size(973, 669);
 			this.Controls.Add(this.chkSpeseAnticipateSpedizioniere);
 			this.Controls.Add(this.chkBollaDoganale);
 			this.Controls.Add(this.gboxListino);
@@ -2994,8 +3173,6 @@ namespace invoicedetail_default {
 			this.Controls.Add(this.lblidpackage);
 			this.Controls.Add(this.grpValoreTotaleInEuro);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.textBox1);
-			this.Controls.Add(this.label26);
 			this.Controls.Add(this.groupBox4);
 			this.Name = "FrmInvoiceDetail_Default";
 			this.Text = "FrmInvoiceDetail_Default";
@@ -3006,6 +3183,10 @@ namespace invoicedetail_default {
 			this.gboxCompetenza.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.gboxProfessionale.ResumeLayout(false);
 			this.gboxProfessionale.PerformLayout();
 			this.grpCupCig.ResumeLayout(false);
@@ -3339,5 +3520,19 @@ namespace invoicedetail_default {
 		private System.Windows.Forms.TextBox txtCodiceCausaleEntrataIva;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.TabPage tabPagoPA;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.TextBox textBox10;
+		private System.Windows.Forms.TextBox textBox11;
+		private System.Windows.Forms.TextBox textBox12;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.TextBox textBox14;
+		private System.Windows.Forms.TextBox textBox15;
+		private System.Windows.Forms.TextBox textBox16;
+		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox comboBox2;
+		private System.Windows.Forms.Button button5;
+		private System.Windows.Forms.Button button7;
+		private System.Windows.Forms.Label label43;
+		private System.Windows.Forms.TextBox txtRownumMain;
 	}
 }

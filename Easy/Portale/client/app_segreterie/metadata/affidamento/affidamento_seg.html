@@ -2,16 +2,16 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabaffidamento_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabaffidamento_seg_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
+		<a href="#tabaffidamento_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabaffidamento_seg_0"><i class="fa fa-chalkboard-teacher mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabaffidamento_seg_1" class="nav-link" data-toggle="pill" data-target="#tabaffidamento_seg_1"><i class="fa fa-chalkboard-teacher mr-1"></i>Lezioni</a>
+		<a href="#tabaffidamento_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabaffidamento_seg_1"><i class="fa fa-chalkboard-teacher mr-1"></i>Lezioni</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabaffidamento_seg_2" class="nav-link" data-toggle="pill" data-target="#tabaffidamento_seg_2"><i class="fa fa-layer-group mr-1"></i>Caratteristiche dell'affidamento</a>
+		<a href="#tabaffidamento_seg_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabaffidamento_seg_2"><i class="fa fa-layer-group mr-1"></i>Caratteristiche dell'affidamento</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabaffidamento_seg_3" class="nav-link" data-toggle="pill" data-target="#tabaffidamento_seg_3"><i class="fa fa-paperclip mr-1"></i>Allegati</a>
+		<a href="#tabaffidamento_seg_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabaffidamento_seg_3"><i class="fa fa-paperclip mr-1"></i>Allegati</a>
 	</li>
 
 	</ul>
@@ -39,11 +39,11 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="affidamento_seg_idaffidamentokind">Tipologia</label>
-					<select id="affidamento_seg_idaffidamentokind" class="custom-select d-block w-100"  data-source-name="affidamentokinddefaultview" data-value-member="idaffidamentokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="affidamento.idaffidamentokind?affidamentosegview.affidamento_idaffidamentokind" data-subentity  data-mandatory  > </select>
+					<select id="affidamento_seg_idaffidamentokind" class="custom-select d-block w-100"  data-source-name="affidamentokinddefaultview" data-value-member="idaffidamentokind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="affidamento.idaffidamentokind?affidamentosegview.affidamento_idaffidamentokind" data-subentity  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="affidamento_seg_iderogazkind">Tipo di erogazione</label>
-					<select id="affidamento_seg_iderogazkind" class="custom-select d-block w-100"  data-source-name="erogazkinddefaultview" data-value-member="iderogazkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="affidamento.iderogazkind?affidamentosegview.affidamento_iderogazkind" data-subentity   > </select>
+					<select id="affidamento_seg_iderogazkind" class="custom-select d-block w-100"  data-source-name="erogazkinddefaultview" data-value-member="iderogazkind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="affidamento.iderogazkind?affidamentosegview.affidamento_iderogazkind" data-subentity   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -57,7 +57,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#affidamento_seg_start").datepicker();
+    $("#affidamento_seg_start").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="affidamento_seg_start">Inizio</label>
@@ -68,7 +68,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#affidamento_seg_stop").datepicker();
+    $("#affidamento_seg_stop").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="affidamento_seg_stop">Fine</label>
@@ -82,37 +82,37 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="affidamento_seg_prog">Programma</label>
-					<textarea class="textarea form-control" id="affidamento_seg_prog" type="text"  rows="4" data-tag="affidamento.prog?affidamentosegview.affidamento_prog" data-subentity></textarea>
+					<textarea class="textarea form-control" id="affidamento_seg_prog" type="text"  rows="4" data-tag="affidamento.prog?affidamentosegview.affidamento_prog" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="affidamento_seg_prog_en">Programma (EN)</label>
-					<textarea class="textarea form-control" id="affidamento_seg_prog_en" type="text"  rows="4" data-tag="affidamento.prog_en?affidamentosegview.affidamento_prog_en" data-subentity  />
+					<textarea class="textarea form-control" id="affidamento_seg_prog_en" type="text"  rows="4" data-tag="affidamento.prog_en?affidamentosegview.affidamento_prog_en" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="affidamento_seg_testi">Testi</label>
-					<textarea class="textarea form-control" id="affidamento_seg_testi" type="text"  rows="4" data-tag="affidamento.testi?affidamentosegview.affidamento_testi" data-subentity></textarea>
+					<textarea class="textarea form-control" id="affidamento_seg_testi" type="text"  rows="4" data-tag="affidamento.testi?affidamentosegview.affidamento_testi" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="affidamento_seg_testi_en">Testi (EN)</label>
-					<textarea class="textarea form-control" id="affidamento_seg_testi_en" type="text"  rows="4" data-tag="affidamento.testi_en?affidamentosegview.affidamento_testi_en" data-subentity></textarea>
+					<textarea class="textarea form-control" id="affidamento_seg_testi_en" type="text"  rows="4" data-tag="affidamento.testi_en?affidamentosegview.affidamento_testi_en" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="affidamento_seg_orariric">Orari di ricevimento</label>
-					<textarea class="textarea form-control" id="affidamento_seg_orariric" type="text"  rows="4" data-tag="affidamento.orariric?affidamentosegview.affidamento_orariric" data-subentity></textarea>
+					<textarea class="textarea form-control" id="affidamento_seg_orariric" type="text"  rows="4" data-tag="affidamento.orariric?affidamentosegview.affidamento_orariric" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="affidamento_seg_orariric_en">Oriari di ricevimento (EN)</label>
-					<textarea class="textarea form-control" id="affidamento_seg_orariric_en" type="text"  rows="4" data-tag="affidamento.orariric_en?affidamentosegview.affidamento_orariric_en" data-subentity></textarea>
+					<textarea class="textarea form-control" id="affidamento_seg_orariric_en" type="text"  rows="4" data-tag="affidamento.orariric_en?affidamentosegview.affidamento_orariric_en" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
@@ -139,10 +139,10 @@
 		</div>
 	</div>
 	<div class="tab-pane fade" id="tabaffidamento_seg_2" role="tabpanel">
-				<div class="gridx" id="grid_affidamentocaratteristica_seg" data-tag="affidamentocaratteristica.seg.seg" data-custom-control="gridxchild" data-mdlconditionallookup="profess,S,Si;profess,N,No;" ></div>
+				<div class="gridx" id="grid_affidamentocaratteristica_seg" data-tag="affidamentocaratteristica.seg.seg" data-custom-control="gridxchild" ></div>
 	</div>
 	<div class="tab-pane fade" id="tabaffidamento_seg_3" role="tabpanel">
-				<div class="gridx" id="grid_affidamentoattach_seganag" data-tag="affidamentoattach.seganag.seganag" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_affidamentoattach_seganag" data-tag="affidamentoattach.seganag.seganag" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

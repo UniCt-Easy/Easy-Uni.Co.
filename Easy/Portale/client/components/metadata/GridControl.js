@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module GridControl (deprecated. use GridControlX)
  * @description
@@ -34,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * @constructor GridControl
      * @description
      * Initializes the html grid control
-     * @param {Html node} el
+     * @param {element} el
      * @param {HelpForm} helpForm
      * @param {DataTable} table. this is the table corresponding to the tableName configured in the tag at the position 0
      * (see function HelpForm.preScanCustomControl for the initialization)
@@ -142,16 +125,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @method addEvents
          * @public
          * @description SYNC
-         * If "subscribe" subscribes the  ROW_SELECT event and invokes the callback "selectRowCallBack()"
-         * @param {Html node} el
+         * @param {element} el
          * @param {MetaPage} metaPage
          * @param {boolean} subscribe
          */
-        addEvents: function(el, metaPage, subscribe) {
-            subscribe = ( subscribe === undefined) ? true : subscribe;
+        addEvents: function(el, metaPage) {
             this.metaPage = metaPage;
             // this.addMyEvents(); aggiunti solo sulla addRow
-            if (metaPage && subscribe) {
+            if (metaPage) {// prima era  && subscribe
                 metaPage.eventManager.subscribe(appMeta.EventEnum.ROW_SELECT, this.selectRowCallBack, this);
             }
         },
@@ -161,7 +142,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @private
          * @description ASYNC
          * It is the callback triggered after a ROW_SELCT event on metapage. If the parameter table is the gridmaster it fill the grid, and select the row "row"
-         * @param {html node|object} sender
+         * @param {element|object} sender
          * @param {DataTable} table
          * @param {ObjectRow} row
          * @returns {Deferred}
@@ -325,6 +306,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
 
         /**
+         * @method getSorting
+         * @private
+         * @description SYNC
+         * Returns the sorting for the DataTable. Ex "title asc"
+         * It calls first the getSorting of the js metadata, and if it is null call the orderby on the dt.
+         * orderBy is the getSorting of the backend metadata
+         * @param {DataTable} dt
+         * @returns {string} the sorting
+         */
+        getSorting: function (dt) {
+            let sorting = this.meta.getSorting(this.listType);
+            return (sorting ? sorting : dt.orderBy());
+        },
+
+
+        /**
          * @method getSortedRows
          * @private
          * @description SYNC
@@ -333,24 +330,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {jsDataQuery} filter
          * @returns {objectRow[]}
          */
-        getSortedRows: function(t, filter) {
-            var sorting = t.orderBy();
-            if (!sorting) return t.select(filter);
-            var parts = sorting.split(",");
+        getSortedRows: function (t, filter) {
+            // se ho cambiato sort tramite click su header  lo memorizzo sulla prop orderBy, quindi qui la rileggo
+            let sorting = t.orderBy() || this.getSorting(t);
+            let rows = t.select(filter);
+            if (!sorting) return _.orderBy(rows, t.key());
+            let parts = sorting.split(",");
+            rows = _.orderBy(rows, t.key());
 
-            var sortingObject = _.reduce(parts,
-                function(result, part) {
-                    var sortElem = part.trim().split(" ");
-                    result.names.push(sortElem[0]);
+            let sortingObject = _.reduce(parts,
+                function (result, part) {
+                    let sortElem = part.trim().split(" ");
+                    let field = sortElem[0];
+                    result.names.push(function (row) {
+                        let value = row[field];
+                        if (value) {
+                            if (value instanceof Date) return value.getTime();
+                            if (!isNaN(value)) return value;
+                            return value.toLowerCase ? value.toLowerCase() : value;
+                        }
+                        return value;
+                    });
                     if (sortElem.length === 1) {
-                        result.names.push("asc");
+                        result.sorting.push("asc");
                     } else {
-                        result.names.push(sortElem[1].toLowerCase());
+                        result.sorting.push(sortElem[1].toLowerCase());
                     }
                     return result;
                 },
                 { names: [], sorting: [] });
-            return _.orderBy(t.select(filter), sortingObject.names, sortingObject.sorting);
+            return _.orderBy(rows, sortingObject.names, sortingObject.sorting);
+
         },
 
         /**
@@ -734,7 +744,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             _.forEach(this.orderedCols,
                 function(c, index) {
                     var csortId = self.getIdColumnSort(c.name);
-                    var thid = appMeta.utils.getUnivoqueId();
+                    var thid = appMeta.utils.getUniqueId();
                     var $th = $('<th  id="' + thid + '">');
 
                    
@@ -875,24 +885,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {GridControl} that
          */
         rowClickEv: function (that) { //this è l'element
-            //console.log("rowClickEv");
             var self = this;
             // inserisco meccanismo con timeout per evitare che scatti CLICK + DBL_CLICK insieme
             if (this.timeoutId) {
                 clearTimeout(this.timeoutId);
                 this.timeoutId = null;
                 Stabilizer.decreaseNesting("rowClickEv.timeout");
-                //console.log("decreasing for Timeout");
             }
-            //console.log("increasing for Timeout");
             Stabilizer.increaseNesting("rowClickEv");
             this.timeoutId = setTimeout(function () {
                 self.timeoutId = null;
                 that.rowClick
                     .call(self, that);
-                //console.log("decreasing for Timeout");
                 Stabilizer.decreaseNesting("rowClickEv.timeout");
-            }, appMeta.dbClickTimeout);
+            }, appMeta.currApp.dbClickTimeout);
         },
 
         /**
@@ -907,7 +913,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (this.timeoutId) {
                 clearTimeout(this.timeoutId);
                 this.timeoutId = null;
-                //console.log("decreasing for Timeout");
                 Stabilizer.decreaseNesting("rowDblClickEv");
             }
 
@@ -963,7 +968,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @param {GridControl} that
          */
         rowDblClick:function (that) {
-            // chiamo il rowClick con il this che è il tr che cliccato, + il that che è il Gridcontrol. Poi invoco il rowDblClick su MetaPage
+            // chiamo il rowClick con il this che è il tr che cliccato, + il that che è il Gridcontrol.
+            // Poi invoco il rowDblClick su MetaPage
             var self = this;
 
             // distinguo ildoppio click s è o meno gestito come treeNavigator
@@ -981,7 +987,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         .call(this, that)
                         .then(function() {
                             // solamente se è definito
-                            if (that.metaPage.rowDblClick && that.isEditBtnVisible) {
+                            if (that.metaPage.rowDblClick && that.isEditBtnVisible) { //prima era incondizionato
                                 var index = $(self).data("mdlRowIndex"); // self era il this ovvero , l'elemento cliccato
                                 var row = null;
                                 if (index || index === 0) row = that.gridRows[index];
@@ -1000,7 +1006,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         navigatorClick:function (that) {
-            console.log("navigatorClick");
             var def = Deferred('navigatorClick');
             var treemanager = that.dataTable.treemanager;
             if (!treemanager) return def.resolve();
@@ -1017,7 +1022,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 .then(function () {
                     that.dataTable.parentnode = treemanager.getParent(treemanager.selectedNode());
                     that.setLastSelectedRowOnTree(treemanager.treeTable, rSel);   // N.B era that.helpForm.lastSelected(rSel.getRow().table, rSel); // la riga sul grid è una copia, non ha ilgetrow, prendo quella sul tree
-                    that.setIndex(index, false); // seleziono anche indce su griglia corrente come facevail click semplice
+                    that.setIndex(index, false); // seleziono anche indice su griglia corrente come facevail click semplice
                     that.metaPage.hideWaitingIndicator(waitingHandler);
                     return def.resolve();
             })
@@ -1052,7 +1057,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Navigates the tree and the grid childs. if it is a leaf it fires a mainSelect on the metaPage
          */
         navigatorDblClick:function () {
-            console.log("navigatorDblClick");
             var self = this;
             var def = Deferred('navigatorDblClick');
             var treemanager = this.dataTable.treemanager;
@@ -1188,8 +1192,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {Deferred}
          */
         selectGridRowByRow:function (table, datarow, propagate) {
-            // passo la table su cui effettuare il confronto prendendo el chaivi, poichè
-            // tale datarow è attachata alla griglia, e potrebbe non avere la getRow, poichè nella costruzione ne faccio la clear
+            // passo la table su cui effettuare il confronto prendendo le chiavi, poichè
+            // tale datarow è attachata alla griglia, e potrebbe non avere la getRow,
+            //  poichè nella costruzione ne faccio la clear
             // sarà sempre quella del tree la riga che comanda
             var def = Deferred('selectGridRowByRow');
             // trova la riga nella collection
@@ -1215,8 +1220,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * during prescan adds an emty rect
          */
         buildEmptyRect:function () {
-            /*var w = appMeta.getScreenWidth() * 0.3;
-            var h = appMeta.getScreenHeight() * 0.2;
+            /*var w = appMeta.currApp.getScreenWidth() * 0.3;
+            var h = appMeta.currApp.getScreenHeight() * 0.2;
             var id = $(this.el).attr('id') + "empty";
             if (this.emptyElement) return;
             this.emptyElement = $('<br><div id =' + id + ' style="background-color: lightgrey; border: 1px solid grey; width: '+ w + 'px; height: ' + h + 'px"></div>');
@@ -1249,7 +1254,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * replaces some special character into html code. Used in html export
          * @param {string} s
          */
-        replaceSpecialCharatcters:function (s) {
+        replaceSpecialCharacters:function (s) {
             var html = s;
             var fReplcace = function (htmlprm, char, code){while (htmlprm.indexOf(char) != -1) htmlprm = htmlprm.replace(char, code); return htmlprm};
             html = fReplcace(html,'á', '&aacute;');
@@ -1278,7 +1283,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         gridHtmlToExcel:function (that) {
 
-            var gridhtml = that.replaceSpecialCharatcters(that.mytable.html());
+            var gridhtml = that.replaceSpecialCharacters(that.mytable.html());
             //that.replaceSpecialCharatcters(gridhtml);
             var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
             tab_text = tab_text + '<head><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>';

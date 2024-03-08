@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -44,10 +27,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'title', 'Titolo', null, 10, 2048);
 						this.describeAColumn(table, 'description', 'Descrizione', null, 20, -1);
 						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 30, null);
-						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 40, null);
+						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 50, null);
 						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 60, null);
-						this.describeAColumn(table, '!perfobiettiviuosoglia', 'Soglie', null, 50, null);
+						this.describeAColumn(table, '!perfobiettiviuosoglia', 'Soglie', null, 40, null);
 //$objCalcFieldConfig_default$
+						break;
+					case 'onlyunatantum':
+						this.describeAColumn(table, 'title', 'Obiettivo', null, 10, 2048);
+						this.describeAColumn(table, 'description', 'Indicatore', null, 20, -1);
+						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 50, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 60, null);
+						this.describeAColumn(table, 'note', 'Note', null, 70, -1);
+						this.describeAColumn(table, '!perfobiettiviuosoglia', 'Target', null, 40, null);
+//$objCalcFieldConfig_onlyunatantum$
+						break;
+					case 'onlyprestazionali':
+						this.describeAColumn(table, 'title', 'Obiettivo', null, 10, 2048);
+						this.describeAColumn(table, 'description', 'Indicatore', null, 20, -1);
+						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'valorenumerico', 'Valore numerico raggiunto', 'fixed.2', 50, null);
+						this.describeAColumn(table, 'completamento', 'Percentuale di completamento', 'fixed.2', 60, null);
+						this.describeAColumn(table, 'note', 'Note', null, 70, -1);
+						this.describeAColumn(table, '!perfobiettiviuosoglia', 'Target', null, 40, null);
+//$objCalcFieldConfig_onlyprestazionali$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -66,6 +69,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["title"].caption = "Titolo";
 						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'onlyunatantum':
+						table.columns["completamento"].caption = "Percentuale di completamento";
+						table.columns["description"].caption = "Indicatore";
+						table.columns["peso"].caption = "Peso";
+						table.columns["title"].caption = "Obiettivo";
+						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
+						table.columns["idperfvalutazionepersonale"].caption = "Responsabile";
+//$innerSetCaptionConfig_onlyunatantum$
+						break;
+					case 'onlyprestazionali':
+						table.columns["completamento"].caption = "Percentuale di completamento";
+						table.columns["description"].caption = "Indicatore";
+						table.columns["peso"].caption = "Peso";
+						table.columns["title"].caption = "Obiettivo";
+						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
+//$innerSetCaptionConfig_onlyprestazionali$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -95,6 +115,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "title asc ";
+					}
+					case "onlyunatantum": {
+						return "title asc ";
+					}
+					case "onlyprestazionali": {
 						return "title asc ";
 					}
 					//$getSortingin$

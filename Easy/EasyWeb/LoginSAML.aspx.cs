@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,8 +39,8 @@ namespace EasyWebReport {
             string error;
             DataAccess Conn = GetVars.GetSystemDataAccess(this, out error);
 
-            if (codice.Trim().Length == 0) {
-                labExtMessage.Text = "Non è stato selezionato alcun dipartimento";
+            if (string.IsNullOrEmpty(codice)) {
+                Response.Redirect("unavailablesys.aspx");
                 return;
             }
 
@@ -105,15 +105,21 @@ namespace EasyWebReport {
             lblMessaggio.Text = "";
             labExtMessage.Text = "";
 
+            string samlAuthFieldName = "samlemail"; //default
+            string check = configManager.getCfg("saml_auth_field_name");
+            if (!string.IsNullOrEmpty(check) && Session[check] != null) samlAuthFieldName = check;
+
             // Imposta il nome dell'utente identificato dall'intentity provider.
-            if (Session["samlemail"] == null) {
+            //if (Session["samlemail"] == null) {
+            if (Session[samlAuthFieldName] == null) {
                 lblMessaggio.Text = "Autenticazione fallita.";
                 WebLog.Log(this, "Autenticazione fallita.");
                 //Response.Redirect("DefaultSAML.aspx");
                 return;
             }
          
-            txtNomeUtente.Text = Session["samlemail"]?.ToString();         
+            //txtNomeUtente.Text = Session["samlemail"]?.ToString();
+			txtNomeUtente.Text = Session["samluser"]?.ToString();
 
             if (!Page.IsPostBack) {
                 Session["utente"] = "";

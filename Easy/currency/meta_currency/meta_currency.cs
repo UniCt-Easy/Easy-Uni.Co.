@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -46,10 +46,14 @@ namespace meta_currency
 			}
 
 			return null;
-		}			
-	
-		
-		public override void DescribeColumns(DataTable T, string listtype)
+		}
+
+        public override void SetDefaults(DataTable T) {
+            base.SetDefaults(T);
+            SetDefault(T, "active", "S");
+        }
+
+        public override void DescribeColumns(DataTable T, string listtype)
 		{
 			base.DescribeColumns(T, listtype);
             if (listtype == "default"){
@@ -58,6 +62,7 @@ namespace meta_currency
                 int nPos = 1;
                 DescribeAColumn(T, "codecurrency", "Codice", nPos++);
                 DescribeAColumn(T, "description", "Denominazione", nPos++);
+                DescribeAColumn(T, "active", "Attiva", nPos++);
             }
             if (listtype == "checkimport"){
                 foreach (DataColumn C in T.Columns)
@@ -65,6 +70,7 @@ namespace meta_currency
                 int nPos = 1;
                 DescribeAColumn(T, "codecurrency", "Codice", nPos++);
                 DescribeAColumn(T, "description", "Denominazione", nPos++);
+                DescribeAColumn(T, "active", "Attiva", nPos++);
             }
             if (listtype == "lista"){
                 foreach (DataColumn C in T.Columns)
@@ -72,6 +78,7 @@ namespace meta_currency
                 int nPos = 1;
                 DescribeAColumn(T, "codecurrency", "Codice", nPos++);
                 DescribeAColumn(T, "description", "Denominazione", nPos++);
+                DescribeAColumn(T, "active", "Attiva", nPos++);
             }
 		}
 
@@ -85,6 +92,11 @@ namespace meta_currency
                 R["idcurrency"] = N + 1;
 
             return R;
+        }
+
+        public override string GetSorting(string ListingType) {
+            if (ListingType == "lista") return "description asc";
+            return base.GetSorting(ListingType);
         }
     }
 }

@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -43,22 +26,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'default':
 						this.describeAColumn(table, 'avanzamento', 'Percentuale di avanzamento degli obiettivi', 'fixed.2', 20, null);
 						this.describeAColumn(table, 'data', 'Data', null, 30, null);
-						this.describeAColumn(table, '!idreg_amministrativi_registry_amministrativi_surname', 'Cognome Iniziato da', null, 52, null);
-						this.describeAColumn(table, '!idreg_amministrativi_registry_amministrativi_forename', 'Nome Iniziato da', null, 53, null);
-						this.describeAColumn(table, '!idreg_amministrativi_registry_amministrativi_cf', 'Codice fiscale Iniziato da', null, 54, null);
-						this.describeAColumn(table, '!idreg_amministrativi_registry_amministrativi_idreg_amministrativi_description', 'Descrizione Iniziato da', null, 52, null);
-						objCalcFieldConfig['!idreg_amministrativi_registry_amministrativi_surname'] = { tableNameLookup:'registry', columnNameLookup:'surname', columnNamekey:'idreg_amministrativi' };
-						objCalcFieldConfig['!idreg_amministrativi_registry_amministrativi_forename'] = { tableNameLookup:'registry', columnNameLookup:'forename', columnNamekey:'idreg_amministrativi' };
-						objCalcFieldConfig['!idreg_amministrativi_registry_amministrativi_cf'] = { tableNameLookup:'registry', columnNameLookup:'cf', columnNamekey:'idreg_amministrativi' };
-						objCalcFieldConfig['!idreg_amministrativi_registry_amministrativi_idreg_amministrativi_description'] = { tableNameLookup:'title', columnNameLookup:'description', columnNamekey:'idreg_amministrativi' };
-						this.describeAColumn(table, '!idreg_amministrativi_ver_registry_amministrativi_surname', 'Cognome Verificato da', null, 62, null);
-						this.describeAColumn(table, '!idreg_amministrativi_ver_registry_amministrativi_forename', 'Nome Verificato da', null, 63, null);
-						this.describeAColumn(table, '!idreg_amministrativi_ver_registry_amministrativi_cf', 'Codice fiscale Verificato da', null, 64, null);
-						this.describeAColumn(table, '!idreg_amministrativi_ver_registry_amministrativi_idreg_amministrativi_ver_description', 'Descrizione Verificato da', null, 62, null);
-						objCalcFieldConfig['!idreg_amministrativi_ver_registry_amministrativi_surname'] = { tableNameLookup:'registry_alias2', columnNameLookup:'surname', columnNamekey:'idreg_amministrativi_ver' };
-						objCalcFieldConfig['!idreg_amministrativi_ver_registry_amministrativi_forename'] = { tableNameLookup:'registry_alias2', columnNameLookup:'forename', columnNamekey:'idreg_amministrativi_ver' };
-						objCalcFieldConfig['!idreg_amministrativi_ver_registry_amministrativi_cf'] = { tableNameLookup:'registry_alias2', columnNameLookup:'cf', columnNamekey:'idreg_amministrativi_ver' };
-						objCalcFieldConfig['!idreg_amministrativi_ver_registry_amministrativi_idreg_amministrativi_ver_description'] = { tableNameLookup:'title', columnNameLookup:'description', columnNamekey:'idreg_amministrativi_ver' };
+						this.describeAColumn(table, 'idreg_amministrativi', 'Iniziato da', null, 50, null);
+						this.describeAColumn(table, 'idreg_amministrativi_ver', 'Verificato da', null, 60, null);
+						this.describeAColumn(table, '!idreg_amministrativi_registry_surname', 'Cognome Iniziato da', null, 52, null);
+						this.describeAColumn(table, '!idreg_amministrativi_registry_forename', 'Nome Iniziato da', null, 53, null);
+						this.describeAColumn(table, '!idreg_amministrativi_registry_cf', 'Codice fiscale Iniziato da', null, 54, null);
+						this.describeAColumn(table, '!idreg_amministrativi_registry_idtitle_description', 'Titolo Iniziato da', null, 50, null);
+						objCalcFieldConfig['!idreg_amministrativi_registry_surname'] = { tableNameLookup:'registry', columnNameLookup:'surname', columnNamekey:'idreg_amministrativi' };
+						objCalcFieldConfig['!idreg_amministrativi_registry_forename'] = { tableNameLookup:'registry', columnNameLookup:'forename', columnNamekey:'idreg_amministrativi' };
+						objCalcFieldConfig['!idreg_amministrativi_registry_cf'] = { tableNameLookup:'registry', columnNameLookup:'cf', columnNamekey:'idreg_amministrativi' };
+						objCalcFieldConfig['!idreg_amministrativi_registry_idtitle_description'] = { tableNameLookup:'title', columnNameLookup:'description', columnNamekey:'idreg_amministrativi' };
+						this.describeAColumn(table, '!idreg_amministrativi_ver_registry_surname', 'Cognome Verificato da', null, 62, null);
+						this.describeAColumn(table, '!idreg_amministrativi_ver_registry_forename', 'Nome Verificato da', null, 63, null);
+						this.describeAColumn(table, '!idreg_amministrativi_ver_registry_cf', 'Codice fiscale Verificato da', null, 64, null);
+						this.describeAColumn(table, '!idreg_amministrativi_ver_registry_idtitle_description', 'Titolo Verificato da', null, 60, null);
+						objCalcFieldConfig['!idreg_amministrativi_ver_registry_surname'] = { tableNameLookup:'registry_alias2', columnNameLookup:'surname', columnNamekey:'idreg_amministrativi_ver' };
+						objCalcFieldConfig['!idreg_amministrativi_ver_registry_forename'] = { tableNameLookup:'registry_alias2', columnNameLookup:'forename', columnNamekey:'idreg_amministrativi_ver' };
+						objCalcFieldConfig['!idreg_amministrativi_ver_registry_cf'] = { tableNameLookup:'registry_alias2', columnNameLookup:'cf', columnNamekey:'idreg_amministrativi_ver' };
+						objCalcFieldConfig['!idreg_amministrativi_ver_registry_idtitle_description'] = { tableNameLookup:'title', columnNameLookup:'description', columnNamekey:'idreg_amministrativi_ver' };
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

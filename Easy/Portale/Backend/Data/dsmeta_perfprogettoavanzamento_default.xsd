@@ -6,24 +6,22 @@
         <xs:element name="registryamministrativiview_alias1" msprop:TableForReading="registryamministrativiview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="accmotive_codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_registry_codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_title" type="xs:string" minOccurs="0" />
               <xs:element name="category_description" type="xs:string" minOccurs="0" />
-              <xs:element name="contrattokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="geo_city_title" type="xs:string" minOccurs="0" />
               <xs:element name="geo_nation_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idtitle" type="xs:string" minOccurs="0" />
               <xs:element name="maritalstatus_description" type="xs:string" minOccurs="0" />
               <xs:element name="registry_active" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_amministrativi_ct" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="registry_amministrativi_cu" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_amministrativi_cv" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_amministrativi_idcontrattokind" type="xs:int" minOccurs="0" />
-              <xs:element name="registry_amministrativi_idreg" type="xs:int" />
-              <xs:element name="registry_amministrativi_lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="registry_amministrativi_lu" type="xs:string" minOccurs="0" />
               <xs:element name="registry_annotation" type="xs:string" minOccurs="0" />
               <xs:element name="registry_authorization_free" type="xs:string" minOccurs="0" />
               <xs:element name="registry_badgecode" type="xs:string" minOccurs="0" />
@@ -40,14 +38,22 @@
               <xs:element name="registry_foreigncf" type="xs:string" minOccurs="0" />
               <xs:element name="registry_forename" type="xs:string" minOccurs="0" />
               <xs:element name="registry_gender" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_idaccmotivecredit" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idateco" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idcategory" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idclassconsorsuale" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idnace" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idnumerodip" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idreg_istituti" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_indicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="registry_ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="registry_ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="registry_location" type="xs:string" minOccurs="0" />
@@ -57,12 +63,16 @@
               <xs:element name="registry_multi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="registry_p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="registry_pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_pic" type="xs:string" minOccurs="0" />
               <xs:element name="registry_residence" type="xs:int" />
+              <xs:element name="registry_ricevimento" type="xs:string" minOccurs="0" />
               <xs:element name="registry_rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="registry_sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="registry_sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_soggiorno" type="xs:string" minOccurs="0" />
               <xs:element name="registry_surname" type="xs:string" minOccurs="0" />
               <xs:element name="registry_title" type="xs:string" />
+              <xs:element name="registry_title_en" type="xs:string" minOccurs="0" />
               <xs:element name="registry_toredirect" type="xs:int" minOccurs="0" />
               <xs:element name="registry_txt" type="xs:string" minOccurs="0" />
               <xs:element name="registryclass_description" type="xs:string" minOccurs="0" />
@@ -75,24 +85,22 @@
         <xs:element name="registryamministrativiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="accmotive_codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_registry_codemotive" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="accmotive_title" type="xs:string" minOccurs="0" />
               <xs:element name="category_description" type="xs:string" minOccurs="0" />
-              <xs:element name="contrattokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="geo_city_title" type="xs:string" minOccurs="0" />
               <xs:element name="geo_nation_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idtitle" type="xs:string" minOccurs="0" />
               <xs:element name="maritalstatus_description" type="xs:string" minOccurs="0" />
               <xs:element name="registry_active" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_amministrativi_ct" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="registry_amministrativi_cu" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_amministrativi_cv" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_amministrativi_idcontrattokind" type="xs:int" minOccurs="0" />
-              <xs:element name="registry_amministrativi_idreg" type="xs:int" />
-              <xs:element name="registry_amministrativi_lt" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="registry_amministrativi_lu" type="xs:string" minOccurs="0" />
               <xs:element name="registry_annotation" type="xs:string" minOccurs="0" />
               <xs:element name="registry_authorization_free" type="xs:string" minOccurs="0" />
               <xs:element name="registry_badgecode" type="xs:string" minOccurs="0" />
@@ -109,14 +117,22 @@
               <xs:element name="registry_foreigncf" type="xs:string" minOccurs="0" />
               <xs:element name="registry_forename" type="xs:string" minOccurs="0" />
               <xs:element name="registry_gender" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_idaccmotivecredit" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idateco" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idcategory" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idclassconsorsuale" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idnace" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idnumerodip" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idreg_istituti" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_indicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="registry_ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="registry_ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="registry_location" type="xs:string" minOccurs="0" />
@@ -126,12 +142,16 @@
               <xs:element name="registry_multi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="registry_p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="registry_pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_pic" type="xs:string" minOccurs="0" />
               <xs:element name="registry_residence" type="xs:int" />
+              <xs:element name="registry_ricevimento" type="xs:string" minOccurs="0" />
               <xs:element name="registry_rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="registry_sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="registry_sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_soggiorno" type="xs:string" minOccurs="0" />
               <xs:element name="registry_surname" type="xs:string" minOccurs="0" />
               <xs:element name="registry_title" type="xs:string" />
+              <xs:element name="registry_title_en" type="xs:string" minOccurs="0" />
               <xs:element name="registry_toredirect" type="xs:int" minOccurs="0" />
               <xs:element name="registry_txt" type="xs:string" minOccurs="0" />
               <xs:element name="registryclass_description" type="xs:string" minOccurs="0" />

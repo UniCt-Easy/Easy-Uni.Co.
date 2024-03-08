@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -43,13 +26,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//beforeFill
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#perfprogettoobiettivopersonaleview_default_completamento'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivopersonaleview'), this.getDataTable('perfprogettoobiettivosoglia'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivopersonaleview'), this.getDataTable('perfprogettosoglia'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
 				this.enableControl($('#perfprogettoobiettivopersonaleview_default_completamento'), false);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivopersonaleview'), this.getDataTable('perfprogettoobiettivosoglia'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfprogettoobiettivopersonaleview'), this.getDataTable('perfprogettosoglia'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
@@ -58,7 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				this.setDenyNull("perfprogettoobiettivopersonaleview","idperfvalutazioneuo");
 				this.setDenyNull("perfprogettoobiettivopersonaleview","idstruttura");
+				this.setDenyNull("perfprogettoobiettivopersonaleview","idperfprogetto");
 				this.setDenyNull("perfprogettoobiettivopersonaleview","idperfprogettoobiettivo");
+				this.setDenyNull("perfprogettoobiettivopersonaleview","year");
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -67,7 +58,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				});
 			},
 
-			//afterRowSelect
+			afterRowSelect: function (t, r) {
+				var def = appMeta.Deferred("afterRowSelect-perfprogettoobiettivopersonaleview_default");
+				$('#perfprogettoobiettivopersonaleview_default_year').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.year);
+				$('#perfprogettoobiettivopersonaleview_default_year').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.year);
+				//afterRowSelectin
+				return def.resolve();
+			},
 
 			//afterActivation
 
@@ -75,9 +72,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//buttonClickEnd
 
-			//insertClick
+			insertClick: function (that, grid) {
+				if (!$('#perfprogettoobiettivopersonaleview_default_year').val() && this.children.includes(grid.dataSourceName)) {
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Identificativo');
+				}
+				//insertClickin
+				return this.superClass.insertClick(that, grid);
+			},
 
-			//beforePost
+			beforePost: function () {
+				var self = this;
+				this.getDataTable('year').acceptChanges();
+				//innerBeforePost
+			},
+
+			children: ['perfprogettoobiettivosoglia', 'perfprogettosoglia'],
+			haveChildren: function () {
+				var self = this;
+				return _.some(this.children, function (child) {
+					if (child !== '')
+						return !!self.getDataTable(child).rows.length;
+					else
+						return false;
+				});
+			},
 
 			//buttons
         });

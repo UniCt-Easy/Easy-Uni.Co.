@@ -80,6 +80,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CurrencyManager">
+      <HintPath>..\..\dll\CurrencyManager.dll</HintPath>
+    </Reference>
+    <Reference Include="HelpWeb">
+      <HintPath>..\..\dll\HelpWeb.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -104,6 +110,10 @@
       <Name>itinerationFunctions</Name>
       <Project>{304173CA-4579-4FF3-AECA-63AECC6B8CD3}</Project>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\AskCurrencyExchange\AskCurrencyExchange.csproj">
+      <Project>{8B5DB11A-7740-45BD-BDC5-75AAA63C3A8E}</Project>
+      <Name>AskCurrencyExchange</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\funzioni_configurazione\funzioni_configurazione.csproj">
       <Name>funzioni_configurazione</Name>

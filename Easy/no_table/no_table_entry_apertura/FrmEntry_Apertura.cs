@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -71,7 +71,7 @@ namespace no_table_entry_apertura {
             else {
                 btnOperazione.Text = "Riparto risultato di esercizio";
                 txtDescrizione.Text =
-                    "Questa operazione usa le eventuali riserve assocate a dei progetti per coprirne le perdite. " +
+                    "Questa operazione usa le eventuali riserve associate a dei progetti per coprirne le perdite. " +
                     "E' creata una scrittura per ogni progetto che si è chiuso in perdita e che possiede delle riserve.  " +
                     "Se c'è un utile questo è ripartito secondo le impostazioni del progetto oppure stornato sul conto " +
                     "\"risultato esercizio precedente\". Se c'è una perdita, questa è stornata sul conto \"risultato esercizio precedente\".";
@@ -216,6 +216,7 @@ namespace no_table_entry_apertura {
           
 
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, tSaldo);
+            createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
                 show(this, "Operazione Annullata!");
@@ -453,6 +454,7 @@ namespace no_table_entry_apertura {
            
 
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, t);
+            createForm(frm, null);
             DialogResult dr = frm.ShowDialog();
             if (dr != DialogResult.OK) {
                 show(this, "Operazione Annullata!");
@@ -548,12 +550,14 @@ namespace no_table_entry_apertura {
                 // con l'indicazione delle due upb distinte. Sempre che sia stato indicato un progetto di destinazione, altrimenti sarà usato 
                 //  un conto predefinito "RISULTATO ECONOMICO ANNI PRECEDENTI" presente in config 
                 if (r["idupb"] != DBNull.Value) {
-                    DataTable quote =
-                        Conn.SQLRunner("select UP.idupb_dest,UP.quota,UK.idacc_reserve from upbprofitpartition UP " +
+                    string query_quote = "select UP.idupb_dest,UP.quota,UK.idacc_reserve from upbprofitpartition UP " +
                                        " left outer join upb U on UP.idupb=U.idupb " +
                                        " join epupbkindyear UK on  UK.idepupbkind=U.idepupbkind " +
                                        " where " +
-                                       QHS.AppAnd(QHS.CmpEq("UP.idupb", r["idupb"]), QHS.CmpEq("UK.ayear", esercizio)),
+                                       QHS.AppAnd(QHS.CmpEq("UP.idupb", r["idupb"]), QHS.CmpEq("UK.ayear", esercizio));
+
+                    DataTable quote =
+                        Conn.SQLRunner(query_quote,
                             false);
 
                     Dictionary<string, decimal> quotes = ripartisciUtileInBaseATabella(risultatoEconomico, quote);

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +23,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
-using metaeasylibrary;
+using security_function;
 using funzioni_configurazione;
 
 namespace no_table_trasf_prevision_in_budget {
@@ -36,6 +36,7 @@ namespace no_table_trasf_prevision_in_budget {
         }
         CQueryHelper QHC;
         QueryHelper QHS;
+ 
         public void MetaData_AfterLink () {
             Meta = MetaData.GetMetaData(this);
             QHC = new CQueryHelper();
@@ -59,13 +60,11 @@ namespace no_table_trasf_prevision_in_budget {
         }
         private void btnTrasferisciPrevisioni_Click (object sender, EventArgs e) {
             string errMsg;
+            //Chiamata con ridirezione a eventuale stored procedure custom
             Meta.Conn.CallSP("compute_transf_prevision_in_budget", new object[] {ayear,
-            idsorkind}, 600, out errMsg);
-            if (errMsg!=null)
-                show("Errore", errMsg);
-            else
-                show("Operazione eseguita");
-        }
+            idsorkind}) ;
+		 
+		}
 
         private void btnTrasferisciVariazioni_Click(object sender, EventArgs e)
         {
@@ -81,7 +80,7 @@ namespace no_table_trasf_prevision_in_budget {
             if (errMsg != null)
                 show("Errore", errMsg);
             else
-                show("Operazione eseguita");
+                show("Operazione eseguita", "");
         }
 
         private void btnOK_Click(object sender, EventArgs e)

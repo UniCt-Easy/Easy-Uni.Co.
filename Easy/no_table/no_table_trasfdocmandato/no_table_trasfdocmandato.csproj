@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2288329A-3DC8-434B-83BE-4CDAF38FF2E2}</ProjectGuid>
+    <ProjectGuid>{D1B48BE2-2AEF-4F5D-A6DE-2211E62EDAD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>no_table_trasfdocmandato</RootNamespace>
     <AssemblyName>no_table_trasfdocmandato</AssemblyName>

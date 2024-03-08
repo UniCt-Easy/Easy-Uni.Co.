@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 --simulation_asset_ammortization_on_the_date 2011
@@ -36,6 +35,7 @@ CREATE PROCEDURE simulation_asset_ammortization_on_the_date
 	@ninvstop int
 )
 AS BEGIN
+-- setuser 'amm'
 -- setuser 'amministrazione'
 -- simulation_asset_ammortization_on_the_date 2021, {d '2021-11-15'}, 9005495, 9005501
 --la stored procedure GetAssetValue è usata per valutare l'importo corrente dei cespiti
@@ -44,6 +44,27 @@ AS BEGIN
 --   in modo da far si che l'aliquota di ammortamento per la base di ammortamento vada ad azzerare il valore residuo del cespite
 -- Un anno bisestile è un anno di 366 giorni anziché 365 (ad esempio il 2016)
 --select @adate
+
+
+
+IF (@adate IS NULL OR
+   YEAR(@adate)<  @ayear)
+   BEGIN
+		SELECT
+			NULL AS namortization,
+			NULL AS adate,
+			NULL AS lastdate,
+			NULL AS amortizationquota,
+			NULL AS actual_amortizationquota,
+			NULL AS assetvalue,
+			NULL AS assetvalue_on_the_date,
+			NULL AS description, 
+			NULL AS idasset,
+			NULL AS idpiece,
+			NULL AS idinventoryamortization 
+		RETURN
+	END
+
 DECLARE @dec_31 datetime
 SELECT  @dec_31 = CONVERT(datetime, '31-12-' + CONVERT(char(4), @ayear), 105)
 
@@ -77,7 +98,18 @@ select  @dateintheyear = DATEDIFF ( day , @firstdate_currentyear , @adate)  +1
 
 declare @quota_amm float
 set  @quota_amm = convert(float, @dateintheyear) / convert(float, @ndaysinyear) 
-
+PRINT @quota_amm
+-- COME ANNO DI RIFERIMENTO DEL PIANO DI AMMORTAMENTO SI CONSIDERA
+-- 1) L'ULTIMO ESERCIZIO IN CUI SIA STATO IMPOSTATO UN PIANO DI AMMORTAMENTO <= DELL'ESERCIZIO DELLA DATA DI RIFERIMENTO
+-- 2) ESERCIZIO DELLA SIMULAZIONE @ayear
+DECLARE @ayearplan int
+IF (@adate  IS NOT NULL)
+BEGIN
+	SELECT  @ayearplan = (SELECT MAX(ayear) FROM inventorysortingamortizationyear WHERE ayear <= year(@adate))
+	--SELECT  @ayearplan
+END
+IF (ISNULL(@ayearplan,0) = 0)  SET @ayearplan = @ayear
+print @ayearplan
 -- Formula per il ricalcolo della quota : ammortamento su base annuale
 -- quota_simulata = quota_annuale * @dateintheyear /  @ndaysinyear
 -- ammortamento su base mensile
@@ -118,15 +150,16 @@ CREATE TABLE #simulated_assetamortization
 )
 -- Caso in cui il cespite ha data di inizio esistenza a NULL
 -- Applico tutte le rivalutazioni UFFICIALI che nell'anno sono associate alla classificazione del cespite e che hanno ETA NULL
+
 DECLARE amt_crs INSENSITIVE CURSOR FOR
 SELECT  DISTINCT
 	tr.idinventoryamortization,
 	b.idasset,	b.idpiece,
 	c.description,
 	coalesce(t4.amortizationquota,t3.amortizationquota,t2.amortizationquota,t1.amortizationquota)
-
-
 FROM asset b
+JOIN asset as cespite
+		ON cespite.idasset = b.idasset and cespite.idpiece = 1 
 JOIN assetacquire c							ON b.nassetacquire = C.nassetacquire
 JOIN assetview_current ac					ON ac.idasset = b.idasset and ac.idpiece=b.idpiece
 LEFT OUTER JOIN assetload					ON assetload.idassetload = c.idassetload			
@@ -135,10 +168,10 @@ LEFT OUTER JOIN inventorytreelink IL1		ON IL1.idchild = C.idinv AND IL1.nlevel  
 LEFT OUTER JOIN inventorytreelink IL2		ON IL2.idchild = C.idinv  AND IL2.nlevel = 2
 LEFT OUTER JOIN inventorytreelink IL3		ON IL3.idchild = C.idinv  AND IL3.nlevel = 3 
 LEFT OUTER JOIN inventorytreelink IL4		ON IL4.idchild = C.idinv  AND IL4.nlevel = 4 
-LEFT OUTER JOIN inventorysortingamortizationyear t1		ON t1.idinv = IL1.idparent AND t1.ayear = @ayear
-LEFT OUTER JOIN inventorysortingamortizationyear t2		ON t2.idinv = IL2.idparent AND t2.ayear = @ayear
-LEFT OUTER JOIN inventorysortingamortizationyear t3		ON t3.idinv = IL3.idparent AND t3.ayear = @ayear
-LEFT OUTER JOIN inventorysortingamortizationyear t4		ON t4.idinv = IL4.idparent AND t4.ayear = @ayear 
+LEFT OUTER JOIN inventorysortingamortizationyear t1		ON t1.idinv = IL1.idparent AND t1.ayear = @ayearplan
+LEFT OUTER JOIN inventorysortingamortizationyear t2		ON t2.idinv = IL2.idparent AND t2.ayear = @ayearplan
+LEFT OUTER JOIN inventorysortingamortizationyear t3		ON t3.idinv = IL3.idparent AND t3.ayear = @ayearplan
+LEFT OUTER JOIN inventorysortingamortizationyear t4		ON t4.idinv = IL4.idparent AND t4.ayear = @ayearplan 
 JOIN inventoryamortization tr			ON tr.idinventoryamortization = 
 			COALESCE( t4.idinventoryamortization,t3.idinventoryamortization,t2.idinventoryamortization,t1.idinventoryamortization)
 WHERE   b.lifestart IS NULL
@@ -152,14 +185,14 @@ WHERE   b.lifestart IS NULL
 		SELECT * FROM assetamortization r join inventoryamortization tr1 
 			ON  r.idinventoryamortization = tr1.idinventoryamortization  
 		WHERE r.idasset = b.idasset AND r.idpiece = b.idpiece
-			AND YEAR(r.adate) = @ayear
+			AND YEAR(r.adate) = YEAR(@adate)
 			AND (tr.flag&8) = (tr1.flag&8))
 	AND	((tr.valuemin is null or tr.valuemin<ISNULL(C.historicalvalue,AC.start) ) and (tr.valuemax is null or tr.valuemax>=ISNULL(C.historicalvalue,AC.start)))
 	AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
 	AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
 	AND b.amortizationquota is null	
-	and (b.ninventory >=  @ninvstart or @ninvstart is null)
-	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and (cespite.ninventory >=  @ninvstart or @ninvstart is null)
+	and (cespite.ninventory <= @ninvstop or @ninvstop is null)
 	and c.idinventory = @idinventory
 FOR READ ONLY
 
@@ -232,6 +265,8 @@ SELECT  DISTINCT
 	c.description,
 	b.amortizationquota
 FROM asset b
+JOIN asset as cespite
+		ON cespite.idasset = b.idasset and cespite.idpiece = 1 
 JOIN assetacquire c							ON b.nassetacquire = C.nassetacquire
 JOIN assetview_current ac					ON ac.idasset = b.idasset and ac.idpiece=b.idpiece
 JOIN inventoryamortization tr				ON tr.idinventoryamortization = b.idinventoryamortization  -- <<<<
@@ -246,12 +281,12 @@ WHERE  (tr.flag & 2 <> 0) --ufficiale
 		SELECT * FROM assetamortization r join inventoryamortization tr1 
 			ON  r.idinventoryamortization = tr1.idinventoryamortization  
 		WHERE r.idasset = b.idasset AND r.idpiece = b.idpiece
-			AND YEAR(r.adate) = @ayear
+			AND YEAR(r.adate) = YEAR(@adate)
 			AND (tr.flag&8) = (tr1.flag&8))
 	AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
 	AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
-	and (b.ninventory >=  @ninvstart or @ninvstart is null)
-	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and (cespite.ninventory >=  @ninvstart or @ninvstart is null)
+	and (cespite.ninventory <= @ninvstop or @ninvstop is null)
 	and c.idinventory = @idinventory
 union 
 
@@ -265,6 +300,8 @@ union
 		WHEN DATEPART(YEAR,b.lifestart) < @ayear THEN 12
 	END
 FROM asset b
+JOIN asset as cespite
+		ON cespite.idasset = b.idasset and cespite.idpiece = 1 
 JOIN assetacquire c							ON b.nassetacquire = C.nassetacquire
 JOIN assetview_current ac					ON ac.idasset = b.idasset and ac.idpiece=b.idpiece
 JOIN inventoryamortization tr				ON tr.idinventoryamortization = b.idinventoryamortization  -- <<<<
@@ -279,12 +316,12 @@ WHERE  (tr.flag & 2 <> 0) --ufficiale
 		SELECT * FROM assetamortization r join inventoryamortization tr1 
 			ON  r.idinventoryamortization = tr1.idinventoryamortization  
 		WHERE r.idasset = b.idasset AND r.idpiece = b.idpiece
-			AND YEAR(r.adate) = @ayear
+			AND YEAR(r.adate) = YEAR(@adate)
 			AND (tr.flag&8) = (tr1.flag&8))
 	AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
 	AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
-	and (b.ninventory >=  @ninvstart or @ninvstart is null)
-	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and (cespite.ninventory >=  @ninvstart or @ninvstart is null)
+	and (cespite.ninventory <= @ninvstop or @ninvstop is null)
 	and c.idinventory = @idinventory
 FOR READ ONLY
 
@@ -303,7 +340,7 @@ BEGIN
 	-- Formula per il ricalcolo della quota : ammortamento su base annuale
 	-- quota_simulata = quota_annuale * @dateintheyear /  @ndaysinyear
 	 SET @actual_amortizationquota = @amortizationquota * @quota_amm
-
+ 
 
 	SET @reval = ROUND(ISNULL(@assetvalue, 0.0) * ISNULL(@actual_amortizationquota,0.0) ,2) 
 
@@ -373,7 +410,9 @@ BEGIN
 		tr.idinventoryamortization,	b.idasset,	b.idpiece,
 		c.description,
 		coalesce(t4.amortizationquota,t3.amortizationquota,t2.amortizationquota,t1.amortizationquota)
-	FROM asset b					
+	FROM asset b			
+	JOIN asset as cespite
+		ON cespite.idasset = b.idasset and cespite.idpiece = 1 
 	JOIN assetacquire c					ON b.nassetacquire = C.nassetacquire
 	JOIN inventory						ON c.idinventory = inventory.idinventory
 	JOIN inventorykind					ON inventory.idinventorykind= inventorykind.idinventorykind
@@ -385,10 +424,10 @@ BEGIN
 	LEFT OUTER JOIN inventorytreelink IL2			ON IL2.idchild = C.idinv  AND IL2.nlevel = 2
 	LEFT OUTER JOIN inventorytreelink IL3			ON IL3.idchild = C.idinv  AND IL3.nlevel = 3 
 	LEFT OUTER JOIN inventorytreelink IL4			ON IL4.idchild = C.idinv  AND IL4.nlevel = 4 
-	LEFT OUTER JOIN inventorysortingamortizationyear t1			ON t1.idinv = IL1.idparent AND t1.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t2			ON t2.idinv = IL2.idparent  AND t2.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t3			ON t3.idinv = IL3.idparent AND t3.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t4			ON t4.idinv = IL4.idparent AND t4.ayear = @ayear 
+	LEFT OUTER JOIN inventorysortingamortizationyear t1			ON t1.idinv = IL1.idparent AND t1.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t2			ON t2.idinv = IL2.idparent  AND t2.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t3			ON t3.idinv = IL3.idparent AND t3.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t4			ON t4.idinv = IL4.idparent AND t4.ayear = @ayearplan 
 	JOIN inventoryamortization tr		ON tr.idinventoryamortization = 
 					COALESCE(t4.idinventoryamortization,t3.idinventoryamortization,t2.idinventoryamortization,t1.idinventoryamortization)
 	WHERE   b.lifestart IS NOT NULL AND b.lifestart <= @dec_31
@@ -403,15 +442,15 @@ BEGIN
 			SELECT * FROM assetamortization r join inventoryamortization tr1 
 			ON  r.idinventoryamortization = tr1.idinventoryamortization  
 					WHERE r.idasset = b.idasset AND r.idpiece = b.idpiece
-					AND YEAR(r.adate) = @ayear
+					AND  YEAR(r.adate) = YEAR(@adate)
 					AND (tr.flag&8) = (tr1.flag&8))
 		AND	((tr.valuemin is null or tr.valuemin<ISNULL(C.historicalvalue,AC.start) ) and (tr.valuemax is null or tr.valuemax>=ISNULL(C.historicalvalue,AC.start)))
 		AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
 		AND (AU.adate is null OR YEAR(AU.adate)>@ayear )		
 		AND ( (inventorykind.flag&2)=0)
 		AND b.amortizationquota is null
-	and (b.ninventory >=  @ninvstart or @ninvstart is null)
-	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and (cespite.ninventory >=  @ninvstart or @ninvstart is null)
+	and (cespite.ninventory <= @ninvstop or @ninvstop is null)
 	and c.idinventory = @idinventory
 	FOR READ ONLY
 	OPEN amt_crs
@@ -493,6 +532,8 @@ BEGIN
 			WHEN DATEPART(YEAR,b.lifestart) < @ayear THEN 12
 		END
 	FROM asset b
+	JOIN asset as cespite
+		ON cespite.idasset = b.idasset and cespite.idpiece = 1 
 	JOIN assetacquire c							ON b.nassetacquire = c.nassetacquire
 	JOIN inventory								ON c.idinventory = inventory.idinventory
 	JOIN inventorykind							ON inventory.idinventorykind= inventorykind.idinventorykind
@@ -503,10 +544,10 @@ BEGIN
 	LEFT OUTER JOIN inventorytreelink IL2		ON IL2.idchild = C.idinv  AND IL2.nlevel = 2
 	LEFT OUTER JOIN inventorytreelink IL3		ON IL3.idchild = C.idinv  AND IL3.nlevel = 3 
 	LEFT OUTER JOIN inventorytreelink IL4		ON IL4.idchild = C.idinv  AND IL4.nlevel = 4 
-	LEFT OUTER JOIN inventorysortingamortizationyear t1		ON t1.idinv = IL1.idparent AND t1.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t2		ON t2.idinv = IL2.idparent  AND t2.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t3		ON t3.idinv = IL3.idparent AND t3.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t4		ON t4.idinv = IL4.idparent AND t4.ayear = @ayear 
+	LEFT OUTER JOIN inventorysortingamortizationyear t1		ON t1.idinv = IL1.idparent AND t1.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t2		ON t2.idinv = IL2.idparent  AND t2.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t3		ON t3.idinv = IL3.idparent AND t3.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t4		ON t4.idinv = IL4.idparent AND t4.ayear = @ayearplan 
 	JOIN inventoryamortization tr				ON tr.idinventoryamortization = 
 					COALESCE(t4.idinventoryamortization,t3.idinventoryamortization,t2.idinventoryamortization,t1.idinventoryamortization)
 	WHERE 
@@ -522,15 +563,15 @@ BEGIN
 			SELECT * FROM assetamortization r join inventoryamortization tr1 
 					ON  r.idinventoryamortization = tr1.idinventoryamortization  
 					WHERE r.idasset = b.idasset AND r.idpiece = b.idpiece
-					AND YEAR(r.adate) = @ayear
+					AND YEAR(r.adate) = YEAR(@adate)
 					AND (tr.flag&8) = (tr1.flag&8))
 		AND	((tr.valuemin is null or tr.valuemin<ISNULL(C.historicalvalue,AC.start) ) and (tr.valuemax is null or tr.valuemax>=ISNULL(C.historicalvalue,AC.start) ))
 		AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
 		AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
 		AND ( (inventorykind.flag&2)=0)
 		AND b.amortizationquota is null
-	and (b.ninventory >=  @ninvstart or @ninvstart is null)
-	and (b.ninventory <= @ninvstop or @ninvstop is null)
+	and (cespite.ninventory >=  @ninvstart or @ninvstart is null)
+	and (cespite.ninventory <= @ninvstop or @ninvstop is null)
 	and c.idinventory = @idinventory
 	FOR READ ONLY
 	OPEN amt_crs
@@ -614,6 +655,8 @@ BEGIN
 		c.description,
 		coalesce(t4.amortizationquota,t3.amortizationquota,t2.amortizationquota,t1.amortizationquota)
 	FROM asset b
+	JOIN asset as cespite
+		ON cespite.idasset = b.idasset and cespite.idpiece = 1 
 	JOIN assetacquire c							ON b.nassetacquire = c.nassetacquire
 	JOIN inventory								ON c.idinventory = inventory.idinventory
 	JOIN inventorykind							ON inventory.idinventorykind= inventorykind.idinventorykind
@@ -624,10 +667,10 @@ BEGIN
 	LEFT OUTER JOIN inventorytreelink IL2		ON IL2.idchild = C.idinv  AND IL2.nlevel = 2
 	LEFT OUTER JOIN inventorytreelink IL3		ON IL3.idchild = C.idinv  AND IL3.nlevel = 3 
 	LEFT OUTER JOIN inventorytreelink IL4		ON IL4.idchild = C.idinv  AND IL4.nlevel = 4 
-	LEFT OUTER JOIN inventorysortingamortizationyear t1		ON t1.idinv = IL1.idparent AND t1.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t2		ON t2.idinv = IL2.idparent  AND t2.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t3		ON t3.idinv = IL3.idparent AND t3.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t4		ON t4.idinv = IL4.idparent AND t4.ayear = @ayear 
+	LEFT OUTER JOIN inventorysortingamortizationyear t1		ON t1.idinv = IL1.idparent AND t1.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t2		ON t2.idinv = IL2.idparent  AND t2.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t3		ON t3.idinv = IL3.idparent AND t3.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t4		ON t4.idinv = IL4.idparent AND t4.ayear = @ayearplan 
 	JOIN inventoryamortization tr		ON tr.idinventoryamortization = 
 				COALESCE(t4.idinventoryamortization,t3.idinventoryamortization,t2.idinventoryamortization,t1.idinventoryamortization)
 	WHERE   b.lifestart IS NOT NULL AND b.lifestart <= @dec_31
@@ -640,15 +683,15 @@ BEGIN
 			SELECT * FROM assetamortization r join inventoryamortization tr1 
 					ON  r.idinventoryamortization = tr1.idinventoryamortization  
 					WHERE r.idasset = b.idasset AND r.idpiece = b.idpiece
-					AND YEAR(r.adate) = @ayear
+					AND YEAR(r.adate) = YEAR(@adate)
 					AND (tr.flag&8) = (tr1.flag&8))
 		AND	((tr.valuemin is null or tr.valuemin<ISNULL(C.historicalvalue,AC.start) ) and (tr.valuemax is null or tr.valuemax>=ISNULL(C.historicalvalue,AC.start) ))
 		AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
 		AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
 		AND ( (inventorykind.flag&2)=0)
 		AND b.amortizationquota is null
-		and (b.ninventory >=  @ninvstart or @ninvstart is null)
-		and (b.ninventory <= @ninvstop or @ninvstop is null)
+		and (cespite.ninventory >=  @ninvstart or @ninvstart is null)
+		and (cespite.ninventory <= @ninvstop or @ninvstop is null)
 		and c.idinventory = @idinventory
 	FOR READ ONLY
 	OPEN amt_crs
@@ -717,6 +760,8 @@ BEGIN
 				WHEN DATEPART(YEAR,b.lifestart) < @ayear THEN 12
 			END
 	FROM asset b
+	JOIN asset as cespite
+		ON cespite.idasset = b.idasset and cespite.idpiece = 1 
 	JOIN assetacquire c						ON b.nassetacquire = c.nassetacquire
 	JOIN inventory							ON c.idinventory = inventory.idinventory
 	JOIN inventorykind						ON inventory.idinventorykind= inventorykind.idinventorykind
@@ -727,10 +772,10 @@ BEGIN
 	LEFT OUTER JOIN inventorytreelink IL2	ON IL2.idchild = C.idinv  AND IL2.nlevel = 2
 	LEFT OUTER JOIN inventorytreelink IL3	ON IL3.idchild = C.idinv  AND IL3.nlevel = 3 
 	LEFT OUTER JOIN inventorytreelink IL4	ON IL4.idchild = C.idinv  AND IL4.nlevel = 4 
-	LEFT OUTER JOIN inventorysortingamortizationyear t1			ON t1.idinv = IL1.idparent AND t1.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t2			ON t2.idinv = IL2.idparent  AND t2.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t3			ON t3.idinv = IL3.idparent AND t3.ayear = @ayear
-	LEFT OUTER JOIN inventorysortingamortizationyear t4			ON t4.idinv = IL4.idparent AND t4.ayear = @ayear 
+	LEFT OUTER JOIN inventorysortingamortizationyear t1			ON t1.idinv = IL1.idparent AND t1.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t2			ON t2.idinv = IL2.idparent  AND t2.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t3			ON t3.idinv = IL3.idparent AND t3.ayear = @ayearplan
+	LEFT OUTER JOIN inventorysortingamortizationyear t4			ON t4.idinv = IL4.idparent AND t4.ayear = @ayearplan 
 	JOIN inventoryamortization tr		ON tr.idinventoryamortization = 
 			COALESCE(t4.idinventoryamortization,t3.idinventoryamortization,t2.idinventoryamortization,t1.idinventoryamortization)
 	WHERE  b.lifestart IS NOT NULL AND b.lifestart <= @dec_31
@@ -743,15 +788,15 @@ BEGIN
 			SELECT * FROM assetamortization r join inventoryamortization tr1 
 					ON  r.idinventoryamortization = tr1.idinventoryamortization  
 					WHERE r.idasset = b.idasset AND r.idpiece = b.idpiece
-					AND YEAR(r.adate) = @ayear
+					AND YEAR(r.adate) = YEAR(@adate)
 					AND (tr.flag&8) = (tr1.flag&8))
 		AND	((tr.valuemin is null or tr.valuemin<ISNULL(C.historicalvalue,AC.start) ) and (tr.valuemax is null or tr.valuemax>=ISNULL(C.historicalvalue,AC.start) ))
 		AND (YEAR(assetload.ratificationdate)<=@ayear OR   ((c.flag & 1 = 0) AND (c.flag & 2 <> 0)) )
 		AND (AU.adate is null OR YEAR(AU.adate)>@ayear )
 		AND ( (inventorykind.flag&2)=0)
 		AND b.amortizationquota is null
-		and (b.ninventory >=  @ninvstart or @ninvstart is null)
-		and (b.ninventory <= @ninvstop or @ninvstop is null)
+		AND (cespite.ninventory >=  @ninvstart or @ninvstart is null)
+		AND (cespite.ninventory <= @ninvstop or @ninvstop is null)
 		and c.idinventory = @idinventory
 	FOR READ ONLY
 	OPEN amt_crs

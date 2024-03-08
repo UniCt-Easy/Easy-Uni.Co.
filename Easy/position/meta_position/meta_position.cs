@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,7 +43,6 @@ namespace meta_position//meta_qualifica//
 			if (FormName=="lista") 
 			{
 				Name = "Qualifica";
-				ActAsList();
 				DefaultListType = "default";
 				return MetaData.GetFormByDllName("position_lista");//PinoRana
 			}
@@ -72,6 +71,40 @@ namespace meta_position//meta_qualifica//
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "maxincomeclass", "Classe Stip. Max", nPos++);
                 DescribeAColumn(T, "foreignclass", "Classe di appartenenza per Miss.all'estero", nPos++);
+				DescribeAColumn(T, "assegnoaggiuntivo", "Abilita assegno aggiuntivo", nPos++);
+				DescribeAColumn(T, "costolordoannuo", "	Costo lordo annuo", nPos++);
+				DescribeAColumn(T, "costolordoannuooneri", "Costo lordo annuo e oneri", nPos++);
+				DescribeAColumn(T, "elementoperequativo", "Abilita elemento perequativo", nPos++);
+				DescribeAColumn(T, "foreignclass", "Classe di appartenenza per Miss.all'estero", nPos++);
+				DescribeAColumn(T, "indennitadiateneo", "Abilita indennità di ateneo", nPos++);
+				DescribeAColumn(T, "indennitadiposizione", "Abilita indennità di posizione", nPos++);
+				DescribeAColumn(T, "indvacancacontrattuale", "Abilita ind. vacanza contrattuale", nPos++);
+				DescribeAColumn(T, "livello", "Abilita livello", nPos++);
+				DescribeAColumn(T, "oremaxcompitididatempoparziale", "Ore massime per i compiti didattici a tempo parziale", nPos++);
+				DescribeAColumn(T, "oremaxcompitididatempopieno", "Ore massime per i compiti didattici a tempo pieno", nPos++);
+				DescribeAColumn(T, "oremaxdidatempoparziale", "Ore massime per didattica frontale a tempo parziale", nPos++);
+				DescribeAColumn(T, "oremaxdidatempopieno", "Ore massime per didattica frontale a tempo pieno", nPos++);
+				DescribeAColumn(T, "oremaxgg", "Ore di lavoro al giorno massime", nPos++);
+				DescribeAColumn(T, "oremaxtempoparziale", "Ore massime a tempo parziale", nPos++);
+				DescribeAColumn(T, "oremaxtempopieno", "Ore massime a tempo pieno", nPos++);
+				DescribeAColumn(T, "oremincompitididatempoparziale", "Ore minime per i compiti didattici a tempo parziale", nPos++);
+				DescribeAColumn(T, "oremincompitididatempopieno", "Ore minime per i compiti didattici a tempo pieno", nPos++);
+				DescribeAColumn(T, "oremindidatempoparziale", "Ore minime di didattica frontale a tempo parziale", nPos++);
+				DescribeAColumn(T, "oremindidatempopieno", "Ore minime di didattica frontale a tempo pieno", nPos++);
+				DescribeAColumn(T, "oremintempoparziale", "Ore minime a tempo parziale", nPos++);
+				DescribeAColumn(T, "oremintempopieno", "Ore minime a tempo pieno", nPos++);
+				DescribeAColumn(T, "orestraordinariemax", "Ore massime di straordinario rendicontabili", nPos++);
+				DescribeAColumn(T, "parttime", "Abilita part-time", nPos++);
+				DescribeAColumn(T, "puntiorganico", "Punti organico", nPos++);
+				DescribeAColumn(T, "siglaesportazione", "Sigla esportazione", nPos++);
+				DescribeAColumn(T, "siglaimportazione", "Sigla importazione", nPos++);
+				DescribeAColumn(T, "tempdef", "Abilita tempo definito o parziale", nPos++);
+				DescribeAColumn(T, "tipoente", "Tipo ente", nPos++);
+				DescribeAColumn(T, "tipopersonale", "Categoria di personale", nPos++);
+				DescribeAColumn(T, "totaletredicesima", "Abilita totale tredicesima", nPos++);
+				DescribeAColumn(T, "tredicesimaindennitaintegrativaspeciale", "Abilita tredicesima indennità integrativa speciale", nPos++);
+
+
 			}
 
 			if ( listtype=="riepilogo") {

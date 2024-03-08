@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -614,7 +614,7 @@ namespace colname_default//colname//
 			string errore = dataAccess.LastError;
 			if (errore!="") 
 			{
-				MessageBox.Show(this, errore+"\r\n\r\nLette "+emptyTable.Rows.Count+" righe da "+emptyTable.TableName);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore+"\r\n\r\nLette "+emptyTable.Rows.Count+" righe da "+emptyTable.TableName);
 				return false;
 			}
 			return true;
@@ -648,7 +648,7 @@ namespace colname_default//colname//
 			string errore = mainDA.LastError;
 			if (errore!="") 
 			{
-				MessageBox.Show(this, errore+"\r\n\r\nLette "+emptyTable.Rows.Count+" righe da "+emptyTable.TableName);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore+"\r\n\r\nLette "+emptyTable.Rows.Count+" righe da "+emptyTable.TableName);
 				return false;
 			}
 			return true;
@@ -665,7 +665,7 @@ namespace colname_default//colname//
 		private DialogResult visualizzaMsgBox(string errore) 
 		{
 			errore += "\n\nPremere OK per passare all'oggetto successivo, ANNULLA per interrompere";
-			return MessageBox.Show(this, errore, "Errore!", MessageBoxButtons.OKCancel);
+			return MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Errore!", MessageBoxButtons.OKCancel);
 		}
 
 		/// <summary>
@@ -710,7 +710,7 @@ namespace colname_default//colname//
 			string errore = mainDA.LastError;
 			if (postData.DO_POST()) 
 			{
-				MessageBox.Show(this, errore, "Scrittura sul DB effettuata con successo");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, errore, "Scrittura sul DB effettuata con successo");
 				foreach (DataTable t in DS.Tables) 
 				{
 					t.Clear();
@@ -1065,14 +1065,14 @@ namespace colname_default//colname//
 		{
 
 			compilaProcedure("V", "viste");
-			MessageBox.Show(this, "HO FINITO!");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "HO FINITO!");
 		}
 
 
 		private void buttonCompilaProcedure_Click(object sender, System.EventArgs e)
 		{
 			compilaProcedure("P", "procedure");
-			MessageBox.Show(this, "HO FINITO!");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "HO FINITO!");
 			
 			MetaData metaTempVar = MetaData.GetMetaData(this, "ren_tempvar");
 			foreach (DictionaryEntry de in DBBridge.tempVar) 
@@ -1089,7 +1089,7 @@ namespace colname_default//colname//
 		private void buttonTrigger_Click(object sender, System.EventArgs e)
 		{
 			compilaProcedure("TR", "trigger");
-			MessageBox.Show(this, "HO FINITO!");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "HO FINITO!");
 		}
 
 		/// <summary>
@@ -1263,7 +1263,7 @@ namespace colname_default//colname//
 			bool trovato = e.MoveNext();
 			if (!trovato) 
 			{
-//				MessageBox.Show(this, "Non trovata la traduzione della colonna "+oldCol);
+//				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Non trovata la traduzione della colonna "+oldCol);
 				return null;
 			}
 			DataRow r = (DataRow) e.Current;
@@ -1282,7 +1282,7 @@ namespace colname_default//colname//
 			}
 			if (errore) 
 			{
-				MessageBox.Show(this, "Colonna "+oldCol+" tradotta in maniera differente:\n"
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Colonna "+oldCol+" tradotta in maniera differente:\n"
 					+ traduzioni);
 			}
 			return newCol;
@@ -1894,7 +1894,7 @@ namespace colname_default//colname//
 			if (rinominaForeignKeys()==DialogResult.Cancel) return;
 			if (rinominaPrimaryKeys()==DialogResult.Cancel) return;
 			if (rinominaUnique()==DialogResult.Cancel) return;
-			MessageBox.Show(this, "DB aggiornato!");
+			MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "DB aggiornato!");
 		}
 
 		#endregion
@@ -1998,7 +1998,7 @@ namespace colname_default//colname//
 										else {
 											if (c.Caption!=nnc){
 												c.ColumnName="excol_"+c.ColumnName+"_future_"+nnc;
-												MessageBox.Show("table "+t.TableName+" col."+c.ColumnName);
+												MetaFactory.factory.getSingleton<IMessageShower>().Show("table "+t.TableName+" col."+c.ColumnName);
 											}
 										}
 									}
@@ -2148,7 +2148,7 @@ namespace colname_default//colname//
 			MetaData meta2 = metaForm.Dispatcher.Get(metaDataName);
 #pragma warning restore 612
 			if (typeof(Meta_easydata)==meta2.GetType()) {
-				MessageBox.Show("Warning: il metadato '" + metaDataName + "' non esiste.");
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Warning: il metadato '" + metaDataName + "' non esiste.");
 			}
 			switch (metaDataName) {
 				case "resultparameter": 
@@ -2184,7 +2184,7 @@ namespace colname_default//colname//
 				}
 
 				if (form==null) {
-					MessageBox.Show("Warning: Non esiste il form '"+editType+"' della tabella '"+metaDataName+"'");
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Warning: Non esiste il form '"+editType+"' della tabella '"+metaDataName+"'");
 					continue;
 				} 
 				else {
@@ -2241,7 +2241,7 @@ namespace colname_default//colname//
 				string nomeProgetto = line.Substring(53, fine1 - 53);
 				if ((idSolution != package)&&(nomeProgetto != "SetupCrystalMerge")) 
 				{
-					MessageBox.Show("Errore nella solution "+idSolution+"\r\n"+line);
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella solution "+idSolution+"\r\n"+line);
 				}
 				string idprogetto=line.Substring(fine2 + 4, 38);
 				DataRow rRenProgetto;
@@ -2310,7 +2310,7 @@ namespace colname_default//colname//
 				rRif["private"] = progetto.GetAttribute("Private");
 				if (progetto.GetAttribute("Package") != package) 
 				{
-					MessageBox.Show(this, "Errore nel riferimento "
+					MetaFactory.factory.getSingleton<IMessageShower>().Show(this, "Errore nel riferimento "
 						+ rRif["riferimento"]
 						+ " del progetto " 
 						+ fileName
@@ -2577,7 +2577,7 @@ namespace colname_default//colname//
 		private string getNuovaCartellaProgetto(string progetto) {
 			DataRow[] rProgetto = DS.ren_progetto.Select("progetto='"+progetto+"'");
 			if (rProgetto.Length==0) {
-				MessageBox.Show("Non ho trovato una cartella per il progetto:"+progetto);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ho trovato una cartella per il progetto:"+progetto);
 				string S="nino";
 				return S;
 			}
@@ -2595,7 +2595,7 @@ namespace colname_default//colname//
 		{
 			DataRow[] rProgetto = DS.ren_progetto.Select("idprogetto='"+idProgetto+"'");
 			if (rProgetto.Length==0) {
-				MessageBox.Show("Non ho trovato un riferimento per il progetto:"+progetto);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ho trovato un riferimento per il progetto:"+progetto);
 				string S="nino";
 				return S;
 			} 
@@ -2673,7 +2673,7 @@ namespace colname_default//colname//
 				if (chkSoloNuovi.Checked && Directory.Exists(
 						newSln.Directory.FullName+"\\"+nuovaCartellaProgetto)) compile=false;
 
-				if (chkSoloNuovi.Checked && compile)MessageBox.Show("Compilo "+nuovaCartellaProgetto);
+				if (chkSoloNuovi.Checked && compile)MetaFactory.factory.getSingleton<IMessageShower>().Show("Compilo "+nuovaCartellaProgetto);
 				
 
 				DirectoryInfo dir = newSln.Directory.CreateSubdirectory(nuovaCartellaProgetto);
@@ -2851,7 +2851,7 @@ namespace colname_default//colname//
 				DataRow[] rProgetto = DS.ren_progetto.Select("idprogetto='"+rRifProgetto[0]["idriferimento"]+"'");
 				if (rProgetto.Length==0) 
 				{
-					MessageBox.Show("Non ho trovato il riferimento "+rRifProgetto[0]["idriferimento"].ToString());
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Non ho trovato il riferimento "+rRifProgetto[0]["idriferimento"].ToString());
 					return null;
 				}
 				return rProgetto[0]["nuovonome"].ToString() +";//"+riferimento;
@@ -2972,7 +2972,7 @@ namespace colname_default//colname//
 					return nuovoNomeTabella(tableparent)+nuovoNomeTabella(maintable);
 				}
 			}
-			//MessageBox.Show("Not found relation:"+relname+ "( main table was "+maintable+")");
+			//MetaFactory.factory.getSingleton<IMessageShower>().Show("Not found relation:"+relname+ "( main table was "+maintable+")");
 			return relname;
 		}
 		
@@ -3593,7 +3593,7 @@ namespace colname_default//colname//
 									linea = "using " + nuovo;
 								else
 								{
-									MessageBox.Show("using not found:"+linea);
+									MetaFactory.factory.getSingleton<IMessageShower>().Show("using not found:"+linea);
 									linea = linea+" //non ho trovato l'using";
 								}
 							}
@@ -3607,7 +3607,7 @@ namespace colname_default//colname//
 				}
 			}
 			catch (Exception e) {
-				MessageBox.Show(e+"\n"+sorgente);
+				MetaFactory.factory.getSingleton<IMessageShower>().Show(e+"\n"+sorgente);
 			}
 
 
@@ -4062,7 +4062,7 @@ namespace colname_default//colname//
 					object NuovoNome;
 					if ( DS.ren_progetto.Select("AssemblyName='" + vecchioNome +"'").Length==0){
 						NuovoNome=vecchioNome;
-						MessageBox.Show("In ren_progetto non trovo l'assemblyname "+vecchioNome);
+						MetaFactory.factory.getSingleton<IMessageShower>().Show("In ren_progetto non trovo l'assemblyname "+vecchioNome);
 					}
 					else {
 						NuovoNome = DS.ren_progetto.Select("AssemblyName='" + vecchioNome +"'")[0]["nuovonome"];
@@ -4089,7 +4089,7 @@ namespace colname_default//colname//
 				DataRow rCs = rForm.GetParentRow("ren_csren_form");
 				if (rCs==null)
 				{
-					MessageBox.Show("Salto Form (per Rcs) "+rForm["metadata"].ToString()+"--"+
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Salto Form (per Rcs) "+rForm["metadata"].ToString()+"--"+
 						rForm["edittype"].ToString()+"--"+
 						rForm["namespace"].ToString()+"--"+
 						rForm["form"].ToString()+"--"+rForm["directory"].ToString()+"--"+
@@ -4100,7 +4100,7 @@ namespace colname_default//colname//
 				DataRow rProgettoForm = rCs.GetParentRow("ren_progettoren_file_cs");
 				if (rProgettoForm==null)
 				{
-					MessageBox.Show("Salto Form (per rProgettoForm) "+rForm["metadata"].ToString()+"--"+
+					MetaFactory.factory.getSingleton<IMessageShower>().Show("Salto Form (per rProgettoForm) "+rForm["metadata"].ToString()+"--"+
 						rForm["edittype"].ToString()+"--"+
 						rForm["namespace"].ToString()+"--"+
 						rForm["form"].ToString()+"--"+rForm["directory"].ToString()+"--"+

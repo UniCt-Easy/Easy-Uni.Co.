@@ -11,52 +11,65 @@
 		<div class="col-md-8"  style="background-color: white; align-self:flex-start">
 		<ul class="nav nav-tabs">
 				<li class="nav-item">
-		<a href="#tabstruttura_perf_0" class="nav-link active show" data-toggle="pill" data-target="#tabstruttura_perf_0"><i class="fa fa-building mr-1"></i>Principale</a>
+		<a href="#tabstruttura_perf_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabstruttura_perf_0"><i class="fa fa-building mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabstruttura_perf_1" class="nav-link" data-toggle="pill" data-target="#tabstruttura_perf_1"><i class="fa fa-hand-pointer mr-1"></i>Indicatori associati</a>
+		<a href="#tabstruttura_perf_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabstruttura_perf_1"><i class="fa fa-hand-pointer mr-1"></i>Indicatori associati</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabstruttura_perf_2" class="nav-link" data-toggle="pill" data-target="#tabstruttura_perf_2"><i class="fa fa-user-cog mr-1"></i>Responsabili, valutatori e approvatori</a>
+		<a href="#tabstruttura_perf_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabstruttura_perf_2"><i class="fa fa-user-cog mr-1"></i>Responsabili, valutatori e approvatori</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabstruttura_perf_3" class="nav-link" data-toggle="pill" data-target="#tabstruttura_perf_3"><i class="fa fa-calendar-alt mr-1"></i>Personale afferente</a>
+		<a href="#tabstruttura_perf_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabstruttura_perf_3"><i class="fa fa-calendar-alt mr-1"></i>Personale afferente</a>
 	</li>
 
 		</ul>
 <div class="tab-content mt-2">
 	<div class="tab-pane fade active show" id="tabstruttura_perf_0" role="tabpanel">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="struttura_perf_title">Denominazione</label>
 					<input id="struttura_perf_title" type="text" class="form-control" data-tag="struttura.title?strutturaperfview.title" data-subentity  />
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_perf_codice">Codice</label>
 					<input id="struttura_perf_codice" type="text" class="form-control" data-tag="struttura.codice?strutturaperfview.struttura_codice" data-subentity  />
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="struttura_perf_codiceipa">Codice IPA</label>
 					<input id="struttura_perf_codiceipa" type="text" class="form-control" data-tag="struttura.codiceipa?strutturaperfview.struttura_codiceipa" data-subentity  />
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="struttura_perf_idstrutturakind">Tipo</label>
-					<select id="struttura_perf_idstrutturakind" class="custom-select d-block w-100"  data-source-name="strutturakinddefaultview" data-value-member="idstrutturakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="struttura.idstrutturakind?strutturaperfview.struttura_idstrutturakind" data-subentity  data-mandatory  > </select>
-				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_perf_idstrutturakind">Tipo</label>
+					<select id="struttura_perf_idstrutturakind" class="custom-select d-block w-100"  data-source-name="strutturakinddefaultview" data-value-member="idstrutturakind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="struttura.idstrutturakind?strutturaperfview.struttura_idstrutturakind" data-subentity  data-mandatory  > </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="struttura_perf_idupb">UPB</label>
 					<div>
 						<input id="struttura_perf_idupb" name="struttura_perf_idupb" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="upbdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
-				<div class="col-md-6">
+			</div>
+			<div class="row">
+				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="struttura_perf_paridstruttura">Struttura madre</label>
 					<div>
 						<input id="struttura_perf_paridstruttura" name="struttura_perf_paridstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="struttura_perf_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="struttura_perf_activeSi" type="radio" name="struttura_perf_active" class="custom-control-input" data-tag="struttura.active:S?strutturaperfview.struttura_active:Si" data-subentity  ><label for="struttura_perf_activeSi"> Si</label>
+						<input id="struttura_perf_activeNo" type="radio" name="struttura_perf_active" class="custom-control-input" data-tag="struttura.active:N?strutturaperfview.struttura_active:No" data-subentity  ><label for="struttura_perf_activeNo"> No</label>
 					</div>
 				</div>
 			</div>
@@ -73,13 +86,13 @@
 				</div>
 			</div>
 			<hr>
-				<div class="gridx" id="grid_perfstrutturaperfindicatore_default" data-tag="perfstrutturaperfindicatore.default.default" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+				<div class="gridx" id="grid_perfstrutturaperfindicatore_default" data-tag="perfstrutturaperfindicatore.default.default" data-custom-control="gridx" data-mdlbuttondelete  ></div>
 	</div>
 	<div class="tab-pane fade" id="tabstruttura_perf_2" role="tabpanel">
-				<div class="gridx" id="grid_strutturaresponsabile_default" data-tag="strutturaresponsabile.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_strutturaresponsabile_default" data-tag="strutturaresponsabile.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabstruttura_perf_3" role="tabpanel">
-				<div class="gridx" id="grid_afferenza_stru" data-tag="afferenza.stru.stru" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_afferenza_stru" data-tag="afferenza.stru.stru" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 			</div>

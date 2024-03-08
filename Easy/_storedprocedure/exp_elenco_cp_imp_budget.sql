@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,26 +15,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-/****** Object:  StoredProcedure [Amministrazione].[exp_elenco_cp_imp_budget]    Script Date: 18/03/2016 09:24:04 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_elenco_cp_imp_budget]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [exp_elenco_cp_imp_budget]
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
- --setuser 'amm'
+--setuser'amm'
+ 
+--setuser 'amministrazione' 
+CREATE  PROCEDURE  [exp_elenco_cp_imp_budget](
 -- exp_elenco_cp_imp_budget 2015
-ALTER  PROCEDURE [exp_elenco_cp_imp_budget](
-	@ayear 			int  --,
-	--@data_pagamento	datetime, -- Per le fatture pagate con fondo economale Ã¨ la data di registrazione dell'operazione
-	--@data_scadenza	datetime,
-	--@data_emissione_start	datetime,
-	--@data_emissione_stop	datetime,
-	--@flag_nascondi_pagate	varchar,	
-	--@flag_nascondi_noliq	varchar,	
-	--@idsor01 int,
-	--@idsor02 int,
-	--@idsor03 int,
-	--@idsor04 int,
-	--@idsor05 int
+	@ayear 			int 
 ) 
 AS BEGIN
 

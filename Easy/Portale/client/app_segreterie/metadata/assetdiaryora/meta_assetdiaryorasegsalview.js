@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -40,11 +23,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'segsal':
-						this.describeAColumn(table, 'assetdiaryora_amount', 'Amount', 'fixed.2', 10, null);
-						this.describeAColumn(table, 'assetdiaryora_start', 'Data e ora di inizio', 'g', 80, null);
-						this.describeAColumn(table, 'assetdiaryora_stop', 'Data e ora di fine', 'g', 90, null);
-						this.describeAColumn(table, 'sal_start', 'Data di inizio Stato avanzamento lavori', null, 150, null);
-						this.describeAColumn(table, 'sal_stop', 'Data di fine Stato avanzamento lavori', null, 150, null);
+						this.describeAColumn(table, 'workpackage_raggruppamento', 'Raggruppamento Identificativo', null, 1100, 2048);
+						this.describeAColumn(table, 'workpackage_title', 'Titolo Identificativo', null, 1200, 2048);
+						this.describeAColumn(table, 'asset_ninventory', 'Numero inventario Bene strumentale Diario d\'uso', null, 2220, null);
+						this.describeAColumn(table, 'asset_idasset', 'Identificativo Bene strumentale Diario d\'uso', null, 2230, null);
+						this.describeAColumn(table, 'asset_idpiece', 'Numero parte Bene strumentale Diario d\'uso', null, 2240, null);
+						this.describeAColumn(table, 'asset_rfid', 'Codice RFID Bene strumentale Diario d\'uso', null, 2260, 30);
+						this.describeAColumn(table, 'registry_title', 'Denominazione Operatore Diario d\'uso', null, 2430, 101);
+						this.describeAColumn(table, 'assetdiaryora_start', 'Data e ora di inizio', 'g', 3000, null);
+						this.describeAColumn(table, 'assetdiaryora_stop', 'Data e ora di fine', 'g', 4000, null);
+						this.describeAColumn(table, 'assetdiaryora_amount', 'Importo', 'fixed.2', 5000, null);
+						this.describeAColumn(table, 'sal_start', 'Data di inizio Stato avanzamento lavori', null, 6100, null);
+						this.describeAColumn(table, 'sal_stop', 'Data di fine Stato avanzamento lavori', null, 6400, null);
 //$objCalcFieldConfig_segsal$
 						break;
 //$objCalcFieldConfig$
@@ -68,6 +58,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (listType) {
 					case "segsal": {
 						return "";
+					}
+					case "segsal": {
+						return "assetdiaryora_start asc ";
 					}
 					//$getSortingin$
 				}

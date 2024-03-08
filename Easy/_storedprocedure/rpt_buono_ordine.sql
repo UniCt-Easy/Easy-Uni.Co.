@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_ordine]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_buono_ordine]
 GO
@@ -24,7 +23,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
+ 
 
 CREATE      PROCEDURE [rpt_buono_ordine]
 	@ayear int,
@@ -868,7 +867,7 @@ LEFT OUTER JOIN currency
 	ON currency.idcurrency = #mandate.idcurrency
 LEFT OUTER JOIN consipkind
 	ON consipkind.idconsipkind = mandate.idconsipkind
-where #mandatedetail.rownum_main is null
+where ( #mandatedetail.rownum_main is null and #mandatedetail.stop is null)
 ORDER BY  #mandate.idmankind, #mandate.nman, #mandatedetail.idgroup
 	
 END

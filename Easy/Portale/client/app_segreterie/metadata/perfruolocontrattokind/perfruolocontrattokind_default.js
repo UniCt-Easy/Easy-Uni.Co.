@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_perfruolocontrattokind() {
 		MetaPage.apply(this, ['perfruolocontrattokind', 'default', true]);
-        this.name = 'Figure contrattuali su cui può intervenire';
+        this.name = 'Figure contrattuali su cui puÃ² intervenire';
 		this.defaultListType = 'default';
 		//pageHeaderDeclaration
     }
@@ -40,9 +23,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterGetFormData
 			
-			//beforeFill
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#perfruolocontrattokind_default_idposition'), null);
+				} else {
+					this.helpForm.filter($('#perfruolocontrattokind_default_idposition'), this.q.eq('position_active', 'Si'));
+				}
+				//beforeFillFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("beforeFill-perfruolocontrattokind_default");
+				var arraydef = [];
+				
+				//beforeFillInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return self.superClass.beforeFill.call(self)
+							.then(function () {
+								return def.resolve();
+							});
+					});
+				return def.promise();
+			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#perfruolocontrattokind_default_idposition'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -50,8 +65,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-perfruolocontrattokind_default");
-				$('#perfruolocontrattokind_default_idcontrattokind').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#perfruolocontrattokind_default_idcontrattokind').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#perfruolocontrattokind_default_idposition').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idposition);
+				$('#perfruolocontrattokind_default_idposition').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idposition);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -63,7 +78,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//buttonClickEnd
 
 			insertClick: function (that, grid) {
-				if (!$('#perfruolocontrattokind_default_idcontrattokind').val() && this.children.includes(grid.dataSourceName)) {
+				if (!$('#perfruolocontrattokind_default_idposition').val() && this.children.includes(grid.dataSourceName)) {
 					return this.showMessageOk('Prima devi selezionare un valore per il campo Identificativo');
 				}
 				//insertClickin

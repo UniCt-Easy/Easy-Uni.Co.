@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -274,6 +274,7 @@ namespace accountenactment_default {
             bool do_update_approved_accountvar_adate = false;
 
             AskConfirm Ask = new AskConfirm(0);
+            createForm(Ask, this);
             DialogResult AskRes = Ask.ShowDialog(this);
             if (AskRes != DialogResult.OK) return;
 

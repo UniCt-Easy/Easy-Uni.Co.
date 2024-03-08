@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -325,6 +325,12 @@ namespace profservice_default { //contrattoprofessionale//
 		private Button btnDelAtt;
 		private Button btnEditAtt;
 		private Button btnInsAtt;
+		private Label label70;
+		private Label label69;
+		private Label label68;
+		private Label label72;
+		private Label label71;
+		private Label label73;
 		private decimal aliquota = 0;
 
         public Frm_profservice_default() {
@@ -398,6 +404,12 @@ namespace profservice_default { //contrattoprofessionale//
 			this.label5 = new System.Windows.Forms.Label();
 			this.label39 = new System.Windows.Forms.Label();
 			this.tabCalcolo = new System.Windows.Forms.TabPage();
+			this.label73 = new System.Windows.Forms.Label();
+			this.label72 = new System.Windows.Forms.Label();
+			this.label71 = new System.Windows.Forms.Label();
+			this.label70 = new System.Windows.Forms.Label();
+			this.label69 = new System.Windows.Forms.Label();
+			this.label68 = new System.Windows.Forms.Label();
 			this.label67 = new System.Windows.Forms.Label();
 			this.txtLordoBeneficiario = new System.Windows.Forms.TextBox();
 			this.label64 = new System.Windows.Forms.Label();
@@ -625,6 +637,11 @@ namespace profservice_default { //contrattoprofessionale//
 			this.button9 = new System.Windows.Forms.Button();
 			this.label66 = new System.Windows.Forms.Label();
 			this.gridLotti = new System.Windows.Forms.DataGrid();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dgrAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.label57 = new System.Windows.Forms.Label();
 			this.textBox4 = new System.Windows.Forms.TextBox();
@@ -637,11 +654,6 @@ namespace profservice_default { //contrattoprofessionale//
 			this.chkOttempLegge = new System.Windows.Forms.CheckBox();
 			this.chkRegolaritaFisc = new System.Windows.Forms.CheckBox();
 			this.chkVerificaAnac = new System.Windows.Forms.CheckBox();
-			this.tabAllegati = new System.Windows.Forms.TabPage();
-			this.dgrAllegati = new System.Windows.Forms.DataGrid();
-			this.btnDelAtt = new System.Windows.Forms.Button();
-			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabContratto.SuspendLayout();
@@ -692,9 +704,9 @@ namespace profservice_default { //contrattoprofessionale//
 			((System.ComponentModel.ISupportInitialize)(this.gridAVCP)).BeginInit();
 			this.tabLotti.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridLotti)).BeginInit();
-			this.groupBox11.SuspendLayout();
 			this.tabAllegati.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrAllegati)).BeginInit();
+			this.groupBox11.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DS
@@ -765,6 +777,8 @@ namespace profservice_default { //contrattoprofessionale//
 			// 
 			// grpCertificatiNecessari
 			// 
+			this.grpCertificatiNecessari.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpCertificatiNecessari.Controls.Add(this.chkDurc);
 			this.grpCertificatiNecessari.Controls.Add(this.chkVisura);
 			this.grpCertificatiNecessari.Controls.Add(this.chkCCdedicato);
@@ -1042,6 +1056,12 @@ namespace profservice_default { //contrattoprofessionale//
 			// 
 			// tabCalcolo
 			// 
+			this.tabCalcolo.Controls.Add(this.label73);
+			this.tabCalcolo.Controls.Add(this.label72);
+			this.tabCalcolo.Controls.Add(this.label71);
+			this.tabCalcolo.Controls.Add(this.label70);
+			this.tabCalcolo.Controls.Add(this.label69);
+			this.tabCalcolo.Controls.Add(this.label68);
 			this.tabCalcolo.Controls.Add(this.label67);
 			this.tabCalcolo.Controls.Add(this.txtLordoBeneficiario);
 			this.tabCalcolo.Controls.Add(this.label64);
@@ -1134,6 +1154,64 @@ namespace profservice_default { //contrattoprofessionale//
 			this.tabCalcolo.Text = "Calcolo";
 			this.tabCalcolo.UseVisualStyleBackColor = true;
 			this.tabCalcolo.Visible = false;
+			// 
+			// label73
+			// 
+			this.label73.Location = new System.Drawing.Point(148, 116);
+			this.label73.Name = "label73";
+			this.label73.Size = new System.Drawing.Size(60, 23);
+			this.label73.TabIndex = 102;
+			this.label73.Text = "di Prev. (%)";
+			this.label73.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label72
+			// 
+			this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label72.Location = new System.Drawing.Point(106, 116);
+			this.label72.Name = "label72";
+			this.label72.Size = new System.Drawing.Size(45, 23);
+			this.label72.TabIndex = 101;
+			this.label72.Text = "Cassa";
+			this.label72.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label71
+			// 
+			this.label71.Location = new System.Drawing.Point(167, 84);
+			this.label71.Name = "label71";
+			this.label71.Size = new System.Drawing.Size(51, 23);
+			this.label71.TabIndex = 100;
+			this.label71.Text = "Prev. (%)";
+			this.label71.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label70
+			// 
+			this.label70.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label70.Location = new System.Drawing.Point(99, 84);
+			this.label70.Name = "label70";
+			this.label70.Size = new System.Drawing.Size(70, 23);
+			this.label70.TabIndex = 99;
+			this.label70.Text = "Contributo";
+			this.label70.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label69
+			// 
+			this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label69.Location = new System.Drawing.Point(730, 116);
+			this.label69.Name = "label69";
+			this.label69.Size = new System.Drawing.Size(179, 23);
+			this.label69.TabIndex = 98;
+			this.label69.Text = "non viene certificato con CU";
+			this.label69.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label68
+			// 
+			this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label68.Location = new System.Drawing.Point(780, 80);
+			this.label68.Name = "label68";
+			this.label68.Size = new System.Drawing.Size(153, 24);
+			this.label68.TabIndex = 97;
+			this.label68.Text = "viene certificato con CU";
+			this.label68.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// label67
 			// 
@@ -1682,9 +1760,9 @@ namespace profservice_default { //contrattoprofessionale//
 			// 
 			this.labelInfo2.Location = new System.Drawing.Point(587, 116);
 			this.labelInfo2.Name = "labelInfo2";
-			this.labelInfo2.Size = new System.Drawing.Size(312, 23);
+			this.labelInfo2.Size = new System.Drawing.Size(151, 23);
 			this.labelInfo2.TabIndex = 37;
-			this.labelInfo2.Text = "L\'importo costituisce rivalsa e non viene certificato con CU";
+			this.labelInfo2.Text = "L\'importo costituisce rivalsa e";
 			this.labelInfo2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtImportoRitenuta
@@ -1742,9 +1820,9 @@ namespace profservice_default { //contrattoprofessionale//
 			// 
 			this.labelInfo1.Location = new System.Drawing.Point(585, 80);
 			this.labelInfo1.Name = "labelInfo1";
-			this.labelInfo1.Size = new System.Drawing.Size(334, 24);
+			this.labelInfo1.Size = new System.Drawing.Size(199, 24);
 			this.labelInfo1.TabIndex = 32;
-			this.labelInfo1.Text = "L\'importo viene considerato compenso e viene certificato con CU";
+			this.labelInfo1.Text = "L\'importo viene considerato compenso e";
 			this.labelInfo1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// label9
@@ -1885,20 +1963,20 @@ namespace profservice_default { //contrattoprofessionale//
 			// 
 			// label24
 			// 
-			this.label24.Location = new System.Drawing.Point(8, 84);
+			this.label24.Location = new System.Drawing.Point(30, 84);
 			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(208, 23);
+			this.label24.Size = new System.Drawing.Size(74, 23);
 			this.label24.TabIndex = 10;
-			this.label24.Text = "Addebito Contr. Prev. (%)";
+			this.label24.Text = "Addebito";
 			this.label24.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// label23
 			// 
-			this.label23.Location = new System.Drawing.Point(8, 116);
+			this.label23.Location = new System.Drawing.Point(18, 116);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(208, 23);
+			this.label23.Size = new System.Drawing.Size(96, 23);
 			this.label23.TabIndex = 18;
-			this.label23.Text = "Contr. Cassa di Prev. (%)";
+			this.label23.Text = "Addebito ";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// label25
@@ -3506,6 +3584,60 @@ namespace profservice_default { //contrattoprofessionale//
 			this.gridLotti.TabIndex = 47;
 			this.gridLotti.Tag = "profservicecig.lista.detail";
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dgrAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Size = new System.Drawing.Size(943, 553);
+			this.tabAllegati.TabIndex = 12;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dgrAllegati
+			// 
+			this.dgrAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgrAllegati.DataMember = "";
+			this.dgrAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrAllegati.Location = new System.Drawing.Point(8, 40);
+			this.dgrAllegati.Name = "dgrAllegati";
+			this.dgrAllegati.ReadOnly = true;
+			this.dgrAllegati.Size = new System.Drawing.Size(927, 505);
+			this.dgrAllegati.TabIndex = 27;
+			this.dgrAllegati.Tag = "profserviceattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(168, 10);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(68, 23);
+			this.btnDelAtt.TabIndex = 26;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(88, 10);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(69, 23);
+			this.btnEditAtt.TabIndex = 25;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(8, 10);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(68, 23);
+			this.btnInsAtt.TabIndex = 24;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// imageList1
 			// 
 			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -3625,60 +3757,6 @@ namespace profservice_default { //contrattoprofessionale//
 			this.chkVerificaAnac.Text = "Verifica ANAC";
 			this.chkVerificaAnac.UseVisualStyleBackColor = true;
 			// 
-			// tabAllegati
-			// 
-			this.tabAllegati.Controls.Add(this.dgrAllegati);
-			this.tabAllegati.Controls.Add(this.btnDelAtt);
-			this.tabAllegati.Controls.Add(this.btnEditAtt);
-			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
-			this.tabAllegati.Name = "tabAllegati";
-			this.tabAllegati.Size = new System.Drawing.Size(943, 553);
-			this.tabAllegati.TabIndex = 12;
-			this.tabAllegati.Text = "Allegati";
-			this.tabAllegati.UseVisualStyleBackColor = true;
-			// 
-			// dgrAllegati
-			// 
-			this.dgrAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dgrAllegati.DataMember = "";
-			this.dgrAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dgrAllegati.Location = new System.Drawing.Point(8, 40);
-			this.dgrAllegati.Name = "dgrAllegati";
-			this.dgrAllegati.ReadOnly = true;
-			this.dgrAllegati.Size = new System.Drawing.Size(927, 505);
-			this.dgrAllegati.TabIndex = 27;
-			this.dgrAllegati.Tag = "profserviceattachment.lista.detail";
-			// 
-			// btnDelAtt
-			// 
-			this.btnDelAtt.Location = new System.Drawing.Point(168, 10);
-			this.btnDelAtt.Name = "btnDelAtt";
-			this.btnDelAtt.Size = new System.Drawing.Size(68, 23);
-			this.btnDelAtt.TabIndex = 26;
-			this.btnDelAtt.Tag = "delete";
-			this.btnDelAtt.Text = "Elimina";
-			// 
-			// btnEditAtt
-			// 
-			this.btnEditAtt.Location = new System.Drawing.Point(88, 10);
-			this.btnEditAtt.Name = "btnEditAtt";
-			this.btnEditAtt.Size = new System.Drawing.Size(69, 23);
-			this.btnEditAtt.TabIndex = 25;
-			this.btnEditAtt.Tag = "edit.detail";
-			this.btnEditAtt.Text = "Modifica...";
-			// 
-			// btnInsAtt
-			// 
-			this.btnInsAtt.Location = new System.Drawing.Point(8, 10);
-			this.btnInsAtt.Name = "btnInsAtt";
-			this.btnInsAtt.Size = new System.Drawing.Size(68, 23);
-			this.btnInsAtt.TabIndex = 24;
-			this.btnInsAtt.Tag = "insert.detail";
-			this.btnInsAtt.Text = "Inserisci...";
-			// 
 			// Frm_profservice_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -3764,10 +3842,10 @@ namespace profservice_default { //contrattoprofessionale//
 			this.tabLotti.ResumeLayout(false);
 			this.tabLotti.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridLotti)).EndInit();
-			this.groupBox11.ResumeLayout(false);
-			this.groupBox11.PerformLayout();
 			this.tabAllegati.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgrAllegati)).EndInit();
+			this.groupBox11.ResumeLayout(false);
+			this.groupBox11.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -5633,6 +5711,7 @@ namespace profservice_default { //contrattoprofessionale//
             DataRow RigaSelezionata = GetGridSelectedRows(gridAVCP);
             if (RigaSelezionata == null) return;
             frmLottiPartecipati F = new frmLottiPartecipati(DS.profservicecig, DS.profserviceavcpdetail, RigaSelezionata);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 
@@ -5661,6 +5740,7 @@ namespace profservice_default { //contrattoprofessionale//
             DataRow RigaSelezionata = GetGridSelectedRows(gridAVCP);
             if (RigaSelezionata == null) return;
             frmLottiAppaltati F = new frmLottiAppaltati(DS.profservicecig, RigaSelezionata);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 
@@ -5670,6 +5750,7 @@ namespace profservice_default { //contrattoprofessionale//
             if (RigaSelezionata == null) return;
             FrmPartecipantiLotto F = new FrmPartecipantiLotto(RigaSelezionata, DS.profserviceavcp,
                 DS.profserviceavcpdetail);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 

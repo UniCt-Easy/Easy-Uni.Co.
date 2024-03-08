@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1993,7 +1993,9 @@ namespace finvar_default//VariazioneBilancio//
         private void btnStornoTraUpb_Click(object sender, EventArgs e) {
             if (Meta.EditMode || Meta.InsertMode) {
                 bool ok = Meta.GetFormData(true);
-                DialogResult dr = new FrmStornoTraUpb(Meta, DS).ShowDialog(this);
+                FrmStornoTraUpb f = new FrmStornoTraUpb(Meta, DS);
+                createForm(f, this);
+				DialogResult dr = f.ShowDialog(this);
                 if (dr == DialogResult.OK) {
                     Meta.FreshForm();
                 }

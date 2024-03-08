@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -225,6 +225,33 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 		private Button btnDelAtt;
 		private Button btnEditAtt;
 		private Button btnInsAtt;
+		private TabPage tabPattointegrita;
+		private Label label21;
+		private DataGrid dgridPattointegrita;
+		private Button button38;
+		private Button button39;
+		private Button button40;
+		private TabControl tabControl3;
+		private TabPage tabPrincipale;
+		private TabPage tabFatture;
+		private TabPage tabClassificazioni;
+		private GroupBox groupBox12;
+		private GroupBox groupBox8;
+		private TabPage tabAltro;
+		private Label label22;
+		private ComboBox cmbistituto;
+		private GroupBox gboxAteco;
+		public TextBox txtUPB;
+		private TextBox txtDescrUPB;
+		private GroupBox grpNace;
+		public TextBox textBox7;
+		private TextBox textBox8;
+		private Label label23;
+		private Label label24;
+		private ComboBox cmbDip;
+		private ComboBox cmbNaturagiu;
+		private Label label25;
+		private TextBox textBox9;
 		private object idgeo=DBNull.Value;
 
 		public Frm_registry_anagrafica() {
@@ -311,9 +338,18 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.btnIndModifica = new System.Windows.Forms.Button();
 			this.btnIndInserisci = new System.Windows.Forms.Button();
 			this.tabAltriDati = new System.Windows.Forms.TabPage();
-			this.label14 = new System.Windows.Forms.Label();
-			this.label12 = new System.Windows.Forms.Label();
-			this.textBox6 = new System.Windows.Forms.TextBox();
+			this.tabControl3 = new System.Windows.Forms.TabControl();
+			this.tabPrincipale = new System.Windows.Forms.TabPage();
+			this.groupBox10 = new System.Windows.Forms.GroupBox();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.txtCodiceCausaleDeb = new System.Windows.Forms.TextBox();
+			this.button9 = new System.Windows.Forms.Button();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.txtCodiceCausaleCredit = new System.Windows.Forms.TextBox();
+			this.button10 = new System.Windows.Forms.Button();
+			this.tabFatture = new System.Windows.Forms.TabPage();
+			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
 			this.textBox5 = new System.Windows.Forms.TextBox();
 			this.label13 = new System.Windows.Forms.Label();
@@ -322,21 +358,41 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.textBox4 = new System.Windows.Forms.TextBox();
 			this.label11 = new System.Windows.Forms.Label();
 			this.chkRifAmm = new System.Windows.Forms.CheckBox();
+			this.label12 = new System.Windows.Forms.Label();
 			this.chhEntePubblico = new System.Windows.Forms.CheckBox();
-			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.chkBankItaliaProceeds = new System.Windows.Forms.CheckBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.textBox6 = new System.Windows.Forms.TextBox();
+			this.tabClassificazioni = new System.Windows.Forms.TabPage();
+			this.label25 = new System.Windows.Forms.Label();
+			this.textBox9 = new System.Windows.Forms.TextBox();
+			this.groupBox12 = new System.Windows.Forms.GroupBox();
+			this.label23 = new System.Windows.Forms.Label();
+			this.label24 = new System.Windows.Forms.Label();
+			this.cmbDip = new System.Windows.Forms.ComboBox();
+			this.cmbNaturagiu = new System.Windows.Forms.ComboBox();
+			this.grpNace = new System.Windows.Forms.GroupBox();
+			this.textBox7 = new System.Windows.Forms.TextBox();
+			this.textBox8 = new System.Windows.Forms.TextBox();
+			this.gboxAteco = new System.Windows.Forms.GroupBox();
+			this.txtUPB = new System.Windows.Forms.TextBox();
+			this.txtDescrUPB = new System.Windows.Forms.TextBox();
+			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.label22 = new System.Windows.Forms.Label();
+			this.cmbistituto = new System.Windows.Forms.ComboBox();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.buttonVecchiaClassificazione = new System.Windows.Forms.Button();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.comboBoxVecchiaClassificazione = new System.Windows.Forms.ComboBox();
+			this.cmdClassificazione = new System.Windows.Forms.Button();
+			this.cmbClassificazione = new System.Windows.Forms.ComboBox();
+			this.tabAltro = new System.Windows.Forms.TabPage();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.txtCCP = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
-			this.groupBox5 = new System.Windows.Forms.GroupBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.txtCodiceCausaleCredit = new System.Windows.Forms.TextBox();
-			this.button10 = new System.Windows.Forms.Button();
-			this.groupBox10 = new System.Windows.Forms.GroupBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.txtCodiceCausaleDeb = new System.Windows.Forms.TextBox();
-			this.button9 = new System.Windows.Forms.Button();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.txtDescrizione = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.cmbCategoria = new System.Windows.Forms.ComboBox();
 			this.button5 = new System.Windows.Forms.Button();
@@ -344,14 +400,6 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.txtMatricolaext = new System.Windows.Forms.TextBox();
 			this.lblBadge = new System.Windows.Forms.Label();
 			this.txtBadge = new System.Windows.Forms.TextBox();
-			this.groupBox3 = new System.Windows.Forms.GroupBox();
-			this.buttonVecchiaClassificazione = new System.Windows.Forms.Button();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.comboBoxVecchiaClassificazione = new System.Windows.Forms.ComboBox();
-			this.cmdClassificazione = new System.Windows.Forms.Button();
-			this.cmbClassificazione = new System.Windows.Forms.ComboBox();
-			this.txtDescrizione = new System.Windows.Forms.TextBox();
-			this.label6 = new System.Windows.Forms.Label();
 			this.tabContatto = new System.Windows.Forms.TabPage();
 			this.dgrContatto = new System.Windows.Forms.DataGrid();
 			this.btnContElimina = new System.Windows.Forms.Button();
@@ -435,16 +483,22 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.button35 = new System.Windows.Forms.Button();
 			this.button36 = new System.Windows.Forms.Button();
 			this.button37 = new System.Windows.Forms.Button();
-			this.tabMod770 = new System.Windows.Forms.TabPage();
-			this.dataGrid4 = new System.Windows.Forms.DataGrid();
-			this.button14 = new System.Windows.Forms.Button();
-			this.button15 = new System.Windows.Forms.Button();
-			this.button16 = new System.Windows.Forms.Button();
+			this.tabPattointegrita = new System.Windows.Forms.TabPage();
+			this.label21 = new System.Windows.Forms.Label();
+			this.dgridPattointegrita = new System.Windows.Forms.DataGrid();
+			this.button38 = new System.Windows.Forms.Button();
+			this.button39 = new System.Windows.Forms.Button();
+			this.button40 = new System.Windows.Forms.Button();
 			this.tabAllegati = new System.Windows.Forms.TabPage();
 			this.dataGrid11 = new System.Windows.Forms.DataGrid();
 			this.btnDelAtt = new System.Windows.Forms.Button();
 			this.btnEditAtt = new System.Windows.Forms.Button();
 			this.btnInsAtt = new System.Windows.Forms.Button();
+			this.tabMod770 = new System.Windows.Forms.TabPage();
+			this.dataGrid4 = new System.Windows.Forms.DataGrid();
+			this.button14 = new System.Windows.Forms.Button();
+			this.button15 = new System.Windows.Forms.Button();
+			this.button16 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabGeneralita.SuspendLayout();
@@ -457,12 +511,21 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabIndirizzo.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrIndirizzo)).BeginInit();
 			this.tabAltriDati.SuspendLayout();
-			this.groupBox7.SuspendLayout();
-			this.groupBox6.SuspendLayout();
-			this.groupBox5.SuspendLayout();
+			this.tabControl3.SuspendLayout();
+			this.tabPrincipale.SuspendLayout();
 			this.groupBox10.SuspendLayout();
-			this.groupBox4.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			this.tabFatture.SuspendLayout();
+			this.groupBox7.SuspendLayout();
+			this.tabClassificazioni.SuspendLayout();
+			this.groupBox12.SuspendLayout();
+			this.grpNace.SuspendLayout();
+			this.gboxAteco.SuspendLayout();
+			this.groupBox8.SuspendLayout();
 			this.groupBox3.SuspendLayout();
+			this.tabAltro.SuspendLayout();
+			this.groupBox6.SuspendLayout();
+			this.groupBox4.SuspendLayout();
 			this.tabContatto.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrContatto)).BeginInit();
 			this.tabPosGiuridica.SuspendLayout();
@@ -495,10 +558,12 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid9)).BeginInit();
 			this.tabVerificaAnac.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid10)).BeginInit();
-			this.tabMod770.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).BeginInit();
+			this.tabPattointegrita.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgridPattointegrita)).BeginInit();
 			this.tabAllegati.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid11)).BeginInit();
+			this.tabMod770.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// cmbTipo
@@ -551,7 +616,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDenominazione.Location = new System.Drawing.Point(112, 104);
 			this.txtDenominazione.Name = "txtDenominazione";
-			this.txtDenominazione.Size = new System.Drawing.Size(712, 20);
+			this.txtDenominazione.Size = new System.Drawing.Size(767, 20);
 			this.txtDenominazione.TabIndex = 11;
 			this.txtDenominazione.Tag = "registry.title";
 			// 
@@ -567,7 +632,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			// chkUtilizzabile
 			// 
 			this.chkUtilizzabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.chkUtilizzabile.Location = new System.Drawing.Point(759, 476);
+			this.chkUtilizzabile.Location = new System.Drawing.Point(814, 476);
 			this.chkUtilizzabile.Name = "chkUtilizzabile";
 			this.chkUtilizzabile.Size = new System.Drawing.Size(88, 16);
 			this.chkUtilizzabile.TabIndex = 0;
@@ -591,10 +656,10 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabControl1.Controls.Add(this.tabDocAmm);
 			this.tabControl1.Controls.Add(this.tabAllegati);
 			this.tabControl1.ImageList = this.imageList1;
-			this.tabControl1.Location = new System.Drawing.Point(0, 0);
+			this.tabControl1.Location = new System.Drawing.Point(0, -2);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(863, 526);
+			this.tabControl1.Size = new System.Drawing.Size(918, 526);
 			this.tabControl1.TabIndex = 45;
 			this.tabControl1.Tag = "oneredetraibilecreddeb.anagraficadetail.anagraficadetail";
 			// 
@@ -632,7 +697,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabGeneralita.Controls.Add(this.chkUtilizzabile);
 			this.tabGeneralita.Location = new System.Drawing.Point(4, 23);
 			this.tabGeneralita.Name = "tabGeneralita";
-			this.tabGeneralita.Size = new System.Drawing.Size(855, 499);
+			this.tabGeneralita.Size = new System.Drawing.Size(910, 499);
 			this.tabGeneralita.TabIndex = 0;
 			this.tabGeneralita.Text = "Principale";
 			this.tabGeneralita.UseVisualStyleBackColor = true;
@@ -640,7 +705,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			// checkBox2
 			// 
 			this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkBox2.Location = new System.Drawing.Point(514, 475);
+			this.checkBox2.Location = new System.Drawing.Point(569, 475);
 			this.checkBox2.Name = "checkBox2";
 			this.checkBox2.Size = new System.Drawing.Size(229, 16);
 			this.checkBox2.TabIndex = 175;
@@ -760,7 +825,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.grpGeo.Controls.Add(this.btnAggiornaComune);
 			this.grpGeo.Location = new System.Drawing.Point(8, 160);
 			this.grpGeo.Name = "grpGeo";
-			this.grpGeo.Size = new System.Drawing.Size(816, 104);
+			this.grpGeo.Size = new System.Drawing.Size(871, 104);
 			this.grpGeo.TabIndex = 14;
 			this.grpGeo.TabStop = false;
 			this.grpGeo.Tag = "";
@@ -892,7 +957,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtNome.Location = new System.Drawing.Point(424, 136);
 			this.txtNome.Name = "txtNome";
-			this.txtNome.Size = new System.Drawing.Size(400, 20);
+			this.txtNome.Size = new System.Drawing.Size(455, 20);
 			this.txtNome.TabIndex = 13;
 			this.txtNome.Tag = "registry.forename";
 			this.txtNome.TextChanged += new System.EventHandler(this.txtNome_TextChanged);
@@ -934,7 +999,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.cmbStatoCivile.ItemHeight = 13;
 			this.cmbStatoCivile.Location = new System.Drawing.Point(536, 72);
 			this.cmbStatoCivile.Name = "cmbStatoCivile";
-			this.cmbStatoCivile.Size = new System.Drawing.Size(288, 21);
+			this.cmbStatoCivile.Size = new System.Drawing.Size(343, 21);
 			this.cmbStatoCivile.TabIndex = 10;
 			this.cmbStatoCivile.Tag = "registry.idmaritalstatus";
 			this.cmbStatoCivile.ValueMember = "idmaritalstatus";
@@ -959,7 +1024,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.cmbTitolo.ItemHeight = 13;
 			this.cmbTitolo.Location = new System.Drawing.Point(536, 40);
 			this.cmbTitolo.Name = "cmbTitolo";
-			this.cmbTitolo.Size = new System.Drawing.Size(288, 21);
+			this.cmbTitolo.Size = new System.Drawing.Size(343, 21);
 			this.cmbTitolo.TabIndex = 7;
 			this.cmbTitolo.Tag = "registry.idtitle";
 			this.cmbTitolo.ValueMember = "idtitle";
@@ -1023,7 +1088,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabPagamento.Controls.Add(this.btnPagInserisci);
 			this.tabPagamento.Location = new System.Drawing.Point(4, 23);
 			this.tabPagamento.Name = "tabPagamento";
-			this.tabPagamento.Size = new System.Drawing.Size(855, 499);
+			this.tabPagamento.Size = new System.Drawing.Size(910, 499);
 			this.tabPagamento.TabIndex = 2;
 			this.tabPagamento.Text = "Modalità di Pagamento";
 			this.tabPagamento.UseVisualStyleBackColor = true;
@@ -1039,7 +1104,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dgrPagamento.Location = new System.Drawing.Point(16, 48);
 			this.dgrPagamento.Name = "dgrPagamento";
 			this.dgrPagamento.ReadOnly = true;
-			this.dgrPagamento.Size = new System.Drawing.Size(823, 445);
+			this.dgrPagamento.Size = new System.Drawing.Size(878, 445);
 			this.dgrPagamento.TabIndex = 7;
 			this.dgrPagamento.Tag = "registrypaymethod.anagrafica.anagrafica";
 			// 
@@ -1078,7 +1143,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabIndirizzo.Controls.Add(this.btnIndInserisci);
 			this.tabIndirizzo.Location = new System.Drawing.Point(4, 23);
 			this.tabIndirizzo.Name = "tabIndirizzo";
-			this.tabIndirizzo.Size = new System.Drawing.Size(855, 499);
+			this.tabIndirizzo.Size = new System.Drawing.Size(910, 499);
 			this.tabIndirizzo.TabIndex = 3;
 			this.tabIndirizzo.Text = "Indirizzi";
 			this.tabIndirizzo.UseVisualStyleBackColor = true;
@@ -1094,7 +1159,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dgrIndirizzo.Location = new System.Drawing.Point(16, 48);
 			this.dgrIndirizzo.Name = "dgrIndirizzo";
 			this.dgrIndirizzo.ReadOnly = true;
-			this.dgrIndirizzo.Size = new System.Drawing.Size(823, 445);
+			this.dgrIndirizzo.Size = new System.Drawing.Size(878, 445);
 			this.dgrIndirizzo.TabIndex = 11;
 			this.dgrIndirizzo.Tag = "registryaddress.anagraficasingle.anagraficasingle";
 			// 
@@ -1127,53 +1192,153 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			// 
 			// tabAltriDati
 			// 
-			this.tabAltriDati.Controls.Add(this.label14);
-			this.tabAltriDati.Controls.Add(this.label12);
-			this.tabAltriDati.Controls.Add(this.textBox6);
-			this.tabAltriDati.Controls.Add(this.groupBox7);
-			this.tabAltriDati.Controls.Add(this.chhEntePubblico);
-			this.tabAltriDati.Controls.Add(this.textBox3);
-			this.tabAltriDati.Controls.Add(this.chkBankItaliaProceeds);
-			this.tabAltriDati.Controls.Add(this.groupBox6);
-			this.tabAltriDati.Controls.Add(this.groupBox5);
-			this.tabAltriDati.Controls.Add(this.groupBox10);
-			this.tabAltriDati.Controls.Add(this.checkBox1);
-			this.tabAltriDati.Controls.Add(this.groupBox4);
-			this.tabAltriDati.Controls.Add(this.groupBox3);
-			this.tabAltriDati.Controls.Add(this.txtDescrizione);
-			this.tabAltriDati.Controls.Add(this.label6);
+			this.tabAltriDati.Controls.Add(this.tabControl3);
 			this.tabAltriDati.Location = new System.Drawing.Point(4, 23);
 			this.tabAltriDati.Name = "tabAltriDati";
-			this.tabAltriDati.Size = new System.Drawing.Size(855, 499);
+			this.tabAltriDati.Size = new System.Drawing.Size(910, 499);
 			this.tabAltriDati.TabIndex = 9;
 			this.tabAltriDati.Text = "Altri Dati";
 			this.tabAltriDati.UseVisualStyleBackColor = true;
 			// 
-			// label14
+			// tabControl3
 			// 
-			this.label14.Location = new System.Drawing.Point(333, 265);
-			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(216, 17);
-			this.label14.TabIndex = 72;
-			this.label14.Text = "Codice IPA/Codice destinatario per la FE";
-			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.tabControl3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabControl3.Controls.Add(this.tabPrincipale);
+			this.tabControl3.Controls.Add(this.tabFatture);
+			this.tabControl3.Controls.Add(this.tabClassificazioni);
+			this.tabControl3.Controls.Add(this.tabAltro);
+			this.tabControl3.Location = new System.Drawing.Point(8, 6);
+			this.tabControl3.Name = "tabControl3";
+			this.tabControl3.SelectedIndex = 0;
+			this.tabControl3.Size = new System.Drawing.Size(885, 490);
+			this.tabControl3.TabIndex = 73;
 			// 
-			// label12
+			// tabPrincipale
 			// 
-			this.label12.Location = new System.Drawing.Point(333, 287);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(216, 17);
-			this.label12.TabIndex = 71;
-			this.label12.Text = "Codice IPA soggetto conferente PerlaPA";
-			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.tabPrincipale.Controls.Add(this.groupBox10);
+			this.tabPrincipale.Controls.Add(this.groupBox5);
+			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
+			this.tabPrincipale.Name = "tabPrincipale";
+			this.tabPrincipale.Size = new System.Drawing.Size(877, 464);
+			this.tabPrincipale.TabIndex = 3;
+			this.tabPrincipale.Text = "EP";
+			this.tabPrincipale.UseVisualStyleBackColor = true;
 			// 
-			// textBox6
+			// groupBox10
 			// 
-			this.textBox6.Location = new System.Drawing.Point(563, 288);
-			this.textBox6.Name = "textBox6";
-			this.textBox6.Size = new System.Drawing.Size(83, 20);
-			this.textBox6.TabIndex = 65;
-			this.textBox6.Tag = "registry.ipa_perlapa";
+			this.groupBox10.Controls.Add(this.textBox1);
+			this.groupBox10.Controls.Add(this.txtCodiceCausaleDeb);
+			this.groupBox10.Controls.Add(this.button9);
+			this.groupBox10.Location = new System.Drawing.Point(7, 17);
+			this.groupBox10.Name = "groupBox10";
+			this.groupBox10.Size = new System.Drawing.Size(410, 80);
+			this.groupBox10.TabIndex = 47;
+			this.groupBox10.TabStop = false;
+			this.groupBox10.Tag = "AutoManage.txtCodiceCausaleDeb.tree.(in_use = \'S\')";
+			this.groupBox10.Text = "Causale di debito";
+			this.groupBox10.UseCompatibleTextRendering = true;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(182, 13);
+			this.textBox1.Multiline = true;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(222, 56);
+			this.textBox1.TabIndex = 2;
+			this.textBox1.TabStop = false;
+			this.textBox1.Tag = "accmotiveapplied_debit.motive";
+			// 
+			// txtCodiceCausaleDeb
+			// 
+			this.txtCodiceCausaleDeb.Location = new System.Drawing.Point(10, 48);
+			this.txtCodiceCausaleDeb.Name = "txtCodiceCausaleDeb";
+			this.txtCodiceCausaleDeb.Size = new System.Drawing.Size(166, 20);
+			this.txtCodiceCausaleDeb.TabIndex = 1;
+			this.txtCodiceCausaleDeb.Tag = "accmotiveapplied_debit.codemotive?registrymainview.codemotivedebit";
+			// 
+			// button9
+			// 
+			this.button9.Location = new System.Drawing.Point(8, 16);
+			this.button9.Name = "button9";
+			this.button9.Size = new System.Drawing.Size(104, 23);
+			this.button9.TabIndex = 0;
+			this.button9.Tag = "manage.accmotiveapplied_debit.tree";
+			this.button9.Text = "Causale";
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox5.Controls.Add(this.textBox2);
+			this.groupBox5.Controls.Add(this.txtCodiceCausaleCredit);
+			this.groupBox5.Controls.Add(this.button10);
+			this.groupBox5.Location = new System.Drawing.Point(461, 17);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(370, 80);
+			this.groupBox5.TabIndex = 48;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Tag = "AutoManage.txtCodiceCausaleCredit.tree.(in_use = \'S\')";
+			this.groupBox5.Text = "Causale di credito";
+			this.groupBox5.UseCompatibleTextRendering = true;
+			// 
+			// textBox2
+			// 
+			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox2.Location = new System.Drawing.Point(120, 13);
+			this.textBox2.Multiline = true;
+			this.textBox2.Name = "textBox2";
+			this.textBox2.ReadOnly = true;
+			this.textBox2.Size = new System.Drawing.Size(244, 56);
+			this.textBox2.TabIndex = 2;
+			this.textBox2.TabStop = false;
+			this.textBox2.Tag = "accmotiveapplied_credit.motive";
+			// 
+			// txtCodiceCausaleCredit
+			// 
+			this.txtCodiceCausaleCredit.Location = new System.Drawing.Point(10, 48);
+			this.txtCodiceCausaleCredit.Name = "txtCodiceCausaleCredit";
+			this.txtCodiceCausaleCredit.Size = new System.Drawing.Size(104, 20);
+			this.txtCodiceCausaleCredit.TabIndex = 1;
+			this.txtCodiceCausaleCredit.Tag = "accmotiveapplied_credit.codemotive?registrymainview.codemotivecredit";
+			// 
+			// button10
+			// 
+			this.button10.Location = new System.Drawing.Point(8, 16);
+			this.button10.Name = "button10";
+			this.button10.Size = new System.Drawing.Size(104, 23);
+			this.button10.TabIndex = 0;
+			this.button10.Tag = "manage.accmotiveapplied_credit.tree";
+			this.button10.Text = "Causale";
+			// 
+			// tabFatture
+			// 
+			this.tabFatture.Controls.Add(this.textBox3);
+			this.tabFatture.Controls.Add(this.groupBox7);
+			this.tabFatture.Controls.Add(this.label12);
+			this.tabFatture.Controls.Add(this.chhEntePubblico);
+			this.tabFatture.Controls.Add(this.chkBankItaliaProceeds);
+			this.tabFatture.Controls.Add(this.checkBox1);
+			this.tabFatture.Controls.Add(this.label14);
+			this.tabFatture.Controls.Add(this.textBox6);
+			this.tabFatture.Location = new System.Drawing.Point(4, 22);
+			this.tabFatture.Name = "tabFatture";
+			this.tabFatture.Padding = new System.Windows.Forms.Padding(3);
+			this.tabFatture.Size = new System.Drawing.Size(877, 464);
+			this.tabFatture.TabIndex = 1;
+			this.tabFatture.Text = "Fatture";
+			this.tabFatture.UseVisualStyleBackColor = true;
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(247, 13);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.Size = new System.Drawing.Size(83, 20);
+			this.textBox3.TabIndex = 54;
+			this.textBox3.Tag = "registry.ipa_fe";
 			// 
 			// groupBox7
 			// 
@@ -1186,9 +1351,9 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.groupBox7.Controls.Add(this.textBox4);
 			this.groupBox7.Controls.Add(this.label11);
 			this.groupBox7.Controls.Add(this.chkRifAmm);
-			this.groupBox7.Location = new System.Drawing.Point(16, 383);
+			this.groupBox7.Location = new System.Drawing.Point(6, 84);
 			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(831, 100);
+			this.groupBox7.Size = new System.Drawing.Size(671, 100);
 			this.groupBox7.TabIndex = 64;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Fatturazione elettronica";
@@ -1199,7 +1364,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox5.Location = new System.Drawing.Point(72, 70);
 			this.textBox5.Name = "textBox5";
-			this.textBox5.Size = new System.Drawing.Size(493, 20);
+			this.textBox5.Size = new System.Drawing.Size(551, 20);
 			this.textBox5.TabIndex = 71;
 			this.textBox5.Tag = "registry.pec_fe";
 			// 
@@ -1218,7 +1383,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtIndirizzoEmail.Location = new System.Drawing.Point(72, 42);
 			this.txtIndirizzoEmail.Name = "txtIndirizzoEmail";
-			this.txtIndirizzoEmail.Size = new System.Drawing.Size(493, 20);
+			this.txtIndirizzoEmail.Size = new System.Drawing.Size(551, 20);
 			this.txtIndirizzoEmail.TabIndex = 69;
 			this.txtIndirizzoEmail.Tag = "registry.email_fe";
 			// 
@@ -1233,9 +1398,9 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			// 
 			// textBox4
 			// 
-			this.textBox4.Location = new System.Drawing.Point(481, 18);
+			this.textBox4.Location = new System.Drawing.Point(500, 18);
 			this.textBox4.Name = "textBox4";
-			this.textBox4.Size = new System.Drawing.Size(100, 20);
+			this.textBox4.Size = new System.Drawing.Size(123, 20);
 			this.textBox4.TabIndex = 2;
 			this.textBox4.Tag = "registry.sdi_defrifamm";
 			// 
@@ -1259,39 +1424,352 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.chkRifAmm.Text = "Non rifiutare in assenza di rif.amm.";
 			this.chkRifAmm.UseVisualStyleBackColor = true;
 			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(73, 39);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(145, 19);
+			this.label12.TabIndex = 71;
+			this.label12.Text = "Codice IPA soggetto conferente PerlaPA";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// chhEntePubblico
 			// 
-			this.chhEntePubblico.Location = new System.Drawing.Point(333, 233);
+			this.chhEntePubblico.Location = new System.Drawing.Point(6, 229);
 			this.chhEntePubblico.Name = "chhEntePubblico";
 			this.chhEntePubblico.Size = new System.Drawing.Size(389, 28);
 			this.chhEntePubblico.TabIndex = 63;
 			this.chhEntePubblico.Tag = "registry.flag_pa:S:N";
 			this.chhEntePubblico.Text = "Applica lo split payment  (per le fatture di vendita)";
 			// 
-			// textBox3
-			// 
-			this.textBox3.Location = new System.Drawing.Point(563, 264);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(83, 20);
-			this.textBox3.TabIndex = 54;
-			this.textBox3.Tag = "registry.ipa_fe";
-			// 
 			// chkBankItaliaProceeds
 			// 
-			this.chkBankItaliaProceeds.Location = new System.Drawing.Point(333, 209);
+			this.chkBankItaliaProceeds.Location = new System.Drawing.Point(6, 202);
 			this.chkBankItaliaProceeds.Name = "chkBankItaliaProceeds";
 			this.chkBankItaliaProceeds.Size = new System.Drawing.Size(346, 28);
 			this.chkBankItaliaProceeds.TabIndex = 52;
 			this.chkBankItaliaProceeds.Tag = "registry.flagbankitaliaproceeds:S:N";
 			this.chkBankItaliaProceeds.Text = "Regolarizzazione Riscossioni presso  T.P.S. - Banca d\'Italia";
 			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(6, 263);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(303, 17);
+			this.checkBox1.TabIndex = 3;
+			this.checkBox1.Tag = "registry.authorization_free:S:N";
+			this.checkBox1.Text = "Esente ai fini dell\'autorizzazione dell\' Agente di Riscossione";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(3, 13);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(216, 17);
+			this.label14.TabIndex = 72;
+			this.label14.Text = "Codice IPA/Codice destinatario per la FE";
+			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox6
+			// 
+			this.textBox6.Location = new System.Drawing.Point(247, 39);
+			this.textBox6.Name = "textBox6";
+			this.textBox6.Size = new System.Drawing.Size(83, 20);
+			this.textBox6.TabIndex = 65;
+			this.textBox6.Tag = "registry.ipa_perlapa";
+			// 
+			// tabClassificazioni
+			// 
+			this.tabClassificazioni.Controls.Add(this.label25);
+			this.tabClassificazioni.Controls.Add(this.textBox9);
+			this.tabClassificazioni.Controls.Add(this.groupBox12);
+			this.tabClassificazioni.Controls.Add(this.groupBox8);
+			this.tabClassificazioni.Controls.Add(this.groupBox3);
+			this.tabClassificazioni.Location = new System.Drawing.Point(4, 22);
+			this.tabClassificazioni.Name = "tabClassificazioni";
+			this.tabClassificazioni.Padding = new System.Windows.Forms.Padding(3);
+			this.tabClassificazioni.Size = new System.Drawing.Size(877, 464);
+			this.tabClassificazioni.TabIndex = 0;
+			this.tabClassificazioni.Text = "Classificazioni";
+			this.tabClassificazioni.UseVisualStyleBackColor = true;
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(626, 13);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(50, 13);
+			this.label25.TabIndex = 26;
+			this.label25.Text = "Tipologia";
+			// 
+			// textBox9
+			// 
+			this.textBox9.Location = new System.Drawing.Point(699, 10);
+			this.textBox9.Name = "textBox9";
+			this.textBox9.Size = new System.Drawing.Size(164, 20);
+			this.textBox9.TabIndex = 25;
+			this.textBox9.Tag = "registry.extension";
+			// 
+			// groupBox12
+			// 
+			this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox12.Controls.Add(this.label23);
+			this.groupBox12.Controls.Add(this.label24);
+			this.groupBox12.Controls.Add(this.cmbDip);
+			this.groupBox12.Controls.Add(this.cmbNaturagiu);
+			this.groupBox12.Controls.Add(this.grpNace);
+			this.groupBox12.Controls.Add(this.gboxAteco);
+			this.groupBox12.Location = new System.Drawing.Point(8, 119);
+			this.groupBox12.Name = "groupBox12";
+			this.groupBox12.Size = new System.Drawing.Size(863, 201);
+			this.groupBox12.TabIndex = 18;
+			this.groupBox12.TabStop = false;
+			this.groupBox12.Text = "Enti e Aziende";
+			this.groupBox12.Enter += new System.EventHandler(this.groupBox12_Enter);
+			// 
+			// label23
+			// 
+			this.label23.AutoSize = true;
+			this.label23.Location = new System.Drawing.Point(19, 150);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(100, 13);
+			this.label23.TabIndex = 24;
+			this.label23.Text = "Numero dipartimenti";
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(37, 114);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(81, 13);
+			this.label24.TabIndex = 23;
+			this.label24.Text = "Natura giuridica";
+			// 
+			// cmbDip
+			// 
+			this.cmbDip.DataSource = this.DS.numerodip;
+			this.cmbDip.DisplayMember = "sortcode";
+			this.cmbDip.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbDip.Location = new System.Drawing.Point(124, 147);
+			this.cmbDip.Name = "cmbDip";
+			this.cmbDip.Size = new System.Drawing.Size(328, 21);
+			this.cmbDip.TabIndex = 22;
+			this.cmbDip.Tag = "registry.idnumerodip";
+			this.cmbDip.ValueMember = "idnumerodip";
+			// 
+			// cmbNaturagiu
+			// 
+			this.cmbNaturagiu.DataSource = this.DS.naturagiur;
+			this.cmbNaturagiu.DisplayMember = "title";
+			this.cmbNaturagiu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbNaturagiu.Location = new System.Drawing.Point(124, 108);
+			this.cmbNaturagiu.Name = "cmbNaturagiu";
+			this.cmbNaturagiu.Size = new System.Drawing.Size(328, 21);
+			this.cmbNaturagiu.TabIndex = 21;
+			this.cmbNaturagiu.Tag = "registry.idnaturagiur";
+			this.cmbNaturagiu.ValueMember = "idnaturagiur";
+			// 
+			// grpNace
+			// 
+			this.grpNace.Controls.Add(this.textBox7);
+			this.grpNace.Controls.Add(this.textBox8);
+			this.grpNace.Location = new System.Drawing.Point(454, 19);
+			this.grpNace.Name = "grpNace";
+			this.grpNace.Size = new System.Drawing.Size(393, 67);
+			this.grpNace.TabIndex = 20;
+			this.grpNace.TabStop = false;
+			this.grpNace.Tag = "";
+			this.grpNace.Text = "NACE";
+			// 
+			// textBox7
+			// 
+			this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox7.Location = new System.Drawing.Point(8, 32);
+			this.textBox7.Name = "textBox7";
+			this.textBox7.Size = new System.Drawing.Size(113, 20);
+			this.textBox7.TabIndex = 5;
+			this.textBox7.Tag = "nace.idnace?x";
+			// 
+			// textBox8
+			// 
+			this.textBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox8.Location = new System.Drawing.Point(127, 11);
+			this.textBox8.Multiline = true;
+			this.textBox8.Name = "textBox8";
+			this.textBox8.ReadOnly = true;
+			this.textBox8.Size = new System.Drawing.Size(257, 44);
+			this.textBox8.TabIndex = 4;
+			this.textBox8.TabStop = false;
+			this.textBox8.Tag = "nace.activity";
+			// 
+			// gboxAteco
+			// 
+			this.gboxAteco.Controls.Add(this.txtUPB);
+			this.gboxAteco.Controls.Add(this.txtDescrUPB);
+			this.gboxAteco.Location = new System.Drawing.Point(8, 19);
+			this.gboxAteco.Name = "gboxAteco";
+			this.gboxAteco.Size = new System.Drawing.Size(366, 67);
+			this.gboxAteco.TabIndex = 19;
+			this.gboxAteco.TabStop = false;
+			this.gboxAteco.Tag = "";
+			this.gboxAteco.Text = "ATECO";
+			// 
+			// txtUPB
+			// 
+			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtUPB.Location = new System.Drawing.Point(9, 33);
+			this.txtUPB.Name = "txtUPB";
+			this.txtUPB.Size = new System.Drawing.Size(121, 20);
+			this.txtUPB.TabIndex = 5;
+			this.txtUPB.Tag = "ateco.codice?x";
+			// 
+			// txtDescrUPB
+			// 
+			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDescrUPB.Location = new System.Drawing.Point(135, 12);
+			this.txtDescrUPB.Multiline = true;
+			this.txtDescrUPB.Name = "txtDescrUPB";
+			this.txtDescrUPB.ReadOnly = true;
+			this.txtDescrUPB.Size = new System.Drawing.Size(228, 44);
+			this.txtDescrUPB.TabIndex = 4;
+			this.txtDescrUPB.TabStop = false;
+			this.txtDescrUPB.Tag = "ateco.title";
+			// 
+			// groupBox8
+			// 
+			this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox8.Controls.Add(this.label22);
+			this.groupBox8.Controls.Add(this.cmbistituto);
+			this.groupBox8.Location = new System.Drawing.Point(8, 37);
+			this.groupBox8.Name = "groupBox8";
+			this.groupBox8.Size = new System.Drawing.Size(863, 73);
+			this.groupBox8.TabIndex = 16;
+			this.groupBox8.TabStop = false;
+			this.groupBox8.Text = "Docenti";
+			// 
+			// label22
+			// 
+			this.label22.AutoSize = true;
+			this.label22.Location = new System.Drawing.Point(22, 42);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(116, 13);
+			this.label22.TabIndex = 85;
+			this.label22.Text = "Istituto, Ente o Azienda";
+			// 
+			// cmbistituto
+			// 
+			this.cmbistituto.DataSource = this.DS.registry_istituti;
+			this.cmbistituto.DisplayMember = "title";
+			this.cmbistituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbistituto.Location = new System.Drawing.Point(144, 39);
+			this.cmbistituto.Name = "cmbistituto";
+			this.cmbistituto.Size = new System.Drawing.Size(618, 21);
+			this.cmbistituto.TabIndex = 84;
+			this.cmbistituto.Tag = "registry.idreg_istituti";
+			this.cmbistituto.ValueMember = "idreg";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox3.Controls.Add(this.buttonVecchiaClassificazione);
+			this.groupBox3.Controls.Add(this.comboBoxVecchiaClassificazione);
+			this.groupBox3.Controls.Add(this.cmdClassificazione);
+			this.groupBox3.Controls.Add(this.cmbClassificazione);
+			this.groupBox3.Location = new System.Drawing.Point(8, 346);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(863, 48);
+			this.groupBox3.TabIndex = 1;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Classificazioni";
+			// 
+			// buttonVecchiaClassificazione
+			// 
+			this.buttonVecchiaClassificazione.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.buttonVecchiaClassificazione.ImageIndex = 0;
+			this.buttonVecchiaClassificazione.ImageList = this.imageList1;
+			this.buttonVecchiaClassificazione.Location = new System.Drawing.Point(8, 16);
+			this.buttonVecchiaClassificazione.Name = "buttonVecchiaClassificazione";
+			this.buttonVecchiaClassificazione.Size = new System.Drawing.Size(104, 22);
+			this.buttonVecchiaClassificazione.TabIndex = 1;
+			this.buttonVecchiaClassificazione.Tag = "manage.registrykind.lista";
+			this.buttonVecchiaClassificazione.Text = "Classificazione:";
+			this.buttonVecchiaClassificazione.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// imageList1
+			// 
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.imageList1.Images.SetKeyName(0, "");
+			// 
+			// comboBoxVecchiaClassificazione
+			// 
+			this.comboBoxVecchiaClassificazione.DataSource = this.DS.registrykind;
+			this.comboBoxVecchiaClassificazione.DisplayMember = "description";
+			this.comboBoxVecchiaClassificazione.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxVecchiaClassificazione.Location = new System.Drawing.Point(112, 16);
+			this.comboBoxVecchiaClassificazione.Name = "comboBoxVecchiaClassificazione";
+			this.comboBoxVecchiaClassificazione.Size = new System.Drawing.Size(216, 21);
+			this.comboBoxVecchiaClassificazione.TabIndex = 2;
+			this.comboBoxVecchiaClassificazione.Tag = "registry.idregistrykind";
+			this.comboBoxVecchiaClassificazione.ValueMember = "idregistrykind";
+			// 
+			// cmdClassificazione
+			// 
+			this.cmdClassificazione.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.cmdClassificazione.ImageIndex = 0;
+			this.cmdClassificazione.ImageList = this.imageList1;
+			this.cmdClassificazione.Location = new System.Drawing.Point(333, 16);
+			this.cmdClassificazione.Name = "cmdClassificazione";
+			this.cmdClassificazione.Size = new System.Drawing.Size(129, 22);
+			this.cmdClassificazione.TabIndex = 3;
+			this.cmdClassificazione.Tag = "manage.centralizedcategory.lista";
+			this.cmdClassificazione.Text = "Classif. centralizzata";
+			this.cmdClassificazione.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbClassificazione
+			// 
+			this.cmbClassificazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbClassificazione.DataSource = this.DS.centralizedcategory;
+			this.cmbClassificazione.DisplayMember = "description";
+			this.cmbClassificazione.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbClassificazione.Location = new System.Drawing.Point(462, 16);
+			this.cmbClassificazione.Name = "cmbClassificazione";
+			this.cmbClassificazione.Size = new System.Drawing.Size(393, 21);
+			this.cmbClassificazione.TabIndex = 4;
+			this.cmbClassificazione.Tag = "registry.idcentralizedcategory";
+			this.cmbClassificazione.ValueMember = "idcentralizedcategory";
+			// 
+			// tabAltro
+			// 
+			this.tabAltro.Controls.Add(this.groupBox6);
+			this.tabAltro.Controls.Add(this.txtDescrizione);
+			this.tabAltro.Controls.Add(this.label6);
+			this.tabAltro.Controls.Add(this.groupBox4);
+			this.tabAltro.Location = new System.Drawing.Point(4, 22);
+			this.tabAltro.Name = "tabAltro";
+			this.tabAltro.Size = new System.Drawing.Size(877, 464);
+			this.tabAltro.TabIndex = 2;
+			this.tabAltro.Text = "Altro";
+			this.tabAltro.UseVisualStyleBackColor = true;
+			// 
 			// groupBox6
 			// 
 			this.groupBox6.Controls.Add(this.txtCCP);
 			this.groupBox6.Controls.Add(this.label8);
-			this.groupBox6.Location = new System.Drawing.Point(8, 208);
+			this.groupBox6.Location = new System.Drawing.Point(13, 31);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(264, 48);
+			this.groupBox6.Size = new System.Drawing.Size(269, 48);
 			this.groupBox6.TabIndex = 51;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Conto Corrente Postale";
@@ -1313,104 +1791,27 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.label8.TabIndex = 49;
 			this.label8.Text = "CCP di Riscossione";
 			// 
-			// groupBox5
+			// txtDescrizione
 			// 
-			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox5.Controls.Add(this.textBox2);
-			this.groupBox5.Controls.Add(this.txtCodiceCausaleCredit);
-			this.groupBox5.Controls.Add(this.button10);
-			this.groupBox5.Location = new System.Drawing.Point(344, 128);
-			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(503, 80);
-			this.groupBox5.TabIndex = 48;
-			this.groupBox5.TabStop = false;
-			this.groupBox5.Tag = "AutoManage.txtCodiceCausaleCredit.tree.(in_use = \'S\')";
-			this.groupBox5.Text = "Causale di credito";
-			this.groupBox5.UseCompatibleTextRendering = true;
+			this.txtDescrizione.Location = new System.Drawing.Point(13, 357);
+			this.txtDescrizione.Multiline = true;
+			this.txtDescrizione.Name = "txtDescrizione";
+			this.txtDescrizione.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDescrizione.Size = new System.Drawing.Size(849, 94);
+			this.txtDescrizione.TabIndex = 4;
+			this.txtDescrizione.Tag = "registry.annotation";
 			// 
-			// textBox2
+			// label6
 			// 
-			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox2.Location = new System.Drawing.Point(120, 16);
-			this.textBox2.Multiline = true;
-			this.textBox2.Name = "textBox2";
-			this.textBox2.ReadOnly = true;
-			this.textBox2.Size = new System.Drawing.Size(377, 56);
-			this.textBox2.TabIndex = 2;
-			this.textBox2.TabStop = false;
-			this.textBox2.Tag = "accmotiveapplied_credit.motive";
-			// 
-			// txtCodiceCausaleCredit
-			// 
-			this.txtCodiceCausaleCredit.Location = new System.Drawing.Point(10, 48);
-			this.txtCodiceCausaleCredit.Name = "txtCodiceCausaleCredit";
-			this.txtCodiceCausaleCredit.Size = new System.Drawing.Size(104, 20);
-			this.txtCodiceCausaleCredit.TabIndex = 1;
-			this.txtCodiceCausaleCredit.Tag = "accmotiveapplied_credit.codemotive?registrymainview.codemotivecredit";
-			// 
-			// button10
-			// 
-			this.button10.Location = new System.Drawing.Point(8, 16);
-			this.button10.Name = "button10";
-			this.button10.Size = new System.Drawing.Size(104, 23);
-			this.button10.TabIndex = 0;
-			this.button10.Tag = "manage.accmotiveapplied_credit.tree";
-			this.button10.Text = "Causale";
-			// 
-			// groupBox10
-			// 
-			this.groupBox10.Controls.Add(this.textBox1);
-			this.groupBox10.Controls.Add(this.txtCodiceCausaleDeb);
-			this.groupBox10.Controls.Add(this.button9);
-			this.groupBox10.Location = new System.Drawing.Point(8, 128);
-			this.groupBox10.Name = "groupBox10";
-			this.groupBox10.Size = new System.Drawing.Size(328, 80);
-			this.groupBox10.TabIndex = 47;
-			this.groupBox10.TabStop = false;
-			this.groupBox10.Tag = "AutoManage.txtCodiceCausaleDeb.tree.(in_use = \'S\')";
-			this.groupBox10.Text = "Causale di debito";
-			this.groupBox10.UseCompatibleTextRendering = true;
-			// 
-			// textBox1
-			// 
-			this.textBox1.Location = new System.Drawing.Point(120, 16);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(200, 56);
-			this.textBox1.TabIndex = 2;
-			this.textBox1.TabStop = false;
-			this.textBox1.Tag = "accmotiveapplied_debit.motive";
-			// 
-			// txtCodiceCausaleDeb
-			// 
-			this.txtCodiceCausaleDeb.Location = new System.Drawing.Point(10, 48);
-			this.txtCodiceCausaleDeb.Name = "txtCodiceCausaleDeb";
-			this.txtCodiceCausaleDeb.Size = new System.Drawing.Size(104, 20);
-			this.txtCodiceCausaleDeb.TabIndex = 1;
-			this.txtCodiceCausaleDeb.Tag = "accmotiveapplied_debit.codemotive?registrymainview.codemotivedebit";
-			// 
-			// button9
-			// 
-			this.button9.Location = new System.Drawing.Point(8, 16);
-			this.button9.Name = "button9";
-			this.button9.Size = new System.Drawing.Size(104, 23);
-			this.button9.TabIndex = 0;
-			this.button9.Tag = "manage.accmotiveapplied_debit.tree";
-			this.button9.Text = "Causale";
-			// 
-			// checkBox1
-			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(8, 108);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(303, 17);
-			this.checkBox1.TabIndex = 3;
-			this.checkBox1.Tag = "registry.authorization_free:S:N";
-			this.checkBox1.Text = "Esente ai fini dell\'autorizzazione dell\' Agente di Riscossione";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this.label6.Location = new System.Drawing.Point(10, 330);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(72, 19);
+			this.label6.TabIndex = 46;
+			this.label6.Text = "Annotazioni";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// groupBox4
 			// 
@@ -1422,9 +1823,9 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.groupBox4.Controls.Add(this.txtMatricolaext);
 			this.groupBox4.Controls.Add(this.lblBadge);
 			this.groupBox4.Controls.Add(this.txtBadge);
-			this.groupBox4.Location = new System.Drawing.Point(8, 50);
+			this.groupBox4.Location = new System.Drawing.Point(13, 102);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(839, 50);
+			this.groupBox4.Size = new System.Drawing.Size(849, 50);
 			this.groupBox4.TabIndex = 2;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Altre Informazioni";
@@ -1485,101 +1886,6 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.txtBadge.TabIndex = 7;
 			this.txtBadge.Tag = "registry.badgecode";
 			// 
-			// groupBox3
-			// 
-			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox3.Controls.Add(this.buttonVecchiaClassificazione);
-			this.groupBox3.Controls.Add(this.comboBoxVecchiaClassificazione);
-			this.groupBox3.Controls.Add(this.cmdClassificazione);
-			this.groupBox3.Controls.Add(this.cmbClassificazione);
-			this.groupBox3.Location = new System.Drawing.Point(8, 3);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(839, 48);
-			this.groupBox3.TabIndex = 1;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Classificazioni";
-			// 
-			// buttonVecchiaClassificazione
-			// 
-			this.buttonVecchiaClassificazione.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.buttonVecchiaClassificazione.ImageIndex = 0;
-			this.buttonVecchiaClassificazione.ImageList = this.imageList1;
-			this.buttonVecchiaClassificazione.Location = new System.Drawing.Point(8, 16);
-			this.buttonVecchiaClassificazione.Name = "buttonVecchiaClassificazione";
-			this.buttonVecchiaClassificazione.Size = new System.Drawing.Size(104, 22);
-			this.buttonVecchiaClassificazione.TabIndex = 1;
-			this.buttonVecchiaClassificazione.Tag = "manage.registrykind.lista";
-			this.buttonVecchiaClassificazione.Text = "Classificazione:";
-			this.buttonVecchiaClassificazione.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// imageList1
-			// 
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.imageList1.Images.SetKeyName(0, "");
-			// 
-			// comboBoxVecchiaClassificazione
-			// 
-			this.comboBoxVecchiaClassificazione.DataSource = this.DS.registrykind;
-			this.comboBoxVecchiaClassificazione.DisplayMember = "description";
-			this.comboBoxVecchiaClassificazione.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBoxVecchiaClassificazione.Location = new System.Drawing.Point(112, 16);
-			this.comboBoxVecchiaClassificazione.Name = "comboBoxVecchiaClassificazione";
-			this.comboBoxVecchiaClassificazione.Size = new System.Drawing.Size(216, 21);
-			this.comboBoxVecchiaClassificazione.TabIndex = 2;
-			this.comboBoxVecchiaClassificazione.Tag = "registry.idregistrykind";
-			this.comboBoxVecchiaClassificazione.ValueMember = "idregistrykind";
-			// 
-			// cmdClassificazione
-			// 
-			this.cmdClassificazione.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.cmdClassificazione.ImageIndex = 0;
-			this.cmdClassificazione.ImageList = this.imageList1;
-			this.cmdClassificazione.Location = new System.Drawing.Point(333, 16);
-			this.cmdClassificazione.Name = "cmdClassificazione";
-			this.cmdClassificazione.Size = new System.Drawing.Size(129, 22);
-			this.cmdClassificazione.TabIndex = 3;
-			this.cmdClassificazione.Tag = "manage.centralizedcategory.lista";
-			this.cmdClassificazione.Text = "Classif. centralizzata";
-			this.cmdClassificazione.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// cmbClassificazione
-			// 
-			this.cmbClassificazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmbClassificazione.DataSource = this.DS.centralizedcategory;
-			this.cmbClassificazione.DisplayMember = "description";
-			this.cmbClassificazione.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbClassificazione.Location = new System.Drawing.Point(462, 16);
-			this.cmbClassificazione.Name = "cmbClassificazione";
-			this.cmbClassificazione.Size = new System.Drawing.Size(369, 21);
-			this.cmbClassificazione.TabIndex = 4;
-			this.cmbClassificazione.Tag = "registry.idcentralizedcategory";
-			this.cmbClassificazione.ValueMember = "idcentralizedcategory";
-			// 
-			// txtDescrizione
-			// 
-			this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrizione.Location = new System.Drawing.Point(90, 314);
-			this.txtDescrizione.Multiline = true;
-			this.txtDescrizione.Name = "txtDescrizione";
-			this.txtDescrizione.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtDescrizione.Size = new System.Drawing.Size(751, 64);
-			this.txtDescrizione.TabIndex = 4;
-			this.txtDescrizione.Tag = "registry.annotation";
-			// 
-			// label6
-			// 
-			this.label6.Location = new System.Drawing.Point(11, 313);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(72, 19);
-			this.label6.TabIndex = 46;
-			this.label6.Text = "Annotazioni";
-			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
 			// tabContatto
 			// 
 			this.tabContatto.Controls.Add(this.dgrContatto);
@@ -1588,7 +1894,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabContatto.Controls.Add(this.btnContInserisci);
 			this.tabContatto.Location = new System.Drawing.Point(4, 23);
 			this.tabContatto.Name = "tabContatto";
-			this.tabContatto.Size = new System.Drawing.Size(855, 499);
+			this.tabContatto.Size = new System.Drawing.Size(910, 499);
 			this.tabContatto.TabIndex = 6;
 			this.tabContatto.Text = "Contatti";
 			this.tabContatto.UseVisualStyleBackColor = true;
@@ -1604,7 +1910,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dgrContatto.Location = new System.Drawing.Point(16, 48);
 			this.dgrContatto.Name = "dgrContatto";
 			this.dgrContatto.ReadOnly = true;
-			this.dgrContatto.Size = new System.Drawing.Size(823, 445);
+			this.dgrContatto.Size = new System.Drawing.Size(878, 445);
 			this.dgrContatto.TabIndex = 11;
 			this.dgrContatto.Tag = "registryreference.default.default";
 			// 
@@ -1641,7 +1947,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabPosGiuridica.Controls.Add(this.groupBox1);
 			this.tabPosGiuridica.Location = new System.Drawing.Point(4, 23);
 			this.tabPosGiuridica.Name = "tabPosGiuridica";
-			this.tabPosGiuridica.Size = new System.Drawing.Size(855, 499);
+			this.tabPosGiuridica.Size = new System.Drawing.Size(910, 499);
 			this.tabPosGiuridica.TabIndex = 4;
 			this.tabPosGiuridica.Text = "Dati per Missioni";
 			this.tabPosGiuridica.UseVisualStyleBackColor = true;
@@ -1657,7 +1963,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.groupBox2.Controls.Add(this.btnPosretInserisci);
 			this.groupBox2.Location = new System.Drawing.Point(8, 216);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(839, 277);
+			this.groupBox2.Size = new System.Drawing.Size(894, 277);
 			this.groupBox2.TabIndex = 13;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Reddito Annuo Presunto";
@@ -1673,7 +1979,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dgrPosRetributiva.Location = new System.Drawing.Point(16, 56);
 			this.dgrPosRetributiva.Name = "dgrPosRetributiva";
 			this.dgrPosRetributiva.ReadOnly = true;
-			this.dgrPosRetributiva.Size = new System.Drawing.Size(815, 212);
+			this.dgrPosRetributiva.Size = new System.Drawing.Size(870, 212);
 			this.dgrPosRetributiva.TabIndex = 15;
 			this.dgrPosRetributiva.Tag = "registrytaxablestatus.anagraficadetail.anagraficadetail";
 			// 
@@ -1714,7 +2020,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.groupBox1.Controls.Add(this.btnPosgiuInserisci);
 			this.groupBox1.Location = new System.Drawing.Point(8, 8);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(839, 200);
+			this.groupBox1.Size = new System.Drawing.Size(894, 200);
 			this.groupBox1.TabIndex = 12;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Inquadramento";
@@ -1730,7 +2036,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dgrPosGiuridica.Location = new System.Drawing.Point(16, 56);
 			this.dgrPosGiuridica.Name = "dgrPosGiuridica";
 			this.dgrPosGiuridica.ReadOnly = true;
-			this.dgrPosGiuridica.Size = new System.Drawing.Size(815, 136);
+			this.dgrPosGiuridica.Size = new System.Drawing.Size(870, 136);
 			this.dgrPosGiuridica.TabIndex = 11;
 			this.dgrPosGiuridica.Tag = "registrylegalstatus.anagraficadetail.anagraficadetail";
 			// 
@@ -1770,7 +2076,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabClassSup.ImageIndex = 0;
 			this.tabClassSup.Location = new System.Drawing.Point(4, 23);
 			this.tabClassSup.Name = "tabClassSup";
-			this.tabClassSup.Size = new System.Drawing.Size(855, 499);
+			this.tabClassSup.Size = new System.Drawing.Size(910, 499);
 			this.tabClassSup.TabIndex = 7;
 			this.tabClassSup.Text = "Classificazione";
 			this.tabClassSup.UseVisualStyleBackColor = true;
@@ -1786,7 +2092,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dgrClassSupp.Location = new System.Drawing.Point(16, 48);
 			this.dgrClassSupp.Name = "dgrClassSupp";
 			this.dgrClassSupp.ReadOnly = true;
-			this.dgrClassSupp.Size = new System.Drawing.Size(823, 445);
+			this.dgrClassSupp.Size = new System.Drawing.Size(878, 445);
 			this.dgrClassSupp.TabIndex = 15;
 			this.dgrClassSupp.Tag = "registrysorting.default.default";
 			// 
@@ -1824,7 +2130,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabCF.Controls.Add(this.grpCF);
 			this.tabCF.Location = new System.Drawing.Point(4, 23);
 			this.tabCF.Name = "tabCF";
-			this.tabCF.Size = new System.Drawing.Size(855, 499);
+			this.tabCF.Size = new System.Drawing.Size(910, 499);
 			this.tabCF.TabIndex = 10;
 			this.tabCF.Text = "CV e Dati Storici";
 			this.tabCF.UseVisualStyleBackColor = true;
@@ -1839,7 +2145,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.grpCV.Controls.Add(this.button20);
 			this.grpCV.Location = new System.Drawing.Point(8, 3);
 			this.grpCV.Name = "grpCV";
-			this.grpCV.Size = new System.Drawing.Size(842, 268);
+			this.grpCV.Size = new System.Drawing.Size(897, 268);
 			this.grpCV.TabIndex = 18;
 			this.grpCV.TabStop = false;
 			// 
@@ -1854,7 +2160,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.datagrid3.Location = new System.Drawing.Point(8, 42);
 			this.datagrid3.Name = "datagrid3";
 			this.datagrid3.ReadOnly = true;
-			this.datagrid3.Size = new System.Drawing.Size(828, 221);
+			this.datagrid3.Size = new System.Drawing.Size(883, 221);
 			this.datagrid3.TabIndex = 16;
 			this.datagrid3.Tag = "registrycvattachment.lista.default";
 			// 
@@ -1960,7 +2266,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.grpCF.Controls.Add(this.dataGrid1);
 			this.grpCF.Controls.Add(this.button2);
 			this.grpCF.Controls.Add(this.button1);
-			this.grpCF.Location = new System.Drawing.Point(433, 277);
+			this.grpCF.Location = new System.Drawing.Point(488, 277);
 			this.grpCF.Name = "grpCF";
 			this.grpCF.Size = new System.Drawing.Size(417, 224);
 			this.grpCF.TabIndex = 16;
@@ -2026,7 +2332,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabPage1.Location = new System.Drawing.Point(4, 23);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(855, 499);
+			this.tabPage1.Size = new System.Drawing.Size(910, 499);
 			this.tabPage1.TabIndex = 11;
 			this.tabPage1.Text = "DURC";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -2052,7 +2358,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dtgDurc.Location = new System.Drawing.Point(16, 48);
 			this.dtgDurc.Name = "dtgDurc";
 			this.dtgDurc.ReadOnly = true;
-			this.dtgDurc.Size = new System.Drawing.Size(823, 445);
+			this.dtgDurc.Size = new System.Drawing.Size(878, 445);
 			this.dtgDurc.TabIndex = 15;
 			this.dtgDurc.Tag = "registrydurc.anagraficadetail.anagraficadetail";
 			// 
@@ -2088,7 +2394,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabDocAmm.Controls.Add(this.tabControl2);
 			this.tabDocAmm.Location = new System.Drawing.Point(4, 23);
 			this.tabDocAmm.Name = "tabDocAmm";
-			this.tabDocAmm.Size = new System.Drawing.Size(855, 499);
+			this.tabDocAmm.Size = new System.Drawing.Size(910, 499);
 			this.tabDocAmm.TabIndex = 14;
 			this.tabDocAmm.Text = "Documenti Amministrativi";
 			this.tabDocAmm.UseVisualStyleBackColor = true;
@@ -2104,10 +2410,11 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabControl2.Controls.Add(this.tabOttempLegge68_99);
 			this.tabControl2.Controls.Add(this.tabRegolaritaFiscale);
 			this.tabControl2.Controls.Add(this.tabVerificaAnac);
+			this.tabControl2.Controls.Add(this.tabPattointegrita);
 			this.tabControl2.Location = new System.Drawing.Point(2, 3);
 			this.tabControl2.Name = "tabControl2";
 			this.tabControl2.SelectedIndex = 0;
-			this.tabControl2.Size = new System.Drawing.Size(852, 497);
+			this.tabControl2.Size = new System.Drawing.Size(907, 497);
 			this.tabControl2.TabIndex = 20;
 			// 
 			// tabVisura
@@ -2120,7 +2427,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabVisura.Location = new System.Drawing.Point(4, 22);
 			this.tabVisura.Name = "tabVisura";
 			this.tabVisura.Padding = new System.Windows.Forms.Padding(3);
-			this.tabVisura.Size = new System.Drawing.Size(844, 471);
+			this.tabVisura.Size = new System.Drawing.Size(899, 471);
 			this.tabVisura.TabIndex = 0;
 			this.tabVisura.Text = "Visura";
 			this.tabVisura.UseVisualStyleBackColor = true;
@@ -2146,7 +2453,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dataGrid5.Location = new System.Drawing.Point(5, 48);
 			this.dataGrid5.Name = "dataGrid5";
 			this.dataGrid5.ReadOnly = true;
-			this.dataGrid5.Size = new System.Drawing.Size(826, 411);
+			this.dataGrid5.Size = new System.Drawing.Size(881, 411);
 			this.dataGrid5.TabIndex = 19;
 			this.dataGrid5.Tag = "registryvisura.anagraficadetail.anagraficadetail";
 			// 
@@ -2187,7 +2494,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabCasellarioG.Location = new System.Drawing.Point(4, 22);
 			this.tabCasellarioG.Name = "tabCasellarioG";
 			this.tabCasellarioG.Padding = new System.Windows.Forms.Padding(3);
-			this.tabCasellarioG.Size = new System.Drawing.Size(844, 471);
+			this.tabCasellarioG.Size = new System.Drawing.Size(899, 471);
 			this.tabCasellarioG.TabIndex = 1;
 			this.tabCasellarioG.Text = "Casellario Giudiziale";
 			this.tabCasellarioG.UseVisualStyleBackColor = true;
@@ -2212,7 +2519,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dataGrid6.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid6.Location = new System.Drawing.Point(5, 48);
 			this.dataGrid6.Name = "dataGrid6";
-			this.dataGrid6.Size = new System.Drawing.Size(826, 409);
+			this.dataGrid6.Size = new System.Drawing.Size(881, 409);
 			this.dataGrid6.TabIndex = 3;
 			this.dataGrid6.Tag = "registrycasellariogiudiziale.anagraficadetail.anagraficadetail";
 			// 
@@ -2256,7 +2563,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabCasellarioA.Location = new System.Drawing.Point(4, 22);
 			this.tabCasellarioA.Name = "tabCasellarioA";
 			this.tabCasellarioA.Padding = new System.Windows.Forms.Padding(3);
-			this.tabCasellarioA.Size = new System.Drawing.Size(844, 471);
+			this.tabCasellarioA.Size = new System.Drawing.Size(899, 471);
 			this.tabCasellarioA.TabIndex = 1;
 			this.tabCasellarioA.Text = "Casellario Amministrativo";
 			this.tabCasellarioA.UseVisualStyleBackColor = true;
@@ -2281,7 +2588,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dataGrid7.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid7.Location = new System.Drawing.Point(5, 48);
 			this.dataGrid7.Name = "dataGrid7";
-			this.dataGrid7.Size = new System.Drawing.Size(826, 409);
+			this.dataGrid7.Size = new System.Drawing.Size(881, 409);
 			this.dataGrid7.TabIndex = 3;
 			this.dataGrid7.Tag = "registrycasellarioamministrativo.anagraficadetail.anagraficadetail";
 			// 
@@ -2325,7 +2632,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabOttempLegge68_99.Location = new System.Drawing.Point(4, 22);
 			this.tabOttempLegge68_99.Name = "tabOttempLegge68_99";
 			this.tabOttempLegge68_99.Padding = new System.Windows.Forms.Padding(3);
-			this.tabOttempLegge68_99.Size = new System.Drawing.Size(844, 471);
+			this.tabOttempLegge68_99.Size = new System.Drawing.Size(899, 471);
 			this.tabOttempLegge68_99.TabIndex = 2;
 			this.tabOttempLegge68_99.Text = "Ottemperanza Legge 68/99";
 			this.tabOttempLegge68_99.UseVisualStyleBackColor = true;
@@ -2350,7 +2657,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dataGrid8.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid8.Location = new System.Drawing.Point(5, 48);
 			this.dataGrid8.Name = "dataGrid8";
-			this.dataGrid8.Size = new System.Drawing.Size(826, 409);
+			this.dataGrid8.Size = new System.Drawing.Size(881, 409);
 			this.dataGrid8.TabIndex = 7;
 			this.dataGrid8.Tag = "registryottemperanzalegge68_99.anagraficadetail.anagraficadetail";
 			// 
@@ -2394,7 +2701,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabRegolaritaFiscale.Location = new System.Drawing.Point(4, 22);
 			this.tabRegolaritaFiscale.Name = "tabRegolaritaFiscale";
 			this.tabRegolaritaFiscale.Padding = new System.Windows.Forms.Padding(3);
-			this.tabRegolaritaFiscale.Size = new System.Drawing.Size(844, 471);
+			this.tabRegolaritaFiscale.Size = new System.Drawing.Size(899, 471);
 			this.tabRegolaritaFiscale.TabIndex = 3;
 			this.tabRegolaritaFiscale.Text = "Regolarità Fiscale";
 			this.tabRegolaritaFiscale.UseVisualStyleBackColor = true;
@@ -2419,7 +2726,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dataGrid9.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid9.Location = new System.Drawing.Point(5, 48);
 			this.dataGrid9.Name = "dataGrid9";
-			this.dataGrid9.Size = new System.Drawing.Size(826, 409);
+			this.dataGrid9.Size = new System.Drawing.Size(881, 409);
 			this.dataGrid9.TabIndex = 11;
 			this.dataGrid9.Tag = "registryregolaritafiscale.anagraficadetail.anagraficadetail";
 			// 
@@ -2463,7 +2770,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabVerificaAnac.Location = new System.Drawing.Point(4, 22);
 			this.tabVerificaAnac.Name = "tabVerificaAnac";
 			this.tabVerificaAnac.Padding = new System.Windows.Forms.Padding(3);
-			this.tabVerificaAnac.Size = new System.Drawing.Size(844, 471);
+			this.tabVerificaAnac.Size = new System.Drawing.Size(899, 471);
 			this.tabVerificaAnac.TabIndex = 4;
 			this.tabVerificaAnac.Text = "Verifica Anac";
 			this.tabVerificaAnac.UseVisualStyleBackColor = true;
@@ -2488,7 +2795,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.dataGrid10.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid10.Location = new System.Drawing.Point(5, 48);
 			this.dataGrid10.Name = "dataGrid10";
-			this.dataGrid10.Size = new System.Drawing.Size(826, 409);
+			this.dataGrid10.Size = new System.Drawing.Size(881, 409);
 			this.dataGrid10.TabIndex = 15;
 			this.dataGrid10.Tag = "registryverificaanac.anagraficadetail.anagraficadetail";
 			// 
@@ -2521,6 +2828,127 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.button37.Tag = "insert.anagraficadetail";
 			this.button37.Text = "Inserisci...";
 			this.button37.UseVisualStyleBackColor = true;
+			// 
+			// tabPattointegrita
+			// 
+			this.tabPattointegrita.Controls.Add(this.label21);
+			this.tabPattointegrita.Controls.Add(this.dgridPattointegrita);
+			this.tabPattointegrita.Controls.Add(this.button38);
+			this.tabPattointegrita.Controls.Add(this.button39);
+			this.tabPattointegrita.Controls.Add(this.button40);
+			this.tabPattointegrita.Location = new System.Drawing.Point(4, 22);
+			this.tabPattointegrita.Name = "tabPattointegrita";
+			this.tabPattointegrita.Size = new System.Drawing.Size(899, 471);
+			this.tabPattointegrita.TabIndex = 5;
+			this.tabPattointegrita.Text = "Patto di integrità";
+			this.tabPattointegrita.UseVisualStyleBackColor = true;
+			// 
+			// label21
+			// 
+			this.label21.AutoSize = true;
+			this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label21.Location = new System.Drawing.Point(323, 15);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(113, 15);
+			this.label21.TabIndex = 25;
+			this.label21.Text = "Patto di Integrità";
+			// 
+			// dgridPattointegrita
+			// 
+			this.dgridPattointegrita.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgridPattointegrita.CaptionVisible = false;
+			this.dgridPattointegrita.DataMember = "";
+			this.dgridPattointegrita.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgridPattointegrita.Location = new System.Drawing.Point(9, 44);
+			this.dgridPattointegrita.Name = "dgridPattointegrita";
+			this.dgridPattointegrita.ReadOnly = true;
+			this.dgridPattointegrita.Size = new System.Drawing.Size(881, 411);
+			this.dgridPattointegrita.TabIndex = 24;
+			this.dgridPattointegrita.Tag = "registrypattointegrita.anagraficadetail.anagraficadetail";
+			// 
+			// button38
+			// 
+			this.button38.Location = new System.Drawing.Point(9, 17);
+			this.button38.Name = "button38";
+			this.button38.Size = new System.Drawing.Size(68, 21);
+			this.button38.TabIndex = 21;
+			this.button38.Tag = "insert.anagraficadetail";
+			this.button38.Text = "Inserisci...";
+			// 
+			// button39
+			// 
+			this.button39.Location = new System.Drawing.Point(171, 17);
+			this.button39.Name = "button39";
+			this.button39.Size = new System.Drawing.Size(69, 21);
+			this.button39.TabIndex = 23;
+			this.button39.Tag = "delete";
+			this.button39.Text = "Elimina";
+			// 
+			// button40
+			// 
+			this.button40.Location = new System.Drawing.Point(91, 17);
+			this.button40.Name = "button40";
+			this.button40.Size = new System.Drawing.Size(68, 21);
+			this.button40.TabIndex = 22;
+			this.button40.Tag = "edit.anagraficadetail";
+			this.button40.Text = "Modifica...";
+			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGrid11);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGrid11
+			// 
+			this.dataGrid11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid11.DataMember = "";
+			this.dataGrid11.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid11.Location = new System.Drawing.Point(7, 42);
+			this.dataGrid11.Name = "dataGrid11";
+			this.dataGrid11.ReadOnly = true;
+			this.dataGrid11.Size = new System.Drawing.Size(895, 451);
+			this.dataGrid11.TabIndex = 23;
+			this.dataGrid11.Tag = "registryattachment.lista.default";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.default";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.default";
+			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// tabMod770
 			// 
@@ -2577,65 +3005,10 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.button16.Tag = "insert.default";
 			this.button16.Text = "Inserisci...";
 			// 
-			// tabAllegati
-			// 
-			this.tabAllegati.Controls.Add(this.dataGrid11);
-			this.tabAllegati.Controls.Add(this.btnDelAtt);
-			this.tabAllegati.Controls.Add(this.btnEditAtt);
-			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
-			this.tabAllegati.Name = "tabAllegati";
-			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(855, 499);
-			this.tabAllegati.TabIndex = 15;
-			this.tabAllegati.Text = "Allegati";
-			this.tabAllegati.UseVisualStyleBackColor = true;
-			// 
-			// dataGrid11
-			// 
-			this.dataGrid11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGrid11.DataMember = "";
-			this.dataGrid11.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGrid11.Location = new System.Drawing.Point(7, 42);
-			this.dataGrid11.Name = "dataGrid11";
-			this.dataGrid11.ReadOnly = true;
-			this.dataGrid11.Size = new System.Drawing.Size(840, 451);
-			this.dataGrid11.TabIndex = 23;
-			this.dataGrid11.Tag = "registryattachment.lista.default";
-			// 
-			// btnDelAtt
-			// 
-			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
-			this.btnDelAtt.Name = "btnDelAtt";
-			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
-			this.btnDelAtt.TabIndex = 22;
-			this.btnDelAtt.Tag = "delete";
-			this.btnDelAtt.Text = "Elimina";
-			// 
-			// btnEditAtt
-			// 
-			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
-			this.btnEditAtt.Name = "btnEditAtt";
-			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
-			this.btnEditAtt.TabIndex = 21;
-			this.btnEditAtt.Tag = "edit.default";
-			this.btnEditAtt.Text = "Modifica...";
-			// 
-			// btnInsAtt
-			// 
-			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
-			this.btnInsAtt.Name = "btnInsAtt";
-			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
-			this.btnInsAtt.TabIndex = 20;
-			this.btnInsAtt.Tag = "insert.default";
-			this.btnInsAtt.Text = "Inserisci...";
-			// 
 			// Frm_registry_anagrafica
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(865, 536);
+			this.ClientSize = new System.Drawing.Size(920, 536);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_registry_anagrafica";
 			this.Text = "frmRegistry";
@@ -2655,18 +3028,33 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabIndirizzo.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgrIndirizzo)).EndInit();
 			this.tabAltriDati.ResumeLayout(false);
-			this.tabAltriDati.PerformLayout();
-			this.groupBox7.ResumeLayout(false);
-			this.groupBox7.PerformLayout();
-			this.groupBox6.ResumeLayout(false);
-			this.groupBox6.PerformLayout();
-			this.groupBox5.ResumeLayout(false);
-			this.groupBox5.PerformLayout();
+			this.tabControl3.ResumeLayout(false);
+			this.tabPrincipale.ResumeLayout(false);
 			this.groupBox10.ResumeLayout(false);
 			this.groupBox10.PerformLayout();
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
+			this.tabFatture.ResumeLayout(false);
+			this.tabFatture.PerformLayout();
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
+			this.tabClassificazioni.ResumeLayout(false);
+			this.tabClassificazioni.PerformLayout();
+			this.groupBox12.ResumeLayout(false);
+			this.groupBox12.PerformLayout();
+			this.grpNace.ResumeLayout(false);
+			this.grpNace.PerformLayout();
+			this.gboxAteco.ResumeLayout(false);
+			this.gboxAteco.PerformLayout();
+			this.groupBox8.ResumeLayout(false);
+			this.groupBox8.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.tabAltro.ResumeLayout(false);
+			this.tabAltro.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
-			this.groupBox3.ResumeLayout(false);
 			this.tabContatto.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgrContatto)).EndInit();
 			this.tabPosGiuridica.ResumeLayout(false);
@@ -2706,10 +3094,13 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabVerificaAnac.ResumeLayout(false);
 			this.tabVerificaAnac.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid10)).EndInit();
-			this.tabMod770.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).EndInit();
+			this.tabPattointegrita.ResumeLayout(false);
+			this.tabPattointegrita.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgridPattointegrita)).EndInit();
 			this.tabAllegati.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid11)).EndInit();
+			this.tabMod770.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid4)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -2757,6 +3148,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
             GetData.SetStaticFilter(DS.accmotiveapplied_debit, filterEpOperationDeb);
             DataAccess.SetTableForReading(DS.accmotiveapplied_debit, "accmotiveapplied");
             DS.accmotiveapplied_debit.ExtendedProperties[MetaData.ExtraParams] = filterEpOperationDeb;
+			GetData.SetSorting(DS.registrylegalstatus, "start desc");
 
 
 		}
@@ -2835,6 +3227,95 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			//aggiornaDenominazione();
 			Meta.PrimaryDataTable.Rows[0]["title"] = txtDenominazione.Text;
             MetaData.SetDefault(DS.registryreference, "referencename", txtDenominazione.Text);
+
+			//Crea la riga in registry_aziende
+			
+			if (Meta.InsertMode) {
+				//prima svuota tutto perchè deve essere certo di non lasciare cadaveri
+				DS.registry.Rows[0]["extension"]=DBNull.Value;
+			
+				DataRow Curr = DS.registry.Rows[0];
+				object curr_idregistryclass = Curr["idregistryclass"];
+				if (curr_idregistryclass == DBNull.Value) return;
+				if ((curr_idregistryclass.ToString() != "21") && (curr_idregistryclass.ToString() != "23"))
+					return;
+
+				MetaData Aziende = MetaData.GetMetaData(this, "registry_aziende");
+				DS.registry.Rows[0]["extension"] = "aziende";
+			}
+			if (Meta.EditMode) {
+				DataRow R = DS.registry.Rows[0];
+				// Se la riga di registry è stata modificata e la tipologia è stata cambiata in 21 o 23,
+				// allora inserisce la riga in Aziende MA SOLO se non esiste già perchè
+				// se Registry nasce con 21(azienda), e poi lo cambio a 22(persona fisica), non viene fatta la delete su Aziende(!),
+				// quindi se poi da  22(persona fisica) la passo di nuovo a 21(azienda) non deve rifare la insert.
+				// Stessa cosa per 23.
+
+				if (R.RowState == DataRowState.Modified) {
+					if (R["idregistryclass"] != DBNull.Value 
+						&& (R["idregistryclass", DataRowVersion.Current] != R["idregistryclass", DataRowVersion.Original])
+						&& (R["idregistryclass", DataRowVersion.Original].ToString() != "21" && R["idregistryclass", DataRowVersion.Original].ToString() != "23")
+						&& (R["idregistryclass", DataRowVersion.Current].ToString() == "21" || R["idregistryclass", DataRowVersion.Current].ToString() == "23")
+						) {
+						DS.registry.Rows[0]["extension"] = "aziende";
+					}
+				}
+			}
+
+		}
+		public void MetaData_BeforeFill() {
+			if (Meta.InsertMode || Meta.EditMode) {
+				bool allineaTabRegistry = false;
+				//Se ci sono righe aggiunte o modificate, e se non vi è alcuna riga nella tabelle Estendenti
+				// allora chiama la funzione che provvederà ad allineare opportunamente le due tabelle
+				foreach (DataRow RLS in DS.registrylegalstatus.Select()) {
+					if (
+						((RLS.RowState == DataRowState.Added) || (RLS.RowState == DataRowState.Modified))
+						) {
+						allineaTabRegistry = true;
+					}
+				}
+				if (allineaTabRegistry) AllineaTabelleEstendenti();
+
+			}
+		}
+		public void AllineaTabelleEstendenti() {
+			if (Meta.InsertMode || Meta.EditMode) {
+				DataRow R = DS.registry.Rows[0];
+				foreach (DataRow RLS in DS.registrylegalstatus.Select()) {
+					if (RLS.RowState == DataRowState.Added) {
+						DataRow rPosition = getQualifica(RLS);
+						if (rPosition == null) continue;
+
+						object tipopersonale = rPosition["tipopersonale"];
+						if (tipopersonale == null) continue;
+
+						if ((tipopersonale.ToString() == "D") || (tipopersonale.ToString() == "R")) {
+							R["extension"] = "docenti";
+						}
+						else {
+							R["extension"] = "amministrativi";
+						}
+					}
+				}
+			}
+		}
+		public DataRow getQualifica(DataRow Rregistrylegalstatus) {
+			object flag_seg_config = conn.DO_READ_VALUE("seg_config", null, "flag");
+			if (flag_seg_config == null || flag_seg_config == DBNull.Value)
+				return null;
+			byte flag = CfgFn.GetNoNullByte(flag_seg_config);
+			if ((flag & 1) != 0) {
+				return null;
+			}
+			DataTable Tposition = conn.RUN_SELECT("position", "*", null,
+				QHS.CmpEq("idposition", Rregistrylegalstatus["idposition"]), null, true);
+			if ((Tposition == null) || Tposition.Rows.Count == 0) {
+				return null;
+			}
+			else {
+				return Tposition.Rows[0];
+			}
 		}
 
 		public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
@@ -3199,7 +3680,8 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
             if (Meta != null && Meta.DrawStateIsDone)  aggiornaDenominazione();
 		}
 
-        
+		private void groupBox12_Enter(object sender, EventArgs e) {
 
+		}
 	}
 }

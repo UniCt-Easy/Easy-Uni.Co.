@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -951,7 +951,7 @@ namespace itinerationlap_default{//missionetappa//
             object idallowancerule = Meta.Conn.DO_READ_VALUE("allowancerule", filterstart,
                           "max(idallowancerule)");
 
-            string filter = MissFun.GetQualificaClasseFilter(Cfg.idposition, Cfg.incomeclass);
+            string filter = MissFun.GetQualificaClasseFilter(Cfg.idposition,Cfg.livello,  Cfg.incomeclass);
             filter = QHS.AppAnd(QHS.CmpEq("idallowancerule", idallowancerule), filter);
 
             DataTable TempTable = Meta.Conn.RUN_SELECT("allowanceruledetail",
@@ -987,7 +987,7 @@ namespace itinerationlap_default{//missionetappa//
             object idallowancerule = Meta.Conn.DO_READ_VALUE("allowancerule", filterstart,
                           "max(idallowancerule)");
 
-            string filter = MissFun.GetQualificaClasseFilter(Cfg.idposition,Cfg.incomeclass);
+            string filter = MissFun.GetQualificaClasseFilter(Cfg.idposition, Cfg.livello, Cfg.incomeclass);
             filter = QHS.AppAnd(QHS.CmpEq("idallowancerule", idallowancerule), filter);
 
             DataTable TempTable = Meta.Conn.RUN_SELECT("allowanceruledetail",

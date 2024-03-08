@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabconvalida_segistabbr_0" class="nav-link active show" data-toggle="pill" data-target="#tabconvalida_segistabbr_0"><i class="fa fa-dot-circle-o mr-1"></i>Principale</a>
+		<a href="#tabconvalida_segistabbr_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabconvalida_segistabbr_0"><i class="fa fa-dot-circle-o mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabconvalida_segistabbr_1" class="nav-link" data-toggle="pill" data-target="#tabconvalida_segistabbr_1"><i class="fa fa-sign-out-alt mr-1"></i>Convalidanti</a>
+		<a href="#tabconvalida_segistabbr_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabconvalida_segistabbr_1"><i class="fa fa-sign-out-alt mr-1"></i>Convalidanti</a>
 	</li>
 
 	</ul>
@@ -26,7 +26,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#convalida_segistabbr_data").datetimepicker();
+    $("#convalida_segistabbr_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="convalida_segistabbr_data">Data</label>

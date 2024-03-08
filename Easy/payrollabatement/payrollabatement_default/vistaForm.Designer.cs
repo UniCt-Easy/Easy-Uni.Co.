@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,249 +15,220 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-namespace payrollabatement_default {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable payrollabatement{get { return this.Tables["payrollabatement"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable abatement{get { return this.Tables["abatement"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable abatementcode{get { return this.Tables["abatementcode"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable payroll{get { return this.Tables["payroll"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable tax{get { return this.Tables["tax"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace payrollabatement_default {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable payrollabatement 		=> Tables["payrollabatement"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable abatement 		=> Tables["abatement"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable abatementcode 		=> Tables["abatementcode"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable payroll 		=> Tables["payroll"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable tax 		=> Tables["tax"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaForm";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaForm.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("payrollabatement");
-	C= new DataColumn("idpayroll", typeof(System.Int32), "");
+	//////////////////// PAYROLLABATEMENT /////////////////////////////////
+	var tpayrollabatement= new DataTable("payrollabatement");
+	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idabatement", typeof(System.Int32), "");
+	tpayrollabatement.Columns.Add(C);
+	C= new DataColumn("idabatement", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tpayrollabatement.Columns.Add(C);
+	tpayrollabatement.Columns.Add( new DataColumn("taxcode", typeof(int)));
+	tpayrollabatement.Columns.Add( new DataColumn("annualamount", typeof(decimal)));
+	tpayrollabatement.Columns.Add( new DataColumn("curramount", typeof(decimal)));
+	Tables.Add(tpayrollabatement);
+	tpayrollabatement.PrimaryKey =  new DataColumn[]{tpayrollabatement.Columns["idpayroll"], tpayrollabatement.Columns["idabatement"]};
 
-	T.Columns.Add(new DataColumn("taxcode", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("annualamount", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("curramount", typeof(System.Decimal), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idpayroll"], 	T.Columns["idabatement"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("abatement");
-	C= new DataColumn("idabatement", typeof(System.Int32), "");
+	//////////////////// ABATEMENT /////////////////////////////////
+	var tabatement= new DataTable("abatement");
+	C= new DataColumn("idabatement", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("calculationkind", typeof(System.String), "");
+	tabatement.Columns.Add(C);
+	C= new DataColumn("calculationkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("taxcode", typeof(System.Int32), "");
+	tabatement.Columns.Add(C);
+	C= new DataColumn("taxcode", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tabatement.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("evaluatesp", typeof(System.String), "");
+	tabatement.Columns.Add(C);
+	C= new DataColumn("evaluatesp", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tabatement.Columns.Add(C);
+	tabatement.Columns.Add( new DataColumn("lu", typeof(string)));
+	tabatement.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tabatement.Columns.Add( new DataColumn("validitystart", typeof(DateTime)));
+	tabatement.Columns.Add( new DataColumn("validitystop", typeof(DateTime)));
+	tabatement.Columns.Add( new DataColumn("evaluationorder", typeof(int)));
+	tabatement.Columns.Add( new DataColumn("flagabatableexpense", typeof(string)));
+	tabatement.Columns.Add( new DataColumn("appliance", typeof(string)));
+	Tables.Add(tabatement);
+	tabatement.PrimaryKey =  new DataColumn[]{tabatement.Columns["idabatement"]};
 
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("validitystart", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("validitystop", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("evaluationorder", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("flagabatableexpense", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("appliance", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idabatement"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("abatementcode");
-	C= new DataColumn("idabatement", typeof(System.Int32), "");
+	//////////////////// ABATEMENTCODE /////////////////////////////////
+	var tabatementcode= new DataTable("abatementcode");
+	C= new DataColumn("idabatement", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ayear", typeof(System.Int32), "");
+	tabatementcode.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tabatementcode.Columns.Add(C);
+	tabatementcode.Columns.Add( new DataColumn("code", typeof(string)));
+	tabatementcode.Columns.Add( new DataColumn("description", typeof(string)));
+	tabatementcode.Columns.Add( new DataColumn("longdescription", typeof(string)));
+	tabatementcode.Columns.Add( new DataColumn("exemption", typeof(decimal)));
+	tabatementcode.Columns.Add( new DataColumn("maximal", typeof(decimal)));
+	tabatementcode.Columns.Add( new DataColumn("rate", typeof(decimal)));
+	Tables.Add(tabatementcode);
+	tabatementcode.PrimaryKey =  new DataColumn[]{tabatementcode.Columns["idabatement"], tabatementcode.Columns["ayear"]};
 
-	T.Columns.Add(new DataColumn("code", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("longdescription", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("exemption", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("maximal", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("rate", typeof(System.Decimal), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idabatement"], 	T.Columns["ayear"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("payroll");
-	C= new DataColumn("idpayroll", typeof(System.Int32), "");
+	//////////////////// PAYROLL /////////////////////////////////
+	var tpayroll= new DataTable("payroll");
+	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("npayroll", typeof(System.Int32), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("npayroll", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("disbursementdate", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("idresidence", typeof(System.Int32), ""));
-	C= new DataColumn("workingdays", typeof(System.Int16), "");
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("disbursementdate", typeof(DateTime)));
+	tpayroll.Columns.Add( new DataColumn("idresidence", typeof(int)));
+	C= new DataColumn("workingdays", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("feegross", typeof(System.Decimal), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("feegross", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("flagcomputed", typeof(System.String), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("flagcomputed", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idcon", typeof(System.String), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("idcon", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("currentrounding", typeof(System.Decimal), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("currentrounding", typeof(decimal));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("cu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("ct", typeof(System.DateTime), ""));
-	C= new DataColumn("enabletaxrelief", typeof(System.String), "");
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("lu", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tpayroll.Columns.Add( new DataColumn("cu", typeof(string)));
+	tpayroll.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	C= new DataColumn("enabletaxrelief", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("fiscalyear", typeof(System.Int32), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("fiscalyear", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("stop", typeof(System.DateTime), "");
+	tpayroll.Columns.Add(C);
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tpayroll.Columns.Add(C);
+	tpayroll.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
+	Tables.Add(tpayroll);
+	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idpayroll"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("tax");
-	C= new DataColumn("taxcode", typeof(System.Int32), "");
+	//////////////////// TAX /////////////////////////////////
+	var ttax= new DataTable("tax");
+	C= new DataColumn("taxcode", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("taxkind", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("fiscaltaxcode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagunabatable", typeof(System.String), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	ttax.Columns.Add( new DataColumn("taxkind", typeof(short)));
+	ttax.Columns.Add( new DataColumn("fiscaltaxcode", typeof(string)));
+	ttax.Columns.Add( new DataColumn("flagunabatable", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("taxablecode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("geoappliance", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("appliancebasis", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["taxcode"]};
-	T.PrimaryKey = key;
+	ttax.Columns.Add(C);
+	ttax.Columns.Add( new DataColumn("active", typeof(string)));
+	ttax.Columns.Add( new DataColumn("taxablecode", typeof(string)));
+	ttax.Columns.Add( new DataColumn("geoappliance", typeof(string)));
+	ttax.Columns.Add( new DataColumn("appliancebasis", typeof(string)));
+	Tables.Add(ttax);
+	ttax.PrimaryKey =  new DataColumn[]{ttax.Columns["taxcode"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["tax"];
-TChild= Tables["payrollabatement"];
-CPar = new DataColumn[1]{TPar.Columns["taxcode"]};
-CChild = new DataColumn[1]{TChild.Columns["taxcode"]};
-Relations.Add(new DataRelation("taxpayrollabatement",CPar,CChild));
+	#endregion
 
-TPar= Tables["abatementcode"];
-TChild= Tables["payrollabatement"];
-CPar = new DataColumn[1]{TPar.Columns["idabatement"]};
-CChild = new DataColumn[1]{TChild.Columns["idabatement"]};
-Relations.Add(new DataRelation("abatementcodepayrollabatement",CPar,CChild));
 
-TPar= Tables["abatement"];
-TChild= Tables["payrollabatement"];
-CPar = new DataColumn[1]{TPar.Columns["idabatement"]};
-CChild = new DataColumn[1]{TChild.Columns["idabatement"]};
-Relations.Add(new DataRelation("abatementpayrollabatement",CPar,CChild));
+	#region DataRelation creation
+	var cPar = new []{payroll.Columns["idpayroll"]};
+	var cChild = new []{payrollabatement.Columns["idpayroll"]};
+	Relations.Add(new DataRelation("payrollpayrollabatement",cPar,cChild,false));
 
-TPar= Tables["payroll"];
-TChild= Tables["payrollabatement"];
-CPar = new DataColumn[1]{TPar.Columns["idpayroll"]};
-CChild = new DataColumn[1]{TChild.Columns["idpayroll"]};
-Relations.Add(new DataRelation("payrollpayrollabatement",CPar,CChild));
+	cPar = new []{abatement.Columns["idabatement"]};
+	cChild = new []{payrollabatement.Columns["idabatement"]};
+	Relations.Add(new DataRelation("abatementpayrollabatement",cPar,cChild,false));
+
+	cPar = new []{abatementcode.Columns["idabatement"]};
+	cChild = new []{payrollabatement.Columns["idabatement"]};
+	Relations.Add(new DataRelation("abatementcodepayrollabatement",cPar,cChild,false));
+
+	cPar = new []{tax.Columns["taxcode"]};
+	cChild = new []{payrollabatement.Columns["taxcode"]};
+	Relations.Add(new DataRelation("taxpayrollabatement",cPar,cChild,false));
+
+	#endregion
 
 }
 }

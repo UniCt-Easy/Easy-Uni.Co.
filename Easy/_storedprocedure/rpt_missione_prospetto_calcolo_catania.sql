@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@ GO
 
 -- setuser 'amministrazione' 
 -- SETUSER'AMM'
--- rpt_missione_prospetto_calcolo_catania 2019,2019, 1, 30
+-- rpt_missione_prospetto_calcolo_catania 2022, 2022, 1, 10
 CREATE  PROCEDURE  [rpt_missione_prospetto_calcolo_catania]
 	@ayear smallint, 
 	@yitineration smallint, 
@@ -44,6 +44,7 @@ CREATE TABLE #rls
 (
 	idreg int,
 	idposition int,
+	livello int,
 	incomeclass int,
 	yitineration smallint,
 	nitineration int,
@@ -52,8 +53,8 @@ CREATE TABLE #rls
 	start datetime
 )
 
-INSERT INTO #rls (idreg, idposition, incomeclass, yitineration, nitineration,iditineration, start)
-SELECT RLS.idreg, RLS.idposition, isnull(RLS.incomeclass,0), I.yitineration, I.nitineration,  I.iditineration,I.start
+INSERT INTO #rls (idreg, idposition, livello,  incomeclass, yitineration, nitineration,iditineration, start)
+SELECT RLS.idreg, RLS.idposition, RLS.livello, isnull(RLS.incomeclass,0), I.yitineration, I.nitineration,  I.iditineration,I.start
 FROM registrylegalstatus RLS
 JOIN itineration I
 	ON I.idreg = RLS.idreg
@@ -73,6 +74,7 @@ SET foreigngroupnumber =
 FROM foreigngroupruledetail DET
 JOIN foreigngrouprule F		ON F.idforeigngrouprule = DET.idforeigngrouprule
 WHERE DET.idposition = #rls.idposition
+	and DET.livello = #rls.livello
 	AND #rls.incomeclass BETWEEN DET.minincomeclass AND DET.maxincomeclass
 	AND F.start =
 		(SELECT MAX(F2.start)
@@ -159,6 +161,11 @@ delete #address
 	)>1
 
 
+	DECLARE @textclause varchar(1000)
+	SELECT	@textclause = 	itinerationclause
+	FROM	web_config
+
+
 SELECT 
 	itineration.yitineration,
 	itineration.nitineration,
@@ -198,7 +205,7 @@ SELECT
 	itineration.starttime,
 	itineration.stoptime,
 	itineration.adate,
-	position.description as position,
+	isnull(position.description,'')+ isnull(convert(varchar(2), #rls.livello),'') as position,
 	#rls.incomeclass AS currentclass,
 	#rls.foreigngroupnumber,
 	itineration.applierannotations,
@@ -212,7 +219,9 @@ SELECT
 	case 
 		when itineration.iditinerationstatus = 6 /*Approvata*/ then itineration.adate
 		else (select max(lt) from itinerationauthagency where itinerationauthagency.iditineration = itineration.iditineration) 
-	end as 'printdate'
+	end as 'printdate',
+	@textclause as itinerationclause,
+	clause_accepted as clause_accepted
 FROM itineration
 JOIN registry			ON registry.idreg = itineration.idreg
 --join registryaddressview ra	ON ra.idreg = registry.idreg and ra.codeaddress = '07_SW_DEF' and ra.active = 'S' and ra.stop is null
@@ -248,3 +257,5 @@ SET ANSI_NULLS ON
 GO
 
  
+ 
+  

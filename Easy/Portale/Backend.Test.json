@@ -1,0 +1,225 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Portale EasyPay",
+		"_postman_id": "4ca83b8d-db4d-912a-8a56-50863356fe34",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registrazione azienda",
+			"request": {
+				"url": "http://localhost:54471/auth/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"axelgenus\",\n  \"password\": \"ciccio\",\n  \"email\": \"axelgenus@gmail.com\",\n  \"partitaiva\": \"02890460781\",\n  \"codicefiscale\": \"02890460781\",\n  \"denominazione\": \"Tempo Srl\"\n}"
+				},
+				"description": "Registrazione di una persona giuridica"
+			},
+			"response": []
+		},
+		{
+			"name": "Registrazione utente",
+			"request": {
+				"url": "http://localhost:54471/auth/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"axelgenus\",\n  \"password\": \"ciccio\",\n  \"email\": \"axelgenus@gmail.com\",\n  \"codicefiscale\": \"CLRLSN82P18L425J\",\n  \"cognome\": \"Calorì\",\n  \"nome\": \"Alessandro\",\n  \"datanascita\": \"1982-09-18\"\n}"
+				},
+				"description": "Registrazione di una persona fisica"
+			},
+			"response": []
+		},
+		{
+			"name": "Invio codice attivazione",
+			"request": {
+				"url": "http://localhost:54471/auth/sendcode/?email=axelgenus@gmail.com",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Chiede l'invio del codice di attivazione per un utente non confermato."
+			},
+			"response": []
+		},
+		{
+			"name": "Attivazione account",
+			"request": {
+				"url": "http://localhost:54471/auth/activate/?email=axelgenus@gmail.com&code=543B9E",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Attiva un account registrato tramite il codice di attivazione."
+			},
+			"response": []
+		},
+		{
+			"name": "Reimposta password",
+			"request": {
+				"url": "http://localhost:54471/auth/resetpassword/?email=axelgenus@gmail.com",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Reimposta la password relativa all'account specificato."
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"url": "http://localhost:54471/auth/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"axelgenus\",\n  \"password\": \"ciccio\"\n}"
+				},
+				"description": "Effettua il login."
+			},
+			"response": []
+		},
+		{
+			"name": "Controlla token",
+			"request": {
+				"url": "http://localhost:54471/auth/user",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXRhV2ViTGlicmFyeSIsImlhdCI6IjIwMTctMDItMDlUMTM6Mjg6NTMuOTQ3NDg5MSswMTowMCIsImV4cCI6IjIwMTctMDItMDlUMTM6NTg6NTMuOTQ3NDg5MSswMTowMCIsInN1YiI6ImF4ZWxnZW51cyIsImF1ZCI6Ijo6MSIsImVtYWlsIjoiYXhlbGdlbnVzQGdtYWlsLmNvbSIsInRpdGxlIjoiQ2Fsb3LDrCBBbGVzc2FuZHJvIiwicm9sZXMiOlsidXNlciJdfQ.WRvGTIeOIOs8MY594yK3J1VA1DiPmFbdlIhYxGBVSKw5K8XOs-aC1akZns7MzsPWrDBGOt-fpl91Iggq25cxtQ",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Controlla la validità del token e restituisce i dati memorizzati all'interno."
+			},
+			"response": []
+		},
+		{
+			"name": "GetList",
+			"request": {
+				"url": "http://localhost:54471/meta/list/registryreference/default/?email=alessandro",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXRhV2ViTGlicmFyeSIsImlhdCI6IjIwMTctMDItMDlUMTM6Mjg6NTMuOTQ3NDg5MSswMTowMCIsImV4cCI6IjIwMTctMDItMDlUMTM6NTg6NTMuOTQ3NDg5MSswMTowMCIsInN1YiI6ImF4ZWxnZW51cyIsImF1ZCI6Ijo6MSIsImVtYWlsIjoiYXhlbGdlbnVzQGdtYWlsLmNvbSIsInRpdGxlIjoiQ2Fsb3LDrCBBbGVzc2FuZHJvIiwicm9sZXMiOlsidXNlciJdfQ.WRvGTIeOIOs8MY594yK3J1VA1DiPmFbdlIhYxGBVSKw5K8XOs-aC1akZns7MzsPWrDBGOt-fpl91Iggq25cxtQ",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetDataSet",
+			"request": {
+				"url": "http://localhost:54471/meta/edit/registry/anagrafica/?idreg=1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXRhV2ViTGlicmFyeSIsImlhdCI6IjIwMTctMDItMDlUMTM6Mjg6NTMuOTQ3NDg5MSswMTowMCIsImV4cCI6IjIwMTctMDItMDlUMTM6NTg6NTMuOTQ3NDg5MSswMTowMCIsInN1YiI6ImF4ZWxnZW51cyIsImF1ZCI6Ijo6MSIsImVtYWlsIjoiYXhlbGdlbnVzQGdtYWlsLmNvbSIsInRpdGxlIjoiQ2Fsb3LDrCBBbGVzc2FuZHJvIiwicm9sZXMiOlsidXNlciJdfQ.WRvGTIeOIOs8MY594yK3J1VA1DiPmFbdlIhYxGBVSKw5K8XOs-aC1akZns7MzsPWrDBGOt-fpl91Iggq25cxtQ",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetNewRow",
+			"request": {
+				"url": "http://localhost:54471/meta/new/registry/anagrafica/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXRhV2ViTGlicmFyeSIsImlhdCI6IjIwMTctMDItMDlUMTM6Mjg6NTMuOTQ3NDg5MSswMTowMCIsImV4cCI6IjIwMTctMDItMDlUMTM6NTg6NTMuOTQ3NDg5MSswMTowMCIsInN1YiI6ImF4ZWxnZW51cyIsImF1ZCI6Ijo6MSIsImVtYWlsIjoiYXhlbGdlbnVzQGdtYWlsLmNvbSIsInRpdGxlIjoiQ2Fsb3LDrCBBbGVzc2FuZHJvIiwicm9sZXMiOlsidXNlciJdfQ.WRvGTIeOIOs8MY594yK3J1VA1DiPmFbdlIhYxGBVSKw5K8XOs-aC1akZns7MzsPWrDBGOt-fpl91Iggq25cxtQ",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Aggiunge una nuova riga ad una tabella primaria."
+			},
+			"response": []
+		},
+		{
+			"name": "GetNewRow (parent/child)",
+			"request": {
+				"url": "http://localhost:54471/meta/new/registry/anagrafica/registry/registryaddress/?idreg=9990001",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXRhV2ViTGlicmFyeSIsImlhdCI6IjIwMTctMDItMDlUMTM6Mjg6NTMuOTQ3NDg5MSswMTowMCIsImV4cCI6IjIwMTctMDItMDlUMTM6NTg6NTMuOTQ3NDg5MSswMTowMCIsInN1YiI6ImF4ZWxnZW51cyIsImF1ZCI6Ijo6MSIsImVtYWlsIjoiYXhlbGdlbnVzQGdtYWlsLmNvbSIsInRpdGxlIjoiQ2Fsb3LDrCBBbGVzc2FuZHJvIiwicm9sZXMiOlsidXNlciJdfQ.WRvGTIeOIOs8MY594yK3J1VA1DiPmFbdlIhYxGBVSKw5K8XOs-aC1akZns7MzsPWrDBGOt-fpl91Iggq25cxtQ",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"registry\": [\n      {\n        \"__state__\": 4,\n        \"idreg\": 9990001,\n        \"title\": null,\n        \"cf\": null,\n        \"p_iva\": null,\n        \"residence\": 1,\n        \"idregistrykind\": null,\n        \"annotation\": null,\n        \"birthdate\": null,\n        \"gender\": null,\n        \"surname\": null,\n        \"forename\": null,\n        \"foreigncf\": null,\n        \"active\": \"S\",\n        \"txt\": null,\n        \"rtf\": null,\n        \"cu\": \"-\",\n        \"ct\": \"2017-02-09T13:31:23.5837339\",\n        \"lu\": \"-\",\n        \"lt\": \"2017-02-09T13:31:23.5837339\",\n        \"extmatricula\": null,\n        \"idregistryclass\": null,\n        \"idcentralizedcategory\": null,\n        \"idtitle\": null,\n        \"idmaritalstatus\": null,\n        \"badgecode\": null,\n        \"maritalsurname\": null,\n        \"idcategory\": null,\n        \"idcity\": null,\n        \"location\": null,\n        \"idnation\": null,\n        \"authorization_free\": \"N\",\n        \"multi_cf\": \"N\",\n        \"idaccmotivecredit\": null,\n        \"idaccmotivedebit\": null,\n        \"ccp\": null,\n        \"flagbankitaliaproceeds\": \"N\",\n        \"ipa_fe\": null,\n        \"flag_pa\": \"N\",\n        \"sdi_norifamm\": \"N\",\n        \"sdi_defrifamm\": null\n      }\n    ],\n    \"maritalstatus\": [],\n    \"category\": [],\n    \"centralizedcategory\": [],\n    \"position\": [],\n    \"registrylegalstatus\": [],\n    \"registryreference\": [],\n    \"registrysorting\": [],\n    \"registrykind\": [],\n    \"title\": [],\n    \"registrypaymethod\": [],\n    \"registrytaxablestatus\": [],\n    \"residence\": [],\n    \"address\": [],\n    \"registryclass\": [],\n    \"geo_city\": [],\n    \"geo_cityview\": [],\n    \"geo_city_agencyview\": [],\n    \"registryaddress\": [],\n    \"registrymainview\": [],\n    \"geo_nazione_alias\": [],\n    \"geo_nation\": [],\n    \"sortingview\": [],\n    \"registrycf\": [],\n    \"registrypiva\": [],\n    \"accmotiveapplied_debit\": [],\n    \"accmotiveapplied_credit\": [],\n    \"registrydurc\": [],\n    \"durckind\": [],\n    \"registrycvattachment\": [],\n    \"registryspecialcategory770\": [],\n    \"specialcategory770\": [],\n    \"dalia_position\": []\n  }\n}"
+				},
+				"description": "Aggiunge una nuova riga in una delle tabelle non primarie del dataset."
+			},
+			"response": []
+		},
+		{
+			"name": "DoPost",
+			"request": {
+				"url": "http://localhost:54471/meta/save/registry/anagrafica/?idreg=1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXRhV2ViTGlicmFyeSIsImlhdCI6IjIwMTctMDItMDlUMTI6NTU6NTcuMzgxNzc3MSswMTowMCIsImV4cCI6IjIwMTctMDItMDlUMTM6MjU6NTcuMzgxNzc3MSswMTowMCIsInN1YiI6ImF4ZWxnZW51cyIsImF1ZCI6Ijo6MSIsImVtYWlsIjoiYXhlbGdlbnVzQGdtYWlsLmNvbSIsInRpdGxlIjoiQ2Fsb3LDrCBBbGVzc2FuZHJvIiwicm9sZXMiOlsidXNlciJdfQ.P50YHhUOTjNFJPMiBxYTM_bl0r-qLXTSTmJhjXC7R7fkEDDH_J__N0ubmzT8Nvb6QEPObAQVNdUQhRT1H7xN8g",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"registry\": [\n      {\n        \"__state__\": 2,\n        \"idreg\": 1,\n        \"title\": \"Amministrazione Centrale\",\n        \"cf\": null,\n        \"p_iva\": null,\n        \"residence\": 1,\n        \"idregistrykind\": null,\n        \"annotation\": null,\n        \"birthdate\": null,\n        \"gender\": null,\n        \"surname\": null,\n        \"forename\": null,\n        \"foreigncf\": null,\n        \"active\": \"S\",\n        \"txt\": null,\n        \"rtf\": null,\n        \"cu\": \"-\",\n        \"ct\": \"2014-01-20T13:13:11.043\",\n        \"lu\": \"-\",\n        \"lt\": \"2014-01-20T13:13:11.043\",\n        \"extmatricula\": null,\n        \"idregistryclass\": \"21\",\n        \"idcentralizedcategory\": null,\n        \"idtitle\": null,\n        \"idmaritalstatus\": null,\n        \"badgecode\": null,\n        \"maritalsurname\": null,\n        \"idcategory\": null,\n        \"idcity\": null,\n        \"location\": null,\n        \"idnation\": null,\n        \"authorization_free\": \"N\",\n        \"multi_cf\": \"S\",\n        \"idaccmotivecredit\": null,\n        \"idaccmotivedebit\": null,\n        \"ccp\": null,\n        \"flagbankitaliaproceeds\": \"N\",\n        \"ipa_fe\": null,\n        \"flag_pa\": \"N\",\n        \"sdi_norifamm\": \"N\",\n        \"sdi_defrifamm\": null\n      }\n    ],\n    \"maritalstatus\": [],\n    \"category\": [],\n    \"centralizedcategory\": [],\n    \"position\": [],\n    \"registrylegalstatus\": [],\n    \"registryreference\": [],\n    \"registrysorting\": [],\n    \"registrykind\": [],\n    \"title\": [],\n    \"registrypaymethod\": [\n      {\n        \"__state__\": 2,\n        \"regmodcode\": \"C/C amministrazione centrale\",\n        \"idreg\": 1,\n        \"idpaymethod\": 4,\n        \"cin\": \"R\",\n        \"iban\": \"IT96R0200803474000400002765\",\n        \"idbank\": \"02008\",\n        \"idcab\": \"03474\",\n        \"cc\": \"000400002765\",\n        \"paymentdescr\": null,\n        \"paymentexpiring\": null,\n        \"idexpirationkind\": null,\n        \"flagstandard\": \"S\",\n        \"txt\": null,\n        \"rtf\": null,\n        \"cu\": \"vincenzo.laudando\",\n        \"ct\": \"2014-03-05T10:36:38.377\",\n        \"lu\": \"ASSISTENZA\",\n        \"active\": \"S\",\n        \"lt\": \"2017-02-08T15:00:57.83\",\n        \"iddeputy\": null,\n        \"refexternaldoc\": null,\n        \"idregistrypaymethod\": 1,\n        \"idcurrency\": null,\n        \"extracode\": null,\n        \"biccode\": null,\n        \"flag\": 0,\n        \"idchargehandling\": null,\n        \"notes\": null\n      }\n    ],\n    \"registrytaxablestatus\": [],\n    \"residence\": [\n      {\n        \"__state__\": 2,\n        \"idresidence\": 1,\n        \"coderesidence\": \"I\",\n        \"description\": \"Residente in Italia\",\n        \"lt\": null,\n        \"lu\": \"Software and more\",\n        \"active\": \"S\"\n      }\n    ],\n    \"address\": [\n      {\n        \"__state__\": 2,\n        \"idaddress\": 7,\n        \"description\": \"Predefinito\",\n        \"lt\": \"2006-03-10T12:40:57.333\",\n        \"lu\": \"Software and more\",\n        \"active\": \"S\",\n        \"codeaddress\": \"07_SW_DEF\"\n      }\n    ],\n    \"registryclass\": [\n      {\n        \"__state__\": 2,\n        \"idregistryclass\": \"21\",\n        \"description\": \"Società, enti commerciali, ditte individuali e studi associati\",\n        \"flagtitle\": \"S\",\n        \"flagcf\": \"S\",\n        \"flagp_iva\": \"S\",\n        \"flagqualification\": \"N\",\n        \"flagextmatricula\": \"N\",\n        \"flagbadgecode\": \"N\",\n        \"flagmaritalstatus\": \"N\",\n        \"flagforeigncf\": \"S\",\n        \"flagmaritalsurname\": \"N\",\n        \"flagothers\": \"S\",\n        \"flagtitle_forced\": \"N\",\n        \"flagcf_forced\": \"N\",\n        \"flagp_iva_forced\": \"N\",\n        \"flagqualification_forced\": \"N\",\n        \"flagextmatricula_forced\": \"N\",\n        \"flagbadgecode_forced\": \"N\",\n        \"flagmaritalstatus_forced\": \"N\",\n        \"flagforeigncf_forced\": \"N\",\n        \"flagmaritalsurname_forced\": \"N\",\n        \"flagothers_forced\": \"N\",\n        \"active\": \"S\",\n        \"cu\": \"Software and more\",\n        \"ct\": \"2005-12-23T14:43:09.453\",\n        \"lu\": \"assistenza\",\n        \"lt\": \"2016-03-23T13:13:03.687\",\n        \"flagresidence\": \"S\",\n        \"flagresidence_forced\": \"N\",\n        \"flagfiscalresidence\": \"S\",\n        \"flagfiscalresidence_forced\": \"N\",\n        \"flagcfbutton\": \"N\",\n        \"flaginfofromcfbutton\": \"N\",\n        \"flaghuman\": \"N\"\n      }\n    ],\n    \"geo_city\": [\n      {\n        \"__state__\": 2,\n        \"idcity\": 2341,\n        \"oldcity\": null,\n        \"newcity\": null,\n        \"title\": \"CASERTA\",\n        \"start\": null,\n        \"stop\": null,\n        \"idcountry\": 61,\n        \"lu\": \"Software and more\",\n        \"lt\": \"2003-11-20T00:00:00\"\n      }\n    ],\n    \"geo_cityview\": [],\n    \"geo_city_agencyview\": [],\n    \"registryaddress\": [\n      {\n        \"__state__\": 16,\n        \"idreg\": 1,\n        \"start\": \"1900-01-01T00:00:00\",\n        \"idaddresskind\": 7,\n        \"annotations\": \"AMMINISTRAZIONE CENTRALE\",\n        \"ct\": \"2014-01-20T13:14:22.12\",\n        \"cu\": \"Importazione\",\n        \"stop\": \"2017-01-01T00:00:00\",\n        \"active\": \"N\",\n        \"idcity\": 2341,\n        \"!descrtipoindirizzo\": null,\n        \"address\": \"VIALE BENEDUCE, 8\",\n        \"lt\": \"2017-02-09T13:00:28.3928753\",\n        \"lu\": \"ASSISTENZA\",\n        \"officename\": null,\n        \"cap\": \"81100\",\n        \"flagforeign\": \"N\",\n        \"!comune\": null,\n        \"location\": \"CASERTA\",\n        \"idnation\": null,\n        \"!localita\": null,\n        \"!nazione\": null,\n        \"recipientagency\": null\n      },\n      {\n        \"__state__\": 4,\n        \"idreg\": 1,\n        \"start\": \"2017-01-01T00:00:00\",\n        \"idaddresskind\": 7,\n        \"annotations\": \"AMMINISTRAZIONE CENTRALE 2\",\n        \"ct\": \"2017-02-09T13:00:28.3908678\",\n        \"cu\": \"ASSISTENZA\",\n        \"stop\": null,\n        \"active\": \"S\",\n        \"idcity\": 2341,\n        \"!descrtipoindirizzo\": null,\n        \"address\": \"VIALE BENEDUCE, 8\",\n        \"lt\": \"2017-02-09T13:00:28.3908678\",\n        \"lu\": \"ASSISTENZA\",\n        \"officename\": null,\n        \"cap\": \"81100\",\n        \"flagforeign\": \"N\",\n        \"!comune\": null,\n        \"location\": \"CASERTA\",\n        \"idnation\": null,\n        \"!localita\": null,\n        \"!nazione\": null,\n        \"recipientagency\": null\n      }\n    ],\n    \"registrymainview\": [],\n    \"geo_nazione_alias\": [],\n    \"geo_nation\": [],\n    \"sortingview\": [],\n    \"registrycf\": [],\n    \"registrypiva\": [],\n    \"accmotiveapplied_debit\": [],\n    \"accmotiveapplied_credit\": [],\n    \"registrydurc\": [],\n    \"durckind\": [],\n    \"registrycvattachment\": [],\n    \"registryspecialcategory770\": [],\n    \"specialcategory770\": [],\n    \"dalia_position\": []\n  },\n  \"messages\": [\n    {\n      \"audit\": \"SYSTM001\",\n      \"severity\": \"Errore\",\n      \"description\": \"Nell'intervallo di validità indicato esiste già un indirizzo di tipo Predefinito per l'anagrafica Amministrazione Centrale\",\n      \"table\": \"registryaddress\"\n    },\n    {\n      \"audit\": \"SYSTM001\",\n      \"severity\": \"Errore\",\n      \"description\": \"Nell'intervallo di validità indicato esiste già un indirizzo di tipo Predefinito  per la scheda anagrafica Amministrazione Centrale\",\n      \"table\": \"registryaddress\"\n    }\n  ]\n}"
+				},
+				"description": "Salva i dati contenuti nella richiesta"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -395,7 +395,7 @@ private void initClass() {
 
 	//////////////////// FLUSSOCREDITIDETAIL /////////////////////////////////
 	var tflussocreditidetail= new flussocreditidetailTable();
-	tflussocreditidetail.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idupb","idfinmotive","iduniqueformcode","idaccmotiverevenue","idaccmotivecredit","idaccmotiveundotax","idaccmotiveundotaxpost","idreg","nform","stop","competencystart","competencystop","description","idinvkind","yinv","ninv","invrownum","cf","annulment","flag","idunivoco","idsor1","idsor2","idsor3","idivakind","tax","number","idlist","p_iva","annotations","idupb_iva","iuv","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","idfinmotive_iva");
+	tflussocreditidetail.addBaseColumns("idflusso","iddetail","cu","ct","lu","lt","importoversamento","idestimkind","yestim","nestim","rownum","idupb","idfinmotive","iduniqueformcode","idaccmotiverevenue","idaccmotivecredit","idaccmotiveundotax","idaccmotiveundotaxpost","idreg","nform","stop","competencystart","competencystop","description","idinvkind","yinv","ninv","invrownum","cf","annulment","flag","idunivoco","idsor1","idsor2","idsor3","idivakind","tax","number","idlist","p_iva","annotations","idupb_iva","iuv","expirationdate","barcodevalue","barcodeimage","qrcodevalue","qrcodeimage","idfinmotive_iva","codicetassonomia");
 	Tables.Add(tflussocreditidetail);
 	tflussocreditidetail.defineKey("idflusso", "iddetail");
 
@@ -408,7 +408,7 @@ private void initClass() {
 
 	//////////////////// INVOICEDETAIL /////////////////////////////////
 	var tinvoicedetail= new invoicedetailTable();
-	tinvoicedetail.addBaseColumns("ninv","rownum","yinv","annotations","competencystart","paymentcompetency","competencystop","ct","cu","detaildescription","discount","idaccmotive","idmankind","idupb","lt","lu","manrownum","nman","number","tax","taxable","unabatable","yman","idestimkind","estimrownum","nestim","yestim","idgroup","idexp_taxable","idexp_iva","idinc_taxable","idinc_iva","ninv_main","yinv_main","idivakind","idinvkind","idsor1","idsor2","idsor3","idintrastatcode","idintrastatmeasure","weight","va3type","intrastatoperationkind","idintrastatservice","idintrastatsupplymethod","idlist","idunit","idpackage","unitsforpackage","npackage","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idpccdebitstatus","idpccdebitmotive","idcostpartition","expensekind","rounding","idepexp","idepacc","flagbit","idfinmotive","iduniqueformcode","ycon","ncon","codicevalore","codicetipo","idsor_siope","idepexp_pre","idfinmotive_iva");
+	tinvoicedetail.addBaseColumns("ninv","rownum","yinv","annotations","competencystart","paymentcompetency","competencystop","ct","cu","detaildescription","discount","idaccmotive","idmankind","idupb","lt","lu","manrownum","nman","number","tax","taxable","unabatable","yman","idestimkind","estimrownum","nestim","yestim","idgroup","idexp_taxable","idexp_iva","idinc_taxable","idinc_iva","ninv_main","yinv_main","idivakind","idinvkind","idsor1","idsor2","idsor3","idintrastatcode","idintrastatmeasure","weight","va3type","intrastatoperationkind","idintrastatservice","idintrastatsupplymethod","idlist","idunit","idpackage","unitsforpackage","npackage","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","rownum_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idpccdebitstatus","idpccdebitmotive","idcostpartition","expensekind","rounding","idepexp","idepacc","flagbit","idfinmotive","iduniqueformcode","ycon","ncon","codicevalore","codicetipo","idsor_siope","idepexp_pre","idfinmotive_iva");
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.defineKey("ninv", "rownum", "yinv", "idinvkind");
 

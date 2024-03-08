@@ -1,34 +1,34 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+/**
+ * Created by Gaetano Lazzo on 07/02/2015.
+ * Thanks to lodash, ObjectObserve
+ */
+/* jslint nomen: true */
+/* jslint bitwise: true */
+/*global Environment,jsDataAccess,Function,jsDataQuery,define,_ */
 
 /**
  * @module Logger
  * @description
  * Contains the method to log the messages on user javascript console
  */
-(function () {
 
-    var config = appMeta.config;
-    var localResource = appMeta.localResource;
+(function (localResource,Deferred) {
+    'use strict';
+
+    //noinspection JSUnresolvedVariable
+
+    let freeGlobal = typeof global === 'object' && global && global.Object === Object && global;
+    let freeSelf = typeof self === 'object' && self && self.Object === Object && self;
+    let root = freeGlobal || freeSelf || Function('return this')();
+    let freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+    let freeModule = freeExports && typeof module === 'object' && module && !module.nodeType && module;
+    let moduleExports = freeModule && freeModule.exports === freeExports;
+
     /**
      *
      * @type {{ERROR: number, WARNING: number, INFO: number}}
      */
-    var logTypeEnum = {
+    const logTypeEnum = {
         ERROR : 0,
         DEBUG : 1,
         WARNING : 2,
@@ -41,13 +41,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Initializes the level of the log (it depends on logTypeEnum values)
      */
     function Logger() {
-        "use strict";
         this.levelLog = logTypeEnum.ERROR;
     }
 
     Logger.prototype = {
         constructor: Logger,
 
+        setLanguage: function (lan) {
+            localResource = lan;
+        },
+        
         /**
          * @method log
          * @public
@@ -55,28 +58,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Depending on the "type" it prints on the console some information.
          * There several type of information (see enum logTypeEnum)
          * @param {logTypeEnum} type
+         * @param {object} args
+         * @returns Promise|undefined
          */
-        log:function (type) {
-            var params =  Array.prototype.slice.call(arguments, 1, arguments.length);
-            var time = this.getTime();
-            switch (type){
+        log: function (type, args) {
+            let params = Array.prototype.slice.call(arguments, 1, arguments.length);
+
+            params = params.map((x) => {
+                if (x && x.substring) {
+                    return x;//.substring(0, 100);
+                }
+               return x;
+            });
+
+
+            let time = this.getTime();
+            switch (type) {
                 case logTypeEnum.ERROR:
-                    if (this.levelLog >= logTypeEnum.ERROR) console.error(params, time);
-                    // lancia l'evento così eventualmente la metapage può effettuare operazioni.
-                    appMeta.globalEventManager.trigger(appMeta.EventEnum.ERROR_SERVER);
-                    var winModal = new appMeta.BootstrapModal(localResource.error, params[0], [appMeta.localResource.ok],  appMeta.localResource.cancel, time + ": " + JSON.stringify(params));
-                    return winModal.show();
+                    if (this.levelLog >= logTypeEnum.ERROR)
+                        if (typeof appMeta === 'undefined') {
+                            console.error(params, time);
+                        }
+                        else {
+                            // lancia l'evento così eventualmente la metapage può effettuare operazioni.
+                            appMeta.globalEventManager.trigger(appMeta.EventEnum.ERROR_SERVER);
+                            let winModal = new appMeta.BootstrapModal(localResource.error, params[0], [appMeta.localResource.ok],
+                                appMeta.localResource.cancel, time + ": " + JSON.stringify(params));
+                            return winModal.show();
+                        }
                     break;
                 case logTypeEnum.DEBUG:
-                    if (this.levelLog >= logTypeEnum.DEBUG) console.info(params, time);
+                    if (this.levelLog >= logTypeEnum.DEBUG) {
+                        if (typeof appMeta === 'undefined') {
+                            console.info(params, time);
+                        }
+                        else {
+                            //impongo che per essere stampato debba esserci sul secondo parametro stringa la parola "DEBUG"
+                            if (params.length > 1 && (params[1].indexOf("DEBUG-") !== -1 ||
+                                params[1].indexOf("afterGetFormData-") !== -1 ||
+                                params[1].indexOf("beforeFill-") !== -1 ||
+                                params[1].indexOf("afterRowSelect-") !== -1))
+                                console.info(params, time);
+                        }
+                    }
                     break;
                 case logTypeEnum.WARNING:
-                    if (this.levelLog >= logTypeEnum.WARNING)  console.warn(params, time);
+                    if (this.levelLog >= logTypeEnum.WARNING) console.warn(params, time);
                     break;
                 case logTypeEnum.INFO:
                     if (this.levelLog >= logTypeEnum.INFO) console.info(params, time);
                     break;
             }
+            return new Deferred().resolve(true).promise();
         },
 
         /**
@@ -86,7 +119,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Sets the level of the log
          * @param {logTypeEnum} level
          */
-        setLogLevel:function (level) {
+        setLogLevel: function (level) {
+            //console.log("changing level from "+this.levelLog+" to "+ level);
             this.levelLog = level;
         },
 
@@ -97,8 +131,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Returns the string that represent the actual date. The format is: hh:mm:ss
          * @returns {string}
          */
-        getTime:function () {
-            var time = new Date();
+        getTime: function () {
+            let time = new Date();
             return time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
         },
 
@@ -110,14 +144,70 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @returns {string}
          */
         getTimeMs: function () {
-            var time = new Date();
+            let time = new Date();
             return time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds() + "." + time.getMilliseconds();
         }
 
     };
 
-    appMeta.logTypeEnum = logTypeEnum;
-    appMeta.logger = new Logger();
-}());
+    let toExport={
+        logTypeEnum:logTypeEnum,
+        logger: new Logger()
+    };
+
+
+
+    // Some AMD build optimizers like r.js check for condition patterns like the following:
+    //noinspection JSUnresolvedVariable
+    if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+        // Expose lodash to the global object when an AMD loader is present to avoid
+        // errors in cases where lodash is loaded by a script tag and not intended
+        // as an AMD module. See http://requirejs.org/docs/errors.html#mismatch for
+        // more details.
+        if (root.appMeta) {
+            root.appMeta.logTypeEnum = toExport.logTypeEnum;
+            root.appMeta.logger = toExport.logger;
+        }
+        else {
+            root.logTypeEnum = toExport.logTypeEnum;
+            root.logger = toExport.logger;
+        }
+
+        // Define as an anonymous module so, through path mapping, it can be
+        // referenced as the "underscore" module.
+        //noinspection JSUnresolvedFunction
+        define(function () {
+            return toExport;
+        });
+    }
+    // Check for `exports` after `define` in case a build optimizer adds an `exports` object.
+    else if (freeExports && freeModule) {
+        // Export for Node.js or RingoJS.
+        if (moduleExports) {
+            (freeModule.exports = toExport).Logger = toExport;
+        }
+        // Export for Narwhal or Rhino -require.
+        else {
+            freeExports.logTypeEnum = toExport.logTypeEnum;
+            freeExports.logger = toExport.logger;
+        }
+    }
+    else {
+        // Export for a browser or Rhino.
+        if (root.appMeta) {
+            root.appMeta.logTypeEnum = toExport.logTypeEnum;
+            root.appMeta.logger = toExport.logger;
+        }
+        else {
+            root.logTypeEnum = toExport.logTypeEnum;
+            root.logger = toExport.logger;
+        }
+
+    }
+
+}(
+    (typeof appMeta === 'undefined') ? require('./LocalResource').localResource : appMeta.localResource,
+    (typeof $ === 'undefined') ? require('JQDeferred') : $.Deferred,
+));
 
 

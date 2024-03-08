@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -143,7 +143,8 @@ namespace sdi_acquistoestere_default {
             if (!Meta.GetFormData(false))
                 return;
             // Visualizza file xml
-            string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            //string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            string tempFileName = Path.ChangeExtension(Path.GetTempFileName(), "htm");
             XmlWriter xw = XmlWriter.Create(tempFileName);
             XmlDocument doc = new XmlDocument();
 
@@ -394,6 +395,11 @@ namespace sdi_acquistoestere_default {
             if (DS.invoice.Rows.Count == 0)
                 return;
             Meta.GetFormData(true);
+            PostData.RemoveFalseUpdates(DS);
+            if (DS.HasChanges()) {
+                show(this, "Per scollegate la fattura occorre prima SALVARE");
+                return;
+            }
             DataRow inv = DS.invoice.Rows[0];
             inv["idsdi_acquistoestere"] = DBNull.Value;
             //inv["protocoldate"] = DBNull.Value;
@@ -414,7 +420,8 @@ namespace sdi_acquistoestere_default {
                 DataRow rFattura = DS.invoice.Rows[0];
                 isPA = rFattura["ipa_ven_cliente"].ToString().Length == 6;
             }
-            string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            //string tempFileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            string tempFileName = Path.ChangeExtension(Path.GetTempFileName(), "htm");
 
             Button btnVisualizza = (Button)sender;
 

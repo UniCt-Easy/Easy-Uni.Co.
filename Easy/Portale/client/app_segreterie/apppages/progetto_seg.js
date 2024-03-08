@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_progetto() {
 		MetaPage.apply(this, ['progetto', 'seg', false]);
-        this.name = 'Progetti e attività';
+        this.name = 'Progetti e attivitÃ ';
 		this.defaultListType = 'seg';
 		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
 		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
@@ -66,12 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow['!altreupb'])
-					parentRow['!altreupb'] = 'N';
-				if (!parentRow.idprogettostatuskind)
-					parentRow.idprogettostatuskind = 1;
-				$("#XXsal").prop("disabled", !this.state.isEditState());
-				$("#XXprogettocosto").prop("disabled", !this.state.isEditState());
 				this.manageprogetto_seg_budgetcalcolato();
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#progetto_seg_idreg_aziende_fin'), null);
@@ -98,6 +75,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				} else {
 					this.helpForm.filter($('#progetto_seg_idreg_aziende'), this.q.eq('registry_active', 'Si'));
 				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#progetto_seg_idcurrency'), null);
+				} else {
+					this.helpForm.filter($('#progetto_seg_idcurrency'), this.q.eq('active', 'S'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -118,40 +100,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#progetto_seg_idreg_aziende_fin'), null);
 				this.helpForm.filter($('#progetto_seg_idstrumentofin'), null);
 				this.helpForm.filter($('#progetto_seg_idreg_amm'), null);
 				this.helpForm.filter($('#progetto_seg_idreg'), null);
 				this.helpForm.filter($('#progetto_seg_idreg_aziende'), null);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoora'));
+				this.enableControl($('#progetto_seg_budgetcalcolato'), true);
+				this.enableControl($('#progetto_seg_budgetcalcolatodate'), true);
+				this.helpForm.filter($('#progetto_seg_idcurrency'), null);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto_alias1'), this.getDataTable('rendicontattivitaprogettoyear'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto_alias1'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('workpackage'), this.getDataTable('assetdiary'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettocosto'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettobudgetvariazione'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettoricavo'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettorp'), this.getDataTable('getprogettocostoview'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
+				this.enableControl($("#XXprogettocosto"), this.state.isEditState());
 				this.enableControl($('#progetto_seg_budgetcalcolato'), false);
 				this.enableControl($('#progetto_seg_budgetcalcolatodate'), false);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoora'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto_alias1'), this.getDataTable('rendicontattivitaprogettoyear'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto_alias1'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('workpackage'), this.getDataTable('assetdiary'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettocosto'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettobudgetvariazione'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettoricavo'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettorp'), this.getDataTable('getprogettocostoview'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.progetto.defaults({ '!altreupb': 'N' });
+				this.state.DS.tables.progetto.defaults({ 'idprogettostatuskind': 1 });
 				$("#btn_add_progettosettoreerc_idsettoreerc").on("click", _.partial(this.searchAndAssignsettoreerc, self));
 				$("#btn_add_progettosettoreerc_idsettoreerc").prop("disabled", true);
-				$("#btn_add_progettoregistry_aziende_idreg_aziende").on("click", _.partial(this.searchAndAssignregistry_aziende, self));
+				$("#btn_add_progettoregistry_aziende_idreg_aziende").on("click", _.partial(this.searchAndAssignregistry, self));
 				$("#btn_add_progettoregistry_aziende_idreg_aziende").prop("disabled", true);
-				$("#XXsal").prop("disabled", true);
+				$("#btn_add_progettosdgoals_idsdgoals").on("click", _.partial(this.searchAndAssignsdgoals, self));
+				$("#btn_add_progettosdgoals_idsdgoals").prop("disabled", true);
 				$("#XXprogettocosto").prop("disabled", true);
 				$("#GenerateDetail").on("click", _.partial(this.fireGenerateDetail, this));
 				$("#GenerateDetail").prop("disabled", true);
@@ -165,7 +157,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				$("#GetAsset").prop("disabled", true);
 				appMeta.metaModel.cachedTable(this.getDataTable("registryprogfinsegview"), true);
 				appMeta.metaModel.lockRead(this.getDataTable("registryprogfinsegview"));
-				//indico al framework che la tabella sal è cached
+				appMeta.metaModel.insertFilter(this.getDataTable("progettokindsegview"), this.q.eq('progettokind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("partnerkinddefaultview"), this.q.eq('partnerkind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("duratakinddefaultview"), this.q.eq('duratakind_active', 'Si'));
+				$('#grid_progettoasset_default').data('mdlconditionallookup', 'aggiunta,A,Aggiuntivo;aggiunta,S,Sostitutivo;');
+				$('#grid_progettorp_default').data('mdlconditionallookup', 'datefilter,C,Data contabile;datefilter,L,Data liquidazione;datefilter,M,Data mandato;datefilter,T,Data trasmissione;datefilter,Q,Data quietanza;');
+				//indico al framework che la tabella sal Ã¨ cached
 				var salTable = this.getDataTable("sal");
 				appMeta.metaModel.cachedTable(salTable, true);
 				//fireAfterLink
@@ -250,6 +247,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			rowSelected: function (dataRow) {
 				$("#btn_add_progettosettoreerc_idsettoreerc").prop("disabled", false);
 				$("#btn_add_progettoregistry_aziende_idreg_aziende").prop("disabled", false);
+				$("#btn_add_progettosdgoals_idsdgoals").prop("disabled", false);
 				$("#GenerateDetail").prop("disabled", false);
 				$("#CalculateAmmortamento").prop("disabled", false);
 				$("#CalculateCostiProgetto").prop("disabled", false);
@@ -260,9 +258,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 			buttonClickEnd: function (currMetaPage, cmd) {
-				if ($("#XXsal").length) {
-					$("#XXsal").prop("disabled", !currMetaPage.state.isEditState());
-				}
 				if ($("#XXprogettocosto").length) {
 					$("#XXprogettocosto").prop("disabled", !currMetaPage.state.isEditState());
 				}
@@ -271,6 +266,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				if (cmd === "mainsetsearch") {
 					$("#btn_add_progettosettoreerc_idsettoreerc").prop("disabled", true);
 					$("#btn_add_progettoregistry_aziende_idreg_aziende").prop("disabled", true);
+					$("#btn_add_progettosdgoals_idsdgoals").prop("disabled", true);
 					$("#GenerateDetail").prop("disabled", true);
 					$("#CalculateAmmortamento").prop("disabled", true);
 					$("#CalculateCostiProgetto").prop("disabled", true);
@@ -286,7 +282,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			beforePost: function () {
 				var self = this;
-				this.getDataTable('getprogettocostoview').acceptChanges();
+				this.getDataTable('getcontratti').acceptChanges();
 				//innerBeforePost
 			},
 
@@ -373,7 +369,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							var filterNull = self.q.isNotNull('costomese');
 							var contratti = t.select(self.q.and(filterDate, self.q.eq('idreg', rudrmembro.idreg), filterNull));
 							if (contratti.length > 0) {
-								//di base metto costo mensile del contratto ...
+								//di base metto costo mensile del registrylegalstatus ...
 								if(contratti[0].costomese)
 									costomese = contratti[0].costomese;
 								if (contratti[0].oremaxgg)
@@ -381,14 +377,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								if (contratti[0].costolordoannuo)
 									costoora = (contratti[0].costolordoannuo / contratti[0].oremax);
 							}
-							//se è definito un costo orario specifico per questo membro in questo progetto ...
+							//se Ã¨ definito un costo orario specifico per questo membro in questo progetto ...
 							if (rudrmembro.costoorario) {
-								//...lo moltiplico per le ore che può lavorare al giorno per 30 giorni 
+								//...lo moltiplico per le ore che puÃ² lavorare al giorno per 30 giorni 
 								costomese = rudrmembro.costoorario * (oreLavorabiliAnno / 12);
 								costoora = rudrmembro.costoorario;
 							}
 							else {
-								//...altrimenti prendo in considerazione il costo mensile da contratto
+								//...altrimenti prendo in considerazione il costo mensile da registrylegalstatus
 
 								// se sono definite sulla tipologia di progetto lo calcolo in base alle quelle ore...
 								if (progettokinds.length > 0 && contratti.length > 0)
@@ -396,7 +392,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 										costomese = (contratti[0].costolordoannuo / 12);
 										costoora = (contratti[0].costolordoannuo / oreLavorabiliAnno);
 									}
-								//... altrimenti lascio quello calcolato dalle ore della tipologia di contratto che ho inserito all'inizio
+								//... altrimenti lascio quello calcolato dalle ore della tipologia di registrylegalstatus che ho inserito all'inizio
 							}
 							// ... infine lo moltiplico per i mesi di impegno del menbro nel progetto e lo sommo al budget
 							rudr.budget += costomese * (rudrmembro.impegno ?? 0);
@@ -423,7 +419,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				});
 			},
 
-			searchAndAssignregistry_aziende: function (that) {
+			searchAndAssignregistry: function (that) {
 				return that.searchAndAssign({
 					tableName: "registry",
 					listType: "aziende",
@@ -436,11 +432,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				});
 			},
 
+			searchAndAssignsdgoals: function (that) {
+				return that.searchAndAssign({
+					tableName: "sdgoals",
+					listType: "seg",
+					idControl: "txt_progettosdgoals_idsdgoals",
+					tagSearch: "sdgoals.title",
+					columnNameText: "title",
+					columnSource: "idsdgoals",
+					columnToFill: "idsdgoals",
+					tableToFill: "progettosdgoals"
+				});
+			},
+
 			fireGenerateDetail: function (that) {
 				that.hasUnsavedChanges()
 					.then(function (result) {
 						if (result) {
-							return that.showMessageOk("Prima devi salvare l'attività o progetto");
+							return that.showMessageOk("Prima devi salvare l'attivitÃ  o progetto");
 						} else {
 							var waitingHandler = that.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
 							appMeta.getData.launchCustomServerMethod("callSP", {
@@ -543,7 +552,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				// che rappresentano l'associazione tra wp e progettotipocosto. Quindi viene fatto il prodotto (workpackage x progettotipocosto)
 				// e vengono aggiunte le righe mancanti.
 				// 2. Allo stesso modo viene fatto un ciclo sulle righe di progettobudget
-				// e vengono elimnate le righe che non hanno più uno dei due riferimenti su workpackage o progettotipocosto
+				// e vengono elimnate le righe che non hanno piÃ¹ uno dei due riferimenti su workpackage o progettotipocosto
             	var workpackage = that.getDataTable('workpackage');
 				var progettotipocosto = that.getDataTable('progettotipocosto');
 				var progettobudget = that.getDataTable('progettobudget');
@@ -568,9 +577,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						var idworkpackage = rWork.idworkpackage;
 						var idprogettotipocosto = rPrTipo.idprogettotipocosto;
 
-						// se ho aggiunto uno dei due padri allora non inserisco su progettobudget, perchè
-						// ler gihe rimarrebbro scollegate con la chiave esterna, cioè rimarrebbe qella autoincremento
-						// poichè mdl non avendo le relazioni non saprebbe mettere il corretto valore
+						// se ho aggiunto uno dei due padri allora non inserisco su progettobudget, perchÃ¨
+						// ler gihe rimarrebbro scollegate con la chiave esterna, cioÃ¨ rimarrebbe qella autoincremento
+						// poichÃ¨ mdl non avendo le relazioni non saprebbe mettere il corretto valore
 						if (rWork.getRow().state === jsDataSet.dataRowState.added ||
 							rPrTipo.getRow().state === jsDataSet.dataRowState.added) {
 							if (!foundAddedRow) {
@@ -597,7 +606,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					})
 				});
 
-				// 2. elimina le righe che non esistono più in wrkp o in progettotipocosto
+				// 2. elimina le righe che non esistono piÃ¹ in wrkp o in progettotipocosto
 				progettobudget.rows
 					.filter(function (r) {
 						return r.getRow().state === jsDataSet.dataRowState.unchanged ||
@@ -607,7 +616,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						var idprogettotipocosto = rProgBudg.idprogettotipocosto;
 
 						var rWork = _.find(workpackage.rows, function (r) {
-							// se la trovo e sta in deleted torno riga non trovata , così eliminerò
+							// se la trovo e sta in deleted torno riga non trovata , cosÃ¬ eliminerÃ²
 							return r.idworkpackage === idworkpackage &&
 								   r.getRow().state !== jsDataSet.dataRowState.deleted;
 						});
@@ -702,7 +711,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						// 3. assetsegview where inventorytree_codeinv is in
 						var filter = window.jsDataQuery.isIn("inventorytree_codeinv", arrayCodeinv);
 
-						//4 . se è spuntato altreupb allora basta così altrimenti filtro anche sulle upb dell progetto
+						//4 . se Ã¨ spuntato altreupb allora basta cosÃ¬ altrimenti filtro anche sulle upb dell progetto
 						if (!$("#progetto_seg_altreupb").is(':checked')) {
 							var upbs = _.map(DSProgetto.tables.workpackageupb.rows, function (r) { return r.idupb; });
 							filter = window.jsDataQuery.and([filter, window.jsDataQuery.isIn("upb_idupb", upbs)]);
@@ -713,7 +722,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			manageprogetto_seg_budgetcalcolato: function () {
-				this.state.currentRow.budgetcalcolato = parseFloat(_.sumBy(this.state.DS.tables.progettocosto.rows, function (r) {
+				this.state.currentRow.budgetcalcolato = parseFloat(this.sumBy(this.state.DS.tables.progettocosto.rows, function (r) {
 					if (r.amount) return r.amount;
 					return 0;
 				}).toFixed(2));

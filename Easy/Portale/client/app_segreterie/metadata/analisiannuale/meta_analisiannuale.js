@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -60,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!year2', 'Secondo anno successivo', null, 0, null);
 						this.describeAColumn(table, '!year3', 'Terzo anno successivo', null, 0, null);
 						this.describeAColumn(table, 'year', 'Anno', null, 10, null);
+						this.describeAColumn(table, 'title', 'Titolo', null, 20, 4096);
 						this.describeAColumn(table, 'costopt', 'Costo di un punto organico', 'fixed.2', 30, null);
 						this.describeAColumn(table, 'incrementodocenti1', 'Punti percentuali di incremento annuale degli stipendi per i docenti anno successivo', 'fixed.2', 40, null);
 						this.describeAColumn(table, 'tasse1', 'Tasse studenti anno successivo', 'fixed.2', 50, null);
@@ -133,31 +117,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
-						table.columns["year"].caption = "Anno";
-						table.columns["costopt"].caption = "Costo di un punto organico";
-						table.columns["incrementodocenti1"].caption = "Incremento percentuale annuale degli stipendi per i docenti anno successivo";
-						table.columns["incrementodocenti2"].caption = "Incremento percentuale annuale degli stipendi per i docenti secondo anno successivo";
-						table.columns["incrementodocenti3"].caption = "Incremento percentuale annuale degli stipendi per i docenti terzo anno successivo";
-						table.columns["ffo1"].caption = "FFO anno successivo";
-						table.columns["ffo2"].caption = "FFO  secondo anno successivo";
-						table.columns["ffo3"].caption = "FFO terzo anno successivo";
-						table.columns["tasse1"].caption = "Tasse studenti anno successivo";
-						table.columns["tasse2"].caption = "Tasse studenti  secondo anno successivo";
-						table.columns["tasse3"].caption = "Tasse studenti terzo anno successivo";
-						table.columns["programmazionetriennale1"].caption = "Programmazione triennale anno successivo";
-						table.columns["programmazionetriennale2"].caption = "Programmazione triennale secondo anno successivo";
-						table.columns["programmazionetriennale3"].caption = "Programmazione triennale terzo anno successivo";
-						table.columns["incrementodocenti1"].caption = "Punti percentuali di incremento annuale degli stipendi per i docenti anno successivo";
-						table.columns["incrementodocenti2"].caption = "Punti percentuali di incremento annuale degli stipendi per i docenti secondo anno successivo";
-						table.columns["incrementodocenti3"].caption = "Punti percentuali di incremento annuale degli stipendi per i docenti terzo anno successivo";
+						table.columns["!denominatore0"].caption = "Totale denominatore anno corrente";
+						table.columns["!denominatore1"].caption = "Totale denominatore anno successivo";
+						table.columns["!denominatore2"].caption = "Denominatore secondo anno successivo";
+						table.columns["!denominatore3"].caption = "Denominatore terzo anno successivo";
+						table.columns["!indicatore0"].caption = "Indicatore spese di personale anno corrente";
+						table.columns["!indicatore1"].caption = "Indicatore spese di personale anno successivo";
+						table.columns["!indicatore2"].caption = "Indicatore spese di personale secondo anno successivo";
+						table.columns["!indicatore3"].caption = "Indicatore spese di personale terzo anno successivo";
+						table.columns["!numeratore0"].caption = "Totale numeratore anno corrente";
+						table.columns["!numeratore1"].caption = "Totale numeratore anno successivo";
+						table.columns["!numeratore2"].caption = "Totale denominatore secondo anno successivo";
+						table.columns["!numeratore3"].caption = "Totale numeratore terzo anno successivo";
+						table.columns["!year1"].caption = "Anno successivo";
+						table.columns["!year2"].caption = "Secondo anno successivo";
+						table.columns["!year3"].caption = "Terzo anno successivo";
+						table.columns["contrattiincarichiinsegnamento0"].caption = "Contratti per incarichi di insegnamento anno corrente";
 						table.columns["contrattiincarichiinsegnamento1"].caption = "Contratti per incarichi di insegnamento anno successivo";
 						table.columns["contrattiincarichiinsegnamento2"].caption = "Contratti per incarichi di insegnamento secondo anno successivo";
 						table.columns["contrattiincarichiinsegnamento3"].caption = "Contratti per incarichi di insegnamento terzo anno successivo";
-						table.columns["fondocontrattazioneintegrativa1"].caption = "Fondo contrattazione integrativa anno successivo";
-						table.columns["fondocontrattazioneintegrativa2"].caption = "Fondo contrattazione integrativa secondo anno successivo";
-						table.columns["fondocontrattazioneintegrativa3"].caption = "Fondo contrattazione integrativa terzo anno successivo";
-						table.columns["contrattiincarichiinsegnamento0"].caption = "Contratti per incarichi di insegnamento anno corrente";
+						table.columns["costopt"].caption = "Costo di un punto organico";
 						table.columns["ffo0"].caption = "FFO anno corrente";
+						table.columns["ffo1"].caption = "FFO anno successivo";
+						table.columns["ffo2"].caption = "FFO  secondo anno successivo";
+						table.columns["ffo3"].caption = "FFO terzo anno successivo";
+						table.columns["finanzesternicontrattiincarichiinsegnamento0"].caption = "Finanziamenti esterni per contratti per incarichi di insegnamento anno corrente";
+						table.columns["finanzesternicontrattiincarichiinsegnamento1"].caption = "Finanziamenti esterni per contratti per incarichi di insegnamento anno successivo";
+						table.columns["finanzesternicontrattiincarichiinsegnamento2"].caption = "Finanziamenti esterni per contratti per incarichi di insegnamento secondo anno successivo";
+						table.columns["finanzesternicontrattiincarichiinsegnamento3"].caption = "Finanziamenti esterni per contratti per incarichi di insegnamento terzo anno successivo";
 						table.columns["finanzesternidirPTA0"].caption = "Finanziamenti esterni per dirigenti e personale TA anno corrente";
 						table.columns["finanzesternidirPTA1"].caption = "Finanziamenti esterni per dirigenti e personale TA anno successivo";
 						table.columns["finanzesternidirPTA2"].caption = "Finanziamenti esterni per dirigenti e personale TA secondo anno successivo";
@@ -167,20 +154,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["finanzesternidocenti2"].caption = "Finanziamenti esterni per docenti secondo anno successivo";
 						table.columns["finanzesternidocenti3"].caption = "Finanziamenti esterni per docenti terzo anno successivo";
 						table.columns["fondocontrattazioneintegrativa0"].caption = "Fondo contrattazione integrativa anno corrente";
+						table.columns["fondocontrattazioneintegrativa1"].caption = "Fondo contrattazione integrativa anno successivo";
+						table.columns["fondocontrattazioneintegrativa2"].caption = "Fondo contrattazione integrativa secondo anno successivo";
+						table.columns["fondocontrattazioneintegrativa3"].caption = "Fondo contrattazione integrativa terzo anno successivo";
+						table.columns["incrementodocenti1"].caption = "Punti percentuali di incremento annuale degli stipendi per i docenti anno successivo";
+						table.columns["incrementodocenti2"].caption = "Punti percentuali di incremento annuale degli stipendi per i docenti secondo anno successivo";
+						table.columns["incrementodocenti3"].caption = "Punti percentuali di incremento annuale degli stipendi per i docenti terzo anno successivo";
 						table.columns["programmazionetriennale0"].caption = "Programmazione triennale terzo anno corrente";
+						table.columns["programmazionetriennale1"].caption = "Programmazione triennale anno successivo";
+						table.columns["programmazionetriennale2"].caption = "Programmazione triennale secondo anno successivo";
+						table.columns["programmazionetriennale3"].caption = "Programmazione triennale terzo anno successivo";
 						table.columns["speseDG0"].caption = "Direttore Generale anno corrente";
 						table.columns["speseDG1"].caption = "Direttore Generale anno successivo";
 						table.columns["speseDG2"].caption = "Direttore Generale secondo anno successivo";
 						table.columns["speseDG3"].caption = "Direttore Generale terzo anno successivo";
-						table.columns["spesedirPTA0"].caption = "Spese di Dirigenti e personale PTA anno corrente";
-						table.columns["spesedirPTA1"].caption = "Spese di Dirigenti e personale PTA anno successivo";
-						table.columns["spesedirPTA2"].caption = "Spese di Dirigenti e personale PTA secondo anno successivo";
-						table.columns["spesedirPTA3"].caption = "Spese di Dirigenti e personale PTA terzo anno successivo";
+						table.columns["spesedirPTA0"].caption = "Spese per dirigenti e personale TA anno corrente";
+						table.columns["spesedirPTA1"].caption = "Spese di dirigenti e personale TA anno successivo";
+						table.columns["spesedirPTA2"].caption = "Spese di dirigenti e personale TA secondo anno successivo";
+						table.columns["spesedirPTA3"].caption = "Spese di dirigenti e personale TA terzo anno successivo";
 						table.columns["spesedocenti0"].caption = "Spese di personale docente anno corrente";
 						table.columns["spesedocenti1"].caption = "Spese di personale docente anno successivo";
 						table.columns["spesedocenti2"].caption = "Spese di personale docente secondo anno successivo";
 						table.columns["spesedocenti3"].caption = "Spese di personale docente terzo anno successivo";
+						table.columns["speseriduzione0"].caption = "Spese a riduzione";
+						table.columns["speseriduzione1"].caption = "Spese a riduzione anno successivo";
+						table.columns["speseriduzione2"].caption = "Spese a riduzione secondo anno successivo";
+						table.columns["speseriduzione3"].caption = "Spese a riduzione terzo anno successivo";
 						table.columns["tasse0"].caption = "Tasse studenti anno correntre";
+						table.columns["tasse1"].caption = "Tasse studenti anno successivo";
+						table.columns["tasse2"].caption = "Tasse studenti  secondo anno successivo";
+						table.columns["tasse3"].caption = "Tasse studenti terzo anno successivo";
+						table.columns["title"].caption = "Titolo";
 						table.columns["totspesepersonalecaricoateneo0"].caption = "Totale spese di personale a carico Ateneo anno corrente";
 						table.columns["totspesepersonalecaricoateneo1"].caption = "Totale spese di personale a carico Ateneo anno successivo";
 						table.columns["totspesepersonalecaricoateneo2"].caption = "Totale spese di personale a carico Ateneo secondo anno successivo";
@@ -189,34 +193,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["trattamentostipintegrativoCEL1"].caption = "Trattamento stipendiale integrativo CEL anno successivo";
 						table.columns["trattamentostipintegrativoCEL2"].caption = "Trattamento stipendiale integrativo CEL secondo anno successivo";
 						table.columns["trattamentostipintegrativoCEL3"].caption = "Trattamento stipendiale integrativo CEL terzo anno successivo";
-						table.columns["finanzesternicontrattiincarichiinsegnamento0"].caption = "Finanziamenti esterni per contratti per incarichi di insegnamento anno corrente";
-						table.columns["finanzesternicontrattiincarichiinsegnamento1"].caption = "Finanziamenti esterni per contratti per incarichi di insegnamento anno successivo";
-						table.columns["finanzesternicontrattiincarichiinsegnamento2"].caption = "Finanziamenti esterni per contratti per incarichi di insegnamento secondo anno successivo";
-						table.columns["finanzesternicontrattiincarichiinsegnamento3"].caption = "Finanziamenti esterni per contratti per incarichi di insegnamento terzo anno successivo";
-						table.columns["spesedirPTA0"].caption = "Spese di dirigenti e personale TA anno corrente";
-						table.columns["spesedirPTA1"].caption = "Spese di dirigenti e personale TA anno successivo";
-						table.columns["spesedirPTA2"].caption = "Spese di dirigenti e personale TA secondo anno successivo";
-						table.columns["spesedirPTA3"].caption = "Spese di dirigenti e personale TA terzo anno successivo";
-						table.columns["!indicatore0"].caption = "Indicatore spese di personale anno corrente";
-						table.columns["!indicatore1"].caption = "Indicatore spese di personale anno successivo";
-						table.columns["!indicatore2"].caption = "Indicatore spese di personale secondo anno successivo";
-						table.columns["!indicatore3"].caption = "Indicatore spese di personale terzo anno successivo";
-						table.columns["spesedirPTA0"].caption = "Spese per dirigenti e personale TA anno corrente";
-						table.columns["!denominatore0"].caption = "Totale denominatore anno corrente";
-						table.columns["!numeratore0"].caption = "Totale numeratore anno corrente";
-						table.columns["!year1"].caption = "Anno successivo";
-						table.columns["!year2"].caption = "Secondo anno successivo";
-						table.columns["!year3"].caption = "Terzo anno successivo";
-						table.columns["speseriduzione0"].caption = "Spese a riduzione";
-						table.columns["speseriduzione1"].caption = "Spese a riduzione anno successivo";
-						table.columns["speseriduzione2"].caption = "Spese a riduzione secondo anno successivo";
-						table.columns["speseriduzione3"].caption = "Spese a riduzione terzo anno successivo";
-						table.columns["!denominatore1"].caption = "Totale denominatore anno successivo";
-						table.columns["!denominatore2"].caption = "Denominatore secondo anno successivo";
-						table.columns["!denominatore3"].caption = "Denominatore terzo anno successivo";
-						table.columns["!numeratore2"].caption = "Totale denominatore secondo anno successivo";
-						table.columns["!numeratore3"].caption = "Totale numeratore terzo anno successivo";
-						table.columns["!numeratore1"].caption = "Totale numeratore anno successivo";
+						table.columns["year"].caption = "Anno";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$
@@ -229,6 +206,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 				//$getNewRowInside$
 
+				//dt.autoIncrement('year', { minimum: 99990001 });
 				dt.autoIncrement('idanalisiannuale', { minimum: 99990001 });
 
 				// metto i default
@@ -243,11 +221,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+
+
+
 			//$isValidFunction$
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "default": {
+						return "year asc , title asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

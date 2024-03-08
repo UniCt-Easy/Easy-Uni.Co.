@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +19,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
+ 
+--setuser 'amministrazione'
+-- [compute_transf_prevision_in_budget_lecce]  2024 ,null, 'S'
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_transf_prevision_in_budget_lecce]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_transf_prevision_in_budget_lecce]
 GO
@@ -27,7 +29,8 @@ GO
 CREATE PROCEDURE compute_transf_prevision_in_budget_lecce
 (
 	@ayear int,
-	@trasferisci char(1)
+	@idsorkind int = null,
+	@trasferisci char(1) = 'S'
 )
 AS BEGIN
 
@@ -69,7 +72,7 @@ declare @fontiBI int
 select  @fontiBI = idsorkind from sortingkind where codesorkind='fonti_BI'
 
 declare @BUDGET_UFF int 
-select @BUDGET_UFF = idsorkind from sortingkind where codesorkind='BUDGET_UFF'
+select  @BUDGET_UFF = idsorkind from sortingkind where codesorkind='BUDGET_UFF'
  
 -- Parte ECONOMICO e INVESTIMENTI\IMPEGNI, stessa quesry usata in compute_transf_prevision_in_budget.sql
 CREATE TABLE #budgetprevision(
@@ -182,16 +185,19 @@ GROUP BY u.idupb,fs.idsor,	s.sortcode
 -- Prende le UPB, aventi delle voci di entrata con previsione imputate ad esso, e classificate con la class. 'fontitype Finanziamento per Budget Investimenti' 
 -- Per ogni UPB, le voci di entrata aventi previsione su quell'ubp, saranno classificate tutte allo stesso modo, cioè con lo stesso codice di classificazione "fonti_BI".
 -- Quindi o tutte con A, o tutte con B, etc...
--- Il codice di classificazione sulle entrate, ci indica la colonna della stampa
+-- Il codice di classificazione sulle entrate, ci indica la colonna relativa alla fonte di finanziamento della stampa. Della classificazione "fonti_BI" escludiamo
+-- le fonti che si riferiscono esclusivamente al ramo Variazioni di Budget Economico (Voci A e B), e includiamo le Fonti del Ramo Investimenti (Voci C, D, E)
 CREATE TABLE #budgetColonne(
 	idupb varchar(36),
 	fontitype varchar(100)
-)		
+)	
+
 insert into #budgetColonne(idupb, fontitype)
 	select distinct fy.idupb, 
-	case	when s.sortcode in ('A', 'C') then 'daterzi'
-			when s.sortcode in ('B', 'E') then 'darisorseproprie'
+	case	when s.sortcode in ('C') then 'daterzi'
 			when s.sortcode in ('D') then 'daindebitamento'
+			when s.sortcode in ('E') then 'darisorseproprie'
+			when s.sortcode in ('A','B') then 'ramoeconomico'
 	end
 	from finyear fy
 	join fin f	
@@ -204,9 +210,18 @@ insert into #budgetColonne(idupb, fontitype)
 		and s.idsorkind = @fontiBI
 		and ((f.flag&1)=0) --> solo entrata
 		and fy.prevision >0
+		and s.sortcode  IN ('A','B','C', 'D', 'E')
 
+		--SELECT * FROM #budgetFontiFinanziamento
+		--SELECT * FROM #budgetColonne
+--- Non è corretto che le fonti di entrata non classificate siano considerate come 'Risorse proprie'
+--- quindi se hanno utilizzato i codici A o B (riservati al ramo economico) 
+--- non sarà attribuita alcuna fonte a quell'UPB
+ 
 -- Aggiungiamo le upb "non classificate", che hanno previsione in spesa MA NON ESISTE una una coppia Upb/Entrata, con E classificata, avente previsione>0
 -- Queste UPB vanno intese con classificazione:  E	Risorse Proprie
+
+ 
 
 insert into #budgetColonne(idupb, fontitype)
 	select distinct idupb, 
@@ -214,9 +229,10 @@ insert into #budgetColonne(idupb, fontitype)
 from #budgetFontiFinanziamento
 where ( select count(*) from #budgetColonne where idupb = #budgetFontiFinanziamento.idupb) = 0
 
+
 if (@trasferisci = 'S')
 Begin
-
+	 
 	delete from budgetprevision where ayear = @ayear and idsor in (select idsor from sorting where idsorkind = @BUDGET_UFF)
 
 	-- Valorizza la parte ECONOMICO e INVESTIMENTI\IMPEGNI
@@ -245,7 +261,9 @@ Begin
 		GetDate(),'trasf_previsioni_e',GetDate(),	'trasf_previsioni_e'
 	FROM  #budgetprevision
 	GROUP BY #budgetprevision.idupb, #budgetprevision.idsor
-
+	--SELECT * FROM #budgetFontiFinanziamento
+	--SELECT * FROM #budgetColonne
+	--SELECT * FROM #lookup
 	-- Valorizza la parte INVESTIMENTI \ FONTI DI FINANZIAMENTO
 	INSERT INTO budgetprevision
 	(
@@ -286,11 +304,13 @@ Begin
 		on A.fontidaindebitamento = S2.sortcode and S2.idsorkind = @BUDGET_UFF 
 	JOIN sorting S3
  		on A.fontidarisorseproprie = S3.sortcode and S3.idsorkind = @BUDGET_UFF 
+	WHERE E.fontitype<> 'ramoeconomico'
 	GROUP BY P.idupb, E.fontitype, S1.idsor, S2.idsor, S3.idsor
 End
 Else
 Begin
 	SELECT 
+		U.idupb AS '#IdUPB',
 		U.codeupb as 'Cod.UPB',
 		S.sortcode as 'Budget Voce Classificazione',
 		SUM(P.prevision) as 'Budget',
@@ -304,11 +324,11 @@ Begin
 		on P.idupb = U.idupb
 	JOIN sorting S
 		on P.idsor = S.idsor and S.idsorkind = @BUDGET_UFF 
-	GROUP BY U.codeupb,S.sortcode
+	GROUP BY U.codeupb,S.sortcode, U.IDUPB
 
 	UNION
 		
-	SELECT 
+	SELECT 	U.idupb AS '#IdUPB',
 		U.codeupb as 'Cod.UPB',
 		case 
 			when E.fontitype ='daterzi' then S1.sortcode
@@ -334,7 +354,8 @@ Begin
 		on A.fontidaindebitamento = S2.sortcode and S2.idsorkind = @BUDGET_UFF 
 	JOIN sorting S3
  		on A.fontidarisorseproprie = S3.sortcode and S3.idsorkind = @BUDGET_UFF 
-	GROUP BY U.codeupb, E.fontitype, S1.sortcode, S2.sortcode, S3.sortcode
+	WHERE E.fontitype<> 'ramoeconomico'
+	GROUP BY U.codeupb, E.fontitype, S1.sortcode, S2.sortcode, S3.sortcode,	U.idupb 
 End
 
 
@@ -347,4 +368,5 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
+ 
+ 

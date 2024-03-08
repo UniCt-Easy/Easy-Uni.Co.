@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfateneoindicatore_personale" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_perfateneoindicatore_personale" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfateneoindicatoreattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idperfateneoindicatore" type="xs:int" />
+              <xs:element name="idperfateneoindicatoreattach" type="xs:int" />
+              <xs:element name="idperfateneoobiettivo" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneo" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfateneoobiettivoobiettiviview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfateneoobiettivo" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneo" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneateneoobiettiviview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idperfvalutazioneateneo" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfateneoindicatore" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="fonte" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfateneoindicatore" type="xs:int" />
+              <xs:element name="idperfateneoobiettivo" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneo" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="Note" type="xs:string" minOccurs="0" />
+              <xs:element name="percentualeraggiunta" type="xs:string" minOccurs="0" />
+              <xs:element name="target" type="xs:string" minOccurs="0" />
+              <xs:element name="titolo" type="xs:string" minOccurs="0" />
+              <xs:element name="valoreraggiunto" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="perfateneoindicatoreattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfateneoindicatoreattach" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idperfateneoindicatore" />
+      <xs:field xpath="mstns:idperfateneoindicatoreattach" />
+      <xs:field xpath="mstns:idperfateneoobiettivo" />
+      <xs:field xpath="mstns:idperfvalutazioneateneo" />
+    </xs:unique>
+    <xs:unique name="perfateneoobiettivoobiettiviview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfateneoobiettivoobiettiviview" />
+      <xs:field xpath="mstns:idperfateneoobiettivo" />
+      <xs:field xpath="mstns:idperfvalutazioneateneo" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneateneoobiettiviview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneateneoobiettiviview" />
+      <xs:field xpath="mstns:idperfvalutazioneateneo" />
+    </xs:unique>
+    <xs:unique name="perfateneoindicatore_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfateneoindicatore" />
+      <xs:field xpath="mstns:idperfateneoindicatore" />
+      <xs:field xpath="mstns:idperfateneoobiettivo" />
+      <xs:field xpath="mstns:idperfvalutazioneateneo" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfateneoindicatoreattach_perfateneoindicatore_idperfateneoindicatore-idperfateneoobiettivo-idperfvalutazioneateneo" msdata:parent="perfateneoindicatore" msdata:child="perfateneoindicatoreattach" msdata:parentkey="idperfateneoindicatore idperfateneoobiettivo idperfvalutazioneateneo" msdata:childkey="idperfateneoindicatore idperfateneoobiettivo idperfvalutazioneateneo" />
+      <msdata:Relationship name="FK_perfateneoindicatoreattach_attach_idattach" msdata:parent="attach" msdata:child="perfateneoindicatoreattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
+      <msdata:Relationship name="FK_perfateneoindicatore_perfateneoobiettivoobiettiviview_idperfateneoobiettivo" msdata:parent="perfateneoobiettivoobiettiviview" msdata:child="perfateneoindicatore" msdata:parentkey="idperfateneoobiettivo" msdata:childkey="idperfateneoobiettivo" />
+      <msdata:Relationship name="FK_perfateneoindicatore_perfvalutazioneateneoobiettiviview_idperfvalutazioneateneo" msdata:parent="perfvalutazioneateneoobiettiviview" msdata:child="perfateneoindicatore" msdata:parentkey="idperfvalutazioneateneo" msdata:childkey="idperfvalutazioneateneo" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

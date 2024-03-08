@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,27 +36,16 @@ namespace assetconsignee_lista//consegnatarioinventario_lista//
 		/// </summary>
 		private System.Windows.Forms.ImageList images;
 		public vistaForm DS;
-		public System.Windows.Forms.ToolBar MetaDataToolBar;
-		private System.Windows.Forms.ToolBarButton seleziona;
-		private System.Windows.Forms.ToolBarButton impostaricerca;
-		private System.Windows.Forms.ToolBarButton effettuaricerca;
-		private System.Windows.Forms.ToolBarButton modifica;
-		private System.Windows.Forms.ToolBarButton inserisci;
-		private System.Windows.Forms.ToolBarButton inseriscicopia;
-		private System.Windows.Forms.ToolBarButton elimina;
-		private System.Windows.Forms.ToolBarButton Salva;
-		private System.Windows.Forms.ToolBarButton aggiorna;
-		public System.Windows.Forms.GroupBox MetaDataDetail;
-		private System.Windows.Forms.DataGrid dgrConsegnatarioinventario;
-		private System.Windows.Forms.TextBox textBox3;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ComboBox comboBox;
-		private System.Windows.Forms.TextBox textBox1;
-        private CheckBox checkBox3;
+		private MetaData Meta;
+		private ComboBox cmbEnte;
+		private CheckBox checkBox3;
+		private TextBox textBox1;
+		private TextBox textBox3;
+		private TextBox textBox2;
+		private Label label4;
+		private Label label3;
+		private Label label2;
+		private Label label1;
 		private System.ComponentModel.IContainer components;
 
 		public Frm_assetconsignee_lista()
@@ -65,8 +54,7 @@ namespace assetconsignee_lista//consegnatarioinventario_lista//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-            HelpForm.SetDenyNull(DS.assetconsignee.Columns["active"], true);
-
+          
 			//
 			// TODO: Add any constructor code after InitializeComponent call
 			//
@@ -86,7 +74,13 @@ namespace assetconsignee_lista//consegnatarioinventario_lista//
 			}
 			base.Dispose( disposing );
 		}
+		public void MetaData_AfterLink() {
+			Meta = MetaData.GetMetaData(this);
+			HelpForm.SetDenyNull(DS.assetconsignee.Columns["active"], true);
+			GetData.CacheTable(DS.inventoryagency, null, "description", true);
+		}
 
+		 
 		#region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -94,294 +88,157 @@ namespace assetconsignee_lista//consegnatarioinventario_lista//
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_assetconsignee_lista));
-            this.images = new System.Windows.Forms.ImageList(this.components);
-            this.DS = new assetconsignee_lista.vistaForm();
-            this.MetaDataToolBar = new System.Windows.Forms.ToolBar();
-            this.seleziona = new System.Windows.Forms.ToolBarButton();
-            this.impostaricerca = new System.Windows.Forms.ToolBarButton();
-            this.effettuaricerca = new System.Windows.Forms.ToolBarButton();
-            this.modifica = new System.Windows.Forms.ToolBarButton();
-            this.inserisci = new System.Windows.Forms.ToolBarButton();
-            this.inseriscicopia = new System.Windows.Forms.ToolBarButton();
-            this.elimina = new System.Windows.Forms.ToolBarButton();
-            this.Salva = new System.Windows.Forms.ToolBarButton();
-            this.aggiorna = new System.Windows.Forms.ToolBarButton();
-            this.dgrConsegnatarioinventario = new System.Windows.Forms.DataGrid();
-            this.MetaDataDetail = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox = new System.Windows.Forms.ComboBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrConsegnatarioinventario)).BeginInit();
-            this.MetaDataDetail.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // images
-            // 
-            this.images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("images.ImageStream")));
-            this.images.TransparentColor = System.Drawing.Color.Transparent;
-            this.images.Images.SetKeyName(0, "");
-            this.images.Images.SetKeyName(1, "");
-            this.images.Images.SetKeyName(2, "");
-            this.images.Images.SetKeyName(3, "");
-            this.images.Images.SetKeyName(4, "");
-            this.images.Images.SetKeyName(5, "");
-            this.images.Images.SetKeyName(6, "");
-            this.images.Images.SetKeyName(7, "");
-            this.images.Images.SetKeyName(8, "");
-            this.images.Images.SetKeyName(9, "");
-            this.images.Images.SetKeyName(10, "");
-            this.images.Images.SetKeyName(11, "");
-            this.images.Images.SetKeyName(12, "");
-            this.images.Images.SetKeyName(13, "");
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // MetaDataToolBar
-            // 
-            this.MetaDataToolBar.Appearance = System.Windows.Forms.ToolBarAppearance.Flat;
-            this.MetaDataToolBar.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
-            this.seleziona,
-            this.impostaricerca,
-            this.effettuaricerca,
-            this.modifica,
-            this.inserisci,
-            this.inseriscicopia,
-            this.elimina,
-            this.Salva,
-            this.aggiorna});
-            this.MetaDataToolBar.ButtonSize = new System.Drawing.Size(56, 56);
-            this.MetaDataToolBar.DropDownArrows = true;
-            this.MetaDataToolBar.ImageList = this.images;
-            this.MetaDataToolBar.Location = new System.Drawing.Point(0, 0);
-            this.MetaDataToolBar.Name = "MetaDataToolBar";
-            this.MetaDataToolBar.ShowToolTips = true;
-            this.MetaDataToolBar.Size = new System.Drawing.Size(520, 106);
-            this.MetaDataToolBar.TabIndex = 41;
-            this.MetaDataToolBar.Tag = "";
-            // 
-            // seleziona
-            // 
-            this.seleziona.ImageIndex = 1;
-            this.seleziona.Name = "seleziona";
-            this.seleziona.Tag = "mainselect";
-            this.seleziona.Text = "Seleziona";
-            this.seleziona.ToolTipText = "Seleziona l\'elemento desiderato";
-            // 
-            // impostaricerca
-            // 
-            this.impostaricerca.ImageIndex = 10;
-            this.impostaricerca.Name = "impostaricerca";
-            this.impostaricerca.Tag = "mainsetsearch";
-            this.impostaricerca.Text = "Imposta Ricerca";
-            this.impostaricerca.ToolTipText = "Imposta una nuova ricerca";
-            // 
-            // effettuaricerca
-            // 
-            this.effettuaricerca.ImageIndex = 12;
-            this.effettuaricerca.Name = "effettuaricerca";
-            this.effettuaricerca.Tag = "maindosearch";
-            this.effettuaricerca.Text = "Effettua Ricerca";
-            this.effettuaricerca.ToolTipText = "Cerca in base ai dati immessi";
-            // 
-            // modifica
-            // 
-            this.modifica.ImageIndex = 6;
-            this.modifica.Name = "modifica";
-            this.modifica.Tag = "mainedit";
-            this.modifica.Text = "Modifica";
-            this.modifica.ToolTipText = "Modifica l\'elemento selezionato";
-            // 
-            // inserisci
-            // 
-            this.inserisci.ImageIndex = 0;
-            this.inserisci.Name = "inserisci";
-            this.inserisci.Tag = "maininsert";
-            this.inserisci.Text = "Inserisci";
-            this.inserisci.ToolTipText = "Inserisci un nuovo elemento";
-            // 
-            // inseriscicopia
-            // 
-            this.inseriscicopia.ImageIndex = 9;
-            this.inseriscicopia.Name = "inseriscicopia";
-            this.inseriscicopia.Tag = "maininsertcopy";
-            this.inseriscicopia.Text = "Inserisci copia";
-            this.inseriscicopia.ToolTipText = "Inserisci un nuovo elemento copiando i dati da quello attuale";
-            // 
-            // elimina
-            // 
-            this.elimina.ImageIndex = 3;
-            this.elimina.Name = "elimina";
-            this.elimina.Tag = "maindelete";
-            this.elimina.Text = "Elimina";
-            this.elimina.ToolTipText = "Elimina l\'elemento selezionato";
-            // 
-            // Salva
-            // 
-            this.Salva.ImageIndex = 2;
-            this.Salva.Name = "Salva";
-            this.Salva.Tag = "mainsave";
-            this.Salva.Text = "Salva";
-            this.Salva.ToolTipText = "Salva le modifiche effettuate";
-            // 
-            // aggiorna
-            // 
-            this.aggiorna.ImageIndex = 13;
-            this.aggiorna.Name = "aggiorna";
-            this.aggiorna.Tag = "mainrefresh";
-            this.aggiorna.Text = "Aggiorna";
-            // 
-            // dgrConsegnatarioinventario
-            // 
-            this.dgrConsegnatarioinventario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrConsegnatarioinventario.DataMember = "";
-            this.dgrConsegnatarioinventario.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrConsegnatarioinventario.Location = new System.Drawing.Point(16, 56);
-            this.dgrConsegnatarioinventario.Name = "dgrConsegnatarioinventario";
-            this.dgrConsegnatarioinventario.Size = new System.Drawing.Size(488, 185);
-            this.dgrConsegnatarioinventario.TabIndex = 30;
-            this.dgrConsegnatarioinventario.Tag = "assetconsignee.lista";
-            // 
-            // MetaDataDetail
-            // 
-            this.MetaDataDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.MetaDataDetail.Controls.Add(this.checkBox3);
-            this.MetaDataDetail.Controls.Add(this.textBox1);
-            this.MetaDataDetail.Controls.Add(this.textBox3);
-            this.MetaDataDetail.Controls.Add(this.textBox2);
-            this.MetaDataDetail.Controls.Add(this.label4);
-            this.MetaDataDetail.Controls.Add(this.label3);
-            this.MetaDataDetail.Controls.Add(this.label2);
-            this.MetaDataDetail.Controls.Add(this.label1);
-            this.MetaDataDetail.Controls.Add(this.comboBox);
-            this.MetaDataDetail.Location = new System.Drawing.Point(16, 249);
-            this.MetaDataDetail.Name = "MetaDataDetail";
-            this.MetaDataDetail.Size = new System.Drawing.Size(488, 144);
-            this.MetaDataDetail.TabIndex = 20;
-            this.MetaDataDetail.TabStop = false;
-            this.MetaDataDetail.Text = "Dettaglio";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(112, 40);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(88, 20);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Tag = "assetconsignee.start";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(112, 61);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(328, 20);
-            this.textBox3.TabIndex = 3;
-            this.textBox3.Tag = "assetconsignee.qualification";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(112, 85);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(328, 48);
-            this.textBox2.TabIndex = 4;
-            this.textBox2.Tag = "assetconsignee.title";
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(8, 63);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 16);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Titolo:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(8, 85);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 16);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Nome:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(8, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 23);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Data inizio:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(72, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 23);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Ente:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // comboBox
-            // 
-            this.comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox.DataSource = this.DS.inventoryagency;
-            this.comboBox.DisplayMember = "description";
-            this.comboBox.Location = new System.Drawing.Point(112, 16);
-            this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(328, 21);
-            this.comboBox.TabIndex = 1;
-            this.comboBox.Tag = "assetconsignee.idinventoryagency.(active=\'S\')";
-            this.comboBox.ValueMember = "idinventoryagency";
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(387, 42);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(53, 17);
-            this.checkBox3.TabIndex = 21;
-            this.checkBox3.Tag = "assetconsignee.active:S:N";
-            this.checkBox3.Text = "Attivo";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // Frm_assetconsignee_lista
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(520, 414);
-            this.Controls.Add(this.MetaDataDetail);
-            this.Controls.Add(this.dgrConsegnatarioinventario);
-            this.Controls.Add(this.MetaDataToolBar);
-            this.Name = "Frm_assetconsignee_lista";
-            this.Text = "frmConsegnatarioInventarioLista";
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrConsegnatarioinventario)).EndInit();
-            this.MetaDataDetail.ResumeLayout(false);
-            this.MetaDataDetail.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_assetconsignee_lista));
+			this.images = new System.Windows.Forms.ImageList(this.components);
+			this.DS = new assetconsignee_lista.vistaForm();
+			this.cmbEnte = new System.Windows.Forms.ComboBox();
+			this.checkBox3 = new System.Windows.Forms.CheckBox();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// images
+			// 
+			this.images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("images.ImageStream")));
+			this.images.TransparentColor = System.Drawing.Color.Transparent;
+			this.images.Images.SetKeyName(0, "");
+			this.images.Images.SetKeyName(1, "");
+			this.images.Images.SetKeyName(2, "");
+			this.images.Images.SetKeyName(3, "");
+			this.images.Images.SetKeyName(4, "");
+			this.images.Images.SetKeyName(5, "");
+			this.images.Images.SetKeyName(6, "");
+			this.images.Images.SetKeyName(7, "");
+			this.images.Images.SetKeyName(8, "");
+			this.images.Images.SetKeyName(9, "");
+			this.images.Images.SetKeyName(10, "");
+			this.images.Images.SetKeyName(11, "");
+			this.images.Images.SetKeyName(12, "");
+			this.images.Images.SetKeyName(13, "");
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// cmbEnte
+			// 
+			this.cmbEnte.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbEnte.DataSource = this.DS.inventoryagency;
+			this.cmbEnte.DisplayMember = "description";
+			this.cmbEnte.Location = new System.Drawing.Point(111, 39);
+			this.cmbEnte.Name = "cmbEnte";
+			this.cmbEnte.Size = new System.Drawing.Size(384, 21);
+			this.cmbEnte.TabIndex = 31;
+			this.cmbEnte.Tag = "assetconsignee.idinventoryagency";
+			this.cmbEnte.ValueMember = "idinventoryagency";
+			// 
+			// checkBox3
+			// 
+			this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkBox3.AutoSize = true;
+			this.checkBox3.Location = new System.Drawing.Point(442, 67);
+			this.checkBox3.Name = "checkBox3";
+			this.checkBox3.Size = new System.Drawing.Size(53, 17);
+			this.checkBox3.TabIndex = 30;
+			this.checkBox3.Tag = "assetconsignee.active:S:N";
+			this.checkBox3.Text = "Attivo";
+			this.checkBox3.UseVisualStyleBackColor = true;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(111, 65);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(88, 20);
+			this.textBox1.TabIndex = 23;
+			this.textBox1.Tag = "assetconsignee.start";
+			// 
+			// textBox3
+			// 
+			this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox3.Location = new System.Drawing.Point(111, 86);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.Size = new System.Drawing.Size(384, 20);
+			this.textBox3.TabIndex = 24;
+			this.textBox3.Tag = "assetconsignee.qualification";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox2.Location = new System.Drawing.Point(111, 110);
+			this.textBox2.Multiline = true;
+			this.textBox2.Name = "textBox2";
+			this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.textBox2.Size = new System.Drawing.Size(384, 64);
+			this.textBox2.TabIndex = 25;
+			this.textBox2.Tag = "assetconsignee.title";
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(32, 88);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(75, 16);
+			this.label4.TabIndex = 29;
+			this.label4.Text = "Titolo:";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(32, 110);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(75, 16);
+			this.label3.TabIndex = 28;
+			this.label3.Text = "Nome:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(32, 61);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(75, 23);
+			this.label2.TabIndex = 27;
+			this.label2.Text = "Data inizio:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(71, 37);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(32, 23);
+			this.label1.TabIndex = 26;
+			this.label1.Text = "Ente:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// Frm_assetconsignee_lista
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(526, 210);
+			this.Controls.Add(this.cmbEnte);
+			this.Controls.Add(this.checkBox3);
+			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.textBox3);
+			this.Controls.Add(this.textBox2);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label1);
+			this.Name = "Frm_assetconsignee_lista";
+			this.Text = "frmConsegnatarioInventarioLista";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		#endregion

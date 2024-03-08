@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,12 +42,10 @@ using siopeplus_functions;
 namespace bankdispositionsetup_siopeplus {
 
     public partial class FrmBankdispositionsetup_siopeplus : MetaDataForm {
-
-        public IOpenFileDialog openFileDialog;
-
+                
         public FrmBankdispositionsetup_siopeplus() {
             InitializeComponent();
-            openFileDialog = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1.DefaultExt = "xml";
         }
 
         DataAccess Conn;
@@ -151,7 +149,7 @@ namespace bankdispositionsetup_siopeplus {
             // Cerca di Validare il file
             try {
                 bool res = XML_XSD_Validator.Validate(fname,
-                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OPI_FLUSSO_ORDINATIVI_V_1_4_1.XSD"));
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OPI_FLUSSO_ORDINATIVI_V_1_6_1.XSD"));
                 if (!res) {
                     QueryCreator.ShowError(this, "Errore nella validazione dell'xml", XML_XSD_Validator.GetError());
                     return false;
@@ -282,7 +280,8 @@ namespace bankdispositionsetup_siopeplus {
 			if (T.Columns.Count== 1) {
 				show("L'esportazione è stata eseguita ma  ha restituito errori bloccanti", "Errore");
 				FrmViewError View = new FrmViewError(D);
-				View.Show();
+                MetaFactory.factory.getSingleton<IFormCreationListener>().create(View, null);
+                View.Show();
 				return null;
 			}
 
@@ -300,6 +299,7 @@ namespace bankdispositionsetup_siopeplus {
                 if (Tcheck.Rows.Count > 0) {
                     show("Vi sono problemi sulla quadratura di alcuni importi. \r\nIl file verrà generato ma se trasmesso, verrà RIFIUTATO DALLA BANCA", "Errore");
                     FrmViewError View = new FrmViewError(DScheck);
+                    MetaFactory.factory.getSingleton<IFormCreationListener>().create(View, null);
                     View.Show();
                     // se c'è una squadratura non invia il file al ws
                     if (Use_webservice(Conn)) {
@@ -310,6 +310,7 @@ namespace bankdispositionsetup_siopeplus {
 
             if (T.Columns.Count == 1) {
                 FrmViewError View = new FrmViewError(D);
+                MetaFactory.factory.getSingleton<IFormCreationListener>().create(View, null);
                 View.Show();
                 return null;
             }

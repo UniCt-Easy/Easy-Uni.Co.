@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Windows.Forms;
+using funzioni_configurazione;
 using metaeasylibrary;
 using metadatalibrary;
 
@@ -45,16 +46,35 @@ namespace meta_expensetaxcorrige {
 
         public override void SetDefaults(DataTable PrimaryTable) {
             base.SetDefaults(PrimaryTable);
-            // Non mettiamo un default
-            //SetDefault(PrimaryTable, "adate", GetSys("datacontabile"));
-           // SetDefault(PrimaryTable, "ayear", GetSys("esercizio"));
-        }
+            SetDefault(PrimaryTable, "adate", GetSys("datacontabile"));
+            SetDefault(PrimaryTable, "ayear", GetSys("esercizio"));
+		}
 
         public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
             RowChange.SetSelector(T, "idexp");
             RowChange.MarkAsAutoincrement(T.Columns["idexpensetaxcorrige"], null, null, 7);
             return base.Get_New_Row(ParentRow, T);
         }
+
+        public override bool IsValid(DataRow R, out string errmess, out string errfield) {
+            if (!base.IsValid(R, out errmess, out errfield)) return false;
+            if (R["adate"] == DBNull.Value) {
+                errmess = "E' necessario specificare la data di competenza";
+                errfield = "adate";
+                return false;
+            }
+
+            if (CfgFn.GetNoNullInt32(R["ayear"])  == 0) {
+                errmess = "E' necessario specificare l'anno di competenza";
+                errfield = "ayear";
+                return false;
+            }
+
+
+
+            return true;
+        }
+
 
         public override bool CanSelect(DataRow R) {
             if (R.Table.Columns.Contains("ymov")) {

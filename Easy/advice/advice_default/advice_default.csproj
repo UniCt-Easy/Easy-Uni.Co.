@@ -38,6 +38,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CronEspresso, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CronEspresso.2.0.0\lib\net45\CronEspresso.dll</HintPath>
+    </Reference>
+    <Reference Include="Cronos, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Cronos.0.7.1\lib\net45\Cronos.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -57,6 +63,18 @@
     <Compile Include="FrmAdviceDefault.Designer.cs">
       <DependentUpon>FrmAdviceDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmCrontabGen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCrontabGen.Designer.cs">
+      <DependentUpon>FrmCrontabGen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCrontabSummary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCrontabSummary.Designer.cs">
+      <DependentUpon>FrmCrontabSummary.cs</DependentUpon>
+    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -64,6 +82,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
@@ -80,6 +99,12 @@
     <EmbeddedResource Include="FrmAdviceDefault.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FrmAdviceDefault.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCrontabGen.resx">
+      <DependentUpon>FrmCrontabGen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCrontabSummary.resx">
+      <DependentUpon>FrmCrontabSummary.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

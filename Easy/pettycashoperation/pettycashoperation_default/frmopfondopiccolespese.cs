@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -225,7 +225,12 @@ namespace pettycashoperation_default {//opfondopiccolespese//
         private TextBox txtDescSiope;
         private TextBox txtCodSiope;
         private Button btnGeneraClassAutomatiche;
-        bool TipoClassAvailableEvalued;
+		public GroupBox groupBoxRipartizione;
+		public Button btnCodRipartizione;
+		public TextBox textBox25;
+		public TextBox textBox26;
+		private Button btnRipartizione;
+		bool TipoClassAvailableEvalued;
 
 		
 		public Frm_pettycashoperation_default() {
@@ -253,2075 +258,2140 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_pettycashoperation_default));
-            this.tabOpfondops = new System.Windows.Forms.TabControl();
-            this.tabOperazione = new System.Windows.Forms.TabPage();
-            this.gboxUPB = new System.Windows.Forms.GroupBox();
-            this.txtUPB = new System.Windows.Forms.TextBox();
-            this.txtDescrUPB = new System.Windows.Forms.TextBox();
-            this.btnUPBCode = new System.Windows.Forms.Button();
-            this.gboxResponsabile = new System.Windows.Forms.GroupBox();
-            this.txtResponsabile = new System.Windows.Forms.TextBox();
-            this.gboxImporto = new System.Windows.Forms.GroupBox();
-            this.txtImportoCollegato = new System.Windows.Forms.TextBox();
-            this.gboxBolletta = new System.Windows.Forms.GroupBox();
-            this.txtBolletta = new System.Windows.Forms.TextBox();
-            this.btnBolletta = new System.Windows.Forms.Button();
-            this.grpNList = new System.Windows.Forms.GroupBox();
-            this.txtNList = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.labelCausale = new System.Windows.Forms.Label();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.txtDataContabile = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.gboxCurrAmount = new System.Windows.Forms.GroupBox();
-            this.txtImporto = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtDescrizione = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbFondoPS = new System.Windows.Forms.ComboBox();
-            this.DS = new pettycashoperation_default.vistaForm();
-            this.gboxreintegro = new System.Windows.Forms.GroupBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.grpTipoSpesa = new System.Windows.Forms.GroupBox();
-            this.chkDocumentata = new System.Windows.Forms.CheckBox();
-            this.grpTipoOperazione = new System.Windows.Forms.GroupBox();
-            this.chkChiusura = new System.Windows.Forms.CheckBox();
-            this.chkReintegro = new System.Windows.Forms.CheckBox();
-            this.chkApertura = new System.Windows.Forms.CheckBox();
-            this.chkOpSpesa = new System.Windows.Forms.CheckBox();
-            this.grpOperazione = new System.Windows.Forms.GroupBox();
-            this.txtNumOp = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtEsercOp = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtDocumento = new System.Windows.Forms.TextBox();
-            this.txtDataDoc = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.gboxDocumento = new System.Windows.Forms.GroupBox();
-            this.btnDocumento = new System.Windows.Forms.Button();
-            this.labEsercizio = new System.Windows.Forms.Label();
-            this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
-            this.txtNumDoc = new System.Windows.Forms.TextBox();
-            this.labNum = new System.Windows.Forms.Label();
-            this.txtEsercDoc = new System.Windows.Forms.TextBox();
-            this.labelTipoDocumento = new System.Windows.Forms.Label();
-            this.cmbCausale = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cmbTipoContabilizzazione = new System.Windows.Forms.ComboBox();
-            this.grpBilancio = new System.Windows.Forms.GroupBox();
-            this.chkListTitle = new System.Windows.Forms.CheckBox();
-            this.chkListManager = new System.Windows.Forms.CheckBox();
-            this.chkFilterAvailable = new System.Windows.Forms.CheckBox();
-            this.btnBilancio = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.txtCodiceBilancio = new System.Windows.Forms.TextBox();
-            this.txtDenominazioneBilancio = new System.Windows.Forms.TextBox();
-            this.gboxSpesa = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtNum = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtEserc = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.cmbFaseSpesa = new System.Windows.Forms.ComboBox();
-            this.btnSpesa = new System.Windows.Forms.Button();
-            this.chkSpesa = new System.Windows.Forms.CheckBox();
-            this.tabClassSup = new System.Windows.Forms.TabPage();
-            this.btnGeneraClassAutomatiche = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.DGridDettagliClassificazioni = new System.Windows.Forms.DataGrid();
-            this.btnDelClass = new System.Windows.Forms.Button();
-            this.btnEditClass = new System.Windows.Forms.Button();
-            this.btnInsertClass = new System.Windows.Forms.Button();
-            this.DGridClassificazioni = new System.Windows.Forms.DataGrid();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabMovimenti = new System.Windows.Forms.TabPage();
-            this.dgrPSMovEntrata = new System.Windows.Forms.DataGrid();
-            this.dgrPSMovSpesa = new System.Windows.Forms.DataGrid();
-            this.tabAttributi = new System.Windows.Forms.TabPage();
-            this.gboxclass05 = new System.Windows.Forms.GroupBox();
-            this.txtCodice05 = new System.Windows.Forms.TextBox();
-            this.btnCodice05 = new System.Windows.Forms.Button();
-            this.txtDenom05 = new System.Windows.Forms.TextBox();
-            this.gboxclass04 = new System.Windows.Forms.GroupBox();
-            this.txtCodice04 = new System.Windows.Forms.TextBox();
-            this.btnCodice04 = new System.Windows.Forms.Button();
-            this.txtDenom04 = new System.Windows.Forms.TextBox();
-            this.gboxclass03 = new System.Windows.Forms.GroupBox();
-            this.txtCodice03 = new System.Windows.Forms.TextBox();
-            this.btnCodice03 = new System.Windows.Forms.Button();
-            this.txtDenom03 = new System.Windows.Forms.TextBox();
-            this.gboxclass02 = new System.Windows.Forms.GroupBox();
-            this.txtCodice02 = new System.Windows.Forms.TextBox();
-            this.btnCodice02 = new System.Windows.Forms.Button();
-            this.txtDenom02 = new System.Windows.Forms.TextBox();
-            this.gboxclass01 = new System.Windows.Forms.GroupBox();
-            this.txtCodice01 = new System.Windows.Forms.TextBox();
-            this.btnCodice01 = new System.Windows.Forms.Button();
-            this.txtDenom01 = new System.Windows.Forms.TextBox();
-            this.tabAnalitico = new System.Windows.Forms.TabPage();
-            this.gboxAnalitico = new System.Windows.Forms.GroupBox();
-            this.grpBoxSiopeEP = new System.Windows.Forms.GroupBox();
-            this.btnSiope = new System.Windows.Forms.Button();
-            this.txtDescSiope = new System.Windows.Forms.TextBox();
-            this.txtCodSiope = new System.Windows.Forms.TextBox();
-            this.btnGenPreimpegni = new System.Windows.Forms.Button();
-            this.btnViewPreimpegni = new System.Windows.Forms.Button();
-            this.groupCredDeb = new System.Windows.Forms.GroupBox();
-            this.txtCredDeb = new System.Windows.Forms.TextBox();
-            this.gboxclass1 = new System.Windows.Forms.GroupBox();
-            this.btnCodice1 = new System.Windows.Forms.Button();
-            this.txtDenom1 = new System.Windows.Forms.TextBox();
-            this.txtCodice1 = new System.Windows.Forms.TextBox();
-            this.gboxclass3 = new System.Windows.Forms.GroupBox();
-            this.btnCodice3 = new System.Windows.Forms.Button();
-            this.txtDenom3 = new System.Windows.Forms.TextBox();
-            this.txtCodice3 = new System.Windows.Forms.TextBox();
-            this.btnGeneraEpExp = new System.Windows.Forms.Button();
-            this.gboxclass2 = new System.Windows.Forms.GroupBox();
-            this.btnCodice2 = new System.Windows.Forms.Button();
-            this.txtDenom2 = new System.Windows.Forms.TextBox();
-            this.txtCodice2 = new System.Windows.Forms.TextBox();
-            this.btnVisualizzaEpExp = new System.Windows.Forms.Button();
-            this.gboxDebito = new System.Windows.Forms.GroupBox();
-            this.txtDenomCausaleDebito = new System.Windows.Forms.TextBox();
-            this.txtCodiceCausaleDebito = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnGeneraEP = new System.Windows.Forms.Button();
-            this.gboxCosto = new System.Windows.Forms.GroupBox();
-            this.txtDenomCausaleCosto = new System.Windows.Forms.TextBox();
-            this.txtCodiceCausaleCosto = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnVisualizzaEP = new System.Windows.Forms.Button();
-            this.labEP = new System.Windows.Forms.Label();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.txtFineCompetenza = new System.Windows.Forms.TextBox();
-            this.txtInizioCompetenza = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tabFinanziamenti = new System.Windows.Forms.TabPage();
-            this.txtTotFinanziato = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.dgridFinanziamenti = new System.Windows.Forms.DataGrid();
-            this.btnDelFinanziamenti = new System.Windows.Forms.Button();
-            this.btnEditFinanziamenti = new System.Windows.Forms.Button();
-            this.btnInsertFinanziamenti = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.tabOpfondops.SuspendLayout();
-            this.tabOperazione.SuspendLayout();
-            this.gboxUPB.SuspendLayout();
-            this.gboxResponsabile.SuspendLayout();
-            this.gboxImporto.SuspendLayout();
-            this.gboxBolletta.SuspendLayout();
-            this.grpNList.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.gboxCurrAmount.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.gboxreintegro.SuspendLayout();
-            this.grpTipoSpesa.SuspendLayout();
-            this.grpTipoOperazione.SuspendLayout();
-            this.grpOperazione.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.gboxDocumento.SuspendLayout();
-            this.grpBilancio.SuspendLayout();
-            this.gboxSpesa.SuspendLayout();
-            this.tabClassSup.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGridDettagliClassificazioni)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DGridClassificazioni)).BeginInit();
-            this.tabMovimenti.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrPSMovEntrata)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrPSMovSpesa)).BeginInit();
-            this.tabAttributi.SuspendLayout();
-            this.gboxclass05.SuspendLayout();
-            this.gboxclass04.SuspendLayout();
-            this.gboxclass03.SuspendLayout();
-            this.gboxclass02.SuspendLayout();
-            this.gboxclass01.SuspendLayout();
-            this.tabAnalitico.SuspendLayout();
-            this.gboxAnalitico.SuspendLayout();
-            this.grpBoxSiopeEP.SuspendLayout();
-            this.groupCredDeb.SuspendLayout();
-            this.gboxclass1.SuspendLayout();
-            this.gboxclass3.SuspendLayout();
-            this.gboxclass2.SuspendLayout();
-            this.gboxDebito.SuspendLayout();
-            this.gboxCosto.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.tabFinanziamenti.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgridFinanziamenti)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // tabOpfondops
-            // 
-            this.tabOpfondops.Controls.Add(this.tabOperazione);
-            this.tabOpfondops.Controls.Add(this.tabClassSup);
-            this.tabOpfondops.Controls.Add(this.tabMovimenti);
-            this.tabOpfondops.Controls.Add(this.tabAttributi);
-            this.tabOpfondops.Controls.Add(this.tabAnalitico);
-            this.tabOpfondops.Controls.Add(this.tabFinanziamenti);
-            this.tabOpfondops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabOpfondops.ImageList = this.imageList1;
-            this.tabOpfondops.Location = new System.Drawing.Point(0, 0);
-            this.tabOpfondops.Name = "tabOpfondops";
-            this.tabOpfondops.SelectedIndex = 0;
-            this.tabOpfondops.Size = new System.Drawing.Size(955, 520);
-            this.tabOpfondops.TabIndex = 0;
-            this.tabOpfondops.SelectedIndexChanged += new System.EventHandler(this.tabClassSup_Enter);
-            // 
-            // tabOperazione
-            // 
-            this.tabOperazione.Controls.Add(this.gboxUPB);
-            this.tabOperazione.Controls.Add(this.gboxResponsabile);
-            this.tabOperazione.Controls.Add(this.gboxImporto);
-            this.tabOperazione.Controls.Add(this.gboxBolletta);
-            this.tabOperazione.Controls.Add(this.grpNList);
-            this.tabOperazione.Controls.Add(this.labelCausale);
-            this.tabOperazione.Controls.Add(this.groupBox7);
-            this.tabOperazione.Controls.Add(this.gboxCurrAmount);
-            this.tabOperazione.Controls.Add(this.groupBox2);
-            this.tabOperazione.Controls.Add(this.groupBox1);
-            this.tabOperazione.Controls.Add(this.gboxreintegro);
-            this.tabOperazione.Controls.Add(this.grpTipoSpesa);
-            this.tabOperazione.Controls.Add(this.grpTipoOperazione);
-            this.tabOperazione.Controls.Add(this.grpOperazione);
-            this.tabOperazione.Controls.Add(this.groupBox3);
-            this.tabOperazione.Controls.Add(this.gboxDocumento);
-            this.tabOperazione.Controls.Add(this.cmbCausale);
-            this.tabOperazione.Controls.Add(this.label5);
-            this.tabOperazione.Controls.Add(this.cmbTipoContabilizzazione);
-            this.tabOperazione.Controls.Add(this.grpBilancio);
-            this.tabOperazione.Controls.Add(this.gboxSpesa);
-            this.tabOperazione.Controls.Add(this.chkSpesa);
-            this.tabOperazione.Location = new System.Drawing.Point(4, 23);
-            this.tabOperazione.Name = "tabOperazione";
-            this.tabOperazione.Size = new System.Drawing.Size(947, 493);
-            this.tabOperazione.TabIndex = 0;
-            this.tabOperazione.Text = "Principale";
-            this.tabOperazione.UseVisualStyleBackColor = true;
-            // 
-            // gboxUPB
-            // 
-            this.gboxUPB.Controls.Add(this.txtUPB);
-            this.gboxUPB.Controls.Add(this.txtDescrUPB);
-            this.gboxUPB.Controls.Add(this.btnUPBCode);
-            this.gboxUPB.Location = new System.Drawing.Point(8, 114);
-            this.gboxUPB.Name = "gboxUPB";
-            this.gboxUPB.Size = new System.Drawing.Size(453, 104);
-            this.gboxUPB.TabIndex = 6;
-            this.gboxUPB.TabStop = false;
-            this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
-            // 
-            // txtUPB
-            // 
-            this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_pettycashoperation_default));
+			this.tabOpfondops = new System.Windows.Forms.TabControl();
+			this.tabOperazione = new System.Windows.Forms.TabPage();
+			this.gboxUPB = new System.Windows.Forms.GroupBox();
+			this.txtUPB = new System.Windows.Forms.TextBox();
+			this.txtDescrUPB = new System.Windows.Forms.TextBox();
+			this.btnUPBCode = new System.Windows.Forms.Button();
+			this.gboxResponsabile = new System.Windows.Forms.GroupBox();
+			this.txtResponsabile = new System.Windows.Forms.TextBox();
+			this.gboxImporto = new System.Windows.Forms.GroupBox();
+			this.txtImportoCollegato = new System.Windows.Forms.TextBox();
+			this.gboxBolletta = new System.Windows.Forms.GroupBox();
+			this.txtBolletta = new System.Windows.Forms.TextBox();
+			this.btnBolletta = new System.Windows.Forms.Button();
+			this.grpNList = new System.Windows.Forms.GroupBox();
+			this.txtNList = new System.Windows.Forms.TextBox();
+			this.label11 = new System.Windows.Forms.Label();
+			this.labelCausale = new System.Windows.Forms.Label();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.txtDataContabile = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.gboxCurrAmount = new System.Windows.Forms.GroupBox();
+			this.txtImporto = new System.Windows.Forms.TextBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.txtDescrizione = new System.Windows.Forms.TextBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.cmbFondoPS = new System.Windows.Forms.ComboBox();
+			this.DS = new pettycashoperation_default.vistaForm();
+			this.gboxreintegro = new System.Windows.Forms.GroupBox();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.label15 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.grpTipoSpesa = new System.Windows.Forms.GroupBox();
+			this.chkDocumentata = new System.Windows.Forms.CheckBox();
+			this.grpTipoOperazione = new System.Windows.Forms.GroupBox();
+			this.chkChiusura = new System.Windows.Forms.CheckBox();
+			this.chkReintegro = new System.Windows.Forms.CheckBox();
+			this.chkApertura = new System.Windows.Forms.CheckBox();
+			this.chkOpSpesa = new System.Windows.Forms.CheckBox();
+			this.grpOperazione = new System.Windows.Forms.GroupBox();
+			this.txtNumOp = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtEsercOp = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtDocumento = new System.Windows.Forms.TextBox();
+			this.txtDataDoc = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.gboxDocumento = new System.Windows.Forms.GroupBox();
+			this.btnDocumento = new System.Windows.Forms.Button();
+			this.labEsercizio = new System.Windows.Forms.Label();
+			this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
+			this.txtNumDoc = new System.Windows.Forms.TextBox();
+			this.labNum = new System.Windows.Forms.Label();
+			this.txtEsercDoc = new System.Windows.Forms.TextBox();
+			this.labelTipoDocumento = new System.Windows.Forms.Label();
+			this.cmbCausale = new System.Windows.Forms.ComboBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.cmbTipoContabilizzazione = new System.Windows.Forms.ComboBox();
+			this.grpBilancio = new System.Windows.Forms.GroupBox();
+			this.chkListTitle = new System.Windows.Forms.CheckBox();
+			this.chkListManager = new System.Windows.Forms.CheckBox();
+			this.chkFilterAvailable = new System.Windows.Forms.CheckBox();
+			this.btnBilancio = new System.Windows.Forms.Button();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.txtCodiceBilancio = new System.Windows.Forms.TextBox();
+			this.txtDenominazioneBilancio = new System.Windows.Forms.TextBox();
+			this.gboxSpesa = new System.Windows.Forms.GroupBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.txtNum = new System.Windows.Forms.TextBox();
+			this.label13 = new System.Windows.Forms.Label();
+			this.txtEserc = new System.Windows.Forms.TextBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.cmbFaseSpesa = new System.Windows.Forms.ComboBox();
+			this.btnSpesa = new System.Windows.Forms.Button();
+			this.chkSpesa = new System.Windows.Forms.CheckBox();
+			this.tabClassSup = new System.Windows.Forms.TabPage();
+			this.btnGeneraClassAutomatiche = new System.Windows.Forms.Button();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.DGridDettagliClassificazioni = new System.Windows.Forms.DataGrid();
+			this.btnDelClass = new System.Windows.Forms.Button();
+			this.btnEditClass = new System.Windows.Forms.Button();
+			this.btnInsertClass = new System.Windows.Forms.Button();
+			this.DGridClassificazioni = new System.Windows.Forms.DataGrid();
+			this.label1 = new System.Windows.Forms.Label();
+			this.tabMovimenti = new System.Windows.Forms.TabPage();
+			this.dgrPSMovEntrata = new System.Windows.Forms.DataGrid();
+			this.dgrPSMovSpesa = new System.Windows.Forms.DataGrid();
+			this.tabAttributi = new System.Windows.Forms.TabPage();
+			this.gboxclass05 = new System.Windows.Forms.GroupBox();
+			this.txtCodice05 = new System.Windows.Forms.TextBox();
+			this.btnCodice05 = new System.Windows.Forms.Button();
+			this.txtDenom05 = new System.Windows.Forms.TextBox();
+			this.gboxclass04 = new System.Windows.Forms.GroupBox();
+			this.txtCodice04 = new System.Windows.Forms.TextBox();
+			this.btnCodice04 = new System.Windows.Forms.Button();
+			this.txtDenom04 = new System.Windows.Forms.TextBox();
+			this.gboxclass03 = new System.Windows.Forms.GroupBox();
+			this.txtCodice03 = new System.Windows.Forms.TextBox();
+			this.btnCodice03 = new System.Windows.Forms.Button();
+			this.txtDenom03 = new System.Windows.Forms.TextBox();
+			this.gboxclass02 = new System.Windows.Forms.GroupBox();
+			this.txtCodice02 = new System.Windows.Forms.TextBox();
+			this.btnCodice02 = new System.Windows.Forms.Button();
+			this.txtDenom02 = new System.Windows.Forms.TextBox();
+			this.gboxclass01 = new System.Windows.Forms.GroupBox();
+			this.txtCodice01 = new System.Windows.Forms.TextBox();
+			this.btnCodice01 = new System.Windows.Forms.Button();
+			this.txtDenom01 = new System.Windows.Forms.TextBox();
+			this.tabAnalitico = new System.Windows.Forms.TabPage();
+			this.gboxAnalitico = new System.Windows.Forms.GroupBox();
+			this.groupBoxRipartizione = new System.Windows.Forms.GroupBox();
+			this.btnCodRipartizione = new System.Windows.Forms.Button();
+			this.textBox25 = new System.Windows.Forms.TextBox();
+			this.textBox26 = new System.Windows.Forms.TextBox();
+			this.btnRipartizione = new System.Windows.Forms.Button();
+			this.grpBoxSiopeEP = new System.Windows.Forms.GroupBox();
+			this.btnSiope = new System.Windows.Forms.Button();
+			this.txtDescSiope = new System.Windows.Forms.TextBox();
+			this.txtCodSiope = new System.Windows.Forms.TextBox();
+			this.btnGenPreimpegni = new System.Windows.Forms.Button();
+			this.btnViewPreimpegni = new System.Windows.Forms.Button();
+			this.groupCredDeb = new System.Windows.Forms.GroupBox();
+			this.txtCredDeb = new System.Windows.Forms.TextBox();
+			this.gboxclass1 = new System.Windows.Forms.GroupBox();
+			this.btnCodice1 = new System.Windows.Forms.Button();
+			this.txtDenom1 = new System.Windows.Forms.TextBox();
+			this.txtCodice1 = new System.Windows.Forms.TextBox();
+			this.gboxclass3 = new System.Windows.Forms.GroupBox();
+			this.btnCodice3 = new System.Windows.Forms.Button();
+			this.txtDenom3 = new System.Windows.Forms.TextBox();
+			this.txtCodice3 = new System.Windows.Forms.TextBox();
+			this.btnGeneraEpExp = new System.Windows.Forms.Button();
+			this.gboxclass2 = new System.Windows.Forms.GroupBox();
+			this.btnCodice2 = new System.Windows.Forms.Button();
+			this.txtDenom2 = new System.Windows.Forms.TextBox();
+			this.txtCodice2 = new System.Windows.Forms.TextBox();
+			this.btnVisualizzaEpExp = new System.Windows.Forms.Button();
+			this.gboxDebito = new System.Windows.Forms.GroupBox();
+			this.txtDenomCausaleDebito = new System.Windows.Forms.TextBox();
+			this.txtCodiceCausaleDebito = new System.Windows.Forms.TextBox();
+			this.button1 = new System.Windows.Forms.Button();
+			this.btnGeneraEP = new System.Windows.Forms.Button();
+			this.gboxCosto = new System.Windows.Forms.GroupBox();
+			this.txtDenomCausaleCosto = new System.Windows.Forms.TextBox();
+			this.txtCodiceCausaleCosto = new System.Windows.Forms.TextBox();
+			this.button2 = new System.Windows.Forms.Button();
+			this.btnVisualizzaEP = new System.Windows.Forms.Button();
+			this.labEP = new System.Windows.Forms.Label();
+			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.txtFineCompetenza = new System.Windows.Forms.TextBox();
+			this.txtInizioCompetenza = new System.Windows.Forms.TextBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.tabFinanziamenti = new System.Windows.Forms.TabPage();
+			this.txtTotFinanziato = new System.Windows.Forms.TextBox();
+			this.label22 = new System.Windows.Forms.Label();
+			this.dgridFinanziamenti = new System.Windows.Forms.DataGrid();
+			this.btnDelFinanziamenti = new System.Windows.Forms.Button();
+			this.btnEditFinanziamenti = new System.Windows.Forms.Button();
+			this.btnInsertFinanziamenti = new System.Windows.Forms.Button();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.tabOpfondops.SuspendLayout();
+			this.tabOperazione.SuspendLayout();
+			this.gboxUPB.SuspendLayout();
+			this.gboxResponsabile.SuspendLayout();
+			this.gboxImporto.SuspendLayout();
+			this.gboxBolletta.SuspendLayout();
+			this.grpNList.SuspendLayout();
+			this.groupBox7.SuspendLayout();
+			this.gboxCurrAmount.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.gboxreintegro.SuspendLayout();
+			this.grpTipoSpesa.SuspendLayout();
+			this.grpTipoOperazione.SuspendLayout();
+			this.grpOperazione.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.gboxDocumento.SuspendLayout();
+			this.grpBilancio.SuspendLayout();
+			this.gboxSpesa.SuspendLayout();
+			this.tabClassSup.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DGridDettagliClassificazioni)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DGridClassificazioni)).BeginInit();
+			this.tabMovimenti.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrPSMovEntrata)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrPSMovSpesa)).BeginInit();
+			this.tabAttributi.SuspendLayout();
+			this.gboxclass05.SuspendLayout();
+			this.gboxclass04.SuspendLayout();
+			this.gboxclass03.SuspendLayout();
+			this.gboxclass02.SuspendLayout();
+			this.gboxclass01.SuspendLayout();
+			this.tabAnalitico.SuspendLayout();
+			this.gboxAnalitico.SuspendLayout();
+			this.groupBoxRipartizione.SuspendLayout();
+			this.grpBoxSiopeEP.SuspendLayout();
+			this.groupCredDeb.SuspendLayout();
+			this.gboxclass1.SuspendLayout();
+			this.gboxclass3.SuspendLayout();
+			this.gboxclass2.SuspendLayout();
+			this.gboxDebito.SuspendLayout();
+			this.gboxCosto.SuspendLayout();
+			this.groupBox8.SuspendLayout();
+			this.tabFinanziamenti.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgridFinanziamenti)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// tabOpfondops
+			// 
+			this.tabOpfondops.Controls.Add(this.tabOperazione);
+			this.tabOpfondops.Controls.Add(this.tabClassSup);
+			this.tabOpfondops.Controls.Add(this.tabMovimenti);
+			this.tabOpfondops.Controls.Add(this.tabAttributi);
+			this.tabOpfondops.Controls.Add(this.tabAnalitico);
+			this.tabOpfondops.Controls.Add(this.tabFinanziamenti);
+			this.tabOpfondops.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabOpfondops.ImageList = this.imageList1;
+			this.tabOpfondops.Location = new System.Drawing.Point(0, 0);
+			this.tabOpfondops.Name = "tabOpfondops";
+			this.tabOpfondops.SelectedIndex = 0;
+			this.tabOpfondops.Size = new System.Drawing.Size(955, 520);
+			this.tabOpfondops.TabIndex = 0;
+			this.tabOpfondops.SelectedIndexChanged += new System.EventHandler(this.tabClassSup_Enter);
+			// 
+			// tabOperazione
+			// 
+			this.tabOperazione.Controls.Add(this.gboxUPB);
+			this.tabOperazione.Controls.Add(this.gboxResponsabile);
+			this.tabOperazione.Controls.Add(this.gboxImporto);
+			this.tabOperazione.Controls.Add(this.gboxBolletta);
+			this.tabOperazione.Controls.Add(this.grpNList);
+			this.tabOperazione.Controls.Add(this.labelCausale);
+			this.tabOperazione.Controls.Add(this.groupBox7);
+			this.tabOperazione.Controls.Add(this.gboxCurrAmount);
+			this.tabOperazione.Controls.Add(this.groupBox2);
+			this.tabOperazione.Controls.Add(this.groupBox1);
+			this.tabOperazione.Controls.Add(this.gboxreintegro);
+			this.tabOperazione.Controls.Add(this.grpTipoSpesa);
+			this.tabOperazione.Controls.Add(this.grpTipoOperazione);
+			this.tabOperazione.Controls.Add(this.grpOperazione);
+			this.tabOperazione.Controls.Add(this.groupBox3);
+			this.tabOperazione.Controls.Add(this.gboxDocumento);
+			this.tabOperazione.Controls.Add(this.cmbCausale);
+			this.tabOperazione.Controls.Add(this.label5);
+			this.tabOperazione.Controls.Add(this.cmbTipoContabilizzazione);
+			this.tabOperazione.Controls.Add(this.grpBilancio);
+			this.tabOperazione.Controls.Add(this.gboxSpesa);
+			this.tabOperazione.Controls.Add(this.chkSpesa);
+			this.tabOperazione.Location = new System.Drawing.Point(4, 23);
+			this.tabOperazione.Name = "tabOperazione";
+			this.tabOperazione.Size = new System.Drawing.Size(947, 493);
+			this.tabOperazione.TabIndex = 0;
+			this.tabOperazione.Text = "Principale";
+			this.tabOperazione.UseVisualStyleBackColor = true;
+			// 
+			// gboxUPB
+			// 
+			this.gboxUPB.Controls.Add(this.txtUPB);
+			this.gboxUPB.Controls.Add(this.txtDescrUPB);
+			this.gboxUPB.Controls.Add(this.btnUPBCode);
+			this.gboxUPB.Location = new System.Drawing.Point(8, 114);
+			this.gboxUPB.Name = "gboxUPB";
+			this.gboxUPB.Size = new System.Drawing.Size(453, 104);
+			this.gboxUPB.TabIndex = 6;
+			this.gboxUPB.TabStop = false;
+			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
+			// 
+			// txtUPB
+			// 
+			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUPB.Location = new System.Drawing.Point(8, 77);
-            this.txtUPB.Name = "txtUPB";
-            this.txtUPB.Size = new System.Drawing.Size(436, 20);
-            this.txtUPB.TabIndex = 5;
-            this.txtUPB.Tag = "upb.codeupb?x";
-            // 
-            // txtDescrUPB
-            // 
-            this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtUPB.Location = new System.Drawing.Point(8, 77);
+			this.txtUPB.Name = "txtUPB";
+			this.txtUPB.Size = new System.Drawing.Size(436, 20);
+			this.txtUPB.TabIndex = 5;
+			this.txtUPB.Tag = "upb.codeupb?x";
+			// 
+			// txtDescrUPB
+			// 
+			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrUPB.Location = new System.Drawing.Point(175, 9);
-            this.txtDescrUPB.Multiline = true;
-            this.txtDescrUPB.Name = "txtDescrUPB";
-            this.txtDescrUPB.ReadOnly = true;
-            this.txtDescrUPB.Size = new System.Drawing.Size(269, 62);
-            this.txtDescrUPB.TabIndex = 4;
-            this.txtDescrUPB.TabStop = false;
-            this.txtDescrUPB.Tag = "upb.title";
-            // 
-            // btnUPBCode
-            // 
-            this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
-            this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
-            this.btnUPBCode.Name = "btnUPBCode";
-            this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
-            this.btnUPBCode.TabIndex = 2;
-            this.btnUPBCode.TabStop = false;
-            this.btnUPBCode.Tag = " manage.upb.tree";
-            this.btnUPBCode.Text = "UPB:";
-            this.btnUPBCode.UseVisualStyleBackColor = false;
-            // 
-            // gboxResponsabile
-            // 
-            this.gboxResponsabile.Controls.Add(this.txtResponsabile);
-            this.gboxResponsabile.Location = new System.Drawing.Point(8, 222);
-            this.gboxResponsabile.Name = "gboxResponsabile";
-            this.gboxResponsabile.Size = new System.Drawing.Size(453, 40);
-            this.gboxResponsabile.TabIndex = 7;
-            this.gboxResponsabile.TabStop = false;
-            this.gboxResponsabile.Tag = "AutoChoose.txtResponsabile.default.(financeactive=\'S\')";
-            this.gboxResponsabile.Text = "Responsabile";
-            // 
-            // txtResponsabile
-            // 
-            this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrUPB.Location = new System.Drawing.Point(175, 9);
+			this.txtDescrUPB.Multiline = true;
+			this.txtDescrUPB.Name = "txtDescrUPB";
+			this.txtDescrUPB.ReadOnly = true;
+			this.txtDescrUPB.Size = new System.Drawing.Size(269, 62);
+			this.txtDescrUPB.TabIndex = 4;
+			this.txtDescrUPB.TabStop = false;
+			this.txtDescrUPB.Tag = "upb.title";
+			// 
+			// btnUPBCode
+			// 
+			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
+			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
+			this.btnUPBCode.Name = "btnUPBCode";
+			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
+			this.btnUPBCode.TabIndex = 2;
+			this.btnUPBCode.TabStop = false;
+			this.btnUPBCode.Tag = " manage.upb.tree";
+			this.btnUPBCode.Text = "UPB:";
+			this.btnUPBCode.UseVisualStyleBackColor = false;
+			// 
+			// gboxResponsabile
+			// 
+			this.gboxResponsabile.Controls.Add(this.txtResponsabile);
+			this.gboxResponsabile.Location = new System.Drawing.Point(8, 222);
+			this.gboxResponsabile.Name = "gboxResponsabile";
+			this.gboxResponsabile.Size = new System.Drawing.Size(453, 40);
+			this.gboxResponsabile.TabIndex = 7;
+			this.gboxResponsabile.TabStop = false;
+			this.gboxResponsabile.Tag = "AutoChoose.txtResponsabile.default.(financeactive=\'S\')";
+			this.gboxResponsabile.Text = "Responsabile";
+			// 
+			// txtResponsabile
+			// 
+			this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResponsabile.Location = new System.Drawing.Point(5, 14);
-            this.txtResponsabile.Name = "txtResponsabile";
-            this.txtResponsabile.Size = new System.Drawing.Size(442, 20);
-            this.txtResponsabile.TabIndex = 0;
-            this.txtResponsabile.Tag = "manager.title?x";
-            // 
-            // gboxImporto
-            // 
-            this.gboxImporto.Controls.Add(this.txtImportoCollegato);
-            this.gboxImporto.Location = new System.Drawing.Point(221, 392);
-            this.gboxImporto.Name = "gboxImporto";
-            this.gboxImporto.Size = new System.Drawing.Size(240, 42);
-            this.gboxImporto.TabIndex = 76;
-            this.gboxImporto.TabStop = false;
-            this.gboxImporto.Text = "Totale movimenti collegati";
-            // 
-            // txtImportoCollegato
-            // 
-            this.txtImportoCollegato.Location = new System.Drawing.Point(103, 14);
-            this.txtImportoCollegato.Name = "txtImportoCollegato";
-            this.txtImportoCollegato.ReadOnly = true;
-            this.txtImportoCollegato.Size = new System.Drawing.Size(128, 20);
-            this.txtImportoCollegato.TabIndex = 11;
-            this.txtImportoCollegato.TabStop = false;
-            this.txtImportoCollegato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // gboxBolletta
-            // 
-            this.gboxBolletta.Controls.Add(this.txtBolletta);
-            this.gboxBolletta.Controls.Add(this.btnBolletta);
-            this.gboxBolletta.Location = new System.Drawing.Point(476, 435);
-            this.gboxBolletta.Name = "gboxBolletta";
-            this.gboxBolletta.Size = new System.Drawing.Size(201, 46);
-            this.gboxBolletta.TabIndex = 17;
-            this.gboxBolletta.TabStop = false;
-            this.gboxBolletta.Tag = "AutoChoose.txtBolletta.spesa.(active=\'S\')";
-            // 
-            // txtBolletta
-            // 
-            this.txtBolletta.Location = new System.Drawing.Point(104, 12);
-            this.txtBolletta.Name = "txtBolletta";
-            this.txtBolletta.Size = new System.Drawing.Size(86, 20);
-            this.txtBolletta.TabIndex = 1;
-            this.txtBolletta.Tag = "bill.nbill?pettycashoperationview.nbill";
-            // 
-            // btnBolletta
-            // 
-            this.btnBolletta.Location = new System.Drawing.Point(8, 12);
-            this.btnBolletta.Name = "btnBolletta";
-            this.btnBolletta.Size = new System.Drawing.Size(88, 23);
-            this.btnBolletta.TabIndex = 0;
-            this.btnBolletta.TabStop = false;
-            this.btnBolletta.Tag = "choose.bill.spesa.(active=\'S\')";
-            this.btnBolletta.Text = "N. bolletta";
-            this.btnBolletta.Click += new System.EventHandler(this.btnBolletta_Click);
-            // 
-            // grpNList
-            // 
-            this.grpNList.Controls.Add(this.txtNList);
-            this.grpNList.Controls.Add(this.label11);
-            this.grpNList.Location = new System.Drawing.Point(683, 435);
-            this.grpNList.Name = "grpNList";
-            this.grpNList.Size = new System.Drawing.Size(196, 46);
-            this.grpNList.TabIndex = 18;
-            this.grpNList.TabStop = false;
-            this.grpNList.Text = "Nota Spese";
-            // 
-            // txtNList
-            // 
-            this.txtNList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNList.Location = new System.Drawing.Point(53, 14);
-            this.txtNList.Name = "txtNList";
-            this.txtNList.Size = new System.Drawing.Size(113, 20);
-            this.txtNList.TabIndex = 6;
-            this.txtNList.Tag = "pettycashoperation.nlist";
-            // 
-            // label11
-            // 
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(15, 16);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 16);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "Num.";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelCausale
-            // 
-            this.labelCausale.Location = new System.Drawing.Point(490, 144);
-            this.labelCausale.Name = "labelCausale";
-            this.labelCausale.Size = new System.Drawing.Size(64, 16);
-            this.labelCausale.TabIndex = 73;
-            this.labelCausale.Text = "Causale";
-            this.labelCausale.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.txtDataContabile);
-            this.groupBox7.Controls.Add(this.label8);
-            this.groupBox7.Location = new System.Drawing.Point(8, 392);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(191, 40);
-            this.groupBox7.TabIndex = 9;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Data";
-            // 
-            // txtDataContabile
-            // 
-            this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtDataContabile.Location = new System.Drawing.Point(68, 14);
-            this.txtDataContabile.Name = "txtDataContabile";
-            this.txtDataContabile.Size = new System.Drawing.Size(96, 20);
-            this.txtDataContabile.TabIndex = 1;
-            this.txtDataContabile.Tag = "pettycashoperation.adate";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label8.Location = new System.Drawing.Point(6, 17);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(56, 16);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Contabile:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // gboxCurrAmount
-            // 
-            this.gboxCurrAmount.Controls.Add(this.txtImporto);
-            this.gboxCurrAmount.Location = new System.Drawing.Point(8, 80);
-            this.gboxCurrAmount.Name = "gboxCurrAmount";
-            this.gboxCurrAmount.Size = new System.Drawing.Size(312, 32);
-            this.gboxCurrAmount.TabIndex = 5;
-            this.gboxCurrAmount.TabStop = false;
-            this.gboxCurrAmount.Text = "Importo";
-            // 
-            // txtImporto
-            // 
-            this.txtImporto.Location = new System.Drawing.Point(160, 8);
-            this.txtImporto.Name = "txtImporto";
-            this.txtImporto.Size = new System.Drawing.Size(144, 20);
-            this.txtImporto.TabIndex = 1;
-            this.txtImporto.Tag = "pettycashoperation.amount";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtResponsabile.Location = new System.Drawing.Point(5, 14);
+			this.txtResponsabile.Name = "txtResponsabile";
+			this.txtResponsabile.Size = new System.Drawing.Size(442, 20);
+			this.txtResponsabile.TabIndex = 0;
+			this.txtResponsabile.Tag = "manager.title?x";
+			// 
+			// gboxImporto
+			// 
+			this.gboxImporto.Controls.Add(this.txtImportoCollegato);
+			this.gboxImporto.Location = new System.Drawing.Point(221, 392);
+			this.gboxImporto.Name = "gboxImporto";
+			this.gboxImporto.Size = new System.Drawing.Size(240, 42);
+			this.gboxImporto.TabIndex = 76;
+			this.gboxImporto.TabStop = false;
+			this.gboxImporto.Text = "Totale movimenti collegati";
+			// 
+			// txtImportoCollegato
+			// 
+			this.txtImportoCollegato.Location = new System.Drawing.Point(103, 14);
+			this.txtImportoCollegato.Name = "txtImportoCollegato";
+			this.txtImportoCollegato.ReadOnly = true;
+			this.txtImportoCollegato.Size = new System.Drawing.Size(128, 20);
+			this.txtImportoCollegato.TabIndex = 11;
+			this.txtImportoCollegato.TabStop = false;
+			this.txtImportoCollegato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// gboxBolletta
+			// 
+			this.gboxBolletta.Controls.Add(this.txtBolletta);
+			this.gboxBolletta.Controls.Add(this.btnBolletta);
+			this.gboxBolletta.Location = new System.Drawing.Point(476, 435);
+			this.gboxBolletta.Name = "gboxBolletta";
+			this.gboxBolletta.Size = new System.Drawing.Size(201, 46);
+			this.gboxBolletta.TabIndex = 17;
+			this.gboxBolletta.TabStop = false;
+			this.gboxBolletta.Tag = "AutoChoose.txtBolletta.spesa.(active=\'S\')";
+			// 
+			// txtBolletta
+			// 
+			this.txtBolletta.Location = new System.Drawing.Point(104, 12);
+			this.txtBolletta.Name = "txtBolletta";
+			this.txtBolletta.Size = new System.Drawing.Size(86, 20);
+			this.txtBolletta.TabIndex = 1;
+			this.txtBolletta.Tag = "bill.nbill?pettycashoperationview.nbill";
+			// 
+			// btnBolletta
+			// 
+			this.btnBolletta.Location = new System.Drawing.Point(8, 12);
+			this.btnBolletta.Name = "btnBolletta";
+			this.btnBolletta.Size = new System.Drawing.Size(88, 23);
+			this.btnBolletta.TabIndex = 0;
+			this.btnBolletta.TabStop = false;
+			this.btnBolletta.Tag = "choose.bill.spesa.(active=\'S\')";
+			this.btnBolletta.Text = "N. bolletta";
+			this.btnBolletta.Click += new System.EventHandler(this.btnBolletta_Click);
+			// 
+			// grpNList
+			// 
+			this.grpNList.Controls.Add(this.txtNList);
+			this.grpNList.Controls.Add(this.label11);
+			this.grpNList.Location = new System.Drawing.Point(683, 435);
+			this.grpNList.Name = "grpNList";
+			this.grpNList.Size = new System.Drawing.Size(196, 46);
+			this.grpNList.TabIndex = 18;
+			this.grpNList.TabStop = false;
+			this.grpNList.Text = "Nota Spese";
+			// 
+			// txtNList
+			// 
+			this.txtNList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtNList.Location = new System.Drawing.Point(53, 14);
+			this.txtNList.Name = "txtNList";
+			this.txtNList.Size = new System.Drawing.Size(113, 20);
+			this.txtNList.TabIndex = 6;
+			this.txtNList.Tag = "pettycashoperation.nlist";
+			// 
+			// label11
+			// 
+			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label11.Location = new System.Drawing.Point(15, 16);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(32, 16);
+			this.label11.TabIndex = 5;
+			this.label11.Text = "Num.";
+			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// labelCausale
+			// 
+			this.labelCausale.Location = new System.Drawing.Point(490, 144);
+			this.labelCausale.Name = "labelCausale";
+			this.labelCausale.Size = new System.Drawing.Size(64, 16);
+			this.labelCausale.TabIndex = 73;
+			this.labelCausale.Text = "Causale";
+			this.labelCausale.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// groupBox7
+			// 
+			this.groupBox7.Controls.Add(this.txtDataContabile);
+			this.groupBox7.Controls.Add(this.label8);
+			this.groupBox7.Location = new System.Drawing.Point(8, 392);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Size = new System.Drawing.Size(191, 40);
+			this.groupBox7.TabIndex = 9;
+			this.groupBox7.TabStop = false;
+			this.groupBox7.Text = "Data";
+			// 
+			// txtDataContabile
+			// 
+			this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtDataContabile.Location = new System.Drawing.Point(68, 14);
+			this.txtDataContabile.Name = "txtDataContabile";
+			this.txtDataContabile.Size = new System.Drawing.Size(96, 20);
+			this.txtDataContabile.TabIndex = 1;
+			this.txtDataContabile.Tag = "pettycashoperation.adate";
+			// 
+			// label8
+			// 
+			this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label8.Location = new System.Drawing.Point(6, 17);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(56, 16);
+			this.label8.TabIndex = 13;
+			this.label8.Text = "Contabile:";
+			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// gboxCurrAmount
+			// 
+			this.gboxCurrAmount.Controls.Add(this.txtImporto);
+			this.gboxCurrAmount.Location = new System.Drawing.Point(8, 80);
+			this.gboxCurrAmount.Name = "gboxCurrAmount";
+			this.gboxCurrAmount.Size = new System.Drawing.Size(312, 32);
+			this.gboxCurrAmount.TabIndex = 5;
+			this.gboxCurrAmount.TabStop = false;
+			this.gboxCurrAmount.Text = "Importo";
+			// 
+			// txtImporto
+			// 
+			this.txtImporto.Location = new System.Drawing.Point(160, 8);
+			this.txtImporto.Name = "txtImporto";
+			this.txtImporto.Size = new System.Drawing.Size(144, 20);
+			this.txtImporto.TabIndex = 1;
+			this.txtImporto.Tag = "pettycashoperation.amount";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.txtDescrizione);
-            this.groupBox2.Location = new System.Drawing.Point(327, 43);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(612, 72);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Descrizione";
-            // 
-            // txtDescrizione
-            // 
-            this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox2.Controls.Add(this.txtDescrizione);
+			this.groupBox2.Location = new System.Drawing.Point(327, 43);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(612, 72);
+			this.groupBox2.TabIndex = 4;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Descrizione";
+			// 
+			// txtDescrizione
+			// 
+			this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescrizione.Location = new System.Drawing.Point(8, 16);
-            this.txtDescrizione.Multiline = true;
-            this.txtDescrizione.Name = "txtDescrizione";
-            this.txtDescrizione.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescrizione.Size = new System.Drawing.Size(596, 48);
-            this.txtDescrizione.TabIndex = 1;
-            this.txtDescrizione.Tag = "pettycashoperation.description";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.cmbFondoPS);
-            this.groupBox1.Location = new System.Drawing.Point(8, 40);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 40);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Fondo Economale";
-            // 
-            // cmbFondoPS
-            // 
-            this.cmbFondoPS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDescrizione.Location = new System.Drawing.Point(8, 16);
+			this.txtDescrizione.Multiline = true;
+			this.txtDescrizione.Name = "txtDescrizione";
+			this.txtDescrizione.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDescrizione.Size = new System.Drawing.Size(596, 48);
+			this.txtDescrizione.TabIndex = 1;
+			this.txtDescrizione.Tag = "pettycashoperation.description";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.cmbFondoPS);
+			this.groupBox1.Location = new System.Drawing.Point(8, 40);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(312, 40);
+			this.groupBox1.TabIndex = 3;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Fondo Economale";
+			// 
+			// cmbFondoPS
+			// 
+			this.cmbFondoPS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbFondoPS.DataSource = this.DS.pettycash;
-            this.cmbFondoPS.DisplayMember = "description";
-            this.cmbFondoPS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFondoPS.Location = new System.Drawing.Point(8, 16);
-            this.cmbFondoPS.Name = "cmbFondoPS";
-            this.cmbFondoPS.Size = new System.Drawing.Size(296, 21);
-            this.cmbFondoPS.TabIndex = 1;
-            this.cmbFondoPS.Tag = "pettycashoperation.idpettycash";
-            this.cmbFondoPS.ValueMember = "idpettycash";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // gboxreintegro
-            // 
-            this.gboxreintegro.Controls.Add(this.textBox3);
-            this.gboxreintegro.Controls.Add(this.label15);
-            this.gboxreintegro.Controls.Add(this.textBox1);
-            this.gboxreintegro.Controls.Add(this.label14);
-            this.gboxreintegro.Location = new System.Drawing.Point(8, 435);
-            this.gboxreintegro.Name = "gboxreintegro";
-            this.gboxreintegro.Size = new System.Drawing.Size(270, 48);
-            this.gboxreintegro.TabIndex = 10;
-            this.gboxreintegro.TabStop = false;
-            this.gboxreintegro.Text = "Reintegro";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(170, 20);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(72, 20);
-            this.textBox3.TabIndex = 24;
-            this.textBox3.TabStop = false;
-            this.textBox3.Tag = "pettycashoperation.nrestore";
-            // 
-            // label15
-            // 
-            this.label15.Location = new System.Drawing.Point(116, 22);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(48, 16);
-            this.label15.TabIndex = 23;
-            this.label15.Text = "Numero";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(60, 17);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(56, 20);
-            this.textBox1.TabIndex = 22;
-            this.textBox1.TabStop = false;
-            this.textBox1.Tag = "pettycashoperation.yrestore";
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(4, 21);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(56, 16);
-            this.label14.TabIndex = 21;
-            this.label14.Text = "Esercizio";
-            // 
-            // grpTipoSpesa
-            // 
-            this.grpTipoSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbFondoPS.DataSource = this.DS.pettycash;
+			this.cmbFondoPS.DisplayMember = "description";
+			this.cmbFondoPS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbFondoPS.Location = new System.Drawing.Point(8, 16);
+			this.cmbFondoPS.Name = "cmbFondoPS";
+			this.cmbFondoPS.Size = new System.Drawing.Size(296, 21);
+			this.cmbFondoPS.TabIndex = 1;
+			this.cmbFondoPS.Tag = "pettycashoperation.idpettycash";
+			this.cmbFondoPS.ValueMember = "idpettycash";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// gboxreintegro
+			// 
+			this.gboxreintegro.Controls.Add(this.textBox3);
+			this.gboxreintegro.Controls.Add(this.label15);
+			this.gboxreintegro.Controls.Add(this.textBox1);
+			this.gboxreintegro.Controls.Add(this.label14);
+			this.gboxreintegro.Location = new System.Drawing.Point(8, 435);
+			this.gboxreintegro.Name = "gboxreintegro";
+			this.gboxreintegro.Size = new System.Drawing.Size(270, 48);
+			this.gboxreintegro.TabIndex = 10;
+			this.gboxreintegro.TabStop = false;
+			this.gboxreintegro.Text = "Reintegro";
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(170, 20);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.ReadOnly = true;
+			this.textBox3.Size = new System.Drawing.Size(72, 20);
+			this.textBox3.TabIndex = 24;
+			this.textBox3.TabStop = false;
+			this.textBox3.Tag = "pettycashoperation.nrestore";
+			// 
+			// label15
+			// 
+			this.label15.Location = new System.Drawing.Point(116, 22);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(48, 16);
+			this.label15.TabIndex = 23;
+			this.label15.Text = "Numero";
+			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(60, 17);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(56, 20);
+			this.textBox1.TabIndex = 22;
+			this.textBox1.TabStop = false;
+			this.textBox1.Tag = "pettycashoperation.yrestore";
+			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(4, 21);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(56, 16);
+			this.label14.TabIndex = 21;
+			this.label14.Text = "Esercizio";
+			// 
+			// grpTipoSpesa
+			// 
+			this.grpTipoSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpTipoSpesa.Controls.Add(this.chkDocumentata);
-            this.grpTipoSpesa.Location = new System.Drawing.Point(476, 230);
-            this.grpTipoSpesa.Name = "grpTipoSpesa";
-            this.grpTipoSpesa.Size = new System.Drawing.Size(463, 32);
-            this.grpTipoSpesa.TabIndex = 14;
-            this.grpTipoSpesa.TabStop = false;
-            this.grpTipoSpesa.Text = "Tipo di spesa";
-            // 
-            // chkDocumentata
-            // 
-            this.chkDocumentata.Location = new System.Drawing.Point(96, 8);
-            this.chkDocumentata.Name = "chkDocumentata";
-            this.chkDocumentata.Size = new System.Drawing.Size(136, 16);
-            this.chkDocumentata.TabIndex = 1;
-            this.chkDocumentata.Tag = "pettycashoperation.flag:4";
-            this.chkDocumentata.Text = "Spese Documentate";
-            this.chkDocumentata.CheckedChanged += new System.EventHandler(this.chkDocumentata_CheckedChanged);
-            // 
-            // grpTipoOperazione
-            // 
-            this.grpTipoOperazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpTipoSpesa.Controls.Add(this.chkDocumentata);
+			this.grpTipoSpesa.Location = new System.Drawing.Point(476, 230);
+			this.grpTipoSpesa.Name = "grpTipoSpesa";
+			this.grpTipoSpesa.Size = new System.Drawing.Size(463, 32);
+			this.grpTipoSpesa.TabIndex = 14;
+			this.grpTipoSpesa.TabStop = false;
+			this.grpTipoSpesa.Text = "Tipo di spesa";
+			// 
+			// chkDocumentata
+			// 
+			this.chkDocumentata.Location = new System.Drawing.Point(96, 8);
+			this.chkDocumentata.Name = "chkDocumentata";
+			this.chkDocumentata.Size = new System.Drawing.Size(136, 16);
+			this.chkDocumentata.TabIndex = 1;
+			this.chkDocumentata.Tag = "pettycashoperation.flag:4";
+			this.chkDocumentata.Text = "Spese Documentate";
+			this.chkDocumentata.CheckedChanged += new System.EventHandler(this.chkDocumentata_CheckedChanged);
+			// 
+			// grpTipoOperazione
+			// 
+			this.grpTipoOperazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpTipoOperazione.Controls.Add(this.chkChiusura);
-            this.grpTipoOperazione.Controls.Add(this.chkReintegro);
-            this.grpTipoOperazione.Controls.Add(this.chkApertura);
-            this.grpTipoOperazione.Controls.Add(this.chkOpSpesa);
-            this.grpTipoOperazione.Location = new System.Drawing.Point(327, 3);
-            this.grpTipoOperazione.Name = "grpTipoOperazione";
-            this.grpTipoOperazione.Size = new System.Drawing.Size(427, 40);
-            this.grpTipoOperazione.TabIndex = 2;
-            this.grpTipoOperazione.TabStop = false;
-            this.grpTipoOperazione.Text = "Tipo dell\'operazione";
-            // 
-            // chkChiusura
-            // 
-            this.chkChiusura.AutoSize = true;
-            this.chkChiusura.Location = new System.Drawing.Point(259, 14);
-            this.chkChiusura.Name = "chkChiusura";
-            this.chkChiusura.Size = new System.Drawing.Size(67, 17);
-            this.chkChiusura.TabIndex = 3;
-            this.chkChiusura.TabStop = false;
-            this.chkChiusura.Tag = "pettycashoperation.flag:2";
-            this.chkChiusura.Text = "Chiusura";
-            this.chkChiusura.UseVisualStyleBackColor = true;
-            this.chkChiusura.CheckStateChanged += new System.EventHandler(this.chkChiusura_CheckStateChanged);
-            // 
-            // chkReintegro
-            // 
-            this.chkReintegro.AutoSize = true;
-            this.chkReintegro.Location = new System.Drawing.Point(183, 14);
-            this.chkReintegro.Name = "chkReintegro";
-            this.chkReintegro.Size = new System.Drawing.Size(72, 17);
-            this.chkReintegro.TabIndex = 2;
-            this.chkReintegro.TabStop = false;
-            this.chkReintegro.Tag = "pettycashoperation.flag:1";
-            this.chkReintegro.Text = "Reintegro";
-            this.chkReintegro.UseVisualStyleBackColor = true;
-            this.chkReintegro.CheckStateChanged += new System.EventHandler(this.chkReintegro_CheckStateChanged);
-            // 
-            // chkApertura
-            // 
-            this.chkApertura.AutoSize = true;
-            this.chkApertura.Location = new System.Drawing.Point(110, 14);
-            this.chkApertura.Name = "chkApertura";
-            this.chkApertura.Size = new System.Drawing.Size(66, 17);
-            this.chkApertura.TabIndex = 1;
-            this.chkApertura.TabStop = false;
-            this.chkApertura.Tag = "pettycashoperation.flag:0";
-            this.chkApertura.Text = "Apertura";
-            this.chkApertura.UseVisualStyleBackColor = true;
-            this.chkApertura.CheckStateChanged += new System.EventHandler(this.chkApertura_CheckStateChanged);
-            // 
-            // chkOpSpesa
-            // 
-            this.chkOpSpesa.AutoSize = true;
-            this.chkOpSpesa.Location = new System.Drawing.Point(7, 14);
-            this.chkOpSpesa.Name = "chkOpSpesa";
-            this.chkOpSpesa.Size = new System.Drawing.Size(56, 17);
-            this.chkOpSpesa.TabIndex = 0;
-            this.chkOpSpesa.TabStop = false;
-            this.chkOpSpesa.Tag = "pettycashoperation.flag:3";
-            this.chkOpSpesa.Text = "Spesa";
-            this.chkOpSpesa.UseVisualStyleBackColor = true;
-            this.chkOpSpesa.CheckStateChanged += new System.EventHandler(this.chkOpSpesa_CheckStateChanged);
-            // 
-            // grpOperazione
-            // 
-            this.grpOperazione.Controls.Add(this.txtNumOp);
-            this.grpOperazione.Controls.Add(this.label3);
-            this.grpOperazione.Controls.Add(this.txtEsercOp);
-            this.grpOperazione.Controls.Add(this.label2);
-            this.grpOperazione.Location = new System.Drawing.Point(8, 0);
-            this.grpOperazione.Name = "grpOperazione";
-            this.grpOperazione.Size = new System.Drawing.Size(312, 40);
-            this.grpOperazione.TabIndex = 1;
-            this.grpOperazione.TabStop = false;
-            this.grpOperazione.Text = "Operazione";
-            // 
-            // txtNumOp
-            // 
-            this.txtNumOp.Location = new System.Drawing.Point(232, 16);
-            this.txtNumOp.Name = "txtNumOp";
-            this.txtNumOp.Size = new System.Drawing.Size(72, 20);
-            this.txtNumOp.TabIndex = 1;
-            this.txtNumOp.Tag = "pettycashoperation.noperation";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(184, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 16);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Numero:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtEsercOp
-            // 
-            this.txtEsercOp.Location = new System.Drawing.Point(128, 16);
-            this.txtEsercOp.Name = "txtEsercOp";
-            this.txtEsercOp.ReadOnly = true;
-            this.txtEsercOp.Size = new System.Drawing.Size(56, 20);
-            this.txtEsercOp.TabIndex = 1;
-            this.txtEsercOp.TabStop = false;
-            this.txtEsercOp.Tag = "pettycashoperation.yoperation";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(64, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 16);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Esercizio:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpTipoOperazione.Controls.Add(this.chkChiusura);
+			this.grpTipoOperazione.Controls.Add(this.chkReintegro);
+			this.grpTipoOperazione.Controls.Add(this.chkApertura);
+			this.grpTipoOperazione.Controls.Add(this.chkOpSpesa);
+			this.grpTipoOperazione.Location = new System.Drawing.Point(327, 3);
+			this.grpTipoOperazione.Name = "grpTipoOperazione";
+			this.grpTipoOperazione.Size = new System.Drawing.Size(427, 40);
+			this.grpTipoOperazione.TabIndex = 2;
+			this.grpTipoOperazione.TabStop = false;
+			this.grpTipoOperazione.Text = "Tipo dell\'operazione";
+			// 
+			// chkChiusura
+			// 
+			this.chkChiusura.AutoSize = true;
+			this.chkChiusura.Location = new System.Drawing.Point(259, 14);
+			this.chkChiusura.Name = "chkChiusura";
+			this.chkChiusura.Size = new System.Drawing.Size(67, 17);
+			this.chkChiusura.TabIndex = 3;
+			this.chkChiusura.TabStop = false;
+			this.chkChiusura.Tag = "pettycashoperation.flag:2";
+			this.chkChiusura.Text = "Chiusura";
+			this.chkChiusura.UseVisualStyleBackColor = true;
+			this.chkChiusura.CheckStateChanged += new System.EventHandler(this.chkChiusura_CheckStateChanged);
+			// 
+			// chkReintegro
+			// 
+			this.chkReintegro.AutoSize = true;
+			this.chkReintegro.Location = new System.Drawing.Point(183, 14);
+			this.chkReintegro.Name = "chkReintegro";
+			this.chkReintegro.Size = new System.Drawing.Size(72, 17);
+			this.chkReintegro.TabIndex = 2;
+			this.chkReintegro.TabStop = false;
+			this.chkReintegro.Tag = "pettycashoperation.flag:1";
+			this.chkReintegro.Text = "Reintegro";
+			this.chkReintegro.UseVisualStyleBackColor = true;
+			this.chkReintegro.CheckStateChanged += new System.EventHandler(this.chkReintegro_CheckStateChanged);
+			// 
+			// chkApertura
+			// 
+			this.chkApertura.AutoSize = true;
+			this.chkApertura.Location = new System.Drawing.Point(110, 14);
+			this.chkApertura.Name = "chkApertura";
+			this.chkApertura.Size = new System.Drawing.Size(66, 17);
+			this.chkApertura.TabIndex = 1;
+			this.chkApertura.TabStop = false;
+			this.chkApertura.Tag = "pettycashoperation.flag:0";
+			this.chkApertura.Text = "Apertura";
+			this.chkApertura.UseVisualStyleBackColor = true;
+			this.chkApertura.CheckStateChanged += new System.EventHandler(this.chkApertura_CheckStateChanged);
+			// 
+			// chkOpSpesa
+			// 
+			this.chkOpSpesa.AutoSize = true;
+			this.chkOpSpesa.Location = new System.Drawing.Point(7, 14);
+			this.chkOpSpesa.Name = "chkOpSpesa";
+			this.chkOpSpesa.Size = new System.Drawing.Size(56, 17);
+			this.chkOpSpesa.TabIndex = 0;
+			this.chkOpSpesa.TabStop = false;
+			this.chkOpSpesa.Tag = "pettycashoperation.flag:3";
+			this.chkOpSpesa.Text = "Spesa";
+			this.chkOpSpesa.UseVisualStyleBackColor = true;
+			this.chkOpSpesa.CheckStateChanged += new System.EventHandler(this.chkOpSpesa_CheckStateChanged);
+			// 
+			// grpOperazione
+			// 
+			this.grpOperazione.Controls.Add(this.txtNumOp);
+			this.grpOperazione.Controls.Add(this.label3);
+			this.grpOperazione.Controls.Add(this.txtEsercOp);
+			this.grpOperazione.Controls.Add(this.label2);
+			this.grpOperazione.Location = new System.Drawing.Point(8, 0);
+			this.grpOperazione.Name = "grpOperazione";
+			this.grpOperazione.Size = new System.Drawing.Size(312, 40);
+			this.grpOperazione.TabIndex = 1;
+			this.grpOperazione.TabStop = false;
+			this.grpOperazione.Text = "Operazione";
+			// 
+			// txtNumOp
+			// 
+			this.txtNumOp.Location = new System.Drawing.Point(232, 16);
+			this.txtNumOp.Name = "txtNumOp";
+			this.txtNumOp.Size = new System.Drawing.Size(72, 20);
+			this.txtNumOp.TabIndex = 1;
+			this.txtNumOp.Tag = "pettycashoperation.noperation";
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(184, 16);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(48, 16);
+			this.label3.TabIndex = 2;
+			this.label3.Text = "Numero:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtEsercOp
+			// 
+			this.txtEsercOp.Location = new System.Drawing.Point(128, 16);
+			this.txtEsercOp.Name = "txtEsercOp";
+			this.txtEsercOp.ReadOnly = true;
+			this.txtEsercOp.Size = new System.Drawing.Size(56, 20);
+			this.txtEsercOp.TabIndex = 1;
+			this.txtEsercOp.TabStop = false;
+			this.txtEsercOp.Tag = "pettycashoperation.yoperation";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(64, 16);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(56, 16);
+			this.label2.TabIndex = 0;
+			this.label2.Text = "Esercizio:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.txtDocumento);
-            this.groupBox3.Controls.Add(this.txtDataDoc);
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Location = new System.Drawing.Point(476, 262);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(463, 56);
-            this.groupBox3.TabIndex = 16;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Documento collegato";
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(144, 8);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 16);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Descrizione:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDocumento
-            // 
-            this.txtDocumento.Location = new System.Drawing.Point(8, 24);
-            this.txtDocumento.Name = "txtDocumento";
-            this.txtDocumento.Size = new System.Drawing.Size(208, 20);
-            this.txtDocumento.TabIndex = 1;
-            this.txtDocumento.Tag = "pettycashoperation.doc";
-            // 
-            // txtDataDoc
-            // 
-            this.txtDataDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox3.Controls.Add(this.label4);
+			this.groupBox3.Controls.Add(this.txtDocumento);
+			this.groupBox3.Controls.Add(this.txtDataDoc);
+			this.groupBox3.Controls.Add(this.label6);
+			this.groupBox3.Location = new System.Drawing.Point(476, 262);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(463, 56);
+			this.groupBox3.TabIndex = 16;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Documento collegato";
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(144, 8);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(72, 16);
+			this.label4.TabIndex = 10;
+			this.label4.Text = "Descrizione:";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDocumento
+			// 
+			this.txtDocumento.Location = new System.Drawing.Point(8, 24);
+			this.txtDocumento.Name = "txtDocumento";
+			this.txtDocumento.Size = new System.Drawing.Size(208, 20);
+			this.txtDocumento.TabIndex = 1;
+			this.txtDocumento.Tag = "pettycashoperation.doc";
+			// 
+			// txtDataDoc
+			// 
+			this.txtDataDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDataDoc.Location = new System.Drawing.Point(232, 24);
-            this.txtDataDoc.Name = "txtDataDoc";
-            this.txtDataDoc.Size = new System.Drawing.Size(223, 20);
-            this.txtDataDoc.TabIndex = 2;
-            this.txtDataDoc.Tag = "pettycashoperation.docdate";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDataDoc.Location = new System.Drawing.Point(232, 24);
+			this.txtDataDoc.Name = "txtDataDoc";
+			this.txtDataDoc.Size = new System.Drawing.Size(223, 20);
+			this.txtDataDoc.TabIndex = 2;
+			this.txtDataDoc.Tag = "pettycashoperation.docdate";
+			// 
+			// label6
+			// 
+			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.Location = new System.Drawing.Point(232, 8);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(175, 16);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Data:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // gboxDocumento
-            // 
-            this.gboxDocumento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label6.Location = new System.Drawing.Point(232, 8);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(175, 16);
+			this.label6.TabIndex = 9;
+			this.label6.Text = "Data:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// gboxDocumento
+			// 
+			this.gboxDocumento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxDocumento.Controls.Add(this.btnDocumento);
-            this.gboxDocumento.Controls.Add(this.labEsercizio);
-            this.gboxDocumento.Controls.Add(this.cmbTipoDocumento);
-            this.gboxDocumento.Controls.Add(this.txtNumDoc);
-            this.gboxDocumento.Controls.Add(this.labNum);
-            this.gboxDocumento.Controls.Add(this.txtEsercDoc);
-            this.gboxDocumento.Controls.Add(this.labelTipoDocumento);
-            this.gboxDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
-            this.gboxDocumento.Location = new System.Drawing.Point(476, 166);
-            this.gboxDocumento.Name = "gboxDocumento";
-            this.gboxDocumento.Size = new System.Drawing.Size(463, 64);
-            this.gboxDocumento.TabIndex = 13;
-            this.gboxDocumento.TabStop = false;
-            this.gboxDocumento.Text = "Documento da contabilizzare";
-            // 
-            // btnDocumento
-            // 
-            this.btnDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDocumento.Location = new System.Drawing.Point(8, 40);
-            this.btnDocumento.Name = "btnDocumento";
-            this.btnDocumento.Size = new System.Drawing.Size(120, 20);
-            this.btnDocumento.TabIndex = 2;
-            this.btnDocumento.TabStop = false;
-            this.btnDocumento.Text = "Documento";
-            this.btnDocumento.Click += new System.EventHandler(this.btnDocumento_Click);
-            // 
-            // labEsercizio
-            // 
-            this.labEsercizio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labEsercizio.Location = new System.Drawing.Point(136, 40);
-            this.labEsercizio.Name = "labEsercizio";
-            this.labEsercizio.Size = new System.Drawing.Size(48, 16);
-            this.labEsercizio.TabIndex = 0;
-            this.labEsercizio.Text = "Eserc.";
-            this.labEsercizio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbTipoDocumento
-            // 
-            this.cmbTipoDocumento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.gboxDocumento.Controls.Add(this.btnDocumento);
+			this.gboxDocumento.Controls.Add(this.labEsercizio);
+			this.gboxDocumento.Controls.Add(this.cmbTipoDocumento);
+			this.gboxDocumento.Controls.Add(this.txtNumDoc);
+			this.gboxDocumento.Controls.Add(this.labNum);
+			this.gboxDocumento.Controls.Add(this.txtEsercDoc);
+			this.gboxDocumento.Controls.Add(this.labelTipoDocumento);
+			this.gboxDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
+			this.gboxDocumento.Location = new System.Drawing.Point(476, 166);
+			this.gboxDocumento.Name = "gboxDocumento";
+			this.gboxDocumento.Size = new System.Drawing.Size(463, 64);
+			this.gboxDocumento.TabIndex = 13;
+			this.gboxDocumento.TabStop = false;
+			this.gboxDocumento.Text = "Documento da contabilizzare";
+			// 
+			// btnDocumento
+			// 
+			this.btnDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnDocumento.Location = new System.Drawing.Point(8, 40);
+			this.btnDocumento.Name = "btnDocumento";
+			this.btnDocumento.Size = new System.Drawing.Size(120, 20);
+			this.btnDocumento.TabIndex = 2;
+			this.btnDocumento.TabStop = false;
+			this.btnDocumento.Text = "Documento";
+			this.btnDocumento.Click += new System.EventHandler(this.btnDocumento_Click);
+			// 
+			// labEsercizio
+			// 
+			this.labEsercizio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.labEsercizio.Location = new System.Drawing.Point(136, 40);
+			this.labEsercizio.Name = "labEsercizio";
+			this.labEsercizio.Size = new System.Drawing.Size(48, 16);
+			this.labEsercizio.TabIndex = 0;
+			this.labEsercizio.Text = "Eserc.";
+			this.labEsercizio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbTipoDocumento
+			// 
+			this.cmbTipoDocumento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbTipoDocumento.Location = new System.Drawing.Point(72, 16);
-            this.cmbTipoDocumento.Name = "cmbTipoDocumento";
-            this.cmbTipoDocumento.Size = new System.Drawing.Size(383, 21);
-            this.cmbTipoDocumento.TabIndex = 1;
-            this.cmbTipoDocumento.Tag = "";
-            this.cmbTipoDocumento.SelectedIndexChanged += new System.EventHandler(this.cmbTipoDocumentoGenerico_SelectedIndexChanged);
-            // 
-            // txtNumDoc
-            // 
-            this.txtNumDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbTipoDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cmbTipoDocumento.Location = new System.Drawing.Point(72, 16);
+			this.cmbTipoDocumento.Name = "cmbTipoDocumento";
+			this.cmbTipoDocumento.Size = new System.Drawing.Size(383, 21);
+			this.cmbTipoDocumento.TabIndex = 1;
+			this.cmbTipoDocumento.Tag = "";
+			this.cmbTipoDocumento.SelectedIndexChanged += new System.EventHandler(this.cmbTipoDocumentoGenerico_SelectedIndexChanged);
+			// 
+			// txtNumDoc
+			// 
+			this.txtNumDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNumDoc.Location = new System.Drawing.Point(264, 40);
-            this.txtNumDoc.Name = "txtNumDoc";
-            this.txtNumDoc.Size = new System.Drawing.Size(191, 20);
-            this.txtNumDoc.TabIndex = 4;
-            this.txtNumDoc.Leave += new System.EventHandler(this.txtNumDoc_Leave);
-            // 
-            // labNum
-            // 
-            this.labNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labNum.Location = new System.Drawing.Point(232, 40);
-            this.labNum.Name = "labNum";
-            this.labNum.Size = new System.Drawing.Size(32, 16);
-            this.labNum.TabIndex = 0;
-            this.labNum.Text = "Num.";
-            this.labNum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtEsercDoc
-            // 
-            this.txtEsercDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEsercDoc.Location = new System.Drawing.Point(184, 40);
-            this.txtEsercDoc.Name = "txtEsercDoc";
-            this.txtEsercDoc.Size = new System.Drawing.Size(48, 20);
-            this.txtEsercDoc.TabIndex = 3;
-            this.txtEsercDoc.Leave += new System.EventHandler(this.txtEsercDoc_Leave);
-            // 
-            // labelTipoDocumento
-            // 
-            this.labelTipoDocumento.Location = new System.Drawing.Point(40, 16);
-            this.labelTipoDocumento.Name = "labelTipoDocumento";
-            this.labelTipoDocumento.Size = new System.Drawing.Size(32, 16);
-            this.labelTipoDocumento.TabIndex = 0;
-            this.labelTipoDocumento.Text = "Tipo";
-            this.labelTipoDocumento.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbCausale
-            // 
-            this.cmbCausale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtNumDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtNumDoc.Location = new System.Drawing.Point(264, 40);
+			this.txtNumDoc.Name = "txtNumDoc";
+			this.txtNumDoc.Size = new System.Drawing.Size(191, 20);
+			this.txtNumDoc.TabIndex = 4;
+			this.txtNumDoc.Leave += new System.EventHandler(this.txtNumDoc_Leave);
+			// 
+			// labNum
+			// 
+			this.labNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.labNum.Location = new System.Drawing.Point(232, 40);
+			this.labNum.Name = "labNum";
+			this.labNum.Size = new System.Drawing.Size(32, 16);
+			this.labNum.TabIndex = 0;
+			this.labNum.Text = "Num.";
+			this.labNum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtEsercDoc
+			// 
+			this.txtEsercDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtEsercDoc.Location = new System.Drawing.Point(184, 40);
+			this.txtEsercDoc.Name = "txtEsercDoc";
+			this.txtEsercDoc.Size = new System.Drawing.Size(48, 20);
+			this.txtEsercDoc.TabIndex = 3;
+			this.txtEsercDoc.Leave += new System.EventHandler(this.txtEsercDoc_Leave);
+			// 
+			// labelTipoDocumento
+			// 
+			this.labelTipoDocumento.Location = new System.Drawing.Point(40, 16);
+			this.labelTipoDocumento.Name = "labelTipoDocumento";
+			this.labelTipoDocumento.Size = new System.Drawing.Size(32, 16);
+			this.labelTipoDocumento.TabIndex = 0;
+			this.labelTipoDocumento.Text = "Tipo";
+			this.labelTipoDocumento.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// cmbCausale
+			// 
+			this.cmbCausale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbCausale.DataSource = this.DS.tipomovimento;
-            this.cmbCausale.DisplayMember = "descrizione";
-            this.cmbCausale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
-            this.cmbCausale.ItemHeight = 13;
-            this.cmbCausale.Location = new System.Drawing.Point(562, 142);
-            this.cmbCausale.Name = "cmbCausale";
-            this.cmbCausale.Size = new System.Drawing.Size(369, 21);
-            this.cmbCausale.TabIndex = 12;
-            this.cmbCausale.ValueMember = "idtipo";
-            this.cmbCausale.SelectedIndexChanged += new System.EventHandler(this.cmbCausale_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(498, 118);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 23);
-            this.label5.TabIndex = 70;
-            this.label5.Text = "Tipo contabilizzazione";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbTipoContabilizzazione
-            // 
-            this.cmbTipoContabilizzazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbCausale.DataSource = this.DS.tipomovimento;
+			this.cmbCausale.DisplayMember = "descrizione";
+			this.cmbCausale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbCausale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
+			this.cmbCausale.ItemHeight = 13;
+			this.cmbCausale.Location = new System.Drawing.Point(562, 142);
+			this.cmbCausale.Name = "cmbCausale";
+			this.cmbCausale.Size = new System.Drawing.Size(369, 21);
+			this.cmbCausale.TabIndex = 12;
+			this.cmbCausale.ValueMember = "idtipo";
+			this.cmbCausale.SelectedIndexChanged += new System.EventHandler(this.cmbCausale_SelectedIndexChanged);
+			// 
+			// label5
+			// 
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
+			this.label5.Location = new System.Drawing.Point(498, 118);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(120, 23);
+			this.label5.TabIndex = 70;
+			this.label5.Text = "Tipo contabilizzazione";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbTipoContabilizzazione
+			// 
+			this.cmbTipoContabilizzazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoContabilizzazione.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipoContabilizzazione.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
-            this.cmbTipoContabilizzazione.ItemHeight = 13;
-            this.cmbTipoContabilizzazione.Location = new System.Drawing.Point(626, 118);
-            this.cmbTipoContabilizzazione.Name = "cmbTipoContabilizzazione";
-            this.cmbTipoContabilizzazione.Size = new System.Drawing.Size(305, 21);
-            this.cmbTipoContabilizzazione.TabIndex = 11;
-            this.cmbTipoContabilizzazione.SelectedIndexChanged += new System.EventHandler(this.cmbTipoContabilizzazione_SelectedIndexChanged);
-            // 
-            // grpBilancio
-            // 
-            this.grpBilancio.Controls.Add(this.chkListTitle);
-            this.grpBilancio.Controls.Add(this.chkListManager);
-            this.grpBilancio.Controls.Add(this.chkFilterAvailable);
-            this.grpBilancio.Controls.Add(this.btnBilancio);
-            this.grpBilancio.Controls.Add(this.txtCodiceBilancio);
-            this.grpBilancio.Controls.Add(this.txtDenominazioneBilancio);
-            this.grpBilancio.Location = new System.Drawing.Point(8, 266);
-            this.grpBilancio.Name = "grpBilancio";
-            this.grpBilancio.Size = new System.Drawing.Size(453, 120);
-            this.grpBilancio.TabIndex = 8;
-            this.grpBilancio.TabStop = false;
-            this.grpBilancio.Tag = "AutoManage.txtCodiceBilancio.treesupb";
-            // 
-            // chkListTitle
-            // 
-            this.chkListTitle.Location = new System.Drawing.Point(8, 48);
-            this.chkListTitle.Name = "chkListTitle";
-            this.chkListTitle.Size = new System.Drawing.Size(156, 16);
-            this.chkListTitle.TabIndex = 3;
-            this.chkListTitle.TabStop = false;
-            this.chkListTitle.Text = "Cerca per denominazione";
-            // 
-            // chkListManager
-            // 
-            this.chkListManager.Location = new System.Drawing.Point(8, 32);
-            this.chkListManager.Name = "chkListManager";
-            this.chkListManager.Size = new System.Drawing.Size(145, 16);
-            this.chkListManager.TabIndex = 2;
-            this.chkListManager.TabStop = false;
-            this.chkListManager.Text = "Elenca per responsabile";
-            // 
-            // chkFilterAvailable
-            // 
-            this.chkFilterAvailable.Checked = true;
-            this.chkFilterAvailable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFilterAvailable.Location = new System.Drawing.Point(8, 16);
-            this.chkFilterAvailable.Name = "chkFilterAvailable";
-            this.chkFilterAvailable.Size = new System.Drawing.Size(156, 16);
-            this.chkFilterAvailable.TabIndex = 1;
-            this.chkFilterAvailable.TabStop = false;
-            this.chkFilterAvailable.Text = "Filtra per disponibilità";
-            // 
-            // btnBilancio
-            // 
-            this.btnBilancio.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBilancio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBilancio.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnBilancio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBilancio.ImageIndex = 0;
-            this.btnBilancio.ImageList = this.imageList1;
-            this.btnBilancio.Location = new System.Drawing.Point(8, 64);
-            this.btnBilancio.Name = "btnBilancio";
-            this.btnBilancio.Size = new System.Drawing.Size(120, 23);
-            this.btnBilancio.TabIndex = 4;
-            this.btnBilancio.TabStop = false;
-            this.btnBilancio.Tag = "";
-            this.btnBilancio.Text = "Bilancio:";
-            this.btnBilancio.UseVisualStyleBackColor = false;
-            this.btnBilancio.Click += new System.EventHandler(this.btnBilancio_Click);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "");
-            this.imageList1.Images.SetKeyName(1, "");
-            // 
-            // txtCodiceBilancio
-            // 
-            this.txtCodiceBilancio.Location = new System.Drawing.Point(8, 88);
-            this.txtCodiceBilancio.Name = "txtCodiceBilancio";
-            this.txtCodiceBilancio.Size = new System.Drawing.Size(439, 20);
-            this.txtCodiceBilancio.TabIndex = 5;
-            this.txtCodiceBilancio.Tag = "finview.codefin?pettycashoperationview.codefin";
-            // 
-            // txtDenominazioneBilancio
-            // 
-            this.txtDenominazioneBilancio.Location = new System.Drawing.Point(187, 14);
-            this.txtDenominazioneBilancio.Multiline = true;
-            this.txtDenominazioneBilancio.Name = "txtDenominazioneBilancio";
-            this.txtDenominazioneBilancio.ReadOnly = true;
-            this.txtDenominazioneBilancio.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDenominazioneBilancio.Size = new System.Drawing.Size(260, 68);
-            this.txtDenominazioneBilancio.TabIndex = 6;
-            this.txtDenominazioneBilancio.TabStop = false;
-            this.txtDenominazioneBilancio.Tag = "finview.title";
-            // 
-            // gboxSpesa
-            // 
-            this.gboxSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbTipoContabilizzazione.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbTipoContabilizzazione.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World, ((byte)(0)));
+			this.cmbTipoContabilizzazione.ItemHeight = 13;
+			this.cmbTipoContabilizzazione.Location = new System.Drawing.Point(626, 118);
+			this.cmbTipoContabilizzazione.Name = "cmbTipoContabilizzazione";
+			this.cmbTipoContabilizzazione.Size = new System.Drawing.Size(305, 21);
+			this.cmbTipoContabilizzazione.TabIndex = 11;
+			this.cmbTipoContabilizzazione.SelectedIndexChanged += new System.EventHandler(this.cmbTipoContabilizzazione_SelectedIndexChanged);
+			// 
+			// grpBilancio
+			// 
+			this.grpBilancio.Controls.Add(this.chkListTitle);
+			this.grpBilancio.Controls.Add(this.chkListManager);
+			this.grpBilancio.Controls.Add(this.chkFilterAvailable);
+			this.grpBilancio.Controls.Add(this.btnBilancio);
+			this.grpBilancio.Controls.Add(this.txtCodiceBilancio);
+			this.grpBilancio.Controls.Add(this.txtDenominazioneBilancio);
+			this.grpBilancio.Location = new System.Drawing.Point(8, 266);
+			this.grpBilancio.Name = "grpBilancio";
+			this.grpBilancio.Size = new System.Drawing.Size(453, 120);
+			this.grpBilancio.TabIndex = 8;
+			this.grpBilancio.TabStop = false;
+			this.grpBilancio.Tag = "AutoManage.txtCodiceBilancio.treesupb";
+			// 
+			// chkListTitle
+			// 
+			this.chkListTitle.Location = new System.Drawing.Point(8, 48);
+			this.chkListTitle.Name = "chkListTitle";
+			this.chkListTitle.Size = new System.Drawing.Size(156, 16);
+			this.chkListTitle.TabIndex = 3;
+			this.chkListTitle.TabStop = false;
+			this.chkListTitle.Text = "Cerca per denominazione";
+			// 
+			// chkListManager
+			// 
+			this.chkListManager.Location = new System.Drawing.Point(8, 32);
+			this.chkListManager.Name = "chkListManager";
+			this.chkListManager.Size = new System.Drawing.Size(145, 16);
+			this.chkListManager.TabIndex = 2;
+			this.chkListManager.TabStop = false;
+			this.chkListManager.Text = "Elenca per responsabile";
+			// 
+			// chkFilterAvailable
+			// 
+			this.chkFilterAvailable.Checked = true;
+			this.chkFilterAvailable.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkFilterAvailable.Location = new System.Drawing.Point(8, 16);
+			this.chkFilterAvailable.Name = "chkFilterAvailable";
+			this.chkFilterAvailable.Size = new System.Drawing.Size(156, 16);
+			this.chkFilterAvailable.TabIndex = 1;
+			this.chkFilterAvailable.TabStop = false;
+			this.chkFilterAvailable.Text = "Filtra per disponibilità";
+			// 
+			// btnBilancio
+			// 
+			this.btnBilancio.BackColor = System.Drawing.SystemColors.Control;
+			this.btnBilancio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnBilancio.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnBilancio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btnBilancio.ImageIndex = 0;
+			this.btnBilancio.ImageList = this.imageList1;
+			this.btnBilancio.Location = new System.Drawing.Point(8, 64);
+			this.btnBilancio.Name = "btnBilancio";
+			this.btnBilancio.Size = new System.Drawing.Size(120, 23);
+			this.btnBilancio.TabIndex = 4;
+			this.btnBilancio.TabStop = false;
+			this.btnBilancio.Tag = "";
+			this.btnBilancio.Text = "Bilancio:";
+			this.btnBilancio.UseVisualStyleBackColor = false;
+			this.btnBilancio.Click += new System.EventHandler(this.btnBilancio_Click);
+			// 
+			// imageList1
+			// 
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.imageList1.Images.SetKeyName(0, "");
+			this.imageList1.Images.SetKeyName(1, "");
+			// 
+			// txtCodiceBilancio
+			// 
+			this.txtCodiceBilancio.Location = new System.Drawing.Point(8, 88);
+			this.txtCodiceBilancio.Name = "txtCodiceBilancio";
+			this.txtCodiceBilancio.Size = new System.Drawing.Size(439, 20);
+			this.txtCodiceBilancio.TabIndex = 5;
+			this.txtCodiceBilancio.Tag = "finview.codefin?pettycashoperationview.codefin";
+			// 
+			// txtDenominazioneBilancio
+			// 
+			this.txtDenominazioneBilancio.Location = new System.Drawing.Point(187, 14);
+			this.txtDenominazioneBilancio.Multiline = true;
+			this.txtDenominazioneBilancio.Name = "txtDenominazioneBilancio";
+			this.txtDenominazioneBilancio.ReadOnly = true;
+			this.txtDenominazioneBilancio.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDenominazioneBilancio.Size = new System.Drawing.Size(260, 68);
+			this.txtDenominazioneBilancio.TabIndex = 6;
+			this.txtDenominazioneBilancio.TabStop = false;
+			this.txtDenominazioneBilancio.Tag = "finview.title";
+			// 
+			// gboxSpesa
+			// 
+			this.gboxSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxSpesa.Controls.Add(this.label7);
-            this.gboxSpesa.Controls.Add(this.txtNum);
-            this.gboxSpesa.Controls.Add(this.label13);
-            this.gboxSpesa.Controls.Add(this.txtEserc);
-            this.gboxSpesa.Controls.Add(this.label12);
-            this.gboxSpesa.Controls.Add(this.cmbFaseSpesa);
-            this.gboxSpesa.Controls.Add(this.btnSpesa);
-            this.gboxSpesa.Location = new System.Drawing.Point(476, 345);
-            this.gboxSpesa.Name = "gboxSpesa";
-            this.gboxSpesa.Size = new System.Drawing.Size(463, 86);
-            this.gboxSpesa.TabIndex = 16;
-            this.gboxSpesa.TabStop = false;
-            this.gboxSpesa.Text = "Movimento di Spesa a cui collegare il reintegro";
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(48, 41);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(40, 16);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Fase";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtNum
-            // 
-            this.txtNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.gboxSpesa.Controls.Add(this.label7);
+			this.gboxSpesa.Controls.Add(this.txtNum);
+			this.gboxSpesa.Controls.Add(this.label13);
+			this.gboxSpesa.Controls.Add(this.txtEserc);
+			this.gboxSpesa.Controls.Add(this.label12);
+			this.gboxSpesa.Controls.Add(this.cmbFaseSpesa);
+			this.gboxSpesa.Controls.Add(this.btnSpesa);
+			this.gboxSpesa.Location = new System.Drawing.Point(476, 345);
+			this.gboxSpesa.Name = "gboxSpesa";
+			this.gboxSpesa.Size = new System.Drawing.Size(463, 86);
+			this.gboxSpesa.TabIndex = 16;
+			this.gboxSpesa.TabStop = false;
+			this.gboxSpesa.Text = "Movimento di Spesa a cui collegare il reintegro";
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(48, 41);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(40, 16);
+			this.label7.TabIndex = 5;
+			this.label7.Text = "Fase";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtNum
+			// 
+			this.txtNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNum.Location = new System.Drawing.Point(248, 61);
-            this.txtNum.Name = "txtNum";
-            this.txtNum.Size = new System.Drawing.Size(207, 20);
-            this.txtNum.TabIndex = 4;
-            this.txtNum.Tag = "";
-            this.txtNum.Leave += new System.EventHandler(this.txtNum_Leave);
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(208, 61);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(40, 16);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "Num.";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtEserc
-            // 
-            this.txtEserc.Location = new System.Drawing.Point(144, 61);
-            this.txtEserc.Name = "txtEserc";
-            this.txtEserc.Size = new System.Drawing.Size(56, 20);
-            this.txtEserc.TabIndex = 3;
-            this.txtEserc.Tag = "";
-            this.txtEserc.Leave += new System.EventHandler(this.txtEserc_Leave);
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(104, 61);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(40, 16);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "Eserc.";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbFaseSpesa
-            // 
-            this.cmbFaseSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtNum.Location = new System.Drawing.Point(248, 61);
+			this.txtNum.Name = "txtNum";
+			this.txtNum.Size = new System.Drawing.Size(207, 20);
+			this.txtNum.TabIndex = 4;
+			this.txtNum.Tag = "";
+			this.txtNum.Leave += new System.EventHandler(this.txtNum_Leave);
+			// 
+			// label13
+			// 
+			this.label13.Location = new System.Drawing.Point(208, 61);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(40, 16);
+			this.label13.TabIndex = 4;
+			this.label13.Text = "Num.";
+			this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtEserc
+			// 
+			this.txtEserc.Location = new System.Drawing.Point(144, 61);
+			this.txtEserc.Name = "txtEserc";
+			this.txtEserc.Size = new System.Drawing.Size(56, 20);
+			this.txtEserc.TabIndex = 3;
+			this.txtEserc.Tag = "";
+			this.txtEserc.Leave += new System.EventHandler(this.txtEserc_Leave);
+			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(104, 61);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(40, 16);
+			this.label12.TabIndex = 2;
+			this.label12.Text = "Eserc.";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbFaseSpesa
+			// 
+			this.cmbFaseSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbFaseSpesa.DataSource = this.DS.expensephase;
-            this.cmbFaseSpesa.DisplayMember = "description";
-            this.cmbFaseSpesa.Location = new System.Drawing.Point(96, 37);
-            this.cmbFaseSpesa.Name = "cmbFaseSpesa";
-            this.cmbFaseSpesa.Size = new System.Drawing.Size(359, 21);
-            this.cmbFaseSpesa.TabIndex = 2;
-            this.cmbFaseSpesa.Tag = "";
-            this.cmbFaseSpesa.ValueMember = "nphase";
-            this.cmbFaseSpesa.SelectedIndexChanged += new System.EventHandler(this.cmbFaseSpesa_SelectedIndexChanged);
-            // 
-            // btnSpesa
-            // 
-            this.btnSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSpesa.Location = new System.Drawing.Point(326, 11);
-            this.btnSpesa.Name = "btnSpesa";
-            this.btnSpesa.Size = new System.Drawing.Size(128, 23);
-            this.btnSpesa.TabIndex = 1;
-            this.btnSpesa.TabStop = false;
-            this.btnSpesa.Text = "Scegli Movimento";
-            this.btnSpesa.Click += new System.EventHandler(this.btnSpesa_Click);
-            // 
-            // chkSpesa
-            // 
-            this.chkSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbFaseSpesa.DataSource = this.DS.expensephase;
+			this.cmbFaseSpesa.DisplayMember = "description";
+			this.cmbFaseSpesa.Location = new System.Drawing.Point(96, 37);
+			this.cmbFaseSpesa.Name = "cmbFaseSpesa";
+			this.cmbFaseSpesa.Size = new System.Drawing.Size(359, 21);
+			this.cmbFaseSpesa.TabIndex = 2;
+			this.cmbFaseSpesa.Tag = "";
+			this.cmbFaseSpesa.ValueMember = "nphase";
+			this.cmbFaseSpesa.SelectedIndexChanged += new System.EventHandler(this.cmbFaseSpesa_SelectedIndexChanged);
+			// 
+			// btnSpesa
+			// 
+			this.btnSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSpesa.Location = new System.Drawing.Point(326, 11);
+			this.btnSpesa.Name = "btnSpesa";
+			this.btnSpesa.Size = new System.Drawing.Size(128, 23);
+			this.btnSpesa.TabIndex = 1;
+			this.btnSpesa.TabStop = false;
+			this.btnSpesa.Text = "Scegli Movimento";
+			this.btnSpesa.Click += new System.EventHandler(this.btnSpesa_Click);
+			// 
+			// chkSpesa
+			// 
+			this.chkSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkSpesa.Location = new System.Drawing.Point(476, 324);
-            this.chkSpesa.Name = "chkSpesa";
-            this.chkSpesa.Size = new System.Drawing.Size(347, 16);
-            this.chkSpesa.TabIndex = 15;
-            this.chkSpesa.Text = "Seleziona  movimento di spesa per reintegro";
-            this.chkSpesa.CheckedChanged += new System.EventHandler(this.chkSpesa_CheckedChanged);
-            // 
-            // tabClassSup
-            // 
-            this.tabClassSup.Controls.Add(this.btnGeneraClassAutomatiche);
-            this.tabClassSup.Controls.Add(this.groupBox5);
-            this.tabClassSup.Controls.Add(this.DGridClassificazioni);
-            this.tabClassSup.Controls.Add(this.label1);
-            this.tabClassSup.ImageIndex = 1;
-            this.tabClassSup.Location = new System.Drawing.Point(4, 23);
-            this.tabClassSup.Name = "tabClassSup";
-            this.tabClassSup.Size = new System.Drawing.Size(947, 493);
-            this.tabClassSup.TabIndex = 3;
-            this.tabClassSup.Text = "Classificazioni";
-            this.tabClassSup.UseVisualStyleBackColor = true;
-            // 
-            // btnGeneraClassAutomatiche
-            // 
-            this.btnGeneraClassAutomatiche.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGeneraClassAutomatiche.Location = new System.Drawing.Point(730, 8);
-            this.btnGeneraClassAutomatiche.Name = "btnGeneraClassAutomatiche";
-            this.btnGeneraClassAutomatiche.Size = new System.Drawing.Size(192, 23);
-            this.btnGeneraClassAutomatiche.TabIndex = 32;
-            this.btnGeneraClassAutomatiche.Text = "Genera Classificazioni automatiche";
-            this.btnGeneraClassAutomatiche.Click += new System.EventHandler(this.btnGeneraClassAutomatiche_Click);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.chkSpesa.Location = new System.Drawing.Point(476, 324);
+			this.chkSpesa.Name = "chkSpesa";
+			this.chkSpesa.Size = new System.Drawing.Size(347, 16);
+			this.chkSpesa.TabIndex = 15;
+			this.chkSpesa.Text = "Seleziona  movimento di spesa per reintegro";
+			this.chkSpesa.CheckedChanged += new System.EventHandler(this.chkSpesa_CheckedChanged);
+			// 
+			// tabClassSup
+			// 
+			this.tabClassSup.Controls.Add(this.btnGeneraClassAutomatiche);
+			this.tabClassSup.Controls.Add(this.groupBox5);
+			this.tabClassSup.Controls.Add(this.DGridClassificazioni);
+			this.tabClassSup.Controls.Add(this.label1);
+			this.tabClassSup.ImageIndex = 1;
+			this.tabClassSup.Location = new System.Drawing.Point(4, 23);
+			this.tabClassSup.Name = "tabClassSup";
+			this.tabClassSup.Size = new System.Drawing.Size(947, 493);
+			this.tabClassSup.TabIndex = 3;
+			this.tabClassSup.Text = "Classificazioni";
+			this.tabClassSup.UseVisualStyleBackColor = true;
+			// 
+			// btnGeneraClassAutomatiche
+			// 
+			this.btnGeneraClassAutomatiche.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnGeneraClassAutomatiche.Location = new System.Drawing.Point(730, 8);
+			this.btnGeneraClassAutomatiche.Name = "btnGeneraClassAutomatiche";
+			this.btnGeneraClassAutomatiche.Size = new System.Drawing.Size(192, 23);
+			this.btnGeneraClassAutomatiche.TabIndex = 32;
+			this.btnGeneraClassAutomatiche.Text = "Genera Classificazioni automatiche";
+			this.btnGeneraClassAutomatiche.Click += new System.EventHandler(this.btnGeneraClassAutomatiche_Click);
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.DGridDettagliClassificazioni);
-            this.groupBox5.Controls.Add(this.btnDelClass);
-            this.groupBox5.Controls.Add(this.btnEditClass);
-            this.groupBox5.Controls.Add(this.btnInsertClass);
-            this.groupBox5.Location = new System.Drawing.Point(5, 178);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(934, 307);
-            this.groupBox5.TabIndex = 5;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Dettagli Classificazioni";
-            // 
-            // DGridDettagliClassificazioni
-            // 
-            this.DGridDettagliClassificazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox5.Controls.Add(this.DGridDettagliClassificazioni);
+			this.groupBox5.Controls.Add(this.btnDelClass);
+			this.groupBox5.Controls.Add(this.btnEditClass);
+			this.groupBox5.Controls.Add(this.btnInsertClass);
+			this.groupBox5.Location = new System.Drawing.Point(5, 178);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(934, 307);
+			this.groupBox5.TabIndex = 5;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Dettagli Classificazioni";
+			// 
+			// DGridDettagliClassificazioni
+			// 
+			this.DGridDettagliClassificazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DGridDettagliClassificazioni.DataMember = "";
-            this.DGridDettagliClassificazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.DGridDettagliClassificazioni.Location = new System.Drawing.Point(8, 56);
-            this.DGridDettagliClassificazioni.Name = "DGridDettagliClassificazioni";
-            this.DGridDettagliClassificazioni.Size = new System.Drawing.Size(918, 243);
-            this.DGridDettagliClassificazioni.TabIndex = 7;
-            this.DGridDettagliClassificazioni.Tag = "pettycashoperationsorted.default";
-            this.DGridDettagliClassificazioni.DoubleClick += new System.EventHandler(this.btnEditClass_Click);
-            // 
-            // btnDelClass
-            // 
-            this.btnDelClass.Location = new System.Drawing.Point(184, 24);
-            this.btnDelClass.Name = "btnDelClass";
-            this.btnDelClass.Size = new System.Drawing.Size(75, 23);
-            this.btnDelClass.TabIndex = 6;
-            this.btnDelClass.Tag = "delete";
-            this.btnDelClass.Text = "Cancella";
-            this.btnDelClass.Click += new System.EventHandler(this.btnDelClass_Click);
-            // 
-            // btnEditClass
-            // 
-            this.btnEditClass.Location = new System.Drawing.Point(96, 24);
-            this.btnEditClass.Name = "btnEditClass";
-            this.btnEditClass.Size = new System.Drawing.Size(75, 23);
-            this.btnEditClass.TabIndex = 5;
-            this.btnEditClass.Tag = "";
-            this.btnEditClass.Text = "Correggi";
-            this.btnEditClass.Click += new System.EventHandler(this.btnEditClass_Click);
-            // 
-            // btnInsertClass
-            // 
-            this.btnInsertClass.Location = new System.Drawing.Point(8, 24);
-            this.btnInsertClass.Name = "btnInsertClass";
-            this.btnInsertClass.Size = new System.Drawing.Size(75, 23);
-            this.btnInsertClass.TabIndex = 4;
-            this.btnInsertClass.Tag = "";
-            this.btnInsertClass.Text = "Aggiungi";
-            this.btnInsertClass.Click += new System.EventHandler(this.btnInsertClass_Click);
-            // 
-            // DGridClassificazioni
-            // 
-            this.DGridClassificazioni.AllowNavigation = false;
-            this.DGridClassificazioni.AllowSorting = false;
-            this.DGridClassificazioni.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.DGridDettagliClassificazioni.DataMember = "";
+			this.DGridDettagliClassificazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.DGridDettagliClassificazioni.Location = new System.Drawing.Point(8, 56);
+			this.DGridDettagliClassificazioni.Name = "DGridDettagliClassificazioni";
+			this.DGridDettagliClassificazioni.Size = new System.Drawing.Size(918, 243);
+			this.DGridDettagliClassificazioni.TabIndex = 7;
+			this.DGridDettagliClassificazioni.Tag = "pettycashoperationsorted.default";
+			this.DGridDettagliClassificazioni.DoubleClick += new System.EventHandler(this.btnEditClass_Click);
+			// 
+			// btnDelClass
+			// 
+			this.btnDelClass.Location = new System.Drawing.Point(184, 24);
+			this.btnDelClass.Name = "btnDelClass";
+			this.btnDelClass.Size = new System.Drawing.Size(75, 23);
+			this.btnDelClass.TabIndex = 6;
+			this.btnDelClass.Tag = "delete";
+			this.btnDelClass.Text = "Cancella";
+			this.btnDelClass.Click += new System.EventHandler(this.btnDelClass_Click);
+			// 
+			// btnEditClass
+			// 
+			this.btnEditClass.Location = new System.Drawing.Point(96, 24);
+			this.btnEditClass.Name = "btnEditClass";
+			this.btnEditClass.Size = new System.Drawing.Size(75, 23);
+			this.btnEditClass.TabIndex = 5;
+			this.btnEditClass.Tag = "";
+			this.btnEditClass.Text = "Correggi";
+			this.btnEditClass.Click += new System.EventHandler(this.btnEditClass_Click);
+			// 
+			// btnInsertClass
+			// 
+			this.btnInsertClass.Location = new System.Drawing.Point(8, 24);
+			this.btnInsertClass.Name = "btnInsertClass";
+			this.btnInsertClass.Size = new System.Drawing.Size(75, 23);
+			this.btnInsertClass.TabIndex = 4;
+			this.btnInsertClass.Tag = "";
+			this.btnInsertClass.Text = "Aggiungi";
+			this.btnInsertClass.Click += new System.EventHandler(this.btnInsertClass_Click);
+			// 
+			// DGridClassificazioni
+			// 
+			this.DGridClassificazioni.AllowNavigation = false;
+			this.DGridClassificazioni.AllowSorting = false;
+			this.DGridClassificazioni.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DGridClassificazioni.DataMember = "";
-            this.DGridClassificazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.DGridClassificazioni.Location = new System.Drawing.Point(5, 37);
-            this.DGridClassificazioni.Name = "DGridClassificazioni";
-            this.DGridClassificazioni.Size = new System.Drawing.Size(926, 135);
-            this.DGridClassificazioni.TabIndex = 4;
-            this.DGridClassificazioni.Tag = "sortingkind.default";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(8, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 23);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Classificazioni";
-            // 
-            // tabMovimenti
-            // 
-            this.tabMovimenti.Controls.Add(this.dgrPSMovEntrata);
-            this.tabMovimenti.Controls.Add(this.dgrPSMovSpesa);
-            this.tabMovimenti.Location = new System.Drawing.Point(4, 23);
-            this.tabMovimenti.Name = "tabMovimenti";
-            this.tabMovimenti.Size = new System.Drawing.Size(947, 493);
-            this.tabMovimenti.TabIndex = 2;
-            this.tabMovimenti.Text = "Movimenti";
-            this.tabMovimenti.UseVisualStyleBackColor = true;
-            // 
-            // dgrPSMovEntrata
-            // 
-            this.dgrPSMovEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.DGridClassificazioni.DataMember = "";
+			this.DGridClassificazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.DGridClassificazioni.Location = new System.Drawing.Point(5, 37);
+			this.DGridClassificazioni.Name = "DGridClassificazioni";
+			this.DGridClassificazioni.Size = new System.Drawing.Size(926, 135);
+			this.DGridClassificazioni.TabIndex = 4;
+			this.DGridClassificazioni.Tag = "sortingkind.default";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(8, 8);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(100, 23);
+			this.label1.TabIndex = 3;
+			this.label1.Text = "Classificazioni";
+			// 
+			// tabMovimenti
+			// 
+			this.tabMovimenti.Controls.Add(this.dgrPSMovEntrata);
+			this.tabMovimenti.Controls.Add(this.dgrPSMovSpesa);
+			this.tabMovimenti.Location = new System.Drawing.Point(4, 23);
+			this.tabMovimenti.Name = "tabMovimenti";
+			this.tabMovimenti.Size = new System.Drawing.Size(947, 493);
+			this.tabMovimenti.TabIndex = 2;
+			this.tabMovimenti.Text = "Movimenti";
+			this.tabMovimenti.UseVisualStyleBackColor = true;
+			// 
+			// dgrPSMovEntrata
+			// 
+			this.dgrPSMovEntrata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrPSMovEntrata.DataMember = "";
-            this.dgrPSMovEntrata.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrPSMovEntrata.Location = new System.Drawing.Point(16, 3);
-            this.dgrPSMovEntrata.Name = "dgrPSMovEntrata";
-            this.dgrPSMovEntrata.Size = new System.Drawing.Size(928, 482);
-            this.dgrPSMovEntrata.TabIndex = 1;
-            this.dgrPSMovEntrata.Tag = "pettycashincomeview.lista";
-            // 
-            // dgrPSMovSpesa
-            // 
-            this.dgrPSMovSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgrPSMovEntrata.DataMember = "";
+			this.dgrPSMovEntrata.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrPSMovEntrata.Location = new System.Drawing.Point(16, 3);
+			this.dgrPSMovEntrata.Name = "dgrPSMovEntrata";
+			this.dgrPSMovEntrata.Size = new System.Drawing.Size(928, 482);
+			this.dgrPSMovEntrata.TabIndex = 1;
+			this.dgrPSMovEntrata.Tag = "pettycashincomeview.lista";
+			// 
+			// dgrPSMovSpesa
+			// 
+			this.dgrPSMovSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrPSMovSpesa.DataMember = "";
-            this.dgrPSMovSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrPSMovSpesa.Location = new System.Drawing.Point(16, 8);
-            this.dgrPSMovSpesa.Name = "dgrPSMovSpesa";
-            this.dgrPSMovSpesa.Size = new System.Drawing.Size(923, 477);
-            this.dgrPSMovSpesa.TabIndex = 0;
-            this.dgrPSMovSpesa.Tag = "pettycashexpenseview.lista";
-            // 
-            // tabAttributi
-            // 
-            this.tabAttributi.Controls.Add(this.gboxclass05);
-            this.tabAttributi.Controls.Add(this.gboxclass04);
-            this.tabAttributi.Controls.Add(this.gboxclass03);
-            this.tabAttributi.Controls.Add(this.gboxclass02);
-            this.tabAttributi.Controls.Add(this.gboxclass01);
-            this.tabAttributi.Location = new System.Drawing.Point(4, 23);
-            this.tabAttributi.Name = "tabAttributi";
-            this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttributi.Size = new System.Drawing.Size(947, 493);
-            this.tabAttributi.TabIndex = 5;
-            this.tabAttributi.Text = "Attributi";
-            this.tabAttributi.UseVisualStyleBackColor = true;
-            // 
-            // gboxclass05
-            // 
-            this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.dgrPSMovSpesa.DataMember = "";
+			this.dgrPSMovSpesa.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrPSMovSpesa.Location = new System.Drawing.Point(16, 8);
+			this.dgrPSMovSpesa.Name = "dgrPSMovSpesa";
+			this.dgrPSMovSpesa.Size = new System.Drawing.Size(923, 477);
+			this.dgrPSMovSpesa.TabIndex = 0;
+			this.dgrPSMovSpesa.Tag = "pettycashexpenseview.lista";
+			// 
+			// tabAttributi
+			// 
+			this.tabAttributi.Controls.Add(this.gboxclass05);
+			this.tabAttributi.Controls.Add(this.gboxclass04);
+			this.tabAttributi.Controls.Add(this.gboxclass03);
+			this.tabAttributi.Controls.Add(this.gboxclass02);
+			this.tabAttributi.Controls.Add(this.gboxclass01);
+			this.tabAttributi.Location = new System.Drawing.Point(4, 23);
+			this.tabAttributi.Name = "tabAttributi";
+			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAttributi.Size = new System.Drawing.Size(947, 493);
+			this.tabAttributi.TabIndex = 5;
+			this.tabAttributi.Text = "Attributi";
+			this.tabAttributi.UseVisualStyleBackColor = true;
+			// 
+			// gboxclass05
+			// 
+			this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass05.Controls.Add(this.txtCodice05);
-            this.gboxclass05.Controls.Add(this.btnCodice05);
-            this.gboxclass05.Controls.Add(this.txtDenom05);
-            this.gboxclass05.Location = new System.Drawing.Point(8, 286);
-            this.gboxclass05.Name = "gboxclass05";
-            this.gboxclass05.Size = new System.Drawing.Size(653, 64);
-            this.gboxclass05.TabIndex = 5;
-            this.gboxclass05.TabStop = false;
-            this.gboxclass05.Tag = "";
-            this.gboxclass05.Text = "Classificazione 5";
-            // 
-            // txtCodice05
-            // 
-            this.txtCodice05.Location = new System.Drawing.Point(9, 38);
-            this.txtCodice05.Name = "txtCodice05";
-            this.txtCodice05.Size = new System.Drawing.Size(219, 20);
-            this.txtCodice05.TabIndex = 6;
-            // 
-            // btnCodice05
-            // 
-            this.btnCodice05.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice05.Name = "btnCodice05";
-            this.btnCodice05.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice05.TabIndex = 4;
-            this.btnCodice05.Tag = "manage.sorting05.tree";
-            this.btnCodice05.Text = "Codice";
-            this.btnCodice05.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom05
-            // 
-            this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass05.Controls.Add(this.txtCodice05);
+			this.gboxclass05.Controls.Add(this.btnCodice05);
+			this.gboxclass05.Controls.Add(this.txtDenom05);
+			this.gboxclass05.Location = new System.Drawing.Point(8, 286);
+			this.gboxclass05.Name = "gboxclass05";
+			this.gboxclass05.Size = new System.Drawing.Size(653, 64);
+			this.gboxclass05.TabIndex = 5;
+			this.gboxclass05.TabStop = false;
+			this.gboxclass05.Tag = "";
+			this.gboxclass05.Text = "Classificazione 5";
+			// 
+			// txtCodice05
+			// 
+			this.txtCodice05.Location = new System.Drawing.Point(9, 38);
+			this.txtCodice05.Name = "txtCodice05";
+			this.txtCodice05.Size = new System.Drawing.Size(219, 20);
+			this.txtCodice05.TabIndex = 6;
+			// 
+			// btnCodice05
+			// 
+			this.btnCodice05.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice05.Name = "btnCodice05";
+			this.btnCodice05.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice05.TabIndex = 4;
+			this.btnCodice05.Tag = "manage.sorting05.tree";
+			this.btnCodice05.Text = "Codice";
+			this.btnCodice05.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom05
+			// 
+			this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom05.Location = new System.Drawing.Point(234, 8);
-            this.txtDenom05.Multiline = true;
-            this.txtDenom05.Name = "txtDenom05";
-            this.txtDenom05.ReadOnly = true;
-            this.txtDenom05.Size = new System.Drawing.Size(411, 52);
-            this.txtDenom05.TabIndex = 3;
-            this.txtDenom05.TabStop = false;
-            this.txtDenom05.Tag = "sorting05.description";
-            // 
-            // gboxclass04
-            // 
-            this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom05.Location = new System.Drawing.Point(234, 8);
+			this.txtDenom05.Multiline = true;
+			this.txtDenom05.Name = "txtDenom05";
+			this.txtDenom05.ReadOnly = true;
+			this.txtDenom05.Size = new System.Drawing.Size(411, 52);
+			this.txtDenom05.TabIndex = 3;
+			this.txtDenom05.TabStop = false;
+			this.txtDenom05.Tag = "sorting05.description";
+			// 
+			// gboxclass04
+			// 
+			this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass04.Controls.Add(this.txtCodice04);
-            this.gboxclass04.Controls.Add(this.btnCodice04);
-            this.gboxclass04.Controls.Add(this.txtDenom04);
-            this.gboxclass04.Location = new System.Drawing.Point(8, 216);
-            this.gboxclass04.Name = "gboxclass04";
-            this.gboxclass04.Size = new System.Drawing.Size(653, 64);
-            this.gboxclass04.TabIndex = 4;
-            this.gboxclass04.TabStop = false;
-            this.gboxclass04.Tag = "";
-            this.gboxclass04.Text = "Classificazione 4";
-            // 
-            // txtCodice04
-            // 
-            this.txtCodice04.Location = new System.Drawing.Point(9, 38);
-            this.txtCodice04.Name = "txtCodice04";
-            this.txtCodice04.Size = new System.Drawing.Size(219, 20);
-            this.txtCodice04.TabIndex = 6;
-            // 
-            // btnCodice04
-            // 
-            this.btnCodice04.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice04.Name = "btnCodice04";
-            this.btnCodice04.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice04.TabIndex = 4;
-            this.btnCodice04.Tag = "manage.sorting04.tree";
-            this.btnCodice04.Text = "Codice";
-            this.btnCodice04.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom04
-            // 
-            this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass04.Controls.Add(this.txtCodice04);
+			this.gboxclass04.Controls.Add(this.btnCodice04);
+			this.gboxclass04.Controls.Add(this.txtDenom04);
+			this.gboxclass04.Location = new System.Drawing.Point(8, 216);
+			this.gboxclass04.Name = "gboxclass04";
+			this.gboxclass04.Size = new System.Drawing.Size(653, 64);
+			this.gboxclass04.TabIndex = 4;
+			this.gboxclass04.TabStop = false;
+			this.gboxclass04.Tag = "";
+			this.gboxclass04.Text = "Classificazione 4";
+			// 
+			// txtCodice04
+			// 
+			this.txtCodice04.Location = new System.Drawing.Point(9, 38);
+			this.txtCodice04.Name = "txtCodice04";
+			this.txtCodice04.Size = new System.Drawing.Size(219, 20);
+			this.txtCodice04.TabIndex = 6;
+			// 
+			// btnCodice04
+			// 
+			this.btnCodice04.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice04.Name = "btnCodice04";
+			this.btnCodice04.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice04.TabIndex = 4;
+			this.btnCodice04.Tag = "manage.sorting04.tree";
+			this.btnCodice04.Text = "Codice";
+			this.btnCodice04.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom04
+			// 
+			this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom04.Location = new System.Drawing.Point(234, 12);
-            this.txtDenom04.Multiline = true;
-            this.txtDenom04.Name = "txtDenom04";
-            this.txtDenom04.ReadOnly = true;
-            this.txtDenom04.Size = new System.Drawing.Size(411, 46);
-            this.txtDenom04.TabIndex = 3;
-            this.txtDenom04.TabStop = false;
-            this.txtDenom04.Tag = "sorting04.description";
-            // 
-            // gboxclass03
-            // 
-            this.gboxclass03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom04.Location = new System.Drawing.Point(234, 12);
+			this.txtDenom04.Multiline = true;
+			this.txtDenom04.Name = "txtDenom04";
+			this.txtDenom04.ReadOnly = true;
+			this.txtDenom04.Size = new System.Drawing.Size(411, 46);
+			this.txtDenom04.TabIndex = 3;
+			this.txtDenom04.TabStop = false;
+			this.txtDenom04.Tag = "sorting04.description";
+			// 
+			// gboxclass03
+			// 
+			this.gboxclass03.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass03.Controls.Add(this.txtCodice03);
-            this.gboxclass03.Controls.Add(this.btnCodice03);
-            this.gboxclass03.Controls.Add(this.txtDenom03);
-            this.gboxclass03.Location = new System.Drawing.Point(8, 146);
-            this.gboxclass03.Name = "gboxclass03";
-            this.gboxclass03.Size = new System.Drawing.Size(653, 64);
-            this.gboxclass03.TabIndex = 3;
-            this.gboxclass03.TabStop = false;
-            this.gboxclass03.Tag = "";
-            this.gboxclass03.Text = "Classificazione 3";
-            // 
-            // txtCodice03
-            // 
-            this.txtCodice03.Location = new System.Drawing.Point(8, 38);
-            this.txtCodice03.Name = "txtCodice03";
-            this.txtCodice03.Size = new System.Drawing.Size(219, 20);
-            this.txtCodice03.TabIndex = 6;
-            // 
-            // btnCodice03
-            // 
-            this.btnCodice03.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice03.Name = "btnCodice03";
-            this.btnCodice03.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice03.TabIndex = 4;
-            this.btnCodice03.Tag = "manage.sorting03.tree";
-            this.btnCodice03.Text = "Codice";
-            this.btnCodice03.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom03
-            // 
-            this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass03.Controls.Add(this.txtCodice03);
+			this.gboxclass03.Controls.Add(this.btnCodice03);
+			this.gboxclass03.Controls.Add(this.txtDenom03);
+			this.gboxclass03.Location = new System.Drawing.Point(8, 146);
+			this.gboxclass03.Name = "gboxclass03";
+			this.gboxclass03.Size = new System.Drawing.Size(653, 64);
+			this.gboxclass03.TabIndex = 3;
+			this.gboxclass03.TabStop = false;
+			this.gboxclass03.Tag = "";
+			this.gboxclass03.Text = "Classificazione 3";
+			// 
+			// txtCodice03
+			// 
+			this.txtCodice03.Location = new System.Drawing.Point(8, 38);
+			this.txtCodice03.Name = "txtCodice03";
+			this.txtCodice03.Size = new System.Drawing.Size(219, 20);
+			this.txtCodice03.TabIndex = 6;
+			// 
+			// btnCodice03
+			// 
+			this.btnCodice03.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice03.Name = "btnCodice03";
+			this.btnCodice03.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice03.TabIndex = 4;
+			this.btnCodice03.Tag = "manage.sorting03.tree";
+			this.btnCodice03.Text = "Codice";
+			this.btnCodice03.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom03
+			// 
+			this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom03.Location = new System.Drawing.Point(233, 8);
-            this.txtDenom03.Multiline = true;
-            this.txtDenom03.Name = "txtDenom03";
-            this.txtDenom03.ReadOnly = true;
-            this.txtDenom03.Size = new System.Drawing.Size(412, 52);
-            this.txtDenom03.TabIndex = 3;
-            this.txtDenom03.TabStop = false;
-            this.txtDenom03.Tag = "sorting03.description";
-            // 
-            // gboxclass02
-            // 
-            this.gboxclass02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom03.Location = new System.Drawing.Point(233, 8);
+			this.txtDenom03.Multiline = true;
+			this.txtDenom03.Name = "txtDenom03";
+			this.txtDenom03.ReadOnly = true;
+			this.txtDenom03.Size = new System.Drawing.Size(412, 52);
+			this.txtDenom03.TabIndex = 3;
+			this.txtDenom03.TabStop = false;
+			this.txtDenom03.Tag = "sorting03.description";
+			// 
+			// gboxclass02
+			// 
+			this.gboxclass02.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass02.Controls.Add(this.txtCodice02);
-            this.gboxclass02.Controls.Add(this.btnCodice02);
-            this.gboxclass02.Controls.Add(this.txtDenom02);
-            this.gboxclass02.Location = new System.Drawing.Point(8, 76);
-            this.gboxclass02.Name = "gboxclass02";
-            this.gboxclass02.Size = new System.Drawing.Size(653, 64);
-            this.gboxclass02.TabIndex = 2;
-            this.gboxclass02.TabStop = false;
-            this.gboxclass02.Tag = "";
-            this.gboxclass02.Text = "Classificazione 2";
-            // 
-            // txtCodice02
-            // 
-            this.txtCodice02.Location = new System.Drawing.Point(8, 38);
-            this.txtCodice02.Name = "txtCodice02";
-            this.txtCodice02.Size = new System.Drawing.Size(219, 20);
-            this.txtCodice02.TabIndex = 6;
-            // 
-            // btnCodice02
-            // 
-            this.btnCodice02.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice02.Name = "btnCodice02";
-            this.btnCodice02.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice02.TabIndex = 4;
-            this.btnCodice02.Tag = "manage.sorting02.tree";
-            this.btnCodice02.Text = "Codice";
-            this.btnCodice02.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom02
-            // 
-            this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass02.Controls.Add(this.txtCodice02);
+			this.gboxclass02.Controls.Add(this.btnCodice02);
+			this.gboxclass02.Controls.Add(this.txtDenom02);
+			this.gboxclass02.Location = new System.Drawing.Point(8, 76);
+			this.gboxclass02.Name = "gboxclass02";
+			this.gboxclass02.Size = new System.Drawing.Size(653, 64);
+			this.gboxclass02.TabIndex = 2;
+			this.gboxclass02.TabStop = false;
+			this.gboxclass02.Tag = "";
+			this.gboxclass02.Text = "Classificazione 2";
+			// 
+			// txtCodice02
+			// 
+			this.txtCodice02.Location = new System.Drawing.Point(8, 38);
+			this.txtCodice02.Name = "txtCodice02";
+			this.txtCodice02.Size = new System.Drawing.Size(219, 20);
+			this.txtCodice02.TabIndex = 6;
+			// 
+			// btnCodice02
+			// 
+			this.btnCodice02.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice02.Name = "btnCodice02";
+			this.btnCodice02.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice02.TabIndex = 4;
+			this.btnCodice02.Tag = "manage.sorting02.tree";
+			this.btnCodice02.Text = "Codice";
+			this.btnCodice02.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom02
+			// 
+			this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom02.Location = new System.Drawing.Point(233, 8);
-            this.txtDenom02.Multiline = true;
-            this.txtDenom02.Name = "txtDenom02";
-            this.txtDenom02.ReadOnly = true;
-            this.txtDenom02.Size = new System.Drawing.Size(412, 52);
-            this.txtDenom02.TabIndex = 3;
-            this.txtDenom02.TabStop = false;
-            this.txtDenom02.Tag = "sorting02.description";
-            // 
-            // gboxclass01
-            // 
-            this.gboxclass01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom02.Location = new System.Drawing.Point(233, 8);
+			this.txtDenom02.Multiline = true;
+			this.txtDenom02.Name = "txtDenom02";
+			this.txtDenom02.ReadOnly = true;
+			this.txtDenom02.Size = new System.Drawing.Size(412, 52);
+			this.txtDenom02.TabIndex = 3;
+			this.txtDenom02.TabStop = false;
+			this.txtDenom02.Tag = "sorting02.description";
+			// 
+			// gboxclass01
+			// 
+			this.gboxclass01.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass01.Controls.Add(this.txtCodice01);
-            this.gboxclass01.Controls.Add(this.btnCodice01);
-            this.gboxclass01.Controls.Add(this.txtDenom01);
-            this.gboxclass01.Location = new System.Drawing.Point(8, 6);
-            this.gboxclass01.Name = "gboxclass01";
-            this.gboxclass01.Size = new System.Drawing.Size(653, 64);
-            this.gboxclass01.TabIndex = 1;
-            this.gboxclass01.TabStop = false;
-            this.gboxclass01.Tag = "";
-            this.gboxclass01.Text = "Classificazione 1";
-            // 
-            // txtCodice01
-            // 
-            this.txtCodice01.Location = new System.Drawing.Point(7, 40);
-            this.txtCodice01.Name = "txtCodice01";
-            this.txtCodice01.Size = new System.Drawing.Size(220, 20);
-            this.txtCodice01.TabIndex = 5;
-            // 
-            // btnCodice01
-            // 
-            this.btnCodice01.Location = new System.Drawing.Point(8, 16);
-            this.btnCodice01.Name = "btnCodice01";
-            this.btnCodice01.Size = new System.Drawing.Size(88, 23);
-            this.btnCodice01.TabIndex = 4;
-            this.btnCodice01.Tag = "manage.sorting01.tree";
-            this.btnCodice01.Text = "Codice";
-            this.btnCodice01.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom01
-            // 
-            this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass01.Controls.Add(this.txtCodice01);
+			this.gboxclass01.Controls.Add(this.btnCodice01);
+			this.gboxclass01.Controls.Add(this.txtDenom01);
+			this.gboxclass01.Location = new System.Drawing.Point(8, 6);
+			this.gboxclass01.Name = "gboxclass01";
+			this.gboxclass01.Size = new System.Drawing.Size(653, 64);
+			this.gboxclass01.TabIndex = 1;
+			this.gboxclass01.TabStop = false;
+			this.gboxclass01.Tag = "";
+			this.gboxclass01.Text = "Classificazione 1";
+			// 
+			// txtCodice01
+			// 
+			this.txtCodice01.Location = new System.Drawing.Point(7, 40);
+			this.txtCodice01.Name = "txtCodice01";
+			this.txtCodice01.Size = new System.Drawing.Size(220, 20);
+			this.txtCodice01.TabIndex = 5;
+			// 
+			// btnCodice01
+			// 
+			this.btnCodice01.Location = new System.Drawing.Point(8, 16);
+			this.btnCodice01.Name = "btnCodice01";
+			this.btnCodice01.Size = new System.Drawing.Size(88, 23);
+			this.btnCodice01.TabIndex = 4;
+			this.btnCodice01.Tag = "manage.sorting01.tree";
+			this.btnCodice01.Text = "Codice";
+			this.btnCodice01.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom01
+			// 
+			this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom01.Location = new System.Drawing.Point(233, 8);
-            this.txtDenom01.Multiline = true;
-            this.txtDenom01.Name = "txtDenom01";
-            this.txtDenom01.ReadOnly = true;
-            this.txtDenom01.Size = new System.Drawing.Size(412, 52);
-            this.txtDenom01.TabIndex = 3;
-            this.txtDenom01.TabStop = false;
-            this.txtDenom01.Tag = "sorting01.description";
-            // 
-            // tabAnalitico
-            // 
-            this.tabAnalitico.Controls.Add(this.gboxAnalitico);
-            this.tabAnalitico.Controls.Add(this.groupBox8);
-            this.tabAnalitico.Location = new System.Drawing.Point(4, 23);
-            this.tabAnalitico.Name = "tabAnalitico";
-            this.tabAnalitico.Size = new System.Drawing.Size(947, 493);
-            this.tabAnalitico.TabIndex = 4;
-            this.tabAnalitico.Text = "E/P";
-            this.tabAnalitico.UseVisualStyleBackColor = true;
-            // 
-            // gboxAnalitico
-            // 
-            this.gboxAnalitico.Controls.Add(this.grpBoxSiopeEP);
-            this.gboxAnalitico.Controls.Add(this.btnGenPreimpegni);
-            this.gboxAnalitico.Controls.Add(this.btnViewPreimpegni);
-            this.gboxAnalitico.Controls.Add(this.groupCredDeb);
-            this.gboxAnalitico.Controls.Add(this.gboxclass1);
-            this.gboxAnalitico.Controls.Add(this.gboxclass3);
-            this.gboxAnalitico.Controls.Add(this.btnGeneraEpExp);
-            this.gboxAnalitico.Controls.Add(this.gboxclass2);
-            this.gboxAnalitico.Controls.Add(this.btnVisualizzaEpExp);
-            this.gboxAnalitico.Controls.Add(this.gboxDebito);
-            this.gboxAnalitico.Controls.Add(this.btnGeneraEP);
-            this.gboxAnalitico.Controls.Add(this.gboxCosto);
-            this.gboxAnalitico.Controls.Add(this.btnVisualizzaEP);
-            this.gboxAnalitico.Controls.Add(this.labEP);
-            this.gboxAnalitico.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gboxAnalitico.Location = new System.Drawing.Point(0, 0);
-            this.gboxAnalitico.Name = "gboxAnalitico";
-            this.gboxAnalitico.Size = new System.Drawing.Size(947, 493);
-            this.gboxAnalitico.TabIndex = 22;
-            this.gboxAnalitico.TabStop = false;
-            // 
-            // grpBoxSiopeEP
-            // 
-            this.grpBoxSiopeEP.Controls.Add(this.btnSiope);
-            this.grpBoxSiopeEP.Controls.Add(this.txtDescSiope);
-            this.grpBoxSiopeEP.Controls.Add(this.txtCodSiope);
-            this.grpBoxSiopeEP.Location = new System.Drawing.Point(410, 20);
-            this.grpBoxSiopeEP.Name = "grpBoxSiopeEP";
-            this.grpBoxSiopeEP.Size = new System.Drawing.Size(264, 103);
-            this.grpBoxSiopeEP.TabIndex = 50;
-            this.grpBoxSiopeEP.TabStop = false;
-            this.grpBoxSiopeEP.Tag = "AutoChoose.txtCodSiope.tree";
-            this.grpBoxSiopeEP.Text = "Class.SIOPE";
-            // 
-            // btnSiope
-            // 
-            this.btnSiope.Location = new System.Drawing.Point(11, 46);
-            this.btnSiope.Name = "btnSiope";
-            this.btnSiope.Size = new System.Drawing.Size(56, 20);
-            this.btnSiope.TabIndex = 10;
-            this.btnSiope.Text = "Codice";
-            this.btnSiope.UseVisualStyleBackColor = true;
-            // 
-            // txtDescSiope
-            // 
-            this.txtDescSiope.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom01.Location = new System.Drawing.Point(233, 8);
+			this.txtDenom01.Multiline = true;
+			this.txtDenom01.Name = "txtDenom01";
+			this.txtDenom01.ReadOnly = true;
+			this.txtDenom01.Size = new System.Drawing.Size(412, 52);
+			this.txtDenom01.TabIndex = 3;
+			this.txtDenom01.TabStop = false;
+			this.txtDenom01.Tag = "sorting01.description";
+			// 
+			// tabAnalitico
+			// 
+			this.tabAnalitico.Controls.Add(this.gboxAnalitico);
+			this.tabAnalitico.Controls.Add(this.groupBox8);
+			this.tabAnalitico.Location = new System.Drawing.Point(4, 23);
+			this.tabAnalitico.Name = "tabAnalitico";
+			this.tabAnalitico.Size = new System.Drawing.Size(947, 493);
+			this.tabAnalitico.TabIndex = 4;
+			this.tabAnalitico.Text = "E/P";
+			this.tabAnalitico.UseVisualStyleBackColor = true;
+			// 
+			// gboxAnalitico
+			// 
+			this.gboxAnalitico.Controls.Add(this.groupBoxRipartizione);
+			this.gboxAnalitico.Controls.Add(this.btnRipartizione);
+			this.gboxAnalitico.Controls.Add(this.grpBoxSiopeEP);
+			this.gboxAnalitico.Controls.Add(this.btnGenPreimpegni);
+			this.gboxAnalitico.Controls.Add(this.btnViewPreimpegni);
+			this.gboxAnalitico.Controls.Add(this.groupCredDeb);
+			this.gboxAnalitico.Controls.Add(this.gboxclass1);
+			this.gboxAnalitico.Controls.Add(this.gboxclass3);
+			this.gboxAnalitico.Controls.Add(this.btnGeneraEpExp);
+			this.gboxAnalitico.Controls.Add(this.gboxclass2);
+			this.gboxAnalitico.Controls.Add(this.btnVisualizzaEpExp);
+			this.gboxAnalitico.Controls.Add(this.gboxDebito);
+			this.gboxAnalitico.Controls.Add(this.btnGeneraEP);
+			this.gboxAnalitico.Controls.Add(this.gboxCosto);
+			this.gboxAnalitico.Controls.Add(this.btnVisualizzaEP);
+			this.gboxAnalitico.Controls.Add(this.labEP);
+			this.gboxAnalitico.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.gboxAnalitico.Location = new System.Drawing.Point(0, 0);
+			this.gboxAnalitico.Name = "gboxAnalitico";
+			this.gboxAnalitico.Size = new System.Drawing.Size(947, 493);
+			this.gboxAnalitico.TabIndex = 22;
+			this.gboxAnalitico.TabStop = false;
+			// 
+			// groupBoxRipartizione
+			// 
+			this.groupBoxRipartizione.Controls.Add(this.btnCodRipartizione);
+			this.groupBoxRipartizione.Controls.Add(this.textBox25);
+			this.groupBoxRipartizione.Controls.Add(this.textBox26);
+			this.groupBoxRipartizione.Location = new System.Drawing.Point(682, 20);
+			this.groupBoxRipartizione.Name = "groupBoxRipartizione";
+			this.groupBoxRipartizione.Size = new System.Drawing.Size(259, 103);
+			this.groupBoxRipartizione.TabIndex = 56;
+			this.groupBoxRipartizione.TabStop = false;
+			this.groupBoxRipartizione.Tag = "AutoChoose.textBox26.default.(active=\'S\')";
+			this.groupBoxRipartizione.Text = "Ripartizione dei Costi";
+			// 
+			// btnCodRipartizione
+			// 
+			this.btnCodRipartizione.Location = new System.Drawing.Point(6, 43);
+			this.btnCodRipartizione.Name = "btnCodRipartizione";
+			this.btnCodRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnCodRipartizione.TabIndex = 4;
+			this.btnCodRipartizione.Tag = "choose.costpartition.default.(active=\'S\')";
+			this.btnCodRipartizione.Text = "Codice";
+			this.btnCodRipartizione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// textBox25
+			// 
+			this.textBox25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescSiope.Location = new System.Drawing.Point(73, 16);
-            this.txtDescSiope.Multiline = true;
-            this.txtDescSiope.Name = "txtDescSiope";
-            this.txtDescSiope.ReadOnly = true;
-            this.txtDescSiope.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescSiope.Size = new System.Drawing.Size(185, 52);
-            this.txtDescSiope.TabIndex = 2;
-            this.txtDescSiope.Tag = "sorting_siope.description";
-            // 
-            // txtCodSiope
-            // 
-            this.txtCodSiope.Location = new System.Drawing.Point(6, 72);
-            this.txtCodSiope.Name = "txtCodSiope";
-            this.txtCodSiope.ReadOnly = true;
-            this.txtCodSiope.Size = new System.Drawing.Size(252, 20);
-            this.txtCodSiope.TabIndex = 9;
-            this.txtCodSiope.Tag = "sorting_siope.sortcode?x";
-            // 
-            // btnGenPreimpegni
-            // 
-            this.btnGenPreimpegni.Location = new System.Drawing.Point(410, 286);
-            this.btnGenPreimpegni.Name = "btnGenPreimpegni";
-            this.btnGenPreimpegni.Size = new System.Drawing.Size(264, 23);
-            this.btnGenPreimpegni.TabIndex = 23;
-            this.btnGenPreimpegni.TabStop = false;
-            this.btnGenPreimpegni.Text = "Genera Impegni di Budget";
-            // 
-            // btnViewPreimpegni
-            // 
-            this.btnViewPreimpegni.Location = new System.Drawing.Point(410, 257);
-            this.btnViewPreimpegni.Name = "btnViewPreimpegni";
-            this.btnViewPreimpegni.Size = new System.Drawing.Size(264, 23);
-            this.btnViewPreimpegni.TabIndex = 22;
-            this.btnViewPreimpegni.TabStop = false;
-            this.btnViewPreimpegni.Text = "Visualizza preimpegni di Budget";
-            // 
-            // groupCredDeb
-            // 
-            this.groupCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.textBox25.Location = new System.Drawing.Point(100, 16);
+			this.textBox25.Multiline = true;
+			this.textBox25.Name = "textBox25";
+			this.textBox25.ReadOnly = true;
+			this.textBox25.Size = new System.Drawing.Size(153, 52);
+			this.textBox25.TabIndex = 3;
+			this.textBox25.TabStop = false;
+			this.textBox25.Tag = "costpartition.title";
+			// 
+			// textBox26
+			// 
+			this.textBox26.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupCredDeb.Controls.Add(this.txtCredDeb);
-            this.groupCredDeb.Location = new System.Drawing.Point(404, 315);
-            this.groupCredDeb.Name = "groupCredDeb";
-            this.groupCredDeb.Size = new System.Drawing.Size(535, 39);
-            this.groupCredDeb.TabIndex = 3;
-            this.groupCredDeb.TabStop = false;
-            this.groupCredDeb.Tag = "AutoChoose.txtCredDeb.lista.(active=\'S\')";
-            this.groupCredDeb.Text = "Percipiente (da usare per anticipi di varia natura)";
-            // 
-            // txtCredDeb
-            // 
-            this.txtCredDeb.Location = new System.Drawing.Point(6, 16);
-            this.txtCredDeb.Name = "txtCredDeb";
-            this.txtCredDeb.Size = new System.Drawing.Size(523, 20);
-            this.txtCredDeb.TabIndex = 0;
-            this.txtCredDeb.Tag = "registry.title?x";
-            // 
-            // gboxclass1
-            // 
-            this.gboxclass1.Controls.Add(this.btnCodice1);
-            this.gboxclass1.Controls.Add(this.txtDenom1);
-            this.gboxclass1.Controls.Add(this.txtCodice1);
-            this.gboxclass1.Location = new System.Drawing.Point(6, 261);
-            this.gboxclass1.Name = "gboxclass1";
-            this.gboxclass1.Size = new System.Drawing.Size(392, 103);
-            this.gboxclass1.TabIndex = 4;
-            this.gboxclass1.TabStop = false;
-            this.gboxclass1.Tag = "AutoManage.txtCodice1.treeclassmovimenti";
-            this.gboxclass1.Text = "Classificazione 1";
-            // 
-            // btnCodice1
-            // 
-            this.btnCodice1.Location = new System.Drawing.Point(6, 48);
-            this.btnCodice1.Name = "btnCodice1";
-            this.btnCodice1.Size = new System.Drawing.Size(76, 23);
-            this.btnCodice1.TabIndex = 4;
-            this.btnCodice1.TabStop = false;
-            this.btnCodice1.Tag = "manage.sorting1.tree";
-            this.btnCodice1.Text = "Codice";
-            this.btnCodice1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom1
-            // 
-            this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.textBox26.Location = new System.Drawing.Point(6, 72);
+			this.textBox26.Name = "textBox26";
+			this.textBox26.Size = new System.Drawing.Size(247, 20);
+			this.textBox26.TabIndex = 2;
+			this.textBox26.Tag = "costpartition.costpartitioncode?x";
+			// 
+			// btnRipartizione
+			// 
+			this.btnRipartizione.Location = new System.Drawing.Point(688, 129);
+			this.btnRipartizione.Name = "btnRipartizione";
+			this.btnRipartizione.Size = new System.Drawing.Size(88, 23);
+			this.btnRipartizione.TabIndex = 55;
+			this.btnRipartizione.Text = "Ripartizione";
+			this.btnRipartizione.Click += new System.EventHandler(this.btnRipartizione_Click);
+			// 
+			// grpBoxSiopeEP
+			// 
+			this.grpBoxSiopeEP.Controls.Add(this.btnSiope);
+			this.grpBoxSiopeEP.Controls.Add(this.txtDescSiope);
+			this.grpBoxSiopeEP.Controls.Add(this.txtCodSiope);
+			this.grpBoxSiopeEP.Location = new System.Drawing.Point(410, 20);
+			this.grpBoxSiopeEP.Name = "grpBoxSiopeEP";
+			this.grpBoxSiopeEP.Size = new System.Drawing.Size(264, 103);
+			this.grpBoxSiopeEP.TabIndex = 50;
+			this.grpBoxSiopeEP.TabStop = false;
+			this.grpBoxSiopeEP.Tag = "AutoChoose.txtCodSiope.tree";
+			this.grpBoxSiopeEP.Text = "Class.SIOPE";
+			// 
+			// btnSiope
+			// 
+			this.btnSiope.Location = new System.Drawing.Point(11, 46);
+			this.btnSiope.Name = "btnSiope";
+			this.btnSiope.Size = new System.Drawing.Size(56, 20);
+			this.btnSiope.TabIndex = 10;
+			this.btnSiope.Text = "Codice";
+			this.btnSiope.UseVisualStyleBackColor = true;
+			// 
+			// txtDescSiope
+			// 
+			this.txtDescSiope.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDescSiope.Location = new System.Drawing.Point(73, 16);
+			this.txtDescSiope.Multiline = true;
+			this.txtDescSiope.Name = "txtDescSiope";
+			this.txtDescSiope.ReadOnly = true;
+			this.txtDescSiope.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDescSiope.Size = new System.Drawing.Size(185, 52);
+			this.txtDescSiope.TabIndex = 2;
+			this.txtDescSiope.Tag = "sorting_siope.description";
+			// 
+			// txtCodSiope
+			// 
+			this.txtCodSiope.Location = new System.Drawing.Point(6, 72);
+			this.txtCodSiope.Name = "txtCodSiope";
+			this.txtCodSiope.ReadOnly = true;
+			this.txtCodSiope.Size = new System.Drawing.Size(252, 20);
+			this.txtCodSiope.TabIndex = 9;
+			this.txtCodSiope.Tag = "sorting_siope.sortcode?x";
+			// 
+			// btnGenPreimpegni
+			// 
+			this.btnGenPreimpegni.Location = new System.Drawing.Point(410, 286);
+			this.btnGenPreimpegni.Name = "btnGenPreimpegni";
+			this.btnGenPreimpegni.Size = new System.Drawing.Size(264, 23);
+			this.btnGenPreimpegni.TabIndex = 23;
+			this.btnGenPreimpegni.TabStop = false;
+			this.btnGenPreimpegni.Text = "Genera Impegni di Budget";
+			// 
+			// btnViewPreimpegni
+			// 
+			this.btnViewPreimpegni.Location = new System.Drawing.Point(410, 257);
+			this.btnViewPreimpegni.Name = "btnViewPreimpegni";
+			this.btnViewPreimpegni.Size = new System.Drawing.Size(264, 23);
+			this.btnViewPreimpegni.TabIndex = 22;
+			this.btnViewPreimpegni.TabStop = false;
+			this.btnViewPreimpegni.Text = "Visualizza preimpegni di Budget";
+			// 
+			// groupCredDeb
+			// 
+			this.groupCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupCredDeb.Controls.Add(this.txtCredDeb);
+			this.groupCredDeb.Location = new System.Drawing.Point(404, 315);
+			this.groupCredDeb.Name = "groupCredDeb";
+			this.groupCredDeb.Size = new System.Drawing.Size(535, 39);
+			this.groupCredDeb.TabIndex = 3;
+			this.groupCredDeb.TabStop = false;
+			this.groupCredDeb.Tag = "AutoChoose.txtCredDeb.lista.(active=\'S\')";
+			this.groupCredDeb.Text = "Percipiente (da usare per anticipi di varia natura)";
+			// 
+			// txtCredDeb
+			// 
+			this.txtCredDeb.Location = new System.Drawing.Point(6, 16);
+			this.txtCredDeb.Name = "txtCredDeb";
+			this.txtCredDeb.Size = new System.Drawing.Size(523, 20);
+			this.txtCredDeb.TabIndex = 0;
+			this.txtCredDeb.Tag = "registry.title?x";
+			// 
+			// gboxclass1
+			// 
+			this.gboxclass1.Controls.Add(this.btnCodice1);
+			this.gboxclass1.Controls.Add(this.txtDenom1);
+			this.gboxclass1.Controls.Add(this.txtCodice1);
+			this.gboxclass1.Location = new System.Drawing.Point(6, 261);
+			this.gboxclass1.Name = "gboxclass1";
+			this.gboxclass1.Size = new System.Drawing.Size(392, 103);
+			this.gboxclass1.TabIndex = 4;
+			this.gboxclass1.TabStop = false;
+			this.gboxclass1.Tag = "AutoManage.txtCodice1.treeclassmovimenti";
+			this.gboxclass1.Text = "Classificazione 1";
+			// 
+			// btnCodice1
+			// 
+			this.btnCodice1.Location = new System.Drawing.Point(6, 48);
+			this.btnCodice1.Name = "btnCodice1";
+			this.btnCodice1.Size = new System.Drawing.Size(76, 23);
+			this.btnCodice1.TabIndex = 4;
+			this.btnCodice1.TabStop = false;
+			this.btnCodice1.Tag = "manage.sorting1.tree";
+			this.btnCodice1.Text = "Codice";
+			this.btnCodice1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom1
+			// 
+			this.txtDenom1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom1.Location = new System.Drawing.Point(128, 16);
-            this.txtDenom1.Multiline = true;
-            this.txtDenom1.Name = "txtDenom1";
-            this.txtDenom1.ReadOnly = true;
-            this.txtDenom1.Size = new System.Drawing.Size(256, 55);
-            this.txtDenom1.TabIndex = 3;
-            this.txtDenom1.TabStop = false;
-            this.txtDenom1.Tag = "sorting1.description";
-            // 
-            // txtCodice1
-            // 
-            this.txtCodice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom1.Location = new System.Drawing.Point(128, 16);
+			this.txtDenom1.Multiline = true;
+			this.txtDenom1.Name = "txtDenom1";
+			this.txtDenom1.ReadOnly = true;
+			this.txtDenom1.Size = new System.Drawing.Size(256, 55);
+			this.txtDenom1.TabIndex = 3;
+			this.txtDenom1.TabStop = false;
+			this.txtDenom1.Tag = "sorting1.description";
+			// 
+			// txtCodice1
+			// 
+			this.txtCodice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtCodice1.Location = new System.Drawing.Point(4, 77);
-            this.txtCodice1.Name = "txtCodice1";
-            this.txtCodice1.Size = new System.Drawing.Size(380, 20);
-            this.txtCodice1.TabIndex = 2;
-            this.txtCodice1.Tag = "sorting1.sortcode?x";
-            // 
-            // gboxclass3
-            // 
-            this.gboxclass3.Controls.Add(this.btnCodice3);
-            this.gboxclass3.Controls.Add(this.txtDenom3);
-            this.gboxclass3.Controls.Add(this.txtCodice3);
-            this.gboxclass3.Location = new System.Drawing.Point(404, 370);
-            this.gboxclass3.Name = "gboxclass3";
-            this.gboxclass3.Size = new System.Drawing.Size(454, 103);
-            this.gboxclass3.TabIndex = 6;
-            this.gboxclass3.TabStop = false;
-            this.gboxclass3.Tag = "AutoManage.txtCodice3.treeclassmovimenti";
-            this.gboxclass3.Text = "Classificazione 3";
-            // 
-            // btnCodice3
-            // 
-            this.btnCodice3.Location = new System.Drawing.Point(9, 48);
-            this.btnCodice3.Name = "btnCodice3";
-            this.btnCodice3.Size = new System.Drawing.Size(65, 23);
-            this.btnCodice3.TabIndex = 4;
-            this.btnCodice3.TabStop = false;
-            this.btnCodice3.Tag = "manage.sorting3.tree";
-            this.btnCodice3.Text = "Codice";
-            this.btnCodice3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom3
-            // 
-            this.txtDenom3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtCodice1.Location = new System.Drawing.Point(4, 77);
+			this.txtCodice1.Name = "txtCodice1";
+			this.txtCodice1.Size = new System.Drawing.Size(380, 20);
+			this.txtCodice1.TabIndex = 2;
+			this.txtCodice1.Tag = "sorting1.sortcode?x";
+			// 
+			// gboxclass3
+			// 
+			this.gboxclass3.Controls.Add(this.btnCodice3);
+			this.gboxclass3.Controls.Add(this.txtDenom3);
+			this.gboxclass3.Controls.Add(this.txtCodice3);
+			this.gboxclass3.Location = new System.Drawing.Point(404, 370);
+			this.gboxclass3.Name = "gboxclass3";
+			this.gboxclass3.Size = new System.Drawing.Size(454, 103);
+			this.gboxclass3.TabIndex = 6;
+			this.gboxclass3.TabStop = false;
+			this.gboxclass3.Tag = "AutoManage.txtCodice3.treeclassmovimenti";
+			this.gboxclass3.Text = "Classificazione 3";
+			// 
+			// btnCodice3
+			// 
+			this.btnCodice3.Location = new System.Drawing.Point(9, 48);
+			this.btnCodice3.Name = "btnCodice3";
+			this.btnCodice3.Size = new System.Drawing.Size(65, 23);
+			this.btnCodice3.TabIndex = 4;
+			this.btnCodice3.TabStop = false;
+			this.btnCodice3.Tag = "manage.sorting3.tree";
+			this.btnCodice3.Text = "Codice";
+			this.btnCodice3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom3
+			// 
+			this.txtDenom3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom3.Location = new System.Drawing.Point(127, 12);
-            this.txtDenom3.Multiline = true;
-            this.txtDenom3.Name = "txtDenom3";
-            this.txtDenom3.ReadOnly = true;
-            this.txtDenom3.Size = new System.Drawing.Size(318, 59);
-            this.txtDenom3.TabIndex = 3;
-            this.txtDenom3.TabStop = false;
-            this.txtDenom3.Tag = "sorting3.description";
-            // 
-            // txtCodice3
-            // 
-            this.txtCodice3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom3.Location = new System.Drawing.Point(127, 12);
+			this.txtDenom3.Multiline = true;
+			this.txtDenom3.Name = "txtDenom3";
+			this.txtDenom3.ReadOnly = true;
+			this.txtDenom3.Size = new System.Drawing.Size(318, 59);
+			this.txtDenom3.TabIndex = 3;
+			this.txtDenom3.TabStop = false;
+			this.txtDenom3.Tag = "sorting3.description";
+			// 
+			// txtCodice3
+			// 
+			this.txtCodice3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtCodice3.Location = new System.Drawing.Point(9, 77);
-            this.txtCodice3.Name = "txtCodice3";
-            this.txtCodice3.Size = new System.Drawing.Size(436, 20);
-            this.txtCodice3.TabIndex = 2;
-            this.txtCodice3.Tag = "sorting3.sortcode?x";
-            // 
-            // btnGeneraEpExp
-            // 
-            this.btnGeneraEpExp.Location = new System.Drawing.Point(715, 283);
-            this.btnGeneraEpExp.Name = "btnGeneraEpExp";
-            this.btnGeneraEpExp.Size = new System.Drawing.Size(224, 23);
-            this.btnGeneraEpExp.TabIndex = 21;
-            this.btnGeneraEpExp.TabStop = false;
-            this.btnGeneraEpExp.Text = "Genera Impegni di Budget";
-            // 
-            // gboxclass2
-            // 
-            this.gboxclass2.Controls.Add(this.btnCodice2);
-            this.gboxclass2.Controls.Add(this.txtDenom2);
-            this.gboxclass2.Controls.Add(this.txtCodice2);
-            this.gboxclass2.Location = new System.Drawing.Point(6, 370);
-            this.gboxclass2.Name = "gboxclass2";
-            this.gboxclass2.Size = new System.Drawing.Size(392, 104);
-            this.gboxclass2.TabIndex = 5;
-            this.gboxclass2.TabStop = false;
-            this.gboxclass2.Tag = "AutoManage.txtCodice2.treeclassmovimenti";
-            this.gboxclass2.Text = "Classificazione 2";
-            // 
-            // btnCodice2
-            // 
-            this.btnCodice2.Location = new System.Drawing.Point(8, 47);
-            this.btnCodice2.Name = "btnCodice2";
-            this.btnCodice2.Size = new System.Drawing.Size(76, 23);
-            this.btnCodice2.TabIndex = 4;
-            this.btnCodice2.TabStop = false;
-            this.btnCodice2.Tag = "manage.sorting2.tree";
-            this.btnCodice2.Text = "Codice";
-            this.btnCodice2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom2
-            // 
-            this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtCodice3.Location = new System.Drawing.Point(9, 77);
+			this.txtCodice3.Name = "txtCodice3";
+			this.txtCodice3.Size = new System.Drawing.Size(436, 20);
+			this.txtCodice3.TabIndex = 2;
+			this.txtCodice3.Tag = "sorting3.sortcode?x";
+			// 
+			// btnGeneraEpExp
+			// 
+			this.btnGeneraEpExp.Location = new System.Drawing.Point(715, 283);
+			this.btnGeneraEpExp.Name = "btnGeneraEpExp";
+			this.btnGeneraEpExp.Size = new System.Drawing.Size(224, 23);
+			this.btnGeneraEpExp.TabIndex = 21;
+			this.btnGeneraEpExp.TabStop = false;
+			this.btnGeneraEpExp.Text = "Genera Impegni di Budget";
+			// 
+			// gboxclass2
+			// 
+			this.gboxclass2.Controls.Add(this.btnCodice2);
+			this.gboxclass2.Controls.Add(this.txtDenom2);
+			this.gboxclass2.Controls.Add(this.txtCodice2);
+			this.gboxclass2.Location = new System.Drawing.Point(6, 370);
+			this.gboxclass2.Name = "gboxclass2";
+			this.gboxclass2.Size = new System.Drawing.Size(392, 104);
+			this.gboxclass2.TabIndex = 5;
+			this.gboxclass2.TabStop = false;
+			this.gboxclass2.Tag = "AutoManage.txtCodice2.treeclassmovimenti";
+			this.gboxclass2.Text = "Classificazione 2";
+			// 
+			// btnCodice2
+			// 
+			this.btnCodice2.Location = new System.Drawing.Point(8, 47);
+			this.btnCodice2.Name = "btnCodice2";
+			this.btnCodice2.Size = new System.Drawing.Size(76, 23);
+			this.btnCodice2.TabIndex = 4;
+			this.btnCodice2.TabStop = false;
+			this.btnCodice2.Tag = "manage.sorting2.tree";
+			this.btnCodice2.Text = "Codice";
+			this.btnCodice2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom2
+			// 
+			this.txtDenom2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom2.Location = new System.Drawing.Point(128, 16);
-            this.txtDenom2.Multiline = true;
-            this.txtDenom2.Name = "txtDenom2";
-            this.txtDenom2.ReadOnly = true;
-            this.txtDenom2.Size = new System.Drawing.Size(256, 56);
-            this.txtDenom2.TabIndex = 3;
-            this.txtDenom2.TabStop = false;
-            this.txtDenom2.Tag = "sorting2.description";
-            // 
-            // txtCodice2
-            // 
-            this.txtCodice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom2.Location = new System.Drawing.Point(128, 16);
+			this.txtDenom2.Multiline = true;
+			this.txtDenom2.Name = "txtDenom2";
+			this.txtDenom2.ReadOnly = true;
+			this.txtDenom2.Size = new System.Drawing.Size(256, 56);
+			this.txtDenom2.TabIndex = 3;
+			this.txtDenom2.TabStop = false;
+			this.txtDenom2.Tag = "sorting2.description";
+			// 
+			// txtCodice2
+			// 
+			this.txtCodice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtCodice2.Location = new System.Drawing.Point(6, 78);
-            this.txtCodice2.Name = "txtCodice2";
-            this.txtCodice2.Size = new System.Drawing.Size(378, 20);
-            this.txtCodice2.TabIndex = 2;
-            this.txtCodice2.Tag = "sorting2.sortcode?x";
-            // 
-            // btnVisualizzaEpExp
-            // 
-            this.btnVisualizzaEpExp.Location = new System.Drawing.Point(715, 254);
-            this.btnVisualizzaEpExp.Name = "btnVisualizzaEpExp";
-            this.btnVisualizzaEpExp.Size = new System.Drawing.Size(224, 23);
-            this.btnVisualizzaEpExp.TabIndex = 20;
-            this.btnVisualizzaEpExp.TabStop = false;
-            this.btnVisualizzaEpExp.Text = "Visualizza Impegni di Budget";
-            // 
-            // gboxDebito
-            // 
-            this.gboxDebito.Controls.Add(this.txtDenomCausaleDebito);
-            this.gboxDebito.Controls.Add(this.txtCodiceCausaleDebito);
-            this.gboxDebito.Controls.Add(this.button1);
-            this.gboxDebito.Location = new System.Drawing.Point(6, 145);
-            this.gboxDebito.Name = "gboxDebito";
-            this.gboxDebito.Size = new System.Drawing.Size(392, 100);
-            this.gboxDebito.TabIndex = 2;
-            this.gboxDebito.TabStop = false;
-            this.gboxDebito.Tag = "AutoManage.txtCodiceCausaleDebito.tree.(in_use=\'S\')";
-            this.gboxDebito.Text = "Causale per il debito (da usare per anticipi di varia natura)";
-            // 
-            // txtDenomCausaleDebito
-            // 
-            this.txtDenomCausaleDebito.Location = new System.Drawing.Point(120, 16);
-            this.txtDenomCausaleDebito.Multiline = true;
-            this.txtDenomCausaleDebito.Name = "txtDenomCausaleDebito";
-            this.txtDenomCausaleDebito.ReadOnly = true;
-            this.txtDenomCausaleDebito.Size = new System.Drawing.Size(264, 50);
-            this.txtDenomCausaleDebito.TabIndex = 2;
-            this.txtDenomCausaleDebito.TabStop = false;
-            this.txtDenomCausaleDebito.Tag = "accmotiveapplied_debit.motive";
-            // 
-            // txtCodiceCausaleDebito
-            // 
-            this.txtCodiceCausaleDebito.Location = new System.Drawing.Point(10, 72);
-            this.txtCodiceCausaleDebito.Name = "txtCodiceCausaleDebito";
-            this.txtCodiceCausaleDebito.Size = new System.Drawing.Size(374, 20);
-            this.txtCodiceCausaleDebito.TabIndex = 1;
-            this.txtCodiceCausaleDebito.Tag = "accmotiveapplied_debit.codemotive?x";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 43);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Tag = "manage.accmotiveapplied_debit.tree";
-            this.button1.Text = "Causale";
-            // 
-            // btnGeneraEP
-            // 
-            this.btnGeneraEP.Location = new System.Drawing.Point(411, 197);
-            this.btnGeneraEP.Name = "btnGeneraEP";
-            this.btnGeneraEP.Size = new System.Drawing.Size(224, 23);
-            this.btnGeneraEP.TabIndex = 19;
-            this.btnGeneraEP.TabStop = false;
-            this.btnGeneraEP.Text = "Genera le scritture in partita doppia.";
-            // 
-            // gboxCosto
-            // 
-            this.gboxCosto.Controls.Add(this.txtDenomCausaleCosto);
-            this.gboxCosto.Controls.Add(this.txtCodiceCausaleCosto);
-            this.gboxCosto.Controls.Add(this.button2);
-            this.gboxCosto.Location = new System.Drawing.Point(6, 20);
-            this.gboxCosto.Name = "gboxCosto";
-            this.gboxCosto.Size = new System.Drawing.Size(392, 116);
-            this.gboxCosto.TabIndex = 1;
-            this.gboxCosto.TabStop = false;
-            this.gboxCosto.Tag = "AutoManage.txtCodiceCausaleCosto.tree.(in_use=\'S\')";
-            this.gboxCosto.Text = "Causale per il costo (se documento non gestito altrove nel programma)";
-            // 
-            // txtDenomCausaleCosto
-            // 
-            this.txtDenomCausaleCosto.Location = new System.Drawing.Point(120, 16);
-            this.txtDenomCausaleCosto.Multiline = true;
-            this.txtDenomCausaleCosto.Name = "txtDenomCausaleCosto";
-            this.txtDenomCausaleCosto.ReadOnly = true;
-            this.txtDenomCausaleCosto.Size = new System.Drawing.Size(266, 68);
-            this.txtDenomCausaleCosto.TabIndex = 2;
-            this.txtDenomCausaleCosto.TabStop = false;
-            this.txtDenomCausaleCosto.Tag = "accmotiveapplied_cost.motive";
-            // 
-            // txtCodiceCausaleCosto
-            // 
-            this.txtCodiceCausaleCosto.Location = new System.Drawing.Point(10, 90);
-            this.txtCodiceCausaleCosto.Name = "txtCodiceCausaleCosto";
-            this.txtCodiceCausaleCosto.Size = new System.Drawing.Size(376, 20);
-            this.txtCodiceCausaleCosto.TabIndex = 1;
-            this.txtCodiceCausaleCosto.Tag = "accmotiveapplied_cost.codemotive?x";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(8, 61);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(84, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Tag = "manage.accmotiveapplied_cost.tree";
-            this.button2.Text = "Causale";
-            // 
-            // btnVisualizzaEP
-            // 
-            this.btnVisualizzaEP.Location = new System.Drawing.Point(410, 168);
-            this.btnVisualizzaEP.Name = "btnVisualizzaEP";
-            this.btnVisualizzaEP.Size = new System.Drawing.Size(224, 23);
-            this.btnVisualizzaEP.TabIndex = 18;
-            this.btnVisualizzaEP.TabStop = false;
-            this.btnVisualizzaEP.Text = "Visualizza le scritture in partita doppia";
-            // 
-            // labEP
-            // 
-            this.labEP.Location = new System.Drawing.Point(410, 145);
-            this.labEP.Name = "labEP";
-            this.labEP.Size = new System.Drawing.Size(383, 20);
-            this.labEP.TabIndex = 16;
-            this.labEP.Text = "Le scritture in partita doppia sono state generate.";
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.txtFineCompetenza);
-            this.groupBox8.Controls.Add(this.txtInizioCompetenza);
-            this.groupBox8.Controls.Add(this.label10);
-            this.groupBox8.Controls.Add(this.label9);
-            this.groupBox8.Location = new System.Drawing.Point(422, 145);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(177, 80);
-            this.groupBox8.TabIndex = 3;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Date di Competenza";
-            // 
-            // txtFineCompetenza
-            // 
-            this.txtFineCompetenza.Location = new System.Drawing.Point(69, 45);
-            this.txtFineCompetenza.Name = "txtFineCompetenza";
-            this.txtFineCompetenza.Size = new System.Drawing.Size(100, 20);
-            this.txtFineCompetenza.TabIndex = 3;
-            this.txtFineCompetenza.Tag = "pettycashoperation.stop";
-            // 
-            // txtInizioCompetenza
-            // 
-            this.txtInizioCompetenza.Location = new System.Drawing.Point(69, 16);
-            this.txtInizioCompetenza.Name = "txtInizioCompetenza";
-            this.txtInizioCompetenza.Size = new System.Drawing.Size(100, 20);
-            this.txtInizioCompetenza.TabIndex = 2;
-            this.txtInizioCompetenza.Tag = "pettycashoperation.start";
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(6, 48);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(57, 17);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Fine:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(6, 19);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(57, 17);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Inizio:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // tabFinanziamenti
-            // 
-            this.tabFinanziamenti.Controls.Add(this.txtTotFinanziato);
-            this.tabFinanziamenti.Controls.Add(this.label22);
-            this.tabFinanziamenti.Controls.Add(this.dgridFinanziamenti);
-            this.tabFinanziamenti.Controls.Add(this.btnDelFinanziamenti);
-            this.tabFinanziamenti.Controls.Add(this.btnEditFinanziamenti);
-            this.tabFinanziamenti.Controls.Add(this.btnInsertFinanziamenti);
-            this.tabFinanziamenti.Location = new System.Drawing.Point(4, 23);
-            this.tabFinanziamenti.Name = "tabFinanziamenti";
-            this.tabFinanziamenti.Size = new System.Drawing.Size(947, 493);
-            this.tabFinanziamenti.TabIndex = 6;
-            this.tabFinanziamenti.Text = "Finanziamenti";
-            this.tabFinanziamenti.UseVisualStyleBackColor = true;
-            // 
-            // txtTotFinanziato
-            // 
-            this.txtTotFinanziato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTotFinanziato.Location = new System.Drawing.Point(791, 16);
-            this.txtTotFinanziato.Name = "txtTotFinanziato";
-            this.txtTotFinanziato.ReadOnly = true;
-            this.txtTotFinanziato.Size = new System.Drawing.Size(133, 20);
-            this.txtTotFinanziato.TabIndex = 45;
-            this.txtTotFinanziato.TabStop = false;
-            this.txtTotFinanziato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label22
-            // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(700, 18);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(85, 13);
-            this.label22.TabIndex = 44;
-            this.label22.Text = "Totale finanziato";
-            // 
-            // dgridFinanziamenti
-            // 
-            this.dgridFinanziamenti.AllowNavigation = false;
-            this.dgridFinanziamenti.AllowSorting = false;
-            this.dgridFinanziamenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtCodice2.Location = new System.Drawing.Point(6, 78);
+			this.txtCodice2.Name = "txtCodice2";
+			this.txtCodice2.Size = new System.Drawing.Size(378, 20);
+			this.txtCodice2.TabIndex = 2;
+			this.txtCodice2.Tag = "sorting2.sortcode?x";
+			// 
+			// btnVisualizzaEpExp
+			// 
+			this.btnVisualizzaEpExp.Location = new System.Drawing.Point(715, 254);
+			this.btnVisualizzaEpExp.Name = "btnVisualizzaEpExp";
+			this.btnVisualizzaEpExp.Size = new System.Drawing.Size(224, 23);
+			this.btnVisualizzaEpExp.TabIndex = 20;
+			this.btnVisualizzaEpExp.TabStop = false;
+			this.btnVisualizzaEpExp.Text = "Visualizza Impegni di Budget";
+			// 
+			// gboxDebito
+			// 
+			this.gboxDebito.Controls.Add(this.txtDenomCausaleDebito);
+			this.gboxDebito.Controls.Add(this.txtCodiceCausaleDebito);
+			this.gboxDebito.Controls.Add(this.button1);
+			this.gboxDebito.Location = new System.Drawing.Point(6, 145);
+			this.gboxDebito.Name = "gboxDebito";
+			this.gboxDebito.Size = new System.Drawing.Size(392, 100);
+			this.gboxDebito.TabIndex = 2;
+			this.gboxDebito.TabStop = false;
+			this.gboxDebito.Tag = "AutoManage.txtCodiceCausaleDebito.tree.(in_use=\'S\')";
+			this.gboxDebito.Text = "Causale per il debito (da usare per anticipi di varia natura)";
+			// 
+			// txtDenomCausaleDebito
+			// 
+			this.txtDenomCausaleDebito.Location = new System.Drawing.Point(120, 16);
+			this.txtDenomCausaleDebito.Multiline = true;
+			this.txtDenomCausaleDebito.Name = "txtDenomCausaleDebito";
+			this.txtDenomCausaleDebito.ReadOnly = true;
+			this.txtDenomCausaleDebito.Size = new System.Drawing.Size(264, 50);
+			this.txtDenomCausaleDebito.TabIndex = 2;
+			this.txtDenomCausaleDebito.TabStop = false;
+			this.txtDenomCausaleDebito.Tag = "accmotiveapplied_debit.motive";
+			// 
+			// txtCodiceCausaleDebito
+			// 
+			this.txtCodiceCausaleDebito.Location = new System.Drawing.Point(10, 72);
+			this.txtCodiceCausaleDebito.Name = "txtCodiceCausaleDebito";
+			this.txtCodiceCausaleDebito.Size = new System.Drawing.Size(374, 20);
+			this.txtCodiceCausaleDebito.TabIndex = 1;
+			this.txtCodiceCausaleDebito.Tag = "accmotiveapplied_debit.codemotive?x";
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(6, 43);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(86, 23);
+			this.button1.TabIndex = 0;
+			this.button1.Tag = "manage.accmotiveapplied_debit.tree";
+			this.button1.Text = "Causale";
+			// 
+			// btnGeneraEP
+			// 
+			this.btnGeneraEP.Location = new System.Drawing.Point(411, 218);
+			this.btnGeneraEP.Name = "btnGeneraEP";
+			this.btnGeneraEP.Size = new System.Drawing.Size(224, 23);
+			this.btnGeneraEP.TabIndex = 19;
+			this.btnGeneraEP.TabStop = false;
+			this.btnGeneraEP.Text = "Genera le scritture in partita doppia.";
+			// 
+			// gboxCosto
+			// 
+			this.gboxCosto.Controls.Add(this.txtDenomCausaleCosto);
+			this.gboxCosto.Controls.Add(this.txtCodiceCausaleCosto);
+			this.gboxCosto.Controls.Add(this.button2);
+			this.gboxCosto.Location = new System.Drawing.Point(6, 20);
+			this.gboxCosto.Name = "gboxCosto";
+			this.gboxCosto.Size = new System.Drawing.Size(392, 116);
+			this.gboxCosto.TabIndex = 1;
+			this.gboxCosto.TabStop = false;
+			this.gboxCosto.Tag = "AutoManage.txtCodiceCausaleCosto.tree.(in_use=\'S\')";
+			this.gboxCosto.Text = "Causale per il costo (se documento non gestito altrove nel programma)";
+			// 
+			// txtDenomCausaleCosto
+			// 
+			this.txtDenomCausaleCosto.Location = new System.Drawing.Point(120, 16);
+			this.txtDenomCausaleCosto.Multiline = true;
+			this.txtDenomCausaleCosto.Name = "txtDenomCausaleCosto";
+			this.txtDenomCausaleCosto.ReadOnly = true;
+			this.txtDenomCausaleCosto.Size = new System.Drawing.Size(266, 68);
+			this.txtDenomCausaleCosto.TabIndex = 2;
+			this.txtDenomCausaleCosto.TabStop = false;
+			this.txtDenomCausaleCosto.Tag = "accmotiveapplied_cost.motive";
+			// 
+			// txtCodiceCausaleCosto
+			// 
+			this.txtCodiceCausaleCosto.Location = new System.Drawing.Point(10, 90);
+			this.txtCodiceCausaleCosto.Name = "txtCodiceCausaleCosto";
+			this.txtCodiceCausaleCosto.Size = new System.Drawing.Size(376, 20);
+			this.txtCodiceCausaleCosto.TabIndex = 1;
+			this.txtCodiceCausaleCosto.Tag = "accmotiveapplied_cost.codemotive?x";
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(8, 61);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(84, 23);
+			this.button2.TabIndex = 0;
+			this.button2.Tag = "manage.accmotiveapplied_cost.tree";
+			this.button2.Text = "Causale";
+			// 
+			// btnVisualizzaEP
+			// 
+			this.btnVisualizzaEP.Location = new System.Drawing.Point(410, 189);
+			this.btnVisualizzaEP.Name = "btnVisualizzaEP";
+			this.btnVisualizzaEP.Size = new System.Drawing.Size(224, 23);
+			this.btnVisualizzaEP.TabIndex = 18;
+			this.btnVisualizzaEP.TabStop = false;
+			this.btnVisualizzaEP.Text = "Visualizza le scritture in partita doppia";
+			// 
+			// labEP
+			// 
+			this.labEP.Location = new System.Drawing.Point(410, 166);
+			this.labEP.Name = "labEP";
+			this.labEP.Size = new System.Drawing.Size(383, 20);
+			this.labEP.TabIndex = 16;
+			this.labEP.Text = "Le scritture in partita doppia sono state generate.";
+			// 
+			// groupBox8
+			// 
+			this.groupBox8.Controls.Add(this.txtFineCompetenza);
+			this.groupBox8.Controls.Add(this.txtInizioCompetenza);
+			this.groupBox8.Controls.Add(this.label10);
+			this.groupBox8.Controls.Add(this.label9);
+			this.groupBox8.Location = new System.Drawing.Point(422, 145);
+			this.groupBox8.Name = "groupBox8";
+			this.groupBox8.Size = new System.Drawing.Size(177, 80);
+			this.groupBox8.TabIndex = 3;
+			this.groupBox8.TabStop = false;
+			this.groupBox8.Text = "Date di Competenza";
+			// 
+			// txtFineCompetenza
+			// 
+			this.txtFineCompetenza.Location = new System.Drawing.Point(69, 45);
+			this.txtFineCompetenza.Name = "txtFineCompetenza";
+			this.txtFineCompetenza.Size = new System.Drawing.Size(100, 20);
+			this.txtFineCompetenza.TabIndex = 3;
+			this.txtFineCompetenza.Tag = "pettycashoperation.stop";
+			// 
+			// txtInizioCompetenza
+			// 
+			this.txtInizioCompetenza.Location = new System.Drawing.Point(69, 16);
+			this.txtInizioCompetenza.Name = "txtInizioCompetenza";
+			this.txtInizioCompetenza.Size = new System.Drawing.Size(100, 20);
+			this.txtInizioCompetenza.TabIndex = 2;
+			this.txtInizioCompetenza.Tag = "pettycashoperation.start";
+			// 
+			// label10
+			// 
+			this.label10.Location = new System.Drawing.Point(6, 48);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(57, 17);
+			this.label10.TabIndex = 1;
+			this.label10.Text = "Fine:";
+			this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(6, 19);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(57, 17);
+			this.label9.TabIndex = 0;
+			this.label9.Text = "Inizio:";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// tabFinanziamenti
+			// 
+			this.tabFinanziamenti.Controls.Add(this.txtTotFinanziato);
+			this.tabFinanziamenti.Controls.Add(this.label22);
+			this.tabFinanziamenti.Controls.Add(this.dgridFinanziamenti);
+			this.tabFinanziamenti.Controls.Add(this.btnDelFinanziamenti);
+			this.tabFinanziamenti.Controls.Add(this.btnEditFinanziamenti);
+			this.tabFinanziamenti.Controls.Add(this.btnInsertFinanziamenti);
+			this.tabFinanziamenti.Location = new System.Drawing.Point(4, 23);
+			this.tabFinanziamenti.Name = "tabFinanziamenti";
+			this.tabFinanziamenti.Size = new System.Drawing.Size(947, 493);
+			this.tabFinanziamenti.TabIndex = 6;
+			this.tabFinanziamenti.Text = "Finanziamenti";
+			this.tabFinanziamenti.UseVisualStyleBackColor = true;
+			// 
+			// txtTotFinanziato
+			// 
+			this.txtTotFinanziato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTotFinanziato.Location = new System.Drawing.Point(791, 16);
+			this.txtTotFinanziato.Name = "txtTotFinanziato";
+			this.txtTotFinanziato.ReadOnly = true;
+			this.txtTotFinanziato.Size = new System.Drawing.Size(133, 20);
+			this.txtTotFinanziato.TabIndex = 45;
+			this.txtTotFinanziato.TabStop = false;
+			this.txtTotFinanziato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label22
+			// 
+			this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label22.AutoSize = true;
+			this.label22.Location = new System.Drawing.Point(700, 18);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(85, 13);
+			this.label22.TabIndex = 44;
+			this.label22.Text = "Totale finanziato";
+			// 
+			// dgridFinanziamenti
+			// 
+			this.dgridFinanziamenti.AllowNavigation = false;
+			this.dgridFinanziamenti.AllowSorting = false;
+			this.dgridFinanziamenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgridFinanziamenti.DataMember = "";
-            this.dgridFinanziamenti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgridFinanziamenti.Location = new System.Drawing.Point(5, 42);
-            this.dgridFinanziamenti.Name = "dgridFinanziamenti";
-            this.dgridFinanziamenti.Size = new System.Drawing.Size(922, 431);
-            this.dgridFinanziamenti.TabIndex = 10;
-            this.dgridFinanziamenti.Tag = "pettycashoperationunderwriting.lista.detail";
-            // 
-            // btnDelFinanziamenti
-            // 
-            this.btnDelFinanziamenti.Location = new System.Drawing.Point(185, 13);
-            this.btnDelFinanziamenti.Name = "btnDelFinanziamenti";
-            this.btnDelFinanziamenti.Size = new System.Drawing.Size(75, 23);
-            this.btnDelFinanziamenti.TabIndex = 9;
-            this.btnDelFinanziamenti.Tag = "delete";
-            this.btnDelFinanziamenti.Text = "Cancella";
-            // 
-            // btnEditFinanziamenti
-            // 
-            this.btnEditFinanziamenti.Location = new System.Drawing.Point(97, 13);
-            this.btnEditFinanziamenti.Name = "btnEditFinanziamenti";
-            this.btnEditFinanziamenti.Size = new System.Drawing.Size(75, 23);
-            this.btnEditFinanziamenti.TabIndex = 8;
-            this.btnEditFinanziamenti.Tag = "edit.detail";
-            this.btnEditFinanziamenti.Text = "Correggi";
-            // 
-            // btnInsertFinanziamenti
-            // 
-            this.btnInsertFinanziamenti.Location = new System.Drawing.Point(9, 13);
-            this.btnInsertFinanziamenti.Name = "btnInsertFinanziamenti";
-            this.btnInsertFinanziamenti.Size = new System.Drawing.Size(75, 23);
-            this.btnInsertFinanziamenti.TabIndex = 7;
-            this.btnInsertFinanziamenti.Tag = "insert.detail";
-            this.btnInsertFinanziamenti.Text = "Aggiungi";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(0, 0);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 0;
-            // 
-            // Frm_pettycashoperation_default
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(955, 520);
-            this.Controls.Add(this.tabOpfondops);
-            this.MaximizeBox = false;
-            this.Name = "Frm_pettycashoperation_default";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmopfondopiccolespese";
-            this.tabOpfondops.ResumeLayout(false);
-            this.tabOperazione.ResumeLayout(false);
-            this.gboxUPB.ResumeLayout(false);
-            this.gboxUPB.PerformLayout();
-            this.gboxResponsabile.ResumeLayout(false);
-            this.gboxResponsabile.PerformLayout();
-            this.gboxImporto.ResumeLayout(false);
-            this.gboxImporto.PerformLayout();
-            this.gboxBolletta.ResumeLayout(false);
-            this.gboxBolletta.PerformLayout();
-            this.grpNList.ResumeLayout(false);
-            this.grpNList.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.gboxCurrAmount.ResumeLayout(false);
-            this.gboxCurrAmount.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.gboxreintegro.ResumeLayout(false);
-            this.gboxreintegro.PerformLayout();
-            this.grpTipoSpesa.ResumeLayout(false);
-            this.grpTipoOperazione.ResumeLayout(false);
-            this.grpTipoOperazione.PerformLayout();
-            this.grpOperazione.ResumeLayout(false);
-            this.grpOperazione.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.gboxDocumento.ResumeLayout(false);
-            this.gboxDocumento.PerformLayout();
-            this.grpBilancio.ResumeLayout(false);
-            this.grpBilancio.PerformLayout();
-            this.gboxSpesa.ResumeLayout(false);
-            this.gboxSpesa.PerformLayout();
-            this.tabClassSup.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DGridDettagliClassificazioni)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DGridClassificazioni)).EndInit();
-            this.tabMovimenti.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgrPSMovEntrata)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrPSMovSpesa)).EndInit();
-            this.tabAttributi.ResumeLayout(false);
-            this.gboxclass05.ResumeLayout(false);
-            this.gboxclass05.PerformLayout();
-            this.gboxclass04.ResumeLayout(false);
-            this.gboxclass04.PerformLayout();
-            this.gboxclass03.ResumeLayout(false);
-            this.gboxclass03.PerformLayout();
-            this.gboxclass02.ResumeLayout(false);
-            this.gboxclass02.PerformLayout();
-            this.gboxclass01.ResumeLayout(false);
-            this.gboxclass01.PerformLayout();
-            this.tabAnalitico.ResumeLayout(false);
-            this.gboxAnalitico.ResumeLayout(false);
-            this.grpBoxSiopeEP.ResumeLayout(false);
-            this.grpBoxSiopeEP.PerformLayout();
-            this.groupCredDeb.ResumeLayout(false);
-            this.groupCredDeb.PerformLayout();
-            this.gboxclass1.ResumeLayout(false);
-            this.gboxclass1.PerformLayout();
-            this.gboxclass3.ResumeLayout(false);
-            this.gboxclass3.PerformLayout();
-            this.gboxclass2.ResumeLayout(false);
-            this.gboxclass2.PerformLayout();
-            this.gboxDebito.ResumeLayout(false);
-            this.gboxDebito.PerformLayout();
-            this.gboxCosto.ResumeLayout(false);
-            this.gboxCosto.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.tabFinanziamenti.ResumeLayout(false);
-            this.tabFinanziamenti.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgridFinanziamenti)).EndInit();
-            this.ResumeLayout(false);
+			this.dgridFinanziamenti.DataMember = "";
+			this.dgridFinanziamenti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgridFinanziamenti.Location = new System.Drawing.Point(5, 42);
+			this.dgridFinanziamenti.Name = "dgridFinanziamenti";
+			this.dgridFinanziamenti.Size = new System.Drawing.Size(922, 431);
+			this.dgridFinanziamenti.TabIndex = 10;
+			this.dgridFinanziamenti.Tag = "pettycashoperationunderwriting.lista.detail";
+			// 
+			// btnDelFinanziamenti
+			// 
+			this.btnDelFinanziamenti.Location = new System.Drawing.Point(185, 13);
+			this.btnDelFinanziamenti.Name = "btnDelFinanziamenti";
+			this.btnDelFinanziamenti.Size = new System.Drawing.Size(75, 23);
+			this.btnDelFinanziamenti.TabIndex = 9;
+			this.btnDelFinanziamenti.Tag = "delete";
+			this.btnDelFinanziamenti.Text = "Cancella";
+			// 
+			// btnEditFinanziamenti
+			// 
+			this.btnEditFinanziamenti.Location = new System.Drawing.Point(97, 13);
+			this.btnEditFinanziamenti.Name = "btnEditFinanziamenti";
+			this.btnEditFinanziamenti.Size = new System.Drawing.Size(75, 23);
+			this.btnEditFinanziamenti.TabIndex = 8;
+			this.btnEditFinanziamenti.Tag = "edit.detail";
+			this.btnEditFinanziamenti.Text = "Correggi";
+			// 
+			// btnInsertFinanziamenti
+			// 
+			this.btnInsertFinanziamenti.Location = new System.Drawing.Point(9, 13);
+			this.btnInsertFinanziamenti.Name = "btnInsertFinanziamenti";
+			this.btnInsertFinanziamenti.Size = new System.Drawing.Size(75, 23);
+			this.btnInsertFinanziamenti.TabIndex = 7;
+			this.btnInsertFinanziamenti.Tag = "insert.detail";
+			this.btnInsertFinanziamenti.Text = "Aggiungi";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Location = new System.Drawing.Point(0, 0);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(100, 20);
+			this.textBox2.TabIndex = 0;
+			// 
+			// Frm_pettycashoperation_default
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(955, 520);
+			this.Controls.Add(this.tabOpfondops);
+			this.MaximizeBox = false;
+			this.Name = "Frm_pettycashoperation_default";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "frmopfondopiccolespese";
+			this.tabOpfondops.ResumeLayout(false);
+			this.tabOperazione.ResumeLayout(false);
+			this.gboxUPB.ResumeLayout(false);
+			this.gboxUPB.PerformLayout();
+			this.gboxResponsabile.ResumeLayout(false);
+			this.gboxResponsabile.PerformLayout();
+			this.gboxImporto.ResumeLayout(false);
+			this.gboxImporto.PerformLayout();
+			this.gboxBolletta.ResumeLayout(false);
+			this.gboxBolletta.PerformLayout();
+			this.grpNList.ResumeLayout(false);
+			this.grpNList.PerformLayout();
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
+			this.gboxCurrAmount.ResumeLayout(false);
+			this.gboxCurrAmount.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.gboxreintegro.ResumeLayout(false);
+			this.gboxreintegro.PerformLayout();
+			this.grpTipoSpesa.ResumeLayout(false);
+			this.grpTipoOperazione.ResumeLayout(false);
+			this.grpTipoOperazione.PerformLayout();
+			this.grpOperazione.ResumeLayout(false);
+			this.grpOperazione.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			this.gboxDocumento.ResumeLayout(false);
+			this.gboxDocumento.PerformLayout();
+			this.grpBilancio.ResumeLayout(false);
+			this.grpBilancio.PerformLayout();
+			this.gboxSpesa.ResumeLayout(false);
+			this.gboxSpesa.PerformLayout();
+			this.tabClassSup.ResumeLayout(false);
+			this.groupBox5.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.DGridDettagliClassificazioni)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DGridClassificazioni)).EndInit();
+			this.tabMovimenti.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrPSMovEntrata)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrPSMovSpesa)).EndInit();
+			this.tabAttributi.ResumeLayout(false);
+			this.gboxclass05.ResumeLayout(false);
+			this.gboxclass05.PerformLayout();
+			this.gboxclass04.ResumeLayout(false);
+			this.gboxclass04.PerformLayout();
+			this.gboxclass03.ResumeLayout(false);
+			this.gboxclass03.PerformLayout();
+			this.gboxclass02.ResumeLayout(false);
+			this.gboxclass02.PerformLayout();
+			this.gboxclass01.ResumeLayout(false);
+			this.gboxclass01.PerformLayout();
+			this.tabAnalitico.ResumeLayout(false);
+			this.gboxAnalitico.ResumeLayout(false);
+			this.groupBoxRipartizione.ResumeLayout(false);
+			this.groupBoxRipartizione.PerformLayout();
+			this.grpBoxSiopeEP.ResumeLayout(false);
+			this.grpBoxSiopeEP.PerformLayout();
+			this.groupCredDeb.ResumeLayout(false);
+			this.groupCredDeb.PerformLayout();
+			this.gboxclass1.ResumeLayout(false);
+			this.gboxclass1.PerformLayout();
+			this.gboxclass3.ResumeLayout(false);
+			this.gboxclass3.PerformLayout();
+			this.gboxclass2.ResumeLayout(false);
+			this.gboxclass2.PerformLayout();
+			this.gboxDebito.ResumeLayout(false);
+			this.gboxDebito.PerformLayout();
+			this.gboxCosto.ResumeLayout(false);
+			this.gboxCosto.PerformLayout();
+			this.groupBox8.ResumeLayout(false);
+			this.groupBox8.PerformLayout();
+			this.tabFinanziamenti.ResumeLayout(false);
+			this.tabFinanziamenti.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgridFinanziamenti)).EndInit();
+			this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -2739,6 +2809,8 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 				gboxResponsabile.Visible = true;
 				gboxSpesa.Visible=false;
 				chkSpesa.Visible=false;
+				groupBoxRipartizione.Enabled = true;
+				btnRipartizione.Enabled = true;
 				return;
 			}
 			chkSpesa.Visible=true;
@@ -2755,7 +2827,9 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 				gboxSpesa.Visible=false;
 				chkSpesa.Visible=false;
 				//foreach (Control C in tabAttribuzione.Controls) C.Enabled=false;
-				chkSpesa.Visible=false;				
+				chkSpesa.Visible=false;
+				groupBoxRipartizione.Enabled = false;
+				btnRipartizione.Enabled = false;
 				return;
 			}
 			//gboxNormale.Visible=true;
@@ -2764,6 +2838,8 @@ namespace pettycashoperation_default {//opfondopiccolespese//
             gboxResponsabile.Visible = true;
 			gboxSpesa.Visible=true;
 			chkSpesa.Visible=true;
+			groupBoxRipartizione.Enabled = true;
+			btnRipartizione.Enabled = true;
 
 			//E' una spesa
 			if (R["yrestore"]!=DBNull.Value) {
@@ -3153,12 +3229,13 @@ namespace pettycashoperation_default {//opfondopiccolespese//
                            .AllowNoFinSelection(true)
                            .AllowNoFinSelection(true)
                            .AllowNoManagerSelection(true);
-                          
+
 
 
 
 
                 //FrmAskFase F = new FrmAskFase("S", importo, DS.manager, DS.upb, DS.finview, Meta.Dispatcher, Meta.Conn);
+                createForm(F, null);
                 if (F.ShowDialog() != DialogResult.OK) return;
 
                 if (ymov != 0) {
@@ -3794,6 +3871,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 
             if (chkListTitle.Checked) {
                 FrmAskDescr FR = new FrmAskDescr(0);
+                createForm(FR, this);
                 DialogResult D = FR.ShowDialog(this);
                 if (D != DialogResult.OK) return;
                 filter = GetData.MergeFilters(filter,
@@ -6156,10 +6234,15 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			if (Meta.InsertMode){
 //				FilterIva+="AND(residual>'0')AND(linkedimpos='0')and(linkedimpon='0')"+
 //					"AND((active is null)OR(active='S'))AND(ycon is null)";
-				FilterIva+="AND(residual= (taxabletotal + ivatotal) )AND(linkedimpos='0')and(linkedimpon='0')"+
-                    "AND((active is null)OR(active='S'))AND(ycon is null)";
+				FilterIva+="AND (" +
+							"((residual= (taxabletotal + ivatotal) )AND(linkedimpos='0')and(linkedimpon='0')"+
+							"AND((active is null)OR(active='S'))AND(ycon is null) AND (flagintracom ='N'))" +
+							" OR " +
+							"((residual= (taxabletotal) )AND(linkedimpos='0')and(linkedimpon='0')" +
+							"AND((active is null)OR(active='S'))AND(ycon is null) AND (flagintracom <>'N'))" +
+							")";
 
-				
+
 			}
 
 			return FilterIva;
@@ -6479,8 +6562,15 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			if ((T!=null)&&(T.Rows.Count>0)){
 				DataRow R=T.Rows[0];
 				totimponibile_dociva=CfgFn.GetNoNullDecimal( R["taxabletotal"]);
-				totiva_dociva=CfgFn.GetNoNullDecimal( R["ivatotal"]);
-				assigned_imponibile_dociva= CfgFn.GetNoNullDecimal( R["linkedimpon"]);
+				
+				bool isIntraCom = (R["flagintracom"].ToString().ToUpper() != "N");
+				if (isIntraCom) { 
+					totiva_dociva = 0;
+				}
+				else {
+					totiva_dociva =CfgFn.GetNoNullDecimal( R["ivatotal"]);
+				}
+				assigned_imponibile_dociva = CfgFn.GetNoNullDecimal( R["linkedimpon"]);
 				assigned_iva_dociva= CfgFn.GetNoNullDecimal( R["linkedimpos"]);
 				assigned_gen_dociva=CfgFn.GetNoNullDecimal( R["linkeddocum"]);
 
@@ -6904,6 +6994,41 @@ namespace pettycashoperation_default {//opfondopiccolespese//
                 ManageClassificazioni.ClassificaTramiteClassDocumento(DS, null);
 				ManageClassificazioni.completaClassificazioniSiopeFondoPs(DS);
                 Meta.FreshForm(true);
+            }
+        }
+
+		private void btnRipartizione_Click(object sender, EventArgs e) {
+
+            if (Meta.IsEmpty)
+				return;
+			
+			if (DS.pettycashoperation.Rows.Count == 0)
+                return;
+            DataRow RC = DS.pettycashoperation.Rows[0];
+            if (RC == null)
+                return;
+
+            object idcostpartition = RC["idcostpartition"];
+
+            if (idcostpartition != DBNull.Value) {
+                MetaData ToMeta = Meta.Dispatcher.Get("costpartition");
+                string checkfilter = QHS.CmpEq("idcostpartition", idcostpartition);
+                ToMeta.ContextFilter = checkfilter;
+                Form F = null;
+                if (Meta.linkedForm != null)
+                    F = Meta.linkedForm.ParentForm;
+                bool result = ToMeta.Edit(F, "default", false);
+
+                string listtype = ToMeta.DefaultListType;
+                DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
+                if (R != null)
+                    ToMeta.SelectRow(R, listtype);
+            }
+            else {
+                idcostpartition = EP_functions.importCostPartitionDetail(Meta);
+                if (idcostpartition == null)
+                    return;
+                RC["idcostpartition"] = idcostpartition;
             }
         }
     }

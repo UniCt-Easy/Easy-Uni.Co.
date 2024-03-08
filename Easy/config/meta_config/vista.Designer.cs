@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -2239,6 +2239,28 @@ public class configRow: MetaRow  {
 	public Int32? idsor_siopeivavenditaOriginal { 
 		get {if (this["idsor_siopeivavendita",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsor_siopeivavendita",DataRowVersion.Original];}
 	}
+	public String matricolainpsf24{ 
+		get {if (this["matricolainpsf24"]==DBNull.Value)return null; return  (String)this["matricolainpsf24"];}
+		set {if (value==null) this["matricolainpsf24"]= DBNull.Value; else this["matricolainpsf24"]= value;}
+	}
+	public object matricolainpsf24Value { 
+		get{ return this["matricolainpsf24"];}
+		set {if (value==null|| value==DBNull.Value) this["matricolainpsf24"]= DBNull.Value; else this["matricolainpsf24"]= value;}
+	}
+	public String matricolainpsf24Original { 
+		get {if (this["matricolainpsf24",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["matricolainpsf24",DataRowVersion.Original];}
+	}
+	public String flagpcc{ 
+		get {if (this["flagpcc"]==DBNull.Value)return null; return  (String)this["flagpcc"];}
+		set {if (value==null) this["flagpcc"]= DBNull.Value; else this["flagpcc"]= value;}
+	}
+	public object flagpccValue { 
+		get{ return this["flagpcc"];}
+		set {if (value==null|| value==DBNull.Value) this["flagpcc"]= DBNull.Value; else this["flagpcc"]= value;}
+	}
+	public String flagpccOriginal { 
+		get {if (this["flagpcc",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagpcc",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -2446,6 +2468,8 @@ public class configTable : MetaTableBase<configRow> {
 			{"risconta_ammortamenti_futuri",createColumn("risconta_ammortamenti_futuri",typeof(string),true,false)},
 			{"idacc_unabatable_estera",createColumn("idacc_unabatable_estera",typeof(string),true,false)},
 			{"idsor_siopeivavendita",createColumn("idsor_siopeivavendita",typeof(int),true,false)},
+			{"matricolainpsf24",createColumn("matricolainpsf24",typeof(string),true,false)},
+			{"flagpcc",createColumn("flagpcc",typeof(string),true,false)},
 		};
 	}
 }

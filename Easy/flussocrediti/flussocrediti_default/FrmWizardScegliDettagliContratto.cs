@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -89,7 +89,7 @@ namespace flussocrediti_default {
             GetData.MarkToAddBlankRow(estimatekind);
             GetData.Add_Blank_Row(estimatekind);
             Conn.RUN_SELECT_INTO_TABLE(estimatekind, "description",
-                QHS.AppAnd(QHS.CmpEq("active", "S"), QHS.CmpEq("linktoinvoice", "S")), null, true);
+                QHS.AppAnd(QHS.CmpEq("active", "S"), QHS.CmpEq("linktoinvoice", "N")), null, true);
             cmbTipocontrattoattivo.DataSource = estimatekind;
             cmbTipocontrattoattivo.ValueMember = "idestimkind";
             cmbTipocontrattoattivo.DisplayMember = "description";
@@ -510,6 +510,11 @@ namespace flussocrediti_default {
 
             if (cmbTipocontrattoattivo.SelectedValue != null) {
                 filter = QHS.AppAnd(filter,QHS.CmpEq("idestimkind", cmbTipocontrattoattivo.SelectedValue));
+            }
+			else {
+                DataTable Testimatekind = Meta.Conn.RUN_SELECT("estimatekind", "idestimkind", null, QHS.AppAnd(QHS.CmpEq("active", "S"), QHS.CmpEq("linktoinvoice", "N")), null, true);
+                string lista = QHS.DistinctVal(Testimatekind.Select(), "idestimkind");
+                filter = QHS.AppAnd(filter, QHS.FieldInList("idestimkind", lista));
             }
             if (txtAnagrafica.Text != "") {
                 filter = QHS.AppAnd(filter, QHS.CmpEq("registry", txtAnagrafica.Text.ToString()));

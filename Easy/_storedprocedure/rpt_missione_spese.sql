@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,9 +24,9 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
+--setuser 'amm'
 --setuser 'amministrazione'
---rpt_missione_spese 2018,204
+--rpt_missione_spese 2023,1
 
 CREATE  PROCEDURE [rpt_missione_spese]
 	@yitineration smallint, 
@@ -37,24 +37,40 @@ SELECT  @iditineration=iditineration
 	FROM itineration 
 	WHERE yitineration = @yitineration AND nitineration = @nitineration
 
+	DECLARE @refundlabel varchar(1000)
+	SELECT	@refundlabel = 	refundlabel
+	FROM	web_config
+
 SELECT 
 	nrefund=row_number() over(order by ISNULL(itineration.iditineration_ref,itineration.iditineration)), --itinerationrefund.nrefund,
 	itinerationrefundkind.description AS itinerationrefundkind,
 	itinerationrefund.description,
 	itinerationrefund.extraallowance,
-	--itinerationrefund.amount,
+	itinerationrefund.amount_c,
+	itinerationrefund.amount,
+	itinerationrefund.requiredamount_c ,
+	itinerationrefund.requiredamount ,
+	/*
 	CASE 
 		WHEN exchangerate > 0 THEN
 			ROUND(amount / exchangerate, 2)
 		ELSE
   			amount 
 		END as 'amount',
+	CASE
+		WHEN exchangerate > 0 THEN
+			ROUND(requiredamount / exchangerate, 2)
+		ELSE
+			requiredamount
+		END as 'requiredamount',
+	*/
 	itinerationrefund.advancepercentage*100 AS advancepercentage,
-	itinerationrefund.starttime,
-	itinerationrefund.stoptime,
+	CONVERT(datetime, itinerationrefund.starttime)   as starttime,
+	CONVERT(datetime, itinerationrefund.stoptime)   as stoptime,
 	currency.codecurrency as idcurrency,
 	itinerationrefund.exchangerate,
-	foreigncountry.description as foreigncountry
+	foreigncountry.description as foreigncountry,
+	@refundlabel as refundlabel
 FROM itinerationrefund
 join itineration on itineration.iditineration = itinerationrefund.iditineration
 LEFT OUTER JOIN itinerationrefundkind	ON itinerationrefundkind.iditinerationrefundkind = itinerationrefund.iditinerationrefundkind

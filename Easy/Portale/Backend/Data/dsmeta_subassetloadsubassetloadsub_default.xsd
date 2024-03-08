@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_subassetloadsubassetloadsub_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_subassetloadsubassetloadsub_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="subassetloadsubdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idsubassetloadsub" type="xs:int" />
+              <xs:element name="manager_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetloadsubdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="assetload_description" type="xs:string" minOccurs="0" />
+              <xs:element name="assetload_idassetloadkind" type="xs:int" minOccurs="0" />
+              <xs:element name="assetload_nassetload" type="xs:int" minOccurs="0" />
+              <xs:element name="assetload_yassetload" type="xs:int" minOccurs="0" />
+              <xs:element name="assetloadkind_codeassetloadkind" type="xs:string" minOccurs="0" />
+              <xs:element name="assetloadkind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="assetloadsub_ct" type="xs:dateTime" />
+              <xs:element name="assetloadsub_cu" type="xs:string" />
+              <xs:element name="assetloadsub_idsubstate" type="xs:int" minOccurs="0" />
+              <xs:element name="assetloadsub_lt" type="xs:dateTime" />
+              <xs:element name="assetloadsub_lu" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idassetload" type="xs:int" />
+              <xs:element name="idassetloadsub" type="xs:int" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="manager_title" type="xs:string" minOccurs="0" />
+              <xs:element name="substate_description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="subassetloadsubassetloadsub" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idassetloadsub" type="xs:int" />
+              <xs:element name="idsubassetloadsub" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:subassetloadsubdefaultview" />
+      <xs:field xpath="mstns:idsubassetloadsub" />
+    </xs:unique>
+    <xs:unique name="assetloadsubdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetloadsubdefaultview" />
+      <xs:field xpath="mstns:idassetload" />
+      <xs:field xpath="mstns:idassetloadsub" />
+    </xs:unique>
+    <xs:unique name="subassetloadsubassetloadsub_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:subassetloadsubassetloadsub" />
+      <xs:field xpath="mstns:idassetloadsub" />
+      <xs:field xpath="mstns:idsubassetloadsub" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_subassetloadsubassetloadsub_subassetloadsubdefaultview_idsubassetloadsub" msdata:parent="subassetloadsubdefaultview" msdata:child="subassetloadsubassetloadsub" msdata:parentkey="idsubassetloadsub" msdata:childkey="idsubassetloadsub" />
+      <msdata:Relationship name="FK_subassetloadsubassetloadsub_assetloadsubdefaultview_idassetloadsub" msdata:parent="assetloadsubdefaultview" msdata:child="subassetloadsubassetloadsub" msdata:parentkey="idassetloadsub" msdata:childkey="idassetloadsub" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

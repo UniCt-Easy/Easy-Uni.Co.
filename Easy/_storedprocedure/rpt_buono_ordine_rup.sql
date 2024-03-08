@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit� degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,21 +19,24 @@ if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_ordine
 drop procedure [rpt_buono_ordine_RUP]
 GO
 
-SET QUOTED_IDENTIFIER ON 
+SET QUOTED_IDENTIFIER ON	
 GO
 SET ANSI_NULLS ON 
 GO
-
-
+--setuser'amministrazione'
+--setuser'amm'
+--rpt_buono_ordine_RUP 2021, 9, 'ACQCOMM' , '2022-17-10'
 CREATE PROCEDURE rpt_buono_ordine_RUP
     @ayear INT,
     @ninv INT,
-    @codeinvkind VARCHAR(20)
+    @codeinvkind VARCHAR(20),
+	@sessiondate DATETIME
 AS
 BEGIN
     DECLARE @arrivalprotocolnum VARCHAR(50);
-    DECLARE @protocoldate SMALLDATETIME;
-    DECLARE @adate SMALLDATETIME;
+    DECLARE @protocoldate DATETIME;
+	DECLARE @doc VARCHAR(100);
+    DECLARE @adate  DATETIME;
     DECLARE @idreg INT;
     DECLARE @idmankind VARCHAR(50);
     DECLARE @nman INT;
@@ -42,9 +45,10 @@ BEGIN
     DECLARE @cigcode VARCHAR(200);
     DECLARE @description VARCHAR(400);
     DECLARE @durcdoc VARCHAR(200);
-    DECLARE @durcstart SMALLDATETIME;
-    DECLARE @durcstop SMALLDATETIME;
-    DECLARE @dataordine SMALLDATETIME;
+    DECLARE @durcstart DATETIME;
+    DECLARE @durcstop DATETIME;
+	DECLARE @refdate DATETIME;
+    DECLARE @dataordine DATETIME;
     DECLARE @idregrup INT;
     DECLARE @rup VARCHAR(100);
     DECLARE @yman INT;
@@ -56,13 +60,22 @@ BEGIN
     BEGIN
         SET @ayear = '1900';
     END;
+	
     -- Fatture
     SELECT DISTINCT i.idreg, i.idinvkind,
            i.yman,
            i.nman,
-           i.ninv,
+		   inv.ninv,
+		   inv.doc,
            i.codeinvkind,
            i.idmankind,
+		   i.manrownum,
+		   i.idepexp,
+		   m.idreg_rupanac,
+		   rupanac.title as rup,
+		   m.cigcode,
+		   m.description as descordine,
+           m.adate as dataordine,  
            i.mandetaildescription,
            number,
            i.taxable, --  prezzounitario
@@ -73,13 +86,13 @@ BEGIN
            i.discount AS Sconto,
            inv.arrivalprotocolnum,
            inv.protocoldate,
-           inv.adate,
-		   inv.docdate,
+            inv.adate as adate,
+		   inv.docdate,-- CONVERT(VARCHAR, inv.docdate, 103) as docdate,
            i.registry,
            inv.description,
            i.detaildescription,
            i.rownum,
-		    	dateadd(day,isnull(inv.paymentexpiring,0),	case 
+		   dateadd(day,isnull(inv.paymentexpiring,0),	case 
 		when (inv.idexpirationkind=1) then inv.adate
 		when (inv.idexpirationkind=2) then inv.docdate
 		when (inv.idexpirationkind=3) then DATEADD(day,-1,DATEADD(month,1,DATEADD(day,1-DAY(inv.docdate) ,inv.docdate)))
@@ -89,13 +102,19 @@ BEGIN
 	end
 	) AS datascadenza
 	,i.codeupb
-	, i.ivakind
+	,i.ivakind
     INTO #fatture
     FROM invoicedetailview i
         JOIN invoice inv
             ON inv.yinv = i.yinv
                AND inv.ninv = i.ninv
                AND inv.idinvkind = i.idinvkind
+		LEFT OUTER JOIN mandate m on 
+				i.idmankind = m.idmankind 
+				AND i.yman = m.yman 
+				AND i.nman = m.nman 
+		LEFT OUTER JOIN registry rupanac on 
+		m.idreg_rupanac = rupanac.idreg
     WHERE
          (i.yinv = @ayear)
         AND i.ninv = @ninv
@@ -103,7 +122,7 @@ BEGIN
     ORDER BY i.codeinvkind,
              i.nman;
 
-    -- SELECT * FROM #fatture
+			 
     SELECT DISTINCT
            @idreg = idreg
     FROM #fatture;
@@ -111,90 +130,117 @@ BEGIN
     SELECT DISTINCT
            @idinvkind = idinvkind
     FROM #fatture;
-
-    SELECT DISTINCT
-           @yman = yman
-    FROM #fatture;
-    SELECT DISTINCT
+	
+    SELECT top 1
            @adate = docdate
     FROM #fatture;
-    SELECT DISTINCT
-           @idmankind = idmankind
-    FROM #fatture;
+   
     SELECT DISTINCT
            @ninv = ninv
     FROM #fatture;
-    SELECT DISTINCT
-           @nman = nman
-    FROM #fatture;
 
+	-- SELECT @refdate = @sessiondate
+	SELECT @refdate = GETDATE()
 
-    SELECT @durcdoc = doc,
+ 
+    SELECT top 1
+		   @durcdoc = doc,
            @durcstart = start,
            @durcstop = stop
     FROM dbo.registrydurcview
     WHERE idreg = @idreg
-          AND stop >= @adate;
-
+          --AND stop >= @refdate
+		  order by stop desc;
 
  SELECT @protocolnum = protocolnum FROM ivaregister 
  WHERE ninv = @ninv AND yinv = @ayear AND idinvkind = @idinvkind
 
-    -- impegni di budget
-    SELECT account.idacc,
-           account.codeacc,
-           account.title,
-           idrelated,
-           yepexp,
-           nepexp
+	--- impegni di budget di
+    SELECT DISTINCT
+		   #fatture.idmankind,
+		   #fatture.yman,
+		   #fatture.nman,
+		   #fatture.manrownum,
+		   EPX.idrelated,
+		   EPX.idacc,
+           EPX.codeacc,
+		   EPX.account,
+		   EPX.idupb,
+           EPX.codeupb,
+		   EPX.upb,
+           EPX.yepexp,
+           EPX.nepexp
     INTO #impegnibudget
-    FROM epexpview
-        JOIN account
-            ON account.idacc = epexpview.idacc
-               AND account.ayear = epexpview.ayear
-    WHERE 
-        idrelated LIKE 
-        'man§' + @idmankind + '§' + CONVERT(VARCHAR(4), @yman) + '§' + CONVERT(VARCHAR(4), @nman) + '§' + '%'
-        AND nphase = 2;
+    FROM #fatture 
+		LEFT OUTER JOIN epexpview EPX ON 
+		  EPX.idepexp = #fatture.idepexp
+		  AND EPX.ayear = (SELECT min(ayear) from epexpyear where epexpyear.idepexp = EPX.idepexp )
 
     -- SELECT * FROM #impegnibudget
-    SELECT @codefin = codefin,
-           @finance = finance
-    FROM expensemandateview
-    WHERE nman = @nman
-          AND yman = @ayear
-          AND idmankind = @idmankind;
+    SELECT DISTINCT
+		   #fatture.idmankind,
+		   #fatture.yman,
+		   #fatture.nman,
+		   #fatture.manrownum,
+		   EPX.idfin,
+		   EPX.codefin,
+           EPX.finance,
+		   EPX_iva.idfin   as idfin_iva,
+		   EPX_iva.codefin as codefin_iva,
+           EPX_iva.finance as finance_iva,
+		   EPX.idupb,
+           EPX.codeupb,
+		   EPX.upb,
+		   EPX_iva.idupb as idupb_iva ,
+           EPX_iva.codeupb as codeupb_iva,
+		   EPX_iva.upb as upb_iva,
+		   MD.yexpimpo,
+           MD.nexpimpo,
+		   MD.yexpiva,
+           MD.nexpiva
+    INTO #impegnifinanziari
+    FROM #fatture 
+	LEFT OUTER JOIN mandatedetailview MD ON 
+		   MD.nman = #fatture.nman
+          AND MD.yman = #fatture.yman 
+          AND MD.idmankind = #fatture.idmankind
+		  AND MD.rownum = #fatture.manrownum
+	LEFT OUTER JOIN expenseview EPX ON 
+		  EPX.idexp = MD.idexp_taxable 
+		  AND EPX.ayear =    (SELECT min(ayear) from expenseyear where expenseyear.idexp = EPX.idexp )
+	LEFT OUTER JOIN expenseview EPX_iva ON 
+		  EPX_iva.idexp = MD.idexp_iva 
+		  AND EPX_iva.ayear =   (SELECT min(ayear) from expenseyear where expenseyear.idexp = EPX_iva.idexp)
+	  
 
-    SELECT @cigcode = cigcode,
-           @description = description,
-           @dataordine = CONVERT(VARCHAR, adate, 103),
-           @idregrup = idreg_rupanac
-    FROM mandate
-    WHERE nman = @nman
-          AND yman = @yman
-          AND idmankind = @idmankind;
-
-    SELECT @rup = r.title
-    FROM dbo.registry r
-    WHERE r.idreg = @idregrup;
-
-    SELECT DISTINCT @cigcode AS cigcode,
-           @description AS descordine,
-           CONVERT(VARCHAR, @adate, 103) AS datafattura,
-           @codefin AS codefin,
-           @finance AS finance,
+ IF ( @refdate between isnull(@durcstart,{d '1900-01-01'}) and isnull(@durcstop, {d '2079-01-01'})	)
+ BEGIN
+	SELECT @refdate as refdate,
+		(SELECT top 1 cigcode  FROM #fatture  where cigcode is not null ) AS cigcode,
+           description AS descordine,
+		   #fatture.doc,
+           CONVERT(VARCHAR, docdate, 103) AS datafattura,
+           #impegnifinanziari.codefin AS codefin,
+           #impegnifinanziari.finance AS finance,
+		   #impegnifinanziari.codefin_iva AS codefin_iva,
+           #impegnifinanziari.finance_iva AS finance_iva,
            @durcdoc AS durcdoc,
-           CONVERT(VARCHAR, @durcstart, 103) AS durcstart,
-           CONVERT(VARCHAR, @durcstop, 103) AS durcstop,
-           @rup AS rup,
-           idreg,
-           yman,
-           nman,
-           @dataordine AS dataordine,
+           case when @durcstart is not null then  CONVERT(VARCHAR, @durcstart, 103) 
+		   else null
+		   end     AS durcstart,
+           case when @durcstop is not null then  CONVERT(VARCHAR, @durcstop, 103) 
+		   else null 
+		   end AS durcstop,
+           rup,
+           #fatture.idreg,
+           #fatture.yman,
+           #fatture.nman,
+		   CONVERT(VARCHAR, #fatture.dataordine, 103) as dataordine,
+		   #fatture.manrownum,
+		   mandetaildescription,
            ninv,
            codeinvkind,
-           idmankind,
-           mandetaildescription,
+           #fatture.idmankind,
            registry,
            description AS descrfattura,
            detaildescription AS descrDettFattura,
@@ -208,23 +254,79 @@ BEGIN
            --arrivalprotocolnum,
 		   @protocolnum AS protocolnum,
            CONVERT(VARCHAR, protocoldate, 103) AS protocoldate,
-           CONVERT(VARCHAR, adate, 103) AS adate,
-           rownum,
-        --   idacc,
-           codeacc,
-           title,
-           idrelated,
-           yepexp,
-           nepexp,
+           CONVERT(VARCHAR,  #fatture.adate, 103) AS adate,
+           #fatture.rownum,
+           #impegnibudget.codeacc,
+           #impegnibudget.account,
+           #impegnibudget.idrelated,
+           #impegnibudget.yepexp,
+           #impegnibudget.nepexp,
 		   CONVERT(VARCHAR, datascadenza, 103) AS datascadenza, 
-		   codeupb,
+		   isnull(#impegnibudget.codeupb,#impegnifinanziari.codeupb) as codeupb,
 		   ivakind
     FROM #fatture
         LEFT OUTER JOIN #impegnibudget
-            ON idrelated = 'man§' + idmankind + '§' + CONVERT(VARCHAR(4), yman) + '§' + CONVERT(VARCHAR(4), nman) + '§'
-                           + CONVERT(VARCHAR(4), rownum)
-    ORDER BY rownum;
-
+          ON #impegnibudget.nman = #fatture.nman
+          AND #impegnibudget.yman = #fatture.yman 
+          AND #impegnibudget.idmankind = #fatture.idmankind
+		  AND #impegnibudget.manrownum = #fatture.manrownum
+		 LEFT OUTER JOIN #impegnifinanziari
+          ON #impegnifinanziari.nman = #fatture.nman
+          AND #impegnifinanziari.yman = #fatture.yman 
+          AND #impegnifinanziari.idmankind = #fatture.idmankind
+		  AND #impegnifinanziari.manrownum = #fatture.manrownum 
+    ORDER BY #fatture.rownum;
+	END
+	ELSE
+	BEGIN
+		SELECT 
+		@refdate as refdate,
+		'' AS cigcode,
+        '' AS descordine,
+		'' AS doc,
+	    NULL AS datafattura,
+        '' AS codefin,
+        '' AS finance,
+		'' AS codefin_iva,
+        '' AS  finance_iva,
+        @durcdoc AS durcdoc,
+       NULL AS  durcstart,
+        NULL AS  durcstop,
+        '' AS   rup,
+        NULL AS idreg,
+        NULL AS yman,
+		NULL AS nman,
+		NULL AS dataordine,
+	    NULL AS manrownum,
+	    '' AS mandetaildescription,
+        NULL AS ninv,
+        '' AS  codeinvkind,
+        '' AS idmankind,
+        '' AS registry,
+        NULL AS descrfattura,
+        '' AS  descrDettFattura,
+        NULL AS  number,
+        NULL AS taxable, --  prezzounitario
+        NULL AS tax,
+        NULL AS iva,
+        NULL AS Imponibile,
+        NULL AS ImpTotale,
+        NULL AS  Sconto,
+           --arrivalprotocolnum,
+		@protocolnum AS protocolnum,
+       NULL AS   protocoldate,
+	   NULL  AS  adate,
+       NULL AS rownum,
+       '' AS codeacc,
+       '' AS account,
+       '' AS idrelated,
+       NULL AS yepexp,
+       NULL AS nepexp,
+	   NULL  AS  datascadenza, 
+	   '' AS  codeupb,
+       '' AS  ivakind
+	END
+ 
 
 END
 GO
@@ -233,4 +335,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 
+ 
 
+
+ 

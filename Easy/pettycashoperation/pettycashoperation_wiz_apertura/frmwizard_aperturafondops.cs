@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -946,7 +946,8 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 			}
 			
 			Form F = ShowAutomatismi.Show(Meta,spesa,null,null,null);
-			F.ShowDialog(this);
+            createForm(F, this);
+            F.ShowDialog(this);
 		}
 
 		string GetFilterForSelection(DataRow []Selected, string table, int livello){
@@ -1056,7 +1057,8 @@ namespace pettycashoperation_wiz_apertura{//wizard_aperturafondops//
 				}
 				Fasi2.AcceptChanges();
 				FrmAskFase F = new FrmAskFase(Fasi2);
-				if (F.ShowDialog()!=DialogResult.OK) return;
+                createForm(F, null);
+                if (F.ShowDialog()!=DialogResult.OK) return;
 				selectedfase = Convert.ToInt32( F.cmbFasi.SelectedValue);
 			}
 			rowfilter= GetFilterForSelection(RigheSelezionate, "expense", selectedfase);

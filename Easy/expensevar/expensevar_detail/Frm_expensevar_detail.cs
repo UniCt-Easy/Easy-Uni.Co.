@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -173,6 +173,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.radioButton3 = new System.Windows.Forms.RadioButton();
 			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.radCsa = new System.Windows.Forms.RadioButton();
 			this.radEdit = new System.Windows.Forms.RadioButton();
 			this.radAnnPar = new System.Windows.Forms.RadioButton();
 			this.radAnnullo = new System.Windows.Forms.RadioButton();
@@ -206,7 +207,6 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.label17 = new System.Windows.Forms.Label();
 			this.btnRemoveDettInvoice = new System.Windows.Forms.Button();
 			this.btnAddDettInvoice = new System.Windows.Forms.Button();
-			this.radCsa = new System.Windows.Forms.RadioButton();
 			this.grpImporto.SuspendLayout();
 			this.grpVariazione.SuspendLayout();
 			this.grpMovimento.SuspendLayout();
@@ -292,7 +292,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			// 
 			this.txtDocumento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDocumento.Location = new System.Drawing.Point(575, 320);
+			this.txtDocumento.Location = new System.Drawing.Point(575, 322);
 			this.txtDocumento.Name = "txtDocumento";
 			this.txtDocumento.Size = new System.Drawing.Size(355, 20);
 			this.txtDocumento.TabIndex = 6;
@@ -533,6 +533,14 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.groupBox2.TabIndex = 4;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Tipo variazione";
+			// 
+			// radCsa
+			// 
+			this.radCsa.Location = new System.Drawing.Point(17, 108);
+			this.radCsa.Name = "radCsa";
+			this.radCsa.Size = new System.Drawing.Size(210, 19);
+			this.radCsa.TabIndex = 8;
+			this.radCsa.Text = "Azzeramento Versamenti CSA";
 			// 
 			// radEdit
 			// 
@@ -887,14 +895,6 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.btnAddDettInvoice.Text = "Aggiungi";
 			this.btnAddDettInvoice.Click += new System.EventHandler(this.btnAddDettInvoice_Click);
 			// 
-			// radCsa
-			// 
-			this.radCsa.Location = new System.Drawing.Point(17, 108);
-			this.radCsa.Name = "radCsa";
-			this.radCsa.Size = new System.Drawing.Size(210, 19);
-			this.radCsa.TabIndex = 8;
-			this.radCsa.Text = "Azzeramento Versamenti CSA";
-			// 
 			// Frm_expensevar_detail
 			// 
 			this.AcceptButton = this.btnOk;
@@ -1145,7 +1145,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 
         private void EnableDisableCheckDocIVA(int currphase) {
             int maxPhase = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
-            bool abilita = (Meta.InsertMode || Meta.IsEmpty) && (currphase == maxPhase);
+            bool abilita = Meta.IsEmpty && (currphase == maxPhase) && !Meta.InsertMode && !Meta.EditMode;
             chkDocIVA.Enabled = abilita;
         }
 
@@ -1215,13 +1215,13 @@ namespace expensevar_detail { //variazionespesadettaglio//
                 radNormale.Enabled = true;
                 radAnnPar.Enabled = true;
                 radEdit.Enabled = maxphase;
-				radCsa.Enabled = maxphase;
+				//radCsa.Enabled = maxphase;
 			}
             else {
                 radNormale.Enabled = false;
                 radAnnPar.Enabled = false;
                 radEdit.Enabled = false;
-				radCsa.Enabled = false;
+				//radCsa.Enabled = false;
 			}
         }
 

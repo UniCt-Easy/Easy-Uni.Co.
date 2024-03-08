@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="f24ordinariodetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idf24ordinario" type="xs:int" />
+              <xs:element name="iddetail" type="xs:int" />
+              <xs:element name="codicetributo" type="xs:string" />
+              <xs:element name="codiceufficio" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceatto" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimentoa" type="xs:string" minOccurs="0" />
+              <xs:element name="riferimentob" type="xs:string" minOccurs="0" />
+              <xs:element name="importoadebito" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importoacredito" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idfiscaltaxregion" type="xs:string" minOccurs="0" />
+              <xs:element name="ravvedimentooperoso" type="xs:string" minOccurs="0" />
+              <xs:element name="immobilivariati" type="xs:string" minOccurs="0" />
+              <xs:element name="accontosaldo" type="xs:string" minOccurs="0" />
+              <xs:element name="numeroimmobili" type="xs:int" minOccurs="0" />
+              <xs:element name="detrazioneabitazione" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idaltrienti" type="xs:string" minOccurs="0" />
+              <xs:element name="idcodicesedealtrienti" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceposizione" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idprovincia" type="xs:string" minOccurs="0" />
+              <xs:element name="identificativooperazione" type="xs:string" minOccurs="0" />
+              <xs:element name="identelocale" type="xs:int" minOccurs="0" />
+              <xs:element name="catastalecomune" type="xs:string" minOccurs="0" />
+              <xs:element name="idf24sezione" type="xs:string" />
+              <xs:element name="codiceditta" type="xs:string" minOccurs="0" />
+              <xs:element name="cc_codiceditta" type="xs:string" minOccurs="0" />
+              <xs:element name="numerodiriferimento" type="xs:string" minOccurs="0" />
+              <xs:element name="causale" type="xs:string" minOccurs="0" />
+              <xs:element name="codicesedeinail" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:f24ordinariodetail" />
+      <xs:field xpath="mstns:idf24ordinario" />
+      <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

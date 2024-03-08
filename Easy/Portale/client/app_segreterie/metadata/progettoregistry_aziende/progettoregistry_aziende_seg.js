@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
@@ -69,18 +52,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#progettoregistry_aziende_seg_idreg_aziende'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				appMeta.metaModel.insertFilter(this.getDataTable("partnerkinddefaultview"), this.q.eq('partnerkind_active', 'Si'));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-progettoregistry_aziende_seg");
-				$('#progettoregistry_aziende_seg_idreg_aziende').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#progettoregistry_aziende_seg_idreg_aziende').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#progettoregistry_aziende_seg_idreg_aziende').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_aziende);
+				$('#progettoregistry_aziende_seg_idreg_aziende').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_aziende);
 				//afterRowSelectin
 				return def.resolve();
 			},

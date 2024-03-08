@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_perfvalutazioneateneores_personale" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_perfvalutazioneateneores_personale" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="validatori" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idvalidatori" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneateneoresvalidatori" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idperfmission" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneo" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneores" type="xs:int" />
+              <xs:element name="idvalidatori" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneateneoresattach" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneo" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneores" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneoresattach" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getdocentiamministrativiresponsabilidefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="ruolo" type="xs:string" />
+              <xs:element name="struttura" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfmission" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idperfmission" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="perfvalutazioneateneores" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="fonte" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfmission" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneo" type="xs:int" />
+              <xs:element name="idperfvalutazioneateneores" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="indicatore" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="Note" type="xs:string" minOccurs="0" />
+              <xs:element name="percentualeraggiunta" type="xs:decimal" minOccurs="0" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="target" type="xs:string" minOccurs="0" />
+              <xs:element name="valoreraggiunto" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:validatori" />
+      <xs:field xpath="mstns:idvalidatori" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneateneoresvalidatori_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneateneoresvalidatori" />
+      <xs:field xpath="mstns:idperfmission" />
+      <xs:field xpath="mstns:idperfvalutazioneateneo" />
+      <xs:field xpath="mstns:idperfvalutazioneateneores" />
+      <xs:field xpath="mstns:idvalidatori" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneateneoresattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneateneoresattach" />
+      <xs:field xpath="mstns:idattach" />
+      <xs:field xpath="mstns:idperfvalutazioneateneo" />
+      <xs:field xpath="mstns:idperfvalutazioneateneores" />
+      <xs:field xpath="mstns:idperfvalutazioneateneoresattach" />
+    </xs:unique>
+    <xs:unique name="getdocentiamministrativiresponsabilidefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilidefaultview" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:ruolo" />
+      <xs:field xpath="mstns:struttura" />
+    </xs:unique>
+    <xs:unique name="perfmission_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfmission" />
+      <xs:field xpath="mstns:idperfmission" />
+    </xs:unique>
+    <xs:unique name="perfvalutazioneateneores_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazioneateneores" />
+      <xs:field xpath="mstns:idperfmission" />
+      <xs:field xpath="mstns:idperfvalutazioneateneo" />
+      <xs:field xpath="mstns:idperfvalutazioneateneores" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_perfvalutazioneateneoresvalidatori_perfvalutazioneateneores_idperfmission-idperfvalutazioneateneo-idperfvalutazioneateneores" msdata:parent="perfvalutazioneateneores" msdata:child="perfvalutazioneateneoresvalidatori" msdata:parentkey="idperfmission idperfvalutazioneateneo idperfvalutazioneateneores" msdata:childkey="idperfmission idperfvalutazioneateneo idperfvalutazioneateneores" />
+      <msdata:Relationship name="FK_perfvalutazioneateneoresvalidatori_validatori_idvalidatori" msdata:parent="validatori" msdata:child="perfvalutazioneateneoresvalidatori" msdata:parentkey="idvalidatori" msdata:childkey="idvalidatori" />
+      <msdata:Relationship name="FK_perfvalutazioneateneoresattach_perfvalutazioneateneores_idperfvalutazioneateneo-idperfvalutazioneateneores" msdata:parent="perfvalutazioneateneores" msdata:child="perfvalutazioneateneoresattach" msdata:parentkey="idperfvalutazioneateneo idperfvalutazioneateneores" msdata:childkey="idperfvalutazioneateneo idperfvalutazioneateneores" />
+      <msdata:Relationship name="FK_perfvalutazioneateneores_getdocentiamministrativiresponsabilidefaultview_idreg" msdata:parent="getdocentiamministrativiresponsabilidefaultview" msdata:child="perfvalutazioneateneores" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_perfvalutazioneateneores_perfmission_idperfmission" msdata:parent="perfmission" msdata:child="perfvalutazioneateneores" msdata:parentkey="idperfmission" msdata:childkey="idperfmission" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_registry_aziende"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_registry_aziende: DataSet {
+public partial class dsmeta_registry_aziende: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -76,7 +76,13 @@ public class dsmeta_registry_aziende: DataSet {
 	public MetaTable nacedefaultview 		=> (MetaTable)Tables["nacedefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable accmotivedefaultview_alias1 		=> (MetaTable)Tables["accmotivedefaultview_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable atecodefaultview 		=> (MetaTable)Tables["atecodefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable accmotivedefaultview 		=> (MetaTable)Tables["accmotivedefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_city 		=> (MetaTable)Tables["geo_city"];
@@ -98,9 +104,6 @@ public class dsmeta_registry_aziende: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry_aziende 		=> (MetaTable)Tables["registry_aziende"];
 
 	#endregion
 
@@ -322,6 +325,9 @@ private void initClass() {
 	var tnumerodip= new MetaTable("numerodip");
 	tnumerodip.defineColumn("active", typeof(string),false);
 	tnumerodip.defineColumn("idnumerodip", typeof(int),false);
+	tnumerodip.defineColumn("lt", typeof(DateTime));
+	tnumerodip.defineColumn("lu", typeof(string));
+	tnumerodip.defineColumn("sortcode", typeof(int),false);
 	tnumerodip.defineColumn("title", typeof(string),false);
 	Tables.Add(tnumerodip);
 	tnumerodip.defineKey("idnumerodip");
@@ -341,12 +347,29 @@ private void initClass() {
 	Tables.Add(tnacedefaultview);
 	tnacedefaultview.defineKey("idnace");
 
+	//////////////////// ACCMOTIVEDEFAULTVIEW_ALIAS1 /////////////////////////////////
+	var taccmotivedefaultview_alias1= new MetaTable("accmotivedefaultview_alias1");
+	taccmotivedefaultview_alias1.defineColumn("accmotive_active", typeof(string));
+	taccmotivedefaultview_alias1.defineColumn("dropdown_title", typeof(string),false);
+	taccmotivedefaultview_alias1.defineColumn("idaccmotive", typeof(string),false);
+	taccmotivedefaultview_alias1.ExtendedProperties["TableForReading"]="accmotivedefaultview";
+	Tables.Add(taccmotivedefaultview_alias1);
+	taccmotivedefaultview_alias1.defineKey("idaccmotive");
+
 	//////////////////// ATECODEFAULTVIEW /////////////////////////////////
 	var tatecodefaultview= new MetaTable("atecodefaultview");
 	tatecodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tatecodefaultview.defineColumn("idateco", typeof(int),false);
 	Tables.Add(tatecodefaultview);
 	tatecodefaultview.defineKey("idateco");
+
+	//////////////////// ACCMOTIVEDEFAULTVIEW /////////////////////////////////
+	var taccmotivedefaultview= new MetaTable("accmotivedefaultview");
+	taccmotivedefaultview.defineColumn("accmotive_active", typeof(string));
+	taccmotivedefaultview.defineColumn("dropdown_title", typeof(string),false);
+	taccmotivedefaultview.defineColumn("idaccmotive", typeof(string),false);
+	Tables.Add(taccmotivedefaultview);
+	taccmotivedefaultview.defineKey("idaccmotive");
 
 	//////////////////// GEO_CITY /////////////////////////////////
 	var tgeo_city= new MetaTable("geo_city");
@@ -365,16 +388,51 @@ private void initClass() {
 	//////////////////// RESIDENCE /////////////////////////////////
 	var tresidence= new MetaTable("residence");
 	tresidence.defineColumn("active", typeof(string));
+	tresidence.defineColumn("coderesidence", typeof(string),false);
 	tresidence.defineColumn("description", typeof(string),false);
 	tresidence.defineColumn("idresidence", typeof(int),false);
+	tresidence.defineColumn("lt", typeof(DateTime));
+	tresidence.defineColumn("lu", typeof(string));
 	Tables.Add(tresidence);
 	tresidence.defineKey("idresidence");
 
 	//////////////////// REGISTRYCLASSAZIENDEVIEW /////////////////////////////////
 	var tregistryclassaziendeview= new MetaTable("registryclassaziendeview");
+	tregistryclassaziendeview.defineColumn("description", typeof(string),false);
 	tregistryclassaziendeview.defineColumn("dropdown_title", typeof(string),false);
 	tregistryclassaziendeview.defineColumn("idregistryclass", typeof(string),false);
 	tregistryclassaziendeview.defineColumn("registryclass_active", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_ct", typeof(DateTime),false);
+	tregistryclassaziendeview.defineColumn("registryclass_cu", typeof(string),false);
+	tregistryclassaziendeview.defineColumn("registryclass_flagbadgecode", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagbadgecode_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagCF", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagcf_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagcfbutton", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagextmatricula", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagextmatricula_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagfiscalresidence", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagfiscalresidence_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagforeigncf", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagforeigncf_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flaghuman", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flaginfofromcfbutton", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagmaritalstatus", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagmaritalstatus_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagmaritalsurname", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagmaritalsurname_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagothers", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagothers_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagp_iva", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagp_iva_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagqualification", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagqualification_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagresidence", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagresidence_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagtitle", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_flagtitle_forced", typeof(string));
+	tregistryclassaziendeview.defineColumn("registryclass_lt", typeof(DateTime),false);
+	tregistryclassaziendeview.defineColumn("registryclass_lu", typeof(string),false);
 	Tables.Add(tregistryclassaziendeview);
 	tregistryclassaziendeview.defineKey("idregistryclass");
 
@@ -414,16 +472,26 @@ private void initClass() {
 	tregistry.defineColumn("gender", typeof(string));
 	tregistry.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry.defineColumn("idaccmotivedebit", typeof(string));
+	tregistry.defineColumn("idateco", typeof(int));
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
 	tregistry.defineColumn("idcity", typeof(int));
+	tregistry.defineColumn("idclassconsorsuale", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
+	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
+	tregistry.defineColumn("idnace", typeof(string));
 	tregistry.defineColumn("idnation", typeof(int));
+	tregistry.defineColumn("idnaturagiur", typeof(int));
+	tregistry.defineColumn("idnumerodip", typeof(int));
 	tregistry.defineColumn("idreg", typeof(int),false);
+	tregistry.defineColumn("idreg_istituti", typeof(int));
 	tregistry.defineColumn("idregistryclass", typeof(string));
 	tregistry.defineColumn("idregistrykind", typeof(int));
+	tregistry.defineColumn("idsasd", typeof(int));
+	tregistry.defineColumn("idstruttura", typeof(int));
 	tregistry.defineColumn("idtitle", typeof(string));
+	tregistry.defineColumn("indicebibliometrico", typeof(int));
 	tregistry.defineColumn("ipa_fe", typeof(string));
 	tregistry.defineColumn("ipa_perlapa", typeof(string));
 	tregistry.defineColumn("location", typeof(string));
@@ -433,33 +501,20 @@ private void initClass() {
 	tregistry.defineColumn("multi_cf", typeof(string));
 	tregistry.defineColumn("p_iva", typeof(string));
 	tregistry.defineColumn("pec_fe", typeof(string));
-	tregistry.defineColumn("residence", typeof(int),false);
+	tregistry.defineColumn("pic", typeof(string));
+	tregistry.defineColumn("residence", typeof(int));
+	tregistry.defineColumn("ricevimento", typeof(string));
 	tregistry.defineColumn("rtf", typeof(Byte[]));
 	tregistry.defineColumn("sdi_defrifamm", typeof(string));
 	tregistry.defineColumn("sdi_norifamm", typeof(string));
+	tregistry.defineColumn("soggiorno", typeof(string));
 	tregistry.defineColumn("surname", typeof(string));
 	tregistry.defineColumn("title", typeof(string),false);
+	tregistry.defineColumn("title_en", typeof(string));
 	tregistry.defineColumn("toredirect", typeof(int));
 	tregistry.defineColumn("txt", typeof(string));
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
-
-	//////////////////// REGISTRY_AZIENDE /////////////////////////////////
-	var tregistry_aziende= new MetaTable("registry_aziende");
-	tregistry_aziende.defineColumn("ct", typeof(DateTime),false);
-	tregistry_aziende.defineColumn("cu", typeof(string),false);
-	tregistry_aziende.defineColumn("idateco", typeof(int));
-	tregistry_aziende.defineColumn("idnace", typeof(string));
-	tregistry_aziende.defineColumn("idnaturagiur", typeof(int));
-	tregistry_aziende.defineColumn("idnumerodip", typeof(int));
-	tregistry_aziende.defineColumn("idreg", typeof(int),false);
-	tregistry_aziende.defineColumn("lt", typeof(DateTime),false);
-	tregistry_aziende.defineColumn("lu", typeof(string),false);
-	tregistry_aziende.defineColumn("pic", typeof(string));
-	tregistry_aziende.defineColumn("title_en", typeof(string));
-	tregistry_aziende.defineColumn("txt_en", typeof(string));
-	Tables.Add(tregistry_aziende);
-	tregistry_aziende.defineKey("idreg");
 
 	#endregion
 
@@ -514,20 +569,28 @@ private void initClass() {
 	Relations.Add(new DataRelation("FK_ccnlregistry_aziende_ccnl_idccnl",cPar,cChild,false));
 
 	cPar = new []{numerodip.Columns["idnumerodip"]};
-	cChild = new []{registry_aziende.Columns["idnumerodip"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_numerodip_idnumerodip",cPar,cChild,false));
+	cChild = new []{registry.Columns["idnumerodip"]};
+	Relations.Add(new DataRelation("FK_registry_numerodip_idnumerodip",cPar,cChild,false));
 
 	cPar = new []{naturagiurdefaultview.Columns["idnaturagiur"]};
-	cChild = new []{registry_aziende.Columns["idnaturagiur"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_naturagiurdefaultview_idnaturagiur",cPar,cChild,false));
+	cChild = new []{registry.Columns["idnaturagiur"]};
+	Relations.Add(new DataRelation("FK_registry_naturagiurdefaultview_idnaturagiur",cPar,cChild,false));
 
 	cPar = new []{nacedefaultview.Columns["idnace"]};
-	cChild = new []{registry_aziende.Columns["idnace"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_nacedefaultview_idnace",cPar,cChild,false));
+	cChild = new []{registry.Columns["idnace"]};
+	Relations.Add(new DataRelation("FK_registry_nacedefaultview_idnace",cPar,cChild,false));
+
+	cPar = new []{accmotivedefaultview_alias1.Columns["idaccmotive"]};
+	cChild = new []{registry.Columns["idaccmotivecredit"]};
+	Relations.Add(new DataRelation("FK_registry_accmotivedefaultview_alias1_idaccmotivecredit",cPar,cChild,false));
 
 	cPar = new []{atecodefaultview.Columns["idateco"]};
-	cChild = new []{registry_aziende.Columns["idateco"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_atecodefaultview_idateco",cPar,cChild,false));
+	cChild = new []{registry.Columns["idateco"]};
+	Relations.Add(new DataRelation("FK_registry_atecodefaultview_idateco",cPar,cChild,false));
+
+	cPar = new []{accmotivedefaultview.Columns["idaccmotive"]};
+	cChild = new []{registry.Columns["idaccmotivedebit"]};
+	Relations.Add(new DataRelation("FK_registry_accmotivedefaultview_idaccmotivedebit",cPar,cChild,false));
 
 	cPar = new []{geo_city.Columns["idcity"]};
 	cChild = new []{registry.Columns["idcity"]};
@@ -552,10 +615,6 @@ private void initClass() {
 	cPar = new []{registrykind.Columns["idregistrykind"]};
 	cChild = new []{registry.Columns["idregistrykind"]};
 	Relations.Add(new DataRelation("FK_registry_registrykind_idregistrykind",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{registry_aziende.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_registry_aziende_registry_idreg",cPar,cChild,false));
 
 	#endregion
 

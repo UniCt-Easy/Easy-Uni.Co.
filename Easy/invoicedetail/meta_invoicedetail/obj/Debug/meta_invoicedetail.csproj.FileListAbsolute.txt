@@ -1,0 +1,6 @@
+D:\Easy\invoicedetail\meta_invoicedetail\bin\Debug\meta_invoicedetail.dll
+D:\Easy\invoicedetail\meta_invoicedetail\bin\Debug\meta_invoicedetail.pdb
+D:\Easy\invoicedetail\meta_invoicedetail\obj\Debug\meta_invoicedetail.csproj.CoreCompileInputs.cache
+D:\Easy\invoicedetail\meta_invoicedetail\obj\Debug\meta_invoicedetail.dll
+D:\Easy\invoicedetail\meta_invoicedetail\obj\Debug\meta_invoicedetail.pdb
+D:\Easy\invoicedetail\meta_invoicedetail\obj\Debug\meta_invoicedetail.csproj.AssemblyReference.cache

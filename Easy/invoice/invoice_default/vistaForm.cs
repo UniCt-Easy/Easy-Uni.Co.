@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -245,6 +245,15 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sdi_deliverystatus_acquestere 		=> (MetaTable)Tables["sdi_deliverystatus_acquestere"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable intrastatkinddet 		=> (MetaTable)Tables["intrastatkinddet"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable pccdebitstatusdetail 		=> (MetaTable)Tables["pccdebitstatusdetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable invoiceadditionalfields 		=> (MetaTable)Tables["invoiceadditionalfields"];
+
 	#endregion
 
 
@@ -272,7 +281,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// INVOICE /////////////////////////////////
 	var tinvoice= new invoiceTable();
-	tinvoice.addBaseColumns("idinvkind","yinv","ninv","idreg","registryreference","description","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","packinglistnum","packinglistdate","flagdeferred","officiallyprinted","txt","rtf","cu","ct","lu","lt","active","idtreasurer","flagintracom","iso_origin","iso_provenance","iso_destination","idcountry_origin","idcountry_destination","idintrastatkind","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idintrastatpaymethod","iso_payment","flag_ddt","flag","idblacklist","idinvkind_real","yinv_real","ninv_real","autoinvoice","idsor01","idsor02","idsor03","idsor04","idsor05","protocoldate","idfepaymethodcondition","idfepaymethod","nelectronicinvoice","yelectronicinvoice","arrivalprotocolnum","annotations","toincludeinpaymentindicator","resendingpcc","touniqueregister","idstampkind","flag_enable_split_payment","flag_auto_split_payment","idsdi_acquisto","idsdi_vendita","flag_reverse_charge","ipa_acq","rifamm_acq","ipa_ven_emittente","rifamm_ven_emittente","ipa_ven_cliente","rifamm_ven_cliente","ssntipospesa","ssnflagtipospesa","idinvkind_forwarder","yinv_forwarder","ninv_forwarder","flagbit","requested_doc","idnocigmotive","idreg_sostituto","email_ven_cliente","pec_ven_cliente","idsdi_acquistoestere","idtreasurer_acq_estere","idfedocumentkind");
+	tinvoice.addBaseColumns("idinvkind","yinv","ninv","idreg","registryreference","description","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","packinglistnum","packinglistdate","flagdeferred","officiallyprinted","txt","rtf","cu","ct","lu","lt","active","idtreasurer","flagintracom","iso_origin","iso_provenance","iso_destination","idcountry_origin","idcountry_destination","idintrastatkind","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idintrastatpaymethod","iso_payment","flag_ddt","flag","idblacklist","idinvkind_real","yinv_real","ninv_real","autoinvoice","idsor01","idsor02","idsor03","idsor04","idsor05","protocoldate","idfepaymethodcondition","idfepaymethod","nelectronicinvoice","yelectronicinvoice","arrivalprotocolnum","annotations","toincludeinpaymentindicator","resendingpcc","touniqueregister","idstampkind","flag_enable_split_payment","flag_auto_split_payment","idsdi_acquisto","idsdi_vendita","flag_reverse_charge","ipa_acq","rifamm_acq","ipa_ven_emittente","rifamm_ven_emittente","ipa_ven_cliente","rifamm_ven_cliente","ssntipospesa","ssnflagtipospesa","idinvkind_forwarder","yinv_forwarder","ninv_forwarder","flagbit","requested_doc","idnocigmotive","idreg_sostituto","email_ven_cliente","pec_ven_cliente","idsdi_acquistoestere","idtreasurer_acq_estere","idfedocumentkind","idintrastatkinddet");
 	Tables.Add(tinvoice);
 	tinvoice.defineKey("idinvkind", "yinv", "ninv");
 
@@ -312,7 +321,7 @@ private void initClass() {
 
 	//////////////////// INVOICEDETAIL /////////////////////////////////
 	var tinvoicedetail= new invoicedetailTable();
-	tinvoicedetail.addBaseColumns("idinvkind","yinv","ninv","rownum","idivakind","detaildescription","annotations","taxable","tax","unabatable","cu","ct","lu","lt","discount","idmankind","yman","nman","manrownum","number","idupb","idsor1","idsor2","idsor3","competencystart","competencystop","paymentcompetency","idaccmotive","idestimkind","yestim","nestim","estimrownum","idexp_iva","idexp_taxable","idinc_iva","idinc_taxable","idgroup","yinv_main","ninv_main","va3type","idintrastatcode","idintrastatmeasure","weight","intrastatoperationkind","idintrastatservice","idunit","idlist","idpackage","npackage","unitsforpackage","idintrastatsupplymethod","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idcostpartition","idpccdebitstatus","idpccdebitmotive","expensekind","rounding","idepexp","idepacc","flagbit","iduniqueformcode","idfinmotive","ycon","ncon","codicetipo","codicevalore","idsor_siope","idepexp_pre","idtassonomia","idfinmotive_iva");
+	tinvoicedetail.addBaseColumns("idinvkind","yinv","ninv","rownum","idivakind","detaildescription","annotations","taxable","tax","unabatable","cu","ct","lu","lt","discount","idmankind","yman","nman","manrownum","number","idupb","idsor1","idsor2","idsor3","competencystart","competencystop","paymentcompetency","idaccmotive","idestimkind","yestim","nestim","estimrownum","idexp_iva","idexp_taxable","idinc_iva","idinc_taxable","idgroup","yinv_main","ninv_main","va3type","idintrastatcode","idintrastatmeasure","weight","intrastatoperationkind","idintrastatservice","idunit","idlist","idpackage","npackage","unitsforpackage","idintrastatsupplymethod","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idcostpartition","idpccdebitstatus","idpccdebitmotive","expensekind","rounding","idepexp","idepacc","flagbit","iduniqueformcode","idfinmotive","ycon","ncon","codicetipo","codicevalore","idsor_siope","idepexp_pre","idtassonomia","idfinmotive_iva","rownum_main");
 	tinvoicedetail.defineColumn("!tipoiva", typeof(string));
 	tinvoicedetail.defineColumn("!aliquota", typeof(double));
 	tinvoicedetail.defineColumn("!percindetraibilita", typeof(double));
@@ -432,13 +441,13 @@ private void initClass() {
 
 	//////////////////// CONFIG /////////////////////////////////
 	var tconfig= new configTable();
-	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","cashvaliditykind","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idivapayperiodicity","idregauto","idsortingkind1","idsortingkind2","idsortingkind3","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","flag_autodocnumbering","flagivapaybyrow","idacc_unabatable","startivabalance","refundagency12","paymentagency12","idacc_invoicetoreceive","idacc_invoicetoemit","idpccdebitstatus","flagsplitpayment","femode","idaccmotive_forwarder","idivakind_forwarder","flag");
+	tconfig.addBaseColumns("ayear","agencycode","appname","appropriationphasecode","assessmentphasecode","asset_flagnumbering","asset_flagrestart","assetload_flag","boxpartitiontitle","cashvaliditykind","casualcontract_flagrestart","ct","cu","currpartitiontitle","deferredexpensephase","deferredincomephase","electronicimport","electronictrasmission","expense_expiringdays","expensephase","flagautopayment","flagautoproceeds","flagcredit","flagepexp","flagfruitful","flagpayment","flagproceeds","flagrefund","foreignhours","idacc_accruedcost","idacc_accruedrevenue","idacc_customer","idacc_deferredcost","idacc_deferredcredit","idacc_deferreddebit","idacc_deferredrevenue","idacc_ivapayment","idacc_ivarefund","idacc_patrimony","idacc_pl","idacc_supplier","idaccmotive_admincar","idaccmotive_foot","idaccmotive_owncar","idclawback","idfinexpense","idfinexpensesurplus","idfinincomesurplus","idfinivapayment","idfinivarefund","idivapayperiodicity","idregauto","idsortingkind1","idsortingkind2","idsortingkind3","importappname","income_expiringdays","incomephase","linktoinvoice","lt","lu","minpayment","minrefund","motivelen","motiveprefix","motiveseparator","payment_finlevel","payment_flag","payment_flagautoprintdate","paymentagency","prevpartitiontitle","proceeds_finlevel","proceeds_flag","proceeds_flagautoprintdate","profservice_flagrestart","refundagency","wageaddition_flagrestart","flag_autodocnumbering","flagivapaybyrow","idacc_unabatable","startivabalance","refundagency12","paymentagency12","idacc_invoicetoreceive","idacc_invoicetoemit","idpccdebitstatus","flagsplitpayment","femode","idaccmotive_forwarder","idivakind_forwarder","flag","flagpcc");
 	Tables.Add(tconfig);
 	tconfig.defineKey("ayear");
 
 	//////////////////// TREASURER /////////////////////////////////
 	var ttreasurer= new treasurerTable();
-	ttreasurer.addBaseColumns("idtreasurer","description","flagdefault","cin","idbank","idcab","cc","address","cap","city","country","phoneprefix","phonenumber","faxprefix","faxnumber","idsor01","idsor02","idsor03","idsor04","idsor05","cu","ct","lu","lt","bic","active");
+	ttreasurer.addBaseColumns("idtreasurer","description","flagdefault","cin","idbank","idcab","cc","address","cap","city","country","phoneprefix","phonenumber","faxprefix","faxnumber","idsor01","idsor02","idsor03","idsor04","idsor05","cu","ct","lu","lt","bic","active","departmentname_fe");
 	Tables.Add(ttreasurer);
 	ttreasurer.defineKey("idtreasurer");
 
@@ -478,6 +487,7 @@ private void initClass() {
 	tintrastatkind.defineColumn("description", typeof(string),false);
 	tintrastatkind.defineColumn("lt", typeof(DateTime));
 	tintrastatkind.defineColumn("lu", typeof(string));
+	tintrastatkind.defineColumn("code_a", typeof(int));
 	Tables.Add(tintrastatkind);
 	tintrastatkind.defineKey("idintrastatkind");
 
@@ -927,7 +937,7 @@ private void initClass() {
 
 	//////////////////// SDI_ACQUISTO /////////////////////////////////
 	var tsdi_acquisto= new sdi_acquistoTable();
-	tsdi_acquisto.addBaseColumns("idsdi_acquisto","filename","zipfilename","adate","xml","lt","lu","identificativo_sdi","mt","ec","ec_sent","se","dt","flag_unseen","idsdi_status","position","ec_number","title","description","ninvoice","riferimento_amministrazione","codice_ipa","protocoldate","arrivalprotocolnum","rejectreason","mt_prot","ec_prot","se_prot","dt_prot","utente_accettata","utente_rifiutata","data_accettata","data_rifiutata");
+	tsdi_acquisto.addBaseColumns("idsdi_acquisto","filename","zipfilename","adate","xml","lt","lu","identificativo_sdi","mt","ec","ec_sent","se","dt","flag_unseen","idsdi_status","position","ec_number","title","description","ninvoice","riferimento_amministrazione","codice_ipa","protocoldate","arrivalprotocolnum","rejectreason","mt_prot","ec_prot","se_prot","dt_prot","utente_accettata","utente_rifiutata","data_accettata","data_rifiutata","split_payment");
 	Tables.Add(tsdi_acquisto);
 	tsdi_acquisto.defineKey("idsdi_acquisto");
 
@@ -945,7 +955,7 @@ private void initClass() {
 
 	//////////////////// SDI_VENDITA /////////////////////////////////
 	var tsdi_vendita= new sdi_venditaTable();
-	tsdi_vendita.addBaseColumns("idsdi_vendita","filename","adate","xml","lt","lu","identificativo_sdi","ns","mc","rc","ne","dt","at","flag_unseen","idsdi_status","idsdi_deliverystatus","position","exported","zipfilename","ns_prot","mc_prot","rc_prot","ne_prot","dt_prot","at_prot","arrivalprotocolnum");
+	tsdi_vendita.addBaseColumns("idsdi_vendita","filename","adate","xml","lt","lu","identificativo_sdi","ns","mc","rc","ne","dt","at","flag_unseen","idsdi_status","idsdi_deliverystatus","position","exported","zipfilename","ns_prot","mc_prot","rc_prot","ne_prot","dt_prot","at_prot","arrivalprotocolnum","ipa_fe","idsdi_rifamm","issigned","signedxml","signedxmlfilename");
 	Tables.Add(tsdi_vendita);
 	tsdi_vendita.defineKey("idsdi_vendita");
 
@@ -1474,6 +1484,88 @@ private void initClass() {
 	Tables.Add(tsdi_deliverystatus_acquestere);
 	tsdi_deliverystatus_acquestere.defineKey("idsdi_deliverystatus");
 
+	//////////////////// INTRASTATKINDDET /////////////////////////////////
+	var tintrastatkinddet= new MetaTable("intrastatkinddet");
+	tintrastatkinddet.defineColumn("idintrastatkinddet", typeof(int),false);
+	tintrastatkinddet.defineColumn("description", typeof(string),false);
+	tintrastatkinddet.defineColumn("lt", typeof(DateTime));
+	tintrastatkinddet.defineColumn("lu", typeof(string));
+	tintrastatkinddet.defineColumn("code_a", typeof(string),false);
+	tintrastatkinddet.defineColumn("code_b", typeof(string),false);
+	Tables.Add(tintrastatkinddet);
+	tintrastatkinddet.defineKey("idintrastatkinddet");
+
+	//////////////////// PCCDEBITSTATUSDETAIL /////////////////////////////////
+	var tpccdebitstatusdetail= new MetaTable("pccdebitstatusdetail");
+	tpccdebitstatusdetail.defineColumn("idpccdebitstatusdetail", typeof(int),false);
+	tpccdebitstatusdetail.defineColumn("idinvkind", typeof(int),false);
+	tpccdebitstatusdetail.defineColumn("yinv", typeof(short),false);
+	tpccdebitstatusdetail.defineColumn("ninv", typeof(int),false);
+	tpccdebitstatusdetail.defineColumn("idpcc", typeof(int));
+	tpccdebitstatusdetail.defineColumn("importononcommerciale", typeof(decimal));
+	tpccdebitstatusdetail.defineColumn("imp_sosp_contenzioso", typeof(decimal));
+	tpccdebitstatusdetail.defineColumn("iva_sosp_contenzioso", typeof(decimal));
+	tpccdebitstatusdetail.defineColumn("start_sosp_contenzioso", typeof(DateTime));
+	tpccdebitstatusdetail.defineColumn("imp_sosp_contestazione", typeof(decimal));
+	tpccdebitstatusdetail.defineColumn("iva_sosp_contestazione", typeof(decimal));
+	tpccdebitstatusdetail.defineColumn("start_sosp_contestazione", typeof(DateTime));
+	tpccdebitstatusdetail.defineColumn("imp_sosp_regolareverifica", typeof(decimal));
+	tpccdebitstatusdetail.defineColumn("iva_sosp_regolareverifica", typeof(decimal));
+	tpccdebitstatusdetail.defineColumn("start_sosp_regolareverifica", typeof(DateTime));
+	tpccdebitstatusdetail.defineColumn("imp_nonliquidabile", typeof(decimal));
+	tpccdebitstatusdetail.defineColumn("iva_nonliquidabile", typeof(decimal));
+	tpccdebitstatusdetail.defineColumn("cu", typeof(string),false);
+	tpccdebitstatusdetail.defineColumn("ct", typeof(DateTime),false);
+	tpccdebitstatusdetail.defineColumn("lu", typeof(string),false);
+	tpccdebitstatusdetail.defineColumn("lt", typeof(DateTime),false);
+	Tables.Add(tpccdebitstatusdetail);
+	tpccdebitstatusdetail.defineKey("idpccdebitstatusdetail", "idinvkind", "yinv", "ninv");
+
+	//////////////////// INVOICEADDITIONALFIELDS /////////////////////////////////
+	var tinvoiceadditionalfields= new MetaTable("invoiceadditionalfields");
+	tinvoiceadditionalfields.defineColumn("idadditionalfields", typeof(int),false);
+	tinvoiceadditionalfields.defineColumn("idinvkind", typeof(int),false);
+	tinvoiceadditionalfields.defineColumn("yinv", typeof(short),false);
+	tinvoiceadditionalfields.defineColumn("ninv", typeof(int),false);
+	tinvoiceadditionalfields.defineColumn("ct", typeof(DateTime),false);
+	tinvoiceadditionalfields.defineColumn("cu", typeof(string),false);
+	tinvoiceadditionalfields.defineColumn("labelfield1date", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield1int", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield1str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield2date", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield2int", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield2str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield3date", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield3int", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield3str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield4date", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield4int", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield4str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield5date", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield5int", typeof(string));
+	tinvoiceadditionalfields.defineColumn("labelfield5str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("lt", typeof(DateTime),false);
+	tinvoiceadditionalfields.defineColumn("lu", typeof(string),false);
+	tinvoiceadditionalfields.defineColumn("rownum", typeof(int));
+	tinvoiceadditionalfields.defineColumn("valuefield1date", typeof(DateTime));
+	tinvoiceadditionalfields.defineColumn("valuefield1int", typeof(int));
+	tinvoiceadditionalfields.defineColumn("valuefield1str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("valuefield2date", typeof(DateTime));
+	tinvoiceadditionalfields.defineColumn("valuefield2int", typeof(int));
+	tinvoiceadditionalfields.defineColumn("valuefield2str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("valuefield3date", typeof(DateTime));
+	tinvoiceadditionalfields.defineColumn("valuefield3int", typeof(int));
+	tinvoiceadditionalfields.defineColumn("valuefield3str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("valuefield4date", typeof(DateTime));
+	tinvoiceadditionalfields.defineColumn("valuefield4int", typeof(int));
+	tinvoiceadditionalfields.defineColumn("valuefield4str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("valuefield5date", typeof(DateTime));
+	tinvoiceadditionalfields.defineColumn("valuefield5int", typeof(int));
+	tinvoiceadditionalfields.defineColumn("valuefield5str", typeof(string));
+	tinvoiceadditionalfields.defineColumn("documentkind", typeof(string),false);
+	Tables.Add(tinvoiceadditionalfields);
+	tinvoiceadditionalfields.defineKey("idadditionalfields", "idinvkind", "yinv", "ninv");
+
 	#endregion
 
 
@@ -1602,6 +1694,9 @@ private void initClass() {
 	this.defineRelation("sdi_status_acquestere_sdi_acquistoestere","sdi_status_acquestere","sdi_acquistoestere","idsdi_status");
 	this.defineRelation("sdi_deliverystatus_acquestere_sdi_acquistoestere","sdi_deliverystatus_acquestere","sdi_acquistoestere","idsdi_deliverystatus");
 	this.defineRelation("sdi_acquistoestere_invoice","sdi_acquistoestere","invoice","idsdi_acquistoestere");
+	this.defineRelation("intrastatkinddet_invoice","intrastatkinddet","invoice","idintrastatkinddet");
+	this.defineRelation("invoice_pccdebitstatusdetail","invoice","pccdebitstatusdetail","idinvkind","yinv","ninv");
+	this.defineRelation("invoice_invoiceadditionalfields","invoice","invoiceadditionalfields","idinvkind","yinv","ninv");
 	#endregion
 
 }

@@ -99,6 +99,8 @@
               <xs:element name="codicepaipa" type="xs:string" minOccurs="0" />
               <xs:element name="codiceaooipa" type="xs:string" minOccurs="0" />
               <xs:element name="codiceuoipa" type="xs:string" minOccurs="0" />
+              <xs:element name="idthematicscope" type="xs:int" minOccurs="0" />
+              <xs:element name="idpublicinstitutionservice" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -162,20 +164,6 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idapregistrykind" type="xs:string" />
-              <xs:element name="ayear" type="xs:int" />
-              <xs:element name="description" type="xs:string" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="active" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="apactivitykind">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idapactivitykind" type="xs:string" />
               <xs:element name="ayear" type="xs:int" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
@@ -622,6 +610,104 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="publicinstitutionservice">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpublicinstitutionservice" type="xs:int" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="idservizio" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" minOccurs="0" />
+              <xs:element name="paridpublicinstitutionservice" type="xs:int" minOccurs="0" />
+              <xs:element name="nlevel" type="xs:int" minOccurs="0" />
+              <xs:element name="active" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:length value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="thematicscope">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idthematicscope" type="xs:int" />
+              <xs:element name="description_consultant" type="xs:string" minOccurs="0" />
+              <xs:element name="description_employee" type="xs:string" minOccurs="0" />
+              <xs:element name="idemployee" type="xs:string" minOccurs="0" />
+              <xs:element name="idconsultant" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="apactivitykind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idapactivitykind" type="xs:string" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description_consultant" type="xs:string" minOccurs="0" />
+              <xs:element name="description_employee" type="xs:string" minOccurs="0" />
+              <xs:element name="idconsultant" type="xs:string" minOccurs="0" />
+              <xs:element name="idemployee" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="thematicscope_backup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idthematicscope" type="xs:int" />
+              <xs:element name="description_consultant" type="xs:string" minOccurs="0" />
+              <xs:element name="description_employee" type="xs:string" minOccurs="0" />
+              <xs:element name="idemployee" type="xs:string" minOccurs="0" />
+              <xs:element name="idconsultant" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="apactivitykind_backup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idapactivitykind" type="xs:string" />
+              <xs:element name="ayear" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description_consultant" type="xs:string" minOccurs="0" />
+              <xs:element name="description_employee" type="xs:string" minOccurs="0" />
+              <xs:element name="idconsultant" type="xs:string" minOccurs="0" />
+              <xs:element name="idemployee" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -652,11 +738,6 @@
     <xs:unique name="apregistrykind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:apregistrykind" />
       <xs:field xpath="mstns:idapregistrykind" />
-      <xs:field xpath="mstns:ayear" />
-    </xs:unique>
-    <xs:unique name="apactivitykind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:apactivitykind" />
-      <xs:field xpath="mstns:idapactivitykind" />
       <xs:field xpath="mstns:ayear" />
     </xs:unique>
     <xs:unique name="acquirekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -727,6 +808,31 @@
       <xs:selector xpath=".//mstns:serviceregistrykind" />
       <xs:field xpath="mstns:idserviceregistrykind" />
     </xs:unique>
+    <xs:unique name="publicinstitutionservice_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:publicinstitutionservice" />
+      <xs:field xpath="mstns:idpublicinstitutionservice" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="thematicscope_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:thematicscope" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:idthematicscope" />
+    </xs:unique>
+    <xs:unique name="apactivitykind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apactivitykind" />
+      <xs:field xpath="mstns:idapactivitykind" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
+    <xs:unique name="thematicscope_backup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:thematicscope_backup" />
+      <xs:field xpath="mstns:ayear" />
+      <xs:field xpath="mstns:idthematicscope" />
+    </xs:unique>
+    <xs:unique name="apactivitykind_backup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:apactivitykind_backup" />
+      <xs:field xpath="mstns:idapactivitykind" />
+      <xs:field xpath="mstns:ayear" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -747,11 +853,13 @@
       <msdata:Relationship name="serviceregistrygeo_city63" msdata:parent="geo_city" msdata:child="serviceregistry" msdata:parentkey="idcity" msdata:childkey="idcity" />
       <msdata:Relationship name="registryserviceregistry65" msdata:parent="registry" msdata:child="serviceregistry" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="departmentserviceregistry32" msdata:parent="department" msdata:child="serviceregistry" msdata:parentkey="iddepartment" msdata:childkey="iddepartment" />
-      <msdata:Relationship name="apactivitykindserviceregistry" msdata:parent="apactivitykind" msdata:child="serviceregistry" msdata:parentkey="idapactivitykind" msdata:childkey="idapactivitykind" />
       <msdata:Relationship name="apregistrykindserviceregistry" msdata:parent="apregistrykind" msdata:child="serviceregistry" msdata:parentkey="idapregistrykind" msdata:childkey="idapregistrykind" />
       <msdata:Relationship name="consultingkindserviceregistry" msdata:parent="consultingkind" msdata:child="serviceregistry" msdata:parentkey="idconsultingkind" msdata:childkey="idconsultingkind" />
       <msdata:Relationship name="apmanagerserviceregistry12" msdata:parent="apmanager" msdata:child="serviceregistry" msdata:parentkey="idapmanager" msdata:childkey="idapmanager" />
       <msdata:Relationship name="serviceregistrykind_serviceregistry" msdata:parent="serviceregistrykind" msdata:child="serviceregistry" msdata:parentkey="idserviceregistrykind" msdata:childkey="idserviceregistrykind" />
+      <msdata:Relationship name="publicinstitutionservice_serviceregistry" msdata:parent="publicinstitutionservice" msdata:child="serviceregistry" msdata:parentkey="idpublicinstitutionservice ayear" msdata:childkey="idpublicinstitutionservice yservreg" />
+      <msdata:Relationship name="thematicscope_serviceregistry" msdata:parent="thematicscope" msdata:child="serviceregistry" msdata:parentkey="ayear idthematicscope" msdata:childkey="yservreg idthematicscope" />
+      <msdata:Relationship name="apactivitykind_serviceregistry" msdata:parent="apactivitykind" msdata:child="serviceregistry" msdata:parentkey="idapactivitykind" msdata:childkey="idapactivitykind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

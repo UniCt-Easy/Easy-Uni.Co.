@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_stipendioannuo() {
 		MetaPage.apply(this, ['stipendioannuo', 'prev', true]);
-        this.name = 'Personale gi‡ assunto';
+        this.name = 'Personale gi√† assunto';
 		this.defaultListType = 'prev';
 		//pageHeaderDeclaration
     }
@@ -91,8 +74,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#stipendioannuo_prev_idreg'), null);
+				this.enableControl($('#stipendioannuo_prev_irap'), true);
+				this.enableControl($('#stipendioannuo_prev_totale'), true);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -104,10 +92,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			afterLink: function () {
 				var self = this;
+				appMeta.metaModel.insertFilter(this.getDataTable("registrylegalstatusprevview"), this.q.eq('registrylegalstatus_active', 'Si'));
 				$('#stipendioannuo_prev_caricoente').on("change", _.partial(this.managecaricoente, self));
 				$('#stipendioannuo_prev_lordo').on("change", _.partial(this.managelordo, self));
-				appMeta.metaModel.cachedTable(this.getDataTable("contrattoprevview"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("contrattoprevview"));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -117,41 +104,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			},
 
 			afterRowSelect: function (t, r) {
-				$('#stipendioannuo_prev_idreg').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#stipendioannuo_prev_idreg').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#stipendioannuo_prev_idcontratto').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#stipendioannuo_prev_idcontratto').prop("readonly", this.state.isEditState() || this.haveChildren());
+				var def = appMeta.Deferred("afterRowSelect-stipendioannuo_prev");
+				$('#stipendioannuo_prev_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#stipendioannuo_prev_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#stipendioannuo_prev_idregistrylegalstatus').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idregistrylegalstatus);
+				$('#stipendioannuo_prev_idregistrylegalstatus').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idregistrylegalstatus);
+				$('#stipendioannuo_prev_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idregistrylegalstatus);
+				$('#stipendioannuo_prev_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idregistrylegalstatus);
 				//afterRowSelectin
-				var arraydef = [];
-				var self = this;
-				if (t.name === "registrypersoneview" && r !== null) {
-					appMeta.metaModel.cachedTable(this.getDataTable("contrattoprevview"), false);
-					var stipendioannuo_prev_idcontrattoCtrl = $('#stipendioannuo_prev_idcontratto').data("customController");
-					arraydef.push(stipendioannuo_prev_idcontrattoCtrl.filteredPreFillCombo(window.jsDataQuery.eq("idreg", r ? r.idreg : null), null, true)
-						.then(function (dt) {
-							if (self.state.currentRow && self.state.currentRow.idcontratto)
-								stipendioannuo_prev_idcontrattoCtrl.fillControl(null, self.state.currentRow.idcontratto);
-							return true;
-						})
-);
-				}
-				//afterRowSelectAsincIn
-				return $.when.apply($, arraydef);
+				return def.resolve();
 			},
 
-			afterActivation: function () {
-				var parentRow = this.state.currentRow;
-				var self = this;
-				//afterActivationin
-				var arraydef = [];
-				if (parentRow.idreg) {
-					appMeta.metaModel.cachedTable(this.getDataTable("contrattoprevview"), false);
-					var stipendioannuo_prev_idcontrattoCtrl = $('#stipendioannuo_prev_idcontratto').data("customController");
-					arraydef.push(stipendioannuo_prev_idcontrattoCtrl.filteredPreFillCombo(window.jsDataQuery.eq("idreg", parentRow.idreg), null, true));
-				}
-				//afterActivationAsincIn
-				return $.when.apply($, arraydef);
-			},
+			//afterActivation
 
 			//rowSelected
 
@@ -161,7 +125,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				if (!$('#stipendioannuo_prev_idreg').val() && this.children.includes(grid.dataSourceName)) {
 					return this.showMessageOk('Prima devi selezionare un valore per il campo Dipendente');
 				}
-				if (!$('#stipendioannuo_prev_idcontratto').val() && this.children.includes(grid.dataSourceName)) {
+				if (!$('#stipendioannuo_prev_idregistrylegalstatus').val() && this.children.includes(grid.dataSourceName)) {
 					return this.showMessageOk('Prima devi selezionare un valore per il campo Contratto');
 				}
 				//insertClickin
@@ -189,14 +153,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			}
 ,
 
-			managecaricoente: function(that) { 
-				managestipendioannuo_prev_irap_totale(that);
-			},
-
-			managelordo: function(that) { 
-				managestipendioannuo_prev_irap_totale(that);
-			},
-
 			managestipendioannuo_prev_irap: function () {
 				this.state.currentRow.irap = this.state.currentRow.lordo * 0.085;
 			},
@@ -215,6 +171,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					else
 						return false;
 				});
+			},
+
+			managecaricoente: function(that) { 
+				that.managestipendioannuo_prev_irap_totale(that);
+			},
+
+			managelordo: function(that) { 
+				that.managestipendioannuo_prev_irap_totale(that);
 			},
 
 			//buttons

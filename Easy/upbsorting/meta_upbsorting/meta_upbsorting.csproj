@@ -80,6 +80,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="funzioni_configurazione">
+      <HintPath>..\..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -292,6 +292,17 @@ public class webpaymentdetailRow: MetaRow  {
 	public Int32? flag_showcaseOriginal { 
 		get {if (this["flag_showcase",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flag_showcase",DataRowVersion.Original];}
 	}
+	public String description{ 
+		get {if (this["description"]==DBNull.Value)return null; return  (String)this["description"];}
+		set {if (value==null) this["description"]= DBNull.Value; else this["description"]= value;}
+	}
+	public object descriptionValue { 
+		get{ return this["description"];}
+		set {if (value==null|| value==DBNull.Value) this["description"]= DBNull.Value; else this["description"]= value;}
+	}
+	public String descriptionOriginal { 
+		get {if (this["description",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["description",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -322,6 +333,7 @@ public class webpaymentdetailTable : MetaTableBase<webpaymentdetailRow> {
 			{"competencystop",createColumn("competencystop",typeof(DateTime),true,false)},
 			{"idupb_iva",createColumn("idupb_iva",typeof(string),true,false)},
 			{"flag_showcase",createColumn("flag_showcase",typeof(int),true,false)},
+			{"description",createColumn("description",typeof(string),true,false)},
 		};
 	}
 }

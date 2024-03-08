@@ -60,6 +60,7 @@
               <xs:element name="iddalia_funzionale" type="xs:int" minOccurs="0" />
               <xs:element name="iddalia_dipartimento" type="xs:int" minOccurs="0" />
               <xs:element name="flagexcludefromcertificate" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1173,6 +1174,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="costpartition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostpartition" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="kind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="costpartitioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -1379,6 +1396,10 @@
       <xs:selector xpath=".//mstns:serviceattachmentkind" />
       <xs:field xpath="mstns:idattachmentkind" />
     </xs:unique>
+    <xs:unique name="costpartition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costpartition" />
+      <xs:field xpath="mstns:idcostpartition" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1423,6 +1444,7 @@
       <msdata:Relationship name="dalia_dipartimento_casualcontract" msdata:parent="dalia_dipartimento" msdata:child="casualcontract" msdata:parentkey="iddalia_dipartimento" msdata:childkey="iddalia_dipartimento" />
       <msdata:Relationship name="serviceattachmentkind_casualcontractattachment" msdata:parent="serviceattachmentkind" msdata:child="casualcontractattachment" msdata:parentkey="idattachmentkind" msdata:childkey="idattachmentkind" />
       <msdata:Relationship name="casualcontract_casualcontractattachment" msdata:parent="casualcontract" msdata:child="casualcontractattachment" msdata:parentkey="ycon ncon" msdata:childkey="ycon ncon" />
+      <msdata:Relationship name="casualcontract_costpartition" msdata:parent="costpartition" msdata:child="casualcontract" msdata:parentkey="idcostpartition" msdata:childkey="idcostpartition" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

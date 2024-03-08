@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -22,7 +22,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-
+--setuser'amministrazione'
 CREATE procedure read_tax_nso_vendita (
 	@idestimkind	varchar(20),
 	@yestim			smallint,
@@ -30,11 +30,17 @@ CREATE procedure read_tax_nso_vendita (
 	@res decimal(19,6) out
 ) as
 BEGIN
+	
+	CREATE TABLE #item 
+	(
+		amount float,
+		perc float
+	)
+
 	DECLARE @idnso_vendita int
 	select @idnso_vendita = idnso_vendita  from estimate where idestimkind= @idestimkind and yestim = @yestim and nestim = @nestim
 
 	SET @res = 0
-
 	-- Parte nuova
 	declare @alltext varchar(max)
 	set @alltext =  (select xml from  nso_vendita S where S.idnso_vendita= @idnso_vendita)
@@ -60,13 +66,22 @@ BEGIN
 			'cac:',				'')	   
 			
 		as XML)
+	--select @x
 
-	declare @perc float
-	declare @amount float
-	SET @perc = isnull(@x.value('sum(//OrderLine/LineItem/Item/ClassifiedTaxCategory/Percent)[1]','float') ,0)
-	SET @amount = isnull(@x.value('sum(//OrderLine/LineItem/LineExtensionAmount)[1]','float') ,0)
+	INSERT INTO #item
+	SELECT 
+		isnull(item.value('LineExtensionAmount[1]', 'float'), 0),
+		isnull(item.value('Item[1]/ClassifiedTaxCategory[1]/Percent[1]', 'float'),0)
+	FROM 
+		@x.nodes('//OrderLine/LineItem') AS N(item)	
 
-	set @res= convert(decimal(19,6), @amount * @perc)
+	update #item 
+	set perc = perc / 100
+	where perc > 1
+	--print @perc
+
+	--print   @amount
+	select @res=convert(decimal(19,6), sum(amount * perc)) from #item
 	 
 
 END

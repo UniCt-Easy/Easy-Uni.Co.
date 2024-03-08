@@ -2,13 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabdelibera_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabdelibera_seg_0"><i class="fa fa-file-alt mr-1"></i>Principale</a>
+		<a href="#tabdelibera_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabdelibera_seg_0"><i class="fa fa-file-alt mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabdelibera_seg_1" class="nav-link" data-toggle="pill" data-target="#tabdelibera_seg_1"><i class="fa fa-file-alt mr-1"></i>Istanze deliberate</a>
+		<a href="#tabdelibera_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabdelibera_seg_1"><i class="fa fa-file-alt mr-1"></i>Istanze deliberate</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabdelibera_seg_2" class="nav-link" data-toggle="pill" data-target="#tabdelibera_seg_2"><i class="fa fa-file-alt mr-1"></i>Pratiche deliberate</a>
+		<a href="#tabdelibera_seg_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabdelibera_seg_2"><i class="fa fa-file-alt mr-1"></i>Pratiche deliberate</a>
 	</li>
 
 	</ul>
@@ -19,7 +19,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#delibera_seg_data").datetimepicker();
+    $("#delibera_seg_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="delibera_seg_data">Data</label>

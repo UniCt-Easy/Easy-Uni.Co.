@@ -34,11 +34,13 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazionepersonaleobiettivo" type="xs:int" />
               <xs:element name="inverso" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
               <xs:element name="peso" type="xs:decimal" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />

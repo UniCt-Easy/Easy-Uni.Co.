@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-//Gets the Nth field in a list of dot separated fields
+ï»¿//Gets the Nth field in a list of dot separated fields
 function GetField(S, N) {
     if (S === null) return null;
     S = S.trim();  
@@ -56,7 +39,7 @@ function fillControl(ds,el) {
     console.log( "Tabella = " + Table + ", Colonna = " + Column + ".");
     
     // 1) scegliere la tabella nel dataset  >>ottengo un DataTable
-    // 2) scegliere la riga nella tabella >>  table.lastSelectedRow ove table è il DataTable  >> DataRow >>prima riga
+    // 2) scegliere la riga nella tabella >>  table.lastSelectedRow ove table Ã¨ il DataTable  >> DataRow >>prima riga
     // 3) prendere il valore dalla colonna  >>object con il relativo tipo
     // 4) formattarlo in base a... tag, tipo del dato    >>
     // 5) mettere il valore formattato nel textbox  >> $(el).text("valore");

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -41,7 +41,8 @@ namespace migradatiroma//istitutocassiere_situazione//
 		private System.Windows.Forms.Button btnMigraDati;
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.ImageList images;
-        private FolderBrowserDialog openDir;
+        private FolderBrowserDialog _openDir;
+        private IFolderBrowserDialog openDir;
         private TextBox pathDir;
         public MetaData Meta;
         private Button btnMigraReversali;
@@ -57,7 +58,7 @@ namespace migradatiroma//istitutocassiere_situazione//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-
+			openDir.ShowNewFolderButton = false;
 			//
 			// TODO: Add any constructor code after InitializeComponent call
 			//
@@ -89,11 +90,12 @@ namespace migradatiroma//istitutocassiere_situazione//
             this.btnMigraDati = new System.Windows.Forms.Button();
             this.images = new System.Windows.Forms.ImageList(this.components);
             this.DS = new migradatiroma.vistaForm();
-            this.openDir = new System.Windows.Forms.FolderBrowserDialog();
+            this._openDir = new System.Windows.Forms.FolderBrowserDialog();
             this.pathDir = new System.Windows.Forms.TextBox();
             this.btnMigraReversali = new System.Windows.Forms.Button();
             this.btnSelectDir = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.openDir = createFolderBrowserDialog(_openDir);
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.SuspendLayout();
             // 
             // btnMigraDati
@@ -119,7 +121,7 @@ namespace migradatiroma//istitutocassiere_situazione//
             // 
             // openDir
             // 
-            this.openDir.ShowNewFolderButton = false;
+            //this.openDir.ShowNewFolderButton = false;
             // 
             // pathDir
             // 

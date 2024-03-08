@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,6 +53,8 @@ namespace config_default
             HelpForm.SetDenyNull(DS.config.Columns["profservice_flagrestart"], true);
             // BOOKING
             HelpForm.SetDenyNull(DS.config.Columns["booking_on_invoice"], true);
+            // Trasmissione PCC
+            HelpForm.SetDenyNull(DS.config.Columns["flagPCC"], true);
             DataAccess.SetTableForReading(DS.account_customer, "account");
             DataAccess.SetTableForReading(DS.account_supplier, "account");
             DataAccess.SetTableForReading(DS.account_ivapayment, "account");

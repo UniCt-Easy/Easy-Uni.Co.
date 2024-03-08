@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,7 +33,7 @@ using movimentofunctions;
 using ep_functions;
 using System.Collections.Generic;
 using System.Linq;
-
+using emistiParser;
 
 namespace csa_import_default {
 	/// <summary>
@@ -64,7 +64,7 @@ namespace csa_import_default {
 
 		//private string ConnectionString;
 		private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
-		private System.Windows.Forms.SaveFileDialog saveOutputFileDlg;
+		private System.Windows.Forms.SaveFileDialog _saveOutputFileDlg;
 		private ProgressBar progressBarImport;
 		private Button btnInputVersamenti;
 		private Button btnDelete;
@@ -147,16 +147,28 @@ namespace csa_import_default {
 		private Button btnSimulaEPGenera;
 		private Label label9;
 		private TextBox txtRefExternalDoc;
+		private Label label10;
+		private TextBox textBox3;
+        private Button btnImportEmisti;
+        private GroupBox grpImportEmisti;
+        private Label label12;
+        private Label label11;
+        private TextBox txtEmistiYimport;
+        private TextBox txtEmistiNimport;
+        private TextBox txtEmistiAdate;
+
+        // Lookup di Csa_Agency
+        Dictionary<object, bool> entiCsa = new Dictionary<object, bool>();
+
 		public IOpenFileDialog openInputFileDlg;
-			
-		// Lookup di Csa_Agency
-		Dictionary<object, bool> entiCsa = new Dictionary<object, bool>();
+		public ISaveFileDialog saveOutputFileDlg;
 
 		public Frm_csa_import_default() {
 			InitializeComponent();
 			//RighePadriIncome = new Hashtable();
 			//RighePadriExpense = new Hashtable();
 			openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
+			saveOutputFileDlg = createSaveFileDialog(_saveOutputFileDlg);
 		}
 
 		/// <summary>
@@ -221,6 +233,11 @@ namespace csa_import_default {
 			btnInputSospesi.ContextMenu = CMenu;
 			toolTipSospesi.SetToolTip(btnInputSospesi,
 				"Il file deve contenere le intestazioni. Tasto destro per visualizzare il tracciato");
+
+			int []fieldValue = new int[] { CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("uniconfig", null, "flag", null)) };
+			BitArray flags = new BitArray(fieldValue);
+			btnImportEmisti.Visible = flags[6];
+			grpImportEmisti.Visible = flags[6];
 		}
 
 		private void InitializeAllList() {
@@ -509,6 +526,7 @@ namespace csa_import_default {
 			this.btnVerToExcel = new System.Windows.Forms.Button();
 			this.btnRiepToExcel = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.btnImportEmisti = new System.Windows.Forms.Button();
 			this.lblIndividuazione = new System.Windows.Forms.Label();
 			this.btnElabora = new System.Windows.Forms.Button();
 			this.btnDelete = new System.Windows.Forms.Button();
@@ -520,7 +538,7 @@ namespace csa_import_default {
 			this.lblRigheRiep = new System.Windows.Forms.Label();
 			this.progressBarImport = new System.Windows.Forms.ProgressBar();
 			this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
-			this.saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
+			this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.btnVersamenti = new System.Windows.Forms.Button();
 			this.btnLordi = new System.Windows.Forms.Button();
@@ -576,6 +594,14 @@ namespace csa_import_default {
 			this.MenuEnterPwd = new System.Windows.Forms.MenuItem();
 			this.dsFinancial = new csa_import_default.dsFinancial();
 			this.toolTipSospesi = new System.Windows.Forms.ToolTip(this.components);
+			this.label10 = new System.Windows.Forms.Label();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.grpImportEmisti = new System.Windows.Forms.GroupBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.label11 = new System.Windows.Forms.Label();
+			this.txtEmistiYimport = new System.Windows.Forms.TextBox();
+			this.txtEmistiNimport = new System.Windows.Forms.TextBox();
+			this.txtEmistiAdate = new System.Windows.Forms.TextBox();
 			this.DS = new csa_import_default.vistaForm();
 			this.grpImportazione.SuspendLayout();
 			this.grpExcel.SuspendLayout();
@@ -596,6 +622,7 @@ namespace csa_import_default {
 			this.gboxBollettaNetti.SuspendLayout();
 			this.gBoxBollettaVersamenti.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dsFinancial)).BeginInit();
+			this.grpImportEmisti.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -692,16 +719,16 @@ namespace csa_import_default {
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(436, 25);
+			this.label1.Location = new System.Drawing.Point(653, 9);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(37, 23);
+			this.label1.Size = new System.Drawing.Size(82, 23);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Data:";
+			this.label1.Text = "Data Contabile:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// textBox1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(479, 25);
+			this.textBox1.Location = new System.Drawing.Point(741, 9);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(100, 20);
 			this.textBox1.TabIndex = 2;
@@ -741,6 +768,7 @@ namespace csa_import_default {
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.btnImportEmisti);
 			this.groupBox1.Controls.Add(this.lblIndividuazione);
 			this.groupBox1.Controls.Add(this.btnElabora);
 			this.groupBox1.Controls.Add(this.btnDelete);
@@ -753,6 +781,16 @@ namespace csa_import_default {
 			this.groupBox1.TabIndex = 6;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Input";
+			// 
+			// btnImportEmisti
+			// 
+			this.btnImportEmisti.Location = new System.Drawing.Point(349, 17);
+			this.btnImportEmisti.Name = "btnImportEmisti";
+			this.btnImportEmisti.Size = new System.Drawing.Size(163, 23);
+			this.btnImportEmisti.TabIndex = 16;
+			this.btnImportEmisti.Text = "Importa Dati da File Emisti";
+			this.btnImportEmisti.UseVisualStyleBackColor = true;
+			this.btnImportEmisti.Click += new System.EventHandler(this.btnImportEmisti_Click);
 			// 
 			// lblIndividuazione
 			// 
@@ -786,7 +824,7 @@ namespace csa_import_default {
 			// 
 			// btnInputVersamenti
 			// 
-			this.btnInputVersamenti.Location = new System.Drawing.Point(182, 17);
+			this.btnInputVersamenti.Location = new System.Drawing.Point(180, 17);
 			this.btnInputVersamenti.Name = "btnInputVersamenti";
 			this.btnInputVersamenti.Size = new System.Drawing.Size(163, 23);
 			this.btnInputVersamenti.TabIndex = 2;
@@ -824,12 +862,10 @@ namespace csa_import_default {
 			// 
 			// lblRigheVer
 			// 
-			this.lblRigheVer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblRigheVer.ForeColor = System.Drawing.SystemColors.HotTrack;
-			this.lblRigheVer.Location = new System.Drawing.Point(364, 55);
+			this.lblRigheVer.Location = new System.Drawing.Point(364, 46);
 			this.lblRigheVer.Name = "lblRigheVer";
-			this.lblRigheVer.Size = new System.Drawing.Size(641, 27);
+			this.lblRigheVer.Size = new System.Drawing.Size(214, 21);
 			this.lblRigheVer.TabIndex = 5;
 			this.lblRigheVer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -838,9 +874,9 @@ namespace csa_import_default {
 			this.lblRigheRiep.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblRigheRiep.ForeColor = System.Drawing.SystemColors.HotTrack;
-			this.lblRigheRiep.Location = new System.Drawing.Point(369, 76);
+			this.lblRigheRiep.Location = new System.Drawing.Point(597, 46);
 			this.lblRigheRiep.Name = "lblRigheRiep";
-			this.lblRigheRiep.Size = new System.Drawing.Size(606, 21);
+			this.lblRigheRiep.Size = new System.Drawing.Size(289, 21);
 			this.lblRigheRiep.TabIndex = 4;
 			this.lblRigheRiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1275,7 +1311,7 @@ namespace csa_import_default {
 			// 
 			// btnShowOutput
 			// 
-			this.btnShowOutput.Location = new System.Drawing.Point(778, 14);
+			this.btnShowOutput.Location = new System.Drawing.Point(884, 7);
 			this.btnShowOutput.Name = "btnShowOutput";
 			this.btnShowOutput.Size = new System.Drawing.Size(75, 23);
 			this.btnShowOutput.TabIndex = 18;
@@ -1433,6 +1469,79 @@ namespace csa_import_default {
 			this.dsFinancial.EnforceConstraints = false;
 			this.dsFinancial.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
+			// label10
+			// 
+			this.label10.Location = new System.Drawing.Point(383, 9);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(140, 23);
+			this.label10.TabIndex = 21;
+			this.label10.Text = "Data Competenza Stipendi:";
+			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(524, 9);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.Size = new System.Drawing.Size(100, 20);
+			this.textBox3.TabIndex = 22;
+			this.textBox3.Tag = "csa_import.referencedate";
+			// 
+			// grpImportEmisti
+			// 
+			this.grpImportEmisti.Controls.Add(this.label12);
+			this.grpImportEmisti.Controls.Add(this.label11);
+			this.grpImportEmisti.Controls.Add(this.txtEmistiYimport);
+			this.grpImportEmisti.Controls.Add(this.txtEmistiNimport);
+			this.grpImportEmisti.Controls.Add(this.txtEmistiAdate);
+			this.grpImportEmisti.Location = new System.Drawing.Point(364, 65);
+			this.grpImportEmisti.Name = "grpImportEmisti";
+			this.grpImportEmisti.Size = new System.Drawing.Size(298, 55);
+			this.grpImportEmisti.TabIndex = 23;
+			this.grpImportEmisti.TabStop = false;
+			this.grpImportEmisti.Text = "Emisti";
+			// 
+			// label12
+			// 
+			this.label12.AutoSize = true;
+			this.label12.Location = new System.Drawing.Point(53, 23);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(12, 13);
+			this.label12.TabIndex = 4;
+			this.label12.Text = "/";
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(157, 23);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(28, 13);
+			this.label11.TabIndex = 3;
+			this.label11.Text = "data";
+			// 
+			// txtEmistiYimport
+			// 
+			this.txtEmistiYimport.Location = new System.Drawing.Point(71, 20);
+			this.txtEmistiYimport.Name = "txtEmistiYimport";
+			this.txtEmistiYimport.Size = new System.Drawing.Size(46, 20);
+			this.txtEmistiYimport.TabIndex = 2;
+			this.txtEmistiYimport.Tag = "emisti_import.yimport";
+			// 
+			// txtEmistiNimport
+			// 
+			this.txtEmistiNimport.Location = new System.Drawing.Point(11, 20);
+			this.txtEmistiNimport.Name = "txtEmistiNimport";
+			this.txtEmistiNimport.Size = new System.Drawing.Size(36, 20);
+			this.txtEmistiNimport.TabIndex = 1;
+			this.txtEmistiNimport.Tag = "emisti_import.nimport";
+			// 
+			// txtEmistiAdate
+			// 
+			this.txtEmistiAdate.Location = new System.Drawing.Point(192, 20);
+			this.txtEmistiAdate.Name = "txtEmistiAdate";
+			this.txtEmistiAdate.Size = new System.Drawing.Size(100, 20);
+			this.txtEmistiAdate.TabIndex = 0;
+			this.txtEmistiAdate.Tag = "emisti_import.adate";
+			// 
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
@@ -1444,6 +1553,9 @@ namespace csa_import_default {
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(1015, 754);
+			this.Controls.Add(this.grpImportEmisti);
+			this.Controls.Add(this.label10);
+			this.Controls.Add(this.textBox3);
 			this.Controls.Add(this.gBoxBollettaVersamenti);
 			this.Controls.Add(this.gboxBollettaNetti);
 			this.Controls.Add(this.btnShowOutput);
@@ -1452,8 +1564,8 @@ namespace csa_import_default {
 			this.Controls.Add(this.lblRigheRiep);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.progressBarImport);
+			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.grpImportazione);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.textBox2);
@@ -1486,6 +1598,8 @@ namespace csa_import_default {
 			this.gBoxBollettaVersamenti.ResumeLayout(false);
 			this.gBoxBollettaVersamenti.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dsFinancial)).EndInit();
+			this.grpImportEmisti.ResumeLayout(false);
+			this.grpImportEmisti.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -1531,12 +1645,14 @@ namespace csa_import_default {
 				btnDelete.Enabled = false;
 				btnInputRiepiloghi.Enabled = false;
 				btnInputVersamenti.Enabled = false;
+				btnImportEmisti.Enabled = false;
 				txtRefExternalDoc.ReadOnly = false;
 			}
 
 			if (Meta.InsertMode) {
 				btnInputRiepiloghi.Enabled = false;
 				btnInputVersamenti.Enabled = false;
+				btnImportEmisti.Enabled = false;
 				btnInputSospesi.Enabled = false;
 				
 			}
@@ -1554,6 +1670,8 @@ namespace csa_import_default {
 			else {
 				btnElabora.Enabled = true;
 			}
+			
+			 
 		}
 
 		private void EnableDisableDatiImport(bool enable) {
@@ -1577,17 +1695,25 @@ namespace csa_import_default {
 
 			if (Meta.EditMode) {
 				bool checkElab = anyGenerated() == false;
+				bool checkEmisti = esisteImportazioneEmisti();
 				btnInputRiepiloghi.Enabled = checkElab || (countRiep == 0);
 				btnInputVersamenti.Enabled = checkElab || (countVer == 0);
+
+				btnImportEmisti.Enabled = false;
+				btnImportEmisti.Enabled = (countRiep == 0 && countVer == 0 && !checkEmisti);
 				btnInputSospesi.Enabled = true;
 			}
 			else {
 				btnInputRiepiloghi.Enabled = false;
 				btnInputVersamenti.Enabled = false;
+				btnImportEmisti.Enabled = false;
 			}
+
+		 
 
 			lblRigheRiep.Text = "Righe Riepiloghi Importate:" + countRiep.ToString();
 			lblRigheVer.Text = "Righe Versamenti Importate:" + countVer.ToString();
+
 			return (countRiep > 0) || (countVer > 0) || (countSospesi > 0);
 		}
 
@@ -1630,12 +1756,50 @@ namespace csa_import_default {
 
 			EP_functions EP = new EP_functions(Meta.Dispatcher);
 			string idrelated = EP_functions.GetIdForDocument(Curr);
-			string filterrelated = QHS.AppAnd(QHS.CmpEq("idrelated", idrelated),
-				QHS.CmpEq("yentry", Meta.GetSys("esercizio")));
+			string filterrelated = QHS.CmpEq("idrelated", idrelated);
 			DataTable T = Conn.RUN_SELECT("entry", "*", null, filterrelated, null, true);
 
 			if (T.Rows.Count > 0) {
 
+				return true;
+			}
+
+			return false;
+		}
+
+		private bool esisteImportazioneEmisti() {
+			//if (Meta.IsEmpty) return false;
+			DataRow Curr = DS.csa_import.Rows[0];
+
+			EP_functions EP = new EP_functions(Meta.Dispatcher);
+ 
+			string filterrelated = QHS.CmpEq("idcsa_import", Curr["idcsa_import"]);
+			DataTable T = Conn.RUN_SELECT("emisti_import", "*", null, filterrelated, null, true);
+
+			if (T.Rows.Count > 0) {
+
+				return true;
+			}
+
+			return false;
+		}
+
+
+		private bool esistonoMovBudget() {
+
+			DataRow Curr = DS.csa_import.Rows[0];
+
+			string idrelated = BudgetFunction.GetIdForDocument(Curr);
+			string filterrelated = QHS.Like("idrelated", idrelated + "%");
+			DataTable impegni = Conn.RUN_SELECT("epexp", "*", null, filterrelated, null, true);
+
+			if (impegni.Rows.Count > 0) {
+				return true;
+			}
+
+			DataTable accertamenti = Conn.RUN_SELECT("epacc", "*", null, filterrelated, null, true);
+
+			if (accertamenti.Rows.Count > 0) {
 				return true;
 			}
 
@@ -1663,7 +1827,7 @@ namespace csa_import_default {
 
 
 			DataSet ds = Conn.CallSP(sp_name,
-				new object[] {Curr["idcsa_import"], Meta.GetSys("esercizio")}, 600, out errMess);
+				new object[] {Curr["idcsa_import"], Meta.GetSys("esercizio")}, 3600, out errMess);
 			if (errMess != null) {
 				show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
 				return false;
@@ -1741,6 +1905,7 @@ namespace csa_import_default {
 			txtEsercImport.Text = security.GetEsercizio().ToString();
 			btnInputRiepiloghi.Enabled = true;
 			btnInputVersamenti.Enabled = true;
+			btnImportEmisti.Enabled = true;
 			btnInputSospesi.Enabled = true;
 			btnDelete.Enabled = true;
 			btnElabora.Enabled = true;
@@ -2206,7 +2371,7 @@ namespace csa_import_default {
 
 		string[] tracciato_sospeso =
 			new string[] {
-				"DENOMINAZIONE_ANAGRAFICA;Anagrafica;Stringa;150",
+				"CODICE_ANAGRAFICA;Cod. Anagrafica (idreg numerico);Intero;8",
 				"N_SOSPESO;Numero sospeso(nbill);Intero;8",
 				"IMPORTO;Importo;Numero;22"
 			};
@@ -2237,14 +2402,13 @@ namespace csa_import_default {
 				}
 
 				case "S": {
-					t.Columns.Add("DENOMINAZIONE_ANAGRAFICA", typeof(string));
+					t.Columns.Add("CODICE_ANAGRAFICA", typeof(int));
 					t.Columns.Add("N_SOSPESO", typeof(int));
 					t.Columns.Add("IMPORTO", typeof(decimal));
 					break;
 				}
 			}
-			//foreach (DataColumn c in t.Columns) c.ColumnName = c.ColumnName.ToLowerInvariant();
-
+	
 
 			return t;
 		}
@@ -2568,7 +2732,7 @@ namespace csa_import_default {
 				numtot++;
 				if (CfgFn.GetNoNullDecimal(rFile["importo"]) != 0) {
 					DataRow rNew = MetaDetail.Get_New_Row(RCurr, DS.csa_bill);
-					rNew["idreg"] = GetAnagrafica(rFile["DENOMINAZIONE_ANAGRAFICA"]);
+					rNew["idreg"] = GetAnagrafica(rFile["codice_anagrafica"]);
 					rNew["nbill"] = rFile["N_SOSPESO"];
 					rNew["amount"] = CfgFn.GetNoNullDecimal(rFile["IMPORTO"]);
 					rNew["ct"] = DateTime.Now;
@@ -2649,9 +2813,9 @@ namespace csa_import_default {
 						}
 
 						break;
-					case "denominazione_anagrafica":
+					case "codice_anagrafica":
 						if ((GetAnagrafica(val) == DBNull.Value) || (GetAnagrafica(val) == null)) {
-							string err = "Anagrafica non trovata nella decodifica del campo " + fieldname +
+							string err = "Anagrafica non trovata (o esiste ma disattiva) nella lettura del campo " + fieldname +
 							             " di tipo " + ftype + " e di valore " +
 							             val.Trim() + " alla riga " + rownum;
 							DataRow row = errors.NewRow();
@@ -2663,7 +2827,7 @@ namespace csa_import_default {
 						break;
 					case "n_sospeso":
 						if (CheckSospeso(val) == false) {
-							string err = "Sospeso di uscita non valido nella decodifica del campo " + fieldname +
+							string err = "Sospeso di uscita non valido nella lettura del campo " + fieldname +
 							             " di tipo " + ftype + " e di valore " +
 							             val.Trim() + " alla riga " + rownum;
 							DataRow row = errors.NewRow();
@@ -2761,6 +2925,7 @@ namespace csa_import_default {
 			if (esistonoMovFinanziari("L")) return;
 			if (esistonoMovFinanziari("V")) return;
 			if (esistonoScritture()) return;
+			if (esistonoMovBudget()) return;
 
 			if (!CalcolaRighe()) {
 				show(this, "Non ci sono dati da elaborare");
@@ -6294,17 +6459,18 @@ namespace csa_import_default {
 			return true;
 		}
 
+		// Evito di far scegliere anagrafiche non attive
+		Dictionary<int, int> __myidReg = new Dictionary<int, int>();
 
-		Dictionary<string, int> __myidReg = new Dictionary<string, int>();
+		private object GetAnagrafica(object codice_anagrafica) {
+			int key = CfgFn.GetNoNullInt32(codice_anagrafica);
 
-		private object GetAnagrafica(object denominazione_anagrafica) {
-			if ((denominazione_anagrafica == null) || (denominazione_anagrafica == DBNull.Value)) return null;
-			string key = denominazione_anagrafica.ToString();
+			if ((codice_anagrafica == null) || (codice_anagrafica == DBNull.Value) || (key == 0)) return null;
 			if (__myidReg.ContainsKey(key))
 				return __myidReg[key];
 
-			string filtro = QHS.CmpEq("title", denominazione_anagrafica);
-			DataTable Registry = Conn.RUN_SELECT("registry", "*", null, filtro, null, true);
+			string filtro = QHS.AppAnd(QHS.CmpEq("idreg", codice_anagrafica), QHS.NullOrEq("active", "S"))  ;
+			DataTable Registry = Conn.RUN_SELECT("registry", "idreg", null, filtro, null, true);
 			if (Registry.Rows.Count == 0) return null;
 			DataRow DefRow = Registry.Rows[0];
 			__myidReg[key] = CfgFn.GetNoNullInt32(DefRow["idreg"]);
@@ -9881,7 +10047,7 @@ namespace csa_import_default {
 
 		private void ImpostaColonneTracciatoDettagli(DataTable mData) {
 			mData.Columns.Clear();
-			mData.Columns.Add("denominazione_anagrafica", typeof(string));
+			mData.Columns.Add("codice_anagrafica", typeof(int));
 			mData.Columns.Add("n_sospeso", typeof(int));
 			mData.Columns.Add("importo", typeof(decimal));
 		}
@@ -10097,7 +10263,8 @@ namespace csa_import_default {
 			tracciato = GetTracciato(tracciato_sospeso);
 			TableTracciato = GetTableTracciato(tracciato_sospeso);
 			FrmShowTracciato FT = new FrmShowTracciato(tracciato, TableTracciato, "struttura");
-			FT.ShowDialog();
+            createForm(FT, null);
+            FT.ShowDialog();
 		}
 
 
@@ -10323,11 +10490,75 @@ namespace csa_import_default {
 			//visualizzazione
 
 
-		}		
-	}
+		}
+
+        private void btnImportEmisti_Click(object sender, EventArgs e) {
+
+			if (Meta.IsEmpty) return;
+			if (Meta.InsertMode) return;
+
+			using (var input = new OpenFileDialog()) {
+
+				DialogResult result = input.ShowDialog();
+
+				if (!(result == DialogResult.OK) || string.IsNullOrWhiteSpace(input.FileName))
+					return;
+
+				txtInputFile.Text = input.FileName;
+			}
+
+            dsmeta emistiDS = new dsmeta();
+
+			foreach (var table in emistiDS.Tables) {
+				RowChange.SetOptimized((DataTable)table, true);
+			}
+
+			List<ParseError> errs = new List<ParseError>(EmistiImporter.Load(Conn, txtInputFile.Text, emistiDS, textBox2.Text));
+
+			if (errs.Count > 0) {
+				var frmErrors = new FrmViewEmistiErrors(errs);
+				frmErrors.Show();
+				return;
+            }
+
+            var postData = new Easy_PostData_NoBL();
+            postData.initClass(emistiDS, Conn);
+
+            ProcedureMessageCollection errors = postData.DO_POST_SERVICE();
+            IEnumerable<string> messages = errors.ToArray().Cast<ProcedureMessage>().Select(pm => pm.LongMess);
+
+            if (messages.Any()) {
+                MetaFactory.factory.getSingleton<IMessageShower>().Show(string.Format("Errori durante il salvataggio dei dati Emisti, ritentare l'importazione: \r\n\r\n{0}", string.Join("\r\n\r\n", messages)));
+                return;
+            }
+
+			int emistiImportKey = emistiDS.emisti_import[0].idemisti_import;
+			Conn.RUN_SELECT_INTO_TABLE(DS.emisti_import, "idemisti_import desc", QHS.CmpEq("idemisti_import", emistiImportKey), "1", false);
+			if (emistiDS.emisti_import.Rows.Count > 0) {
+
+				DS.emisti_import.AsEnumerable()
+					.Where(row => (int)row["idemisti_import"] == emistiImportKey)
+					.First()["idcsa_import"] = (int?)currentRow["idcsa_import"];
+			}
+
+            DS.csa_importver.Clear();
+			DS.csa_importriep.Clear();
+			
+			DataSet versamentiDS = Conn.CallSP("Emisti_Crea_Versamenti", new object[] { emistiImportKey });
+			DataSet riepiloghiDS = Conn.CallSP("Emisti_Crea_riepiloghi", new object[] { emistiImportKey });
+
+			if (versamentiDS != null && riepiloghiDS != null && versamentiDS.Tables.Count > 0 && riepiloghiDS.Tables.Count > 0) {
+
+				fillVersamenti(versamentiDS.Tables[0]);
+				fillRiepiloghi(riepiloghiDS.Tables[0]);
+			}
+
+			btnImportEmisti.Enabled = false;
+		}
+    }
 
 
-	class Fake_EpPoster : ep_poster {
+    class Fake_EpPoster : ep_poster {
 		private DataSet d = null;
 
 		private EP_Manager epm;

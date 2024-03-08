@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,45 +26,27 @@ using System.Runtime.Serialization;
 namespace expensevar_detail {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
-	///<summary>
-	///Variazione movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensevar 		=> Tables["expensevar"];
 
-	///<summary>
-	///Distinta di trasmissione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable paymenttransmission 		=> Tables["paymenttransmission"];
 
-	///<summary>
-	///Finanziamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwriting 		=> Tables["underwriting"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoiceavailable 		=> Tables["invoiceavailable"];
 
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoice 		=> Tables["invoice"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
 
@@ -506,6 +488,7 @@ private void initClass() {
 	tinvoicedetail_iva_nc.Columns.Add( new DataColumn("ninv_main", typeof(int)));
 	tinvoicedetail_iva_nc.Columns.Add( new DataColumn("ycon", typeof(int)));
 	tinvoicedetail_iva_nc.Columns.Add( new DataColumn("ncon", typeof(int)));
+	tinvoicedetail_iva_nc.Columns.Add( new DataColumn("rownum_main", typeof(int)));
 	Tables.Add(tinvoicedetail_iva_nc);
 	tinvoicedetail_iva_nc.PrimaryKey =  new DataColumn[]{tinvoicedetail_iva_nc.Columns["idinvkind"], tinvoicedetail_iva_nc.Columns["yinv"], tinvoicedetail_iva_nc.Columns["ninv"], tinvoicedetail_iva_nc.Columns["rownum"]};
 
@@ -620,6 +603,7 @@ private void initClass() {
 	tinvoicedetail_taxable_nc.Columns.Add( new DataColumn("ninv_main", typeof(int)));
 	tinvoicedetail_taxable_nc.Columns.Add( new DataColumn("ycon", typeof(int)));
 	tinvoicedetail_taxable_nc.Columns.Add( new DataColumn("ncon", typeof(int)));
+	tinvoicedetail_taxable_nc.Columns.Add( new DataColumn("rownum_main", typeof(int)));
 	Tables.Add(tinvoicedetail_taxable_nc);
 	tinvoicedetail_taxable_nc.PrimaryKey =  new DataColumn[]{tinvoicedetail_taxable_nc.Columns["idinvkind"], tinvoicedetail_taxable_nc.Columns["yinv"], tinvoicedetail_taxable_nc.Columns["ninv"], tinvoicedetail_taxable_nc.Columns["rownum"]};
 

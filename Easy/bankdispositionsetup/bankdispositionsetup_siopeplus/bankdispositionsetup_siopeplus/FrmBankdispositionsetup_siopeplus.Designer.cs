@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -52,8 +52,10 @@ namespace bankdispositionsetup_siopeplus {
             this.btnProceedsTransm = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.DS = new bankdispositionsetup_siopeplus.vistaForm();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -191,7 +193,7 @@ namespace bankdispositionsetup_siopeplus {
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "xml";
+            //this.saveFileDialog1.DefaultExt = "xml";
             // 
             // tabControl1
             // 
@@ -275,12 +277,14 @@ namespace bankdispositionsetup_siopeplus {
         private System.Windows.Forms.TextBox txtNproceedsTransm;
         private System.Windows.Forms.Button btnProceedsTransm;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog _openFileDialog1;
         public vistaForm DS;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private metadatalibrary.IOpenFileDialog openFileDialog1;
+        private metadatalibrary.ISaveFileDialog saveFileDialog1;
     }
 }

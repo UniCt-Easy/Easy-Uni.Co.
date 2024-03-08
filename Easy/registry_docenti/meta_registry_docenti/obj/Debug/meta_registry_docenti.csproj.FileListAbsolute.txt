@@ -1,0 +1,5 @@
+D:\Easy\registry_docenti\meta_registry_docenti\bin\Debug\meta_registry_docenti.dll
+D:\Easy\registry_docenti\meta_registry_docenti\bin\Debug\meta_registry_docenti.pdb
+D:\Easy\registry_docenti\meta_registry_docenti\obj\Debug\meta_registry_docenti.csproj.CoreCompileInputs.cache
+D:\Easy\registry_docenti\meta_registry_docenti\obj\Debug\meta_registry_docenti.dll
+D:\Easy\registry_docenti\meta_registry_docenti\obj\Debug\meta_registry_docenti.pdb

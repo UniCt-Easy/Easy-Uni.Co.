@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1122,11 +1122,11 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 		bool GetMovimentoSelezionato()
 		{
 			if (txtNumeroMovimento.Text.Trim()==""){
-				MessageBox.Show("Selezionare un movimento per procedere");
+				show("Selezionare un movimento per procedere");
 				return false;
 			}
 			if (currcont!= tipocont.cont_none){
-				MessageBox.Show("Al movimento selezionato è già associata una contabilizzazione.");
+				show("Al movimento selezionato è già associata una contabilizzazione.");
 				return false;
 			}
 			string filter= GetFasePrecFilter(true);
@@ -1527,11 +1527,11 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 		bool GetDocumentoSelezionato(){
 			tipocont TC = DeduciTipoContabilizzazione();
 			if (TC==tipocont.cont_none) {
-				MessageBox.Show("Non è stato selezionato alcun documento da contabilizzare.");
+				show("Non è stato selezionato alcun documento da contabilizzare.");
 				return false;
 			}
 			if (cmbCausale.SelectedValue==null){
-				MessageBox.Show("Non è stata selezionata la causale del documento.");
+				show("Non è stata selezionata la causale del documento.");
 				return false;
 			}
 			switch (TC){
@@ -1581,12 +1581,12 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			DataRow Curr= DS.expense.Rows[0];
 
 			
-			if (MessageBox.Show(this,"Aggiorno i campi documento e data documento del movimento di spesa "+
+			if (show(this,"Aggiorno i campi documento e data documento del movimento di spesa "+
 				"in base al documento selezionato?","Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK) {
 				if ((NuovoDocumento!=null)&&(NuovoDocumento!=DBNull.Value)) Curr["doc"]= NuovoDocumento;
 				if (NuovoDataDocumento!=null)  Curr["docdate"]= NuovoDataDocumento;
 			}
-			if (MessageBox.Show(this,"Aggiorno il campo DESCRIZIONE del movimento di spesa "+
+			if (show(this,"Aggiorno il campo DESCRIZIONE del movimento di spesa "+
 				"in base al documento selezionato?","Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK){
 				if ((NuovoDescrizione!=null)&&(NuovoDescrizione!=DBNull.Value)) Curr["description"]= NuovoDescrizione;
 			}
@@ -1595,7 +1595,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			PostData Post = Meta.Get_PostData();
 			Post.InitClass(DS,Conn);
 			bool res= Post.DO_POST();
-			if (res)MessageBox.Show("Aggiunta della contabilizzazione eseguita con successo.");
+			if (res)show("Aggiunta della contabilizzazione eseguita con successo.");
 			if (!res) Curr.RejectChanges();
 			return res;
 		}
@@ -2504,7 +2504,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 				found=true;
 			}
 			if (!found){
-				MessageBox.Show("Il movimento selezionato ha un importo superiore al residuo del documento."+
+				show("Il movimento selezionato ha un importo superiore al residuo del documento."+
 						" La contabilizzazione è impossibile.");
 			}
 			DS.expenseinvoice.Rows[0]["movkind"]=
@@ -2535,7 +2535,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			if (importo<0) importo=0; //dovrebbe essere superfluo
 	
 			if (importo> currimp) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale del documento poiché la "+
+				show("Sarà effettuata una contabilizzazione parziale del documento poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 			}
 
@@ -2885,7 +2885,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			if (importo<0) importo=0; //dovrebbe essere superfluo
 
 			if (importo> currimp) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale del contratto passivo poiché la "+
+				show("Sarà effettuata una contabilizzazione parziale del contratto passivo poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 			}
 
@@ -3003,7 +3003,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			DataTable Temp = Meta.Conn.RUN_SELECT("itinerationview",columnlist,null,selectmis,null,null,true);
 			
 			if (Temp.Rows.Count == 0) {
-				MessageBox.Show("La missione non esiste nell'anno corrente", "Errore");
+				show("La missione non esiste nell'anno corrente", "Errore");
 				return;
 			}
 
@@ -3210,7 +3210,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			}
 			if (importo<0) importo=0;
 			if (importo> currimp) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale della missione poiché la "+
+				show("Sarà effettuata una contabilizzazione parziale della missione poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 			}
 
@@ -3346,7 +3346,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			DataTable Temp = Meta.Conn.RUN_SELECT("payrollview",columnlist,null,selectced,null,null,true);
 			
 			if (Temp.Rows.Count == 0) {
-				MessageBox.Show("Il cedolino non esiste nell'anno corrente", "Errore");
+				show("Il cedolino non esiste nell'anno corrente", "Errore");
 				return;
 			}
 
@@ -3519,7 +3519,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 
 			if (importo<0) importo=0;
 			if (importo> currimp) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale della missione poiché la "+
+				show("Sarà effettuata una contabilizzazione parziale della missione poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 			}
 
@@ -3645,7 +3645,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 
 
 			if (Temp.Rows.Count == 0) {
-				MessageBox.Show("Il contratto non esiste nell'anno corrente", "Errore");
+				show("Il contratto non esiste nell'anno corrente", "Errore");
 				return;
 			}
 
@@ -3817,7 +3817,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 
 			if (importo<0) importo=0;
 			if (importo> currimp) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale del contratto poiché la "+
+				show("Sarà effettuata una contabilizzazione parziale del contratto poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 			}
 
@@ -3938,7 +3938,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			
 		
 			if (Temp.Rows.Count == 0) {
-				MessageBox.Show("Il compenso non esiste nell'anno corrente", "Errore");
+				show("Il compenso non esiste nell'anno corrente", "Errore");
 				return;
 			}
 
@@ -4109,7 +4109,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 
 			if (importo<0) importo=0;
 			if (importo> currimp) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale del compenso poiché la "+
+				show("Sarà effettuata una contabilizzazione parziale del compenso poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 			}
 
@@ -4235,7 +4235,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			
 		
 			if (Temp.Rows.Count == 0) {
-				MessageBox.Show("La parcella non esiste nell'anno corrente", "Errore");
+				show("La parcella non esiste nell'anno corrente", "Errore");
 				return;
 			}
 
@@ -4456,7 +4456,7 @@ namespace expense_wizardcontabilizza//SpesaWizardContabilizza//
 			//if ((currphase>1)&& (importo> DisponibileDaFasePrecedente)) importo=DisponibileDaFasePrecedente;	
 
 			if (importo> currimp) {
-				MessageBox.Show("Sarà effettuata una contabilizzazione parziale del contratto poiché la "+
+				show("Sarà effettuata una contabilizzazione parziale del contratto poiché la "+
 					"disponibilità del movimento selezionato è inferiore a "+importo.ToString());
 			}
 

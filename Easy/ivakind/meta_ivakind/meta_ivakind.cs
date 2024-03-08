@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -46,6 +46,10 @@ namespace meta_ivakind//meta_tipoiva//
 			return null;
 		}
 
+		public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude) {
+			return base.SelectOne(ListingType, filter, "ivakindview", Exclude);
+		}
+
 		public override void DescribeColumns(DataTable T, string ListingType){
 			base.DescribeColumns(T, ListingType);
 			if ( ListingType=="default"){
@@ -59,6 +63,7 @@ namespace meta_ivakind//meta_tipoiva//
                 HelpForm.SetFormatForColumn(T.Columns["unabatabilitypercentage"], "p");
                 DescribeAColumn(T, "rate", "Aliquota", nPos++);
                 HelpForm.SetFormatForColumn(T.Columns["rate"], "p");
+				DescribeAColumn(T, "ifenature", "Natura Esenzione FE", nPos++);
 
 
 			}

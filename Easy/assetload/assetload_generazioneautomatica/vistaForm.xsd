@@ -145,6 +145,7 @@
               <xs:element name="cost_discounted" type="xs:decimal" minOccurs="0" />
               <xs:element name="yinv" type="xs:short" minOccurs="0" />
               <xs:element name="ninv" type="xs:int" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

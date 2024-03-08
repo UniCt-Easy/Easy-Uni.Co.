@@ -1,5 +1,0 @@
-D:\Easy\creditpart\meta_creditpartview\bin\Debug\meta_creditpartview.dll
-D:\Easy\creditpart\meta_creditpartview\bin\Debug\meta_creditpartview.pdb
-D:\Easy\creditpart\meta_creditpartview\obj\Debug\meta_creditpartview.csproj.CoreCompileInputs.cache
-D:\Easy\creditpart\meta_creditpartview\obj\Debug\meta_creditpartview.dll
-D:\Easy\creditpart\meta_creditpartview\obj\Debug\meta_creditpartview.pdb

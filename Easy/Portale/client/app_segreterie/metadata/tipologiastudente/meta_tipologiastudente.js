@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -44,10 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'abbreviazione', 'Iscritto con una abbreviazione di corso', null, 20, null);
 						this.describeAColumn(table, 'annoiscr', 'Anno di iscrizione', null, 30, null);
 						this.describeAColumn(table, 'immatricolato', 'Immatricolato', null, 70, null);
-						this.describeAColumn(table, 'iscrittobmi', 'Iscritto ad un bando di mobilit‡ internazionale', null, 80, null);
+						this.describeAColumn(table, 'iscrittobmi', 'Iscritto ad un bando di mobilit√† internazionale', null, 80, null);
 						this.describeAColumn(table, 'passaggio', 'Iscritto con un passaggio di corso', null, 90, null);
 						this.describeAColumn(table, 'tri', 'Trasferimento in ingresso', null, 100, null);
-						this.describeAColumn(table, '!idcorsostudiokind_corsostudiokind_title', 'Tipologia del corso a cui Ë iscritto', null, 61, null);
+						this.describeAColumn(table, '!idcorsostudiokind_corsostudiokind_title', 'Tipologia del corso a cui √® iscritto', null, 61, null);
 						objCalcFieldConfig['!idcorsostudiokind_corsostudiokind_title'] = { tableNameLookup:'corsostudiokind', columnNameLookup:'title', columnNamekey:'idcorsostudiokind' };
 //$objCalcFieldConfig_seg$
 						break;
@@ -64,8 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'seg':
 						table.columns["abbreviazione"].caption = "Iscritto con una abbreviazione di corso";
 						table.columns["annoiscr"].caption = "Anno di iscrizione";
-						table.columns["idcorsostudiokind"].caption = "Tipologia del corso a cui Ë iscritto";
-						table.columns["iscrittobmi"].caption = "Iscritto ad un bando di mobilit‡ internazionale";
+						table.columns["idcorsostudiokind"].caption = "Tipologia del corso a cui √® iscritto";
+						table.columns["iscrittobmi"].caption = "Iscritto ad un bando di mobilit√† internazionale";
 						table.columns["passaggio"].caption = "Iscritto con un passaggio di corso";
 						table.columns["tri"].caption = "Trasferimento in ingresso";
 //$innerSetCaptionConfig_seg$

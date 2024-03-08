@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_ptarichiesta104_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_ptarichiesta104_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ptarichiestastatuskind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idptarichiestastatuskind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryamministrativiview_alias1" msprop:TableForReading="registryamministrativiview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="category_description" type="xs:string" minOccurs="0" />
+              <xs:element name="contrattokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="geo_city_title" type="xs:string" minOccurs="0" />
+              <xs:element name="geo_nation_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="maritalstatus_description" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_amministrativi_ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registry_amministrativi_cu" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_amministrativi_cv" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_amministrativi_idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_amministrativi_idreg" type="xs:int" />
+              <xs:element name="registry_amministrativi_lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registry_amministrativi_lu" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registry_ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_ct" type="xs:dateTime" />
+              <xs:element name="registry_cu" type="xs:string" />
+              <xs:element name="registry_email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_extension" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_flag_pa" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_gender" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_ipa_perlapa" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_location" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_lt" type="xs:dateTime" />
+              <xs:element name="registry_lu" type="xs:string" />
+              <xs:element name="registry_maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_residence" type="xs:int" />
+              <xs:element name="registry_rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="registry_sdi_defrifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_title" type="xs:string" />
+              <xs:element name="registry_toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_txt" type="xs:string" minOccurs="0" />
+              <xs:element name="registryclass_description" type="xs:string" minOccurs="0" />
+              <xs:element name="registrykind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="residence_description" type="xs:string" minOccurs="0" />
+              <xs:element name="title_description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrycongiuntodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="congiuntokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcongiuntokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idreg_parente" type="xs:int" />
+              <xs:element name="idregistrycongiunto" type="xs:int" />
+              <xs:element name="registrycongiunto_ct" type="xs:dateTime" />
+              <xs:element name="registrycongiunto_cu" type="xs:string" />
+              <xs:element name="registrycongiunto_lt" type="xs:dateTime" />
+              <xs:element name="registrycongiunto_lu" type="xs:string" />
+              <xs:element name="registryparente_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="afferenzaammview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="afferenza_ct" type="xs:dateTime" />
+              <xs:element name="afferenza_cu" type="xs:string" />
+              <xs:element name="afferenza_idmansionekind" type="xs:int" minOccurs="0" />
+              <xs:element name="afferenza_lt" type="xs:dateTime" />
+              <xs:element name="afferenza_lu" type="xs:string" />
+              <xs:element name="afferenza_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="afferenza_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idafferenza" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="mansionekind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturaparent_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registryamministrativiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ptarichiesta104" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idafferenza" type="xs:int" minOccurs="0" />
+              <xs:element name="idptarichiesta104" type="xs:int" />
+              <xs:element name="idptarichiestastatuskind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idreg_resp" type="xs:int" minOccurs="0" />
+              <xs:element name="idregistrycongiunto" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="orario" type="xs:string" minOccurs="0" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ptarichiestastatuskind" />
+      <xs:field xpath="mstns:idptarichiestastatuskind" />
+    </xs:unique>
+    <xs:unique name="registryamministrativiview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryamministrativiview_alias1" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registrycongiuntodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrycongiuntodefaultview" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idreg_parente" />
+      <xs:field xpath="mstns:idregistrycongiunto" />
+    </xs:unique>
+    <xs:unique name="afferenzaammview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:afferenzaammview" />
+      <xs:field xpath="mstns:idafferenza" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registryamministrativiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryamministrativiview" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="ptarichiesta104_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ptarichiesta104" />
+      <xs:field xpath="mstns:idptarichiesta104" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_ptarichiesta104_ptarichiestastatuskind_idptarichiestastatuskind" msdata:parent="ptarichiestastatuskind" msdata:child="ptarichiesta104" msdata:parentkey="idptarichiestastatuskind" msdata:childkey="idptarichiestastatuskind" />
+      <msdata:Relationship name="FK_ptarichiesta104_registryamministrativiview_alias1_idreg_resp" msdata:parent="registryamministrativiview_alias1" msdata:child="ptarichiesta104" msdata:parentkey="idreg" msdata:childkey="idreg_resp" />
+      <msdata:Relationship name="FK_ptarichiesta104_registrycongiuntodefaultview_idregistrycongiunto" msdata:parent="registrycongiuntodefaultview" msdata:child="ptarichiesta104" msdata:parentkey="idregistrycongiunto" msdata:childkey="idregistrycongiunto" />
+      <msdata:Relationship name="FK_ptarichiesta104_afferenzaammview_idafferenza" msdata:parent="afferenzaammview" msdata:child="ptarichiesta104" msdata:parentkey="idafferenza" msdata:childkey="idafferenza" />
+      <msdata:Relationship name="FK_ptarichiesta104_registryamministrativiview_idreg" msdata:parent="registryamministrativiview" msdata:child="ptarichiesta104" msdata:parentkey="idreg" msdata:childkey="idreg" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -500,7 +500,8 @@ namespace admpay_admintax_detail {
 			DS.admpay_appropriationview.AcceptChanges();
 			// Passo 3. Passo il DataTable al form delle impegnative
 			Frm_AdmPay_Appropriation_Choose f = new Frm_AdmPay_Appropriation_Choose(DS.admpay_appropriationview, Meta);
-			f.ShowDialog(this);
+            createForm(f, this);
+            f.ShowDialog(this);
 			if (f.DialogResult != DialogResult.OK) return;
 			if (f.Choosen == null) return;
 			// Passo 4. Dopo aver chiamato il form seleziono l'impegnativa scelta dal combo box

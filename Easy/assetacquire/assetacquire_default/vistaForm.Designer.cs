@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,39 +47,21 @@ namespace assetacquire_default {
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Causali di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetloadmotive 		=> (MetaTable)Tables["assetloadmotive"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	///<summary>
-	///Carico dei cespiti da bolla/fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetacquireTable assetacquire 		=> (assetacquireTable)Tables["assetacquire"];
 
-	///<summary>
-	///Utilizzo carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetusage 		=> (MetaTable)Tables["assetusage"];
 
-	///<summary>
-	///Contratto Passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandateTable mandate 		=> (mandateTable)Tables["mandate"];
 
-	///<summary>
-	///Inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventory 		=> (MetaTable)Tables["inventory"];
 
@@ -92,18 +74,12 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetusageview 		=> (MetaTable)Tables["assetusageview"];
 
-	///<summary>
-	///Tipo utilizzo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetusagekind 		=> (MetaTable)Tables["assetusagekind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandatedetailview 		=> (MetaTable)Tables["mandatedetailview"];
 
-	///<summary>
-	///Cespiti e accessori
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetTable asset 		=> (assetTable)Tables["asset"];
 
@@ -113,134 +89,77 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetview 		=> (MetaTable)Tables["assetview"];
 
-	///<summary>
-	///Tipi di buoni di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetloadkindTable assetloadkind 		=> (assetloadkindTable)Tables["assetloadkind"];
 
-	///<summary>
-	///Tipo contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandatekindTable mandatekind 		=> (mandatekindTable)Tables["mandatekind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrymainview 		=> (MetaTable)Tables["registrymainview"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb 		=> (upbTable)Tables["upb"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting1 		=> (sortingTable)Tables["sorting1"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting2 		=> (sortingTable)Tables["sorting2"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting3 		=> (sortingTable)Tables["sorting3"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public managerTable manager 		=> (managerTable)Tables["manager"];
 
-	///<summary>
-	///Piano delle Ubicazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public locationTable location 		=> (locationTable)Tables["location"];
 
-	///<summary>
-	///Responsabile cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetmanager 		=> (MetaTable)Tables["assetmanager"];
 
-	///<summary>
-	///Ubicazione cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetlocation 		=> (MetaTable)Tables["assetlocation"];
 
-	///<summary>
-	///Buono di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public assetloadTable assetload 		=> (assetloadTable)Tables["assetload"];
 
-	///<summary>
-	///Campi aggiuntivi per cespiti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable multifieldkind 		=> (MetaTable)Tables["multifieldkind"];
 
-	///<summary>
-	///Configurazione multicampo per classificazione inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventorytreemultifieldkind 		=> (MetaTable)Tables["inventorytreemultifieldkind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable submanager 		=> (MetaTable)Tables["submanager"];
 
-	///<summary>
-	///Consegnatario cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetsubmanager 		=> (MetaTable)Tables["assetsubmanager"];
 
-	///<summary>
-	///Listino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public listTable list 		=> (listTable)Tables["list"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable listview 		=> (MetaTable)Tables["listview"];
 
-	///<summary>
-	///Dettaglio contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandatedetailTable mandatedetail 		=> (mandatedetailTable)Tables["mandatedetail"];
 
-	///<summary>
-	///Dettaglio documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicedetailTable invoicedetail 		=> (invoicedetailTable)Tables["invoicedetail"];
 
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoiceTable invoice 		=> (invoiceTable)Tables["invoice"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicekindTable invoicekind 		=> (invoicekindTable)Tables["invoicekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable costpartition 		=> (MetaTable)Tables["costpartition"];
 
 	#endregion
 
@@ -287,7 +206,7 @@ private void initClass() {
 
 	//////////////////// ASSETACQUIRE /////////////////////////////////
 	var tassetacquire= new assetacquireTable();
-	tassetacquire.addBaseColumns("nassetacquire","idmankind","yman","nman","rownum","idreg","flag","idmot","idinv","description","idinventory","idassetload","number","taxable","tax","abatable","taxrate","discount","startnumber","adate","txt","rtf","cu","ct","lu","lt","transmitted","idupb","idsor1","idsor2","idsor3","historicalvalue","idlist","yinv","ninv","idinvkind","invrownum");
+	tassetacquire.addBaseColumns("nassetacquire","idmankind","yman","nman","rownum","idreg","flag","idmot","idinv","description","idinventory","idassetload","number","taxable","tax","abatable","taxrate","discount","startnumber","adate","txt","rtf","cu","ct","lu","lt","transmitted","idupb","idsor1","idsor2","idsor3","historicalvalue","idlist","yinv","ninv","idinvkind","invrownum","idcostpartition");
 	Tables.Add(tassetacquire);
 	tassetacquire.defineKey("nassetacquire");
 
@@ -402,6 +321,7 @@ private void initClass() {
 	tassetacquireview.defineColumn("codeupb", typeof(string));
 	tassetacquireview.defineColumn("upb", typeof(string));
 	tassetacquireview.defineColumn("ratificationdate", typeof(DateTime));
+	tassetacquireview.defineColumn("idcostpartition", typeof(int));
 	Tables.Add(tassetacquireview);
 	tassetacquireview.defineKey("nassetacquire");
 
@@ -824,7 +744,7 @@ private void initClass() {
 
 	//////////////////// INVOICEDETAIL /////////////////////////////////
 	var tinvoicedetail= new invoicedetailTable();
-	tinvoicedetail.addBaseColumns("ninv","rownum","yinv","annotations","competencystart","paymentcompetency","competencystop","ct","cu","detaildescription","discount","idaccmotive","idmankind","idupb","lt","lu","manrownum","nman","number","tax","taxable","unabatable","yman","idestimkind","estimrownum","nestim","yestim","idgroup","idexp_taxable","idexp_iva","idinc_taxable","idinc_iva","ninv_main","yinv_main","idivakind","idinvkind","idsor1","idsor2","idsor3","idintrastatcode","idintrastatmeasure","weight","va3type","intrastatoperationkind","idintrastatservice","idintrastatsupplymethod","idlist","idunit","idpackage","unitsforpackage","npackage","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idpccdebitstatus","idpccdebitmotive","idcostpartition","expensekind","rounding","idepexp","idepacc","flagbit","idfinmotive","iduniqueformcode");
+	tinvoicedetail.addBaseColumns("ninv","rownum","yinv","annotations","competencystart","paymentcompetency","competencystop","ct","cu","detaildescription","discount","idaccmotive","idmankind","idupb","lt","lu","manrownum","nman","number","tax","taxable","unabatable","yman","idestimkind","estimrownum","nestim","yestim","idgroup","idexp_taxable","idexp_iva","idinc_taxable","idinc_iva","ninv_main","yinv_main","idivakind","idinvkind","idsor1","idsor2","idsor3","idintrastatcode","idintrastatmeasure","weight","va3type","intrastatoperationkind","idintrastatservice","idintrastatsupplymethod","idlist","idunit","idpackage","unitsforpackage","npackage","flag","exception12","intra12operationkind","move12","idupb_iva","idinvkind_main","leasing","usedmodesospesometro","resetresidualmandate","idfetransfer","fereferencerule","cupcode","cigcode","idpccdebitstatus","idpccdebitmotive","idcostpartition","expensekind","rounding","idepexp","idepacc","flagbit","idfinmotive","iduniqueformcode","rownum_main");
 	Tables.Add(tinvoicedetail);
 	tinvoicedetail.defineKey("ninv", "rownum", "yinv", "idinvkind");
 
@@ -839,6 +759,21 @@ private void initClass() {
 	tinvoicekind.addBaseColumns("ct","cu","description","lt","lu","codeinvkind","idinvkind","flag","flag_autodocnumbering","formatstring","active","idinvkind_auto","printingcode","idsor01","idsor02","idsor03","idsor04","idsor05","address","header","notes1","notes2","notes3","ipa_fe","riferimento_amministrazione","enable_fe");
 	Tables.Add(tinvoicekind);
 	tinvoicekind.defineKey("idinvkind");
+
+	//////////////////// COSTPARTITION /////////////////////////////////
+	var tcostpartition= new MetaTable("costpartition");
+	tcostpartition.defineColumn("idcostpartition", typeof(int),false);
+	tcostpartition.defineColumn("title", typeof(string));
+	tcostpartition.defineColumn("kind", typeof(string));
+	tcostpartition.defineColumn("lt", typeof(DateTime));
+	tcostpartition.defineColumn("lu", typeof(string));
+	tcostpartition.defineColumn("ct", typeof(DateTime));
+	tcostpartition.defineColumn("cu", typeof(string));
+	tcostpartition.defineColumn("costpartitioncode", typeof(string));
+	tcostpartition.defineColumn("active", typeof(string));
+	tcostpartition.defineColumn("description", typeof(string));
+	Tables.Add(tcostpartition);
+	tcostpartition.defineKey("idcostpartition");
 
 	#endregion
 
@@ -885,6 +820,7 @@ private void initClass() {
 	this.defineRelation("inventoryassetacquire","inventory","assetacquire","idinventory");
 	this.defineRelation("inventorytreeviewassetacquire","inventorytreeview","assetacquire","idinv");
 	this.defineRelation("FK_invoice_assetacquire","invoice","assetacquire","ninv","yinv","idinvkind");
+	this.defineRelation("costpartition_assetacquire","costpartition","assetacquire","idcostpartition");
 	#endregion
 
 }

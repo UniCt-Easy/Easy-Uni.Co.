@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -220,7 +220,12 @@ namespace meta_sorting{//meta_classmovimenti//
         public override DataRow SelectOne (string ListingType, string filter, string searchtable, DataTable Exclude) {
             if (ListingType == "treenew") return base.SelectOne(ListingType, filter, "sortingyearview", Exclude);
             if (ListingType == "history") return base.SelectOne(ListingType, filter, "sortingyearview", Exclude);
-            if (ListingType == "treeusable") return base.SelectOne(ListingType, filter, "sortingusable", Exclude);
+            if (ListingType == "treeusable") {
+                //includo filtro su anno inzio e fine
+                filter = QHS.AppAnd(filter, QHS.AppAnd(QHS.NullOrLe("start", GetSys("esercizio")),
+                         QHS.NullOrGe("stop", GetSys("esercizio"))));
+                return base.SelectOne(ListingType, filter, "sortingusable", Exclude);
+            }
             if (ListingType == "treeall") return base.SelectOne(ListingType, filter, "sortingall", Exclude);
             if (ListingType == "tree5") {
                 filter = QHS.AppAnd(filter, QHS.CmpEq("nlevel", 5));

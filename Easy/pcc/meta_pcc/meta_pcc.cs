@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,19 +31,25 @@ namespace meta_pcc {
             base(Conn, Dispatcher, "pcc") {
             EditTypes.Add("default");
             EditTypes.Add("wizard_calcolo");
+            EditTypes.Add("wizard_calcolo_sid");
             ListingTypes.Add("default");
         }
         protected override Form GetForm(string FormName) {
             switch (FormName) {
                 case "default": {
                         DefaultListType = "default";
-                        Name = "Piattaforma per la certificazione dei crediti";
+                        Name = "Trasmissioni AreaRGS effettuate";
                         return MetaData.GetFormByDllName("pcc_default");
                     }
                 case "wizard_calcolo": {
                         DefaultListType = "default";
                         Name = "Calcolo dati per Piattaforma per la certificazione dei crediti";
                         return MetaData.GetFormByDllName("pcc_wizard_calcolo");
+                    }
+                case "wizard_calcolo_sid": {
+                        DefaultListType = "default";
+                        Name = "Genera file trasmissione AreaRGS";
+                        return MetaData.GetFormByDllName("pccsid_wizard_calcolo");
                     }
             }
             return null;

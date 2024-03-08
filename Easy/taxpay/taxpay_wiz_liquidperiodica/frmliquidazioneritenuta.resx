@@ -129,7 +129,7 @@ FASE 1: SCELTA DEI DETTAGLI IMPOSTA DA LIQUIDARE
 - L'utente seleziona il Tipo imposta che intende liquidare. Nel menu a tendina vengono mostrati SOLO i Tipi imposta per i quali esistono dei dettagli imposte 
 da liquidare.
 - Vengono mostrati tutti i dettagli imposte del tipo selezionato, che non sono state ancora liquidate e che rientrano nel periodo di liquidazione.
-- Il periodo di liquidazione è impostato in automatico e dipende da quanto configurato sul singolo Tipo imposta (Opzioni>Compensi>Imposte>Automatismi imposte).
+- Il periodo di liquidazione è impostato in automatico e dipende da quanto configurato sul singolo Tipo imposta (Opzioni&gt;Compensi&gt;Imposte&gt;Automatismi imposte).
 - L'utente seleziona tutti i dettagli ritenuta che intende liquidare
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------

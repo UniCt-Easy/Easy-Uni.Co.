@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -103,7 +103,7 @@ namespace meta_asset//meta_beneinventariabile//
 			}
 			if (EditType=="trasferimento")
 			{
-				Name = "Traferimento Cespiti";
+				Name = "Modifica informazioni cespiti";
 				this.CanCancel=false;
 				this.CanInsert=false;
 				this.CanInsertCopy=false;

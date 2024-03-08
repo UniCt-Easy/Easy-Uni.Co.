@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,7 +43,7 @@ namespace ticket_default.helpDeskService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="doHelpDeskSoap", Namespace="http://ticket.temposrl.it/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="doHelpDeskSoap", Namespace="http://SERVER/")]
     public partial class doHelpDesk : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback registerClienteOperationCompleted;
@@ -120,7 +120,7 @@ namespace ticket_default.helpDeskService {
         public event creaTicketCompletedEventHandler creaTicketCompleted;
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ticket.temposrl.it/registerCliente", RequestNamespace="http://ticket.temposrl.it/", ResponseNamespace="http://ticket.temposrl.it/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://SERVER/registerCliente", RequestNamespace="http://SERVER/", ResponseNamespace="http://SERVER/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string registerCliente(string idente, string idstruttura, string email, string tel1, string tel2, string cell, string nome, string cognome, string sessoMF, string titolo, string username) {
             object[] results = this.Invoke("registerCliente", new object[] {
                         idente,
@@ -169,7 +169,7 @@ namespace ticket_default.helpDeskService {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ticket.temposrl.it/aggiornaCliente", RequestNamespace="http://ticket.temposrl.it/", ResponseNamespace="http://ticket.temposrl.it/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://SERVER/aggiornaCliente", RequestNamespace="http://SERVER/", ResponseNamespace="http://SERVER/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string aggiornaCliente(string idcliente, string idente, string email, string tel1, string tel2, string cell, string nome, string cognome, string sessoMF, string titolo, string username) {
             object[] results = this.Invoke("aggiornaCliente", new object[] {
                         idcliente,
@@ -218,7 +218,7 @@ namespace ticket_default.helpDeskService {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ticket.temposrl.it/registerStruttura", RequestNamespace="http://ticket.temposrl.it/", ResponseNamespace="http://ticket.temposrl.it/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://SERVER/registerStruttura", RequestNamespace="http://SERVER/", ResponseNamespace="http://SERVER/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string registerStruttura(string nomeDip, string idente) {
             object[] results = this.Invoke("registerStruttura", new object[] {
                         nomeDip,
@@ -249,7 +249,7 @@ namespace ticket_default.helpDeskService {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ticket.temposrl.it/registerEnte", RequestNamespace="http://ticket.temposrl.it/", ResponseNamespace="http://ticket.temposrl.it/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://SERVER/registerEnte", RequestNamespace="http://SERVER/", ResponseNamespace="http://SERVER/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string registerEnte(string nomeEnte, string p_iva) {
             object[] results = this.Invoke("registerEnte", new object[] {
                         nomeEnte,
@@ -280,7 +280,7 @@ namespace ticket_default.helpDeskService {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ticket.temposrl.it/elencaEnti", RequestNamespace="http://ticket.temposrl.it/", ResponseNamespace="http://ticket.temposrl.it/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://SERVER/elencaEnti", RequestNamespace="http://SERVER/", ResponseNamespace="http://SERVER/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string elencaEnti() {
             object[] results = this.Invoke("elencaEnti", new object[0]);
             return ((string)(results[0]));
@@ -307,7 +307,7 @@ namespace ticket_default.helpDeskService {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ticket.temposrl.it/getStatoTicket", RequestNamespace="http://ticket.temposrl.it/", ResponseNamespace="http://ticket.temposrl.it/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://SERVER/getStatoTicket", RequestNamespace="http://SERVER/", ResponseNamespace="http://SERVER/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string getStatoTicket(int idticket) {
             object[] results = this.Invoke("getStatoTicket", new object[] {
                         idticket});
@@ -336,7 +336,7 @@ namespace ticket_default.helpDeskService {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ticket.temposrl.it/creaTicket", RequestNamespace="http://ticket.temposrl.it/", ResponseNamespace="http://ticket.temposrl.it/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://SERVER/creaTicket", RequestNamespace="http://SERVER/", ResponseNamespace="http://SERVER/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string creaTicket(int idcliente, int idstruttura, int idente, string dataSet, string immagine, string stato, string attachment, string attachmentname, string outputView, string dlllist, string problema) {
             object[] results = this.Invoke("creaTicket", new object[] {
                         idcliente,

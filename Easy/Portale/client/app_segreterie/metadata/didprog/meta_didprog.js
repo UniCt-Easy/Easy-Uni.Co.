@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -75,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["annosolare"].caption = "Anno solare";
 						table.columns["attribdebiti"].caption = "Attribuzione eventuali crediti o debiti formativi";
 						table.columns["codicemiur"].caption = "Codice MIUR";
-						table.columns["dataconsmaxiscr"].caption = "Data del conseguimento massima per il quale Ë consentito iscriversi";
+						table.columns["dataconsmaxiscr"].caption = "Data del conseguimento massima per il quale √® consentito iscriversi";
 						table.columns["freqobbl"].caption = "Frequenza Obbligatoria";
 						table.columns["idareadidattica"].caption = "Area didattica";
 						table.columns["idconvenzione"].caption = "Convenzione";
@@ -93,8 +76,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["idsessione"].caption = "Sessione";
 						table.columns["idtitolokind"].caption = "Titolo di studi";
 						table.columns["immatoltreauth"].caption = "Consenti l'immatricolazione oltre i termini";
-						table.columns["modaccesso"].caption = "Modalit‡ e conoscenze per l'accesso";
-						table.columns["modaccesso_en"].caption = "Modalit‡ e conoscenze per l'accesso (EN)";
+						table.columns["modaccesso"].caption = "Modalit√† e conoscenze per l'accesso";
+						table.columns["modaccesso_en"].caption = "Modalit√† e conoscenze per l'accesso (EN)";
 						table.columns["obbformativi"].caption = "Obiettivi formativi";
 						table.columns["obbformativi_en"].caption = "Obiettivi formativi (EN)";
 						table.columns["preimmatoltreauth"].caption = "Consenti la pre-immatricolazione oltre i termini";
@@ -120,7 +103,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["annosolare"].caption = "Anno solare";
 						table.columns["attribdebiti"].caption = "Attribuzione eventuali crediti o debiti formativi";
 						table.columns["codicemiur"].caption = "Codice MIUR";
-						table.columns["dataconsmaxiscr"].caption = "Data del conseguimento massima per il quale Ë consentito iscriversi";
+						table.columns["dataconsmaxiscr"].caption = "Data del conseguimento massima per il quale √® consentito iscriversi";
 						table.columns["freqobbl"].caption = "Frequenza Obbligatoria";
 						table.columns["idareadidattica"].caption = "Area didattica";
 						table.columns["idconvenzione"].caption = "Convenzione";
@@ -138,8 +121,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["idsessione"].caption = "Sessione";
 						table.columns["idtitolokind"].caption = "Titolo di studi";
 						table.columns["immatoltreauth"].caption = "Consenti l'immatricolazione oltre i termini";
-						table.columns["modaccesso"].caption = "Modalit‡ e conoscenze per l'accesso";
-						table.columns["modaccesso_en"].caption = "Modalit‡ e conoscenze per l'accesso (EN)";
+						table.columns["modaccesso"].caption = "Modalit√† e conoscenze per l'accesso";
+						table.columns["modaccesso_en"].caption = "Modalit√† e conoscenze per l'accesso (EN)";
 						table.columns["obbformativi"].caption = "Obiettivi formativi";
 						table.columns["obbformativi_en"].caption = "Obiettivi formativi (EN)";
 						table.columns["preimmatoltreauth"].caption = "Consenti la pre-immatricolazione oltre i termini";
@@ -161,7 +144,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["annosolare"].caption = "Anno solare";
 						table.columns["attribdebiti"].caption = "Attribuzione eventuali crediti o debiti formativi";
 						table.columns["codicemiur"].caption = "Codice MIUR";
-						table.columns["dataconsmaxiscr"].caption = "Data del conseguimento massima per il quale Ë consentito iscriversi";
+						table.columns["dataconsmaxiscr"].caption = "Data del conseguimento massima per il quale √® consentito iscriversi";
 						table.columns["freqobbl"].caption = "Frequenza Obbligatoria";
 						table.columns["idareadidattica"].caption = "Area didattica";
 						table.columns["idconvenzione"].caption = "Convenzione";
@@ -179,8 +162,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						table.columns["idsessione"].caption = "Sessione";
 						table.columns["idtitolokind"].caption = "Titolo di studi";
 						table.columns["immatoltreauth"].caption = "Consenti iscrizioni oltre i termini";
-						table.columns["modaccesso"].caption = "Modalit‡ e conoscenze per l'accesso";
-						table.columns["modaccesso_en"].caption = "Modalit‡ e conoscenze per l'accesso (EN)";
+						table.columns["modaccesso"].caption = "Modalit√† e conoscenze per l'accesso";
+						table.columns["modaccesso_en"].caption = "Modalit√† e conoscenze per l'accesso (EN)";
 						table.columns["obbformativi"].caption = "Obiettivi formativi";
 						table.columns["obbformativi_en"].caption = "Obiettivi formativi (EN)";
 						table.columns["preimmatoltreauth"].caption = "Consenti la pre-immatricolazione oltre i termini";

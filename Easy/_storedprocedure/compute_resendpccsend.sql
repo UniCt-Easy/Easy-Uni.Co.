@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +24,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 -- la sp rigenera il file trasmesso, usando gli stessi dati
--- setuser 'amm'
+-- setuser 'amministrazione'
 -- compute_resendpccsend 63
 CREATE procedure compute_resendpccsend( 
 	@idpcc int
@@ -36,6 +36,7 @@ create table #dati(
 	idinvkind int,  
 	yinv smallint, 
 	ninv int,
+	identificativo_sdi bigint,
 	idmankind varchar(20),
 	yman smallint,
 	nman int,
@@ -61,7 +62,7 @@ create table #dati(
 	resendingpcc char(1),
 
 	aliquotaiva decimal(19,2),
-	natura varchar(2),
+	natura varchar(4),
 	imponibile_peraliquota decimal(19,2),
 	imposta_peraliquota decimal(19,2),
 	importo_percigcup decimal(19,2),
@@ -73,6 +74,7 @@ create table #dati(
 -- FATTURE 
 insert into #dati(
 	idinvkind,  yinv, ninv,
+	identificativo_sdi,
 	idreg,	
 	tipodocumento,
 	dataemissione ,
@@ -102,6 +104,7 @@ insert into #dati(
 )
 select 
 	I.idinvkind, I.yinv, I.ninv,
+	isnull(sdi.identificativo_sdi,sdi_estere.identificativo_sdi ),
 	I.idreg	,
 -- tipo documento
 	CASE
@@ -174,6 +177,9 @@ select
 from pccsend P
 join invoiceview I 
 	on P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv
+	left outer join sdi_acquisto sdi on I.idsdi_acquisto = sdi.idsdi_acquisto
+	left outer join sdi_acquistoestere sdi_estere on I.idsdi_acquistoestere = sdi_estere.idsdi_acquistoestere
+
 join invoicekind IK
 	ON IK.idinvkind = I.idinvkind
 left outer join profservice PF
@@ -403,6 +409,7 @@ select
 	D.tipodocumento ,
 	D.numerodocumento ,
 	D.dataemissione ,
+	D.identificativo_sdi,
 	D.importototaledocumento ,
 	D.causale,
 	null as 'Art73',
@@ -442,7 +449,7 @@ join ipa --- IMPORTANTE!!! Deve essere un JOIN
 	on D.ipa = ipa.ipa_fe
 join Fornitore R
 	on R.idreg = D.idreg
-	group by D.ipa, IPA.agencyname,R.cf,D.idinvkind, D.yinv, D.ninv, D.idmankind, D.yman, D.nman, D.ycon, D.ncon,
+	group by D.ipa, IPA.agencyname,R.cf,D.idinvkind, D.yinv, D.ninv,D.identificativo_sdi, D.idmankind, D.yman, D.nman, D.ycon, D.ncon,
 		R.IdFiscaleIvaFornitore,R.title,D.tipodocumento ,
 		D.numerodocumento ,	D.dataemissione ,	D.importototaledocumento ,	D.causale,D.Imponibiletotaledocumento ,
 		D.ivatotaledocumento,	D.aliquotaiva,D.natura,cigcode,	cupcode,	D.datascadenzapagamento , 

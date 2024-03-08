@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaregistroiva.xsd" xmlns:mstns="http://tempuri.org/vistaregistroiva.xsd" xmlns="http://tempuri.org/vistaregistroiva.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaregistroiva.xsd" xmlns:mstns="http://tempuri.org/vistaregistroiva.xsd" xmlns="http://tempuri.org/vistaregistroiva.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -167,6 +167,9 @@
               <xs:element name="description" type="xs:string" />
               <xs:element name="rate" type="xs:decimal" />
               <xs:element name="unabatabilitypercentage" type="xs:decimal" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="annotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idfenature" type="xs:string" minOccurs="0" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
@@ -211,33 +214,15 @@
       <xs:selector xpath=".//mstns:ivakind" />
       <xs:field xpath="mstns:idivakind" />
     </xs:unique>
-    <xs:keyref name="ivakindinvoicedetail" refer="ivakind_Constraint1">
-      <xs:selector xpath=".//mstns:invoicedetail" />
-      <xs:field xpath="mstns:idivakind" />
-    </xs:keyref>
-    <xs:keyref name="invoiceinvoicedetail" refer="invoice_Constraint1">
-      <xs:selector xpath=".//mstns:invoicedetail" />
-      <xs:field xpath="mstns:idinvkind" />
-      <xs:field xpath="mstns:yinv" />
-      <xs:field xpath="mstns:ninv" />
-    </xs:keyref>
-    <xs:keyref name="registryinvoice" refer="registry_Constraint1">
-      <xs:selector xpath=".//mstns:invoice" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:keyref>
-    <xs:keyref name="invoiceivaregister" refer="invoice_Constraint1">
-      <xs:selector xpath=".//mstns:ivaregister" />
-      <xs:field xpath="mstns:idinvkind" />
-      <xs:field xpath="mstns:yinv" />
-      <xs:field xpath="mstns:ninv" />
-    </xs:keyref>
-    <xs:keyref name="invoicekindivaregister" refer="invoicekind_Constraint1">
-      <xs:selector xpath=".//mstns:ivaregister" />
-      <xs:field xpath="mstns:idinvkind" />
-    </xs:keyref>
-    <xs:keyref name="ivaregisterkindivaregister" refer="ivaregisterkind_Constraint1">
-      <xs:selector xpath=".//mstns:ivaregister" />
-      <xs:field xpath="mstns:idivaregisterkind" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="ivakindinvoicedetail" msdata:parent="ivakind" msdata:child="invoicedetail" msdata:parentkey="idivakind" msdata:childkey="idivakind" />
+      <msdata:Relationship name="invoiceinvoicedetail" msdata:parent="invoice" msdata:child="invoicedetail" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
+      <msdata:Relationship name="registryinvoice" msdata:parent="registry" msdata:child="invoice" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="invoiceivaregister" msdata:parent="invoice" msdata:child="ivaregister" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
+      <msdata:Relationship name="invoicekindivaregister" msdata:parent="invoicekind" msdata:child="ivaregister" msdata:parentkey="idinvkind" msdata:childkey="idinvkind" />
+      <msdata:Relationship name="ivaregisterkindivaregister" msdata:parent="ivaregisterkind" msdata:child="ivaregister" msdata:parentkey="idivaregisterkind" msdata:childkey="idivaregisterkind" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

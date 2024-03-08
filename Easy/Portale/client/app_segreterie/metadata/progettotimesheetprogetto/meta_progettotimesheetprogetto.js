@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -43,11 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					case 'default':
 						this.describeAColumn(table, '!idprogetto_progetto_codiceidentificativo', 'Codice identificativo', null, 10, null);
 						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo', null, 11, null);
-						this.describeAColumn(table, '!idprogetto_progettokind_title', 'Tipo di progetto o attivit‡', null, 12, null);
+						this.describeAColumn(table, '!idprogetto_progettokind_title', 'Tipo di progetto o attivit√†', null, 12, null);
 						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio', null, 10, null);
 						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine', null, 10, null);
 						this.describeAColumn(table, '!idprogetto_progetto_datacontabile', 'Data chiusura contablile', null, 10, null);
-						this.describeAColumn(table, '!idprogetto_progettostatuskind_title', 'Stato del progetto o attivit‡', null, 11, null);
+						this.describeAColumn(table, '!idprogetto_progettostatuskind_title', 'Stato del progetto o attivit√†', null, 11, null);
 						this.describeAColumn(table, '!idprogetto_registry_title', 'Principal investigator / Responsabile di progetto ', null, 11, null);
 						this.describeAColumn(table, '!idprogetto_registry_title', 'Ente capofila', null, 11, null);
 						this.describeAColumn(table, '!idprogetto_progetto_capofilatxt', 'Ente capofila non censito', null, 10, null);
@@ -56,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, '!idprogetto_progetto_budget', 'Costo totale per l\'ateneo', 'fixed.2', 10, null);
 						this.describeAColumn(table, '!idprogetto_progetto_budgetcalcolato', 'Costo totale effettivo per l\'ateneo', 'fixed.2', 10, null);
 						this.describeAColumn(table, '!idprogetto_progetto_budgetcalcolatodate', 'Calcolato il', 'g', 10, null);
-						this.describeAColumn(table, '!idprogetto_progetto_contributoente', 'Contributo totale richiesto dall\'ateneo allíente finanziatore', 'fixed.2', 10, null);
+						this.describeAColumn(table, '!idprogetto_progetto_contributoente', 'Contributo totale richiesto dall\'ateneo all‚Äôente finanziatore', 'fixed.2', 10, null);
 						this.describeAColumn(table, '!idprogetto_progetto_contributo', 'Cofinanziamento richiesto all\'ateneo', 'fixed.2', 10, null);
 						this.describeAColumn(table, '!idprogetto_progetto_cup', 'Codice univoco progetto (CUP)', null, 10, null);
 						this.describeAColumn(table, '!idprogetto_corsostudio_title', 'Denominazione Didattica', null, 11, null);
@@ -96,21 +79,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//$setCaptions$
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_progettotimesheetprogetto");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_progettotimesheetprogetto");
 
 				//$getNewRowInside$
 
 
 				// metto i default
-				var objRow = dt.newRow({
-					idprogetto : 0,
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

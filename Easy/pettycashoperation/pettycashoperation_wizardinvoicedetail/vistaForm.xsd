@@ -539,6 +539,7 @@
               <xs:element name="npackage" type="xs:decimal" minOccurs="0" />
               <xs:element name="unitsforpackage" type="xs:int" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="rownum_main" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

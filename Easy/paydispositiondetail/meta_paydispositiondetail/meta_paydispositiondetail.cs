@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -335,6 +335,24 @@ namespace meta_paydispositiondetail {
                 errmess = "Deve essere scelta una modalità di pagamento";
                 errfield = "paymethodcode";
                 return false;
+            }
+
+            if (CfgFn.GetNoNullInt32(R["paymethodcode"]) == 6) {
+                if (R["paymentcode"] == DBNull.Value) { 
+                errmess = "Per la modalità Girofondo Tab A specificare il numero conto in Banca d'Italia";
+                errfield = "paymentcode";
+                return false;
+                }
+
+            }
+
+            if (CfgFn.GetNoNullInt32(R["paymethodcode"]) == 7) {
+                if (R["iban"] == DBNull.Value) {
+                    errmess = "Per la modalità Girofondo Tab B specificare il codice IBAN";
+                    errfield = "iban";
+                    return false;
+                }
+
             }
 
             return true;

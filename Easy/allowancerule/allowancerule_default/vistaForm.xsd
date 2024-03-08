@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -30,6 +30,7 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="livello" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -62,13 +63,11 @@
       <xs:selector xpath=".//mstns:position" />
       <xs:field xpath="mstns:idposition" />
     </xs:unique>
-    <xs:keyref name="allowancerule_allowanceruledetail" refer="Constraint1">
-      <xs:selector xpath=".//mstns:allowanceruledetail" />
-      <xs:field xpath="mstns:idallowancerule" />
-    </xs:keyref>
-    <xs:keyref name="position_allowanceruledetail" refer="position_Constraint1">
-      <xs:selector xpath=".//mstns:allowanceruledetail" />
-      <xs:field xpath="mstns:idposition" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="position_allowanceruledetail" msdata:parent="position" msdata:child="allowanceruledetail" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="allowancerule_allowanceruledetail" msdata:parent="allowancerule" msdata:child="allowanceruledetail" msdata:parentkey="idallowancerule" msdata:childkey="idallowancerule" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

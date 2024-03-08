@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -59,7 +59,8 @@ namespace flussoincassi_default {
         private Label label4;
         private TextBox txtNomeFileRisposta;
         public Button btnImportaFileEsito;
-        private OpenFileDialog openFileDialog1;
+        private OpenFileDialog _openFileDialog1;
+        private IOpenFileDialog openFileDialog1;
         MetaData Meta;
         private GroupBox gboxBill;
         private Button btnBill;
@@ -128,7 +129,8 @@ namespace flussoincassi_default {
 			this.txtNomeFileRisposta = new System.Windows.Forms.TextBox();
 			this.btnImportaFileEsito = new System.Windows.Forms.Button();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.openFileDialog1 = createOpenFileDialog(this._openFileDialog1);
 			this.DS = new flussoincassi_default.vistaForm();
 			this.MetaDataDetail.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();

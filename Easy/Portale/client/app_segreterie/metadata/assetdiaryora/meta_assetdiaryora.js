@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+ï»¿(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'amount', 'Amount', 'fixed.2', 10, null);
+						this.describeAColumn(table, 'amount', 'Importo', 'fixed.2', 10, null);
 						this.describeAColumn(table, '!title', 'Descrizione', null, 20, null);
 						this.describeAColumn(table, 'start', 'Data e ora di inizio', 'g', 80, null);
 						this.describeAColumn(table, 'stop', 'Data e ora di fine', 'g', 90, null);
@@ -52,14 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //$objCalcFieldConfig_seg$
 						break;
 					case 'segsal':
-						this.describeAColumn(table, 'amount', 'Amount', 'fixed.2', 10, null);
-						this.describeAColumn(table, '!title', 'Descrizione', null, 20, null);
-						this.describeAColumn(table, 'start', 'Data e ora di inizio', 'g', 80, null);
-						this.describeAColumn(table, 'stop', 'Data e ora di fine', 'g', 90, null);
-						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio Stato avanzamento lavori', null, 151, null);
-						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine Stato avanzamento lavori', null, 152, null);
-						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal_alias1', columnNameLookup:'start', columnNamekey:'idsal' };
-						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal_alias1', columnNameLookup:'stop', columnNamekey:'idsal' };
+						this.describeAColumn(table, 'idassetdiary', 'Diario d\'uso', null, 20, null);
+						this.describeAColumn(table, 'start', 'Data e ora di inizio', 'g', 30, null);
+						this.describeAColumn(table, 'stop', 'Data e ora di fine', 'g', 40, null);
+						this.describeAColumn(table, 'amount', 'Importo', 'fixed.2', 50, null);
 //$objCalcFieldConfig_segsal$
 						break;
 //$objCalcFieldConfig$
@@ -74,10 +53,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				switch (edittype) {
 					case 'segsal':
 						table.columns["!title"].caption = "Descrizione";
+						table.columns["amount"].caption = "Importo";
+						table.columns["idsal"].caption = "Stato avanzamento lavori";
+						table.columns["start"].caption = "Data e ora di inizio";
+						table.columns["stop"].caption = "Data e ora di fine";
+						table.columns["idassetdiary"].caption = "Diario d'uso";
 //$innerSetCaptionConfig_segsal$
 						break;
 					case 'seg':
 						table.columns["!title"].caption = "Descrizione";
+						table.columns["amount"].caption = "Importo";
+						table.columns["idsal"].caption = "Stato avanzamento lavori";
+						table.columns["start"].caption = "Data e ora di inizio";
+						table.columns["stop"].caption = "Data e ora di fine";
+						table.columns["amount"].caption = "Importo";
+						table.columns["idsal"].caption = "Stato avanzamento lavori";
+						table.columns["start"].caption = "Data e ora di inizio";
+						table.columns["stop"].caption = "Data e ora di fine";
+						table.columns["amount"].caption = "Importo";
+						table.columns["idsal"].caption = "Stato avanzamento lavori";
+						table.columns["start"].caption = "Data e ora di inizio";
+						table.columns["stop"].caption = "Data e ora di fine";
 //$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$
@@ -113,6 +109,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					}
 					case "segsal": {
 						return "!title desc";
+					}
+					case "segsal": {
+						return "!title desc, start asc ";
+					}
+					case "segsal": {
+						return "start asc ";
 					}
 					//$getSortingin$
 				}

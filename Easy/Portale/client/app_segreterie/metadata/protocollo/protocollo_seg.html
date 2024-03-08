@@ -2,13 +2,13 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabprotocollo_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabprotocollo_seg_0"><i class="fa fa-stamp mr-1"></i>Principale</a>
+		<a href="#tabprotocollo_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_0"><i class="fa fa-stamp mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprotocollo_seg_1" class="nav-link" data-toggle="pill" data-target="#tabprotocollo_seg_1"><i class="fa fa-sign-in-alt mr-1"></i>Destinatari</a>
+		<a href="#tabprotocollo_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_1"><i class="fa fa-sign-in-alt mr-1"></i>Destinatari</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprotocollo_seg_2" class="nav-link" data-toggle="pill" data-target="#tabprotocollo_seg_2"><i class="fa fa-file-alt mr-1"></i>Descrittore del documento</a>
+		<a href="#tabprotocollo_seg_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_2"><i class="fa fa-file-alt mr-1"></i>Descrittore del documento</a>
 	</li>
 
 	</ul>
@@ -29,7 +29,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#protocollo_seg_protdata").datepicker();
+    $("#protocollo_seg_protdata").datepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="protocollo_seg_protdata">Data di protocollo</label>
@@ -97,7 +97,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#protocollo_seg_dataannullamento").datetimepicker();
+    $("#protocollo_seg_dataannullamento").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="protocollo_seg_dataannullamento">Data di annullamento</label>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -105,502 +105,502 @@ namespace epexpvar_default {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.grpVariazione = new System.Windows.Forms.GroupBox();
-            this.txtNumVariazione = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtEsercVariazione = new System.Windows.Forms.TextBox();
-            this.grpMovSpesa = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.radImpegno = new System.Windows.Forms.RadioButton();
-            this.radPreimpegno = new System.Windows.Forms.RadioButton();
-            this.btnEpexp = new System.Windows.Forms.Button();
-            this.txtNumMovimento = new System.Windows.Forms.TextBox();
-            this.txtEsercMovimento = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtDataContabile = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.grpImporto1 = new System.Windows.Forms.GroupBox();
-            this.rdbDiminuzione = new System.Windows.Forms.RadioButton();
-            this.rdbAumento = new System.Windows.Forms.RadioButton();
-            this.txtImporto = new System.Windows.Forms.TextBox();
-            this.grpImporto2 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.grpImporto3 = new System.Windows.Forms.GroupBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.grpImporto4 = new System.Windows.Forms.GroupBox();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.grpImporto5 = new System.Windows.Forms.GroupBox();
-            this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.radioButton8 = new System.Windows.Forms.RadioButton();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.DS = new epexpvar_default.vistaForm();
-            this.txtTotale = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.grpVariazione.SuspendLayout();
-            this.grpMovSpesa.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.grpImporto1.SuspendLayout();
-            this.grpImporto2.SuspendLayout();
-            this.grpImporto3.SuspendLayout();
-            this.grpImporto4.SuspendLayout();
-            this.grpImporto5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // grpVariazione
-            // 
-            this.grpVariazione.Controls.Add(this.txtNumVariazione);
-            this.grpVariazione.Controls.Add(this.label2);
-            this.grpVariazione.Controls.Add(this.label1);
-            this.grpVariazione.Controls.Add(this.txtEsercVariazione);
-            this.grpVariazione.Location = new System.Drawing.Point(16, 16);
-            this.grpVariazione.Name = "grpVariazione";
-            this.grpVariazione.Size = new System.Drawing.Size(168, 96);
-            this.grpVariazione.TabIndex = 0;
-            this.grpVariazione.TabStop = false;
-            this.grpVariazione.Text = "Variazione";
-            // 
-            // txtNumVariazione
-            // 
-            this.txtNumVariazione.Location = new System.Drawing.Point(88, 56);
-            this.txtNumVariazione.Name = "txtNumVariazione";
-            this.txtNumVariazione.Size = new System.Drawing.Size(64, 20);
-            this.txtNumVariazione.TabIndex = 2;
-            this.txtNumVariazione.Tag = "epexpvar.nvar";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(16, 56);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 24);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Numero";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(16, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Esercizio";
-            // 
-            // txtEsercVariazione
-            // 
-            this.txtEsercVariazione.Location = new System.Drawing.Point(88, 24);
-            this.txtEsercVariazione.Name = "txtEsercVariazione";
-            this.txtEsercVariazione.Size = new System.Drawing.Size(64, 20);
-            this.txtEsercVariazione.TabIndex = 1;
-            this.txtEsercVariazione.Tag = "epexpvar.yvar.year";
-            // 
-            // grpMovSpesa
-            // 
-            this.grpMovSpesa.Controls.Add(this.groupBox5);
-            this.grpMovSpesa.Controls.Add(this.btnEpexp);
-            this.grpMovSpesa.Controls.Add(this.txtNumMovimento);
-            this.grpMovSpesa.Controls.Add(this.txtEsercMovimento);
-            this.grpMovSpesa.Controls.Add(this.label4);
-            this.grpMovSpesa.Controls.Add(this.label3);
-            this.grpMovSpesa.Location = new System.Drawing.Point(192, 16);
-            this.grpMovSpesa.Name = "grpMovSpesa";
-            this.grpMovSpesa.Size = new System.Drawing.Size(332, 96);
-            this.grpMovSpesa.TabIndex = 1;
-            this.grpMovSpesa.TabStop = false;
-            this.grpMovSpesa.Text = "Impegno di budget";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.radImpegno);
-            this.groupBox5.Controls.Add(this.radPreimpegno);
-            this.groupBox5.Location = new System.Drawing.Point(102, 8);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(224, 36);
-            this.groupBox5.TabIndex = 29;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Tipo";
-            // 
-            // radImpegno
-            // 
-            this.radImpegno.AutoSize = true;
-            this.radImpegno.Location = new System.Drawing.Point(113, 13);
-            this.radImpegno.Name = "radImpegno";
-            this.radImpegno.Size = new System.Drawing.Size(66, 17);
-            this.radImpegno.TabIndex = 1;
-            this.radImpegno.TabStop = true;
-            this.radImpegno.Tag = "epexpview.nphase:2?epexpvarview.nphase:2";
-            this.radImpegno.Text = "Impegno";
-            this.radImpegno.UseVisualStyleBackColor = true;
-            // 
-            // radPreimpegno
-            // 
-            this.radPreimpegno.AutoSize = true;
-            this.radPreimpegno.Location = new System.Drawing.Point(17, 12);
-            this.radPreimpegno.Name = "radPreimpegno";
-            this.radPreimpegno.Size = new System.Drawing.Size(81, 17);
-            this.radPreimpegno.TabIndex = 0;
-            this.radPreimpegno.TabStop = true;
-            this.radPreimpegno.Tag = "epexpview.nphase:1?epexpvarview.nphase:1";
-            this.radPreimpegno.Text = "Preimpegno";
-            this.radPreimpegno.UseVisualStyleBackColor = true;
-            // 
-            // btnEpexp
-            // 
-            this.btnEpexp.Location = new System.Drawing.Point(16, 16);
-            this.btnEpexp.Name = "btnEpexp";
-            this.btnEpexp.Size = new System.Drawing.Size(80, 24);
-            this.btnEpexp.TabIndex = 1;
-            this.btnEpexp.Tag = "choose.epexpview.default";
-            this.btnEpexp.Text = "Scegli";
-            // 
-            // txtNumMovimento
-            // 
-            this.txtNumMovimento.Location = new System.Drawing.Point(120, 72);
-            this.txtNumMovimento.Name = "txtNumMovimento";
-            this.txtNumMovimento.Size = new System.Drawing.Size(80, 20);
-            this.txtNumMovimento.TabIndex = 3;
-            this.txtNumMovimento.Tag = "epexpview.nepexp?epexpvarview.nepexp";
-            this.txtNumMovimento.Leave += new System.EventHandler(this.txtNumMovimento_Leave);
-            // 
-            // txtEsercMovimento
-            // 
-            this.txtEsercMovimento.Location = new System.Drawing.Point(120, 48);
-            this.txtEsercMovimento.Name = "txtEsercMovimento";
-            this.txtEsercMovimento.Size = new System.Drawing.Size(80, 20);
-            this.txtEsercMovimento.TabIndex = 2;
-            this.txtEsercMovimento.Tag = "epexpview.yepexp.year?epexpvarview.yepexp.year";
-            this.txtEsercMovimento.Leave += new System.EventHandler(this.txtEsercMovimento_Leave);
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(24, 72);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 16);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Numero";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(24, 48);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 16);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Esercizio";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.Location = new System.Drawing.Point(586, 80);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 16);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Data Contabile";
-            // 
-            // txtDataContabile
-            // 
-            this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtDataContabile.Location = new System.Drawing.Point(586, 96);
-            this.txtDataContabile.Name = "txtDataContabile";
-            this.txtDataContabile.Size = new System.Drawing.Size(104, 20);
-            this.txtDataContabile.TabIndex = 4;
-            this.txtDataContabile.Tag = "epexpvar.adate";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.grpVariazione = new System.Windows.Forms.GroupBox();
+			this.txtNumVariazione = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtEsercVariazione = new System.Windows.Forms.TextBox();
+			this.grpMovSpesa = new System.Windows.Forms.GroupBox();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.radImpegno = new System.Windows.Forms.RadioButton();
+			this.radPreimpegno = new System.Windows.Forms.RadioButton();
+			this.btnEpexp = new System.Windows.Forms.Button();
+			this.txtNumMovimento = new System.Windows.Forms.TextBox();
+			this.txtEsercMovimento = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtDataContabile = new System.Windows.Forms.TextBox();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.grpImporto1 = new System.Windows.Forms.GroupBox();
+			this.rdbDiminuzione = new System.Windows.Forms.RadioButton();
+			this.rdbAumento = new System.Windows.Forms.RadioButton();
+			this.txtImporto = new System.Windows.Forms.TextBox();
+			this.grpImporto2 = new System.Windows.Forms.GroupBox();
+			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.radioButton2 = new System.Windows.Forms.RadioButton();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.grpImporto3 = new System.Windows.Forms.GroupBox();
+			this.radioButton3 = new System.Windows.Forms.RadioButton();
+			this.radioButton4 = new System.Windows.Forms.RadioButton();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.grpImporto4 = new System.Windows.Forms.GroupBox();
+			this.radioButton5 = new System.Windows.Forms.RadioButton();
+			this.radioButton6 = new System.Windows.Forms.RadioButton();
+			this.textBox4 = new System.Windows.Forms.TextBox();
+			this.grpImporto5 = new System.Windows.Forms.GroupBox();
+			this.radioButton7 = new System.Windows.Forms.RadioButton();
+			this.radioButton8 = new System.Windows.Forms.RadioButton();
+			this.textBox5 = new System.Windows.Forms.TextBox();
+			this.DS = new epexpvar_default.vistaForm();
+			this.txtTotale = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.grpVariazione.SuspendLayout();
+			this.grpMovSpesa.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			this.grpImporto1.SuspendLayout();
+			this.grpImporto2.SuspendLayout();
+			this.grpImporto3.SuspendLayout();
+			this.grpImporto4.SuspendLayout();
+			this.grpImporto5.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// grpVariazione
+			// 
+			this.grpVariazione.Controls.Add(this.txtNumVariazione);
+			this.grpVariazione.Controls.Add(this.label2);
+			this.grpVariazione.Controls.Add(this.label1);
+			this.grpVariazione.Controls.Add(this.txtEsercVariazione);
+			this.grpVariazione.Location = new System.Drawing.Point(16, 16);
+			this.grpVariazione.Name = "grpVariazione";
+			this.grpVariazione.Size = new System.Drawing.Size(168, 96);
+			this.grpVariazione.TabIndex = 0;
+			this.grpVariazione.TabStop = false;
+			this.grpVariazione.Text = "Variazione";
+			// 
+			// txtNumVariazione
+			// 
+			this.txtNumVariazione.Location = new System.Drawing.Point(88, 56);
+			this.txtNumVariazione.Name = "txtNumVariazione";
+			this.txtNumVariazione.Size = new System.Drawing.Size(64, 20);
+			this.txtNumVariazione.TabIndex = 2;
+			this.txtNumVariazione.Tag = "epexpvar.nvar";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(16, 56);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(56, 24);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Numero";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(16, 24);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(64, 16);
+			this.label1.TabIndex = 1;
+			this.label1.Text = "Esercizio";
+			// 
+			// txtEsercVariazione
+			// 
+			this.txtEsercVariazione.Location = new System.Drawing.Point(88, 24);
+			this.txtEsercVariazione.Name = "txtEsercVariazione";
+			this.txtEsercVariazione.Size = new System.Drawing.Size(64, 20);
+			this.txtEsercVariazione.TabIndex = 1;
+			this.txtEsercVariazione.Tag = "epexpvar.yvar.year";
+			// 
+			// grpMovSpesa
+			// 
+			this.grpMovSpesa.Controls.Add(this.groupBox5);
+			this.grpMovSpesa.Controls.Add(this.btnEpexp);
+			this.grpMovSpesa.Controls.Add(this.txtNumMovimento);
+			this.grpMovSpesa.Controls.Add(this.txtEsercMovimento);
+			this.grpMovSpesa.Controls.Add(this.label4);
+			this.grpMovSpesa.Controls.Add(this.label3);
+			this.grpMovSpesa.Location = new System.Drawing.Point(192, 16);
+			this.grpMovSpesa.Name = "grpMovSpesa";
+			this.grpMovSpesa.Size = new System.Drawing.Size(332, 96);
+			this.grpMovSpesa.TabIndex = 1;
+			this.grpMovSpesa.TabStop = false;
+			this.grpMovSpesa.Text = "Impegno di budget";
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Controls.Add(this.radImpegno);
+			this.groupBox5.Controls.Add(this.radPreimpegno);
+			this.groupBox5.Location = new System.Drawing.Point(102, 8);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(224, 36);
+			this.groupBox5.TabIndex = 29;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Tipo";
+			// 
+			// radImpegno
+			// 
+			this.radImpegno.AutoSize = true;
+			this.radImpegno.Location = new System.Drawing.Point(113, 13);
+			this.radImpegno.Name = "radImpegno";
+			this.radImpegno.Size = new System.Drawing.Size(66, 17);
+			this.radImpegno.TabIndex = 1;
+			this.radImpegno.TabStop = true;
+			this.radImpegno.Tag = "epexpview.nphase:2?epexpvarview.nphase:2";
+			this.radImpegno.Text = "Impegno";
+			this.radImpegno.UseVisualStyleBackColor = true;
+			// 
+			// radPreimpegno
+			// 
+			this.radPreimpegno.AutoSize = true;
+			this.radPreimpegno.Location = new System.Drawing.Point(17, 12);
+			this.radPreimpegno.Name = "radPreimpegno";
+			this.radPreimpegno.Size = new System.Drawing.Size(81, 17);
+			this.radPreimpegno.TabIndex = 0;
+			this.radPreimpegno.TabStop = true;
+			this.radPreimpegno.Tag = "epexpview.nphase:1?epexpvarview.nphase:1";
+			this.radPreimpegno.Text = "Preimpegno";
+			this.radPreimpegno.UseVisualStyleBackColor = true;
+			// 
+			// btnEpexp
+			// 
+			this.btnEpexp.Location = new System.Drawing.Point(16, 16);
+			this.btnEpexp.Name = "btnEpexp";
+			this.btnEpexp.Size = new System.Drawing.Size(80, 24);
+			this.btnEpexp.TabIndex = 1;
+			this.btnEpexp.Tag = "choose.epexpview.default";
+			this.btnEpexp.Text = "Scegli";
+			// 
+			// txtNumMovimento
+			// 
+			this.txtNumMovimento.Location = new System.Drawing.Point(120, 72);
+			this.txtNumMovimento.Name = "txtNumMovimento";
+			this.txtNumMovimento.Size = new System.Drawing.Size(80, 20);
+			this.txtNumMovimento.TabIndex = 3;
+			this.txtNumMovimento.Tag = "epexpview.nepexp?epexpvarview.nepexp";
+			this.txtNumMovimento.Leave += new System.EventHandler(this.txtNumMovimento_Leave);
+			// 
+			// txtEsercMovimento
+			// 
+			this.txtEsercMovimento.Location = new System.Drawing.Point(120, 48);
+			this.txtEsercMovimento.Name = "txtEsercMovimento";
+			this.txtEsercMovimento.Size = new System.Drawing.Size(80, 20);
+			this.txtEsercMovimento.TabIndex = 2;
+			this.txtEsercMovimento.Tag = "epexpview.yepexp.year?epexpvarview.yepexp.year";
+			this.txtEsercMovimento.Leave += new System.EventHandler(this.txtEsercMovimento_Leave);
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(24, 72);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(56, 16);
+			this.label4.TabIndex = 1;
+			this.label4.Text = "Numero";
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(24, 48);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(72, 16);
+			this.label3.TabIndex = 0;
+			this.label3.Text = "Esercizio";
+			// 
+			// label5
+			// 
+			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label5.Location = new System.Drawing.Point(586, 80);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(96, 16);
+			this.label5.TabIndex = 2;
+			this.label5.Text = "Data Contabile";
+			// 
+			// txtDataContabile
+			// 
+			this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtDataContabile.Location = new System.Drawing.Point(586, 96);
+			this.txtDataContabile.Name = "txtDataContabile";
+			this.txtDataContabile.Size = new System.Drawing.Size(104, 20);
+			this.txtDataContabile.TabIndex = 4;
+			this.txtDataContabile.Tag = "epexpvar.adate";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(16, 136);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(666, 51);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Tag = "epexpvar.description";
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(16, 120);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(152, 16);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Descrizione della Variazione";
-            // 
-            // grpImporto1
-            // 
-            this.grpImporto1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpImporto1.Controls.Add(this.rdbDiminuzione);
-            this.grpImporto1.Controls.Add(this.rdbAumento);
-            this.grpImporto1.Controls.Add(this.txtImporto);
-            this.grpImporto1.Location = new System.Drawing.Point(16, 202);
-            this.grpImporto1.Name = "grpImporto1";
-            this.grpImporto1.Size = new System.Drawing.Size(148, 88);
-            this.grpImporto1.TabIndex = 3;
-            this.grpImporto1.TabStop = false;
-            this.grpImporto1.Tag = "epexpvar.amount.valuesigned";
-            this.grpImporto1.Text = "Importo variazione anno";
-            // 
-            // rdbDiminuzione
-            // 
-            this.rdbDiminuzione.Location = new System.Drawing.Point(6, 40);
-            this.rdbDiminuzione.Name = "rdbDiminuzione";
-            this.rdbDiminuzione.Size = new System.Drawing.Size(104, 21);
-            this.rdbDiminuzione.TabIndex = 3;
-            this.rdbDiminuzione.Tag = "-";
-            this.rdbDiminuzione.Text = "Diminuzione";
-            // 
-            // rdbAumento
-            // 
-            this.rdbAumento.Location = new System.Drawing.Point(6, 19);
-            this.rdbAumento.Name = "rdbAumento";
-            this.rdbAumento.Size = new System.Drawing.Size(104, 24);
-            this.rdbAumento.TabIndex = 2;
-            this.rdbAumento.Tag = "+";
-            this.rdbAumento.Text = "Aumento";
-            // 
-            // txtImporto
-            // 
-            this.txtImporto.Location = new System.Drawing.Point(6, 62);
-            this.txtImporto.Name = "txtImporto";
-            this.txtImporto.Size = new System.Drawing.Size(104, 20);
-            this.txtImporto.TabIndex = 1;
-            this.txtImporto.Tag = "epexpvar.amount";
-            this.txtImporto.TextChanged += new System.EventHandler(this.txtImporto_TextChanged);
-            this.txtImporto.Leave += new System.EventHandler(this.txtImportoLeave);
-            // 
-            // grpImporto2
-            // 
-            this.grpImporto2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpImporto2.Controls.Add(this.radioButton1);
-            this.grpImporto2.Controls.Add(this.radioButton2);
-            this.grpImporto2.Controls.Add(this.textBox2);
-            this.grpImporto2.Location = new System.Drawing.Point(179, 202);
-            this.grpImporto2.Name = "grpImporto2";
-            this.grpImporto2.Size = new System.Drawing.Size(148, 88);
-            this.grpImporto2.TabIndex = 6;
-            this.grpImporto2.TabStop = false;
-            this.grpImporto2.Tag = "epexpvar.amount2.valuesigned";
-            this.grpImporto2.Text = "Importo variazione anno";
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.Location = new System.Drawing.Point(6, 40);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(104, 21);
-            this.radioButton1.TabIndex = 3;
-            this.radioButton1.Tag = "-";
-            this.radioButton1.Text = "Diminuzione";
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.Location = new System.Drawing.Point(6, 19);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(104, 24);
-            this.radioButton2.TabIndex = 2;
-            this.radioButton2.Tag = "+";
-            this.radioButton2.Text = "Aumento";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(6, 62);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(104, 20);
-            this.textBox2.TabIndex = 1;
-            this.textBox2.Tag = "epexpvar.amount2";
-            this.textBox2.Leave += new System.EventHandler(this.txtImportoLeave);
-            // 
-            // grpImporto3
-            // 
-            this.grpImporto3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpImporto3.Controls.Add(this.radioButton3);
-            this.grpImporto3.Controls.Add(this.radioButton4);
-            this.grpImporto3.Controls.Add(this.textBox3);
-            this.grpImporto3.Location = new System.Drawing.Point(347, 202);
-            this.grpImporto3.Name = "grpImporto3";
-            this.grpImporto3.Size = new System.Drawing.Size(148, 88);
-            this.grpImporto3.TabIndex = 7;
-            this.grpImporto3.TabStop = false;
-            this.grpImporto3.Tag = "epexpvar.amount3.valuesigned";
-            this.grpImporto3.Text = "Importo variazione anno";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.Location = new System.Drawing.Point(6, 40);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(104, 21);
-            this.radioButton3.TabIndex = 3;
-            this.radioButton3.Tag = "-";
-            this.radioButton3.Text = "Diminuzione";
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.Location = new System.Drawing.Point(6, 19);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(104, 24);
-            this.radioButton4.TabIndex = 2;
-            this.radioButton4.Tag = "+";
-            this.radioButton4.Text = "Aumento";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(6, 62);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(104, 20);
-            this.textBox3.TabIndex = 1;
-            this.textBox3.Tag = "epexpvar.amount3";
-            this.textBox3.Leave += new System.EventHandler(this.txtImportoLeave);
-            // 
-            // grpImporto4
-            // 
-            this.grpImporto4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpImporto4.Controls.Add(this.radioButton5);
-            this.grpImporto4.Controls.Add(this.radioButton6);
-            this.grpImporto4.Controls.Add(this.textBox4);
-            this.grpImporto4.Location = new System.Drawing.Point(519, 202);
-            this.grpImporto4.Name = "grpImporto4";
-            this.grpImporto4.Size = new System.Drawing.Size(148, 88);
-            this.grpImporto4.TabIndex = 8;
-            this.grpImporto4.TabStop = false;
-            this.grpImporto4.Tag = "epexpvar.amount3.valuesigned";
-            this.grpImporto4.Text = "Importo variazione anno";
-            // 
-            // radioButton5
-            // 
-            this.radioButton5.Location = new System.Drawing.Point(6, 40);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(104, 21);
-            this.radioButton5.TabIndex = 3;
-            this.radioButton5.Tag = "-";
-            this.radioButton5.Text = "Diminuzione";
-            // 
-            // radioButton6
-            // 
-            this.radioButton6.Location = new System.Drawing.Point(6, 19);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(104, 24);
-            this.radioButton6.TabIndex = 2;
-            this.radioButton6.Tag = "+";
-            this.radioButton6.Text = "Aumento";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(6, 62);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(104, 20);
-            this.textBox4.TabIndex = 1;
-            this.textBox4.Tag = "epexpvar.amount4";
-            this.textBox4.Leave += new System.EventHandler(this.txtImportoLeave);
-            // 
-            // grpImporto5
-            // 
-            this.grpImporto5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpImporto5.Controls.Add(this.radioButton7);
-            this.grpImporto5.Controls.Add(this.radioButton8);
-            this.grpImporto5.Controls.Add(this.textBox5);
-            this.grpImporto5.Location = new System.Drawing.Point(685, 202);
-            this.grpImporto5.Name = "grpImporto5";
-            this.grpImporto5.Size = new System.Drawing.Size(148, 88);
-            this.grpImporto5.TabIndex = 9;
-            this.grpImporto5.TabStop = false;
-            this.grpImporto5.Tag = "epexpvar.amount5.valuesigned";
-            this.grpImporto5.Text = "Importo variazione anno";
-            // 
-            // radioButton7
-            // 
-            this.radioButton7.Location = new System.Drawing.Point(6, 40);
-            this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(104, 21);
-            this.radioButton7.TabIndex = 3;
-            this.radioButton7.Tag = "-";
-            this.radioButton7.Text = "Diminuzione";
-            // 
-            // radioButton8
-            // 
-            this.radioButton8.Location = new System.Drawing.Point(6, 19);
-            this.radioButton8.Name = "radioButton8";
-            this.radioButton8.Size = new System.Drawing.Size(104, 24);
-            this.radioButton8.TabIndex = 2;
-            this.radioButton8.Tag = "+";
-            this.radioButton8.Text = "Aumento";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(6, 62);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(104, 20);
-            this.textBox5.TabIndex = 1;
-            this.textBox5.Tag = "epexpvar.amount5";
-            this.textBox5.Leave += new System.EventHandler(this.txtImportoLeave);
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // txtTotale
-            // 
-            this.txtTotale.Location = new System.Drawing.Point(700, 167);
-            this.txtTotale.Name = "txtTotale";
-            this.txtTotale.ReadOnly = true;
-            this.txtTotale.Size = new System.Drawing.Size(104, 20);
-            this.txtTotale.TabIndex = 56;
-            this.txtTotale.Tag = "";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(697, 151);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(91, 13);
-            this.label7.TabIndex = 55;
-            this.label7.Text = "Totale pluriennale";
-            // 
-            // Frm_epexpvardefault
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(984, 341);
-            this.Controls.Add(this.txtTotale);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.grpImporto5);
-            this.Controls.Add(this.grpImporto4);
-            this.Controls.Add(this.grpImporto3);
-            this.Controls.Add(this.grpImporto2);
-            this.Controls.Add(this.grpImporto1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.txtDataContabile);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.grpMovSpesa);
-            this.Controls.Add(this.grpVariazione);
-            this.Name = "Frm_epexpvardefault";
-            this.Text = "Frm_epexpvardefault";
-            this.grpVariazione.ResumeLayout(false);
-            this.grpVariazione.PerformLayout();
-            this.grpMovSpesa.ResumeLayout(false);
-            this.grpMovSpesa.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.grpImporto1.ResumeLayout(false);
-            this.grpImporto1.PerformLayout();
-            this.grpImporto2.ResumeLayout(false);
-            this.grpImporto2.PerformLayout();
-            this.grpImporto3.ResumeLayout(false);
-            this.grpImporto3.PerformLayout();
-            this.grpImporto4.ResumeLayout(false);
-            this.grpImporto4.PerformLayout();
-            this.grpImporto5.ResumeLayout(false);
-            this.grpImporto5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.textBox1.Location = new System.Drawing.Point(16, 136);
+			this.textBox1.Multiline = true;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(666, 51);
+			this.textBox1.TabIndex = 2;
+			this.textBox1.Tag = "epexpvar.description";
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(16, 120);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(152, 16);
+			this.label6.TabIndex = 5;
+			this.label6.Text = "Descrizione della Variazione";
+			// 
+			// grpImporto1
+			// 
+			this.grpImporto1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.grpImporto1.Controls.Add(this.rdbDiminuzione);
+			this.grpImporto1.Controls.Add(this.rdbAumento);
+			this.grpImporto1.Controls.Add(this.txtImporto);
+			this.grpImporto1.Location = new System.Drawing.Point(16, 202);
+			this.grpImporto1.Name = "grpImporto1";
+			this.grpImporto1.Size = new System.Drawing.Size(148, 88);
+			this.grpImporto1.TabIndex = 3;
+			this.grpImporto1.TabStop = false;
+			this.grpImporto1.Tag = "epexpvar.amount.valuesigned";
+			this.grpImporto1.Text = "Importo variazione anno";
+			// 
+			// rdbDiminuzione
+			// 
+			this.rdbDiminuzione.Location = new System.Drawing.Point(6, 40);
+			this.rdbDiminuzione.Name = "rdbDiminuzione";
+			this.rdbDiminuzione.Size = new System.Drawing.Size(104, 21);
+			this.rdbDiminuzione.TabIndex = 3;
+			this.rdbDiminuzione.Tag = "-";
+			this.rdbDiminuzione.Text = "Diminuzione";
+			// 
+			// rdbAumento
+			// 
+			this.rdbAumento.Location = new System.Drawing.Point(6, 19);
+			this.rdbAumento.Name = "rdbAumento";
+			this.rdbAumento.Size = new System.Drawing.Size(104, 24);
+			this.rdbAumento.TabIndex = 2;
+			this.rdbAumento.Tag = "+";
+			this.rdbAumento.Text = "Aumento";
+			// 
+			// txtImporto
+			// 
+			this.txtImporto.Location = new System.Drawing.Point(6, 62);
+			this.txtImporto.Name = "txtImporto";
+			this.txtImporto.Size = new System.Drawing.Size(104, 20);
+			this.txtImporto.TabIndex = 1;
+			this.txtImporto.Tag = "epexpvar.amount";
+			this.txtImporto.TextChanged += new System.EventHandler(this.txtImporto_TextChanged);
+			this.txtImporto.Leave += new System.EventHandler(this.txtImportoLeave);
+			// 
+			// grpImporto2
+			// 
+			this.grpImporto2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.grpImporto2.Controls.Add(this.radioButton1);
+			this.grpImporto2.Controls.Add(this.radioButton2);
+			this.grpImporto2.Controls.Add(this.textBox2);
+			this.grpImporto2.Location = new System.Drawing.Point(179, 202);
+			this.grpImporto2.Name = "grpImporto2";
+			this.grpImporto2.Size = new System.Drawing.Size(148, 88);
+			this.grpImporto2.TabIndex = 6;
+			this.grpImporto2.TabStop = false;
+			this.grpImporto2.Tag = "epexpvar.amount2.valuesigned";
+			this.grpImporto2.Text = "Importo variazione anno";
+			// 
+			// radioButton1
+			// 
+			this.radioButton1.Location = new System.Drawing.Point(6, 40);
+			this.radioButton1.Name = "radioButton1";
+			this.radioButton1.Size = new System.Drawing.Size(104, 21);
+			this.radioButton1.TabIndex = 3;
+			this.radioButton1.Tag = "-";
+			this.radioButton1.Text = "Diminuzione";
+			// 
+			// radioButton2
+			// 
+			this.radioButton2.Location = new System.Drawing.Point(6, 19);
+			this.radioButton2.Name = "radioButton2";
+			this.radioButton2.Size = new System.Drawing.Size(104, 24);
+			this.radioButton2.TabIndex = 2;
+			this.radioButton2.Tag = "+";
+			this.radioButton2.Text = "Aumento";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Location = new System.Drawing.Point(6, 62);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(104, 20);
+			this.textBox2.TabIndex = 1;
+			this.textBox2.Tag = "epexpvar.amount2";
+			this.textBox2.Leave += new System.EventHandler(this.txtImportoLeave);
+			// 
+			// grpImporto3
+			// 
+			this.grpImporto3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.grpImporto3.Controls.Add(this.radioButton3);
+			this.grpImporto3.Controls.Add(this.radioButton4);
+			this.grpImporto3.Controls.Add(this.textBox3);
+			this.grpImporto3.Location = new System.Drawing.Point(347, 202);
+			this.grpImporto3.Name = "grpImporto3";
+			this.grpImporto3.Size = new System.Drawing.Size(148, 88);
+			this.grpImporto3.TabIndex = 7;
+			this.grpImporto3.TabStop = false;
+			this.grpImporto3.Tag = "epexpvar.amount3.valuesigned";
+			this.grpImporto3.Text = "Importo variazione anno";
+			// 
+			// radioButton3
+			// 
+			this.radioButton3.Location = new System.Drawing.Point(6, 40);
+			this.radioButton3.Name = "radioButton3";
+			this.radioButton3.Size = new System.Drawing.Size(104, 21);
+			this.radioButton3.TabIndex = 3;
+			this.radioButton3.Tag = "-";
+			this.radioButton3.Text = "Diminuzione";
+			// 
+			// radioButton4
+			// 
+			this.radioButton4.Location = new System.Drawing.Point(6, 19);
+			this.radioButton4.Name = "radioButton4";
+			this.radioButton4.Size = new System.Drawing.Size(104, 24);
+			this.radioButton4.TabIndex = 2;
+			this.radioButton4.Tag = "+";
+			this.radioButton4.Text = "Aumento";
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(6, 62);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.Size = new System.Drawing.Size(104, 20);
+			this.textBox3.TabIndex = 1;
+			this.textBox3.Tag = "epexpvar.amount3";
+			this.textBox3.Leave += new System.EventHandler(this.txtImportoLeave);
+			// 
+			// grpImporto4
+			// 
+			this.grpImporto4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.grpImporto4.Controls.Add(this.radioButton5);
+			this.grpImporto4.Controls.Add(this.radioButton6);
+			this.grpImporto4.Controls.Add(this.textBox4);
+			this.grpImporto4.Location = new System.Drawing.Point(519, 202);
+			this.grpImporto4.Name = "grpImporto4";
+			this.grpImporto4.Size = new System.Drawing.Size(148, 88);
+			this.grpImporto4.TabIndex = 8;
+			this.grpImporto4.TabStop = false;
+			this.grpImporto4.Tag = "epexpvar.amount4.valuesigned";
+			this.grpImporto4.Text = "Importo variazione anno";
+			// 
+			// radioButton5
+			// 
+			this.radioButton5.Location = new System.Drawing.Point(6, 40);
+			this.radioButton5.Name = "radioButton5";
+			this.radioButton5.Size = new System.Drawing.Size(104, 21);
+			this.radioButton5.TabIndex = 3;
+			this.radioButton5.Tag = "-";
+			this.radioButton5.Text = "Diminuzione";
+			// 
+			// radioButton6
+			// 
+			this.radioButton6.Location = new System.Drawing.Point(6, 19);
+			this.radioButton6.Name = "radioButton6";
+			this.radioButton6.Size = new System.Drawing.Size(104, 24);
+			this.radioButton6.TabIndex = 2;
+			this.radioButton6.Tag = "+";
+			this.radioButton6.Text = "Aumento";
+			// 
+			// textBox4
+			// 
+			this.textBox4.Location = new System.Drawing.Point(6, 62);
+			this.textBox4.Name = "textBox4";
+			this.textBox4.Size = new System.Drawing.Size(104, 20);
+			this.textBox4.TabIndex = 1;
+			this.textBox4.Tag = "epexpvar.amount4";
+			this.textBox4.Leave += new System.EventHandler(this.txtImportoLeave);
+			// 
+			// grpImporto5
+			// 
+			this.grpImporto5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.grpImporto5.Controls.Add(this.radioButton7);
+			this.grpImporto5.Controls.Add(this.radioButton8);
+			this.grpImporto5.Controls.Add(this.textBox5);
+			this.grpImporto5.Location = new System.Drawing.Point(685, 202);
+			this.grpImporto5.Name = "grpImporto5";
+			this.grpImporto5.Size = new System.Drawing.Size(148, 88);
+			this.grpImporto5.TabIndex = 9;
+			this.grpImporto5.TabStop = false;
+			this.grpImporto5.Tag = "epexpvar.amount5.valuesigned";
+			this.grpImporto5.Text = "Importo variazione anno";
+			// 
+			// radioButton7
+			// 
+			this.radioButton7.Location = new System.Drawing.Point(6, 40);
+			this.radioButton7.Name = "radioButton7";
+			this.radioButton7.Size = new System.Drawing.Size(104, 21);
+			this.radioButton7.TabIndex = 3;
+			this.radioButton7.Tag = "-";
+			this.radioButton7.Text = "Diminuzione";
+			// 
+			// radioButton8
+			// 
+			this.radioButton8.Location = new System.Drawing.Point(6, 19);
+			this.radioButton8.Name = "radioButton8";
+			this.radioButton8.Size = new System.Drawing.Size(104, 24);
+			this.radioButton8.TabIndex = 2;
+			this.radioButton8.Tag = "+";
+			this.radioButton8.Text = "Aumento";
+			// 
+			// textBox5
+			// 
+			this.textBox5.Location = new System.Drawing.Point(6, 62);
+			this.textBox5.Name = "textBox5";
+			this.textBox5.Size = new System.Drawing.Size(104, 20);
+			this.textBox5.TabIndex = 1;
+			this.textBox5.Tag = "epexpvar.amount5";
+			this.textBox5.Leave += new System.EventHandler(this.txtImportoLeave);
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// txtTotale
+			// 
+			this.txtTotale.Location = new System.Drawing.Point(700, 167);
+			this.txtTotale.Name = "txtTotale";
+			this.txtTotale.ReadOnly = true;
+			this.txtTotale.Size = new System.Drawing.Size(104, 20);
+			this.txtTotale.TabIndex = 56;
+			this.txtTotale.Tag = "";
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(697, 151);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(91, 13);
+			this.label7.TabIndex = 55;
+			this.label7.Text = "Totale pluriennale";
+			// 
+			// Frm_epexpvardefault
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(984, 341);
+			this.Controls.Add(this.txtTotale);
+			this.Controls.Add(this.label7);
+			this.Controls.Add(this.grpImporto5);
+			this.Controls.Add(this.grpImporto4);
+			this.Controls.Add(this.grpImporto3);
+			this.Controls.Add(this.grpImporto2);
+			this.Controls.Add(this.grpImporto1);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.txtDataContabile);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.grpMovSpesa);
+			this.Controls.Add(this.grpVariazione);
+			this.Name = "Frm_epexpvardefault";
+			this.Text = "Frm_epexpvardefault";
+			this.grpVariazione.ResumeLayout(false);
+			this.grpVariazione.PerformLayout();
+			this.grpMovSpesa.ResumeLayout(false);
+			this.grpMovSpesa.PerformLayout();
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
+			this.grpImporto1.ResumeLayout(false);
+			this.grpImporto1.PerformLayout();
+			this.grpImporto2.ResumeLayout(false);
+			this.grpImporto2.PerformLayout();
+			this.grpImporto3.ResumeLayout(false);
+			this.grpImporto3.PerformLayout();
+			this.grpImporto4.ResumeLayout(false);
+			this.grpImporto4.PerformLayout();
+			this.grpImporto5.ResumeLayout(false);
+			this.grpImporto5.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
         #endregion

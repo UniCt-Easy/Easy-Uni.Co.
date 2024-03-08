@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1215,7 +1215,7 @@ namespace expense_wizarddelete {//spesawizardelimina//
 
 		bool GetMovimentoSelezionato(){
 			if (txtNumeroMovimento.Text.Trim()==""){
-				MessageBox.Show("Selezionare un movimento per procedere");
+				show("Selezionare un movimento per procedere");
 				return false;
 			}
 			string filter= GetFasePrecFilter(true);
@@ -1248,7 +1248,7 @@ namespace expense_wizarddelete {//spesawizardelimina//
 			PostData Post = Meta.Get_PostData();
 			Post.InitClass(DS,Conn);
 			bool res= Post.DO_POST();
-			if (res)MessageBox.Show("Cancellazione eseguita con successo.");
+			if (res)show("Cancellazione eseguita con successo.");
 			return res;
 		}
 

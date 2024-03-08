@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,11 +23,9 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-/*
-setuser'amministrazione'
-EXEC exp_mod_intrastat 2017, null,2,'A','T','B'
-exp_mod_intrastat_unified {ts '2017-06-07 00:00:00.000'} ,'2017' ,'6' ,'2', 'A', 'M' ,'XXXX' ,'123456' ,'0' ,'V', '1', 'E', 'N', '(null)'
-*/
+
+
+--	exp_mod_intrastat_unified {d '2022-03-21'}, '2022', '3', '1', 'A', 'T', 'M', 'XXXX', '123456', '0', 'V', '1', 'I', 'N', '1'
 CREATE  PROCEDURE [exp_mod_intrastat_unified] (
 	@datainterchange datetime,
 -- A seconda della periodicità ossia T o M, si dovrà indicare il periodo di riferimento
@@ -166,7 +164,8 @@ CREATE TABLE #RecordDettaglio1_BENI
 										--	l’operazione intracomunitaria
 	ammontareinEuro int,				-- numerico Len.13 -- Ammontare delle operazioni in euro
 	ammontareinValuta int,				-- numerico Len.13 -- Ammontare delle operazioni in valuta
-	codTransazione char(1),				-- Codice della natura dela transazione
+	codTransazioneA char(1),				-- Codice della natura dela transazione
+	codTransazioneB char(1),				-- Codice della natura dela transazione
 	codNomenclatura varchar(8),			-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 	massainkg int,						-- numerico Len. 10 -- Massa netta in kilogrammi
 	unitasupp int,						-- numerico Len. 10 -- Unità supplementari per l'acquisto / Quantità espressa nell'unità di misura supplementare
@@ -379,7 +378,8 @@ Begin
 			codiceIVA, 				-- codicestatomembro= Codice dello Stato membro dell'acquirente/fornitore + Codice IVA dell'acquitente /fornitore = DE123456788
 			ammontareinEuro,		-- numerico -- Ammontare delle operazioni in euro
 			ammontareinValuta,		-- numerico -- Ammontare delle operazioni in valuta
-			codTransazione,			-- Codice della natura dela transazione
+			codTransazioneA,			-- Codice della natura dela transazione
+			codTransazioneB,			-- Codice della natura dela transazione
 			codNomenclatura,		-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 			massainkg,				-- numerico -- Massa netta in kilogrammi
 			unitasupp,				-- numerico -- Unità supplementari per l'acquisto / Quantità espressa nell'unità di misura supplementare
@@ -442,7 +442,8 @@ while @@fetch_status=0 begin
 			codiceIVA, 				-- codicestatomembro= Codice dello Stato membro dell'acquirente/fornitore + Codice IVA dell'acquitente /fornitore = DE123456788
 			ammontareinEuro,		-- numerico -- Ammontare delle operazioni in euro
 			ammontareinValuta,		-- numerico -- Ammontare delle operazioni in valuta
-			codTransazione,			-- Codice della natura dela transazione
+			codTransazioneA,			-- Codice della natura della transazione
+			codTransazioneB,			-- Codice della natura della transazione
 			codNomenclatura,		-- numerico -- codice della nomenclatuta combinata della merce (solo nel caso di elenchi trimestrali)
 			massainkg,				-- numerico -- Massa netta in kilogrammi
 			unitasupp,				-- numerico -- Unità supplementari per l'acquisto / Quantità espressa nell'unità di misura supplementare
@@ -481,6 +482,7 @@ while @@fetch_status=0 begin
 		fetch next from @crsdepartment into @iddbdepartment
 end
 End
+
 
 UPDATE #RecordDettaglio1_BENI SET 
 	campofisso = 'EUROX',
@@ -572,7 +574,7 @@ UPDATE #Frontespizio set
 
 
 -- Tabella di output
-CREATE TABLE #trace(out_str varchar(131)) 
+CREATE TABLE #trace(out_str varchar(136)) 
 
 
 IF ((@validazione='T' and @IntrawebEntratel='I') OR (@IntrawebEntratel='E'))
@@ -590,9 +592,8 @@ begin
 		REPLICATE(' ',1)+
 		numerorecord_nelflusso 
 	FROM #RecordDiTesta
+
 end
-
-
  
 declare @strsez7 varchar(13)
 declare @possez7 int
@@ -650,9 +651,9 @@ SELECT
 	SUBSTRING(REPLICATE('0',5),	1,  5 - DATALENGTH(CONVERT(varchar(5), num_dett_sezione3)))		+ CONVERT(varchar(5) ,num_dett_sezione3)	+
 	SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),complessivosezione3)))	+ CONVERT(varchar(13),complessivosezione3)	+
 	SUBSTRING(REPLICATE('0',5),	1,  5 - DATALENGTH(CONVERT(varchar(5), num_dett_sezione4)))		+ CONVERT(varchar(5) ,num_dett_sezione4)	+
-	SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),complessivosezione4)))	+ CONVERT(varchar(13),complessivosezione4)
+	SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),complessivosezione4)))	+ CONVERT(varchar(13),complessivosezione4)+
+	case when tipoRiepilogo = 'C' then REPLICATE('0',5) else '' end
 FROM #Frontespizio
-
 
 
 -- 2  sezione 1 CESSIONI DI BENI MENSILE   
@@ -669,7 +670,7 @@ BEGIN
 
 		codiceIVA  + 
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinEuro))) + CONVERT(varchar(13),ammontareinEuro)+
-		codTransazione + 
+		codTransazioneA + 
 		codNomenclatura + 
 		SUBSTRING(REPLICATE('0',10),1, 10 - DATALENGTH(CONVERT(varchar(10),massainkg))) + CONVERT(varchar(10),massainkg)+
 		SUBSTRING(REPLICATE('0',10),1, 10 - DATALENGTH(CONVERT(varchar(10),unitasupp))) + CONVERT(varchar(10),unitasupp)+
@@ -677,8 +678,15 @@ BEGIN
 		codConsegna + 
 		codTrasporto + 
 		ISNULL(codDest_codProv,REPLICATE('0',2)) + 
+		-- codice della provincia di origine della merce
 		ISNULL(provOrigine_Dest,REPLICATE('0',2)) 
+		+ case when (codTransazioneB is not null ) then codTransazioneB   
+		else ''
+		end +
+		 isnull(codOrigineMerce, REPLICATE('0',2))
+			
 	FROM #RecordDettaglio1_BENI where TipoRecord='1'
+--	select 'cess beni men',* from  #trace
 END
 
 -- 3 sezione 1 CESSIONI DI BENI TRIMETRALE 
@@ -695,9 +703,10 @@ BEGIN
 
 		codiceIVA+ 
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinEuro))) + CONVERT(varchar(13),ammontareinEuro)+
-		codTransazione + 
+		codTransazioneA + 
 		codNomenclatura  
 	FROM #RecordDettaglio1_BENI where TipoRecord='1'
+--		select 'cess beni tri',* from  #trace
 END
 
 
@@ -721,7 +730,7 @@ BEGIN
 		codiceIVA  + 
 		segno_variazione +
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinEuro))) + CONVERT(varchar(13),ammontareinEuro)+		
-		codTransazione + 
+		codTransazioneA + 
 		codNomenclatura + 
 		valorestatisticoinEuro 
 	FROM #RecordDettaglio1_BENI where TipoRecord='2'
@@ -747,7 +756,7 @@ BEGIN
 		codiceIVA+ 
 		segno_variazione +
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinEuro))) + CONVERT(varchar(13),ammontareinEuro)+
-		codTransazione + 
+		codTransazioneA + 
 		codNomenclatura  
 	FROM #RecordDettaglio1_BENI where TipoRecord='2'
 END
@@ -773,6 +782,7 @@ BEGIN
 		modpagamento + 
 		codPaesePagamento
 	FROM #RecordDettaglio3_SERVIZI where TipoRecord='3'
+	--select 'sez3',* from #trace
 END
 
 
@@ -786,6 +796,7 @@ END
 IF (@tipoRiepilogo ='A' AND @periodicita ='M')
 BEGIN
 --8. Descrizione del record dettaglio della sezione 1 relativo al riepilogo degli acquisti di beni mensile
+
 	INSERT INTO #trace (out_str)
 	SELECT 
 		campofisso +
@@ -797,7 +808,7 @@ BEGIN
 		codiceIVA +
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinEuro))) + CONVERT(varchar(13),ammontareinEuro)+
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinValuta))) + CONVERT(varchar(13),ammontareinValuta)+
-		codTransazione +
+		codTransazioneA + 
 		codNomenclatura +
 		SUBSTRING(REPLICATE('0',10),1, 10 - DATALENGTH(CONVERT(varchar(10),massainkg))) + CONVERT(varchar(10),massainkg)+
 		SUBSTRING(REPLICATE('0',10),1, 10 - DATALENGTH(CONVERT(varchar(10),unitasupp))) + CONVERT(varchar(10),unitasupp)+
@@ -806,8 +817,13 @@ BEGIN
 		codTrasporto+
 		ISNULL(codDest_codProv,REPLICATE('0',2)) +
 		ISNULL(codOrigineMerce,REPLICATE('0',2))+
-		ISNULL(provOrigine_Dest,REPLICATE('0',2))
+		ISNULL(provOrigine_Dest,REPLICATE('0',2))+
+		case when (codTransazioneB is not null ) then codTransazioneB   
+		else ''
+		end
+
 	FROM #RecordDettaglio1_BENI  where TipoRecord='1'
+--	select 'sez 1 M',* from #trace
 END
 
 
@@ -826,9 +842,10 @@ BEGIN
 		codiceIVA +
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinEuro))) + CONVERT(varchar(13),ammontareinEuro)+
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinValuta))) + CONVERT(varchar(13),ammontareinValuta)+
-		codTransazione +
+		codTransazioneA +
 		codNomenclatura  
 	FROM #RecordDettaglio1_BENI where TipoRecord='1'
+--	select 'sez 1 T',* from #trace
 END
 
 
@@ -855,7 +872,7 @@ BEGIN
 		segno_variazione +
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinEuro))) + CONVERT(varchar(13),ammontareinEuro)+
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinValuta))) + CONVERT(varchar(13),ammontareinValuta)+
-		codTransazione +
+		codTransazioneA +
 		codNomenclatura +
 		valorestatisticoinEuro 
 	FROM #RecordDettaglio1_BENI  where TipoRecord='2'
@@ -884,7 +901,7 @@ BEGIN
 		segno_variazione +
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinEuro))) + CONVERT(varchar(13),ammontareinEuro)+
 		SUBSTRING(REPLICATE('0',13),1, 13 - DATALENGTH(CONVERT(varchar(13),ammontareinValuta))) + CONVERT(varchar(13),ammontareinValuta)+
-		codTransazione +
+		codTransazioneA +
 		codNomenclatura  
 	FROM #RecordDettaglio1_BENI where TipoRecord='2'
 END
@@ -912,6 +929,7 @@ BEGIN
 		modpagamento + 
 		codPaesePagamento
 	FROM #RecordDettaglio3_SERVIZI where TipoRecord='3'
+--	select 'sez 3',* from #trace
 END
 /*
 select campofisso ,	Piva_presentatore ,		NumeroProgressivoelenco ,
@@ -971,5 +989,4 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
-
 

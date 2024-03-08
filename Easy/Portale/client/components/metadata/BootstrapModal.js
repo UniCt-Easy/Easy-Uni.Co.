@@ -1,20 +1,3 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 /**
  * @module BootstrapModal
  * @description
@@ -40,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         this.closeCommand = closeCommand;
         this.title = title;
         this.body = body;
-        this.buttons = buttons || [appMeta.localResource.close];
+        this.buttons = buttons || [appMeta.localResource.dictionary.close];
         this.currModal = null;
         this.parent = null;
         this.details = details;
@@ -84,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Empties the dialog box
          */
         hide:function () {
-            if (this.currModal){
+            if (this.currModal) {             
                 this.currModal.modal("hide");
                 this.currModal.remove();
                 this.currModal = null;
@@ -111,8 +94,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * @description ASYNC
          * Shows the bootstrap modal
          * @param {MetaPage} page
-         * @param {html element} parent. the html node where the modal will be added
-         * @retunrs {Deferred} a promise, that will be resolved in the close() event
+         * @param {element} parent. the html node where the modal will be added
+         * @return {Promise} a promise, that will be resolved in the close() event
          */
         show: function (page, parent) {
             this.def = Deferred("BootstrapModal.show");
@@ -120,7 +103,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             this.parent = parent || document.body;
             this.hide();
             var self = this;
-            this.idunivoque = utils.getUnivoqueId();
+            this.idunivoque = utils.getUniqueId();
             this.currModal = $(this.getModalHtml());
 
             $(this.parent).append(this.currModal); //lo devo prima aggiungere , altrimenti la show non funziona. La show mette lo sfondo
@@ -141,7 +124,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (this.details) {
                 $("#myModal" + self.idunivoque + " .modal-footer")
                     .append($("<button class='btn btn-secondary'>")
-                        .text(localResource.details)
+                        .text(localResource.dictionary.details)
                         .data("mdlModalWin", self)
                         .on("click", self.toggleDetails));
             }

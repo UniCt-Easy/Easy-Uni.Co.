@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1487,6 +1487,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1496,9 +1498,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
 		AND entrydetail.idupb like @idupb
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21101%'),0)
 
 declare @A2_Diritti_brevetto_entry decimal(19,2)
@@ -1511,6 +1515,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 		ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1520,9 +1526,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21102%'),0)
 
 declare @A3_Concessioni_licenze_entry decimal(19,2)
@@ -1535,6 +1543,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1544,9 +1554,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21103%'),0)
 
 declare @A4_immobilizzazioni_IMMATERIALI_entry decimal(19,2)
@@ -1559,6 +1571,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1568,9 +1582,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21104%'),0)
 
 declare @A5_Altre_immobilizzazioni_immateriali_entry decimal(19,2)
@@ -1583,6 +1599,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 		ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1592,9 +1610,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21105%'),0)
 
 declare @A_TOT_IMMATERIALI_entry decimal(19,2)
@@ -1611,6 +1631,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1620,9 +1642,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21201%'),0)
 
 declare @A2_impianti_attrezzature_entry  decimal(19,2)
@@ -1635,6 +1659,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 		ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1644,9 +1670,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21202%'),0)
 --select @A2_impianti_attrezzature_entry -- QUA
 
@@ -1660,6 +1688,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 		ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1669,9 +1699,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21203%'),0)
 
 declare @A4_Patrimonio_librario_entry  decimal(19,2)
@@ -1684,6 +1716,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1693,9 +1727,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21204%'),0)
 
 
@@ -1709,6 +1745,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1718,9 +1756,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21205%'),0)
 
 declare @A6_immobilizzazioni_materiali_corso_acconti_entry  decimal(19,2)
@@ -1733,6 +1773,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1742,9 +1784,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21206%'),0)
 
 declare @A7_Altre_immobilizzazioni_materiali_entry  decimal(19,2)
@@ -1757,6 +1801,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1766,9 +1812,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21207%'),0)
 
 declare @A_TOT_MATERIALI_entry  decimal(19,2)	
@@ -1785,6 +1833,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1794,9 +1844,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21301%'),0)
 
 declare @A_INVESTIMENTI_PERPROGETTIDIRICERCA_entry  decimal(19,2)
@@ -1812,6 +1864,8 @@ FROM entrydetail
 		ON A.idacc = entrydetail.idacc
 	JOIN account PARENT 
 					ON PARENT.idacc = SUBSTRING(A.idacc, 1, @lenminlevel)
+	JOIN upb U
+		ON entrydetail.idupb = U.idupb
 	join sorting S
 		on S.idsor = PARENT.idsor_investmentbudget
 		join #impieghi  
@@ -1821,9 +1875,11 @@ FROM entrydetail
 		AND adate <= @adate
 		AND entrydetail.idupb like @idupb
 		AND A.flagaccountusage & 256 <> 0	-- Immobilizzazioni
-		AND (@idsor01 IS NULL OR entry.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR entry.idsor02 = @idsor02)	
-		AND (@idsor03 IS NULL OR entry.idsor03 = @idsor03)	
-		AND (@idsor04 IS NULL OR entry.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR entry.idsor05 = @idsor05)
+		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	
+		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	
+		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
+		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	
+		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		and #impieghi.sortcode like 'I21401%'),0)
 End
 	

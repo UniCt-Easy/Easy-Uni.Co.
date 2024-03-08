@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_pcspeoview_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_pcspeoview_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aoo_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codice" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codiceipa" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_ct" type="xs:dateTime" />
+              <xs:element name="struttura_cu" type="xs:string" />
+              <xs:element name="struttura_email" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_fax" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_idaoo" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idsede" type="xs:int" />
+              <xs:element name="struttura_idstrutturakind" type="xs:int" />
+              <xs:element name="struttura_lt" type="xs:dateTime" />
+              <xs:element name="struttura_lu" type="xs:string" />
+              <xs:element name="struttura_pesoindicatori" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoprogaltreuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoproguo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturaparent_idstrutturakind" type="xs:int" minOccurs="0" />
+              <xs:element name="strutturaparent_title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inquadramentodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idinquadramento" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="inquadramento_costolordoannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="inquadramento_costolordoannuooneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="inquadramento_ct" type="xs:dateTime" />
+              <xs:element name="inquadramento_cu" type="xs:string" />
+              <xs:element name="inquadramento_lt" type="xs:dateTime" />
+              <xs:element name="inquadramento_lu" type="xs:string" />
+              <xs:element name="inquadramento_siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="inquadramento_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="inquadramento_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="inquadramento_tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="positiondefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="position_active" type="xs:string" minOccurs="0" />
+              <xs:element name="position_assegnoaggiuntivo" type="xs:string" minOccurs="0" />
+              <xs:element name="position_codeposition" type="xs:string" />
+              <xs:element name="position_costolordoannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="position_costolordoannuooneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="position_ct" type="xs:dateTime" />
+              <xs:element name="position_cu" type="xs:string" />
+              <xs:element name="position_description" type="xs:string" />
+              <xs:element name="position_elementoperequativo" type="xs:string" minOccurs="0" />
+              <xs:element name="position_foreignclass" type="xs:string" minOccurs="0" />
+              <xs:element name="position_indennitadiateneo" type="xs:string" minOccurs="0" />
+              <xs:element name="position_indennitadiposizione" type="xs:string" minOccurs="0" />
+              <xs:element name="position_indvacancacontrattuale" type="xs:string" minOccurs="0" />
+              <xs:element name="position_livello" type="xs:string" minOccurs="0" />
+              <xs:element name="position_lt" type="xs:dateTime" />
+              <xs:element name="position_lu" type="xs:string" />
+              <xs:element name="position_maxincomeclass" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxcompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxcompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxdidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxgg" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxtempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremaxtempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremincompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremincompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremindidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremindidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremintempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="position_oremintempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="position_orestraordinariemax" type="xs:int" minOccurs="0" />
+              <xs:element name="position_parttime" type="xs:string" minOccurs="0" />
+              <xs:element name="position_printingorder" type="xs:int" minOccurs="0" />
+              <xs:element name="position_puntiorganico" type="xs:decimal" minOccurs="0" />
+              <xs:element name="position_siglaesportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="position_siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tipoente" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tipopersonale" type="xs:string" minOccurs="0" />
+              <xs:element name="position_totaletredicesima" type="xs:string" minOccurs="0" />
+              <xs:element name="position_tredicesimaindennitaintegrativaspeciale" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pcspeoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="idinquadramento_start" type="xs:int" minOccurs="0" />
+              <xs:element name="idpcspeoview" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="idposition_start" type="xs:int" />
+              <xs:element name="idstipendio" type="xs:int" />
+              <xs:element name="idstipendio_start" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="nominativo" type="xs:string" />
+              <xs:element name="numeropersoneassunzione" type="xs:int" />
+              <xs:element name="percentuale" type="xs:int" />
+              <xs:element name="stipendio" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totale1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totale2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totale3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="inquadramentodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inquadramentodefaultview" />
+      <xs:field xpath="mstns:idinquadramento" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="positiondefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:positiondefaultview" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="pcspeoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pcspeoview" />
+      <xs:field xpath="mstns:idpcspeoview" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_pcspeoview_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="pcspeoview" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_pcspeoview_inquadramentodefaultview_idinquadramento_start" msdata:parent="inquadramentodefaultview" msdata:child="pcspeoview" msdata:parentkey="idinquadramento" msdata:childkey="idinquadramento_start" />
+      <msdata:Relationship name="FK_pcspeoview_positiondefaultview_idposition_start" msdata:parent="positiondefaultview" msdata:child="pcspeoview" msdata:parentkey="idposition" msdata:childkey="idposition_start" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

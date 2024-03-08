@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 
 	var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -41,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'segmitr':
-						this.describeAColumn(table, '!idattivform_attivform_title', 'Attivit‡ formativa', null, 31, null);
+						this.describeAColumn(table, '!idattivform_attivform_title', 'Attivit√† formativa', null, 31, null);
 						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup: 'attivform', columnNameLookup: 'title', columnNamekey: 'idattivform' };
 						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione Didattica programmata', null, 81, null);
 						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Didattica programmata', null, 82, null);
@@ -83,12 +66,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						objCalcFieldConfig['!idistanza_istanza_imm_idreg_studenti_anno'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'anno', columnNamekey: 'idistanza' };
 						objCalcFieldConfig['!idistanza_istanza_imm_iddidprog_iddidprog'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'iddidprog', columnNamekey: 'idistanza' };
 						objCalcFieldConfig['!idistanza_istanza_imm_iddidprog_aa'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'aa', columnNamekey: 'idistanza' };
-						this.describeAColumn(table, '!idattivform_attivform_title', 'attivit‡ formativa', null, 31, null);
+						this.describeAColumn(table, '!idattivform_attivform_title', 'attivit√† formativa', null, 31, null);
 						//$objCalcFieldConfig_segmitr$
 						break;
 					case 'segistrein':
 						this.describeAColumn(table, 'changesother', 'Changes other', null, 30, -1);
-						this.describeAColumn(table, '!idattivform_attivform_title', 'attivit‡ formativa', null, 41, null);
+						this.describeAColumn(table, '!idattivform_attivform_title', 'attivit√† formativa', null, 41, null);
 						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup: 'attivform', columnNameLookup: 'title', columnNamekey: 'idattivform' };
 						this.describeAColumn(table, '!idchanges_changes_title', 'Changes', null, 21, null);
 						objCalcFieldConfig['!idchanges_changes_title'] = { tableNameLookup: 'changes', columnNameLookup: 'title', columnNamekey: 'idchanges' };
@@ -98,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						break;
 					case 'segistpass':
 						this.describeAColumn(table, 'changesother', 'Changes other', null, 30, -1);
-						this.describeAColumn(table, '!idattivform_attivform_title', 'attivit‡ formativa', null, 41, null);
+						this.describeAColumn(table, '!idattivform_attivform_title', 'attivit√† formativa', null, 41, null);
 						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup: 'attivform', columnNameLookup: 'title', columnNamekey: 'idattivform' };
 						this.describeAColumn(table, '!idchanges_changes_title', 'Changes', null, 21, null);
 						objCalcFieldConfig['!idchanges_changes_title'] = { tableNameLookup: 'changes', columnNameLookup: 'title', columnNamekey: 'idchanges' };

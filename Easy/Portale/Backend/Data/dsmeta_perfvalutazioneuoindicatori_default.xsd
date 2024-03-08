@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_perfvalutazioneuoindicatori_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="dsmeta_perfvalutazioneuoindicatori_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsmeta_perfvalutazioneuoindicatori_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -17,7 +17,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="perfvalutazioneuoindicatorisoglia" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfvalutazioneuoindicatorisoglia" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
@@ -49,7 +49,6 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idperfindicatore" type="xs:int" />
-              <xs:element name="idperfstruttura" type="xs:int" />
               <xs:element name="idperfvalutazioneuo" type="xs:int" />
               <xs:element name="idperfvalutazioneuoindicatori" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
@@ -81,7 +80,6 @@
     <xs:unique name="perfvalutazioneuoindicatori_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfvalutazioneuoindicatori" />
       <xs:field xpath="mstns:idperfindicatore" />
-      <xs:field xpath="mstns:idperfstruttura" />
       <xs:field xpath="mstns:idperfvalutazioneuo" />
       <xs:field xpath="mstns:idperfvalutazioneuoindicatori" />
     </xs:unique>

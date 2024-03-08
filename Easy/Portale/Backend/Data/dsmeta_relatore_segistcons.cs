@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -68,22 +68,15 @@ private void initClass() {
 	var trelatorekinddefaultview= new MetaTable("relatorekinddefaultview");
 	trelatorekinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	trelatorekinddefaultview.defineColumn("idrelatorekind", typeof(int),false);
+	trelatorekinddefaultview.defineColumn("relatorekind_active", typeof(string));
 	Tables.Add(trelatorekinddefaultview);
 	trelatorekinddefaultview.defineKey("idrelatorekind");
 
 	//////////////////// REGISTRYDOCENTIVIEW /////////////////////////////////
 	var tregistrydocentiview= new MetaTable("registrydocentiview");
 	tregistrydocentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydocentiview.defineColumn("idcity", typeof(int));
-	tregistrydocentiview.defineColumn("idclassconsorsuale", typeof(int));
-	tregistrydocentiview.defineColumn("idnation", typeof(int));
 	tregistrydocentiview.defineColumn("idreg", typeof(int),false);
-	tregistrydocentiview.defineColumn("idreg_istituti", typeof(int));
-	tregistrydocentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrydocentiview.defineColumn("idsasd", typeof(int));
-	tregistrydocentiview.defineColumn("idstruttura", typeof(int));
-	tregistrydocentiview.defineColumn("idtitle", typeof(string));
-	tregistrydocentiview.defineColumn("registry_residence", typeof(int),false);
+	tregistrydocentiview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistrydocentiview);
 	tregistrydocentiview.defineKey("idreg");
 

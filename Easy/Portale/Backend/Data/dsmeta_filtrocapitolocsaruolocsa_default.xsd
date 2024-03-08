@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_filtrocapitolocsaruolocsa_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_filtrocapitolocsaruolocsa_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="positiondefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="position_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ruolocsa" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idruolocsa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="filtrocapitolocsaruolocsa" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idfiltrocapitolocsa" type="xs:int" />
+              <xs:element name="idfiltrocapitolocsaruolocsa" type="xs:int" />
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="idruolocsa" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:positiondefaultview" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="ruolocsa_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ruolocsa" />
+      <xs:field xpath="mstns:idruolocsa" />
+    </xs:unique>
+    <xs:unique name="filtrocapitolocsaruolocsa_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:filtrocapitolocsaruolocsa" />
+      <xs:field xpath="mstns:idfiltrocapitolocsa" />
+      <xs:field xpath="mstns:idfiltrocapitolocsaruolocsa" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_filtrocapitolocsaruolocsa_positiondefaultview_idposition" msdata:parent="positiondefaultview" msdata:child="filtrocapitolocsaruolocsa" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="FK_filtrocapitolocsaruolocsa_ruolocsa_idruolocsa" msdata:parent="ruolocsa" msdata:child="filtrocapitolocsaruolocsa" msdata:parentkey="idruolocsa" msdata:childkey="idruolocsa" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

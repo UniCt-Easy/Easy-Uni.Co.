@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -107,8 +107,10 @@ namespace electronicinvoice_default {
 			this.txtCodice01 = new System.Windows.Forms.TextBox();
 			this.btnCodice01 = new System.Windows.Forms.Button();
 			this.txtDenom01 = new System.Windows.Forms.TextBox();
-			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+			this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+			this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
@@ -866,7 +868,7 @@ namespace electronicinvoice_default {
 			// 
 			// saveFileDialog1
 			// 
-			this.saveFileDialog1.DefaultExt = "xml";
+			//this.saveFileDialog1.DefaultExt = "xml";
 			// 
 			// Frm_electronicinvoice_default
 			// 
@@ -940,8 +942,8 @@ namespace electronicinvoice_default {
         public System.Windows.Forms.TextBox txtCodice01;
         public System.Windows.Forms.Button btnCodice01;
         private System.Windows.Forms.TextBox txtDenom01;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.Button btnVisualizza;
         private System.Windows.Forms.TabPage tabPrincipale;
         private System.Windows.Forms.Label label4;
@@ -981,5 +983,7 @@ namespace electronicinvoice_default {
 		private System.Windows.Forms.Label label23;
 		private System.Windows.Forms.TextBox txtEmail_ven_cliente;
 		private System.Windows.Forms.Label label24;
+		private metadatalibrary.ISaveFileDialog saveFileDialog1;
+		private metadatalibrary.IFolderBrowserDialog folderBrowserDialog1;
 	}
 }

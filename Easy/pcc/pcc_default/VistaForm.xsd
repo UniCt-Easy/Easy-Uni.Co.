@@ -260,43 +260,50 @@
             <xs:sequence>
               <xs:element name="idpcc" type="xs:int" />
               <xs:element name="idpccpayment" type="xs:int" />
+              <xs:element name="invoicekind" type="xs:string" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
               <xs:element name="yinv" type="xs:short" minOccurs="0" />
               <xs:element name="ninv" type="xs:int" minOccurs="0" />
-              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
-              <xs:element name="invoicekind" type="xs:string" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="IdFiscaleIvaFornitore" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="CFfornitore" type="xs:string" minOccurs="0" />
+              <xs:element name="numerodocumento" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="dataemissione" msdata:ReadOnly="true" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ImportoTotaleDocumento" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="paytransmissiondate" msdata:ReadOnly="true" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ymov" type="xs:short" minOccurs="0" />
+              <xs:element name="nmov" type="xs:int" minOccurs="0" />
+              <xs:element name="npay" type="xs:string" minOccurs="0" />
+              <xs:element name="pettycash" type="xs:string" minOccurs="0" />
+              <xs:element name="yoperation" type="xs:int" minOccurs="0" />
+              <xs:element name="noperation" type="xs:short" minOccurs="0" />
+              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
+              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
+              <xs:element name="expensekind" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_1" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_2_a" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_2_b" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_a" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_b" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_c" type="xs:string" minOccurs="0" />
               <xs:element name="ycon" type="xs:int" minOccurs="0" />
               <xs:element name="ncon" type="xs:int" minOccurs="0" />
               <xs:element name="yman" type="xs:short" minOccurs="0" />
               <xs:element name="nman" type="xs:int" minOccurs="0" />
-              <xs:element name="idmankind" type="xs:string" minOccurs="0" />
-              <xs:element name="mandatekind" type="xs:string" minOccurs="0" />
-              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
-              <xs:element name="expensekind" type="xs:string" minOccurs="0" />
-              <xs:element name="idfin" type="xs:int" minOccurs="0" />
-              <xs:element name="codefin" type="xs:string" minOccurs="0" />
-              <xs:element name="kpay" type="xs:int" minOccurs="0" />
-              <xs:element name="npay" type="xs:string" minOccurs="0" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="idexp" type="xs:int" minOccurs="0" />
-              <xs:element name="expensephase" type="xs:string" minOccurs="0" />
-              <xs:element name="nmov" type="xs:int" minOccurs="0" />
-              <xs:element name="ymov" type="xs:short" minOccurs="0" />
-              <xs:element name="cigcode" type="xs:string" minOccurs="0" />
-              <xs:element name="cupcode" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="registry" type="xs:string" minOccurs="0" />
-              <xs:element name="IdFiscaleIvaFornitore" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
-              <xs:element name="CFfornitore" type="xs:string" minOccurs="0" />
-              <xs:element name="ImportoTotaleDocumento" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="dataemissione" msdata:ReadOnly="true" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="numerodocumento" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
-              <xs:element name="pettycash" type="xs:string" minOccurs="0" />
               <xs:element name="idpettycash" type="xs:int" minOccurs="0" />
-              <xs:element name="yoperation" type="xs:int" minOccurs="0" />
-              <xs:element name="noperation" type="xs:short" minOccurs="0" />
+              <xs:element name="idmankind" type="xs:string" minOccurs="0" />
+              <xs:element name="mandatekind" type="xs:string" minOccurs="0" />
+              <xs:element name="idfin" type="xs:int" minOccurs="0" />
+              <xs:element name="codefin" type="xs:string" minOccurs="0" />
+              <xs:element name="kpay" type="xs:int" minOccurs="0" />
+              <xs:element name="idexp" type="xs:int" minOccurs="0" />
+              <xs:element name="expensephase" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -305,30 +312,36 @@
             <xs:sequence>
               <xs:element name="idpcc" type="xs:int" />
               <xs:element name="idpccexpiring" type="xs:int" />
+              <xs:element name="invoicekind" type="xs:string" minOccurs="0" />
               <xs:element name="yinv" type="xs:short" minOccurs="0" />
               <xs:element name="ninv" type="xs:int" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_2_a" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_2_b" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_a" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_b" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_c" type="xs:string" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="IdFiscaleIvaFornitore" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="CFfornitore" type="xs:string" minOccurs="0" />
+              <xs:element name="numerodocumento" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="dataemissione" msdata:ReadOnly="true" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ImportoTotaleDocumento" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="expiringdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
-              <xs:element name="invoicekind" type="xs:string" minOccurs="0" />
               <xs:element name="ycon" type="xs:int" minOccurs="0" />
               <xs:element name="ncon" type="xs:int" minOccurs="0" />
               <xs:element name="yman" type="xs:short" minOccurs="0" />
               <xs:element name="nman" type="xs:int" minOccurs="0" />
               <xs:element name="idmankind" type="xs:string" minOccurs="0" />
               <xs:element name="mandatekind" type="xs:string" minOccurs="0" />
-              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
-              <xs:element name="expiringdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="registry" type="xs:string" minOccurs="0" />
-              <xs:element name="IdFiscaleIvaFornitore" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
-              <xs:element name="CFfornitore" type="xs:string" minOccurs="0" />
-              <xs:element name="ImportoTotaleDocumento" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="dataemissione" msdata:ReadOnly="true" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="numerodocumento" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="manrownum" type="xs:int" minOccurs="0" />
               <xs:element name="invrownum" type="xs:int" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_1" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -422,6 +435,77 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="pccdocamountvarview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpcc" type="xs:int" />
+              <xs:element name="idpccdocamountvar" type="xs:int" />
+              <xs:element name="idpccdebitstatusdetail" type="xs:int" minOccurs="0" />
+              <xs:element name="invoicekind" type="xs:string" />
+              <xs:element name="yinv" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv" type="xs:int" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_2_a" type="xs:long" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_2_b" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_a" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_b" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_c" type="xs:string" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" />
+              <xs:element name="IdFiscaleIvaFornitore" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="CFfornitore" type="xs:string" minOccurs="0" />
+              <xs:element name="importononcommerciale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="imp_sosp_contenzioso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva_sosp_contenzioso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start_sosp_contenzioso" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="imp_sosp_contestazione" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva_sosp_contestazione" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start_sosp_contestazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="imp_sosp_regolareverifica" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva_sosp_regolareverifica" type="xs:decimal" minOccurs="0" />
+              <xs:element name="start_sosp_regolareverifica" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="imp_nonliquidabile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iva_nonliquidabile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="importo_nonliquidabile" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="IDENTIFICATIVO_1" type="xs:string" minOccurs="0" />
+
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pccsplitpaymentview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpcc" type="xs:int" />
+              <xs:element name="idpccsplitpayment" type="xs:int" />
+              <xs:element name="invoicekind" type="xs:string" />
+              <xs:element name="yinv" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv" type="xs:int" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_2_a" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_2_b" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_a" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_b" type="xs:string" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_3_c" type="xs:string" minOccurs="0" />
+              <xs:element name="registry" type="xs:string" minOccurs="0" />
+              <xs:element name="IdFiscaleIvaFornitore" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="CFfornitore" type="xs:string" minOccurs="0" />
+              <xs:element name="numerodocumento" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ImportoTotaleDocumento" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flag_enable_split_payment" type="xs:string" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="IDENTIFICATIVO_1" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -472,6 +556,16 @@
       <xs:selector xpath=".//mstns:registry" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
+    <xs:unique name="pccdocamountvarview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pccdocamountvarview" />
+      <xs:field xpath="mstns:idpcc" />
+      <xs:field xpath="mstns:idpccdocamountvar" />
+    </xs:unique>
+    <xs:unique name="pccsplitpaymentview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pccsplitpaymentview" />
+      <xs:field xpath="mstns:idpcc" />
+      <xs:field xpath="mstns:idpccsplitpayment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -484,6 +578,8 @@
       <msdata:Relationship name="FK_sorting04_pcc" msdata:parent="sorting04" msdata:child="pcc" msdata:parentkey="idsor" msdata:childkey="idsor04" />
       <msdata:Relationship name="FK_sorting02_pcc" msdata:parent="sorting02" msdata:child="pcc" msdata:parentkey="idsor" msdata:childkey="idsor02" />
       <msdata:Relationship name="FK_sorting01_pcc" msdata:parent="sorting01" msdata:child="pcc" msdata:parentkey="idsor" msdata:childkey="idsor01" />
+      <msdata:Relationship name="pcc_pccdocamountvarview" msdata:parent="pcc" msdata:child="pccdocamountvarview" msdata:parentkey="idpcc" msdata:childkey="idpcc" />
+      <msdata:Relationship name="pcc_pccsplitpaymentview" msdata:parent="pcc" msdata:child="pccsplitpaymentview" msdata:parentkey="idpcc" msdata:childkey="idpcc" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

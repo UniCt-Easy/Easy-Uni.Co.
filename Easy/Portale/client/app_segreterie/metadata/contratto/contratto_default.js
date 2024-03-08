@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+ï»¿(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_contratto() {
 		MetaPage.apply(this, ['contratto', 'default', true]);
-        this.name = 'Contratti';
+        this.name = 'Servizi di ruolo - Contratti';
 		this.defaultListType = 'default';
 		//pageHeaderDeclaration
     }
@@ -45,15 +28,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.parttime)
+				if (this.isNull(parentRow.parttime))
 					parentRow.parttime = 100;
-				if (!parentRow.percentualesufondiateneo)
+				if (this.isNull(parentRow.percentualesufondiateneo))
 					parentRow.percentualesufondiateneo = "100";
-				if (self.isNullOrMinDate(parentRow.start))
-					parentRow.start = new Date();
-				if (!parentRow.tempdef)
+				if (this.isNull(parentRow.tempdef) || parentRow.tempdef == '')
 					parentRow.tempdef = 'N';
-				if (!parentRow.tempindet)
+				if (this.isNull(parentRow.tempindet) || parentRow.tempindet == '')
 					parentRow.tempindet = 'S';
 				//beforeFillFilter
 				
@@ -73,34 +54,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				this.enableControl($('#contratto_default_anni'), true);
+				this.enableControl($('#contratto_default_mesi'), true);
+				this.enableControl($('#contratto_default_giorni'), true);
+				//afterClearin
+			},
 
-			//afterFill
+			afterFill: function () {
+				this.enableControl($('#contratto_default_anni'), false);
+				this.enableControl($('#contratto_default_mesi'), false);
+				this.enableControl($('#contratto_default_giorni'), false);
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$('#contratto_default_start').on("change", _.partial(this.managestart, self));
+				$('#contratto_default_stop').on("change", _.partial(this.managestop, self));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				//afterRowSelectin
 				var arraydef = [];
 				var self = this;
 				if (t.name === "contrattokinddefaultview" && r !== null) {
-					if (r.contrattokind_parttime === 'No') {
-						$('#contratto_default_parttime').val('');
-						self.enableControl($('#contratto_default_parttime'), false);
-					}
-					else {
-						self.enableControl($('#contratto_default_parttime'), true);
-					}
-				}
-				if (t.name === "contrattokinddefaultview" && r !== null) {
 					if (r.contrattokind_tempdef === 'No') {
-						$('#contratto_default_tempdef').val('');
 						self.enableControl($('#contratto_default_tempdefSi'), false);
 						self.enableControl($('#contratto_default_tempdefNo'), false);
 					}
 					else {
 						self.enableControl($('#contratto_default_tempdefSi'), true);
 						self.enableControl($('#contratto_default_tempdefNo'), true);
+					}
+				}
+				if (t.name === "contrattokinddefaultview" && r !== null) {
+					if (r.contrattokind_parttime === 'No') {
+						self.enableControl($('#contratto_default_parttime'), false);
+					}
+					else {
+						self.enableControl($('#contratto_default_parttime'), true);
 					}
 				}
 				//afterRowSelectAsincIn
@@ -112,19 +112,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				var self = this;
 				//afterActivationin
 				var arraydef = [];
-				if (parentRow.contrattokind_parttime) {
-					arraydef.push(appMeta.getData.runSelect('contrattokinddefaultview', 'parttime', this.q.eq('idcontrattokind', parentRow.idcontrattokind), null)
-						.then(function (dt) {
-							if (dt.rows[0].contrattokind_parttime === 'No') {
-								self.enableControl($('#contratto_default_parttime'), false);
-							}
-							else {
-								self.enableControl($('#contratto_default_parttime'), true);
-							}
-							return true;
-						})
-					);
-				}
 				if (parentRow.contrattokind_tempdef) {
 					arraydef.push(appMeta.getData.runSelect('contrattokinddefaultview', 'tempdef', this.q.eq('idcontrattokind', parentRow.idcontrattokind), null)
 						.then(function (dt) {
@@ -135,6 +122,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							else {
 								self.enableControl($('#contratto_default_tempdefSi'), true);
 								self.enableControl($('#contratto_default_tempdefNo'), true);
+							}
+							return true;
+						})
+					);
+				}
+				if (parentRow.contrattokind_parttime) {
+					arraydef.push(appMeta.getData.runSelect('contrattokinddefaultview', 'parttime', this.q.eq('idcontrattokind', parentRow.idcontrattokind), null)
+						.then(function (dt) {
+							if (dt.rows[0].contrattokind_parttime === 'No') {
+								self.enableControl($('#contratto_default_parttime'), false);
+							}
+							else {
+								self.enableControl($('#contratto_default_parttime'), true);
 							}
 							return true;
 						})
@@ -151,6 +151,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			//insertClick
 
 			//beforePost
+
+			refreshAmg: function(that) { 
+				//calcolo durata ruolo
+				if ($("#contratto_default_start").val() != '' && $("#contratto_default_stop").val()!='') {
+					var start = that.getDateTimeFromString($("#contratto_default_start").val());
+					var stop = $("#contratto_default_stop").val() != '' ? that.getDateTimeFromString($("#contratto_default_stop").val()) : new Date();
+
+					//calcolo la durata per mesi e giorni
+					var output = that.getDaysAndMonthByDates(start, stop);
+
+					//rivaluto i giorni in mesi e i mesi in anni
+					var result = that.reevaluateDaysAndMonth(output);
+
+					that.state.currentRow.giorni = result.gg;
+					that.state.currentRow.mesi = result.mm;
+					that.state.currentRow.anni = result.aa;
+					$("#contratto_default_anni").val(result.aa);
+					$("#contratto_default_mesi").val(result.mm);
+					$("#contratto_default_giorni").val(result.gg);
+				}
+				else {
+					that.state.currentRow.anni = 0;
+					that.state.currentRow.mesi = 0;
+					that.state.currentRow.giorni = 0;					
+				}
+			},
+
+			managestart: function(that) { 
+				that.refreshAmg(that);
+			},
+
+			managestop: function(that) { 
+				that.refreshAmg(that);
+			},
 
 			//buttons
         });

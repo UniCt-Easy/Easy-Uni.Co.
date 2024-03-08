@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,15 +32,14 @@ namespace flussocrediti_default {
         DataAccess Conn;
         private DataAccess MyConn;
         char[] buffer = new char[2000];
-        public IOpenFileDialog openFileDialog1;
-
-        public Frm_flussocrediti_default() {
-            InitializeComponent();
-            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
-        }
-
+        
         CQueryHelper QHC;
         QueryHelper QHS;
+        
+        public Frm_flussocrediti_default() {
+            InitializeComponent();
+            saveFileDialog1.DefaultExt = "xml";
+        }
 
         string partner;
         string[] partnerConfig;
@@ -93,7 +92,7 @@ namespace flussocrediti_default {
             var tPartnerConfig = Conn.RUN_SELECT("partner_config", "*", null, null, "1", false);
             if (tPartnerConfig.Rows.Count > 0) {
                 var r = tPartnerConfig.Rows[0];
-
+             
                 partner = r["code"] as string;
 
                 switch (partner) {
@@ -125,6 +124,7 @@ namespace flussocrediti_default {
                 txtAnnoDocumento.Text = Conn.GetEsercizio().ToString();
             }
         }
+        
 
         public void MetaData_AfterClear() {
             buttonInsertCA.Enabled = false;
@@ -137,7 +137,7 @@ namespace flussocrediti_default {
             cmbTipoDoc.SelectedIndex = -1;
             //txtPercorso.Text = "";
             txtAnnoContratto.Text = "";
-            txtAnnoDocumento.Text = "";
+            txtAnnoDocumento.Text = ""; 
         }
 
         public void Enabledisable_Transmitted() {
@@ -234,7 +234,7 @@ namespace flussocrediti_default {
                 WHERE FCD.iduniqueformcode IS NOT NULL AND FCD.idflusso = {0}", idflusso);
 
             Meta.Conn.SQLRunner(scriptUpdateInvoiceDetails);
-            scriptUpdateInvoiceDetails = "";
+            scriptUpdateInvoiceDetails = ""; 
         }
 
         public void MetaData_BeforePost() {
@@ -507,15 +507,13 @@ namespace flussocrediti_default {
                 filter = QHS.AppAnd(filter, QHS.CmpEq("idestimkind", cmbTipoContrattoAttivo.SelectedValue));
             }
             else {
-                //Solo Contratti non collegabili a fattura
-                //filter = QHS.AppAnd(filter, QHS.CmpEq("toinvoice", "N"));
+                //Solo Contratti attivi non collegabili a fattura
                 DataTable estimatekind = Meta.Conn.RUN_SELECT("estimatekind", "idestimkind", null, QHS.CmpEq("linktoinvoice", "N"), null, true);
                 string lista = QHS.DistinctVal(estimatekind.Select(), "idestimkind");
                 filter = QHS.AppAnd(filter, QHS.FieldInList("idestimkind", lista));
 
             }
-
-            filter = QHS.AppAnd(filter, QHS.NullOrEq("flagbankitaliaproceeds","N"), QHS.IsNotNull("idfinmotive"));
+                filter = QHS.AppAnd(filter, QHS.NullOrEq("flagbankitaliaproceeds","N"), QHS.IsNotNull("idfinmotive"));
             return filter;
         }
 
@@ -543,6 +541,18 @@ namespace flussocrediti_default {
             MetaData.GetFormData(this, true);
 
             string MyFilter = GetFilterForLinking_Estim(QHS);
+            string filterestimate = "";
+            int rowsCount = 0;
+            foreach (DataRow R in DS.flussocreditidetail_ca.Select()) {
+                rowsCount++;
+                if (R.RowState != DataRowState.Added) continue;
+                if (R["idestimkind"] == DBNull.Value) continue; //Non è una riga collegata a dettagli contratto attivo, non dovrebbe accadere
+                if (rowsCount == 1)
+                  filterestimate = QHS.DoPar(QHS.CmpMulti(R, "idestimkind", "yestim", "nestim", "rownum"));
+                else
+                    filterestimate = QHS.AppOr(filterestimate, QHS.DoPar(QHC.CmpMulti(R, "idestimkind", "yestim", "nestim", "rownum")));
+            }
+            if (rowsCount >0) MyFilter = QHS.AppAnd(MyFilter, QHS.Not(filterestimate));
             string command = "choose.estimatedetail.flussocrediti." + MyFilter;
 
             MetaData.Choose(this, command);
@@ -634,7 +644,7 @@ namespace flussocrediti_default {
                 show(this, "Per eseguire l'operazione occorre prima SALVARE.");
                 return null;
             }
-
+            
             return Curr;
         }
 
@@ -685,31 +695,77 @@ namespace flussocrediti_default {
         }
 
         private void AllineaTassonomia() {
-            DataRow[] Righe_ca = DS.flussocreditidetail_ca.Select(QHC.IsNotNull("codicetassonomia"), "importoversamento desc");
-  
-            if (Righe_ca.Length > 0) {
-                object codiceTassonomiaPreval = Righe_ca[0]["codicetassonomia"];
+			// ====================================================================================================================
+			//                                              CA => nestim is not null
+			// ====================================================================================================================
+			string idflusso = DS.flussocrediti.Rows[0]["idflusso"].ToString();
+
+			DataTable Righe_ca = Conn.SQLRunner($@"SELECT top 1 codicetassonomia
+	                                                            FROM flussocreditidetail a
+	                                                            WHERE idflusso = {idflusso}
+	                                                            ORDER BY importoversamento DESC,
+	                                                            (
+		                                                            SELECT COUNT(idflusso)
+		                                                            FROM flussocreditidetail b
+		                                                            WHERE b.idflusso = {idflusso}
+                                                                        and nestim is not null
+                                                                        and b.codicetassonomia = a.codicetassonomia
+		                                                            GROUP BY b.codicetassonomia
+	                                                            ) DESC,
+	                                                            iddetail");
+
+			if (Righe_ca.Rows.Count > 0) {
+                object codiceTassonomiaPreval = Righe_ca.Rows[0]["codicetassonomia"];
                 foreach (var r in DS.flussocreditidetail_ca.Select()) {
                     r["codicetassonomia"] = codiceTassonomiaPreval;
                 }
             }
 
 
-            DataRow[] Righe_fatt = DS.flussocreditidetail_fatt.Select(QHC.IsNotNull("codicetassonomia"), "importoversamento desc");
-        
+			// ====================================================================================================================
+			//                                              FATT => ninv is not null 
+			// ====================================================================================================================
+			DataTable Righe_fatt = Conn.SQLRunner($@"SELECT top 1 codicetassonomia
+	                                                            FROM flussocreditidetail a
+	                                                            WHERE idflusso = {idflusso}
+	                                                            ORDER BY importoversamento DESC,
+	                                                            (
+		                                                            SELECT COUNT(idflusso)
+		                                                            FROM flussocreditidetail b
+		                                                            WHERE b.idflusso = {idflusso}
+                                                                        and ninv is not null
+                                                                        and b.codicetassonomia = a.codicetassonomia
+		                                                            GROUP BY b.codicetassonomia
+	                                                            ) DESC,
+	                                                            iddetail");
 
-            if (Righe_fatt.Length > 0) {
-                object codiceTassonomiaPreval = Righe_fatt[0]["codicetassonomia"];
+			if (Righe_fatt.Rows.Count > 0) {
+                object codiceTassonomiaPreval = Righe_fatt.Rows[0]["codicetassonomia"];
                 foreach (var r in DS.flussocreditidetail_fatt.Select()) {
                     r["codicetassonomia"] = codiceTassonomiaPreval;
                 }
             }
 
 
-            DataRow[] Righe_unlinked = DS.flussocreditidetail_unlinked.Select(QHC.IsNotNull("codicetassonomia"), "importoversamento desc");
+			// ====================================================================================================================
+		    //                                  UNLINKED => ninv is not null and nestim is not null
+			// ====================================================================================================================
+			DataTable Righe_unlinked = Conn.SQLRunner($@"SELECT top 1 codicetassonomia
+	                                                    FROM flussocreditidetail a
+	                                                    WHERE idflusso = {idflusso}
+	                                                    ORDER BY importoversamento DESC,
+	                                                    (
+		                                                    SELECT COUNT(idflusso)
+		                                                    FROM flussocreditidetail b
+		                                                    WHERE b.idflusso = {idflusso}
+                                                                and ninv is not null and nestim is not null
+                                                                and b.codicetassonomia = a.codicetassonomia
+		                                                    GROUP BY b.codicetassonomia
+	                                                    ) DESC,
+	                                                    iddetail");
          
-            if (Righe_unlinked.Length > 0) {
-                object codiceTassonomiaPreval = Righe_unlinked[0]["codicetassonomia"];
+            if (Righe_unlinked.Rows.Count > 0) {
+                object codiceTassonomiaPreval = Righe_unlinked.Rows[0]["codicetassonomia"];
                 foreach (var r in DS.flussocreditidetail_unlinked.Select()) {
                     r["codicetassonomia"] = codiceTassonomiaPreval;
                 }
@@ -849,6 +905,21 @@ namespace flussocrediti_default {
             MetaData.GetFormData(this, true);
 
             string MyFilter = GetFilterForLinking_Invoice(QHS);
+
+            string filterinvoice = "";  
+            int rowsCount = 0;
+            foreach (DataRow R in DS.flussocreditidetail_fatt.Select()) {
+                rowsCount++;
+                if (R.RowState != DataRowState.Added) continue;
+                if (R["idinvkind"] == DBNull.Value) continue; //Non è una riga collegata a dettagli fattura, non dovrebbe accadere
+                if (rowsCount == 1)
+                    filterinvoice = QHS.DoPar(QHS.AppAnd(QHS.CmpMulti(R, "idinvkind", "yinv", "ninv"),QHS.CmpEq("rownum", R["invrownum"])));
+                else
+                    filterinvoice = QHS.AppOr(filterinvoice, QHS.DoPar(QHS.AppAnd(QHS.CmpMulti(R, "idinvkind", "yinv", "ninv"), QHS.CmpEq("rownum", R["invrownum"]))));
+            }
+            if (rowsCount > 0) MyFilter = QHS.AppAnd(MyFilter, QHS.Not(filterinvoice));
+
+
             string command = "choose.invoicedetail.flussocrediti." + MyFilter;
 
             MetaData.Choose(this, command);
@@ -861,6 +932,7 @@ namespace flussocrediti_default {
             DataRow R = DS.flussocrediti.Rows[0];
 
             FrmWizardScegliDettagliContratto F = new FrmWizardScegliDettagliContratto(Meta, T);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK)
                 return;
             DataRow[] Selected = F.SelectedRows;
@@ -910,6 +982,7 @@ namespace flussocrediti_default {
             DataRow R = DS.flussocrediti.Rows[0];
 
             FrmWizardScegliDettagliFattura F = new FrmWizardScegliDettagliFattura(Meta, T);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK)
                 return;
             DataRow[] Selected = F.SelectedRows;
@@ -970,32 +1043,45 @@ namespace flussocrediti_default {
             //Solo per scopi di debug, non è da attivare in produzione
             Meta.GetFormData(true);
             DS.flussocrediti._forEach(r => r.istransmitted = "N");
-            foreach (var r in DS.flussocreditidetail_ca) {
-                r.iuv = null;
-                r.qrcodevalue=null;
-                r.qrcodeimage = null;
-                r.barcodevalue = null;
-                r.barcodeimage = null;
-                r.codiceavviso = null;                
+            int idunivoco =   CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("flussocreditidetail",null, "MAX(idunivoco)"));
+            Conn.BeginTransaction(IsolationLevel.ReadCommitted);
+                    foreach (var r in DS.flussocreditidetail_ca) {
+                        idunivoco++;
+                        if (!AnnullaRigaFlussoCreditiDetail(Conn, r, idunivoco)) { 
+                        Conn.RollBack();
+                        return;
+                }
             }
             foreach (var r in DS.flussocreditidetail_fatt) {
-                r.iuv = null;
-                r.qrcodevalue = null;
-                r.qrcodeimage = null;
-                r.barcodevalue = null;
-                r.barcodeimage = null;
-                r.codiceavviso = null;
+                idunivoco++;
+                if (!AnnullaRigaFlussoCreditiDetail(Conn, r, idunivoco)) {
+                        Conn.RollBack();
+                        return;
+                    }
             }
             foreach (var r in DS.flussocreditidetail_unlinked) {
-                r.iuv = null;
-                r.qrcodevalue = null;
-                r.qrcodeimage = null;
-                r.barcodevalue = null;
-                r.barcodeimage = null;
-                r.codiceavviso = null;
+                idunivoco++;
+                if (!AnnullaRigaFlussoCreditiDetail(Conn, r, idunivoco)) {
+                            Conn.RollBack();
+                            return;
+                        }
             }
+ 
+            Conn.Commit();
             Meta.FreshForm(false);
-            Meta.SaveFormData();
-        }
+      }
+        
+    private bool AnnullaRigaFlussoCreditiDetail(DataAccess Conn, DataRow row, int idunivoco) {
+        string[] columns = new string[] { "iuv", "qrcodevalue", "qrcodeimage",
+                                "barcodevalue", "barcodeimage", "codiceavviso","idunivoco" };
+        string valore = QHS.quote(DBNull.Value);
+        string[] values = new string[] { valore, valore, valore, valore, valore, valore, idunivoco.ToString() };
+        string condition = " idflusso = '" + row["idflusso"].ToString() + "'  " +
+                            " AND iddetail = '" + row["iddetail"].ToString() + "'";
+            
+        if (Conn.DO_UPDATE("flussocreditidetail", condition, columns, values, columns.Length) == null)
+            return true;
+        return false;
     }
+}
 }

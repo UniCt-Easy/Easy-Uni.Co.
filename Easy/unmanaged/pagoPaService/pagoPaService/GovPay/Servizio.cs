@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,6 +29,7 @@ using System.Xml;
 using System.IO;
 using XmlFormatter;
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel.Dispatcher;
 
 namespace pagoPaService.govPayReference {
 	//public interface PagamentiTelematiciGPApp invece di IServizio
@@ -119,39 +120,50 @@ namespace GovPay {
     public static class Servizio {
 
         //private static readonly string URL = "http://10.10.159.129:8080/govpay/PagamentiTelematiciGPAppService";
-        //private static readonly string USERNAME = "gpadmin";
-        //private static readonly string PASSWORD = "govpay";
 
-        public static IServizio Create(string user, string pwd, string url) {
+        public static IServizio Create(string user, string pwd, string url, string ThumbCertId) {
 
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls; // |SecurityProtocolType.Ssl3;
-            System.Net.ServicePointManager.Expect100Continue = false;
-            //var binding = new BasicHttpBinding(BasicHttpSecurityMode.None);
-            
-            var binding0 = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
-            binding0.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
-            binding0.MaxReceivedMessageSize = 65536 * 100;
+            //if (string.IsNullOrEmpty(ThumbCertId))
+            //{
+            //    ThumbCertId = "3e92d9b2dc6d2afaad4c52bd6aa24b76d63c44ab";
 
-            //var trBinding = new HttpsTransportBindingElement();
-            //trBinding.AuthenticationScheme = AuthenticationSchemes.Basic;
-            
-            //var binding = new CustomBinding(
-            //    new CustomTextMessageBindingElement("iso-8859-1", "text/xml", MessageVersion.Soap11),
-            //    trBinding);
+            //    switch (user)
+            //    {
+            //        case "UNIBAS-EASY":
+            //            ThumbCertId = "3e92d9b2dc6d2afaad4c52bd6aa24b76d63c44ab";
+            //            break;
 
-            //binding.TextEncoding = binding2;
-            var address = new EndpointAddress(url);
+            //        case "UNISALENTO-EASY":
+            //            ThumbCertId = "76e1e07320094aff491b9baea99bfc687ad66112";
+            //            break;
 
-            var factory = new ChannelFactory<IServizio>(binding0, address);
+            //        case "LUM-EASY":
+            //            ThumbCertId = "9ebf52837b09e4b3c806e7f9c4abe649be91e960";
+            //            break;
+
+            //        default:
+            //            break;
+            //    }
+            //}
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls; // |SecurityProtocolType.Ssl3;
+            ServicePointManager.Expect100Continue = false;
+
+            var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+            binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
+            binding.SendTimeout = new TimeSpan(0, 60, 0);
+            binding.MaxReceivedMessageSize = 65536 * 1000;
+
+            var factory = new ChannelFactory<IServizio>(binding, new EndpointAddress(url));
+
+            factory.Endpoint.Behaviors.Clear();
+
             factory.Credentials.UserName.UserName = user;
             factory.Credentials.UserName.Password = pwd;
 
+			factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, ThumbCertId);
+            factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, ThumbCertId);
             
-			factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "3e92d9b2dc6d2afaad4c52bd6aa24b76d63c44ab");
-            factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "3e92d9b2dc6d2afaad4c52bd6aa24b76d63c44ab");
-            factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "218fff5ce170503dae33fde182d2b22f5457f391");
-			
-
             factory.Endpoint.Behaviors.Add(new CleanNameSpacesBehavior("xsi", "xsd"));
             
             var vs = factory.Endpoint.EndpointBehaviors.FirstOrDefault((i) => i.GetType().Namespace == "Microsoft.VisualStudio.Diagnostics.ServiceModelSink");
@@ -159,10 +171,81 @@ namespace GovPay {
                 factory.Endpoint.Behaviors.Remove(vs);
             }
 
+            factory.Endpoint.Behaviors.Add(new AuthenticationHeaderBehavior(user, pwd));
+
+
             return factory.CreateChannel();
         }
 
     }
+
+    public class AuthenticationHeaderBehavior : IEndpointBehavior
+    {
+        private readonly string _user;
+        private readonly string _password;
+
+        public AuthenticationHeaderBehavior(string usr, string pwd)
+        {
+            _user = usr;
+            _password = pwd;
+        }
+
+        public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
+        {
+        }
+
+        public void ApplyClientBehavior(ServiceEndpoint endpoint, ClientRuntime clientRuntime)
+        {
+            clientRuntime.MessageInspectors.Add(new AuthenticationHeader(_user, _password));
+        }
+
+        public void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+        {
+        }
+
+        public void Validate(ServiceEndpoint endpoint)
+        {
+        }
+    }
+
+    public class AuthenticationHeader : IClientMessageInspector
+    {
+        private readonly string _authValue;
+
+        public AuthenticationHeader(string user, string password)
+        {
+            _authValue = "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(user + ":" + password));
+        }
+
+        public void AfterReceiveReply(ref Message reply, object correlationState)
+        {
+        }
+
+        public object BeforeSendRequest(ref Message request, IClientChannel channel)
+        {
+            object httpRequestMessageObject;
+            if (request.Properties.TryGetValue(
+                HttpRequestMessageProperty.Name, out httpRequestMessageObject))
+            {
+                var httpRequestMessage = httpRequestMessageObject as HttpRequestMessageProperty;
+
+                if (string.IsNullOrWhiteSpace(httpRequestMessage.Headers["Authorization"]))
+                {
+                    httpRequestMessage.Headers["Authorization"] = _authValue;
+                }
+            }
+            else
+            {
+                var httpRequestMessage = new HttpRequestMessageProperty();
+                httpRequestMessage.Headers.Add("Authorization", _authValue);
+
+                request.Properties.Add(HttpRequestMessageProperty.Name, httpRequestMessage);
+            }
+
+            return null;
+        }
+    }
+
 
     #region "Strutture comuni"
 

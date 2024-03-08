@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -898,6 +898,7 @@ namespace income_wizardinvoicedetailnoestimate {
             }
 
             FrmAskFase faf = new FrmAskFase(tempFase);
+            createForm(faf, null);
             DialogResult dr = faf.ShowDialog();
             if (dr != DialogResult.OK) return;
             choosenParentPhase = CfgFn.GetNoNullInt32(faf.cmbFasi.SelectedValue);
@@ -1114,6 +1115,7 @@ namespace income_wizardinvoicedetailnoestimate {
                 F.AllowNoManagerSelection(true);
 
             //"E", filterupb, Meta.Dispatcher, idman_start, amount, upbToSelect);
+            createForm(F, this);
             if (F.ShowDialog(this) != DialogResult.OK) return false;
 
             if (idman_start == DBNull.Value)
@@ -1259,6 +1261,7 @@ namespace income_wizardinvoicedetailnoestimate {
             }
 
             Form F = ShowAutomatismi.Show(Meta, null, entrata, null, null);
+            createForm(F, this);
             F.ShowDialog(this);
         }
 

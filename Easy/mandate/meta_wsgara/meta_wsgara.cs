@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,8 +42,6 @@ namespace meta_wsgara {
             }
             return base.GetSorting(ListingType);
         }
-
-        // idGaraTraspare, cig, codicefiscale, ragionesociale, SommaImportoAggiudicazione
 
         public void CompletaCaption(DataTable T) {
 
@@ -103,9 +101,9 @@ namespace meta_wsgara {
                     DescribeAColumn(T, C.ColumnName, ".Data Pubblicazione");
                     continue;
                 }
-                if ((C.ColumnName == "tipoDataPubblicazione") && ((C.Caption == "") || (C.Caption == C.ColumnName)))
+                if ((C.ColumnName == "tipoPubblicazione") && ((C.Caption == "") || (C.Caption == C.ColumnName)))
                 {
-                    DescribeAColumn(T, C.ColumnName, ".Tipo Data Pubblicazione");
+                    DescribeAColumn(T, C.ColumnName, ".Tipo Pubblicazione");
                     continue;
                 }
                 if ((C.ColumnName == "motivazioneAffidamento") && ((C.Caption == "") || (C.Caption == C.ColumnName)))
@@ -139,8 +137,8 @@ namespace meta_wsgara {
                 DescribeAColumn(T, "rupNome", "Rup Nome", nPos++);
                 DescribeAColumn(T, "rupCognome", "Rup Cognome", nPos++);
                 DescribeAColumn(T, "rupCodiceFiscale", "Rup Codice Fiscale", nPos++);
-                DescribeAColumn(T, "dataPubblicazione", "Data Pubblicazion", nPos++);
-                DescribeAColumn(T, "tipoDataPubblicazione", "Tipo Data Pubblicazion", nPos++);
+                DescribeAColumn(T, "dataPubblicazione", "Data Pubblicazione", nPos++);
+                DescribeAColumn(T, "tipoPubblicazione", "Tipo Pubblicazione", nPos++);
                 DescribeAColumn(T, "motivazioneAffidamento", "Motivazione Affidamento", nPos++);
                 DescribeAColumn(T, "ribasso", "Ribasso", nPos++);
             }

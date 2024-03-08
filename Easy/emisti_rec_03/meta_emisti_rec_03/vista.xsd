@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="emisti_rec_03">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nrec" type="xs:int" />
+              <xs:element name="rata" type="xs:string" minOccurs="0" />
+              <xs:element name="dataemissione" type="xs:dateTime" />
+              <xs:element name="codiceassegno" type="xs:int" />
+              <xs:element name="codritprevass" type="xs:string" minOccurs="0" />
+              <xs:element name="aliquotalavoratore" type="xs:decimal" />
+              <xs:element name="percentualeapplicazione" type="xs:decimal" />
+              <xs:element name="imponibile" type="xs:int" />
+              <xs:element name="importoritenuta" type="xs:int" />
+              <xs:element name="aliquotadatore" type="xs:decimal" />
+              <xs:element name="importodatore" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="idemisti_import" type="xs:int" />
+              <xs:element name="progressivo_rec_01" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:emisti_rec_03" />
+      <xs:field xpath="mstns:nrec" />
+      <xs:field xpath="mstns:idemisti_import" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

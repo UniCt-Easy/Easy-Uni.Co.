@@ -1,21 +1,4 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
+Ôªø(function() {
 
     var MetaData = window.appMeta.MetaSegreterieData;
 
@@ -49,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						this.describeAColumn(table, 'upb_cupcode', 'Codice CUP, Codice unico di progetto', null, 70, 15);
 						this.describeAColumn(table, 'upb_expiration', 'scadenza', null, 80, null);
 						this.describeAColumn(table, 'upb_flag', 'flag vari', null, 90, null);
-						this.describeAColumn(table, 'upb_flagactivity', 'Tipo attivit‡', null, 100, null);
+						this.describeAColumn(table, 'upb_flagactivity', 'Tipo attivit√†', null, 100, null);
 						this.describeAColumn(table, 'upb_flagkind', 'Funzione', null, 110, null);
 						this.describeAColumn(table, 'upb_granted', 'Finanziamento concesso', 'fixed.2', 120, null);
 						this.describeAColumn(table, 'epupbkind_title', 'Denominazione ID Tipo UPB nell\'economico patrimoniale (tabella epupbkind)', null, 130, 50);

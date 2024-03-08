@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,8 +32,13 @@ namespace no_table_consolidclientiforn {
         MetaData Meta;
         CQueryHelper QHC;
 
+        ISaveFileDialog saveFileDialog1;
+        IFolderBrowserDialog folderBrowserDialog1;
+
         public FrmConsolidamentoClientiFornitori() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
         }
 
         private void btnScegliCartella_Click(object sender, EventArgs e) {

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -41,6 +41,7 @@ CREATE TABLE #rls
 (
 	idreg int,
 	idposition int,
+	livello int,
 	incomeclass int,
 	yitineration smallint,
 	nitineration int,
@@ -48,8 +49,8 @@ CREATE TABLE #rls
 	start datetime
 )
 
-INSERT INTO #rls (idreg, idposition, incomeclass, yitineration, nitineration, start)
-SELECT RLS.idreg, RLS.idposition, RLS.incomeclass, I.yitineration, I.nitineration, I.start
+INSERT INTO #rls (idreg, idposition, livello, incomeclass, yitineration, nitineration, start)
+SELECT RLS.idreg, RLS.idposition, RLS.livello, RLS.incomeclass, I.yitineration, I.nitineration, I.start
 FROM registrylegalstatus RLS
 JOIN itineration I
 	ON I.idreg = RLS.idreg
@@ -69,6 +70,7 @@ FROM foreigngroupruledetail DET
 JOIN foreigngrouprule F
 	ON F.idforeigngrouprule = DET.idforeigngrouprule
 WHERE DET.idposition = #rls.idposition
+	and DET.livello = #rls.livello
 	AND #rls.incomeclass BETWEEN DET.minincomeclass AND DET.maxincomeclass
 	AND F.start =
 		(SELECT MAX(F2.start)
@@ -76,6 +78,7 @@ WHERE DET.idposition = #rls.idposition
 		JOIN foreigngroupruledetail DET2
 			ON F.idforeigngrouprule = DET.idforeigngrouprule
 		WHERE DET2.idposition = #rls.idposition
+			AND DET2.livello = #rls.livello
 			AND #rls.incomeclass BETWEEN DET.minincomeclass AND DET.maxincomeclass
 			AND start <= #rls.start)
 )
@@ -91,11 +94,12 @@ SELECT
 	itineration.start,
 	itineration.stop,
 	itineration.adate,
-	position.description as position,
+	isnull(position.description,'')+ isnull(convert(varchar(2), #rls.livello),'') as position,
 	#rls.incomeclass AS currentclass,
 	#rls.foreigngroupnumber AS foreigngroupnumber,
 	itineration.totadvance,
-	ISNULL(itinerationresidual.linkedanpag,0) + ISNULL(itinerationresidual.linkedangir,0) AS payedadvance
+	ISNULL(itinerationresidual.linkedanpag,0) + ISNULL(itinerationresidual.linkedangir,0) AS payedadvance,
+	itineration.location
 FROM itineration
 JOIN itinerationresidual
 	ON itineration.nitineration = itinerationresidual.nitineration AND

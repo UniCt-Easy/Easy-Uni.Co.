@@ -2,10 +2,10 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabtirociniocandidatura_seg_0" class="nav-link active show" data-toggle="pill" data-target="#tabtirociniocandidatura_seg_0"><i class="fa fa-people-arrows mr-1"></i>Principale</a>
+		<a href="#tabtirociniocandidatura_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabtirociniocandidatura_seg_0"><i class="fa fa-people-arrows mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabtirociniocandidatura_seg_1" class="nav-link" data-toggle="pill" data-target="#tabtirociniocandidatura_seg_1"><i class="fa fa-project-diagram mr-1"></i>Progetto</a>
+		<a href="#tabtirociniocandidatura_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabtirociniocandidatura_seg_1"><i class="fa fa-project-diagram mr-1"></i>Progetto</a>
 	</li>
 
 	</ul>
@@ -22,7 +22,7 @@
 				<div class="col-md-6">
 <script>
   $( function () {
-    $("#tirociniocandidatura_seg_data").datetimepicker();
+    $("#tirociniocandidatura_seg_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
   } );
   </script>
 					<label class="col-form-label col-md-12" for="tirociniocandidatura_seg_data">Data</label>
@@ -38,12 +38,12 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="tirociniocandidatura_seg_idtirociniocandidaturakind">Tipologia</label>
-					<select id="tirociniocandidatura_seg_idtirociniocandidaturakind" class="custom-select d-block w-100"  data-source-name="tirociniocandidaturakinddefaultview" data-value-member="idtirociniocandidaturakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="tirociniocandidatura.idtirociniocandidaturakind"  data-mandatory  > </select>
+					<select id="tirociniocandidatura_seg_idtirociniocandidaturakind" class="custom-select d-block w-100"  data-source-name="tirociniocandidaturakinddefaultview" data-value-member="idtirociniocandidaturakind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="tirociniocandidatura.idtirociniocandidaturakind"  data-mandatory  > </select>
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabtirociniocandidatura_seg_1" role="tabpanel">
-				<div class="gridx" id="grid_tirocinioprogetto_seg" data-tag="tirocinioprogetto.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_tirocinioprogetto_seg" data-tag="tirocinioprogetto.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -315,6 +315,8 @@ private void initClass() {
 	texpenselastview.defineColumn("idchargehandling", typeof(int));
 	texpenselastview.defineColumn("pagopanoticenum", typeof(string));
 	texpenselastview.defineColumn("net", typeof(decimal));
+	texpenselastview.defineColumn("codetreasurer", typeof(string));
+	texpenselastview.defineColumn("treasurer", typeof(string));
 	Tables.Add(texpenselastview);
 	texpenselastview.defineKey("idexp");
 

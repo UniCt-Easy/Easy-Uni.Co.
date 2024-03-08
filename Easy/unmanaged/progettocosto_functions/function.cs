@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,12 +31,12 @@ namespace progettocosto_functions {
 		IDataAccess Conn;
 		CQueryHelper QHC;
 		QueryHelper QHS;
-		int esercizio;
+		//int esercizio;
 		public progettocosto_function(IDataAccess conn) {
 			this.Conn = conn;
 			QHC = new CQueryHelper();
 			QHS = Conn.GetQueryHelper();
-			esercizio = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
+			//esercizio = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
 		}
 
         public void InitMetaData(vistaForm ds, object idprogetto) {
@@ -72,14 +72,24 @@ namespace progettocosto_functions {
             errore = string.Empty;
 
             //Costruisce il filtro di questi asset per poi fare la RUN_SELECT_INTO solo delle righe interessate
-            string filterAssetDiary = QHC.AppAnd(QHC.CmpEq("month(start)", idmese), QHC.CmpEq("year(start)", esercizio));
-            
+            //cioè tutti i mesi e anni precedenti
+            string filterAssetDiary =
+                QHC.AppOr(
+                    QHC.AppAnd(
+                        QHC.CmpLe("month(start)", idmese), 
+                        QHC.CmpEq("year(start)", esercizio)
+                    ),
+                    QHC.CmpLt("year(start)", esercizio)
+                );
             Conn.RUN_SELECT_INTO_TABLE(ds.assetdiaryora, null, filterAssetDiary, null, true);
-            int n_amountvalorizzato = ds.assetdiaryora.Select(QHC.IsNotNull("amount")).Length;
+
+            //se trovo che il mese precedente è stato già valorizzato mi fermo
+            int n_amountvalorizzato = ds.assetdiaryora.Select(QHC.AppAnd(QHC.CmpLe("start", new DateTime(esercizio, idmese,28)), QHC.CmpGe("start", new DateTime(esercizio, idmese, 1)), QHC.IsNotNull("amount"))).Length;
             if (n_amountvalorizzato > 1) {
                 errore = "Esistono righe con importo già valorizzato in AssetDiaryOra per il mese richiesto( "+idmese.ToString()+" )";
                 return false;
             }
+
             //Chiama la sp che calcola l'importo e lo scrive nella tabella assetdiaryora
             DataSet DSassetdiaryora = Conn.CallSP("compute_assetdiaryora", new object[] { esercizio, idmese, idprogetto }, true, 300);
             if ((DSassetdiaryora != null) && (DSassetdiaryora.Tables.Count > 0)) {
@@ -88,7 +98,7 @@ namespace progettocosto_functions {
                     //Per ogni riga di assetdiaryora valorizza l'importo
                     string filter = QHC.AppAnd(QHC.CmpEq("idassetdiary", R["idassetdiary"]), QHC.CmpEq("idassetdiaryora", R["idassetdiaryora"]));
                     DataRow[] RR = ds.assetdiaryora.Select(filter);
-                    if (RR != null) {
+                    if (RR != null && RR.Length >= 1) {
                         RR[0]["amount"] = R["amount"];
                     }
                 }
@@ -136,7 +146,13 @@ namespace progettocosto_functions {
                     errore = erroreElaborazione;
                     return null;
                 }
-                if (!ElaboraRendicontattivitaprogetto(ds, idprogetto, out erroreElaborazione)) {
+                if (!ElaboraRendicontattivitaprogetto(ds, idprogetto, out erroreElaborazione))
+                {
+                    errore = erroreElaborazione;
+                    return null;
+                }
+                if (!ElaboraAmmortamentiDiariESal(ds, idprogetto, out erroreElaborazione))
+                {
                     errore = erroreElaborazione;
                     return null;
                 }
@@ -154,16 +170,33 @@ namespace progettocosto_functions {
             if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sarà valorizzato in fase di salvataggio
 
             string query = @"select ( ore * 
-	            CASE WHEN isnull(costoorario, 0) <> 0 THEN costoorario
-				WHEN costoorario_stipendio <> 0 THEN costoorario_stipendio
-	            WHEN costoorario_inquadramento <> 0 THEN costoorario_inquadramento
-	            WHEN costoorario_contrattokind <> 0 THEN costoorario_contrattokind
+	            CASE 
+				WHEN isnull(costoorario, 0) <> 0 THEN costoorario
+				WHEN isnull(costostandard, 0) <> 0 THEN costostandard
+				WHEN isnull(totale_costoorario, 0) <> 0 THEN totale_costoorario
+				WHEN isnull(costoorario_stipendio, 0) <> 0 THEN costoorario_stipendio
+				WHEN isnull(costoorario_stipendiotabellare, 0) <> 0 THEN costoorario_stipendiotabellare
+	            WHEN isnull(costoorario_inquadramento, 0) <> 0 THEN costoorario_inquadramento
+	            WHEN isnull(costoorario_contrattokind, 0) <> 0 THEN costoorario_contrattokind
 	            ELSE 0
 	            END
-	            ) as amount, V.* 
-
+	            ) as amount, 
+				
+	            --CASE 
+				--WHEN isnull(costoorario, 0) <> 0 THEN 'Costo del membro nel progetto'
+				--WHEN isnull(costostandard, 0) <> 0 THEN 'Costo standard'
+				--WHEN isnull(totale_costoorario, 0) <> 0 THEN 'Costo orario importato'
+				--WHEN isnull(costoorario_stipendio, 0) <> 0 THEN 'Costo stipendio importato'
+				--WHEN isnull(costoorario_stipendiotabellare, 0) <> 0 THEN 'Costo stipendio tabellare'
+	            --WHEN isnull(costoorario_inquadramento, 0) <> 0 THEN 'Costo inquadramento'
+	            --WHEN isnull(costoorario_contrattokind, 0) <> 0 THEN 'Costo figura contrattuale'
+	            --ELSE 'Indefinito'
+	            --END
+	            --as tipo, 
+				
+				V.* 
             from rendicontattivitaprogettoworkpackageview V 
-            where ( idprogettocosto is null and  isnull(oredivisionecostostipendio,0) > 0) and idprogetto =" + (string)idprogetto;
+            where (idprogettotipocosto IS NOT NULL AND idprogettocosto IS NULL AND isnull(oredivisionecostostipendio,0) > 0) AND idprogetto =" + (string)idprogetto;
 
             DataTable t = Conn.SQLRunner(query);
             if ((t != null) && (t.Rows.Count > 0)) {
@@ -202,6 +235,60 @@ namespace progettocosto_functions {
 
             return true;
         }
+
+        public bool ElaboraAmmortamentiDiariESal(vistaForm ds, object idprogetto, out string errore)
+        {
+            errore = string.Empty;
+            var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sarà valorizzato in fase di salvataggio
+
+            string query = @"select * from ammortamentoworkpackageview V 
+            where idprogettocosto is null and idprogetto =" + (string)idprogetto ;
+
+            DataTable t = Conn.SQLRunner(query);
+            if ((t != null) && (t.Rows.Count > 0))
+            {
+
+                foreach (DataRow R in t.Rows)
+                {
+                    DataRow rProgettoCosto = ds.progettocosto.NewRow();
+                    //Per ogni compenso deve valorizzare i campi di PROGETTOCOSTO
+                    //idprogettocosto = max +1
+                    idprogettocosto++;
+                    rProgettoCosto["idprogettocosto"] = idprogettocosto;
+                    rProgettoCosto["idprogetto"] = R["idprogetto"];
+                    rProgettoCosto["idprogettotipocosto"] = R["idprogettotipocosto"];// Letto da progettotipocostocontrattokind
+                    //Valorizzati a null per il Rendiconto Attività
+                    rProgettoCosto["idexp"] = DBNull.Value;
+                    rProgettoCosto["idpettycash"] = DBNull.Value;
+                    rProgettoCosto["yoperation"] = DBNull.Value;
+                    rProgettoCosto["noperation"] = DBNull.Value;
+                    rProgettoCosto["amount"] = R["amount"];
+                    rProgettoCosto["idcontrattokind"] = DBNull.Value;
+                    rProgettoCosto["idrendicontattivitaprogetto"] = DBNull.Value;
+                    rProgettoCosto["idsal"] = DBNull.Value;
+                    rProgettoCosto["doc"] = DBNull.Value;
+                    rProgettoCosto["docdate"] = R["docdate"];
+                    rProgettoCosto["idrelated"] = DBNull.Value;
+                    rProgettoCosto["idworkpackage"] = R["idworkpackage"];
+                    rProgettoCosto["idassetdiaryora"] = R["idassetdiaryora"];
+                    rProgettoCosto["idsalprogettoassetworkpackagemese"] = R["idsalprogettoassetworkpackagemese"];
+                    rProgettoCosto["cu"] = "progettocosto_functions";
+                    rProgettoCosto["ct"] = DateTime.Now;
+                    rProgettoCosto["lt"] = DateTime.Now;
+                    rProgettoCosto["lu"] = "progettocosto_functions";
+                    ds.progettocosto.Rows.Add(rProgettoCosto);
+                }
+            }
+            else
+            {
+                errore = "Non vi sono ammortamenti da elaborare"; //Non è un errore...
+            }
+
+            return true;
+        }
+
+
         public bool ElaboraCedolini(vistaForm ds, object idprogetto, out string errore) {
             errore = string.Empty;
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");// + 1;
@@ -341,7 +428,7 @@ namespace progettocosto_functions {
             errore = string.Empty;
             string filterInv = filterForMandatedetail(idprogetto);
 
-            DataTable InvDetWorkview = Conn.RUN_SELECT("mandatedetailincworkpackageview", "*", null, filterInv, null, null, true);
+            DataTable InvDetWorkview = Conn.RUN_SELECT("mandatedetailexpworkpackageview", "*", null, filterInv, null, null, true);
             if ((InvDetWorkview != null) && (InvDetWorkview.Rows.Count > 0)) {
                 foreach (DataRow R in InvDetWorkview.Rows) {
                     DataRow rProgettocosto = ds.progettocosto.NewRow();

@@ -80,6 +80,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CurrencyManager">
+      <HintPath>..\..\dll\CurrencyManager.dll</HintPath>
+    </Reference>
+    <Reference Include="HelpWeb">
+      <HintPath>..\..\dll\HelpWeb.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -105,6 +111,10 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\..\unmanaged\AskCurrencyExchange\AskCurrencyExchange.csproj">
+      <Project>{8B5DB11A-7740-45BD-BDC5-75AAA63C3A8E}</Project>
+      <Name>AskCurrencyExchange</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\unmanaged\ep_functions\ep_functions.csproj">
       <Project>{13E495EF-B62D-494E-AEC7-E06E7826DCE6}</Project>
       <Name>ep_functions</Name>
@@ -173,7 +183,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>vistaForm.cs</LastGenOutput>
     </Content>
-    <None Include="app.config" />
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>

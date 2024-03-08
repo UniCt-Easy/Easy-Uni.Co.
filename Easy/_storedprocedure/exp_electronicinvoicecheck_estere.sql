@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -133,6 +133,20 @@ where  I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind
 	and R.p_iva is null
 	and R.cf is null
 	and R.foreigncf is null
+
+INSERT INTO #error(message)
+select 'Nella fattura ' + convert(varchar(50), I.invoicekind) + convert(varchar(10), I.yinv) + ' N.' + convert(varchar(10), I.ninv) + ' la lunghezza massima del campo numero documento è 20.'
+from invoiceview I
+where len(replicate('0',5-len(convert(varchar(5),I.idinvkind ))) + convert(varchar(5),I.idinvkind )+I.doc) > 20
+and I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind
+
+insert into #error(message)
+select 'Nella fattura ' + convert(varchar(50), I.invoicekind) + convert(varchar(10), I.yinv) + ' N.' + convert(varchar(10), I.ninv) + 
+' il legale rappresentante del destinatario della fattura elettronica ' + I.registry_sostituto + ' non ha la partita iva valorizzata'
+from invoiceview I
+where I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind
+and I.idreg_sostituto is not null and I.p_iva_sostituto is null
+
 ----------------- Calcola la Sede del Fornitore  ------------------------------------------
 declare @idreg int
 select @idreg = idreg from invoice where  yinv = @yinv and ninv = @ninv and idinvkind = @idinvkind

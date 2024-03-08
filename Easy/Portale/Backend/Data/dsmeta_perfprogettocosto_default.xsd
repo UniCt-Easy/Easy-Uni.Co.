@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_perfprogettocosto_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="dsmeta_perfprogettocosto_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsmeta_perfprogettocosto_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="perfprogettocostobudgetview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfprogettocostobudgetview" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
@@ -34,7 +34,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="getcostoview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="getcostoview" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="accmotive_title" type="xs:string" minOccurs="0" />
@@ -57,31 +57,28 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="year" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="upbdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
-              <xs:element name="idunderwriter" type="xs:int" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" />
-              <xs:element name="idupb_capofila" type="xs:string" minOccurs="0" />
-              <xs:element name="paridupb" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="accmotivedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="accmotive_active" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idaccmotive" type="xs:string" />
-              <xs:element name="paridaccmotive" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -118,10 +115,6 @@
       <xs:field xpath="mstns:idupb" />
       <xs:field xpath="mstns:ymov" />
     </xs:unique>
-    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:year" />
-      <xs:field xpath="mstns:year" />
-    </xs:unique>
     <xs:unique name="upbdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:upbdefaultview" />
       <xs:field xpath="mstns:idupb" />
@@ -129,6 +122,10 @@
     <xs:unique name="accmotivedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:accmotivedefaultview" />
       <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
     </xs:unique>
     <xs:unique name="perfprogettocosto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfprogettocosto" />
@@ -143,9 +140,9 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_perfprogettocostobudgetview_perfprogettocosto_idaccmotive-idupb" msdata:parent="perfprogettocosto" msdata:child="perfprogettocostobudgetview" msdata:parentkey="idaccmotive idupb" msdata:childkey="idaccmotive idupb" />
       <msdata:Relationship name="FK_getcostoview_perfprogettocosto_idaccmotive-idupb" msdata:parent="perfprogettocosto" msdata:child="getcostoview" msdata:parentkey="idaccmotive idupb" msdata:childkey="idaccmotive idupb" />
-      <msdata:Relationship name="FK_perfprogettocosto_year_year" msdata:parent="year" msdata:child="perfprogettocosto" msdata:parentkey="year" msdata:childkey="year" />
       <msdata:Relationship name="FK_perfprogettocosto_upbdefaultview_idupb" msdata:parent="upbdefaultview" msdata:child="perfprogettocosto" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="FK_perfprogettocosto_accmotivedefaultview_idaccmotive" msdata:parent="accmotivedefaultview" msdata:child="perfprogettocosto" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
+      <msdata:Relationship name="FK_perfprogettocosto_year_year" msdata:parent="year" msdata:child="perfprogettocosto" msdata:parentkey="year" msdata:childkey="year" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

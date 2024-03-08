@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,66 +29,36 @@ namespace income_wizardestimatedetail {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tipomovimento 		=> Tables["tipomovimento"];
 
-	///<summary>
-	///Movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable income 		=> Tables["income"];
 
-	///<summary>
-	///Informazioni annuali su mov. di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeyear 		=> Tables["incomeyear"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Contabilizzazione contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeestimate 		=> Tables["incomeestimate"];
 
-	///<summary>
-	///Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimate 		=> Tables["estimate"];
 
-	///<summary>
-	///Dettaglio contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimatedetail 		=> Tables["estimatedetail"];
 
-	///<summary>
-	///Tipo di Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimatekind 		=> Tables["estimatekind"];
 
@@ -98,29 +68,20 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry2 		=> Tables["registry2"];
 
-	///<summary>
-	///Classificazione Movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomesorted 		=> Tables["incomesorted"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingkind 		=> Tables["sortingkind"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
-	///<summary>
-	///Movimento di entrata - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomelast 		=> Tables["incomelast"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable account 		=> Tables["account"];
 
 	#endregion
 
@@ -540,6 +501,7 @@ private void initClass() {
 	testimatedetail.Columns.Add( new DataColumn("!totaleriga", typeof(decimal)));
 	testimatedetail.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
 	testimatedetail.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
+	testimatedetail.Columns.Add( new DataColumn("idrevenuepartition", typeof(int)));
 	testimatedetail.Columns.Add( new DataColumn("epkind", typeof(string)));
 	testimatedetail.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
 	testimatedetail.Columns.Add( new DataColumn("!codeupb_iva", typeof(string)));
@@ -941,6 +903,57 @@ private void initClass() {
 	tincomelast.PrimaryKey =  new DataColumn[]{tincomelast.Columns["idinc"]};
 
 
+	//////////////////// ACCOUNT /////////////////////////////////
+	var taccount= new DataTable("account");
+	C= new DataColumn("idacc", typeof(string));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(short));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	C= new DataColumn("codeacc", typeof(string));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	taccount.Columns.Add( new DataColumn("flagregistry", typeof(string)));
+	taccount.Columns.Add( new DataColumn("flagtransitory", typeof(string)));
+	taccount.Columns.Add( new DataColumn("flagupb", typeof(string)));
+	taccount.Columns.Add( new DataColumn("idaccountkind", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(string));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	taccount.Columns.Add( new DataColumn("paridacc", typeof(string)));
+	C= new DataColumn("printingorder", typeof(string));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	taccount.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	taccount.Columns.Add(C);
+	taccount.Columns.Add( new DataColumn("txt", typeof(string)));
+	taccount.Columns.Add( new DataColumn("idpatrimony", typeof(string)));
+	taccount.Columns.Add( new DataColumn("idplaccount", typeof(string)));
+	taccount.Columns.Add( new DataColumn("flagprofit", typeof(string)));
+	taccount.Columns.Add( new DataColumn("flagloss", typeof(string)));
+	taccount.Columns.Add( new DataColumn("placcount_sign", typeof(string)));
+	taccount.Columns.Add( new DataColumn("patrimony_sign", typeof(string)));
+	taccount.Columns.Add( new DataColumn("flagcompetency", typeof(string)));
+	taccount.Columns.Add( new DataColumn("flag", typeof(int)));
+	Tables.Add(taccount);
+	taccount.PrimaryKey =  new DataColumn[]{taccount.Columns["idacc"]};
+
+
 	#endregion
 
 
@@ -1004,6 +1017,10 @@ private void initClass() {
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{income.Columns["idreg"]};
 	Relations.Add(new DataRelation("registryincome",cPar,cChild,false));
+
+	cPar = new []{incomelast.Columns["idacccredit"]};
+	cChild = new []{account.Columns["idacc"]};
+	Relations.Add(new DataRelation("incomelast_account",cPar,cChild,false));
 
 	#endregion
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -189,16 +189,12 @@ private void initClass() {
 	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
 	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
-	tstrutturadefaultview.defineColumn("idupb", typeof(string));
-	tstrutturadefaultview.defineColumn("paridstruttura", typeof(int));
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");
 	tsededefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tsededefaultview.defineColumn("idcity", typeof(int));
-	tsededefaultview.defineColumn("idnation", typeof(int));
 	tsededefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tsededefaultview);
 	tsededefaultview.defineKey("idsede");
@@ -206,17 +202,8 @@ private void initClass() {
 	//////////////////// REGISTRYDOCENTIVIEW /////////////////////////////////
 	var tregistrydocentiview= new MetaTable("registrydocentiview");
 	tregistrydocentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydocentiview.defineColumn("idcity", typeof(int));
-	tregistrydocentiview.defineColumn("idclassconsorsuale", typeof(int));
-	tregistrydocentiview.defineColumn("idnation", typeof(int));
 	tregistrydocentiview.defineColumn("idreg", typeof(int),false);
-	tregistrydocentiview.defineColumn("idreg_istituti", typeof(int));
-	tregistrydocentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrydocentiview.defineColumn("idsasd", typeof(int));
-	tregistrydocentiview.defineColumn("idstruttura", typeof(int));
-	tregistrydocentiview.defineColumn("idtitle", typeof(string));
 	tregistrydocentiview.defineColumn("registry_active", typeof(string));
-	tregistrydocentiview.defineColumn("registry_residence", typeof(int),false);
 	Tables.Add(tregistrydocentiview);
 	tregistrydocentiview.defineKey("idreg");
 
@@ -224,7 +211,6 @@ private void initClass() {
 	var taoodefaultview= new MetaTable("aoodefaultview");
 	taoodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	taoodefaultview.defineColumn("idaoo", typeof(int),false);
-	taoodefaultview.defineColumn("idsede", typeof(int));
 	Tables.Add(taoodefaultview);
 	taoodefaultview.defineKey("idaoo");
 

@@ -26,6 +26,8 @@
               <xs:element name="maintaxcode" type="xs:int" minOccurs="0" />
               <xs:element name="insuranceagencycode" type="xs:string" minOccurs="0" />
               <xs:element name="fiscaltaxcodecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="fiscaltaxcodef24ord" type="xs:string" minOccurs="0" />
+              <xs:element name="fiscaltaxcodecreditf24ord" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,11 +27,20 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_perfprogettouo_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_perfprogettouo_default: DataSet {
+public partial class dsmeta_perfprogettouo_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable getregistrydocentiamministrativi 		=> (MetaTable)Tables["getregistrydocentiamministrativi"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable mansionekind 		=> (MetaTable)Tables["mansionekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable struttura 		=> (MetaTable)Tables["struttura"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable afferenza 		=> (MetaTable)Tables["afferenza"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable perfprogettouomembro 		=> (MetaTable)Tables["perfprogettouomembro"];
@@ -66,33 +75,66 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVI /////////////////////////////////
 	var tgetregistrydocentiamministrativi= new MetaTable("getregistrydocentiamministrativi");
+	tgetregistrydocentiamministrativi.defineColumn("areadidattica", typeof(string));
+	tgetregistrydocentiamministrativi.defineColumn("categoria", typeof(string),false);
 	tgetregistrydocentiamministrativi.defineColumn("cf", typeof(string));
 	tgetregistrydocentiamministrativi.defineColumn("contratto", typeof(string));
+	tgetregistrydocentiamministrativi.defineColumn("extmatricula", typeof(string));
 	tgetregistrydocentiamministrativi.defineColumn("forename", typeof(string));
 	tgetregistrydocentiamministrativi.defineColumn("idreg", typeof(int),false);
 	tgetregistrydocentiamministrativi.defineColumn("istituto", typeof(string));
+	tgetregistrydocentiamministrativi.defineColumn("macroareadidattica", typeof(string));
 	tgetregistrydocentiamministrativi.defineColumn("ssd", typeof(string));
 	tgetregistrydocentiamministrativi.defineColumn("struttura", typeof(string));
 	tgetregistrydocentiamministrativi.defineColumn("surname", typeof(string));
 	Tables.Add(tgetregistrydocentiamministrativi);
 	tgetregistrydocentiamministrativi.defineKey("idreg");
 
+	//////////////////// MANSIONEKIND /////////////////////////////////
+	var tmansionekind= new MetaTable("mansionekind");
+	tmansionekind.defineColumn("idmansionekind", typeof(int),false);
+	tmansionekind.defineColumn("title", typeof(string),false);
+	Tables.Add(tmansionekind);
+	tmansionekind.defineKey("idmansionekind");
+
+	//////////////////// STRUTTURA /////////////////////////////////
+	var tstruttura= new MetaTable("struttura");
+	tstruttura.defineColumn("active", typeof(string));
+	tstruttura.defineColumn("idstruttura", typeof(int),false);
+	tstruttura.defineColumn("paridstruttura", typeof(int));
+	tstruttura.defineColumn("title", typeof(string));
+	Tables.Add(tstruttura);
+	tstruttura.defineKey("idstruttura");
+
+	//////////////////// AFFERENZA /////////////////////////////////
+	var tafferenza= new MetaTable("afferenza");
+	tafferenza.defineColumn("idafferenza", typeof(int),false);
+	tafferenza.defineColumn("idmansionekind", typeof(int));
+	tafferenza.defineColumn("idreg", typeof(int),false);
+	tafferenza.defineColumn("idstruttura", typeof(int));
+	tafferenza.defineColumn("start", typeof(DateTime));
+	tafferenza.defineColumn("stop", typeof(DateTime));
+	Tables.Add(tafferenza);
+	tafferenza.defineKey("idafferenza", "idreg");
+
 	//////////////////// PERFPROGETTOUOMEMBRO /////////////////////////////////
 	var tperfprogettouomembro= new MetaTable("perfprogettouomembro");
+	tperfprogettouomembro.defineColumn("agile", typeof(string),false);
 	tperfprogettouomembro.defineColumn("ct", typeof(DateTime),false);
 	tperfprogettouomembro.defineColumn("cu", typeof(string),false);
+	tperfprogettouomembro.defineColumn("idafferenza", typeof(int));
 	tperfprogettouomembro.defineColumn("idperfprogetto", typeof(int),false);
 	tperfprogettouomembro.defineColumn("idperfprogettouo", typeof(int),false);
 	tperfprogettouomembro.defineColumn("idreg", typeof(int),false);
 	tperfprogettouomembro.defineColumn("lt", typeof(DateTime),false);
 	tperfprogettouomembro.defineColumn("lu", typeof(string),false);
+	tperfprogettouomembro.defineColumn("!idafferenza_afferenza_start", typeof(DateTime));
+	tperfprogettouomembro.defineColumn("!idafferenza_afferenza_stop", typeof(DateTime));
+	tperfprogettouomembro.defineColumn("!idafferenza_afferenza_idstruttura_title", typeof(string));
+	tperfprogettouomembro.defineColumn("!idafferenza_afferenza_idstruttura_paridstruttura", typeof(int));
+	tperfprogettouomembro.defineColumn("!idafferenza_afferenza_idmansionekind_title", typeof(string));
 	tperfprogettouomembro.defineColumn("!idreg_getregistrydocentiamministrativi_surname", typeof(string));
 	tperfprogettouomembro.defineColumn("!idreg_getregistrydocentiamministrativi_forename", typeof(string));
-	tperfprogettouomembro.defineColumn("!idreg_getregistrydocentiamministrativi_cf", typeof(string));
-	tperfprogettouomembro.defineColumn("!idreg_getregistrydocentiamministrativi_contratto", typeof(string));
-	tperfprogettouomembro.defineColumn("!idreg_getregistrydocentiamministrativi_istituto", typeof(string));
-	tperfprogettouomembro.defineColumn("!idreg_getregistrydocentiamministrativi_ssd", typeof(string));
-	tperfprogettouomembro.defineColumn("!idreg_getregistrydocentiamministrativi_struttura", typeof(string));
 	Tables.Add(tperfprogettouomembro);
 	tperfprogettouomembro.defineKey("idperfprogetto", "idperfprogettouo", "idreg");
 
@@ -121,6 +163,18 @@ private void initClass() {
 	cPar = new []{getregistrydocentiamministrativi.Columns["idreg"]};
 	cChild = new []{perfprogettouomembro.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_perfprogettouomembro_getregistrydocentiamministrativi_idreg",cPar,cChild,false));
+
+	cPar = new []{afferenza.Columns["idafferenza"]};
+	cChild = new []{perfprogettouomembro.Columns["idafferenza"]};
+	Relations.Add(new DataRelation("FK_perfprogettouomembro_afferenza_idafferenza",cPar,cChild,false));
+
+	cPar = new []{mansionekind.Columns["idmansionekind"]};
+	cChild = new []{afferenza.Columns["idmansionekind"]};
+	Relations.Add(new DataRelation("FK_afferenza_mansionekind_idmansionekind",cPar,cChild,false));
+
+	cPar = new []{struttura.Columns["idstruttura"]};
+	cChild = new []{afferenza.Columns["idstruttura"]};
+	Relations.Add(new DataRelation("FK_afferenza_struttura_idstruttura",cPar,cChild,false));
 
 	#endregion
 

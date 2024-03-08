@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -184,7 +184,12 @@ namespace Backend {
             EasySecurity sec = conn.Security as EasySecurity;
 
             // cicla e popola sec.usr e sec.sys solo se esiste un sessionInfo
+
+            conn.externalUser = "Anonymous";
             if (sessionInfo != null) {
+
+                conn.externalUser = sessionInfo.sys_user;
+
                 foreach (DictionaryEntry pair in sessionInfo.sys) {
                     sec.SetSys(pair.Key.ToString(), pair.Value);
                 }
@@ -196,7 +201,7 @@ namespace Backend {
                 // leggo da cache sessione il GroupOperations che è preso dalla cache e lo applico alla sicurezza
                 sec.groupOperations = CacheMDLW.getGroupOperations(sessionInfo.sys_user);
             }
-
+            
             // set della var anonymous. dovrò configurare su user e flowchart un identity.Name = Security.Role.Anonymous
             sec.SetUsr("anonymous", identity.IsAnonymous);
                                     

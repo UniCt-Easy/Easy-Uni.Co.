@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,7 +43,7 @@ namespace assetsetup_creaxml {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAssetSetup_CreaXml));
             this.btnGeneraXml = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.btnFile = new System.Windows.Forms.Button();
             this.txtFile = new System.Windows.Forms.TextBox();
             this.DS = new assetsetup_creaxml.vistaForm();
@@ -105,7 +105,7 @@ namespace assetsetup_creaxml {
 
         private System.Windows.Forms.Button btnGeneraXml;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
         private System.Windows.Forms.Button btnFile;
         private System.Windows.Forms.TextBox txtFile;
         public vistaForm DS;

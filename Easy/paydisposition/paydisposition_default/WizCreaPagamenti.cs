@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -278,7 +278,6 @@ namespace paydisposition_default {
 			if (codice == DBNull.Value) return;
 			if (DS.expensephase.Select(QHC.CmpEq("nphase", codice)).Length > 0) return;
 			DataAccess.RUN_SELECT_INTO_TABLE(Conn, DS.expensephase, null, QHS.CmpEq("nphase", codice), null, true);
-
 		}
 
 		void AddImputazioneSpesa(object codice) {
@@ -321,6 +320,13 @@ namespace paydisposition_default {
 			return s;
 		}
 
+		private string maxLen(string s, int len)
+		{
+			if (s == null) return null;
+			if (s.Length < len) return s;
+			return s.Substring(0, len);
+		}
+
 		private void fillMovimento(DataRow E_S, DataRow Auto) {
 			//, string idmovimento)
 			int esercizio = Convert.ToInt32(Meta.GetSys("esercizio"));
@@ -336,7 +342,7 @@ namespace paydisposition_default {
 				description = "Disposizione a favore di " + Auto["title"];
 			}
 			if (motive != DBNull.Value) description = motive.ToString() +  " "  + description;
-			E_S["description"] = description;
+			E_S["description"] = maxLen(description, 150);
 			E_S["doc"] = "Disp. " + Auto["idpaydisposition"] + "/" + esercizio.ToString() + " - "+ Auto["iddetail"];
 			E_S.EndEdit();
 		}
@@ -374,18 +380,21 @@ namespace paydisposition_default {
 				if (pmethods.Length > 0)
 				__PayMethod[key] = pmethods[0];
 				RPayM = __PayMethod[key];
-				//}
+			}
 
 				//DataTable TPaymethod = Conn.RUN_SELECT("paymethod", "*", null, filterpaymethod, null, true);
 			
-					if (RPayM!=null) {
+			if (RPayM!=null) {
 						object paymethod_allowdeputy =RPayM["allowdeputy"];
 						object paymethod_flag = RPayM["flag"];
 						NewLastMov["paymethod_allowdeputy"] = paymethod_allowdeputy;
 						NewLastMov["paymethod_flag"] = paymethod_flag;
-					}
+						int codicemodpagamento = CfgFn.GetNoNullInt32(R["paymethodcode"]);
+						if (codicemodpagamento == 6) // in tal caso è obbligatorio il numero conto banca d'Italia e non deve essere impostato l'IBAN
+							NewLastMov["extracode"] = R["paymentcode"]; // numero conto banca d'Italia
+			}
 					#endregion
-				}
+
 
 
 			object idchargehandling= DBNull.Value;
@@ -423,6 +432,9 @@ namespace paydisposition_default {
 
 			if (PD["iban"] != DBNull.Value) {
 				abi_label = "SEPACREDITTRANSFER";
+				if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 7) {
+					abi_label = "ACCREDITOTESORERIAPROVINCIALESTATOPERTABB";
+				}
 			} else {
 				if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 2) {
 					abi_label = "CASSA";
@@ -436,6 +448,10 @@ namespace paydisposition_default {
 				if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 5) {
 					abi_label = "ASSEGNOBANCARIOEPOSTALE";
 				}
+				if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 6) {
+					abi_label = "ACCREDITOTESORERIAPROVINCIALESTATOPERTABA";
+				}
+				
 			}
 			DataRow RID = hashTipoModPagamento[abi_label] as DataRow;
 			if (RID != null) {

@@ -1,0 +1,7 @@
+Alla prima installazione del Servizio i file di config devono essere copiati nella cartella del server
+Attenzione che di default isTest è Y
+
+Copiare
+ - D:\progetti\Portale\DailyUpdateService\appsettings.json
+ - D:\progetti\Portale\ServizioRendicontazione\appsettingsRendicontazione.json
+ - D:\progetti\Portale\ServizioTimbratura\AppServizioTimbratura.config

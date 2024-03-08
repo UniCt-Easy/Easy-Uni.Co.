@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1937,7 +1937,7 @@ namespace income_procedura//entrataprocedura//
 			this.labBollette1.Size = new System.Drawing.Size(625, 13);
 			this.labBollette1.TabIndex = 33;
 			this.labBollette1.Text = "Per utilizzare il collegamento multiplo con le bollette è necessario selezionare " +
-    "\"Regolarizza disposizione di pagamento già effettuata\"";
+    "\"Regolarizza disposizione di incasso già effettuata\"";
 			// 
 			// btnAddBolletta
 			// 
@@ -2913,15 +2913,21 @@ namespace income_procedura//entrataprocedura//
 				//AzzeraPadre();
 				AzzeraDatiSuCambioFase();
 			}
+			DS.incomelastestimatedetail.Clear();
+			if (checkAbilitaDettaglioIncassi()) {
+				autodetectIncassi();
+				CalcTotEstimateIncassi();
+			}
 			AzzeraDatiFasiNonSelezionate();
 			AddRemoveTabs(true);
 
 			//ApplicaLogicaSufase() also clear idfin,
 			//  idreg, idupb
 			//  when needed
-			ApplicaLogicaSuFase(); 
+			ApplicaLogicaSuFase();
+
 			
-	
+
 			ResetTipoClassAvailableEvalued();
 			e.NewValue= chkListaFasi.GetItemCheckState(e.Index);
 			chkListaFasi.Enabled=true;			
@@ -6572,6 +6578,7 @@ namespace income_procedura//entrataprocedura//
 			gboxDettEstimate.Visible=false;
 			if (DS.incomeestimate.Rows.Count==0) return;
 			DS.incomeestimate.Clear();
+			DS.incomelastestimatedetail.Clear();
 			DS.estimatedetail_taxable.Clear();
 			DS.estimatedetail_iva.Clear();
 			DS.estimate.Clear();
@@ -7183,8 +7190,9 @@ namespace income_procedura//entrataprocedura//
 				return;
 			}
 			if (chkListTitle.Checked){
-				FrmAskDescr FR= new FrmAskDescr(0);
-				DialogResult D = FR.ShowDialog(this);
+				FrmAskDescr FR = new FrmAskDescr(0);
+                createForm(FR, this);
+                DialogResult D = FR.ShowDialog(this);
 				if (D!= DialogResult.OK) return;
 				filter = GetData.MergeFilters(filter,
 					"(title like "+QueryCreator.quotedstrvalue(
@@ -7248,7 +7256,8 @@ namespace income_procedura//entrataprocedura//
 			if (Out==null) return;
 			Out.Tables[0].TableName= "Situazione movimento di entrata";
 			frmSituazioneViewer View = new frmSituazioneViewer(Out);
-			View.Show();
+            createForm(View, null);
+            View.Show();
 		}
 
 		private void chbCoperturaIniziativa_CheckedChanged(object sender, System.EventArgs e) {
@@ -7366,6 +7375,7 @@ namespace income_procedura//entrataprocedura//
         private void btnMultipleBillSel_Click(object sender, EventArgs e) {
             if (Meta.IsEmpty) return;
             FrmChooseBill f = new FrmChooseBill(Meta, GetData.MergeFilters(null, DS.billview));
+            createForm(f, this);
             if (f.ShowDialog(this) != DialogResult.OK) return;
 
             DataRow[] sel = f.GetGridSelectedRows();

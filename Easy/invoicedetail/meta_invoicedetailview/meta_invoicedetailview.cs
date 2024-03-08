@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -238,8 +238,8 @@ namespace meta_invoicedetailview//meta_dettdocumentoivaview//
 				DescribeAColumn(T, "invoicekind_main", "Fattura di Riferimento", nPos++);
 				DescribeAColumn(T, "yinv_main", "Eserc. Fattura di Riferimento", nPos++);
 				DescribeAColumn(T, "ninv_main", "Num. Fattura di Riferimento", nPos++);
-
-				DescribeAColumn(T, "intrastatoperationkind", "Beni/Servizi", nPos++);
+                DescribeAColumn(T, "rownum_main", "Num. riga Fattura di Riferimento", nPos++);
+                DescribeAColumn(T, "intrastatoperationkind", "Beni/Servizi", nPos++);
                 DescribeAColumn(T, "servicecode", "Cod.Servizi", nPos++);
                 DescribeAColumn(T, "intrastatservice", "Servizi", nPos++);
                 DescribeAColumn(T, "supplymethodcode", "Cod.Erogazione", nPos++);
@@ -271,6 +271,8 @@ namespace meta_invoicedetailview//meta_dettdocumentoivaview//
                 DescribeAColumn(T, "nman", "N.contratto passivo", nPos++);
                 DescribeAColumn(T, "manrownum", "N. dettaglio contratto passivo", nPos++);
                 DescribeAColumn(T, "iduniqueformcode", "Codice Bollettino Univoco", nPos++);
+                DescribeAColumn(T, "codicetassonomia", "Codice Tassonomia", nPos++);
+                DescribeAColumn(T, "active", "Utilizzabile per la contabilizzazione", nPos++);
                 HelpForm.SetFormatForColumn(T.Columns["rowtotal"], "c");
 
             }

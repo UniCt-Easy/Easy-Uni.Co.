@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -344,10 +344,11 @@ namespace movimentofunctions {
 
 							//int nMov = dsAuto.Tables["expense"].Select(filter).Length;
 							if ((visualizzaForm) && OneMainRow) {
-								Form Frm = ShowAutomatismi.Show(Disp,
-									Out.Select(), 
-									CurrMov, "Automatismi Ritenute");
-                                if(Frm.ShowDialog(ParentForm) == DialogResult.OK)
+								Form Frm = ShowAutomatismi.Show(Disp, Out.Select(),  CurrMov, "Automatismi Ritenute");
+
+                                MetaFactory.factory.getSingleton<IFormCreationListener>().create(Frm, ParentForm);
+                                
+                                if (Frm.ShowDialog(ParentForm) == DialogResult.OK)
                                     MergeAutomatismi(tAuto, Out, IDAUTOKIND_RITENUTA);
                                 else {
                                     return false;
@@ -376,10 +377,11 @@ namespace movimentofunctions {
 
 							//int nMov = dsAuto.Tables["expense"].Select(filter).Length;
 							if ((visualizzaForm) && OneMainRow) {
-								Form Frm = ShowAutomatismi.Show(
-									Disp, Out.Select(), 
-									CurrMov, "Automatismi Recuperi");
-                                if(Frm.ShowDialog(ParentForm) == DialogResult.OK)
+								Form Frm = ShowAutomatismi.Show(Disp, Out.Select(), CurrMov, "Automatismi Recuperi");
+
+                                MetaFactory.factory.getSingleton<IFormCreationListener>().create(Frm, ParentForm);
+
+                                if (Frm.ShowDialog(ParentForm) == DialogResult.OK)
                                     MergeAutomatismi(tAuto, Out, IDAUTOKIND_RECUPERO);
                                 else {
                                     return false;
@@ -508,7 +510,7 @@ namespace movimentofunctions {
                     DataTable T = Movimento;
 				    string filter = QHC.CmpEq( idfieldname, currid); //idfieldname + "=" + QueryCreator.quotedstrvalue(currid, false);
                     if (Movimento.Select(filter).Length == 0) {
-                        T = Conn.RUN_SELECT(Movimento.TableName,"*", null, QHC.CmpEq( "parent" + idfieldname, currid), null, true);
+                        T = Conn.RUN_SELECT(Movimento.TableName,"*", null, QHC.CmpEq(idfieldname, currid), null, true);
                     }
                     DataRow[] MainRows = T.Select(filter);
                     if (MainRows.Length == 0) {
@@ -3359,7 +3361,9 @@ expenseflagseparatemanager 16
                 
                 if((classifyallmov==false)  && CurrMov["autokind"]==DBNull.Value) continue; //NON OPERA SULLE CLASS. DEI MOV.PRINCIPALI
 
-			    DataRow CurrImputazioneMov;
+                if ((classifyallmov == false) && CfgFn.GetNoNullInt32(CurrMov["autokind"]) >=130 ) continue; //Sono mov. di Catania marcati con autokind loro: 130,131,132,133,167,233
+
+                DataRow CurrImputazioneMov;
 			    if (!movYearByID.TryGetValue((int)CurrImpClass[idmovimento],out CurrImputazioneMov))continue;
 
 			    
@@ -3673,7 +3677,8 @@ expenseflagseparatemanager 16
 
             if ((visualizzaForm && (nAuto > 0) && (nMainMov > 0)) || viewMainMov){
                 FrmManage_Automatismi ma = new FrmManage_Automatismi(dsAuto, Conn, Disp, displaymainmov, Cache);
-				DialogResult dr = ma.ShowDialog();
+                MetaFactory.factory.getSingleton<IFormCreationListener>().create(ma, null);
+                DialogResult dr = ma.ShowDialog();
 				if (dr != DialogResult.OK) return false;
 			}
 			if (dsAuto.Tables.Contains("incomesorted")) {

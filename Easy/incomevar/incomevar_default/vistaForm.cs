@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,54 +26,33 @@ using System.Runtime.Serialization;
 namespace incomevar_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Variazione movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomevar 		=> Tables["incomevar"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tipomovimento 		=> Tables["tipomovimento"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoiceavailable 		=> Tables["invoiceavailable"];
 
-	///<summary>
-	///Classificazione Movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomesorted 		=> Tables["incomesorted"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingkind 		=> Tables["sortingkind"];
 
-	///<summary>
-	///Assegnazione credito al bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable creditpart 		=> Tables["creditpart"];
 
-	///<summary>
-	///Assegnazione incasso al bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable proceedspart 		=> Tables["proceedspart"];
 
@@ -83,36 +62,21 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicedetail_taxable 		=> Tables["invoicedetail_taxable"];
 
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoice 		=> Tables["invoice"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeview 		=> Tables["incomeview"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///Distinta di trasmissione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable proceedstransmission 		=> Tables["proceedstransmission"];
 
@@ -674,6 +638,7 @@ private void initClass() {
 	tinvoicedetail_iva.Columns.Add( new DataColumn("idinvkind_main", typeof(int)));
 	tinvoicedetail_iva.Columns.Add( new DataColumn("yinv_main", typeof(short)));
 	tinvoicedetail_iva.Columns.Add( new DataColumn("ninv_main", typeof(int)));
+	tinvoicedetail_iva.Columns.Add( new DataColumn("rownum_main", typeof(int)));
 	Tables.Add(tinvoicedetail_iva);
 	tinvoicedetail_iva.PrimaryKey =  new DataColumn[]{tinvoicedetail_iva.Columns["idinvkind"], tinvoicedetail_iva.Columns["yinv"], tinvoicedetail_iva.Columns["ninv"], tinvoicedetail_iva.Columns["rownum"]};
 
@@ -781,6 +746,7 @@ private void initClass() {
 	tinvoicedetail_taxable.Columns.Add( new DataColumn("idinvkind_main", typeof(int)));
 	tinvoicedetail_taxable.Columns.Add( new DataColumn("yinv_main", typeof(short)));
 	tinvoicedetail_taxable.Columns.Add( new DataColumn("ninv_main", typeof(int)));
+	tinvoicedetail_taxable.Columns.Add( new DataColumn("rownum_main", typeof(int)));
 	Tables.Add(tinvoicedetail_taxable);
 	tinvoicedetail_taxable.PrimaryKey =  new DataColumn[]{tinvoicedetail_taxable.Columns["idinvkind"], tinvoicedetail_taxable.Columns["yinv"], tinvoicedetail_taxable.Columns["ninv"], tinvoicedetail_taxable.Columns["rownum"]};
 

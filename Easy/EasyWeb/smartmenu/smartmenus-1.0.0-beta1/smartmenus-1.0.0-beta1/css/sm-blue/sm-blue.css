@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
+@import url('PT_Sans_Narrow.css');
 .sm-blue {
   background: transparent;
   -webkit-border-radius: 8px;

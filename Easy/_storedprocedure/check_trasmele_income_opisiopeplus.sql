@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,7 +32,7 @@ CREATE        PROCEDURE [check_trasmele_income_opisiopeplus]
 as 
 Begin
 --	setuser 'amministrazione'
---	exec  check_trasmele_income_opisiopeplus 2012,525
+--	exec  check_trasmele_income_opisiopeplus 2023,525
 DECLARE @k int
 SELECT  @k = kproceedstransmission
 FROM proceedstransmission
@@ -106,7 +106,7 @@ END
 	and T1.kind = 'INFO_VERSANTE'
 		and exists (select * 	from #checktrace T2
 						where T1.numero_reversale = T2.numero_reversale
-							and T2.tipo_operazione IN( 'INSERIMENTO' ,'VARIAZIONE') )
+							and T2.tipo_operazione IN( 'INSERIMENTO' ,'VARIAZIONE','ANNULLO') )
 
 	insert into #errors(error)
 	select 'Documento elettronico privo dell''Identificativo del Lotto SDI con cui è stata trasmessa la FE. Numero reversale : '+ convert(varchar(10),numero_reversale) + '. Incasso n.' + convert(varchar(10), E.nmov)
@@ -159,15 +159,6 @@ END
 	and (select count(*) from #checktrace T3
 	where T1.numero_reversale = T3.numero_reversale and T1.idinc = T3.idinc and kind='ARCONET')>0
 
-
-	--Controlliamo la presenza del carattere char(31) si presenta come spazione : &#x001F;	&#31;	1F	\u001F	Unit Separator
-	--Non supera la validazione XML e va rimosso
-	insert into #errors(error)
-	select 'Nella descrizione della reversale Num. '+ convert(varchar(10),numero_reversale)+ ', Incasso n.' + convert(varchar(10), E.nmov) +' vi è il carattere  NON VALIDO ''Unit Separator'' (simile a spazio) alla posizione '+ convert(varchar(10),PATINDEX('%'+char(31) +'%', description))+'. '
-	+ 'Descrizione:' + description+'.'
-	from #checktrace T1
-	join income E on T1.idinc = E.idinc
-	where description like '%'+char(31) +'%' 
 
 	-- SELECT * FROM #checktrace
 	IF ((SELECT COUNT(*) FROM #errors) >0)

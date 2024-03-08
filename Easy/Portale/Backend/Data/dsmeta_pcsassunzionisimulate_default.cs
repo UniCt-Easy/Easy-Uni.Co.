@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,14 +27,23 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_pcsassunzionisimulate_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_pcsassunzionisimulate_default: DataSet {
+public partial class dsmeta_pcsassunzionisimulate_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable getcontrattikindview 		=> (MetaTable)Tables["getcontrattikindview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable contrattokinddefaultview 		=> (MetaTable)Tables["contrattokinddefaultview"];
+	public MetaTable strutturadefaultview 		=> (MetaTable)Tables["strutturadefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable sasddefaultview 		=> (MetaTable)Tables["sasddefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable positiondefaultview_alias1 		=> (MetaTable)Tables["positiondefaultview_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable positiondefaultview 		=> (MetaTable)Tables["positiondefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable pcsassunzionisimulate 		=> (MetaTable)Tables["pcsassunzionisimulate"];
@@ -72,7 +81,7 @@ private void initClass() {
 	tgetcontrattikindview.defineColumn("costolordoannuo_stip", typeof(decimal));
 	tgetcontrattikindview.defineColumn("costomese", typeof(decimal));
 	tgetcontrattikindview.defineColumn("costoora", typeof(decimal));
-	tgetcontrattikindview.defineColumn("idcontrattokind", typeof(int),false);
+	tgetcontrattikindview.defineColumn("idposition", typeof(int),false);
 	tgetcontrattikindview.defineColumn("oremaxdidatempoparziale", typeof(int));
 	tgetcontrattikindview.defineColumn("oremaxdidatempopieno", typeof(int));
 	tgetcontrattikindview.defineColumn("oremaxgg", typeof(int));
@@ -84,15 +93,39 @@ private void initClass() {
 	tgetcontrattikindview.defineColumn("tempdef", typeof(string));
 	tgetcontrattikindview.defineColumn("title", typeof(string),false);
 	Tables.Add(tgetcontrattikindview);
-	tgetcontrattikindview.defineKey("idcontrattokind");
+	tgetcontrattikindview.defineKey("idposition");
 
-	//////////////////// CONTRATTOKINDDEFAULTVIEW /////////////////////////////////
-	var tcontrattokinddefaultview= new MetaTable("contrattokinddefaultview");
-	tcontrattokinddefaultview.defineColumn("contrattokind_active", typeof(string));
-	tcontrattokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tcontrattokinddefaultview.defineColumn("idcontrattokind", typeof(int),false);
-	Tables.Add(tcontrattokinddefaultview);
-	tcontrattokinddefaultview.defineKey("idcontrattokind");
+	//////////////////// STRUTTURADEFAULTVIEW /////////////////////////////////
+	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
+	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
+	tstrutturadefaultview.defineColumn("struttura_active", typeof(string));
+	Tables.Add(tstrutturadefaultview);
+	tstrutturadefaultview.defineKey("idstruttura");
+
+	//////////////////// SASDDEFAULTVIEW /////////////////////////////////
+	var tsasddefaultview= new MetaTable("sasddefaultview");
+	tsasddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tsasddefaultview.defineColumn("idsasd", typeof(int),false);
+	Tables.Add(tsasddefaultview);
+	tsasddefaultview.defineKey("idsasd");
+
+	//////////////////// POSITIONDEFAULTVIEW_ALIAS1 /////////////////////////////////
+	var tpositiondefaultview_alias1= new MetaTable("positiondefaultview_alias1");
+	tpositiondefaultview_alias1.defineColumn("dropdown_title", typeof(string),false);
+	tpositiondefaultview_alias1.defineColumn("idposition", typeof(int),false);
+	tpositiondefaultview_alias1.defineColumn("position_active", typeof(string));
+	tpositiondefaultview_alias1.ExtendedProperties["TableForReading"]="positiondefaultview";
+	Tables.Add(tpositiondefaultview_alias1);
+	tpositiondefaultview_alias1.defineKey("idposition");
+
+	//////////////////// POSITIONDEFAULTVIEW /////////////////////////////////
+	var tpositiondefaultview= new MetaTable("positiondefaultview");
+	tpositiondefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tpositiondefaultview.defineColumn("idposition", typeof(int),false);
+	tpositiondefaultview.defineColumn("position_active", typeof(string));
+	Tables.Add(tpositiondefaultview);
+	tpositiondefaultview.defineKey("idposition");
 
 	//////////////////// PCSASSUNZIONISIMULATE /////////////////////////////////
 	var tpcsassunzionisimulate= new MetaTable("pcsassunzionisimulate");
@@ -100,9 +133,10 @@ private void initClass() {
 	tpcsassunzionisimulate.defineColumn("cu", typeof(string),false);
 	tpcsassunzionisimulate.defineColumn("data", typeof(DateTime));
 	tpcsassunzionisimulate.defineColumn("finanziamento", typeof(string));
-	tpcsassunzionisimulate.defineColumn("idcontrattokind", typeof(int));
-	tpcsassunzionisimulate.defineColumn("idcontrattokind_start", typeof(int));
+	tpcsassunzionisimulate.defineColumn("idanalisiannuale", typeof(int),false);
 	tpcsassunzionisimulate.defineColumn("idpcsassunzionisimulate", typeof(int),false);
+	tpcsassunzionisimulate.defineColumn("idposition", typeof(int));
+	tpcsassunzionisimulate.defineColumn("idposition_start", typeof(int));
 	tpcsassunzionisimulate.defineColumn("idsasd", typeof(int));
 	tpcsassunzionisimulate.defineColumn("idstruttura", typeof(int));
 	tpcsassunzionisimulate.defineColumn("legge", typeof(string));
@@ -118,15 +152,27 @@ private void initClass() {
 	tpcsassunzionisimulate.defineColumn("totale3", typeof(decimal));
 	tpcsassunzionisimulate.defineColumn("year", typeof(int),false);
 	Tables.Add(tpcsassunzionisimulate);
-	tpcsassunzionisimulate.defineKey("idpcsassunzionisimulate", "year");
+	tpcsassunzionisimulate.defineKey("idanalisiannuale", "idpcsassunzionisimulate", "year");
 
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{contrattokinddefaultview.Columns["idcontrattokind"]};
-	var cChild = new []{pcsassunzionisimulate.Columns["idcontrattokind"]};
-	Relations.Add(new DataRelation("FK_pcsassunzionisimulate_contrattokinddefaultview_idcontrattokind",cPar,cChild,false));
+	var cPar = new []{strutturadefaultview.Columns["idstruttura"]};
+	var cChild = new []{pcsassunzionisimulate.Columns["idstruttura"]};
+	Relations.Add(new DataRelation("FK_pcsassunzionisimulate_strutturadefaultview_idstruttura",cPar,cChild,false));
+
+	cPar = new []{sasddefaultview.Columns["idsasd"]};
+	cChild = new []{pcsassunzionisimulate.Columns["idsasd"]};
+	Relations.Add(new DataRelation("FK_pcsassunzionisimulate_sasddefaultview_idsasd",cPar,cChild,false));
+
+	cPar = new []{positiondefaultview_alias1.Columns["idposition"]};
+	cChild = new []{pcsassunzionisimulate.Columns["idposition"]};
+	Relations.Add(new DataRelation("FK_pcsassunzionisimulate_positiondefaultview_alias1_idposition",cPar,cChild,false));
+
+	cPar = new []{positiondefaultview.Columns["idposition"]};
+	cChild = new []{pcsassunzionisimulate.Columns["idposition_start"]};
+	Relations.Add(new DataRelation("FK_pcsassunzionisimulate_positiondefaultview_idposition_start",cPar,cChild,false));
 
 	#endregion
 

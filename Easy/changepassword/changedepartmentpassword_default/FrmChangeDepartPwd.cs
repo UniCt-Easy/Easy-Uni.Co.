@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -207,7 +207,8 @@ namespace changedepartmentpassword_default
 			}
 
 			PwdConfirm Confirm = new PwdConfirm(1);
-			DialogResult Res=  Confirm.ShowDialog(this);
+            createForm(Confirm, this);
+            DialogResult Res=  Confirm.ShowDialog(this);
 			if (Res!=DialogResult.OK){
 				DialogResult = DialogResult.None;
 				return;

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -48,12 +48,13 @@ namespace meta_sdi_acquistoipaview {
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 int nPos = 1;
                 DescribeAColumn(T, "title", "Fornitore", nPos++);
-                DescribeAColumn(T, "protocoldate", "Data Ricezione", nPos++);
+                DescribeAColumn(T, "protocoldate", "Data protocollo", nPos++);
                 DescribeAColumn(T, "adate", "Data Emissione", nPos++);
                 DescribeAColumn(T, "ninvoice", "Numero Fattura", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "codice_ipa", "IPA", nPos++);
                 DescribeAColumn(T, "riferimento_amministrazione", "Riferimento amministrazione", nPos++);
+                DescribeAColumn(T, "data_ricezione", "Data Ricezione SDI", nPos++);
                 DescribeAColumn(T, "sdi_status", "Stato", nPos++);
                 DescribeAColumn(T, "total", "Importo totale documento", nPos++);
                 DescribeAColumn(T, "arrivalprotocolnum", "Num.Protocollo entrata", nPos++);
@@ -69,7 +70,6 @@ namespace meta_sdi_acquistoipaview {
                 DescribeAColumn(T, "tipodocumento", "Tipo Documento SDI", nPos++);
                 DescribeAColumn(T, "notcreacontabilita","Fattura da non creare in Contabilità", nPos++);
                 DescribeAColumn(T, "notcreacontabilitareason","Motivazione", nPos++);
-                DescribeAColumn(T, "data_ricezione", "Data Ricezione SDI", nPos++);
                 //DescribeAColumn(T, "exist_mt", "File dei metadati");
                 //DescribeAColumn(T, "exist_se", "Notifica di scarto esito committente");
                 //DescribeAColumn(T, "exist_dt", "Notifica decorrenza termini");

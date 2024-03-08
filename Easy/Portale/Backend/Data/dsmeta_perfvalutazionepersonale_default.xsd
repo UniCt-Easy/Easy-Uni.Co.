@@ -3,6 +3,23 @@
   <xs:element name="dsmeta_perfvalutazionepersonale_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="perfinterazioni" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="commenti" type="xs:string" minOccurs="0" />
+              <xs:element name="commentival" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idperfinterazionekind" type="xs:int" />
+              <xs:element name="idperfinterazioni" type="xs:int" />
+              <xs:element name="idperfvalutazionepersonale" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="utente" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -23,6 +40,7 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idattach" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazionepersonaleattach" type="xs:int" />
@@ -40,16 +58,77 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="perfinterazioni" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfinterazioni_alias1" msprop:NotEntityChild="true" msprop:TableForReading="perfinterazioni" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="commenti" type="xs:string" minOccurs="0" />
               <xs:element name="commentival" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idperfinterazionekind" type="xs:int" />
               <xs:element name="idperfinterazioni" type="xs:int" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="utente" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idperfinterazionekind_perfinterazionekind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getdocentiamministrativiresponsabilinomcognview_alias5" msprop:TableForReading="getdocentiamministrativiresponsabilinomcognview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getdocentiamministrativiresponsabili_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_resplevel" type="xs:int" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="ruolo" type="xs:string" />
+              <xs:element name="struttura" type="xs:string" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getdocentiamministrativiresponsabilinomcognview_alias4" msprop:TableForReading="getdocentiamministrativiresponsabilinomcognview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getdocentiamministrativiresponsabili_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_resplevel" type="xs:int" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="ruolo" type="xs:string" />
+              <xs:element name="struttura" type="xs:string" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getdocentiamministrativiresponsabilinomcognview_alias3" msprop:TableForReading="getdocentiamministrativiresponsabilinomcognview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="ruolo" type="xs:string" />
+              <xs:element name="struttura" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getdocentiamministrativiresponsabilinomcognview_alias2" msprop:TableForReading="getdocentiamministrativiresponsabilinomcognview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="ruolo" type="xs:string" />
+              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -77,15 +156,37 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazionepersonaleobiettivo" type="xs:int" />
               <xs:element name="inverso" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
               <xs:element name="peso" type="xs:decimal" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_perfvalutazionepersonalesoglia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getdocentiamministrativiresponsabilinomcognview_alias1" msprop:TableForReading="getdocentiamministrativiresponsabilinomcognview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="ruolo" type="xs:string" />
+              <xs:element name="struttura" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="getdocentiamministrativiresponsabilinomcognview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="ruolo" type="xs:string" />
+              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -94,7 +195,7 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="description" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idperfsogliakind" type="xs:string" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazionepersonalecomportamento" type="xs:int" />
@@ -110,12 +211,7 @@
         <xs:element name="perfcomportamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idperfcomportamento" type="xs:int" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -127,6 +223,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idperfcomportamento" type="xs:int" />
+              <xs:element name="idperfgiudizio" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazionepersonalecomportamento" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
@@ -150,6 +247,7 @@
         <xs:element name="struttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="idstrutturakind" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
@@ -190,49 +288,53 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="getregistrydocentiamministratividefaultview_alias2" msprop:TableForReading="getregistrydocentiamministratividefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfschedastatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfschedastatus" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="getregistrydocentiamministratividefaultview_alias1" msprop:TableForReading="getregistrydocentiamministratividefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfvalutazionepersonalestatuschanges" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
-              <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="changedate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="changeuser" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idperfschedastatus" type="xs:int" minOccurs="0" />
+              <xs:element name="idperfvalutazionepersonale" type="xs:int" />
+              <xs:element name="idperfvalutazionepersonalestatuschanges" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idperfschedastatus_perfschedastatus_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="afferenzaammview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="afferenza_ct" type="xs:dateTime" />
+              <xs:element name="afferenza_cu" type="xs:string" />
+              <xs:element name="afferenza_idmansionekind" type="xs:int" minOccurs="0" />
+              <xs:element name="afferenza_lt" type="xs:dateTime" />
+              <xs:element name="afferenza_lu" type="xs:string" />
+              <xs:element name="afferenza_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="afferenza_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idafferenza" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="mansionekind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturaparent_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="getregistrydocentiamministratividefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="getregistrydocentiamministrativinomcognview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
@@ -254,6 +356,12 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idperfschedastatus" type="xs:int" />
               <xs:element name="perfschedastatus_active" type="xs:string" minOccurs="0" />
+              <xs:element name="perfschedastatus_ct" type="xs:dateTime" />
+              <xs:element name="perfschedastatus_cu" type="xs:string" />
+              <xs:element name="perfschedastatus_description" type="xs:string" minOccurs="0" />
+              <xs:element name="perfschedastatus_lt" type="xs:dateTime" />
+              <xs:element name="perfschedastatus_lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -269,17 +377,24 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="idafferenza" type="xs:int" minOccurs="0" />
+              <xs:element name="idafferenza" type="xs:int" />
               <xs:element name="idperfschedastatus" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idreg_appr" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_comp" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_compcomp" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_create" type="xs:int" minOccurs="0" />
               <xs:element name="idreg_val" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_valcomp" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="motivazione" type="xs:string" minOccurs="0" />
+              <xs:element name="percateneo" type="xs:decimal" minOccurs="0" />
               <xs:element name="perccomportamenti" type="xs:decimal" minOccurs="0" />
               <xs:element name="percobiettivi" type="xs:decimal" minOccurs="0" />
               <xs:element name="percperfuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoateneo" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesocomportamenti" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoobiettivi" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoperfuo" type="xs:decimal" minOccurs="0" />
@@ -291,6 +406,11 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfinterazioni" />
+      <xs:field xpath="mstns:idperfinterazioni" />
+      <xs:field xpath="mstns:idperfvalutazionepersonale" />
+    </xs:unique>
+    <xs:unique name="attach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:attach" />
       <xs:field xpath="mstns:idattach" />
     </xs:unique>
@@ -303,10 +423,34 @@
       <xs:selector xpath=".//mstns:perfinterazionekind" />
       <xs:field xpath="mstns:idperfinterazionekind" />
     </xs:unique>
-    <xs:unique name="perfinterazioni_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:perfinterazioni" />
+    <xs:unique name="perfinterazioni_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfinterazioni_alias1" />
       <xs:field xpath="mstns:idperfinterazioni" />
       <xs:field xpath="mstns:idperfvalutazionepersonale" />
+    </xs:unique>
+    <xs:unique name="getdocentiamministrativiresponsabilinomcognview_alias5_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias5" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:ruolo" />
+      <xs:field xpath="mstns:struttura" />
+    </xs:unique>
+    <xs:unique name="getdocentiamministrativiresponsabilinomcognview_alias4_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias4" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:ruolo" />
+      <xs:field xpath="mstns:struttura" />
+    </xs:unique>
+    <xs:unique name="getdocentiamministrativiresponsabilinomcognview_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias3" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:ruolo" />
+      <xs:field xpath="mstns:struttura" />
+    </xs:unique>
+    <xs:unique name="getdocentiamministrativiresponsabilinomcognview_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias2" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:ruolo" />
+      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="perfvalutazionepersonalesoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfvalutazionepersonalesoglia" />
@@ -318,6 +462,18 @@
       <xs:selector xpath=".//mstns:perfvalutazionepersonaleobiettivo" />
       <xs:field xpath="mstns:idperfvalutazionepersonale" />
       <xs:field xpath="mstns:idperfvalutazionepersonaleobiettivo" />
+    </xs:unique>
+    <xs:unique name="getdocentiamministrativiresponsabilinomcognview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias1" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:ruolo" />
+      <xs:field xpath="mstns:struttura" />
+    </xs:unique>
+    <xs:unique name="getdocentiamministrativiresponsabilinomcognview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:ruolo" />
+      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="perfvalutazionepersonalecomportamentosoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfvalutazionepersonalecomportamentosoglia" />
@@ -354,21 +510,22 @@
       <xs:field xpath="mstns:idperfvalutazionepersonale" />
       <xs:field xpath="mstns:idperfvalutazionepersonaleateneo" />
     </xs:unique>
-    <xs:unique name="getregistrydocentiamministratividefaultview_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview_alias2" />
-      <xs:field xpath="mstns:idreg" />
+    <xs:unique name="perfschedastatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfschedastatus" />
+      <xs:field xpath="mstns:idperfschedastatus" />
     </xs:unique>
-    <xs:unique name="getregistrydocentiamministratividefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview_alias1" />
-      <xs:field xpath="mstns:idreg" />
+    <xs:unique name="perfvalutazionepersonalestatuschanges_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfvalutazionepersonalestatuschanges" />
+      <xs:field xpath="mstns:idperfvalutazionepersonale" />
+      <xs:field xpath="mstns:idperfvalutazionepersonalestatuschanges" />
     </xs:unique>
     <xs:unique name="afferenzaammview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:afferenzaammview" />
       <xs:field xpath="mstns:idafferenza" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
-    <xs:unique name="getregistrydocentiamministratividefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview" />
+    <xs:unique name="getregistrydocentiamministrativinomcognview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministrativinomcognview" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="perfschedastatusdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -381,6 +538,7 @@
     </xs:unique>
     <xs:unique name="perfvalutazionepersonale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfvalutazionepersonale" />
+      <xs:field xpath="mstns:idafferenza" />
       <xs:field xpath="mstns:idperfvalutazionepersonale" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
@@ -389,10 +547,16 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_perfvalutazionepersonaleattach_perfvalutazionepersonale_idperfvalutazionepersonale" msdata:parent="perfvalutazionepersonale" msdata:child="perfvalutazionepersonaleattach" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale" />
       <msdata:Relationship name="FK_perfvalutazionepersonaleattach_attach_idattach" msdata:parent="attach" msdata:child="perfvalutazionepersonaleattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
-      <msdata:Relationship name="FK_perfinterazioni_perfvalutazionepersonale_idperfvalutazionepersonale" msdata:parent="perfvalutazionepersonale" msdata:child="perfinterazioni" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale" />
-      <msdata:Relationship name="FK_perfinterazioni_perfinterazionekind_idperfinterazionekind" msdata:parent="perfinterazionekind" msdata:child="perfinterazioni" msdata:parentkey="idperfinterazionekind" msdata:childkey="idperfinterazionekind" />
+      <msdata:Relationship name="FK_perfinterazioni_alias1_perfvalutazionepersonale_idperfvalutazionepersonale" msdata:parent="perfvalutazionepersonale" msdata:child="perfinterazioni_alias1" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale" />
+      <msdata:Relationship name="FK_perfinterazioni_alias1_perfinterazionekind_idperfinterazionekind" msdata:parent="perfinterazionekind" msdata:child="perfinterazioni_alias1" msdata:parentkey="idperfinterazionekind" msdata:childkey="idperfinterazionekind" />
+      <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilinomcognview_alias5_idreg_appr" msdata:parent="getdocentiamministrativiresponsabilinomcognview_alias5" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_appr" />
+      <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilinomcognview_alias4_idreg_val" msdata:parent="getdocentiamministrativiresponsabilinomcognview_alias4" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_val" />
+      <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilinomcognview_alias3_idreg_comp" msdata:parent="getdocentiamministrativiresponsabilinomcognview_alias3" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_comp" />
+      <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilinomcognview_alias2_idreg_create" msdata:parent="getdocentiamministrativiresponsabilinomcognview_alias2" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_create" />
       <msdata:Relationship name="FK_perfvalutazionepersonaleobiettivo_perfvalutazionepersonale_idperfvalutazionepersonale" msdata:parent="perfvalutazionepersonale" msdata:child="perfvalutazionepersonaleobiettivo" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale" />
       <msdata:Relationship name="FK_perfvalutazionepersonalesoglia_perfvalutazionepersonaleobiettivo_idperfvalutazionepersonale-idperfvalutazionepersonaleobiettivo" msdata:parent="perfvalutazionepersonaleobiettivo" msdata:child="perfvalutazionepersonalesoglia" msdata:parentkey="idperfvalutazionepersonale idperfvalutazionepersonaleobiettivo" msdata:childkey="idperfvalutazionepersonale idperfvalutazionepersonaleobiettivo" />
+      <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilinomcognview_alias1_idreg_valcomp" msdata:parent="getdocentiamministrativiresponsabilinomcognview_alias1" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_valcomp" />
+      <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilinomcognview_idreg_compcomp" msdata:parent="getdocentiamministrativiresponsabilinomcognview" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_compcomp" />
       <msdata:Relationship name="FK_perfvalutazionepersonalecomportamento_perfvalutazionepersonale_idperfvalutazionepersonale" msdata:parent="perfvalutazionepersonale" msdata:child="perfvalutazionepersonalecomportamento" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale" />
       <msdata:Relationship name="FK_perfvalutazionepersonalecomportamentosoglia_perfvalutazionepersonalecomportamento_idperfvalutazionepersonale-idperfvalutazionepersonalecomportamento" msdata:parent="perfvalutazionepersonalecomportamento" msdata:child="perfvalutazionepersonalecomportamentosoglia" msdata:parentkey="idperfvalutazionepersonale idperfvalutazionepersonalecomportamento" msdata:childkey="idperfvalutazionepersonale idperfvalutazionepersonalecomportamento" />
       <msdata:Relationship name="FK_perfvalutazionepersonalecomportamento_perfcomportamento_idperfcomportamento" msdata:parent="perfcomportamento" msdata:child="perfvalutazionepersonalecomportamento" msdata:parentkey="idperfcomportamento" msdata:childkey="idperfcomportamento" />
@@ -400,11 +564,10 @@
       <msdata:Relationship name="FK_perfvalutazionepersonaleuo_struttura_idstruttura" msdata:parent="struttura" msdata:child="perfvalutazionepersonaleuo" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
       <msdata:Relationship name="FK_struttura_strutturakind_idstrutturakind" msdata:parent="strutturakind" msdata:child="struttura" msdata:parentkey="idstrutturakind" msdata:childkey="idstrutturakind" />
       <msdata:Relationship name="FK_perfvalutazionepersonaleateneo_perfvalutazionepersonale_idperfvalutazionepersonale" msdata:parent="perfvalutazionepersonale" msdata:child="perfvalutazionepersonaleateneo" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale" />
-      <msdata:Relationship name="FK_perfvalutazionepersonale_getregistrydocentiamministratividefaultview_alias2_idreg_appr" msdata:parent="getregistrydocentiamministratividefaultview_alias2" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_appr" />
-      <msdata:Relationship name="FK_perfvalutazionepersonale_getregistrydocentiamministratividefaultview_alias1_idreg_val" msdata:parent="getregistrydocentiamministratividefaultview_alias1" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_val" />
+      <msdata:Relationship name="FK_perfvalutazionepersonalestatuschanges_perfvalutazionepersonale_idperfvalutazionepersonale" msdata:parent="perfvalutazionepersonale" msdata:child="perfvalutazionepersonalestatuschanges" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale" />
+      <msdata:Relationship name="FK_perfvalutazionepersonalestatuschanges_perfschedastatus_idperfschedastatus" msdata:parent="perfschedastatus" msdata:child="perfvalutazionepersonalestatuschanges" msdata:parentkey="idperfschedastatus" msdata:childkey="idperfschedastatus" />
       <msdata:Relationship name="FK_perfvalutazionepersonale_afferenzaammview_idafferenza" msdata:parent="afferenzaammview" msdata:child="perfvalutazionepersonale" msdata:parentkey="idafferenza" msdata:childkey="idafferenza" />
-      <msdata:Relationship name="FK_afferenzaammview_getregistrydocentiamministratividefaultview_idreg" msdata:parent="getregistrydocentiamministratividefaultview" msdata:child="afferenzaammview" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_perfvalutazionepersonale_getregistrydocentiamministratividefaultview_idreg" msdata:parent="getregistrydocentiamministratividefaultview" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_perfvalutazionepersonale_getregistrydocentiamministrativinomcognview_idreg" msdata:parent="getregistrydocentiamministrativinomcognview" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_perfvalutazionepersonale_perfschedastatusdefaultview_idperfschedastatus" msdata:parent="perfschedastatusdefaultview" msdata:child="perfvalutazionepersonale" msdata:parentkey="idperfschedastatus" msdata:childkey="idperfschedastatus" />
       <msdata:Relationship name="FK_perfvalutazionepersonale_year_year" msdata:parent="year" msdata:child="perfvalutazionepersonale" msdata:parentkey="year" msdata:childkey="year" />
     </xs:appinfo>

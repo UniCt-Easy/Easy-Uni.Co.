@@ -1,27 +1,10 @@
-
-/*
-Easy
-Copyright (C) 2022 Universit‡ degli Studi di Catania (www.unict.it)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function () {
+Ôªø(function () {
 	
     var MetaPage = window.appMeta.MetaSegreteriePage;
 
     function metaPage_progettokind() {
 		MetaPage.apply(this, ['progettokind', 'seg', false]);
-        this.name = 'Modello/Template di progetto o attivit‡';
+        this.name = 'Modello/Template di progetto o attivit√†';
 		this.defaultListType = 'seg';
 		//pageHeaderDeclaration
     }
@@ -40,39 +23,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 			//afterGetFormData
 			
-			beforeFill: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.idcorsostudio)
-					parentRow.idcorsostudio = "N";
-				if (!parentRow.stipendioannoprec)
-					parentRow.stipendioannoprec = "N";
-				if (!parentRow.stipendiocomericavo)
-					parentRow.stipendiocomericavo = "N";
-				//beforeFillFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-progettokind_seg");
-				var arraydef = [];
-				
-				//beforeFillInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
-					});
-				return def.promise();
-			},
+			//beforeFill
 
 			afterClear: function () {
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettoattachkind'), this.getDataTable('progettoattachkindprogettostatuskind'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotestokind'), this.getDataTable('progettotestokindprogettostatuskind'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -82,7 +41,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.progettokind.defaults({ 'active': 'S' });
+				this.state.DS.tables.progettokind.defaults({ 'idcorsostudio': "N" });
+				this.state.DS.tables.progettokind.defaults({ 'irap': 'S' });
+				this.state.DS.tables.progettokind.defaults({ 'oredivisionecostostipendio': 1500 });
+				this.state.DS.tables.progettokind.defaults({ 'stipendioannoprec': "N" });
+				this.state.DS.tables.progettokind.defaults({ 'stipendiocomericavo': "N" });
+				this.setDenyNull("progettokind","oredivisionecostostipendio");
+				appMeta.metaModel.insertFilter(this.getDataTable("progettoactivitykinddefaultview"), this.q.eq('progettoactivitykind_active', 'Si'));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

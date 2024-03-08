@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -461,30 +461,43 @@ namespace bankdispositionsetup_importnew {
             string tipo_operazione = X["tipo_operazione"].InnerText;
 
             foreach (XmlNode sospeso in X.SelectNodes("sospeso")) {
-                            object numero_provvisorio = XmlHelper.AsOptionalInt(sospeso, "numero_provvisorio");
-                            Decimal importo_provvisorio = XmlHelper.AsDecimal(sospeso, "importo_provvisorio");
-                            if (numero_provvisorio.ToString() == "0") numero_provvisorio = DBNull.Value;
+                object numero_provvisorio = XmlHelper.AsOptionalInt(sospeso, "numero_provvisorio");
+                Decimal importo_provvisorio = XmlHelper.AsDecimal(sospeso, "importo_provvisorio");
+                if (numero_provvisorio.ToString() == "0") numero_provvisorio = DBNull.Value;
 
-                            if (numero_provvisorio == DBNull.Value  && tipo_operazione == "STORNATO" ) {
-                                numero_provvisorio = XmlHelper.AsOptionalInt(X, "numero_bolletta_quietanza_storno");
-                            }
-                            if (numero_provvisorio == DBNull.Value && tipo_operazione == "RIPRISTINATO") {
-                                numero_provvisorio = XmlHelper.AsOptionalInt(X, "numero_bolletta_quietanza");
-                            }
-                            if (numero_provvisorio.ToString() == "0") numero_provvisorio = DBNull.Value;
-                            if (numero_provvisorio == DBNull.Value) return null;
-            
-                            if ((tipo_operazione == "STORNATO" ||tipo_operazione == "RIPRISTINATO") && importo_provvisorio > 0) {
-                                importo_provvisorio = -importo_provvisorio;
-                            }
+                if (numero_provvisorio == DBNull.Value && tipo_operazione == "STORNATO") {
+                    numero_provvisorio = XmlHelper.AsOptionalInt(X, "numero_bolletta_quietanza_storno");
+                }
+                if (numero_provvisorio == DBNull.Value && tipo_operazione == "RIPRISTINATO") {
+                    numero_provvisorio = XmlHelper.AsOptionalInt(X, "numero_bolletta_quietanza");
+                }
+                if (numero_provvisorio.ToString() == "0") numero_provvisorio = DBNull.Value;
+                if (numero_provvisorio == DBNull.Value) return null;
 
-                            EsitoProvvisorio R = new EsitoProvvisorio(esercizio,
-                            CfgFn.GetNoNullInt32(numero_provvisorio),
-                            importo_provvisorio,
-                                XmlHelper.isNull(XmlHelper.AsOptionalDate(X, "data_valuta_ente"),
-                                XmlHelper.AsOptionalDate(X, "data_movimento"))
-                            );
-                            EsitiBolletteEntrata.Add(R);
+                if ((tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO") && importo_provvisorio > 0) {
+                    importo_provvisorio = -importo_provvisorio;
+                }
+
+                if (tipo_operazione == "STORNATO") {
+                    EsitoProvvisorio R = new EsitoProvvisorio(esercizio,
+                    CfgFn.GetNoNullInt32(numero_provvisorio),
+                    importo_provvisorio,
+                        XmlHelper.isNull(XmlHelper.AsOptionalDate(X, "data_movimento"),
+                        XmlHelper.AsOptionalDate(X, "data_valuta_ente"))
+                    );
+                    EsitiBolletteEntrata.Add(R);
+                }
+                else {   //  "RIPRISTINATO" /  "REGOLARIZZATO"
+                  EsitoProvvisorio R = new EsitoProvvisorio(esercizio,
+                  CfgFn.GetNoNullInt32(numero_provvisorio),
+                  importo_provvisorio,
+                      XmlHelper.isNull(XmlHelper.AsOptionalDate(X, "data_valuta_ente"),
+                      XmlHelper.AsOptionalDate(X, "data_movimento"))
+                  );
+                  EsitiBolletteEntrata.Add(R);
+                }
+                            
+                
            }
  
           return EsitiBolletteEntrata;
@@ -512,13 +525,24 @@ namespace bankdispositionsetup_importnew {
                                 importo_provvisorio = -importo_provvisorio;
                             }
 
-                            EsitoProvvisorio R = new EsitoProvvisorio(esercizio,
-                            CfgFn.GetNoNullInt32(numero_provvisorio),
-                            importo_provvisorio,
-                                XmlHelper.isNull(XmlHelper.AsOptionalDate(X, "data_valuta_ente"),
-                                XmlHelper.AsOptionalDate(X, "data_movimento"))
-                            );
-                            EsitiBolletteSpesa.Add(R);
+                            if (tipo_operazione == "STORNATO") {
+                                EsitoProvvisorio R = new EsitoProvvisorio(esercizio,
+                                CfgFn.GetNoNullInt32(numero_provvisorio),
+                                importo_provvisorio,
+                                    XmlHelper.isNull(XmlHelper.AsOptionalDate(X, "data_movimento"),
+                                    XmlHelper.AsOptionalDate(X, "data_valuta_ente"))
+                                );
+                                EsitiBolletteSpesa.Add(R);
+                            }
+                            else {   //  "RIPRISTINATO" /  "REGOLARIZZATO"
+                                EsitoProvvisorio R = new EsitoProvvisorio(esercizio,
+                                CfgFn.GetNoNullInt32(numero_provvisorio),
+                                importo_provvisorio,
+                                    XmlHelper.isNull(XmlHelper.AsOptionalDate(X, "data_valuta_ente"),
+                                    XmlHelper.AsOptionalDate(X, "data_movimento"))
+                                );
+                                EsitiBolletteSpesa.Add(R);
+                            }
            }
  
           return EsitiBolletteSpesa;

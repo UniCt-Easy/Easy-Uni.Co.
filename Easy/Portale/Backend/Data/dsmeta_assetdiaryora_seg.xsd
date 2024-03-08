@@ -34,6 +34,7 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:saldefaultview" />
+      <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idsal" />
     </xs:unique>
     <xs:unique name="assetdiaryora_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

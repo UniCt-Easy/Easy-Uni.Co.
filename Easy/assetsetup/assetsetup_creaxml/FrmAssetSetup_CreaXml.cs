@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,8 +29,12 @@ using System.Collections;
 namespace assetsetup_creaxml {
     public partial class FrmAssetSetup_CreaXml : MetaDataForm {
         MetaData Meta;
+
+        ISaveFileDialog saveFileDialog1;
+
         public FrmAssetSetup_CreaXml() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
         }
 
         private void btnFile_Click(object sender, EventArgs e) {

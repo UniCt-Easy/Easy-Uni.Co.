@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -183,7 +183,7 @@ namespace treasurer_default {//istitutocassiere//
         private Label label36;
         private Button btnChooseDir;
         private TextBox txtDir;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private GroupBox groupBox12;
         private TextBox textBox1;
         private Label label37;
@@ -224,9 +224,12 @@ namespace treasurer_default {//istitutocassiere//
         /// </summary>
         private System.ComponentModel.Container components = null;
 
-		public Frm_treasurer_default() {
+        public IFolderBrowserDialog folderBrowserDialog1;
+
+
+        public Frm_treasurer_default() {
 			InitializeComponent();
-		
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
         }
 
 		/// <summary>
@@ -249,7 +252,7 @@ namespace treasurer_default {//istitutocassiere//
 		/// </summary>
 		private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_treasurer_default));
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabAttributi = new System.Windows.Forms.TabPage();
             this.gboxclass05 = new System.Windows.Forms.GroupBox();
             this.txtCodice05 = new System.Windows.Forms.TextBox();

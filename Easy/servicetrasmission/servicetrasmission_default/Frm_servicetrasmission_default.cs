@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,6 +37,11 @@ using servicetrasmission_default.service;
 using servicetrasmission_default.ServicePerla;
 using System.Xml.Serialization;
 using q = metadatalibrary.MetaExpression;
+using System.Net;
+
+using ANP2018;
+using ADPv2;
+using ADPv2.Translator;
 
 namespace servicetrasmission_default {
 	/// <summary>
@@ -44,7 +49,7 @@ namespace servicetrasmission_default {
 	/// </summary>
 	public class Frm_servicetrasmission_default : MetaDataForm {
 		public servicetrasmission_default.vistaForm DS;
-		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+		private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
 		private System.Windows.Forms.OpenFileDialog _openFileDialog1;
 		private XmlTextWriter writer;
 		MetaData meta;
@@ -67,82 +72,94 @@ namespace servicetrasmission_default {
 		string filtroModificaPagamento = " (is_delivered ='S' and is_changed ='S' and is_blocked = 'N') ";
 
 		private enum tipoIncarico {nuovoIncarico, modificaIncarico, cancellaIncarico};
-
-
-		//string filtroCancellaPagamento = " (is_delivered ='S' and payedamount = '0' and is_blocked = 'N') ";
-		private System.Windows.Forms.TabControl tabControl1;
-		private TabPage tabDipendenti;
-		private Label label6;
-		private Label label5;
-		private TabPage tabConsulenti;
-		private TabPage tabModifica;
-		private TabPage tabCancellazione;
-		private TabPage tabAltro;
-		public Button btnannullaD;
-		public Button btnAnnullaC;
-		private Label label17;
-		private Label label16;
-		private Label label18;
-		private Label label19;
-		private Label label20;
-		private TabPage tabAttributi;
-		public GroupBox gboxclass05;
-		public TextBox txtCodice05;
-		public Button btnCodice05;
-		private TextBox txtDenom05;
-		public GroupBox gboxclass04;
-		public TextBox txtCodice04;
-		public Button btnCodice04;
-		private TextBox txtDenom04;
-		public GroupBox gboxclass03;
-		public TextBox txtCodice03;
-		public Button btnCodice03;
-		private TextBox txtDenom03;
-		public GroupBox gboxclass02;
-		public TextBox txtCodice02;
-		public Button btnCodice02;
-		private TextBox txtDenom02;
-		public GroupBox gboxclass01;
-		public TextBox txtCodice01;
-		public Button btnCodice01;
-		private TextBox txtDenom01;
-		public Button btnInviaDipendentiWS;
-		public Button btnInviaConsulenti2SemWS;
-		public Button btnModificaDatiDipendentiWS;
-		public Button btnModificaDatiConsulentiWS;
-		public Button btnCancellazioneDipendentiWS;
-		public Button btnCancellazioneConsulentiWS;
-		private Button btnSelezionaAutoCert;
-		private TextBox txtFileAutocertDefault;
-		private Label label1;
-		private Label label3;
-		private TextBox txtAnnoDipendente;
-		private Label label2;
-		private TextBox txtAnnoConsulente;
-		private Label label4;
-		private TextBox txtNumeroDipendente;
-		private Label label7;
-		private TextBox txtNumeroConsulente;
-		private Label label8;
-		private TabPage tabErrori;
-		private Label label9;
-		private TextBox txtErrori;
-		public IOpenFileDialog openFileDialog1;
-		private Label label10;
-		private Label label11;
-		private Label label12;
-		private Label label13;
-		private Label label14;
-		private Label label15;
-		private Label label21;
-		private Label label22;
+		private IOpenFileDialog openFileDialog1;
+		private ISaveFileDialog saveFileDialog1;
 
 		//int esercizio
 		DataAccess Conn;
 
+        private Wrapper adpWrapper;
+        private TabPage tabErrori;
+        private TextBox txtOutputADPv2;
+        private TextBox txtErrori;
+        private Label label23;
+        private DataGrid grdSpCheck;
+        private Label label9;
+        private TabPage tabAttributi;
+        public GroupBox gboxclass05;
+        public TextBox txtCodice05;
+        public Button btnCodice05;
+        private TextBox txtDenom05;
+        public GroupBox gboxclass04;
+        public TextBox txtCodice04;
+        public Button btnCodice04;
+        private TextBox txtDenom04;
+        public GroupBox gboxclass03;
+        public TextBox txtCodice03;
+        public Button btnCodice03;
+        private TextBox txtDenom03;
+        public GroupBox gboxclass02;
+        public TextBox txtCodice02;
+        public Button btnCodice02;
+        private TextBox txtDenom02;
+        public GroupBox gboxclass01;
+        public TextBox txtCodice01;
+        public Button btnCodice01;
+        private TextBox txtDenom01;
+        private TabPage tabAltro;
+        private Button btnSelezionaAutoCert;
+        private TextBox txtFileAutocertDefault;
+        private Label label1;
+        private Label label20;
+        public Button btnannullaD;
+        public Button btnAnnullaC;
+        private TabPage tabCancellazione;
+        private Label label21;
+        public Button btnCancellazioneDipendentiWS;
+        public Button btnCancellazioneConsulentiWS;
+        private Label label18;
+        private Label label19;
+        private TabPage tabModifica;
+        private Label label13;
+        private Label label12;
+        public Button btnModificaDatiDipendentiWS;
+        public Button btnModificaDatiConsulentiWS;
+        private Label label17;
+        private Label label16;
+        private TabPage tabConsulenti;
+        private Label label15;
+        private Label label11;
+        private TextBox txtNumeroConsulente;
+        private TextBox txtAnnoConsulente;
+        private Label label8;
+        private Label label4;
+        private Label label3;
+        public Button btnInviaConsulenti2SemWS;
+        private TabPage tabDipendenti;
+        private Label label22;
+        private Label label14;
+        private Label label10;
+        private TextBox txtNumeroDipendente;
+        private TextBox txtAnnoDipendente;
+        private Label label7;
+        private Label label2;
+        public Button btnInviaDipendentiWS;
+        private Label label6;
+        private Label label5;
+        private TabControl tabControl1;
+		private TextBox txtNumeroCancellazione;
+		private TextBox txtAnnoCancellazione;
+		private Label label26;
+		private Label label27;
+		private TextBox txtNumeroModifica;
+		private TextBox txtAnnoModifica;
+		private Label label24;
+		private Label label25;
+		private DataTable payments = new DataTable();
+
 		public Frm_servicetrasmission_default() {
 			InitializeComponent();
-			openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+			saveFileDialog1.DefaultExt = "xml";
 		}
 
 		/// <summary>
@@ -165,48 +182,17 @@ namespace servicetrasmission_default {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
 			this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabDipendenti = new System.Windows.Forms.TabPage();
-			this.label14 = new System.Windows.Forms.Label();
-			this.label10 = new System.Windows.Forms.Label();
-			this.txtNumeroDipendente = new System.Windows.Forms.TextBox();
-			this.label7 = new System.Windows.Forms.Label();
-			this.txtAnnoDipendente = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.btnInviaDipendentiWS = new System.Windows.Forms.Button();
-			this.label6 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
-			this.tabConsulenti = new System.Windows.Forms.TabPage();
-			this.label15 = new System.Windows.Forms.Label();
-			this.label11 = new System.Windows.Forms.Label();
-			this.txtNumeroConsulente = new System.Windows.Forms.TextBox();
-			this.label8 = new System.Windows.Forms.Label();
-			this.txtAnnoConsulente = new System.Windows.Forms.TextBox();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.btnInviaConsulenti2SemWS = new System.Windows.Forms.Button();
-			this.tabModifica = new System.Windows.Forms.TabPage();
-			this.label13 = new System.Windows.Forms.Label();
-			this.label12 = new System.Windows.Forms.Label();
-			this.btnModificaDatiDipendentiWS = new System.Windows.Forms.Button();
-			this.btnModificaDatiConsulentiWS = new System.Windows.Forms.Button();
-			this.label17 = new System.Windows.Forms.Label();
-			this.label16 = new System.Windows.Forms.Label();
-			this.tabCancellazione = new System.Windows.Forms.TabPage();
-			this.label21 = new System.Windows.Forms.Label();
-			this.btnCancellazioneDipendentiWS = new System.Windows.Forms.Button();
-			this.btnCancellazioneConsulentiWS = new System.Windows.Forms.Button();
-			this.label18 = new System.Windows.Forms.Label();
-			this.label19 = new System.Windows.Forms.Label();
-			this.tabAltro = new System.Windows.Forms.TabPage();
-			this.btnSelezionaAutoCert = new System.Windows.Forms.Button();
-			this.txtFileAutocertDefault = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.label20 = new System.Windows.Forms.Label();
-			this.btnannullaD = new System.Windows.Forms.Button();
-			this.btnAnnullaC = new System.Windows.Forms.Button();
+			this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+			this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+			this.DS = new servicetrasmission_default.vistaForm();
+			this.tabErrori = new System.Windows.Forms.TabPage();
+			this.txtOutputADPv2 = new System.Windows.Forms.TextBox();
+			this.txtErrori = new System.Windows.Forms.TextBox();
+			this.label23 = new System.Windows.Forms.Label();
+			this.grdSpCheck = new System.Windows.Forms.DataGrid();
+			this.label9 = new System.Windows.Forms.Label();
 			this.tabAttributi = new System.Windows.Forms.TabPage();
 			this.gboxclass05 = new System.Windows.Forms.GroupBox();
 			this.txtCodice05 = new System.Windows.Forms.TextBox();
@@ -228,476 +214,145 @@ namespace servicetrasmission_default {
 			this.txtCodice01 = new System.Windows.Forms.TextBox();
 			this.btnCodice01 = new System.Windows.Forms.Button();
 			this.txtDenom01 = new System.Windows.Forms.TextBox();
-			this.tabErrori = new System.Windows.Forms.TabPage();
-			this.label9 = new System.Windows.Forms.Label();
-			this.txtErrori = new System.Windows.Forms.TextBox();
-			this.DS = new servicetrasmission_default.vistaForm();
+			this.tabAltro = new System.Windows.Forms.TabPage();
+			this.btnSelezionaAutoCert = new System.Windows.Forms.Button();
+			this.txtFileAutocertDefault = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
+			this.btnannullaD = new System.Windows.Forms.Button();
+			this.btnAnnullaC = new System.Windows.Forms.Button();
+			this.tabCancellazione = new System.Windows.Forms.TabPage();
+			this.txtNumeroCancellazione = new System.Windows.Forms.TextBox();
+			this.txtAnnoCancellazione = new System.Windows.Forms.TextBox();
+			this.label26 = new System.Windows.Forms.Label();
+			this.label27 = new System.Windows.Forms.Label();
+			this.label21 = new System.Windows.Forms.Label();
+			this.btnCancellazioneDipendentiWS = new System.Windows.Forms.Button();
+			this.btnCancellazioneConsulentiWS = new System.Windows.Forms.Button();
+			this.label18 = new System.Windows.Forms.Label();
+			this.label19 = new System.Windows.Forms.Label();
+			this.tabModifica = new System.Windows.Forms.TabPage();
+			this.txtNumeroModifica = new System.Windows.Forms.TextBox();
+			this.txtAnnoModifica = new System.Windows.Forms.TextBox();
+			this.label24 = new System.Windows.Forms.Label();
+			this.label25 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.label12 = new System.Windows.Forms.Label();
+			this.btnModificaDatiDipendentiWS = new System.Windows.Forms.Button();
+			this.btnModificaDatiConsulentiWS = new System.Windows.Forms.Button();
+			this.label17 = new System.Windows.Forms.Label();
+			this.label16 = new System.Windows.Forms.Label();
+			this.tabConsulenti = new System.Windows.Forms.TabPage();
+			this.label15 = new System.Windows.Forms.Label();
+			this.label11 = new System.Windows.Forms.Label();
+			this.txtNumeroConsulente = new System.Windows.Forms.TextBox();
+			this.txtAnnoConsulente = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.btnInviaConsulenti2SemWS = new System.Windows.Forms.Button();
+			this.tabDipendenti = new System.Windows.Forms.TabPage();
 			this.label22 = new System.Windows.Forms.Label();
-			this.tabControl1.SuspendLayout();
-			this.tabDipendenti.SuspendLayout();
-			this.tabConsulenti.SuspendLayout();
-			this.tabModifica.SuspendLayout();
-			this.tabCancellazione.SuspendLayout();
-			this.tabAltro.SuspendLayout();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.txtNumeroDipendente = new System.Windows.Forms.TextBox();
+			this.txtAnnoDipendente = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.btnInviaDipendentiWS = new System.Windows.Forms.Button();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.tabErrori.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.grdSpCheck)).BeginInit();
 			this.tabAttributi.SuspendLayout();
 			this.gboxclass05.SuspendLayout();
 			this.gboxclass04.SuspendLayout();
 			this.gboxclass03.SuspendLayout();
 			this.gboxclass02.SuspendLayout();
 			this.gboxclass01.SuspendLayout();
-			this.tabErrori.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.tabAltro.SuspendLayout();
+			this.tabCancellazione.SuspendLayout();
+			this.tabModifica.SuspendLayout();
+			this.tabConsulenti.SuspendLayout();
+			this.tabDipendenti.SuspendLayout();
+			this.tabControl1.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// saveFileDialog1
+			// DS
 			// 
-			this.saveFileDialog1.DefaultExt = "xml";
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
-			// tabControl1
+			// tabErrori
 			// 
-			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabErrori.Controls.Add(this.txtOutputADPv2);
+			this.tabErrori.Controls.Add(this.txtErrori);
+			this.tabErrori.Controls.Add(this.label23);
+			this.tabErrori.Controls.Add(this.grdSpCheck);
+			this.tabErrori.Controls.Add(this.label9);
+			this.tabErrori.Location = new System.Drawing.Point(4, 22);
+			this.tabErrori.Name = "tabErrori";
+			this.tabErrori.Padding = new System.Windows.Forms.Padding(3);
+			this.tabErrori.Size = new System.Drawing.Size(1002, 498);
+			this.tabErrori.TabIndex = 11;
+			this.tabErrori.Text = "Output";
+			this.tabErrori.UseVisualStyleBackColor = true;
+			// 
+			// txtOutputADPv2
+			// 
+			this.txtOutputADPv2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtOutputADPv2.Location = new System.Drawing.Point(497, 19);
+			this.txtOutputADPv2.Multiline = true;
+			this.txtOutputADPv2.Name = "txtOutputADPv2";
+			this.txtOutputADPv2.ReadOnly = true;
+			this.txtOutputADPv2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtOutputADPv2.Size = new System.Drawing.Size(499, 239);
+			this.txtOutputADPv2.TabIndex = 47;
+			// 
+			// txtErrori
+			// 
+			this.txtErrori.AcceptsReturn = true;
+			this.txtErrori.AcceptsTab = true;
+			this.txtErrori.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabControl1.Controls.Add(this.tabDipendenti);
-			this.tabControl1.Controls.Add(this.tabConsulenti);
-			this.tabControl1.Controls.Add(this.tabModifica);
-			this.tabControl1.Controls.Add(this.tabCancellazione);
-			this.tabControl1.Controls.Add(this.tabAltro);
-			this.tabControl1.Controls.Add(this.tabAttributi);
-			this.tabControl1.Controls.Add(this.tabErrori);
-			this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tabControl1.Location = new System.Drawing.Point(8, 8);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(1010, 524);
-			this.tabControl1.TabIndex = 28;
-			// 
-			// tabDipendenti
-			// 
-			this.tabDipendenti.Controls.Add(this.label22);
-			this.tabDipendenti.Controls.Add(this.label14);
-			this.tabDipendenti.Controls.Add(this.label10);
-			this.tabDipendenti.Controls.Add(this.txtNumeroDipendente);
-			this.tabDipendenti.Controls.Add(this.label7);
-			this.tabDipendenti.Controls.Add(this.txtAnnoDipendente);
-			this.tabDipendenti.Controls.Add(this.label2);
-			this.tabDipendenti.Controls.Add(this.btnInviaDipendentiWS);
-			this.tabDipendenti.Controls.Add(this.label6);
-			this.tabDipendenti.Controls.Add(this.label5);
-			this.tabDipendenti.Location = new System.Drawing.Point(4, 22);
-			this.tabDipendenti.Name = "tabDipendenti";
-			this.tabDipendenti.Size = new System.Drawing.Size(1002, 498);
-			this.tabDipendenti.TabIndex = 2;
-			this.tabDipendenti.Text = "Dipendenti";
-			this.tabDipendenti.UseVisualStyleBackColor = true;
-			// 
-			// label14
-			// 
-			this.label14.AutoSize = true;
-			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label14.Location = new System.Drawing.Point(24, 388);
-			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(708, 13);
-			this.label14.TabIndex = 50;
-			this.label14.Text = "NUOVO PAGAMENTO a DIPENDENTE: deve essere non Trasmesso,  non Sospeso  in attesa " +
-    "di conferma e con importo > 0";
-			// 
-			// label10
-			// 
-			this.label10.AutoSize = true;
-			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label10.Location = new System.Drawing.Point(24, 311);
-			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(788, 13);
-			this.label10.TabIndex = 49;
-			this.label10.Text = "NUOVO INCARICO a DIPENDENTE:  deve essere non Trasmesso, non Annullato , non Annu" +
-    "llato tramite WEB, no Incarico da correggere,";
-			// 
-			// txtNumeroDipendente
-			// 
-			this.txtNumeroDipendente.Location = new System.Drawing.Point(27, 271);
-			this.txtNumeroDipendente.Name = "txtNumeroDipendente";
-			this.txtNumeroDipendente.Size = new System.Drawing.Size(100, 20);
-			this.txtNumeroDipendente.TabIndex = 48;
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(24, 255);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(476, 13);
-			this.label7.TabIndex = 47;
-			this.label7.Text = "Numero incarico, specificare se si intende limitare l\'invio degli inserimenti all" +
-    "la prestazione specificata";
-			// 
-			// txtAnnoDipendente
-			// 
-			this.txtAnnoDipendente.Location = new System.Drawing.Point(27, 218);
-			this.txtAnnoDipendente.Name = "txtAnnoDipendente";
-			this.txtAnnoDipendente.Size = new System.Drawing.Size(100, 20);
-			this.txtAnnoDipendente.TabIndex = 46;
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(24, 202);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(491, 13);
-			this.label2.TabIndex = 45;
-			this.label2.Text = "Anno incarichi, specificare se si intende limitare l\'invio degli inserimenti alle" +
-    " prestazioni dell\'anno indicato";
-			// 
-			// btnInviaDipendentiWS
-			// 
-			this.btnInviaDipendentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnInviaDipendentiWS.Location = new System.Drawing.Point(388, 115);
-			this.btnInviaDipendentiWS.Name = "btnInviaDipendentiWS";
-			this.btnInviaDipendentiWS.Size = new System.Drawing.Size(188, 34);
-			this.btnInviaDipendentiWS.TabIndex = 44;
-			this.btnInviaDipendentiWS.Text = "Invia dati  a PERLA";
-			this.btnInviaDipendentiWS.UseVisualStyleBackColor = true;
-			this.btnInviaDipendentiWS.Click += new System.EventHandler(this.btnInviaDipendenti_Click);
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.Location = new System.Drawing.Point(316, 82);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(331, 13);
-			this.label6.TabIndex = 42;
-			this.label6.Text = "Comunicazione entro 15 giorni dal conferimento o dall’autorizzazione ";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(113, 44);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(744, 13);
-			this.label5.TabIndex = 41;
-			this.label5.Text = "Inserimento sul sito PerLa Pa di incarichi conferiti o autorizzati ai propri dipe" +
-    "ndenti (con o senza pagamento) sino alla data attuale";
-			// 
-			// tabConsulenti
-			// 
-			this.tabConsulenti.Controls.Add(this.label15);
-			this.tabConsulenti.Controls.Add(this.label11);
-			this.tabConsulenti.Controls.Add(this.txtNumeroConsulente);
-			this.tabConsulenti.Controls.Add(this.label8);
-			this.tabConsulenti.Controls.Add(this.txtAnnoConsulente);
-			this.tabConsulenti.Controls.Add(this.label4);
-			this.tabConsulenti.Controls.Add(this.label3);
-			this.tabConsulenti.Controls.Add(this.btnInviaConsulenti2SemWS);
-			this.tabConsulenti.Location = new System.Drawing.Point(4, 22);
-			this.tabConsulenti.Name = "tabConsulenti";
-			this.tabConsulenti.Size = new System.Drawing.Size(1002, 498);
-			this.tabConsulenti.TabIndex = 3;
-			this.tabConsulenti.Text = "Consulenti e Collaboratori esterni";
-			this.tabConsulenti.UseVisualStyleBackColor = true;
-			// 
-			// label15
-			// 
-			this.label15.AutoSize = true;
-			this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label15.Location = new System.Drawing.Point(16, 265);
-			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(896, 13);
-			this.label15.TabIndex = 52;
-			this.label15.Text = "NUOVO PAGAMENTO a CONSULENTE o COLLABORATORE ESTERNO: deve essere non Trasmesso, " +
-    " non Sospeso  in attesa di conferma e con importo > 0";
-			// 
-			// label11
-			// 
-			this.label11.AutoSize = true;
-			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label11.Location = new System.Drawing.Point(16, 238);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(976, 13);
-			this.label11.TabIndex = 51;
-			this.label11.Text = "NUOVO INCARICO a CONSULENTE  o COLLABORATORE ESTERNO:  deve essere non Trasmesso," +
-    " non Annullato , non Annullato tramite WEB, no Incarico da correggere";
-			// 
-			// txtNumeroConsulente
-			// 
-			this.txtNumeroConsulente.Location = new System.Drawing.Point(19, 185);
-			this.txtNumeroConsulente.Name = "txtNumeroConsulente";
-			this.txtNumeroConsulente.Size = new System.Drawing.Size(100, 20);
-			this.txtNumeroConsulente.TabIndex = 50;
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(16, 169);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(476, 13);
-			this.label8.TabIndex = 49;
-			this.label8.Text = "Numero incarico, specificare se si intende limitare l\'invio degli inserimenti all" +
-    "la prestazione specificata";
-			// 
-			// txtAnnoConsulente
-			// 
-			this.txtAnnoConsulente.Location = new System.Drawing.Point(19, 134);
-			this.txtAnnoConsulente.Name = "txtAnnoConsulente";
-			this.txtAnnoConsulente.Size = new System.Drawing.Size(100, 20);
-			this.txtAnnoConsulente.TabIndex = 48;
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(16, 118);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(491, 13);
-			this.label4.TabIndex = 47;
-			this.label4.Text = "Anno incarichi, specificare se si intende limitare l\'invio degli inserimenti alle" +
-    " prestazioni dell\'anno indicato";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(216, 18);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(559, 13);
-			this.label3.TabIndex = 36;
-			this.label3.Text = "Inserimento tramite web Service PerLa Pa di incarichi affidati a Consulenti e Col" +
-    "laboratori esterni ";
-			// 
-			// btnInviaConsulenti2SemWS
-			// 
-			this.btnInviaConsulenti2SemWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnInviaConsulenti2SemWS.Location = new System.Drawing.Point(379, 49);
-			this.btnInviaConsulenti2SemWS.Name = "btnInviaConsulenti2SemWS";
-			this.btnInviaConsulenti2SemWS.Size = new System.Drawing.Size(157, 34);
-			this.btnInviaConsulenti2SemWS.TabIndex = 35;
-			this.btnInviaConsulenti2SemWS.Text = "Invia dati a PERLA";
-			this.btnInviaConsulenti2SemWS.UseVisualStyleBackColor = true;
-			this.btnInviaConsulenti2SemWS.Click += new System.EventHandler(this.btnInviaConsulenti2SemWS_Click);
-			// 
-			// tabModifica
-			// 
-			this.tabModifica.Controls.Add(this.label13);
-			this.tabModifica.Controls.Add(this.label12);
-			this.tabModifica.Controls.Add(this.btnModificaDatiDipendentiWS);
-			this.tabModifica.Controls.Add(this.btnModificaDatiConsulentiWS);
-			this.tabModifica.Controls.Add(this.label17);
-			this.tabModifica.Controls.Add(this.label16);
-			this.tabModifica.Location = new System.Drawing.Point(4, 22);
-			this.tabModifica.Name = "tabModifica";
-			this.tabModifica.Size = new System.Drawing.Size(1002, 498);
-			this.tabModifica.TabIndex = 6;
-			this.tabModifica.Text = "Modifica";
-			this.tabModifica.UseVisualStyleBackColor = true;
-			// 
-			// label13
-			// 
-			this.label13.AutoSize = true;
-			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label13.Location = new System.Drawing.Point(207, 400);
-			this.label13.Name = "label13";
-			this.label13.Size = new System.Drawing.Size(584, 13);
-			this.label13.TabIndex = 44;
-			this.label13.Text = "MODIFICA PAGAMENTO: deve essere Trasmesso, da Modificare e non Sospeso in attesa " +
-    "di conferma";
-			// 
-			// label12
-			// 
-			this.label12.AutoSize = true;
-			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label12.Location = new System.Drawing.Point(218, 372);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(521, 13);
-			this.label12.TabIndex = 43;
-			this.label12.Text = "MODIFICA INCARICO: deve essere Trasmesso, da Modificare e no Incarico da corregge" +
-    "re ";
-			// 
-			// btnModificaDatiDipendentiWS
-			// 
-			this.btnModificaDatiDipendentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnModificaDatiDipendentiWS.Location = new System.Drawing.Point(419, 244);
-			this.btnModificaDatiDipendentiWS.Name = "btnModificaDatiDipendentiWS";
-			this.btnModificaDatiDipendentiWS.Size = new System.Drawing.Size(157, 34);
-			this.btnModificaDatiDipendentiWS.TabIndex = 42;
-			this.btnModificaDatiDipendentiWS.Text = "Invia tramite Web Service";
-			this.btnModificaDatiDipendentiWS.UseVisualStyleBackColor = true;
-			this.btnModificaDatiDipendentiWS.Click += new System.EventHandler(this.btnModificaDatiDipendentiWS_Click);
-			// 
-			// btnModificaDatiConsulentiWS
-			// 
-			this.btnModificaDatiConsulentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnModificaDatiConsulentiWS.Location = new System.Drawing.Point(419, 71);
-			this.btnModificaDatiConsulentiWS.Name = "btnModificaDatiConsulentiWS";
-			this.btnModificaDatiConsulentiWS.Size = new System.Drawing.Size(157, 34);
-			this.btnModificaDatiConsulentiWS.TabIndex = 41;
-			this.btnModificaDatiConsulentiWS.Text = "Invia tramite Web Service";
-			this.btnModificaDatiConsulentiWS.UseVisualStyleBackColor = true;
-			this.btnModificaDatiConsulentiWS.Click += new System.EventHandler(this.btnModificaDatiConsulentiWS_Click);
-			// 
-			// label17
-			// 
-			this.label17.AutoSize = true;
-			this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label17.Location = new System.Drawing.Point(354, 214);
-			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(273, 13);
-			this.label17.TabIndex = 1;
-			this.label17.Text = "Invio modifiche dati  Dipendenti di questo Ente";
-			// 
-			// label16
-			// 
-			this.label16.AutoSize = true;
-			this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label16.Location = new System.Drawing.Point(325, 41);
-			this.label16.Name = "label16";
-			this.label16.Size = new System.Drawing.Size(313, 13);
-			this.label16.TabIndex = 0;
-			this.label16.Text = "Invio modifiche dati Consulenti e Collaboratori esterni ";
-			// 
-			// tabCancellazione
-			// 
-			this.tabCancellazione.Controls.Add(this.label21);
-			this.tabCancellazione.Controls.Add(this.btnCancellazioneDipendentiWS);
-			this.tabCancellazione.Controls.Add(this.btnCancellazioneConsulentiWS);
-			this.tabCancellazione.Controls.Add(this.label18);
-			this.tabCancellazione.Controls.Add(this.label19);
-			this.tabCancellazione.Location = new System.Drawing.Point(4, 22);
-			this.tabCancellazione.Name = "tabCancellazione";
-			this.tabCancellazione.Size = new System.Drawing.Size(1002, 498);
-			this.tabCancellazione.TabIndex = 7;
-			this.tabCancellazione.Text = "Cancellazione";
-			this.tabCancellazione.UseVisualStyleBackColor = true;
-			// 
-			// label21
-			// 
-			this.label21.AutoSize = true;
-			this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label21.Location = new System.Drawing.Point(217, 368);
-			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(530, 13);
-			this.label21.TabIndex = 47;
-			this.label21.Text = "CANCELLA INCARICO: deve essere non Trasmesso,  Annullato e no Incarico da corregg" +
-    "ere ";
-			// 
-			// btnCancellazioneDipendentiWS
-			// 
-			this.btnCancellazioneDipendentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnCancellazioneDipendentiWS.Location = new System.Drawing.Point(420, 278);
-			this.btnCancellazioneDipendentiWS.Name = "btnCancellazioneDipendentiWS";
-			this.btnCancellazioneDipendentiWS.Size = new System.Drawing.Size(157, 34);
-			this.btnCancellazioneDipendentiWS.TabIndex = 46;
-			this.btnCancellazioneDipendentiWS.Text = "Invia tramite Web Service";
-			this.btnCancellazioneDipendentiWS.UseVisualStyleBackColor = true;
-			this.btnCancellazioneDipendentiWS.Click += new System.EventHandler(this.btnCancellazioneDipendentiWS_Click);
-			// 
-			// btnCancellazioneConsulentiWS
-			// 
-			this.btnCancellazioneConsulentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnCancellazioneConsulentiWS.Location = new System.Drawing.Point(420, 76);
-			this.btnCancellazioneConsulentiWS.Name = "btnCancellazioneConsulentiWS";
-			this.btnCancellazioneConsulentiWS.Size = new System.Drawing.Size(157, 34);
-			this.btnCancellazioneConsulentiWS.TabIndex = 45;
-			this.btnCancellazioneConsulentiWS.Text = "Invia tramite Web Service";
-			this.btnCancellazioneConsulentiWS.UseVisualStyleBackColor = true;
-			this.btnCancellazioneConsulentiWS.Click += new System.EventHandler(this.btnCancellazioneConsulentiWS_Click);
-			// 
-			// label18
-			// 
-			this.label18.AutoSize = true;
-			this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label18.Location = new System.Drawing.Point(313, 246);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(416, 13);
-			this.label18.TabIndex = 42;
-			this.label18.Text = "Cancellazione dei dati già trasmessi relativi ai Dipendenti di questo Ente";
-			// 
-			// label19
-			// 
-			this.label19.AutoSize = true;
-			this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label19.Location = new System.Drawing.Point(269, 45);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(460, 13);
-			this.label19.TabIndex = 41;
-			this.label19.Text = "Cancellazione dei dati già trasmessi relativi ai Consulenti e Collaboratori ester" +
-    "ni ";
-			// 
-			// tabAltro
-			// 
-			this.tabAltro.Controls.Add(this.btnSelezionaAutoCert);
-			this.tabAltro.Controls.Add(this.txtFileAutocertDefault);
-			this.tabAltro.Controls.Add(this.label1);
-			this.tabAltro.Controls.Add(this.label20);
-			this.tabAltro.Controls.Add(this.btnannullaD);
-			this.tabAltro.Controls.Add(this.btnAnnullaC);
-			this.tabAltro.Location = new System.Drawing.Point(4, 22);
-			this.tabAltro.Name = "tabAltro";
-			this.tabAltro.Size = new System.Drawing.Size(1002, 498);
-			this.tabAltro.TabIndex = 8;
-			this.tabAltro.Text = "Altro";
-			this.tabAltro.UseVisualStyleBackColor = true;
-			// 
-			// btnSelezionaAutoCert
-			// 
-			this.btnSelezionaAutoCert.Location = new System.Drawing.Point(655, 279);
-			this.btnSelezionaAutoCert.Name = "btnSelezionaAutoCert";
-			this.btnSelezionaAutoCert.Size = new System.Drawing.Size(102, 23);
-			this.btnSelezionaAutoCert.TabIndex = 36;
-			this.btnSelezionaAutoCert.Text = "Seleziona";
-			this.btnSelezionaAutoCert.UseVisualStyleBackColor = true;
-			this.btnSelezionaAutoCert.Click += new System.EventHandler(this.btnSelezionaAutoCert_Click);
-			// 
-			// txtFileAutocertDefault
-			// 
-			this.txtFileAutocertDefault.Location = new System.Drawing.Point(26, 282);
-			this.txtFileAutocertDefault.Name = "txtFileAutocertDefault";
-			this.txtFileAutocertDefault.ReadOnly = true;
-			this.txtFileAutocertDefault.Size = new System.Drawing.Size(600, 20);
-			this.txtFileAutocertDefault.TabIndex = 35;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(23, 266);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(236, 13);
-			this.label1.TabIndex = 34;
-			this.label1.Text = "File da usare per l\'autocertificazione ove assente";
-			// 
-			// label20
-			// 
-			this.label20.AutoSize = true;
-			this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label20.Location = new System.Drawing.Point(252, 35);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(528, 13);
-			this.label20.TabIndex = 33;
-			this.label20.Text = "Annullamento della trasmissione di incarichi e di pagamenti, che siano nello stat" +
-    "o ‘sospeso’.";
-			this.label20.Visible = false;
-			// 
-			// btnannullaD
-			// 
-			this.btnannullaD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnannullaD.Location = new System.Drawing.Point(384, 78);
-			this.btnannullaD.Name = "btnannullaD";
-			this.btnannullaD.Size = new System.Drawing.Size(242, 50);
-			this.btnannullaD.TabIndex = 31;
-			this.btnannullaD.Text = "Annullamento trasmissione Dipendenti";
-			this.btnannullaD.UseVisualStyleBackColor = true;
-			this.btnannullaD.Visible = false;
-			this.btnannullaD.Click += new System.EventHandler(this.btnannullaD_Click);
-			// 
-			// btnAnnullaC
-			// 
-			this.btnAnnullaC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnAnnullaC.Location = new System.Drawing.Point(384, 162);
-			this.btnAnnullaC.Name = "btnAnnullaC";
-			this.btnAnnullaC.Size = new System.Drawing.Size(242, 50);
-			this.btnAnnullaC.TabIndex = 32;
-			this.btnAnnullaC.Text = "Annullamento trasmissione  \r\nConsulenti e Collaboratori esterni";
-			this.btnAnnullaC.UseVisualStyleBackColor = true;
-			this.btnAnnullaC.Visible = false;
-			this.btnAnnullaC.Click += new System.EventHandler(this.btnAnnullaC_Click);
+			this.txtErrori.Location = new System.Drawing.Point(6, 297);
+			this.txtErrori.Multiline = true;
+			this.txtErrori.Name = "txtErrori";
+			this.txtErrori.Size = new System.Drawing.Size(990, 195);
+			this.txtErrori.TabIndex = 0;
+			// 
+			// label23
+			// 
+			this.label23.AutoSize = true;
+			this.label23.Location = new System.Drawing.Point(6, 3);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(117, 13);
+			this.label23.TabIndex = 46;
+			this.label23.Text = "Errori preventivi all\'invio";
+			// 
+			// grdSpCheck
+			// 
+			this.grdSpCheck.DataMember = "";
+			this.grdSpCheck.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.grdSpCheck.Location = new System.Drawing.Point(6, 19);
+			this.grdSpCheck.Name = "grdSpCheck";
+			this.grdSpCheck.Size = new System.Drawing.Size(485, 240);
+			this.grdSpCheck.TabIndex = 45;
+			this.grdSpCheck.Tag = "";
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(6, 281);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(119, 13);
+			this.label9.TabIndex = 1;
+			this.label9.Text = "Errori intercorsi nell\'invio";
 			// 
 			// tabAttributi
 			// 
@@ -944,45 +599,423 @@ namespace servicetrasmission_default {
 			this.txtDenom01.TabStop = false;
 			this.txtDenom01.Tag = "sorting01.description";
 			// 
-			// tabErrori
+			// tabAltro
 			// 
-			this.tabErrori.Controls.Add(this.label9);
-			this.tabErrori.Controls.Add(this.txtErrori);
-			this.tabErrori.Location = new System.Drawing.Point(4, 22);
-			this.tabErrori.Name = "tabErrori";
-			this.tabErrori.Padding = new System.Windows.Forms.Padding(3);
-			this.tabErrori.Size = new System.Drawing.Size(1002, 498);
-			this.tabErrori.TabIndex = 11;
-			this.tabErrori.Text = "Errori";
-			this.tabErrori.UseVisualStyleBackColor = true;
+			this.tabAltro.Controls.Add(this.btnSelezionaAutoCert);
+			this.tabAltro.Controls.Add(this.txtFileAutocertDefault);
+			this.tabAltro.Controls.Add(this.label1);
+			this.tabAltro.Controls.Add(this.label20);
+			this.tabAltro.Controls.Add(this.btnannullaD);
+			this.tabAltro.Controls.Add(this.btnAnnullaC);
+			this.tabAltro.Location = new System.Drawing.Point(4, 22);
+			this.tabAltro.Name = "tabAltro";
+			this.tabAltro.Size = new System.Drawing.Size(1002, 498);
+			this.tabAltro.TabIndex = 8;
+			this.tabAltro.Text = "Altro";
+			this.tabAltro.UseVisualStyleBackColor = true;
 			// 
-			// label9
+			// btnSelezionaAutoCert
 			// 
-			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(6, 33);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(119, 13);
-			this.label9.TabIndex = 1;
-			this.label9.Text = "Errori intercorsi nell\'invio";
+			this.btnSelezionaAutoCert.Location = new System.Drawing.Point(655, 279);
+			this.btnSelezionaAutoCert.Name = "btnSelezionaAutoCert";
+			this.btnSelezionaAutoCert.Size = new System.Drawing.Size(102, 23);
+			this.btnSelezionaAutoCert.TabIndex = 36;
+			this.btnSelezionaAutoCert.Text = "Seleziona";
+			this.btnSelezionaAutoCert.UseVisualStyleBackColor = true;
+			this.btnSelezionaAutoCert.Click += new System.EventHandler(this.btnSelezionaAutoCert_Click);
 			// 
-			// txtErrori
+			// txtFileAutocertDefault
 			// 
-			this.txtErrori.AcceptsReturn = true;
-			this.txtErrori.AcceptsTab = true;
-			this.txtErrori.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtErrori.Location = new System.Drawing.Point(6, 49);
-			this.txtErrori.Multiline = true;
-			this.txtErrori.Name = "txtErrori";
-			this.txtErrori.Size = new System.Drawing.Size(990, 443);
-			this.txtErrori.TabIndex = 0;
+			this.txtFileAutocertDefault.Location = new System.Drawing.Point(26, 282);
+			this.txtFileAutocertDefault.Name = "txtFileAutocertDefault";
+			this.txtFileAutocertDefault.ReadOnly = true;
+			this.txtFileAutocertDefault.Size = new System.Drawing.Size(600, 20);
+			this.txtFileAutocertDefault.TabIndex = 35;
 			// 
-			// DS
+			// label1
 			// 
-			this.DS.DataSetName = "vistaForm";
-			this.DS.EnforceConstraints = false;
-			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(23, 266);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(236, 13);
+			this.label1.TabIndex = 34;
+			this.label1.Text = "File da usare per l\'autocertificazione ove assente";
+			// 
+			// label20
+			// 
+			this.label20.AutoSize = true;
+			this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label20.Location = new System.Drawing.Point(252, 35);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(528, 13);
+			this.label20.TabIndex = 33;
+			this.label20.Text = "Annullamento della trasmissione di incarichi e di pagamenti, che siano nello stat" +
+    "o ‘sospeso’.";
+			this.label20.Visible = false;
+			// 
+			// btnannullaD
+			// 
+			this.btnannullaD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnannullaD.Location = new System.Drawing.Point(384, 78);
+			this.btnannullaD.Name = "btnannullaD";
+			this.btnannullaD.Size = new System.Drawing.Size(242, 50);
+			this.btnannullaD.TabIndex = 31;
+			this.btnannullaD.Text = "Annullamento trasmissione Dipendenti";
+			this.btnannullaD.UseVisualStyleBackColor = true;
+			this.btnannullaD.Visible = false;
+			this.btnannullaD.Click += new System.EventHandler(this.btnannullaD_Click);
+			// 
+			// btnAnnullaC
+			// 
+			this.btnAnnullaC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnAnnullaC.Location = new System.Drawing.Point(384, 162);
+			this.btnAnnullaC.Name = "btnAnnullaC";
+			this.btnAnnullaC.Size = new System.Drawing.Size(242, 50);
+			this.btnAnnullaC.TabIndex = 32;
+			this.btnAnnullaC.Text = "Annullamento trasmissione  \r\nConsulenti e Collaboratori esterni";
+			this.btnAnnullaC.UseVisualStyleBackColor = true;
+			this.btnAnnullaC.Visible = false;
+			this.btnAnnullaC.Click += new System.EventHandler(this.btnAnnullaC_Click);
+			// 
+			// tabCancellazione
+			// 
+			this.tabCancellazione.Controls.Add(this.txtNumeroCancellazione);
+			this.tabCancellazione.Controls.Add(this.txtAnnoCancellazione);
+			this.tabCancellazione.Controls.Add(this.label26);
+			this.tabCancellazione.Controls.Add(this.label27);
+			this.tabCancellazione.Controls.Add(this.label21);
+			this.tabCancellazione.Controls.Add(this.btnCancellazioneDipendentiWS);
+			this.tabCancellazione.Controls.Add(this.btnCancellazioneConsulentiWS);
+			this.tabCancellazione.Controls.Add(this.label18);
+			this.tabCancellazione.Controls.Add(this.label19);
+			this.tabCancellazione.Location = new System.Drawing.Point(4, 22);
+			this.tabCancellazione.Name = "tabCancellazione";
+			this.tabCancellazione.Size = new System.Drawing.Size(1002, 498);
+			this.tabCancellazione.TabIndex = 7;
+			this.tabCancellazione.Text = "Cancellazione";
+			this.tabCancellazione.UseVisualStyleBackColor = true;
+			// 
+			// txtNumeroCancellazione
+			// 
+			this.txtNumeroCancellazione.Location = new System.Drawing.Point(56, 299);
+			this.txtNumeroCancellazione.Name = "txtNumeroCancellazione";
+			this.txtNumeroCancellazione.Size = new System.Drawing.Size(100, 20);
+			this.txtNumeroCancellazione.TabIndex = 52;
+			// 
+			// txtAnnoCancellazione
+			// 
+			this.txtAnnoCancellazione.Location = new System.Drawing.Point(56, 246);
+			this.txtAnnoCancellazione.Name = "txtAnnoCancellazione";
+			this.txtAnnoCancellazione.Size = new System.Drawing.Size(100, 20);
+			this.txtAnnoCancellazione.TabIndex = 50;
+			this.txtAnnoCancellazione.Leave += new System.EventHandler(this.txtEsercizio_Leave);
+			// 
+			// label26
+			// 
+			this.label26.AutoSize = true;
+			this.label26.Location = new System.Drawing.Point(53, 283);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(486, 13);
+			this.label26.TabIndex = 51;
+			this.label26.Text = "Numero incarico, specificare se si intende limitare l\'invio delle cancellazioni a" +
+    "lla prestazione specificata";
+			// 
+			// label27
+			// 
+			this.label27.AutoSize = true;
+			this.label27.Location = new System.Drawing.Point(53, 230);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(503, 13);
+			this.label27.TabIndex = 49;
+			this.label27.Text = "Anno incarichi, specificare se si intende limitare l\'invio delle cancellazioni al" +
+    "le prestazioni dell\'anno indicato";
+			// 
+			// label21
+			// 
+			this.label21.AutoSize = true;
+			this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label21.Location = new System.Drawing.Point(217, 368);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(530, 13);
+			this.label21.TabIndex = 47;
+			this.label21.Text = "CANCELLA INCARICO: deve essere non Trasmesso,  Annullato e no Incarico da corregg" +
+    "ere ";
+			// 
+			// btnCancellazioneDipendentiWS
+			// 
+			this.btnCancellazioneDipendentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnCancellazioneDipendentiWS.Location = new System.Drawing.Point(420, 166);
+			this.btnCancellazioneDipendentiWS.Name = "btnCancellazioneDipendentiWS";
+			this.btnCancellazioneDipendentiWS.Size = new System.Drawing.Size(157, 34);
+			this.btnCancellazioneDipendentiWS.TabIndex = 46;
+			this.btnCancellazioneDipendentiWS.Text = "Invia tramite Web Service";
+			this.btnCancellazioneDipendentiWS.UseVisualStyleBackColor = true;
+			this.btnCancellazioneDipendentiWS.Click += new System.EventHandler(this.btnCancellazioneDipendentiWS_Click);
+			// 
+			// btnCancellazioneConsulentiWS
+			// 
+			this.btnCancellazioneConsulentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnCancellazioneConsulentiWS.Location = new System.Drawing.Point(420, 76);
+			this.btnCancellazioneConsulentiWS.Name = "btnCancellazioneConsulentiWS";
+			this.btnCancellazioneConsulentiWS.Size = new System.Drawing.Size(157, 34);
+			this.btnCancellazioneConsulentiWS.TabIndex = 45;
+			this.btnCancellazioneConsulentiWS.Text = "Invia tramite Web Service";
+			this.btnCancellazioneConsulentiWS.UseVisualStyleBackColor = true;
+			this.btnCancellazioneConsulentiWS.Click += new System.EventHandler(this.btnCancellazioneConsulentiWS_Click);
+			// 
+			// label18
+			// 
+			this.label18.AutoSize = true;
+			this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label18.Location = new System.Drawing.Point(313, 134);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(416, 13);
+			this.label18.TabIndex = 42;
+			this.label18.Text = "Cancellazione dei dati già trasmessi relativi ai Dipendenti di questo Ente";
+			// 
+			// label19
+			// 
+			this.label19.AutoSize = true;
+			this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label19.Location = new System.Drawing.Point(269, 45);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(460, 13);
+			this.label19.TabIndex = 41;
+			this.label19.Text = "Cancellazione dei dati già trasmessi relativi ai Consulenti e Collaboratori ester" +
+    "ni ";
+			// 
+			// tabModifica
+			// 
+			this.tabModifica.Controls.Add(this.txtNumeroModifica);
+			this.tabModifica.Controls.Add(this.txtAnnoModifica);
+			this.tabModifica.Controls.Add(this.label24);
+			this.tabModifica.Controls.Add(this.label25);
+			this.tabModifica.Controls.Add(this.label13);
+			this.tabModifica.Controls.Add(this.label12);
+			this.tabModifica.Controls.Add(this.btnModificaDatiDipendentiWS);
+			this.tabModifica.Controls.Add(this.btnModificaDatiConsulentiWS);
+			this.tabModifica.Controls.Add(this.label17);
+			this.tabModifica.Controls.Add(this.label16);
+			this.tabModifica.Location = new System.Drawing.Point(4, 22);
+			this.tabModifica.Name = "tabModifica";
+			this.tabModifica.Size = new System.Drawing.Size(1002, 498);
+			this.tabModifica.TabIndex = 6;
+			this.tabModifica.Text = "Modifica";
+			this.tabModifica.UseVisualStyleBackColor = true;
+			// 
+			// txtNumeroModifica
+			// 
+			this.txtNumeroModifica.Location = new System.Drawing.Point(44, 296);
+			this.txtNumeroModifica.Name = "txtNumeroModifica";
+			this.txtNumeroModifica.Size = new System.Drawing.Size(100, 20);
+			this.txtNumeroModifica.TabIndex = 52;
+			// 
+			// txtAnnoModifica
+			// 
+			this.txtAnnoModifica.Location = new System.Drawing.Point(44, 243);
+			this.txtAnnoModifica.Name = "txtAnnoModifica";
+			this.txtAnnoModifica.Size = new System.Drawing.Size(100, 20);
+			this.txtAnnoModifica.TabIndex = 50;
+			this.txtAnnoModifica.Leave += new System.EventHandler(this.txtEsercizio_Leave);
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(41, 280);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(470, 13);
+			this.label24.TabIndex = 51;
+			this.label24.Text = "Numero incarico, specificare se si intende limitare l\'invio delle modifiche alla " +
+    "prestazione specificata";
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(41, 227);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(487, 13);
+			this.label25.TabIndex = 49;
+			this.label25.Text = "Anno incarichi, specificare se si intende limitare l\'invio delle modifiche alle p" +
+    "restazioni dell\'anno indicato";
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label13.Location = new System.Drawing.Point(207, 400);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(584, 13);
+			this.label13.TabIndex = 44;
+			this.label13.Text = "MODIFICA PAGAMENTO: deve essere Trasmesso, da Modificare e non Sospeso in attesa " +
+    "di conferma";
+			// 
+			// label12
+			// 
+			this.label12.AutoSize = true;
+			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label12.Location = new System.Drawing.Point(218, 372);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(521, 13);
+			this.label12.TabIndex = 43;
+			this.label12.Text = "MODIFICA INCARICO: deve essere Trasmesso, da Modificare e no Incarico da corregge" +
+    "re ";
+			// 
+			// btnModificaDatiDipendentiWS
+			// 
+			this.btnModificaDatiDipendentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnModificaDatiDipendentiWS.Location = new System.Drawing.Point(419, 153);
+			this.btnModificaDatiDipendentiWS.Name = "btnModificaDatiDipendentiWS";
+			this.btnModificaDatiDipendentiWS.Size = new System.Drawing.Size(157, 34);
+			this.btnModificaDatiDipendentiWS.TabIndex = 42;
+			this.btnModificaDatiDipendentiWS.Text = "Invia tramite Web Service";
+			this.btnModificaDatiDipendentiWS.UseVisualStyleBackColor = true;
+			this.btnModificaDatiDipendentiWS.Click += new System.EventHandler(this.btnModificaDatiDipendentiWS_Click);
+			// 
+			// btnModificaDatiConsulentiWS
+			// 
+			this.btnModificaDatiConsulentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnModificaDatiConsulentiWS.Location = new System.Drawing.Point(419, 71);
+			this.btnModificaDatiConsulentiWS.Name = "btnModificaDatiConsulentiWS";
+			this.btnModificaDatiConsulentiWS.Size = new System.Drawing.Size(157, 34);
+			this.btnModificaDatiConsulentiWS.TabIndex = 41;
+			this.btnModificaDatiConsulentiWS.Text = "Invia tramite Web Service";
+			this.btnModificaDatiConsulentiWS.UseVisualStyleBackColor = true;
+			this.btnModificaDatiConsulentiWS.Click += new System.EventHandler(this.btnModificaDatiConsulentiWS_Click);
+			// 
+			// label17
+			// 
+			this.label17.AutoSize = true;
+			this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label17.Location = new System.Drawing.Point(354, 123);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(273, 13);
+			this.label17.TabIndex = 1;
+			this.label17.Text = "Invio modifiche dati  Dipendenti di questo Ente";
+			// 
+			// label16
+			// 
+			this.label16.AutoSize = true;
+			this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label16.Location = new System.Drawing.Point(325, 41);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(313, 13);
+			this.label16.TabIndex = 0;
+			this.label16.Text = "Invio modifiche dati Consulenti e Collaboratori esterni ";
+			// 
+			// tabConsulenti
+			// 
+			this.tabConsulenti.Controls.Add(this.label15);
+			this.tabConsulenti.Controls.Add(this.label11);
+			this.tabConsulenti.Controls.Add(this.txtNumeroConsulente);
+			this.tabConsulenti.Controls.Add(this.txtAnnoConsulente);
+			this.tabConsulenti.Controls.Add(this.label8);
+			this.tabConsulenti.Controls.Add(this.label4);
+			this.tabConsulenti.Controls.Add(this.label3);
+			this.tabConsulenti.Controls.Add(this.btnInviaConsulenti2SemWS);
+			this.tabConsulenti.Location = new System.Drawing.Point(4, 22);
+			this.tabConsulenti.Name = "tabConsulenti";
+			this.tabConsulenti.Size = new System.Drawing.Size(1002, 498);
+			this.tabConsulenti.TabIndex = 3;
+			this.tabConsulenti.Text = "Consulenti e Collaboratori esterni";
+			this.tabConsulenti.UseVisualStyleBackColor = true;
+			// 
+			// label15
+			// 
+			this.label15.AutoSize = true;
+			this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label15.Location = new System.Drawing.Point(16, 265);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(896, 13);
+			this.label15.TabIndex = 52;
+			this.label15.Text = "NUOVO PAGAMENTO a CONSULENTE o COLLABORATORE ESTERNO: deve essere non Trasmesso, " +
+    " non Sospeso  in attesa di conferma e con importo > 0";
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label11.Location = new System.Drawing.Point(16, 238);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(976, 13);
+			this.label11.TabIndex = 51;
+			this.label11.Text = "NUOVO INCARICO a CONSULENTE  o COLLABORATORE ESTERNO:  deve essere non Trasmesso," +
+    " non Annullato , non Annullato tramite WEB, no Incarico da correggere";
+			// 
+			// txtNumeroConsulente
+			// 
+			this.txtNumeroConsulente.Location = new System.Drawing.Point(19, 185);
+			this.txtNumeroConsulente.Name = "txtNumeroConsulente";
+			this.txtNumeroConsulente.Size = new System.Drawing.Size(100, 20);
+			this.txtNumeroConsulente.TabIndex = 50;
+			// 
+			// txtAnnoConsulente
+			// 
+			this.txtAnnoConsulente.Location = new System.Drawing.Point(19, 134);
+			this.txtAnnoConsulente.Name = "txtAnnoConsulente";
+			this.txtAnnoConsulente.Size = new System.Drawing.Size(100, 20);
+			this.txtAnnoConsulente.TabIndex = 48;
+			this.txtAnnoConsulente.Leave += new System.EventHandler(this.txtEsercizio_Leave);
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(16, 169);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(474, 13);
+			this.label8.TabIndex = 49;
+			this.label8.Text = "Numero incarico, specificare se si intende limitare l\'invio degli inserimenti all" +
+    "a prestazione specificata";
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(16, 118);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(491, 13);
+			this.label4.TabIndex = 47;
+			this.label4.Text = "Anno incarichi, specificare se si intende limitare l\'invio degli inserimenti alle" +
+    " prestazioni dell\'anno indicato";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(216, 18);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(559, 13);
+			this.label3.TabIndex = 36;
+			this.label3.Text = "Inserimento tramite web Service PerLa Pa di incarichi affidati a Consulenti e Col" +
+    "laboratori esterni ";
+			// 
+			// btnInviaConsulenti2SemWS
+			// 
+			this.btnInviaConsulenti2SemWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnInviaConsulenti2SemWS.Location = new System.Drawing.Point(379, 49);
+			this.btnInviaConsulenti2SemWS.Name = "btnInviaConsulenti2SemWS";
+			this.btnInviaConsulenti2SemWS.Size = new System.Drawing.Size(157, 34);
+			this.btnInviaConsulenti2SemWS.TabIndex = 35;
+			this.btnInviaConsulenti2SemWS.Text = "Invia dati a PERLA";
+			this.btnInviaConsulenti2SemWS.UseVisualStyleBackColor = true;
+			this.btnInviaConsulenti2SemWS.Click += new System.EventHandler(this.btnInviaConsulenti2SemWS_Click);
+			// 
+			// tabDipendenti
+			// 
+			this.tabDipendenti.Controls.Add(this.label22);
+			this.tabDipendenti.Controls.Add(this.label14);
+			this.tabDipendenti.Controls.Add(this.label10);
+			this.tabDipendenti.Controls.Add(this.txtNumeroDipendente);
+			this.tabDipendenti.Controls.Add(this.txtAnnoDipendente);
+			this.tabDipendenti.Controls.Add(this.label7);
+			this.tabDipendenti.Controls.Add(this.label2);
+			this.tabDipendenti.Controls.Add(this.btnInviaDipendentiWS);
+			this.tabDipendenti.Controls.Add(this.label6);
+			this.tabDipendenti.Controls.Add(this.label5);
+			this.tabDipendenti.Location = new System.Drawing.Point(4, 22);
+			this.tabDipendenti.Name = "tabDipendenti";
+			this.tabDipendenti.Size = new System.Drawing.Size(1002, 498);
+			this.tabDipendenti.TabIndex = 2;
+			this.tabDipendenti.Text = "Dipendenti";
+			this.tabDipendenti.UseVisualStyleBackColor = true;
 			// 
 			// label22
 			// 
@@ -995,6 +1028,114 @@ namespace servicetrasmission_default {
 			this.label22.Text = "non deve essere presente nessun indirizzo attivo del tipo \"Anagrafe delle prestaz" +
     "ioni\", da valorizzare solo per i dipendenti di altri Enti Pubblici.";
 			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label14.Location = new System.Drawing.Point(24, 388);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(708, 13);
+			this.label14.TabIndex = 50;
+			this.label14.Text = "NUOVO PAGAMENTO a DIPENDENTE: deve essere non Trasmesso,  non Sospeso  in attesa " +
+    "di conferma e con importo > 0";
+			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label10.Location = new System.Drawing.Point(24, 311);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(788, 13);
+			this.label10.TabIndex = 49;
+			this.label10.Text = "NUOVO INCARICO a DIPENDENTE:  deve essere non Trasmesso, non Annullato , non Annu" +
+    "llato tramite WEB, no Incarico da correggere,";
+			// 
+			// txtNumeroDipendente
+			// 
+			this.txtNumeroDipendente.Location = new System.Drawing.Point(27, 271);
+			this.txtNumeroDipendente.Name = "txtNumeroDipendente";
+			this.txtNumeroDipendente.Size = new System.Drawing.Size(100, 20);
+			this.txtNumeroDipendente.TabIndex = 48;
+			// 
+			// txtAnnoDipendente
+			// 
+			this.txtAnnoDipendente.Location = new System.Drawing.Point(27, 218);
+			this.txtAnnoDipendente.Name = "txtAnnoDipendente";
+			this.txtAnnoDipendente.Size = new System.Drawing.Size(100, 20);
+			this.txtAnnoDipendente.TabIndex = 46;
+			this.txtAnnoDipendente.Leave += new System.EventHandler(this.txtEsercizio_Leave);
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(24, 255);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(474, 13);
+			this.label7.TabIndex = 47;
+			this.label7.Text = "Numero incarico, specificare se si intende limitare l\'invio degli inserimenti all" +
+    "a prestazione specificata";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(24, 202);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(491, 13);
+			this.label2.TabIndex = 45;
+			this.label2.Text = "Anno incarichi, specificare se si intende limitare l\'invio degli inserimenti alle" +
+    " prestazioni dell\'anno indicato";
+			// 
+			// btnInviaDipendentiWS
+			// 
+			this.btnInviaDipendentiWS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnInviaDipendentiWS.Location = new System.Drawing.Point(388, 115);
+			this.btnInviaDipendentiWS.Name = "btnInviaDipendentiWS";
+			this.btnInviaDipendentiWS.Size = new System.Drawing.Size(188, 34);
+			this.btnInviaDipendentiWS.TabIndex = 44;
+			this.btnInviaDipendentiWS.Text = "Invia dati  a PERLA";
+			this.btnInviaDipendentiWS.UseVisualStyleBackColor = true;
+			this.btnInviaDipendentiWS.Click += new System.EventHandler(this.btnInviaDipendenti_Click);
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.Location = new System.Drawing.Point(316, 82);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(331, 13);
+			this.label6.TabIndex = 42;
+			this.label6.Text = "Comunicazione entro 15 giorni dal conferimento o dall’autorizzazione ";
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Location = new System.Drawing.Point(113, 44);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(744, 13);
+			this.label5.TabIndex = 41;
+			this.label5.Text = "Inserimento sul sito PerLa Pa di incarichi conferiti o autorizzati ai propri dipe" +
+    "ndenti (con o senza pagamento) sino alla data attuale";
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabControl1.Controls.Add(this.tabDipendenti);
+			this.tabControl1.Controls.Add(this.tabConsulenti);
+			this.tabControl1.Controls.Add(this.tabModifica);
+			this.tabControl1.Controls.Add(this.tabCancellazione);
+			this.tabControl1.Controls.Add(this.tabAltro);
+			this.tabControl1.Controls.Add(this.tabAttributi);
+			this.tabControl1.Controls.Add(this.tabErrori);
+			this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tabControl1.Location = new System.Drawing.Point(8, 8);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(1010, 524);
+			this.tabControl1.TabIndex = 28;
+			// 
 			// Frm_servicetrasmission_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -1002,17 +1143,10 @@ namespace servicetrasmission_default {
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_servicetrasmission_default";
 			this.Text = "Frm_servicetrasmission_default";
-			this.tabControl1.ResumeLayout(false);
-			this.tabDipendenti.ResumeLayout(false);
-			this.tabDipendenti.PerformLayout();
-			this.tabConsulenti.ResumeLayout(false);
-			this.tabConsulenti.PerformLayout();
-			this.tabModifica.ResumeLayout(false);
-			this.tabModifica.PerformLayout();
-			this.tabCancellazione.ResumeLayout(false);
-			this.tabCancellazione.PerformLayout();
-			this.tabAltro.ResumeLayout(false);
-			this.tabAltro.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.tabErrori.ResumeLayout(false);
+			this.tabErrori.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.grdSpCheck)).EndInit();
 			this.tabAttributi.ResumeLayout(false);
 			this.gboxclass05.ResumeLayout(false);
 			this.gboxclass05.PerformLayout();
@@ -1024,9 +1158,17 @@ namespace servicetrasmission_default {
 			this.gboxclass02.PerformLayout();
 			this.gboxclass01.ResumeLayout(false);
 			this.gboxclass01.PerformLayout();
-			this.tabErrori.ResumeLayout(false);
-			this.tabErrori.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.tabAltro.ResumeLayout(false);
+			this.tabAltro.PerformLayout();
+			this.tabCancellazione.ResumeLayout(false);
+			this.tabCancellazione.PerformLayout();
+			this.tabModifica.ResumeLayout(false);
+			this.tabModifica.PerformLayout();
+			this.tabConsulenti.ResumeLayout(false);
+			this.tabConsulenti.PerformLayout();
+			this.tabDipendenti.ResumeLayout(false);
+			this.tabDipendenti.PerformLayout();
+			this.tabControl1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -1041,7 +1183,10 @@ namespace servicetrasmission_default {
 		private string codicePaIpa;
 		private string codiceAooIpa;
 		private string codiceUoIpa;
-		
+		private string msgCredenziali = "Nella configurazione pluriennale (Opzioni --> Configurazione --> Configurazione pluriennale) non sono state inserite le credenziali per l'invio tramite Web Service PerlaPa AdP 2.0: " +
+			" compilare la Login e la Password WS";
+
+		private string user = "", password = "";
 		public void MetaData_AfterLink() {
 			meta = MetaData.GetMetaData(this);
 			QHC = new CQueryHelper();
@@ -1051,6 +1196,8 @@ namespace servicetrasmission_default {
 			GetData.SetSorting(DS.servicetrasmissionkind, "listingorder asc");
 			int esercizioCurr = (int) meta.GetSys("esercizio");
 			int esercizioPrec = esercizioCurr - 1;
+
+			adpWrapper = adpWrapper ?? new Wrapper(new Uri("https://adp-api.perlapa.gov.it/"), 1, 2, Conn);
 
 			DataAccess.SetTableForReading(DS.sorting01, "sorting");
 			DataAccess.SetTableForReading(DS.sorting02, "sorting");
@@ -1080,8 +1227,9 @@ namespace servicetrasmission_default {
 				codiceAooIpa = r["perla_codiceaoopa"]==DBNull.Value? null: r["perla_codiceaoopa"].ToString();  
 				codiceUoIpa = r["perla_codiceuopa"]==DBNull.Value? null: r["perla_codiceuopa"].ToString();
 				codiceFiscalePa = r["perla_codicefiscalepa"]==DBNull.Value? null: r["perla_codicefiscalepa"].ToString();
+				user = r["perla_user"] == DBNull.Value ? "" : r["perla_user"].ToString();
+				password = r["perla_pwd"] == DBNull.Value ? "" : r["perla_pwd"].ToString();
 				if (codiceAooIpa != null) codiceUoIpa = null; //Sono sempre mutualm. esclusivi
-
 			}
 			
 
@@ -1492,44 +1640,6 @@ namespace servicetrasmission_default {
 			return listaPag;
 		}
 
-		//        void esportasaldoincaricoOLD(string employkind)
-		//        {
-		////Se ho Tx la cancellazione dell'incarico non devo Tx anche il SaldoIncarico,
-
-		////quindi x la Tx del SaldoIncarico scarto gli incarichi di cui ha trasmesso la cancellazione
-
-		//            string scartoCancIncaricoTx = QHC.AppAnd(QHC.CmpNe("is_delivered", 'N'), QHC.CmpNe("is_annulled", 'S'),
-		//                QHC.CmpEq("is_blocked", 'S'));
-		//            string saldo_daTx = QHC.AppAnd(QHC.CmpEq("employkind", employkind), QHC.CmpEq("payment", 'S'));
-
-		//            saldo_daTx = GetData.MergeFilters(scartoCancIncaricoTx,saldo_daTx);
-		//            foreach(DataRow rincaricato in  DS.serviceregistry.Select(saldo_daTx))
-		//            {
-		//                writer.WriteStartElement("saldoIncarico");// esporto Saldo Incarico
-		//                string Incarico = QHC.CmpEq("id_service", rincaricato["id_service"]);
-
-		//                DataRow [] saldoincarico = DS.serviceregistry.Select(QHC.AppAnd(Incarico, saldo_daTx));
-		//                foreach (DataRow Rsaldoincarico in saldoincarico)
-		//                {
-		////Controlla che ci siano dei pagamenti di saldi non bloccati, ovvero controlla che 
-		////ci siano dei pagamenti da trasmettere,x evitare la scrittura nel file xml dei soli campi id e saldo.
-		//                    if (DS.servicepayment.Select(QHC.AppAnd(QHC.CmpEq("yservreg", Rsaldoincarico["yservreg"]),
-		//                        QHC.CmpEq("nservreg", Rsaldoincarico["nservreg"]), QHC.CmpEq("is_blocked", 'N'))).Length >0) 
-		//                    {
-		//                        writer.WriteAttributeString("id",Rsaldoincarico["id_service"].ToString());
-		//                        writer.WriteAttributeString("saldo","true");
-
-		//                        esportaPagamento(Rsaldoincarico,filtroNuovoPagamento, "nuovoPagamento", false);
-		//                        esportaPagamento(Rsaldoincarico,filtroCancellaPagamento, "cancellaPagamento", true);
-		//                        esportaPagamento(Rsaldoincarico,filtroModificaPagamento, "modificaPagamento", false);
-
-		//                        blocked_incarico(rincaricato);
-		//                    }
-		//                }
-		//                writer.WriteEndElement();//Saldo Incarico
-		//            }
-		//        }
-
 		void setIncarico_Blocked(DataRow R) {
 			if (R == null) return;
 			R["is_blocked"] = 'S';
@@ -1609,22 +1719,6 @@ namespace servicetrasmission_default {
 
 			Stream transformedData = new MemoryStream(xml);
 			transformedData.Seek(0, SeekOrigin.Begin);
-			//webBrowser1.DocumentStream = transformedData;
-
-			//XmlDocument document = new XmlDocument();
-			//DialogResult dr = openFileDialog1.ShowDialog(this);
-			//if (dr != DialogResult.OK) return;
-			//txtNomeFile.Text = openFileDialog1.FileName;
-			//try{
-			//    runProcess(txtNomeFile.Text, true);
-			//    document.Load(txtNomeFile.Text);
-			//}
-			//catch(Exception ex){
-			//    string messaggio = "Non riesco ad aprire il file: " + txtNomeFile.Text +
-			//        "\nErrore: " + ex.Message;
-			//    show(this,messaggio);
-			//    return;
-			//}
 		}
 
 		/// <summary>
@@ -2670,7 +2764,7 @@ namespace servicetrasmission_default {
 
 			StringWriter sw = new StringWriter();
 			writer = new XmlTextWriter(sw);
-			writer.Formatting = Formatting.Indented;
+			writer.Formatting = System.Xml.Formatting.Indented;
 
 			writer.WriteProcessingInstruction("xml", "version='1.0' encoding='UTF-8' standalone='yes' ");
 			writer.WriteStartElement("comunicazione",
@@ -2749,7 +2843,7 @@ namespace servicetrasmission_default {
 			if (PERLA) {
 				var ser = EServizio.Create(user, password);
 				ser.InserimentoIncarichi(wsReq);
-				show(this, @"Dati inviati", @"Informazione");
+				show(this, @"Comunicazione con il servizio effettuata", @"Informazione");
 
 			}
 			else {
@@ -2769,18 +2863,31 @@ namespace servicetrasmission_default {
 
 		private bool inviaModificheWS(string tipo, int tipologia) {
 			if (meta.IsEmpty) return false;
-		
-			frmAskPassword f = new frmAskPassword(user, password);
-			if (f.ShowDialog(this) == DialogResult.OK) {
-				user = f.txtUser.Text;
-				password = f.txtPassword.Text;
+			if ((user == "") && (password == "")) {
+				show(this, msgCredenziali);
+				return false;
 			}
-
 			meta.GetFormData(true);
 			ValorizzaTipologia(tipologia);
 
 			int esercizio = Conn.GetEsercizio();
 
+			string anno = txtAnnoModifica.Text;
+			string numero = txtNumeroModifica.Text;
+
+			int numeroI = CfgFn.GetNoNullInt32(numero);
+			object idsor01, idsor02, idsor03, idsor04, idsor05;
+			getAttrSicurezza(out idsor01, out idsor02, out idsor03, out idsor04, out idsor05);
+			DataSet erroriDS = Conn.CallSP("check_transmission_adpv2", new object[] { tipo.ToUpper(), "M", esercizio, numeroI, numeroI,
+			idsor01, idsor02, idsor03, idsor04, idsor05});
+
+			if (erroriDS != null && erroriDS.Tables.Count > 0) {
+				DataTable errs = erroriDS.Tables[0];
+				if (errs.Rows.Count > 0) {
+					var frmErrors = new FrmError(errs);
+					frmErrors.Show(this);
+				}
+			}
 			var codeaddress = "07_SW_ANP";
 			object idaddresskind =
 				meta.Conn.DO_READ_VALUE("address", QHS.CmpEq("codeaddress", codeaddress), "idaddress");
@@ -2811,6 +2918,20 @@ namespace servicetrasmission_default {
 				QHS.CmpEq("is_changed","S"),
 				filter_own
 			);
+
+		
+			if (anno.Trim() != "") {
+				int annoFiltro = CfgFn.GetNoNullInt32(anno);
+				if (annoFiltro != 0)
+					filtereser_service = QHS.AppAnd(filtereser_service, QHS.CmpEq("yservreg", annoFiltro));
+			}
+
+			
+			if (numero.Trim() != "") {
+				int numeroFiltro = CfgFn.GetNoNullInt32(numero);
+				if (numeroFiltro != 0)
+					filtereser_service = QHS.AppAnd(filtereser_service, QHS.CmpEq("nservreg", numeroFiltro));
+			}
 
 			DS.serviceregistry.Clear();
 			DS.servicepayment.Clear();
@@ -2859,15 +2980,43 @@ namespace servicetrasmission_default {
 						break;
 					}
 
-					var com = new comunicazione();
-					com.Item = d;
-					var req = new variazioneIncarico_DipendenteRequest(user, password, SerializeToXmlElement(com));
-					requestString = ToXML(req.incarico);
-					var res = ser.variazioneIncarico_Dipendente(req);
-					responceString = ToXML(res);
-					var localMessages = new List<string>();
-					elaboraFileRitorno(service,SerializeToXmlDocument(res), requestString,responceString, out string errore);
-					if (errore != null) messages.Add($"{service["yservreg"]}/{service["nservreg"]}: {errore}");
+					try {
+						adpWrapper.Login(user, password);
+						payments = Conn.RUN_SELECT("servicepayment", "*", null, Conn.GetQueryHelper().CmpKey(service), null, false);
+						adpWrapper.ModificaIncarico_Dipendente(d, service, payments.AsEnumerable(), null, txtOutputADPv2);
+
+						impostaBloccoPrestazione(service, false);
+						service["perla_error"] = DBNull.Value;
+
+						//var com = new comunicazione();
+						//com.Item = d;
+						//var req = new variazioneIncarico_DipendenteRequest(user, password, SerializeToXmlElement(com));
+						//requestString = ToXML(req.incarico);
+						//var res = ser.variazioneIncarico_Dipendente(req);
+						//responceString = ToXML(res);
+						//var localMessages = new List<string>();
+						//elaboraFileRitorno(service,SerializeToXmlDocument(res), requestString,responceString, out string errore);
+						//if (errore != null) messages.Add($"{service["yservreg"]}/{service["nservreg"]}: {errore}");
+					}
+					catch (WebException e) {
+						skipped++;
+						service["perla_error"] = e.ToString();
+						impostaBloccoPrestazione(service, true);
+						meta.SaveFormData();
+						QueryCreator.ShowException("Errore nella trasmissione perla", e);
+						messages.Add("Procedura di invio andata in time out: \n\n" + e.Message);
+						break;
+					}
+					catch (Exception e) {
+						skipped++;
+						service["perla_error"] = e.ToString();
+						impostaBloccoPrestazione(service, true);
+						meta.SaveFormData();
+						QueryCreator.ShowException("Errore nella trasmissione perla", e);
+						messages.Add("Procedura interrotta per errori durante il salvataggio: \n\n" + e.Message);
+						break;
+					}
+
 					meta.SaveFormData();
 					if (DS.HasChanges()) {
 						messages.Add("Procedura interrotta per errori durante il salvataggio");
@@ -2889,16 +3038,61 @@ namespace servicetrasmission_default {
 						messages.Add("Procedura interrotta per errori durante il salvataggio");
 						break;
 					}
+					
+					try {
 
-					var com = new comunicazione();
-					com.Item = d;
-					var req = new variazioneIncarico_ConsulenteRequest(user, password, SerializeToXmlElement(com));
-					requestString = ToXML(req);
-					var res = ser.variazioneIncarico_Consulente(req);
-					responceString = ToXML(res);
-					var localMessages = new List<string>();
-					elaboraFileRitorno(service,SerializeToXmlDocument(res), requestString,responceString, out string errore);
-					if (errore != null) messages.Add($"{service["yservreg"]}/{service["nservreg"]}: {errore}");
+						string comuneNascita;
+						object idcity = Conn.readValue("registry", q.eq("idreg", service["idreg"]), "idcity");
+						if (idcity != DBNull.Value) {
+							comuneNascita = stringFromObject( //codice catastale
+								Conn.readValue("geo_city_agency",
+									q.eq("idcity", idcity) & q.eq("idagency", 1) & q.eq("idcode", 1),
+									"value")); //codice catastale nascita
+						}
+						else {
+							object idnation = Conn.readValue("registry", q.eq("idreg", service["idreg"]), "idnation");
+							comuneNascita = stringFromObject( //codice catastale
+								Conn.readValue("geo_nation_agency",
+									q.eq("idnation", idnation) & q.eq("idagency", 1) & q.eq("idcode", 1),
+									"value")); //codice nazione nascita
+
+						}
+
+						adpWrapper.Login(user, password);
+						payments = Conn.RUN_SELECT("servicepayment", "*", null, Conn.GetQueryHelper().CmpKey(service), null, false);
+						adpWrapper.ModificaIncarico_Consulente(d, service, comuneNascita, payments.AsEnumerable(), null, txtOutputADPv2);
+
+						impostaBloccoPrestazione(service, false);
+						service["perla_error"] = DBNull.Value;
+
+						//var com = new comunicazione();
+						//com.Item = d;
+						//var req = new variazioneIncarico_ConsulenteRequest(user, password, SerializeToXmlElement(com));
+						//requestString = ToXML(req);
+						//var res = ser.variazioneIncarico_Consulente(req);
+						//responceString = ToXML(res);
+						//var localMessages = new List<string>();
+						//elaboraFileRitorno(service,SerializeToXmlDocument(res), requestString,responceString, out string errore);
+						//if (errore != null) messages.Add($"{service["yservreg"]}/{service["nservreg"]}: {errore}");
+					}
+					catch (WebException e) {
+						skipped++;
+						service["perla_error"] = e.ToString();
+						impostaBloccoPrestazione(service, true);
+						meta.SaveFormData();
+						QueryCreator.ShowException("Errore nella trasmissione perla", e);
+						messages.Add("Procedura di invio andata in time out: \n\n" + e.Message);
+						break;
+					}
+					catch (Exception e) {
+						skipped++;
+						service["perla_error"] = e.ToString();
+						impostaBloccoPrestazione(service, true);
+						meta.SaveFormData();
+						QueryCreator.ShowException("Errore nella trasmissione perla", e);
+						messages.Add("Procedura interrotta per errori durante il salvataggio: \n\n" + e.Message);
+						break;
+					}
 
 					meta.SaveFormData();
 					if (DS.HasChanges()) {
@@ -2916,7 +3110,7 @@ namespace servicetrasmission_default {
 			}
 
 			if (DS.serviceregistry.Rows.Count > skipped) {
-				show(this, @"Dati inviati", @"Informazione");
+				show(this, @"Comunicazione con il servizio effettuata", @"Informazione");
 			}
 			else {
 				show(this, @"Nessun dato inviato", @"Informazione");
@@ -2978,6 +3172,26 @@ namespace servicetrasmission_default {
 
 			return filter;
 		}
+
+		void getAttrSicurezza(out object idsor01, out object idsor02 , out object idsor03 , out object idsor04 , out object idsor05 ) {
+			idsor01 = DBNull.Value;
+			idsor02 = DBNull.Value;
+			idsor03 = DBNull.Value;
+			idsor04 = DBNull.Value;
+			idsor05 = DBNull.Value;
+
+			if (meta.IsEmpty) {
+				return;
+			}
+			DataRow curr = DS.servicetrasmission.Rows[0];
+	 
+			idsor01 = curr["idsor01"];
+			idsor02 = curr["idsor02"];
+			idsor03 = curr["idsor03"];
+			idsor04 = curr["idsor04"];
+			idsor05 = curr["idsor05"];
+		}
+
 
 		private bool EsistonoIncarichiModificati(string tipo) {
 			string filterTipoIncarico = "";
@@ -3147,7 +3361,7 @@ namespace servicetrasmission_default {
 
 			StringWriter sw = new StringWriter();
 			writer = new XmlTextWriter(sw);
-			writer.Formatting = Formatting.Indented;
+			writer.Formatting = System.Xml.Formatting.Indented;
 
 			writer.WriteProcessingInstruction("xml", "version='1.0' encoding='UTF-8' standalone='yes' ");
 			writer.WriteStartElement("comunicazione",
@@ -3178,7 +3392,7 @@ namespace servicetrasmission_default {
 
 
 			if (DS.serviceregistry.Rows.Count == 0) {
-				show(this, "Per la tipologia incarico selezionata sull'incarico non è previsto l'invio a PerlaPA, interfacciarsi con la propria amministrazione");
+				show(this, "Per la tipologia incarico selezionata sull'incarico non è stato possibile l'invio a PerlaPA, interfacciarsi con la propria amministrazione");
 				if (DS.servicepayment.Rows.Count == 0) {
 					show(this, "Non ci sono Pagamenti da trasmettere");
 					return false;
@@ -3238,7 +3452,7 @@ namespace servicetrasmission_default {
 			if (perla) {
 				var ser = EServizio.Create(user, password);
 				ser.InserimentoIncarichi(wsReq);
-				show(this, @"Dati inviati", @"Informazione");
+				show(this, @"Comunicazione con il servizio effettuata", @"Informazione");
 
 			}
 			else {
@@ -3255,8 +3469,7 @@ namespace servicetrasmission_default {
 			//btnSalvaFile.Enabled = true;
 		}
 
-		//password in uso 
-		private string user = "", password = "";
+		
 
 		/// <summary>
 		/// Crea la richiesta vuota per il vecchio servizio web 
@@ -3264,10 +3477,10 @@ namespace servicetrasmission_default {
 		/// <param name="fileName"></param>
 		/// <returns></returns>
 		InserimentoIncarichiRequest creaRichiestaPerla(string fileName) {
-			frmAskPassword f = new frmAskPassword(user, password);
-			if (f.ShowDialog(this) == DialogResult.OK) {
-				user = f.txtUser.Text;
-				password = f.txtPassword.Text;
+
+			if ((user =="")&&(password=="")) {
+				show(this, msgCredenziali);
+				return null;
 			}
 
 			return getIncarichiRequest("x", user, password);
@@ -3913,7 +4126,7 @@ namespace servicetrasmission_default {
 
 			StringWriter sw = new StringWriter();
 			writer = new XmlTextWriter(sw);
-			writer.Formatting = Formatting.Indented;
+			writer.Formatting = System.Xml.Formatting.Indented;
 
 			writer.WriteProcessingInstruction("xml", "version='1.0' encoding='UTF-8' standalone='yes' ");
 			writer.WriteStartElement("comunicazione",
@@ -3976,7 +4189,9 @@ namespace servicetrasmission_default {
 			return true;
 			//btnSalvaFile.Enabled = true;
 		}
-
+		private void txtEsercizio_Leave(object sender, System.EventArgs e) {
+			HelpForm.FormatLikeYear((TextBox)sender);
+		}
 		private void btnAnnullaC_Click(object sender, EventArgs e) {
 			if (Annulla("c")) {
 				DisabilitaButtons(((Control) sender).Name);
@@ -4080,6 +4295,7 @@ namespace servicetrasmission_default {
 		}
 
 		private void btnInviaDipendenti15gg_Click(object sender, EventArgs e) {
+			if (!VerificaIncaricoSingolo("D")) return;
 			tipoIncarico nuovo_incarico = tipoIncarico.nuovoIncarico;
 			//Dipendenti Nuovo incarico
 			if (!controlla_validita_codici("d", nuovo_incarico))
@@ -4092,6 +4308,7 @@ namespace servicetrasmission_default {
 		}
 
 		private void btnInviaConsulenti2Sem_Click(object sender, EventArgs e) {
+			if (!VerificaIncaricoSingolo("C")) return;
 			tipoIncarico nuovo_incarico = tipoIncarico.nuovoIncarico;
 			if (!controlla_validita_codici("c", nuovo_incarico))
 				return;
@@ -4102,6 +4319,7 @@ namespace servicetrasmission_default {
 		}
 
 		private void btnInviaConsulenti1Sem_Click(object sender, EventArgs e) {
+			if (!VerificaIncaricoSingolo("C")) return;
 			tipoIncarico nuovo_incarico = tipoIncarico.nuovoIncarico;
 			if (!controlla_validita_codici("c", nuovo_incarico))
 				return;
@@ -4142,7 +4360,35 @@ namespace servicetrasmission_default {
 			}
 		}
 
+
+		private bool VerificaIncaricoSingolo (string tipo) {
+			// a monte controllo se si sta facendo l'invio dalla scheda giusta, solo se si tratta di un singolo invio
+			int yservreg = (tipo == "D") ? CfgFn.GetNoNullInt32(txtAnnoDipendente.Text): CfgFn.GetNoNullInt32(txtAnnoConsulente.Text);
+			int nservreg = (tipo == "D") ? CfgFn.GetNoNullInt32(txtNumeroDipendente.Text): CfgFn.GetNoNullInt32(txtNumeroConsulente.Text);
+			 
+			string descrtipo = (tipo=="D")?"Dipendente" :"Consulente";
+
+			string[] listaEmpoloyKind =  (tipo == "D") ? new string[] { "D" } : new string[] {"A","C"};
+			 
+			if (yservreg != 0 && nservreg != 0) {
+				string filterDip = QHS.AppAnd(QHS.FieldIn("employkind", listaEmpoloyKind),
+								   QHS.CmpEq("yservreg", yservreg),
+								   QHS.CmpEq("nservreg", nservreg));
+
+
+				DataTable Incaricato = DataAccess.RUN_SELECT(meta.Conn, "serviceregistry", "*", null, filterDip, false);
+				if (Incaricato is null || Incaricato.Rows.Count == 0) {
+					QueryCreator.ShowError(this,
+					"L'incarico che si desidera trasmettere non è di un " + descrtipo,
+					"Filtro applicato:" + filterDip);
+					return false;
+				}
+			}
+			return true;
+		}
 		private void btnInviaDipendenti_Click(object sender, EventArgs e) {
+			// a monte controllo se si sta facendo l'invio dalla scheda giusta, solo se si tratta di un singolo invio
+			if (!VerificaIncaricoSingolo("D")) return;
 			tipoIncarico nuovo_incarico = tipoIncarico.nuovoIncarico;
 			//Dipendenti Nuovo incarico
 			if (!controlla_validita_codici("d", nuovo_incarico))
@@ -4197,24 +4443,44 @@ namespace servicetrasmission_default {
 		/// <returns>true if no errors</returns>
 		private bool inviaInserimentiWS(string tipo, int tipologia) {
 			if (meta.IsEmpty) return false;
-		
-			frmAskPassword f = new frmAskPassword(user, password);
-			if (f.ShowDialog(this) == DialogResult.OK) {
-				user = f.txtUser.Text;
-				password = f.txtPassword.Text;
-			}
 
+			if ((user == "") && (password == "")) {
+				show(this, msgCredenziali);
+				return false;
+			}
 			meta.GetFormData(true);
+			DS.serviceregistry.Clear();
+			DS.servicepayment.Clear();
+
 			//Valorizza il campo idservicetrasmissionkind della riga principale
 			ValorizzaTipologia(tipologia);
 			int esercizio = Convert.ToInt32(meta.Conn.GetSys("esercizio"));
 
 			int AnnoRif = esercizio;
 			DateTime DataRif = (DateTime) meta.GetSys("datacontabile");
+			string anno = (tipo.ToUpper() == "D") ? txtAnnoDipendente.Text : txtAnnoConsulente.Text;
+			string numero = (tipo.ToUpper() == "D") ? txtNumeroDipendente.Text : txtNumeroConsulente.Text;
+			
+			int numeroI = CfgFn.GetNoNullInt32(numero);
+			object idsor01, idsor02, idsor03, idsor04, idsor05;
+			getAttrSicurezza(out idsor01, out idsor02, out idsor03, out idsor04, out idsor05);
+			   DataSet erroriDS = Conn.CallSP("check_transmission_adpv2", new object[] { tipo.ToUpper(),"I", esercizio, numeroI, numeroI,
+			   idsor01, idsor02, idsor03, idsor04, idsor05});
+
+			if (erroriDS != null && erroriDS.Tables.Count > 0) {
+				DataTable errs = erroriDS.Tables[0];
+				if (errs.Rows.Count > 0) {
+					var frmErrors = new FrmError(errs);
+					frmErrors.Show(this);
+				}
+			}
 			string filter_tipologia =
 				"(idserviceregistrykind is null OR idserviceregistrykind  in (select idserviceregistrykind from serviceregistrykind where " +
 				QHS.CmpEq("totransmit", "S") + "))";
 			string filter_IncarichiEsclusi;
+
+		
+
 			string filtereserc_service;
 			//string filtereserc_payment;
 			//Saranno esclusi i D con data conferimento null, e di C con data affidamento null e data inizio null.
@@ -4222,8 +4488,7 @@ namespace servicetrasmission_default {
 			filtereserc_service = QHS.AppAnd(filter_tipologia, filtroNuovoIncarico); // " (is_delivered ='N' and is_annulled='N' and is_blocked = 'N' and  website_annulled = 'N') "
 			filtereserc_service = QHS.AppAnd(filtereserc_service,QHS.DoPar(QHS.AppOr(QHS.IsNotNull("codiceaooipa"), QHS.IsNotNull("codiceuoipa"))));
 
-			DS.serviceregistry.Clear();
-			DS.servicepayment.Clear();
+		 
 
 			// solo per i dipendenti
 			string filter_own = "";
@@ -4242,14 +4507,13 @@ namespace servicetrasmission_default {
 				//QHS.FieldNotIn("idreg", Address.Select(), "idreg");
 			}
 
-			string anno = (tipo.ToUpper() == "D") ? txtAnnoDipendente.Text : txtAnnoConsulente.Text;
+ 
 			if (anno.Trim() != "") {
 				int annoFiltro = CfgFn.GetNoNullInt32(anno);
 				if (annoFiltro != 0)
 					filtereserc_service = QHS.AppAnd(filtereserc_service, QHS.CmpEq("yservreg", annoFiltro));
 			}
 
-			string numero = (tipo.ToUpper() == "D") ? txtNumeroDipendente.Text : txtNumeroConsulente.Text;
 			if (numero.Trim() != "") {
 				int numeroFiltro = CfgFn.GetNoNullInt32(numero);
 				if (numeroFiltro != 0)
@@ -4286,7 +4550,6 @@ namespace servicetrasmission_default {
 				filterIncarichi = QHS.AppAnd(QHS.CmpNe("employkind", "D"),
 						filtereserc_service, security, 
 						QHS.IsNotNull("expectationsdate"), 
-						QHS.IsNotNull("expectationsdate"), 
 						QHS.IsNotNull("start"),
 						QHS.IsNotNull("ordinancelink")
 						);
@@ -4294,12 +4557,11 @@ namespace servicetrasmission_default {
 
 			DataAccess.RUN_SELECT_INTO_TABLE(meta.Conn, DS.serviceregistry, null,filterIncarichi, null, false);
 
-			var Curr = DS.servicetrasmission.Rows[0];
-
 			if (DS.serviceregistry.Rows.Count == 0) {
-				show(this, "Per la tipologia incarico selezionata sull'incarico non è previsto l'invio a PerlaPA, interfacciarsi con la propria amministrazione");
+				show(this, "Non ci sono incarichi da trasmettere");
+				return false;
 			}
-
+			var Curr = DS.servicetrasmission.Rows[0];
 
 			string securityServiceagency = Conn.SelectCondition("serviceagency", true);
 			securityServiceagency = QHS.AppAnd(securityServiceagency, getFilterSicurezza());
@@ -4347,13 +4609,11 @@ namespace servicetrasmission_default {
 				show(this, "Ci sono Incarichi di " + mess + " in sospeso");
 				return false;
 			}
-
-			var ser = new EServizioNew().Create(user, password);
-
-			var messages = new List<string>();
+ 
+            var messages = new List<string>();
 			int skipped = 0;
-			string requestString="";
-			string responceString = "";
+			//string requestString="";
+			//string responceString = "";
 			if (tipo.ToUpper() == "D") {
 				//InsertDipendenti(wsCom);
 
@@ -4373,31 +4633,47 @@ namespace servicetrasmission_default {
 					}
 
 					try {
-						var com = new comunicazione();
-						com.Item = d;
-						var xml = SerializeToXmlElement(com);
-						requestString = ToXML(d);
-						Console.WriteLine(requestString);
+						adpWrapper.Login(user, password);
+						service["id_service"] = adpWrapper.InserimentoIncarico_Dipendente(d, payments.AsEnumerable(), null, txtOutputADPv2);
 
-						var req = new inserimentoIncarico_DipendenteRequest(user, password, xml);
-						var res = ser.inserimentoIncarico_Dipendente(req);
-						responceString = ToXML(res);
-						Console.WriteLine(responceString);
-						elaboraFileRitorno(service,SerializeToXmlDocument(res),requestString, responceString, out string errore);
-						if (errore != null) messages.Add($"{service["yservreg"]}/{service["nservreg"]}: {errore}");
+						impostaBloccoPrestazione(service, false);
+						service["is_delivered"] = 'S';
+						service["is_changed"] = 'N';
+						service["perla_error"] = DBNull.Value;
 
+						//var com = new comunicazione();
+						//com.Item = d;
+						//var xml = SerializeToXmlElement(com);
+						//requestString = ToXML(d);
+						//Console.WriteLine(requestString);
+
+						//var req = new inserimentoIncarico_DipendenteRequest(user, password, xml);
+						//var res = ser.inserimentoIncarico_Dipendente(req);
+						//responceString = ToXML(res);
+						//Console.WriteLine(responceString);
+						//elaboraFileRitorno(service, SerializeToXmlDocument(res), requestString, responceString, out string errore);
+						//if (errore != null) messages.Add($"{service["yservreg"]}/{service["nservreg"]}: {errore}");
+					}
+					catch (WebException e) {
+						skipped++;
+						service["perla_error"] = e.ToString();
+						impostaBloccoPrestazione(service, true);
+						meta.SaveFormData();
+						QueryCreator.ShowException("Errore nella trasmissione perla", e);
+						messages.Add("Procedura di invio andata in time out: \n\n" + e.Message);
+						break;
 					}
 					catch (Exception e) {
-						service["perla_error"] = e.ToString();
-						impostaBloccoPrestazione(service, false);
-						meta.SaveFormData();
-						QueryCreator.ShowException("Errore nella trasmissione perla",e);
-						messages.Add("Procedura interrotta per errori durante il salvataggio");
-						break;
+						skipped++;
+                        service["perla_error"] = e.ToString();
+                        impostaBloccoPrestazione(service, true);
+                        meta.SaveFormData();
+                        QueryCreator.ShowException("Errore nella trasmissione perla", e);
+                        messages.Add("Procedura interrotta per errori durante il salvataggio: \n\n" + e.Message);
+                        break;
+                    }
 
-					}
-
-					meta.SaveFormData();
+                    meta.SaveFormData();
 					if (DS.HasChanges()) {
 						messages.Add("Procedura interrotta per errori durante il salvataggio");
 						break;
@@ -4424,36 +4700,51 @@ namespace servicetrasmission_default {
 					}
 
 					try {
-						var com = new comunicazione();
-						com.Item = c;
-						var xml = SerializeToXmlElement(com);
 
+						adpWrapper.Login(user, password);
+						service["id_service"] = adpWrapper.InserimentoIncarico_Consulente(c, payments.AsEnumerable(), null, txtOutputADPv2);
 
-						c.allegati.fileCv = "omissis";//non ingolfiamo il testo
-						c.allegati.fileDichiarazioneIncarichi = "omissis";
-						requestString = ToXML(c);
-						Console.WriteLine(requestString);
+						impostaBloccoPrestazione(service, false);
+						service["is_delivered"] = 'S';
+						service["is_changed"] = 'N';
+						service["perla_error"] = DBNull.Value;
 
-						//Console.Write(  ToXML(xml));
-						var req = new inserimentoIncarico_ConsulenteRequest(user, password, xml);
-						var res = ser.inserimentoIncarico_Consulente(req);
-						
+						//var com = new comunicazione();
+						//com.Item = c;
+						//var xml = SerializeToXmlElement(com);
 
+						//c.allegati.fileCv = "omissis";//non ingolfiamo il testo
+						//c.allegati.fileDichiarazioneIncarichi = "omissis";
+						//requestString = ToXML(c);
+						//Console.WriteLine(requestString);
 
-						responceString = ToXML(res);
-						Console.Write(responceString);
+						////Console.Write(  ToXML(xml));
+						//var req = new inserimentoIncarico_ConsulenteRequest(user, password, xml);
+						//var res = ser.inserimentoIncarico_Consulente(req);
 
-						elaboraFileRitorno(service, SerializeToXmlDocument(res), requestString, responceString, out string errore);
-						if (errore != null) messages.Add($"{service["yservreg"]}/{service["nservreg"]}: {errore}");
+						//responceString = ToXML(res);
+						//Console.Write(responceString);
+
+						//elaboraFileRitorno(service, SerializeToXmlDocument(res), requestString, responceString, out string errore);
+						//if (errore != null) messages.Add($"{service["yservreg"]}/{service["nservreg"]}: {errore}");
 					}
-					catch (Exception e) {
+					catch (WebException e) {
+						skipped++;
 						service["perla_error"] = e.ToString();
 						impostaBloccoPrestazione(service, true);
 						meta.SaveFormData();
 						QueryCreator.ShowException("Errore nella trasmissione perla", e);
-						messages.Add("Procedura interrotta per errori durante il salvataggio");
+						messages.Add("Procedura di invio andata in time out: \n\n" + e.Message);
 						break;
-
+					}
+					catch (Exception e) {
+						skipped++;
+						service["perla_error"] = e.ToString();
+						impostaBloccoPrestazione(service, true);
+						meta.SaveFormData();
+						QueryCreator.ShowException("Errore nella trasmissione perla", e);
+						messages.Add("Procedura interrotta per errori durante il salvataggio:  \n\n" + e.Message);
+						break;
 					}
 
 					meta.SaveFormData();
@@ -4474,15 +4765,15 @@ namespace servicetrasmission_default {
 
 			}
 
-			//txtNomeFile.Text = saveFileDialog1.FileName;
-			if (DS.serviceregistry.Rows.Count > skipped) {
-				show(this, @"Dati inviati", @"Informazione");
-			}
-			//else {
-			//	show(this, @"Nessun dato inviato", @"Informazione");
-			//}
+            //txtNomeFile.Text = saveFileDialog1.FileName;
+            if (DS.serviceregistry.Rows.Count > skipped) {
+                show(this, @"Comunicazione con il servizio effettuata", @"Informazione");
+            }
+            else {
+                show(this, @"Nessun dato inviato", @"Informazione");
+            }
 
-			txtErrori.Text = "";
+            txtErrori.Text = "";
 			if (messages.Count > 0) {
 				var sb=new StringBuilder();
 				foreach (var s in messages) sb.AppendLine(s);
@@ -4520,6 +4811,13 @@ namespace servicetrasmission_default {
 
 		variazione_incarico_dipendente updateDipendente( DataRow rDipendente) {
 			var w = new variazione_incarico_dipendente();
+
+			#region task_18142
+			if (rDipendente["conferring_flagforeign"] != DBNull.Value) {
+				w.conferenteEstero = rDipendente["conferring_flagforeign"].ToString().ToUpper() == "S";
+			}
+			#endregion
+
 			w.amministrazionedichiarante.codiceFiscalePa = codiceFiscalePa;
 
 			if (rDipendente["codicepaipa"] != DBNull.Value) {
@@ -4546,10 +4844,8 @@ namespace servicetrasmission_default {
 			}
 
 
-		
-
-
-			w.datiincarico.idIncarico = Convert.ToUInt64(rDipendente["id_service"]);
+			if (UInt64.TryParse(rDipendente["id_service"].ToString(), out ulong idincarico))
+				w.datiincarico.idIncarico = idincarico;//Convert.ToUInt64(rDipendente["id_service"]);
 
 			if (rDipendente["idapmanager"] != DBNull.Value) {
 				w.percettore.qualifica = rDipendente["idapmanager"].ToString();
@@ -4606,6 +4902,28 @@ namespace servicetrasmission_default {
 
 		inserimentoincaricodipendente inserisciDipendente(DataRow rDipendente) {
 			var w = new inserimentoincaricodipendente();
+
+			#region task_17488
+			//public int AnnoRiferimento;
+			//public Guid AmbitoTematicoDipendenteId;
+            if (rDipendente["yservreg"] != DBNull.Value) {
+                w.AnnoRiferimento = CfgFn.GetNoNullInt32(rDipendente["yservreg"]);
+            }
+
+			if (rDipendente["idthematicscope"] != DBNull.Value) {
+				w.idthematicscope = (int)rDipendente["idthematicscope"];
+            }
+
+			#region task_18142
+			if (rDipendente["conferring_flagforeign"] != DBNull.Value) {
+				w.conferenteEstero = rDipendente["conferring_flagforeign"].ToString().ToUpper() == "S";
+			}
+            #endregion
+
+            //Conn.RUN_SELECT_INTO_TABLE(payments, null, Conn.GetQueryHelper().CmpKey(rDipendente), null, false);
+            payments = Conn.RUN_SELECT("servicepayment", "*", null, Conn.GetQueryHelper().CmpKey(rDipendente), null, false);
+			#endregion
+
 			w.amministrazionedichiarante.codiceFiscalePa = codiceFiscalePa;// rDipendente["pa_cf"].ToString();
 
 			if (rDipendente["codicepaipa"] != DBNull.Value) {
@@ -4622,16 +4940,25 @@ namespace servicetrasmission_default {
 				w.amministrazionedichiarante.codiceAooIpa = codiceAooIpa; 
 			}
 
-			if (w.amministrazionedichiarante.codiceAooIpa == null) {
-				if (rDipendente["codiceuoipa"] != DBNull.Value) {
-					w.amministrazionedichiarante.codiceUoIpa = rDipendente["codiceuoipa"].ToString();
-				}
-				else {
-					w.amministrazionedichiarante.codiceUoIpa = codiceUoIpa;
-				}
+			#region task_18875
+
+			//if (w.amministrazionedichiarante.codiceAooIpa == null) {
+			//	if (rDipendente["codiceuoipa"] != DBNull.Value) {
+			//		w.amministrazionedichiarante.codiceUoIpa = rDipendente["codiceuoipa"].ToString();
+			//	}
+			//	else {
+			//		w.amministrazionedichiarante.codiceUoIpa = codiceUoIpa;
+			//	}
+			//}
+
+			if (rDipendente["codiceuoipa"] != DBNull.Value) {
+				w.amministrazionedichiarante.codiceUoIpa = rDipendente["codiceuoipa"].ToString();
+			}
+			else {
+				w.amministrazionedichiarante.codiceUoIpa = codiceUoIpa;
 			}
 
-
+			#endregion
 
 			if (rDipendente["cf"] != DBNull.Value) {
 				w.percettore.codiceFiscale = rDipendente["cf"].ToString();
@@ -4915,6 +5242,7 @@ namespace servicetrasmission_default {
 		}
 
 		private void btnInviaConsulenti2SemWS_Click(object sender, EventArgs e) {
+			if (!VerificaIncaricoSingolo("C")) return;
 			tipoIncarico nuovo_incarico = tipoIncarico.nuovoIncarico;
 			if (!controlla_validita_codici("c", nuovo_incarico))
 				return;
@@ -4989,6 +5317,27 @@ namespace servicetrasmission_default {
 
 		inserimento_incarico_consulente inserisciConsulente(DataRow rConsulente) {
 			var w = new inserimento_incarico_consulente();
+
+			#region task_17488
+			//public int AnnoRiferimento;
+			//public Guid ServizioIstituzionePubblicaId;
+			//public Guid AmbitoTematicoDipendenteId;
+			if (rConsulente["yservreg"] != DBNull.Value) {
+				w.AnnoRiferimento = CfgFn.GetNoNullInt32(rConsulente["yservreg"]);
+			}
+
+			if (rConsulente["idpublicinstitutionservice"] != DBNull.Value) {
+				w.idpublicinstitutionservice = (int)rConsulente["idpublicinstitutionservice"];
+			}
+
+			if (rConsulente["idthematicscope"] != DBNull.Value) {
+				w.idthematicscope = (int)rConsulente["idthematicscope"];
+			}
+
+			//Conn.RUN_SELECT_INTO_TABLE(payments, null, Conn.GetQueryHelper().CmpKey(rConsulente), null, false);
+			payments = Conn.RUN_SELECT("servicepayment", "*", null, Conn.GetQueryHelper().CmpKey(rConsulente), null, false);
+			#endregion
+
 			w.amministrazionedichiarante.codiceFiscalePa = codiceFiscalePa;
 
 			if (rConsulente["codicepaipa"] != DBNull.Value) {
@@ -5067,7 +5416,7 @@ namespace servicetrasmission_default {
 			else {
 				w.percettore.Item = new inserimento_incarico_consulentePercettorePercettorepg() {
 					estero = rConsulente["flagforeign"].ToString().ToUpper() == "S" ? yesNo.Y : yesNo.N,
-					codiceFiscale = stringFromObject(rConsulente["cf"]),
+					codiceFiscale = stringFromObject(rConsulente["p_iva"]),
 					denominazione = rConsulente["title"].ToString().Replace("\n", "").Replace("\r", "")
 				};
 			}
@@ -5167,7 +5516,8 @@ namespace servicetrasmission_default {
 				}
 			}
 
-			w.datiincarico.idIncarico = Convert.ToUInt64(rConsulente["id_service"]);
+			if (UInt64.TryParse(rConsulente["id_service"].ToString(), out ulong idincarico))
+				w.datiincarico.idIncarico = idincarico;//Convert.ToUInt64(rConsulente["id_service"]);
 
 			var tipologia = rConsulente["flaghuman"].ToString().ToUpper() == "S" ? tipoConsulente.F : tipoConsulente.G;
 			if (tipologia == tipoConsulente.F) {
@@ -5228,18 +5578,31 @@ namespace servicetrasmission_default {
 		}
 
 		private bool inviaCancellazioniWS(string tipo, int tipologia) {
-
-			frmAskPassword f = new frmAskPassword(user, password);
-			if (f.ShowDialog(this) == DialogResult.OK) {
-				user = f.txtUser.Text;
-				password = f.txtPassword.Text;
+			if ((user == "") && (password == "")) {
+				show(this, msgCredenziali);
+				return false;
 			}
-
 			meta.GetFormData(true);
 			//object esercizio = meta.GetSys("esercizio");
 			//string filtereserc_service = QHS.CmpEq("yservreg", esercizio);// Per l'inserimento prendiamo solo quelli = all'esercizio corrente
 			//string filtereserc_payment = QHS.CmpEq("yservreg", esercizio);
 			object esercizio = meta.GetSys("esercizio");
+			string anno = txtAnnoCancellazione.Text;
+			string numero = txtNumeroCancellazione.Text;
+
+			int numeroI = CfgFn.GetNoNullInt32(numero);
+			object idsor01, idsor02, idsor03, idsor04, idsor05;
+			getAttrSicurezza(out idsor01, out idsor02, out idsor03, out idsor04, out idsor05);
+			DataSet erroriDS = Conn.CallSP("check_transmission_adpv2", new object[] { tipo.ToUpper(), "C", esercizio, numeroI, numeroI,
+			idsor01, idsor02, idsor03, idsor04, idsor05});
+
+			if (erroriDS != null && erroriDS.Tables.Count > 0) {
+				DataTable errs = erroriDS.Tables[0];
+				if (errs.Rows.Count > 0) {
+					var frmErrors = new FrmError(errs);
+					frmErrors.Show(this);
+				}
+			}
 
 			//filtroCancellaIncarico  = " (is_delivered ='N' and is_annulled='S' and is_blocked = 'N') ";
 			string filtereserc_service = filtroCancellaIncarico;
@@ -5248,7 +5611,19 @@ namespace servicetrasmission_default {
 			DS.serviceregistry.Clear();
 			// inserisci in serviceregistry solo gli incarcichi dei C o D
 
+		 
+			if (anno.Trim() != "") {
+				int annoFiltro = CfgFn.GetNoNullInt32(anno);
+				if (annoFiltro != 0)
+					filtereserc_service = QHS.AppAnd(filtereserc_service, QHS.CmpEq("yservreg", annoFiltro));
+			}
 
+
+			if (numero.Trim() != "") {
+				int numeroFiltro = CfgFn.GetNoNullInt32(numero);
+				if (numeroFiltro != 0)
+					filtereserc_service = QHS.AppAnd(filtereserc_service, QHS.CmpEq("nservreg", numeroFiltro));
+			}
 
 
 			string security = Conn.SelectCondition("serviceregistry", true);
@@ -5272,44 +5647,68 @@ namespace servicetrasmission_default {
 				return false;
 			}
 
-			var ser = new EServizioNew().Create(user, password);
-			var messages = new List<string>();
+			//var ser = new EServizioNew().Create(user, password);
+			//var messages = new List<string>();
 
-			string mess = (tipo == "d" ? "Dipendenti" : "Consulenti");
+			//string mess = (tipo == "d" ? "Dipendenti" : "Consulenti");
+			var role = tipo.ToLower() == "d" ? TRole.Dipendente : TRole.Consulente;
 
 			foreach (DataRow service in DS.serviceregistry.Select()) {
-				var d = new cancellazioneincarico_incarico();
-				d.datiincarico.idIncarico = Convert.ToUInt64(service["id_service"]);
+
+				//var d = new cancellazioneincarico_incarico();
+				//d.datiincarico.idIncarico = Convert.ToUInt64(service["id_service"]);
+
 				impostaBloccoPrestazione(service, true);
 				meta.SaveFormData();
 				if (DS.HasChanges()) {
 					return false;
 				}
 
-				var com = new comunicazione();
-				com.Item = d;
-				var req = new cancellazioneIncaricoRequest(user, password, SerializeToXmlElement(com));
-				var res = ser.cancellazioneIncarico(req);
-				var localMessages = new List<string>();
-				ElaboraFileRitorno(SerializeToXmlDocument(res), localMessages);
-				if (localMessages.Count > 0) {
-					var sb = new StringBuilder();
-					foreach (string m in localMessages) {
-						sb.AppendLine(m);
-						messages.Add(m);
-					}
+                try {
+					adpWrapper.Login(user, password);
 
-					service["perla_error"] = sb.ToString();
-				}
+                    switch (role) {
+                        case TRole.Consulente:
+							adpWrapper.CancellazioneIncarico_Consulente(service["id_service"].ToString());
+							break;
+                        case TRole.Dipendente:
+							adpWrapper.CancellazioneIncarico_Dipendente(service["id_service"].ToString());
+							break;
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception e) {
+                    service["perla_error"] = e.ToString();
+                }
 
-				impostaBloccoPrestazione(service, false);
+                //var com = new comunicazione();
+                //com.Item = d;
+                //var req = new cancellazioneIncaricoRequest(user, password, SerializeToXmlElement(com));
+                //var res = ser.cancellazioneIncarico(req);
+                //var localMessages = new List<string>();
+                //ElaboraFileRitorno(SerializeToXmlDocument(res), localMessages);
+                //if (localMessages.Count > 0) {
+                //    var sb = new StringBuilder();
+                //    foreach (string m in localMessages) {
+                //        sb.AppendLine(m);
+                //        messages.Add(m);
+                //    }
+
+                //    service["perla_error"] = sb.ToString();
+                //}
+
+                impostaBloccoPrestazione(service, false);
+				service["is_delivered"] = 'S';
+				service["idrelated"] = DBNull.Value;
+
 				meta.SaveFormData();
 				if (DS.HasChanges()) {
 					return false;
 				}
 			}
 
-			show(this, @"Dati inviati", @"Informazione");
+			show(this, @"Comunicazione con il servizio effettuata", @"Informazione");
 
 			//btnVisualizzaFile.Enabled = true;
 			//btnSalvaXml.Enabled = true;

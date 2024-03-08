@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -84,7 +84,10 @@ namespace meta_mandate //meta_ordinegenerico//
 
 		protected override void InsertCopyColumn(DataColumn C, DataRow Source, DataRow Dest) {
 			if ((C.ColumnName == "yman") || (C.ColumnName == "nman") || C.ColumnName == "idmandatestatus" ||
-			    C.ColumnName == "cigcode") return;
+			    C.ColumnName == "cigcode"||
+				(C.ColumnName == "idmankind_origin")||
+				(C.ColumnName == "yman_origin")||
+				(C.ColumnName == "nman_origin")) return;
 			base.InsertCopyColumn(C, Source, Dest);
 		}
 
@@ -283,7 +286,19 @@ namespace meta_mandate //meta_ordinegenerico//
 				}
 			}
 
+			int yman = CfgFn.GetNoNullInt32(R["yman"]);
 
+			if (
+					!DateTime.TryParse(R["adate"].ToString(), out DateTime adate) || 
+					yman == 0 ||
+					adate.Year != yman
+				) {
+
+				errmess = "L'anno della data contabile non è coerente con l'anno dell'esercizio";
+				errfield = "adate";
+
+				return false;
+			}
 
 			if (!base.IsValid(R, out errmess, out errfield)) return false;
 

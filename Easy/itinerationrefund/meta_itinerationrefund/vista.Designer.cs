@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Universit� degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -28,51 +28,39 @@ public class itinerationrefundRow: MetaRow  {
 	public itinerationrefundRow(DataRowBuilder rb) : base(rb) {} 
 
 	#region Field Definition
-	///<summary>
-	///Num.Spesa
-	///</summary>
-	public Int16? nrefund{ 
-		get {if (this["nrefund"]==DBNull.Value)return null; return  (Int16?)this["nrefund"];}
-		set {if (value==null) this["nrefund"]= DBNull.Value; else this["nrefund"]= value;}
+	public Int16 nrefund{ 
+		get {return  (Int16)this["nrefund"];}
+		set {this["nrefund"]= value;}
 	}
 	public object nrefundValue { 
 		get{ return this["nrefund"];}
-		set {if (value==null|| value==DBNull.Value) this["nrefund"]= DBNull.Value; else this["nrefund"]= value;}
+		set {this["nrefund"]= value;}
 	}
-	public Int16? nrefundOriginal { 
-		get {if (this["nrefund",DataRowVersion.Original]==DBNull.Value)return null; return  (Int16?)this["nrefund",DataRowVersion.Original];}
+	public Int16 nrefundOriginal { 
+		get {return  (Int16)this["nrefund",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data creazione
-	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome utente creazione
-	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Descrizione
-	///</summary>
 	public String description{ 
 		get {if (this["description"]==DBNull.Value)return null; return  (String)this["description"];}
 		set {if (value==null) this["description"]= DBNull.Value; else this["description"]= value;}
@@ -84,9 +72,6 @@ public class itinerationrefundRow: MetaRow  {
 	public String descriptionOriginal { 
 		get {if (this["description",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["description",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Tasso di cambio
-	///</summary>
 	public Double? exchangerate{ 
 		get {if (this["exchangerate"]==DBNull.Value)return null; return  (Double?)this["exchangerate"];}
 		set {if (value==null) this["exchangerate"]= DBNull.Value; else this["exchangerate"]= value;}
@@ -98,37 +83,28 @@ public class itinerationrefundRow: MetaRow  {
 	public Double? exchangerateOriginal { 
 		get {if (this["exchangerate",DataRowVersion.Original]==DBNull.Value)return null; return  (Double?)this["exchangerate",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data ultima modifica
-	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
-	///<summary>
-	///nome ultimo utente modifica
-	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
-	///<summary>
-	///indennit? supplementare
-	///</summary>
 	public Decimal? extraallowance{ 
 		get {if (this["extraallowance"]==DBNull.Value)return null; return  (Decimal?)this["extraallowance"];}
 		set {if (value==null) this["extraallowance"]= DBNull.Value; else this["extraallowance"]= value;}
@@ -140,9 +116,6 @@ public class itinerationrefundRow: MetaRow  {
 	public Decimal? extraallowanceOriginal { 
 		get {if (this["extraallowance",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["extraallowance",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Percentuale anticipo
-	///</summary>
 	public Decimal? advancepercentage{ 
 		get {if (this["advancepercentage"]==DBNull.Value)return null; return  (Decimal?)this["advancepercentage"];}
 		set {if (value==null) this["advancepercentage"]= DBNull.Value; else this["advancepercentage"]= value;}
@@ -154,9 +127,6 @@ public class itinerationrefundRow: MetaRow  {
 	public Decimal? advancepercentageOriginal { 
 		get {if (this["advancepercentage",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["advancepercentage",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data inizio 
-	///</summary>
 	public DateTime? starttime{ 
 		get {if (this["starttime"]==DBNull.Value)return null; return  (DateTime?)this["starttime"];}
 		set {if (value==null) this["starttime"]= DBNull.Value; else this["starttime"]= value;}
@@ -168,9 +138,6 @@ public class itinerationrefundRow: MetaRow  {
 	public DateTime? starttimeOriginal { 
 		get {if (this["starttime",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["starttime",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data fine
-	///</summary>
 	public DateTime? stoptime{ 
 		get {if (this["stoptime"]==DBNull.Value)return null; return  (DateTime?)this["stoptime"];}
 		set {if (value==null) this["stoptime"]= DBNull.Value; else this["stoptime"]= value;}
@@ -182,12 +149,6 @@ public class itinerationrefundRow: MetaRow  {
 	public DateTime? stoptimeOriginal { 
 		get {if (this["stoptime",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["stoptime",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Tipo Località
-	///	 E: Fuori dall'Unione Europea
-	///	 I: Italia
-	///	 U: Unione Europea
-	///</summary>
 	public String flag_geo{ 
 		get {if (this["flag_geo"]==DBNull.Value)return null; return  (String)this["flag_geo"];}
 		set {if (value==null) this["flag_geo"]= DBNull.Value; else this["flag_geo"]= value;}
@@ -199,9 +160,6 @@ public class itinerationrefundRow: MetaRow  {
 	public String flag_geoOriginal { 
 		get {if (this["flag_geo",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flag_geo",DataRowVersion.Original];}
 	}
-	///<summary>
-	///importo
-	///</summary>
 	public Decimal? amount{ 
 		get {if (this["amount"]==DBNull.Value)return null; return  (Decimal?)this["amount"];}
 		set {if (value==null) this["amount"]= DBNull.Value; else this["amount"]= value;}
@@ -213,9 +171,6 @@ public class itinerationrefundRow: MetaRow  {
 	public Decimal? amountOriginal { 
 		get {if (this["amount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["amount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///ID Rimborso Spese (tabella itinerationrefundkind)
-	///</summary>
 	public Int32? iditinerationrefundkind{ 
 		get {if (this["iditinerationrefundkind"]==DBNull.Value)return null; return  (Int32?)this["iditinerationrefundkind"];}
 		set {if (value==null) this["iditinerationrefundkind"]= DBNull.Value; else this["iditinerationrefundkind"]= value;}
@@ -227,9 +182,6 @@ public class itinerationrefundRow: MetaRow  {
 	public Int32? iditinerationrefundkindOriginal { 
 		get {if (this["iditinerationrefundkind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iditinerationrefundkind",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Chiave valuta (tab. currency)
-	///</summary>
 	public Int32? idcurrency{ 
 		get {if (this["idcurrency"]==DBNull.Value)return null; return  (Int32?)this["idcurrency"];}
 		set {if (value==null) this["idcurrency"]= DBNull.Value; else this["idcurrency"]= value;}
@@ -241,23 +193,17 @@ public class itinerationrefundRow: MetaRow  {
 	public Int32? idcurrencyOriginal { 
 		get {if (this["idcurrency",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idcurrency",DataRowVersion.Original];}
 	}
-	///<summary>
-	///id missione (tabella itineration)
-	///</summary>
-	public Int32? iditineration{ 
-		get {if (this["iditineration"]==DBNull.Value)return null; return  (Int32?)this["iditineration"];}
-		set {if (value==null) this["iditineration"]= DBNull.Value; else this["iditineration"]= value;}
+	public Int32 iditineration{ 
+		get {return  (Int32)this["iditineration"];}
+		set {this["iditineration"]= value;}
 	}
 	public object iditinerationValue { 
 		get{ return this["iditineration"];}
-		set {if (value==null|| value==DBNull.Value) this["iditineration"]= DBNull.Value; else this["iditineration"]= value;}
+		set {this["iditineration"]= value;}
 	}
-	public Int32? iditinerationOriginal { 
-		get {if (this["iditineration",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["iditineration",DataRowVersion.Original];}
+	public Int32 iditinerationOriginal { 
+		get {return  (Int32)this["iditineration",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Non più usato
-	///</summary>
 	public String flagitalian{ 
 		get {if (this["flagitalian"]==DBNull.Value)return null; return  (String)this["flagitalian"];}
 		set {if (value==null) this["flagitalian"]= DBNull.Value; else this["flagitalian"]= value;}
@@ -269,11 +215,6 @@ public class itinerationrefundRow: MetaRow  {
 	public String flagitalianOriginal { 
 		get {if (this["flagitalian",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagitalian",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Tipo applicabilità (anticipo/saldo)
-	///	 A: Anticipo
-	///	 S: Saldo
-	///</summary>
 	public String flagadvancebalance{ 
 		get {if (this["flagadvancebalance"]==DBNull.Value)return null; return  (String)this["flagadvancebalance"];}
 		set {if (value==null) this["flagadvancebalance"]= DBNull.Value; else this["flagadvancebalance"]= value;}
@@ -285,9 +226,6 @@ public class itinerationrefundRow: MetaRow  {
 	public String flagadvancebalanceOriginal { 
 		get {if (this["flagadvancebalance",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagadvancebalance",DataRowVersion.Original];}
 	}
-	///<summary>
-	///documento
-	///</summary>
 	public String doc{ 
 		get {if (this["doc"]==DBNull.Value)return null; return  (String)this["doc"];}
 		set {if (value==null) this["doc"]= DBNull.Value; else this["doc"]= value;}
@@ -299,9 +237,6 @@ public class itinerationrefundRow: MetaRow  {
 	public String docOriginal { 
 		get {if (this["doc",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["doc",DataRowVersion.Original];}
 	}
-	///<summary>
-	///data documento
-	///</summary>
 	public DateTime? docdate{ 
 		get {if (this["docdate"]==DBNull.Value)return null; return  (DateTime?)this["docdate"];}
 		set {if (value==null) this["docdate"]= DBNull.Value; else this["docdate"]= value;}
@@ -313,9 +248,6 @@ public class itinerationrefundRow: MetaRow  {
 	public DateTime? docdateOriginal { 
 		get {if (this["docdate",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["docdate",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Richiesto
-	///</summary>
 	public Decimal? requiredamount{ 
 		get {if (this["requiredamount"]==DBNull.Value)return null; return  (Decimal?)this["requiredamount"];}
 		set {if (value==null) this["requiredamount"]= DBNull.Value; else this["requiredamount"]= value;}
@@ -327,9 +259,6 @@ public class itinerationrefundRow: MetaRow  {
 	public Decimal? requiredamountOriginal { 
 		get {if (this["requiredamount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["requiredamount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///importo riportato nello scontrino/fattura/altro
-	///</summary>
 	public Decimal? docamount{ 
 		get {if (this["docamount"]==DBNull.Value)return null; return  (Decimal?)this["docamount"];}
 		set {if (value==null) this["docamount"]= DBNull.Value; else this["docamount"]= value;}
@@ -341,9 +270,6 @@ public class itinerationrefundRow: MetaRow  {
 	public Decimal? docamountOriginal { 
 		get {if (this["docamount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["docamount",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Comunicazioni per il Responsabile
-	///</summary>
 	public String webwarn{ 
 		get {if (this["webwarn"]==DBNull.Value)return null; return  (String)this["webwarn"];}
 		set {if (value==null) this["webwarn"]= DBNull.Value; else this["webwarn"]= value;}
@@ -355,9 +281,6 @@ public class itinerationrefundRow: MetaRow  {
 	public String webwarnOriginal { 
 		get {if (this["webwarn",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["webwarn",DataRowVersion.Original];}
 	}
-	///<summary>
-	///ID Località Estere (tabella foreigncountry)
-	///</summary>
 	public Int32? idforeigncountry{ 
 		get {if (this["idforeigncountry"]==DBNull.Value)return null; return  (Int32?)this["idforeigncountry"];}
 		set {if (value==null) this["idforeigncountry"]= DBNull.Value; else this["idforeigncountry"]= value;}
@@ -369,9 +292,6 @@ public class itinerationrefundRow: MetaRow  {
 	public Int32? idforeigncountryOriginal { 
 		get {if (this["idforeigncountry",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idforeigncountry",DataRowVersion.Original];}
 	}
-	///<summary>
-	///Importo non rendicontabile
-	///</summary>
 	public Decimal? noaccount{ 
 		get {if (this["noaccount"]==DBNull.Value)return null; return  (Decimal?)this["noaccount"];}
 		set {if (value==null) this["noaccount"]= DBNull.Value; else this["noaccount"]= value;}
@@ -383,12 +303,42 @@ public class itinerationrefundRow: MetaRow  {
 	public Decimal? noaccountOriginal { 
 		get {if (this["noaccount",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["noaccount",DataRowVersion.Original];}
 	}
+	public Decimal? amount_c{ 
+		get {if (this["amount_c"]==DBNull.Value)return null; return  (Decimal?)this["amount_c"];}
+		set {if (value==null) this["amount_c"]= DBNull.Value; else this["amount_c"]= value;}
+	}
+	public object amount_cValue { 
+		get{ return this["amount_c"];}
+		set {if (value==null|| value==DBNull.Value) this["amount_c"]= DBNull.Value; else this["amount_c"]= value;}
+	}
+	public Decimal? amount_cOriginal { 
+		get {if (this["amount_c",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["amount_c",DataRowVersion.Original];}
+	}
+	public Decimal? docamount_c{ 
+		get {if (this["docamount_c"]==DBNull.Value)return null; return  (Decimal?)this["docamount_c"];}
+		set {if (value==null) this["docamount_c"]= DBNull.Value; else this["docamount_c"]= value;}
+	}
+	public object docamount_cValue { 
+		get{ return this["docamount_c"];}
+		set {if (value==null|| value==DBNull.Value) this["docamount_c"]= DBNull.Value; else this["docamount_c"]= value;}
+	}
+	public Decimal? docamount_cOriginal { 
+		get {if (this["docamount_c",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["docamount_c",DataRowVersion.Original];}
+	}
+	public Decimal? requiredamount_c{ 
+		get {if (this["requiredamount_c"]==DBNull.Value)return null; return  (Decimal?)this["requiredamount_c"];}
+		set {if (value==null) this["requiredamount_c"]= DBNull.Value; else this["requiredamount_c"]= value;}
+	}
+	public object requiredamount_cValue { 
+		get{ return this["requiredamount_c"];}
+		set {if (value==null|| value==DBNull.Value) this["requiredamount_c"]= DBNull.Value; else this["requiredamount_c"]= value;}
+	}
+	public Decimal? requiredamount_cOriginal { 
+		get {if (this["requiredamount_c",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["requiredamount_c",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
-///<summary>
-///Spesa
-///</summary>
 public class itinerationrefundTable : MetaTableBase<itinerationrefundRow> {
 	public itinerationrefundTable() : base("itinerationrefund"){
 		baseColumns = new Dictionary<string, DataColumn>(){
@@ -417,6 +367,9 @@ public class itinerationrefundTable : MetaTableBase<itinerationrefundRow> {
 			{"webwarn",createColumn("webwarn",typeof(string),true,false)},
 			{"idforeigncountry",createColumn("idforeigncountry",typeof(int),true,false)},
 			{"noaccount",createColumn("noaccount",typeof(decimal),true,false)},
+			{"amount_c",createColumn("amount_c",typeof(decimal),true,false)},
+			{"docamount_c",createColumn("docamount_c",typeof(decimal),true,false)},
+			{"requiredamount_c",createColumn("requiredamount_c",typeof(decimal),true,false)},
 		};
 	}
 }

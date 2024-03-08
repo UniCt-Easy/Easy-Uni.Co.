@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-using funzioni_configurazione;
 using metadatalibrary;
 using metaeasylibrary;
 using System.Data;
@@ -28,15 +27,23 @@ namespace meta_showcasedetail {
         public Meta_showcasedetail(DataAccess Conn, MetaDataDispatcher Dispatcher)
             : base(Conn, Dispatcher, "showcasedetail") {
             ListingTypes.Add("list");
+            ListingTypes.Add("default");
             EditTypes.Add("single");
+            EditTypes.Add("default");
             Name = "Dettaglio Vetrina";
         }
 
         protected override Form GetForm(string FormName) {
-            DefaultListType = "list";
+
 
             if (FormName == "single") {
+                DefaultListType = "list";
                 return MetaData.GetFormByDllName("showcasedetail_single");
+            }
+            if (FormName == "default")
+            {
+                DefaultListType = "default";
+                return MetaData.GetFormByDllName("showcasedetail_default");
             }
 
             return null;
@@ -68,21 +75,28 @@ namespace meta_showcasedetail {
                     DescribeAColumn(T, C.ColumnName, "", -1);
 
                 int nPos = 1;
-                DescribeAColumn(T, "!intcode", "Codice", "listview.intcode", nPos++);
+                DescribeAColumn(T, "!intcode", "Codice listino", "listview.intcode", nPos++);
+                DescribeAColumn(T, "!description", "Desc. listino", "listview.description", nPos++);
                 DescribeAColumn(T, "title", "Nome articolo", nPos++);
                 DescribeAColumn(T, "unitprice", "Prezzo unitario", nPos++);
-                DescribeAColumn(T, "!description", "Desc. articolo", "listview.description", nPos++);
                 DescribeAColumn(T, "!listclass", "Class. merceologica", "listview.listclass", nPos++);
-                DescribeAColumn(T, "!codicetassonomia", "Class. merceologica", "listview.codicetassonomia", nPos++);
-                DescribeAColumn(T, "!tassonomia", "Class. merceologica", "listview.tassonomia", nPos++);
+                DescribeAColumn(T, "!codicetassonomia", "Codice Tassonomia", "listview.codicetassonomia", nPos++);
+                DescribeAColumn(T, "!tassonomia", "Tassonomia", "listview.tassonomia", nPos++);
                 DescribeAColumn(T, "availability", "Disponibilità", nPos++);
+                DescribeAColumn(T, "competencystart", "Inizio Competenza", nPos++);
+                DescribeAColumn(T, "competencystop", "Fine Competenza", nPos++);
                 DescribeAColumn(T, "!codeupb", "UPB", "upb.codeupb", nPos++);
+                DescribeAColumn(T, "!codeupb_iva", "UPB IVA", "upb_iva.codeupb", nPos++);
                 DescribeAColumn(T, "idestimkind", "Tipo contratto attivo", nPos++);
 				DescribeAColumn(T, "!codeinvkind", "Tipo fattura", "invoicekind.codeinvkind",  nPos++);
-				DescribeAColumn(T, "competencystart", "Inizio Competenza", nPos++);
-				DescribeAColumn(T, "competencystop", "Fine Competenza", nPos++);
-				DescribeAColumn(T, "!codeupb_iva", "UPB IVA", "upb_iva.codeupb", nPos++);
 			}
+        }
+
+        public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge) {
+            if ((ListingType == "elenco")|| (ListingType == "default")) {
+                return base.SelectOne("elenco", filter, "showcasedetailview", ToMerge);
+            }
+            return base.SelectOne(ListingType, filter, searchtable, ToMerge);
         }
 
     }

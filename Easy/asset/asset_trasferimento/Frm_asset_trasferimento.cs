@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,7 +45,7 @@ namespace asset_trasferimento//beneinv_trasferimento//
 		private System.Windows.Forms.Button btnNext;
 		private System.Windows.Forms.Button btnBack;
 		private System.ComponentModel.Container components = null;
-		private string CustomTitle="Trasferimento cespiti";
+		private string CustomTitle= "Modifica informazioni cespiti";
 		private MetaData Meta;
 		private System.Windows.Forms.Label lblFase2;
 		private System.Windows.Forms.Label label1;
@@ -130,17 +130,18 @@ namespace asset_trasferimento//beneinv_trasferimento//
 			tabController.HideTabsMode = 
 				Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
 
-			lblFase1.Text="Il processo di trasferimento di cespiti da un'ubicazione "+
-				"ad un'altra può essere eseguito specificando tutti i cespiti o parte di essi "+
+			lblFase1.Text="Il processo di modifica delle informazioni sui cespiti "+
+				"può essere eseguito specificando tutti i cespiti o parte di essi "+
 				"ricercandoli in base alle seguenti modalità:\r\n\r\n"+
 				"- per ubicazione\r\n\r\n"+
 				"- per identificativo cespite\r\n\r\n"+
 				"- per numero carico cespite\r\n\r\n"+
 				"- per numero inventario\r\n\r\n"+
-				"- per responsabile";
+				"- per responsabile\r\n\r\n" +
+				"- per subconsegnatario";
 
-			lblFase2.Text="Specificare il filtro per il trasferimento "+
-				"di tutti i cespiti o parte secondo una delle modalità sotto indicate";
+			lblFase2.Text="Specificare il filtro per la modifica delle informazioni "+
+				"di tutti i cespiti o parte secondo una delle modalità sotto riportate";
 			GetData.CacheTable(DS.manager,null,"title",true);
 			GetData.CacheTable(DS.manager1,null,"title",true);
             GetData.CacheTable(DS.managerconsegnatario, null, "title", true);
@@ -858,7 +859,7 @@ namespace asset_trasferimento//beneinv_trasferimento//
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(440, 16);
 			this.label10.TabIndex = 1;
-			this.label10.Text = "Verranno elaborati i seguenti cespiti:";
+			this.label10.Text = "Verranno modificate le informazioni sui seguenti cespiti:";
 			// 
 			// tabPage3
 			// 
@@ -1310,11 +1311,11 @@ namespace asset_trasferimento//beneinv_trasferimento//
 
 			string msg="";
 			if (txtIdUbicazione.Text.Trim()!="" && cmbResponsabile.SelectedIndex>0){
-				msg="Attenzione, verranno trasferiti i cespiti e ne sarà cambiato il responsabile in base alla "+
+				msg="Attenzione, verranno modificate le informazioni sui cespiti e ne sarà cambiato il responsabile in base alla "+
 				"modalità prescelta. Continuare?";
 			}
 			if (txtIdUbicazione.Text.Trim()!="" && cmbResponsabile.SelectedIndex<=0){
-				msg="Attenzione, verranno trasferiti i cespiti in base alla "+
+				msg="Attenzione, verranno modificate le informazioni sui cespiti in base alla "+
 				"modalità prescelta. Continuare?";
 			}
 			if (txtIdUbicazione.Text.Trim()=="" && cmbResponsabile.SelectedIndex>0){
@@ -1422,7 +1423,7 @@ namespace asset_trasferimento//beneinv_trasferimento//
 			if (Filtro==""){
                 Filtro = QHS.CmpEq("idpiece", 1);
 				return (show(
-					"Non è stato selezionato alcun filtro. Saranno trasferiti TUTTI i cespiti del patrimonio. Conferma?",
+					"Non è stato selezionato alcun filtro. Saranno modificate le informazioni di TUTTI i cespiti del patrimonio. Conferma?",
 					"Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK);
 			}
 			else {

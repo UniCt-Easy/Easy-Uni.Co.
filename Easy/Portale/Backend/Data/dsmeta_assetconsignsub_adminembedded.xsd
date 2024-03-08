@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_assetconsignsub_adminembedded" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_assetconsignsub_adminembedded" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="upb" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventorytree_alias1" msprop:TableForReading="inventorytree" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codeinv" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinv" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetacquire_alias2" msprop:TableForReading="assetacquire" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="nassetacquire" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetacquire_alias1" msprop:TableForReading="assetacquire" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="nassetacquire" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventory_alias2" msprop:TableForReading="inventory" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeinventory" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinventory" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="asset_alias2" msprop:TableForReading="asset" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idinventory" type="xs:int" minOccurs="0" />
+              <xs:element name="idpiece" type="xs:int" />
+              <xs:element name="nassetacquire" type="xs:int" minOccurs="0" />
+              <xs:element name="ninventory" type="xs:int" minOccurs="0" />
+              <xs:element name="rfid" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="location" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idlocation" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventory_alias1" msprop:TableForReading="inventory" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeinventory" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinventory" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventorytree" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codeinv" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinv" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetlocation" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idassetlocation" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetacquire" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="nassetacquire" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventory" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeinventory" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idinventory" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="asset" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idinventory" type="xs:int" minOccurs="0" />
+              <xs:element name="idpiece" type="xs:int" />
+              <xs:element name="nassetacquire" type="xs:int" minOccurs="0" />
+              <xs:element name="ninventory" type="xs:int" minOccurs="0" />
+              <xs:element name="rfid" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetconsignsubasset" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idasset" type="xs:int" />
+              <xs:element name="idassetconsignsub" type="xs:int" />
+              <xs:element name="idassetconsignsubasset" type="xs:int" />
+              <xs:element name="idassetload" type="xs:int" />
+              <xs:element name="idassetloadsub" type="xs:int" />
+              <xs:element name="idassetlocation" type="xs:int" minOccurs="0" />
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="idinventory" type="xs:int" />
+              <xs:element name="idlocation" type="xs:int" minOccurs="0" />
+              <xs:element name="idpiece" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="nassetacquire" type="xs:int" />
+              <xs:element name="_x0021_idasset_asset_ninventory" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idasset_asset_idasset" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idasset_asset_idpiece" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idasset_asset_rfid" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idasset_asset_idinventory_codeinventory" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idasset_asset_idinventory_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idasset_asset_nassetacquire_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idasset_asset_nassetacquire_idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idasset_asset_nassetacquire_idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idinv_inventorytree_codeinv" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idinv_inventorytree_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idinventory_inventory_codeinventory" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idinventory_inventory_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idlocation_location_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpiece_asset_ninventory" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idpiece_asset_idasset" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idpiece_asset_idpiece" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idpiece_asset_rfid" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpiece_asset_idinventory_codeinventory" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpiece_asset_idinventory_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpiece_asset_nassetacquire_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpiece_asset_nassetacquire_idinv" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idpiece_asset_nassetacquire_idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_nassetacquire_assetacquire_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_nassetacquire_assetacquire_idinv_codeinv" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_nassetacquire_assetacquire_idinv_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_nassetacquire_assetacquire_idupb_codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_nassetacquire_assetacquire_idupb_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="substate" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idsubstate" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="manager_alias1" msprop:TableForReading="manager" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="manager" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inventorykind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeinventorykind" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flag" type="xs:int" />
+              <xs:element name="idinv_allow" type="xs:int" minOccurs="0" />
+              <xs:element name="idinv_deny" type="xs:int" minOccurs="0" />
+              <xs:element name="idinventorykind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assetconsignsub" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idassetconsignsub" type="xs:int" />
+              <xs:element name="idassetload" type="xs:int" />
+              <xs:element name="idassetloadkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idassetloadsub" type="xs:int" />
+              <xs:element name="idinventorykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="idman_sub" type="xs:int" minOccurs="0" />
+              <xs:element name="idsubstate" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:upb" />
+      <xs:field xpath="mstns:idupb" />
+    </xs:unique>
+    <xs:unique name="inventorytree_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorytree_alias1" />
+      <xs:field xpath="mstns:idinv" />
+    </xs:unique>
+    <xs:unique name="assetacquire_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetacquire_alias2" />
+      <xs:field xpath="mstns:nassetacquire" />
+    </xs:unique>
+    <xs:unique name="assetacquire_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetacquire_alias1" />
+      <xs:field xpath="mstns:nassetacquire" />
+    </xs:unique>
+    <xs:unique name="inventory_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventory_alias2" />
+      <xs:field xpath="mstns:idinventory" />
+    </xs:unique>
+    <xs:unique name="asset_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:asset_alias2" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idpiece" />
+    </xs:unique>
+    <xs:unique name="location_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:location" />
+      <xs:field xpath="mstns:idlocation" />
+    </xs:unique>
+    <xs:unique name="inventory_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventory_alias1" />
+      <xs:field xpath="mstns:idinventory" />
+    </xs:unique>
+    <xs:unique name="inventorytree_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorytree" />
+      <xs:field xpath="mstns:idinv" />
+    </xs:unique>
+    <xs:unique name="assetlocation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetlocation" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idassetlocation" />
+    </xs:unique>
+    <xs:unique name="assetacquire_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetacquire" />
+      <xs:field xpath="mstns:nassetacquire" />
+    </xs:unique>
+    <xs:unique name="inventory_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventory" />
+      <xs:field xpath="mstns:idinventory" />
+    </xs:unique>
+    <xs:unique name="asset_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:asset" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idpiece" />
+    </xs:unique>
+    <xs:unique name="assetconsignsubasset_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetconsignsubasset" />
+      <xs:field xpath="mstns:idassetconsignsub" />
+      <xs:field xpath="mstns:idassetconsignsubasset" />
+      <xs:field xpath="mstns:idassetload" />
+      <xs:field xpath="mstns:idassetloadsub" />
+    </xs:unique>
+    <xs:unique name="substate_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:substate" />
+      <xs:field xpath="mstns:idsubstate" />
+    </xs:unique>
+    <xs:unique name="manager_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:manager_alias1" />
+      <xs:field xpath="mstns:idman" />
+    </xs:unique>
+    <xs:unique name="manager_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:manager" />
+      <xs:field xpath="mstns:idman" />
+    </xs:unique>
+    <xs:unique name="inventorykind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorykind" />
+      <xs:field xpath="mstns:idinventorykind" />
+    </xs:unique>
+    <xs:unique name="assetconsignsub_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetconsignsub" />
+      <xs:field xpath="mstns:idassetconsignsub" />
+      <xs:field xpath="mstns:idassetload" />
+      <xs:field xpath="mstns:idassetloadsub" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_assetconsignsubasset_assetconsignsub_idassetconsignsub-idassetload-idassetloadsub" msdata:parent="assetconsignsub" msdata:child="assetconsignsubasset" msdata:parentkey="idassetconsignsub idassetload idassetloadsub" msdata:childkey="idassetconsignsub idassetload idassetloadsub" />
+      <msdata:Relationship name="FK_assetconsignsubasset_assetacquire_alias2_nassetacquire" msdata:parent="assetacquire_alias2" msdata:child="assetconsignsubasset" msdata:parentkey="nassetacquire" msdata:childkey="nassetacquire" />
+      <msdata:Relationship name="FK_assetacquire_alias2_upb_idupb" msdata:parent="upb" msdata:child="assetacquire_alias2" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="FK_assetacquire_alias2_inventorytree_alias1_idinv" msdata:parent="inventorytree_alias1" msdata:child="assetacquire_alias2" msdata:parentkey="idinv" msdata:childkey="idinv" />
+      <msdata:Relationship name="FK_assetconsignsubasset_asset_alias2_idpiece" msdata:parent="asset_alias2" msdata:child="assetconsignsubasset" msdata:parentkey="idpiece" msdata:childkey="idpiece" />
+      <msdata:Relationship name="FK_asset_alias2_assetacquire_alias1_nassetacquire" msdata:parent="assetacquire_alias1" msdata:child="asset_alias2" msdata:parentkey="nassetacquire" msdata:childkey="nassetacquire" />
+      <msdata:Relationship name="FK_asset_alias2_inventory_alias2_idinventory" msdata:parent="inventory_alias2" msdata:child="asset_alias2" msdata:parentkey="idinventory" msdata:childkey="idinventory" />
+      <msdata:Relationship name="FK_assetconsignsubasset_location_idlocation" msdata:parent="location" msdata:child="assetconsignsubasset" msdata:parentkey="idlocation" msdata:childkey="idlocation" />
+      <msdata:Relationship name="FK_assetconsignsubasset_inventory_alias1_idinventory" msdata:parent="inventory_alias1" msdata:child="assetconsignsubasset" msdata:parentkey="idinventory" msdata:childkey="idinventory" />
+      <msdata:Relationship name="FK_assetconsignsubasset_inventorytree_idinv" msdata:parent="inventorytree" msdata:child="assetconsignsubasset" msdata:parentkey="idinv" msdata:childkey="idinv" />
+      <msdata:Relationship name="FK_assetconsignsubasset_assetlocation_idassetlocation" msdata:parent="assetlocation" msdata:child="assetconsignsubasset" msdata:parentkey="idassetlocation" msdata:childkey="idassetlocation" />
+      <msdata:Relationship name="FK_assetconsignsubasset_asset_idasset" msdata:parent="asset" msdata:child="assetconsignsubasset" msdata:parentkey="idasset" msdata:childkey="idasset" />
+      <msdata:Relationship name="FK_asset_assetacquire_nassetacquire" msdata:parent="assetacquire" msdata:child="asset" msdata:parentkey="nassetacquire" msdata:childkey="nassetacquire" />
+      <msdata:Relationship name="FK_asset_inventory_idinventory" msdata:parent="inventory" msdata:child="asset" msdata:parentkey="idinventory" msdata:childkey="idinventory" />
+      <msdata:Relationship name="FK_assetconsignsub_substate_idsubstate" msdata:parent="substate" msdata:child="assetconsignsub" msdata:parentkey="idsubstate" msdata:childkey="idsubstate" />
+      <msdata:Relationship name="FK_assetconsignsub_manager_alias1_idman_sub" msdata:parent="manager_alias1" msdata:child="assetconsignsub" msdata:parentkey="idman" msdata:childkey="idman_sub" />
+      <msdata:Relationship name="FK_assetconsignsub_manager_idman" msdata:parent="manager" msdata:child="assetconsignsub" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="FK_assetconsignsub_inventorykind_idinventorykind" msdata:parent="inventorykind" msdata:child="assetconsignsub" msdata:parentkey="idinventorykind" msdata:childkey="idinventorykind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

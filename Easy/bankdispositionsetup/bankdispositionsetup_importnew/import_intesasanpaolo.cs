@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2022 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -71,7 +71,7 @@ namespace bankdispositionsetup_importnew {
                 int esercizio = CfgFn.GetNoNullInt32(XFlusso["esercizio"].InnerText);
 				M.esercizioflusso = esercizio;
 				string codice_ente_BT = XFlusso["codice_ente_BT"].InnerText;
-
+                string codice_ABI_BT = XFlusso["codice_ABI_BT"].InnerText;  //  05424  Banca Popolare di Bari
                 string data_inizio_periodo_riferimento = XFlusso["data_inizio_periodo_riferimento"].InnerText;
                 string data_fine_periodo_riferimento = XFlusso["data_inizio_periodo_riferimento"].InnerText;
 
@@ -83,26 +83,47 @@ namespace bankdispositionsetup_importnew {
                         // "REVERSALE"   "MANDATO"   "SOSPESO ENTRATA"   "SOSPESO USCITA"
                         string tipo_documento = Xmovimento_conto_evidenza["tipo_documento"].InnerText;
                         string tipo_operazione = Xmovimento_conto_evidenza["tipo_operazione"].InnerText;
-
+                        
                         if (tipo_documento == "MANDATO") {
                             M.Mandati.Add(CreaRigaMandato(Xmovimento_conto_evidenza, esercizio));
                         }
-                        if (tipo_documento == "REVERSALE") {
-                            M.Reversali.Add(CreaRigaReversale(Xmovimento_conto_evidenza, esercizio));
-                        }
+						if (tipo_documento == "REVERSALE") {
+							M.Reversali.Add(CreaRigaReversale(Xmovimento_conto_evidenza, esercizio));
+						}
 
-                        if (tipo_documento == "SOSPESO ENTRATA" && (tipo_operazione == "ESEGUITO" || tipo_operazione == "STORNATO")) {
-                            M.BolletteEntrata.Add(CreaSospesoEntrata(Xmovimento_conto_evidenza, conto_evidenza, esercizio, CodiciCassiere));
-                        }
-                        if (tipo_documento == "SOSPESO USCITA" && (tipo_operazione == "ESEGUITO" || tipo_operazione == "STORNATO")) {
+						if (tipo_documento == "SOSPESO ENTRATA" && (tipo_operazione == "ESEGUITO" || tipo_operazione == "STORNATO")) {
+							M.BolletteEntrata.Add(CreaSospesoEntrata(Xmovimento_conto_evidenza, conto_evidenza, esercizio, CodiciCassiere));
+						}
+						/* Parte nuova solo ARPAL / Banca Popolare di Bari: dal momento che non c'è <numero_sospeso> 
+                         * nella sezione di regolarizzazione del mandato o della reversale
+                         * crea qua l'esito del sospeso leggendo <numero_documento>
+                         * se <numero_sospeso> è valorizzato l'esito del sospeso verrà creato contestualmente col tipo_documento == "REVERSALE"
+                         * Idem per la parte spesa.
+                         */
+						/* Parte nuova solo per 05424  Banca Popolare di Bari, che non mette il numero sospeso 
+                        * nella sezione di regolarizzazione della reversale*/
+						if (tipo_documento == "SOSPESO ENTRATA" && tipo_operazione == "REGOLARIZZATO"
+							&& (codice_ABI_BT.ToString() == "05424") /* 05424  Banca Popolare di Bari*/) {
+							EsitoProvvisorio e = CreaEsitoSospesoEntrata(Xmovimento_conto_evidenza, esercizio, CodiciCassiere);
+							if (e != null) M.EsitiBolletteEntrata.Add(e);
+						}
+
+						if (tipo_documento == "SOSPESO USCITA" && (tipo_operazione == "ESEGUITO" || tipo_operazione == "STORNATO"  )) {
                             M.BolletteSpesa.Add(CreaSospesoUscita(Xmovimento_conto_evidenza, conto_evidenza, esercizio, CodiciCassiere));
                         }
-
-                        if (tipo_documento == "REVERSALE") {
-                            EsitoProvvisorio e = CreaEsitoSospesoEntrata(Xmovimento_conto_evidenza, esercizio, CodiciCassiere);
-                            if (e != null) M.EsitiBolletteEntrata.Add(e);
+                        /* Parte nuova solo per 05424  Banca Popolare di Bari, che non mette il numero sospeso 
+                         * nella sezione di regolarizzazione del mandato*/
+                        if (tipo_documento == "SOSPESO USCITA" && tipo_operazione == "REGOLARIZZATO" 
+                            && (codice_ABI_BT.ToString() == "05424") /* 05424  Banca Popolare di Bari*/) {
+                            EsitoProvvisorio e = CreaEsitoSospesoUscita(Xmovimento_conto_evidenza, esercizio, CodiciCassiere);
+                            if (e != null) M.EsitiBolletteSpesa.Add(e);
                         }
-                        if (tipo_documento == "MANDATO" ) {
+                        object numero_sospeso = XmlHelper.AsOptionalInt(Xmovimento_conto_evidenza, "numero_sospeso");
+						if ((tipo_documento == "REVERSALE") && (numero_sospeso.ToString() != "")) {
+							EsitoProvvisorio e = CreaEsitoSospesoEntrata(Xmovimento_conto_evidenza, esercizio, CodiciCassiere);
+							if (e != null) M.EsitiBolletteEntrata.Add(e);
+						}
+						if ((tipo_documento == "MANDATO" ) && (numero_sospeso.ToString() != "") ) {
                             EsitoProvvisorio e = CreaEsitoSospesoUscita(Xmovimento_conto_evidenza, esercizio, CodiciCassiere);
                             if (e != null) M.EsitiBolletteSpesa.Add(e);
                         }
@@ -123,11 +144,12 @@ namespace bankdispositionsetup_importnew {
             object numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_sospeso");
             if (numero_sospeso.ToString() == "0") numero_sospeso = DBNull.Value;
 
-            if (numero_sospeso == DBNull.Value && tipo_operazione == "STORNATO") {
+            if (numero_sospeso == DBNull.Value && (tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO")) {
                 numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_bolletta_quietanza_storno");
             }
+            
             decimal importo = XmlHelper.AsDecimal(X, "importo");
-            if (tipo_operazione == "STORNATO" && importo > 0) {
+            if ((tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO") && importo > 0) {
                 importo = -importo;
             }
 
@@ -164,12 +186,12 @@ namespace bankdispositionsetup_importnew {
             object numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_sospeso");
             if (numero_sospeso.ToString() == "0") numero_sospeso = DBNull.Value;
 
-            if (numero_sospeso == DBNull.Value && tipo_operazione == "STORNATO") {
+            if (numero_sospeso == DBNull.Value && (tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO")) {
                 numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_bolletta_quietanza_storno");
             }
 
             decimal importo = XmlHelper.AsDecimal(X, "importo");
-            if (tipo_operazione == "STORNATO" && importo > 0) {
+            if ((tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO") && importo > 0) {
                 importo = -importo;
             }
 
@@ -224,10 +246,16 @@ namespace bankdispositionsetup_importnew {
                 data_da_considerare = data_movimento;
             else data_da_considerare = (DateTime)data_valuta_ente;
 
+            decimal importo = XmlHelper.AsDecimal(X, "importo");
 
+            string tipo_operazione = X["tipo_operazione"].InnerText;
+
+            if ((tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO") && importo > 0) {
+                importo = -importo;
+            }
             ProvvisorioEntrata R = new ProvvisorioEntrata(esercizio,
                                         XmlHelper.AsInt(X, "numero_documento"),
-                                        XmlHelper.AsDecimal(X, "importo"),
+                                        importo,
                                         causale,
                                         XmlHelper.AsString(Xreg, "anagrafica_cliente"),
                                         data_da_considerare,
@@ -253,9 +281,17 @@ namespace bankdispositionsetup_importnew {
                 data_da_considerare = data_movimento;
             else data_da_considerare = (DateTime)data_valuta_ente;
 
+            decimal importo = XmlHelper.AsDecimal(X, "importo");
+    
+            string tipo_operazione = X["tipo_operazione"].InnerText;
+
+            if ((tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO") && importo > 0) {
+                importo = -importo;
+            }
+
             ProvvisorioSpesa R = new ProvvisorioSpesa(esercizio,
                                         XmlHelper.AsInt(X, "numero_documento"),
-                                        XmlHelper.AsDecimal(X, "importo"),
+                                        importo,
                                         causale,
                                         XmlHelper.AsString(Xreg, "anagrafica_cliente"),
                                         data_da_considerare,
@@ -271,9 +307,18 @@ namespace bankdispositionsetup_importnew {
             string tipo_operazione = X["tipo_operazione"].InnerText;
 
             object numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_sospeso");
-            if (numero_sospeso.ToString() == "0") numero_sospeso = DBNull.Value;
-
-            if (numero_sospeso == DBNull.Value && tipo_operazione == "STORNATO") {
+            //if (numero_sospeso.ToString() == "0") numero_sospeso = DBNull.Value;
+            
+            if ((numero_sospeso.ToString() == "0") || (numero_sospeso.ToString() == "")){
+                numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_documento");
+            }
+            if ((numero_sospeso.ToString() == "0") || (numero_sospeso.ToString() == "")) {
+                numero_sospeso = DBNull.Value;
+            }
+            if ((tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO") && importo > 0) {
+                importo = -importo;
+            }
+            if (numero_sospeso == DBNull.Value && (tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO")) {
                 numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_bolletta_quietanza_storno");
             }
             if (numero_sospeso.ToString() == "0") numero_sospeso = DBNull.Value;
@@ -293,15 +338,25 @@ namespace bankdispositionsetup_importnew {
         static EsitoProvvisorio CreaEsitoSospesoUscita(XmlNode X, int esercizio, List<string> CodiciCassiere) {
             decimal importo = XmlHelper.AsDecimal(X, "importo");
 
+         
             string tipo_documento = X["tipo_documento"].InnerText;
             string tipo_operazione = X["tipo_operazione"].InnerText;
-
+            if ((tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO") && importo > 0) {
+                importo = -importo;
+            }
             object numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_sospeso");
-            if (numero_sospeso.ToString() == "0") numero_sospeso = DBNull.Value;
+            //if (numero_sospeso.ToString() == "0") numero_sospeso = DBNull.Value;
 
-            if (numero_sospeso == DBNull.Value && tipo_operazione == "STORNATO") {
+            if ((numero_sospeso.ToString() == "0") || (numero_sospeso.ToString() == "")) {
+                numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_documento");
+            }
+            if ((numero_sospeso.ToString() == "0") || (numero_sospeso.ToString() == "")) {
+                numero_sospeso = DBNull.Value;
+            }
+            if (numero_sospeso == DBNull.Value && (tipo_operazione == "STORNATO" || tipo_operazione == "RIPRISTINATO")) {
                 numero_sospeso = XmlHelper.AsOptionalInt(X, "numero_bolletta_quietanza_storno");
             }
+
             if (numero_sospeso.ToString() == "0") numero_sospeso = DBNull.Value;
             if (numero_sospeso == DBNull.Value) return null;
 
