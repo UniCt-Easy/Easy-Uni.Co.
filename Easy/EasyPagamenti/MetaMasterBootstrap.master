@@ -1,0 +1,193 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MetaMasterBootstrap.master.cs" Inherits="MetaMasterBootstrap" %>
+<%@ Register Assembly="HelpWeb" Namespace="HelpWeb" TagPrefix="cc1" %>
+<!DOCTYPE html>
+<html>
+<head id="Head1" runat="server">
+    <title>Easy Pagamenti</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=EDGE" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+
+    <link type="text/css" href="css/masterbootstrap.css" rel="stylesheet" />
+
+    <link type="text/css" href="css/custom-theme/jquery-ui-1.11.4.custom.min.css" rel="stylesheet" />
+    <link type="text/css" href="css/jquery.pgrid.default.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"-->
+
+    <link type="text/css" href="css/sm-core-css.css" rel="stylesheet" />
+    <link type="text/css" href="css/sm-blue.css" rel="stylesheet" />
+
+    <link type="text/css" href="css/custom.css?v=1" rel="stylesheet" />
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<!--Commentare la riga che segue per abilitare il menù contestuale su tutte le pagine-->
+<!--Decommentare la successiva in caso di debug o si necessiti di visualizzare il sorgente HTML-->
+<!--body oncontextmenu="return false;" -->
+<body>
+	<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.11.4.js"></script>
+    <script type="text/javascript" src="js/jquery.pgrid.min.js"></script>    
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src ="js/jquery.smartmenus.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/allmine.js"></script>
+	
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <form id="form1" runat="server" >
+        <asp:Button ID="btnAllSubmit" runat="server" UseSubmitBehaviour="false"  OnClick="btnAllSubmit_Click" Style="visibility:hidden; display:none;" />
+
+        <div align="center" tabindex="-1" style="margin-top: 0; margin-bottom: 0;">
+            <table border="0" tabindex="-1" width="100%" id="tableTotale" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td valign="top" style="width: 100%">
+                        
+                        <asp:ContentPlaceHolder ID="CPH_A0" runat="server">
+                            <table border="0" width="100%" id="table5" class ="hidden-xs" cellspacing="0" cellpadding="0" height="87">
+                                <tr>
+                                    <td style="background-image: url('Immagini/Intestazione_Left.jpg'); background-repeat: no-repeat; background-position: left top; background-size: cover;" width="32">&nbsp;</td>
+                                    <td width="140">
+                                        <img src="Logo/Logo.jpg?v=1" alt="logo" border="0" height="80" id="ImgLogoUniversita" tabindex="-1"/>
+                                    </td>
+                                    <td align="left" tabindex="-1" style="background-image: url('Immagini/logo_tempo_easyweb.jpg'); background-repeat: no-repeat; background-position: right top">
+                                        <asp:Label ID="lblTitoloUniversita1" runat="server" Text="" Font-Size="X-Large"></asp:Label>
+                                        <br />
+                                        <asp:Label ID="lblDipartimento" runat="server" tabindex="-1" Text="Dipartimento" Font-Size="X-Large"></asp:Label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </asp:ContentPlaceHolder>
+
+                        <asp:ContentPlaceHolder ID="CPH_MainMenu" runat="server">
+                            <table border="0" width="100%" id="table3" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td style="background-image: url('Immagini/Fondo_Barra_Strumenti.jpg'); background-size: contain; background-repeat: repeat-x; background-position: left top; padding: 2px; height: 36px;">
+                                        <table border="0" tabindex="-1" width="100%" id="table6" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td align="left" style="width: 69%">
+                                                    <div id="ToolBar_Div" class="bottoniprincipali" TabIndex="-1" style="margin-left: 30px;" runat="server">
+                                                        <asp:Panel ID="PanToolBar" runat="server">
+                                                            <cc1:hwButton ID="HwButton1"  UseSubmitBehavior="False" data-btnmaincmd="mainsetsearch"  Visible="false" runat="server" Tag="mainsetsearch" Text="Imposta Ricerca"></cc1:hwButton>
+                                                            <cc1:hwButton ID="HwButton2" UseSubmitBehavior="False" data-btnmaincmd="maindosearch"  Visible="false" runat="server" Tag="maindosearch" Text="Effettua ricerca"  ></cc1:hwButton>
+                                                            <cc1:hwButton ID="HwButton3" UseSubmitBehavior="False" data-btnmaincmd="maininsert"  Visible="false" runat="server" Tag="maininsert" Text="Inserisci"  ></cc1:hwButton>
+                                                            <cc1:hwButton ID="HwButton8" UseSubmitBehavior="False" data-btnmaincmd="maininsertcopy"  Visible="false" runat="server" Tag="maininsertcopy" Text="Inserisci Copia"  ></cc1:hwButton>
+                                                            <cc1:hwButton ID="HwButton4"  UseSubmitBehavior="False" data-btnmaincmd="mainsave"  Visible="false" runat="server" Tag="mainsave" Text="Salva" />
+                                                            <cc1:hwButton ID="HwButton9"  UseSubmitBehavior="False" data-btnmaincmd="showlast" Visible="false" runat="server" Tag="showlast" Text="Info" />
+                                                            <cc1:hwButton ID="HwButton7" UseSubmitBehavior="False" data-btnmaincmd="mainselect"  Visible="false" runat="server" Tag="mainselect" Text="Seleziona"  />
+                                                            <cc1:hwButton ID="HwButton5"  UseSubmitBehavior="False" data-btnmaincmd="maindelete"  Visible="false" runat="server" Tag="maindelete" Text="Elimina"  />
+                                                            <cc1:hwButton ID="HwButton6"  UseSubmitBehavior="False" data-btnmaincmd="mainclose" Visible="false" runat="server" Tag="mainclose" Text="Chiudi" />
+                                                            <asp:ImageButton runat="server" ID="btnMenuInfo" TabIndex="-1" Visible="false" ImageUrl="Immagini/Info1.jpg" AlternateText="Info"
+                                                                BorderWidth="0" OnClick="btnMenuInfo_Click" />
+                                                        </asp:Panel>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 30%" align="left">
+                                                    <asp:ContentPlaceHolder ID="CPH_InfoUtente" runat="server">
+                                                        Utente:
+                                                        <asp:Label ID="lblNomeUtente" runat="server" Text=""></asp:Label>
+                                                        &nbsp; &nbsp; Ruolo:
+                                                        <asp:Label ID="lblRuolo" runat="server" Text=""></asp:Label>
+                                                        &nbsp; &nbsp; <a href="GuidaEasyWeb.pdf" tabindex="-1" onclick="window.open(this.href);return false;" title="Manuale">Help</a>
+                                                    </asp:ContentPlaceHolder>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="CHP_PC_DIV"  class="container" runat="server">
+            <asp:ContentPlaceHolder ID="CHP_PC" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+
+        <asp:TextBox ID="TxSavedFocus" CssClass="savefocus" runat="server" Style="display: none;"  TabIndex ="-1" ></asp:TextBox>
+        
+
+        <div  id="Div_CHPList" runat="server" style="display: block; width: 800px;margin-top:30px;margin-right:auto; margin-left:auto;" >
+            <asp:ContentPlaceHolder ID="CHP_List" runat="server">               
+            </asp:ContentPlaceHolder>
+        </div>
+
+
+        <asp:TextBox ID="PreservePreviousValue" runat="server" Style="display: none;" Width="1px"></asp:TextBox>
+        <asp:TextBox ID="PreviousValue" runat="server" Style="display: none;" Width="1px"></asp:TextBox>
+
+
+        <asp:ContentPlaceHolder ID="CHP_CM" runat="server">
+        </asp:ContentPlaceHolder>
+
+
+        <div id="CHP_BR_DIV" runat="server" class="Rules" visible="false">
+            <asp:ContentPlaceHolder ID="CHP_BR" runat="server">
+                <!-- qui vengono inserite le business rule !-->
+            </asp:ContentPlaceHolder>
+        </div>
+
+        
+        <div id="CHP_TB_BR" runat="server" >
+            <asp:ContentPlaceHolder runat="server" ID="CHP_TB"></asp:ContentPlaceHolder>
+        </div>
+
+    </form>
+    
+    <script type="text/javascript">
+		var MetaMasterUsingBootstrap = true;
+		var JQueryButton = $.button;
+	</script>
+
+
+    <asp:ContentPlaceHolder ID="JScriptBeforeLibs" runat="server">
+        <script type="text/javascript">
+			/* INTUIT */
+		</script>
+    </asp:ContentPlaceHolder>
+    
+
+    <asp:ContentPlaceHolder ID="JScriptAfterLibs" runat="server">
+         <script type="text/javascript">
+			 /* INTUIT */
+             //var btn = $.fn.button.noConflict() // reverts $.fn.button to jqueryui btn
+             //$.fn.btn = btn // assigns bootstrap button functionality to $.fn.btn
+		 </script>
+    </asp:ContentPlaceHolder>
+
+
+    <script>
+		$("input[name*='txtData']").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1900:2050',
+			closeText: 'Chiudi',
+			prevText: 'Prec',
+			nextText: 'Succ',
+			currentText: 'Oggi',
+			monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+			monthNamesShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+			dayNames: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
+			dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
+			dayNamesMin: ['Do', 'Lu', 'Ma', 'Me', 'Gio', 'Ve', 'Sa'],
+			dateFormat: 'dd/mm/yy',
+			firstDay: 1,
+			isRTL: false
+		});
+		$(".accordion").accordion({
+			collapsible: true,
+			active: false
+		});
+	</script>
+</body>
+</html>

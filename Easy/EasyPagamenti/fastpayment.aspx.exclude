@@ -1,0 +1,15 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MetaMasterBootstrap.master" AutoEventWireup="true" CodeFile="fastpayment.aspx.cs" Inherits="fastpayment" %>
+<%@ Register Assembly="HelpWeb" Namespace="HelpWeb" TagPrefix="cc1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="CHP_PC" runat="Server">
+
+                <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6">
+                    <cc1:hwButton ID="Pagamento" runat="server" Tag="ProcediAlPagamento" Text="Procedi al Pagamento"></cc1:hwButton>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+
+    </asp:Content>
