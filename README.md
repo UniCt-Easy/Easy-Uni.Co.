@@ -31,5 +31,4 @@ Dal menu file > Configurazione TECNICA , è possibile creare un database vuoto. 
 del tasto F1, per comprendere come impostare le diverse migliaia di parametri di configurazione. La fase di configurazione è indispensabile per il corretto
 funzionamento dell'applicativo. 
 
-Software con esperienza nella manutenzione 
-Si consiglia di contattare la Tempo S.r.l. www.temposrl.com
+In caso di necessità è consigliabile contattare la Tempo S.r.l. www.temposrl.com, oppure aprire una Issue
