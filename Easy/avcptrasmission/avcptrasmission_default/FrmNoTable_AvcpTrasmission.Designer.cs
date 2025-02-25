@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -62,7 +62,6 @@ namespace avcptrasmission_default {
             this.btnGenera = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this._folderAsk = new System.Windows.Forms.FolderBrowserDialog();
-            this.folderAsk = createFolderBrowserDialog(_folderAsk);
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabInformazioni = new System.Windows.Forms.TabPage();
             this.tabAvvisi = new System.Windows.Forms.TabPage();

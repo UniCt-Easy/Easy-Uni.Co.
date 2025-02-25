@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_classescuola_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_classescuola_default: DataSet {
+public partial class dsmeta_classescuola_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -162,7 +162,6 @@ private void initClass() {
 	var tclassescuolakinddefaultview= new MetaTable("classescuolakinddefaultview");
 	tclassescuolakinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tclassescuolakinddefaultview.defineColumn("idclassescuolakind", typeof(string),false);
-	tclassescuolakinddefaultview.defineColumn("idcorsostudiolivello", typeof(int));
 	Tables.Add(tclassescuolakinddefaultview);
 	tclassescuolakinddefaultview.defineKey("idclassescuolakind");
 
@@ -185,6 +184,7 @@ private void initClass() {
 	tclassescuola.defineColumn("obbform", typeof(string));
 	tclassescuola.defineColumn("prospocc", typeof(string));
 	tclassescuola.defineColumn("sigla", typeof(string));
+	tclassescuola.defineColumn("tipoente", typeof(string));
 	tclassescuola.defineColumn("title", typeof(string),false);
 	Tables.Add(tclassescuola);
 	tclassescuola.defineKey("idclassescuola");

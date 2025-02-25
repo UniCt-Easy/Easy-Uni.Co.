@@ -32,6 +32,7 @@
 		scheduler_title: "Configurazione scheduler",
 		scheduler_missing_fields: "Devi compilare tutti i campi",
 		scheduler_max_hour_to_insert: "Numero massimo di ore da inserire",
+		scheduler_out_of_range: "Date al di fuori dei limiti consentiti",
 		scheduler_running: "Creazione scheduler...",
 		scheduler_done: "Scheduler configurato. Premi <strong>Salva</strong> sulla pagina principale per salvare la nuova distribuzione ore",
 		schedulerLogMaxHourPerDay: "Per il giorno <strong>S%currday%S</strong> non ci sono abbastanza ore disponibili. " +

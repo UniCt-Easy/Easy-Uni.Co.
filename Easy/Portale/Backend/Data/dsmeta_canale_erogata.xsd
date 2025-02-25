@@ -98,30 +98,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="getdocentiperssd" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="aa" type="xs:string" />
-              <xs:element name="cognome" type="xs:string" minOccurs="0" />
-              <xs:element name="contratto" type="xs:string" />
-              <xs:element name="costoorario" type="xs:decimal" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idsasd" type="xs:int" />
-              <xs:element name="iniziocontratto" type="xs:dateTime" />
-              <xs:element name="matricola" type="xs:string" minOccurs="0" />
-              <xs:element name="nome" type="xs:string" minOccurs="0" />
-              <xs:element name="oremaxdida" type="xs:int" minOccurs="0" />
-              <xs:element name="oremindida" type="xs:int" minOccurs="0" />
-              <xs:element name="oreperaaaffidamento" type="xs:int" minOccurs="0" />
-              <xs:element name="oreperaacontratto" type="xs:int" minOccurs="0" />
-              <xs:element name="parttime" type="xs:decimal" minOccurs="0" />
-              <xs:element name="ssd" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" minOccurs="0" />
-              <xs:element name="tempodefinito" type="xs:string" />
-              <xs:element name="terminecontratto" type="xs:dateTime" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="affidamentoattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -171,6 +147,7 @@
               <xs:element name="stage" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="titolo" type="xs:string" minOccurs="0" />
               <xs:element name="visita" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -274,73 +251,8 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="active" type="xs:string" />
-              <xs:element name="annotation" type="xs:string" minOccurs="0" />
-              <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
-              <xs:element name="badgecode" type="xs:string" minOccurs="0" />
-              <xs:element name="birthdate" type="xs:dateTime" />
-              <xs:element name="ccp" type="xs:string" minOccurs="0" />
-              <xs:element name="cf" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="email_fe" type="xs:string" minOccurs="0" />
-              <xs:element name="extension" type="xs:string" minOccurs="0" />
-              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
-              <xs:element name="flag_pa" type="xs:string" minOccurs="0" />
-              <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
-              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
-              <xs:element name="forename" type="xs:string" />
-              <xs:element name="gender" type="xs:string" />
-              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
-              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
-              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcity" type="xs:int" />
-              <xs:element name="idexternal" type="xs:int" minOccurs="0" />
-              <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
-              <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
-              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
-              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
-              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
-              <xs:element name="location" type="xs:string" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="maritalsurname" type="xs:string" minOccurs="0" />
-              <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
-              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
-              <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
-              <xs:element name="residence" type="xs:int" />
-              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
-              <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
-              <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
-              <xs:element name="surname" type="xs:string" />
               <xs:element name="title" type="xs:string" />
-              <xs:element name="toredirect" type="xs:int" minOccurs="0" />
-              <xs:element name="txt" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="registry_docenti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="cv" type="xs:string" minOccurs="0" />
-              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
-              <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
-              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
-              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
-              <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="matricola" type="xs:string" minOccurs="0" />
-              <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
-              <xs:element name="soggiorno" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -403,7 +315,7 @@
               <xs:element name="urlcorso" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idaffidamentokind_affidamentokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_iderogazkind_erogazkind_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_docenti_registry_docenti_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_docenti_registry_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_affidamentocaratteristica" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -496,11 +408,6 @@
       <xs:field xpath="mstns:iddidprogporzanno" />
       <xs:field xpath="mstns:idmutuazione" />
     </xs:unique>
-    <xs:unique name="getdocentiperssd_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getdocentiperssd" />
-      <xs:field xpath="mstns:aa" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
     <xs:unique name="affidamentoattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:affidamentoattach" />
       <xs:field xpath="mstns:aa" />
@@ -583,10 +490,6 @@
       <xs:selector xpath=".//mstns:registry" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
-    <xs:unique name="registry_docenti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry_docenti" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
     <xs:unique name="erogazkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:erogazkind" />
       <xs:field xpath="mstns:iderogazkind" />
@@ -632,7 +535,6 @@
       <msdata:Relationship name="FK_mutuazionecaratteristicaora_mutuazionecaratteristica_aa-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idmutuazione-idmutuazionecaratteristica" msdata:parent="mutuazionecaratteristica" msdata:child="mutuazionecaratteristicaora" msdata:parentkey="aa idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idmutuazione idmutuazionecaratteristica" msdata:childkey="aa idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idmutuazione idmutuazionecaratteristica" />
       <msdata:Relationship name="FK_mutuazione_canale_alias1_idcanale_from" msdata:parent="canale_alias1" msdata:child="mutuazione" msdata:parentkey="idcanale" msdata:childkey="idcanale_from" />
       <msdata:Relationship name="FK_affidamento_canale_aa-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="canale" msdata:child="affidamento" msdata:parentkey="aa idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
-      <msdata:Relationship name="FK_getdocentiperssd_affidamento_aa-idreg" msdata:parent="affidamento" msdata:child="getdocentiperssd" msdata:parentkey="aa idreg_docenti" msdata:childkey="aa idreg" />
       <msdata:Relationship name="FK_affidamentoattach_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="affidamento" msdata:child="affidamentoattach" msdata:parentkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
       <msdata:Relationship name="FK_lezione_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="affidamento" msdata:child="lezione" msdata:parentkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
       <msdata:Relationship name="FK_affidamentocaratteristica_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="affidamento" msdata:child="affidamentocaratteristica" msdata:parentkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
@@ -642,7 +544,6 @@
       <msdata:Relationship name="FK_affidamentocaratteristica_sasd_idsasd" msdata:parent="sasd" msdata:child="affidamentocaratteristica" msdata:parentkey="idsasd" msdata:childkey="idsasd" />
       <msdata:Relationship name="FK_affidamentocaratteristica_ambitoareadisc_idambitoareadisc" msdata:parent="ambitoareadisc" msdata:child="affidamentocaratteristica" msdata:parentkey="idambitoareadisc" msdata:childkey="idambitoareadisc" />
       <msdata:Relationship name="FK_affidamento_registry_idreg_docenti" msdata:parent="registry" msdata:child="affidamento" msdata:parentkey="idreg" msdata:childkey="idreg_docenti" />
-      <msdata:Relationship name="FK_registry_docenti_registry_idreg" msdata:parent="registry" msdata:child="registry_docenti" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_affidamento_erogazkind_iderogazkind" msdata:parent="erogazkind" msdata:child="affidamento" msdata:parentkey="iderogazkind" msdata:childkey="iderogazkind" />
       <msdata:Relationship name="FK_affidamento_affidamentokind_idaffidamentokind" msdata:parent="affidamentokind" msdata:child="affidamento" msdata:parentkey="idaffidamentokind" msdata:childkey="idaffidamentokind" />
       <msdata:Relationship name="FK_canale_sede_idsede" msdata:parent="sede" msdata:child="canale" msdata:parentkey="idsede" msdata:childkey="idsede" />

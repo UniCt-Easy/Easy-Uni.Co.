@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,10 +33,17 @@ namespace config_default
     public partial class Frm_config_default : MetaDataForm
     {
         public MetaData Meta;
+
+        public IOpenFileDialog dlgSceltaProgramma;
+
         public Frm_config_default()
         {
             InitializeComponent();
             CanGoEdit = true;
+            
+            dlgSceltaProgramma = createOpenFileDialog(_dlgSceltaProgramma);
+            dlgSceltaProgramma.Title = "Seleziona il programma per la trasmissione";
+
             HelpForm.SetDenyNull(DS.config.Columns["proceeds_flag"], true);
             HelpForm.SetDenyNull(DS.config.Columns["payment_flag"], true);
             // ASSET

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -77,6 +77,9 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwriting 		=> Tables["underwriting"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expensevarattachment 		=> Tables["expensevarattachment"];
+
 	#endregion
 
 
@@ -144,6 +147,7 @@ private void initClass() {
 	texpensevar.Columns.Add( new DataColumn("amount", typeof(decimal)));
 	texpensevar.Columns.Add( new DataColumn("doc", typeof(string)));
 	texpensevar.Columns.Add( new DataColumn("autokind", typeof(byte)));
+	texpensevar.Columns.Add( new DataColumn("autocode", typeof(int)));
 	texpensevar.Columns.Add( new DataColumn("idpayment", typeof(int)));
 	texpensevar.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
 	C= new DataColumn("adate", typeof(DateTime));
@@ -1042,6 +1046,28 @@ private void initClass() {
 	tunderwriting.PrimaryKey =  new DataColumn[]{tunderwriting.Columns["idunderwriting"]};
 
 
+	//////////////////// EXPENSEVARATTACHMENT /////////////////////////////////
+	var texpensevarattachment= new DataTable("expensevarattachment");
+	C= new DataColumn("idexp", typeof(int));
+	C.AllowDBNull=false;
+	texpensevarattachment.Columns.Add(C);
+	C= new DataColumn("nvar", typeof(int));
+	C.AllowDBNull=false;
+	texpensevarattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	texpensevarattachment.Columns.Add(C);
+	texpensevarattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	texpensevarattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	texpensevarattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	texpensevarattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	texpensevarattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	texpensevarattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	texpensevarattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(texpensevarattachment);
+	texpensevarattachment.PrimaryKey =  new DataColumn[]{texpensevarattachment.Columns["idexp"], texpensevarattachment.Columns["nvar"], texpensevarattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -1105,6 +1131,10 @@ private void initClass() {
 	cPar = new []{underwriting.Columns["idunderwriting"]};
 	cChild = new []{expensevar.Columns["idunderwriting"]};
 	Relations.Add(new DataRelation("FK_underwriting_expensevar",cPar,cChild,false));
+
+	cPar = new []{expensevar.Columns["idexp"], expensevar.Columns["nvar"]};
+	cChild = new []{expensevarattachment.Columns["idexp"], expensevarattachment.Columns["nvar"]};
+	Relations.Add(new DataRelation("expensevar_expensevarattachment",cPar,cChild,false));
 
 	#endregion
 

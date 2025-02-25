@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -89,6 +89,7 @@ namespace mandatedetail_default {
             DataAccess.SetTableForReading(DS.expense_iva, "expense");
             DataAccess.SetTableForReading(DS.accmotiveannulment, "accmotive");
             DataAccess.SetTableForReading(DS.upb_iva, "upb");
+            DataAccess.SetTableForReading(DS.epexp_pre, "epexp");
             //string filterEpOperation = QHS.CmpEq("idepoperation", "fatacq"); 
             //DS.accmotiveapplied.ExtendedProperties[MetaData.ExtraParams] = filterEpOperation; 
             //GetData.SetStaticFilter(DS.accmotiveapplied, filterEpOperation);
@@ -319,6 +320,8 @@ namespace mandatedetail_default {
             grpPcc.Enabled = abilita;
             txtEsercIxBudget.ReadOnly = readOnly;
             txtNumIxBudget.ReadOnly = readOnly;
+            txtNumPreimpegno.ReadOnly = readOnly;
+            txtEsercPreImpegno.ReadOnly = readOnly;
         }
         void SetGBoxClass(int num, object sortingkind)
         {

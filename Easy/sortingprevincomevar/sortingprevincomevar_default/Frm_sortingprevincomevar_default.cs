@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,6 +53,12 @@ namespace sortingprevincomevar_default//varclassmovimentientrate//
 		public string param;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.GroupBox groupBox3;
+		private GroupBox groupBox4;
+		private DataGrid dataGridAllegati;
+		private Button btnDelAtt;
+		private Button btnEditAtt;
+		private Button btnInsAtt;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -92,244 +98,311 @@ namespace sortingprevincomevar_default//varclassmovimentientrate//
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_sortingprevincomevar_default));
-            this.txtNumero = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtEsercizio = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.grpClassificazione = new System.Windows.Forms.GroupBox();
-            this.txtDescrClass = new System.Windows.Forms.TextBox();
-            this.txtCodiceClass = new System.Windows.Forms.TextBox();
-            this.btnClassificazione = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtDataContabile = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtDescrizione = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rdbDiminuzione = new System.Windows.Forms.RadioButton();
-            this.rdbAumento = new System.Windows.Forms.RadioButton();
-            this.txtImporto = new System.Windows.Forms.TextBox();
-            this.DS = new sortingprevincomevar_default.vistaForm();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.grpClassificazione.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // txtNumero
-            // 
-            this.txtNumero.Location = new System.Drawing.Point(240, 24);
-            this.txtNumero.Name = "txtNumero";
-            this.txtNumero.Size = new System.Drawing.Size(100, 20);
-            this.txtNumero.TabIndex = 1;
-            this.txtNumero.Tag = "sortingprevincomevar.nvar?sortingprevincomevarview.nvar";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(176, 24);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 16);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Numero:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtEsercizio
-            // 
-            this.txtEsercizio.Location = new System.Drawing.Point(72, 24);
-            this.txtEsercizio.Name = "txtEsercizio";
-            this.txtEsercizio.ReadOnly = true;
-            this.txtEsercizio.Size = new System.Drawing.Size(56, 20);
-            this.txtEsercizio.TabIndex = 5;
-            this.txtEsercizio.TabStop = false;
-            this.txtEsercizio.Tag = "sortingprevincomevar.yvar?sortingprevincomevarview.yvar";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(8, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 16);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Esercizio:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // grpClassificazione
-            // 
-            this.grpClassificazione.Controls.Add(this.txtDescrClass);
-            this.grpClassificazione.Controls.Add(this.txtCodiceClass);
-            this.grpClassificazione.Controls.Add(this.btnClassificazione);
-            this.grpClassificazione.Location = new System.Drawing.Point(8, 64);
-            this.grpClassificazione.Name = "grpClassificazione";
-            this.grpClassificazione.Size = new System.Drawing.Size(352, 96);
-            this.grpClassificazione.TabIndex = 2;
-            this.grpClassificazione.TabStop = false;
-            this.grpClassificazione.Tag = "AutoManage.txtCodiceClass.tree";
-            this.grpClassificazione.Text = "Classificazione";
-            // 
-            // txtDescrClass
-            // 
-            this.txtDescrClass.Location = new System.Drawing.Point(128, 24);
-            this.txtDescrClass.Multiline = true;
-            this.txtDescrClass.Name = "txtDescrClass";
-            this.txtDescrClass.ReadOnly = true;
-            this.txtDescrClass.Size = new System.Drawing.Size(192, 56);
-            this.txtDescrClass.TabIndex = 5;
-            this.txtDescrClass.TabStop = false;
-            this.txtDescrClass.Tag = "sortingview.description";
-            // 
-            // txtCodiceClass
-            // 
-            this.txtCodiceClass.Location = new System.Drawing.Point(16, 56);
-            this.txtCodiceClass.Name = "txtCodiceClass";
-            this.txtCodiceClass.Size = new System.Drawing.Size(100, 20);
-            this.txtCodiceClass.TabIndex = 4;
-            this.txtCodiceClass.Tag = "sortingview.sortcode?sortingprevincomevarview.sortcode";
-            // 
-            // btnClassificazione
-            // 
-            this.btnClassificazione.Image = ((System.Drawing.Image)(resources.GetObject("btnClassificazione.Image")));
-            this.btnClassificazione.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClassificazione.Location = new System.Drawing.Point(16, 24);
-            this.btnClassificazione.Name = "btnClassificazione";
-            this.btnClassificazione.Size = new System.Drawing.Size(104, 23);
-            this.btnClassificazione.TabIndex = 0;
-            this.btnClassificazione.TabStop = false;
-            this.btnClassificazione.Tag = "manage.sortingview.tree";
-            this.btnClassificazione.Text = "Classificazione:";
-            this.btnClassificazione.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(8, 168);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(88, 24);
-            this.label5.TabIndex = 25;
-            this.label5.Text = "Data contabile:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataContabile
-            // 
-            this.txtDataContabile.Location = new System.Drawing.Point(104, 168);
-            this.txtDataContabile.Name = "txtDataContabile";
-            this.txtDataContabile.Size = new System.Drawing.Size(96, 20);
-            this.txtDataContabile.TabIndex = 3;
-            this.txtDataContabile.Tag = "sortingprevincomevar.adate?sortingprevincomevarview.adate";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(8, 24);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 24);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "Descrizione:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDescrizione
-            // 
-            this.txtDescrizione.Location = new System.Drawing.Point(104, 24);
-            this.txtDescrizione.Multiline = true;
-            this.txtDescrizione.Name = "txtDescrizione";
-            this.txtDescrizione.Size = new System.Drawing.Size(240, 64);
-            this.txtDescrizione.TabIndex = 1;
-            this.txtDescrizione.Tag = "sortingprevincomevar.description?sortingprevincomevarview.description";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rdbDiminuzione);
-            this.groupBox2.Controls.Add(this.rdbAumento);
-            this.groupBox2.Controls.Add(this.txtImporto);
-            this.groupBox2.Location = new System.Drawing.Point(8, 96);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(336, 64);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Tag = "sortingprevincomevar.amount.valuesigned";
-            this.groupBox2.Text = "Importo";
-            // 
-            // rdbDiminuzione
-            // 
-            this.rdbDiminuzione.Location = new System.Drawing.Point(240, 38);
-            this.rdbDiminuzione.Name = "rdbDiminuzione";
-            this.rdbDiminuzione.Size = new System.Drawing.Size(88, 16);
-            this.rdbDiminuzione.TabIndex = 3;
-            this.rdbDiminuzione.Tag = "-";
-            this.rdbDiminuzione.Text = "Diminuzione";
-            // 
-            // rdbAumento
-            // 
-            this.rdbAumento.Checked = true;
-            this.rdbAumento.Location = new System.Drawing.Point(240, 14);
-            this.rdbAumento.Name = "rdbAumento";
-            this.rdbAumento.Size = new System.Drawing.Size(88, 16);
-            this.rdbAumento.TabIndex = 2;
-            this.rdbAumento.TabStop = true;
-            this.rdbAumento.Tag = "+";
-            this.rdbAumento.Text = "Aumento";
-            // 
-            // txtImporto
-            // 
-            this.txtImporto.Location = new System.Drawing.Point(24, 25);
-            this.txtImporto.Name = "txtImporto";
-            this.txtImporto.Size = new System.Drawing.Size(128, 20);
-            this.txtImporto.TabIndex = 1;
-            this.txtImporto.Tag = "sortingprevincomevar.amount?sortingprevincomevarview.amount";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.txtNumero);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtEsercizio);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(8, 8);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(352, 48);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Variazione budget dei ricavi";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.txtDescrizione);
-            this.groupBox3.Controls.Add(this.groupBox2);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtDataContabile);
-            this.groupBox3.Location = new System.Drawing.Point(8, 168);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(352, 200);
-            this.groupBox3.TabIndex = 3;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Dati Contabili";
-            // 
-            // Frm_sortingprevincomevar_default
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(370, 376);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.grpClassificazione);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "Frm_sortingprevincomevar_default";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmvarclassmovimentientrate";
-            this.grpClassificazione.ResumeLayout(false);
-            this.grpClassificazione.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.ResumeLayout(false);
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_sortingprevincomevar_default));
+			this.txtNumero = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtEsercizio = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.grpClassificazione = new System.Windows.Forms.GroupBox();
+			this.txtDescrClass = new System.Windows.Forms.TextBox();
+			this.txtCodiceClass = new System.Windows.Forms.TextBox();
+			this.btnClassificazione = new System.Windows.Forms.Button();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtDataContabile = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtDescrizione = new System.Windows.Forms.TextBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.rdbDiminuzione = new System.Windows.Forms.RadioButton();
+			this.rdbAumento = new System.Windows.Forms.RadioButton();
+			this.txtImporto = new System.Windows.Forms.TextBox();
+			this.DS = new sortingprevincomevar_default.vistaForm();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
+			this.grpClassificazione.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox1.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.groupBox4.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// txtNumero
+			// 
+			this.txtNumero.Location = new System.Drawing.Point(240, 24);
+			this.txtNumero.Name = "txtNumero";
+			this.txtNumero.Size = new System.Drawing.Size(100, 20);
+			this.txtNumero.TabIndex = 1;
+			this.txtNumero.Tag = "sortingprevincomevar.nvar?sortingprevincomevarview.nvar";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(176, 24);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(64, 16);
+			this.label2.TabIndex = 6;
+			this.label2.Text = "Numero:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtEsercizio
+			// 
+			this.txtEsercizio.Location = new System.Drawing.Point(72, 24);
+			this.txtEsercizio.Name = "txtEsercizio";
+			this.txtEsercizio.ReadOnly = true;
+			this.txtEsercizio.Size = new System.Drawing.Size(56, 20);
+			this.txtEsercizio.TabIndex = 5;
+			this.txtEsercizio.TabStop = false;
+			this.txtEsercizio.Tag = "sortingprevincomevar.yvar?sortingprevincomevarview.yvar";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(8, 24);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(64, 16);
+			this.label1.TabIndex = 4;
+			this.label1.Text = "Esercizio:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// grpClassificazione
+			// 
+			this.grpClassificazione.Controls.Add(this.txtDescrClass);
+			this.grpClassificazione.Controls.Add(this.txtCodiceClass);
+			this.grpClassificazione.Controls.Add(this.btnClassificazione);
+			this.grpClassificazione.Location = new System.Drawing.Point(8, 64);
+			this.grpClassificazione.Name = "grpClassificazione";
+			this.grpClassificazione.Size = new System.Drawing.Size(352, 96);
+			this.grpClassificazione.TabIndex = 2;
+			this.grpClassificazione.TabStop = false;
+			this.grpClassificazione.Tag = "AutoManage.txtCodiceClass.tree";
+			this.grpClassificazione.Text = "Classificazione";
+			// 
+			// txtDescrClass
+			// 
+			this.txtDescrClass.Location = new System.Drawing.Point(128, 24);
+			this.txtDescrClass.Multiline = true;
+			this.txtDescrClass.Name = "txtDescrClass";
+			this.txtDescrClass.ReadOnly = true;
+			this.txtDescrClass.Size = new System.Drawing.Size(192, 56);
+			this.txtDescrClass.TabIndex = 5;
+			this.txtDescrClass.TabStop = false;
+			this.txtDescrClass.Tag = "sortingview.description";
+			// 
+			// txtCodiceClass
+			// 
+			this.txtCodiceClass.Location = new System.Drawing.Point(16, 56);
+			this.txtCodiceClass.Name = "txtCodiceClass";
+			this.txtCodiceClass.Size = new System.Drawing.Size(100, 20);
+			this.txtCodiceClass.TabIndex = 4;
+			this.txtCodiceClass.Tag = "sortingview.sortcode?sortingprevincomevarview.sortcode";
+			// 
+			// btnClassificazione
+			// 
+			this.btnClassificazione.Image = ((System.Drawing.Image)(resources.GetObject("btnClassificazione.Image")));
+			this.btnClassificazione.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btnClassificazione.Location = new System.Drawing.Point(16, 24);
+			this.btnClassificazione.Name = "btnClassificazione";
+			this.btnClassificazione.Size = new System.Drawing.Size(104, 23);
+			this.btnClassificazione.TabIndex = 0;
+			this.btnClassificazione.TabStop = false;
+			this.btnClassificazione.Tag = "manage.sortingview.tree";
+			this.btnClassificazione.Text = "Classificazione:";
+			this.btnClassificazione.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(8, 168);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(88, 24);
+			this.label5.TabIndex = 25;
+			this.label5.Text = "Data contabile:";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataContabile
+			// 
+			this.txtDataContabile.Location = new System.Drawing.Point(104, 168);
+			this.txtDataContabile.Name = "txtDataContabile";
+			this.txtDataContabile.Size = new System.Drawing.Size(96, 20);
+			this.txtDataContabile.TabIndex = 3;
+			this.txtDataContabile.Tag = "sortingprevincomevar.adate?sortingprevincomevarview.adate";
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(8, 24);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(88, 24);
+			this.label3.TabIndex = 21;
+			this.label3.Text = "Descrizione:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDescrizione
+			// 
+			this.txtDescrizione.Location = new System.Drawing.Point(104, 24);
+			this.txtDescrizione.Multiline = true;
+			this.txtDescrizione.Name = "txtDescrizione";
+			this.txtDescrizione.Size = new System.Drawing.Size(240, 64);
+			this.txtDescrizione.TabIndex = 1;
+			this.txtDescrizione.Tag = "sortingprevincomevar.description?sortingprevincomevarview.description";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.rdbDiminuzione);
+			this.groupBox2.Controls.Add(this.rdbAumento);
+			this.groupBox2.Controls.Add(this.txtImporto);
+			this.groupBox2.Location = new System.Drawing.Point(8, 96);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(336, 64);
+			this.groupBox2.TabIndex = 2;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Tag = "sortingprevincomevar.amount.valuesigned";
+			this.groupBox2.Text = "Importo";
+			// 
+			// rdbDiminuzione
+			// 
+			this.rdbDiminuzione.Location = new System.Drawing.Point(240, 38);
+			this.rdbDiminuzione.Name = "rdbDiminuzione";
+			this.rdbDiminuzione.Size = new System.Drawing.Size(88, 16);
+			this.rdbDiminuzione.TabIndex = 3;
+			this.rdbDiminuzione.Tag = "-";
+			this.rdbDiminuzione.Text = "Diminuzione";
+			// 
+			// rdbAumento
+			// 
+			this.rdbAumento.Checked = true;
+			this.rdbAumento.Location = new System.Drawing.Point(240, 14);
+			this.rdbAumento.Name = "rdbAumento";
+			this.rdbAumento.Size = new System.Drawing.Size(88, 16);
+			this.rdbAumento.TabIndex = 2;
+			this.rdbAumento.TabStop = true;
+			this.rdbAumento.Tag = "+";
+			this.rdbAumento.Text = "Aumento";
+			// 
+			// txtImporto
+			// 
+			this.txtImporto.Location = new System.Drawing.Point(24, 25);
+			this.txtImporto.Name = "txtImporto";
+			this.txtImporto.Size = new System.Drawing.Size(128, 20);
+			this.txtImporto.TabIndex = 1;
+			this.txtImporto.Tag = "sortingprevincomevar.amount?sortingprevincomevarview.amount";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.txtNumero);
+			this.groupBox1.Controls.Add(this.label2);
+			this.groupBox1.Controls.Add(this.txtEsercizio);
+			this.groupBox1.Controls.Add(this.label1);
+			this.groupBox1.Location = new System.Drawing.Point(8, 8);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(352, 48);
+			this.groupBox1.TabIndex = 1;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Variazione budget dei ricavi";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.label3);
+			this.groupBox3.Controls.Add(this.txtDescrizione);
+			this.groupBox3.Controls.Add(this.groupBox2);
+			this.groupBox3.Controls.Add(this.label5);
+			this.groupBox3.Controls.Add(this.txtDataContabile);
+			this.groupBox3.Location = new System.Drawing.Point(8, 168);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(352, 200);
+			this.groupBox3.TabIndex = 3;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Dati Contabili";
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox4.Controls.Add(this.dataGridAllegati);
+			this.groupBox4.Controls.Add(this.btnDelAtt);
+			this.groupBox4.Controls.Add(this.btnEditAtt);
+			this.groupBox4.Controls.Add(this.btnInsAtt);
+			this.groupBox4.Location = new System.Drawing.Point(8, 374);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(352, 175);
+			this.groupBox4.TabIndex = 5;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Allegati";
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(11, 54);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(333, 112);
+			this.dataGridAllegati.TabIndex = 27;
+			this.dataGridAllegati.Tag = "sortingprevincomevarattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(202, 19);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 26;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(106, 19);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 25;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(11, 19);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 24;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
+			// Frm_sortingprevincomevar_default
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(370, 558);
+			this.Controls.Add(this.groupBox4);
+			this.Controls.Add(this.groupBox3);
+			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.grpClassificazione);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.Name = "Frm_sortingprevincomevar_default";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "frmvarclassmovimentientrate";
+			this.grpClassificazione.ResumeLayout(false);
+			this.grpClassificazione.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
+			this.ResumeLayout(false);
 
 		}
 		#endregion

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -577,7 +577,7 @@ namespace bankdispositionsetup_importnew {
             abi.AddRange(new string[] { "05696", "03067", "03111", "01030",
                                         "02008", "05372", "01010", "08661", "01010",
                                         "06065", "03069", "05262", "08553", "03019","05216","03599",
-                                        "01015","05424", "06230"});
+                                        "01015","05424", "06230",  "05385"});
             if (!abi.Contains(idbank.ToString())) {
                 MetaFactory.factory.getSingleton<IMessageShower>().Show("La banca selezionata non è al momento gestita dall'applicazione", "Errore");
                 return null;
@@ -612,6 +612,7 @@ namespace bankdispositionsetup_importnew {
             if (idbank.ToString() == "05216") I = import_creditosiciliano.ImportaFile(Conn, fname);  // Credito Valtellinese
             if (idbank.ToString() == "06230") I = import_creditosiciliano.ImportaFile(Conn, fname);  // credit agricol
             if (idbank.ToString() == "01030") I = import_mps_abi36.ImportaFile(Conn, fname); //Monte dei Paschi di Siena ABI 36
+            if (idbank.ToString() == "05385") I = import_creditosiciliano.ImportaFile(Conn, fname); //MBanca Popolare di Puglia e Basilicata
             if (I == null) return null;
             if (doppiaImportazioneNonOpi(Conn, I, idbank)) {
                 return I;

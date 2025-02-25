@@ -1,0 +1,979 @@
+MIME-Version: 1.0
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
+X-Unsent: 1
+Content-Type: Multipart/related;
+  boundary="---------blocknote.net--1DSDJ3UJHXPZW129HPJSF371LX"
+
+
+-----------blocknote.net--1DSDJ3UJHXPZW129HPJSF371LX
+Content-Type: Text/HTML;
+  charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<HTML>
+  <HEAD>
+    <META http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8">
+    <META name=3D"GENERATOR" content=3D"BLOCKNOTE.NET">
+    <META name=3D"source">
+    <BASEFONT face=3D"Times New Roman" size=3D"3">
+    <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
+2pt }
+P { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+DIV { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+</STYLE>
+  </HEAD>
+<BODY>
+<DIV><STRONG><FONT size=3D"5">ANAGRAFICHE</FONT></STRONG></DIV>
+<UL>
+<LI><P><A href=3D"registry_anagrafica.mht"><FONT size=3D"4">Clienti/Forni=
+tori</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"manager_default.mht"><FONT size=3D"4">Responsabili</FON=
+T></A></FONT></P></LI>
+<LI><P><A href=3D"bank_lista.mht"><FONT size=3D"4">ABI(Banche)</FONT></A>=
+</FONT></P></LI>
+<LI><P><A href=3D"cabview_lista_anag.mht"><FONT size=3D"4">CAB (Filiali)<=
+/FONT></A></FONT></P></LI>
+<UL>
+<LI><P><A href=3D"division_default.mht"><FONT size=3D"4">Sezione</FONT></=
+A></FONT></P></LI>
+<LI><P><A href=3D"file://C:/Users/Tempo Srl/Desktop/no_table_iban.mht"><F=
+ONT size=3D"4">Calcolo IBAN</FONT></A></FONT></P></LI>
+<LI><A href=3D"no_table_wiz_cfpiva_duplicata.mht"><FONT size=3D"4">Correg=
+gi Anagrafiche con CF - PIVA duplicati</FONT></A></FONT></LI>
+<LI><P><A href=3D"no_table_wizanagrafiche.mht"><FONT size=3D"4">Correzion=
+e anagrafiche</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"no_table_wiz_del_anagrafiche_nonusate.mht"><FONT size=3D=
+"4">Rimuovi Anagrafiche inutilizzate</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"no_table_unifica_ anagrafiche.mht"><FONT size=3D"4">Uni=
+fica Anagrafiche duplicate</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"registrytaxablestatus_anagrafica.mht"><FONT size=3D"4">=
+Reddito Annuo Presunto</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"registrypaymethod_modpaganagrafica.mht"><FONT size=3D"4=
+">Modalita' di pagamento (di Anagrafica)</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"registryreference_contatto.mht"><FONT size=3D"4">Contat=
+to</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"registryaddress_default.mht"><FONT size=3D"4">Indirizzo=
+</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"registrylegalstatus_anagrafica.mht"><FONT size=3D"4">In=
+quadramento</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"registrysorting_anagrafica.mht"><FONT size=3D"4">Classi=
+ficazione anagrafica</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"registrydurc_default.mht"><FONT size=3D"4">DURC</FONT><=
+/A></FONT></P></LI>
+<LI><P><A href=3D"administrativeblock_default.mht"  ><FON=
+T size=3D"4">Fermo amministrativo</FONT></A></FONT></P></LI></UL>
+</UL>
+<HR>
+<P><STRONG><FONT size=3D"5">BILANCIO</FONT></STRONG></P>
+<UL>
+<LI><P><A href=3D"fin_default.mht"><FONT size=3D"4">Struttura del bilanci=
+o finanziario</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"upb_default.mht"><FONT size=3D"4">U.P.B.</FONT></A></FO=
+NT></P></LI>
+<LI><P><A href=3D"underwriting_default.mht"><FONT size=3D"4">Finanziament=
+o</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"surplus_default.mht"><FONT size=3D"4">Situazione Finanz=
+iaria/Amministrativa Effettiva</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"surplus_default.mht"><FONT size=3D"4">Situazione Finanz=
+iaria/Amministrativa Presunta</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"finbalance_default.mht"><FONT size=3D"4">Assestamento B=
+ilancio</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Variazione Previsione - Crediti - Incassi</FONT><=
+/P></LI>
+<UL>
+<LI><P><A href=3D"finvardetail_default.mht"><FONT size=3D"4">Dettaglio va=
+riazione</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"finvar_default.mht"><FONT size=3D"4">Variazione</FONT><=
+/A></FONT></P></LI></UL>
+
+<LI><P><A href=3D"enactment_default.mht"><FONT size=3D"4">Atto Amministra=
+tivo</FONT></A></FONT></P></LI></UL>
+<HR>
+<P><STRONG><FONT size=3D"5">ENTRATE</FONT></STRONG></P>
+<UL>
+<LI><P><A href=3D"estimate_default.mht"><FONT size=3D"4">Contratto attivo=
+</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"estimatedetail_default.mht"><FONT size=3D"4">Dettaglio =
+contratto attivo</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"income_wizardestimatedetail.mht"><FONT size=3D"4">Conta=
+bilizzazione dettagli Contratto attivo</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"income_wizardinvoicedetail.mht"><FONT size=3D"4">Contab=
+ilizzazione fattura di vendita</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"income_wizardinvoicedetailnoestimate.mht"><FONT size=3D=
+"4">Contabilizzazione fattura di vendita senza contratto</FONT></A></FONT=
+></P></LI>
+<LI><P><A href=3D"income_procedura.mht"><FONT size=3D"4">Inserimento (Mov=
+imenti di Entrata)</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"income_gerarchico.mht"><FONT size=3D"4">Visualizzazione=
+ e modifica (Movimenti di Entrata)</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"income_wizarddelete.mht"><FONT size=3D"4">Cancellazione=
+ guidata movimento</FONT></A></FONT></P></LI>
+<LI><A href=3D"proceeds_reversalemultipla.mht"><FONT size=3D"4">Reversale=
+ di incasso</FONT></A></FONT></LI>
+<LI><P><A href=3D"proceeds_default.mht"><FONT size=3D"4">Reversale singol=
+a (solo inserimento)</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"proceeds_generazioneautomatica.mht"><FONT size=3D"4">Ge=
+nerazione automatica delle reversali</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"no_table_trasfdocreversale.mht"><FONT size=3D"4">Downlo=
+ad file reversale</A></FONT></P></LI>
+<LI><P><STRIKE><FONT size=3D"4">Associa Finanziamento a movimento di Entr=
+ata</FONT></STRIKE></P></LI>
+<LI><FONT size=3D"4">Assegnazione automatica entrate</FONT></LI>
+<UL>
+<LI><P><A href=3D"creditpart_default.mht"><FONT size=3D"4">Assegnazione c=
+redito</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"proceedspart_default.mht"><FONT size=3D"4">Assegnazione=
+ incasso</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"partincomesetup_default.mht"><FONT size=3D"4">Configura=
+zione automatismi delle assegnazioni</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"creditpart_assegnazioneautomatica.mht"><FONT size=3D"4"=
+>Generazione automatismi crediti</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"proceedspart_assegnazioneautomatica.mht"><FONT size=3D"=
+4">Generazione automatismi incassi</FONT></A></FONT></P></LI></UL>
+
+<LI><P><A href=3D"income_wizarddecontabilizza.mht"><FONT size=3D"4">Rimuo=
+vi contabilizzazione</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Pago-PA</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"inviocrediti_easy.mht"><FONT size=3D"4">Invio crediti P=
+agoPa da Contratti attivi non collegabili a fattura e/o da fatture di Ven=
+dita</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"no_table_flussostudenti.mht"><FONT size=3D"4">Elaborazi=
+one Crediti/Elaborazione Incassi</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"flussocreditidetail_default.mht"><FONT size=3D"4">Detta=
+glio credito</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"flussoincassidetail_default.mht"><FONT size=3D"4">Detta=
+glio Incassi</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"flussocrediti_default.mht"><FONT size=3D"4">Flusso cred=
+iti</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"flussoincassi_default.mht"><FONT size=3D"4">Flusso Inca=
+ssi</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"impflussiPagoPaDaExcel.mht"><FONT size=3D"4">Importazio=
+ne flusso crediti e incassi da file Excel</FONT></A></FONT></P></LI></UL>
+
+<LI><P><A href=3D"nso_vendita_default.mht"><FONT size=3D"4">NSO vendita</=
+A></FONT></P></LI>
+<LI><P><A href=3D"incomevar_default.mht"><FONT size=3D"4">Variazione movi=
+mento di entrata</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"income_levels.mht"><FONT size=3D"4">Incasso\Riscossione=
+ (ultima/unica fase di entrata)</FONT></A></FONT></P></LI></UL>
+<HR>
+<P><STRONG><FONT size=3D"5">SPESE</FONT></STRONG></P>
+<UL>
+<LI><P><A href=3D"richiesta_dordine.mht"><FONT size=3D"4">Richiesta d'Ord=
+ine</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"mandate_default.mht"><FONT size=3D"4">Contratto passivo=
+</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"mandatedetail_default.mht"><FONT size=3D"4">Dettaglio c=
+ontratto passivo</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"mandatekind_default.mht"><FONT size=3D"4">Tipo di Contr=
+atto Passivo</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"expense_wizardmandatedetail.mht"><FONT size=3D"4">Conta=
+bilizzazione dettagli Contratto passivo</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"expense_wizardinvoicedetail.mht"><FONT size=3D"4">Conta=
+bilizzazione fattura di acquisto</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"expense_wizardinvoicedetailnomandate.mht"><FONT size=3D=
+"4">Contabilizzazione fattura di acquisto senza contratto</FONT></A></FON=
+T></P></LI>
+<LI><P><A href=3D"expense_procmissione.mht"><FONT size=3D"4">Inserimento =
+movimento di spesa</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"expense_gerarchico.mht"><FONT size=3D"4">Visualizzazion=
+e e Modifica movimento di spesa</A></FONT></P></LI>
+<LI><P><A href=3D"expense_wizarddelete.mht"><FONT size=3D"4">Cancellazion=
+e movimento e relativi automatismi</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"expense_wizardlinkexptoinc.mht"><FONT size=3D"4">Vincol=
+o tra pagamento e incasso</A></FONT></P></LI>
+<LI><P><A href=3D"expense_wizardunlinkexpfrominc.mht"><FONT size=3D"4">Sc=
+ollega incasso da pagamento</A></FONT></P></LI>
+<LI><P><STRIKE><FONT size=3D"4">Finanziamento Fase Impegno</FONT></STRIKE=
+></P></LI>
+<LI><P><STRIKE><FONT size=3D"4">Finanziamento Fase Pagamento</FONT></STRI=
+KE></FONT></STRIKE></P></LI>
+<LI><P><A href=3D"payment_docmultiplo.mht"><FONT size=3D"4">Mandato di pa=
+gamento</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"payment_default.mht"><FONT size=3D"4">Mandato singolo (=
+solo inserimento)</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"no_table_trasfdocreversale.mht"><FONT size=3D"4">Downlo=
+ad file mandato</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"payment_generazioneautomatica.mht"><FONT size=3D"4">Gen=
+erazione automatica dei mandati</FONT></A></FONT></P></LI>
+<LI><A href=3D"expense_wizardcontabilizza.mht"><FONT size=3D"4">Aggiungi =
+contabilizzazione</FONT></A></FONT></LI>
+<LI><P><A href=3D"expense_wizarddecontabilizza.mht"><FONT size=3D"4">Rimu=
+ovi contabilizzazione</FONT></A></FONT></P></LI>
+<LI><A href=3D"expense_wizardazzerariporti.mht"><FONT size=3D"4">Azzerame=
+nto Riporti</FONT></A></FONT></LI>
+<LI><P><A href=3D"expense_wizardcreamovcompetenza.mht"><FONT size=3D"4">R=
+iemissione movimenti in competenza</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"expensevar_default.mht"><FONT size=3D"4">Variazione mov=
+imento di spesa</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"expense_levels.mht"><FONT size=3D"4">Liquidazione\Pagam=
+ento (ultima/unica fase di spesa)</FONT></A></FONT></P></LI></UL>
+<HR>
+<P><STRONG><FONT size=3D"5">TESORIERE</FONT></STRONG></P>
+<UL>
+<LI><P><A href=3D"treasurer_situazione.mht"><FONT size=3D"4">Istituto Cas=
+siere</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Incassi</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"proceedstransmission_default.mht"><FONT size=3D"4">Dist=
+inta di trasmissione</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"proceedstransmission_generazioneautomatica.mht"><FONT s=
+ize=3D"4">Generazione automatica distinta di trasmissione</FONT></A></FON=
+T></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Pagamenti</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"paymenttransmission_default.mht"><FONT size=3D"4">Disti=
+nta di trasmissione</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"paymenttransmission_generazioneautomatica.mht"><FONT si=
+ze=3D"4">Generazione automatica distinta di trasmissione</FONT></A></FONT=
+></P></LI></UL>
+
+<LI><P><A href=3D"banktransaction_default.mht"><FONT size=3D"4">Esitazion=
+i Bancari</FONT>e</A></P></LI>
+<LI><P><A href=3D"paymentview_esitazionemultipla.mht"><FONT size=3D"4">Es=
+itazione multipla mandati</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"proceedsview_esitazionemultipla.mht"><FONT size=3D"4">E=
+sitazione multipla reversali</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"moneytransfer_default.mht"><FONT size=3D"4">Girofondi t=
+ra C/C</A></FONT></P></LI>
+<LI><P><A href=3D"bill_default.mht"><FONT size=3D"4">Partite Pendenti</A>=
+</FONT></P></LI>
+<LI><P><A href=3D"authpayment_default.mht"><FONT size=3D"4">Autorizzazion=
+e Agente di Riscossione</A></FONT></P></LI>
+<LI><P><A href=3D"paydisposition_default.mht"><FONT size=3D"4">Disposizio=
+ni di Pagamento</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"bankimport_default.mht"><FONT size=3D"4">Importazione e=
+siti e sospesi</A></FONT></P></LI>
+<LI><P><A href=3D"bankdispositionsetup_siopeplus.mht"><FONT size=3D"4">Tr=
+asmissione SIOPE+</A></FONT></P></LI></UL>
+<HR>
+<P><STRONG><FONT size=3D"5">FONDO ECONOMALE</FONT></STRONG></P>
+<UL>
+<LI><P><A href=3D"pettycash_situazione.mht"><FONT size=3D"4">Ricerca fond=
+o</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"pettycashoperation_default.mht"><FONT size=3D"4">Operaz=
+ione del fondo economale</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Procedure guidate</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"pettycashoperation_wiz_apertura.mht"><FONT size=3D"4">A=
+pertura</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"pettycashoperation_wiz_reintegro.mht"><FONT size=3D"4">=
+Reintegro</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"pettycashoperation_wiz_chiusura.mht"><FONT size=3D"4">C=
+hiusura</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"pettycashoperation_wizardinvoicedetail.mht"><FONT size=3D=
+"4">Contabilizzazione Dettagli Fattura Acquisto con Fondo Economale</FONT=
+></A></FONT></P></LI></UL>
+</UL>
+<HR>
+<P><STRONG><FONT size=3D"5">VERSAMENTO IMPOSTE</FONT></STRONG></P>
+<UL>
+<LI><P><A href=3D"taxpay_wiz_liquidperiodica.mht"><FONT size=3D"4">Calcol=
+o liquidazione periodica</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"taxpay_default.mht"><FONT size=3D"4">Liquidazione delle=
+ imposte gi=C3=A0 effettuate (storico)</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"taxpay_ritenutedapagare.mht"><FONT size=3D"4">Imposte n=
+on ancora liquidate</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"payedtaxview_default.mht"><FONT size=3D"4">Imposte appl=
+icate</FONT></A></FONT></P></LI>
+<LI><P><STRIKE><FONT size=3D"4">Imposte applicate per F24 EP</FONT></STRI=
+KE></P></LI>
+<LI><P><A href=3D"expensetaxcorrigeview_default.mht"><FONT size=3D"4">Cor=
+rezioni Imposte applicate</FONT></A></FONT></P></LI>
+<LI><P><STRIKE><FONT size=3D"4">Correzioni imposte applicate F24 EP</FONT=
+></STRIKE></P></LI>
+<LI><P><A href=3D"expensetaxofficialview_default.mht"><FONT size=3D"4">Ri=
+epilogo storico</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Denunce elettroniche mensili</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Calcolo Denuncia (E-Mens)</FONT></P></LI>
+<LI><P><FONT size=3D"4">Consolidamento Denunce</FONT></P></LI>
+<LI><P><FONT size=3D"4">E-Mens Consolidato di Ateneo</FONT></P></LI>
+<LI><P><FONT size=3D"4">Ripartizione denunce Emens</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Certificazione Unica</FONT></P></LI>
+<LI><P><FONT size=3D"4">Modello 770</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Consolidamento Modello 770</FONT></P></LI>
+<LI><P><FONT size=3D"4">Modello 770</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Cud 2010</FONT></P></LI>
+<LI><FONT size=3D"4">F24 EP</FONT></LI>
+<UL>
+<LI><P><FONT size=3D"4">Crea F24 EP da Foglio Excel</FONT></P></LI>
+<LI><P><A href=3D"f24ep_default.mht"><FONT size=3D"4">Modello F24 EP</FON=
+T></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Modello F24 EP Consolidato</FONT></P></LI>
+<LI><P><FONT size=3D"4">Raccolta ritenute per F24 EP Consolidato</FONT></=
+P></LI></UL>
+</UL>
+<HR>
+<P><STRONG><FONT size=3D"5">CONTABILITA' ANALITICA</STRONG></FONT></STRON=
+G></P>
+<UL>
+<LI><P><A href=3D"sorting_wizardmiur.mht"><FONT size=3D"4">Riclassificato=
+ MIUR</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Classificazione automatica</FONT></FONT></P></LI>
+<LI><P><A href=3D"sorting_default.mht"><FONT size=3D"4">Piani dei conti d=
+i contabilit=C3=A0 analitica</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Definizione del Budget di contabilit=C3=A0 analit=
+ica</FONT></P></LI>
+<LI><P><FONT size=3D"4">Classificazione Anagrafica</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Classificazione Anagrafica</FONT></P></LI></UL>
+
+<LI><P><A href=3D"finsorting_imputazione.mht"><FONT size=3D"4">Classifica=
+zione Bilancio</FONT></A></FONT></P></LI>
+<DIV>&nbsp;</DIV>
+<LI><P><FONT size=3D"4">Riclassificato MIUR</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"sorting_wizardmiur.mht"><FONT size=3D"4">Riclassificato=
+ Miur</FONT></A></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Imputazione classificazioni</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"incomesorted_relation.mht"><FONT size=3D"4">Imputazione=
+ Entrata</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"expensesorted_main.mht"><FONT size=3D"4">Imputazione Sp=
+esa</FONT></A></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Variazione Budget</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"sortingprevexpensevar_default.mht"><FONT size=3D"4">Cos=
+ti</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"sortingprevincomevar_default.mht"><FONT size=3D"4">Rica=
+vi</FONT></A></FONT></P></LI></UL>
+
+<LI><P><A href=3D"sorting_traduzione.mht"><FONT size=3D"4">Configurazione=
+ relazioni tra rilevazioni analitiche</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Configurazione classificazione automatica dei rec=
+uperi</FONT></P></LI>
+<LI><P><A href=3D"autoincomesorting_default.mht"><FONT size=3D"4">Configu=
+razione classificazione automatica entrate</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"autoexpensesorting_default.mht"><FONT size=3D"4">Config=
+urazione classificazione automatica spese</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"taxsortingsetup_default.mht"><FONT size=3D"4">Configura=
+zione classificazioni automatiche delle imposte</FONT></A></FONT></P></LI=
+>
+<LI><P><A href=3D"sortingincomefilter_default.mht"><FONT size=3D"4">Confi=
+gurazione filtro classificazione entrate</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"sortingexpensefilter_default.mht"><FONT size=3D"4">Conf=
+igurazione filtro classificazione spese</FONT></A></FONT></P></LI></UL>
+<HR>
+<P><STRONG><FONT size=3D"5">COMPENSI</FONT></STRONG></P>
+<UL>
+<LI><P><FONT size=3D"4">Dipendenti, Premi di Studio e Altri Premi</FONT><=
+/P></LI>
+<UL>
+<LI><P><A href=3D"wageaddition_default.mht"><FONT size=3D"4">Contratto</A=
+></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Autonomi Occasionali</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"casualcontract_default.mht"><FONT size=3D"4">Pagamento =
+prestazione</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"annullamentomandato_prestazioneoccasionale.mht"><FONT s=
+ize=3D"4">Annullamento mandato Compenso Occasionale</A></FONT></P></LI></=
+UL>
+
+<LI><P><FONT size=3D"4">Autonomi Professionali</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Parcella</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Missioni</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"itineration_default.mht"><FONT size=3D"4">Missione</A><=
+/FONT></P></LI>
+<LI><P><A href=3D"no_table_trasfdocmissione.mht"><FONT size=3D"4">Downloa=
+d file missione</A></FONT></P></LI></UL>
+
+<LI><FONT size=3D"4">Parasubordinati</FONT></LI>
+<UL>
+<LI><A href=3D"parasubcontract_default.mht"><FONT size=3D"4">Contratto</A=
+></FONT></LI>
+<LI><P><FONT size=3D"4">Cedolini (sola visione)</FONT></P></LI>
+<LI><P><FONT size=3D"4">Cedolini non trasferibili</FONT></P></LI>
+<LI><P><FONT size=3D"4">Contratti non trasferibili</FONT></FONT></P></LI>
+<LI><P><FONT size=3D"4">Procedure guidate</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"payrollview_calcolomultiplo.mht"><FONT size=3D"4">Calco=
+lo multiplo dei cedolini</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"payroll_trasf_cedolino.mht"><FONT size=3D"4">Trasferime=
+nto cedolini tra esercizi</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"parasubcontract_trasf_contratto.mht"><FONT size=3D"4">T=
+rasferimento contratti tra esercizi</FONT></A></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Tabelle secondarie</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Altre forme assicurative</FONT></P></LI>
+<LI><P><FONT size=3D"4">Attivit=C3=A0 previdenziale INPS</FONT></P></LI>
+<LI><P><FONT size=3D"4">Descrizione cedolino</FONT></P></LI>
+<LI><P><FONT size=3D"4">Minimale massimale imponibile</FONT></P></LI>
+<LI><P><FONT size=3D"4">Posizione Assicurativa Territoriale</FONT></P></L=
+I>
+<LI><P><FONT size=3D"4">Tipo libro matricola</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo parentela</FONT></P></LI></UL>
+</UL>
+
+<LI><P><FONT size=3D"4">Banca dati incarichi</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"serviceregistry_default.mht"><FONT size=3D"4">Gestione =
+incarichi</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"servicetrasmission_default.mht"><FONT size=3D"4">Trasmi=
+ssione anagrafe delle prestazioni</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"serviceagency_default.mht"><FONT size=3D"4">Codice Ente=
+</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"servicepayment_assegnazioneautomatica.mht"><FONT size=3D=
+"4">Pagamento Automatico</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"serviceregistrykind_default.mht"><FONT size=3D"4">Tipol=
+ogia incarico</FONT></A></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Contabilizzazione stipendi</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">da procedura stipendi (CSA o altro)</FONT></P></L=
+I>
+<UL>
+<LI><P><FONT size=3D"4">Elaborazioni</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"csa_import_default.mht"><FONT size=3D"4">Importazione</=
+A></FONT></P></LI>
+<LI><P><A href=3D"csa_import_inail.mht"><FONT size=3D"4">Versamenti posti=
+cipati</A></FONT></P></LI>
+<LI><P><A href=3D"csa_import_inail_maxphase.mht"><FONT size=3D"4">Pagamen=
+ti anno precedente posticipati</A></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Elenchi</FONT></P></LI>
+<UL>
+<LI><A href=3D"csa_importriep_default.mht"><FONT size=3D"4">Riepiloghi</F=
+ONT></A></FONT></LI>
+<LI><P><A href=3D"csa_importver_default.mht"><FONT size=3D"4">Versamenti<=
+/A></FONT></P></LI></UL>
+</UL>
+</UL>
+
+<LI><P><A href=3D"dalia_mht.mht"><FONT size=3D"4">DALIA</FONT></A></FONT>=
+</P></LI></UL>
+<HR>
+<P><STRONG><FONT size=3D"5">CESPITI</FONT></STRONG></P>
+<UL>
+<LI><P><FONT size=3D"4">Carico</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"assetacquire_default.mht"><FONT size=3D"4">Carico dei c=
+espiti e aumenti di valore</A></FONT></P></LI>
+<LI><P><A href=3D"assetload_default.mht"><FONT size=3D"4">Buono di carico=
+</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetload_storico.mht"><FONT size=3D"4">Buono di carico=
+ (storico)</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetload_generazioneautomatica.mht"><FONT size=3D"4">G=
+enerazione automatica buoni di carico</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetacquire_massive.mht"><FONT size=3D"4">Inserimento =
+rapido cespiti</FONT></A></FONT></P></LI></UL>
+
+<LI><P><A href=3D"asset_default.mht"><FONT size=3D"4">Elenco cespiti e au=
+menti valore</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Scarico</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"assetunload_default.mht"><FONT size=3D"4">Buono di scar=
+ico</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetunload_storico.mht"><FONT size=3D"4">Buono di scar=
+ico (storico)</FONT></A></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Variazioni delle situazione patrimoniale</FONT></=
+P></LI>
+<UL>
+<LI><P><A href=3D"assetvar_default.mht"><FONT size=3D"4">Variazione</A></=
+FONT></P></LI>
+<LI><P><FONT size=3D"4">Dettaglio variazione</FONT></FONT></P></LI></UL>
+
+<LI><P><A href=3D"inventorytree_default.mht"><FONT size=3D"4">Classificaz=
+ione inventariale</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetamortization_default.mht"><FONT size=3D"4">Rivalut=
+azione/Svalutazione</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"maintenance_default.mht"><FONT size=3D"4">Manutenzione<=
+/FONT></A></FONT></P></LI>
+<LI><P><A href=3D"asset_trasferimentocespiti.mht"><FONT size=3D"4">Trasfe=
+rimento cespiti</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"asset_cambioinventario.mht"><FONT size=3D"4">Trasferime=
+nto inventario</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Trasferimento da archivi di altri software</FONT>=
+</P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Amministrazione Centrale</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Crea setup classificazione inventariale</FONT></P=
+></LI>
+<LI><P><A href=3D"assetsetup_creaxml.mht"><FONT size=3D"4">Crea setup con=
+figurazione patrimonio</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetacquire_export.mht"><FONT size=3D"4">Esporta Cespi=
+ti</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetacquire_import.mht"><FONT size=3D"4">Importa Cespi=
+ti</FONT></A></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Dipartimento</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"inventorytree_uniforma.mht"><FONT size=3D"4">Esegui set=
+up classificazione inventariale</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetsetup_uniformadati.mht"><FONT size=3D"4">Esegui se=
+tup configurazione patrimonio</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetacquire_export.mht"><FONT size=3D"4">Esporta Cespi=
+ti</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetacquire_import.mht"><FONT size=3D"4">Importa Cespi=
+ti</FONT></A></FONT></P></LI></UL>
+</UL>
+
+<LI><P><FONT size=3D"4">Verifiche Patrimonio</FONT></P></LI></UL>
+<HR>
+<P><STRONG><FONT size=3D"5">IVA</FONT></STRONG></P>
+<UL>
+<LI><P><A href=3D"invoice_default.mht"><FONT size=3D"4">Fattura</FONT></A=
+></FONT></P></LI>
+<LI><P><A href=3D"contabilizzazioneNC.mht"><FONT size=3D"4">Nota di Credi=
+to</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"invoicedetail_default.mht"><FONT size=3D"4">Dettaglio f=
+attura</A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Flussi Fattura elettronica</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"electronicinvoice_default.mht"><FONT size=3D"4">Selezio=
+na fatture vendita da trasmettere</A></FONT></P></LI>
+<LI><P><A href=3D"sdi_vendita_default.mht"><FONT size=3D"4">Fatture di ve=
+ndita selezionate per la trasmissione</A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Fatture acquisto</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Liquidazione e Adempimenti</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Liquidazioni periodiche</FONT></P></LI>
+<LI><P><FONT size=3D"4">Calcola liquidazione IVA</FONT></P></LI>
+<LI><P><FONT size=3D"4">Acconto</FONT></P></LI>
+<LI><P><FONT size=3D"4">Protocollo Registro IVA</FONT></P></LI>
+<LI><P><A href=3D"no_table_ivapay.mht"><FONT size=3D"4">Comunicazione per=
+iodica liquidazione IVA</A></FONT></P></LI></UL>
+
+<LI><P><A href=3D"Indicatore_tempestivita_dei_pagamenti.mht"><FONT size=3D"4">Indicatore tempestivit=C3=A0 dei pagamenti</FONT><=
+/A></FONT></P></LI>
+<LI><P><A href=3D"pcc_ipa.mht"><FONT size=3D"4">Trasmissione Certificazio=
+ne dei Crediti</FONT></A></FONT></P></LI></UL>
+<HR>
+<P><STRONG><FONT size=3D"5">MAGAZZINO</FONT></STRONG></P>
+<UL>
+<LI><P><A href=3D"listclass_default.mht"><FONT size=3D"4">Classificazione=
+ merceologica</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"list_default.mht"><FONT size=3D"4">Listino</FONT></A></=
+FONT></P></LI>
+<LI><P><A href=3D"store_default.mht"><FONT size=3D"4">Magazzino</FONT></A=
+></FONT></P></LI>
+<LI><P><A href=3D"ddt_in_default.mht"><FONT size=3D"4">Bolla di carico</F=
+ONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Merce in magazzino</FONT></P></LI>
+<LI><P><A href=3D"storeunload_default.mht"><FONT size=3D"4">Scarico magaz=
+zino</A></FONT></P></LI>
+<LI><P><A href=3D"showcase_default.mht"><FONT size=3D"4">Gestione vetrine=
+</A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Dettaglio prenotazione</FONT></P></LI></UL>
+<HR>
+<P><STRONG><FONT size=3D"5">ECONOMICO PATRIMONIALE</FONT></STRONG></P>
+<UL>
+<LI><P><A href=3D"patrimony_default.htm"><FONT size=3D"4">Stato Patrimoni=
+ale</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"placcount_default.htm"><FONT size=3D"4">Conto Economico=
+</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"account_default.htm"><FONT size=3D"4">Piano dei conti</=
+FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Scritture</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"entrydetail_default.mht"><FONT size=3D"4">Dettaglio scr=
+ittura</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"entry_default.mht"><FONT size=3D"4">Scrittura</FONT></A=
+></FONT></P></LI></UL>
+
+<LI><P><A href=3D"epexp_default.mht"><FONT size=3D"4">Impegno di Budget</=
+FONT></A></FONT></P></LI>
+<LI><P><A href=3D"epacc_default.mht"><FONT size=3D"4">Accertamento di bud=
+get</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"epexpvar_default.mht"><FONT size=3D"4">Variazione impeg=
+no di budget</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"epaccvar_default.mht"><FONT size=3D"4">Variazione accer=
+tamento di budget</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"finvar_default.mht"><FONT size=3D"4">Variazione di Budg=
+et</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"accountvardetail_default.mht"><FONT size=3D"4">Dettagli=
+o variazione Budget</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"accountenactment_default.mht"><FONT size=3D"4">Atto amm=
+inistrativo di budget</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"upbaccountview_default.mht"><STRIKE><FONT size=3D"4">UP=
+B - conto</FONT></A></FONT></STRIKE></P></LI>
+<LI><P><A href=3D"provision_default.mht"><FONT size=3D"4">Accantonamento<=
+/FONT></A></FONT></P></LI>
+<LI><P><A href=3D"grantload_default.htm"><FONT size=3D"4">Gestione riscon=
+ti contributi agli investimenti</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetgrantdetail_default.htm"><FONT size=3D"4">Risconti=
+ applicati</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetgrant_default.htm"><FONT size=3D"4">Contributi agl=
+i investimenti (sola visualizzazione)</A></FONT></P></LI>
+<LI><P><A href=3D"risconti_passivi_donazione_vincolata.mht"><FONT size=3D=
+"4">Risconti passivi da donazioni vincolate</FONT></A></FONT></P></LI></U=
+L>
+<HR>
+<P><STRONG><FONT size=3D"5">OPZIONI</FONT></STRONG></P>
+<UL>
+<LI><P><FONT size=3D"4">Informazioni ente</FONT></P></LI>
+<LI><P><FONT size=3D"4">Gestione Licenze</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Informazioni sul cliente</FONT></P></LI>
+<LI><P><FONT size=3D"4">Informazioni sulle licenze</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Configurazione annuale</FONT></P></LI>
+<LI><P><FONT size=3D"4">Configurazione pluriennale</FONT></P></LI>
+<LI><P><FONT size=3D"4">Convenzione Consip</FONT></P></LI>
+<LI><P><FONT size=3D"4">Responsabile Trasmissione</FONT></P></LI>
+<LI><P><A href=3D"ipa_default.mht"><FONT size=3D"4">Codice IPA</FONT></A>=
+</FONT></P></LI>
+<LI><P><FONT size=3D"4">Avvisi e comunicazioni</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Archivio Comunicazioni</FONT></P></LI>
+<LI><P><FONT size=3D"4">Registrazione degli avvisi</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Stampe ed Esportazioni</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Elenco loghi per le stampe</FONT></P></LI>
+<LI><P><FONT size=3D"4">Stampe</FONT></P></LI>
+<LI><P><FONT size=3D"4">Parametri per tutte le Stampe</FONT></P></LI>
+<LI><P><FONT size=3D"4">Parametri per la personalizzazione delle Stampe</=
+FONT></P></LI>
+<LI><P><FONT size=3D"4">Esportazioni</FONT></P></LI>
+<LI><P><FONT size=3D"4">Personalizzazione procedure SQL</FONT></P></LI></=
+UL>
+
+<LI><P><FONT size=3D"4">Bilancio</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"underwriter_lista.mht"><FONT size=3D"4">Ente Finanziato=
+re</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"finlevel_default.mht"><FONT size=3D"4">Livelli del bila=
+ncio annuale</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo variazione</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Entrate</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"incomephase_default.mht"><FONT size=3D"4">Fasi di entra=
+ta</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"estimatekind_default.mht"><FONT size=3D"4">Tipo Contrat=
+to Attivo</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Flussi Studenti</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"stip_corsolaurea_default.mht"><FONT size=3D"4">Corso di=
+ Laurea</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"stip_decodifica_default.mht"><FONT size=3D"4">Associazi=
+one tassa - Voce</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"stip_tassa_default.mht"><FONT size=3D"4">Tassa</FONT></=
+A></FONT></P></LI>
+<LI><P><A href=3D"stip_voce_default.mht"><FONT size=3D"4">Voce</FONT></A>=
+</FONT></P></LI></UL>
+
+<P>&nbsp;</P></UL>
+
+<LI><P><FONT size=3D"4">Spese</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"expensephase_default.mht"><FONT size=3D"4">Fasi di spes=
+a</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"mandatekind_default.mht"><FONT size=3D"4">Tipo Contratt=
+o Passivo</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Associa Richiesta a Tipo di Contratto Passivo</FO=
+NT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Anagrafica</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"category_default.mht"><FONT size=3D"4">Categoria</FONT>=
+</A></FONT></P></LI>
+<LI><P><A href=3D"centralizedcategory_lista.mht"><FONT size=3D"4">Classe =
+anagrafica</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Modalit=C3=A0 Pagamento CSA</FONT></P></LI>
+<LI><P><A href=3D"paymethod_anagrafica.mht"><FONT size=3D"4">Modalita' di=
+ pagamento</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"position_lista.mht"><FONT size=3D"4">Qualifica</FONT></=
+A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Qualifica CSA</FONT></P></LI>
+<LI><P><A href=3D"maritalstatus_default.mht"><FONT size=3D"4">Stato civil=
+e</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo indirizzo</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo Residenza</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo scadenza</FONT></P></LI>
+<LI><P><A href=3D"registryclass_anagrafica.mht"><FONT size=3D"4">Tipologi=
+a classificazione</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"title_default.mht"><FONT size=3D"4">Titolo</FONT></A></=
+FONT></P></LI>
+<LI><P><A href=3D"stamphandling_lista.mht"><FONT size=3D"4">Trattamento d=
+el bollo</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"currency_lista.mht"><FONT size=3D"4">Valuta</FONT></A><=
+/FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Tesoriere</FONT></P></LI>
+<UL>
+<LI><FONT size=3D"4">Istituto Cassiere</FONT></LI>
+<DIV>&nbsp;</DIV></UL>
+
+<LI><P><FONT size=3D"4">Rilevazioni Analitiche</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Tipo di Rilevanza analitica</FONT></P></LI>
+<LI><FONT size=3D"4">Livelli delle Rilevanze analitiche</FONT></LI>
+<DIV>&nbsp;</DIV></UL>
+
+<LI><P><FONT size=3D"4">Fondo economale</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Configurazione</FONT></P></LI>
+<LI><A href=3D"pettycash_default.mht"><FONT size=3D"4">Elenco Fondi econo=
+mali</FONT></A></FONT></LI>
+<DIV>&nbsp;</DIV></UL>
+
+<LI><P><FONT size=3D"4">Iva</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"ivaregisterkind_default.mht"><FONT size=3D"4">Registro =
+IVA</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo di documento</FONT></P></LI>
+<LI><P><A href=3D"ivakind_default.mht"><FONT size=3D"4">Elenco aliquote</=
+FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Periodicit=C3=A0 della liquidazione</FONT></P></L=
+I>
+<LI><P><FONT size=3D"4">Promiscuo</FONT></P></LI>
+<LI><P><FONT size=3D"4">Prorata</FONT></P></LI>
+<LI><P><FONT size=3D"4">Codici ISO Nazioni</FONT></P></LI>
+<LI><P><FONT size=3D"4">Natura della transazione</FONT></P></LI>
+<LI><P><FONT size=3D"4">Unit=C3=A0 di misura supplementare</FONT></P></LI=
+>
+<LI><P><FONT size=3D"4">Nomenclatura Combinata</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Economico Patrimoniale</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"patrimonylevel_default.mht"><FONT size=3D"4">Livelli St=
+ato Patrimoniale Annuale</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"placcountlevel_default.mht"><FONT size=3D"4">Livelli Co=
+nto Economico Annuale</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"accountkind_default.mht"><FONT size=3D"4">Tipo conto</F=
+ONT></A></FONT></P></LI>
+<LI><P><A href=3D"accountlevel_default.mht"><FONT size=3D"4">Livelli del =
+piano dei conti</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"accmotive_default.mht"><FONT size=3D"4">Causali contabi=
+li</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"epupbkind_default.mht"><FONT size=3D"4">Tipo UPB</FONT>=
+</A></FONT></P></LI>
+<LI><P><A href=3D"costpartition_default.mht"><FONT size=3D"4">Ripartizion=
+e dei costi</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"epoperation_default.mht"><FONT size=3D"4">Applicabilit=C3=
+=A0 causali EP (Contesto)</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"provision_default.mht"><FONT size=3D"4">Fondo Accantona=
+mento</FONT></A></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Compensi</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Missioni</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Parametri generali per il calcolo della missione<=
+/FONT></P></LI>
+<LI><P><FONT size=3D"4">Regole Gruppi per le Missioni all'Estero</FONT></=
+P></LI>
+<LI><P><FONT size=3D"4">Regole Indennit=C3=A0 di Missione all'Estero</FON=
+T></P></LI>
+<LI><P><FONT size=3D"4">Regole Indennit=C3=A0 di Missione in Italia</FONT=
+></P></LI>
+<LI><P><FONT size=3D"4">Regole per la Riduzione</FONT></P></LI>
+<LI><P><FONT size=3D"4">Regole Spese per le Missioni</FONT></P></LI>
+<LI><P><FONT size=3D"4">Localit=C3=A0 estere</FONT></P></LI>
+<LI><P><FONT size=3D"4">Agenti autorizzativi</FONT></P></LI>
+<LI><P><FONT size=3D"4">Modelli autorizzativi</FONT></P></LI>
+<LI><P><FONT size=3D"4">Rimborso Spese</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipi di riduzione della diaria</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipi di rimborsi spese</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Configurazione compensi da Ufficio Stipendi</FONT=
+></P></LI>
+<LI><P><FONT size=3D"4">Configurazione compensi da CSA</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"csa_agency_default.mht"><FONT size=3D"4">Ente</FONT></A=
+></FONT></P></LI>
+<LI><P><A href=3D"csa_contractkindrules_search.mht"><FONT size=3D"4">Rego=
+le Individuazione</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"csa_incomesetup_default.mht"><FONT size=3D"4">Configura=
+zione Incassi</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"csa_contract_default.mht"><FONT size=3D"4">Contratto</F=
+ONT></A></FONT></P></LI>
+<LI><P><A href=3D"csa_contractkind_default.mht"><FONT size=3D"4">Tipo Con=
+tratto</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"csa_contractkinddata_elenco.mht"><FONT size=3D"4">Contr=
+ibuti Tipo contratto CSA</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"csa_contracttax_elenco.mht"><FONT size=3D"4">Contributi=
+ Contratto CSA</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Matricole CSA</FONT></P></LI>
+<LI><P><A href=3D"file://C:/Users/Utente/Desktop/STIPENDI-CSA/Guide CSA m=
+ht/csa_contractexpense_elenco.mht"><FONT size=3D"4">Dettaglio Ripartizion=
+e Contratti in Impegni Finanziari</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"csa_contractepexp_elenco.mht"><FONT size=3D"4">Dettagli=
+o Ripartizione Contratti in Impegni di Budget</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"csa_contracttaxexpense_elenco.mht"><FONT size=3D"4">Det=
+taglio Ripartizione Contributi in Impegni Finanziari</FONT></A></FONT></P=
+></LI>
+<LI><P><A href=3D"csa_contracttaxepexp_elenco.mht"><FONT size=3D"4">Detta=
+glio Ripartizione Contratti in Impegni di Budget</FONT></A></FONT></P></L=
+I></UL>
+
+<LI><P><FONT size=3D"4">Imposte</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Automatismi imposte</FONT></P></LI>
+<LI><P><FONT size=3D"4">Causali 770</FONT></P></LI>
+<LI><P><FONT size=3D"4">Causali 770 - Tipi prestazione</FONT></P></LI>
+<LI><P><FONT size=3D"4">Struttura Imposta</FONT></P></LI>
+<LI><P><FONT size=3D"4">Struttura Imposta Comunale</FONT></P></LI>
+<LI><P><FONT size=3D"4">Struttura Imposta Regionale</FONT></P></LI>
+<LI><P><FONT size=3D"4">Struttura Imposta Regionale per Comune</FONT></P>=
+</LI>
+<LI><P><FONT size=3D"4">Tipi di imposta</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo deduzione</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo detrazione</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo imponibile</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo prestazione</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo Sanzione Mod. F24 EP</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Recuperi</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"clawbacksetup_default.mht"><FONT size=3D"4">Automatismi=
+ dei recuperi</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"clawback_default.mht"><FONT size=3D"4">Tipi di recupero=
+</FONT></A></FONT></P></LI></UL>
+</UL>
+
+<LI><P><FONT size=3D"4">Cespiti</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"inventorysortinglevel_default.mht"><FONT size=3D"4">Liv=
+elli della classificazione inventariale</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"locationlevel_default.mht"><FONT size=3D"4">Livelli del=
+ piano delle ubicazioni</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"location_default.mht"><FONT size=3D"4">Piano delle Ubic=
+azioni</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"inventoryagency_default.mht"><FONT size=3D"4">Ente inve=
+ntariale</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"inventorykind_default.mht"><FONT size=3D"4">Tipo invent=
+ario</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"inventory_default.mht"><FONT size=3D"4">Inventario</FON=
+T></A></FONT></P></LI>
+<LI><P><A href=3D"inventoryamortization_default.mht"><FONT size=3D"4">Tip=
+o Ammortamento</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"maintenancekind_default.mht"><FONT size=3D"4">Tipo Manu=
+tenzione</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetusagekind_default.mht"><FONT size=3D"4">Tipo utili=
+zzo</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetconsignee_lista.mht"><FONT size=3D"4">Consegnatari=
+o Inventario</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"inventorysortingamortizationyear_search.mht"><FONT size=
+=3D"4">Piano di ammortamento</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetloadkind_default.mht"><FONT size=3D"4">Tipi di buo=
+ni di carico</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetunloadkind_default.mht"><FONT size=3D"4">Tipi di b=
+uoni di scarico</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetloadmotive_default.mht"><FONT size=3D"4">Causale d=
+i carico</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"assetunloadmotive_default.mht"><FONT size=3D"4">Causale=
+ di scarico</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"multifieldkind_default.mht"><FONT size=3D"4">Campi aggi=
+untivi per cespiti</FONT></A></FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Magazzino</FONT></P></LI>
+<UL>
+<LI><P><A href=3D"storeload_motive_lista.mht"><FONT size=3D"4">Causali Ca=
+rico Magazzino</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"storeunload_motive_lista.mht"><FONT size=3D"4">Causali =
+Scarico Magazzino</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"ddt_in_motive_lista.mht"><FONT size=3D"4">Causali Bolla=
+ in Ingresso</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Causali Bolla in Uscita</FONT></P></LI>
+<LI><P><A href=3D"store_default.mht"><FONT size=3D"4">Magazzini</FONT></A=
+></FONT></P></LI>
+<LI><P><A href=3D"unit_lista.mht"><FONT size=3D"4">Unit=C3=A0 di Misura p=
+er il Carico/Scarico</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"package_lista.mht"><FONT size=3D"4">Unit=C3=A0 di Misur=
+a per l'Acquisto</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Livelli del piano ubicazioni</FONT></P></LI>
+<LI><P><FONT size=3D"4">Piano delle ubicazioni</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Importazioni</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Importazione generica</FONT></P></LI>
+<LI><P><FONT size=3D"4">Importazione CSA</FONT></P></LI>
+<LI><P><FONT size=3D"4">Tipo File</FONT></P></LI>
+<LI><P><FONT size=3D"4">File di input</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Chiusura</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Finanziaria</FONT></P></LI>
+<LI><P><FONT size=3D"4">Converti voci di bilancio annuale</FONT></P></LI>
+<LI><P><FONT size=3D"4">Previsione Bilancio</FONT></P></LI>
+<LI><P><A href=3D"accountingyear_patrimonio.mht"><FONT size=3D"4">Cespiti=
+</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Economico Patrimoniale</FONT></P></LI>
+<LI><P><FONT size=3D"4">Trasferimento classificazioni</FONT></P></LI>
+<LI><P><FONT size=3D"4">Apertura</FONT></P></LI>
+<LI><P><FONT size=3D"4">Compatta Scritture</FONT></P></LI>
+<LI><P><FONT size=3D"4">Epilogo</FONT></P></LI>
+<LI><P><FONT size=3D"4">Integrazione dei risconti</FONT></P></LI>
+<LI><P><FONT size=3D"4">Rettifica dei costi e ricavi in risconti</FONT></=
+P></LI>
+<LI><P><FONT size=3D"4">Trasferisci organigramma tra esercizi</FONT></P><=
+/LI></UL>
+
+<LI><P><FONT size=3D"4">Diagnostica problemi</FONT></P></LI>
+<LI><P><FONT size=3D"4">Gestione del Menu</FONT></P></LI>
+<LI><A href=3D"GESTIONE_SICUREZZA.mht"><FONT size=3D"4">Gestione Sicurezz=
+a</FONT></A></FONT></LI>
+<UL>
+<LI><P><A href=3D"customgroup_default.mht"><FONT size=3D"4">Gruppi</FONT>=
+</A></FONT></P></LI>
+<LI><P><A href=3D"customuser_default.mht"><FONT size=3D"4">Utenti - Grupp=
+i</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"customgroupoperation_default.mht"><FONT size=3D"4">Oper=
+azioni</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"customusergroup_default.mht"><FONT size=3D"4">Ricerca U=
+tenti - Gruppi</FONT></A></FONT></P></LI>
+<LI><P><FONT size=3D"4">Operazioni sui prospetti</FONT></P></LI>
+<LI><FONT size=3D"4">Procedura guidata sicurezza prospetti</FONT></LI>
+<LI><P><FONT size=3D"4">Procedura guidata sicurezza tabelle</FONT></P></L=
+I>
+<UL>
+<LI><P><A href=3D"MODULO_ORGANIGRAMMA.mht"><FONT size=3D"4">Organigramma<=
+/FONT></A></FONT></P></LI>
+<UL>
+<LI><P><A href=3D"flowchart_default.mht"><FONT size=3D"4">Organigramma</F=
+ONT></A></FONT></P></LI>
+<LI><P><A href=3D"flowchartlevel_default.mht"><FONT size=3D"4">Livelli Or=
+ganigramma</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"flowchartuser_default.mht"><FONT size=3D"4">Associazion=
+e Utente - Organigramma</FONT></A></FONT></P></LI>
+<LI><P><A href=3D"flowchart_applica.mht"><FONT size=3D"4">Applica sicurez=
+za</FONT></A></FONT></P></LI></UL>
+</UL>
+</UL>
+
+<LI><P><FONT size=3D"4">Informazioni Storiche</FONT></P></LI>
+<UL>
+<LI><P><FONT size=3D"4">Anagrafica</FONT></P></LI>
+<LI><P><FONT size=3D"4">Responsabile</FONT></P></LI>
+<LI><P><FONT size=3D"4">U.P.B.</FONT></P></LI>
+<LI><P><FONT size=3D"4">Storico Classificazioni</FONT></P></LI></UL>
+
+<LI><P><FONT size=3D"4">Regole</FONT></P></LI>
+<UL>
+<LI><FONT size=3D"4">Regola</FONT></LI>
+<DIV>&nbsp;</DIV>
+<LI><P><FONT size=3D"4">Ricostruzione</FONT></P></LI>
+<LI><P><FONT size=3D"4">Controlli delle regole</FONT></P></LI></UL>
+
+<LI><FONT size=3D"4">Transazioni</FONT></LI>
+<DIV>&nbsp;</DIV>
+<UL>
+<LI><P><FONT size=3D"4">Evento transazione</FONT></P></LI>
+<LI><P><FONT size=3D"4">Log delle transazioni</FONT></P></LI></UL>
+</UL>
+
+</BODY>
+</HTML>
+
+-----------blocknote.net--1DSDJ3UJHXPZW129HPJSF371LX--

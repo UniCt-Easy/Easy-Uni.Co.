@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -17,24 +17,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace ServizioRendicontazione
 {
-    public class common
+    public static class common
 	{
 		// Cu
 		public static string cu;
+
+		// Year to consider
+		public static int	yearToConsider;
 
 		// Connection
 		public static string connstring;
 		public static string schemaAmm;
 		public static string schemaDbo;
-        public static int annoAccademico;
 
 		// API
 		public static string api_url;
-		public static int limit;
-		public static bool all;
+		public static int    limit;
+		public static bool   all;
 
 		// Authorization Type
-		public static bool auth_type_basic;
+		public static bool   auth_type_basic;
 
 		// Authorization BASIC
 		public static string auth_basic_token;
@@ -44,5 +46,13 @@ namespace ServizioRendicontazione
 		public static string auth_api_remote;
 		public static string auth_api_key;
 		public static string auth_api_key_value;
+
+		// =======================================================================================================================================
+		// PRINT LOG
+		// =======================================================================================================================================
+		public static void logInfo(string s)
+		{
+			try { System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}__Log.txt", DateTime.Now.ToString("yy-MM-dd HH:mm:ss") + " - " + s + "\r\n"); } catch { }
+		}
 	}
 }

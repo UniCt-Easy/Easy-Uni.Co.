@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@ using System.Runtime.Serialization;
 namespace nso_vendita_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("VistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class VistaForm: DataSet {
+public partial class VistaForm: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -52,6 +52,9 @@ public class VistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable nso_deliverystatus 		=> Tables["nso_deliverystatus"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable nocigmotive 		=> Tables["nocigmotive"];
 
 	#endregion
 
@@ -469,6 +472,35 @@ private void initClass() {
 	tnso_deliverystatus.PrimaryKey =  new DataColumn[]{tnso_deliverystatus.Columns["idnso_deliverystatus"]};
 
 
+	//////////////////// NOCIGMOTIVE /////////////////////////////////
+	var tnocigmotive= new DataTable("nocigmotive");
+	C= new DataColumn("idnocigmotive", typeof(int));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	tnocigmotive.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("codenocigmotive", typeof(string));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tnocigmotive.Columns.Add(C);
+	tnocigmotive.Columns.Add( new DataColumn("idnocigmotiveNSO", typeof(string)));
+	Tables.Add(tnocigmotive);
+	tnocigmotive.PrimaryKey =  new DataColumn[]{tnocigmotive.Columns["idnocigmotive"]};
+
+
 	#endregion
 
 
@@ -492,6 +524,10 @@ private void initClass() {
 	cPar = new []{nso_deliverystatus.Columns["idnso_deliverystatus"]};
 	cChild = new []{nso_vendita.Columns["idnso_deliverystatus"]};
 	Relations.Add(new DataRelation("nso_deliverystatus_nso_vendita",cPar,cChild,false));
+
+	cPar = new []{nocigmotive.Columns["idnocigmotiveNSO"]};
+	cChild = new []{nso_vendita.Columns["codice_identificativo_gara"]};
+	Relations.Add(new DataRelation("nocigmotive_nso_vendita",cPar,cChild,false));
 
 	#endregion
 

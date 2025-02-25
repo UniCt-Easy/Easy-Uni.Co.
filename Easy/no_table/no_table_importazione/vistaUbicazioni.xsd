@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaUbicazioni" targetNamespace="http://tempuri.org/vistaUbicazioni.xsd" xmlns:mstns="http://tempuri.org/vistaUbicazioni.xsd" xmlns="http://tempuri.org/vistaUbicazioni.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaUbicazioni" targetNamespace="http://tempuri.org/vistaUbicazioni.xsd" xmlns:mstns="http://tempuri.org/vistaUbicazioni.xsd" xmlns="http://tempuri.org/vistaUbicazioni.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaUbicazioni" msdata:IsDataSet="true" msdata:Locale="it-IT" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -19,6 +19,11 @@
               <xs:element name="nlevel" type="xs:unsignedByte" />
               <xs:element name="idlocation" type="xs:int" />
               <xs:element name="paridlocation" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -97,21 +102,13 @@
       <xs:selector xpath=".//mstns:division" />
       <xs:field xpath="mstns:iddivision" />
     </xs:unique>
-    <xs:keyref name="division_manager" refer="division_Constraint1">
-      <xs:selector xpath=".//mstns:manager" />
-      <xs:field xpath="mstns:iddivision" />
-    </xs:keyref>
-    <xs:keyref name="location_location" refer="Constraint1">
-      <xs:selector xpath=".//mstns:location" />
-      <xs:field xpath="mstns:paridlocation" />
-    </xs:keyref>
-    <xs:keyref name="manager_location" refer="manager_Constraint1">
-      <xs:selector xpath=".//mstns:location" />
-      <xs:field xpath="mstns:idman" />
-    </xs:keyref>
-    <xs:keyref name="locationlevel_location" refer="locationlevel_Constraint1">
-      <xs:selector xpath=".//mstns:location" />
-      <xs:field xpath="mstns:nlevel" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="division_manager" msdata:parent="division" msdata:child="manager" msdata:parentkey="iddivision" msdata:childkey="iddivision" />
+      <msdata:Relationship name="location_location" msdata:parent="location" msdata:child="location" msdata:parentkey="idlocation" msdata:childkey="paridlocation" />
+      <msdata:Relationship name="manager_location" msdata:parent="manager" msdata:child="location" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="locationlevel_location" msdata:parent="locationlevel" msdata:child="location" msdata:parentkey="nlevel" msdata:childkey="nlevel" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,9 +29,6 @@ namespace csa_importriep_partition_expense_elenco {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
@@ -41,33 +38,18 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importriep_partition_expense 		=> Tables["csa_importriep_partition_expense"];
 
-	///<summary>
-	///Importazione Riepiloghi CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importriep 		=> Tables["csa_importriep"];
 
-	///<summary>
-	///Importazione CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_import 		=> Tables["csa_import"];
 
-	///<summary>
-	///Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contract 		=> Tables["csa_contract"];
 
-	///<summary>
-	///Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkind 		=> Tables["csa_contractkind"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
@@ -255,6 +237,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tcsa_importriep_partition_expense.Columns.Add(C);
 	tcsa_importriep_partition_expense.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	tcsa_importriep_partition_expense.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
 	tcsa_importriep_partition_expense.Columns.Add( new DataColumn("ct", typeof(DateTime)));
 	tcsa_importriep_partition_expense.Columns.Add( new DataColumn("cu", typeof(string)));
 	tcsa_importriep_partition_expense.Columns.Add( new DataColumn("lt", typeof(DateTime)));

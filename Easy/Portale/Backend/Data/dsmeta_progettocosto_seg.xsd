@@ -59,7 +59,7 @@
               <xs:element name="sal_budget" type="xs:decimal" minOccurs="0" />
               <xs:element name="sal_datablocco" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sal_stop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sal_start" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

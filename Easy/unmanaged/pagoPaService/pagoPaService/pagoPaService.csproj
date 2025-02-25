@@ -53,7 +53,8 @@
     <Reference Include="meta_flussoincassidetail">
       <HintPath>..\..\..\flussoincassidetail\meta_flussoincassidetail\bin\Debug\meta_flussoincassidetail.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\dll\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PdfSharp">
@@ -92,6 +93,7 @@
     <Compile Include="IntesaSanPaolo\RendicontaPlus.cs">
       <DependentUpon>RendicontaPlus.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PmPay.cs" />
     <Compile Include="Service References\bsondrio1_1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

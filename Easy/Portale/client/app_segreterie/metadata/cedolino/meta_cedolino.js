@@ -41,12 +41,6 @@
 						this.describeAColumn(table, 'data', 'Data', null, 170, null);
 						this.describeAColumn(table, '!idmese_mese_title', 'Mese', null, 21, null);
 						objCalcFieldConfig['!idmese_mese_title'] = { tableNameLookup:'mese', columnNameLookup:'title', columnNamekey:'idmese' };
-						this.describeAColumn(table, '!idcontratto_contratto_start', 'Inizio Idcontratto', null, 52, null);
-						this.describeAColumn(table, '!idcontratto_contratto_stop', 'Fine Idcontratto', null, 53, null);
-						this.describeAColumn(table, '!idcontratto_contratto_idcontrattokind_title', 'Tipologia di contratto Idcontratto', null, 50, null);
-						objCalcFieldConfig['!idcontratto_contratto_start'] = { tableNameLookup:'contratto', columnNameLookup:'start', columnNamekey:'idcontratto' };
-						objCalcFieldConfig['!idcontratto_contratto_stop'] = { tableNameLookup:'contratto', columnNameLookup:'stop', columnNamekey:'idcontratto' };
-						objCalcFieldConfig['!idcontratto_contratto_idcontrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idcontratto' };
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

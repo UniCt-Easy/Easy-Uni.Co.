@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,6 +24,9 @@ using System.Windows.Forms;
 using System.IO;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using System.Threading;
+using ReportGenClient;
+using HubConnector;
 
 namespace itinerationFunctions//FunzioniMissione//
 {
@@ -61,6 +64,11 @@ namespace itinerationFunctions//FunzioniMissione//
         public const string CampoDataPerPosGiuridica = "start";
         public const string CampoDataPerDiaria = "start";
 
+        private static bool isBlazor()
+		{
+            return Thread.CurrentThread.Name == "Main Form Blazor Thread";
+        }
+
         /// <summary>
         /// NFraz.GG = (giorni + ore/24)
         /// </summary>
@@ -96,12 +104,24 @@ namespace itinerationFunctions//FunzioniMissione//
             return QuotaEsTappa;
         }
 
-        public static decimal IF_QuotaEsente(DateTime Start, DateTime Stop, CfgItineration Cfg, decimal amount) {
+        public static decimal IF_QuotaEsente(/*DataRow Spesa,*/ DateTime Start, DateTime Stop, CfgItineration Cfg, decimal amount) {
             double ggfraz = IF_CalcolaFrazGiorni(Start, Stop);
             decimal QuotaEsente = CfgFn.GetNoNullDecimal(Cfg.foreignexemption);
             decimal QuotaEsTappa = Convert.ToDecimal(ggfraz) * QuotaEsente;
             if (QuotaEsTappa > amount) QuotaEsTappa = amount;
             return QuotaEsTappa;
+            //double ggfraz = IF_CalcolaFrazGiorni(Start, Stop);
+            //decimal QuotaEsente = 0;
+            //if (SpesaIsItalia(Spesa)) {
+            //    QuotaEsente = CfgFn.GetNoNullDecimal(Cfg.italianexemption);
+            //}
+            //else {
+            //    QuotaEsente = CfgFn.GetNoNullDecimal(Cfg.foreignexemption);
+            //}
+
+            //decimal QuotaEsSpesa = Convert.ToDecimal(ggfraz) * QuotaEsente;
+            //if (QuotaEsSpesa > amount) QuotaEsSpesa = amount;
+            //return QuotaEsSpesa;
         }
 
         /// <summary>
@@ -123,13 +143,30 @@ namespace itinerationFunctions//FunzioniMissione//
             CQueryHelper QHC = new CQueryHelper();
             decimal SUM = 0;
             foreach (DataRow Spesa in Spese.Select()) {
-
+                //bool eseguicalcolo = true;
                 object iditinerationrefundkind = Spesa["iditinerationrefundkind"];
                 if (iditinerationrefundkind == DBNull.Value) continue;
                 DataRow[] r = TipoSpesa.Select(QHC.CmpEq("iditinerationrefundkind", iditinerationrefundkind));
                 if (r.Length == 0) continue;
-                if (CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5) continue; //non è un rimborso forfettario
-
+                if (CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5) {
+                    //è un rimborso forfettario
+                    //eseguicalcolo = true;
+                    continue;
+                }
+                /* Se tracciabilità richiesta :  (itinerationrefundkind.flagtraceability & 1)  <>0
+                 * e Applica le ritenute/contributi all'importo della spesa in assenza di traccibilità : itinerationrefundkind.flagtraceability & 16 <> 0
+                 * e Non includere l'importo della spesa imponibile per l'applicazione delle ritenute : itinerationrefundkind.flagtraceability & 8 = 0
+                 * => Spesa imponibile*/
+                //int flagtraceability = CfgFn.GetNoNullInt32(r[0]["flagtraceability"]);
+                //if ((flagtraceability & 1) != 0
+                //    &&
+                //    (flagtraceability & 16) != 0
+                //    &&
+                //    (flagtraceability & 8) == 0
+                //    ) {
+                //    eseguicalcolo = true;
+                //}
+                //if (!eseguicalcolo) continue;
                 if (Spesa["starttime"] == DBNull.Value || Spesa["stoptime"] == DBNull.Value) continue;
                 SUM += IF_QuotaEsente((DateTime)Spesa["starttime"], (DateTime)Spesa["stoptime"], Cfg, CfgFn.GetNoNullDecimal(Spesa["amount"]));
             }
@@ -168,6 +205,9 @@ namespace itinerationFunctions//FunzioniMissione//
             return (Tappa["flagitalian"].ToString().ToUpper() == "S");
         }
 
+        public static bool SpesaIsItalia(DataRow Spesa) {
+            return (Spesa["flag_geo"].ToString().ToUpper() == "I");
+        }
         /// <summary>
         /// Indennità totale (EURO) non ridotta = [N. giorni frazionario] * [indennita corrisposta]
         /// </summary>
@@ -381,18 +421,82 @@ namespace itinerationFunctions//FunzioniMissione//
         /// <param name="Cfg"></param>
         /// <returns></returns>
         public static decimal IF_ImponibileSpesa(DataRow Spesa, DataTable TipoSpesa, CfgItineration Cfg) {
+            bool eseguicalcolo = false;
+            bool spesasoloimponibile = false;
             object iditinerationrefundkind = Spesa["iditinerationrefundkind"];
             if (iditinerationrefundkind == DBNull.Value) return 0;
             CQueryHelper QHC = new CQueryHelper();
             DataRow[] r = TipoSpesa.Select(QHC.CmpEq("iditinerationrefundkind", iditinerationrefundkind));
             if (r.Length == 0) return 0;
-            if (CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5) return 0; //non è un rimborso forfettario
+
+            // è un rimborso forfettario
+            if (CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) == 5) {
+                eseguicalcolo = true;
+            }
+            // Tipo spesa - Tracciabilità richiesta 
+            string TracciabilitaRichiesta = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 1 ) != 0 ? "S" : "N";
+
+            // Tipo spesa - Obbligatorietà allegato digitale attestante il pagamento tracciabile(Bloccante)
+            string ObbligoAllegato_Bloccante = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 2) != 0 ? "S" : "N";
+
+            // Tipo spesa - Obbligatorietà allegato digitale attestante il pagamento tracciabile(Non Bloccante)
+            string ObbligoAllegato_Nonbloccante = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 4) != 0 ? "S" : "N";
+
+            // Tipo spesa - Non includere l'importo della spesa imponibile per l'applicazione delle ritenute
+            string NonIncludereSpesaPerapplicazioneRitenute = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 8) != 0 ? "S" : "N";
+
+            // Tipo spesa - Applica le ritenute/contributi all'importo della spesa in assenza di tracciabilità
+            string ApplicaRitenuteInAssenzaditraccibilita = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 16) != 0 ? "S" : "N";
+
+            // Spesa - Assenza pagamento tracciabile(spesa imponibile)"
+            string Assenzapagamentotracciabile_SpesaImponibile = (CfgFn.GetNoNullInt32(Spesa["flagtaxableexpense"]) & 1) != 0 ? "S" : "N";
+
+            /* Se
+             * Obbligatorietà allegato digitale attestante il pagamento tracciabile(Bloccante) = S => (itinerationrefundkind.flagtraceability & 2) <> 0
+             * AND
+             *  "Assenza pagamento tracciabile(spesa imponibile)" = N.
+             * La spesa non è imponibile, perchè la persona ha messo l'allegato
+             */
+            if (Assenzapagamentotracciabile_SpesaImponibile == "N"){
+                eseguicalcolo = false;
+                return 0; 
+            }
+
+            /* Se Non includere l'importo della spesa imponibile per l'applicazione delle ritenute : itinerationrefundkind.flagtraceability & 8 <> 0 */
+            if(NonIncludereSpesaPerapplicazioneRitenute == "S") {
+                eseguicalcolo = false;
+                return 0; 
+            }
+            /*
+             * 
+             * Se tracciabilità richiesta :  (itinerationrefundkind.flagtraceability & 1)  <>0
+             * e Applica le ritenute/contributi all'importo della spesa in assenza di traccibilità : itinerationrefundkind.flagtraceability & 16 <> 0
+             * => Spesa imponibile
+             * 
+             * OPPURE
+             * 
+             * Se "Assenza pagamento tracciabile(spesa imponibile)" = S
+             * =>  Spesa imponibile
+              */
+
+            if ((TracciabilitaRichiesta=="S") &&(ApplicaRitenuteInAssenzaditraccibilita=="S")
+                ||
+                    (Assenzapagamentotracciabile_SpesaImponibile=="S")
+                ){
+                eseguicalcolo = true;
+                spesasoloimponibile = true;
+            }
+
+            if (!eseguicalcolo) return 0;
+
             decimal IndennitaTot = CfgFn.GetNoNullDecimal(Spesa["amount"]);
             decimal QuotaEsente = 0;
             if (Spesa["starttime"] != DBNull.Value && Spesa["stoptime"] != DBNull.Value) {
                 QuotaEsente= IF_QuotaEsente((DateTime)Spesa["starttime"], (DateTime)Spesa["stoptime"], Cfg, IndennitaTot);
             }
-            
+            if (spesasoloimponibile) {
+                QuotaEsente = 0;
+            }
             if ((IndennitaTot - QuotaEsente) > 0) {
                 return CfgFn.RoundValuta(IndennitaTot - QuotaEsente);
             }
@@ -404,14 +508,76 @@ namespace itinerationFunctions//FunzioniMissione//
             decimal tot = 0;
             CQueryHelper QHC = new CQueryHelper();
             foreach (DataRow R in Spesa.Select()) {
+                bool eseguicalcolo = false;
+                bool spesasoloimponibile = false;
                 object iditinerationrefundkind = R["iditinerationrefundkind"];
                 if (iditinerationrefundkind == DBNull.Value) continue;
                 DataRow[] r = TipoSpesa.Select(QHC.CmpEq("iditinerationrefundkind", iditinerationrefundkind));
                 if (r.Length == 0) continue;
-                if (CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5) continue; //non è un rimborso forfettario
+                if (CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) == 5) {
+                    eseguicalcolo = true; //è un rimborso forfettario, deve fare il calcolo
+                }
+                // Tipo spesa - Tracciabilità richiesta 
+                string TracciabilitaRichiesta = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 1) != 0 ? "S" : "N";
+
+                // Tipo spesa - Obbligatorietà allegato digitale attestante il pagamento tracciabile(Bloccante)
+                string ObbligoAllegato_Bloccante = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 2) != 0 ? "S" : "N";
+
+                // Tipo spesa - Obbligatorietà allegato digitale attestante il pagamento tracciabile(Non Bloccante)
+                string ObbligoAllegato_Nonbloccante = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 4) != 0 ? "S" : "N";
+
+                // Tipo spesa - Non includere l'importo della spesa imponibile per l'applicazione delle ritenute
+                string NonIncludereSpesaPerapplicazioneRitenute = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 8) != 0 ? "S" : "N";
+
+                // Tipo spesa - Applica le ritenute/contributi all'importo della spesa in assenza di tracciabilità
+                string ApplicaRitenuteInAssenzaditraccibilita = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 16) != 0 ? "S" : "N";
+
+                // Spesa - Assenza pagamento tracciabile(spesa imponibile)"
+                string Assenzapagamentotracciabile_SpesaImponibile = (CfgFn.GetNoNullInt32(R["flagtaxableexpense"]) & 1) != 0 ? "S" : "N";
+
+                /* Se
+                 * Obbligatorietà allegato digitale attestante il pagamento tracciabile(Bloccante) = S => (itinerationrefundkind.flagtraceability & 2) <> 0
+                 * AND
+                 *  "Assenza pagamento tracciabile(spesa imponibile)" = N.
+                 * La spesa non è imponibile, perchè la persona ha messo l'allegato
+                 */
+                if (Assenzapagamentotracciabile_SpesaImponibile == "N") {
+                    eseguicalcolo = false;
+                    return 0; 
+                }
+
+                /* Se Non includere l'importo della spesa imponibile per l'applicazione delle ritenute : itinerationrefundkind.flagtraceability & 8 <> 0 */
+                if (NonIncludereSpesaPerapplicazioneRitenute == "S") {
+                    eseguicalcolo = false;
+                    return 0; 
+                }
+                /*
+                 * 
+                 * Se tracciabilità richiesta :  (itinerationrefundkind.flagtraceability & 1)  <>0
+                 * e Applica le ritenute/contributi all'importo della spesa in assenza di traccibilità : itinerationrefundkind.flagtraceability & 16 <> 0
+                 * => Spesa imponibile
+                 * 
+                 * OPPURE
+                 * 
+                 * Se "Assenza pagamento tracciabile(spesa imponibile)" = S
+                 * =>  Spesa imponibile
+                  */
+
+                if ((TracciabilitaRichiesta == "S") && (ApplicaRitenuteInAssenzaditraccibilita == "S")
+                    ||
+                        (Assenzapagamentotracciabile_SpesaImponibile == "S")
+                    ) {
+                    eseguicalcolo = true;
+                    spesasoloimponibile = true;
+                }
+
+                if (!eseguicalcolo) continue;
 
                 decimal IndennitaTot = CfgFn.GetNoNullDecimal(R["amount"]);
-                decimal QuotaEsente = IF_QuotaEsente((DateTime)R["starttime"], (DateTime)R["stoptime"], Cfg, IndennitaTot);
+                decimal QuotaEsente = IF_QuotaEsente( (DateTime)R["starttime"], (DateTime)R["stoptime"], Cfg, IndennitaTot);
+                if (spesasoloimponibile) {
+                    QuotaEsente = 0;
+                }
                 if ((IndennitaTot - QuotaEsente) > 0) {
                     tot += CfgFn.RoundValuta(IndennitaTot - QuotaEsente);
                 }
@@ -997,6 +1163,8 @@ namespace itinerationFunctions//FunzioniMissione//
                 FS.Write(documento, offset, n);//<<<<<<<<<
                 FS.Flush();
                 FS.Close();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(sw, false);
             }
             catch { }
         }
@@ -1059,6 +1227,53 @@ namespace itinerationFunctions//FunzioniMissione//
             var rep = Report._First();
             var par = myPrymaryTable.Rows[0];
 
+            string tempfilename = rep["description"] + "_" + yitineration.ToString() + "_" + numberbegin.ToString() + ".pdf";
+
+            bool retExp = false;
+
+            if (isBlazor())
+			{
+                bool done = false;
+
+                // Leggo la configurazione del servizio da chiamare da DB reportgenclient
+
+                // se web client
+                DataTable dt = Conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'webclient'");
+
+                string tempFilePath = Path.Combine(FilePath, tempfilename);
+
+                if (dt != null)
+				{
+                    if (dt.Rows.Count > 0)
+					{
+                        string ServiceUrl = dt.Rows[0][0].ToString();
+                        string ServiceParam = dt.Rows[0][1].ToString();
+
+                        retExp = CallReportGenClient(par, rep, ServiceUrl, ServiceParam, tempFilePath, out errmess);
+
+                        done = true;
+                    }
+				}
+
+                if (!done)
+				{
+                    // altrimenti cerco SignalR
+                    dt = Conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'signalr'");
+                    if (dt != null)
+                    {
+                        if (dt.Rows.Count > 0)
+                        {
+                            string ServiceUrl = dt.Rows[0][0].ToString();
+                            string ServiceParam = dt.Rows[0][1].ToString();
+
+                            retExp = CallReportGenSignal(par, rep, ServiceUrl, ServiceParam, tempFilePath, out errmess);
+                        }
+                    }
+                }
+
+                return retExp;
+            }
+
             ReportDocument myRptDoc = Easy_DataAccess.GetReport(Conn as Easy_DataAccess, rep, par, out errmess);
             if (myRptDoc == null) {
                 if (errmess == null || errmess == "") errmess = "Impossibile trovare il report";
@@ -1068,12 +1283,128 @@ namespace itinerationFunctions//FunzioniMissione//
             if (!FilePath.EndsWith("\\")) FilePath += "\\";
 
             //var tempfilename = "stampamissione-" + Guid.NewGuid() + ".pdf";
-            var tempfilename = rep["description"] + "_" + yitineration.ToString() + "_" + numberbegin.ToString() + ".pdf";
+            
             //pdfFileName = @"ReportPDF/" + tempfilename;
             string error;
-            bool retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);
+            retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);
             if (!retExp) errmess = "Impossibile esportare in pdf: " + tempfilename + " in " + FilePath + " (" + error + ")";
             return retExp;
+        }
+
+        // =====================================================================================
+        //									 WEB CLIENT
+        // =====================================================================================
+        private static bool CallReportGenClient(DataRow Params, DataRow moduleReport, string ServiceUrl, string ServiceParam, string filePath, out string errmess)
+        {
+            errmess = "";
+
+            byte[] reportContents;
+
+            // Timeout di default 120
+            int timeout = 120;
+
+            // Provo a leggerlo dalla configurazione
+            int.TryParse(ServiceParam, out timeout);
+
+            try
+            {
+                WebClient client = new WebClient(ServiceUrl, timeout); // mettere in configurazione
+                reportContents = client.Generate(moduleReport, Params);
+            }
+            catch (Exception ex)
+            {
+                errmess = string.Join(": ", "errore durante la chiamata al server dei report", ex.Message);
+                return false;
+            }
+
+            try
+            {
+                File.WriteAllBytes(filePath, reportContents);
+
+                MetaFactory.factory.getSingleton<IProcessRunner>().start(filePath, false);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errmess = string.Join(": ", "impossibile ottenere il contenuto del file del report", ex.Message);
+                return false;
+            }
+        }
+
+        // =====================================================================================
+        //										SIGNALR
+        // =====================================================================================
+        private static bool CallReportGenSignal(DataRow Params, DataRow moduleReport, string ServiceUrl, string ServiceParam, string filePath, out string errmess)
+        {
+            errmess = "";
+
+            byte[] reportContentsSignalR = { };
+
+            string[] HubParams = ServiceParam.Split(',');
+
+            string HubServiceUrl = ServiceUrl;          // https://localhost:44396/
+            string HubName = HubParams[0];              // HubReport
+            string HubMethod = HubParams[1];            // Send
+            string FunctionCaller = HubParams[2];       // ReceivePdf
+            string FunctionError = HubParams[3];        // ReceiveError
+
+            // Controllo Url del servizio
+            if (string.IsNullOrEmpty(HubServiceUrl) || string.IsNullOrEmpty(HubName) || string.IsNullOrEmpty(HubMethod) || string.IsNullOrEmpty(FunctionCaller) || string.IsNullOrEmpty(FunctionError))
+            {
+                errmess = "Servizio non configurato";
+                return false;
+            }
+
+            try
+            {
+                // =====================================================================================
+                // Delegate, Metodo chiamato da HubConnection ricevuto il pdf
+                // =====================================================================================
+                ActionCaller actionCaller = (byte[] pdfByte) => {
+
+                    File.WriteAllBytes(filePath, pdfByte);
+
+                    MetaFactory.factory.getSingleton<IProcessRunner>().start(filePath, false);
+                };
+
+                // =====================================================================================
+                // Delegate, Metodo chiamato da HubConnection in caso di errore
+                // =====================================================================================
+                ActionError actionError = (string msg) => {
+                    ShowMsg(string.Join(": ", "impossibile ottenere il contenuto del file del report", msg));
+                };
+
+                // Istanza di HubConnection
+                HubConn hubConn = HubConn.GetInstance(actionCaller, actionError, HubServiceUrl, HubName, FunctionCaller, FunctionError);
+
+                // Se connesso Genero
+                if (hubConn.isConnected())
+                {
+                    hubConn.Generate(HubMethod, moduleReport, Params);
+                    return true;
+                }
+                else
+                {
+                    errmess = "Non è possibile stabilire la connessione con " + HubServiceUrl;
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                errmess = string.Join(": ", "impossibile ottenere il contenuto del file del report", ex.Message);
+                return false;
+            }
+        }
+
+        private static void ShowMsg(string shortmsg)
+        {
+            ShowMsg(shortmsg, null);
+        }
+
+        private static void ShowMsg(string shortmsg, string longmsg)
+        {
+            QueryCreator.ShowError(null, shortmsg, longmsg);
         }
 
         public static bool exportToPdf(ReportDocument rd, string fileName, string relativePath, out string error) {
@@ -1091,6 +1422,9 @@ namespace itinerationFunctions//FunzioniMissione//
                 rd.Export();
                 bool existfile = File.Exists(tempfilename);
                 if (!existfile) error = "export fallito";
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(tempfilename, false);
+
                 return existfile;
             }
             catch (Exception e) {

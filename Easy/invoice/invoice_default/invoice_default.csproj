@@ -89,6 +89,10 @@
       <Name>meta_invoice</Name>
       <Private>False</Private>
     </ProjectReference>
+    <Reference Include="afiprotfat_unict">
+      <HintPath>..\..\unmanaged\afiprotfat_unict\bin\Debug\afiprotfat_unict.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="MagicLibrary">
       <Name>magiclibrary</Name>
       <HintPath>..\..\dll\magiclibrary.dll</HintPath>
@@ -250,6 +254,12 @@
     <Compile Include="frmAskDividi.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FrmAskOffice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAskOffice.Designer.cs">
+      <DependentUpon>FrmAskOffice.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAssociaDettagliDaFE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -314,6 +324,9 @@
     <EmbeddedResource Include="frmAskDividi.resx">
       <DependentUpon>frmAskDividi.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAskOffice.resx">
+      <DependentUpon>FrmAskOffice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAssociaDettagliDaFE.resx">
       <DependentUpon>FrmAssociaDettagliDaFE.cs</DependentUpon>

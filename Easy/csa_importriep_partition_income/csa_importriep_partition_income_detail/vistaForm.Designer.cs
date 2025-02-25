@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,15 +26,12 @@ using System.Runtime.Serialization;
 namespace csa_importriep_partition_income_detail {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importriep_partition_income 		=> Tables["csa_importriep_partition_income"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
@@ -64,7 +61,6 @@ private void initClass() {
 	DataSetName = "vistaForm";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaForm.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
 	DataColumn C;
@@ -80,6 +76,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tcsa_importriep_partition_income.Columns.Add(C);
 	tcsa_importriep_partition_income.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	tcsa_importriep_partition_income.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
 	tcsa_importriep_partition_income.Columns.Add( new DataColumn("ct", typeof(DateTime)));
 	tcsa_importriep_partition_income.Columns.Add( new DataColumn("cu", typeof(string)));
 	tcsa_importriep_partition_income.Columns.Add( new DataColumn("lt", typeof(DateTime)));

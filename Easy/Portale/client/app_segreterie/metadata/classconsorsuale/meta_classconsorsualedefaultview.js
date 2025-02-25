@@ -23,13 +23,13 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'idclassconsorsuale', 'Codice', null, 10, null);
-						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 50);
-						this.describeAColumn(table, 'classconsorsuale_description', 'Descrizione', null, 20, 512);
-						this.describeAColumn(table, 'classconsorsuale_active', 'Attivo', null, 40, null);
-						this.describeAColumn(table, 'classconsorsuale_ambitodisci', 'Ambito Disciplinare', null, 50, 50);
-						this.describeAColumn(table, 'classconsorsuale_corr2592017', 'Corrispondenza', null, 60, 50);
-						this.describeAColumn(table, 'classconsorsuale_normativa', 'Normativa', null, 70, 50);
+						this.describeAColumn(table, 'title', 'Codice', null, 1000, 50);
+						this.describeAColumn(table, 'classconsorsuale_description', 'Descrizione', null, 2000, 512);
+						this.describeAColumn(table, 'classconsorsuale_active', 'Attivo', null, 3000, null);
+						this.describeAColumn(table, 'classconsorsuale_ambitodisci', 'Ambito Disciplinare', null, 4000, 50);
+						this.describeAColumn(table, 'classconsorsuale_normativa', 'Normativa', null, 5000, 50);
+						this.describeAColumn(table, 'classconsorsuale_corr2592017', 'Corrispondenza', null, 6000, 50);
+						this.describeAColumn(table, 'classconsorsuale_tipoente', 'Tipologia di ente', null, 10000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

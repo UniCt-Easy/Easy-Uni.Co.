@@ -296,7 +296,7 @@
       <msdata:Relationship name="FK_contrattostipendioview_stipendio_idstipendio" msdata:parent="stipendio" msdata:child="contrattostipendioview" msdata:parentkey="idstipendio" msdata:childkey="idstipendio" />
       <msdata:Relationship name="FK_contrattostipendioview_inquadramentodefaultview_idinquadramento" msdata:parent="inquadramentodefaultview" msdata:child="contrattostipendioview" msdata:parentkey="idinquadramento" msdata:childkey="idinquadramento" />
       <msdata:Relationship name="FK_contrattostipendioview_positiondefaultview_idposition" msdata:parent="positiondefaultview" msdata:child="contrattostipendioview" msdata:parentkey="idposition" msdata:childkey="idposition" />
-      <msdata:Relationship name="FK_contrattostipendioview_registrylegalstatusdefaultview_idregistrylegalstatus" msdata:parent="registrylegalstatusdefaultview" msdata:child="contrattostipendioview" msdata:parentkey="idregistrylegalstatus" msdata:childkey="idregistrylegalstatus" />
+      <msdata:Relationship name="FK_contrattostipendioview_registrylegalstatusdefaultview_idregistrylegalstatus" msdata:parent="registrylegalstatusdefaultview" msdata:child="contrattostipendioview" msdata:parentkey="idregistrylegalstatus idreg" msdata:childkey="idregistrylegalstatus idreg" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

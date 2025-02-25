@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+using Microsoft.EntityFrameworkCore;
 using ServizioRendicontazione.Models;
 
 namespace ServizioRendicontazione.Repositories
@@ -26,36 +27,48 @@ namespace ServizioRendicontazione.Repositories
         // ==============================================================
         public List<didprogori> AllOrientamento(List<int> iddidprogcurrList)
         {
-            return _context.didprogoris.Where(
-                w => iddidprogcurrList.Contains(w.iddidprogcurr)
-            ).ToList();
+            return _context.didprogoris.AsNoTracking().Where(w => iddidprogcurrList.Contains(w.iddidprogcurr)).ToList();
         }
 
-        public didprogori AddOrientamento(int idcorsostudio,
+		public didprogori AddOrientamento(int idcorsostudio,
 										  int iddidprog,
 										  int iddidprogcurr,
 									   string title)
 		{
-			int iddidprogori = 0;
-			if (_context.didprogoris.Any())
-				iddidprogori = _context.didprogoris.Max(m => m.iddidprogori);
-
-			iddidprogori++;
-
-			didprogori dpo = new didprogori()
+			try
 			{
-				iddidprogori = iddidprogori,
-				iddidprogcurr = iddidprogcurr,
-				iddidprog = iddidprog,
-				idcorsostudio = idcorsostudio,
-				codice = null,
-				title = title
-			};
+				int iddidprogori = 0;
+				if (_context.didprogoris.Any())
+					iddidprogori = _context.didprogoris.AsNoTracking().Max(m => m.iddidprogori);
 
-			_context.Add(dpo);
-			_context.SaveChanges();
+				iddidprogori++;
 
-			return dpo;
-		}		
+				didprogori dpo = new didprogori()
+				{
+					iddidprogori = iddidprogori,
+					iddidprogcurr = iddidprogcurr,
+					iddidprog = iddidprog,
+					idcorsostudio = idcorsostudio,
+					codice = null,
+					title = title,
+
+					Ct = DateTime.Now,
+					Cu = common.cu,
+
+					Lt = DateTime.Now,
+					Lu = common.cu
+				};
+
+				_context.Add(dpo);
+				_context.SaveChanges();
+
+				return dpo;
+			}
+			catch (Exception Ex)
+			{
+				common.logInfo($"AddOrientamento({idcorsostudio},{iddidprog}, {title}): \r\n" + Ex.Message + "\r\n" + Ex.InnerException?.Message + "\r\n" + Ex.StackTrace);
+				return null;
+			}
+		}	
 	}
 }

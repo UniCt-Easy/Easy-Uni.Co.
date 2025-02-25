@@ -55,8 +55,11 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneateneores'), this.getDataTable('perfvalutazioneateneoresattach'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -65,12 +68,21 @@
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				appMeta.metaModel.insertFilter(this.getDataTable("perfmissiondefaultview"), this.q.eq('perfmission_active', 'Si'));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-perfvalutazioneateneores_default");
-				$('#perfvalutazioneateneores_default_idperfmission').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#perfvalutazioneateneores_default_idperfmission').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#perfvalutazioneateneores_default_idperfmission').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idperfmission);
+				$('#perfvalutazioneateneores_default_idperfmission').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idperfmission);
 				//afterRowSelectin
 				return def.resolve();
 			},

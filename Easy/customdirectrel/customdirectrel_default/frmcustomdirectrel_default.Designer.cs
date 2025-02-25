@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -121,8 +121,8 @@ namespace customdirectrel_default {
             this.ToTable.Size = new System.Drawing.Size(413, 40);
             this.ToTable.TabIndex = 7;
             this.ToTable.TabStop = false;
-            this.ToTable.Tag = "AutoChoose.txtToTable.default.(isreal=\'S\')";
-            this.ToTable.Text = "Tabella di arrivo";
+            this.ToTable.Tag = "AutoChoose.txtToTable.default";
+            this.ToTable.Text = "Tabella o vista di arrivo";
             // 
             // txtToTable
             // 

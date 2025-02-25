@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,6 +27,7 @@ using metadatalibrary;
 using System.Text;
 using System.Globalization;
 using funzioni_configurazione;
+using System.Linq;
 
 namespace emens_consolida//consolidaEmens//
 {
@@ -63,6 +64,9 @@ namespace emens_consolida//consolidaEmens//
         QueryHelper QHS;
         CQueryHelper QHC;
         private Button btnLeggiUniemens;
+
+        private OpenFileDialog _openFileDialog1;
+        private IOpenFileDialog openFileDialog1;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -74,6 +78,10 @@ namespace emens_consolida//consolidaEmens//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
 
             saveFileDialog1.DefaultExt = "xml";
             saveFileDialog1.Title = "Specificare il nome del file da produrre:";
@@ -97,6 +105,14 @@ namespace emens_consolida//consolidaEmens//
 			dsEmens.Emens.Columns["Al"].Caption = "Al";
 			dsEmens.Emens.Columns["CodCalamita"].Caption = "";
 			dsEmens.Emens.Columns["CodCertificazione"].Caption = "";
+
+            if (isBlazor())
+			{
+                txtDirectory.Visible = false;
+                txtFileXml.Visible = false;
+                btnDirectory.Visible = false;
+                openFileDialog1.Multiselect = true;
+			}
 		}
 
 		/// <summary>
@@ -121,279 +137,265 @@ namespace emens_consolida//consolidaEmens//
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.btnDirectory = new System.Windows.Forms.Button();
-            this.txtDirectory = new System.Windows.Forms.TextBox();
-            this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnLeggi = new System.Windows.Forms.Button();
-            this.DS = new emens_consolida.vistaForm();
-            this.dsEmens = new emens_consolida.VistaEmens();
-            this.gridFile = new System.Windows.Forms.DataGrid();
-            this.btnFileXml = new System.Windows.Forms.Button();
-            this.txtFileXml = new System.Windows.Forms.TextBox();
-            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.btnApriXml = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtCFPersonaMittente = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtRagSocMittente = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtCFMittente = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtCFSoftwarehouse = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cmbSedeInps = new System.Windows.Forms.ComboBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnLeggiUniemens = new System.Windows.Forms.Button();
-            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
-            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DS.emens)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsEmens)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridFile)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // btnDirectory
-            // 
-            this.btnDirectory.Location = new System.Drawing.Point(8, 8);
-            this.btnDirectory.Name = "btnDirectory";
-            this.btnDirectory.Size = new System.Drawing.Size(72, 23);
-            this.btnDirectory.TabIndex = 0;
-            this.btnDirectory.Text = "Cartella file";
-            this.btnDirectory.Click += new System.EventHandler(this.btnDirectory_Click);
-            // 
-            // txtDirectory
-            // 
-            this.txtDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDirectory.Location = new System.Drawing.Point(88, 8);
-            this.txtDirectory.Name = "txtDirectory";
-            this.txtDirectory.ReadOnly = true;
-            this.txtDirectory.Size = new System.Drawing.Size(520, 20);
-            this.txtDirectory.TabIndex = 1;
-            // 
-            // folderBrowserDialog1
-            // 
-            //this.folderBrowserDialog1.Description = "Indicare la cartella dove sono presenti i file Emens da consolidare:";
-            // 
-            // btnLeggi
-            // 
-            this.btnLeggi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLeggi.Location = new System.Drawing.Point(237, 328);
-            this.btnLeggi.Name = "btnLeggi";
-            this.btnLeggi.Size = new System.Drawing.Size(114, 24);
-            this.btnLeggi.TabIndex = 2;
-            this.btnLeggi.Text = "Consolida Emens";
-            this.btnLeggi.Click += new System.EventHandler(this.btnLeggi_Click);
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            // 
-            // 
-            // 
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // dsEmens
-            // 
-            this.dsEmens.DataSetName = "VistaEmens";
-            this.dsEmens.EnforceConstraints = false;
-            this.dsEmens.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // gridFile
-            // 
-            this.gridFile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridFile.DataMember = "";
-            this.gridFile.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.gridFile.Location = new System.Drawing.Point(8, 144);
-            this.gridFile.Name = "gridFile";
-            this.gridFile.Size = new System.Drawing.Size(600, 176);
-            this.gridFile.TabIndex = 3;
-            // 
-            // btnFileXml
-            // 
-            this.btnFileXml.Location = new System.Drawing.Point(8, 40);
-            this.btnFileXml.Name = "btnFileXml";
-            this.btnFileXml.Size = new System.Drawing.Size(72, 23);
-            this.btnFileXml.TabIndex = 4;
-            this.btnFileXml.Text = "File Xml";
-            this.btnFileXml.Click += new System.EventHandler(this.btnFile_Click);
-            // 
-            // txtFileXml
-            // 
-            this.txtFileXml.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFileXml.Location = new System.Drawing.Point(88, 40);
-            this.txtFileXml.Name = "txtFileXml";
-            this.txtFileXml.ReadOnly = true;
-            this.txtFileXml.Size = new System.Drawing.Size(520, 20);
-            this.txtFileXml.TabIndex = 5;
-            // 
-            // saveFileDialog1
-            // 
-            //this.saveFileDialog1.DefaultExt = "xml";
-            //this.saveFileDialog1.Title = "Specificare il nome del file da produrre:";
-            // 
-            // btnApriXml
-            // 
-            this.btnApriXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnApriXml.Location = new System.Drawing.Point(435, 328);
-            this.btnApriXml.Name = "btnApriXml";
-            this.btnApriXml.Size = new System.Drawing.Size(80, 24);
-            this.btnApriXml.TabIndex = 6;
-            this.btnApriXml.Text = "Vedi file xml";
-            this.btnApriXml.Click += new System.EventHandler(this.btnApriXml_Click);
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(104, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 20);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "C.F. Persona";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtCFPersonaMittente
-            // 
-            this.txtCFPersonaMittente.Location = new System.Drawing.Point(168, 16);
-            this.txtCFPersonaMittente.Name = "txtCFPersonaMittente";
-            this.txtCFPersonaMittente.ReadOnly = true;
-            this.txtCFPersonaMittente.Size = new System.Drawing.Size(120, 20);
-            this.txtCFPersonaMittente.TabIndex = 8;
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(288, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 20);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Rag.Soc.";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtRagSocMittente
-            // 
-            this.txtRagSocMittente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRagSocMittente.Location = new System.Drawing.Point(336, 16);
-            this.txtRagSocMittente.Name = "txtRagSocMittente";
-            this.txtRagSocMittente.ReadOnly = true;
-            this.txtRagSocMittente.Size = new System.Drawing.Size(256, 20);
-            this.txtRagSocMittente.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(8, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 20);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "C.F.";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtCFMittente
-            // 
-            this.txtCFMittente.Location = new System.Drawing.Point(32, 16);
-            this.txtCFMittente.Name = "txtCFMittente";
-            this.txtCFMittente.ReadOnly = true;
-            this.txtCFMittente.Size = new System.Drawing.Size(72, 20);
-            this.txtCFMittente.TabIndex = 12;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.Location = new System.Drawing.Point(408, 72);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 20);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "C.F. Softwarehouse";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtCFSoftwarehouse
-            // 
-            this.txtCFSoftwarehouse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCFSoftwarehouse.Location = new System.Drawing.Point(520, 72);
-            this.txtCFSoftwarehouse.Name = "txtCFSoftwarehouse";
-            this.txtCFSoftwarehouse.ReadOnly = true;
-            this.txtCFSoftwarehouse.Size = new System.Drawing.Size(88, 20);
-            this.txtCFSoftwarehouse.TabIndex = 14;
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(24, 72);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 20);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Sede INPS";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbSedeInps
-            // 
-            this.cmbSedeInps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbSedeInps.DataSource = this.dsEmens.inpscenter;
-            this.cmbSedeInps.DisplayMember = "title";
-            this.cmbSedeInps.Location = new System.Drawing.Point(88, 72);
-            this.cmbSedeInps.MaxDropDownItems = 50;
-            this.cmbSedeInps.Name = "cmbSedeInps";
-            this.cmbSedeInps.Size = new System.Drawing.Size(320, 21);
-            this.cmbSedeInps.TabIndex = 16;
-            this.cmbSedeInps.ValueMember = "idinpscenter";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.txtCFPersonaMittente);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtCFMittente);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtRagSocMittente);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(8, 96);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(600, 40);
-            this.groupBox1.TabIndex = 17;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Mittente";
-            // 
-            // btnLeggiUniemens
-            // 
-            this.btnLeggiUniemens.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLeggiUniemens.Location = new System.Drawing.Point(107, 328);
-            this.btnLeggiUniemens.Name = "btnLeggiUniemens";
-            this.btnLeggiUniemens.Size = new System.Drawing.Size(124, 24);
-            this.btnLeggiUniemens.TabIndex = 18;
-            this.btnLeggiUniemens.Text = "Consolida UniE-mens";
-            this.btnLeggiUniemens.Click += new System.EventHandler(this.btnLeggiUniemens_Click);
-            // 
-            // Frm_consolidaEmens
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(616, 358);
-            this.Controls.Add(this.btnLeggiUniemens);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.txtCFSoftwarehouse);
-            this.Controls.Add(this.gridFile);
-            this.Controls.Add(this.cmbSedeInps);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.btnApriXml);
-            this.Controls.Add(this.txtFileXml);
-            this.Controls.Add(this.btnFileXml);
-            this.Controls.Add(this.btnLeggi);
-            this.Controls.Add(this.txtDirectory);
-            this.Controls.Add(this.btnDirectory);
-            this.Name = "Frm_consolidaEmens";
-            this.Text = "Consolidamento denunce retributive E-mens";
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsEmens)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridFile)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.btnDirectory = new System.Windows.Forms.Button();
+			this.txtDirectory = new System.Windows.Forms.TextBox();
+			this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this.btnLeggi = new System.Windows.Forms.Button();
+			this.DS = new emens_consolida.vistaForm();
+			this.dsEmens = new emens_consolida.VistaEmens();
+			this.gridFile = new System.Windows.Forms.DataGrid();
+			this.btnFileXml = new System.Windows.Forms.Button();
+			this.txtFileXml = new System.Windows.Forms.TextBox();
+			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+			this.btnApriXml = new System.Windows.Forms.Button();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtCFPersonaMittente = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtRagSocMittente = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtCFMittente = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtCFSoftwarehouse = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.cmbSedeInps = new System.Windows.Forms.ComboBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.btnLeggiUniemens = new System.Windows.Forms.Button();
+			this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dsEmens)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridFile)).BeginInit();
+			this.groupBox1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// btnDirectory
+			// 
+			this.btnDirectory.Location = new System.Drawing.Point(8, 8);
+			this.btnDirectory.Name = "btnDirectory";
+			this.btnDirectory.Size = new System.Drawing.Size(72, 23);
+			this.btnDirectory.TabIndex = 0;
+			this.btnDirectory.Text = "Cartella file";
+			this.btnDirectory.Click += new System.EventHandler(this.btnDirectory_Click);
+			// 
+			// txtDirectory
+			// 
+			this.txtDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDirectory.Location = new System.Drawing.Point(88, 8);
+			this.txtDirectory.Name = "txtDirectory";
+			this.txtDirectory.ReadOnly = true;
+			this.txtDirectory.Size = new System.Drawing.Size(520, 20);
+			this.txtDirectory.TabIndex = 1;
+			// 
+			// btnLeggi
+			// 
+			this.btnLeggi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnLeggi.Location = new System.Drawing.Point(237, 328);
+			this.btnLeggi.Name = "btnLeggi";
+			this.btnLeggi.Size = new System.Drawing.Size(114, 24);
+			this.btnLeggi.TabIndex = 2;
+			this.btnLeggi.Text = "Consolida Emens";
+			this.btnLeggi.Click += new System.EventHandler(this.btnLeggi_Click);
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// dsEmens
+			// 
+			this.dsEmens.DataSetName = "VistaEmens";
+			this.dsEmens.EnforceConstraints = false;
+			this.dsEmens.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// gridFile
+			// 
+			this.gridFile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gridFile.DataMember = "";
+			this.gridFile.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridFile.Location = new System.Drawing.Point(8, 144);
+			this.gridFile.Name = "gridFile";
+			this.gridFile.Size = new System.Drawing.Size(600, 176);
+			this.gridFile.TabIndex = 3;
+			// 
+			// btnFileXml
+			// 
+			this.btnFileXml.Location = new System.Drawing.Point(8, 40);
+			this.btnFileXml.Name = "btnFileXml";
+			this.btnFileXml.Size = new System.Drawing.Size(72, 23);
+			this.btnFileXml.TabIndex = 4;
+			this.btnFileXml.Text = "File Xml";
+			this.btnFileXml.Click += new System.EventHandler(this.btnFile_Click);
+			// 
+			// txtFileXml
+			// 
+			this.txtFileXml.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtFileXml.Location = new System.Drawing.Point(88, 40);
+			this.txtFileXml.Name = "txtFileXml";
+			this.txtFileXml.ReadOnly = true;
+			this.txtFileXml.Size = new System.Drawing.Size(520, 20);
+			this.txtFileXml.TabIndex = 5;
+			// 
+			// btnApriXml
+			// 
+			this.btnApriXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnApriXml.Location = new System.Drawing.Point(435, 328);
+			this.btnApriXml.Name = "btnApriXml";
+			this.btnApriXml.Size = new System.Drawing.Size(80, 24);
+			this.btnApriXml.TabIndex = 6;
+			this.btnApriXml.Text = "Vedi file xml";
+			this.btnApriXml.Click += new System.EventHandler(this.btnApriXml_Click);
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(104, 16);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(100, 20);
+			this.label1.TabIndex = 7;
+			this.label1.Text = "C.F. Persona";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtCFPersonaMittente
+			// 
+			this.txtCFPersonaMittente.Location = new System.Drawing.Point(168, 16);
+			this.txtCFPersonaMittente.Name = "txtCFPersonaMittente";
+			this.txtCFPersonaMittente.ReadOnly = true;
+			this.txtCFPersonaMittente.Size = new System.Drawing.Size(120, 20);
+			this.txtCFPersonaMittente.TabIndex = 8;
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(288, 16);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(100, 20);
+			this.label2.TabIndex = 9;
+			this.label2.Text = "Rag.Soc.";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtRagSocMittente
+			// 
+			this.txtRagSocMittente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtRagSocMittente.Location = new System.Drawing.Point(336, 16);
+			this.txtRagSocMittente.Name = "txtRagSocMittente";
+			this.txtRagSocMittente.ReadOnly = true;
+			this.txtRagSocMittente.Size = new System.Drawing.Size(256, 20);
+			this.txtRagSocMittente.TabIndex = 10;
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(8, 16);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(100, 20);
+			this.label3.TabIndex = 11;
+			this.label3.Text = "C.F.";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtCFMittente
+			// 
+			this.txtCFMittente.Location = new System.Drawing.Point(32, 16);
+			this.txtCFMittente.Name = "txtCFMittente";
+			this.txtCFMittente.ReadOnly = true;
+			this.txtCFMittente.Size = new System.Drawing.Size(72, 20);
+			this.txtCFMittente.TabIndex = 12;
+			// 
+			// label4
+			// 
+			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label4.Location = new System.Drawing.Point(408, 72);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(104, 20);
+			this.label4.TabIndex = 13;
+			this.label4.Text = "C.F. Softwarehouse";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtCFSoftwarehouse
+			// 
+			this.txtCFSoftwarehouse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCFSoftwarehouse.Location = new System.Drawing.Point(520, 72);
+			this.txtCFSoftwarehouse.Name = "txtCFSoftwarehouse";
+			this.txtCFSoftwarehouse.ReadOnly = true;
+			this.txtCFSoftwarehouse.Size = new System.Drawing.Size(88, 20);
+			this.txtCFSoftwarehouse.TabIndex = 14;
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(24, 72);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(100, 20);
+			this.label5.TabIndex = 15;
+			this.label5.Text = "Sede INPS";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// cmbSedeInps
+			// 
+			this.cmbSedeInps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbSedeInps.DataSource = this.dsEmens.inpscenter;
+			this.cmbSedeInps.DisplayMember = "title";
+			this.cmbSedeInps.Location = new System.Drawing.Point(88, 72);
+			this.cmbSedeInps.MaxDropDownItems = 50;
+			this.cmbSedeInps.Name = "cmbSedeInps";
+			this.cmbSedeInps.Size = new System.Drawing.Size(320, 21);
+			this.cmbSedeInps.TabIndex = 16;
+			this.cmbSedeInps.ValueMember = "idinpscenter";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.txtCFPersonaMittente);
+			this.groupBox1.Controls.Add(this.label1);
+			this.groupBox1.Controls.Add(this.txtCFMittente);
+			this.groupBox1.Controls.Add(this.label3);
+			this.groupBox1.Controls.Add(this.txtRagSocMittente);
+			this.groupBox1.Controls.Add(this.label2);
+			this.groupBox1.Location = new System.Drawing.Point(8, 96);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(600, 40);
+			this.groupBox1.TabIndex = 17;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Mittente";
+			// 
+			// btnLeggiUniemens
+			// 
+			this.btnLeggiUniemens.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnLeggiUniemens.Location = new System.Drawing.Point(107, 328);
+			this.btnLeggiUniemens.Name = "btnLeggiUniemens";
+			this.btnLeggiUniemens.Size = new System.Drawing.Size(124, 24);
+			this.btnLeggiUniemens.TabIndex = 18;
+			this.btnLeggiUniemens.Text = "Consolida UniE-mens";
+			this.btnLeggiUniemens.Click += new System.EventHandler(this.btnLeggiUniemens_Click);
+			// 
+			// Frm_consolidaEmens
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(616, 358);
+			this.Controls.Add(this.btnLeggiUniemens);
+			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.txtCFSoftwarehouse);
+			this.Controls.Add(this.gridFile);
+			this.Controls.Add(this.cmbSedeInps);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.btnApriXml);
+			this.Controls.Add(this.txtFileXml);
+			this.Controls.Add(this.btnFileXml);
+			this.Controls.Add(this.btnLeggi);
+			this.Controls.Add(this.txtDirectory);
+			this.Controls.Add(this.btnDirectory);
+			this.Name = "Frm_consolidaEmens";
+			this.Text = "Consolidamento denunce retributive E-mens";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dsEmens)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridFile)).EndInit();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		#endregion
@@ -479,10 +481,23 @@ namespace emens_consolida//consolidaEmens//
 		/// </summary>
         private void leggiFiles()
         {
- 
-            DirectoryInfo di = new DirectoryInfo(txtDirectory.Text);
+            FileInfo[] filesInfo = null;
 
-            foreach (FileInfo fi in di.GetFiles())
+            if (isBlazor())
+			{
+                DialogResult dr = openFileDialog1.ShowDialog();
+                if (dr == DialogResult.OK)
+				{
+                    filesInfo = openFileDialog1.FileNames.Select(fn => new FileInfo(fn)).ToArray();
+                }                
+			}
+            else
+			{
+                DirectoryInfo di = new DirectoryInfo(txtDirectory.Text);
+                filesInfo = di.GetFiles();
+			}
+
+            foreach (FileInfo fi in filesInfo)
             {
                 XmlDocument document = new XmlDocument();
                 try
@@ -708,6 +723,9 @@ namespace emens_consolida//consolidaEmens//
             }
             writer.WriteEndElement();//"DenunceRetributiveMensili"
             writer.Close();
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtFileXml.Text, false);
+
             visualizzaXml();
 
         }

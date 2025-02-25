@@ -23,13 +23,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'studenti':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 3000, 101);
+						this.describeAColumn(table, 'registry_surname', 'Cognome', null, 1000, 50);
+						this.describeAColumn(table, 'registry_forename', 'Nome', null, 2000, 50);
 						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 4000, 16);
-						this.describeAColumn(table, 'registry_p_iva', 'Partita iva', null, 5000, 15);
+						this.describeAColumn(table, 'registry_extmatricula', 'Matricola', null, 5000, 40);
 						this.describeAColumn(table, 'registry_active', 'attivo', null, 6000, null);
-						this.describeAColumn(table, 'registry_studenti_authinps', 'Autorizzazione all\'istituto di accedere ai propri dati INPS', null, 30000, null);
-						this.describeAColumn(table, 'studdirittokind_title', 'Tipologia per il diritto allo studio', null, 31200, 50);
-						this.describeAColumn(table, 'studprenotkind_title', 'Tipologia per la prenotazione degli appelli', null, 32200, 50);
 //$objCalcFieldConfig_studenti$
 						break;
 //$objCalcFieldConfig$
@@ -52,7 +50,10 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "studenti": {
-						return "title asc ";
+						return "registry_surname asc, registry_forename asc";
+					}
+					case "studenti": {
+						return "registry_surname asc , registry_forename asc ";
 					}
 					//$getSortingin$
 				}

@@ -27,7 +27,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_title">Denominazione</label>
-					<input id="registry_istituti_princ_title" type="text" class="form-control" data-tag="registry.title?registryistituti_princview.title" data-subentity  data-mandatory />
+					<input id="registry_istituti_princ_title" type="text" class="form-control" data-tag="registry.title?registryistituti_princview.title"  data-mandatory />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_codicemiur">Codice MIUR</label>
@@ -42,8 +42,8 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_active">attivo</label>
 					<div class="custom-control custom-radio">
-						<input id="registry_istituti_princ_activeSi" type="radio" name="registry_istituti_princ_active" class="custom-control-input" data-tag="registry.active:S?registryistituti_princview.registry_active:Si" data-subentity  data-mandatory ><label for="registry_istituti_princ_activeSi"> Si</label>
-						<input id="registry_istituti_princ_activeNo" type="radio" name="registry_istituti_princ_active" class="custom-control-input" data-tag="registry.active:N?registryistituti_princview.registry_active:No" data-subentity  data-mandatory ><label for="registry_istituti_princ_activeNo"> No</label>
+						<input id="registry_istituti_princ_activeSi" type="radio" name="registry_istituti_princ_active" class="custom-control-input" data-tag="registry.active:S?registryistituti_princview.registry_active:Si"  data-mandatory ><label for="registry_istituti_princ_activeSi"> Si</label>
+						<input id="registry_istituti_princ_activeNo" type="radio" name="registry_istituti_princ_active" class="custom-control-input" data-tag="registry.active:N?registryistituti_princview.registry_active:No"  data-mandatory ><label for="registry_istituti_princ_activeNo"> No</label>
 					</div>
 				</div>
 			</div>
@@ -54,23 +54,23 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_annotation">Annotazioni</label>
-					<input id="registry_istituti_princ_annotation" type="text" class="form-control" data-tag="registry.annotation?registryistituti_princview.registry_annotation" data-subentity  />
+					<input id="registry_istituti_princ_annotation" type="text" class="form-control" data-tag="registry.annotation?registryistituti_princview.registry_annotation"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_idistitutokind">Tipologia</label>
-					<select id="registry_istituti_princ_idistitutokind" class="custom-select d-block w-100"  data-source-name="istitutokind" data-value-member="idistitutokind" data-display-member="tipoistituto" data-sort-member="" data-custom-control="combo" data-tag="registry_istituti.idistitutokind?registryistituti_princview.registry_istituti_idistitutokind" data-subentity  data-mandatory  > </select>
+					<select id="registry_istituti_princ_idistitutokind" class="custom-select d-block w-100"  data-source-name="istitutokind" data-value-member="idistitutokind" data-display-member="tipoistituto" data-custom-control="combo" data-tag="registry_istituti.idistitutokind?registryistituti_princview.registry_istituti_idistitutokind" data-subentity  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_idistitutoustat">Codice USTAT</label>
-					<input id="registry_istituti_princ_idistitutoustat" type="text" class="form-control" data-tag="registry_istituti.idistitutoustat?registryistituti_princview.registry_istituti_idistitutoustat" data-subentity  />
+					<input id="registry_istituti_princ_idistitutoustat" type="text" class="form-control" data-tag="registry_istituti.idistitutoustat?registryistituti_princview.registry_istituti_idistitutoustat" data-subentity />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_ccp">Conto corrente postale di Riscossione</label>
-					<input id="registry_istituti_princ_ccp" type="text" class="form-control" data-tag="registry.ccp?registryistituti_princview.registry_ccp" data-subentity  />
+					<input id="registry_istituti_princ_ccp" type="text" class="form-control" data-tag="registry.ccp?registryistituti_princview.registry_ccp"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_nome">Denominazione breve</label>
@@ -80,11 +80,13 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_cf">Codice fiscale</label>
-					<input id="registry_istituti_princ_cf" type="text" class="form-control" data-tag="registry.cf?registryistituti_princview.registry_cf" data-subentity  />
+					<input id="registry_istituti_princ_cf" type="text" class="form-control" data-tag="registry.cf?registryistituti_princview.registry_cf"  />
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registry_istituti_princ_sortcode">Sortcode</label>
-					<input id="registry_istituti_princ_sortcode" type="text" class="form-control" data-tag="registry_istituti.sortcode?registryistituti_princview.registry_istituti_sortcode" data-subentity  />
+					<label class="col-form-label col-md-12" for="istitutoprinc_default_idreg_dir">Direttore</label>
+					<div>
+						<input id="istitutoprinc_default_idreg_dir" name="istitutoprinc_default_idreg_dir" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="getregistrydocentiamministratividefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -95,27 +97,46 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_idcity">Comune</label>
 					<div>
-						<input id="registry_istituti_princ_idcity" name="registry_istituti_princ_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="registry_istituti_princ_idcity" name="registry_istituti_princ_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_ipa_fe">Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, prelevato dal sito www.indicepa.gov.it.</label>
-					<input id="registry_istituti_princ_ipa_fe" type="text" class="form-control" data-tag="registry.ipa_fe?registryistituti_princview.registry_ipa_fe" data-subentity  />
+					<input id="registry_istituti_princ_ipa_fe" type="text" class="form-control" data-tag="registry.ipa_fe?registryistituti_princview.registry_ipa_fe"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_multi_cf">Consenti duplicazione CF/P. IVA (S/N)</label>
 					<div class="custom-control custom-radio">
-						<input id="registry_istituti_princ_multi_cfSi" type="radio" name="registry_istituti_princ_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:S?registryistituti_princview.registry_multi_cf:Si" data-subentity  ><label for="registry_istituti_princ_multi_cfSi"> Si</label>
-						<input id="registry_istituti_princ_multi_cfNo" type="radio" name="registry_istituti_princ_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:N?registryistituti_princview.registry_multi_cf:No" data-subentity  ><label for="registry_istituti_princ_multi_cfNo"> No</label>
+						<input id="registry_istituti_princ_multi_cfSi" type="radio" name="registry_istituti_princ_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:S?registryistituti_princview.registry_multi_cf:Si"  ><label for="registry_istituti_princ_multi_cfSi"> Si</label>
+						<input id="registry_istituti_princ_multi_cfNo" type="radio" name="registry_istituti_princ_multi_cf" class="custom-control-input" data-tag="registry.multi_cf:N?registryistituti_princview.registry_multi_cf:No"  ><label for="registry_istituti_princ_multi_cfNo"> No</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_p_iva">Partita iva</label>
-					<input id="registry_istituti_princ_p_iva" type="text" class="form-control" data-tag="registry.p_iva?registryistituti_princview.registry_p_iva" data-subentity  />
+					<input id="registry_istituti_princ_p_iva" type="text" class="form-control" data-tag="registry.p_iva?registryistituti_princview.registry_p_iva"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istitutoprinc_default_idreg_diramm">Direttore Amministrativo</label>
+					<div>
+						<input id="istitutoprinc_default_idreg_diramm" name="istitutoprinc_default_idreg_diramm" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="getregistrydocentiamministratividefaultview_alias1.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istitutoprinc_default_tipoente">Tipologia di ente</label>
+					<div class="custom-control custom-radio">
+						<input id="istitutoprinc_default_tipoenteU" type="radio" name="istitutoprinc_default_tipoente" class="custom-control-input" data-tag="istitutoprinc.tipoente:U?registryistituti_princview.istitutoprinc_tipoente:Università" data-subentity  ><label for="istitutoprinc_default_tipoenteU"> Università</label>
+						<input id="istitutoprinc_default_tipoenteA" type="radio" name="istitutoprinc_default_tipoente" class="custom-control-input" data-tag="istitutoprinc.tipoente:A?registryistituti_princview.istitutoprinc_tipoente:AFAM" data-subentity  ><label for="istitutoprinc_default_tipoenteA"> AFAM</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istitutoprinc_default_codiceerasmus">Codice Erasmus</label>
+					<input id="istitutoprinc_default_codiceerasmus" type="text" class="form-control" data-tag="istitutoprinc.codiceerasmus?registryistituti_princview.istitutoprinc_codiceerasmus" data-subentity  />
 				</div>
 			</div>
 	</div>

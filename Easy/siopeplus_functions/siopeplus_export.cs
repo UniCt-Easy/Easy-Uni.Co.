@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,14 +40,15 @@ namespace siopeplus_functions {
         //int limiteOPIinKb = 180;
         int limiteOPIinByte = 184320;
 		// bool stop = false;
-		pagamenti.mandatoInformazioni_beneficiarioSpese tratt_spese_esente_mandati_multipli;
+        /*Se configurato indica il trattamento spese da utilizzare nei mandati multipli in caso di più pagamenti a carico ente/beneficiario per lo stesso beneficiario*/
+		pagamenti.mandatoInformazioni_beneficiarioSpese tratt_spese_mandati_multipli;
 		public siopeplus_export(DataAccess Conn) {
             this.Conn = Conn;
             QHC = new CQueryHelper();
             QHS = Conn.GetQueryHelper();
 
             esercizio = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
-			tratt_spese_esente_mandati_multipli= get_trattamento_spese_esente_mandati_multipli() ;
+			tratt_spese_mandati_multipli= get_trattamento_spese_predefinito_mandati_multipli() ;
 
 
 		}
@@ -335,19 +336,22 @@ namespace siopeplus_functions {
 		/// <param name="R">Pagamento considerato</param>
 		/// <returns></returns>
 		/// 
-		public pagamenti.mandatoInformazioni_beneficiarioSpese get_trattamento_spese_esente_mandati_multipli() {
-			pagamenti.mandatoInformazioni_beneficiarioSpese RSpeseEsente = new pagamenti.mandatoInformazioni_beneficiarioSpese();
-			DataTable ChargeHandling = Conn.RUN_SELECT("chargehandling","*",null,QHS.BitSet("flag",2),null, false);
+		public pagamenti.mandatoInformazioni_beneficiarioSpese get_trattamento_spese_predefinito_mandati_multipli() {
+			pagamenti.mandatoInformazioni_beneficiarioSpese RSpesePredefinito = new pagamenti.mandatoInformazioni_beneficiarioSpese();
+            DataTable ChargeHandling = Conn.RUN_SELECT("chargehandling","*",null,QHS.BitSet("flag",2),null, false);
 			if (ChargeHandling != null && ChargeHandling.Rows.Count > 0) { 
 				object soggetto_destinatario_delle_spese = ChargeHandling.Rows[0]["handlingbankcode"];
 				object motive = ChargeHandling.Rows[0]["motive"];
 				object payment_kind = ChargeHandling.Rows[0]["payment_kind"];
-				RSpeseEsente.soggetto_destinatario_delle_spese = ToForcedEnum<pagamenti.mandatoInformazioni_beneficiarioSpeseSoggetto_destinatario_delle_spese>
+                RSpesePredefinito.soggetto_destinatario_delle_spese = ToForcedEnum<pagamenti.mandatoInformazioni_beneficiarioSpeseSoggetto_destinatario_delle_spese>
 					(soggetto_destinatario_delle_spese.ToString().Replace(" ",""));
-				RSpeseEsente.causale_esenzione_spese = motive.ToString();
-				RSpeseEsente.natura_pagamento = payment_kind.ToString();
+                RSpesePredefinito.causale_esenzione_spese = motive.ToString();
+                RSpesePredefinito.natura_pagamento = payment_kind.ToString();
 			}
-			return RSpeseEsente;
+            else {
+                RSpesePredefinito = null;
+            }
+			return RSpesePredefinito;
 		}
 
  
@@ -355,7 +359,7 @@ namespace siopeplus_functions {
 			pagamenti.mandatoInformazioni_beneficiarioSpese RSpese = new pagamenti.mandatoInformazioni_beneficiarioSpese();
 			string anagrafica = R["anagrafica_beneficiario"].ToString();
 			int idexp = CfgFn.GetNoNullInt32(R["idexp"]);
-			if ((trattamentoSpesePerAnagrafica.Count == 0)||!trattamentoSpesePerAnagrafica.ContainsKey(anagrafica)) {
+			if ((trattamentoSpesePerAnagrafica.Count == 0)||!trattamentoSpesePerAnagrafica.ContainsKey(anagrafica)|| (tratt_spese_mandati_multipli == null)) {
 				RSpese.soggetto_destinatario_delle_spese = ToForcedEnum<pagamenti.mandatoInformazioni_beneficiarioSpeseSoggetto_destinatario_delle_spese>(
 				R["soggetto_destinatario_delle_spese"].ToString());
 				RSpese.natura_pagamento = GetStringValue(R["natura_pagamento"]);
@@ -363,7 +367,7 @@ namespace siopeplus_functions {
 				return RSpese;
 			}
 			if (R["soggetto_destinatario_delle_spese"] != DBNull.Value) {
-				// tutti i pagamenti arrivano con pagamento spese valorizzato nella stored procedure essendo obbligatorio, in certi casi la sp ha valorizzato 
+				// in certi casi la sp ha valorizzato 
 				// quello di default in configurazione
 				// 1) trattamento spese esente, lasciamo stare quello scelto da loro
 				if  (R["soggetto_destinatario_delle_spese"].ToString() == "ESENTE") {
@@ -383,7 +387,7 @@ namespace siopeplus_functions {
 					 if (singoloTratt.soggetto_destinatario_delle_spese.ToString() == R["soggetto_destinatario_delle_spese"].ToString())
 						 trovato = true;
 				}
-				//  se per l'anagrafica è il primo di quella tipologia lasciamo quello
+				//  se per l'anagrafica è il primo di quella tipologia non esente lasciamo quello
 				if (!trovato) {
 					RSpese.soggetto_destinatario_delle_spese = ToForcedEnum<pagamenti.mandatoInformazioni_beneficiarioSpeseSoggetto_destinatario_delle_spese>(
 					R["soggetto_destinatario_delle_spese"].ToString());
@@ -392,9 +396,9 @@ namespace siopeplus_functions {
 					return RSpese;
 				}
 				else
-				// per quell'anagrafica, è stata già introdotta quella tipologia di  pagamento non esente,  la cambiamo in quella  esente
+				// per quell'anagrafica, è stata già introdotta quella tipologia di  pagamento non esente,  la cambiamo in quella  predefinita esente configurata
 				{
-						RSpese = tratt_spese_esente_mandati_multipli;
+						RSpese = tratt_spese_mandati_multipli;
 				}
 			}
 			}
@@ -435,10 +439,10 @@ namespace siopeplus_functions {
                     ToForcedEnum<pagamenti.mandatoInformazioni_beneficiarioDestinazione>(R["destinazione"].ToString());
             }
 
-            if (Rinfomazioni_beneficiario.tipo_pagamento !=
-                pagamenti.mandatoInformazioni_beneficiarioTipo_pagamento.REGOLARIZZAZIONE) {
-	            Rinfomazioni_beneficiario.numero_conto_banca_italia_ente_ricevente= GetStringValue(R["numero_conto_banca_italia_ente_ricevente"]);
-            }
+            //if (Rinfomazioni_beneficiario.tipo_pagamento !=
+            //    pagamenti.mandatoInformazioni_beneficiarioTipo_pagamento.REGOLARIZZAZIONE) {
+	           // Rinfomazioni_beneficiario.numero_conto_banca_italia_ente_ricevente= GetStringValue(R["numero_conto_banca_italia_ente_ricevente"]);
+            //}
            
             if (R["tipo_contabilita_ente_ricevente"] != DBNull.Value) {
                 Rinfomazioni_beneficiario.tipo_contabilita_ente_ricevente =
@@ -464,12 +468,17 @@ namespace siopeplus_functions {
             // Spese
 
             if (R["soggetto_destinatario_delle_spese"] != DBNull.Value) {
-				Rinfomazioni_beneficiario.spese = ricalcola_trattamento_spese_per_anagrafica(R);
-				if (!trattamentoSpesePerAnagrafica.ContainsKey(anagrafica))
-				trattamentoSpesePerAnagrafica[anagrafica] = new List<pagamenti.mandatoInformazioni_beneficiarioSpese>(); 
-				trattamentoSpesePerAnagrafica[anagrafica].Add(Rinfomazioni_beneficiario.spese);
-			}
-
+                Rinfomazioni_beneficiario.spese = ricalcola_trattamento_spese_per_anagrafica(R);
+                if (Rinfomazioni_beneficiario.spese != null) {
+                    if (!trattamentoSpesePerAnagrafica.ContainsKey(anagrafica))
+                        trattamentoSpesePerAnagrafica[anagrafica] = new List<pagamenti.mandatoInformazioni_beneficiarioSpese>();
+                    trattamentoSpesePerAnagrafica[anagrafica].Add(Rinfomazioni_beneficiario.spese);
+                }
+            }
+            else {
+                // solo in caso di bonifico estero Euro con IBAN non Area SEPA
+                Rinfomazioni_beneficiario.spese = null;
+            }
             // Beneficiario
             Rinfomazioni_beneficiario.beneficiario.anagrafica_beneficiario = GetStringValue(R["anagrafica_beneficiario"]);
             Rinfomazioni_beneficiario.beneficiario.indirizzo_beneficiario = GetStringValue(R["indirizzo_beneficiario"]);

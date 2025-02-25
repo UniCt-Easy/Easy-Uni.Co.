@@ -27,6 +27,8 @@
               <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
               <xs:element name="livello" type="xs:int" minOccurs="0" />
               <xs:element name="flagdefault" type="xs:string" minOccurs="0" />
+              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
+              <xs:element name="idtipologiaruolo" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -108,6 +110,34 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="classconsorsuale">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idclassconsorsuale" type="xs:int" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="ambitodisci" type="xs:string" minOccurs="0" />
+              <xs:element name="corr2592017" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="normativa" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tipologiaruolo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idtipologiaruolo" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -128,12 +158,22 @@
       <xs:selector xpath=".//mstns:position" />
       <xs:field xpath="mstns:idposition" />
     </xs:unique>
+    <xs:unique name="classconsorsuale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:classconsorsuale" />
+      <xs:field xpath="mstns:idclassconsorsuale" />
+    </xs:unique>
+    <xs:unique name="tipologiaruolo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tipologiaruolo" />
+      <xs:field xpath="mstns:idtipologiaruolo" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="dalia_position_registrylegalstatus" msdata:parent="dalia_position" msdata:child="registrylegalstatus" msdata:parentkey="iddaliaposition" msdata:childkey="iddaliaposition" />
       <msdata:Relationship name="inquadramento_registrylegalstatus" msdata:parent="inquadramento" msdata:child="registrylegalstatus" msdata:parentkey="idinquadramento idposition" msdata:childkey="idinquadramento idposition" />
       <msdata:Relationship name="position_registrylegalstatus" msdata:parent="position" msdata:child="registrylegalstatus" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="classconsorsuale_registrylegalstatus" msdata:parent="classconsorsuale" msdata:child="registrylegalstatus" msdata:parentkey="idclassconsorsuale" msdata:childkey="idclassconsorsuale" />
+      <msdata:Relationship name="tipologiaruolo_registrylegalstatus" msdata:parent="tipologiaruolo" msdata:child="registrylegalstatus" msdata:parentkey="idtipologiaruolo" msdata:childkey="idtipologiaruolo" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

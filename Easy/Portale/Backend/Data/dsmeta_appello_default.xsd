@@ -278,6 +278,11 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idstudprenotkind" type="xs:int" />
               <xs:element name="studprenotkind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="studprenotkind_description" type="xs:string" />
+              <xs:element name="studprenotkind_lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="studprenotkind_lu" type="xs:string" minOccurs="0" />
+              <xs:element name="studprenotkind_sortorder" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -293,8 +298,15 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="appelloazionekind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="appelloazionekind_ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="appelloazionekind_cu" type="xs:string" minOccurs="0" />
+              <xs:element name="appelloazionekind_description" type="xs:string" />
+              <xs:element name="appelloazionekind_lt" type="xs:dateTime" />
+              <xs:element name="appelloazionekind_lu" type="xs:string" />
+              <xs:element name="appelloazionekind_sortcode" type="xs:int" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idappelloazionekind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -302,8 +314,13 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="appellokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="appellokind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="appellokind_lt" type="xs:dateTime" />
+              <xs:element name="appellokind_lu" type="xs:string" />
+              <xs:element name="appellokind_sortcode" type="xs:int" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idappellokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

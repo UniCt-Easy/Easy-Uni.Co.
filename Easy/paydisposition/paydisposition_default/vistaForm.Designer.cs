@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -127,6 +127,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public treasurerTable treasurer 		=> (treasurerTable)Tables["treasurer"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable expenselastmandatedetail 		=> (MetaTable)Tables["expenselastmandatedetail"];
 
 	#endregion
 
@@ -348,6 +351,22 @@ private void initClass() {
 	Tables.Add(ttreasurer);
 	ttreasurer.defineKey("idtreasurer");
 
+	//////////////////// EXPENSELASTMANDATEDETAIL /////////////////////////////////
+	var texpenselastmandatedetail= new MetaTable("expenselastmandatedetail");
+	texpenselastmandatedetail.defineColumn("idexp", typeof(int),false);
+	texpenselastmandatedetail.defineColumn("idmankind", typeof(string),false);
+	texpenselastmandatedetail.defineColumn("yman", typeof(short),false);
+	texpenselastmandatedetail.defineColumn("nman", typeof(int),false);
+	texpenselastmandatedetail.defineColumn("rownum", typeof(int),false);
+	texpenselastmandatedetail.defineColumn("amount", typeof(decimal),false);
+	texpenselastmandatedetail.defineColumn("ct", typeof(DateTime),false);
+	texpenselastmandatedetail.defineColumn("cu", typeof(string),false);
+	texpenselastmandatedetail.defineColumn("lt", typeof(DateTime),false);
+	texpenselastmandatedetail.defineColumn("lu", typeof(string),false);
+	texpenselastmandatedetail.defineColumn("originalamount", typeof(decimal));
+	Tables.Add(texpenselastmandatedetail);
+	texpenselastmandatedetail.defineKey("idexp", "idmankind", "yman", "nman", "rownum");
+
 	#endregion
 
 
@@ -383,6 +402,7 @@ private void initClass() {
 	this.defineRelation("expense_paydispositiondetail","expense","paydispositiondetail","idexp");
 	this.defineRelation("expensephase_expense","expensephase","expense","nphase");
 	this.defineRelation("chargehandling_paydispositiondetail","chargehandling","paydispositiondetail","idchargehandling");
+	this.defineRelation("expense_expenselastmandatedetail","expense","expenselastmandatedetail","idexp");
 	#endregion
 
 }

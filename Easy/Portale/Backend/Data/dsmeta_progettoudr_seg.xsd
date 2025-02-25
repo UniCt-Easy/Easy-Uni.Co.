@@ -6,6 +6,7 @@
         <xs:element name="getregistrydocentiamministrativi" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" />
               <xs:element name="contratto" type="xs:string" minOccurs="0" />
               <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
               <xs:element name="forename" type="xs:string" minOccurs="0" />

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -161,6 +161,12 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable costpartition 		=> (MetaTable)Tables["costpartition"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable assetacquireattachment 		=> (MetaTable)Tables["assetacquireattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable attachmentkind 		=> (MetaTable)Tables["attachmentkind"];
+
 	#endregion
 
 
@@ -226,7 +232,7 @@ private void initClass() {
 
 	//////////////////// MANDATE /////////////////////////////////
 	var tmandate= new mandateTable();
-	tmandate.addBaseColumns("idmankind","yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","cu","ct","lu","lt","idsor01","idsor02","idsor03","idsor04","idsor05");
+	tmandate.addBaseColumns("idmankind","yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","cu","ct","lu","lt","idsor01","idsor02","idsor03","idsor04","idsor05","idtemporaneogara");
 	Tables.Add(tmandate);
 	tmandate.defineKey("idmankind", "yman", "nman");
 
@@ -775,6 +781,33 @@ private void initClass() {
 	Tables.Add(tcostpartition);
 	tcostpartition.defineKey("idcostpartition");
 
+	//////////////////// ASSETACQUIREATTACHMENT /////////////////////////////////
+	var tassetacquireattachment= new MetaTable("assetacquireattachment");
+	tassetacquireattachment.defineColumn("nassetacquire", typeof(int),false);
+	tassetacquireattachment.defineColumn("idattachment", typeof(int),false);
+	tassetacquireattachment.defineColumn("attachment", typeof(Byte[]));
+	tassetacquireattachment.defineColumn("filename", typeof(string));
+	tassetacquireattachment.defineColumn("cu", typeof(string));
+	tassetacquireattachment.defineColumn("ct", typeof(DateTime));
+	tassetacquireattachment.defineColumn("lu", typeof(string));
+	tassetacquireattachment.defineColumn("lt", typeof(DateTime));
+	tassetacquireattachment.defineColumn("idattachmentkind", typeof(int));
+	tassetacquireattachment.defineColumn("!attachmentkind", typeof(string));
+	Tables.Add(tassetacquireattachment);
+	tassetacquireattachment.defineKey("nassetacquire", "idattachment");
+
+	//////////////////// ATTACHMENTKIND /////////////////////////////////
+	var tattachmentkind= new MetaTable("attachmentkind");
+	tattachmentkind.defineColumn("idattachmentkind", typeof(int),false);
+	tattachmentkind.defineColumn("title", typeof(string));
+	tattachmentkind.defineColumn("active", typeof(string));
+	tattachmentkind.defineColumn("ct", typeof(DateTime),false);
+	tattachmentkind.defineColumn("lu", typeof(string),false);
+	tattachmentkind.defineColumn("lt", typeof(DateTime),false);
+	tattachmentkind.defineColumn("cu", typeof(string),false);
+	Tables.Add(tattachmentkind);
+	tattachmentkind.defineKey("idattachmentkind");
+
 	#endregion
 
 
@@ -821,6 +854,8 @@ private void initClass() {
 	this.defineRelation("inventorytreeviewassetacquire","inventorytreeview","assetacquire","idinv");
 	this.defineRelation("FK_invoice_assetacquire","invoice","assetacquire","ninv","yinv","idinvkind");
 	this.defineRelation("costpartition_assetacquire","costpartition","assetacquire","idcostpartition");
+	this.defineRelation("assetacquire_assetacquireattachment","assetacquire","assetacquireattachment","nassetacquire");
+	this.defineRelation("attachmentkind_assetacquireattachment","attachmentkind","assetacquireattachment","idattachmentkind");
 	#endregion
 
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1372,8 +1372,7 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
             }
 
 
-            var filterExpense = q.fieldIn("idexp", (from DataRow r in DS.expenselastview.Rows select r["idexp"]).ToArray()) ;
-            Conn.selectIntoTable(DS.expense,filterExpense);
+        
 
             for (i = 0; i < gridrowsnumber; i++) {
                 if (DetailGrid.IsSelected(i)) {
@@ -1402,7 +1401,22 @@ namespace payment_generazioneautomatica { //documentopagamento_gener_auto//
             dimensioneTotale = dimensioneMandatoVuoto;
 
             var infoBeneficiari = SS.get_listaBeneficiari(T);
-                        
+            
+            var filterExpense = q.fieldIn("idexp", (from DataRow r in Lpagamenti select r["idexp"]).ToArray());
+            Conn.selectIntoTable(DS.expense, filterExpense);
+
+
+            if (txtdataScadenza.Text != "") {
+                DateTime dataScadenza = (DateTime)HelpForm.GetObjectFromString(typeof(DateTime), txtdataScadenza.Text, "d");
+                if (dataScadenza != null) {
+                    foreach (DataRow R in DS.expense.Select()) {
+                        if (R["expiration"] == DBNull.Value) {
+                            R["expiration"] = dataScadenza;
+                        }
+                    }
+                }
+            }
+
             foreach (DataRow CurrSpesa in Lpagamenti) {
                 object idexp = CurrSpesa["idexp"];
                 infoBeneficiario = infoBeneficiari[(int) idexp];

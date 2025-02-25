@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -567,17 +567,6 @@ public class registryRow: MetaRow  {
 	public Int32? idnumerodipOriginal { 
 		get {if (this["idnumerodip",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idnumerodip",DataRowVersion.Original];}
 	}
-	public Int32? idclassconsorsuale{ 
-		get {if (this["idclassconsorsuale"]==DBNull.Value)return null; return  (Int32?)this["idclassconsorsuale"];}
-		set {if (value==null) this["idclassconsorsuale"]= DBNull.Value; else this["idclassconsorsuale"]= value;}
-	}
-	public object idclassconsorsualeValue { 
-		get{ return this["idclassconsorsuale"];}
-		set {if (value==null|| value==DBNull.Value) this["idclassconsorsuale"]= DBNull.Value; else this["idclassconsorsuale"]= value;}
-	}
-	public Int32? idclassconsorsualeOriginal { 
-		get {if (this["idclassconsorsuale",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idclassconsorsuale",DataRowVersion.Original];}
-	}
 	public Int32? idfonteindicebibliometrico{ 
 		get {if (this["idfonteindicebibliometrico"]==DBNull.Value)return null; return  (Int32?)this["idfonteindicebibliometrico"];}
 		set {if (value==null) this["idfonteindicebibliometrico"]= DBNull.Value; else this["idfonteindicebibliometrico"]= value;}
@@ -655,6 +644,17 @@ public class registryRow: MetaRow  {
 	public Int32? idatecoOriginal { 
 		get {if (this["idateco",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idateco",DataRowVersion.Original];}
 	}
+	public String idanpr{ 
+		get {if (this["idanpr"]==DBNull.Value)return null; return  (String)this["idanpr"];}
+		set {if (value==null) this["idanpr"]= DBNull.Value; else this["idanpr"]= value;}
+	}
+	public object idanprValue { 
+		get{ return this["idanpr"];}
+		set {if (value==null|| value==DBNull.Value) this["idanpr"]= DBNull.Value; else this["idanpr"]= value;}
+	}
+	public String idanprOriginal { 
+		get {if (this["idanpr",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idanpr",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -710,7 +710,6 @@ public class registryTable : MetaTableBase<registryRow> {
 			{"idnace",createColumn("idnace",typeof(string),true,false)},
 			{"idnaturagiur",createColumn("idnaturagiur",typeof(int),true,false)},
 			{"idnumerodip",createColumn("idnumerodip",typeof(int),true,false)},
-			{"idclassconsorsuale",createColumn("idclassconsorsuale",typeof(int),true,false)},
 			{"idfonteindicebibliometrico",createColumn("idfonteindicebibliometrico",typeof(int),true,false)},
 			{"indicebibliometrico",createColumn("indicebibliometrico",typeof(int),true,false)},
 			{"ricevimento",createColumn("ricevimento",typeof(string),true,false)},
@@ -718,6 +717,7 @@ public class registryTable : MetaTableBase<registryRow> {
 			{"idstruttura",createColumn("idstruttura",typeof(int),true,false)},
 			{"idreg_istituti",createColumn("idreg_istituti",typeof(int),true,false)},
 			{"idateco",createColumn("idateco",typeof(int),true,false)},
+			{"idanpr",createColumn("idanpr",typeof(string),true,false)},
 		};
 	}
 }

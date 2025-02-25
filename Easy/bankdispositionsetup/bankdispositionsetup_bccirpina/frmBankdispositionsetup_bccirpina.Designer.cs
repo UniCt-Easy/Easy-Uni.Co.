@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -56,9 +56,7 @@ namespace bankdispositionsetup_bccirpina {
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.openFileDialog = createOpenFileDialog(_openFileDialog1);
-            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();            
             this.gboxPagamenti.SuspendLayout();
             this.gboxIncassi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -266,7 +264,7 @@ namespace bankdispositionsetup_bccirpina {
         private System.Windows.Forms.OpenFileDialog _openFileDialog1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private metadatalibrary.IOpenFileDialog openFileDialog;
+        private metadatalibrary.IOpenFileDialog openFileDialog1;
         private metadatalibrary.ISaveFileDialog saveFileDialog1;
     }
 }

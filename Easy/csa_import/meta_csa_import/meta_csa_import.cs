@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,7 +32,8 @@ namespace meta_csa_import
             EditTypes.Add("annualpayment");
             ListingTypes.Add("default");
 			ListingTypes.Add("versamentiposticipati");
-		}
+            ListingTypes.Add("lordiposticipati");
+        }
 		protected override Form GetForm(string FormName)
 		{
 			if (FormName=="default") 
@@ -48,10 +49,14 @@ namespace meta_csa_import
             }
 			//csa_import_inail_maxphase
 			if (FormName == "postponedpayment") {
-				Name = "Versamenti posticipati";
+				Name = "Riemissione Versamenti posticipati";
 				return MetaData.GetFormByDllName("csa_import_inail_maxphase");
 			}
-			return null;
+            if (FormName == "lordiposticipati") {
+                Name = "Riemissione Lordi posticipati";
+                return MetaData.GetFormByDllName("csa_import_inail_maxphase");
+            }
+            return null;
 		}
 
 		public override void SetDefaults(DataTable T) {

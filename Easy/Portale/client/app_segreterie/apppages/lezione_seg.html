@@ -4,35 +4,31 @@
 		
 	</ul>
 	<form>
-					<input hidden id="lezione_seg_idreg_docenti" type="text" class="form-control" data-tag="lezione.idreg_docenti" />
+					<input hidden id="lezione_seg_idreg_docenti" type="text" class="form-control" data-tag="lezione.idreg_docenti"  />
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#lezione_seg_start").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="lezione_seg_start">Data e ora inizio</label>
-					<input id="lezione_seg_start" type="text" class="form-control" data-tag="lezione.start.g"  data-mandatory />
+					<input id="lezione_seg_start" type="text" class="form-control" data-tag="lezione.start.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#lezione_seg_stop").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="lezione_seg_stop">Data e ora fine</label>
-					<input id="lezione_seg_stop" type="text" class="form-control" data-tag="lezione.stop.g"  data-mandatory />
+					<input id="lezione_seg_stop" type="text" class="form-control" data-tag="lezione.stop.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="lezione_seg_idedificio">Edificio</label>
-					<select id="lezione_seg_idedificio" class="custom-select d-block w-100"  data-source-name="edificiodefaultview" data-value-member="idedificio" data-display-member="dropdown_title" data-custom-control="combo" data-tag="lezione.idedificio"  data-mandatory  > </select>
+					<select id="lezione_seg_idedificio" class="custom-select d-block w-100"  data-source-name="edificiodefaultview" data-value-member="idedificio" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="lezione.idedificio"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="lezione_seg_idaula">Aula</label>
-					<select id="lezione_seg_idaula" class="custom-select d-block w-100"  data-source-name="auladefaultview" data-value-member="idaula" data-display-member="dropdown_title" data-custom-control="combo" data-tag="lezione.idaula"  data-mandatory  data-master="edificiodefaultview"> </select>
+					<select id="lezione_seg_idaula" class="custom-select d-block w-100"  data-source-name="auladefaultview" data-value-member="idaula" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="lezione.idaula"  data-mandatory  data-master="edificiodefaultview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="lezione_seg_titolo">Titolo</label>
+					<input id="lezione_seg_titolo" type="text" class="form-control" data-tag="lezione.titolo"  />
 				</div>
 			</div>
 </form>

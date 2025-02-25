@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -82,6 +82,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epexpview 		=> (MetaTable)Tables["epexpview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epexpattachment 		=> (MetaTable)Tables["epexpattachment"];
 
 	#endregion
 
@@ -350,6 +353,20 @@ private void initClass() {
 	tepexpview.defineColumn("p_iva", typeof(string));
 	Tables.Add(tepexpview);
 
+	//////////////////// EPEXPATTACHMENT /////////////////////////////////
+	var tepexpattachment= new MetaTable("epexpattachment");
+	tepexpattachment.defineColumn("idepexp", typeof(int),false);
+	tepexpattachment.defineColumn("idattachment", typeof(int),false);
+	tepexpattachment.defineColumn("attachment", typeof(Byte[]));
+	tepexpattachment.defineColumn("filename", typeof(string));
+	tepexpattachment.defineColumn("cu", typeof(string));
+	tepexpattachment.defineColumn("ct", typeof(DateTime));
+	tepexpattachment.defineColumn("lu", typeof(string));
+	tepexpattachment.defineColumn("lt", typeof(DateTime));
+	tepexpattachment.defineColumn("idattachmentkind", typeof(int));
+	Tables.Add(tepexpattachment);
+	tepexpattachment.defineKey("idepexp", "idattachment");
+
 	#endregion
 
 
@@ -370,6 +387,7 @@ private void initClass() {
 
 	this.defineRelation("accmotive_epexp","accmotive","epexp","idaccmotive");
 	this.defineRelation("epexp_epexpview","epexp","epexpview","idepexp");
+	this.defineRelation("epexp_epexpattachment","epexp","epexpattachment","idepexp");
 	#endregion
 
 }

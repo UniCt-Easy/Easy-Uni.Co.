@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,470 +15,422 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-namespace assetvardetail_default {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable inventoryagency{get { return this.Tables["inventoryagency"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable assetvardetail{get { return this.Tables["assetvardetail"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable assetvar{get { return this.Tables["assetvar"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable inventorytreeview{get { return this.Tables["inventorytreeview"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable assetvardetailview{get { return this.Tables["assetvardetailview"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable assetvarview{get { return this.Tables["assetvarview"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable inventory{get { return this.Tables["inventory"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable assetloadmotive{get { return this.Tables["assetloadmotive"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace assetvardetail_default {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable inventoryagency 		=> Tables["inventoryagency"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetvardetail 		=> Tables["assetvardetail"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetvar 		=> Tables["assetvar"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable inventorytreeview 		=> Tables["inventorytreeview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetvardetailview 		=> Tables["assetvardetailview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetvarview 		=> Tables["assetvarview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable inventory 		=> Tables["inventory"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetloadmotive 		=> Tables["assetloadmotive"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetvardetailattachment 		=> Tables["assetvardetailattachment"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaForm";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaForm.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("inventoryagency");
-	C= new DataColumn("idinventoryagency", typeof(System.Int32), "");
+	//////////////////// INVENTORYAGENCY /////////////////////////////////
+	var tinventoryagency= new DataTable("inventoryagency");
+	C= new DataColumn("idinventoryagency", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tinventoryagency.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinventoryagency.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tinventoryagency.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinventoryagency.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinventoryagency.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinventoryagency.Columns.Add(C);
+	tinventoryagency.Columns.Add( new DataColumn("active", typeof(string)));
+	Tables.Add(tinventoryagency);
+	tinventoryagency.PrimaryKey =  new DataColumn[]{tinventoryagency.Columns["idinventoryagency"]};
 
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idinventoryagency"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("assetvardetail");
-	C= new DataColumn("idassetvar", typeof(System.Int32), "");
+	//////////////////// ASSETVARDETAIL /////////////////////////////////
+	var tassetvardetail= new DataTable("assetvardetail");
+	C= new DataColumn("idassetvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idassetvardetail", typeof(System.Int32), "");
+	tassetvardetail.Columns.Add(C);
+	C= new DataColumn("idassetvardetail", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinv", typeof(System.Int32), "");
+	tassetvardetail.Columns.Add(C);
+	C= new DataColumn("idinv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("amount", typeof(System.Decimal), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tassetvardetail.Columns.Add(C);
+	tassetvardetail.Columns.Add( new DataColumn("description", typeof(string)));
+	tassetvardetail.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tassetvardetail.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tassetvardetail.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tassetvardetail.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tassetvardetail.Columns.Add(C);
+	tassetvardetail.Columns.Add( new DataColumn("idinventory", typeof(int)));
+	tassetvardetail.Columns.Add( new DataColumn("idmot", typeof(int)));
+	Tables.Add(tassetvardetail);
+	tassetvardetail.PrimaryKey =  new DataColumn[]{tassetvardetail.Columns["idassetvar"], tassetvardetail.Columns["idassetvardetail"]};
 
-	T.Columns.Add(new DataColumn("idinventory", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idmot", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idassetvar"], 	T.Columns["idassetvardetail"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("assetvar");
-	C= new DataColumn("idassetvar", typeof(System.Int32), "");
+	//////////////////// ASSETVAR /////////////////////////////////
+	var tassetvar= new DataTable("assetvar");
+	C= new DataColumn("idassetvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yvar", typeof(System.Int16), "");
+	tassetvar.Columns.Add(C);
+	C= new DataColumn("yvar", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nvar", typeof(System.Int32), "");
+	tassetvar.Columns.Add(C);
+	C= new DataColumn("nvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinventoryagency", typeof(System.Int32), "");
+	tassetvar.Columns.Add(C);
+	C= new DataColumn("idinventoryagency", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tassetvar.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("enactment", typeof(System.String), ""));
-	C= new DataColumn("flag", typeof(System.Byte), "");
+	tassetvar.Columns.Add(C);
+	tassetvar.Columns.Add( new DataColumn("enactment", typeof(string)));
+	C= new DataColumn("flag", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("nenactment", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("enactmentdate", typeof(System.DateTime), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	tassetvar.Columns.Add(C);
+	tassetvar.Columns.Add( new DataColumn("nenactment", typeof(string)));
+	tassetvar.Columns.Add( new DataColumn("enactmentdate", typeof(DateTime)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tassetvar.Columns.Add(C);
+	tassetvar.Columns.Add( new DataColumn("txt", typeof(string)));
+	tassetvar.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tassetvar.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tassetvar.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tassetvar.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tassetvar.Columns.Add(C);
+	Tables.Add(tassetvar);
+	tassetvar.PrimaryKey =  new DataColumn[]{tassetvar.Columns["idassetvar"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idassetvar"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("inventorytreeview");
-	C= new DataColumn("idinv", typeof(System.Int32), "");
+	//////////////////// INVENTORYTREEVIEW /////////////////////////////////
+	var tinventorytreeview= new DataTable("inventorytreeview");
+	C= new DataColumn("idinv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("codeinv", typeof(System.String), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("codeinv", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nlevel", typeof(System.Byte), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("leveldescr", typeof(System.String), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("leveldescr", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paridinv", typeof(System.Int32), ""));
-	C= new DataColumn("description", typeof(System.String), "");
+	tinventorytreeview.Columns.Add(C);
+	tinventorytreeview.Columns.Add( new DataColumn("paridinv", typeof(int)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinventorytreeview.Columns.Add(C);
+	Tables.Add(tinventorytreeview);
 
-	Tables.Add(T);
-	T= new DataTable("assetvardetailview");
-	C= new DataColumn("idassetvar", typeof(System.Int32), "");
+	//////////////////// ASSETVARDETAILVIEW /////////////////////////////////
+	var tassetvardetailview= new DataTable("assetvardetailview");
+	C= new DataColumn("idassetvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idassetvardetail", typeof(System.Int32), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("idassetvardetail", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yvar", typeof(System.Int16), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("yvar", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nvar", typeof(System.Int32), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("nvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinventoryagency", typeof(System.Int32), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("idinventoryagency", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("inventoryagency", typeof(System.String), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("inventoryagency", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("variationdescription", typeof(System.String), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("variationdescription", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("enactment", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("nenactment", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("enactmentdate", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("variationkind", typeof(System.String), ""));
-	C= new DataColumn("idinv", typeof(System.Int32), "");
+	tassetvardetailview.Columns.Add(C);
+	tassetvardetailview.Columns.Add( new DataColumn("enactment", typeof(string)));
+	tassetvardetailview.Columns.Add( new DataColumn("nenactment", typeof(string)));
+	tassetvardetailview.Columns.Add( new DataColumn("enactmentdate", typeof(DateTime)));
+	tassetvardetailview.Columns.Add( new DataColumn("variationkind", typeof(string)));
+	C= new DataColumn("idinv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("codeinv", typeof(System.String), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("codeinv", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("inventorytree", typeof(System.String), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("inventorytree", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("amount", typeof(System.Decimal), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	tassetvardetailview.Columns.Add(C);
+	tassetvardetailview.Columns.Add( new DataColumn("description", typeof(string)));
+	tassetvardetailview.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tassetvardetailview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tassetvardetailview.Columns.Add(C);
+	tassetvardetailview.Columns.Add( new DataColumn("idinventory", typeof(int)));
+	tassetvardetailview.Columns.Add( new DataColumn("inventory", typeof(string)));
+	tassetvardetailview.Columns.Add( new DataColumn("idmot", typeof(int)));
+	Tables.Add(tassetvardetailview);
+	tassetvardetailview.PrimaryKey =  new DataColumn[]{tassetvardetailview.Columns["idassetvar"], tassetvardetailview.Columns["idassetvardetail"]};
 
-	T.Columns.Add(new DataColumn("idinventory", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("inventory", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idmot", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idassetvar"], 	T.Columns["idassetvardetail"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("assetvarview");
-	C= new DataColumn("idassetvar", typeof(System.Int32), "");
+	//////////////////// ASSETVARVIEW /////////////////////////////////
+	var tassetvarview= new DataTable("assetvarview");
+	C= new DataColumn("idassetvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("yvar", typeof(System.Int16), "");
+	tassetvarview.Columns.Add(C);
+	C= new DataColumn("yvar", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nvar", typeof(System.Int32), "");
+	tassetvarview.Columns.Add(C);
+	C= new DataColumn("nvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinventoryagency", typeof(System.Int32), "");
+	tassetvarview.Columns.Add(C);
+	C= new DataColumn("idinventoryagency", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("inventoryagency", typeof(System.String), "");
+	tassetvarview.Columns.Add(C);
+	C= new DataColumn("inventoryagency", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tassetvarview.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("enactment", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("variationkind", typeof(System.String), ""));
-	C= new DataColumn("flag", typeof(System.Byte), "");
+	tassetvarview.Columns.Add(C);
+	tassetvarview.Columns.Add( new DataColumn("enactment", typeof(string)));
+	tassetvarview.Columns.Add( new DataColumn("variationkind", typeof(string)));
+	C= new DataColumn("flag", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("nenactment", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("enactmentdate", typeof(System.DateTime), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	tassetvarview.Columns.Add(C);
+	tassetvarview.Columns.Add( new DataColumn("nenactment", typeof(string)));
+	tassetvarview.Columns.Add( new DataColumn("enactmentdate", typeof(DateTime)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tassetvarview.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tassetvarview.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tassetvarview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tassetvarview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tassetvarview.Columns.Add(C);
+	Tables.Add(tassetvarview);
 
-	Tables.Add(T);
-	T= new DataTable("inventory");
-	C= new DataColumn("idinventory", typeof(System.Int32), "");
+	//////////////////// INVENTORY /////////////////////////////////
+	var tinventory= new DataTable("inventory");
+	C= new DataColumn("idinventory", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tinventory.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinventory.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tinventory.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinventoryagency", typeof(System.Int32), "");
+	tinventory.Columns.Add(C);
+	C= new DataColumn("idinventoryagency", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinventorykind", typeof(System.Int32), "");
+	tinventory.Columns.Add(C);
+	C= new DataColumn("idinventorykind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinventory.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinventory.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinventory.Columns.Add(C);
+	tinventory.Columns.Add( new DataColumn("startnumber", typeof(int)));
+	tinventory.Columns.Add( new DataColumn("active", typeof(string)));
+	tinventory.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tinventory.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tinventory.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tinventory.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tinventory.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tinventory);
+	tinventory.PrimaryKey =  new DataColumn[]{tinventory.Columns["idinventory"]};
 
-	T.Columns.Add(new DataColumn("startnumber", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idinventory"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("assetloadmotive");
-	C= new DataColumn("idmot", typeof(System.Int32), "");
+	//////////////////// ASSETLOADMOTIVE /////////////////////////////////
+	var tassetloadmotive= new DataTable("assetloadmotive");
+	C= new DataColumn("idmot", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tassetloadmotive.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tassetloadmotive.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tassetloadmotive.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tassetloadmotive.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tassetloadmotive.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tassetloadmotive.Columns.Add(C);
+	tassetloadmotive.Columns.Add( new DataColumn("active", typeof(string)));
+	Tables.Add(tassetloadmotive);
+	tassetloadmotive.PrimaryKey =  new DataColumn[]{tassetloadmotive.Columns["idmot"]};
+
 
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	//////////////////// ASSETVARDETAILATTACHMENT /////////////////////////////////
+	var tassetvardetailattachment= new DataTable("assetvardetailattachment");
+	C= new DataColumn("idassetvar", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tassetvardetailattachment.Columns.Add(C);
+	C= new DataColumn("idassetvardetail", typeof(int));
+	C.AllowDBNull=false;
+	tassetvardetailattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tassetvardetailattachment.Columns.Add(C);
+	tassetvardetailattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tassetvardetailattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tassetvardetailattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tassetvardetailattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tassetvardetailattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tassetvardetailattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tassetvardetailattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tassetvardetailattachment);
+	tassetvardetailattachment.PrimaryKey =  new DataColumn[]{tassetvardetailattachment.Columns["idassetvar"], tassetvardetailattachment.Columns["idassetvardetail"], tassetvardetailattachment.Columns["idattachment"]};
+
+
+	#endregion
+
 
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idmot"]};
-	T.PrimaryKey = key;
+	#region DataRelation creation
+	var cPar = new []{inventoryagency.Columns["idinventoryagency"]};
+	var cChild = new []{assetvar.Columns["idinventoryagency"]};
+	Relations.Add(new DataRelation("inventoryagencyassetvar",cPar,cChild,false));
 
+	cPar = new []{assetloadmotive.Columns["idmot"]};
+	cChild = new []{assetvardetail.Columns["idmot"]};
+	Relations.Add(new DataRelation("assetloadmotive_assetvardetail",cPar,cChild,false));
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["inventoryagency"];
-TChild= Tables["assetvar"];
-CPar = new DataColumn[1]{TPar.Columns["idinventoryagency"]};
-CChild = new DataColumn[1]{TChild.Columns["idinventoryagency"]};
-Relations.Add(new DataRelation("inventoryagencyassetvar",CPar,CChild));
+	cPar = new []{inventory.Columns["idinventory"]};
+	cChild = new []{assetvardetail.Columns["idinventory"]};
+	Relations.Add(new DataRelation("inventoryassetvardetail",cPar,cChild,false));
 
-TPar= Tables["assetvar"];
-TChild= Tables["assetvardetail"];
-CPar = new DataColumn[1]{TPar.Columns["idassetvar"]};
-CChild = new DataColumn[1]{TChild.Columns["idassetvar"]};
-Relations.Add(new DataRelation("assetvarassetvardetail",CPar,CChild));
+	cPar = new []{inventorytreeview.Columns["idinv"]};
+	cChild = new []{assetvardetail.Columns["idinv"]};
+	Relations.Add(new DataRelation("inventorytreeviewassetvardetail",cPar,cChild,false));
 
-TPar= Tables["inventorytreeview"];
-TChild= Tables["assetvardetail"];
-CPar = new DataColumn[1]{TPar.Columns["idinv"]};
-CChild = new DataColumn[1]{TChild.Columns["idinv"]};
-Relations.Add(new DataRelation("inventorytreeviewassetvardetail",CPar,CChild));
+	cPar = new []{assetvar.Columns["idassetvar"]};
+	cChild = new []{assetvardetail.Columns["idassetvar"]};
+	Relations.Add(new DataRelation("assetvarassetvardetail",cPar,cChild,false));
 
-TPar= Tables["inventory"];
-TChild= Tables["assetvardetail"];
-CPar = new DataColumn[1]{TPar.Columns["idinventory"]};
-CChild = new DataColumn[1]{TChild.Columns["idinventory"]};
-Relations.Add(new DataRelation("inventoryassetvardetail",CPar,CChild));
+	cPar = new []{assetvardetail.Columns["idassetvar"], assetvardetail.Columns["idassetvardetail"]};
+	cChild = new []{assetvardetailattachment.Columns["idassetvar"], assetvardetailattachment.Columns["idassetvardetail"]};
+	Relations.Add(new DataRelation("assetvardetail_assetvardetailattachment",cPar,cChild,false));
 
-TPar= Tables["assetloadmotive"];
-TChild= Tables["assetvardetail"];
-CPar = new DataColumn[1]{TPar.Columns["idmot"]};
-CChild = new DataColumn[1]{TChild.Columns["idmot"]};
-Relations.Add(new DataRelation("assetloadmotive_assetvardetail",CPar,CChild));
+	#endregion
 
 }
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+using Microsoft.EntityFrameworkCore;
 using ServizioRendicontazione.Models;
 
 namespace ServizioRendicontazione.Repositories
@@ -24,77 +25,85 @@ namespace ServizioRendicontazione.Repositories
 		// ==============================================================
 		// DIDATTICA PROGRAMMATA
 		// ==============================================================
-		public List<didprog> AllDidatticaProgrammata(string aa)
+		public List<didprog> AllDidatticaProgrammata()
 		{
-            return _context.didprogs.Where(w => w.aa == aa).ToList();
-        }
+			return _context.didprogs.AsNoTracking().ToList();
+		}
 
-        public didprog AddDidatticaProgrammata(int idcorsostudio,
-										 string aa,
-										 string title,
-										 string title_en,
-										 string codice,
-										   int? annosolare,
-										   int? idareadidattica,
-										   int? iderogazkind,
-										   int? idsede,
-										 string website)
+		public didprog AddDidatticaProgrammata(int idcorsostudio,
+										    string aa,
+										    string title,
+										    string title_en,
+										    string codice,
+										      int? annosolare,
+										      int? idareadidattica,
+										      int? iderogazkind,
+										      int? idsede,
+										    string website)
 		{
-			int iddidprog = 0;
-			if (_context.didprogs.Any())
-				iddidprog = _context.didprogs.Max(m => m.iddidprog);
-
-			iddidprog++;
-
-			didprog dp = new didprog()
+			try
 			{
-				iddidprog = iddidprog,
-				idcorsostudio = idcorsostudio,
-				aa = aa,
-				title = title,
-				title_en = title_en,
-				codice = codice,
-				annosolare = annosolare,
-				idareadidattica = idareadidattica,
-				iderogazkind = iderogazkind,
-				idsede = idsede,
-				website = website,
+				int iddidprog = 0;
+				if (_context.didprogs.Any())
+					iddidprog = _context.didprogs.AsNoTracking().Max(m => m.iddidprog);
 
-				codicemiur = null,
-				attribdebiti = null,
-				ciclo = null,
-				dataconsmaxiscr = null,
-				freqobbl = null,
-				idconvenzione = null,
-				iddidprognumchiusokind = null,
-				iddidprogsuddannokind = null,
-				idgraduatoria = null,
-				idnation_lang = null,
-				idnation_lang2 = null,
-				idnation_langvis = null,
-				idreg_docenti = null,
-				idsessione = null,
-				idtitolokind = null,
-				immatoltreauth = null,
-				modaccesso = null,
-				modaccesso_en = null,
-				obbformativi = null,
-				obbformativi_en = null,
-				preimmatoltreauth = null,
-				progesamamm = null,
-				prospoccupaz = null,
-				provafinaledesc = null,
-				regolamentotax = null,
-				regolamentotaxurl = null,
-				startiscrizioni = null,
-				stopiscrizioni = null,
-				utenzasost = null
-			};
+				iddidprog++;
 
-			_context.Add(dp);
-			_context.SaveChanges();
+				didprog dp = new didprog()
+				{
+					iddidprog = iddidprog,
+					idcorsostudio = idcorsostudio,
+					aa = aa,
+					title = title,
+					title_en = title_en,
+					codice = codice,
+					annosolare = annosolare,
+					idareadidattica = idareadidattica,
+					iderogazkind = iderogazkind,
+					idsede = idsede,
+					website = website,
 
-			return dp;
-		}		
+					codicemiur = null,
+					attribdebiti = null,
+					ciclo = null,
+					dataconsmaxiscr = null,
+					freqobbl = null,
+					idconvenzione = null,
+					iddidprognumchiusokind = null,
+					iddidprogsuddannokind = null,
+					idgraduatoria = null,
+					idnation_lang = null,
+					idnation_lang2 = null,
+					idnation_langvis = null,
+					idreg_docenti = null,
+					idsessione = null,
+					idtitolokind = null,
+					immatoltreauth = null,
+					modaccesso = null,
+					modaccesso_en = null,
+					obbformativi = null,
+					obbformativi_en = null,
+					preimmatoltreauth = null,
+					progesamamm = null,
+					prospoccupaz = null,
+					provafinaledesc = null,
+					regolamentotax = null,
+					regolamentotaxurl = null,
+					startiscrizioni = null,
+					stopiscrizioni = null,
+					utenzasost = null
+				};
+
+				_context.Add(dp);
+				_context.SaveChanges();
+
+				return dp;
+			}
+			catch (Exception Ex)
+			{
+				common.logInfo($"AddDidatticaProgrammata({idcorsostudio},{aa}, {title}, {codice}): \r\n" + Ex.Message + "\r\n" + Ex.InnerException?.Message + "\r\n" + Ex.StackTrace);
+				return null;
+			}
+		}
 	}
 }

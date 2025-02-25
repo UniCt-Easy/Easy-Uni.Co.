@@ -69,7 +69,6 @@
 //$innerSetCaptionConfig_default$
 						break;
 					case 'erogata':
-						table.columns["idattivform"].caption = "Attività formativa";
 //$innerSetCaptionConfig_erogata$
 						break;
 //$innerSetCaptionConfig$

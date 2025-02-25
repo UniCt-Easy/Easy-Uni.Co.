@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Runtime.Serialization;
@@ -385,7 +386,7 @@ namespace IntesaSanPaolo {
             if (pagamento != null) {
                 XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
                 DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000003_pdpCaricaPagamentoInAttesa),
-                        "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
+                        "pdpCaricaPagamentoInAttesa", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
                 using (MemoryStream stream = new MemoryStream()) {
                     serializer.WriteObject(stream, pagamento);
@@ -426,7 +427,26 @@ namespace IntesaSanPaolo {
         public InfoGroup.ct0000000004_pdpCaricaPagamentoInAttesaResult Result {
             get {
                 if (pdpCaricaPagamentoInAttesaResult == null || pdpCaricaPagamentoInAttesaResult.param == null) return null;
-                var serializer = new DataContractSerializer(typeof(EasyBridge.pdpCaricaPagamentoInAttesaResult));
+                
+                XmlDocument doc = new XmlDocument();
+                DataContractSerializer serializer = null;
+
+                // leggo l'xml per controllare il namespace e deserializzare con la classe corretta
+                using (var stream = new MemoryStream(pdpCaricaPagamentoInAttesaResult.param))
+                {
+                    doc.Load(stream);
+
+                    if (typeof(EasyBridge.pdpCaricaPagamentoInAttesaResult2)
+                        .GetCustomAttributes(typeof(DataContractAttribute), false)
+                        .Any(w => ((DataContractAttribute)w).Namespace == doc.DocumentElement.NamespaceURI))
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpCaricaPagamentoInAttesaResult2));
+                    }
+                    else
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpCaricaPagamentoInAttesaResult));
+                    }
+                }
 
                 object obj;
                 using (var stream = new MemoryStream(pdpCaricaPagamentoInAttesaResult.param)) {
@@ -485,7 +505,7 @@ namespace IntesaSanPaolo {
 
             XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
             DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000016_pdpRecuperaRTType),
-                "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
+                "pdpRecuperaRT", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
             using (MemoryStream stream = new MemoryStream())
             {
@@ -529,7 +549,25 @@ namespace IntesaSanPaolo {
             {
                 if (pdpRecuperaRTResult == null || pdpRecuperaRTResult.param == null) return null;
 
-                var serializer = new DataContractSerializer(typeof(EasyBridge.pdpRecuperaRTResult));
+                XmlDocument doc = new XmlDocument();
+                DataContractSerializer serializer = null;
+
+                // leggo l'xml per controllare il namespace e deserializzare con la classe corretta
+                using (var stream = new MemoryStream(pdpRecuperaRTResult.param))
+                {
+                    doc.Load(stream);
+
+                    if (typeof(EasyBridge.pdpRecuperaRTResult2)
+                        .GetCustomAttributes(typeof(DataContractAttribute), false)
+                        .Any(w => ((DataContractAttribute)w).Namespace == doc.DocumentElement.NamespaceURI))
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpRecuperaRTResult2));
+                    }
+                    else
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpRecuperaRTResult));
+                    }
+                }
 
                 object obj;
                 using (var stream = new MemoryStream(pdpRecuperaRTResult.param))
@@ -576,20 +614,21 @@ namespace IntesaSanPaolo {
             this.param = param;
         }
 
-        public pdpEsitiRTBody(string identificativoDominio, string identificativoBU, string identificativoServizio, DateTime inizio, DateTime fine, string idoperazione= "RTPOSITIVE", string iuv=null, string cf=null) {
+        public pdpEsitiRTBody(string identificativoDominio, string identificativoBU, string identificativoServizio, DateTime inizio, DateTime fine, string idoperazione= "RTPOSITIVE", string iuv=null, string codiceFiscale = null) {
             this.identificativoDominio = identificativoDominio;
             this.identificativoBU = identificativoBU;
             var filtro = new InfoGroup.ct0000000006_pdpEsitiRTType() {
                 idServizio = identificativoServizio,
                 idOperazione = idoperazione, // default: solo RT incassate
-                dataInizio = inizio,
-                dataFine = fine,
+                dataInizio = inizio.ToString("yyyy-MM-dd"),
+                dataFine = fine.ToString("yyyy-MM-dd"),
                 identificativoUnivocoVersamento = iuv,
-                CF = cf
+                codiceFiscale = codiceFiscale
             };
             
             XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
-            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType), "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
+            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType),
+                "pdpEsitiRT", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
             using (MemoryStream stream = new MemoryStream()) {
                 serializer.WriteObject(stream, filtro);
@@ -611,7 +650,7 @@ namespace IntesaSanPaolo {
             };
             
             XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
-            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType), "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
+            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000006_pdpEsitiRTType), "pdpEsitiRT", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
             using (MemoryStream stream = new MemoryStream()) {
                 serializer.WriteObject(stream, filtro);
@@ -672,15 +711,27 @@ namespace IntesaSanPaolo {
             get {
                 if (pdpEsitiRTResult == null || pdpEsitiRTResult.param == null) return null;
 
-                var serializer = new DataContractSerializer(typeof(EasyBridge.pdpEsitiRTResultType));
                 string tmp = System.Text.ASCIIEncoding.ASCII.GetString(pdpEsitiRTResult.param);
+
+                DataContractSerializer serializer = null;
 
                 object obj;
                 using (var stream = new MemoryStream(pdpEsitiRTResult.param)) {
                     XmlDocument doc = new XmlDocument();
                     doc.Load(stream);
                     //trasformazione di doc
-                    
+
+                    if (typeof(EasyBridge.pdpEsitiRTResultType2)
+                        .GetCustomAttributes(typeof(DataContractAttribute), false)
+                        .Any(w => ((DataContractAttribute)w).Namespace == doc.DocumentElement.NamespaceURI))
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpEsitiRTResultType2));
+                    }
+                    else
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpEsitiRTResultType));
+                    }
+
                     WrapElement(doc, "ricevutaTelematica", "listaRicevutaTelematica", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
                     MemoryStream m = new MemoryStream();
                     doc.Save(m);
@@ -737,7 +788,7 @@ namespace IntesaSanPaolo {
             if (datiPagamento != null) {
                 XmlWriterSettings settings = new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = false };
                 DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000027_pdpAttivaRpt),
-                       "param", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
+                       "pdpAttivaRpt", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
                 using (MemoryStream stream = new MemoryStream()) {
                     serializer.WriteObject(stream, datiPagamento);
@@ -779,7 +830,26 @@ namespace IntesaSanPaolo {
             get
             {
                 if (pdpAttivaRptResult == null || pdpAttivaRptResult.param == null) return null;
-                var serializer = new DataContractSerializer(typeof(EasyBridge.pdpAttivaRptResult));
+                
+                XmlDocument doc = new XmlDocument();
+                DataContractSerializer serializer = null;
+
+                // leggo l'xml per controllare il namespace e deserializzare con la classe corretta
+                using (var stream = new MemoryStream(pdpAttivaRptResult.param))
+                {
+                    doc.Load(stream);
+
+                    if (typeof(EasyBridge.pdpAttivaRptResult2)
+                        .GetCustomAttributes(typeof(DataContractAttribute), false)
+                        .Any(w => ((DataContractAttribute)w).Namespace == doc.DocumentElement.NamespaceURI))
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpAttivaRptResult2));
+                    }
+                    else
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpAttivaRptResult));
+                    }
+                }
 
                 object obj;
                 using (var stream = new MemoryStream(pdpAttivaRptResult.param)) {
@@ -1337,7 +1407,8 @@ namespace IntesaSanPaolo {
                 identificativoUnivocoVersamento = iuv
             };
 
-            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000028_pdpRichiediAvviso));
+            DataContractSerializer serializer = new DataContractSerializer(typeof(InfoGroup.ct0000000028_pdpRichiediAvviso),
+                "pdpRichiediAvviso", "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/");
 
             using (MemoryStream stream = new MemoryStream()) {
                 serializer.WriteObject(stream, obj);
@@ -1378,13 +1449,32 @@ namespace IntesaSanPaolo {
             get {
                 if (pdpRichiediAvvisoResult == null || pdpRichiediAvvisoResult.param == null) return null;
 
-                var serializer = new DataContractSerializer(typeof(EasyBridge.pdpRichiediAvvisoResult));
+                XmlDocument doc = new XmlDocument();
+                DataContractSerializer serializer = null;
 
-                object obj;
-                using (var stream = new MemoryStream(pdpRichiediAvvisoResult.param)) {
-                    obj = serializer.ReadObject(stream);
+                // leggo l'xml per controllare il namespace e deserializzare con la classe corretta
+                using (var stream = new MemoryStream(pdpRichiediAvvisoResult.param))
+                {
+                    doc.Load(stream);
+
+                    if (typeof(EasyBridge.pdpRichiediAvvisoResult2)
+                        .GetCustomAttributes(typeof(DataContractAttribute), false)
+                        .Any(w => ((DataContractAttribute)w).Namespace == doc.DocumentElement.NamespaceURI))
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpRichiediAvvisoResult2));
+                    }
+                    else
+                    {
+                        serializer = new DataContractSerializer(typeof(EasyBridge.pdpRichiediAvvisoResult));
+                    }
                 }
 
+                object obj = null;
+                using (var stream = new MemoryStream(pdpRichiediAvvisoResult.param))
+                {
+                    obj = serializer.ReadObject(stream);
+                }
+                
                 return obj as InfoGroup.ct0000000028_pdpRichiediAvvisoResult;
             }
         }

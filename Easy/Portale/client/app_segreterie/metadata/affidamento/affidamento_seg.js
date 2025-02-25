@@ -30,6 +30,12 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.isNull(parentRow.gratuito) || parentRow.gratuito == '')
+					parentRow.gratuito = "N";
+				if (this.isNull(parentRow.iderogazkind))
+					parentRow.iderogazkind = 1;
+				if (this.isNull(parentRow.riferimento) || parentRow.riferimento == '')
+					parentRow.riferimento = "N";
 				_.forEach(this.getDataTable("lezione_alias2").rows, function (r) {
 					r['!title'] = parentRow.title;
 				});
@@ -52,21 +58,23 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			
 			afterLink: function () {
 				var self = this;
-				this.state.DS.tables.affidamento.defaults({ 'gratuito': "N" });
-				this.state.DS.tables.affidamento.defaults({ 'iderogazkind': 1 });
-				this.state.DS.tables.affidamento.defaults({ 'riferimento': "N" });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
 					$('#calendar36').fullCalendar('rerenderEvents');
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);
+				appMeta.metaModel.insertFilter(this.getDataTable("affidamentokinddefaultview"), this.q.eq('affidamentokind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("erogazkinddefaultview"), this.q.eq('erogazkind_active', 'Si'));
 				$('#grid_affidamentocaratteristica_seg').data('mdlconditionallookup', 'profess,S,Si;profess,N,No;');
 				var grid_affidamentocaratteristica_segChildsTables = [
 					{ tablename: 'affidamentocaratteristicaora', edittype: 'seg', columnlookup: 'ora', columncalc: '!affidamentocaratteristicaora'},

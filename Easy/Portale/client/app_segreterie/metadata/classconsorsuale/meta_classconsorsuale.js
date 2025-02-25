@@ -24,13 +24,13 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'idclassconsorsuale', 'Codice', null, 10, null);
-						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 50);
+						this.describeAColumn(table, 'title', 'Codice', null, 10, 50);
 						this.describeAColumn(table, 'description', 'Descrizione', null, 20, 512);
-						this.describeAColumn(table, 'active', 'Attivo', null, 40, null);
-						this.describeAColumn(table, 'ambitodisci', 'Ambito Disciplinare', null, 50, 50);
+						this.describeAColumn(table, 'active', 'Attivo', null, 30, null);
+						this.describeAColumn(table, 'ambitodisci', 'Ambito Disciplinare', null, 40, 50);
+						this.describeAColumn(table, 'normativa', 'Normativa', null, 50, 50);
 						this.describeAColumn(table, 'corr2592017', 'Corrispondenza', null, 60, 50);
-						this.describeAColumn(table, 'normativa', 'Normativa', null, 70, 50);
+						this.describeAColumn(table, 'tipoente', 'Tipologia di ente', null, 100, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -41,7 +41,22 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["active"].caption = "Attivo";
+						table.columns["ambitodisci"].caption = "Ambito Disciplinare";
+						table.columns["corr2592017"].caption = "Corrispondenza";
+						table.columns["description"].caption = "Descrizione";
+						table.columns["normativa"].caption = "Normativa";
+						table.columns["tipoente"].caption = "Tipologia di ente";
+						table.columns["title"].caption = "Codice";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_classconsorsuale");

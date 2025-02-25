@@ -25,6 +25,7 @@
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="autokind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="autocode" type="xs:int" minOccurs="0" />
               <xs:element name="idpayment" type="xs:int" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="adate" type="xs:dateTime" />

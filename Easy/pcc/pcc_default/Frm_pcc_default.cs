@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -61,6 +61,15 @@ namespace pcc_default {
             openFileDialog1 = createOpenFileDialog(_openFileDialog1);
             saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+
+            if (isBlazor())
+			{
+                txtPercorso.Visible = false;
+                btnCartella.Visible = false;
+                label5.Visible = false;
+                btnSalvaFile.Text = "Scarica";
+                btnRigenera.Text = "Scarica";
+			}
         }
 
         //DataAccess Conn;
@@ -132,6 +141,12 @@ namespace pcc_default {
             txtFilename.Enabled = false;
             btnImportaFileEsito.Enabled = Meta.EditMode;
             ValorizzaLabelImportazione();
+
+            if (isBlazor())
+			{
+                if (string.IsNullOrEmpty(txtPercorso.Text) && (editMode || insertMode))
+                    faiScegliereCartella();
+			}
         }
 
         DataTable Tpccsend = null;
@@ -453,7 +468,13 @@ namespace pcc_default {
                 SWR.Close();
                 SWR.Dispose();
                 txtFilename.Text = NomeFile;
-                show(this, "File salvato in " + completename);
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(completename, false);
+
+                if (isBlazor())
+                    show(this, "File scaricato");
+                else
+                    show(this, "File salvato in " + completename);
             }
             catch (Exception E) {
                 QueryCreator.ShowException(E);
@@ -1447,6 +1468,8 @@ namespace pcc_default {
                 FS.Write(ByteArray, 0, ByteArray.Length);
                 FS.Flush();
                 FS.Close();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
             }
             catch (Exception E) {
                 QueryCreator.ShowException("Errore nel salvataggio del file " + saveFileDialog1.FileName, E);

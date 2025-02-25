@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,6 +29,7 @@ using funzioni_configurazione;
 namespace no_table_trasf_flowchart {
     public partial class FrmTrasfFlowchart : MetaDataForm {
         MetaData Meta;
+        QueryHelper QHS;
         public FrmTrasfFlowchart () {
             InitializeComponent();
         }
@@ -42,6 +43,7 @@ namespace no_table_trasf_flowchart {
             txtEsercizioInizio.Text = Meta.GetSys("esercizio").ToString();
             int stopayear = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")) + 1;
             txtEsercizioFine.Text = stopayear.ToString();
+            QHS = Meta.Conn.GetQueryHelper();
         }
         private void btnTrasferisciOrganigramma_Click (object sender, EventArgs e) {
            // if (!DatiValidi()) return;
@@ -50,6 +52,21 @@ namespace no_table_trasf_flowchart {
 
             object stopayear = HelpForm.GetObjectFromString(typeof(int),
             txtEsercizioFine.Text.ToString(), "x.y.year");
+
+            DataTable flowchartlevel = Meta.Conn.RUN_SELECT("flowchartlevel", "*", null,
+                QHS.CmpEq("ayear", stopayear), null, false);
+
+            if (flowchartlevel != null)
+            {
+                if (flowchartlevel.Rows.Count > 0)
+                {
+                    Meta.Conn.CallSP("closeyear_flowchartcopy_copymissingrow", new object[] {startayear,
+                        stopayear}, false, 600);
+                    show("Organigramma trasferito, per applicare le restrizioni andare in " +
+                        "Opzioni > Gestione sicurezza > Organigramma > Applica sicurezza", "Operazione eseguita");
+                    return;
+                }
+            }
 
             Meta.Conn.CallSP("closeyear_flowchartcopy", new object[] {startayear,
             stopayear}, false, 600);

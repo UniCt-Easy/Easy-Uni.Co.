@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,16 +25,31 @@ using System.Windows.Forms;
 using System.IO;
 using metadatalibrary;
 using System.Globalization;
+using System.Linq;
 
 namespace mod770_details_consolidamento {
     public partial class FrmMod770details_consolidamento : MetaDataForm {
         //MetaData Meta;
+
+        private OpenFileDialog _openFileDialogBlazor;
+        private IOpenFileDialog openFileDialogBlazor;
         
         public FrmMod770details_consolidamento() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+            openFileDialogBlazor = createOpenFileDialog(_openFileDialogBlazor);
             saveFileDialog1.DefaultExt = "77s";
             txtFile770.Text = saveFileDialog1.FileName;
             txtCartella.Text = folderBrowserDialog1.SelectedPath;
+
+            if (isBlazor())
+			{
+                txtCartella.Visible = false;
+                btnScegliCartella.Visible = false;
+                txtFile770.Visible = false;
+                openFileDialogBlazor.Multiselect = true;
+			}
         }
 
         private void btnScegliCartella_Click(object sender, EventArgs e) {
@@ -461,8 +476,24 @@ namespace mod770_details_consolidamento {
         }
 
         private void btnConsolida_Click(object sender, EventArgs e) {
-            DirectoryInfo di = getDirectoryInfo();
-            if (di == null) return;
+            FileInfo[] fileNames = null;
+
+            if (isBlazor())
+			{
+                DialogResult dr = openFileDialogBlazor.ShowDialog();
+
+                if (dr == DialogResult.OK)
+                    fileNames = openFileDialogBlazor.FileNames.Select(fn => new FileInfo(fn)).ToArray();
+			}
+            else
+			{
+                DirectoryInfo di = getDirectoryInfo();
+                if (di == null) return;
+                fileNames = di.GetFiles();
+            }
+
+            if (fileNames == null) return;
+
             string cfSoggettoDichiarante = "";
             bool primoFile = true;
             SortedDictionary<string, int> recordJ = new SortedDictionary<string, int>();
@@ -473,7 +504,7 @@ namespace mod770_details_consolidamento {
             StringWriter swG = new StringWriter();
             StringWriter swH = new StringWriter();
             StringWriter swI = new StringWriter();
-            foreach (FileInfo f in di.GetFiles()) {
+            foreach (FileInfo f in fileNames) {
                 StreamReader sr = new StreamReader(f.FullName, Encoding.Default);
                 Console.WriteLine(f);
 
@@ -570,6 +601,9 @@ namespace mod770_details_consolidamento {
                 + "A\r\n".PadLeft(1813);//1900-15-9*8 = 1813
             stream.Write(recordZ);
             stream.Close();
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtFile770.Text, false);
+
             long length = new FileInfo(txtFile770.Text).Length;
             if (length % 1900 > 0) {
                 show(this, "ERRORE nella lunghezza del consolidato " + txtFile770.Text

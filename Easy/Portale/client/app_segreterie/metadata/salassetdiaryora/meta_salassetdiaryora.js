@@ -35,8 +35,8 @@
 						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_start', 'Data e ora di inizio', 'g', 16, null);
 						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_stop', 'Data e ora di fine', 'g', 18, null);
 						this.describeAColumn(table, '!idassetdiaryora_assetdiaryora_amount', 'Importo', 'fixed.2', 15, null);
-						this.describeAColumn(table, '!idassetdiaryora_sal_alias1_start', 'Data di inizio Stato avanzamento lavori', null, 17, null);
-						this.describeAColumn(table, '!idassetdiaryora_sal_alias1_stop', 'Data di fine Stato avanzamento lavori', null, 18, null);
+						this.describeAColumn(table, '!idassetdiaryora_sal_alias1_start', 'Data di inizio Stato avanzamento lavori', null, 18, null);
+						this.describeAColumn(table, '!idassetdiaryora_sal_alias1_stop', 'Data di fine Stato avanzamento lavori', null, 19, null);
 						objCalcFieldConfig['!idassetdiaryora_workpackage_raggruppamento'] = { tableNameLookup:'workpackage', columnNameLookup:'raggruppamento', columnNamekey:'idassetdiaryora' };
 						objCalcFieldConfig['!idassetdiaryora_workpackage_title'] = { tableNameLookup:'workpackage', columnNameLookup:'title', columnNamekey:'idassetdiaryora' };
 						objCalcFieldConfig['!idassetdiaryora_assetdiary_asset_idinventory'] = { tableNameLookup:'asset', columnNameLookup:'idinventory', columnNamekey:'idassetdiaryora' };
@@ -50,6 +50,8 @@
 						objCalcFieldConfig['!idassetdiaryora_assetdiaryora_amount'] = { tableNameLookup:'assetdiaryora', columnNameLookup:'amount', columnNamekey:'idassetdiaryora' };
 						objCalcFieldConfig['!idassetdiaryora_sal_alias1_start'] = { tableNameLookup:'sal_alias1', columnNameLookup:'start', columnNamekey:'idassetdiaryora' };
 						objCalcFieldConfig['!idassetdiaryora_sal_alias1_stop'] = { tableNameLookup:'sal_alias1', columnNameLookup:'stop', columnNamekey:'idassetdiaryora' };
+						this.describeAColumn(table, '!idassetdiaryora_sal_alias1_numerosal', 'Numero Stato avanzamento lavori', null, 17, null);
+						objCalcFieldConfig['!idassetdiaryora_sal_alias1_numerosal'] = { tableNameLookup:'sal_alias1', columnNameLookup:'numerosal', columnNamekey:'idassetdiaryora' };
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

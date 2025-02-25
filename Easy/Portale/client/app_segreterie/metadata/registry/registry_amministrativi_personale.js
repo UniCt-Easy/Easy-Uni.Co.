@@ -92,6 +92,8 @@
 				this.enableControl($('#registry_amministrativi_personale_idregistrykind'), true);
 				this.enableControl($('#registry_amministrativi_personale_p_iva'), true);
 				this.enableControl($('#registry_amministrativi_personale_residence'), true);
+				this.enableControl($('#registry_amministrativi_personale_idanpr'), true);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
 				//afterClearin
 				
 				//afterClearInAsyncBase
@@ -110,7 +112,8 @@
 				});
 				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
 				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));
-				$('#grid_registrylegalstatus_amm').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;tempindet,S,Si;tempindet,N,No;');
+				$('#grid_registrylegalstatus_amm').data('mdlconditionallookup', 'tempindet,S,Si;tempindet,N,No;');
+				$('#grid_registrycongiunto_default').data('mdlconditionallookup', 'have104,S,Si;have104,N,No;');
 				$('#grid_progettotimesheet_datipersonali').data('mdlconditionallookup', 'multilinetype,S,Si;multilinetype,N,No;output,P,PDF;output,F,PDF firmato;output,X,Excel;');
 				$('#grid_timbratura_default').data('mdlconditionallookup', 'convalida,S,Si;convalida,N,No;');
 				//fireAfterLink
@@ -173,6 +176,8 @@
 				this.enableControl($('#registry_amministrativi_personale_idregistrykind'), false);
 				this.enableControl($('#registry_amministrativi_personale_p_iva'), false);
 				this.enableControl($('#registry_amministrativi_personale_residence'), false);
+				this.enableControl($('#registry_amministrativi_personale_idanpr'), false);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
 				//afterFillin
 
 				var self = this;

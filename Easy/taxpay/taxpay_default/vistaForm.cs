@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -52,6 +52,10 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensetaxcorrigeview 		=> Tables["expensetaxcorrigeview"];
+
+	
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable taxpayattachment 		=> Tables["taxpayattachment"]; 
 
 	#endregion
 
@@ -423,6 +427,32 @@ private void initClass() {
 	texpensetaxcorrigeview.PrimaryKey =  new DataColumn[]{texpensetaxcorrigeview.Columns["idexp"], texpensetaxcorrigeview.Columns["idexpensetaxcorrige"]};
 
 
+	
+	//////////////////// TAXPAYATTACHMENT /////////////////////////////////
+	var ttaxpayattachment= new DataTable("taxpayattachment");
+	C= new DataColumn("ntaxpay", typeof(Int32));
+	C.AllowDBNull=true;
+	ttaxpayattachment.Columns.Add(C);
+	C= new DataColumn("taxcode", typeof(Int32));
+	C.AllowDBNull=true;
+	ttaxpayattachment.Columns.Add(C);
+	C= new DataColumn("ytaxpay", typeof(Int16));
+	C.AllowDBNull=true;
+	ttaxpayattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	ttaxpayattachment.Columns.Add(C);
+	ttaxpayattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	ttaxpayattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	ttaxpayattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	ttaxpayattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	ttaxpayattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	ttaxpayattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	ttaxpayattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(ttaxpayattachment);
+	ttaxpayattachment.PrimaryKey =  new DataColumn[]{ttaxpayattachment.Columns["ntaxpay"],ttaxpayattachment.Columns["taxcode"],ttaxpayattachment.Columns["ytaxpay"], ttaxpayattachment.Columns["idattachment"]};
+	
+	
 	#endregion
 
 
@@ -443,6 +473,10 @@ private void initClass() {
 	cChild = new []{payedtaxview.Columns["ytaxpay"], payedtaxview.Columns["ntaxpay"]};
 	Relations.Add(new DataRelation("taxpay_payedtaxview",cPar,cChild,false));
 
+	cPar = new []{ttaxpay.Columns["ntaxpay"],ttaxpay.Columns["taxcode"],ttaxpay.Columns["ytaxpay"]};
+	cChild = new []{taxpayattachment.Columns["ntaxpay"],taxpayattachment.Columns["taxcode"],taxpayattachment.Columns["ytaxpay"]};
+	Relations.Add(new DataRelation("taxpay_taxpayattachment",cPar,cChild,false));
+	
 	#endregion
 
 }

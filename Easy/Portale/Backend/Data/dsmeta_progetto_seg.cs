@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,6 +30,9 @@ namespace Backend.Data {
 public partial class dsmeta_progetto_seg: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable progettocosto 		=> (MetaTable)Tables["progettocosto"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sal 		=> (MetaTable)Tables["sal"];
 
@@ -65,6 +68,9 @@ public partial class dsmeta_progetto_seg: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registryamministrativiview 		=> (MetaTable)Tables["registryamministrativiview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable attach 		=> (MetaTable)Tables["attach"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettokindsegview 		=> (MetaTable)Tables["progettokindsegview"];
@@ -125,24 +131,6 @@ public partial class dsmeta_progetto_seg: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettotesto 		=> (MetaTable)Tables["progettotesto"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable progettoricavo 		=> (MetaTable)Tables["progettoricavo"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable progettobudgetvariazione 		=> (MetaTable)Tables["progettobudgetvariazione"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable progettocosto 		=> (MetaTable)Tables["progettocosto"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable workpackage_alias2 		=> (MetaTable)Tables["workpackage_alias2"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable progettotipocosto_alias2 		=> (MetaTable)Tables["progettotipocosto_alias2"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable progettobudget 		=> (MetaTable)Tables["progettobudget"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable assetdiaryora 		=> (MetaTable)Tables["assetdiaryora"];
@@ -250,13 +238,41 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_progetto_seg.xsd";
 
 	#region create DataTables
+	//////////////////// PROGETTOCOSTO /////////////////////////////////
+	var tprogettocosto= new MetaTable("progettocosto");
+	tprogettocosto.defineColumn("amount", typeof(decimal));
+	tprogettocosto.defineColumn("ct", typeof(DateTime));
+	tprogettocosto.defineColumn("cu", typeof(string));
+	tprogettocosto.defineColumn("doc", typeof(string));
+	tprogettocosto.defineColumn("docdate", typeof(DateTime));
+	tprogettocosto.defineColumn("idassetdiaryora", typeof(int));
+	tprogettocosto.defineColumn("idexp", typeof(int));
+	tprogettocosto.defineColumn("idpettycash", typeof(int));
+	tprogettocosto.defineColumn("idposition", typeof(int));
+	tprogettocosto.defineColumn("idprogetto", typeof(int),false);
+	tprogettocosto.defineColumn("idprogettocosto", typeof(int),false);
+	tprogettocosto.defineColumn("idprogettotipocosto", typeof(int));
+	tprogettocosto.defineColumn("idrelated", typeof(string));
+	tprogettocosto.defineColumn("idrendicontattivitaprogetto", typeof(int));
+	tprogettocosto.defineColumn("idsal", typeof(int));
+	tprogettocosto.defineColumn("idsalprogettoassetworkpackagemese", typeof(int));
+	tprogettocosto.defineColumn("idworkpackage", typeof(int));
+	tprogettocosto.defineColumn("lt", typeof(DateTime));
+	tprogettocosto.defineColumn("lu", typeof(string));
+	tprogettocosto.defineColumn("noperation", typeof(int));
+	tprogettocosto.defineColumn("yoperation", typeof(int));
+	Tables.Add(tprogettocosto);
+	tprogettocosto.defineKey("idprogetto", "idprogettocosto");
+
 	//////////////////// SAL /////////////////////////////////
 	var tsal= new MetaTable("sal");
 	tsal.defineColumn("!budgetcalcolato", typeof(decimal));
+	tsal.defineColumn("autoassociazione", typeof(string));
 	tsal.defineColumn("budget", typeof(decimal));
 	tsal.defineColumn("datablocco", typeof(DateTime));
 	tsal.defineColumn("idprogetto", typeof(int),false);
 	tsal.defineColumn("idsal", typeof(int),false);
+	tsal.defineColumn("numerosal", typeof(int));
 	tsal.defineColumn("start", typeof(DateTime));
 	tsal.defineColumn("stop", typeof(DateTime));
 	Tables.Add(tsal);
@@ -392,6 +408,20 @@ private void initClass() {
 	tregistryamministrativiview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistryamministrativiview);
 	tregistryamministrativiview.defineKey("idreg");
+
+	//////////////////// ATTACH /////////////////////////////////
+	var tattach= new MetaTable("attach");
+	tattach.defineColumn("attachment", typeof(Byte[]));
+	tattach.defineColumn("ct", typeof(DateTime),false);
+	tattach.defineColumn("cu", typeof(string),false);
+	tattach.defineColumn("filename", typeof(string),false);
+	tattach.defineColumn("hash", typeof(string),false);
+	tattach.defineColumn("idattach", typeof(int),false);
+	tattach.defineColumn("lt", typeof(DateTime),false);
+	tattach.defineColumn("lu", typeof(string),false);
+	tattach.defineColumn("size", typeof(int),false);
+	Tables.Add(tattach);
+	tattach.defineKey("idattach");
 
 	//////////////////// PROGETTOKINDSEGVIEW /////////////////////////////////
 	var tprogettokindsegview= new MetaTable("progettokindsegview");
@@ -574,7 +604,6 @@ private void initClass() {
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
 	tregistry.defineColumn("idcity", typeof(int));
-	tregistry.defineColumn("idclassconsorsuale", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
@@ -676,115 +705,6 @@ private void initClass() {
 	Tables.Add(tprogettotesto);
 	tprogettotesto.defineKey("idprogetto", "idprogettotesto");
 
-	//////////////////// PROGETTORICAVO /////////////////////////////////
-	var tprogettoricavo= new MetaTable("progettoricavo");
-	tprogettoricavo.defineColumn("amount", typeof(decimal));
-	tprogettoricavo.defineColumn("ct", typeof(DateTime),false);
-	tprogettoricavo.defineColumn("cu", typeof(string),false);
-	tprogettoricavo.defineColumn("doc", typeof(string));
-	tprogettoricavo.defineColumn("docdate", typeof(DateTime));
-	tprogettoricavo.defineColumn("idcontrattokind", typeof(int));
-	tprogettoricavo.defineColumn("idinc", typeof(int));
-	tprogettoricavo.defineColumn("idposition", typeof(int));
-	tprogettoricavo.defineColumn("idprogetto", typeof(int),false);
-	tprogettoricavo.defineColumn("idprogettoricavo", typeof(int),false);
-	tprogettoricavo.defineColumn("idprogettotipocosto", typeof(int));
-	tprogettoricavo.defineColumn("idrelated", typeof(string));
-	tprogettoricavo.defineColumn("idrendicontattivitaprogetto", typeof(int));
-	tprogettoricavo.defineColumn("idsal", typeof(int));
-	tprogettoricavo.defineColumn("idworkpackage", typeof(int));
-	tprogettoricavo.defineColumn("lt", typeof(DateTime),false);
-	tprogettoricavo.defineColumn("lu", typeof(string),false);
-	tprogettoricavo.ExtendedProperties["NotEntityChild"]="true";
-	Tables.Add(tprogettoricavo);
-	tprogettoricavo.defineKey("idprogetto", "idprogettoricavo");
-
-	//////////////////// PROGETTOBUDGETVARIAZIONE /////////////////////////////////
-	var tprogettobudgetvariazione= new MetaTable("progettobudgetvariazione");
-	tprogettobudgetvariazione.defineColumn("ct", typeof(DateTime));
-	tprogettobudgetvariazione.defineColumn("cu", typeof(string));
-	tprogettobudgetvariazione.defineColumn("data", typeof(DateTime));
-	tprogettobudgetvariazione.defineColumn("idaccmotive", typeof(string));
-	tprogettobudgetvariazione.defineColumn("idprogetto", typeof(int),false);
-	tprogettobudgetvariazione.defineColumn("idprogettobudget", typeof(int),false);
-	tprogettobudgetvariazione.defineColumn("idprogettobudgetvariazione", typeof(int),false);
-	tprogettobudgetvariazione.defineColumn("idupb", typeof(string));
-	tprogettobudgetvariazione.defineColumn("lt", typeof(DateTime));
-	tprogettobudgetvariazione.defineColumn("lu", typeof(string));
-	tprogettobudgetvariazione.defineColumn("newamount", typeof(decimal));
-	tprogettobudgetvariazione.ExtendedProperties["NotEntityChild"]="true";
-	Tables.Add(tprogettobudgetvariazione);
-	tprogettobudgetvariazione.defineKey("idprogetto", "idprogettobudget", "idprogettobudgetvariazione");
-
-	//////////////////// PROGETTOCOSTO /////////////////////////////////
-	var tprogettocosto= new MetaTable("progettocosto");
-	tprogettocosto.defineColumn("amount", typeof(decimal));
-	tprogettocosto.defineColumn("ct", typeof(DateTime));
-	tprogettocosto.defineColumn("cu", typeof(string));
-	tprogettocosto.defineColumn("doc", typeof(string));
-	tprogettocosto.defineColumn("docdate", typeof(DateTime));
-	tprogettocosto.defineColumn("idassetdiaryora", typeof(int));
-	tprogettocosto.defineColumn("idcontrattokind", typeof(int));
-	tprogettocosto.defineColumn("idexp", typeof(int));
-	tprogettocosto.defineColumn("idpettycash", typeof(int));
-	tprogettocosto.defineColumn("idposition", typeof(int));
-	tprogettocosto.defineColumn("idprogetto", typeof(int),false);
-	tprogettocosto.defineColumn("idprogettocosto", typeof(int),false);
-	tprogettocosto.defineColumn("idprogettotipocosto", typeof(int),false);
-	tprogettocosto.defineColumn("idrelated", typeof(string));
-	tprogettocosto.defineColumn("idrendicontattivitaprogetto", typeof(int));
-	tprogettocosto.defineColumn("idsal", typeof(int));
-	tprogettocosto.defineColumn("idsalprogettoassetworkpackagemese", typeof(int));
-	tprogettocosto.defineColumn("idworkpackage", typeof(int),false);
-	tprogettocosto.defineColumn("lt", typeof(DateTime));
-	tprogettocosto.defineColumn("lu", typeof(string));
-	tprogettocosto.defineColumn("noperation", typeof(int));
-	tprogettocosto.defineColumn("yoperation", typeof(int));
-	tprogettocosto.ExtendedProperties["NotEntityChild"]="true";
-	Tables.Add(tprogettocosto);
-	tprogettocosto.defineKey("idprogetto", "idprogettocosto", "idprogettotipocosto", "idworkpackage");
-
-	//////////////////// WORKPACKAGE_ALIAS2 /////////////////////////////////
-	var tworkpackage_alias2= new MetaTable("workpackage_alias2");
-	tworkpackage_alias2.defineColumn("idprogetto", typeof(int),false);
-	tworkpackage_alias2.defineColumn("idworkpackage", typeof(int),false);
-	tworkpackage_alias2.defineColumn("raggruppamento", typeof(string));
-	tworkpackage_alias2.defineColumn("title", typeof(string),false);
-	tworkpackage_alias2.ExtendedProperties["TableForReading"]="workpackage";
-	Tables.Add(tworkpackage_alias2);
-	tworkpackage_alias2.defineKey("idprogetto", "idworkpackage");
-
-	//////////////////// PROGETTOTIPOCOSTO_ALIAS2 /////////////////////////////////
-	var tprogettotipocosto_alias2= new MetaTable("progettotipocosto_alias2");
-	tprogettotipocosto_alias2.defineColumn("idprogetto", typeof(int),false);
-	tprogettotipocosto_alias2.defineColumn("idprogettotipocosto", typeof(int),false);
-	tprogettotipocosto_alias2.defineColumn("title", typeof(string));
-	tprogettotipocosto_alias2.ExtendedProperties["TableForReading"]="progettotipocosto";
-	Tables.Add(tprogettotipocosto_alias2);
-	tprogettotipocosto_alias2.defineKey("idprogetto", "idprogettotipocosto");
-
-	//////////////////// PROGETTOBUDGET /////////////////////////////////
-	var tprogettobudget= new MetaTable("progettobudget");
-	tprogettobudget.defineColumn("!budgetvariazione", typeof(decimal));
-	tprogettobudget.defineColumn("!ricaviincassati", typeof(decimal));
-	tprogettobudget.defineColumn("!ricavinonincassati", typeof(decimal));
-	tprogettobudget.defineColumn("!spese", typeof(decimal));
-	tprogettobudget.defineColumn("budget", typeof(decimal));
-	tprogettobudget.defineColumn("ct", typeof(DateTime));
-	tprogettobudget.defineColumn("cu", typeof(string));
-	tprogettobudget.defineColumn("idprogetto", typeof(int),false);
-	tprogettobudget.defineColumn("idprogettobudget", typeof(int),false);
-	tprogettobudget.defineColumn("idprogettotipocosto", typeof(int),false);
-	tprogettobudget.defineColumn("idworkpackage", typeof(int),false);
-	tprogettobudget.defineColumn("lt", typeof(DateTime));
-	tprogettobudget.defineColumn("lu", typeof(string));
-	tprogettobudget.defineColumn("sortcode", typeof(int));
-	tprogettobudget.defineColumn("!idprogettotipocosto_progettotipocosto_title", typeof(string));
-	tprogettobudget.defineColumn("!idworkpackage_workpackage_raggruppamento", typeof(string));
-	tprogettobudget.defineColumn("!idworkpackage_workpackage_title", typeof(string));
-	Tables.Add(tprogettobudget);
-	tprogettobudget.defineKey("idprogetto", "idprogettobudget", "idprogettotipocosto", "idworkpackage");
-
 	//////////////////// ASSETDIARYORA /////////////////////////////////
 	var tassetdiaryora= new MetaTable("assetdiaryora");
 	tassetdiaryora.defineColumn("!title", typeof(string));
@@ -883,7 +803,6 @@ private void initClass() {
 	trendicontattivitaprogetto_alias1.defineColumn("cu", typeof(string),false);
 	trendicontattivitaprogetto_alias1.defineColumn("datainizioprevista", typeof(DateTime),false);
 	trendicontattivitaprogetto_alias1.defineColumn("description", typeof(string));
-	trendicontattivitaprogetto_alias1.defineColumn("iditineration", typeof(int));
 	trendicontattivitaprogetto_alias1.defineColumn("idprogetto", typeof(int),false);
 	trendicontattivitaprogetto_alias1.defineColumn("idreg", typeof(int),false);
 	trendicontattivitaprogetto_alias1.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
@@ -1128,7 +1047,6 @@ private void initClass() {
 	var tprogettotiporicavocontrattokind= new MetaTable("progettotiporicavocontrattokind");
 	tprogettotiporicavocontrattokind.defineColumn("ct", typeof(DateTime));
 	tprogettotiporicavocontrattokind.defineColumn("cu", typeof(string));
-	tprogettotiporicavocontrattokind.defineColumn("idcontrattokind", typeof(int));
 	tprogettotiporicavocontrattokind.defineColumn("idposition", typeof(int),false);
 	tprogettotiporicavocontrattokind.defineColumn("idprogetto", typeof(int),false);
 	tprogettotiporicavocontrattokind.defineColumn("idprogettotipocosto", typeof(int),false);
@@ -1177,7 +1095,6 @@ private void initClass() {
 	var tprogettotipocostocontrattokind= new MetaTable("progettotipocostocontrattokind");
 	tprogettotipocostocontrattokind.defineColumn("ct", typeof(DateTime));
 	tprogettotipocostocontrattokind.defineColumn("cu", typeof(string));
-	tprogettotipocostocontrattokind.defineColumn("idcontrattokind", typeof(int));
 	tprogettotipocostocontrattokind.defineColumn("idposition", typeof(int),false);
 	tprogettotipocostocontrattokind.defineColumn("idprogetto", typeof(int),false);
 	tprogettotipocostocontrattokind.defineColumn("idprogettotipocosto", typeof(int),false);
@@ -1240,6 +1157,7 @@ private void initClass() {
 	tprogetto.defineColumn("durata", typeof(int));
 	tprogetto.defineColumn("finanziamento", typeof(string));
 	tprogetto.defineColumn("finanziatoretxt", typeof(string));
+	tprogetto.defineColumn("idattach", typeof(int));
 	tprogetto.defineColumn("idcorsostudio", typeof(int));
 	tprogetto.defineColumn("idcurrency", typeof(int));
 	tprogetto.defineColumn("idduratakind", typeof(int));
@@ -1317,6 +1235,10 @@ private void initClass() {
 	cPar = new []{registryamministrativiview.Columns["idreg"]};
 	cChild = new []{progetto.Columns["idreg_amm"]};
 	Relations.Add(new DataRelation("FK_progetto_registryamministrativiview_idreg_amm",cPar,cChild,false));
+
+	cPar = new []{attach.Columns["idattach"]};
+	cChild = new []{progetto.Columns["idattach"]};
+	Relations.Add(new DataRelation("FK_progetto_attach_idattach",cPar,cChild,false));
 
 	cPar = new []{progettokindsegview.Columns["idprogettokind"]};
 	cChild = new []{progetto.Columns["idprogettokind"]};
@@ -1403,30 +1325,6 @@ private void initClass() {
 	Relations.Add(new DataRelation("FK_progettotesto_progetto_idprogetto",cPar,cChild,false));
 
 	cPar = new []{progetto.Columns["idprogetto"]};
-	cChild = new []{progettobudget.Columns["idprogetto"]};
-	Relations.Add(new DataRelation("FK_progettobudget_progetto_idprogetto",cPar,cChild,false));
-
-	cPar = new []{progettobudget.Columns["idprogetto"], progettobudget.Columns["idprogettotipocosto"], progettobudget.Columns["idworkpackage"]};
-	cChild = new []{progettoricavo.Columns["idprogetto"], progettoricavo.Columns["idprogettotipocosto"], progettoricavo.Columns["idworkpackage"]};
-	Relations.Add(new DataRelation("FK_progettoricavo_progettobudget_idprogetto-idprogettotipocosto-idworkpackage",cPar,cChild,false));
-
-	cPar = new []{progettobudget.Columns["idprogetto"], progettobudget.Columns["idprogettobudget"]};
-	cChild = new []{progettobudgetvariazione.Columns["idprogetto"], progettobudgetvariazione.Columns["idprogettobudget"]};
-	Relations.Add(new DataRelation("FK_progettobudgetvariazione_progettobudget_idprogetto-idprogettobudget",cPar,cChild,false));
-
-	cPar = new []{progettobudget.Columns["idprogetto"], progettobudget.Columns["idprogettotipocosto"], progettobudget.Columns["idworkpackage"]};
-	cChild = new []{progettocosto.Columns["idprogetto"], progettocosto.Columns["idprogettotipocosto"], progettocosto.Columns["idworkpackage"]};
-	Relations.Add(new DataRelation("FK_progettocosto_progettobudget_idprogetto-idprogettotipocosto-idworkpackage",cPar,cChild,false));
-
-	cPar = new []{workpackage_alias2.Columns["idworkpackage"]};
-	cChild = new []{progettobudget.Columns["idworkpackage"]};
-	Relations.Add(new DataRelation("FK_progettobudget_workpackage_alias2_idworkpackage",cPar,cChild,false));
-
-	cPar = new []{progettotipocosto_alias2.Columns["idprogettotipocosto"]};
-	cChild = new []{progettobudget.Columns["idprogettotipocosto"]};
-	Relations.Add(new DataRelation("FK_progettobudget_progettotipocosto_alias2_idprogettotipocosto",cPar,cChild,false));
-
-	cPar = new []{progetto.Columns["idprogetto"]};
 	cChild = new []{workpackage.Columns["idprogetto"]};
 	Relations.Add(new DataRelation("FK_workpackage_progetto_idprogetto",cPar,cChild,false));
 
@@ -1446,17 +1344,17 @@ private void initClass() {
 	cChild = new []{rendicontattivitaprogetto_alias1.Columns["idprogetto"], rendicontattivitaprogetto_alias1.Columns["idworkpackage"]};
 	Relations.Add(new DataRelation("FK_rendicontattivitaprogetto_alias1_workpackage_idprogetto-idworkpackage",cPar,cChild,false));
 
-	cPar = new []{rendicontattivitaprogetto_alias1.Columns["idprogetto"], rendicontattivitaprogetto_alias1.Columns["idworkpackage"], rendicontattivitaprogetto_alias1.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto_alias1.Columns["iditineration"]};
-	cChild = new []{rendicontattivitaprogettoitineration.Columns["idprogetto"], rendicontattivitaprogettoitineration.Columns["idworkpackage"], rendicontattivitaprogettoitineration.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoitineration.Columns["iditineration"]};
-	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_alias1_idprogetto-idworkpackage-idrendicontattivitaprogetto-iditineration",cPar,cChild,false));
+	cPar = new []{rendicontattivitaprogetto_alias1.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto_alias1.Columns["idworkpackage"], rendicontattivitaprogetto_alias1.Columns["idprogetto"]};
+	cChild = new []{rendicontattivitaprogettoitineration.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoitineration.Columns["idworkpackage"], rendicontattivitaprogettoitineration.Columns["idprogetto"]};
+	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto-idworkpackage-idprogetto",cPar,cChild,false));
 
-	cPar = new []{rendicontattivitaprogetto_alias1.Columns["idprogetto"], rendicontattivitaprogetto_alias1.Columns["idworkpackage"], rendicontattivitaprogetto_alias1.Columns["idrendicontattivitaprogetto"]};
-	cChild = new []{rendicontattivitaprogettoyear.Columns["idprogetto"], rendicontattivitaprogettoyear.Columns["idworkpackage"], rendicontattivitaprogettoyear.Columns["idrendicontattivitaprogetto"]};
-	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoyear_rendicontattivitaprogetto_alias1_idprogetto-idworkpackage-idrendicontattivitaprogetto",cPar,cChild,false));
+	cPar = new []{rendicontattivitaprogetto_alias1.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto_alias1.Columns["idworkpackage"], rendicontattivitaprogetto_alias1.Columns["idprogetto"]};
+	cChild = new []{rendicontattivitaprogettoyear.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoyear.Columns["idworkpackage"], rendicontattivitaprogettoyear.Columns["idprogetto"]};
+	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoyear_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto-idworkpackage-idprogetto",cPar,cChild,false));
 
-	cPar = new []{rendicontattivitaprogetto_alias1.Columns["idprogetto"], rendicontattivitaprogetto_alias1.Columns["idworkpackage"], rendicontattivitaprogetto_alias1.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto_alias1.Columns["idreg"]};
-	cChild = new []{rendicontattivitaprogettoora.Columns["idprogetto"], rendicontattivitaprogettoora.Columns["idworkpackage"], rendicontattivitaprogettoora.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoora.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_alias1_idprogetto-idworkpackage-idrendicontattivitaprogetto-idreg",cPar,cChild,false));
+	cPar = new []{rendicontattivitaprogetto_alias1.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogetto_alias1.Columns["idworkpackage"], rendicontattivitaprogetto_alias1.Columns["idprogetto"], rendicontattivitaprogetto_alias1.Columns["idreg"]};
+	cChild = new []{rendicontattivitaprogettoora.Columns["idrendicontattivitaprogetto"], rendicontattivitaprogettoora.Columns["idworkpackage"], rendicontattivitaprogettoora.Columns["idprogetto"], rendicontattivitaprogettoora.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto-idworkpackage-idprogetto-idreg",cPar,cChild,false));
 
 	cPar = new []{struttura.Columns["idstruttura"]};
 	cChild = new []{workpackage.Columns["idstruttura"]};

@@ -1,0 +1,271 @@
+﻿@page "/timbratura"
+
+<PageTitle>Timbratura</PageTitle>
+
+@using ServizioTimbratura
+@inject NavigationManager Navigation
+@inject ServizioTimbratura.Timbratura timbraturaSrv
+@inject IJSRuntime JS
+
+<h1>Timbrature</h1>
+<p>Possiamo vedere le Timbrature presenti su Zucchetti</p>
+<p>@conn</p>
+<div class="row mb-2">
+    <div class="col-1">idReg: </div>
+    <div class="col-2"><input id="idreg" @bind=@idReg @onclick="() => resetErrorMsg()" /></div>
+</div>
+@if (errorMsg != "")
+{
+    <div class="row mb-2">
+        <div class="col-3">
+            <p class="alert alert-danger">@errorMsg</p>
+        </div>
+    </div>
+}
+<div class="row mb-2 mt-2">
+    <div class="col-3">
+        <button class="btn btn-primary" @onclick="GetTimbr">Leggi dati da Zucchetti</button>
+    </div>
+</div>
+<hr />
+@if (isLoading)
+{
+    <p>Loading data...</p>
+}
+else if (isDownloading)
+{
+    <p>Loading data...</p>
+}
+else
+{
+    @if (timbratureDb != null)
+    {
+        <div class="row">
+            <div class="col-12">            
+                <table id="timbrature" class="table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Web Service</th>
+                            <th>Database</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (timbratureDb.Any())
+                        {
+                            foreach (var timbraturaDb in timbratureDb.OrderBy(o => o.data))
+                            {
+                                <tr style="@(string.IsNullOrEmpty(timbraturaDb.valdb) ? "background-color:lightgreen" : (timbraturaDb.valws != timbraturaDb.valdb ? "background-color:orange" : ""))">
+                                    <td>@(timbraturaDb.data.ToString("yyyy/MM/dd"))</td>
+                                    <td>@(timbraturaDb.valws)</td>
+                                    <td>@(timbraturaDb.valdb)</td>
+                                    <td><label class="btn btn-danger" @onclick="() => RemoveTimbratura(timbraturaDb.id)">x</label></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" align="center">Nessuna Timbratura presente nel servizio</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @if (timbratureDb.Any())
+        {
+            <div class="row mb-5">
+                <div class="col-12">
+                    <button class="btn btn-primary" onclick="downloadCSV()">Download CSV</button>
+                    @* <button class="btn btn-warning" @onclick="UpdateDbTimbrature">Aggiorna Database</button> *@
+                </div>
+            </div>      
+        }
+        <div class="row mb-5">
+            <div class="col-12">
+                @msgTimbrature
+            </div>
+        </div>
+    }
+}
+
+@code {
+    private string idReg = "";
+    private string msgTimbrature = "";
+    private bool successTimbrature = true;
+    private string conn = "";
+    private string errorMsg = "";
+
+    List<oradb> timbratureDb;
+
+    private bool isLoading = false;
+
+    private bool isDownloading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Navigation.LocationChanged += OnLocationChanged;
+
+        ParseQueryString();
+    }
+
+    private void OnLocationChanged(object sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        ParseQueryString();
+
+        StateHasChanged();
+    }
+
+    private void ParseQueryString()
+    {
+        Uri uri = new Uri(Navigation.Uri);
+        string settingsFile = $"AppServizioTimbratura{uri.Query.Replace("?", ".")}.config";
+        conn = timbraturaSrv.DoInit(settingsFile);
+    }
+
+    public void resetErrorMsg()
+    {
+        errorMsg = "";
+    }
+
+    private async Task GetTimbr()
+    {
+        errorMsg = "";
+
+        if (idReg == "")
+        {
+            errorMsg = "Inserire un idReg!";
+            return;
+        }
+
+        int _idreg = 0;
+        int.TryParse(idReg, out _idreg);            
+
+        if (_idreg <= 0)
+        {
+            errorMsg = "Inserire un idReg valido!";
+            return;
+        }
+
+        // Clear the current table data
+        timbratureDb = null;
+        
+        isLoading = true;
+
+        StateHasChanged();
+
+        await Task.Delay(1);
+
+        List<oraws> timbrature = await timbraturaSrv.DoGetTimbratureZucchetti(idReg);
+        timbratureDb = await timbraturaSrv.GetTimb(idReg);
+
+        foreach (oraws timbratura in timbrature)
+        {
+            if (timbratureDb.Any(w => w.data == timbratura.data))
+                timbratureDb.FirstOrDefault(w => w.data == timbratura.data).valws = timbratura.valws;
+            else
+                timbratureDb.Add(new oradb() { data = timbratura.data, valws = timbratura.valws });
+        }
+
+        isLoading = false;
+
+        StateHasChanged();
+    }
+
+    // private async Task UpdateDbTimbrature()
+    // {
+    //     errorMsg = "";
+
+    //     if (idReg == "")
+    //     {
+    //         errorMsg = "Inserire un idReg!";
+    //         return;
+    //     }
+
+    //     int _idreg = 0;
+    //     int.TryParse(idReg, out _idreg);            
+
+    //     if (_idreg <= 0)
+    //     {
+    //         errorMsg = "Inserire un idReg valido!";
+    //         return;
+    //     }
+
+    //     isDownloading = true;
+
+    //     StateHasChanged();
+
+    //     await Task.Delay(1);
+
+    //     timbraturaSrv.DoUpdateTimbrature(_idreg, true);
+
+    //     // Clear the current table data
+    //     timbratureDb = null;
+
+    //     isDownloading = false;
+    //     isLoading = true;
+
+    //     StateHasChanged();
+
+    //     await Task.Delay(1);
+
+    //     List<oraws> timbrature = await timbraturaSrv.DoGetTimbratureZucchetti(idReg);
+    //     timbratureDb = await timbraturaSrv.GetTimb(idReg);
+
+    //     foreach (oraws timbratura in timbrature)
+    //     {
+    //         if (timbratureDb.Any(w => w.data == timbratura.data))
+    //             timbratureDb.FirstOrDefault(w => w.data == timbratura.data).valws = timbratura.valws;
+    //         else
+    //             timbratureDb.Add(new oradb() { data = timbratura.data, valws = timbratura.valws });
+    //     }
+
+    //     isLoading = false;
+
+    //     StateHasChanged();
+    // }
+
+    private async Task RemoveTimbratura(int idTimbratura)
+    {
+        bool confirmed = true; // await JS.InvokeAsync<bool>("confirm", "Cancellare la timbratura ?");
+
+        if (confirmed)
+        {
+            await timbraturaSrv.DelTimb(idTimbratura);
+
+            oradb timb = timbratureDb.FirstOrDefault(w => w.id == idTimbratura);
+            timbratureDb.Remove(timb);
+        }
+    }
+}
+
+<script type="text/javascript">
+    function downloadCSV() {
+        let table = document.getElementById("timbrature");
+        let rows = Array.from(table.querySelectorAll("tr"));
+    
+        let csvContent = "";
+        rows.forEach(row => {
+            let cols = Array.from(row.querySelectorAll("th, td"))
+                            .map(col => col.innerText.replace(/,/g, '')); // Remove commas if needed
+            csvContent += cols.join(";") + "\n";
+        });
+
+        // Create a Blob with the CSV data
+        let csvFile = new Blob([csvContent], { type: "text/csv" });
+    
+        // Create a temporary link element to trigger the download
+        let tempLink = document.createElement("a");
+        tempLink.href = URL.createObjectURL(csvFile);
+        tempLink.download = "timbrature_" + document.getElementById("idreg").value + "_" + document.getElementById("timbrature").value + ".csv"; // The downloaded filename
+        tempLink.style.display = "none";
+    
+        document.body.appendChild(tempLink);
+        tempLink.click();
+    
+        // Clean up
+        document.body.removeChild(tempLink);
+    }    
+</script>

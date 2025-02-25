@@ -111,12 +111,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="OPI_incassi.XSD">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="OPI_pagamenti.XSD">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>

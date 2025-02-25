@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -147,6 +147,11 @@ namespace servicetrasmission_default {
         private Label label6;
         private Label label5;
         private TabControl tabControl1;
+		private System.Windows.Forms.TabPage tabAllegati;
+		private System.Windows.Forms.DataGrid dataGridAllegati;
+		private System.Windows.Forms.Button btnDelAtt;
+		private System.Windows.Forms.Button btnEditAtt;
+		private System.Windows.Forms.Button btnInsAtt;
 		private TextBox txtNumeroCancellazione;
 		private TextBox txtAnnoCancellazione;
 		private Label label26;
@@ -159,6 +164,8 @@ namespace servicetrasmission_default {
 
 		public Frm_servicetrasmission_default() {
 			InitializeComponent();
+			openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+			saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
 			saveFileDialog1.DefaultExt = "xml";
 		}
 
@@ -184,8 +191,6 @@ namespace servicetrasmission_default {
 		private void InitializeComponent() {
 			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
 			this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
-			this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
 			this.DS = new servicetrasmission_default.vistaForm();
 			this.tabErrori = new System.Windows.Forms.TabPage();
 			this.txtOutputADPv2 = new System.Windows.Forms.TextBox();
@@ -263,6 +268,11 @@ namespace servicetrasmission_default {
 			this.label6 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button(); 
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabErrori.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdSpCheck)).BeginInit();
@@ -278,6 +288,8 @@ namespace servicetrasmission_default {
 			this.tabConsulenti.SuspendLayout();
 			this.tabDipendenti.SuspendLayout();
 			this.tabControl1.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.SuspendLayout();
 			// 
 			// DS
@@ -1129,12 +1141,68 @@ namespace servicetrasmission_default {
 			this.tabControl1.Controls.Add(this.tabAltro);
 			this.tabControl1.Controls.Add(this.tabAttributi);
 			this.tabControl1.Controls.Add(this.tabErrori);
+			this.tabControl1.Controls.Add(this.tabAllegati);
 			this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tabControl1.Location = new System.Drawing.Point(8, 8);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(1010, 524);
 			this.tabControl1.TabIndex = 28;
+			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "servicetrasmissionattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// Frm_servicetrasmission_default
 			// 
@@ -1169,6 +1237,8 @@ namespace servicetrasmission_default {
 			this.tabDipendenti.ResumeLayout(false);
 			this.tabDipendenti.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -1271,6 +1341,7 @@ namespace servicetrasmission_default {
 			string filterAnno = (anno == 0) ? "" : $" AND (yservreg= {anno}) ";
 			string filterNumero = (numero == 0) ? "" : $" AND (nservreg= {numero}) ";
 			string filterIncarico = "";
+			string filterKind = $" AND (serviceregistry.employkind {((kind.ToLowerInvariant() == "d") ? "=" : "<>")} 'd')";
 			
 			if (tipo_incarico == tipoIncarico.nuovoIncarico) {
 				filterIncarico = filtroNuovoIncarico;
@@ -1294,6 +1365,7 @@ namespace servicetrasmission_default {
 					+ filterAnno
 					+ filterNumero
 					+ " AND " + filterIncarico
+					+ " AND serviceregistry.employkind = 'd'"
 					+")";
 			
 			if (kind == "d") {
@@ -1315,7 +1387,7 @@ namespace servicetrasmission_default {
 				" left outer JOIN serviceregistrykind " +
 				" ON serviceregistry.idserviceregistrykind=serviceregistrykind.idserviceregistrykind " +
 				" WHERE apcontractkind.ayear = yservreg and apcontractkind.active='N' and  ( serviceregistrykind.totransmit = 'S' or serviceregistry.idserviceregistrykind is null)"+
-				 filterAnno + filterNumero + " AND " +  filterIncarico + ")";
+				 filterAnno + filterNumero + " AND " +  filterIncarico + " AND serviceregistry.employkind <> 'd')";
 			if (kind == "c") {
 				DataTable apcontractkind = meta.Conn.SQLRunner(MyQuery);
 				foreach (DataRow R in apcontractkind.Rows) {
@@ -1335,7 +1407,7 @@ namespace servicetrasmission_default {
 				" left outer JOIN serviceregistrykind " +
 				" ON serviceregistry.idserviceregistrykind=serviceregistrykind.idserviceregistrykind " +
 				" WHERE acquirekind.ayear = yservreg and acquirekind.active='N' and  ( serviceregistrykind.totransmit = 'S' or serviceregistry.idserviceregistrykind is null) "+
-				filterAnno + filterNumero + " AND " +  filterIncarico + ")";
+				filterAnno + filterNumero + " AND " +  filterIncarico + " AND serviceregistry.employkind <> 'd')";
 			if (kind == "c") {
 				DataTable acquirekind = meta.Conn.SQLRunner(MyQuery);
 				foreach (DataRow R in acquirekind.Rows) {
@@ -1353,7 +1425,7 @@ namespace servicetrasmission_default {
 				" JOIN serviceregistrykind " +
 				" ON serviceregistry.idserviceregistrykind=serviceregistrykind.idserviceregistrykind " +
 				" WHERE (yservreg> year(stop) and year(stop) is not null and serviceregistrykind.totransmit = 'S')"+ filterAnno + filterNumero
-				+ " AND " +  filterIncarico;
+				+ " AND " +  filterIncarico + filterKind;
 
 
 
@@ -1374,7 +1446,8 @@ namespace servicetrasmission_default {
 				" ON serviceregistry.idserviceregistrykind=serviceregistrykind.idserviceregistrykind " +
 				" WHERE ( (conferring_piva is not null and len(conferring_piva)<>11) " +
 				" or (pa_cf is not null and len(pa_cf)<>11 and len(pa_cf)<>16) )" +
-				"  and serviceregistrykind.totransmit = 'S'" + filterAnno + filterNumero + " AND " + filterIncarico;
+				"  and serviceregistrykind.totransmit = 'S'" + filterAnno + filterNumero + " AND " + filterIncarico +
+				" AND serviceregistry.employkind = 'd'";
 			if (kind == "d") {
 				DataTable PivaConferenteErrata = meta.Conn.SQLRunner(MyQuery);
 				foreach (DataRow R in PivaConferenteErrata.Rows) {
@@ -2852,6 +2925,8 @@ namespace servicetrasmission_default {
 				stw.Flush();
 				stw.Close();
 
+				MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
+
 				//btnVisualizzaFile.Enabled = true;
 				//btnSalvaXml.Enabled = true;
 			}
@@ -3460,6 +3535,9 @@ namespace servicetrasmission_default {
 				stw.Write(xml, 0, xml.Length);
 				stw.Flush();
 				stw.Close();
+
+				MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
+
 				//btnVisualizzaFile.Enabled = true;
 				//btnSalvaXml.Enabled = true;
 			}
@@ -4183,6 +4261,7 @@ namespace servicetrasmission_default {
 			stw.Flush();
 			stw.Close();
 
+			MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
 
 			//btnVisualizzaFile.Enabled = true;
 			//btnSalvaXml.Enabled = true;
@@ -4292,6 +4371,8 @@ namespace servicetrasmission_default {
 			stw.Write(xml, 0, xml.Length);
 			stw.Flush();
 			stw.Close();
+
+			MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
 		}
 
 		private void btnInviaDipendenti15gg_Click(object sender, EventArgs e) {
@@ -4551,7 +4632,8 @@ namespace servicetrasmission_default {
 						filtereserc_service, security, 
 						QHS.IsNotNull("expectationsdate"), 
 						QHS.IsNotNull("start"),
-						QHS.IsNotNull("ordinancelink")
+						QHS.IsNotNull("ordinancelink"),
+						"year(authorizationdate) = yservreg"
 						);
 			}
 
@@ -4600,6 +4682,21 @@ namespace servicetrasmission_default {
 				                    "con data Affidamento NON valorizzata che saranno esclusi dalla trasmissione " +
 				                    "Si desidera procede ugualmente?",
 					    "Conferma", MessageBoxButtons.OKCancel) == DialogResult.Cancel) {
+					return false;
+				}
+			}
+
+			string filter_IncarichiEsclusi_AnnoRif = QHS.AppAnd(filtereserc_service, "year(authorizationdate) <> yservreg");
+			filter_IncarichiEsclusi_AnnoRif = QHS.AppAnd(filter_IncarichiEsclusi_AnnoRif, QHS.CmpNe("employkind", 'D'));
+			DataTable TincarichiEsclusiCons_AnnoRif = DataAccess.RUN_SELECT(meta.Conn, "serviceregistry", "*", null, filter_IncarichiEsclusi_AnnoRif, false);
+			if ((tipo.ToUpper() != "D") && (TincarichiEsclusiCons_AnnoRif.Rows.Count > 0))
+			{
+				//kind= C or A
+				if (show("Ci sono incarichi a Consulenti o Dipendenti di Altri enti pubblici,  " +
+									"con anno di riferimento diverso dall'anno della data conferimento che saranno esclusi dalla trasmissione " +
+									"Si desidera procede ugualmente?",
+						"Conferma", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+				{
 					return false;
 				}
 			}
@@ -4685,6 +4782,7 @@ namespace servicetrasmission_default {
 				//InsertConsulenti(wsCom);
 
 				foreach (DataRow service in DS.serviceregistry.Select()) {
+
 					var c = inserisciConsulente(service);
 					impostaBloccoPrestazione(service, true);
 					meta.SaveFormData();

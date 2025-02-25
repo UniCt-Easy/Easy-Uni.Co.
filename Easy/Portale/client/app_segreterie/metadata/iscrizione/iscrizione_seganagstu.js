@@ -45,24 +45,37 @@
 			//beforeFill
 
 			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('pianostudio'));
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('decadenza'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('pianostudio'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('pianostudio'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('decadenza'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('pianostudio'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$('#grid_convalidatoview_seganagstu').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
+				$('#grid_sostenimento_seganagstu').data('mdlconditionallookup', 'livello,A,A ;livello,B,B ;livello,C,C ;livello,D,D ;votolode,S,Si;votolode,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-iscrizione_seganagstu");
-				$('#iscrizione_seganagstu_iddidprog').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#iscrizione_seganagstu_iddidprog').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#iscrizione_seganagstu_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#iscrizione_seganagstu_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -81,7 +94,13 @@
 				return this.superClass.insertClick(that, grid);
 			},
 
-			children: ['decadenza', 'iscrizioneanno', 'pianostudio', 'sostenimento'],
+			beforePost: function () {
+				var self = this;
+				this.getDataTable('convalidatoview').acceptChanges();
+				//innerBeforePost
+			},
+
+			children: ['convalidatoview', 'decadenza', 'iscrizioneanno', 'pianostudio', 'sostenimento'],
 			haveChildren: function () {
 				var self = this;
 				return _.some(this.children, function (child) {

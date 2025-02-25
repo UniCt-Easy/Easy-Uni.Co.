@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -59,6 +59,9 @@ public partial class dsmeta_progettotimesheet_default: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable corsostudio 		=> (MetaTable)Tables["corsostudio"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable attach 		=> (MetaTable)Tables["attach"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progetto 		=> (MetaTable)Tables["progetto"];
@@ -194,6 +197,20 @@ private void initClass() {
 	Tables.Add(tcorsostudio);
 	tcorsostudio.defineKey("idcorsostudio");
 
+	//////////////////// ATTACH /////////////////////////////////
+	var tattach= new MetaTable("attach");
+	tattach.defineColumn("attachment", typeof(Byte[]));
+	tattach.defineColumn("ct", typeof(DateTime),false);
+	tattach.defineColumn("cu", typeof(string),false);
+	tattach.defineColumn("filename", typeof(string),false);
+	tattach.defineColumn("hash", typeof(string),false);
+	tattach.defineColumn("idattach", typeof(int),false);
+	tattach.defineColumn("lt", typeof(DateTime),false);
+	tattach.defineColumn("lu", typeof(string),false);
+	tattach.defineColumn("size", typeof(int),false);
+	Tables.Add(tattach);
+	tattach.defineKey("idattach");
+
 	//////////////////// PROGETTO /////////////////////////////////
 	var tprogetto= new MetaTable("progetto");
 	tprogetto.defineColumn("!altreupb", typeof(string));
@@ -220,6 +237,7 @@ private void initClass() {
 	tprogetto.defineColumn("durata", typeof(int));
 	tprogetto.defineColumn("finanziamento", typeof(string));
 	tprogetto.defineColumn("finanziatoretxt", typeof(string));
+	tprogetto.defineColumn("idattach", typeof(int));
 	tprogetto.defineColumn("idcorsostudio", typeof(int));
 	tprogetto.defineColumn("idcurrency", typeof(int));
 	tprogetto.defineColumn("idduratakind", typeof(int));
@@ -251,6 +269,7 @@ private void initClass() {
 	tprogetto.defineColumn("ulteriorecup", typeof(string));
 	tprogetto.defineColumn("unitaorganizzativa", typeof(string));
 	tprogetto.defineColumn("url", typeof(string));
+	tprogetto.defineColumn("!idattach_attach_filename", typeof(string));
 	tprogetto.defineColumn("!idcorsostudio_corsostudio_title", typeof(string));
 	tprogetto.defineColumn("!idcorsostudio_corsostudio_annoistituz", typeof(int));
 	tprogetto.defineColumn("!idpartnerkind_partnerkind_title", typeof(string));
@@ -283,6 +302,10 @@ private void initClass() {
 	tsalelenchiview.defineColumn("dropdown_title", typeof(string),false);
 	tsalelenchiview.defineColumn("idprogetto", typeof(int),false);
 	tsalelenchiview.defineColumn("idsal", typeof(int),false);
+	tsalelenchiview.defineColumn("sal_budget", typeof(decimal));
+	tsalelenchiview.defineColumn("sal_datablocco", typeof(DateTime));
+	tsalelenchiview.defineColumn("sal_stop", typeof(DateTime));
+	tsalelenchiview.defineColumn("sal_start", typeof(DateTime));
 	Tables.Add(tsalelenchiview);
 	tsalelenchiview.defineKey("idprogetto", "idsal");
 
@@ -402,6 +425,7 @@ private void initClass() {
 	tprogettotimesheet.defineColumn("multilinetype", typeof(string));
 	tprogettotimesheet.defineColumn("output", typeof(string));
 	tprogettotimesheet.defineColumn("riepilogoanno", typeof(string));
+	tprogettotimesheet.defineColumn("sede", typeof(string));
 	tprogettotimesheet.defineColumn("showactivitiesrow", typeof(string));
 	tprogettotimesheet.defineColumn("showotheractivitiesrow", typeof(string));
 	tprogettotimesheet.defineColumn("title", typeof(string));
@@ -461,6 +485,10 @@ private void initClass() {
 	cPar = new []{corsostudio.Columns["idcorsostudio"]};
 	cChild = new []{progetto.Columns["idcorsostudio"]};
 	Relations.Add(new DataRelation("FK_progetto_corsostudio_idcorsostudio",cPar,cChild,false));
+
+	cPar = new []{attach.Columns["idattach"]};
+	cChild = new []{progetto.Columns["idattach"]};
+	Relations.Add(new DataRelation("FK_progetto_attach_idattach",cPar,cChild,false));
 
 	cPar = new []{salelenchiview.Columns["idsal"]};
 	cChild = new []{progettotimesheet.Columns["idsal"]};

@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/responsabilevista.xsd" xmlns:mstns="http://tempuri.org/responsabilevista.xsd" xmlns="http://tempuri.org/responsabilevista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/responsabilevista.xsd" xmlns:mstns="http://tempuri.org/responsabilevista.xsd" xmlns="http://tempuri.org/responsabilevista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -295,6 +295,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="managerattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idman" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -334,37 +349,23 @@
       <xs:selector xpath=".//mstns:sorting05" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
-    <xs:keyref name="managermanagersorting" refer="Constraint1">
-      <xs:selector xpath=".//mstns:managersorting" />
+    <xs:unique name="managerattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:managerattachment" />
       <xs:field xpath="mstns:idman" />
-    </xs:keyref>
-    <xs:keyref name="sortingview_managersorting" refer="sortingview_Constraint1">
-      <xs:selector xpath=".//mstns:managersorting" />
-      <xs:field xpath="mstns:idsor" />
-    </xs:keyref>
-    <xs:keyref name="sorting05_manager" refer="sorting05_Constraint1">
-      <xs:selector xpath=".//mstns:manager" />
-      <xs:field xpath="mstns:idsor05" />
-    </xs:keyref>
-    <xs:keyref name="sorting04_manager" refer="sorting04_Constraint1">
-      <xs:selector xpath=".//mstns:manager" />
-      <xs:field xpath="mstns:idsor04" />
-    </xs:keyref>
-    <xs:keyref name="sorting03_manager" refer="sorting03_Constraint1">
-      <xs:selector xpath=".//mstns:manager" />
-      <xs:field xpath="mstns:idsor03" />
-    </xs:keyref>
-    <xs:keyref name="sorting02_manager" refer="sorting02_Constraint1">
-      <xs:selector xpath=".//mstns:manager" />
-      <xs:field xpath="mstns:idsor02" />
-    </xs:keyref>
-    <xs:keyref name="sorting01_manager" refer="sorting01_Constraint1">
-      <xs:selector xpath=".//mstns:manager" />
-      <xs:field xpath="mstns:idsor01" />
-    </xs:keyref>
-    <xs:keyref name="divisionmanager" refer="division_Constraint1">
-      <xs:selector xpath=".//mstns:manager" />
-      <xs:field xpath="mstns:iddivision" />
-    </xs:keyref>
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="managermanagersorting" msdata:parent="manager" msdata:child="managersorting" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="sortingview_managersorting" msdata:parent="sortingview" msdata:child="managersorting" msdata:parentkey="idsor" msdata:childkey="idsor" />
+      <msdata:Relationship name="sorting05_manager" msdata:parent="sorting05" msdata:child="manager" msdata:parentkey="idsor" msdata:childkey="idsor05" />
+      <msdata:Relationship name="sorting04_manager" msdata:parent="sorting04" msdata:child="manager" msdata:parentkey="idsor" msdata:childkey="idsor04" />
+      <msdata:Relationship name="sorting03_manager" msdata:parent="sorting03" msdata:child="manager" msdata:parentkey="idsor" msdata:childkey="idsor03" />
+      <msdata:Relationship name="sorting02_manager" msdata:parent="sorting02" msdata:child="manager" msdata:parentkey="idsor" msdata:childkey="idsor02" />
+      <msdata:Relationship name="sorting01_manager" msdata:parent="sorting01" msdata:child="manager" msdata:parentkey="idsor" msdata:childkey="idsor01" />
+      <msdata:Relationship name="divisionmanager" msdata:parent="division" msdata:child="manager" msdata:parentkey="iddivision" msdata:childkey="iddivision" />
+      <msdata:Relationship name="manager_managerattachment" msdata:parent="manager" msdata:child="managerattachment" msdata:parentkey="idman" msdata:childkey="idman" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

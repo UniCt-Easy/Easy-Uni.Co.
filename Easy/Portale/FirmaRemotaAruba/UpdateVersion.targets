@@ -1,0 +1,50 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Target Name="UpdateFileVersion" BeforeTargets="BeforeBuild">
+		<PropertyGroup>
+			<AssemblyInfoFile>$(ProjectDir)Properties\AssemblyInfo.cs</AssemblyInfoFile>
+			<OutputDll>$(OutputPath)$(AssemblyName).dll</OutputDll>
+			<HashFile>$(ProjectDir)LastBuildHash.txt</HashFile>
+		</PropertyGroup>
+		
+		<!-- nel file csproj va aggiunto in fondo   <Import Project="UpdateVersion.targets" />-->
+
+		<!-- Controlla se il file LastBuildHash.txt esiste e è pieno -->
+		<Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot; if (!(Test-Path '$(HashFile)')) { New-Item '$(HashFile)' -ItemType File -Force; Add-Content '$(HashFile)' ([Guid]::NewGuid().ToString()); } elseif (([string]::IsNullOrWhiteSpace((Get-Content '$(HashFile)')))) {	Add-Content '$(HashFile)' ([Guid]::NewGuid().ToString()); } &quot;" />
+		<!-- Controlla se la DLL esiste -->
+		<ItemGroup>
+			<DllFile Include="$(OutputDll)" Condition="Exists('$(OutputDll)')" />
+		</ItemGroup>
+
+		<!-- Debug: Mostra nome e data della dll -->
+		<Message Text="DLL da verificare: $(OutputDll)" Importance="High" />
+		<!-- Debug: Mostra se trova la dll -->
+		<Message Text="DLL trovata: True" Condition="Exists('$(OutputDll)')" Importance="High" />
+		<Message Text="DLL trovata: False" Condition="!Exists('$(OutputDll)')" Importance="High" />
+		<!-- Debug: Mostra nome e data della dll -->
+		<Exec Command="powershell -Command &quot;Get-Item $(OutputDll) | Select-Object Name, LastWriteTime&quot;" Condition="@(DllFile->Count()) > 0" />
+
+		<!-- Calcola hash della DLL se esiste -->
+		<Exec Command="certutil -hashfile @(DllFile->'%(FullPath)') MD5 > $(HashFile).new" Condition="@(DllFile->Count()) > 0" />
+		<!-- Debug: Mostra l'hash calcolato -->
+		<Exec Command="powershell -Command &quot;Write-Output 'Hash calcolato per DLL: '; Get-Content $(HashFile).new&quot;" Condition="@(DllFile->Count()) > 0" />
+
+		<!-- Debug:  -->
+		<Message Text="Inizio il confronto:" Importance="High" />
+		<!-- Confronta hash con l'ultimo registrato -->
+		<Exec Command="powershell -Command &quot;if (!(Test-Path '$(HashFile)') -or (Compare-Object (Get-Content '$(HashFile)') (Get-Content '$(HashFile).new') | Measure-Object).Count -ne 0) { exit 1 } else { exit 0 }&quot;" ContinueOnError="true">
+			<Output PropertyName="HashChanged" TaskParameter="ExitCode" />
+		</Exec>
+
+		<!-- Debug: Mostra se l'hash è cambiato -->
+		<Message Text="HashChanged: $(HashChanged)" Importance="High" />
+
+		<!-- Aggiorna AssemblyInfo.cs se l'hash è cambiato -->
+		<Exec Command="powershell -ExecutionPolicy Bypass -File $(ProjectDir)IncrementVersion.ps1 $(AssemblyInfoFile)" Condition="'$(HashChanged)'=='1'" />
+
+		<!-- Crea LastBuildHash.txt se non esiste -->
+		<Exec Command="powershell -Command &quot;if (!(Test-Path '$(HashFile)')) { New-Item '$(HashFile)' -ItemType File -Force }&quot;" Condition="'$(HashChanged)'=='1'" />
+
+		<!-- Sposta il file hash calcolato 
+		<Exec Command="powershell -Command &quot;if (Test-Path '$(HashFile)') { Remove-Item '$(HashFile)' } ; Move-Item '$(HashFile).new' '$(HashFile)'&quot;" Condition="'$(HashChanged)'=='1'" />
+-->	</Target>
+</Project>

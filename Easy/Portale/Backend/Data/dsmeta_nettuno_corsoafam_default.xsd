@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_nettuno_corsoafam_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_nettuno_corsoafam_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="nettuno_corsoafam" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codicecorso" type="xs:string" minOccurs="0" />
+              <xs:element name="desccorso" type="xs:string" minOccurs="0" />
+              <xs:element name="desclivello" type="xs:string" minOccurs="0" />
+              <xs:element name="flagammissione" type="xs:int" />
+              <xs:element name="flagiscrizione" type="xs:int" />
+              <xs:element name="idcorso" type="xs:int" />
+              <xs:element name="idlivello" type="xs:string" minOccurs="0" />
+              <xs:element name="idsc" type="xs:int" />
+              <xs:element name="programmaesameammissione" type="xs:string" minOccurs="0" />
+              <xs:element name="programmaesameammissioneeng" type="xs:string" minOccurs="0" />
+              <xs:element name="reqsupplement" type="xs:string" minOccurs="0" />
+              <xs:element name="reqsupplementeng" type="xs:string" minOccurs="0" />
+              <xs:element name="ultimoaggiornamento" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nettuno_corsoafam" />
+      <xs:field xpath="mstns:idcorso" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

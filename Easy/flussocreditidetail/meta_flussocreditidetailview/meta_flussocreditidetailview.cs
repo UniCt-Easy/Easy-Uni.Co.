@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -77,9 +77,9 @@ namespace meta_flussocreditidetailview {
                 DescribeAColumn(T, "stop", "Data fine validità", nPos++);
                 DescribeAColumn(T, "datacreazioneflusso", "data creazione flusso", nPos++);
                 DescribeAColumn(T, "causalecredito", "causale credito", nPos++);
-                DescribeAColumn(T, "casualeentroanno", "casuale entro anno", nPos++);
-                DescribeAColumn(T, "casualepostanno", "casuale post anno", nPos++);
-                DescribeAColumn(T, "casualericavo", "casualericavo", nPos++);
+                DescribeAColumn(T, "casualeentroanno", "causale entro anno", nPos++);
+                DescribeAColumn(T, "casualepostanno", "causale post anno", nPos++);
+                DescribeAColumn(T, "casualericavo", "causale ricavo", nPos++);
                 DescribeAColumn(T, "causalebilentrata", "causale bilancio entrata", nPos++);
                 DescribeAColumn(T, "causalebilancioentrataiva", "Causale Bilancio di entrata iva", nPos++);
                 DescribeAColumn(T, "competencystart", "Inizio Comp.Economica", nPos++);

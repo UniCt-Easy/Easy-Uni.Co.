@@ -16,46 +16,52 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_surname">Cognome</label>
-					<input id="registrationuser_usr_surname" type="text" class="form-control" data-tag="registrationuser.surname?registrationuserusrview.surname" data-subentity  data-mandatory/>
+					<input id="registrationuser_usr_surname" type="text" class="form-control" data-tag="registrationuser.surname?registrationuserusrview.surname"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_forename">Nome</label>
-					<input id="registrationuser_usr_forename" type="text" class="form-control" data-tag="registrationuser.forename?registrationuserusrview.registrationuser_forename" data-subentity  data-mandatory/>
+					<input id="registrationuser_usr_forename" type="text" class="form-control" data-tag="registrationuser.forename?registrationuserusrview.registrationuser_forename"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_cf">Codice fiscale</label>
-					<input id="registrationuser_usr_cf" type="text" class="form-control" data-tag="registrationuser.cf?registrationuserusrview.registrationuser_cf" data-subentity  data-mandatory />
+					<input id="registrationuser_usr_cf" type="text" class="form-control" data-tag="registrationuser.cf?registrationuserusrview.registrationuser_cf"  data-mandatory />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_matricola">Matricola</label>
-					<input id="registrationuser_usr_matricola" type="text" class="form-control" data-tag="registrationuser.matricola?registrationuserusrview.registrationuser_matricola" data-subentity  />
+					<input id="registrationuser_usr_matricola" type="text" class="form-control" data-tag="registrationuser.matricola?registrationuserusrview.registrationuser_matricola"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_email">E-Mail</label>
-					<input id="registrationuser_usr_email" type="text" class="form-control" data-tag="registrationuser.email?registrationuserusrview.registrationuser_email" data-subentity  />
+					<input id="registrationuser_usr_email" type="text" class="form-control" data-tag="registrationuser.email?registrationuserusrview.registrationuser_email"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_login">Login</label>
-					<input id="registrationuser_usr_login" type="text" class="form-control" data-tag="registrationuser.login?registrationuserusrview.registrationuser_login" data-subentity  />
+					<input id="registrationuser_usr_login" type="text" class="form-control" data-tag="registrationuser.login?registrationuserusrview.registrationuser_login"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_usertype">Categoria di utente</label>
-					<select id="registrationuser_usr_usertype" class="custom-select d-block w-100"  data-source-name="usertype" data-value-member="usertype" data-display-member="usertype" data-custom-control="combo" data-tag="registrationuser.usertype?registrationuserusrview.usertype" data-subentity   > </select>
+					<select id="registrationuser_usr_usertype" class="custom-select d-block w-100"  data-source-name="usertype" data-value-member="usertype" data-display-member="usertype" data-sort-member="" data-custom-control="combo" data-tag="registrationuser.usertype?registrationuserusrview.usertype"   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_idregistrationuserstatus">Stato della richiesta</label>
-					<select id="registrationuser_usr_idregistrationuserstatus" class="custom-select d-block w-100"  data-source-name="registrationuserstatus" data-value-member="idregistrationuserstatus" data-display-member="title" data-custom-control="combo" data-tag="registrationuser.idregistrationuserstatus?registrationuserusrview.registrationuser_idregistrationuserstatus" data-subentity   > </select>
+					<select id="registrationuser_usr_idregistrationuserstatus" class="custom-select d-block w-100"  data-source-name="registrationuserstatus" data-value-member="idregistrationuserstatus" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="registrationuser.idregistrationuserstatus?registrationuserusrview.registrationuser_idregistrationuserstatus"   > </select>
 				</div>
 			</div>
- <button id="GiveAccess" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-user-check mr-1" ></i>Invia la richiesta d'accesso
-    </button>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_usr_requesttimestamp">Data della richiesta</label>
+					<input id="registrationuser_usr_requesttimestamp" type="text" class="form-control" data-tag="registrationuser.requesttimestamp.g?registrationuserusrview.registrationuser_requesttimestamp.g"   data-dateTimePickerFormat="dd/mm/yy"/>
+				</div>
+			</div>
+		<button id="GiveAccess" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-user-check mr-1" ></i>Invia la richiesta d'accesso
+		</button>
 	</div>
 	<div class="tab-pane fade" id="tabregistrationuser_usr_1" role="tabpanel">
 		<div id="grid_registrationuserflowchart_default" data-tag="flowchart.seg.seg" data-custom-control="checklist"  ></div>

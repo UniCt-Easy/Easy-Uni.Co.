@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -206,14 +206,49 @@ namespace no_table_entry_apertura {
 
             foreach (DataRow rSaldo in tSaldo.Rows) {
                 
-
                 //if (!addedSP) addedSP = true;
                 //sumSP += CfgFn.GetNoNullDecimal(rSaldo["amount"]);
 
                 if (!calcolaDettaglioApertura(tEntryDetail, rEntry, rSaldo, idaccPat)) return false;
             }
 
-          
+
+
+            // IN CASO DI EPILOGO DELLO STATO PATRIMONIALE BISOGNA CREARE SOLO DUE DETTAGLI SUL CONTO OPERATIVO Z, UNO IN DARE E UNO IN AVERE
+            string querySaldiContoOper = "SELECT ED.amount, ACC.codeacc as olcodeacc, LKP.newidacc as idacc,  "
+              + " LKACC.codeacc, LKACC.title as account,"
+              
+              + " null AS idupb, null AS codeupb , null as upb, "
+              + " null AS idreg, null AS registry, "
+              + " null AS competencystart, null AS competencystop, "
+              + " null AS idaccmotive, null AS codemotive, null AS accmotive, "
+              + " null AS idepexp, null AS idepacc, null AS idrelated "
+
+              + " FROM entrydetail ED "
+              + " JOIN entry E  ON E.yentry = ED.yentry AND E.nentry = ED.nentry "
+              + " LEFT OUTER JOIN accountlookup LKP  ON " + QHS.CmpEq("ED.idacc", QHS.Field("LKP.oldidacc"))
+              + " LEFT OUTER JOIN account LKACC  ON " + QHS.CmpEq("LKP.newidacc", QHS.Field("LKACC.idacc"))
+              + " JOIN account ACC  ON " + QHS.CmpEq("ED.idacc", QHS.Field("ACC.idacc"))
+              + " WHERE " + QHS.AppAnd(QHS.CmpEq("ED.yentry", lastEsercizio),
+              QHS.CmpEq("ACC.ayear", lastEsercizio), QHS.CmpEq("E.identrykind", 12)
+                  , QHS.CmpEq("LKACC.idacc", idaccPat)
+                  );
+
+            DataTable tSaldoContoOper = Meta.Conn.SQLRunner(querySaldiContoOper, 300, out errMsg);
+
+            if (tSaldoContoOper == null) {
+                show(this, "Errore nella query che estrae i conti operativi da ribaltare " + errMsg, "Errore");
+                return false;
+            }
+
+            if (tSaldoContoOper.Rows.Count == 0) {
+                show(this, "La tabella dei saldi su conti operativi risulta vuota, procedura di apertura non eseguita", "Avvertimento");
+                return true;
+            }
+
+            foreach (DataRow rSaldoContoOper in tSaldoContoOper.Rows) {
+                if (!calcolaDettaglioApertura(tEntryDetail, rEntry, rSaldoContoOper, idaccPat)) return false;
+            }
 
             FrmEntryPreSave frm = new FrmEntryPreSave(ds.Tables["entrydetail"], Meta.Conn, tSaldo);
             createForm(frm, null);
@@ -336,18 +371,14 @@ namespace no_table_entry_apertura {
 
             if (rSaldo.Table.Columns.Contains("idepexp"))
                 idepacc = rSaldo["idepacc"];
-
+            int lastEsercizio = esercizio - 1;
             DataRow rEntry1 = fillEntryDetail(tEntryDetail, rEntry, newidAcc, idaccmotive, idepexp, idepacc, reverseAmount,rSaldo["idrelated"]);
             rEntry1["competencystart"] = rSaldo["competencystart"];
             rEntry1["competencystop"] = rSaldo["competencystop"];
             rEntry1["idreg"] = rSaldo["idreg"];
             rEntry1["idupb"] = rSaldo["idupb"];
 
-            DataRow rEntry2 = fillEntryDetail(tEntryDetail, rEntry, idaccPat,idaccmotive, idepexp, idepacc, amount,DBNull.Value);
-            rEntry2["competencystart"] = rSaldo["competencystart"];
-            rEntry2["competencystop"] = rSaldo["competencystop"];
-            rEntry2["idreg"] = rSaldo["idreg"];
-            rEntry2["idupb"] = rSaldo["idupb"];
+ 
 
             return true;
         }

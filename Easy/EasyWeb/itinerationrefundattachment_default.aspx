@@ -2,7 +2,14 @@
 <%@ Register Assembly="HelpWeb" Namespace="HelpWeb" TagPrefix="cc1" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="CHP_PC" Runat="Server">
+        <div class="row">
+        <div class="col-md-12">
 
+            <cc1:hwpanel GroupingText="Tipo di documento allegato" CssClass="stdfieldset form-group"  runat="server" id="grpTipoallegato" >
+            <cc1:hwDropDownList runat="server" CssClass="input-md form-control"  id="cmbCodiceAllegato" tag="itinerationrefundattachment.iditinerationrefundattachmentkind"></cc1:hwDropDownList>
+            </cc1:hwpanel>
+        </div>
+    </div>
 <div class="row">		
     <div class="col-md-12">	
 

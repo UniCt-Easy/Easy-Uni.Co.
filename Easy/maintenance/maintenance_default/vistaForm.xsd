@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaeventotecnico.xsd" xmlns:mstns="http://tempuri.org/vistaeventotecnico.xsd" xmlns="http://tempuri.org/vistaeventotecnico.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
@@ -115,6 +115,29 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="cost" type="xs:decimal" minOccurs="0" />
               <xs:element name="abatable" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idsor01" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="maintenanceattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nmaintenance" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -141,12 +164,18 @@
       <xs:field xpath="mstns:idasset" />
       <xs:field xpath="mstns:idpiece" />
     </xs:unique>
+    <xs:unique name="maintenanceattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:maintenanceattachment" />
+      <xs:field xpath="mstns:nmaintenance" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="inventoryassetpieceview" msdata:parent="inventory" msdata:child="assetpieceview" msdata:parentkey="idinventory" msdata:childkey="idinventory" />
       <msdata:Relationship name="assetpieceviewmaintenance" msdata:parent="assetpieceview" msdata:child="maintenance" msdata:parentkey="idasset idpiece" msdata:childkey="idasset idpiece" />
       <msdata:Relationship name="maintenancekindmaintenance" msdata:parent="maintenancekind" msdata:child="maintenance" msdata:parentkey="idmaintenancekind" msdata:childkey="idmaintenancekind" />
+      <msdata:Relationship name="maintenance_maintenanceattachment" msdata:parent="maintenance" msdata:child="maintenanceattachment" msdata:parentkey="nmaintenance" msdata:childkey="nmaintenance" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

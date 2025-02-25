@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,39 +26,24 @@ using System.Runtime.Serialization;
 namespace location_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Classificazione ubicazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable locationsorting 		=> Tables["locationsorting"];
 
-	///<summary>
-	///Livelli del piano delle ubicazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable locationlevel 		=> Tables["locationlevel"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
-	///<summary>
-	///Piano delle Ubicazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable location 		=> Tables["location"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable locationview 		=> Tables["locationview"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
@@ -76,6 +61,9 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting05 		=> Tables["sorting05"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable locationattachment 		=> Tables["locationattachment"];
 
 	#endregion
 
@@ -619,6 +607,25 @@ private void initClass() {
 	tsorting05.PrimaryKey =  new DataColumn[]{tsorting05.Columns["idsor"]};
 
 
+	//////////////////// LOCATIONATTACHMENT /////////////////////////////////
+	var tlocationattachment= new DataTable("locationattachment");
+	C= new DataColumn("idlocation", typeof(int));
+	C.AllowDBNull=false;
+	tlocationattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tlocationattachment.Columns.Add(C);
+	tlocationattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tlocationattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tlocationattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tlocationattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tlocationattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tlocationattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tlocationattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tlocationattachment);
+	tlocationattachment.PrimaryKey =  new DataColumn[]{tlocationattachment.Columns["idlocation"], tlocationattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -662,6 +669,10 @@ private void initClass() {
 	cPar = new []{sorting.Columns["idsor"]};
 	cChild = new []{locationsorting.Columns["idsor"]};
 	Relations.Add(new DataRelation("sortinglocationsorting",cPar,cChild,false));
+
+	cPar = new []{location.Columns["idlocation"]};
+	cChild = new []{locationattachment.Columns["idlocation"]};
+	Relations.Add(new DataRelation("location_locationattachment",cPar,cChild,false));
 
 	#endregion
 

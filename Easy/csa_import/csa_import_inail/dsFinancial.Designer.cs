@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1246,6 +1246,7 @@ private void initClass() {
 	tcsa_importriep_partition_expense.Columns.Add( new DataColumn("lt", typeof(DateTime)));
 	tcsa_importriep_partition_expense.Columns.Add( new DataColumn("lu", typeof(string)));
 	tcsa_importriep_partition_expense.Columns.Add( new DataColumn("movkind", typeof(int)));
+	tcsa_importriep_partition_expense.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
 	Tables.Add(tcsa_importriep_partition_expense);
 	tcsa_importriep_partition_expense.PrimaryKey =  new DataColumn[]{tcsa_importriep_partition_expense.Columns["idcsa_import"], tcsa_importriep_partition_expense.Columns["idriep"], tcsa_importriep_partition_expense.Columns["ndetail"], tcsa_importriep_partition_expense.Columns["idexp"]};
 
@@ -1270,6 +1271,7 @@ private void initClass() {
 	C= new DataColumn("idinc", typeof(int));
 	C.AllowDBNull=false;
 	tcsa_importriep_partition_income.Columns.Add(C);
+	tcsa_importriep_partition_income.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
 	Tables.Add(tcsa_importriep_partition_income);
 	tcsa_importriep_partition_income.PrimaryKey =  new DataColumn[]{tcsa_importriep_partition_income.Columns["idcsa_import"], tcsa_importriep_partition_income.Columns["idriep"], tcsa_importriep_partition_income.Columns["ndetail"], tcsa_importriep_partition_income.Columns["idinc"]};
 

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vistaContributiCespiti" targetNamespace="http://tempuri.org/vistaContributiCespiti.xsd" xmlns:mstns="http://tempuri.org/vistaContributiCespiti.xsd" xmlns="http://tempuri.org/vistaContributiCespiti.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsPropertyName="Rettorato_OkConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="Rettorato_OkConnectionString ()" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vistaContributiCespiti" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="vistaContributiCespiti" msprop:Generator_UserDSName="vistaContributiCespiti">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="assetgrant" msprop:Generator_TableClassName="assetgrantDataTable" msprop:Generator_TableVarName="tableassetgrant" msprop:Generator_TablePropName="assetgrant" msprop:Generator_RowDeletingName="assetgrantRowDeleting" msprop:Generator_RowChangingName="assetgrantRowChanging" msprop:Generator_RowEvHandlerName="assetgrantRowChangeEventHandler" msprop:Generator_RowDeletedName="assetgrantRowDeleted" msprop:Generator_UserTableName="assetgrant" msprop:Generator_RowChangedName="assetgrantRowChanged" msprop:Generator_RowEvArgName="assetgrantRowChangeEvent" msprop:Generator_RowClassName="assetgrantRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idasset" msprop:Generator_ColumnVarNameInTable="columnidasset" msprop:Generator_ColumnPropNameInRow="idasset" msprop:Generator_ColumnPropNameInTable="idassetColumn" msprop:Generator_UserColumnName="idasset" type="xs:int" />
+              <xs:element name="idgrant" msprop:Generator_ColumnVarNameInTable="columnidgrant" msprop:Generator_ColumnPropNameInRow="idgrant" msprop:Generator_ColumnPropNameInTable="idgrantColumn" msprop:Generator_UserColumnName="idgrant" type="xs:int" />
+              <xs:element name="idpiece" msprop:Generator_ColumnVarNameInTable="columnidpiece" msprop:Generator_ColumnPropNameInRow="idpiece" msprop:Generator_ColumnPropNameInTable="idpieceColumn" msprop:Generator_UserColumnName="idpiece" type="xs:int" />
+              <xs:element name="amount" msprop:Generator_ColumnVarNameInTable="columnamount" msprop:Generator_ColumnPropNameInRow="amount" msprop:Generator_ColumnPropNameInTable="amountColumn" msprop:Generator_UserColumnName="amount" type="xs:decimal" />
+              <xs:element name="ct" msprop:Generator_ColumnVarNameInTable="columnct" msprop:Generator_ColumnPropNameInRow="ct" msprop:Generator_ColumnPropNameInTable="ctColumn" msprop:Generator_UserColumnName="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" msprop:Generator_ColumnVarNameInTable="columncu" msprop:Generator_ColumnPropNameInRow="cu" msprop:Generator_ColumnPropNameInTable="cuColumn" msprop:Generator_UserColumnName="cu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="doc" msprop:Generator_ColumnVarNameInTable="columndoc" msprop:Generator_ColumnPropNameInRow="doc" msprop:Generator_ColumnPropNameInTable="docColumn" msprop:Generator_UserColumnName="doc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="docdate" msprop:Generator_ColumnVarNameInTable="columndocdate" msprop:Generator_ColumnPropNameInRow="docdate" msprop:Generator_ColumnPropNameInTable="docdateColumn" msprop:Generator_UserColumnName="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idaccmotive" msprop:Generator_ColumnVarNameInTable="columnidaccmotive" msprop:Generator_ColumnPropNameInRow="idaccmotive" msprop:Generator_ColumnPropNameInTable="idaccmotiveColumn" msprop:Generator_UserColumnName="idaccmotive" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="36" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idgrantload" msprop:Generator_ColumnVarNameInTable="columnidgrantload" msprop:Generator_ColumnPropNameInRow="idgrantload" msprop:Generator_ColumnPropNameInTable="idgrantloadColumn" msprop:Generator_UserColumnName="idgrantload" type="xs:int" minOccurs="0" />
+              <xs:element name="idunderwriting" msprop:Generator_ColumnVarNameInTable="columnidunderwriting" msprop:Generator_ColumnPropNameInRow="idunderwriting" msprop:Generator_ColumnPropNameInTable="idunderwritingColumn" msprop:Generator_UserColumnName="idunderwriting" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" msprop:Generator_ColumnVarNameInTable="columnlt" msprop:Generator_ColumnPropNameInRow="lt" msprop:Generator_ColumnPropNameInTable="ltColumn" msprop:Generator_UserColumnName="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" msprop:Generator_ColumnVarNameInTable="columnlu" msprop:Generator_ColumnPropNameInRow="lu" msprop:Generator_ColumnPropNameInTable="luColumn" msprop:Generator_UserColumnName="lu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ygrant" msprop:Generator_ColumnVarNameInTable="columnygrant" msprop:Generator_ColumnPropNameInRow="ygrant" msprop:Generator_ColumnPropNameInTable="ygrantColumn" msprop:Generator_UserColumnName="ygrant" type="xs:short" minOccurs="0" />
+              <xs:element name="idepacc" msprop:Generator_ColumnVarNameInTable="columnidepacc" msprop:Generator_ColumnPropNameInRow="idepacc" msprop:Generator_ColumnPropNameInTable="idepaccColumn" msprop:Generator_UserColumnName="idepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="flag_entryprofitreservedone" msprop:Generator_ColumnVarNameInTable="columnflag_entryprofitreservedone" msprop:Generator_ColumnPropNameInRow="flag_entryprofitreservedone" msprop:Generator_ColumnPropNameInTable="flag_entryprofitreservedoneColumn" msprop:Generator_UserColumnName="flag_entryprofitreservedone" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="flag_financesource" msprop:Generator_ColumnVarNameInTable="columnflag_financesource" msprop:Generator_ColumnPropNameInRow="flag_financesource" msprop:Generator_ColumnPropNameInTable="flag_financesourceColumn" msprop:Generator_UserColumnName="flag_financesource" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetgrant" />
+      <xs:field xpath="mstns:idasset" />
+      <xs:field xpath="mstns:idgrant" />
+      <xs:field xpath="mstns:idpiece" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

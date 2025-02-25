@@ -255,7 +255,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6"></div>
                                                                         <div class="col-md-6 text-center">
-                                                                            <cc1:hwButton runat="server" ID="btnCambiaRuolo" OnClick="btnCambiaRuolo_Click" class="btn btn-primary" Tag="" TabIndex="-1" Text="Scegli Ruolo"></cc1:hwButton>
+                                                                            <cc1:hwButton runat="server" ID="btnCambiaRuolo" Tag="cambiaruolo" class="btn btn-primary" TabIndex="-1" Text="Scegli Ruolo"></cc1:hwButton>
                                                                         </div>
                                                                     </div>
                                                                 </fieldset>

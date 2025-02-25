@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -5457,8 +5457,38 @@ WHERE
             toolTipBtnCopiaAppunti.Show(valore + " Copiato!",btnCopy,1000);
         }
 
+		private void btnDettagliCPassiviPagati_Click(object sender, EventArgs e) {
+            DataSet Out = Meta.Conn.CallSP("check_mandatedetailpayed",
+               new Object[1] { Conn.GetEsercizio()}, false, 600 );
+            if (Out == null)
+                return;
+            DataTable t = Out.Tables[0];
+ 
+            if (t.Rows.Count > 0) {
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, btnDettagliCPassiviPagati.Text, t);
+                createForm(f, this);
+                f.Show(this);
+            }
+            else {
+                show(this, "Nessun problema riscontrato", "Avviso");
+            }
+        }
 
-		//paytrans§2016§100
+		private void btnDettagliCAttiviIncassati_Click(object sender, EventArgs e) {
+            DataSet Out = Meta.Conn.CallSP("check_estimatedetailcashed",
+                          new Object[1] { Conn.GetEsercizio() }, false, 600);
+            if (Out == null)
+                return;
+            DataTable t = Out.Tables[0];
+            if (t.Rows.Count > 0) {
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, btnDettagliCAttiviIncassati.Text, t);
+                createForm(f, this);
+                f.Show(this);
+            }
+            else {
+                show(this, "Nessun problema riscontrato", "Avviso");
+            }
+        }
 	}
 
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 UniversitÃ  degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,7 +40,7 @@ namespace mainform//CompEc//
 		private System.ComponentModel.Container components = null;
 		private const string C_PASSWORD = "**********";
         private PictureBox pictureBox1;
-        private const string L_PASSWORD = "littleadmin";
+        private const string L_PASSWORD = "**********";
 
         public FrmAdmin()
 		{

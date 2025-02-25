@@ -17,9 +17,6 @@
 		<a href="#tabprogetto_seg_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_2"><i class="fa fa-project-diagram mr-1"></i>Workpackage</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprogetto_seg_10" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_10"><i class="fa fa-money-check-alt mr-1"></i>Categorie di costo o ricavo</a>
-	</li>
-	<li class="nav-item">
 		<a href="#tabprogetto_seg_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_4"><i class="fa fa-file-alt mr-1"></i>Testi</a>
 	</li>
 	<li class="nav-item">
@@ -35,13 +32,13 @@
 		<a href="#tabprogetto_seg_7" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_7"><i class="fa fa-fast-forward mr-1"></i>Proroghe</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprogetto_seg_11" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_11"><i class="fa fa-chart-area mr-1"></i>Reporting periods</a>
+		<a href="#tabprogetto_seg_10" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_10"><i class="fa fa-chart-area mr-1"></i>Reporting periods</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprogetto_seg_12" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_12"><i class="fa fa-money-check-alt mr-1"></i>Dettaglio dei costi</a>
+		<a href="#tabprogetto_seg_11" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_11"><i class="fa fa-money-check-alt mr-1"></i>Dettaglio dei costi</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprogetto_seg_13" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_13"><i class="fa fa-bullseye mr-1"></i>Sustainable development goals</a>
+		<a href="#tabprogetto_seg_12" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprogetto_seg_12"><i class="fa fa-bullseye mr-1"></i>Sustainable development goals</a>
 	</li>
 
 	</ul>
@@ -92,7 +89,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progetto_seg_idregistryprogfin">Programma di finanziamento</label>
-					<select id="progetto_seg_idregistryprogfin" class="custom-select d-block w-100"  data-source-name="registryprogfinsegview" data-value-member="idregistryprogfin" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="progetto.idregistryprogfin?progettosegview.progetto_idregistryprogfin"   > </select>
+					<select id="progetto_seg_idregistryprogfin" class="custom-select d-block w-100"  data-source-name="registryprogfinsegview" data-value-member="idregistryprogfin" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idregistryprogfin?progettosegview.progetto_idregistryprogfin"   > </select>
 				</div>
 				<div class="col-md-6">
 					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_progfinanziamentotxt" >Qualora il programma di finanziamento non fosse censito è possibile indicarlo in questo campo solamente in fase di presentazione.</div>
@@ -103,7 +100,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progetto_seg_idregistryprogfinbando">Bando di riferimento</label>
-					<select id="progetto_seg_idregistryprogfinbando" class="custom-select d-block w-100"  data-source-name="registryprogfinbandosegview" data-value-member="idregistryprogfinbando" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="progetto.idregistryprogfinbando?progettosegview.progetto_idregistryprogfinbando"   data-master="registryprogfinsegview"> </select>
+					<select id="progetto_seg_idregistryprogfinbando" class="custom-select d-block w-100"  data-source-name="registryprogfinbandosegview" data-value-member="idregistryprogfinbando" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idregistryprogfinbando?progettosegview.progetto_idregistryprogfinbando"   data-master="registryprogfinsegview"> </select>
 				</div>
 				<div class="col-md-6">
 					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_bandoriferimentotxt" >Qualora il bando di riferimento non fosse censito è possibile indicarlo in questo campo solamente in fase di presentazione.</div>
@@ -120,7 +117,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progetto_seg_idprogettokind">Modello di progetto</label>
-					<select id="progetto_seg_idprogettokind" class="custom-select d-block w-100"  data-source-name="progettokindsegview" data-value-member="idprogettokind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="progetto.idprogettokind?progettosegview.progetto_idprogettokind"   > </select>
+					<select id="progetto_seg_idprogettokind" class="custom-select d-block w-100"  data-source-name="progettokindsegview" data-value-member="idprogettokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idprogettokind?progettosegview.progetto_idprogettokind"   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -147,25 +144,31 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="progetto_seg_idattach">Idattach</label>
+					<div id="progetto_seg_idattach" data-tag="progetto.idattach?progettosegview.idattach"  data-custom-control="upload" ></div>
+				</div>
+				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progetto_seg_idreg_amm">Responsabile amministrativo</label>
 					<div>
 						<input id="progetto_seg_idreg_amm" name="progetto_seg_idreg_amm" type="text" data-listtype="amministrativi"  class="form-control" data-minchar="2" data-tag="registryamministrativiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progetto_seg_idreg">Principal investigator / Responsabile scientifico</label>
 					<div>
 						<input id="progetto_seg_idreg" name="progetto_seg_idreg" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="registrydocentiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progetto_seg_idreg_aziende">Ente capofila</label>
 					<div>
 						<input id="progetto_seg_idreg_aziende" name="progetto_seg_idreg_aziende" type="text" data-listtype="aziende"  class="form-control" data-minchar="2" data-tag="registryaziendeview_alias1.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<div class="custom_lng_div" data-langkey="fieldlabelprogetto_seg_capofilatxt" >Qualora l'ente capofila non fosse censito è possibile indicarlo in questo campo solamente in fase di presentazione.</div>
 					<label class="col-form-label col-md-12" for="progetto_seg_capofilatxt">Ente capofila non censito</label>
@@ -175,7 +178,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="progetto_seg_idpartnerkind">Ruolo dell'ateneo</label>
-					<select id="progetto_seg_idpartnerkind" class="custom-select d-block w-100"  data-source-name="partnerkinddefaultview" data-value-member="idpartnerkind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="progetto.idpartnerkind?progettosegview.progetto_idpartnerkind"   > </select>
+					<select id="progetto_seg_idpartnerkind" class="custom-select d-block w-100"  data-source-name="partnerkinddefaultview" data-value-member="idpartnerkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idpartnerkind?progettosegview.progetto_idpartnerkind"   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -190,7 +193,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<label class="col-form-label col-md-12" for="progetto_seg_datacontabile">Data chiusura contablile</label>
+					<label class="col-form-label col-md-12" for="progetto_seg_datacontabile">Data chiusura contabile</label>
 					<input id="progetto_seg_datacontabile" type="text" class="form-control" data-tag="progetto.datacontabile?progettosegview.progetto_datacontabile"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
@@ -201,7 +204,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progetto_seg_idduratakind">Espressa in</label>
-					<select id="progetto_seg_idduratakind" class="custom-select d-block w-100"  data-source-name="duratakinddefaultview" data-value-member="idduratakind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="progetto.idduratakind?progettosegview.progetto_idduratakind"   > </select>
+					<select id="progetto_seg_idduratakind" class="custom-select d-block w-100"  data-source-name="duratakinddefaultview" data-value-member="idduratakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="progetto.idduratakind?progettosegview.progetto_idduratakind"   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -320,9 +323,6 @@
 	<div class="tab-pane fade" id="tabprogetto_seg_2" role="tabpanel">
 				<div class="gridx" id="grid_workpackage_seg" data-tag="workpackage.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
-	<div class="tab-pane fade" id="tabprogetto_seg_10" role="tabpanel">
-				<div class="gridx" id="grid_progettobudget_seg" data-tag="progettobudget.seg.seg" data-custom-control="gridx" data-mdlgroupedcolumns="!idworkpackage_workpackage_raggruppamento;!idworkpackage_workpackage_title;!idworkpackage_workpackage_start;!idworkpackage_workpackage_stop" data-mdltotnotvisible data-mdlaggregatecolumns="budget;!budgetvariazione;!ricaviincassati;!spese"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
-	</div>
 	<div class="tab-pane fade" id="tabprogetto_seg_4" role="tabpanel">
 				<div class="gridx" id="grid_progettotesto_seg" data-tag="progettotesto.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
@@ -360,13 +360,13 @@
 	<div class="tab-pane fade" id="tabprogetto_seg_7" role="tabpanel">
 				<div class="gridx" id="grid_progettoproroga_seg" data-tag="progettoproroga.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
-	<div class="tab-pane fade" id="tabprogetto_seg_11" role="tabpanel">
+	<div class="tab-pane fade" id="tabprogetto_seg_10" role="tabpanel">
 				<div class="gridx" id="grid_progettorp_default" data-tag="progettorp.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
-	<div class="tab-pane fade" id="tabprogetto_seg_12" role="tabpanel">
+	<div class="tab-pane fade" id="tabprogetto_seg_11" role="tabpanel">
 		<script>
 			$(function () {
-				$('a[data-target="#tabprogetto_seg_12"]').on('shown.bs.tab', function (e) {
+				$('a[data-target="#tabprogetto_seg_11"]').on('shown.bs.tab', function (e) {
                     $('.nav-tabs a[href="#tabprogetto_seg_0"]').tab('show');
                     $("#XXprogettocosto").click() 
                 });
@@ -376,7 +376,7 @@
         <i class="fa fa-money-check-alt mr-1" ></i>Dettaglio dei costi
     </button>
 	</div>
-	<div class="tab-pane fade" id="tabprogetto_seg_13" role="tabpanel">
+	<div class="tab-pane fade" id="tabprogetto_seg_12" role="tabpanel">
 			<div class="row">
 				<div class="col-md-9">
 					<input id="txt_progettosdgoals_idsdgoals" type="text" class="form-control" placeholder="..." aria-label="Search" />

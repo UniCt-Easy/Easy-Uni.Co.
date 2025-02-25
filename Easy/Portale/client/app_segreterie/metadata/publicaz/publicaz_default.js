@@ -28,8 +28,11 @@
 			//beforeFill
 
 			afterClear: function () {
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('publicaz'), this.getDataTable('publicazkeyword'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -42,10 +45,13 @@
 				var self = this;
 				$("#btn_add_publicazkindpublicaz_idpublicazkind").on("click", _.partial(this.searchAndAssignpublicazkind, self));
 				$("#btn_add_publicazkindpublicaz_idpublicazkind").prop("disabled", true);
-				$("#btn_add_publicazregistry_aziende_idreg_aziende").on("click", _.partial(this.searchAndAssignregistry_aziende, self));
+				$("#btn_add_publicazregistry_aziende_idreg_aziende").on("click", _.partial(this.searchAndAssignregistry, self));
 				$("#btn_add_publicazregistry_aziende_idreg_aziende").prop("disabled", true);
-				$("#btn_add_publicazregistry_docenti_idreg_docenti").on("click", _.partial(this.searchAndAssignregistry_docenti, self));
+				$("#btn_add_publicazregistry_docenti_idreg_docenti").on("click", _.partial(this.searchAndAssignregistry_alias1, self));
 				$("#btn_add_publicazregistry_docenti_idreg_docenti").prop("disabled", true);
+				$('#grid_publicazkindpublicaz_default').data('mdlconditionallookup', '!idpublicazkind_publicazkind_active,S,Si;!idpublicazkind_publicazkind_active,N,No;');
+				$('#grid_publicazregistry_aziende_default').data('mdlconditionallookup', '!idreg_registry_active,S,Si;!idreg_registry_active,N,No;!idreg_registry_flag_pa,S,Si;!idreg_registry_flag_pa,N,No;');
+				$('#grid_publicazregistry_docenti_default').data('mdlconditionallookup', '!idreg_registry_active,S,Si;!idreg_registry_active,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -96,7 +102,7 @@
 				});
 			},
 
-			searchAndAssignregistry_aziende: function (that) {
+			searchAndAssignregistry: function (that) {
 				return that.searchAndAssign({
 					tableName: "registry",
 					listType: "aziende",
@@ -109,9 +115,9 @@
 				});
 			},
 
-			searchAndAssignregistry_docenti: function (that) {
+			searchAndAssignregistry_alias1: function (that) {
 				return that.searchAndAssign({
-					tableName: "registry",
+					tableName: "registry_alias1",
 					listType: "docenti",
 					idControl: "txt_publicazregistry_docenti_idreg_docenti",
 					tagSearch: "registrydocentiview.dropdown_title",

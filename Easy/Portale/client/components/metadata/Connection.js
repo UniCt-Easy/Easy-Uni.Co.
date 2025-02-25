@@ -110,7 +110,10 @@
                                 // ripulisco errore
                                 var serr = null;
                                 if (err.text) {
-                                    serr = err.text.replace(/"/g, '');
+                                    if (err.text.Message)
+                                        serr = err.text.Message.replace(/"/g, '');
+                                    else
+                                        serr = err.text.replace(/"/g, '');
                                 }
 
                                 if (err.status === 401) {
@@ -148,8 +151,11 @@
                                             self.currentBackendManager.unsetToken();
                                             msg = appMeta.localResource.serverErrorExpiredSession;
                                             break;
-                                        case serverErrorTypeEnum.BadCredential :
+                                        case serverErrorTypeEnum.BadCredential:
                                             msg = appMeta.localResource.serverErrorBadCredential;
+                                            break;
+                                        case serverErrorTypeEnum.LDAPServerUnavailable:
+                                            msg = appMeta.localResource.serverErrorLDAPServerUnavailable;
                                             break;
                                         case serverErrorTypeEnum.DataNotPermitted :
                                             msg = appMeta.localResource.serverErrorDataNotPermitted;
@@ -174,8 +180,8 @@
                             logtype = logType.ERROR;
                         }
 
-                        var envs = [appMeta.config.envEnum.DEV, appMeta.config.envEnum.QA];
-                        var showInfo = envs.includes(appMeta.config.env) || appMeta.config.forceShowErrorInfo;
+                        //var envs = [appMeta.config.envEnum.DEV, appMeta.config.envEnum.QA];
+                        //var showInfo = envs.includes(appMeta.config.env) || appMeta.config.forceShowErrorInfo;
 
                         //&& (objConn.method === 'login' || objConn.method === 'loginLDAP')
                         if (objConn.prm && objConn.prm.password) {
@@ -188,8 +194,10 @@
                         }
                         else {
                             logger.log(logtype, msg + " method: '" + objConn.method + "' ",
-                                showInfo ? " errors: " + JSON.stringify(err) : "",
-                                showInfo ? " prm: " + JSON.stringify(objConn.prm) : "").
+                                //showInfo ? " errors: " + JSON.stringify(err) : "",
+                                //showInfo ? " prm: " + JSON.stringify(objConn.prm) : "").
+                                " errors: " + JSON.stringify(err) ,
+                                " prm: " + JSON.stringify(objConn.prm) ).
                                 then(() => def.reject(err))
                         }
                         return def.promise();

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -67,6 +67,13 @@ namespace pcc_wizard_calcolo {
             folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             tabController.HideTabsMode =
                 Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
+
+            if (isBlazor())
+			{
+                txtPercorso.Visible = false;
+                btnCartella.Visible = false;
+                label5.Visible = false;
+			}
         }
 
         public void MetaData_AfterLink() {
@@ -135,6 +142,12 @@ namespace pcc_wizard_calcolo {
             if (AllDisabled)
                 return false;
             if ((oldTab == 0) && (newTab == 1)) {
+                if (isBlazor())
+				{
+                    if (string.IsNullOrEmpty(txtPercorso.Text))
+                        faiScegliereCartella();
+				}
+
                 if (txtAnagrafica.Text != "") {
                     string filteridreg = QHS.AppAnd(QHS.CmpEq("title", txtAnagrafica.Text), QHS.CmpEq("active", "S"));
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.registry, null, filteridreg, null, true);
@@ -474,6 +487,8 @@ namespace pcc_wizard_calcolo {
                 SWR.Write(S);
                 SWR.Close();
                 SWR.Dispose();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(NomeCompletoFileCSV, false);
             }
             catch (Exception E) {
                 QueryCreator.ShowException(E);

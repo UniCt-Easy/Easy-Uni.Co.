@@ -278,6 +278,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="estimatekindattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idestimkind" type="xs:string" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -340,5 +355,15 @@
       <xs:selector xpath=".//mstns:estimatekind" />
       <xs:field xpath="mstns:idupb" />
     </xs:keyref>
+    <xs:unique name="estimatekindattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:estimatekindattachment" />
+      <xs:field xpath="mstns:idestimkind" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="estimatekind_estimatekindattachment" msdata:parent="estimatekind" msdata:child="estimatekindattachment" msdata:parentkey="idestimkind" msdata:childkey="idestimkind" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

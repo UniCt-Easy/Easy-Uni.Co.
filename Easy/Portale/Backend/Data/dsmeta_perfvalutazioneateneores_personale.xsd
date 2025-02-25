@@ -45,15 +45,21 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="perfmission" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfmissiondefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idperfmission" type="xs:int" />
+              <xs:element name="perfmission_active" type="xs:string" minOccurs="0" />
+              <xs:element name="perfmission_ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="perfmission_cu" type="xs:string" minOccurs="0" />
+              <xs:element name="perfmission_lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="perfmission_lu" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -102,11 +108,11 @@
     <xs:unique name="getdocentiamministrativiresponsabilidefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilidefaultview" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
-    <xs:unique name="perfmission_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:perfmission" />
+    <xs:unique name="perfmissiondefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:perfmissiondefaultview" />
       <xs:field xpath="mstns:idperfmission" />
     </xs:unique>
     <xs:unique name="perfvalutazioneateneores_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -122,7 +128,7 @@
       <msdata:Relationship name="FK_perfvalutazioneateneoresvalidatori_validatori_idvalidatori" msdata:parent="validatori" msdata:child="perfvalutazioneateneoresvalidatori" msdata:parentkey="idvalidatori" msdata:childkey="idvalidatori" />
       <msdata:Relationship name="FK_perfvalutazioneateneoresattach_perfvalutazioneateneores_idperfvalutazioneateneo-idperfvalutazioneateneores" msdata:parent="perfvalutazioneateneores" msdata:child="perfvalutazioneateneoresattach" msdata:parentkey="idperfvalutazioneateneo idperfvalutazioneateneores" msdata:childkey="idperfvalutazioneateneo idperfvalutazioneateneores" />
       <msdata:Relationship name="FK_perfvalutazioneateneores_getdocentiamministrativiresponsabilidefaultview_idreg" msdata:parent="getdocentiamministrativiresponsabilidefaultview" msdata:child="perfvalutazioneateneores" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_perfvalutazioneateneores_perfmission_idperfmission" msdata:parent="perfmission" msdata:child="perfvalutazioneateneores" msdata:parentkey="idperfmission" msdata:childkey="idperfmission" />
+      <msdata:Relationship name="FK_perfvalutazioneateneores_perfmissiondefaultview_idperfmission" msdata:parent="perfmissiondefaultview" msdata:child="perfvalutazioneateneores" msdata:parentkey="idperfmission" msdata:childkey="idperfmission" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

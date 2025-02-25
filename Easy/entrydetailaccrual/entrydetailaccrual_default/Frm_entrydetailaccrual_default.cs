@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -117,10 +117,13 @@ namespace entrydetailaccrual_default
                 }
 
                 if (pluriennale == false) {
-                    foreach (string f in new string[] {"idsor1", "idsor2", "idsor3", "idreg"}) {
-                        object val = parentRow[f];
-                        if (val != DBNull.Value) MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq(f, val));
-                    }
+                    // Dal filtro rimuoviamo i centri di costo - task 17466
+                    //foreach (string f in new string[] {"idsor1", "idsor2", "idsor3", "idreg"}) {
+                    //    object val = parentRow[f];
+                    //    if (val != DBNull.Value) MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq(f, val));
+                    //}
+                    object val = parentRow["idreg"];
+                    if (val != DBNull.Value) MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq("idreg", val));
                 }
                 if (pluriennale) {
                     MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq("yentry", esercizio));

@@ -267,6 +267,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="inventorytreeattachment" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinv" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -329,6 +344,11 @@
       <xs:selector xpath=".//mstns:accmotiveapplied_transfer" />
       <xs:field xpath="mstns:idaccmotive" />
     </xs:unique>
+    <xs:unique name="inventorytreeattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:inventorytreeattachment" />
+      <xs:field xpath="mstns:idinv" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -346,6 +366,7 @@
       <msdata:Relationship name="inventorytreeinventorytree" msdata:parent="inventorytree" msdata:child="inventorytree" msdata:parentkey="idinv" msdata:childkey="paridinv" />
       <msdata:Relationship name="accmotiveapplied_discount_inventorytree" msdata:parent="accmotiveapplied_discount" msdata:child="inventorytree" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivediscount" />
       <msdata:Relationship name="accmotiveapplied_transfer_inventorytree" msdata:parent="accmotiveapplied_transfer" msdata:child="inventorytree" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivetransfer" />
+      <msdata:Relationship name="inventorytree_inventorytreeattachment" msdata:parent="inventorytree" msdata:child="inventorytreeattachment" msdata:parentkey="idinv" msdata:childkey="idinv" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

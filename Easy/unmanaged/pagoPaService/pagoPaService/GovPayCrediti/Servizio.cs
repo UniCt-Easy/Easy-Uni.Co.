@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -149,7 +149,8 @@ namespace pagoPaService.govPayReference {
 	}
 
 	public static class InvioCreditiGPAppService {
-		public static PagamentiTelematiciGPApp Create(string user, string pwd, string url, bool test = false) {
+		public static PagamentiTelematiciGPApp Create(string user, string pwd, string url, bool test = false,
+			X509Certificate2 clientcert = null, X509Certificate2 servicecert = null, X509Certificate2 clientcerttest = null, X509Certificate2 servicecerttest = null) {
 			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 			//ServicePointManager.SetTcpKeepAlive(true,5000,100);
 			ServicePointManager.ServerCertificateValidationCallback +=
@@ -254,24 +255,22 @@ namespace pagoPaService.govPayReference {
 
 			if (test) {
 				//CN = solutionpa-coll.intesasanpaolo.com
-				factory.Credentials.ServiceCertificate.DefaultCertificate =
+				factory.Credentials.ServiceCertificate.DefaultCertificate = servicecerttest??
 					pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
 						"8a653ab1eb3f30341baa7e442a81d22e42751e46");//8a653ab1eb3f30341baa7e442a81d22e42751e46
-				factory.Credentials.ClientCertificate.Certificate =
+				factory.Credentials.ClientCertificate.Certificate = clientcert ??
 					pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
 						"f97ca7a94989c9556b2f527c532b63342b4c8af8");//218fff5ce170503dae33fde182d2b22f5457f391
 			}
 			else {
-				factory.Credentials.ServiceCertificate.DefaultCertificate =
+				factory.Credentials.ServiceCertificate.DefaultCertificate = servicecert ??
 					pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
 						"3e92d9b2dc6d2afaad4c52bd6aa24b76d63c44ab");
 
-				factory.Credentials.ClientCertificate.Certificate =
+				factory.Credentials.ClientCertificate.Certificate = clientcert ??
 					pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
 						"f97ca7a94989c9556b2f527c532b63342b4c8af8");
 			}
-
-			
 
 
 			

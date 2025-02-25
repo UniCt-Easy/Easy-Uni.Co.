@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -703,7 +703,7 @@ namespace bankdispositionsetup_siopeplus_incassi {
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         public bool destinazioneSpecified { get; set; }
 
-        public string numero_conto_banca_italia_ente_ricevente { get; set; }
+        //public string numero_conto_banca_italia_ente_ricevente { get; set; }
 
         public mandatoInformazioni_beneficiarioTipo_contabilita_ente_ricevente tipo_contabilita_ente_ricevente {
             get;
@@ -827,12 +827,8 @@ namespace bankdispositionsetup_siopeplus_incassi {
         ACCREDITOCONTOCORRENTEPOSTALE,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A")]
-        ACCREDITOTESORERIAPROVINCIALESTATOPERTABA,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B")]
-        ACCREDITOTESORERIAPROVINCIALESTATOPERTABB,
+        [System.Xml.Serialization.XmlEnumAttribute("ACCREDITO TESORERIA PROVINCIALE STATO")]
+        ACCREDITOTESORERIAPROVINCIALESTATO,
 
         /// <remarks/>
         F24EP,
@@ -847,14 +843,6 @@ namespace bankdispositionsetup_siopeplus_incassi {
 
         /// <remarks/>
         REGOLARIZZAZIONE,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A")]
-        REGOLARIZZAZIONEACCREDITOTESORERIAPROVINCIALESTATOPERTABA,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B")]
-        REGOLARIZZAZIONEACCREDITOTESORERIAPROVINCIALESTATOPERTABB,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("ADDEBITO PREAUTORIZZATO")]
@@ -1332,10 +1320,6 @@ namespace bankdispositionsetup_siopeplus_incassi {
 
         /// <remarks/>
         REGOLARIZZAZIONE,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("REGOLARIZZAZIONE ACCREDITO BANCA D\'ITALIA")]
-        REGOLARIZZAZIONEACCREDITOBANCADITALIA,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("PRELIEVO DA CC POSTALE")]

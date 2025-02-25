@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,267 +29,135 @@ namespace expense_wizarddelete {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expense 		=> Tables["expense"];
 
-	///<summary>
-	///Movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable income 		=> Tables["income"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Informazioni annuali su movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseyear 		=> Tables["expenseyear"];
 
-	///<summary>
-	///Informazioni annuali su mov. di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeyear 		=> Tables["incomeyear"];
 
-	///<summary>
-	///Contabilizzazione missione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseitineration 		=> Tables["expenseitineration"];
 
-	///<summary>
-	///Missione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable itineration 		=> Tables["itineration"];
 
-	///<summary>
-	///Variazione movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensevar 		=> Tables["expensevar"];
 
-	///<summary>
-	///Variazione movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomevar 		=> Tables["incomevar"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingkind 		=> Tables["sortingkind"];
 
-	///<summary>
-	///Dettaglio Recuperi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseclawback 		=> Tables["expenseclawback"];
 
-	///<summary>
-	///Dettaglio Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensetax 		=> Tables["expensetax"];
 
-	///<summary>
-	///Tipi di recupero
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable clawback 		=> Tables["clawback"];
 
-	///<summary>
-	///Tipi di ritenuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
-	///<summary>
-	///Assegnazione credito al bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable creditpart 		=> Tables["creditpart"];
 
-	///<summary>
-	///Assegnazione incasso al bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable proceedspart 		=> Tables["proceedspart"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///Contabilizzazione fattura acquisto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseinvoice 		=> Tables["expenseinvoice"];
 
-	///<summary>
-	///Fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoice 		=> Tables["invoice"];
 
-	///<summary>
-	///Contabilizzazione contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeinvoice 		=> Tables["incomeinvoice"];
 
-	///<summary>
-	///Classificazione Movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensesorted 		=> Tables["expensesorted"];
 
-	///<summary>
-	///Classificazione Movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomesorted 		=> Tables["incomesorted"];
 
-	///<summary>
-	///Cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payroll 		=> Tables["payroll"];
 
-	///<summary>
-	///Contabilizzazione cedolino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensepayroll 		=> Tables["expensepayroll"];
 
-	///<summary>
-	///Contabilizzazione parcella professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseprofservice 		=> Tables["expenseprofservice"];
 
-	///<summary>
-	///Contabilizzazione contratto occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensecasualcontract 		=> Tables["expensecasualcontract"];
 
-	///<summary>
-	///Parcella Professionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservice 		=> Tables["profservice"];
 
-	///<summary>
-	///Pagamento Prestazione Occasionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable casualcontract 		=> Tables["casualcontract"];
 
-	///<summary>
-	///Altri Compensi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable wageaddition 		=> Tables["wageaddition"];
 
-	///<summary>
-	///Contabilizzazione compenso dipendente
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensewageaddition 		=> Tables["expensewageaddition"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Contabilizzazione Contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensemandate 		=> Tables["expensemandate"];
 
-	///<summary>
-	///Contratto Passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable mandate 		=> Tables["mandate"];
 
-	///<summary>
-	///Movimento di spesa - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenselast 		=> Tables["expenselast"];
 
-	///<summary>
-	///Movimento di entrata - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomelast 		=> Tables["incomelast"];
 
-	///<summary>
-	///Contabilizzazione contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeestimate 		=> Tables["incomeestimate"];
 
-	///<summary>
-	///Dettaglio Correzioni Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensetaxcorrige 		=> Tables["expensetaxcorrige"];
 
-	///<summary>
-	///Dettaglio Riepilogo Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensetaxofficial 		=> Tables["expensetaxofficial"];
 
-	///<summary>
-	///Finanziamento fase Prenotazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwritingappropriation 		=> Tables["underwritingappropriation"];
 
-	///<summary>
-	///Finanziamento fase Liquidazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwritingpayment 		=> Tables["underwritingpayment"];
 
@@ -299,9 +167,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeview 		=> Tables["incomeview"];
 
-	///<summary>
-	///Sospeso passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensebill 		=> Tables["expensebill"];
 
@@ -721,6 +586,7 @@ private void initClass() {
 	texpensevar.Columns.Add(C);
 	texpensevar.Columns.Add( new DataColumn("doc", typeof(string)));
 	texpensevar.Columns.Add( new DataColumn("autokind", typeof(byte)));
+	texpensevar.Columns.Add( new DataColumn("autocode", typeof(int)));
 	texpensevar.Columns.Add( new DataColumn("idpayment", typeof(int)));
 	texpensevar.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
 	C= new DataColumn("adate", typeof(DateTime));

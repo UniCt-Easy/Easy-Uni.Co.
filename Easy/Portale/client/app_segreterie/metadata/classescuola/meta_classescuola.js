@@ -47,6 +47,7 @@
 						table.columns["indicecineca"].caption = "Identificativo CINECA";
 						table.columns["obbform"].caption = "Obiettivi formativi";
 						table.columns["prospocc"].caption = "Prospettive occupazionali";
+						table.columns["tipoente"].caption = "Tipologia di ente";
 						table.columns["title"].caption = "Denominazione";
 //$innerSetCaptionConfig_default$
 						break;

@@ -289,6 +289,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="nocigmotive">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnocigmotive" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codenocigmotive" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="idnocigmotiveNSO" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -328,6 +343,10 @@
       <xs:selector xpath=".//mstns:nso_deliverystatus" />
       <xs:field xpath="mstns:idnso_deliverystatus" />
     </xs:unique>
+    <xs:unique name="nocigmotive_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nocigmotive" />
+      <xs:field xpath="mstns:idnocigmotive" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -336,6 +355,7 @@
       <msdata:Relationship name="estimatedetail_estimate" msdata:parent="estimatedetail" msdata:child="estimate" msdata:parentkey="idestimkind yestim nestim" msdata:childkey="idestimkind yestim nestim" />
       <msdata:Relationship name="estimatekind_estimate" msdata:parent="estimatekind" msdata:child="estimate" msdata:parentkey="idestimkind" msdata:childkey="idestimkind" />
       <msdata:Relationship name="nso_deliverystatus_nso_vendita" msdata:parent="nso_deliverystatus" msdata:child="nso_vendita" msdata:parentkey="idnso_deliverystatus" msdata:childkey="idnso_deliverystatus" />
+      <msdata:Relationship name="nocigmotive_nso_vendita" msdata:parent="nocigmotive" msdata:child="nso_vendita" msdata:parentkey="idnocigmotiveNSO" msdata:childkey="codice_identificativo_gara" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

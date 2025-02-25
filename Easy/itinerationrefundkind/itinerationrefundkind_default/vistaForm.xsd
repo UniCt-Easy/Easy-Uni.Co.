@@ -15,12 +15,12 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
               <xs:element name="iditinerationrefundkindgroup" type="xs:int" minOccurs="0" />
-              <xs:element name="_x0021_itinerationrefundkindgroup" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="flagbalance" type="xs:string" minOccurs="0" />
               <xs:element name="flagadvance" type="xs:string" minOccurs="0" />
               <xs:element name="flagmedia" type="xs:unsignedByte" minOccurs="0" />
               <xs:element name="flagvisible" type="xs:int" minOccurs="0" />
+              <xs:element name="flagtraceability" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

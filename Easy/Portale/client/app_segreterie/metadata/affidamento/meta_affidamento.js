@@ -29,6 +29,13 @@
 						this.describeAColumn(table, 'gratuito', 'Gratuito', null, 60, null);
 						this.describeAColumn(table, 'start', 'Inizio', null, 70, null);
 						this.describeAColumn(table, 'stop', 'Fine', null, 80, null);
+						this.describeAColumn(table, '!idaffidamentokind_affidamentokind_title', 'Tipologia', null, 21, null);
+						objCalcFieldConfig['!idaffidamentokind_affidamentokind_title'] = { tableNameLookup:'affidamentokind', columnNameLookup:'title', columnNamekey:'idaffidamentokind' };
+						this.describeAColumn(table, '!iderogazkind_erogazkind_title', 'Tipo di erogazione', null, 41, null);
+						objCalcFieldConfig['!iderogazkind_erogazkind_title'] = { tableNameLookup:'erogazkind', columnNameLookup:'title', columnNamekey:'iderogazkind' };
+						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Docente', null, 11, null);
+						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						this.describeAColumn(table, '!affidamentocaratteristica', 'Caratteristiche dell\'affidamento', null, 90, null);
 //$objCalcFieldConfig_default$
 						break;
 					case 'seg':
@@ -102,11 +109,9 @@
 //$innerSetCaptionConfig_default$
 						break;
 					case 'seg':
-						table.columns["aa"].caption = "Anno accademico";
 //$innerSetCaptionConfig_seg$
 						break;
 					case 'docente':
-						table.columns["aa"].caption = "Anno accademico";
 //$innerSetCaptionConfig_docente$
 						break;
 //$innerSetCaptionConfig$

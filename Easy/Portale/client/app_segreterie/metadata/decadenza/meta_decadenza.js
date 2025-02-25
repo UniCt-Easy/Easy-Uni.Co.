@@ -24,6 +24,7 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seganagstu':
+						this.describeAColumn(table, 'idiscrizione', 'Iscrizione', null, 20, null);
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 30, 9);
 						this.describeAColumn(table, 'data', 'Data', 'g', 40, null);
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 60, null);
@@ -45,26 +46,36 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seganagstu':
+						table.columns["aa"].caption = "Anno accademico";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idreg_studenti"].caption = "Studente";
+						table.columns["protanno"].caption = "Anno di protocollo";
+						table.columns["protnumero"].caption = "Numero di protocollo";
+//$innerSetCaptionConfig_seganagstu$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_decadenza");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_decadenza");
 
 				//$getNewRowInside$
 
 				dt.autoIncrement('iddecadenza', { minimum: 99990001 });
 
 				// metto i default
-				var objRow = dt.newRow({
-					idreg_studenti : 0,
-					idiscrizione : 0,
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

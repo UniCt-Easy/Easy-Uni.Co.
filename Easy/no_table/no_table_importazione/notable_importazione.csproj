@@ -179,6 +179,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="vistaContributiCespiti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaContributiCespiti.xsd</DependentUpon>
+    </Compile>
     <Compile Include="vistaDettaglioRitenute.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -612,6 +617,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="vistaContributiCespiti.xsc">
+      <DependentUpon>vistaContributiCespiti.xsd</DependentUpon>
+    </None>
+    <None Include="vistaContributiCespiti.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>vistaContributiCespiti.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vistaContributiCespiti.xss">
+      <DependentUpon>vistaContributiCespiti.xsd</DependentUpon>
+    </None>
     <None Include="vistaDettaglioRitenute.xsc">
       <DependentUpon>vistaDettaglioRitenute.xsd</DependentUpon>
     </None>

@@ -218,36 +218,38 @@
        * @description SYNC
        * Removes all the events from grid rows
        */
-      removeEvents: function () {
-         // questo selettore evita di agganciare glie venti sull'header
-         this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped])").off("click", _.partial(this.rowClickEv, this));
-         this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped])").off("dblclick", _.partial(this.rowDblClickEv, this));
-         if (this.editInPlaceColumns) {
-            this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr) > td:not(.mdlw_tdclickable)").off("click", _.partial(this.cellEdit, this));
-         }
+       removeEvents: function () {
+           if (this.mytable) {
+               // questo selettore evita di agganciare glie venti sull'header
+               this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr)").off("click");
+               this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr)").off("dblclick");
+               if (this.editInPlaceColumns) {
+                   this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr) > td:not(.mdlw_tdclickable)").off("click");
+               }
 
-         let self = this;
+               let self = this;
 
-         // rimuove eventi per bottoni recursiveCollapse e recursiveExpand in caso di grouping
+               // rimuove eventi per bottoni recursiveCollapse e recursiveExpand in caso di grouping
 
-         this.mytable.find(".fa-plus-square")
-            .each(function () {
-               $(this).parent().off("click", _.partial(self.recursiveExpand, self, $(this).closest("tr").attr("id")));
-            });
+               this.mytable.find(".fa-plus-square")
+                   .each(function () {
+                       $(this).parent().off("click");
+                   });
 
-         this.mytable.find(".fa-minus-square")
-            .each(function () {
-               $(this).parent().off("click", _.partial(self.recursiveCollapse, self, $(this).closest("tr").attr("id")));
-            });
+               this.mytable.find(".fa-minus-square")
+                   .each(function () {
+                       $(this).parent().off("click");
+                   });
 
-         // rimuove eventi bottoni di editing di riga
+               // rimuove eventi bottoni di editing di riga
 
-         this.mytable.find("[data-mdleditbtn]").off("click", _.partial(self.editClick, self));
+               this.mytable.find("[data-mdleditbtn]").off("click");
 
-         this.mytable.find("[data-mdldeletebtn]").off("click", _.partial(self.deleteClick, self));
+               this.mytable.find("[data-mdldeletebtn]").off("click");
 
-         this.mytable.find("[data-mdlunlinkbtn]").off("click", _.partial(self.unlinkClick, self));
-
+               this.mytable.find("[data-mdlunlinkbtn]").off("click");
+               
+           }
       },
 
       /**
@@ -2950,8 +2952,8 @@
                fRemoveByIndex("th", 1);
             } else {
                // altrimenti ne rimuovo almeno una, perchè è quella con il bottone excel stessa. dove poi sotto abbiamo edit o delete
-               fRemoveByIndex("td", 0);
-               fRemoveByIndex("th", 0);
+               //fRemoveByIndex("td", 0); //COMMENTATO PERCHè MI SVUOTA LE CELLE RAGGRUPPATE
+               //fRemoveByIndex("th", 0);
             }
 
          });

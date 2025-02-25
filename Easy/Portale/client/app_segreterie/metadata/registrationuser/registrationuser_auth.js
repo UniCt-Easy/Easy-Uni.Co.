@@ -88,7 +88,6 @@
 				this.enableControl($('#registrationuser_auth_forename'), true);
 				this.enableControl($('#registrationuser_auth_cf'), true);
 				this.enableControl($('#registrationuser_auth_email'), true);
-				this.enableControl($('#registrationuser_auth_login'), true);
 				this.enableControl($('#registrationuser_auth_idregistrationuserstatus'), true);
 				this.enableControl($('#registrationuser_auth_requesttimestamp'), true);
 				//afterClearin
@@ -101,7 +100,6 @@
 				this.enableControl($('#registrationuser_auth_forename'), false);
 				this.enableControl($('#registrationuser_auth_cf'), false);
 				this.enableControl($('#registrationuser_auth_email'), false);
-				this.enableControl($('#registrationuser_auth_login'), false);
 				this.enableControl($('#registrationuser_auth_idregistrationuserstatus'), false);
 				this.enableControl($('#registrationuser_auth_requesttimestamp'), false);
 				//afterFillin

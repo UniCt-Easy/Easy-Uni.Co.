@@ -67,16 +67,30 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#staffagrteaching_seg_idisced2013'), null);
 				this.helpForm.filter($('#staffagrteaching_seg_idreg_docenti'), null);
 				this.helpForm.filter($('#staffagrteaching_seg_idreg_resp'), null);
 				this.helpForm.filter($('#staffagrteaching_seg_idreg_respestero'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.setDenyNull("staffagrteaching","idstaffagrteaching");
+				this.setDenyNull("staffagrteaching","idbandomi");
+				this.setDenyNull("staffagrteaching","idiscrizionebmi");
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

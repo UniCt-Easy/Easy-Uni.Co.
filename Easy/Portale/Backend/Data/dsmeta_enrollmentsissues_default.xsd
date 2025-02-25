@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_enrollmentsissues_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_enrollmentsissues_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="issues" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attribute_name" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idenrollmentsissues" type="xs:int" />
+              <xs:element name="idissues" type="xs:int" />
+              <xs:element name="issue_description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="enrollmentsissues" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="academic_year" type="xs:string" minOccurs="0" />
+              <xs:element name="birth_date" type="xs:string" minOccurs="0" />
+              <xs:element name="birth_place" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data_request" type="xs:string" minOccurs="0" />
+              <xs:element name="degree_class_code" type="xs:string" minOccurs="0" />
+              <xs:element name="degree_course_code" type="xs:string" minOccurs="0" />
+              <xs:element name="degree_course_year" type="xs:string" minOccurs="0" />
+              <xs:element name="family_name" type="xs:string" minOccurs="0" />
+              <xs:element name="file_code" type="xs:string" minOccurs="0" />
+              <xs:element name="file_status" type="xs:string" minOccurs="0" />
+              <xs:element name="given_name" type="xs:string" minOccurs="0" />
+              <xs:element name="idenrollmentsissues" type="xs:int" />
+              <xs:element name="institute_code" type="xs:string" minOccurs="0" />
+              <xs:element name="institute_name" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="message" type="xs:string" minOccurs="0" />
+              <xs:element name="person_id" type="xs:string" minOccurs="0" />
+              <xs:element name="programme_type_code" type="xs:string" minOccurs="0" />
+              <xs:element name="status" type="xs:string" minOccurs="0" />
+              <xs:element name="subscriber_id" type="xs:string" minOccurs="0" />
+              <xs:element name="subscriber_message" type="xs:string" minOccurs="0" />
+              <xs:element name="subscriber_name" type="xs:string" minOccurs="0" />
+              <xs:element name="tax_code" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:issues" />
+      <xs:field xpath="mstns:idenrollmentsissues" />
+      <xs:field xpath="mstns:idissues" />
+    </xs:unique>
+    <xs:unique name="enrollmentsissues_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:enrollmentsissues" />
+      <xs:field xpath="mstns:idenrollmentsissues" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_issues_enrollmentsissues_idenrollmentsissues" msdata:parent="enrollmentsissues" msdata:child="issues" msdata:parentkey="idenrollmentsissues" msdata:childkey="idenrollmentsissues" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

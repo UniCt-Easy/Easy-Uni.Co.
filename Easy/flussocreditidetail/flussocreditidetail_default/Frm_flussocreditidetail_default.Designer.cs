@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -166,7 +166,6 @@ namespace flussocreditidetail_default {
 			this.textBox13 = new System.Windows.Forms.TextBox();
 			this.label23 = new System.Windows.Forms.Label();
 			this._fileSave = new System.Windows.Forms.SaveFileDialog();
-			this.fileSave = createSaveFileDialog(_fileSave);
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.gboxCausaleIVA.SuspendLayout();

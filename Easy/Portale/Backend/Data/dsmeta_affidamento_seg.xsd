@@ -30,6 +30,7 @@
               <xs:element name="stage" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="titolo" type="xs:string" minOccurs="0" />
               <xs:element name="visita" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -192,7 +193,13 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="erogazkind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="erogazkind_ans" type="xs:string" minOccurs="0" />
+              <xs:element name="erogazkind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="erogazkind_lt" type="xs:dateTime" />
+              <xs:element name="erogazkind_lu" type="xs:string" />
+              <xs:element name="erogazkind_sortcode" type="xs:int" />
               <xs:element name="iderogazkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -200,8 +207,17 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="affidamentokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="affidamentokind_costoora" type="xs:decimal" minOccurs="0" />
+              <xs:element name="affidamentokind_costoorariodacontratto" type="xs:string" minOccurs="0" />
+              <xs:element name="affidamentokind_ct" type="xs:dateTime" />
+              <xs:element name="affidamentokind_cu" type="xs:string" />
+              <xs:element name="affidamentokind_description" type="xs:string" />
+              <xs:element name="affidamentokind_lt" type="xs:dateTime" />
+              <xs:element name="affidamentokind_lu" type="xs:string" />
+              <xs:element name="affidamentokind_sortcode" type="xs:int" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idaffidamentokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

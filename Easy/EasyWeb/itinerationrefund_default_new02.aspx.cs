@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -142,6 +142,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         // bottone cancellazione allegato
         HwCancAllegato.Visible = false;
         txtValuta.LeaveTextBoxHandler += txtValuta_LeaveTextBoxHandler;
+        abilitaCheckTaxableExpense();
     }
     public void txtValuta_LeaveTextBoxHandler(object sender, EventArgs e) {
         string testo = txtValuta.Text;
@@ -202,6 +203,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
                     "Avendo già contabilizzato l'anticipo di questa missione, le modifiche alle spese " +
                     "non saranno tenute in considerazione ai fini del calcolo dell'anticipo della missione.", "Avviso");
         }
+        abilitaCheckTaxableExpense();
     }
 
     void nascondiSezioni(int flagVisible) {
@@ -274,8 +276,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             UiHelper.UpdateControls(this, currencyManager, txtCambio, txtCambio_TextChanged, R);
         }
 
-        if (T.TableName == "itinerationrefundkind")
-        {
+        if (T.TableName == "itinerationrefundkind"){
             if (CommFun.DrawStateIsDone)
                 CommFun.GetFormData(true);
             AggiornaPerc(R);
@@ -283,22 +284,20 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             AbilitadisabilitaArea(R);
             AggiornaRimborsoForfettario();
             //txtImportoEffettivoValuta.ReadOnly = IsRimborsoForfettario();
-            if (!IsRimborsoForfettario() && !IsRimborsoPerVitto())
-            {
+            if (!IsRimborsoForfettario() && !IsRimborsoPerVitto()){
                 grpLocalita.Enabled = true;
             }
 
-            if (R != null)
-            {
+            if (R != null){
                 nascondiSezioni(CfgFn.GetNoNullInt32(R["flagvisible"]));
             }
         }
 
-        if (T.TableName == "foreigncountry" && CommFun.DrawStateIsDone)
-        {
+        if (T.TableName == "foreigncountry" && CommFun.DrawStateIsDone){
             AbilitaDisabilitaGrpLocalita(Curr, R);
             AggiornaRimborsoForfettario();
         }
+        abilitaCheckTaxableExpense();
     }
 
     public override void BeforeFill() {
@@ -335,7 +334,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             DataRow[] fc = DS.foreigncountry.Select(QHC.CmpEq("idforeigncountry", idforeigncountry));
             AbilitaDisabilitaGrpLocalita(Curr, fc[0]);
         }
-
+        abilitaCheckTaxableExpense();
     }
 
     void AbilitaDisabilitaGrpLocalita(DataRow Ritinerationrefund, DataRow Rforeigncountry) {
@@ -960,5 +959,33 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     }
     protected void txtDataFine_TextChanged(object sender, EventArgs e) {
         AggiornaRimborsoForfettario();
+    }
+    private void abilitaCheckTaxableExpense() {
+        if (DS.itinerationrefund.Rows.Count == 0) return;
+        if (Meta.edit_type == "advancenew02") {
+            chkTaxableExpense.Enabled = false;
+            return;
+        }
+            if (!cmbClassificazione.Enabled) {
+            chkTaxableExpense.Enabled = false;
+            return;
+        }
+
+        DataRow Curr = DS.itinerationrefund.Rows[0];
+        string filter = QHC.CmpEq("iditinerationrefundkind", Curr["iditinerationrefundkind"]);
+        DataRow[] RefundKind = DS.itinerationrefundkind.Select(filter);
+
+        if (RefundKind.Length == 0)
+            return;
+
+        int flagTraceability = CfgFn.GetNoNullInt32(RefundKind[0]["flagtraceability"]);
+
+        if ((flagTraceability & 1) == 0) {
+            chkTaxableExpense.Checked = false;
+            chkTaxableExpense.Enabled = false;
+        }
+        else {
+            chkTaxableExpense.Enabled = true;
+        }
     }
 }

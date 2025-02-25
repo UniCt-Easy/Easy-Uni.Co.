@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,6 +26,10 @@ using System.Data;
 using System.Web;
 using progettocosto_functions;
 using progettoricavo_functions;
+using metadatalibrary;
+using System.Collections.Generic;
+using System.Net.Http.Headers;
+using System.Net.Http;
 
 namespace Backend.Controllers
 {
@@ -136,6 +140,46 @@ namespace Backend.Controllers
                 {"ds", jsonResDataSet}
             };
             return Content(HttpStatusCode.OK, result);
+        }
+
+
+        public class downloadLogoProgettoPrms
+        {
+            public string idattach { get; set; }
+        }
+
+        /// <summary>
+        /// Downloads a file, read from file system
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("downloadLogoProgetto")]
+        public IHttpActionResult downloadLogoProgetto([FromBody] downloadLogoProgettoPrms prms)
+        {
+            var dispatcher = HttpContext.Current.getDataDispatcher();
+            string UploadPath = "Uploads/";
+            try
+            {
+                var conn = dispatcher.conn;
+                var filter = MetaExpression.eq("idattach", prms.idattach);
+                Dictionary<string, object> objFileName = conn.readObject("attach", filter, "filename");
+
+                if (objFileName.Count == 1)
+                {
+                    var fileName = (string)objFileName["filename"];
+                    string path = AppDomain.CurrentDomain.BaseDirectory + UploadPath;
+                    byte[] fileBytes = System.IO.File.ReadAllBytes(path + fileName);
+
+                    var res = Convert.ToBase64String(fileBytes);
+                    return Content(HttpStatusCode.OK, res);
+                }
+
+                return Content(HttpStatusCode.NotFound, "");
+
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.NotFound, ex);
+            }
         }
 
     }

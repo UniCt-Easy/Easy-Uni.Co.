@@ -54,8 +54,12 @@
                                 self.importExcel(metaPage, result, spName, idsParent, additionalparam)
                                     .then(function () {
                                         waitingHandler = metaPage.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
-                                        return appMeta.getData.runSelectIntoTable(metaPage.state.DS.tables[tableName], metaPage.q.eq(parentKey, id));
-                                    })
+                                        if (tableName) {
+                                            return appMeta.getData.runSelectIntoTable(metaPage.state.DS.tables[tableName], metaPage.q.eq(parentKey, id));
+                                        }
+                                        else
+                                            return true;
+                                   })
                                     .then(function () {
                                         if (tableNameSon) {
                                             let tableToRefresh = tableNameSon.split(',');
@@ -71,7 +75,7 @@
                                             return true;
                                     })
                                     .then(function () {
-                                           return metaPage.freshForm(false, false);
+                                           return metaPage.freshForm(true, false);
                                     })
                                     .then(function () {
                                           metaPage.hideWaitingIndicator(waitingHandler);

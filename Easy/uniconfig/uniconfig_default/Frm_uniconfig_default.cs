@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -131,6 +131,7 @@ namespace uniconfig_default
 		private TextBox textBox8;
 		private Label label13;
 		private Label label14;
+		private CheckBox checkBox8;
 		QueryHelper QHS;
 		public Frm_uniconfig_default()
 		{
@@ -257,6 +258,7 @@ namespace uniconfig_default
 			this.chkRequireNonAlphanumeric = new System.Windows.Forms.CheckBox();
 			this.txtRequiredUniqueChars = new System.Windows.Forms.TextBox();
 			this.txtRequiredLength = new System.Windows.Forms.TextBox();
+			this.checkBox8 = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabMain.SuspendLayout();
 			this.tabPageFasi.SuspendLayout();
@@ -340,13 +342,14 @@ namespace uniconfig_default
 			this.tabMain.Location = new System.Drawing.Point(12, 12);
 			this.tabMain.Name = "tabMain";
 			this.tabMain.SelectedIndex = 0;
-			this.tabMain.Size = new System.Drawing.Size(665, 498);
+			this.tabMain.Size = new System.Drawing.Size(665, 520);
 			this.tabMain.TabIndex = 6;
 			this.tabMain.Tag = "";
 			// 
 			// tabPageFasi
 			// 
 			this.tabPageFasi.BackColor = System.Drawing.Color.Transparent;
+			this.tabPageFasi.Controls.Add(this.checkBox8);
 			this.tabPageFasi.Controls.Add(this.chkEnableEmisti);
 			this.tabPageFasi.Controls.Add(this.chkTableRegistryCSA);
 			this.tabPageFasi.Controls.Add(this.checkBox7);
@@ -363,7 +366,7 @@ namespace uniconfig_default
 			this.tabPageFasi.Location = new System.Drawing.Point(4, 22);
 			this.tabPageFasi.Name = "tabPageFasi";
 			this.tabPageFasi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageFasi.Size = new System.Drawing.Size(657, 472);
+			this.tabPageFasi.Size = new System.Drawing.Size(657, 494);
 			this.tabPageFasi.TabIndex = 0;
 			this.tabPageFasi.Text = "Fasi";
 			this.tabPageFasi.UseVisualStyleBackColor = true;
@@ -1333,6 +1336,17 @@ namespace uniconfig_default
 			this.txtRequiredLength.Size = new System.Drawing.Size(100, 20);
 			this.txtRequiredLength.TabIndex = 0;
 			this.txtRequiredLength.Tag = "uniconfig.pwd_requiredlength";
+			// 
+			// checkBox8
+			// 
+			this.checkBox8.AutoSize = true;
+			this.checkBox8.Location = new System.Drawing.Point(15, 466);
+			this.checkBox8.Name = "checkBox8";
+			this.checkBox8.Size = new System.Drawing.Size(189, 17);
+			this.checkBox8.TabIndex = 18;
+			this.checkBox8.Tag = "uniconfig.flag:7";
+			this.checkBox8.Text = "Consenti Carico Cespite da Fattura";
+			this.checkBox8.UseVisualStyleBackColor = true;
 			// 
 			// Frm_uniconfig_default
 			// 

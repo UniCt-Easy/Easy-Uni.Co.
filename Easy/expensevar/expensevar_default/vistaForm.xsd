@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistavariazionespesa.xsd" xmlns:mstns="http://tempuri.org/Vistavariazionespesa.xsd" xmlns="http://tempuri.org/Vistavariazionespesa.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
@@ -25,6 +25,7 @@
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="autokind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="autocode" type="xs:int" minOccurs="0" />
               <xs:element name="idpayment" type="xs:int" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="adate" type="xs:dateTime" />
@@ -656,6 +657,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="expensevarattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idexp" type="xs:int" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -738,6 +755,12 @@
       <xs:selector xpath=".//mstns:underwriting" />
       <xs:field xpath="mstns:idunderwriting" />
     </xs:unique>
+    <xs:unique name="expensevarattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:expensevarattachment" />
+      <xs:field xpath="mstns:idexp" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -756,6 +779,7 @@
       <msdata:Relationship name="invoiceavailable_expensevar" msdata:parent="invoiceavailable" msdata:child="expensevar" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
       <msdata:Relationship name="invoice_expensevar" msdata:parent="invoice" msdata:child="expensevar" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
       <msdata:Relationship name="FK_underwriting_expensevar" msdata:parent="underwriting" msdata:child="expensevar" msdata:parentkey="idunderwriting" msdata:childkey="idunderwriting" />
+      <msdata:Relationship name="expensevar_expensevarattachment" msdata:parent="expensevar" msdata:child="expensevarattachment" msdata:parentkey="idexp nvar" msdata:childkey="idexp nvar" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

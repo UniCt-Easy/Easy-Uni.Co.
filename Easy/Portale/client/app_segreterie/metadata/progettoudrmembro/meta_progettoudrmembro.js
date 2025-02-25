@@ -60,13 +60,13 @@
 					case 'seg':
 						table.columns["!orerendicontate"].caption = "Ore rendicontate";
 						table.columns["costoorario"].caption = "Costo orario";
+						table.columns["fondiprogetto"].caption = "Assunto con fondi del progetto";
+						table.columns["giornipreventivati"].caption = "Giorni/uomo preventivati";
 						table.columns["idprogettoudrmembrokind"].caption = "Ruolo";
 						table.columns["idreg"].caption = "Membro";
 						table.columns["impegno"].caption = "Mesi/uomo preventivati";
 						table.columns["orepreventivate"].caption = "Ore/uomo preventivate";
 						table.columns["ricavoorario"].caption = "Ricavo orario";
-						table.columns["fondiprogetto"].caption = "Assunto con fondi del progetto";
-						table.columns["giornipreventivati"].caption = "Giorni/uomo preventivati";
 						table.columns["start"].caption = "Dal";
 						table.columns["stop"].caption = "Al";
 //$innerSetCaptionConfig_seg$

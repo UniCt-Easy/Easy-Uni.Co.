@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -181,6 +181,11 @@ namespace mandatedetail_default {
 			this.radioInvent = new System.Windows.Forms.RadioButton();
 			this.radioNonInvent = new System.Windows.Forms.RadioButton();
 			this.tabEP = new System.Windows.Forms.TabPage();
+			this.grpBoxPreImpegniBudget = new System.Windows.Forms.GroupBox();
+			this.label28 = new System.Windows.Forms.Label();
+			this.label30 = new System.Windows.Forms.Label();
+			this.txtNumPreimpegno = new System.Windows.Forms.TextBox();
+			this.txtEsercPreImpegno = new System.Windows.Forms.TextBox();
 			this.grpBoxSiopeEP = new System.Windows.Forms.GroupBox();
 			this.btnSiope = new System.Windows.Forms.Button();
 			this.txtDescSiope = new System.Windows.Forms.TextBox();
@@ -257,6 +262,7 @@ namespace mandatedetail_default {
 			this.grpInventario.SuspendLayout();
 			this.grpTipoBene.SuspendLayout();
 			this.tabEP.SuspendLayout();
+			this.grpBoxPreImpegniBudget.SuspendLayout();
 			this.grpBoxSiopeEP.SuspendLayout();
 			this.grpBoxAccertamentiBudget.SuspendLayout();
 			this.grpBoxImpegniBudget.SuspendLayout();
@@ -596,7 +602,7 @@ namespace mandatedetail_default {
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(138, 15);
 			this.label17.TabIndex = 0;
-			this.label17.Text = "Note sull\'IVA del dettaglio:";
+			this.label17.Text = "Note della Richiesta:";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtApplierAnnotations
@@ -1807,6 +1813,7 @@ namespace mandatedetail_default {
 			// 
 			// tabEP
 			// 
+			this.tabEP.Controls.Add(this.grpBoxPreImpegniBudget);
 			this.tabEP.Controls.Add(this.grpBoxSiopeEP);
 			this.tabEP.Controls.Add(this.grpBoxAccertamentiBudget);
 			this.tabEP.Controls.Add(this.grpBoxImpegniBudget);
@@ -1819,6 +1826,58 @@ namespace mandatedetail_default {
 			this.tabEP.TabIndex = 4;
 			this.tabEP.Text = "E/P";
 			this.tabEP.UseVisualStyleBackColor = true;
+			// 
+			// grpBoxPreImpegniBudget
+			// 
+			this.grpBoxPreImpegniBudget.Controls.Add(this.label28);
+			this.grpBoxPreImpegniBudget.Controls.Add(this.label30);
+			this.grpBoxPreImpegniBudget.Controls.Add(this.txtNumPreimpegno);
+			this.grpBoxPreImpegniBudget.Controls.Add(this.txtEsercPreImpegno);
+			this.grpBoxPreImpegniBudget.Location = new System.Drawing.Point(342, 140);
+			this.grpBoxPreImpegniBudget.Name = "grpBoxPreImpegniBudget";
+			this.grpBoxPreImpegniBudget.Size = new System.Drawing.Size(276, 72);
+			this.grpBoxPreImpegniBudget.TabIndex = 51;
+			this.grpBoxPreImpegniBudget.TabStop = false;
+			this.grpBoxPreImpegniBudget.Text = "Preimpegno di Budget selezionato manualmente";
+			// 
+			// label28
+			// 
+			this.label28.AutoSize = true;
+			this.label28.Location = new System.Drawing.Point(86, 16);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(44, 13);
+			this.label28.TabIndex = 7;
+			this.label28.Text = "Numero";
+			// 
+			// label30
+			// 
+			this.label30.AutoSize = true;
+			this.label30.Location = new System.Drawing.Point(6, 16);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(49, 13);
+			this.label30.TabIndex = 6;
+			this.label30.Text = "Esercizio";
+			this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtNumPreimpegno
+			// 
+			this.txtNumPreimpegno.Location = new System.Drawing.Point(89, 32);
+			this.txtNumPreimpegno.Name = "txtNumPreimpegno";
+			this.txtNumPreimpegno.ReadOnly = true;
+			this.txtNumPreimpegno.Size = new System.Drawing.Size(64, 20);
+			this.txtNumPreimpegno.TabIndex = 3;
+			this.txtNumPreimpegno.TabStop = false;
+			this.txtNumPreimpegno.Tag = "epexp_pre.nepexp";
+			// 
+			// txtEsercPreImpegno
+			// 
+			this.txtEsercPreImpegno.Location = new System.Drawing.Point(6, 32);
+			this.txtEsercPreImpegno.Name = "txtEsercPreImpegno";
+			this.txtEsercPreImpegno.ReadOnly = true;
+			this.txtEsercPreImpegno.Size = new System.Drawing.Size(64, 20);
+			this.txtEsercPreImpegno.TabIndex = 2;
+			this.txtEsercPreImpegno.TabStop = false;
+			this.txtEsercPreImpegno.Tag = "epexp_pre.yepexp";
 			// 
 			// grpBoxSiopeEP
 			// 
@@ -1871,7 +1930,7 @@ namespace mandatedetail_default {
 			this.grpBoxAccertamentiBudget.Controls.Add(this.txtEsercAccBudget);
 			this.grpBoxAccertamentiBudget.Location = new System.Drawing.Point(342, 218);
 			this.grpBoxAccertamentiBudget.Name = "grpBoxAccertamentiBudget";
-			this.grpBoxAccertamentiBudget.Size = new System.Drawing.Size(224, 62);
+			this.grpBoxAccertamentiBudget.Size = new System.Drawing.Size(276, 62);
 			this.grpBoxAccertamentiBudget.TabIndex = 49;
 			this.grpBoxAccertamentiBudget.TabStop = false;
 			this.grpBoxAccertamentiBudget.Text = "Accertamento di Budget";
@@ -1921,9 +1980,9 @@ namespace mandatedetail_default {
 			this.grpBoxImpegniBudget.Controls.Add(this.label33);
 			this.grpBoxImpegniBudget.Controls.Add(this.txtNumIxBudget);
 			this.grpBoxImpegniBudget.Controls.Add(this.txtEsercIxBudget);
-			this.grpBoxImpegniBudget.Location = new System.Drawing.Point(572, 218);
+			this.grpBoxImpegniBudget.Location = new System.Drawing.Point(624, 218);
 			this.grpBoxImpegniBudget.Name = "grpBoxImpegniBudget";
-			this.grpBoxImpegniBudget.Size = new System.Drawing.Size(224, 62);
+			this.grpBoxImpegniBudget.Size = new System.Drawing.Size(291, 62);
 			this.grpBoxImpegniBudget.TabIndex = 48;
 			this.grpBoxImpegniBudget.TabStop = false;
 			this.grpBoxImpegniBudget.Text = "Impegno di Budget";
@@ -2383,6 +2442,8 @@ namespace mandatedetail_default {
 			this.grpInventario.PerformLayout();
 			this.grpTipoBene.ResumeLayout(false);
 			this.tabEP.ResumeLayout(false);
+			this.grpBoxPreImpegniBudget.ResumeLayout(false);
+			this.grpBoxPreImpegniBudget.PerformLayout();
 			this.grpBoxSiopeEP.ResumeLayout(false);
 			this.grpBoxSiopeEP.PerformLayout();
 			this.grpBoxAccertamentiBudget.ResumeLayout(false);
@@ -2598,5 +2659,10 @@ namespace mandatedetail_default {
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.GroupBox gboxPagato;
         private System.Windows.Forms.TextBox txtPagato;
-    }
+		private System.Windows.Forms.GroupBox grpBoxPreImpegniBudget;
+		private System.Windows.Forms.Label label28;
+		private System.Windows.Forms.Label label30;
+		private System.Windows.Forms.TextBox txtNumPreimpegno;
+		private System.Windows.Forms.TextBox txtEsercPreImpegno;
+	}
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -173,6 +173,10 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable estimatedetail_incassi 		=> (MetaTable)Tables["estimatedetail_incassi"];
+
+	
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomeattachment 		=> Tables["incomeattachment"]; 
 
 	#endregion
 
@@ -846,6 +850,27 @@ private void initClass() {
 	Tables.Add(testimatedetail_incassi);
 	testimatedetail_incassi.defineKey("idestimkind", "yestim", "nestim", "rownum");
 
+	
+	//////////////////// INCOMEATTACHMENT /////////////////////////////////
+	DataColumn C;
+	var tincomeattachment= new DataTable("incomeattachment");
+	C= new DataColumn("idinc", typeof(Int32));
+	C.AllowDBNull=true;
+	tincomeattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tincomeattachment.Columns.Add(C);
+	tincomeattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tincomeattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tincomeattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tincomeattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tincomeattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tincomeattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tincomeattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tincomeattachment);
+	tincomeattachment.PrimaryKey =  new DataColumn[]{tincomeattachment.Columns["idinc"], tincomeattachment.Columns["idattachment"]};
+	
+	
 	#endregion
 
 
@@ -914,6 +939,10 @@ private void initClass() {
 	this.defineRelation("estimatekind_incomelastestimatedetail","estimatekind","incomelastestimatedetail","idestimkind");
 	this.defineRelation("estimatedetail_taxable_incomelastestimatedetail","estimatedetail_taxable","incomelastestimatedetail","idestimkind","yestim","nestim","rownum");
 	this.defineRelation("estimatedetail_incassi_incomelastestimatedetail","estimatedetail_incassi","incomelastestimatedetail","idestimkind","yestim","nestim","rownum");
+	cPar = new []{tincome.Columns["idinc"]};
+	cChild = new []{incomeattachment.Columns["idinc"]};
+	Relations.Add(new DataRelation("income_incomeattachment",cPar,cChild,false));
+	
 	#endregion
 
 }

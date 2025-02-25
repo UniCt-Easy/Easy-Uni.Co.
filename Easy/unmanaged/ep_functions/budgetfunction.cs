@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -644,6 +644,16 @@ namespace ep_functions {
                 obj1[2] = Convert.ToInt32(arr1[2]);
             }
 
+            if (pref == "provision" && arr1.Length == 2) {
+                obj1[0] = "provision";
+                obj1[1] = Convert.ToInt32(arr1[1]); // idprovision
+            }
+
+            if (pref == "provision" && arr1.Length == 3) {
+                obj1[0] = "provisiondetail";
+                obj1[1] = Convert.ToInt32(arr1[1]); // idprovision
+                obj1[2] = Convert.ToInt32(arr1[2]);//rownum
+            }
             if (pref == "wageadd") {
                 obj1[0] = "wageaddition";
                 obj1[1] = Convert.ToInt32(arr1[1]);
@@ -709,6 +719,10 @@ namespace ep_functions {
                     return CreateFilter(QHS, obj1, "iditineration");
                 case "profservice":
                     return CreateFilter(QHS, obj1, "ycon", "ncon");
+                case "provision":
+                    return CreateFilter(QHS, obj1, "idprovision");
+                case "provisiondetail":
+                    return CreateFilter(QHS, obj1, "idprovision","rownum");
                 case "pettycashoperation":
                     return CreateFilter(QHS, obj1, "idpettycash", "yoperation", "noperation");
                 case "estimate":

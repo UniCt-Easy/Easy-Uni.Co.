@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -123,26 +123,33 @@ private void initClass() {
 
 	//////////////////// REGISTRYLEGALSTATUS /////////////////////////////////
 	var tregistrylegalstatus= new MetaTable("registrylegalstatus");
-	tregistrylegalstatus.defineColumn("!anni", typeof(string));
-	tregistrylegalstatus.defineColumn("!giorni", typeof(string));
-	tregistrylegalstatus.defineColumn("!mesi", typeof(string));
 	tregistrylegalstatus.defineColumn("active", typeof(string));
+	tregistrylegalstatus.defineColumn("anni", typeof(int));
+	tregistrylegalstatus.defineColumn("annokind", typeof(string));
+	tregistrylegalstatus.defineColumn("cedolini", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_class", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_compartment", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_role", typeof(string));
 	tregistrylegalstatus.defineColumn("ct", typeof(DateTime));
 	tregistrylegalstatus.defineColumn("cu", typeof(string));
 	tregistrylegalstatus.defineColumn("datarivalutazione", typeof(DateTime));
+	tregistrylegalstatus.defineColumn("flagdefault", typeof(string));
+	tregistrylegalstatus.defineColumn("giorni", typeof(int));
+	tregistrylegalstatus.defineColumn("idclassconsorsuale", typeof(int));
 	tregistrylegalstatus.defineColumn("iddaliaposition", typeof(int));
 	tregistrylegalstatus.defineColumn("idinquadramento", typeof(int));
 	tregistrylegalstatus.defineColumn("idposition", typeof(int));
 	tregistrylegalstatus.defineColumn("idreg", typeof(int),false);
 	tregistrylegalstatus.defineColumn("idregistrylegalstatus", typeof(int),false);
+	tregistrylegalstatus.defineColumn("idtipologiaruolo", typeof(int));
+	tregistrylegalstatus.defineColumn("idtiponomina", typeof(int));
 	tregistrylegalstatus.defineColumn("incomeclass", typeof(int));
 	tregistrylegalstatus.defineColumn("incomeclassvalidity", typeof(DateTime));
+	tregistrylegalstatus.defineColumn("istituzione", typeof(string));
 	tregistrylegalstatus.defineColumn("livello", typeof(int));
 	tregistrylegalstatus.defineColumn("lt", typeof(DateTime));
 	tregistrylegalstatus.defineColumn("lu", typeof(string));
+	tregistrylegalstatus.defineColumn("mesi", typeof(int));
 	tregistrylegalstatus.defineColumn("parttime", typeof(decimal));
 	tregistrylegalstatus.defineColumn("percentualesufondiateneo", typeof(decimal));
 	tregistrylegalstatus.defineColumn("rtf", typeof(Byte[]));

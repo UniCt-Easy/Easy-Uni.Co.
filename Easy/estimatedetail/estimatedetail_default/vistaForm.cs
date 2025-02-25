@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -101,6 +101,9 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable costpartition 		=> Tables["costpartition"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable epacc_pre 		=> Tables["epacc_pre"];
+
 	#endregion
 
 
@@ -193,6 +196,7 @@ private void initClass() {
 	testimatedetail.Columns.Add( new DataColumn("idtassonomia", typeof(int)));
 	testimatedetail.Columns.Add( new DataColumn("idfinmotive_iva", typeof(string)));
 	testimatedetail.Columns.Add( new DataColumn("cupcode", typeof(string)));
+	testimatedetail.Columns.Add( new DataColumn("idepacc_pre", typeof(int)));
 	Tables.Add(testimatedetail);
 	testimatedetail.PrimaryKey =  new DataColumn[]{testimatedetail.Columns["idestimkind"], testimatedetail.Columns["yestim"], testimatedetail.Columns["nestim"], testimatedetail.Columns["rownum"]};
 
@@ -1183,6 +1187,53 @@ private void initClass() {
 	tcostpartition.PrimaryKey =  new DataColumn[]{tcostpartition.Columns["idcostpartition"]};
 
 
+	//////////////////// EPACC_PRE /////////////////////////////////
+	var tepacc_pre= new DataTable("epacc_pre");
+	C= new DataColumn("idepacc", typeof(int));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	C= new DataColumn("adate", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	tepacc_pre.Columns.Add( new DataColumn("doc", typeof(string)));
+	tepacc_pre.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tepacc_pre.Columns.Add( new DataColumn("idman", typeof(int)));
+	tepacc_pre.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tepacc_pre.Columns.Add( new DataColumn("idrelated", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	C= new DataColumn("nepacc", typeof(int));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	C= new DataColumn("nphase", typeof(short));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	tepacc_pre.Columns.Add( new DataColumn("paridepacc", typeof(int)));
+	tepacc_pre.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tepacc_pre.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tepacc_pre.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tepacc_pre.Columns.Add( new DataColumn("txt", typeof(string)));
+	C= new DataColumn("yepacc", typeof(short));
+	C.AllowDBNull=false;
+	tepacc_pre.Columns.Add(C);
+	tepacc_pre.Columns.Add( new DataColumn("flagvariation", typeof(string)));
+	Tables.Add(tepacc_pre);
+	tepacc_pre.PrimaryKey =  new DataColumn[]{tepacc_pre.Columns["idepacc"]};
+
+
 	#endregion
 
 
@@ -1270,6 +1321,10 @@ private void initClass() {
 	cPar = new []{costpartition.Columns["idcostpartition"]};
 	cChild = new []{estimatedetail.Columns["idrevenuepartition"]};
 	Relations.Add(new DataRelation("costpartition_estimatedetail",cPar,cChild,false));
+
+	cPar = new []{epacc_pre.Columns["idepacc"]};
+	cChild = new []{estimatedetail.Columns["idepacc_pre"]};
+	Relations.Add(new DataRelation("epacc_pre_estimatedetail",cPar,cChild,false));
 
 	#endregion
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -46,7 +46,19 @@ namespace csa_import_inail_maxphase {
 			this.btnNext = new System.Windows.Forms.Button();
 			this.btnBack = new System.Windows.Forms.Button();
 			this.tabController = new Crownwood.Magic.Controls.TabControl();
-			this.tabSelect = new Crownwood.Magic.Controls.TabPage();
+			this.tabIntro = new Crownwood.Magic.Controls.TabPage();
+			this.labelIntro = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.tabLordi = new Crownwood.Magic.Controls.TabPage();
+			this.label2 = new System.Windows.Forms.Label();
+			this.btnVerificaLordi = new System.Windows.Forms.Button();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.dgrVerificheLordi = new System.Windows.Forms.DataGrid();
+			this.grpVerificheLordi = new System.Windows.Forms.GroupBox();
+			this.dgrLordiPosticipati = new System.Windows.Forms.DataGrid();
+			this.btnLordi = new System.Windows.Forms.Button();
+			this.tabSelectVersamenti = new Crownwood.Magic.Controls.TabPage();
 			this.btnVerifica = new System.Windows.Forms.Button();
 			this.btnDelSospesi = new System.Windows.Forms.Button();
 			this.lblTask = new System.Windows.Forms.Label();
@@ -64,10 +76,6 @@ namespace csa_import_inail_maxphase {
 			this.grpVerifiche = new System.Windows.Forms.GroupBox();
 			this.dgrVersamentiAnnuali = new System.Windows.Forms.DataGrid();
 			this.btnVersamenti = new System.Windows.Forms.Button();
-			this.tabIntro = new Crownwood.Magic.Controls.TabPage();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
 			this.tabRisultati = new Crownwood.Magic.Controls.TabPage();
 			this.labelRisultato = new System.Windows.Forms.Label();
 			this.progressBarImport = new System.Windows.Forms.ProgressBar();
@@ -78,7 +86,13 @@ namespace csa_import_inail_maxphase {
 			this.MenuEnterPwd = new System.Windows.Forms.MenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dsFinancial)).BeginInit();
 			this.tabController.SuspendLayout();
-			this.tabSelect.SuspendLayout();
+			this.tabIntro.SuspendLayout();
+			this.tabLordi.SuspendLayout();
+			this.groupBox4.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrVerificheLordi)).BeginInit();
+			this.grpVerificheLordi.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrLordiPosticipati)).BeginInit();
+			this.tabSelectVersamenti.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrSospesi)).BeginInit();
 			this.groupBox2.SuspendLayout();
@@ -86,7 +100,6 @@ namespace csa_import_inail_maxphase {
 			this.gBoxBollettaVersamenti.SuspendLayout();
 			this.grpVerifiche.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrVersamentiAnnuali)).BeginInit();
-			this.tabIntro.SuspendLayout();
 			this.tabRisultati.SuspendLayout();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -101,7 +114,7 @@ namespace csa_import_inail_maxphase {
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(732, 517);
+			this.btnCancel.Location = new System.Drawing.Point(732, 548);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 13;
@@ -112,7 +125,7 @@ namespace csa_import_inail_maxphase {
 			// btnNext
 			// 
 			this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnNext.Location = new System.Drawing.Point(612, 517);
+			this.btnNext.Location = new System.Drawing.Point(612, 548);
 			this.btnNext.Name = "btnNext";
 			this.btnNext.Size = new System.Drawing.Size(88, 23);
 			this.btnNext.TabIndex = 12;
@@ -122,7 +135,7 @@ namespace csa_import_inail_maxphase {
 			// btnBack
 			// 
 			this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnBack.Location = new System.Drawing.Point(524, 517);
+			this.btnBack.Location = new System.Drawing.Point(524, 548);
 			this.btnBack.Name = "btnBack";
 			this.btnBack.Size = new System.Drawing.Size(80, 23);
 			this.btnBack.TabIndex = 11;
@@ -131,45 +144,187 @@ namespace csa_import_inail_maxphase {
 			// 
 			// tabController
 			// 
+			this.tabController.AutoSize = true;
 			this.tabController.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabController.IDEPixelArea = true;
 			this.tabController.Location = new System.Drawing.Point(0, 0);
 			this.tabController.Name = "tabController";
-			this.tabController.SelectedIndex = 1;
-			this.tabController.SelectedTab = this.tabSelect;
-			this.tabController.Size = new System.Drawing.Size(808, 511);
+			this.tabController.SelectedIndex = 0;
+			this.tabController.SelectedTab = this.tabIntro;
+			this.tabController.Size = new System.Drawing.Size(808, 542);
 			this.tabController.TabIndex = 0;
 			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabIntro,
-            this.tabSelect,
+            this.tabLordi,
+            this.tabSelectVersamenti,
             this.tabRisultati});
 			// 
-			// tabSelect
+			// tabIntro
 			// 
-			this.tabSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabIntro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabIntro.Controls.Add(this.labelIntro);
+			this.tabIntro.Controls.Add(this.label3);
+			this.tabIntro.Controls.Add(this.label1);
+			this.tabIntro.Location = new System.Drawing.Point(0, 0);
+			this.tabIntro.Name = "tabIntro";
+			this.tabIntro.Size = new System.Drawing.Size(808, 517);
+			this.tabIntro.TabIndex = 3;
+			this.tabIntro.Title = "Pagina 1 di 3";
+			// 
+			// labelIntro
+			// 
+			this.labelIntro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.labelIntro.Location = new System.Drawing.Point(12, 22);
+			this.labelIntro.Name = "labelIntro";
+			this.labelIntro.Size = new System.Drawing.Size(749, 48);
+			this.labelIntro.TabIndex = 6;
+			this.labelIntro.Text = resources.GetString("labelIntro.Text");
+			// 
+			// label3
+			// 
+			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label3.Location = new System.Drawing.Point(12, 91);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(749, 40);
+			this.label3.TabIndex = 5;
+			this.label3.Text = resources.GetString("label3.Text");
+			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
+			this.label1.Location = new System.Drawing.Point(12, 153);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(749, 53);
+			this.label1.TabIndex = 3;
+			this.label1.Text = resources.GetString("label1.Text");
+			// 
+			// tabLordi
+			// 
+			this.tabLordi.Controls.Add(this.label2);
+			this.tabLordi.Controls.Add(this.btnVerificaLordi);
+			this.tabLordi.Controls.Add(this.groupBox4);
+			this.tabLordi.Controls.Add(this.grpVerificheLordi);
+			this.tabLordi.Controls.Add(this.btnLordi);
+			this.tabLordi.Location = new System.Drawing.Point(0, 0);
+			this.tabLordi.Name = "tabLordi";
+			this.tabLordi.Selected = false;
+			this.tabLordi.Size = new System.Drawing.Size(808, 517);
+			this.tabLordi.TabIndex = 6;
+			this.tabLordi.Title = "Pagina 2 di 3";
+			// 
+			// label2
+			// 
+			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.label2.Location = new System.Drawing.Point(18, 17);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(290, 21);
+			this.label2.TabIndex = 37;
+			this.label2.Text = "ELABORAZIONE LORDI POSTICIPATI";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// btnVerificaLordi
+			// 
+			this.btnVerificaLordi.Location = new System.Drawing.Point(9, 413);
+			this.btnVerificaLordi.Name = "btnVerificaLordi";
+			this.btnVerificaLordi.Size = new System.Drawing.Size(167, 41);
+			this.btnVerificaLordi.TabIndex = 35;
+			this.btnVerificaLordi.Text = "Verifica Disponibile Mov. finanziari Residui";
+			this.btnVerificaLordi.Click += new System.EventHandler(this.btnVerificaLordi_Click);
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox4.Controls.Add(this.dgrVerificheLordi);
+			this.groupBox4.Location = new System.Drawing.Point(12, 45);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(425, 161);
+			this.groupBox4.TabIndex = 36;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Verifiche";
+			// 
+			// dgrVerificheLordi
+			// 
+			this.dgrVerificheLordi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabSelect.BackColor = System.Drawing.SystemColors.Control;
-			this.tabSelect.Controls.Add(this.btnVerifica);
-			this.tabSelect.Controls.Add(this.btnDelSospesi);
-			this.tabSelect.Controls.Add(this.lblTask);
-			this.tabSelect.Controls.Add(this.groupBox1);
-			this.tabSelect.Controls.Add(this.groupBox2);
-			this.tabSelect.Controls.Add(this.btnInputSospesi);
-			this.tabSelect.Controls.Add(this.gBoxBollettaVersamenti);
-			this.tabSelect.Controls.Add(this.grpVerifiche);
-			this.tabSelect.Controls.Add(this.btnVersamenti);
-			this.tabSelect.Location = new System.Drawing.Point(0, 0);
-			this.tabSelect.Name = "tabSelect";
-			this.tabSelect.Size = new System.Drawing.Size(808, 486);
-			this.tabSelect.TabIndex = 4;
-			this.tabSelect.Title = "Pagina 2 di 3";
+			this.dgrVerificheLordi.DataMember = "";
+			this.dgrVerificheLordi.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrVerificheLordi.Location = new System.Drawing.Point(10, 19);
+			this.dgrVerificheLordi.Name = "dgrVerificheLordi";
+			this.dgrVerificheLordi.Size = new System.Drawing.Size(407, 131);
+			this.dgrVerificheLordi.TabIndex = 4;
+			this.dgrVerificheLordi.DoubleClick += new System.EventHandler(this.dgrVerifiche_DoubleClick);
+			// 
+			// grpVerificheLordi
+			// 
+			this.grpVerificheLordi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.grpVerificheLordi.Controls.Add(this.dgrLordiPosticipati);
+			this.grpVerificheLordi.Location = new System.Drawing.Point(9, 212);
+			this.grpVerificheLordi.Name = "grpVerificheLordi";
+			this.grpVerificheLordi.Size = new System.Drawing.Size(786, 195);
+			this.grpVerificheLordi.TabIndex = 29;
+			this.grpVerificheLordi.TabStop = false;
+			this.grpVerificheLordi.Text = "Pagamenti e Incassi posticipati fase LORDI";
+			// 
+			// dgrLordiPosticipati
+			// 
+			this.dgrLordiPosticipati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgrLordiPosticipati.DataMember = "";
+			this.dgrLordiPosticipati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrLordiPosticipati.Location = new System.Drawing.Point(11, 22);
+			this.dgrLordiPosticipati.Name = "dgrLordiPosticipati";
+			this.dgrLordiPosticipati.Size = new System.Drawing.Size(768, 167);
+			this.dgrLordiPosticipati.TabIndex = 4;
+			// 
+			// btnLordi
+			// 
+			this.btnLordi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnLordi.Location = new System.Drawing.Point(182, 413);
+			this.btnLordi.Name = "btnLordi";
+			this.btnLordi.Size = new System.Drawing.Size(304, 41);
+			this.btnLordi.TabIndex = 28;
+			this.btnLordi.Text = "Elabora Pagamenti e Incassi  LORDI posticipati";
+			this.btnLordi.UseVisualStyleBackColor = true;
+			this.btnLordi.Click += new System.EventHandler(this.btnLordi_Click);
+			// 
+			// tabSelectVersamenti
+			// 
+			this.tabSelectVersamenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabSelectVersamenti.BackColor = System.Drawing.SystemColors.Control;
+			this.tabSelectVersamenti.Controls.Add(this.btnVerifica);
+			this.tabSelectVersamenti.Controls.Add(this.btnDelSospesi);
+			this.tabSelectVersamenti.Controls.Add(this.lblTask);
+			this.tabSelectVersamenti.Controls.Add(this.groupBox1);
+			this.tabSelectVersamenti.Controls.Add(this.groupBox2);
+			this.tabSelectVersamenti.Controls.Add(this.btnInputSospesi);
+			this.tabSelectVersamenti.Controls.Add(this.gBoxBollettaVersamenti);
+			this.tabSelectVersamenti.Controls.Add(this.grpVerifiche);
+			this.tabSelectVersamenti.Controls.Add(this.btnVersamenti);
+			this.tabSelectVersamenti.Location = new System.Drawing.Point(0, 0);
+			this.tabSelectVersamenti.Name = "tabSelectVersamenti";
+			this.tabSelectVersamenti.Selected = false;
+			this.tabSelectVersamenti.Size = new System.Drawing.Size(808, 517);
+			this.tabSelectVersamenti.TabIndex = 4;
+			this.tabSelectVersamenti.Title = "Pagina 2 di 3";
 			// 
 			// btnVerifica
 			// 
-			this.btnVerifica.Location = new System.Drawing.Point(19, 445);
+			this.btnVerifica.Location = new System.Drawing.Point(23, 445);
 			this.btnVerifica.Name = "btnVerifica";
-			this.btnVerifica.Size = new System.Drawing.Size(167, 23);
+			this.btnVerifica.Size = new System.Drawing.Size(167, 40);
 			this.btnVerifica.TabIndex = 26;
 			this.btnVerifica.Text = "Verifica Disponibile Mov. finanziari Residui";
 			this.btnVerifica.Click += new System.EventHandler(this.btnVerifica_Click);
@@ -266,11 +421,11 @@ namespace csa_import_inail_maxphase {
 			this.gBoxBollettaVersamenti.TabIndex = 21;
 			this.gBoxBollettaVersamenti.TabStop = false;
 			this.gBoxBollettaVersamenti.Tag = "AutoChoose.txtNumBollettaVersamenti.spesa.(active=\'S\')";
-			this.gBoxBollettaVersamenti.Text = "Versamenti";
+			this.gBoxBollettaVersamenti.Text = "ELABORAZIONE VERSAMENTI POSTICIPATI";
 			// 
 			// label8
 			// 
-			this.label8.Location = new System.Drawing.Point(229, 10);
+			this.label8.Location = new System.Drawing.Point(229, 19);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(54, 20);
 			this.label8.TabIndex = 4;
@@ -280,7 +435,7 @@ namespace csa_import_inail_maxphase {
 			// 
 			// label7
 			// 
-			this.label7.Location = new System.Drawing.Point(120, 10);
+			this.label7.Location = new System.Drawing.Point(120, 19);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(57, 20);
 			this.label7.TabIndex = 3;
@@ -290,7 +445,7 @@ namespace csa_import_inail_maxphase {
 			// 
 			// txtNumBollettaVersamenti
 			// 
-			this.txtNumBollettaVersamenti.Location = new System.Drawing.Point(216, 30);
+			this.txtNumBollettaVersamenti.Location = new System.Drawing.Point(216, 39);
 			this.txtNumBollettaVersamenti.Name = "txtNumBollettaVersamenti";
 			this.txtNumBollettaVersamenti.Size = new System.Drawing.Size(100, 23);
 			this.txtNumBollettaVersamenti.TabIndex = 2;
@@ -298,7 +453,7 @@ namespace csa_import_inail_maxphase {
 			// 
 			// txtEsercBollettaVersamenti
 			// 
-			this.txtEsercBollettaVersamenti.Location = new System.Drawing.Point(110, 30);
+			this.txtEsercBollettaVersamenti.Location = new System.Drawing.Point(110, 39);
 			this.txtEsercBollettaVersamenti.Name = "txtEsercBollettaVersamenti";
 			this.txtEsercBollettaVersamenti.Size = new System.Drawing.Size(100, 23);
 			this.txtEsercBollettaVersamenti.TabIndex = 1;
@@ -306,7 +461,7 @@ namespace csa_import_inail_maxphase {
 			// 
 			// btnBollettaVersamenti
 			// 
-			this.btnBollettaVersamenti.Location = new System.Drawing.Point(14, 30);
+			this.btnBollettaVersamenti.Location = new System.Drawing.Point(14, 39);
 			this.btnBollettaVersamenti.Name = "btnBollettaVersamenti";
 			this.btnBollettaVersamenti.Size = new System.Drawing.Size(88, 23);
 			this.btnBollettaVersamenti.TabIndex = 0;
@@ -325,7 +480,7 @@ namespace csa_import_inail_maxphase {
 			this.grpVerifiche.Size = new System.Drawing.Size(775, 195);
 			this.grpVerifiche.TabIndex = 8;
 			this.grpVerifiche.TabStop = false;
-			this.grpVerifiche.Text = "Pagamenti e Incassi posticipati";
+			this.grpVerifiche.Text = "Pagamenti e Incassi posticipati fase VERSAMENTI";
 			// 
 			// dgrVersamentiAnnuali
 			// 
@@ -345,56 +500,11 @@ namespace csa_import_inail_maxphase {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnVersamenti.Location = new System.Drawing.Point(196, 445);
 			this.btnVersamenti.Name = "btnVersamenti";
-			this.btnVersamenti.Size = new System.Drawing.Size(304, 23);
+			this.btnVersamenti.Size = new System.Drawing.Size(304, 40);
 			this.btnVersamenti.TabIndex = 1;
 			this.btnVersamenti.Text = "Elabora Pagamenti e Incassi posticipati";
 			this.btnVersamenti.UseVisualStyleBackColor = true;
 			this.btnVersamenti.Click += new System.EventHandler(this.btnVersamenti_Click);
-			// 
-			// tabIntro
-			// 
-			this.tabIntro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabIntro.Controls.Add(this.label4);
-			this.tabIntro.Controls.Add(this.label3);
-			this.tabIntro.Controls.Add(this.label1);
-			this.tabIntro.Location = new System.Drawing.Point(0, 0);
-			this.tabIntro.Name = "tabIntro";
-			this.tabIntro.Selected = false;
-			this.tabIntro.Size = new System.Drawing.Size(808, 486);
-			this.tabIntro.TabIndex = 3;
-			this.tabIntro.Title = "Pagina 1 di 3";
-			// 
-			// label4
-			// 
-			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.label4.Location = new System.Drawing.Point(12, 22);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(749, 48);
-			this.label4.TabIndex = 6;
-			this.label4.Text = resources.GetString("label4.Text");
-			// 
-			// label3
-			// 
-			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.label3.Location = new System.Drawing.Point(12, 91);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(749, 40);
-			this.label3.TabIndex = 5;
-			this.label3.Text = resources.GetString("label3.Text");
-			// 
-			// label1
-			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
-			this.label1.Location = new System.Drawing.Point(12, 153);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(749, 53);
-			this.label1.TabIndex = 3;
-			this.label1.Text = resources.GetString("label1.Text");
 			// 
 			// tabRisultati
 			// 
@@ -406,7 +516,7 @@ namespace csa_import_inail_maxphase {
 			this.tabRisultati.Location = new System.Drawing.Point(0, 0);
 			this.tabRisultati.Name = "tabRisultati";
 			this.tabRisultati.Selected = false;
-			this.tabRisultati.Size = new System.Drawing.Size(808, 486);
+			this.tabRisultati.Size = new System.Drawing.Size(808, 517);
 			this.tabRisultati.TabIndex = 5;
 			this.tabRisultati.Title = "Pagina 3 di 3";
 			// 
@@ -423,7 +533,7 @@ namespace csa_import_inail_maxphase {
 			// 
 			this.progressBarImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBarImport.Location = new System.Drawing.Point(14, 290);
+			this.progressBarImport.Location = new System.Drawing.Point(14, 321);
 			this.progressBarImport.Name = "progressBarImport";
 			this.progressBarImport.Size = new System.Drawing.Size(779, 22);
 			this.progressBarImport.TabIndex = 11;
@@ -438,7 +548,7 @@ namespace csa_import_inail_maxphase {
 			this.panel1.Controls.Add(this.tabController);
 			this.panel1.Location = new System.Drawing.Point(12, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(808, 511);
+			this.panel1.Size = new System.Drawing.Size(808, 542);
 			this.panel1.TabIndex = 7;
 			// 
 			// DS
@@ -459,7 +569,7 @@ namespace csa_import_inail_maxphase {
 			// 
 			// frmcsa_import_inail_maxphase
 			// 
-			this.ClientSize = new System.Drawing.Size(832, 556);
+			this.ClientSize = new System.Drawing.Size(832, 587);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnNext);
 			this.Controls.Add(this.btnBack);
@@ -468,7 +578,13 @@ namespace csa_import_inail_maxphase {
 			this.Text = "frmcsa_import_inail_maxphase";
 			((System.ComponentModel.ISupportInitialize)(this.dsFinancial)).EndInit();
 			this.tabController.ResumeLayout(false);
-			this.tabSelect.ResumeLayout(false);
+			this.tabIntro.ResumeLayout(false);
+			this.tabLordi.ResumeLayout(false);
+			this.groupBox4.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrVerificheLordi)).EndInit();
+			this.grpVerificheLordi.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrLordiPosticipati)).EndInit();
+			this.tabSelectVersamenti.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgrSospesi)).EndInit();
 			this.groupBox2.ResumeLayout(false);
@@ -477,9 +593,9 @@ namespace csa_import_inail_maxphase {
 			this.gBoxBollettaVersamenti.PerformLayout();
 			this.grpVerifiche.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgrVersamentiAnnuali)).EndInit();
-			this.tabIntro.ResumeLayout(false);
 			this.tabRisultati.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 
@@ -494,10 +610,10 @@ namespace csa_import_inail_maxphase {
 		private Crownwood.Magic.Controls.TabControl tabController;
 		private Crownwood.Magic.Controls.TabPage tabRisultati;
 		private Crownwood.Magic.Controls.TabPage tabIntro;
-		private Crownwood.Magic.Controls.TabPage tabSelect;
+		private Crownwood.Magic.Controls.TabPage tabSelectVersamenti;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label labelIntro;
 		private System.Windows.Forms.Button btnVersamenti;
 		private System.Windows.Forms.GroupBox grpVerifiche;
 		private System.Windows.Forms.DataGrid dgrVersamentiAnnuali;
@@ -521,6 +637,14 @@ namespace csa_import_inail_maxphase {
 		private System.Windows.Forms.Button btnVerifica;
 		private System.Windows.Forms.DataGrid dgrVerificheFin;
 		private System.Windows.Forms.GroupBox groupBox2;
+		private Crownwood.Magic.Controls.TabPage tabLordi;
+		private System.Windows.Forms.Button btnVerificaLordi;
+		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.DataGrid dgrVerificheLordi;
+		private System.Windows.Forms.GroupBox grpVerificheLordi;
+		private System.Windows.Forms.DataGrid dgrLordiPosticipati;
+		private System.Windows.Forms.Button btnLordi;
+		private System.Windows.Forms.Label label2;
 	}
 }
 

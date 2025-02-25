@@ -28,18 +28,24 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="getdocentiamministrativiresponsabili" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
+              <xs:element name="contratto" type="xs:string" minOccurs="0" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="ruolo" type="xs:string" />
+              <xs:element name="struttura" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="perfmission" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="idperfmission" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -64,7 +70,12 @@
               <xs:element name="target" type="xs:string" minOccurs="0" />
               <xs:element name="valoreraggiunto" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idperfmission_perfmission_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getdocentiamministrativiresponsabili_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getdocentiamministrativiresponsabili_forename" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getdocentiamministrativiresponsabili_extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getdocentiamministrativiresponsabili_ruolo" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getdocentiamministrativiresponsabili_struttura" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idreg_getdocentiamministrativiresponsabili_contratto" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -105,9 +116,11 @@
       <xs:field xpath="mstns:idperfvalutazioneateneores" />
       <xs:field xpath="mstns:idvalidatori" />
     </xs:unique>
-    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry" />
+    <xs:unique name="getdocentiamministrativiresponsabili_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabili" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
+      <xs:field xpath="mstns:ruolo" />
     </xs:unique>
     <xs:unique name="perfmission_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfmission" />
@@ -133,7 +146,7 @@
       <msdata:Relationship name="FK_perfvalutazioneateneores_perfvalutazioneateneo_idperfvalutazioneateneo" msdata:parent="perfvalutazioneateneo" msdata:child="perfvalutazioneateneores" msdata:parentkey="idperfvalutazioneateneo" msdata:childkey="idperfvalutazioneateneo" />
       <msdata:Relationship name="FK_perfvalutazioneateneoresattach_perfvalutazioneateneores_idperfvalutazioneateneo-idperfvalutazioneateneores" msdata:parent="perfvalutazioneateneores" msdata:child="perfvalutazioneateneoresattach" msdata:parentkey="idperfvalutazioneateneo idperfvalutazioneateneores" msdata:childkey="idperfvalutazioneateneo idperfvalutazioneateneores" />
       <msdata:Relationship name="FK_perfvalutazioneateneoresvalidatori_perfvalutazioneateneores_idperfmission-idperfvalutazioneateneo-idperfvalutazioneateneores" msdata:parent="perfvalutazioneateneores" msdata:child="perfvalutazioneateneoresvalidatori" msdata:parentkey="idperfmission idperfvalutazioneateneo idperfvalutazioneateneores" msdata:childkey="idperfmission idperfvalutazioneateneo idperfvalutazioneateneores" />
-      <msdata:Relationship name="FK_perfvalutazioneateneores_registry_idreg" msdata:parent="registry" msdata:child="perfvalutazioneateneores" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_perfvalutazioneateneores_getdocentiamministrativiresponsabili_idreg" msdata:parent="getdocentiamministrativiresponsabili" msdata:child="perfvalutazioneateneores" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_perfvalutazioneateneores_perfmission_idperfmission" msdata:parent="perfmission" msdata:child="perfvalutazioneateneores" msdata:parentkey="idperfmission" msdata:childkey="idperfmission" />
       <msdata:Relationship name="FK_perfvalutazioneateneo_year_year" msdata:parent="year" msdata:child="perfvalutazioneateneo" msdata:parentkey="year" msdata:childkey="year" />
     </xs:appinfo>

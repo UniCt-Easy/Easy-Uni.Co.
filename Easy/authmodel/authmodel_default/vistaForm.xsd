@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistafrmclassspesemissione.xsd" xmlns:mstns="http://tempuri.org/Vistafrmclassspesemissione.xsd" xmlns="http://tempuri.org/Vistafrmclassspesemissione.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistafrmclassspesemissione.xsd" xmlns:mstns="http://tempuri.org/Vistafrmclassspesemissione.xsd" xmlns="http://tempuri.org/Vistafrmclassspesemissione.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -71,6 +71,7 @@
               <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="flagadvance" type="xs:string" minOccurs="0" />
               <xs:element name="flagbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtraceability" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -308,41 +309,18 @@
       <xs:selector xpath=".//mstns:sorting05" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
-    <xs:keyref name="itinerationrefundkind_authmodelitinerationrefundkind" refer="itinerationrefundkind_Constraint1">
-      <xs:selector xpath=".//mstns:authmodelitinerationrefundkind" />
-      <xs:field xpath="mstns:iditinerationrefundkind" />
-    </xs:keyref>
-    <xs:keyref name="authmodel_authmodelitinerationrefundkind" refer="Constraint1">
-      <xs:selector xpath=".//mstns:authmodelitinerationrefundkind" />
-      <xs:field xpath="mstns:idauthmodel" />
-    </xs:keyref>
-    <xs:keyref name="authagency_authmodelauthagency" refer="authagency_Constraint1">
-      <xs:selector xpath=".//mstns:authmodelauthagency" />
-      <xs:field xpath="mstns:idauthagency" />
-    </xs:keyref>
-    <xs:keyref name="authmodel_authmodelauthagency" refer="Constraint1">
-      <xs:selector xpath=".//mstns:authmodelauthagency" />
-      <xs:field xpath="mstns:idauthmodel" />
-    </xs:keyref>
-    <xs:keyref name="sorting05_authmodel" refer="sorting05_Constraint1">
-      <xs:selector xpath=".//mstns:authmodel" />
-      <xs:field xpath="mstns:idsor05" />
-    </xs:keyref>
-    <xs:keyref name="sorting04_authmodel" refer="sorting04_Constraint1">
-      <xs:selector xpath=".//mstns:authmodel" />
-      <xs:field xpath="mstns:idsor04" />
-    </xs:keyref>
-    <xs:keyref name="sorting03_authmodel" refer="sorting03_Constraint1">
-      <xs:selector xpath=".//mstns:authmodel" />
-      <xs:field xpath="mstns:idsor03" />
-    </xs:keyref>
-    <xs:keyref name="sorting02_authmodel" refer="sorting02_Constraint1">
-      <xs:selector xpath=".//mstns:authmodel" />
-      <xs:field xpath="mstns:idsor02" />
-    </xs:keyref>
-    <xs:keyref name="sorting01_authmodel" refer="sorting01_Constraint1">
-      <xs:selector xpath=".//mstns:authmodel" />
-      <xs:field xpath="mstns:idsor01" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="authmodel_authmodelitinerationrefundkind" msdata:parent="authmodel" msdata:child="authmodelitinerationrefundkind" msdata:parentkey="idauthmodel" msdata:childkey="idauthmodel" />
+      <msdata:Relationship name="itinerationrefundkind_authmodelitinerationrefundkind" msdata:parent="itinerationrefundkind" msdata:child="authmodelitinerationrefundkind" msdata:parentkey="iditinerationrefundkind" msdata:childkey="iditinerationrefundkind" />
+      <msdata:Relationship name="authmodel_authmodelauthagency" msdata:parent="authmodel" msdata:child="authmodelauthagency" msdata:parentkey="idauthmodel" msdata:childkey="idauthmodel" />
+      <msdata:Relationship name="authagency_authmodelauthagency" msdata:parent="authagency" msdata:child="authmodelauthagency" msdata:parentkey="idauthagency" msdata:childkey="idauthagency" />
+      <msdata:Relationship name="sorting01_authmodel" msdata:parent="sorting01" msdata:child="authmodel" msdata:parentkey="idsor" msdata:childkey="idsor01" />
+      <msdata:Relationship name="sorting02_authmodel" msdata:parent="sorting02" msdata:child="authmodel" msdata:parentkey="idsor" msdata:childkey="idsor02" />
+      <msdata:Relationship name="sorting03_authmodel" msdata:parent="sorting03" msdata:child="authmodel" msdata:parentkey="idsor" msdata:childkey="idsor03" />
+      <msdata:Relationship name="sorting04_authmodel" msdata:parent="sorting04" msdata:child="authmodel" msdata:parentkey="idsor" msdata:childkey="idsor04" />
+      <msdata:Relationship name="sorting05_authmodel" msdata:parent="sorting05" msdata:child="authmodel" msdata:parentkey="idsor" msdata:childkey="idsor05" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

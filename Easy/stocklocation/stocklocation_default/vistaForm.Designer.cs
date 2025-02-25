@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,18 +26,12 @@ using System.Runtime.Serialization;
 namespace stocklocation_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Livelli del piano delle ubicazioni magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stocklocationlevel 		=> Tables["stocklocationlevel"];
 
-	///<summary>
-	///Piano delle Ubicazioni Magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stocklocation 		=> Tables["stocklocation"];
 
@@ -58,6 +52,9 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting04 		=> Tables["sorting04"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable stocklocationattachment 		=> Tables["stocklocationattachment"];
 
 	#endregion
 
@@ -478,6 +475,25 @@ private void initClass() {
 	tsorting04.PrimaryKey =  new DataColumn[]{tsorting04.Columns["idsor"]};
 
 
+	//////////////////// STOCKLOCATIONATTACHMENT /////////////////////////////////
+	var tstocklocationattachment= new DataTable("stocklocationattachment");
+	C= new DataColumn("idstocklocation", typeof(int));
+	C.AllowDBNull=false;
+	tstocklocationattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tstocklocationattachment.Columns.Add(C);
+	tstocklocationattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tstocklocationattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tstocklocationattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tstocklocationattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tstocklocationattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tstocklocationattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tstocklocationattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tstocklocationattachment);
+	tstocklocationattachment.PrimaryKey =  new DataColumn[]{tstocklocationattachment.Columns["idstocklocation"], tstocklocationattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -509,6 +525,10 @@ private void initClass() {
 	cPar = new []{stocklocation.Columns["idstocklocation"]};
 	cChild = new []{stocklocation.Columns["paridstocklocation"]};
 	Relations.Add(new DataRelation("stocklocationstocklocation",cPar,cChild,false));
+
+	cPar = new []{stocklocation.Columns["idstocklocation"]};
+	cChild = new []{stocklocationattachment.Columns["idstocklocation"]};
+	Relations.Add(new DataRelation("stocklocation_stocklocationattachment",cPar,cChild,false));
 
 	#endregion
 

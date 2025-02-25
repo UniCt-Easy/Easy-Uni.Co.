@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistavariazioneentrata.xsd" xmlns:mstns="http://tempuri.org/Vistavariazioneentrata.xsd" xmlns="http://tempuri.org/Vistavariazioneentrata.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
@@ -649,6 +649,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="incomevarattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinc" type="xs:int" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -735,6 +751,12 @@
       <xs:selector xpath=".//mstns:proceedstransmission" />
       <xs:field xpath="mstns:kproceedstransmission" />
     </xs:unique>
+    <xs:unique name="incomevarattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:incomevarattachment" />
+      <xs:field xpath="mstns:idinc" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -756,6 +778,7 @@
       <msdata:Relationship name="invoice_incomevar" msdata:parent="invoice" msdata:child="incomevar" msdata:parentkey="idinvkind yinv ninv" msdata:childkey="idinvkind yinv ninv" />
       <msdata:Relationship name="incomeview_incomevar" msdata:parent="incomeview" msdata:child="incomevar" msdata:parentkey="idinc" msdata:childkey="idinc" />
       <msdata:Relationship name="proceedstransmission_incomevar" msdata:parent="proceedstransmission" msdata:child="incomevar" msdata:parentkey="kproceedstransmission" msdata:childkey="kproceedstransmission" />
+      <msdata:Relationship name="incomevar_incomevarattachment" msdata:parent="incomevar" msdata:child="incomevarattachment" msdata:parentkey="idinc nvar" msdata:childkey="idinc nvar" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

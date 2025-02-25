@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -812,7 +812,17 @@ namespace paydisposition_default {
             // scrittura footer file riba
             sw.WriteLine(riba.RecordEF());
             sw.Close();
-            MetaFactory.factory.getSingleton<IMessageShower>().Show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK,
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(filename, false);
+
+			string message;
+
+			if (isBlazor())
+                message = "Download del file effettuato";
+            else
+                message = "File salvato in " + filename;
+
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(message, "Informazioni", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
 
@@ -963,9 +973,8 @@ namespace paydisposition_default {
                 " 3 - Assegno Circolare" +
                 " 4 - Assegno Circolare Non Trasferibile" +
                 " 5 - Assegno di Quietanza" +
-                " 6 - Girofondo TAB A" +
-                " 7 - Girofondo TAB B;" +
-                "Codificato;1;1|2|3|4|5|6|7",
+                " 8 - Girofondo ;" +
+                "Codificato;1;1|2|3|4|5|8",
                 "rimborsotasse;Rimborso Tasse;Codificato;1;S|N" +
                 "annoaccademico;Anno accademico cui si riferiscono le spese(es.2015/2016);Stringa;9",
                 "annosolare;Anno solare in cui è stata sostenuta la spesa rimborsata);Stringa;4",
@@ -1221,10 +1230,10 @@ namespace paydisposition_default {
 
                         break;
                     case "codicemodpagamento":
-                        if ((CfgFn.GetNoNullDecimal(val) < 0) || (CfgFn.GetNoNullDecimal(val) > 7)) {
+                        if ((CfgFn.GetNoNullDecimal(val) < 0) || (CfgFn.GetNoNullDecimal(val) > 8)|| CfgFn.GetNoNullDecimal(val)==6|| CfgFn.GetNoNullDecimal(val)==7 ) {
                             string err = "Valore non previsto per il campo " + fieldname + " di tipo " + ftype +
                                          " e di valore " +
-                                         val.Trim() + " alla riga " + rownum + ": inserire un valore non superiore a 7";
+                                         val.Trim() + " alla riga " + rownum + ": inserire un valore non superiore a 8(escluso 6 e 7)";
                             DataRow row = T.NewRow();
                             row["errors"] = err;
                             T.Rows.Add(row);
@@ -1234,51 +1243,64 @@ namespace paydisposition_default {
                         object numero_conto_bankit = riga["codicepagamento"];
                         object iban = riga["iban"];
                         //ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A richiede numero conto in Banca d'Italia
-                        if ((CfgFn.GetNoNullDecimal(val) == 6)  && 
-                             (trimString(numero_conto_bankit) == DBNull.Value)) {
-                            string err = "Informazioni incomplete  per il campo " + fieldname + " di tipo " + ftype +
-                                   " e di valore " +
-                                   val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab A si deve specificare il Numero Conto Banca d'Italia nel campo codicepagamento " +
-                                   "e non si deve specificare l'IBAN";
-                            DataRow row = T.NewRow();
-                            row["errors"] = err;
-                            T.Rows.Add(row);
-                            ok = false;
-                        }
+                        //if ((CfgFn.GetNoNullDecimal(val) == 6)  && 
+                        //     (trimString(numero_conto_bankit) == DBNull.Value)) {
+                        //    string err = "Informazioni incomplete  per il campo " + fieldname + " di tipo " + ftype +
+                        //           " e di valore " +
+                        //           val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab A si deve specificare il Numero Conto Banca d'Italia nel campo codicepagamento " +
+                        //           "e non si deve specificare l'IBAN";
+                        //    DataRow row = T.NewRow();
+                        //    row["errors"] = err;
+                        //    T.Rows.Add(row);
+                        //    ok = false;
+                        //}
 
-                        if ((CfgFn.GetNoNullDecimal(val) == 6) &&
-                            (trimString(iban) != DBNull.Value)) {
-                            string err = "Informazioni errate  per il campo " + fieldname + " di tipo " + ftype +
-                                   " e di valore " +
-                                   val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab A si deve specificare il Numero Conto Banca d'Italia nel campo codicepagamento " +
-                                   "e non si deve specificare l'IBAN";
-                            DataRow row = T.NewRow();
-                            row["errors"] = err;
-                            T.Rows.Add(row);
-                            ok = false;
-                        }
+                        //if ((CfgFn.GetNoNullDecimal(val) == 6) &&
+                        //    (trimString(iban) != DBNull.Value)) {
+                        //    string err = "Informazioni errate  per il campo " + fieldname + " di tipo " + ftype +
+                        //           " e di valore " +
+                        //           val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab A si deve specificare il Numero Conto Banca d'Italia nel campo codicepagamento " +
+                        //           "e non si deve specificare l'IBAN";
+                        //    DataRow row = T.NewRow();
+                        //    row["errors"] = err;
+                        //    T.Rows.Add(row);
+                        //    ok = false;
+                        //}
 
                         //ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B richiede IBAN  e non numero conto in Banca d'Italia
 
-                        if ((CfgFn.GetNoNullDecimal(val) == 7) &&
-                            (trimString(iban) == DBNull.Value)  
+                        //if ((CfgFn.GetNoNullDecimal(val) == 7) &&
+                        //    (trimString(iban) == DBNull.Value)  
+                        //    ) {
+                        //    string err = "Informazioni incomplete per il campo " + fieldname + " di tipo " + ftype +
+                        //           " e di valore " +
+                        //           val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab B si deve specificare il codice IBAN e non si deve specificare il conto Banca d'Italia";
+                        //    DataRow row = T.NewRow();
+                        //    row["errors"] = err;
+                        //    T.Rows.Add(row);
+                        //    ok = false;
+                        //}
+
+
+                        //if ((CfgFn.GetNoNullDecimal(val) == 7) &&
+                        //    (trimString(numero_conto_bankit) != DBNull.Value)
+                        //    ) {
+                        //    string err = "Informazioni errate per il campo " + fieldname + " di tipo " + ftype +
+                        //           " e di valore " +
+                        //           val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab B si deve specificare il codice IBAN e non si deve impostare il conto Banca d'Italia";
+                        //    DataRow row = T.NewRow();
+                        //    row["errors"] = err;
+                        //    T.Rows.Add(row);
+                        //    ok = false;
+                        //}
+
+                        //ACCREDITO TESORERIA PROVINCIALE STATO , richiede l' IBAN, a partire dalla versione OPI v.1.7.1.
+                        if ((CfgFn.GetNoNullDecimal(val) == 8) &&
+                            (trimString(iban) == DBNull.Value)
                             ) {
                             string err = "Informazioni incomplete per il campo " + fieldname + " di tipo " + ftype +
                                    " e di valore " +
-                                   val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab B si deve specificare il codice IBAN e non si deve specificare il conto Banca d'Italia";
-                            DataRow row = T.NewRow();
-                            row["errors"] = err;
-                            T.Rows.Add(row);
-                            ok = false;
-                        }
-
-
-                        if ((CfgFn.GetNoNullDecimal(val) == 7) &&
-                            (trimString(numero_conto_bankit) != DBNull.Value)
-                            ) {
-                            string err = "Informazioni errate per il campo " + fieldname + " di tipo " + ftype +
-                                   " e di valore " +
-                                   val.Trim() + " alla riga " + rownum + ": Per i Girofondi tab B si deve specificare il codice IBAN e non si deve impostare il conto Banca d'Italia";
+                                   val.Trim() + " alla riga " + rownum + ": Per i Girofondi si deve specificare il codice IBAN";
                             DataRow row = T.NewRow();
                             row["errors"] = err;
                             T.Rows.Add(row);
@@ -1488,8 +1510,9 @@ namespace paydisposition_default {
                 if (codicemodpagamento != 0) {
                     if ((IBAN.Trim() == "") && (codicemodpagamento == 1)) // 1 Bonifico, 2 Cassa
                         codicemodpagamento = 2;
-                    if ((IBAN.Trim() != "") && (codicemodpagamento != 1) && (codicemodpagamento != 7)) // 1 Bonifico 7 Girofondo tab B prevede l'IBAN
+                    if ((IBAN.Trim() != "") && (codicemodpagamento != 1) && (codicemodpagamento != 7) && (codicemodpagamento != 8)) // 1 Bonifico 7 Girofondo tab B prevede l'IBAN
                         codicemodpagamento = 1;
+
                     rNew["paymethodcode"] = codicemodpagamento;
                 }
                 else { // in tal caso non è stato selezionato un codice modalità pagamento tra quelli consentiti, allora imposto BONIFICO O CASSA a seconda
@@ -1535,7 +1558,17 @@ namespace paydisposition_default {
             }
 
             sw.Close();
-            MetaFactory.factory.getSingleton<IMessageShower>().Show("File salvato in " + filename, "Informazioni", MessageBoxButtons.OK,
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(filename, false);
+
+            string message;
+
+            if (isBlazor())
+                message = "Download del file effettuato";
+            else
+                message = "File salvato in " + filename;
+
+            MetaFactory.factory.getSingleton<IMessageShower>().Show(message, "Informazioni", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
 

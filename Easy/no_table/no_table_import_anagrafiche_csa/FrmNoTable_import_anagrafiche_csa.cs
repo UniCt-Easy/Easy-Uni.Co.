@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,7 +45,9 @@ namespace no_table_import_anagrafiche_csa {
         private Label label3;
         private Button btnImporta;
         DataTable TanagraficheError = new DataTable("TanagraficheError");
+        DataTable Tqualifichenonmappate = new DataTable("Tqualifichenonmappate");
         DataTable Tavviso = new DataTable("Tavviso");
+        DataTable Tcatastale = new DataTable("Tcatastale");
         object id_indirizzo_default;
         object id_indirizzo_domfisc;
         string intestazione = "";
@@ -107,171 +109,149 @@ namespace no_table_import_anagrafiche_csa {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources =
-                new System.ComponentModel.ComponentResourceManager(typeof(FrmNoTable_import_anagrafiche_csa));
-            this.btnAnnulla = new System.Windows.Forms.Button();
-            this.DS = new no_table_import_anagrafiche_csa.vistaForm();
-            this.grpConferma = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnImporta = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txt_matricola_a = new System.Windows.Forms.TextBox();
-            this.txt_matricola_da = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize) (this.DS)).BeginInit();
-            this.grpConferma.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // btnAnnulla
-            // 
-            this.btnAnnulla.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(450, 322);
-            this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
-            this.btnAnnulla.TabIndex = 6;
-            this.btnAnnulla.Text = "Chiudi";
-            this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // grpConferma
-            // 
-            this.grpConferma.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                       | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpConferma.Controls.Add(this.label3);
-            this.grpConferma.Location = new System.Drawing.Point(12, 8);
-            this.grpConferma.Name = "grpConferma";
-            this.grpConferma.Size = new System.Drawing.Size(518, 219);
-            this.grpConferma.TabIndex = 10;
-            this.grpConferma.TabStop = false;
-            this.grpConferma.Text = "Operazioni sull\'anagrafica";
-            // 
-            // label3
-            // 
-            this.label3.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                       | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.Location = new System.Drawing.Point(6, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(506, 186);
-            this.label3.TabIndex = 73;
-            this.label3.Text = resources.GetString("label3.Text");
-            // 
-            // btnImporta
-            // 
-            this.btnImporta.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImporta.Location = new System.Drawing.Point(377, 241);
-            this.btnImporta.Name = "btnImporta";
-            this.btnImporta.Size = new System.Drawing.Size(150, 37);
-            this.btnImporta.TabIndex = 76;
-            this.btnImporta.TabStop = false;
-            this.btnImporta.Text = "Importa le anagrafiche";
-            this.btnImporta.Click += new System.EventHandler(this.btnImporta_Click);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(12, 284);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(518, 23);
-            this.progressBar1.TabIndex = 77;
-            // 
-            // label16
-            // 
-            this.label16.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label16.Location = new System.Drawing.Point(10, 252);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(58, 20);
-            this.label16.TabIndex = 82;
-            this.label16.Text = "Matricola:";
-            // 
-            // txt_matricola_a
-            // 
-            this.txt_matricola_a.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txt_matricola_a.Location = new System.Drawing.Point(240, 251);
-            this.txt_matricola_a.Name = "txt_matricola_a";
-            this.txt_matricola_a.Size = new System.Drawing.Size(102, 20);
-            this.txt_matricola_a.TabIndex = 80;
-            // 
-            // txt_matricola_da
-            // 
-            this.txt_matricola_da.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txt_matricola_da.Location = new System.Drawing.Point(109, 250);
-            this.txt_matricola_da.Name = "txt_matricola_da";
-            this.txt_matricola_da.Size = new System.Drawing.Size(97, 20);
-            this.txt_matricola_da.TabIndex = 78;
-            // 
-            // label5
-            // 
-            this.label5.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.Location = new System.Drawing.Point(198, 251);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 16);
-            this.label5.TabIndex = 81;
-            this.label5.Text = "a:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label6
-            // 
-            this.label6.Anchor =
-                ((System.Windows.Forms.AnchorStyles)
-                    ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.Location = new System.Drawing.Point(66, 250);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 16);
-            this.label6.TabIndex = 79;
-            this.label6.Text = "Da:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // FrmNoTable_import_anagrafiche_csa
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.CancelButton = this.btnAnnulla;
-            this.ClientSize = new System.Drawing.Size(538, 350);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.txt_matricola_a);
-            this.Controls.Add(this.txt_matricola_da);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.btnImporta);
-            this.Controls.Add(this.grpConferma);
-            this.Controls.Add(this.btnAnnulla);
-            this.MinimumSize = new System.Drawing.Size(522, 360);
-            this.Name = "FrmNoTable_import_anagrafiche_csa";
-            this.Text = "Importa Anagrafiche da CSA";
-            ((System.ComponentModel.ISupportInitialize) (this.DS)).EndInit();
-            this.grpConferma.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmNoTable_import_anagrafiche_csa));
+			this.btnAnnulla = new System.Windows.Forms.Button();
+			this.DS = new no_table_import_anagrafiche_csa.vistaForm();
+			this.grpConferma = new System.Windows.Forms.GroupBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.btnImporta = new System.Windows.Forms.Button();
+			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			this.label16 = new System.Windows.Forms.Label();
+			this.txt_matricola_a = new System.Windows.Forms.TextBox();
+			this.txt_matricola_da = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.grpConferma.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// btnAnnulla
+			// 
+			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnAnnulla.Location = new System.Drawing.Point(450, 322);
+			this.btnAnnulla.Name = "btnAnnulla";
+			this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
+			this.btnAnnulla.TabIndex = 6;
+			this.btnAnnulla.Text = "Chiudi";
+			this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// grpConferma
+			// 
+			this.grpConferma.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.grpConferma.Controls.Add(this.label3);
+			this.grpConferma.Location = new System.Drawing.Point(12, 8);
+			this.grpConferma.Name = "grpConferma";
+			this.grpConferma.Size = new System.Drawing.Size(518, 219);
+			this.grpConferma.TabIndex = 10;
+			this.grpConferma.TabStop = false;
+			this.grpConferma.Text = "Operazioni sull\'anagrafica";
+			// 
+			// label3
+			// 
+			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label3.Location = new System.Drawing.Point(6, 27);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(506, 186);
+			this.label3.TabIndex = 73;
+			this.label3.Text = resources.GetString("label3.Text");
+			// 
+			// btnImporta
+			// 
+			this.btnImporta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnImporta.Location = new System.Drawing.Point(377, 241);
+			this.btnImporta.Name = "btnImporta";
+			this.btnImporta.Size = new System.Drawing.Size(150, 37);
+			this.btnImporta.TabIndex = 76;
+			this.btnImporta.TabStop = false;
+			this.btnImporta.Text = "Importa le anagrafiche";
+			this.btnImporta.Click += new System.EventHandler(this.btnImporta_Click);
+			// 
+			// progressBar1
+			// 
+			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.progressBar1.Location = new System.Drawing.Point(12, 284);
+			this.progressBar1.Name = "progressBar1";
+			this.progressBar1.Size = new System.Drawing.Size(518, 23);
+			this.progressBar1.TabIndex = 77;
+			// 
+			// label16
+			// 
+			this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label16.Location = new System.Drawing.Point(10, 252);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(58, 20);
+			this.label16.TabIndex = 82;
+			this.label16.Text = "Matricola:";
+			// 
+			// txt_matricola_a
+			// 
+			this.txt_matricola_a.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txt_matricola_a.Location = new System.Drawing.Point(240, 251);
+			this.txt_matricola_a.Name = "txt_matricola_a";
+			this.txt_matricola_a.Size = new System.Drawing.Size(102, 20);
+			this.txt_matricola_a.TabIndex = 80;
+			// 
+			// txt_matricola_da
+			// 
+			this.txt_matricola_da.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txt_matricola_da.Location = new System.Drawing.Point(109, 250);
+			this.txt_matricola_da.Name = "txt_matricola_da";
+			this.txt_matricola_da.Size = new System.Drawing.Size(97, 20);
+			this.txt_matricola_da.TabIndex = 78;
+			// 
+			// label5
+			// 
+			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label5.Location = new System.Drawing.Point(198, 251);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(36, 16);
+			this.label5.TabIndex = 81;
+			this.label5.Text = "a:";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label6
+			// 
+			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label6.Location = new System.Drawing.Point(66, 250);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(37, 16);
+			this.label6.TabIndex = 79;
+			this.label6.Text = "Da:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// FrmNoTable_import_anagrafiche_csa
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.CancelButton = this.btnAnnulla;
+			this.ClientSize = new System.Drawing.Size(538, 350);
+			this.Controls.Add(this.label16);
+			this.Controls.Add(this.txt_matricola_a);
+			this.Controls.Add(this.txt_matricola_da);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.progressBar1);
+			this.Controls.Add(this.btnImporta);
+			this.Controls.Add(this.grpConferma);
+			this.Controls.Add(this.btnAnnulla);
+			this.MinimumSize = new System.Drawing.Size(522, 360);
+			this.Name = "FrmNoTable_import_anagrafiche_csa";
+			this.Text = "Importa Anagrafiche da CSA";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.grpConferma.ResumeLayout(false);
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
 
@@ -292,8 +272,15 @@ namespace no_table_import_anagrafiche_csa {
             Tavviso.Columns.Add("nominativo");
             //Tavviso.Columns.Add("dettaglio");
 
+            Tcatastale.Columns.Add("cf");
+            Tcatastale.Columns.Add("codicecatastale");
+
             TanagraficheError.Columns.Add("cf");
             TanagraficheError.Columns.Add("nominativo");
+
+            Tqualifichenonmappate.Columns.Add("matricola");
+            Tqualifichenonmappate.Columns.Add("ruolo");
+            Tqualifichenonmappate.Columns.Add("inquadramento");
 
             id_indirizzo_default = Conn.DO_READ_VALUE("address", QHS.CmpEq("codeaddress", "07_SW_DEF"), "idaddress");
             id_indirizzo_domfisc = Conn.DO_READ_VALUE("address", QHS.CmpEq("codeaddress", "07_SW_DOM"), "idaddress");
@@ -343,12 +330,76 @@ namespace no_table_import_anagrafiche_csa {
                 return;
             }
             progressBar1.Value = 0;
-            if (!ImportaAnagrafiche(LinkedServerName, DBServerName))
-                show("Operazione non eseguita.");
-            else
-                show("Operazione eseguita.", "");
-        }
+            // Chiama la sp di check per verificare se vi siano Matricole la cui qualifica CSA non sia mappata in Easy
+            CheckMappaturaQualifiche(LinkedServerName, DBServerName);
 
+			if (!ImportaAnagrafiche(LinkedServerName, DBServerName))
+				show("Operazione non eseguita.");
+			else
+				show("Operazione eseguita.", "");
+		}
+
+        private void CheckMappaturaQualifiche(object linkedServerName, object DBServerName) {
+            //check_import_inquadramenti_csa
+            string errMess;
+
+            string matricola_da = txt_matricola_da.Text.Trim();
+            string matricola_a = txt_matricola_a.Text.Trim();
+
+            int imatricola_da = 0;
+            int imatricola_a = 0;
+
+            if ((matricola_da != "") && (isNumeric(matricola_da, out imatricola_da))) {
+                imatricola_da = CfgFn.GetNoNullInt32(HelpForm.GetObjectFromString(typeof(int), matricola_da, "x.y"));
+
+            }
+            if ((matricola_a != "") && (isNumeric(matricola_a, out imatricola_a))) {
+                imatricola_a = CfgFn.GetNoNullInt32(HelpForm.GetObjectFromString(typeof(int), matricola_a, "x.y"));
+            }
+
+            DataSet DSOutPos = Meta.Conn.CallSP("check_import_inquadramenti_csa",
+                new object[] { linkedServerName, DBServerName, imatricola_da, imatricola_a }, 10000, out errMess);
+            if (errMess != null) {
+                show(this,
+                    "Errore nella chiamata della procedura di controllo " +
+                    "\r\rContattare il servizio assistenza"
+                    + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
+                return ;
+            }
+
+            DataTable OutPos = null;
+
+            if ((DSOutPos == null) || (DSOutPos.Tables.Count == 0)) {
+                //Non esitono qualifiche non mappate. Si può procedere all'importazione
+                return;
+            }
+            else {
+                //Esistono qualifiche non mappate, dobbiamo mostrare l'elenco delle matricole che non saranno importate senza interrompere l'importazione
+                OutPos = DSOutPos.Tables[0];
+            }
+            foreach(DataRow R in OutPos.Select()) {
+                DataRow Rerr = Tqualifichenonmappate.NewRow();
+                Rerr["matricola"] = R["matricola"];
+                Rerr["ruolo"] = R["ruolo"];
+                Rerr["inquadramento"] = R["inquadramento"];
+                Tqualifichenonmappate.Rows.Add(Rerr);
+            }
+            if((Tqualifichenonmappate !=null) && Tqualifichenonmappate.Rows.Count > 0) {
+                //show(this, "Avviso vale S. Siamo in SaveTrance", "Informazione", MessageBoxButtons.OK,    MessageBoxIcon.Information);
+                Tqualifichenonmappate.Columns["matricola"].Caption = "Matricola";
+                Tqualifichenonmappate.Columns["ruolo"].Caption = "Ruolo CSA";
+                Tqualifichenonmappate.Columns["inquadramento"].Caption = "Inquadramento CSA";
+                DataSet DSqualifichenonmappate = new DataSet();
+                DSqualifichenonmappate.Tables.Add(Tqualifichenonmappate);
+                intestazione = "AVVISO - Le seguenti anagrafiche hanno Ruolo-Inquadramento non mappato in Easy, per cui non verranno importate.\r\n" +
+                    "Si procederà all'importazione delle altre anagrafiche.\r\n"; 
+                FrmDettaglioRisultati X = new FrmDettaglioRisultati(DSqualifichenonmappate.Tables["Tqualifichenonmappate"], intestazione);
+                X.Text = "Anagrafiche";
+                createForm(X, this);
+                X.ShowDialog(this);
+                DSqualifichenonmappate.Tables.Remove(Tqualifichenonmappate);
+            }
+        }
         private bool isNumeric(string str, out int valore) {
             valore = 0;
             try {
@@ -360,6 +411,7 @@ namespace no_table_import_anagrafiche_csa {
             }
         }
 
+        int countcatastale = 0;
         private bool ImportaAnagrafiche(object linkedServerName, object DBServerName) {
             string errMess;
             btnImporta.Enabled = false;
@@ -443,6 +495,7 @@ namespace no_table_import_anagrafiche_csa {
             D.Tables["registry_amministrativi"].Clear();
             TanagraficheError.Clear();
             Tavviso.Clear();
+            Tqualifichenonmappate.Clear();
             Dictionary<string, DataRow> regs = new Dictionary<string, DataRow>();
             progressBar1.Maximum = Out.Rows.Count;
             foreach (DataRow rCSA in Out.Select()) {
@@ -536,10 +589,11 @@ namespace no_table_import_anagrafiche_csa {
                     Ravv["nominativo"] = rCSA["denominazione"];
                     Tavviso.Rows.Add(Ravv);
                 }
+
                 if (countrow_forsave == 100) {
                     
                     // Elabora un blocco di 100 righe
-                    if (!SaveTrance(D, Tavviso, TanagraficheError, countavviso, counterr)) {
+                    if (!SaveTrance(D)) {
                         regs.Clear();
                         return false;
                     }
@@ -553,8 +607,20 @@ namespace no_table_import_anagrafiche_csa {
             show(this, "Salva quelle residue", "Informazione", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             // Salva le righe residue
-            if (!SaveTrance(D, Tavviso, TanagraficheError, countavviso, counterr)) {
+            if (!SaveTrance(D)) {
                 return false;
+            }
+            //Mostra errori avuti durante l'elaborazione
+
+            ShowError(Tavviso, TanagraficheError, Tcatastale, countavviso, counterr);
+
+            // Valorizza la data termine della riga di Rgistrylegalstatus
+            object computestop = Conn.DO_READ_VALUE("linkedserveraccess", null, "computestop");
+            if (computestop.ToString() == "S") {
+                show(this, "Valorizza data termine", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Meta.Conn.CallSP("compute_stopregistrylegalstatus",
+                     new object[] { matricola_da, matricola_a }, 10000, out errMess);
             }
             // Qui deve sistemare il campo Active e lo fa tramite la sp che agisce sulle matricole oggetto di questa elaborazione
             string disattivariga = "S";
@@ -565,10 +631,10 @@ namespace no_table_import_anagrafiche_csa {
         }
 
 
-        private bool SaveTrance(DataSet D, DataTable Tavviso, DataTable TanagraficheError, int countavviso, int counterr) {
+        private void ShowError(DataTable Tavviso, DataTable TanagraficheError, DataTable Tcatastale, int countavviso, int counterr) {
             if (countavviso > 0) {
-                show(this, "Avviso vale S. Siamo in SaveTrance", "Informazione", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                //show(this, "Avviso vale S. Siamo in SaveTrance", "Informazione", MessageBoxButtons.OK,
+                //    MessageBoxIcon.Information);
                 Tavviso.Columns["cf"].Caption = "CF";
                 Tavviso.Columns["nominativo"].Caption = "Nominativo";
                 DataSet DSAvviso = new DataSet();
@@ -593,31 +659,82 @@ namespace no_table_import_anagrafiche_csa {
                 createForm(X, this);
                 X.ShowDialog(this);
                 DSError.Tables.Remove(TanagraficheError);
+            }
+			if (countcatastale > 0) {
+                Tcatastale.Columns["cf"].Caption = "CF";
+                Tcatastale.Columns["codicecatastale"].Caption = "codicecatastale";
+                DataSet DSCatastale = new DataSet();
+                DSCatastale.Tables.Add(Tcatastale);
+                intestazione = "Per le seguenti anagrafiche non è stato trovao un Codice catastale valido";
+                FrmDettaglioRisultati X = new FrmDettaglioRisultati(DSCatastale.Tables["Tcatastale"], intestazione);
+                X.Text = "Anagrafiche scartate";
+                createForm(X, this);
+                X.ShowDialog(this);
+                DSCatastale.Tables.Remove(Tcatastale);
+            }
 
-                // Se vi sono stati errori, prima di salvare, chiede se importare o meno le anagrafiche. Se "no" azzera tutto, altrimenti Salva..
-                DialogResult RES = show("Si desidera procedere all'importazione?", "Informazione",
-                    MessageBoxButtons.OKCancel);
-                if (RES == DialogResult.OK) {
-                    // Procede col salvataggio
-                    if (!SaveData(D, false)) return false;
-                }
-                else {
-                    //Azzera tutto.
-                    D.Tables["registrypaymethod"].Clear();
-                    D.Tables["registryaddress"].Clear();
-                    D.Tables["registry"].Clear();
-                    D.Tables["registrytaxablestatus"].Clear();
-                    D.Tables["registrylegalstatus"].Clear();
-                    D.Tables["registry_docenti"].Clear();
-                    D.Tables["registry_amministrativi"].Clear();
-                    TanagraficheError.Clear();
-                    return false;
-                }
-            }
-            else {
-                // Non ci sono anagrafiche scartate, procede direttamente col salvataggio.
-                if (!SaveData(D, false)) return false;
-            }
+            TanagraficheError.Clear();
+            Tavviso.Clear();
+            Tcatastale.Clear();
+            return ;
+        }
+
+
+        private bool SaveTrance(DataSet D ) {
+			//if (countavviso > 0) {
+			//	show(this, "Avviso vale S. Siamo in SaveTrance", "Informazione", MessageBoxButtons.OK,
+			//		MessageBoxIcon.Information);
+			//	Tavviso.Columns["cf"].Caption = "CF";
+			//	Tavviso.Columns["nominativo"].Caption = "Nominativo";
+			//	DataSet DSAvviso = new DataSet();
+			//	DSAvviso.Tables.Add(Tavviso);
+			//	intestazione = "Le seguenti anagrafiche avendo più modalità di pagamento, per selezionare la più aggiornata"
+			//				   + " è stato usato un criterio di ordinamento sui vari campi disponibili.";
+			//	FrmDettaglioRisultati X = new FrmDettaglioRisultati(DSAvviso.Tables["Tavviso"], intestazione);
+			//	X.Text = "Anagrafiche";
+			//	createForm(X, this);
+			//	X.ShowDialog(this);
+			//	DSAvviso.Tables.Remove(Tavviso);
+			//}
+			//if (counterr > 0) {
+			//	TanagraficheError.Columns["cf"].Caption = "CF";
+			//	TanagraficheError.Columns["nominativo"].Caption = "Nominativo";
+			//	DataSet DSError = new DataSet();
+			//	DSError.Tables.Add(TanagraficheError);
+			//	intestazione = " Per le seguenti anagrafiche non sarà eseguita alcuna operazione perchè non si è potuto identificare univocamente la persona,"
+			//				   + " inquanto esisto due anagrafiche con lo stesso CF.";
+			//	FrmDettaglioRisultati X = new FrmDettaglioRisultati(DSError.Tables["TanagraficheError"], intestazione);
+			//	X.Text = "Anagrafiche scartate";
+			//	createForm(X, this);
+			//	X.ShowDialog(this);
+			//	DSError.Tables.Remove(TanagraficheError);
+
+			//	// Se vi sono stati errori, prima di salvare, chiede se importare o meno le anagrafiche. Se "no" azzera tutto, altrimenti Salva..
+			//	DialogResult RES = show("Si desidera procedere all'importazione?", "Informazione",
+			//		MessageBoxButtons.OKCancel);
+			//	if (RES == DialogResult.OK) {
+			//		// Procede col salvataggio
+			//		if (!SaveData(D, false)) return false;
+			//	}
+			//	else {
+			//		//Azzera tutto.
+			//		D.Tables["registrypaymethod"].Clear();
+			//		D.Tables["registryaddress"].Clear();
+			//		D.Tables["registry"].Clear();
+			//		D.Tables["registrytaxablestatus"].Clear();
+			//		D.Tables["registrylegalstatus"].Clear();
+			//		D.Tables["registry_docenti"].Clear();
+			//		D.Tables["registry_amministrativi"].Clear();
+			//		TanagraficheError.Clear();
+			//		return false;
+			//	}
+			//}
+			//else {
+			//	// Non ci sono anagrafiche scartate, procede direttamente col salvataggio.
+			//	if (!SaveData(D, false)) return false;
+			//}
+
+			if (!SaveData(D, false)) return false;
 
             D.Tables["registrypaymethod"].Clear();
             D.Tables["registryaddress"].Clear();
@@ -626,8 +743,8 @@ namespace no_table_import_anagrafiche_csa {
             D.Tables["registrylegalstatus"].Clear();
             D.Tables["registry_docenti"].Clear();
             D.Tables["registry_amministrativi"].Clear();
-            TanagraficheError.Clear();
-            Tavviso.Clear();
+            //TanagraficheError.Clear();
+            //Tavviso.Clear();
             return true;
         }
 
@@ -852,6 +969,7 @@ namespace no_table_import_anagrafiche_csa {
                 RLS["flagdefault"] = "N";
                 RLS["idposition"] = idposition;
                 RLS["idinquadramento"] = idinquadramento;
+                R["tempdef"] = R["tempdef"];
                 RLS["livello"] = livello;
                 RLS["start"] = R["in_vigore_giur"];
                 if (R.Table.Columns.Contains("iddaliaposition")) {
@@ -939,8 +1057,13 @@ namespace no_table_import_anagrafiche_csa {
                             ), "idnation", null);
                     if (idnation == null) {
                         idnation = DBNull.Value;
-                        show("Codice catastale :" + codice.ToString() +
-                                        " non trovato per l'anagrafica avente CF = " + codiceanag, "Errore");
+                        ////////show("Codice catastale :" + codice.ToString() +
+                        ////////                " non trovato per l'anagrafica avente CF = " + codiceanag, "Errore");
+                        DataRow Rcat1 = Tcatastale.NewRow();
+                        Rcat1["cf"] = codiceanag;
+                        Rcat1["codicecatastale"] = codice;
+                        Tcatastale.Rows.Add(Rcat1);
+                        countcatastale++;
                     }
                 }
             }
@@ -1230,7 +1353,7 @@ namespace no_table_import_anagrafiche_csa {
 
         private bool AggiornaPosGiuridica(DataRow rCSADati, DataRow Reg) {
             object idposition = rCSADati["codicequalifica"]; // Sono i codici in Easy
-            object idinquadramento = rCSADati["codiceinquadramento"];// Sono i codici in Easy
+            //object idinquadramento = rCSADati["codiceinquadramento"];// Sono i codici in Easy
             // Stiamo contemplando anche il caso di idposition NULL
             //if (idposition == DBNull.Value) return false;
             object inquadramento = rCSADati["inquadramento"];// è il valore che arriva dalla view di CSA
@@ -1286,13 +1409,26 @@ namespace no_table_import_anagrafiche_csa {
 		            R["start"] = rCSADati["in_vigore_giur"];
                     R["flagdefault"] = "N";
                     R["livello"] = rCSADati["livello"];
+                    R["cu"]= "importazioneCSA";
+                }
+                if (foundprec && (rCSADati["termine"] == DBNull.Value)) {
+                    //vuol dire che ha trovato un inquadramento con gli stessi campi MA con termine null, ossia l'inquadramento è stato rinnovato
+                    R["stop"] = rCSADati["termine"];
                 }
             }
 
-          
-            R["stop"] = rCSADati["termine"];
+
+            //R["stop"] = rCSADati["termine"];
+            // Nella sp,  se legge Termine year = 2222 , restituisce null
+            
+            if (rCSADati["termine"] != DBNull.Value) {
+                //Stiamo assegnando una VERA data termine
+                R["stop"] = rCSADati["termine"];
+            }
             R["active"] = "S";
             R["idposition"] = idposition;
+            R["idinquadramento"] = rCSADati["codiceinquadramento"];// Sono i codici in Easy letti dalla tabella di mappatura
+            R["tempdef"] = rCSADati["tempdef"];
             R["incomeclassvalidity"] = rCSADati["datadecorrenza"];
             R["incomeclass"] = rCSADati["classestipendiale"];
             R["csa_compartment"] = rCSADati["comparto"];

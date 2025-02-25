@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,16 +43,10 @@ public partial class dsmeta_registry_docenti_docentenoaltro: DataSet {
 	public MetaTable registrylegalstatus 		=> (MetaTable)Tables["registrylegalstatus"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable contrattostipendioview 		=> (MetaTable)Tables["contrattostipendioview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable fonteindicebibliometrico 		=> (MetaTable)Tables["fonteindicebibliometrico"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registryistitutiview 		=> (MetaTable)Tables["registryistitutiview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable classconsorsualedefaultview 		=> (MetaTable)Tables["classconsorsualedefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sasddefaultview 		=> (MetaTable)Tables["sasddefaultview"];
@@ -142,10 +136,10 @@ private void initClass() {
 
 	//////////////////// REGISTRYLEGALSTATUS /////////////////////////////////
 	var tregistrylegalstatus= new MetaTable("registrylegalstatus");
-	tregistrylegalstatus.defineColumn("!anni", typeof(string));
-	tregistrylegalstatus.defineColumn("!giorni", typeof(string));
-	tregistrylegalstatus.defineColumn("!mesi", typeof(string));
 	tregistrylegalstatus.defineColumn("active", typeof(string));
+	tregistrylegalstatus.defineColumn("anni", typeof(int));
+	tregistrylegalstatus.defineColumn("annokind", typeof(string));
+	tregistrylegalstatus.defineColumn("cedolini", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_class", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_compartment", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_role", typeof(string));
@@ -153,16 +147,22 @@ private void initClass() {
 	tregistrylegalstatus.defineColumn("cu", typeof(string));
 	tregistrylegalstatus.defineColumn("datarivalutazione", typeof(DateTime));
 	tregistrylegalstatus.defineColumn("flagdefault", typeof(string));
+	tregistrylegalstatus.defineColumn("giorni", typeof(int));
+	tregistrylegalstatus.defineColumn("idclassconsorsuale", typeof(int));
 	tregistrylegalstatus.defineColumn("iddaliaposition", typeof(int));
 	tregistrylegalstatus.defineColumn("idinquadramento", typeof(int));
 	tregistrylegalstatus.defineColumn("idposition", typeof(int));
 	tregistrylegalstatus.defineColumn("idreg", typeof(int),false);
 	tregistrylegalstatus.defineColumn("idregistrylegalstatus", typeof(int),false);
+	tregistrylegalstatus.defineColumn("idtipologiaruolo", typeof(int));
+	tregistrylegalstatus.defineColumn("idtiponomina", typeof(int));
 	tregistrylegalstatus.defineColumn("incomeclass", typeof(int));
 	tregistrylegalstatus.defineColumn("incomeclassvalidity", typeof(DateTime));
+	tregistrylegalstatus.defineColumn("istituzione", typeof(string));
 	tregistrylegalstatus.defineColumn("livello", typeof(int));
 	tregistrylegalstatus.defineColumn("lt", typeof(DateTime));
 	tregistrylegalstatus.defineColumn("lu", typeof(string));
+	tregistrylegalstatus.defineColumn("mesi", typeof(int));
 	tregistrylegalstatus.defineColumn("parttime", typeof(decimal));
 	tregistrylegalstatus.defineColumn("percentualesufondiateneo", typeof(decimal));
 	tregistrylegalstatus.defineColumn("rtf", typeof(Byte[]));
@@ -176,41 +176,6 @@ private void initClass() {
 	tregistrylegalstatus.defineColumn("!idposition_position_title", typeof(string));
 	Tables.Add(tregistrylegalstatus);
 	tregistrylegalstatus.defineKey("idreg", "idregistrylegalstatus");
-
-	//////////////////// CONTRATTOSTIPENDIOVIEW /////////////////////////////////
-	var tcontrattostipendioview= new MetaTable("contrattostipendioview");
-	tcontrattostipendioview.defineColumn("anno", typeof(int),false);
-	tcontrattostipendioview.defineColumn("assegno", typeof(decimal));
-	tcontrattostipendioview.defineColumn("caricoente", typeof(decimal));
-	tcontrattostipendioview.defineColumn("classe", typeof(int));
-	tcontrattostipendioview.defineColumn("ct", typeof(DateTime));
-	tcontrattostipendioview.defineColumn("cu", typeof(string));
-	tcontrattostipendioview.defineColumn("idinquadramento", typeof(int),false);
-	tcontrattostipendioview.defineColumn("idmese", typeof(int),false);
-	tcontrattostipendioview.defineColumn("idposition", typeof(int),false);
-	tcontrattostipendioview.defineColumn("idreg", typeof(int),false);
-	tcontrattostipendioview.defineColumn("idregistrylegalstatus", typeof(int),false);
-	tcontrattostipendioview.defineColumn("idstipendio", typeof(int),false);
-	tcontrattostipendioview.defineColumn("iis", typeof(decimal));
-	tcontrattostipendioview.defineColumn("irap", typeof(decimal));
-	tcontrattostipendioview.defineColumn("lordo", typeof(decimal));
-	tcontrattostipendioview.defineColumn("lt", typeof(DateTime));
-	tcontrattostipendioview.defineColumn("lu", typeof(string));
-	tcontrattostipendioview.defineColumn("mese", typeof(string),false);
-	tcontrattostipendioview.defineColumn("mesilavorati", typeof(int));
-	tcontrattostipendioview.defineColumn("rifnormativo", typeof(string));
-	tcontrattostipendioview.defineColumn("scatto", typeof(int));
-	tcontrattostipendioview.defineColumn("siglaimportazione", typeof(string));
-	tcontrattostipendioview.defineColumn("start", typeof(DateTime),false);
-	tcontrattostipendioview.defineColumn("stipendio", typeof(decimal));
-	tcontrattostipendioview.defineColumn("stop", typeof(DateTime));
-	tcontrattostipendioview.defineColumn("totale", typeof(decimal));
-	tcontrattostipendioview.defineColumn("totaleanno", typeof(decimal));
-	tcontrattostipendioview.defineColumn("totaletfr", typeof(decimal));
-	tcontrattostipendioview.defineColumn("tredicesima", typeof(decimal),false);
-	tcontrattostipendioview.defineColumn("validfortredicesima", typeof(string),false);
-	Tables.Add(tcontrattostipendioview);
-	tcontrattostipendioview.defineKey("anno", "idreg", "idregistrylegalstatus", "idstipendio", "mese");
 
 	//////////////////// FONTEINDICEBIBLIOMETRICO /////////////////////////////////
 	var tfonteindicebibliometrico= new MetaTable("fonteindicebibliometrico");
@@ -227,14 +192,6 @@ private void initClass() {
 	tregistryistitutiview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistryistitutiview);
 	tregistryistitutiview.defineKey("idreg");
-
-	//////////////////// CLASSCONSORSUALEDEFAULTVIEW /////////////////////////////////
-	var tclassconsorsualedefaultview= new MetaTable("classconsorsualedefaultview");
-	tclassconsorsualedefaultview.defineColumn("classconsorsuale_active", typeof(string));
-	tclassconsorsualedefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tclassconsorsualedefaultview.defineColumn("idclassconsorsuale", typeof(int),false);
-	Tables.Add(tclassconsorsualedefaultview);
-	tclassconsorsualedefaultview.defineKey("idclassconsorsuale");
 
 	//////////////////// SASDDEFAULTVIEW /////////////////////////////////
 	var tsasddefaultview= new MetaTable("sasddefaultview");
@@ -325,11 +282,11 @@ private void initClass() {
 	tregistry.defineColumn("gender", typeof(string),false);
 	tregistry.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry.defineColumn("idaccmotivedebit", typeof(string));
+	tregistry.defineColumn("idanpr", typeof(string));
 	tregistry.defineColumn("idateco", typeof(int));
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
-	tregistry.defineColumn("idcity", typeof(int),false);
-	tregistry.defineColumn("idclassconsorsuale", typeof(int));
+	tregistry.defineColumn("idcity", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
@@ -389,10 +346,6 @@ private void initClass() {
 	cChild = new []{registrylegalstatus.Columns["idinquadramento"]};
 	Relations.Add(new DataRelation("FK_registrylegalstatus_inquadramento_idinquadramento",cPar,cChild,false));
 
-	cPar = new []{contrattostipendioview.Columns["idreg"]};
-	cChild = new []{registry.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_registry_contrattostipendioview_idreg",cPar,cChild,false));
-
 	cPar = new []{fonteindicebibliometrico.Columns["idfonteindicebibliometrico"]};
 	cChild = new []{registry.Columns["idfonteindicebibliometrico"]};
 	Relations.Add(new DataRelation("FK_registry_fonteindicebibliometrico_idfonteindicebibliometrico",cPar,cChild,false));
@@ -400,10 +353,6 @@ private void initClass() {
 	cPar = new []{registryistitutiview.Columns["idreg"]};
 	cChild = new []{registry.Columns["idreg_istituti"]};
 	Relations.Add(new DataRelation("FK_registry_registryistitutiview_idreg_istituti",cPar,cChild,false));
-
-	cPar = new []{classconsorsualedefaultview.Columns["idclassconsorsuale"]};
-	cChild = new []{registry.Columns["idclassconsorsuale"]};
-	Relations.Add(new DataRelation("FK_registry_classconsorsualedefaultview_idclassconsorsuale",cPar,cChild,false));
 
 	cPar = new []{sasddefaultview.Columns["idsasd"]};
 	cChild = new []{registry.Columns["idsasd"]};

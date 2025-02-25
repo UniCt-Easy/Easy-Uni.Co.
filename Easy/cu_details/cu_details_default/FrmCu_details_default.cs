@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -110,9 +110,18 @@ namespace cu_details_default {
             // Required for Windows Form Designer support
             //
             InitializeComponent();
+            MyOpenFile = createOpenFileDialog(_MyOpenFile);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             MyOpenFile.FileName = "openFileDialog";
             MyOpenFile.Title = "Selezionare il file Excel da importare";
             saveFileDialog1.DefaultExt = "cur";
+            
+            if (isBlazor())
+			{
+                btnSalvaIn.Visible = false;
+                txtPercorso.Visible = false;
+			}
             //
             // TODO: Add any constructor code after InitializeComponent call
             //
@@ -175,8 +184,7 @@ namespace cu_details_default {
             this.label2 = new System.Windows.Forms.Label();
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnInputFile = new System.Windows.Forms.Button();
-            this._MyOpenFile = new System.Windows.Forms.OpenFileDialog();
-            this.MyOpenFile = createOpenFileDialog(this._MyOpenFile);
+            this._MyOpenFile = new System.Windows.Forms.OpenFileDialog();            
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.radH = new System.Windows.Forms.RadioButton();
             this.radG = new System.Windows.Forms.RadioButton();
@@ -189,8 +197,6 @@ namespace cu_details_default {
             this.pBarAvanzamento = new System.Windows.Forms.ProgressBar();
             this.txtInputFileSetCF = new System.Windows.Forms.TextBox();
             this.btnCUperSetdiCF = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
-            this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1218,14 +1224,21 @@ namespace cu_details_default {
 
             tw.Close();
 
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
+
+            string messageSaveCU;
+
+            if (isBlazor())
+                messageSaveCU = "Modello Certificazione Unica scaricato";
+            else
+                messageSaveCU = "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName;
+
             if (recordH)
-                show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
-                                      + "\nComunicazioni Lavoro Autonomo:   " + rD.Length + "  (" + nRecordH +
+                show(this, messageSaveCU + "\nComunicazioni Lavoro Autonomo:   " + rD.Length + "  (" + nRecordH +
                                       " record di tipo \"H\")" +
                                       "Creazione dichiarazione terminata");
             else
-                show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
-                                      + "\n\nComunicazioni Lavoro Dipendente: " + rD.Length + "  (" + nRecordG +
+                show(this, messageSaveCU + "\n\nComunicazioni Lavoro Dipendente: " + rD.Length + "  (" + nRecordG +
                                       " record di tipo \"G\")" +
                                       "Creazione dichiarazione terminata");
         }
@@ -2244,6 +2257,15 @@ namespace cu_details_default {
         }
 
         private void generaCertificazioneUnica(bool recordH, TipoGenerazione generazioneSelezionata) {
+            int esercizio = (int)Meta.GetSys("esercizio");
+            string nomeModello = getNomeFileModello(recordH);
+            bool existsModelCU = File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nomeModello));
+
+            if ((generazioneSelezionata == TipoGenerazione.stampa) && (!existsModelCU)) {
+                    show(this, $"I Modelli della Certificazione Unica {esercizio} non sono ancora disponibili.", "Avviso");
+                    return;
+            }
+
             DataTable tMod770 = calcolaCertificazioneUnica(recordH, generazioneSelezionata == TipoGenerazione.stampa ||
                                                                   generazioneSelezionata == TipoGenerazione.mail);
             if (tMod770 == null) return;
@@ -3220,6 +3242,8 @@ namespace cu_details_default {
                         writer.Flush();
                         document.Close();
                         writer.Close();
+
+                        MetaFactory.factory.getSingleton<IProcessRunner>()?.start(pathCompleto, false);
                     }
                     catch (Exception e) {
                         QueryCreator.ShowError(this, "Errore salvando il file, probabilmente il percorso non esiste o il file è già aperto.", e.ToString());
@@ -3231,7 +3255,12 @@ namespace cu_details_default {
             }
             Cursor.Current = Cursors.Default;
             pBarAvanzamento.Value = 0;
-            show(this,
+
+            if (isBlazor())
+                show(this, "Sono stati generati " + collaboratori.Count + " modelli Certificazione Unica (.pdf)",
+                "Download effettuato");
+            else
+                show(this,
                 "Sono stati generati " + collaboratori.Count + " modelli Certificazione Unica (.pdf) nella cartella:\n"
                 + txtPercorso.Text,
                 "Salvataggio effettuato");
@@ -3394,6 +3423,12 @@ namespace cu_details_default {
                         }
 
                     }
+
+                    foreach (KeyValuePair<string, PdfFormField> entry in fields)
+                    {
+                        entry.Value.SetReadOnly(true);
+                    }
+                    form.FlattenFields();
 
                     //indici delle pagine del template
                     int indexFromRemove = (recordH) ? 3 : 7;

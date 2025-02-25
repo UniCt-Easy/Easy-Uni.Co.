@@ -34,6 +34,7 @@
               <xs:element name="amount_c" type="xs:decimal" minOccurs="0" />
               <xs:element name="docamount_c" type="xs:decimal" minOccurs="0" />
               <xs:element name="requiredamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagtaxableexpense" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

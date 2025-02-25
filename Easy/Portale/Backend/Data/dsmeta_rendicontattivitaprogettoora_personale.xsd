@@ -12,24 +12,25 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rendicontattivitaprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="rendicontattivitaprogettopersonaleview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="_x0021_orerendicont" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="datainizioprevista" type="xs:dateTime" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="iditineration" type="xs:int" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
               <xs:element name="idrendicontattivitaprogettokind" type="xs:int" minOccurs="0" />
               <xs:element name="idworkpackage" type="xs:int" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="orepreventivate" type="xs:int" />
-              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogetto_ct" type="xs:dateTime" />
+              <xs:element name="rendicontattivitaprogetto_cu" type="xs:string" />
+              <xs:element name="rendicontattivitaprogetto_datainizioprevista" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogetto_description" type="xs:string" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogetto_lt" type="xs:dateTime" />
+              <xs:element name="rendicontattivitaprogetto_lu" type="xs:string" />
+              <xs:element name="rendicontattivitaprogetto_orepreventivate" type="xs:int" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogetto_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogettokind_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -59,11 +60,13 @@
         <xs:element name="progettoelenchiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="attach_filename" type="xs:string" minOccurs="0" />
               <xs:element name="corsostudio_annoistituz" type="xs:int" minOccurs="0" />
               <xs:element name="corsostudio_title" type="xs:string" minOccurs="0" />
               <xs:element name="currency_codecurrency" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="duratakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
               <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
               <xs:element name="idcurrency" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
@@ -164,8 +167,8 @@
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idsal" />
     </xs:unique>
-    <xs:unique name="rendicontattivitaprogetto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:rendicontattivitaprogetto" />
+    <xs:unique name="rendicontattivitaprogettopersonaleview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontattivitaprogettopersonaleview" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idrendicontattivitaprogetto" />
@@ -193,8 +196,8 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_rendicontattivitaprogettoora_salelenchiview_idsal" msdata:parent="salelenchiview" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idsal" msdata:childkey="idsal" />
       <msdata:Relationship name="FK_salelenchiview_progettoelenchiview_idprogetto" msdata:parent="progettoelenchiview" msdata:child="salelenchiview" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
-      <msdata:Relationship name="FK_rendicontattivitaprogetto_workpackagesegview_idworkpackage" msdata:parent="workpackagesegview" msdata:child="rendicontattivitaprogetto" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogettopersonaleview_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogettopersonaleview" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettopersonaleview_workpackagesegview_idworkpackage" msdata:parent="workpackagesegview" msdata:child="rendicontattivitaprogettopersonaleview" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
       <msdata:Relationship name="FK_rendicontattivitaprogettoora_workpackagesegview_idworkpackage" msdata:parent="workpackagesegview" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
       <msdata:Relationship name="FK_workpackagesegview_progettoelenchiview_idprogetto" msdata:parent="progettoelenchiview" msdata:child="workpackagesegview" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_rendicontattivitaprogettoora_progettoelenchiview_idprogetto" msdata:parent="progettoelenchiview" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />

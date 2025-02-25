@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -84,6 +84,12 @@ namespace auditcheck_child//businessrulecontrols//
 			//Inited=false;
 //			DS.ruleenforcement.statementColumn.ExtendedProperties["sqltype"]="text";
 //			DS.ruleenforcement.messageColumn.ExtendedProperties["sqltype"]="text";
+
+			if (isBlazor())
+			{
+				txtFolder.Visible = false;
+				btnSelezionaFolder.Visible = false;				
+			}
 		}
 
 		/// <summary>
@@ -424,18 +430,19 @@ namespace auditcheck_child//businessrulecontrols//
 			// 
 			// Tree
 			// 
+			this.Tree.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Tree.Location = new System.Drawing.Point(8, 144);
 			this.Tree.Name = "Tree";
-			this.Tree.Size = new System.Drawing.Size(304, 80);
+			this.Tree.Size = new System.Drawing.Size(216, 80);
 			this.Tree.TabIndex = 6;
 			this.Tree.TabStop = false;
 			this.Tree.DoubleClick += new System.EventHandler(this.Tree_DoubleClick);
 			// 
 			// label5
 			// 
-			this.label5.Location = new System.Drawing.Point(8, 128);
+			this.label5.Location = new System.Drawing.Point(8, 113);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(320, 16);
+			this.label5.Size = new System.Drawing.Size(216, 28);
 			this.label5.TabIndex = 9;
 			this.label5.Text = "Campi della tabella che possono essere inseriti nel messaggio:";
 			// 
@@ -443,16 +450,18 @@ namespace auditcheck_child//businessrulecontrols//
 			// 
 			this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtMessage.Location = new System.Drawing.Point(328, 144);
+			this.txtMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtMessage.Location = new System.Drawing.Point(230, 144);
 			this.txtMessage.Multiline = true;
 			this.txtMessage.Name = "txtMessage";
-			this.txtMessage.Size = new System.Drawing.Size(265, 80);
+			this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtMessage.Size = new System.Drawing.Size(363, 80);
 			this.txtMessage.TabIndex = 7;
 			this.txtMessage.Tag = "auditcheck.message";
 			// 
 			// label4
 			// 
-			this.label4.Location = new System.Drawing.Point(328, 128);
+			this.label4.Location = new System.Drawing.Point(230, 128);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(168, 16);
 			this.label4.TabIndex = 7;
@@ -623,6 +632,12 @@ namespace auditcheck_child//businessrulecontrols//
 			}
 			txtSql.ForeColor = Color.Black;
 			txtSql.BackColor = Color.White;
+
+			if (isBlazor())
+			{
+				if (string.IsNullOrEmpty(txtFolder.Text) && (editMode || insertMode))
+					btnSelezionaFolder.PerformClick();
+			}
 		}
 		public void MetaData_AfterClear(){
 			abilitaODisabilita(true);
@@ -823,7 +838,12 @@ namespace auditcheck_child//businessrulecontrols//
             writer.Flush();
             writer.Close();
 
-            show("Script " + filename + (append ? " aggiornato " : " generato ") + " con successo", "Avviso");
+			MetaFactory.factory.getSingleton<IProcessRunner>()?.start(filename, false);
+
+			if (isBlazor())
+				show("Script scaricato");
+			else
+				show("Script " + filename + (append ? " aggiornato " : " generato ") + " con successo", "Avviso");
 
         }
 

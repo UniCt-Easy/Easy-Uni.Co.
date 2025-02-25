@@ -21,7 +21,6 @@
               <xs:element name="anzianitamax" type="xs:int" minOccurs="0" />
               <xs:element name="anzianitamin" type="xs:int" minOccurs="0" />
               <xs:element name="complementomensile" type="xs:decimal" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idinquadramento" type="xs:int" />
               <xs:element name="idposition" type="xs:int" />
               <xs:element name="idstipendiocomplemento" type="xs:int" />

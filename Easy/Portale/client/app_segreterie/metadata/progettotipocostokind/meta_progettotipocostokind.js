@@ -24,8 +24,8 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'description', 'Descrizione', null, 10, 2048);
-						this.describeAColumn(table, 'title', 'Voce', null, 20, 2048);
+						this.describeAColumn(table, 'description', 'Descrizione', null, 20, 2048);
+						this.describeAColumn(table, 'title', 'Voce', null, 10, 2048);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

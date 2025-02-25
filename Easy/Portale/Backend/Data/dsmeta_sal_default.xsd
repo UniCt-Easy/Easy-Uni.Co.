@@ -9,7 +9,7 @@
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -18,12 +18,13 @@
             <xs:sequence>
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rendicontattivitaprogetto_alias1" msprop:TableForReading="rendicontattivitaprogetto" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="rendicontattivitaprogetto_alias2" msprop:TableForReading="rendicontattivitaprogetto" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="_x0021_orerendicont" type="xs:string" minOccurs="0" />
@@ -31,10 +32,10 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="datainizioprevista" type="xs:dateTime" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="iditineration" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
+              <xs:element name="idrendicontattivitaprogettokind" type="xs:int" minOccurs="0" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
@@ -50,6 +51,9 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idconsolidamento" type="xs:int" minOccurs="0" />
+              <xs:element name="idprogetto" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
               <xs:element name="idrendicontattivitaprogettoora" type="xs:int" />
               <xs:element name="idsal" type="xs:int" minOccurs="0" />
@@ -73,9 +77,10 @@
               <xs:element name="_x0021_idrendicontattivitaprogettoora_workpackage_alias3_raggruppamento" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_workpackage_alias3_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_rendicontattivitaprogettoora_data" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="_x0021_idrendicontattivitaprogettoora_rendicontattivitaprogetto_alias1_description" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idrendicontattivitaprogettoora_rendicontattivitaprogetto_alias1_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogettoora_rendicontattivitaprogetto_alias2_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogettoora_rendicontattivitaprogetto_alias2_registry_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_rendicontattivitaprogettoora_ore" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogettoora_sal_alias3_numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_sal_alias3_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_sal_alias3_stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
@@ -87,7 +92,7 @@
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -96,6 +101,7 @@
             <xs:sequence>
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
@@ -106,6 +112,15 @@
             <xs:sequence>
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -127,15 +142,6 @@
               <xs:element name="idexp" type="xs:int" />
               <xs:element name="nmov" type="xs:int" />
               <xs:element name="ymov" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="contrattokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -201,7 +207,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rendicontattivitaprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="rendicontattivitaprogetto_alias1" msprop:TableForReading="rendicontattivitaprogetto" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="_x0021_orerendicont" type="xs:string" minOccurs="0" />
@@ -209,10 +215,10 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="datainizioprevista" type="xs:dateTime" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="iditineration" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
+              <xs:element name="idrendicontattivitaprogettokind" type="xs:int" minOccurs="0" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
@@ -230,9 +236,9 @@
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idassetdiaryora" type="xs:int" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idexp" type="xs:int" minOccurs="0" />
               <xs:element name="idpettycash" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idprogettocosto" type="xs:int" />
               <xs:element name="idprogettotipocosto" type="xs:int" />
@@ -262,9 +268,9 @@
               <xs:element name="_x0021_idprogettocosto_workpackage_alias2_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogettocosto_progettotipocosto_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogettocosto_progettocosto_amount" type="xs:decimal" minOccurs="0" />
-              <xs:element name="_x0021_idprogettocosto_contrattokind_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idprogettocosto_rendicontattivitaprogetto_description" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idprogettocosto_rendicontattivitaprogetto_registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idprogettocosto_position_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idprogettocosto_rendicontattivitaprogetto_alias1_description" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idprogettocosto_rendicontattivitaprogetto_alias1_registry_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogettocosto_progettocosto_doc" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogettocosto_progettocosto_docdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idprogettocosto_expense_description" type="xs:string" minOccurs="0" />
@@ -283,6 +289,7 @@
               <xs:element name="_x0021_idprogettocosto_salprogettoassetworkpackagemese_alias1_salprogettoassetworkpackage_alias2_percentuale" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_idprogettocosto_salprogettoassetworkpackagemese_alias1_mese_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogettocosto_salprogettoassetworkpackagemese_alias1_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idprogettocosto_sal_alias2_numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idprogettocosto_sal_alias2_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idprogettocosto_sal_alias2_stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
@@ -307,7 +314,7 @@
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -366,7 +373,7 @@
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idworkpackage" type="xs:int" />
               <xs:element name="raggruppamento" type="xs:string" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -375,6 +382,7 @@
             <xs:sequence>
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
@@ -457,6 +465,7 @@
               <xs:element name="_x0021_idassetdiaryora_assetdiaryora_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idassetdiaryora_assetdiaryora_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idassetdiaryora_assetdiaryora_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idassetdiaryora_sal_alias1_numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idassetdiaryora_sal_alias1_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idassetdiaryora_sal_alias1_stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
@@ -466,10 +475,12 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="_x0021_budgetcalcolato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="autoassociazione" type="xs:string" minOccurs="0" />
               <xs:element name="budget" type="xs:decimal" minOccurs="0" />
               <xs:element name="datablocco" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
@@ -487,14 +498,17 @@
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idsal" />
     </xs:unique>
-    <xs:unique name="rendicontattivitaprogetto_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:rendicontattivitaprogetto_alias1" />
+    <xs:unique name="rendicontattivitaprogetto_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontattivitaprogetto_alias2" />
       <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idrendicontattivitaprogetto" />
       <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
     <xs:unique name="rendicontattivitaprogettoora_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:rendicontattivitaprogettoora" />
+      <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idrendicontattivitaprogetto" />
       <xs:field xpath="mstns:idrendicontattivitaprogettoora" />
       <xs:field xpath="mstns:idworkpackage" />
@@ -520,6 +534,10 @@
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idprogettotipocosto" />
     </xs:unique>
+    <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
     <xs:unique name="pettycash_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pettycash" />
       <xs:field xpath="mstns:idpettycash" />
@@ -527,10 +545,6 @@
     <xs:unique name="expense_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:expense" />
       <xs:field xpath="mstns:idexp" />
-    </xs:unique>
-    <xs:unique name="contrattokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:contrattokind" />
-      <xs:field xpath="mstns:idcontrattokind" />
     </xs:unique>
     <xs:unique name="mese_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:mese" />
@@ -562,9 +576,10 @@
       <xs:field xpath="mstns:idassetdiaryora" />
       <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
-    <xs:unique name="rendicontattivitaprogetto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:rendicontattivitaprogetto" />
+    <xs:unique name="rendicontattivitaprogetto_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontattivitaprogetto_alias1" />
       <xs:field xpath="mstns:idprogetto" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idrendicontattivitaprogetto" />
       <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
@@ -657,23 +672,23 @@
       <msdata:Relationship name="FK_salrendicontattivitaprogettoora_rendicontattivitaprogettoora_idrendicontattivitaprogettoora" msdata:parent="rendicontattivitaprogettoora" msdata:child="salrendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogettoora" msdata:childkey="idrendicontattivitaprogettoora" />
       <msdata:Relationship name="FK_rendicontattivitaprogettoora_workpackage_alias3_idworkpackage" msdata:parent="workpackage_alias3" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
       <msdata:Relationship name="FK_rendicontattivitaprogettoora_sal_alias3_idsal" msdata:parent="sal_alias3" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idsal" msdata:childkey="idsal" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
-      <msdata:Relationship name="FK_rendicontattivitaprogetto_alias1_registry_idreg" msdata:parent="registry" msdata:child="rendicontattivitaprogetto_alias1" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_alias2_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto_alias2" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_rendicontattivitaprogetto_alias2_registry_idreg" msdata:parent="registry" msdata:child="rendicontattivitaprogetto_alias2" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_salprogettocosto_sal_idprogetto-idsal" msdata:parent="sal" msdata:child="salprogettocosto" msdata:parentkey="idprogetto idsal" msdata:childkey="idprogetto idsal" />
       <msdata:Relationship name="FK_salprogettocosto_progettocosto_idprogettocosto" msdata:parent="progettocosto" msdata:child="salprogettocosto" msdata:parentkey="idprogettocosto" msdata:childkey="idprogettocosto" />
       <msdata:Relationship name="FK_progettocosto_workpackage_alias2_idworkpackage" msdata:parent="workpackage_alias2" msdata:child="progettocosto" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
       <msdata:Relationship name="FK_progettocosto_salprogettoassetworkpackagemese_alias1_idsalprogettoassetworkpackagemese" msdata:parent="salprogettoassetworkpackagemese_alias1" msdata:child="progettocosto" msdata:parentkey="idsalprogettoassetworkpackagemese" msdata:childkey="idsalprogettoassetworkpackagemese" />
       <msdata:Relationship name="FK_progettocosto_sal_alias2_idsal" msdata:parent="sal_alias2" msdata:child="progettocosto" msdata:parentkey="idsal" msdata:childkey="idsal" />
-      <msdata:Relationship name="FK_progettocosto_rendicontattivitaprogetto_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto" msdata:child="progettocosto" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_progettocosto_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="progettocosto" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
       <msdata:Relationship name="FK_progettocosto_progettotipocosto_idprogettotipocosto" msdata:parent="progettotipocosto" msdata:child="progettocosto" msdata:parentkey="idprogettotipocosto" msdata:childkey="idprogettotipocosto" />
+      <msdata:Relationship name="FK_progettocosto_position_idposition" msdata:parent="position" msdata:child="progettocosto" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_progettocosto_pettycash_idpettycash" msdata:parent="pettycash" msdata:child="progettocosto" msdata:parentkey="idpettycash" msdata:childkey="idpettycash" />
       <msdata:Relationship name="FK_progettocosto_expense_idexp" msdata:parent="expense" msdata:child="progettocosto" msdata:parentkey="idexp" msdata:childkey="idexp" />
-      <msdata:Relationship name="FK_progettocosto_contrattokind_idcontrattokind" msdata:parent="contrattokind" msdata:child="progettocosto" msdata:parentkey="idcontrattokind" msdata:childkey="idcontrattokind" />
       <msdata:Relationship name="FK_progettocosto_assetdiaryora_alias2_idassetdiaryora" msdata:parent="assetdiaryora_alias2" msdata:child="progettocosto" msdata:parentkey="idassetdiaryora" msdata:childkey="idassetdiaryora" />
       <msdata:Relationship name="FK_salprogettoassetworkpackagemese_alias1_mese_idmese" msdata:parent="mese" msdata:child="salprogettoassetworkpackagemese_alias1" msdata:parentkey="idmese" msdata:childkey="idmese" />
       <msdata:Relationship name="FK_salprogettoassetworkpackagemese_alias1_salprogettoassetworkpackage_alias2_idsalprogettoassetworkpackage" msdata:parent="salprogettoassetworkpackage_alias2" msdata:child="salprogettoassetworkpackagemese_alias1" msdata:parentkey="idsalprogettoassetworkpackage" msdata:childkey="idsalprogettoassetworkpackage" />
       <msdata:Relationship name="FK_assetdiaryora_alias2_assetdiary_alias1_idassetdiary" msdata:parent="assetdiary_alias1" msdata:child="assetdiaryora_alias2" msdata:parentkey="idassetdiary" msdata:childkey="idassetdiary" />
-      <msdata:Relationship name="FK_rendicontattivitaprogetto_registry_idreg" msdata:parent="registry" msdata:child="rendicontattivitaprogetto" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_rendicontattivitaprogetto_alias1_registry_idreg" msdata:parent="registry" msdata:child="rendicontattivitaprogetto_alias1" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_salprogettoassetworkpackage_sal_idprogetto-idsal" msdata:parent="sal" msdata:child="salprogettoassetworkpackage" msdata:parentkey="idprogetto idsal" msdata:childkey="idprogetto idsal" />
       <msdata:Relationship name="FK_salprogettoassetworkpackagemese_salprogettoassetworkpackage_idprogetto-idsal-idsalprogettoassetworkpackage" msdata:parent="salprogettoassetworkpackage" msdata:child="salprogettoassetworkpackagemese" msdata:parentkey="idprogetto idsal idsalprogettoassetworkpackage" msdata:childkey="idprogetto idsal idsalprogettoassetworkpackage" />
       <msdata:Relationship name="FK_salprogettoassetworkpackage_workpackage_alias1_idworkpackage" msdata:parent="workpackage_alias1" msdata:child="salprogettoassetworkpackage" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />

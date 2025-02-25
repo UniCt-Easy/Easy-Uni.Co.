@@ -38,10 +38,10 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
-						table.columns["idclassescuolakind"].caption = "Codice";
 						table.columns["idclassescuolakind"].caption = "Sigla";
 						table.columns["idcorsostudiokind"].caption = "Tipologia di corso";
 						table.columns["idcorsostudiolivello"].caption = "Livello del corso";
+						table.columns["ideqf"].caption = "Livello EQF (European Qualifications Framework)";
 						table.columns["title"].caption = "Tipologia";
 //$innerSetCaptionConfig_default$
 						break;

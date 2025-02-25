@@ -92,7 +92,6 @@
 //$innerSetCaptionConfig_amm$
 						break;
 					case 'stru':
-						table.columns["idmansionekind"].caption = "Mansione";
 						table.columns["idreg"].caption = "Membro del personale";
 						table.columns["start"].caption = "Dal ";
 						table.columns["stop"].caption = "Al ";

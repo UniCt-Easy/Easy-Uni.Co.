@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -62,6 +62,12 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 		private ComboBox cmbInquadramento;
 		private Label label7;
 		private CheckBox checkBox2;
+		private GroupBox gboxConcorsuale;
+		private TextBox txtClasseconcorsuale;
+		private Button BancaButton;
+		private TextBox txtDescrConcorsuale;
+		private Label label8;
+		private ComboBox cmbTipologiaRuolo;
 		MetaData Meta;
 
 		public Frm_registrylegalstatus_anagraficadetail() {
@@ -117,9 +123,16 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			this.cmbInquadramento = new System.Windows.Forms.ComboBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.gboxConcorsuale = new System.Windows.Forms.GroupBox();
+			this.txtClasseconcorsuale = new System.Windows.Forms.TextBox();
+			this.BancaButton = new System.Windows.Forms.Button();
+			this.txtDescrConcorsuale = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.cmbTipologiaRuolo = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox6.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.gboxConcorsuale.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// checkBox1
@@ -213,7 +226,7 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			// 
 			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnAnnulla.Location = new System.Drawing.Point(576, 366);
+			this.btnAnnulla.Location = new System.Drawing.Point(579, 402);
 			this.btnAnnulla.Name = "btnAnnulla";
 			this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
 			this.btnAnnulla.TabIndex = 71;
@@ -223,7 +236,7 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			// 
 			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOK.Location = new System.Drawing.Point(472, 366);
+			this.btnOK.Location = new System.Drawing.Point(475, 402);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(75, 23);
 			this.btnOK.TabIndex = 12;
@@ -325,7 +338,7 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			this.groupBox1.Controls.Add(this.cmb_dalia_position);
 			this.groupBox1.Location = new System.Drawing.Point(12, 226);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(647, 80);
+			this.groupBox1.Size = new System.Drawing.Size(650, 80);
 			this.groupBox1.TabIndex = 110;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Banca Dati DALIA";
@@ -357,7 +370,7 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			this.cmb_dalia_position.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmb_dalia_position.Location = new System.Drawing.Point(102, 40);
 			this.cmb_dalia_position.Name = "cmb_dalia_position";
-			this.cmb_dalia_position.Size = new System.Drawing.Size(533, 21);
+			this.cmb_dalia_position.Size = new System.Drawing.Size(536, 21);
 			this.cmb_dalia_position.TabIndex = 6;
 			this.cmb_dalia_position.Tag = "registrylegalstatus.iddaliaposition";
 			this.cmb_dalia_position.ValueMember = "iddaliaposition";
@@ -388,7 +401,7 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			this.cmbInquadramento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbInquadramento.Location = new System.Drawing.Point(112, 132);
 			this.cmbInquadramento.Name = "cmbInquadramento";
-			this.cmbInquadramento.Size = new System.Drawing.Size(540, 21);
+			this.cmbInquadramento.Size = new System.Drawing.Size(543, 21);
 			this.cmbInquadramento.TabIndex = 114;
 			this.cmbInquadramento.Tag = "registrylegalstatus.idinquadramento";
 			this.cmbInquadramento.ValueMember = "idinquadramento";
@@ -406,7 +419,7 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			// checkBox2
 			// 
 			this.checkBox2.AutoSize = true;
-			this.checkBox2.Location = new System.Drawing.Point(12, 330);
+			this.checkBox2.Location = new System.Drawing.Point(12, 405);
 			this.checkBox2.Name = "checkBox2";
 			this.checkBox2.Size = new System.Drawing.Size(306, 17);
 			this.checkBox2.TabIndex = 115;
@@ -414,12 +427,79 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			this.checkBox2.Text = "Predefinito (ai fini del calcolo dei costi nei progetti di ricerca)";
 			this.checkBox2.UseVisualStyleBackColor = true;
 			// 
+			// gboxConcorsuale
+			// 
+			this.gboxConcorsuale.Controls.Add(this.txtClasseconcorsuale);
+			this.gboxConcorsuale.Controls.Add(this.BancaButton);
+			this.gboxConcorsuale.Controls.Add(this.txtDescrConcorsuale);
+			this.gboxConcorsuale.Location = new System.Drawing.Point(11, 312);
+			this.gboxConcorsuale.Name = "gboxConcorsuale";
+			this.gboxConcorsuale.Size = new System.Drawing.Size(334, 64);
+			this.gboxConcorsuale.TabIndex = 116;
+			this.gboxConcorsuale.TabStop = false;
+			this.gboxConcorsuale.Tag = "AutoChoose.txtClasseconcorsuale.default.(active=\'S\')";
+			this.gboxConcorsuale.Text = "Classi di concorso MIUR";
+			// 
+			// txtClasseconcorsuale
+			// 
+			this.txtClasseconcorsuale.Location = new System.Drawing.Point(9, 38);
+			this.txtClasseconcorsuale.Name = "txtClasseconcorsuale";
+			this.txtClasseconcorsuale.Size = new System.Drawing.Size(123, 20);
+			this.txtClasseconcorsuale.TabIndex = 3;
+			this.txtClasseconcorsuale.Tag = "classconsorsuale.title?registrylegalstatusview.classconsorsualetitle";
+			// 
+			// BancaButton
+			// 
+			this.BancaButton.Location = new System.Drawing.Point(8, 14);
+			this.BancaButton.Name = "BancaButton";
+			this.BancaButton.Size = new System.Drawing.Size(124, 23);
+			this.BancaButton.TabIndex = 2;
+			this.BancaButton.Tag = "choose.classconsorsuale.default.(active=\'S\')";
+			this.BancaButton.Text = "Classe";
+			// 
+			// txtDescrConcorsuale
+			// 
+			this.txtDescrConcorsuale.Location = new System.Drawing.Point(142, 9);
+			this.txtDescrConcorsuale.Multiline = true;
+			this.txtDescrConcorsuale.Name = "txtDescrConcorsuale";
+			this.txtDescrConcorsuale.ReadOnly = true;
+			this.txtDescrConcorsuale.Size = new System.Drawing.Size(186, 49);
+			this.txtDescrConcorsuale.TabIndex = 2;
+			this.txtDescrConcorsuale.TabStop = false;
+			this.txtDescrConcorsuale.Tag = "classconsorsuale.description";
+			// 
+			// label8
+			// 
+			this.label8.Location = new System.Drawing.Point(348, 319);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(100, 21);
+			this.label8.TabIndex = 118;
+			this.label8.Text = "Tipologia Servizio";
+			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbTipologiaRuolo
+			// 
+			this.cmbTipologiaRuolo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbTipologiaRuolo.DataSource = this.DS.tipologiaruolo;
+			this.cmbTipologiaRuolo.DisplayMember = "description";
+			this.cmbTipologiaRuolo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbTipologiaRuolo.Location = new System.Drawing.Point(454, 321);
+			this.cmbTipologiaRuolo.Name = "cmbTipologiaRuolo";
+			this.cmbTipologiaRuolo.Size = new System.Drawing.Size(208, 21);
+			this.cmbTipologiaRuolo.TabIndex = 117;
+			this.cmbTipologiaRuolo.Tag = "registrylegalstatus.idtipologiaruolo";
+			this.cmbTipologiaRuolo.ValueMember = "idtipologiaruolo";
+			// 
 			// Frm_registrylegalstatus_anagraficadetail
 			// 
 			this.AcceptButton = this.btnOK;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnAnnulla;
-			this.ClientSize = new System.Drawing.Size(664, 404);
+			this.ClientSize = new System.Drawing.Size(667, 440);
+			this.Controls.Add(this.label8);
+			this.Controls.Add(this.cmbTipologiaRuolo);
+			this.Controls.Add(this.gboxConcorsuale);
 			this.Controls.Add(this.checkBox2);
 			this.Controls.Add(this.cmbInquadramento);
 			this.Controls.Add(this.label7);
@@ -447,6 +527,8 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			this.groupBox6.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.gboxConcorsuale.ResumeLayout(false);
+			this.gboxConcorsuale.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -471,6 +553,19 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			}
 		}
 
+		public void MetaData_AfterFill() {
+			ValorizzaComboInquadramento();
+		}
+
+		public void ValorizzaComboInquadramento() {
+			if (Meta.IsEmpty) {
+				return;
+			}
+			DataRow Curr = DS.registrylegalstatus.Rows[0];
+			if (Curr["idposition"] != DBNull.Value) {
+				setAutoInquadramento(Curr["idposition"]);
+			}
+		}
 		void setAutoInquadramento(object CurrIdposition) {
 
 			DS.inquadramento.Clear();

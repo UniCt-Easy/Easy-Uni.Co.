@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,6 +31,9 @@ public partial class vistaForm: DataSet {
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable itinerationattachment 		=> Tables["itinerationattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable itinerationattachmentkind 		=> Tables["itinerationattachmentkind"];
 
 	#endregion
 
@@ -82,9 +85,37 @@ private void initClass() {
 	titinerationattachment.Columns.Add(C);
 	titinerationattachment.Columns.Add( new DataColumn("description", typeof(string)));
 	titinerationattachment.Columns.Add( new DataColumn("active", typeof(string)));
+	titinerationattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
 	Tables.Add(titinerationattachment);
 	titinerationattachment.PrimaryKey =  new DataColumn[]{titinerationattachment.Columns["iditineration"], titinerationattachment.Columns["idattachment"]};
 
+
+	//////////////////// ITINERATIONATTACHMENTKIND /////////////////////////////////
+	var titinerationattachmentkind= new DataTable("itinerationattachmentkind");
+	C= new DataColumn("idattachmentkind", typeof(int));
+	C.AllowDBNull=false;
+	titinerationattachmentkind.Columns.Add(C);
+	C= new DataColumn("active", typeof(string));
+	C.AllowDBNull=false;
+	titinerationattachmentkind.Columns.Add(C);
+	titinerationattachmentkind.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	titinerationattachmentkind.Columns.Add( new DataColumn("cu", typeof(string)));
+	titinerationattachmentkind.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	titinerationattachmentkind.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	titinerationattachmentkind.Columns.Add(C);
+	Tables.Add(titinerationattachmentkind);
+	titinerationattachmentkind.PrimaryKey =  new DataColumn[]{titinerationattachmentkind.Columns["idattachmentkind"]};
+
+
+	#endregion
+
+
+	#region DataRelation creation
+	var cPar = new []{itinerationattachmentkind.Columns["idattachmentkind"]};
+	var cChild = new []{itinerationattachment.Columns["idattachmentkind"]};
+	Relations.Add(new DataRelation("itinerationattachmentkind_itinerationattachment",cPar,cChild,false));
 
 	#endregion
 

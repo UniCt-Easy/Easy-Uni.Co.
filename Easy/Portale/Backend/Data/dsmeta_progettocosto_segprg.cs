@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -138,7 +138,7 @@ private void initClass() {
 	tsaldefaultview.defineColumn("sal_budget", typeof(decimal));
 	tsaldefaultview.defineColumn("sal_datablocco", typeof(DateTime));
 	tsaldefaultview.defineColumn("sal_stop", typeof(DateTime));
-	tsaldefaultview.defineColumn("start", typeof(DateTime));
+	tsaldefaultview.defineColumn("sal_start", typeof(DateTime));
 	Tables.Add(tsaldefaultview);
 	tsaldefaultview.defineKey("idprogetto", "idsal");
 
@@ -164,7 +164,6 @@ private void initClass() {
 	trendicontattivitaprogettosegview.defineColumn("rendicontattivitaprogetto_ct", typeof(DateTime),false);
 	trendicontattivitaprogettosegview.defineColumn("rendicontattivitaprogetto_cu", typeof(string),false);
 	trendicontattivitaprogettosegview.defineColumn("rendicontattivitaprogetto_datainizioprevista", typeof(DateTime));
-	trendicontattivitaprogettosegview.defineColumn("rendicontattivitaprogetto_iditineration", typeof(int));
 	trendicontattivitaprogettosegview.defineColumn("rendicontattivitaprogetto_idrendicontattivitaprogettokind", typeof(int));
 	trendicontattivitaprogettosegview.defineColumn("rendicontattivitaprogetto_lt", typeof(DateTime),false);
 	trendicontattivitaprogettosegview.defineColumn("rendicontattivitaprogetto_lu", typeof(string),false);

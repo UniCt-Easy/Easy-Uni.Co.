@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -378,7 +378,8 @@ namespace ServizioPa.Repository
             i += 4;
             em.ImportoRitenuta = int.Parse(line.Substring(i, 10));
             i += 10;
-            //data scadenza
+            //data scadenza ritenuta extra
+            em.DataScadRitExtra = line.Substring(i, 6);
             i += 6;
             em.ImportoRitNetto = int.Parse(line.Substring(i, 10));
             i += 10;

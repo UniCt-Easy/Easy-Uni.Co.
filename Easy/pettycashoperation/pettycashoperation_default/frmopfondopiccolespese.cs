@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,6 +43,11 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 		public System.Windows.Forms.TextBox txtCodiceBilancio;
 		private System.Windows.Forms.TextBox txtDenominazioneBilancio;
 		private System.Windows.Forms.TabControl tabOpfondops;
+		private System.Windows.Forms.TabPage tabAllegati;
+		private System.Windows.Forms.DataGrid dataGridAllegati;
+		private System.Windows.Forms.Button btnDelAtt;
+		private System.Windows.Forms.Button btnEditAtt;
+		private System.Windows.Forms.Button btnInsAtt;
 		private System.Windows.Forms.TabPage tabOperazione;
 		private System.Windows.Forms.TabPage tabMovimenti;
 		private System.Windows.Forms.ComboBox cmbFondoPS;
@@ -261,6 +266,11 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_pettycashoperation_default));
 			this.tabOpfondops = new System.Windows.Forms.TabControl();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button(); 
 			this.tabOperazione = new System.Windows.Forms.TabPage();
 			this.gboxUPB = new System.Windows.Forms.GroupBox();
 			this.txtUPB = new System.Windows.Forms.TextBox();
@@ -424,6 +434,8 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			this.btnInsertFinanziamenti = new System.Windows.Forms.Button();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.tabOpfondops.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.tabOperazione.SuspendLayout();
 			this.gboxUPB.SuspendLayout();
 			this.gboxResponsabile.SuspendLayout();
@@ -479,6 +491,7 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			this.tabOpfondops.Controls.Add(this.tabAttributi);
 			this.tabOpfondops.Controls.Add(this.tabAnalitico);
 			this.tabOpfondops.Controls.Add(this.tabFinanziamenti);
+			this.tabOpfondops.Controls.Add(this.tabAllegati);
 			this.tabOpfondops.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabOpfondops.ImageList = this.imageList1;
 			this.tabOpfondops.Location = new System.Drawing.Point(0, 0);
@@ -487,6 +500,61 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			this.tabOpfondops.Size = new System.Drawing.Size(955, 520);
 			this.tabOpfondops.TabIndex = 0;
 			this.tabOpfondops.SelectedIndexChanged += new System.EventHandler(this.tabClassSup_Enter);
+			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "pettycashoperationattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// tabOperazione
 			// 
@@ -2391,6 +2459,8 @@ namespace pettycashoperation_default {//opfondopiccolespese//
 			this.tabFinanziamenti.ResumeLayout(false);
 			this.tabFinanziamenti.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgridFinanziamenti)).EndInit();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -5280,13 +5350,15 @@ namespace pettycashoperation_default {//opfondopiccolespese//
                 DS.accmotiveapplied_debit.Clear();
                 Meta.Conn.RUN_SELECT_INTO_TABLE(DS.accmotiveapplied_debit, null,
                                     GetData.MergeFilters(QHS.CmpEq("idaccmotive", CurrRow["idaccmotive_debit"]), DS.accmotiveapplied_debit ) , 
-                    null, false);                
+                    null, false);       
+				if (DS.accmotiveapplied_debit.Rows.Count > 0) { 
                 DataRow CDeb = DS.accmotiveapplied_debit.Rows[0];
                 txtCodiceCausaleDebito.Text = CDeb["codemotive"].ToString();
                 txtDenomCausaleDebito.Text = CDeb["motive"].ToString();
             }
+			}
 
-            MissionLinkedMustBeEvalued = true;
+			MissionLinkedMustBeEvalued = true;
 			RintracciaMissione();
 			AbilitaDisabilitaControlliMissione(false);
 			AbilitaDisabilitaCreditoreDebitore(false);

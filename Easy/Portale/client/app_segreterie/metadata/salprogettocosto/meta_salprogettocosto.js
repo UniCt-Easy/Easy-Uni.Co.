@@ -24,13 +24,14 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
+						this.describeAColumn(table, 'idprogettocosto', 'Dettaglio costo', null, 20, null);
 						this.describeAColumn(table, '!idprogettocosto_workpackage_alias2_raggruppamento', 'Raggruppamento Workpackage', null, 22, null);
 						this.describeAColumn(table, '!idprogettocosto_workpackage_alias2_title', 'Titolo Workpackage', null, 23, null);
 						this.describeAColumn(table, '!idprogettocosto_progettotipocosto_title', 'Voce di costo', null, 23, null);
 						this.describeAColumn(table, '!idprogettocosto_progettocosto_amount', 'Importo', 'fixed.2', 23, null);
-						this.describeAColumn(table, '!idprogettocosto_contrattokind_title', 'Tipo di contratto', null, 24, null);
-						this.describeAColumn(table, '!idprogettocosto_rendicontattivitaprogetto_description', 'Descrizione Attività svolta', null, 26, null);
-						this.describeAColumn(table, '!idprogettocosto_rendicontattivitaprogetto_registry_title', 'Denominazione Anagrafica generale', null, 26, null);
+						this.describeAColumn(table, '!idprogettocosto_position_title', 'Tipo di contratto', null, 24, null);
+						this.describeAColumn(table, '!idprogettocosto_rendicontattivitaprogetto_alias1_description', 'Descrizione Attività svolta', null, 26, null);
+						this.describeAColumn(table, '!idprogettocosto_rendicontattivitaprogetto_alias1_registry_title', 'Denominazione Anagrafica generale', null, 26, null);
 						this.describeAColumn(table, '!idprogettocosto_progettocosto_doc', 'Documento collegato', null, 26, null);
 						this.describeAColumn(table, '!idprogettocosto_progettocosto_docdate', 'Data del documento collegato', null, 27, null);
 						this.describeAColumn(table, '!idprogettocosto_expense_description', 'Descrizione Spesa', null, 29, null);
@@ -49,15 +50,15 @@
 						this.describeAColumn(table, '!idprogettocosto_salprogettoassetworkpackagemese_alias1_salprogettoassetworkpackage_alias2_percentuale', 'Percentuale Uso dei beni strumentali', 'fixed.2', 35, null);
 						this.describeAColumn(table, '!idprogettocosto_salprogettoassetworkpackagemese_alias1_mese_title', 'Mese Mesi', null, 34, null);
 						this.describeAColumn(table, '!idprogettocosto_salprogettoassetworkpackagemese_alias1_amount', 'Importo Uso del bene strumentale', 'fixed.2', 37, null);
-						this.describeAColumn(table, '!idprogettocosto_sal_alias2_start', 'Data di inizio Stato avanzamento lavori', null, 35, null);
-						this.describeAColumn(table, '!idprogettocosto_sal_alias2_stop', 'Data di fine Stato avanzamento lavori', null, 36, null);
+						this.describeAColumn(table, '!idprogettocosto_sal_alias2_start', 'Data di inizio Stato avanzamento lavori', null, 36, null);
+						this.describeAColumn(table, '!idprogettocosto_sal_alias2_stop', 'Data di fine Stato avanzamento lavori', null, 37, null);
 						objCalcFieldConfig['!idprogettocosto_workpackage_alias2_raggruppamento'] = { tableNameLookup:'workpackage_alias2', columnNameLookup:'raggruppamento', columnNamekey:'idprogettocosto' };
 						objCalcFieldConfig['!idprogettocosto_workpackage_alias2_title'] = { tableNameLookup:'workpackage_alias2', columnNameLookup:'title', columnNamekey:'idprogettocosto' };
 						objCalcFieldConfig['!idprogettocosto_progettotipocosto_title'] = { tableNameLookup:'progettotipocosto', columnNameLookup:'title', columnNamekey:'idprogettocosto' };
 						objCalcFieldConfig['!idprogettocosto_progettocosto_amount'] = { tableNameLookup:'progettocosto', columnNameLookup:'amount', columnNamekey:'idprogettocosto' };
-						objCalcFieldConfig['!idprogettocosto_contrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idprogettocosto' };
-						objCalcFieldConfig['!idprogettocosto_rendicontattivitaprogetto_description'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'description', columnNamekey:'idprogettocosto' };
-						objCalcFieldConfig['!idprogettocosto_rendicontattivitaprogetto_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idprogettocosto' };
+						objCalcFieldConfig['!idprogettocosto_position_title'] = { tableNameLookup:'position', columnNameLookup:'title', columnNamekey:'idprogettocosto' };
+						objCalcFieldConfig['!idprogettocosto_rendicontattivitaprogetto_alias1_description'] = { tableNameLookup:'rendicontattivitaprogetto_alias1', columnNameLookup:'description', columnNamekey:'idprogettocosto' };
+						objCalcFieldConfig['!idprogettocosto_rendicontattivitaprogetto_alias1_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idprogettocosto' };
 						objCalcFieldConfig['!idprogettocosto_progettocosto_doc'] = { tableNameLookup:'progettocosto', columnNameLookup:'doc', columnNamekey:'idprogettocosto' };
 						objCalcFieldConfig['!idprogettocosto_progettocosto_docdate'] = { tableNameLookup:'progettocosto', columnNameLookup:'docdate', columnNamekey:'idprogettocosto' };
 						objCalcFieldConfig['!idprogettocosto_expense_description'] = { tableNameLookup:'expense', columnNameLookup:'description', columnNamekey:'idprogettocosto' };
@@ -78,6 +79,8 @@
 						objCalcFieldConfig['!idprogettocosto_salprogettoassetworkpackagemese_alias1_amount'] = { tableNameLookup:'salprogettoassetworkpackagemese_alias1', columnNameLookup:'amount', columnNamekey:'idprogettocosto' };
 						objCalcFieldConfig['!idprogettocosto_sal_alias2_start'] = { tableNameLookup:'sal_alias2', columnNameLookup:'start', columnNamekey:'idprogettocosto' };
 						objCalcFieldConfig['!idprogettocosto_sal_alias2_stop'] = { tableNameLookup:'sal_alias2', columnNameLookup:'stop', columnNamekey:'idprogettocosto' };
+						this.describeAColumn(table, '!idprogettocosto_sal_alias2_numerosal', 'Numero Stato avanzamento lavori', null, 35, null);
+						objCalcFieldConfig['!idprogettocosto_sal_alias2_numerosal'] = { tableNameLookup:'sal_alias2', columnNameLookup:'numerosal', columnNamekey:'idprogettocosto' };
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

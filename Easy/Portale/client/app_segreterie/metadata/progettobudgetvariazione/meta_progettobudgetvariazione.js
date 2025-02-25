@@ -24,14 +24,8 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'newamount', 'Nuovo budget', 'fixed.2', 60, null);
-						this.describeAColumn(table, 'data', 'Data variazione', null, 110, null);
-						this.describeAColumn(table, '!idaccmotive_accmotive_codemotive', 'Codice Causale economico patrimoniale', null, 21, null);
-						this.describeAColumn(table, '!idaccmotive_accmotive_title', 'Denominazione Causale economico patrimoniale', null, 22, null);
-						objCalcFieldConfig['!idaccmotive_accmotive_codemotive'] = { tableNameLookup:'accmotive', columnNameLookup:'codemotive', columnNamekey:'idaccmotive' };
-						objCalcFieldConfig['!idaccmotive_accmotive_title'] = { tableNameLookup:'accmotive', columnNameLookup:'title', columnNamekey:'idaccmotive' };
-						this.describeAColumn(table, '!idupb_upb_title', 'Unità previsionale di base (UPB)', null, 11, null);
-						objCalcFieldConfig['!idupb_upb_title'] = { tableNameLookup:'upb', columnNameLookup:'title', columnNamekey:'idupb' };
+						this.describeAColumn(table, 'amount', 'Variazione', 'fixed.2', 40, null);
+						this.describeAColumn(table, 'data', 'Data variazione', null, 50, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -45,6 +39,7 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
+						table.columns["amount"].caption = "Variazione";
 						table.columns["data"].caption = "Data variazione";
 						table.columns["idaccmotive"].caption = "Causale economico patrimoniale";
 						table.columns["idupb"].caption = "Unità previsionale di base (UPB)";

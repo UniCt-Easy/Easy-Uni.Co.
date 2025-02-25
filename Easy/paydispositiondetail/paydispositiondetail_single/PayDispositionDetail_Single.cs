@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -329,7 +329,7 @@ namespace paydispositiondetail_single {
                 if (DS.paydispositiondetail.Rows.Count == 0) return;
                 DataRow Curr = DS.paydispositiondetail.Rows[0];
                 int paymethodcode = CfgFn.GetNoNullInt32(Curr["paymethodcode"]);
-                if ((paymethodcode == 1)||(paymethodcode == 7))
+                if ((paymethodcode == 1)||(paymethodcode == 8))
                 {
                     grpCoordinateBancarie.Enabled = true;
                 }
@@ -581,7 +581,7 @@ namespace paydispositiondetail_single {
 
         private void rdbBonifico_CheckedChanged(object sender, EventArgs e)
         {
-            if ((rdbBonifico.Checked)|| (rdbGirofondoTabB.Checked))
+            if ((rdbBonifico.Checked)|| (rdbGirofondoTabB.Checked)|| rdbGirofondoiban.Checked)
             {
                 grpCoordinateBancarie.Enabled = true;
             }
@@ -656,6 +656,16 @@ namespace paydispositiondetail_single {
 
 		private void rdbGirofondoTabA_CheckedChanged(object sender, EventArgs e) {
             if (rdbGirofondoTabA.Checked) {
+                PulisciCoordinateBancarie();
+                grpCoordinateBancarie.Enabled = false;
+            }
+        }
+
+		private void rdbGirofondoiban_CheckedChanged(object sender, EventArgs e) {
+            if ((rdbBonifico.Checked) || (rdbGirofondoTabB.Checked) || rdbGirofondoiban.Checked) {
+                grpCoordinateBancarie.Enabled = true;
+            }
+            else {
                 PulisciCoordinateBancarie();
                 grpCoordinateBancarie.Enabled = false;
             }

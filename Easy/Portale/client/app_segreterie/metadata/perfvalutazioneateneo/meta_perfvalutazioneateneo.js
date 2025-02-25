@@ -52,12 +52,11 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
-						table.columns["year"].caption = "Anno";
 						table.columns["calcoloautomatico"].caption = "Risultato calcolato automaticamente";
+						table.columns["year"].caption = "Anno";
 //$innerSetCaptionConfig_default$
 						break;
 					case 'consoglie':
-						table.columns["year"].caption = "Anno";
 //$innerSetCaptionConfig_consoglie$
 						break;
 					case 'obiettivi':

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 UniversitÃ  degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 UniversitÃƒÂ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,6 +42,7 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using GovPay;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace pagoPaService
 {
@@ -57,7 +58,7 @@ namespace pagoPaService
 		public string Indirizzo1;
 		public string Indirizzo2;
 		public string CAP;
-		public string LocalitÃ ;
+		public string LocalitÃƒÂ ;
 		public string Provincia;
 	}
 
@@ -76,6 +77,7 @@ namespace pagoPaService
 		public const string BSONDRIO = "bsondrio";
 		public const string INTESASP = "intesasp";
 		public const string VALTELLINESE = "valtellinese";
+		public const string PMPAY = "pmpay";
 		public const string UNICREDIT = "unicredit";
 		public const string UBIBANCA = "ubibanca";
 		public const string GOMP = "gomp";
@@ -133,7 +135,7 @@ namespace pagoPaService
 						info.CAP = value;
 						break;
 					case "License_Location":
-						info.LocalitÃ  = value;
+						info.LocalitÃƒÂ  = value;
 						break;
 					case "License_Country":
 						info.Provincia = value;
@@ -168,15 +170,17 @@ namespace pagoPaService
 				switch (pConf.Code)
 				{
 					case BSONDRIO: return ottieniAvvisoBancaSondrio(conn, iuv, out error); //prevede l'invio indipendente della tassonomia
-																							 //Nota: manca questa parte, cmq l'avviso dovrebbe averlo giÃ  mandato govPay quindi non serve
+																							 //Nota: manca questa parte, cmq l'avviso dovrebbe averlo giÃƒÂ  mandato govPay quindi non serve
 																							 //case "cineca": ottieniCertificatoGovPay(conn,iuv,pConf); break;
 					case INTESASP: return ottieniAvvisoIntesaSanPaolo(conn, iuv, pConf, out error);//distingue per servizio
-																									 //distingue per servizio MA non c'Ã¨ una funzione per scaricare l'avviso, quindi da questo punto di vista Ã¨ come se non distinguesse
+																									 //distingue per servizio MA non c'ÃƒÂ¨ una funzione per scaricare l'avviso, quindi da questo punto di vista ÃƒÂ¨ come se non distinguesse
 					case UNICREDIT: return ottieniAvvisoUnicredit(conn, iuv, pConf, out error);
 					
 					case UBIBANCA: return ottieniAvvisoUnicredit(conn, iuv, pConf, out error);
 					
 					case VALTELLINESE: return ottieniAvvisoUnicredit(conn, iuv, pConf, out error);
+					
+					case PMPAY: return ottieniAvvisoUnicredit(conn, iuv, pConf, out error);
 					
 					case GOMP:
 						{
@@ -227,7 +231,7 @@ namespace pagoPaService
 			if (!string.IsNullOrEmpty(ente.Denominazione)) stringaEnte = ente.Denominazione;
 			if (!string.IsNullOrEmpty(indirizzo)) stringaEnte += "\n" + indirizzo;
 			if (!string.IsNullOrEmpty(ente.CAP)) stringaEnte += "\n" + ente.CAP;
-			if (!string.IsNullOrEmpty(ente.LocalitÃ )) stringaEnte += " - " + ente.LocalitÃ ;
+			if (!string.IsNullOrEmpty(ente.LocalitÃƒÂ )) stringaEnte += " - " + ente.LocalitÃƒÂ ;
 			if (!string.IsNullOrEmpty(ente.Provincia)) stringaEnte += "(" + ente.Provincia + ")";
 			if (!string.IsNullOrEmpty(ente.CodiceFiscale)) stringaEnte += "\n" + "CF:" + ente.CodiceFiscale;
 
@@ -455,7 +459,7 @@ namespace pagoPaService
 			string Cf_Destinatario = (r["codice"] != DBNull.Value) ? r["codice"].ToString() : "";
 			string Nome_Cognome_Destinatario = (r["anagrafica"] != DBNull.Value) ? r["anagrafica"].ToString() : "";
 			string Indirizzo_Destinatario = (r["indirizzo"] != DBNull.Value) ? r["indirizzo"].ToString() : "";
-			// concateno il CAP la cittÃ  di residenza e la provincia
+			// concateno il CAP la cittÃƒÂ  di residenza e la provincia
 			Indirizzo_Destinatario = (r["cap"] != DBNull.Value) ? Indirizzo_Destinatario + "\r\n" + r["cap"].ToString() : Indirizzo_Destinatario;
 			Indirizzo_Destinatario = (r["citta"] != DBNull.Value) ? Indirizzo_Destinatario + " - " + r["citta"].ToString() : Indirizzo_Destinatario;
 			Indirizzo_Destinatario = (r["provincia"] != DBNull.Value) ? Indirizzo_Destinatario + "\r\n" + "(" + r["provincia"].ToString() + ")" : Indirizzo_Destinatario;
@@ -467,12 +471,12 @@ namespace pagoPaService
 			if (modelloPdf == "Layout Avviso AGID 140717 - A.pdf")
 			{
 				pdfBytes = modello.Genera(ente,
-					enteGen.Denominazione, enteGen.Indirizzo1, enteGen.CAP, enteGen.LocalitÃ , enteGen.Provincia,
+					enteGen.Denominazione, enteGen.Indirizzo1, enteGen.CAP, enteGen.LocalitÃƒÂ , enteGen.Provincia,
 					enteGen.CodiceFiscale,
 					debitore,
 					codiceAvviso, codiceSia, tipologiaServizio, urlSitoIstituzionale, urlServizioPagamento,
 					idDisposizione,
-					(decimal)r["importo"], noNullDate(r["scadenza"], DateTime.MaxValue), iuv, r["causale"].ToString(),
+					(decimal)r["importo"], GetNoNullDate(r["scadenza"], DateTime.MaxValue), iuv, r["causale"].ToString(),
 					enteGen.Logo, r["barcodevalue"].ToString(), r["qrcodevalue"].ToString(),
 					out error);
 			}
@@ -483,7 +487,7 @@ namespace pagoPaService
 				pdfBytes = modello.generaBollettino_versione_2018(maxLen(oggPag, 60), enteGen.CodiceFiscale,
 					Cf_Destinatario, enteGen.Denominazione, Settore_Ente, ente, Nome_Cognome_Destinatario,
 					Indirizzo_Destinatario,
-					"unica soluzione", noNullDate(r["scadenza"], DateTime.MaxValue), (decimal)r["importo"],
+					"unica soluzione", GetNoNullDate(r["scadenza"], DateTime.MaxValue), (decimal)r["importo"],
 					"del tuo Ente Creditore", maxLen(oggPag, 50), codiceSia, codiceAvviso,
 					enteGen.Logo, r["qrcodevalue"].ToString(), out error
 				);
@@ -570,12 +574,12 @@ namespace pagoPaService
 			if (modelloPdf == "Layout Avviso AGID 140717 - A.pdf")
 			{
 				pdfBytes = modello.Genera(ente,
-					enteGen.Denominazione, enteGen.Indirizzo1, enteGen.CAP, enteGen.LocalitÃ , enteGen.Provincia,
+					enteGen.Denominazione, enteGen.Indirizzo1, enteGen.CAP, enteGen.LocalitÃƒÂ , enteGen.Provincia,
 					enteGen.CodiceFiscale,
 					debitore,
 					codiceAvviso, codiceSia, tipologiaServizio, urlSitoIstituzionale, urlServizioPagamento,
 					idDisposizione,
-					(decimal)r["importo"], noNullDate(r["scadenza"], DateTime.MaxValue), iuv, r["causale"].ToString(),
+					(decimal)r["importo"],GetNoNullDate(r["scadenza"],DateTime.MaxValue), iuv, r["causale"].ToString(),
 					enteGen.Logo, r["barcodevalue"].ToString(), r["qrcodevalue"].ToString(),
 					out error);
 			}
@@ -584,7 +588,7 @@ namespace pagoPaService
 				pdfBytes = modello.generaBollettino_versione_2018("AVVISO DI PAGAMENTO", enteGen.CodiceFiscale,
 					Cf_Destinatario, enteGen.Denominazione, Settore_Ente, ente, Nome_Cognome_Destinatario,
 					Indirizzo_Destinatario,
-					"unica soluzione", noNullDate(r["scadenza"], DateTime.MaxValue), (decimal)r["importo"],
+					"unica soluzione", GetNoNullDate(r["scadenza"], DateTime.MaxValue), (decimal)r["importo"],
 					enteGen.Denominazione, "Avviso di Pagamento", codiceSia, codiceAvviso,
 					enteGen.Logo, r["qrcodevalue"].ToString(), out error
 				);
@@ -620,6 +624,7 @@ namespace pagoPaService
 				return null;
 			}
 
+			QueryHelper qhs = conn.GetQueryHelper();
 			var r = d.Tables[0].Rows[0];
 			var enteGen = getInformazioniEnte(conn, out error);
 			
@@ -641,10 +646,10 @@ namespace pagoPaService
 			{
 				url = pConf.Config[5];
 			}
-			//In Intesa S. Paolo non serve il codice avviso perchÃ¨ l'avviso Ã¨ fornito giÃ  compilato dalla banca
-			//  e comunque non Ã¨ fornito da Intesa S.Paolo
+			//In Intesa S. Paolo non serve il codice avviso perchÃƒÂ¨ l'avviso ÃƒÂ¨ fornito giÃƒÂ  compilato dalla banca
+			//  e comunque non ÃƒÂ¨ fornito da Intesa S.Paolo
 			//string codiceAvviso = r["codiceavviso"].ToString();
-			//Se il credito Ã¨ di altro servizio restituisce null
+			//Se il credito ÃƒÂ¨ di altro servizio restituisce null
 			if (d.Tables[0].Columns.Contains("codice_servizio"))
 			{
 				if (r["codice_servizio"] != DBNull.Value)
@@ -656,8 +661,8 @@ namespace pagoPaService
 					if (pConf.codice_servizio != null) return null;
 				}
 			}
-
-			if (!checkCertificatiBancaIntesa(identificativoServizio == "DEPOSITOCAUZIONALE"))
+			DataTable tpartner_certificate = conn.RUN_SELECT("partner_certificate", "*", null, qhs.CmpEq("active", "S"), null, false);
+			if (!checkCertificatiBancaIntesa(identificativoServizio == "TRIBUTOTEMPO", tpartner_certificate))
 			{
 				error = "Impossibile installare i certificati di banca intesa";
 				return null;
@@ -665,11 +670,11 @@ namespace pagoPaService
 
 			var servizio =
 				new IntesaSanPaolo.EServizio().Create(user, password, url,
-					identificativoServizio == "DEPOSITOCAUZIONALE");
+					identificativoServizio == "TRIBUTOTEMPO");
 
 			var body = new IntesaSanPaolo.pdpRichiediAvvisoBody(identificativoDominio, identificativoBu, iuv);
 			var request = new IntesaSanPaolo.pdpRichiediAvviso(body);
-
+						
 			var response = servizio.pdpRichiediAvviso(request);
 			if (response?.Body == null)
 			{
@@ -688,7 +693,7 @@ namespace pagoPaService
 			}
 
 
-			// Attiva la Richiesta di Pagamento Telematico RPT solo se si Ã¨ in possesso dello IUV
+			// Attiva la Richiesta di Pagamento Telematico RPT solo se si ÃƒÂ¨ in possesso dello IUV
 			//if (!string.IsNullOrEmpty(iuv))
 			//{
 			//	var datiPagamentoInAttesa =
@@ -750,7 +755,7 @@ namespace pagoPaService
 			var r = d.Tables[0].Rows[0];
 			if (!File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BPS_pagoPA.pdf")))
 			{
-				error = "Il file BPS_pagoPA.pdf non Ã¨ presente nella cartella di esecuzione del programma.";
+				error = "Il file BPS_pagoPA.pdf non ÃƒÂ¨ presente nella cartella di esecuzione del programma.";
 				return null;
 			}
 
@@ -775,7 +780,7 @@ namespace pagoPaService
 			var debitore = getInfoDebitore(r); // GetDebitore(debitore);
 			var pdfBytes = modello.Genera(ente, destinatario, iuv, r["causale"].ToString(), r["note"].ToString(),
 				codiceAvviso, codiceSia,
-				enteGen.CodiceFiscale, (decimal)r["importo"], noNullDate(r["scadenza"], DateTime.MaxValue),
+				enteGen.CodiceFiscale, (decimal)r["importo"], GetNoNullDate(r["scadenza"], DateTime.MaxValue),
 				enteGen.Denominazione, enteGen.Logo, r["barcodevalue"].ToString(), r["qrcodevalue"].ToString(),
 				debitore, r["idreg"].ToString(),
 				out error);
@@ -890,7 +895,7 @@ namespace pagoPaService
 		}
 
 		/// <summary>
-		/// Stabilisce se Ã¨ possibile attivare un credito e procedere direttamente al pagamento (modello 1)
+		/// Stabilisce se ÃƒÂ¨ possibile attivare un credito e procedere direttamente al pagamento (modello 1)
 		/// </summary>
 		/// <param name="conn"></param>
 		/// <returns>null o elenco errori</returns>
@@ -947,7 +952,7 @@ namespace pagoPaService
 			{
 				return "IUV non specificato";
 			}
-			//TODO:  filtrare per partner tecnologico, che dovrebbe essere lo stesso a cui Ã¨ stato inviato il credito
+			//TODO:  filtrare per partner tecnologico, che dovrebbe essere lo stesso a cui ÃƒÂ¨ stato inviato il credito
 
 			var partner = getPartnerConfigForIuv(conn, iuv);
 			
@@ -1001,7 +1006,7 @@ namespace pagoPaService
 			var identificativoBu = pConf.Config[1]; // Parametro fornito da Intesa:     RE0009
 			var user = pConf.Config.Length > 3 ? pConf.Config[3] : null;
 			var password = pConf.Config.Length > 4 ? pConf.Config[4] : null;
-			// Attiva la Richiesta di Pagamento Telematico RPT solo se si Ã¨ in possesso dello IUV
+			// Attiva la Richiesta di Pagamento Telematico RPT solo se si ÃƒÂ¨ in possesso dello IUV
 			string urlServizio = null;
 			if (pConf.Config.Length > 5)
 			{
@@ -1152,7 +1157,7 @@ namespace pagoPaService
 			string causale = cleanLineFeed(r["causale"].ToString());
 
 			//string note = cleanHtmlFeed(r["note"].ToString());
-
+ 
 			var pagamentoSingolo = new pagamento()
 			{
 				CAUSALE_PAGAMENTO = causale.ToString(),
@@ -1289,7 +1294,7 @@ namespace pagoPaService
 			//    RIF_PRATICA = iuv,
 			//    SERVIZIO_PAGAMENTO = identificativoServizio, // configurazione, occorre chiedere i dati alla banca di credito valtellinese
 			//};
-			//  identificativo della pratica gestito dal portale dellâ€™Azienda Ente oppure IUV messo a disposizione dal servizio PMPay
+			//  identificativo della pratica gestito dal portale dellÃ¢â‚¬â„¢Azienda Ente oppure IUV messo a disposizione dal servizio PMPay
 			List<pagamentoEsistente> elencopagamenti = new List<pagamentoEsistente>();
 			var pagamentoEsistente = new pagamentoEsistente()
 			{
@@ -1419,7 +1424,7 @@ namespace pagoPaService
 			unicredit_b.paInviaCarrelloPosizioniListaType Posizione =
 				new unicredit_b.paInviaCarrelloPosizioniListaType()
 				{
-					spontaneo = "N", // ? se ne parla nel documento ma non trovo il campo nella descrizione Â§WSDL
+					spontaneo = "N", // ? se ne parla nel documento ma non trovo il campo nella descrizione Ã‚Â§WSDL
 					identificativoBeneficiario = "02044190615", //enteGen.CodiceFiscale , // codice fiscale ente
 					ccp = null, //alternativo a codice PA / codice Servizio
 					codicePa = codiceEnte, //alternativo a ccp / codice Servizio
@@ -1481,7 +1486,7 @@ namespace pagoPaService
 			}
 			else
 			{
-				Errors.Add($"Non Ã¨ possibile contattare la banca, attendere qualche istante e riprovare");
+				Errors.Add($"Non ÃƒÂ¨ possibile contattare la banca, attendere qualche istante e riprovare");
 				return Errors;
 			}
 
@@ -1502,16 +1507,17 @@ namespace pagoPaService
 		/// <returns></returns>
 		public static PartnerConfig getPartnerConfigForIuv(DataAccess conn, string iuv)
 		{
+			if (iuv.Contains("undefined")) return null;
 			var partners = getListaPartnerConfig(conn).Where(x => x.attivo && x.crediti).ToList();
 			if (partners.Any(x => x.codicetassonomia != null))
-			{//Ã¨ necessario filtrare la tassonomia
+			{//ÃƒÂ¨ necessario filtrare la tassonomia
 				var crediti = conn.readTable("flussocreditidetail", q.eq("iuv", iuv) & q.isNotNull("codicetassonomia"),
 					"codicetassonomia");
 				if (crediti == null || crediti.Rows.Count == 0) return null;
 				string codicetassonomia = crediti.Rows[0]["codicetassonomia"].ToString();
 				return partners.Where(x => x.codicetassonomia == codicetassonomia).FirstOrDefault();
 			}
-			//Se i partner non vogliono la tassonomia non c'Ã¨ bisogno di filtrarla
+			//Se i partner non vogliono la tassonomia non c'ÃƒÂ¨ bisogno di filtrarla
 			return partners?.FirstOrDefault();
 		}
 
@@ -1593,6 +1599,9 @@ namespace pagoPaService
 						return caricaPosizioniDebitorieUbiBanca(conn, DS, partner);
 					case VALTELLINESE:
 						return caricaPosizioniDebitorieValtellinese(conn, DS, partner); //prevede l'invio indipendente della tassonomia
+					case PMPAY:
+						return caricaPosizioniDebitoriePmpay(conn, DS, partner); 
+
 				}
 			}
 			catch (Exception e)
@@ -1747,71 +1756,67 @@ namespace pagoPaService
 
 
 
-		public static bool checkCertificatiBancaSondrio(string thumbCert, string fileCert)
-		{
+		public static bool checkCertificatiBancaSondrio(string thumbCert, string fileCert, DataTable tpartner_certificate){
+			if ((tpartner_certificate == null)|| (tpartner_certificate.Rows.Count == 0))
+				return false;
+			string cert__intermedio_bsondrio = "po2019_intermedio_bsondrio.cer";
+			string filter__intermedio_bsondrio = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__intermedio_bsondrio, true) + ")";
+			DataRow[] thumb__intermedio_bsondrio = tpartner_certificate.Select(filter__intermedio_bsondrio);
+			if (thumb__intermedio_bsondrio.Length == 0)	return false;
+			string thumbprint__intermedio_bsondrio = thumb__intermedio_bsondrio[0]["clientcert_thumbprint"].ToString();
 
-			//if (checkCertificato(StoreName.AuthRoot,StoreLocation.CurrentUser,"popsocert_root.cer","CN=PopsoRootCA01, DC=popso, DC=root, DC=dom")==null) return false;
-			/*
-			     factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "d34e1f8c01a911110145142dbb8fb32358b8a725");
-			    factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
-			        "C36663D47D8C70B2B9D40BA9174529DDD23A952A");
-			 */
-			if (DateTime.Now.CompareTo(new DateTime(2019, 1, 14, 11, 0, 0)) >= 0)
-			{
-				removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
-					"f158cb0b33b0ea1d219d192862086ff6730b2c9b".ToUpperInvariant());
-				if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
-						"po2019_intermedio_bsondrio.cer",
-						"f158cb0b33b0ea1d219d192862086ff6730b2c9b".ToUpperInvariant()) == null) return false;
+			removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
+					thumbprint__intermedio_bsondrio.ToUpperInvariant()/*"".ToUpperInvariant()*/); //po2019_intermedio_bsondrio.cer
 
-			}
-			else
-			{
-				removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
-					"1FB86B1168EC743154062E8C9CC5B171A4B7CCB4");
-				if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
-						"po2018_intermedio_bsondrio.cer", "1FB86B1168EC743154062E8C9CC5B171A4B7CCB4") ==
-					null) return false;
+			if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
+						cert__intermedio_bsondrio,
+						thumbprint__intermedio_bsondrio.ToUpperInvariant()
+						/*"".ToUpperInvariant()*/) == null) return false;
 
-			}
+			string cert__po2019_bsondrio = "po2019_bsondrio.cer";
+			string filter__po2019_bsondrio = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__po2019_bsondrio, true) + ")";
+			DataRow[] thumbpo__2019_bsondrio = tpartner_certificate.Select(filter__po2019_bsondrio);
+			if (thumbpo__2019_bsondrio.Length == 0)	return false;
+			string thumbprint__po2019_bsondrio = thumbpo__2019_bsondrio[0]["clientcert_thumbprint"].ToString();
+			removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
+				thumbprint__po2019_bsondrio.ToUpperInvariant()
+					/*"".ToUpperInvariant()*/);
+				if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, cert__po2019_bsondrio,
+						thumbprint__po2019_bsondrio.ToUpperInvariant()/*"".ToUpperInvariant()*/
+						) == null) return false;
 
-			if (DateTime.Now.CompareTo(new DateTime(2019, 1, 14, 11, 0, 0)) >= 0)
-			{
-				removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
-					"1fb86b1168ec743154062e8c9cc5b171a4b7ccb4".ToUpperInvariant());
-				if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "po2019_bsondrio.cer",
-						"1fb86b1168ec743154062e8c9cc5b171a4b7ccb4".ToUpperInvariant()) == null) return false;
-			}
-			else
-			{
-				removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
-					"A433B73E1854B0A8615CD32C6D36A658F2905724");
-				if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "po2018_bsondrio.cer",
-						"A433B73E1854B0A8615CD32C6D36A658F2905724") == null) return false;
-			}
+			string cert__UNIUPO = "UNIPO_3001600_0000252_2023.pfx";
+			string filter__UNIUPO = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__UNIUPO, true) + ")";
+			DataRow[] thumb__UNIUPO = tpartner_certificate.Select(filter__UNIUPO);
+			if (thumb__UNIUPO.Length == 0) return false;
 
+			string thumbprint__UNIPO = thumb__UNIUPO[0]["clientcert_thumbprint"].ToString();
+			if (checkPfxByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, cert__UNIUPO,
+					thumbprint__UNIPO/*""*/, null) == null) return false;
 
-
-
-			if (checkPfxByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, "UNIPO_3001600_0000252.pfx",
-					"3EB5D4157096C386F9F9EBB90F0B166EE38849D6", null) == null) return false;
-
-			//Questa Ã¨ la root
-			if (checkCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, "po2018_root_bsondrio.cer",
-					"67BC2F778867F73D887A69018FF3CC108AD5C465") == null) return false;
+			//Questa ÃƒÂ¨ la root
+			string cert__root = "po2018_root_bsondrio.cer";
+			string filter__root = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__root, true) + ")";
+			DataRow[] thumb__root = tpartner_certificate.Select(filter__root);
+			if (thumb__root.Length == 0) return false;
+			string thumbprint__root = thumb__root[0]["clientcert_thumbprint"].ToString();
+			if (checkCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, cert__root,
+					thumbprint__root/*""*/) == null) return false;
 
 			//if (checkCertificato(StoreName.AuthRoot,StoreLocation.CurrentUser,"popsocert_root.cer","CN=PopsoRootCA01, DC=popso, DC=root, DC=dom")==null) return false;
 			//if (checkPfxByThumbPrint(StoreName.My,StoreLocation.CurrentUser,"popso2018.pfx")
 			//questo ci deve essere sempre
 
+			string cert__chain = "popso_chain.pfx";
+			string filter__chain = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__chain, true) + ")";
+			DataRow[] thumb__chain = tpartner_certificate.Select(filter__chain);
+			if (thumb__chain.Length == 0) return false;
+			string thumbprint__popso_chain = thumb__chain[0]["clientcert_thumbprint"].ToString();
 			removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
-				"C36663D47D8C70B2B9D40BA9174529DDD23A952A");
+				thumbprint__popso_chain/*""*/);
 
-			if (checkPfxByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "popso_chain.pfx",
-					"C36663D47D8C70B2B9D40BA9174529DDD23A952A", "sviluppo") == null) return false;
-
-			//"C36663D47D8C70B2B9D40BA9174529DDD23A952A"
-
+			if (checkPfxByThumbPrint(StoreName.My, StoreLocation.CurrentUser, cert__chain,
+					thumbprint__popso_chain/*""*/, "sviluppo") == null) return false;
 
 
 			if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, fileCert, thumbCert) ==
@@ -1824,40 +1829,50 @@ namespace pagoPaService
 		}
 
 
-		public static bool checkCertificatiGovPayCrediti(bool test)
+		public static bool checkCertificatiGovPayCrediti(bool test, DataTable tpartner_certificate)
 		{
 			//removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser, "3e92d9b2dc6d2afaad4c52bd6aa24b76d63c44ab");
 
 
 			if (test)
 			{
+
+				string cert__out = "pppagoateneicinecait_cert_out.cer";
+				string filter__out = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__out, true) + ")";
+				DataRow[] thumb__out = tpartner_certificate.Select(filter__out);
+				if (thumb__out.Length == 0) return false;
+				string thumbprint__out = thumb__out[0]["servicecerttest_thumbprint"].ToString();
+
+
 				removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
-					"8a653ab1eb3f30341baa7e442a81d22e42751e46");
+					thumbprint__out/*""*/);
 				if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
-						"pppagoateneicinecait_cert_out.cer", "8a653ab1eb3f30341baa7e442a81d22e42751e46") ==
+						cert__out/*"pppagoateneicinecait_cert_out.cer"*/, thumbprint__out/*""*/) ==
 					null) return false;
 			}
-			else
-			{
+			else{
+				string cert__out = "govpaycinecait_cert_out.cer";
+				string filter__out = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__out, true) + ")";
+				DataRow[] thumb__out = tpartner_certificate.Select(filter__out);
+				if (thumb__out.Length == 0) return false;
+				string thumbprint__out = thumb__out[0]["servicecert_thumbprint"].ToString();
+
 				removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
-					"3e92d9b2dc6d2afaad4c52bd6aa24b76d63c44ab");
-				if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "govpaycinecait_cert_out.cer",
-						"3e92d9b2dc6d2afaad4c52bd6aa24b76d63c44ab") == null) return false;
+					thumbprint__out/*""*/);
+				if (checkCertificateByThumbPrint(StoreName.My, .CurrentUser, cert__out/*"govpaycinecait_cert_out.cer"*/,
+						thumbprint__out/*""*/) == null) return false;
 			}
 
-
+			string cert__unis = "unisalento.p12";
+			string filter__unis = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__unis, true) + ")";
+			DataRow[] thumb__unis = tpartner_certificate.Select(filter__unis);
+			if (thumb__unis.Length == 0) return false;
+			string thumbprint__unis = thumb__unis[0]["clientcert_thumbprint"].ToString();
+			string cert_password = thumb__unis[0]["cert_password"].ToString();
 			removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
-				"f97ca7a94989c9556b2f527c532b63342b4c8af8");
-			if (checkPfxByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "unisalento.p12",
-					"f97ca7a94989c9556b2f527c532b63342b4c8af8", "0f31a7abae750d06") == null) return false;
-
-
-
-			//if (checkCertificato(StoreName.AuthRoot,StoreLocation.CurrentUser,"intesa1.cer","CN=solutionpa-coll.intesasanpaolo.com, O=Intesa Sanpaolo S.p.A. - Test SSL, S=Italia, C=IT")==null) return false;
-			//if (checkCertificato(StoreName.My,StoreLocation.CurrentUser,"intesa2.cer","CN=System Test Intesa Sanpaolo S.p.A. - CA Root Interna 02, O=Intesa Sanpaolo S.p.A., C=IT")==null) return false;
-			//if (test) {
-			//    if (checkCertificato(StoreName.CertificateAuthority,StoreLocation.CurrentUser,"intesa3.cer","CN=System Test ISP - CA Servizi Esterni enhanced")==null) return false;
-			//}
+				thumbprint__unis/*""*/);
+			if (checkPfxByThumbPrint(StoreName.My, StoreLocation.CurrentUser, cert__unis/*"unisalento.p12"*/,
+					thumbprint__unis/*""*/, cert_password/*""*/) == null) return false;
 
 
 			return true;
@@ -1866,27 +1881,39 @@ namespace pagoPaService
 
 
 
-		public static bool checkCertificatiBancaIntesa(bool test)
+		public static bool checkCertificatiBancaIntesa(bool test, DataTable tpartner_certificate)
 		{
+
+			string cert__intesa1 = "intesa1.cer";
+			string filter__intesa1 = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__intesa1, true) + ")";
+			DataRow[] thumb__intesa1 = tpartner_certificate.Select(filter__intesa1);
+			if (thumb__intesa1.Length == 0) return false;
+			string thumbprint__intesa1 = thumb__intesa1[0]["clientcert_thumbprint"].ToString();
+
 			removeCertificateByThumbPrint(StoreName.AuthRoot, StoreLocation.CurrentUser,
-				"3ed8765d55f336bc43f08e0decd9573c64866049");
-			if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "intesa1.cer",
-					"3ed8765d55f336bc43f08e0decd9573c64866049") == null) return false;
-			if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "intesa2.cer",
-					"a32787f1f3d287c96030cd2ad17492344af5c575") == null) return false;
-			if (test)
-			{
-				if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "intesa3.cer",
-						"6b9233c509e2d2a4d0dafa6207bc5c07720716a7") == null) return false;
+				thumbprint__intesa1/*""*/);
+			if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, cert__intesa1/*"intesa1.cer"*/,
+					thumbprint__intesa1/*""*/) == null) return false;
+
+			string cert__intesa2 = "intesa2.cer";
+			string filter__intesa2 = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(cert__intesa2, true) + ")";
+			DataRow[] thumb__intesa2 = tpartner_certificate.Select(filter__intesa2);
+			if (thumb__intesa2.Length == 0) return false;
+			string thumbprintdefault__intesa2 = thumb__intesa2[0]["servicecert_thumbprint"].ToString();
+
+			if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, cert__intesa2/*"intesa2.cer"*/,
+					thumbprintdefault__intesa2/*""*/) == null) return false;
+
+			if (test){
+				string certtest__intesa3 = "intesa3.cer";
+				string filtertest__intesa3 = "(" + "cert_filename=" + QueryCreator.quotedstrvalue(certtest__intesa3, true) + ")";
+				DataRow[] thumbtest__intesa3 = tpartner_certificate.Select(filtertest__intesa3);
+				if (thumbtest__intesa3.Length == 0) return false;
+				string thumbprinttest__intesa3 = thumbtest__intesa3[0]["servicecerttest_thumbprint"].ToString();
+
+				if (checkCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, certtest__intesa3/*"intesa3.cer"*/,
+						thumbprinttest__intesa3/*""*/) == null) return false;
 			}
-
-
-			//if (checkCertificato(StoreName.AuthRoot,StoreLocation.CurrentUser,"intesa1.cer","CN=solutionpa-coll.intesasanpaolo.com, O=Intesa Sanpaolo S.p.A. - Test SSL, S=Italia, C=IT")==null) return false;
-			//if (checkCertificato(StoreName.My,StoreLocation.CurrentUser,"intesa2.cer","CN=System Test Intesa Sanpaolo S.p.A. - CA Root Interna 02, O=Intesa Sanpaolo S.p.A., C=IT")==null) return false;
-			//if (test) {
-			//    if (checkCertificato(StoreName.CertificateAuthority,StoreLocation.CurrentUser,"intesa3.cer","CN=System Test ISP - CA Servizi Esterni enhanced")==null) return false;
-			//}
-
 
 			return true;
 
@@ -1910,6 +1937,7 @@ namespace pagoPaService
 			installaPfx(storeName, storeLocation, certFileName, password);
 			return getCertificateBySubjectName(storeName, storeLocation, subjectName);
 		}
+	
 
 		static void installaPfx(StoreName storeName, StoreLocation storeLocation, string certFileName,
 			string password)
@@ -2019,7 +2047,6 @@ rootStore.Close();
 		}
 
 
-
 		public static X509Certificate2 checkCertificato(StoreName storeName, StoreLocation storeLocation,
 			string certFileName, string subjectName)
 		{
@@ -2105,7 +2132,7 @@ rootStore.Close();
 			}
 			catch (Exception e)
 			{
-				throw new Exception("File " + fileName + " non Ã¨ un valido certificato.", e);
+				throw new Exception("File " + fileName + " non ÃƒÂ¨ un valido certificato.", e);
 
 			}
 		}
@@ -2174,6 +2201,52 @@ rootStore.Close();
 					url = pConf.Config[5];
 				}
 
+				int offsetIddisposozione = 0;
+				string offsetIddisposozione_s = "";
+				if (pConf.Config.Length > 6)
+				{
+					offsetIddisposozione_s = pConf.Config[6];
+
+					if (!int.TryParse(offsetIddisposozione_s, out offsetIddisposozione))
+					{
+						errors.Add("offset di iddisposizione di partner_config non valido.");
+						return errors;
+					}
+				}
+								
+
+				int auxdigit = 0; //puÃƒÂ² valere 0 (IUV da 15 cifre) o 3 (IUV da 17 cifre, include anche l'app.code)
+				int appcode = 0; //2 cifre, entra in gioco nella composizione del codice_identificativo_presentazione
+				string auxdigit_s = "";
+				string appcode_s ="";
+				bool generaIuv = false;
+
+				if (pConf.Config.Length > 8)
+				{
+					auxdigit_s = pConf.Config[7];
+					appcode_s = pConf.Config[8];
+					generaIuv = true;
+
+					if (!int.TryParse(auxdigit_s, out auxdigit))
+					{
+						errors.Add("auxdigit di partner_config non valido.");
+						return errors;
+					}
+
+					if (!int.TryParse(appcode_s, out appcode))
+					{
+						errors.Add("appcode di partner_config non valido.");
+						return errors;
+					}
+				}				
+
+				string firstDigit = "";
+
+				if (pConf.Config.Length > 9)
+				{
+					firstDigit = pConf.Config[9];
+				}
+
 				//var identificativoProprietario = "";                    // Parametro che identifica il id_tenant
 
 				// Estrae dal DB la denominazione dell'ente
@@ -2227,27 +2300,41 @@ rootStore.Close();
 					reference[codice].Add(r);
 				}
 
-				if (!checkCertificatiBancaIntesa(identificativoServizio == "DEPOSITOCAUZIONALE"))
+				DataTable tpartner_certificate = Conn.RUN_SELECT("partner_certificate", "*", null, qhs.CmpEq("active", "S"), null, false);
+
+				if (!checkCertificatiBancaIntesa(identificativoServizio == "TRIBUTOTEMPO", tpartner_certificate))
 				{
 					errors.Add("Impossibile installare i certificati di banca intesa");
 					return errors;
 				}
 
 				var servizio = new IntesaSanPaolo.EServizio().Create(user, password, url,
-					identificativoServizio == "DEPOSITOCAUZIONALE");
+					identificativoServizio == "TRIBUTOTEMPO");
 				var trasmesso = "N";
 
 				foreach (DataRow r in righeDaConsiderare)
 				{
 					#region Caricamento dati per pagamento
 
+					string iuvWithCheck = null;
+					if (generaIuv)
+					{
+						int progressivo_i = Convert.ToInt32(r["iddisposizione"]) - offsetIddisposozione;
+						string progressivo = "";
+						if (string.IsNullOrEmpty(firstDigit))
+							progressivo = $"{progressivo_i,13:D13}";
+						else
+							progressivo = $"{firstDigit}{progressivo_i,12:D12}";
+						iuvWithCheck = Utils.IUV.Genera(progressivo, auxdigit, appcode);
+					}
+
 					var importo = Convert.ToDecimal(r["importo"]);
 					var idDisposizione = r["iduniqueformcode"].ToString();
-					if (!reference.ContainsKey(idDisposizione)) continue; //Non Ã¨ oggetto di questo invio
+					if (!reference.ContainsKey(idDisposizione)) continue; //Non ÃƒÂ¨ oggetto di questo invio
 					string email = DBNull.Value.Equals(r["email"]) ? null : firstEmail(r["email"].ToString());
 					if (!string.IsNullOrEmpty(email)) {
 						if (!isValidEmail(email)) {
-							errors.Add($"L'email {email} non Ã¨ valida.");
+							errors.Add($"L'email {email} non ÃƒÂ¨ valida.");
 							return errors;
 						}
 					}
@@ -2290,15 +2377,15 @@ rootStore.Close();
 					{
 						id_tenant = idDisposizione,
 						soggettoPagatore = pagatore,
-						//Come da schema XSD fornito, Ã¨ un dato OBBLIGATORIO.Come attualmente per il MAV,
-						// la data scadenza non comporta nessun annullo e nessuna impagabilitÃ .Come da â€œregolamentoâ€ ateneo,
-						// se lo studente pagherÃ  oltre la scadenza, si troverÃ  una MORA.
-						dataScadenzaPagamento = noNullDate(r["scadenza"], DateTime.MaxValue),
+						//Come da schema XSD fornito, ÃƒÂ¨ un dato OBBLIGATORIO.Come attualmente per il MAV,
+						// la data scadenza non comporta nessun annullo e nessuna impagabilitÃƒÂ .Come da Ã¢â‚¬Å“regolamentoÃ¢â‚¬Â ateneo,
+						// se lo studente pagherÃƒÂ  oltre la scadenza, si troverÃƒÂ  una MORA.
+						dataScadenzaPagamento = noNullDate(r["scadenza"], DateTime.MaxValue).ToString("yyyy-MM-dd"),
 						importoTotaleDaVersare = importo,
 						causaleVersamentoEsplicitaPSP = maxLen(causale, 140),
-						identificativoUnivocoVersamento = null, // lasciarlo a null per farlo generare alla banca
+						identificativoUnivocoVersamento = iuvWithCheck,//null, // lasciarlo a null per farlo generare alla banca
 						notificaCallback = null, // serve? in attesa di risposta...
-						pagabileSeScaduto = 0, // 0 -> no, 1 -> sÃ¬
+						pagabileSeScaduto = 0, // 0 -> no, 1 -> sÃƒÂ¬
 						datiSingoloVersamento = datiVersamento
 					};
 
@@ -2448,10 +2535,10 @@ rootStore.Close();
 			var esercizio = conn.GetEsercizio();
 
 			// Parametri del servizio
-			// codiceApplicazione|codiceDominio|codiceUnitÃ Operativa|user|pwd|url|iban
+			// codiceApplicazione|codiceDominio|codiceUnitÃƒÂ Operativa|user|pwd|url|iban
 			var codiceApplicazione = pConf.Config[0];
 			var codiceDominio = pConf.Config[1];
-			var codiceUnitÃ Operativa = pConf.Config[2];
+			var codiceUnitÃƒÂ Operativa = pConf.Config[2];
 
 			var user = pConf.Config[3];
 			var pwd = pConf.Config[4];
@@ -2489,25 +2576,27 @@ rootStore.Close();
 
 
 			var qhc = new CQueryHelper();
+			QueryHelper qhs = conn.GetQueryHelper();
 			if (tPosizioniDebitorie.Select(qhc.IsNull("scadenza")).Length > 0)
 			{
 				errors.Add("Ci sono posizioni debitorie senza scadenza");
 				return errors;
 			}
 
-			checkCertificatiGovPayCrediti(url.Contains("gateway.pp.pagoatenei"));
+			DataTable tpartner_certificate = conn.RUN_SELECT("partner_certificate", "*", null, qhs.CmpEq("active", "S"), null, false);
+			checkCertificatiGovPayCrediti(url.Contains("gateway.pp.pagoatenei"), tpartner_certificate);
 			var servizio = GovPayCrediti.InvioCreditiGPAppService.Create(user, pwd, url, url.Contains("gateway.pp.pagoatenei"));
 
 			foreach (DataRow r in tPosizioniDebitorie.Rows)
 			{
 				var idDisposizione = r["iduniqueformcode"].ToString();
-				if (!reference.ContainsKey(idDisposizione)) continue; //Non Ã¨ oggetto di questo invio
+				if (!reference.ContainsKey(idDisposizione)) continue; //Non ÃƒÂ¨ oggetto di questo invio
 
 				var importo = Convert.ToDecimal(r["importo"]);
 				string email = DBNull.Value.Equals(r["email"]) ? null : firstEmail(r["email"].ToString());
 				if (!string.IsNullOrEmpty(email)) {
 					if (!isValidEmail(email)) {
-						errors.Add($"L'email {email} non Ã¨ valida.");
+						errors.Add($"L'email {email} non ÃƒÂ¨ valida.");
 						return errors;
 					}
 				}
@@ -2566,7 +2655,7 @@ rootStore.Close();
 
 				}
 				else {
-					errors.Add("Manca il codice tassonomia.");//Inserisco questo blocco perchÃ¨ se assente, crea problemi in fase di trasmissione.[17355]
+					errors.Add("Manca il codice tassonomia.");//Inserisco questo blocco perchÃƒÂ¨ se assente, crea problemi in fase di trasmissione.[17355]
 					return errors;
 				}
 				var singoloVersamento = new GovPayCrediti.versamentoSingoloVersamento()
@@ -2588,12 +2677,12 @@ rootStore.Close();
 				{
 					codApplicazione = codiceApplicazione,
 					codDominio = codiceDominio,
-					codUnitaOperativa = codiceUnitÃ Operativa,
+					codUnitaOperativa = codiceUnitÃƒÂ Operativa,
 					codVersamentoEnte = idDisposizione,
 					debitore = debitore,
 					importoTotale = importo,
-					//Dato OBBLIGATORIO.Come attualmente per il MAV,la data scadenza non comporta nessun annullo e nessuna impagabilitÃ .
-					//Come da â€œregolamentoâ€ ateneo, se lo studente pagherÃ  oltre la scadenza, si troverÃ  una MORA.
+					//Dato OBBLIGATORIO.Come attualmente per il MAV,la data scadenza non comporta nessun annullo e nessuna impagabilitÃƒÂ .
+					//Come da Ã¢â‚¬Å“regolamentoÃ¢â‚¬Â ateneo, se lo studente pagherÃƒÂ  oltre la scadenza, si troverÃƒÂ  una MORA.
 					dataScadenza = noNullDate(r["scadenza"], DateTime.MaxValue),
 					aggiornabile = false, // non supportiamo l'aggiornamento del versamento
 					ItemsElementName = new GovPayCrediti.ItemsChoiceType[] { GovPayCrediti.ItemsChoiceType.causale },
@@ -2675,7 +2764,7 @@ rootStore.Close();
 			//    FrmErrori.MostraErrori(this, errori);
 			//}
 			//else {
-			//    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso Ã¨ stato inviato correttamente", "Avviso");
+			//    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso ÃƒÂ¨ stato inviato correttamente", "Avviso");
 			//}
 			return errors;
 		}
@@ -2700,11 +2789,11 @@ rootStore.Close();
 		{
 			string messaggio = string.Format(@"Gent.mo {0},
                     Le inviamo la presente per notificarle una richiesta di pagamento emessa a suo nome da {1}.
-                    Alleghiamo l'avviso di pagamento analogico con il quale potrÃ  pagare, secondo Sua preferenza,
-                    presso le banche e altri prestatori di servizio di pagamento aderenti allâ€™iniziativa tramite 
+                    Alleghiamo l'avviso di pagamento analogico con il quale potrÃƒÂ  pagare, secondo Sua preferenza,
+                    presso le banche e altri prestatori di servizio di pagamento aderenti allÃ¢â‚¬â„¢iniziativa tramite 
                     i canali da questi messi a disposizione (come ad esempio: home banking, ATM, APP da smartphone,
-					sportello, ecc). Lâ€™elenco dei punti abilitati a ricevere pagamenti
-                    tramite pagoPAÂ® Ã¨ disponibile alla pagina https://www.agid.gov.it/it/piattaforme/pagopa/dove-pagare .
+					sportello, ecc). LÃ¢â‚¬â„¢elenco dei punti abilitati a ricevere pagamenti
+                    tramite pagoPAÃ‚Â® ÃƒÂ¨ disponibile alla pagina https://www.agid.gov.it/it/piattaforme/pagopa/dove-pagare .
 
                     Per poter effettuare il pagamento occorre utilizzare il Codice Avviso di Pagamento
                     oppure il codice QR o il codice a barre, presenti sulla stampa dell'avviso.
@@ -2739,11 +2828,11 @@ rootStore.Close();
 		{
 			string messaggio = string.Format(@"Gent.mo {0},
                     Le inviamo la presente per notificarle una richiesta di pagamento emessa a suo nome da {1}.
-                    Alleghiamo l'avviso di pagamento analogico con il quale potrÃ  pagare, secondo Sua preferenza,
-                    presso le banche e altri prestatori di servizio di pagamento aderenti allâ€™iniziativa tramite 
+                    Alleghiamo l'avviso di pagamento analogico con il quale potrÃƒÂ  pagare, secondo Sua preferenza,
+                    presso le banche e altri prestatori di servizio di pagamento aderenti allÃ¢â‚¬â„¢iniziativa tramite 
                     i canali da questi messi a disposizione (come ad esempio: home banking, ATM, APP da smartphone,
-					sportello, ecc). Lâ€™elenco dei punti abilitati a ricevere pagamenti
-                    tramite pagoPAÂ® Ã¨ disponibile alla pagina https://www.agid.gov.it/it/piattaforme/pagopa/dove-pagare .
+					sportello, ecc). LÃ¢â‚¬â„¢elenco dei punti abilitati a ricevere pagamenti
+                    tramite pagoPAÃ‚Â® ÃƒÂ¨ disponibile alla pagina https://www.agid.gov.it/it/piattaforme/pagopa/dove-pagare .
 
                     Per poter effettuare il pagamento occorre utilizzare il Codice Avviso di Pagamento
                     oppure il codice QR o il codice a barre, presenti sulla stampa dell'avviso.
@@ -2775,7 +2864,7 @@ rootStore.Close();
 
 		/// <summary>
 		/// Invia le posizioni creditorie tramite il web Service di banca sondrio  e poi le mail ai singoli percipienti
-		/// Lo IUV Ã¨ immediatamente restituito e valorizzato
+		/// Lo IUV ÃƒÂ¨ immediatamente restituito e valorizzato
 		/// </summary>
 		private static List<string> caricaPosizioniDebitorieBancaSondrio(DataAccess conn, DataSet ds,
 			PartnerConfig pConf)
@@ -2819,7 +2908,7 @@ rootStore.Close();
 			//ente.Indirizzo1 = enteGen.Indirizzo1;
 			//ente.Indirizzo2 = enteGen.Indirizzo2;
 			//ente.CAP = enteGen.CAP;
-			//ente.LocalitÃ  = enteGen.LocalitÃ ;
+			//ente.LocalitÃƒÂ  = enteGen.LocalitÃƒÂ ;
 			//ente.Provincia = enteGen.Provincia;
 
 
@@ -2888,8 +2977,8 @@ rootStore.Close();
 					CausaleBollettino = causale,
 					Importo = Convert.ToDecimal(r["importo"]),
 					AnnoRiferimento = esercizio.ToString(),
-					//Dato OBBLIGATORIO.Come attualmente per il MAV,la data scadenza non comporta nessun annullo e nessuna impagabilitÃ .
-					//Come da â€œregolamentoâ€ ateneo, se lo studente pagherÃ  oltre la scadenza, si troverÃ  una MORA.
+					//Dato OBBLIGATORIO.Come attualmente per il MAV,la data scadenza non comporta nessun annullo e nessuna impagabilitÃƒÂ .
+					//Come da Ã¢â‚¬Å“regolamentoÃ¢â‚¬Â ateneo, se lo studente pagherÃƒÂ  oltre la scadenza, si troverÃƒÂ  una MORA.
 					Scadenza = noNullDate(r["scadenza"], DateTime.MaxValue),
 					CausaleRPT = new BancaSondrio.Causale
 					{
@@ -2922,7 +3011,7 @@ rootStore.Close();
 					string email = DBNull.Value.Equals(r["email"]) ? null : firstEmail(r["email"].ToString());
 					if (!string.IsNullOrEmpty(email)) {
 						if (!isValidEmail(email)) {
-							errors.Add($"L'email {email} non Ã¨ valida.");
+							errors.Add($"L'email {email} non ÃƒÂ¨ valida.");
 							return errors;
 						}
 					}
@@ -2933,7 +3022,7 @@ rootStore.Close();
 						CodiceFiscale = DBNull.Value.Equals(r["codice"]) ? null : r["codice"].ToString(),
 						Indirizzo = DBNull.Value.Equals(r["indirizzo"]) ? null : r["indirizzo"].ToString(),
 						CAP = DBNull.Value.Equals(r["cap"]) ? null : r["cap"].ToString(),
-						LocalitÃ  = DBNull.Value.Equals(r["citta"]) ? null : r["citta"].ToString(),
+						LocalitÃƒÂ  = DBNull.Value.Equals(r["citta"]) ? null : r["citta"].ToString(),
 						Provincia = DBNull.Value.Equals(r["provincia"]) ? null : r["provincia"].ToString(),
 						Email = string.IsNullOrEmpty(email) ? null : email,
 						PEC = DBNull.Value.Equals(r["pec"]) ? null : r["pec"].ToString()
@@ -2964,7 +3053,7 @@ rootStore.Close();
 			{
 				var avviso = avvisi[idreg];
 				//Serve per identificare UNIVOCAMENTE la richiesta di generazione per evitare generazioni improprie
-				// (multiple dovute a reload, click dallâ€™utente, ecc). A paritÃ  di Id Transazione, le richieste successive alla prima verranno 
+				// (multiple dovute a reload, click dallÃ¢â‚¬â„¢utente, ecc). A paritÃƒÂ  di Id Transazione, le richieste successive alla prima verranno 
 				// RIFIUTATE (esito KO)
 				var idTransazione = string.Format("{0:yyMMdd}-{0:HHmmss}-{1:D11}", dataInvio, idreg);
 
@@ -3066,7 +3155,7 @@ rootStore.Close();
 			//    FrmErrori.MostraErrori(this, errori);
 			//}
 			//else {
-			//    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso Ã¨ stato inviato correttamente", "Avviso");
+			//    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso ÃƒÂ¨ stato inviato correttamente", "Avviso");
 			//}
 		}
 
@@ -3086,7 +3175,7 @@ rootStore.Close();
 
 		/// <summary>
 		/// Invia le posizioni creditorie tramite il web Service di banca sondrio  e poi le mail ai singoli percipienti
-		/// Lo IUV Ã¨ immediatamente restituito e valorizzato
+		/// Lo IUV ÃƒÂ¨ immediatamente restituito e valorizzato
 		/// </summary>
 		private static List<string> caricaPosizioniDebitorieBancaSondrio1_1(DataAccess conn, DataSet ds,
 			PartnerConfig pConf)
@@ -3165,6 +3254,7 @@ rootStore.Close();
 			}
 
 			CQueryHelper qhc = new CQueryHelper();
+			QueryHelper qhs = conn.GetQueryHelper();
 			if (tPosizioniDebitorie.Select(qhc.IsNull("scadenza")).Length > 0)
 			{
 				errors.Add("Ci sono posizioni debitorie senza scadenza");
@@ -3194,8 +3284,8 @@ rootStore.Close();
 					causale_bollettino = causale,
 					importo = Convert.ToDecimal(r["importo"]),
 					anno_riferimento = esercizio.ToString(),
-					//Dato OBBLIGATORIO.Come attualmente per il MAV,la data scadenza non comporta nessun annullo e nessuna impagabilitÃ .
-					//Come da â€œregolamentoâ€ ateneo, se lo studente pagherÃ  oltre la scadenza, si troverÃ  una MORA.
+					//Dato OBBLIGATORIO.Come attualmente per il MAV,la data scadenza non comporta nessun annullo e nessuna impagabilitÃƒÂ .
+					//Come da Ã¢â‚¬Å“regolamentoÃ¢â‚¬Â ateneo, se lo studente pagherÃƒÂ  oltre la scadenza, si troverÃƒÂ  una MORA.
 					scadenza = noNullDate(r["scadenza"], DateTime.MaxValue),
 					causale_RPT = causaleRpt
 				};
@@ -3221,7 +3311,7 @@ rootStore.Close();
 
 					pagamento.dati_specifici_riscossione = new bSondrio.DatiSpecificiRiscossione()
 					{
-						// 0 Capitolo e articolo di Entrata del Bilancio dello Stato 1 Numero della contabilitÃ  speciale 2 Codice SIOPE 9 Altro codice ad uso dellâ€™Ente Creditore
+						// 0 Capitolo e articolo di Entrata del Bilancio dello Stato 1 Numero della contabilitÃƒÂ  speciale 2 Codice SIOPE 9 Altro codice ad uso dellÃ¢â‚¬â„¢Ente Creditore
 						tipo_contabilita = tipoCont,
 						codice_contabilita = r["codicetassonomia"].ToString().Substring(2) //salta 9/
 					};
@@ -3235,7 +3325,7 @@ rootStore.Close();
 					string email = DBNull.Value.Equals(r["email"]) ? null : firstEmail(r["email"].ToString());
 					if (!string.IsNullOrEmpty(email)) {
 						if (!isValidEmail(email)) {
-							errors.Add($"L'email {email} non Ã¨ valida.");
+							errors.Add($"L'email {email} non ÃƒÂ¨ valida.");
 							return errors;
 						}
 					}
@@ -3276,8 +3366,16 @@ rootStore.Close();
 
 			bool test = url.Contains("wsdev");
 			string fileCert = test ? "popso_wsdev.cer" : certName;
-			if (test) thumb = "d34e1f8c01a911110145142dbb8fb32358b8a725";
-			if (!checkCertificatiBancaSondrio(thumb, fileCert))
+
+			// partner_certificate.certtest_thumbprint => popso_wsdev.cer 
+			if (test) //thumb = "";
+				thumb = conn.DO_READ_VALUE("partner_certificate", qhc.AppAnd(
+				qhc.CmpEq("cert_filename", fileCert), qhc.CmpEq("active", "S")), "servicecerttest_thumbprint").ToString();
+
+			DataTable tpartner_certificate = conn.RUN_SELECT("partner_certificate", "*", null, qhs.CmpEq("active", "S"), null, false);
+
+
+			if (!checkCertificatiBancaSondrio(thumb, fileCert, tpartner_certificate))
 			{
 				errors.Add("Impossibile installare i certificati di banca sondrio");
 				return errors;
@@ -3293,7 +3391,7 @@ rootStore.Close();
 			{
 				var avviso = avvisi[idreg];
 				//Serve per identificare UNIVOCAMENTE la richiesta di generazione per evitare generazioni improprie
-				// (multiple dovute a reload, click dallâ€™utente, ecc). A paritÃ  di Id Transazione, le richieste successive alla prima verranno 
+				// (multiple dovute a reload, click dallÃ¢â‚¬â„¢utente, ecc). A paritÃƒÂ  di Id Transazione, le richieste successive alla prima verranno 
 				// RIFIUTATE (esito KO)
 				var idTransazione = string.Format("{0:yyMMdd}-{0:HHmmss}-{1:D11}", dataInvio, idreg);
 
@@ -3339,14 +3437,14 @@ rootStore.Close();
 				catch (FaultException faultEx)
 				{
 					errors.Add(
-						$"Nell'invio di flusso {idflusso} anagrafica {avviso.informazioni_debitore.codice_fiscale_debitore}\nC'Ã¨ stato un  problema ignoto:\n {faultEx.Message}");
+						$"Nell'invio di flusso {idflusso} anagrafica {avviso.informazioni_debitore.codice_fiscale_debitore}\nC'ÃƒÂ¨ stato un  problema ignoto:\n {faultEx.Message}");
 					continue;
 				}
 				// Standard communication fault handler.
 				catch (CommunicationException commProblem)
 				{
 					errors.Add(
-						$"Nell'invio di flusso {idflusso} anagrafica {avviso.informazioni_debitore.codice_fiscale_debitore}\nC'Ã¨ stato un  problema di comunicazione:\n {commProblem}");
+						$"Nell'invio di flusso {idflusso} anagrafica {avviso.informazioni_debitore.codice_fiscale_debitore}\nC'ÃƒÂ¨ stato un  problema di comunicazione:\n {commProblem}");
 					continue;
 				}
 
@@ -3419,7 +3517,7 @@ rootStore.Close();
 			//    FrmErrori.MostraErrori(this, errori);
 			//}
 			//else {
-			//    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso Ã¨ stato inviato correttamente", "Avviso");
+			//    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso ÃƒÂ¨ stato inviato correttamente", "Avviso");
 			//}
 		}
 
@@ -3481,33 +3579,33 @@ rootStore.Close();
 			   La tabella riportata sotto elenca tutti i campi necessari per realizzare il messaggio per invocare il sistema di pagamento secondo il modello 1.
 
 			   Parametro	Descrizione	O/F	Formato	Vincoli
-			   id_transazione	codice di identificazione della transazione composto da caratteri alfanumerici. Il codice devâ€™essere univoco per ogni richiesta di pagamento; id_transazione riferiti a IUV â€œduplicatiâ€ (giÃ  utilizzati per operazioni precedenti) comporteranno un rifiuto dellâ€™operazione	O	Alfanumerico	Min 2 Max 30 caratteri.  
+			   id_transazione	codice di identificazione della transazione composto da caratteri alfanumerici. Il codice devÃ¢â‚¬â„¢essere univoco per ogni richiesta di pagamento; id_transazione riferiti a IUV Ã¢â‚¬Å“duplicatiÃ¢â‚¬Â (giÃƒÂ  utilizzati per operazioni precedenti) comporteranno un rifiuto dellÃ¢â‚¬â„¢operazione	O	Alfanumerico	Min 2 Max 30 caratteri.  
 			   Solo caratteri ASCII (A-Z,a-z,0-9) 
-			   servizio	Codice univoco assegnato allâ€™ente da BPS	O	Numerico	7 Cifre con â€œ0â€ di riempimento a sinistra
+			   servizio	Codice univoco assegnato allÃ¢â‚¬â„¢ente da BPS	O	Numerico	7 Cifre con Ã¢â‚¬Å“0Ã¢â‚¬Â di riempimento a sinistra
 			   numero_avviso	Rappresenta il codice avviso definito da AgID (18 cifre), non solo lo IUV	O	Numerico	18 cifre
-			   autenticazione	ModalitÃ  di autenticazione sul portale dellâ€™Ente, da parte dellâ€™Utente. Eâ€™ un parametro che va indicata nella RPT (richiesta di pagamento telematico) da inviare al PSP prescelto per il pagamento. Nel caso di N/A non vengono mostrati i dati relativi allâ€™avviso	O	Alfanumerico	Valori utilizzabili
-			   â€¢	CNS= CIE/CNS utilizzata per autenticazione portale ente
-			   â€¢	USR= accesso tramite utenza e password
-			   â€¢	OTH= Altro modalitÃ  di autenticazione
-			   â€¢	N/A= Nessuna modalitÃ  di autenticazione
-			   urlReturn	URL dellâ€™Ente verso il quale il partner tecnologico BPS indirizza lâ€™utente al completamento della transazione passando, in POST, i parametri di risposta con il risultato della transazione effettuata dallâ€™utente sul PSP prescelto (esito OK, KO, PO e DIFFERITO)	F	Alfanumerico	Max 200 caratteri
-			   urlBack	URL dellâ€™ente verso il quale il partner tecnologico BPS indirizza lâ€™utente nel caso in cui lo stesso annulli lâ€™operazione	F	Alfanumerico	Max 200 caratteri
+			   autenticazione	ModalitÃƒÂ  di autenticazione sul portale dellÃ¢â‚¬â„¢Ente, da parte dellÃ¢â‚¬â„¢Utente. EÃ¢â‚¬â„¢ un parametro che va indicata nella RPT (richiesta di pagamento telematico) da inviare al PSP prescelto per il pagamento. Nel caso di N/A non vengono mostrati i dati relativi allÃ¢â‚¬â„¢avviso	O	Alfanumerico	Valori utilizzabili
+			   Ã¢â‚¬Â¢	CNS= CIE/CNS utilizzata per autenticazione portale ente
+			   Ã¢â‚¬Â¢	USR= accesso tramite utenza e password
+			   Ã¢â‚¬Â¢	OTH= Altro modalitÃƒÂ  di autenticazione
+			   Ã¢â‚¬Â¢	N/A= Nessuna modalitÃƒÂ  di autenticazione
+			   urlReturn	URL dellÃ¢â‚¬â„¢Ente verso il quale il partner tecnologico BPS indirizza lÃ¢â‚¬â„¢utente al completamento della transazione passando, in POST, i parametri di risposta con il risultato della transazione effettuata dallÃ¢â‚¬â„¢utente sul PSP prescelto (esito OK, KO, PO e DIFFERITO)	F	Alfanumerico	Max 200 caratteri
+			   urlBack	URL dellÃ¢â‚¬â„¢ente verso il quale il partner tecnologico BPS indirizza lÃ¢â‚¬â„¢utente nel caso in cui lo stesso annulli lÃ¢â‚¬â„¢operazione	F	Alfanumerico	Max 200 caratteri
 			   mac	Message Code Authentication. Campo di firma della transazione. Per il calcolo si vedano le indicazioni in calce a questo capitolo: CALCOLO MAC (paragrafo 3.1.1)	O	Alfanumerico 	Lunghezza fissa a 32 caratteri
 		   */
 			// Composizione  del messaggio (pagamento) da inviare al WebService
 			//Il campo idTransazione serve per identificare UNIVOCAMENTE la richiesta di generazione per evitare generazioni improprie
 			//(<valore id_transazione><valore servizio><valore autenticazione><valore stringa_segreta>)
 
-			//Per quanto riguarda le costanti, sempre riferite allâ€™ambiente di test, indichiamo le seguenti informazioni
+			//Per quanto riguarda le costanti, sempre riferite allÃ¢â‚¬â„¢ambiente di test, indichiamo le seguenti informazioni
 			//URL al quale passare i parametri in POST: https://pagopadev.popso.it/paytas-popso-gateway/PaymentMediatorServlet
-			//servizio->Ã¨ lo stesso valore passato al WS per la generazione dello IUV
-			//bollettino->Ã¨ il codice avviso(es. 0010000000000123) precedentemente generato
-			//chiave segreta per calcolo MAC-> â€œsecretâ€
+			//servizio->ÃƒÂ¨ lo stesso valore passato al WS per la generazione dello IUV
+			//bollettino->ÃƒÂ¨ il codice avviso(es. 0010000000000123) precedentemente generato
+			//chiave segreta per calcolo MAC-> Ã¢â‚¬Å“secretÃ¢â‚¬Â
 
 			var idTransazione = string.Format("{0:yyMMdd}-{0:HHmmss}-{1:D11}", dataContabile, idreg);
 			string stringa_segreta = "secret";
 			string mac = GetMessageCodeAuthentication(idTransazione, codiceServizio, "OTH", stringa_segreta); //
-																											  //string mac = "d7e5446663bc02ac72c0f09749b523e5";
+																											  //string mac = "";
 
 			string addr = endpoint + "?id_transazione=" + idTransazione + "&servizio=" + codiceServizio +
 						  "&numero_avviso=" + codiceAvviso + "&autenticazione=" + "OTH" +
@@ -3526,14 +3624,13 @@ rootStore.Close();
 			return Errors;
 		}
 
-		private static DateTime noNullDate(object o, DateTime defaultDate)
+		private static DateTime GetNoNullDate(object o, DateTime defaultDate)
 		{
 			if (o == null || o == DBNull.Value)
 				return defaultDate.Date;
 			try
 			{
 				var d = Convert.ToDateTime(o).Date;
-				if (d.CompareTo(DateTime.Now.Date) < 0) d = DateTime.Now;
 				return d.Date;
 			}
 			catch
@@ -3542,22 +3639,36 @@ rootStore.Close();
 			}
 		}
 
+		private static DateTime noNullDate(object o, DateTime defaultDate) {
+			if (o == null || o == DBNull.Value)
+				return defaultDate.Date;
+			try {
+				var d = Convert.ToDateTime(o).Date;
+				if (d.CompareTo(DateTime.Now.Date) < 0) d = DateTime.Now;
+				return d.Date;
+			}
+			catch {
+				return defaultDate.Date;
+			}
+		}
+
+
 		private static string GetMessageCodeAuthentication(string id_transazione, string valore_servizio,
 			string valore_autenticazione, string stringa_segreta)
 		{
 			/*
 			 * 4.1.1	Calcolo MAC per parametri in output
-			Il mac sarÃ  calcolato applicando HASH MD5 alla stringa ottenuta dalla concatenazione dei valori dei seguenti campi in input, senza nessun separatore o terminatore di stringa:
-			â€¢	id_transazione
-			â€¢	esito
-			â€¢	stringa_segreta (Campo comunicato allâ€™ente creditore da parte di Banca Popolare di Sondrio)
+			Il mac sarÃƒÂ  calcolato applicando HASH MD5 alla stringa ottenuta dalla concatenazione dei valori dei seguenti campi in input, senza nessun separatore o terminatore di stringa:
+			Ã¢â‚¬Â¢	id_transazione
+			Ã¢â‚¬Â¢	esito
+			Ã¢â‚¬Â¢	stringa_segreta (Campo comunicato allÃ¢â‚¬â„¢ente creditore da parte di Banca Popolare di Sondrio)
 
 			mac = HASH MD5(<valore id_transazione><valore servizio><valore autenticazione><valore stringa_segreta>
 
 			Esempio calcolo mac:
-			stringa = â€œ123123132131321OKstringasegretaâ€
+			stringa = Ã¢â‚¬Å“123123132131321OKstringasegretaÃ¢â‚¬Â
 			calcolo = HASH MD5(123123132131321OKstringasegreta)
-			mac ottenuto = da8b8b3f0e3495abd986e7ba7336b7cc
+			mac ottenuto = 
 			 * */
 			return CreateMD5(id_transazione + valore_servizio + valore_autenticazione + stringa_segreta);
 		}
@@ -3601,8 +3712,7 @@ rootStore.Close();
 		//    return sBuilder.ToString();
 		//}
 
-		private static List<string>
-			caricaPosizioniDebitorieUnicredit(DataAccess conn, DataSet ds, PartnerConfig pConf)
+		private static List<string> caricaPosizioniDebitorieUnicredit(DataAccess conn, DataSet ds, PartnerConfig pConf)
 		{
 			object idflusso = ds.Tables["flussocrediti"].Rows[0]["idflusso"].ToString();
 			var errors = new List<string>();
@@ -3622,7 +3732,7 @@ rootStore.Close();
 				return errors;
 			}
 
-			int auxdigit; //puÃ² valere 0 (IUV da 15 cifre) o 3 (IUV da 17 cifre, include anche l'app.code)
+			int auxdigit; //puÃƒÂ² valere 0 (IUV da 15 cifre) o 3 (IUV da 17 cifre, include anche l'app.code)
 			int appcode; //2 cifre, entra in gioco nella composizione del codice_identificativo_presentazione
 			string auxdigit_s = "";
 			string appcode_s ="";
@@ -3749,10 +3859,10 @@ rootStore.Close();
 			foreach (DataRow r in righeDaConsiderare)
 			{
 				//string progressivo = r["idflusso"].ToString().PadLeft(6, '0') + r["iddetail"].ToString().PadLeft(7, '0');
-				string progressivo = $"{r["iddisposizione"],13:D13}"; // piÃ¹ preciso di quello commentato
+				string progressivo = $"{r["iddisposizione"],13:D13}"; // piÃƒÂ¹ preciso di quello commentato
 																	  //string.Format("{0,6:D6}{1,7:D7}",CfgFn.GetNoNullInt32(r["idflusso"]), CfgFn.GetNoNullInt32(r["iddetail"]));
 
-				//Serve solo per accedere alla riga in flussocreditidetail, non Ã¨ trasmesso all'ente
+				//Serve solo per accedere alla riga in flussocreditidetail, non ÃƒÂ¨ trasmesso all'ente
 				var idDisposizione = r["iduniqueformcode"].ToString();
 
 
@@ -3762,7 +3872,7 @@ rootStore.Close();
 				string email = DBNull.Value.Equals(r["email"]) ? null : firstEmail(r["email"].ToString());
 				if (!string.IsNullOrEmpty(email)) {
 					if (!isValidEmail(email)) {
-						errors.Add($"L'email {email} non Ã¨ valida.");
+						errors.Add($"L'email {email} non ÃƒÂ¨ valida.");
 						return errors;
 					}
 				}
@@ -3781,8 +3891,8 @@ rootStore.Close();
 
 					tipo_riferimento_creditore = r["tipo"].ToString(),//F persona fisica   G persona  giuridica
 																	  //valorizzo questo camp leggendolo dalla sp. Task 17117
-																	  //"G", // Il campo puÃ² assumere i valori G (persona giuridica) ed F (persona fisica). 
-																	  // ... nella stesura originale il valore del campo imposto Ã¨ G
+																	  //"G", // Il campo puÃƒÂ² assumere i valori G (persona giuridica) ed F (persona fisica). 
+																	  // ... nella stesura originale il valore del campo imposto ÃƒÂ¨ G
 																	  //tipo_riferimento_creditore = r["tipo"].ToString(), //F persona fisica   G persona  giuridica
 
 
@@ -3790,8 +3900,8 @@ rootStore.Close();
 					// in abbinamento con il campo Tipo Riferimento Creditore/PA , la chiave/identificativo univoco 
 					// della posizione debitoria sul repository della Piattaforma Incassi 
 					// (es Tipo Riferimento Creditore/PA  Fattura 123  - Codice Riferimento Creditore 12358 2017  
-					// - Campo univoco â€œFattura 123  12358 2017 â€œ). 
-					// La combinazione di questi dati devono essere univoci nellâ€™ambito di tutti i servizi dellâ€™ente 
+					// - Campo univoco Ã¢â‚¬Å“Fattura 123  12358 2017 Ã¢â‚¬Å“). 
+					// La combinazione di questi dati devono essere univoci nellÃ¢â‚¬â„¢ambito di tutti i servizi dellÃ¢â‚¬â„¢ente 
 					// presenti su UnicreditGate.
 					codice_riferimento_creditore = idDisposizione,
 
@@ -3804,8 +3914,8 @@ rootStore.Close();
 					//RiferimentoCredito2 = string.Format("{0:D35}", r["iddetail"]), // per riferimento in fase d'incasso
 
 					// Dato OBBLIGATORIO.Come attualmente per il MAV,
-					// la data scadenza non comporta nessun annullo e nessuna impagabilitÃ .Come da â€œregolamentoâ€ ateneo,
-					// se lo studente pagherÃ  oltre la scadenza, si troverÃ  una MORA.
+					// la data scadenza non comporta nessun annullo e nessuna impagabilitÃƒÂ .Come da Ã¢â‚¬Å“regolamentoÃ¢â‚¬Â ateneo,
+					// se lo studente pagherÃƒÂ  oltre la scadenza, si troverÃƒÂ  una MORA.
 					data_scadenza_pagamento = noNullDate(r["scadenza"], DateTime.Now.Date.AddDays(30)),
 					data_scadenza_pagamentoSpecified = true, //se non la imposto a true non viene passato il parametro
 					importo = Convert.ToDecimal(r["importo"]),
@@ -3813,10 +3923,10 @@ rootStore.Close();
 
 					//Numero Avviso
 					//Nel caso in cui la generazione dello IUV avviene ad opera di UniCredit Gate,
-					//questo campo ne conterrÃ  il valore generato in automatico.
+					//questo campo ne conterrÃƒÂ  il valore generato in automatico.
 					// ----------------------------------------------------------------------------------------------
 					// codice_identificativo_presentazione = null,
-					//La composizione Ã¨: aux digit (1 carattere â€“ 0/3) + application code (2 caratteri) +
+					//La composizione ÃƒÂ¨: aux digit (1 carattere Ã¢â‚¬â€œ 0/3) + application code (2 caratteri) +
 					//numero riferimento (13 caratteri) + check digit (2 caratteri)
 					// Le ultime 15 cifre(se aux digit = 0) o 17(se aux digit = 3) sono lo IUV
 				
@@ -3908,10 +4018,10 @@ rootStore.Close();
 				{
 					// Galfione Dario (UniCredit):
 					// codice_identificativo_presentazione: 
-					//     Il valore che verrÃ  restituito(18 caratteri â€“ aux digit 0 â€“ application code 01 â€“ 
-					// riferimento operazione 0000001271826 â€“ check digit 91) Ã¨ quello che deve essere utilizzato 
+					//     Il valore che verrÃƒÂ  restituito(18 caratteri Ã¢â‚¬â€œ aux digit 0 Ã¢â‚¬â€œ application code 01 Ã¢â‚¬â€œ 
+					// riferimento operazione 0000001271826 Ã¢â‚¬â€œ check digit 91) ÃƒÂ¨ quello che deve essere utilizzato 
 					// nei barcode e QR.
-					// identificativo_univoco_versamento: Ã¨ lo IUV 
+					// identificativo_univoco_versamento: ÃƒÂ¨ lo IUV 
 					//   (15 caratteri del precedente partendo da destra in quanto aux digit = 0)
 
 
@@ -3945,13 +4055,410 @@ rootStore.Close();
 			if (post.DO_POST()) return errors;
 			errors.Add("Errore nel salvataggio dei dati");
 			return errors;
-			// Questa interrogazione verrÃ  fatta nel chiamante, in cui se Errors = 0 allora OK, altrimenti visualizza l'errore.
+			// Questa interrogazione verrÃƒÂ  fatta nel chiamante, in cui se Errors = 0 allora OK, altrimenti visualizza l'errore.
 			//if (errori.Count > 0) {
 			//    FrmErrori.MostraErrori(this, errori);
 			//}
 			//else {
-			//  MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso Ã¨ stato inviato correttamente", "Avviso");
+			//  MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso ÃƒÂ¨ stato inviato correttamente", "Avviso");
 			//}
+		}
+
+		private static string sostituiscivirgolaconpunto(decimal importo) {
+			string group = System.Globalization.NumberFormatInfo.CurrentInfo.NumberGroupSeparator;
+			string dec = System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
+			string s1 = importo.ToString("g").Replace(group, "");
+			return s1.Replace(dec, ".");
+		}
+
+		private static List<string> caricaPosizioniDebitoriePmpay(DataAccess conn, DataSet ds, PartnerConfig pConf) {
+			object idflusso = ds.Tables["flussocrediti"].Rows[0]["idflusso"].ToString();
+			var errors = new List<string>();
+			var esercizio = conn.GetEsercizio();
+			var dataContabile = conn.GetDataContabile();
+
+			string userRest = pConf.Config[0]; // utente ambiente REST
+			string pwdRest = pConf.Config[1]; //password ambiente REST
+			string CodiceEnte = pConf.Config[2]; // Codice ente "PMP43"
+			string urlRest = pConf.Config[3]; // url ambiente REST
+			string codiceServizio = pConf.codice_servizio;// codice Servizio "SRV1"
+														  //string urlRest = "https://secure.pmpay.it/pagoparest/";
+
+			var gln = "0000000000000"; //13 cifre
+			if (pConf.Config.Length > 11) {
+				gln = pConf.Config[11];
+			}
+
+			var qh = conn.GetQueryHelper();
+
+			// Estrae dal DB il codice fiscale dell'ente            
+			var identificativoEnte = conn.DO_READ_VALUE("generalreportparameter", qh.AppAnd(
+				qh.CmpEq("idparam", "License_f"), qh.NullOrLe("start", dataContabile),
+				qh.NullOrGe("stop", dataContabile)
+			), "paramvalue");
+
+			if (identificativoEnte == null || identificativoEnte == DBNull.Value) {
+				errors.Add("identificativoEnte di Generalreportparameter non valido.");
+				return errors;
+			}
+
+			DataTable tFlussocreditidetail = ds.Tables["flussocreditidetail"];
+
+			var qhc = new CQueryHelper();
+			if (tFlussocreditidetail.Select(qhc.IsNull("expirationdate")).Length > 0) {
+				errors.Add("Ci sono posizioni debitorie senza scadenza");
+				return errors;
+			}
+
+			if (ds.Tables["flussocreditidetail"].Rows.Count == 0) {
+				errors.Add("Non vi sono posizioni righe in Flussocreditidetail con n. " + idflusso + ".");
+				return errors;
+			}
+
+			PmPay rClient = new PmPay(urlRest, userRest, pwdRest);
+			string errorGenerateToken = "";
+			string CurrToken = rClient.GetToken(urlRest, out errorGenerateToken);
+
+			if (!string.IsNullOrEmpty(errorGenerateToken)) {
+				errors.Add(
+					$"Errore {errorGenerateToken} nell'ottenimento del token");
+				return errors;
+			}
+
+			if (string.IsNullOrEmpty(CurrToken)) {
+				errors.Add(
+					$"Errore {errorGenerateToken} nell'ottenimento del token");
+				return errors;
+			}
+
+			var iuvOttenuti = false;
+			Dictionary<string, string> iuvFrom_iduniqueformcode = new Dictionary<string, string>();
+			List<DataRow> crediti = new List<DataRow>();
+			foreach (DataRow rDeb in tFlussocreditidetail.Rows) {
+				//Ottiene lo IUV  per la posizione debitoria ove necessario
+				if (rDeb["annulment"] != DBNull.Value) continue;
+				if (rDeb["iuv"] != DBNull.Value) {
+					iuvFrom_iduniqueformcode[rDeb["iduniqueformcode"].ToString()] = rDeb["iuv"].ToString();
+					continue;
+				}
+				crediti.Add(rDeb);
+			}
+
+			if (crediti.Count == 0) return errors;
+
+
+			BodyMultiIuv currBodyMultiIuv = new BodyMultiIuv {
+				codiceServizio = codiceServizio,
+				numeroIuvRichiesti = crediti.Count
+			};
+
+			string errorGenerateMultiIUV = "";
+			string[] result = rClient.GenerateMultiIUV(CodiceEnte, CurrToken, currBodyMultiIuv, out errorGenerateMultiIUV);
+			
+
+			if (result == null || result.Length == 0) {
+				errors.Add(
+					$"Errore {errorGenerateMultiIUV} nell'ottenimento di {crediti.Count} iuv");
+				return errors;
+			}
+			if (result.Length != crediti.Count) {
+				errors.Add(
+					$"Errore : richiesti {crediti.Count} iuv ed ottenuti {result.Length}");
+				return errors;
+			}
+
+			salvaDati(ds, errors, conn, "Salvataggio IUV ottenuti");
+			if (errors.Count > 0) return errors;
+
+
+			for (int i = 0; i < crediti.Count; i++) {
+				DataRow rDeb = crediti[i];
+				string iuvOttenuto = result[i];
+
+				//Ottiene lo IUV  per la posizione debitoria ove necessario
+				var iduniqueformcode = rDeb["iduniqueformcode"].ToString();
+				var idDisposizione = CfgFn.GetNoNullDecimal(rDeb["iduniqueformcode"]);
+				string iuv = null;
+
+				string codiceAvviso = "3" + iuvOttenuto;
+
+				if (codiceAvviso.ToUpperInvariant().StartsWith("RF")) iuv = codiceAvviso.Substring(4);
+				if (codiceAvviso.StartsWith("0")) iuv = codiceAvviso.Substring(3);
+				if (codiceAvviso.StartsWith("2")) iuv = codiceAvviso.Substring(1);
+				if (codiceAvviso.StartsWith("3")) iuv = codiceAvviso.Substring(1);
+
+				rDeb["iuv"] = iuv; //result.IUV;
+				int flag = CfgFn.GetNoNullInt32(rDeb["flag"]);
+				flag = flag | 2; //non trasmesso
+				rDeb["flag"] = flag;
+
+				iuvFrom_iduniqueformcode[rDeb["iduniqueformcode"].ToString()] = rDeb["iuv"].ToString();
+				iuvOttenuti = true;
+				rDeb["codiceavviso"] =
+					codiceAvviso; //Probabilmente non sarÃƒÂ  corretto ma al momento ÃƒÂ¨ tutto ciÃƒÂ² che abbiamo
+				rDeb["barcodevalue"] = Utils.IUV.getCodiceBarre(
+					gln,
+					codiceAvviso,
+					CfgFn.GetNoNullDecimal(rDeb["importoversamento"]));
+				rDeb["qrcodevalue"] = Utils.IUV.getCodiceQR(identificativoEnte.ToString(),
+					codiceAvviso,
+					CfgFn.GetNoNullDecimal(rDeb["importoversamento"]));
+			}
+
+
+
+
+			// Costruisce l'elenco dei dettagli da esportare
+			var tPosizioniDebitorie =
+				conn.CallSP("exp_posizionidebitoriebsondrio", new[] { idflusso, esercizio }).Tables[0];
+			if (tPosizioniDebitorie.Rows.Count == 0) {
+				errors.Add("Non vi sono posizioni debitorie da inviare.");
+				return errors;
+			}
+
+			if (tPosizioniDebitorie.Select(qhc.IsNull("scadenza")).Length > 0) {
+				errors.Add("Ci sono posizioni debitorie senza scadenza");
+				return errors;
+			}
+
+			if (tPosizioniDebitorie.Select(qhc.CmpEq("importo", 0)).Length > 0) {
+				errors.Add("Ci sono posizioni debitorie con importo pari a 0");
+				return errors;
+			}
+
+			if (tPosizioniDebitorie.Select(qhc.IsNull("codice")).Length > 0) {
+				errors.Add("Ci sono posizioni debitorie senza CF/Piva");
+				return errors;
+			}
+
+			if (tPosizioniDebitorie.Select(qhc.IsNull("anagrafica")).Length > 0) {
+				errors.Add("Ci sono posizioni debitorie senza Anagrafica");
+				return errors;
+			}
+			if (tPosizioniDebitorie.Select(qhc.IsNull("causale")).Length > 0) {
+				errors.Add("Ci sono posizioni debitorie senza Causale");
+				return errors;
+			}
+
+			//ValtellineseRESTpmpay rClient = new ValtellineseRESTpmpay(urlRest, userRest, pwdRest);
+
+			//var fileCSV = "";
+			// Creazione del file allineamento pendenze da allegare alla chiamata mediante upload
+
+			// La prima riga ÃƒÂ¨ di intestazione 
+			//foreach (string caption in captionAllineamentoPendenze) {
+			//	if (caption != "DATI_AGGIUNTIVI")
+			//		fileCSV += caption + "|";
+			//	else
+			//		fileCSV += caption; // alla fine della riga non ci va il PIPE
+			//}
+
+			//StringBuilder sb = new StringBuilder();
+			//sb.AppendLine(fileCSV);
+
+			Hashtable IuvEsito = new Hashtable();
+			Dictionary<string, bool> creditiErrati = new Dictionary<string, bool>();
+
+			foreach (DataRow r in tPosizioniDebitorie.Rows) {
+
+				string iuv = null;
+				if (iuvFrom_iduniqueformcode.ContainsKey(r["iduniqueformcode"].ToString())) {
+					iuv = iuvFrom_iduniqueformcode[r["iduniqueformcode"].ToString()];
+				}
+				else {
+					iuv = conn.readValue("flussocreditidetail",
+						q.eq("iduniqueformcode", r["iduniqueformcode"].ToString()), "iuv")?.ToString();
+				}
+
+				if (string.IsNullOrEmpty(iuv)) continue;
+
+				// Compone la stringa coi dati della posizione debitoria
+				string creditore = CodiceEnte;
+				//string codice_partitario = codicepartitarioRest; //CODICE_PARTITARIO*    
+				string debitore = DBNull.Value.Equals(r["codice"]) ? "" : r["codice"].ToString(); //DEBITORE*
+				string id_debito = r["iduniqueformcode"].ToString();
+				string id_pagamento_iuv = iuv;
+				DateTime data_scadenza = noNullDate(r["scadenza"], DateTime.Now.Date.AddDays(30));
+				string sDataScadenza = data_scadenza.Year.ToString() + "-" +
+									   data_scadenza.Month.ToString().PadLeft(2, '0') + "-" +
+									   data_scadenza.Day.ToString().PadLeft(2, '0');
+				//string data_iniziovalidita = "";
+				//string data_finevalidita = "";
+				//string causalepagamento = "";
+				//string stato_pagamento = "DA_PAGARE";
+				string importo_pagamento = sostituiscivirgolaconpunto(CfgFn.GetNoNullDecimal(r["importo"]));
+
+				//string voci_pagamento = "";
+				string anno_riferimento = DateTime.Now.Date.Year.ToString();
+
+				string nomeCognome = "";
+				if (r["forename"].ToString() != "" && r["surname"].ToString() != "")
+					nomeCognome = r["forename"] + " " + r["surname"];
+				string denominazione = "";
+				if (nomeCognome == "") denominazione = r["anagrafica"].ToString();
+				string email = "";
+				//if (r["email"].ToString() != "") email = $",\"email\":{r["email"]}";
+
+				string note_debito = "{" + nomeCognome + denominazione + email + "}";
+
+				string causale = cleanLineFeed(r["causale"].ToString());
+
+				//string note = cleanHtmlFeed(r["note"].ToString());
+				//string tassonomia = "";
+				//if (tPosizioniDebitorie.Columns.Contains("codicetassonomia") && (r["codicetassonomia"] != DBNull.Value)) {
+				//	string code = r["codicetassonomia"].ToString();
+				//	tassonomia = "{\"TASSONOMIA\":\"" + code.Substring(2, code.Length - 3) + "\"}";
+				//}
+
+				string causale_debito = causale;
+				//string importo_pagato = "";
+				//string data_valuta_accredito = "";
+				//string canale_pagamento = "";
+				//string data_pagamento = "";
+				//string note_pagamento = "";
+				//string pagato_piattaforma = "";
+				//string id_debito_rata_unica = "";
+				//string rigaFile = creditore + "|" +
+				//				  //codice_partitario + "|" +
+				//				  debitore + "|" +
+				//				  id_debito + "|" +
+				//				  id_pagamento_iuv + "|" +
+				//				  sDataScadenza + "|" +
+				//				  data_iniziovalidita + "|" +
+				//				  data_finevalidita + "|" +
+				//				  causalepagamento + "|" +
+				//				  stato_pagamento + "|" +
+				//				  importo_pagamento + "|" +
+				//				  voci_pagamento + "|" +
+				//				  anno_riferimento + "|" +
+				//				  note_debito + "|" +
+				//				  causale_debito + "|" +
+				//				  importo_pagato + "|" +
+				//				  data_valuta_accredito + "|" +
+				//				  canale_pagamento + "|" +
+				//				  data_pagamento + "|" +
+				//				  note_pagamento + "|" +
+				//				  pagato_piattaforma + "|" +
+				//				  id_debito_rata_unica + "|" +
+				//				  tassonomia
+				//	;
+
+				//sb.AppendLine(rigaFile);
+
+				IdFiscaleTipo tipoAnagrafica = IdFiscaleTipo.F;
+				switch (r["tipo"]) {
+					case "F": {
+							tipoAnagrafica = IdFiscaleTipo.F;
+							break;
+						}
+					case "G": {
+							tipoAnagrafica = IdFiscaleTipo.G;
+							break;
+						}
+
+				}
+
+				IdFiscale CurrIdFiscale = new IdFiscale {
+					tipo = tipoAnagrafica,
+					Codice = r["codice"].ToString()
+				};
+				object siglanazione = conn.DO_READ_VALUE("geo_nation_agencyview", 
+					qh.AppAnd(qh.CmpEq("title", r["nazione"]), qh.IsNull("stop"), qh.CmpEq("idagency",6)), "value", null);
+
+				Anagrafica currAnagraficaPag = new Anagrafica {
+					CodiceEnte = CodiceEnte,
+					IdFiscale = CurrIdFiscale,
+					AnagraficaDenominazione = nomeCognome,
+					Indirizzo = r["indirizzo"].ToString(),
+					Cap = r["cap"].ToString(),
+					Localita = r["citta"].ToString(),
+					Provincia = r["provincia"].ToString(),
+					Nazione = siglanazione!=null ? siglanazione.ToString() : null,
+					Email = r["email"] != DBNull.Value? r["email"].ToString() : null
+				};
+				List<Versamento> ListVersamento = new List<Versamento>();
+				Versamento currVersamento = new Versamento {
+					Importo = importo_pagamento,
+					Causale = r["causale"] != null ? r["causale"].ToString() : null,
+					Servizio = codiceServizio
+				};
+				ListVersamento.Add(currVersamento);
+
+
+
+				Pagamento currPagamento = new Pagamento {
+					Iuv = id_pagamento_iuv,
+					IdDebito = id_debito,
+					DataScadenza = data_scadenza,
+					//DataInizioValidita = data_iniziovalidita, non ÃƒÂ¨ valorizzata nella sp
+					//DataFineValidita = data_finevalidita,
+					IdFiscaleDebitore = debitore,
+					Anagrafica = currAnagraficaPag,
+					//IdRata : Identifica i pagamenti costituenti lo stesso pacchetto rate
+					//idxRata : Identifica l'ordine dei pagamenti all'interno del pacchetto di rate. 0 = rata unica. Considerato solo in presenza di idRata
+					Versamenti = ListVersamento
+				};
+
+
+				try {
+					QueryCreator.MarkEvent("Invio file:");
+					//QueryCreator.MarkEvent(sb.ToString());
+
+					string errorInserimentoNuovoPagamento = "";
+					var NewIuv = rClient.InserimentoNuovoPagamentoPmpay(CodiceEnte, CurrToken, currPagamento, out errorInserimentoNuovoPagamento);
+					//201 -	pagamento creato
+					if(NewIuv != null)
+						IuvEsito[id_debito] = NewIuv;
+					if (errorInserimentoNuovoPagamento != "")  {
+						creditiErrati[id_debito] = true;
+						errors.Add($"Nell'invio di flusso {idflusso}  errore:\n\r {errorInserimentoNuovoPagamento})");
+						//return errors;// per il momento memorizza il codice errore, perchÃƒÂ¨ se uscisse non potrebbe rifare il pagamento...anche se poi dopo
+						// se il count ÃƒÂ¨ maggiore di 0, esce.
+					}
+				}
+				catch (Exception ex) {
+					//Se la chiamata al servizio viene eseguita con successo, restituisce lo IUV
+					// se non va in errore per qualche motivo, non ci sarÃƒÂ  uno iuv da registrare...
+					// In questo caso tutti i crediti  rimanono marcati come non trasmessi
+					errors.Add(QueryCreator.GetErrorString(ex));
+
+					return errors;
+				}
+				//Esamina lo stato delle pendenze
+
+
+				// Imposta il flusso come trasmesso solo se non ci sono stati errori
+				//if (errors.Count != 0) return errors;
+				// SARA :	se un dettaglio ÃƒÂ¨ errato, e gli altri corretti, ritrasmette tutto ? 
+			}// FINISCE L'INVIO DEI PAGAMENTI
+
+
+			////foreach (DictionaryEntry item in IuvEsito) {
+			////	string code = item.Value as string;
+			////	if (code == "400") {
+			////		errors.Add("Errore trasmissione");
+			////		return errors;
+			////	}
+			////}
+			// I crediti, per i quali si ÃƒÂ¨ verificato un errore, vengono marcati come "NON inviati"
+			foreach (DataRow credDet in ds.Tables["flussocreditidetail"].Rows) {
+				string idDebito = credDet["iduniqueformcode"].ToString();
+				if (creditiErrati.ContainsKey(idDebito)) continue;
+
+				//Imposta tutti i crediti errati come " non trasmessi "
+				int flag = CfgFn.GetNoNullInt32(credDet["flag"]);
+				flag = flag & (~2); //non trasmesso
+				credDet["flag"] = flag;
+			}
+
+
+			DataRow curr = ds.Tables["flussocrediti"]._First();
+			if (creditiErrati.Keys.Count == 0) curr["istransmitted"] = "S";//---------- <<<<<<<<<<<<<<<<<<<<<<<<<<<< istransmitted <<<<<<<<<<<
+			salvaDati(ds, errors, conn, "Salvataggio dei crediti");
+
+			return errors;
+
+
 		}
 
 		private static List<string> caricaPosizioniDebitorieValtellinese(DataAccess conn, DataSet ds,
@@ -3964,7 +4471,7 @@ rootStore.Close();
 			var dataContabile = conn.GetDataContabile();
 
 			// Parametri del servizio (utente/password/CODICE_AZIENDA/URLSoap/userRest/pwdRest/URLRest/codicepartitarioRest)
-			// WS_COM_CREV|**********|CRE14|https://service.pmpay.it/|unicatuser|**********|https://service.pmpay.it/Rest/|COD_SERV_STUDENTE
+			// WS_COM_CREV|**********|CRE14|https://service.pmpay.it/|***********|**********|https://service.pmpay.it/Rest/|COD_SERV_STUDENTE
 			var utente = pConf.Config[0]; // utente ambiente SOAP
 
 			var password = pConf.Config[1]; // password ambiente SOAP
@@ -3975,7 +4482,7 @@ rootStore.Close();
 			string urlRest = pConf.Config[6]; // url ambiente REST
 			string codicepartitarioRest = pConf.Config[7]; // codice partitario ambiente REST
 
-			//string codiceAzienda = "CRE14"; // codice azienda
+			//string codiceAzienda = "******"; // codice azienda
 			//string urlSoap = "https://service.pmpay.it/"; // url ambiente SOAP
 			//string urlRest = "https://service.pmpay.it/Rest";   // url ambiente REST
 			//string codicepartitarioRest = "COD_SERV_STUDENTE"; // codice partitario ambiente REST
@@ -3995,7 +4502,7 @@ rootStore.Close();
 
 
 
-			//var auxdigit = 0;   //puÃ² valere 0 (IUV da 15 cifre) o 3 (IUV da 17 cifre, include anche l'app.code)
+			//var auxdigit = 0;   //puÃƒÂ² valere 0 (IUV da 15 cifre) o 3 (IUV da 17 cifre, include anche l'app.code)
 			//if (pConf.Config.Length > 9) {
 			//    if (!int.TryParse(pConf.Config[9], out auxdigit)) {
 			//        errors.Add("auxdigit di partner_config non valido.");
@@ -4145,26 +4652,26 @@ rootStore.Close();
 			{
 				reqIuv = new richiestaIUV
 				{
-					// RIF_INTERNO = iduniqueformcode,//identificativo  della pratica gestito dal portale dellâ€™Azienda Ente 
+					// RIF_INTERNO = iduniqueformcode,//identificativo  della pratica gestito dal portale dellÃ¢â‚¬â„¢Azienda Ente 
 					TIPO_REFERENCE = "A",
 					//Tipologia di contatore da generare per impostare la componente reference dello IUV standard(A - B - C - D - E) e IUV non standard Z(vedi paragrafo 5.1.4)
 					STANDARD_ISO = false
-					//RIF_CONTABILE = idDisposizione, //Indica il codice contabile su cui incrementare il contatore per la modalitÃ  TIPO_REFERENCE = D-Z
-					//RIF_COD_UTENTE = 0, //Indica il codice utente su cui incrementare il contatore per la modalitÃ  TIPO_REFERENCE = E
-					//RIF_ALFANUMERICO = 0 //Determina la parte alfanumerica su cui incrementare il contatore per la modalitÃ  TIPO_REFERENCE = B                    
+					//RIF_CONTABILE = idDisposizione, //Indica il codice contabile su cui incrementare il contatore per la modalitÃƒÂ  TIPO_REFERENCE = D-Z
+					//RIF_COD_UTENTE = 0, //Indica il codice utente su cui incrementare il contatore per la modalitÃƒÂ  TIPO_REFERENCE = E
+					//RIF_ALFANUMERICO = 0 //Determina la parte alfanumerica su cui incrementare il contatore per la modalitÃƒÂ  TIPO_REFERENCE = B                    
 				};
 			}
 			else
 			{
 				reqIuv = new richiestaIUV
 				{
-					// RIF_INTERNO = iduniqueformcode,//identificativo  della pratica gestito dal portale dellâ€™Azienda Ente 
+					// RIF_INTERNO = iduniqueformcode,//identificativo  della pratica gestito dal portale dellÃ¢â‚¬â„¢Azienda Ente 
 					TIPO_REFERENCE = "Z",
 					//Tipologia di contatore da generare per impostare la componente reference dello IUV standard(A - B - C - D - E) e IUV non standard Z(vedi paragrafo 5.1.4)
 					RIF_CONTABILE = RIF_CONTABILE,
-					//RIF_CONTABILE = idDisposizione, //Indica il codice contabile su cui incrementare il contatore per la modalitÃ  TIPO_REFERENCE = D-Z
-					//RIF_COD_UTENTE = 0, //Indica il codice utente su cui incrementare il contatore per la modalitÃ  TIPO_REFERENCE = E
-					//RIF_ALFANUMERICO = 0 //Determina la parte alfanumerica su cui incrementare il contatore per la modalitÃ  TIPO_REFERENCE = B                    
+					//RIF_CONTABILE = idDisposizione, //Indica il codice contabile su cui incrementare il contatore per la modalitÃƒÂ  TIPO_REFERENCE = D-Z
+					//RIF_COD_UTENTE = 0, //Indica il codice utente su cui incrementare il contatore per la modalitÃƒÂ  TIPO_REFERENCE = E
+					//RIF_ALFANUMERICO = 0 //Determina la parte alfanumerica su cui incrementare il contatore per la modalitÃƒÂ  TIPO_REFERENCE = B                    
 				};
 			}
 			var headIuvReq = new headerRichiestaIUV()
@@ -4223,7 +4730,7 @@ rootStore.Close();
 				iuvFrom_iduniqueformcode[rDeb["iduniqueformcode"].ToString()] = rDeb["iuv"].ToString();
 				iuvOttenuti = true;
 				rDeb["codiceavviso"] =
-					codiceAvviso; //Probabilmente non sarÃ  corretto ma al momento Ã¨ tutto ciÃ² che abbiamo
+					codiceAvviso; //Probabilmente non sarÃƒÂ  corretto ma al momento ÃƒÂ¨ tutto ciÃƒÂ² che abbiamo
 				rDeb["barcodevalue"] = Utils.IUV.getCodiceBarre(
 					gln,
 					codiceAvviso,
@@ -4265,7 +4772,7 @@ rootStore.Close();
 			var fileCSV = "";
 			// Creazione del file allineamento pendenze da allegare alla chiamata mediante upload
 
-			// La prima riga Ã¨ di intestazione 
+			// La prima riga ÃƒÂ¨ di intestazione 
 			foreach (string caption in captionAllineamentoPendenze)
 			{
 				if (caption != "DATI_AGGIUNTIVI")
@@ -4282,13 +4789,13 @@ rootStore.Close();
 
 				//StringBuilder buffer = new StringBuilder();
 
-				//Id_Trasmissione che identificherÃ  nei due sistemi (Applicazione Client e PMPAY) il flusso della trasmissione avvenuta.
-				//Il FilePendenze Ã¨ un file in formato CSV  con codifica UTF - 8.
-				//Ogni linea Ã¨ costituita da 21 campi delimitati dal carattere '|'(pipe).
-				//La prima riga Ã¨ di intestazione e contiene i nomi dei campi.
+				//Id_Trasmissione che identificherÃƒÂ  nei due sistemi (Applicazione Client e PMPAY) il flusso della trasmissione avvenuta.
+				//Il FilePendenze ÃƒÂ¨ un file in formato CSV  con codifica UTF - 8.
+				//Ogni linea ÃƒÂ¨ costituita da 21 campi delimitati dal carattere '|'(pipe).
+				//La prima riga ÃƒÂ¨ di intestazione e contiene i nomi dei campi.
 				//Le linee successive descrivono i pagamenti con la seguente sintassi:
 				/*
-				CREDITORE * (es. â€œPA999â€
+				CREDITORE * (es. Ã¢â‚¬Å“PA999Ã¢â‚¬Â
 				CODICE_PARTITARIO*
 				DEBITORE * (codice fiscale del debitore)Stringa
 				ID_DEBITO*
@@ -4326,7 +4833,7 @@ rootStore.Close();
 				if (string.IsNullOrEmpty(iuv)) continue;
 
 				// Compone la stringa coi dati della posizione debitoria
-				string creditore = codiceAzienda; //CREDITORE * (es. â€œPA999â€   
+				string creditore = codiceAzienda; //CREDITORE * (es. Ã¢â‚¬Å“PA999Ã¢â‚¬Â   
 				string codice_partitario = codicepartitarioRest; //CODICE_PARTITARIO*    
 				string debitore = DBNull.Value.Equals(r["codice"]) ? "" : r["codice"].ToString(); //DEBITORE*
 				string id_debito = r["iduniqueformcode"].ToString();
@@ -4426,12 +4933,12 @@ rootStore.Close();
 
 
 			/*
-			     â€¢	CSV Esito elaborato correttamente (omessa l'intestazione):
+			     Ã¢â‚¬Â¢	CSV Esito elaborato correttamente (omessa l'intestazione):
 			 Elaborato correttamente|||
-			     â€¢	CSV Esito flusso non valido (omessa l'intestazione): 
+			     Ã¢â‚¬Â¢	CSV Esito flusso non valido (omessa l'intestazione): 
 			 Non valido||${codErrore}|${descrizione}
 			 Tutto il flusso (tutte le pendenze che costituiscono la trasmissione) vengono segnate come non valide.
-			     â€¢	CSV Esito flusso con alcuni errori di elaborazione delle pendenze (omessa l'intestazione):
+			     Ã¢â‚¬Â¢	CSV Esito flusso con alcuni errori di elaborazione delle pendenze (omessa l'intestazione):
 			 Elaborato con Errore|${idDebito1}|${codErrore1}|${descrizione1}
 
 			 */
@@ -4579,7 +5086,7 @@ rootStore.Close();
 				codiceServizio = CfgFn.GetNoNullInt32(pConf.Config[2]);
 			}
 
-			//var auxdigit = 0;   //puÃ² valere 0 (IUV da 15 cifre) o 3 (IUV da 17 cifre, include anche l'app.code)
+			//var auxdigit = 0;   //puÃƒÂ² valere 0 (IUV da 15 cifre) o 3 (IUV da 17 cifre, include anche l'app.code)
 			//if (pConf.Config.Length > 3) {
 			//    if (!int.TryParse(pConf.Config[3], out auxdigit)) {
 			//        errors.Add("auxdigit di partner_config non valido.");
@@ -4607,7 +5114,7 @@ rootStore.Close();
 			}
 
 			var qhc = conn.GetQueryHelper();
-
+			QueryHelper qhs = conn.GetQueryHelper();
 			// Estrae dal DB il codice fiscale dell'ente            
 			//var identificativoEnte = Conn.readValue("generalreportparameter",
 			//        q.eq("idparam", "License_f") & q.nullOrLe("start", dataContabile) & q.nullOrGe("stop", dataContabile),
@@ -4652,7 +5159,8 @@ rootStore.Close();
 				return errors;
 			}
 
-			if (!checkCertificatiBancaIntesa(utente == "nodoInfogroup"))
+			DataTable tpartner_certificate = conn.RUN_SELECT("partner_certificate", "*", null, qhs.CmpEq("active", "S"), null, false);
+			if (!checkCertificatiBancaIntesa(utente == "nodoInfogroup", tpartner_certificate))
 			{
 				errors.Add("Impossibile installare i certificati di banca intesa");
 				return errors;
@@ -4700,16 +5208,16 @@ rootStore.Close();
 			foreach (DataRow r in righeDaConsiderare)
 			{
 				//string progressivo = r["idflusso"].ToString().PadLeft(6, '0') + r["iddetail"].ToString().PadLeft(7, '0');
-				var progressivo = $"{r["iddisposizione"],13:D13}"; // piÃ¹ preciso di quello commentato
+				var progressivo = $"{r["iddisposizione"],13:D13}"; // piÃƒÂ¹ preciso di quello commentato
 																   //string.Format("{0,6:D6}{1,7:D7}",CfgFn.GetNoNullInt32(r["idflusso"]), CfgFn.GetNoNullInt32(r["iddetail"]));
 
-				//Serve solo per accedere alla riga in flussocreditidetail, non Ã¨ trasmesso all'ente
+				//Serve solo per accedere alla riga in flussocreditidetail, non ÃƒÂ¨ trasmesso all'ente
 				var idDisposizione = r["iduniqueformcode"].ToString();
 
 				string email = DBNull.Value.Equals(r["email"]) ? null : firstEmail(r["email"].ToString());
 				if (!string.IsNullOrEmpty(email)) {
 					if (!isValidEmail(email)) {
-						errors.Add($"L'email {email} non Ã¨ valida.");
+						errors.Add($"L'email {email} non ÃƒÂ¨ valida.");
 						return errors;
 					}
 				}
@@ -4726,16 +5234,16 @@ rootStore.Close();
 
 					//tipo_riferimento_creditore = r["tipo"].ToString(), //F persona fisica   G persona  giuridica
 					tipo_riferimento_creditore =
-						"G", // Il campo puÃ² assumere i valori G (persona giuridica) ed F (persona fisica). 
-							 // ... nella stesura originale il valore del campo imposto Ã¨ G
+						"G", // Il campo puÃƒÂ² assumere i valori G (persona giuridica) ed F (persona fisica). 
+							 // ... nella stesura originale il valore del campo imposto ÃƒÂ¨ G
 
 
 					//Codice Riferimento Creditore (codice/identificativo che si riferisce al campo precedente), rappresenta, 
 					// in abbinamento con il campo Tipo Riferimento Creditore/PA , la chiave/identificativo univoco 
 					// della posizione debitoria sul repository della Piattaforma Incassi 
 					// (es Tipo Riferimento Creditore/PA  Fattura 123  - Codice Riferimento Creditore 12358 2017  
-					// - Campo univoco â€œFattura 123  12358 2017 â€œ). 
-					// La combinazione di questi dati devono essere univoci nellâ€™ambito di tutti i servizi dellâ€™ente 
+					// - Campo univoco Ã¢â‚¬Å“Fattura 123  12358 2017 Ã¢â‚¬Å“). 
+					// La combinazione di questi dati devono essere univoci nellÃ¢â‚¬â„¢ambito di tutti i servizi dellÃ¢â‚¬â„¢ente 
 					// presenti su UnicreditGate.
 					codice_riferimento_creditore = idDisposizione,
 
@@ -4749,8 +5257,8 @@ rootStore.Close();
 							  //RiferimentoCredito2 = string.Format("{0:D35}", r["iddetail"]), // per riferimento in fase d'incasso
 
 					// Dato OBBLIGATORIO.Come attualmente per il MAV,
-					// la data scadenza non comporta nessun annullo e nessuna impagabilitÃ .Come da â€œregolamentoâ€ ateneo,
-					// se lo studente pagherÃ  oltre la scadenza, si troverÃ  una MORA.
+					// la data scadenza non comporta nessun annullo e nessuna impagabilitÃƒÂ .Come da Ã¢â‚¬Å“regolamentoÃ¢â‚¬Â ateneo,
+					// se lo studente pagherÃƒÂ  oltre la scadenza, si troverÃƒÂ  una MORA.
 					data_scadenza_pagamento = noNullDate(r["scadenza"], DateTime.Now.Date.AddDays(30)),
 					data_scadenza_pagamentoSpecified = true, //se non la imposto a true non viene passato il parametro
 					importo = Convert.ToDecimal(r["importo"]),
@@ -4758,10 +5266,10 @@ rootStore.Close();
 
 					//Numero Avviso
 					//Nel caso in cui la generazione dello IUV avviene ad opera di UniCredit Gate,
-					//questo campo ne conterrÃ  il valore generato in automatico.
+					//questo campo ne conterrÃƒÂ  il valore generato in automatico.
 					// ----------------------------------------------------------------------------------------------
 					// codice_identificativo_presentazione = null,
-					//La composizione Ã¨: aux digit (1 carattere â€“ 0/3) + application code (2 caratteri) + numero riferimento (13 caratteri) + check digit (2 caratteri)
+					//La composizione ÃƒÂ¨: aux digit (1 carattere Ã¢â‚¬â€œ 0/3) + application code (2 caratteri) + numero riferimento (13 caratteri) + check digit (2 caratteri)
 					// Le ultime 15 cifre(se aux digit = 0) o 17(se aux digit = 3) sono lo IUV
 					codice_identificativo_presentazione = null,
 					//System.Diagnostics.Debugger.IsAttached ?String.Format("{0,1:D1}{1,2:D2}{2}", auxdigit, appcode, iuvWithCheck) : null,
@@ -4827,10 +5335,10 @@ rootStore.Close();
 				{
 					// Galfione Dario (UniCredit):
 					// codice_identificativo_presentazione: 
-					//     Il valore che verrÃ  restituito(18 caratteri â€“ aux digit 0 â€“ application code 01 â€“ 
-					// riferimento operazione 0000001271826 â€“ check digit 91) Ã¨ quello che deve essere utilizzato 
+					//     Il valore che verrÃƒÂ  restituito(18 caratteri Ã¢â‚¬â€œ aux digit 0 Ã¢â‚¬â€œ application code 01 Ã¢â‚¬â€œ 
+					// riferimento operazione 0000001271826 Ã¢â‚¬â€œ check digit 91) ÃƒÂ¨ quello che deve essere utilizzato 
 					// nei barcode e QR.
-					// identificativo_univoco_versamento: Ã¨ lo IUV 
+					// identificativo_univoco_versamento: ÃƒÂ¨ lo IUV 
 					//   (15 caratteri del precedente partendo da destra in quanto aux digit = 0)
 
 
@@ -4866,12 +5374,12 @@ rootStore.Close();
 			if (post.DO_POST()) return errors;
 			errors.Add("Errore nel salvataggio dei dati");
 			return errors;
-			// Questa interrogazione verrÃ  fatta nel chiamante, in cui se Errors = 0 allora OK, altrimenti visualizza l'errore.
+			// Questa interrogazione verrÃƒÂ  fatta nel chiamante, in cui se Errors = 0 allora OK, altrimenti visualizza l'errore.
 			//if (errori.Count > 0) {
 			//    FrmErrori.MostraErrori(this, errori);
 			//}
 			//else {
-			//    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso Ã¨ stato inviato correttamente", "Avviso");
+			//    MetaFactory.factory.getSingleton<IMessageShower>().Show("Il flusso ÃƒÂ¨ stato inviato correttamente", "Avviso");
 			//}
 		}
 
@@ -4898,6 +5406,10 @@ rootStore.Close();
 				case VALTELLINESE:
 					errore = aggiornaValtellinese(pconf.Config, conn, iuv);
 					break;
+				case PMPAY:
+					errore = aggiornaPmPay(pconf.Config, conn, iuv);
+					break;
+
 				default:
 					errore = "Funzione non prevista con l'attuale partner tecnologico";
 					break;
@@ -4950,8 +5462,8 @@ rootStore.Close();
 			ds.flussoincassidetail.setSelector("idflusso");
 			ds.flussoincassidetail.setAutoincrement("iddetail", null, null, 0);
 
-
-			if (!checkCertificatiBancaIntesa(identificativoServizio == "DEPOSITOCAUZIONALE"))
+			DataTable tpartner_certificate = conn.RUN_SELECT("partner_certificate", "*", null, qhs.CmpEq("active", "S"), null, false);
+			if (!checkCertificatiBancaIntesa(identificativoServizio == "TRIBUTOTEMPO", tpartner_certificate))
 			{
 				return "Impossibile installare i certificati di banca intesa";
 			}
@@ -4959,7 +5471,7 @@ rootStore.Close();
 			// Servizio Web
 			var servizio =
 				new IntesaSanPaolo.EServizio().Create(user, password, url,
-					identificativoServizio == "DEPOSITOCAUZIONALE");
+					identificativoServizio == "TRIBUTOTEMPO");
 			//Dictionary<string, DataRow> iuvCompiled = new Dictionary<string, DataRow>();
 
 			try
@@ -4974,6 +5486,7 @@ rootStore.Close();
 					iuvToSearch);
 
 				var request = new IntesaSanPaolo.pdpEsitiRT(body);
+								
 				var response = servizio.pdpEsitiRT(request);
 				InfoGroup.ct0000000007_pdpEsitiRTResultType result;
 				if (response?.Body != null)
@@ -5013,7 +5526,7 @@ rootStore.Close();
 					var dataIncasso = ricevutaTelematica.dataInvioRt;
 					if (iuv != iuvToSearch) continue;
 
-					//Cerca incassi giÃ  presenti sia tramite iuv che tramite codice bollettino (iduniqueformcode) ove possibile
+					//Cerca incassi giÃƒÂ  presenti sia tramite iuv che tramite codice bollettino (iduniqueformcode) ove possibile
 					var incassiDetail = ds.flussoincassidetail.getFromDb(conn, q.eq("iuv", iuv));
 					if (incassiDetail.Length == 0 && !string.IsNullOrEmpty(codiceBollettino))
 					{
@@ -5023,10 +5536,10 @@ rootStore.Close();
 
 					if (incassiDetail.Length > 0)
 					{
-						//Lo IUV Ã¨ stato giÃ  associato ad un flusso incassi. Potrebbero anche esserci piÃ¹ righe di dett. flusso incassi
-						//Se lo iuv Ã¨ presente sicuramente anche ove ci siano altre righe con pari iuv saranno nello stesso sospeso
+						//Lo IUV ÃƒÂ¨ stato giÃƒÂ  associato ad un flusso incassi. Potrebbero anche esserci piÃƒÂ¹ righe di dett. flusso incassi
+						//Se lo iuv ÃƒÂ¨ presente sicuramente anche ove ci siano altre righe con pari iuv saranno nello stesso sospeso
 						//Se tali righe sono presenti ed inserite dal prog. di segreteria, avranno certamente il codice bollettino
-						//  giÃ  valorizzato, tuttavia la riga di incasso potrebbe mancare di informazioni importanti che la banca invece fornisce
+						//  giÃƒÂ  valorizzato, tuttavia la riga di incasso potrebbe mancare di informazioni importanti che la banca invece fornisce
 
 						//se l'incasso collegato non ha il n. di sospeso, lo valorizza                        
 						foreach (var incassoDetail in incassiDetail)
@@ -5050,7 +5563,7 @@ rootStore.Close();
 							if (string.IsNullOrEmpty(incasso.trn) &&
 								!string.IsNullOrEmpty(singoloPagamento.identificativoUnivocoRegolamento))
 							{
-								//Identificativo Bonifico Sepa (Transaction Reference Numberâ€ (TRN) ) del Bonifico cumulative
+								//Identificativo Bonifico Sepa (Transaction Reference NumberÃ¢â‚¬Â (TRN) ) del Bonifico cumulative
 								//  effettuato dal PSP, presente nel flusso di rendicontazione standard AgID 
 								incasso.trn = singoloPagamento.identificativoUnivocoRegolamento;
 							}
@@ -5063,7 +5576,7 @@ rootStore.Close();
 
 						}
 
-						continue; //non deve fare altro per questa riga, se era presente evidentemente ha giÃ  i valori del bollettino valorizzati
+						continue; //non deve fare altro per questa riga, se era presente evidentemente ha giÃƒÂ  i valori del bollettino valorizzati
 					}
 
 
@@ -5094,7 +5607,7 @@ rootStore.Close();
 						//Codice identificativo flusso rendicontazione standard PagoPA 
 						rFlussoIncassi.codiceflusso = singoloPagamento.idFlusso;
 
-						//Identificativo Bonifico Sepa (Transaction Reference Numberâ€ (TRN) ) del Bonifico cumulative
+						//Identificativo Bonifico Sepa (Transaction Reference NumberÃ¢â‚¬Â (TRN) ) del Bonifico cumulative
 						//  effettuato dal PSP, presente nel flusso di rendicontazione standard AgID 
 						rFlussoIncassi.trn = singoloPagamento.identificativoUnivocoRegolamento;
 						rFlussoIncassi.importo = 0;
@@ -5141,7 +5654,7 @@ rootStore.Close();
 					//if (string.IsNullOrEmpty(singoloPagamento.provvisorioEntrata) && string.IsNullOrEmpty(singoloPagamento.idFlusso)) continue; 
 
 
-					//vede se ci sono giÃ  crediti collegati allo iuv (per esempio quelli che trasmettiamo noi)
+					//vede se ci sono giÃƒÂ  crediti collegati allo iuv (per esempio quelli che trasmettiamo noi)
 					var crediti = ds.flussocreditidetail.get(conn, q.eq("iuv", iuv) & q.isNull("annulment"));
 
 					if (crediti.Length == 0 && !string.IsNullOrEmpty(codiceBollettino))
@@ -5329,13 +5842,13 @@ rootStore.Close();
 
 
 			//8.GetRicevuteTelematiche
-			//Consente di  recuperare lâ€™elenco delle ricevute telematiche disponibili dall'ultima richiesta.
+			//Consente di  recuperare lÃ¢â‚¬â„¢elenco delle ricevute telematiche disponibili dall'ultima richiesta.
 			//Le singole RT andranno poi recuperate mediante metodo getRicevutaTelematica
 
-			//La chiamata REST (con basic authentication) Ã¨:
+			//La chiamata REST (con basic authentication) ÃƒÂ¨:
 			//< url_end_point_PMPAY >/ ricevutetelematiche / get ? creditore =< CODICE_ENTE_CREDITORE >| FileRisposta
 
-			//Lâ€™operazione restituisce un file CSV composto dai campi
+			//LÃ¢â‚¬â„¢operazione restituisce un file CSV composto dai campi
 			//CREDITORE | IDENTIFICATIVO_PAGAMENTO(IUV),
 			List<string> elencoIUV = new List<string>();
 			// Ottengo l'elenco delle ricevute telematiche se non ho specificato un valore particolare;
@@ -5373,7 +5886,7 @@ rootStore.Close();
 					var dataIncasso = ricevutaTelematica.datiPagamento.datiSingoloPagamento.dataEsitoSingoloPagamento;
 
 
-					//Cerca incassi giÃ  presenti sia tramite iuv che tramite codice bollettino (iduniqueformcode) ove possibile
+					//Cerca incassi giÃƒÂ  presenti sia tramite iuv che tramite codice bollettino (iduniqueformcode) ove possibile
 					var incassiDetail = ds.flussoincassidetail.getFromDb(conn, q.eq("iuv", iuv));
 					if (incassiDetail.Length == 0 && !string.IsNullOrEmpty(codiceBollettino))
 					{
@@ -5383,10 +5896,10 @@ rootStore.Close();
 
 					if (incassiDetail.Length > 0)
 					{
-						//Lo IUV Ã¨ stato giÃ  associato ad un flusso incassi. Potrebbero anche esserci piÃ¹ righe di dett. flusso incassi
-						//Se lo iuv Ã¨ presente sicuramente anche ove ci siano altre righe con pari iuv saranno nello stesso sospeso
+						//Lo IUV ÃƒÂ¨ stato giÃƒÂ  associato ad un flusso incassi. Potrebbero anche esserci piÃƒÂ¹ righe di dett. flusso incassi
+						//Se lo iuv ÃƒÂ¨ presente sicuramente anche ove ci siano altre righe con pari iuv saranno nello stesso sospeso
 						//Se tali righe sono presenti ed inserite dal prog. di segreteria, avranno certamente il codice bollettino
-						//  giÃ  valorizzato, tuttavia la riga di incasso potrebbe mancare di informazioni importanti che la banca invece fornisce
+						//  giÃƒÂ  valorizzato, tuttavia la riga di incasso potrebbe mancare di informazioni importanti che la banca invece fornisce
 
 						//se l'incasso collegato non ha il n. di sospeso, lo valorizza                        
 						foreach (var incassoDetail in incassiDetail)
@@ -5396,7 +5909,7 @@ rootStore.Close();
 							//  valorizza i dati eventualmente mancanti:N. di provvisorio, codice flusso, TRN, causale
 							var incasso = ds.flussoincassi.get(conn, q.eq("idflusso", incassoDetail.idflusso))[0];
 
-							// c'Ã¨ bisogno di sapere dove troviamo il riferimento al provvisorio di entrata 
+							// c'ÃƒÂ¨ bisogno di sapere dove troviamo il riferimento al provvisorio di entrata 
 							//if (incasso.nbill == null && !string.IsNullOrEmpty(singoloPagamento.provvisorioEntrata)) {
 							//    incasso.nbill = Convert.ToInt32(singoloPagamento.provvisorioEntrata);
 							//}
@@ -5409,7 +5922,7 @@ rootStore.Close();
 							if (string.IsNullOrEmpty(incasso.trn) &&
 								!string.IsNullOrEmpty(singoloPagamento.identificativoUnivocoRiscossione))
 							{
-								//Identificativo Bonifico Sepa (Transaction Reference Numberâ€ (TRN) ) del Bonifico cumulative
+								//Identificativo Bonifico Sepa (Transaction Reference NumberÃ¢â‚¬Â (TRN) ) del Bonifico cumulative
 								//  effettuato dal PSP, presente nel flusso di rendicontazione standard AgID 
 								incasso.trn = singoloPagamento.identificativoUnivocoRiscossione;
 							}
@@ -5420,7 +5933,7 @@ rootStore.Close();
 
 						}
 
-						continue; //non deve fare altro per questa riga, se era presente evidentemente ha giÃ  i valori del bollettino valorizzati
+						continue; //non deve fare altro per questa riga, se era presente evidentemente ha giÃƒÂ  i valori del bollettino valorizzati
 					}
 
 
@@ -5445,7 +5958,7 @@ rootStore.Close();
 						//Codice identificativo flusso rendicontazione standard PagoPA 
 						// rFlussoIncassi.codiceflusso = singoloPagamento.idFlusso;
 
-						//Identificativo Bonifico Sepa (Transaction Reference Numberâ€ (TRN) ) del Bonifico cumulative
+						//Identificativo Bonifico Sepa (Transaction Reference NumberÃ¢â‚¬Â (TRN) ) del Bonifico cumulative
 						//  effettuato dal PSP, presente nel flusso di rendicontazione standard AgID 
 						rFlussoIncassi.trn = singoloPagamento.identificativoUnivocoRiscossione;
 						rFlussoIncassi.importo = 0;
@@ -5487,7 +6000,7 @@ rootStore.Close();
 					//if (string.IsNullOrEmpty(singoloPagamento.provvisorioEntrata) && string.IsNullOrEmpty(singoloPagamento.idFlusso)) continue; 
 
 
-					//vede se ci sono giÃ  crediti collegati allo iuv (per esempio quelli che trasmettiamo noi)
+					//vede se ci sono giÃƒÂ  crediti collegati allo iuv (per esempio quelli che trasmettiamo noi)
 					var crediti = ds.flussocreditidetail.get(conn, q.eq("iuv", iuv) & q.isNull("annulment"));
 
 					if (crediti.Length == 0 && !string.IsNullOrEmpty(codiceBollettino))
@@ -5678,15 +6191,15 @@ rootStore.Close();
 					//var indiceDatiSingoloPagamento = singoloPagamento.indiceDatiSingoloPagamento;
 					decimal singoloImportoPagato = singoloPagamento.importoRendicontato;
 
-					//Cerca incassi giÃ  presenti   tramite iuv 
+					//Cerca incassi giÃƒÂ  presenti   tramite iuv 
 					var incassiDetail = ds.flussoincassidetail.getFromDb(conn, q.eq("iuv", iuv));
 
 					if (incassiDetail.Length > 0)
 					{
-						//Lo IUV Ã¨ stato giÃ  associato ad un flusso incassi. Potrebbero anche esserci piÃ¹ righe di dett. flusso incassi
-						//Se lo iuv Ã¨ presente sicuramente anche ove ci siano altre righe con pari iuv saranno nello stesso sospeso
+						//Lo IUV ÃƒÂ¨ stato giÃƒÂ  associato ad un flusso incassi. Potrebbero anche esserci piÃƒÂ¹ righe di dett. flusso incassi
+						//Se lo iuv ÃƒÂ¨ presente sicuramente anche ove ci siano altre righe con pari iuv saranno nello stesso sospeso
 						//Se tali righe sono presenti ed inserite dal prog. di segreteria, avranno certamente il codice bollettino
-						//  giÃ  valorizzato, tuttavia la riga di incasso potrebbe mancare di informazioni importanti che la banca invece fornisce
+						//  giÃƒÂ  valorizzato, tuttavia la riga di incasso potrebbe mancare di informazioni importanti che la banca invece fornisce
 
 						//se l'incasso collegato non ha il n. di sospeso, lo valorizza                        
 						foreach (var incassoDetail in incassiDetail)
@@ -5706,23 +6219,23 @@ rootStore.Close();
 							if (string.IsNullOrEmpty(incasso.trn) &&
 								!string.IsNullOrEmpty(identificativoUnivocoRegolamento))
 							{
-								//Identificativo Bonifico Sepa (Transaction Reference Numberâ€ (TRN) ) del Bonifico cumulative
+								//Identificativo Bonifico Sepa (Transaction Reference NumberÃ¢â‚¬Â (TRN) ) del Bonifico cumulative
 								//  effettuato dal PSP, presente nel flusso di rendicontazione standard AgID 
 								incasso.trn = identificativoUnivocoRegolamento;
 							}
 
 							//il PSP del
-							//pagatore ha facoltÃ  di effettuare il riversamento delle somme incassate in modalitÃ  cumulativa per
+							//pagatore ha facoltÃƒÂ  di effettuare il riversamento delle somme incassate in modalitÃƒÂ  cumulativa per
 							//Ente Creditore beneficiario.
-							//Il relativo accredito(SCT) deve riportare nel dato â€œUnstructured Remittance Informationâ€
+							//Il relativo accredito(SCT) deve riportare nel dato Ã¢â‚¬Å“Unstructured Remittance InformationÃ¢â‚¬Â
 							//(attributo AT - 05, cfr.SEPA Credit Transfert Scheme Rulebook) le seguenti informazioni, articolate
-							// secondo la giÃ  utilizzata strutturazione raccomandata dalla EACT:
+							// secondo la giÃƒÂ  utilizzata strutturazione raccomandata dalla EACT:
 							/// PUR /< purpose >/ URI /< identificativoFlusso >
 							//Dove:
-							//â€œ/ PUR /â€ e â€œ/ URI /â€ sono costanti (tag)definite dallo standard EACT,
-							//    < purpose > rappresenta la codifica dello â€˜scopoâ€™ (PURpose)del SCT, e deve riportare il valore
+							//Ã¢â‚¬Å“/ PUR /Ã¢â‚¬Â e Ã¢â‚¬Å“/ URI /Ã¢â‚¬Â sono costanti (tag)definite dallo standard EACT,
+							//    < purpose > rappresenta la codifica dello Ã¢â‚¬ËœscopoÃ¢â‚¬â„¢ (PURpose)del SCT, e deve riportare il valore
 							//    prefissato LGPE - RIVERSAMENTO
-							//    < idFlusso > specifica il dato relativo allâ€™informazione identificativoFlusso presente nel flusso di
+							//    < idFlusso > specifica il dato relativo allÃ¢â‚¬â„¢informazione identificativoFlusso presente nel flusso di
 							//    rendicontazione descritto nel successivo capitolo 7.
 							if (string.IsNullOrEmpty(incasso.causale) && !string.IsNullOrEmpty(codiceFlusso))
 							{
@@ -5732,7 +6245,7 @@ rootStore.Close();
 
 						}
 
-						continue; //non deve fare altro per questa riga, se era presente evidentemente ha giÃ  i valori del bollettino valorizzati
+						continue; //non deve fare altro per questa riga, se era presente evidentemente ha giÃƒÂ  i valori del bollettino valorizzati
 					}
 
 					flussoincassiRow rFlussoIncassi = null;
@@ -5762,7 +6275,7 @@ rootStore.Close();
 						//Codice identificativo flusso rendicontazione standard PagoPA 
 						rFlussoIncassi["codiceflusso"] = codiceFlusso;
 
-						//Identificativo Bonifico Sepa (Transaction Reference Numberâ€ (TRN) ) del Bonifico cumulative
+						//Identificativo Bonifico Sepa (Transaction Reference NumberÃ¢â‚¬Â (TRN) ) del Bonifico cumulative
 						//  effettuato dal PSP, presente nel flusso di rendicontazione standard AgID 
 						rFlussoIncassi.trn = identificativoUnivocoRegolamento;
 						rFlussoIncassi.importo = 0;
@@ -5798,7 +6311,7 @@ rootStore.Close();
 					//if (string.IsNullOrEmpty(singoloPagamento.provvisorioEntrata) && string.IsNullOrEmpty(singoloPagamento.idFlusso)) continue; 
 
 
-					//vede se ci sono giÃ  crediti collegati allo iuv (per esempio quelli che trasmettiamo noi)
+					//vede se ci sono giÃƒÂ  crediti collegati allo iuv (per esempio quelli che trasmettiamo noi)
 					var crediti = ds.flussocreditidetail.get(conn, q.eq("iuv", iuv) & q.isNull("annulment"));
 
 					//if (crediti.Length == 0 && !string.IsNullOrEmpty(codiceBollettino)) {
@@ -5968,15 +6481,15 @@ rootStore.Close();
 					var indiceDatiSingoloPagamento = singoloPagamento.indiceDatiSingoloPagamento;
 					decimal singoloImportoPagato = singoloPagamento.singoloImportoPagato;
 
-					//Cerca incassi giÃ  presenti   tramite iuv 
+					//Cerca incassi giÃƒÂ  presenti   tramite iuv 
 					var incassiDetail = ds.flussoincassidetail.getFromDb(conn, q.eq("iuv", iuv));
 
 					if (incassiDetail.Length > 0)
 					{
-						//Lo IUV Ã¨ stato giÃ  associato ad un flusso incassi. Potrebbero anche esserci piÃ¹ righe di dett. flusso incassi
-						//Se lo iuv Ã¨ presente sicuramente anche ove ci siano altre righe con pari iuv saranno nello stesso sospeso
+						//Lo IUV ÃƒÂ¨ stato giÃƒÂ  associato ad un flusso incassi. Potrebbero anche esserci piÃƒÂ¹ righe di dett. flusso incassi
+						//Se lo iuv ÃƒÂ¨ presente sicuramente anche ove ci siano altre righe con pari iuv saranno nello stesso sospeso
 						//Se tali righe sono presenti ed inserite dal prog. di segreteria, avranno certamente il codice bollettino
-						//  giÃ  valorizzato, tuttavia la riga di incasso potrebbe mancare di informazioni importanti che la banca invece fornisce
+						//  giÃƒÂ  valorizzato, tuttavia la riga di incasso potrebbe mancare di informazioni importanti che la banca invece fornisce
 
 						//se l'incasso collegato non ha il n. di sospeso, lo valorizza                        
 						foreach (var incassoDetail in incassiDetail)
@@ -5996,23 +6509,23 @@ rootStore.Close();
 							if (string.IsNullOrEmpty(incasso.trn) &&
 								!string.IsNullOrEmpty(identificativoUnivocoRegolamento))
 							{
-								//Identificativo Bonifico Sepa (Transaction Reference Numberâ€ (TRN) ) del Bonifico cumulative
+								//Identificativo Bonifico Sepa (Transaction Reference NumberÃ¢â‚¬Â (TRN) ) del Bonifico cumulative
 								//  effettuato dal PSP, presente nel flusso di rendicontazione standard AgID 
 								incasso.trn = identificativoUnivocoRegolamento;
 							}
 
 							//il PSP del
-							//pagatore ha facoltÃ  di effettuare il riversamento delle somme incassate in modalitÃ  cumulativa per
+							//pagatore ha facoltÃƒÂ  di effettuare il riversamento delle somme incassate in modalitÃƒÂ  cumulativa per
 							//Ente Creditore beneficiario.
-							//Il relativo accredito(SCT) deve riportare nel dato â€œUnstructured Remittance Informationâ€
+							//Il relativo accredito(SCT) deve riportare nel dato Ã¢â‚¬Å“Unstructured Remittance InformationÃ¢â‚¬Â
 							//(attributo AT - 05, cfr.SEPA Credit Transfert Scheme Rulebook) le seguenti informazioni, articolate
-							// secondo la giÃ  utilizzata strutturazione raccomandata dalla EACT:
+							// secondo la giÃƒÂ  utilizzata strutturazione raccomandata dalla EACT:
 							/// PUR /< purpose >/ URI /< identificativoFlusso >
 							//Dove:
-							//â€œ/ PUR /â€ e â€œ/ URI /â€ sono costanti (tag)definite dallo standard EACT,
-							//    < purpose > rappresenta la codifica dello â€˜scopoâ€™ (PURpose)del SCT, e deve riportare il valore
+							//Ã¢â‚¬Å“/ PUR /Ã¢â‚¬Â e Ã¢â‚¬Å“/ URI /Ã¢â‚¬Â sono costanti (tag)definite dallo standard EACT,
+							//    < purpose > rappresenta la codifica dello Ã¢â‚¬ËœscopoÃ¢â‚¬â„¢ (PURpose)del SCT, e deve riportare il valore
 							//    prefissato LGPE - RIVERSAMENTO
-							//    < idFlusso > specifica il dato relativo allâ€™informazione identificativoFlusso presente nel flusso di
+							//    < idFlusso > specifica il dato relativo allÃ¢â‚¬â„¢informazione identificativoFlusso presente nel flusso di
 							//    rendicontazione descritto nel successivo capitolo 7.
 							if (string.IsNullOrEmpty(incasso.causale) && !string.IsNullOrEmpty(codiceFlusso))
 							{
@@ -6022,7 +6535,7 @@ rootStore.Close();
 
 						}
 
-						continue; //non deve fare altro per questa riga, se era presente evidentemente ha giÃ  i valori del bollettino valorizzati
+						continue; //non deve fare altro per questa riga, se era presente evidentemente ha giÃƒÂ  i valori del bollettino valorizzati
 					}
 
 					flussoincassiRow rFlussoIncassi = null;
@@ -6052,7 +6565,7 @@ rootStore.Close();
 						//Codice identificativo flusso rendicontazione standard PagoPA 
 						rFlussoIncassi["codiceflusso"] = codiceFlusso;
 
-						//Identificativo Bonifico Sepa (Transaction Reference Numberâ€ (TRN) ) del Bonifico cumulative
+						//Identificativo Bonifico Sepa (Transaction Reference NumberÃ¢â‚¬Â (TRN) ) del Bonifico cumulative
 						//  effettuato dal PSP, presente nel flusso di rendicontazione standard AgID 
 						rFlussoIncassi.trn = identificativoUnivocoRegolamento;
 						rFlussoIncassi.importo = 0;
@@ -6088,7 +6601,7 @@ rootStore.Close();
 					//if (string.IsNullOrEmpty(singoloPagamento.provvisorioEntrata) && string.IsNullOrEmpty(singoloPagamento.idFlusso)) continue; 
 
 
-					//vede se ci sono giÃ  crediti collegati allo iuv (per esempio quelli che trasmettiamo noi)
+					//vede se ci sono giÃƒÂ  crediti collegati allo iuv (per esempio quelli che trasmettiamo noi)
 					var crediti = ds.flussocreditidetail.get(conn, q.eq("iuv", iuv) & q.isNull("annulment"));
 
 					//if (crediti.Length == 0 && !string.IsNullOrEmpty(codiceBollettino)) {
@@ -6259,7 +6772,7 @@ rootStore.Close();
 		{
 			string errore = null;
 			if (config.Length < 7)
-				return "Il servizio non Ã¨ stato correttamente configurato (codiceApplicazione/codiceDominio/codiceUnitÃ Operativa/user/pwd/url)";
+				return "Il servizio non ÃƒÂ¨ stato correttamente configurato (codiceApplicazione/codiceDominio/codiceUnitÃƒÂ Operativa/user/pwd/url)";
 			
 			var esercizio = conn.GetEsercizio();
 			var dataContabile = conn.GetDataContabile();
@@ -6267,7 +6780,7 @@ rootStore.Close();
 			// Parametri del servizio
 			var codiceApplicazione = config[0];
 			var codiceDominio = config[1];
-			var codiceUnitÃ Operativa = config[2];
+			var codiceUnitÃƒÂ Operativa = config[2];
 
 			string usr = config[3];
 			string pwd = config[4];
@@ -6348,19 +6861,87 @@ rootStore.Close();
 			return errore;
 		}
 
+		private static string aggiornaPmPay(string[] config, DataAccess conn, string iuvToSearch) {
+			string errore = null;
+			//////if (config.Length < 11) {
+			//////	return "Il servizio non ÃƒÂ¨ stato correttamente configurato";
+			//////}
+			if (config.Length == 0) {
+				return "Il servizio non ÃƒÂ¨ stato correttamente configurato";
+			}
+			var esercizio = conn.GetEsercizio();
+			var dataContabile = conn.GetDataContabile();
+			// Parametri del servizio (utente/password/CODICE_AZIENDA/URLSoap/userRest/pwdRest/URLRest/codicepartitarioRest)
+
+
+			string userRest = config[0]; // utente ambiente REST
+			string pwdRest = config[1]; //password ambiente REST
+			string codiceEnte = config[2]; // "PMP43"
+			string urlRest = config[3]; // url ambiente REST
+			// codice Servizio "SRV1" ÃƒÂ¨ presente nel campo apposito
+			
+			//string urlRest = "https://secure.pmpay.it/pagoparest/";
+
+														  // Connessione al DB
+			var qhs = conn.GetQueryHelper();
+			var qhc = new CQueryHelper();
+
+
+			PmPay rClient = new PmPay(urlRest, userRest, pwdRest);
+			string errorToken = "";
+			string CurrToken = rClient.GetToken(urlRest, out errorToken);
+			if (errorToken!="") {
+				return errorToken;
+			}
+
+			List<string> elencoRendiconti = new List<string>();
+			// Ottengo l'elenco dei rendiconti
+			//https://service.pmpay.it/pagoparest/ente/PMP43/pagamento/ricerca
+			elencoRendiconti = rClient.PostElencoPagamentiPmpay(codiceEnte, CurrToken, esercizio, rClient, new DateTime(esercizio, 1, 1).Date, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).Date ,				 out errore);
+
+			try {
+				foreach (var idtrasmissione in elencoRendiconti) {
+					//https://service.pmpay.it/pagoparest/ente/PMP43/rendicontazione/1
+					var rendicontoResp =
+						rClient.GetRendicontazionePmpay(codiceEnte, CurrToken,idtrasmissione,
+							out errore); 
+
+					if (!string.IsNullOrEmpty(errore)) return errore;
+					if (rendicontoResp == null) {
+						errore =
+							$" Errore nell'acquisizione del flusso di rendicontazione per l'idt_Trasmissione:  {idtrasmissione} ";
+						continue;
+					}
+					
+					var rendiconto = rendicontoResp;
+					// Usa la stessa di quella di Valtellinese
+					if (!elaboraFlussoRiversamento(rendiconto, conn, iuvToSearch, out errore)) {
+						return errore;
+					}
+				}
+				if (elencoRendiconti == null) {
+					errore = " Nessun incasso riscontrato.";
+				}
+			}
+			catch (Exception ex) {
+				errore = ex.Message;
+			}
+
+			return errore;
+		}
 
 		private static string aggiornaValtellinese(string[] config, DataAccess conn, string iuvToSearch)
 		{
 			string errore = null;
 			if (config.Length < 11)
 			{
-				return "Il servizio non Ã¨ stato correttamente configurato";
+				return "Il servizio non ÃƒÂ¨ stato correttamente configurato";
 			}
 
 			var esercizio = conn.GetEsercizio();
 			var dataContabile = conn.GetDataContabile();
 			// Parametri del servizio (utente/password/CODICE_AZIENDA/URLSoap/userRest/pwdRest/URLRest/codicepartitarioRest)
-			// WS_COM_CREV|**********|CRE14|https://service.pmpay.it/|unicatuser|**********|https://service.pmpay.it/Rest/|COD_SERV_STUDENTE
+			// WS_COM_CREV|**********|CRE14|https://service.pmpay.it/|******|**********|https://service.pmpay.it/Rest/|COD_SERV_STUDENTE
 			var utente = config[0]; // utente ambiente SOAP
 			var password = config[1]; // password ambiente SOAP
 			string codiceAzienda = config[2]; // codice azienda
@@ -6399,10 +6980,10 @@ rootStore.Close();
 
 
 			//8.GetRicevuteTelematiche
-			//Consente di  recuperare lâ€™elenco delle ricevute telematiche disponibili dall'ultima richiesta.
+			//Consente di  recuperare lÃ¢â‚¬â„¢elenco delle ricevute telematiche disponibili dall'ultima richiesta.
 			//Le singole RT andranno poi recuperate mediante metodo getRicevutaTelematica
 
-			//La chiamata REST (con basic authentication) Ã¨:
+			//La chiamata REST (con basic authentication) ÃƒÂ¨:
 			//< url_end_point_PMPAY >/ ricevutetelematiche / get ? creditore =< CODICE_ENTE_CREDITORE >| FileRisposta
 
 

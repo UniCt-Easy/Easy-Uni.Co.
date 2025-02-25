@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,7 +30,7 @@ namespace ServizioRendicontazione.Models
 		public override string getService() { return service_Rendicontazione; }
 		public override bool needAuthorize() { return true; }
 		public override string getOrder() { return "+regId"; }
-		public override string getField() { return "regId,codFis"; }
+		public override string getField() { return "regId,codFis,aaOffId"; }
 
 		//example: 10523
 		//id del registro docente
@@ -39,7 +39,23 @@ namespace ServizioRendicontazione.Models
 		//example: MRORSS55F12H456F
 		//minLength: 16
 		//maxLength: 16
-		//cognome del docente a cui apprtiene il registro
 		public string codFis { get; set; }
+
+
+		//example:2024
+		public int aaOffId { get; set; }
+	}
+
+	public class RegistroDocenteComparer : IEqualityComparer<RegistroDocente>
+	{
+		public bool Equals(RegistroDocente x, RegistroDocente y)
+		{
+			return x.codFis == y.codFis;
+		}
+
+		public int GetHashCode(RegistroDocente obj)
+		{
+			return HashCode.Combine(obj.codFis, obj.regId);
+		}
 	}
 }

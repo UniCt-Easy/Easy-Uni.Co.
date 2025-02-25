@@ -37,6 +37,7 @@
 						this.describeAColumn(table, 'anno', 'Anno', null, 30, null);
 						this.describeAColumn(table, 'annofc', 'Anno fuori corso', null, 40, null);
 						this.describeAColumn(table, 'data', 'Data', 'g', 50, null);
+						this.describeAColumn(table, 'iddidprogori', 'Orientamento', null, 60, null);
 						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 200, null);
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 210, null);
 						this.describeAColumn(table, '!iddidprogori_didprogori_title', 'Orientamento', null, 61, null);
@@ -62,24 +63,40 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seganagstu':
+						table.columns["aa"].caption = "Anno Accademico";
+						table.columns["annofc"].caption = "Anno fuori corso";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["iddidprogori"].caption = "Orientamento";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["protanno"].caption = "Anno di protocollo";
+						table.columns["protnumero"].caption = "Numero di protocollo";
+//$innerSetCaptionConfig_seganagstu$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_iscrizioneanno");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_iscrizioneanno");
 
 				//$getNewRowInside$
 
 				dt.autoIncrement('idiscrizioneanno', { minimum: 99990001 });
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

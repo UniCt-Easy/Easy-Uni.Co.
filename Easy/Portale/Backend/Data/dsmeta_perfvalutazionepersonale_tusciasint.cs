@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -152,10 +152,10 @@ private void initClass() {
 	var tgetdocentiamministrativiresponsabilinomcognview= new MetaTable("getdocentiamministrativiresponsabilinomcognview");
 	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("dropdown_title", typeof(string),false);
 	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("struttura", typeof(string),false);
 	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview);
-	tgetdocentiamministrativiresponsabilinomcognview.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabilinomcognview.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
 	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");

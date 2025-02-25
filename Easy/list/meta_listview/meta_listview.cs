@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,6 +29,7 @@ namespace meta_listview
             base(Conn, Dispatcher, "listview"){
             EditTypes.Add("default");
             ListingTypes.Add("default");
+            ListingTypes.Add("ailist");
             ListingTypes.Add("webdefault");
             Name = "Listino";
         }
@@ -41,15 +42,19 @@ namespace meta_listview
         public override void DescribeColumns(DataTable T, string ListingType)
         {
             base.DescribeColumns(T, ListingType);
-            if (ListingType == "default")
+            if (ListingType == "default"|| ListingType == "ailist")
             {
+                if (ListingType == "ailist") Name = "Listino (Filtrato AI)"; else Name = "Listino";
                 foreach (DataColumn C in T.Columns)
                 {
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 }
                 int nPos = 1;
+                if (ListingType == "ailist")
+                    DescribeAColumn(T, "idlist", "AI #", nPos++);
+                    else
+                    DescribeAColumn(T, "idlist", "#", nPos++);
 
-                DescribeAColumn(T, "idlist", "#", nPos++);
                 DescribeAColumn(T, "intcode", "Codice", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "codicetassonomia", "Codice Tassonomia", nPos++);

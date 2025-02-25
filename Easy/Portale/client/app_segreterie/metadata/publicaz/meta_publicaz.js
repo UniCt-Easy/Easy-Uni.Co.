@@ -55,6 +55,7 @@
 						table.columns["idcity_ed"].caption = "Comune editore";
 						table.columns["idnation_ed"].caption = "Nazionalità editore";
 						table.columns["idnation_lang"].caption = "Lingua";
+						table.columns["idprogetto"].caption = "Progetto";
 						table.columns["idpublicaz"].caption = "Codice Istituto";
 						table.columns["isbn"].caption = "ISBN";
 						table.columns["numrivista"].caption = "Numero Rivista";

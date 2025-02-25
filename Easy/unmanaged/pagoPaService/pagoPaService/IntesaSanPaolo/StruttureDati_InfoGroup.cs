@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,7 +37,7 @@ namespace InfoGroup {
         [DataMember(EmitDefaultValue = false, Order = 1)]
         public string codiceErrore { get; set; }
 
-        [DataMember(IsRequired = true, EmitDefaultValue = false, Order = 2)]
+        [DataMember(EmitDefaultValue = false, Order = 2)]
         public string identificativoUnivocoVersamento { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 3)]
@@ -162,7 +162,7 @@ namespace InfoGroup {
     [DataContract(Name = "ct0000000003_datiPagamentoInAttesa", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
     public class ct0000000003_datiPagamentoInAttesa {
         [DataMember(EmitDefaultValue = false)]
-        public DateTime dataScadenzaPagamento { get; set; }
+        public string dataScadenzaPagamento { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
         public ct0000000003_datiPagamentoInAttesaPagabileSeScaduto pagabileSeScaduto { get; set; }
@@ -1407,16 +1407,16 @@ namespace InfoGroup {
         public string idOperazione { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 2)]
-        public DateTime? dataInizio { get; set; }
+        public string dataInizio { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 3)]
-        public DateTime? dataFine { get; set; }
+        public string dataFine { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 4)]
         public string identificativoUnivocoVersamento { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 5)]
-        public string CF { get; set; }
+        public string codiceFiscale { get; set; }
     }
 
     [DataContract(Name = "ct0000000016_pdpRecuperaRTType", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]

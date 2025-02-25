@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -106,6 +106,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable incomelastestimatedetail 		=> (MetaTable)Tables["incomelastestimatedetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable proceedsattachment 		=> (MetaTable)Tables["proceedsattachment"];
 
 	#endregion
 
@@ -525,6 +528,20 @@ private void initClass() {
 	Tables.Add(tincomelastestimatedetail);
 	tincomelastestimatedetail.defineKey("idinc", "idestimkind", "yestim", "nestim", "rownum");
 
+	//////////////////// PROCEEDSATTACHMENT /////////////////////////////////
+	var tproceedsattachment= new MetaTable("proceedsattachment");
+	tproceedsattachment.defineColumn("kpro", typeof(int),false);
+	tproceedsattachment.defineColumn("idattachment", typeof(int),false);
+	tproceedsattachment.defineColumn("attachment", typeof(Byte[]));
+	tproceedsattachment.defineColumn("filename", typeof(string));
+	tproceedsattachment.defineColumn("cu", typeof(string));
+	tproceedsattachment.defineColumn("ct", typeof(DateTime));
+	tproceedsattachment.defineColumn("lu", typeof(string));
+	tproceedsattachment.defineColumn("lt", typeof(DateTime));
+	tproceedsattachment.defineColumn("idattachmentkind", typeof(int));
+	Tables.Add(tproceedsattachment);
+	tproceedsattachment.defineKey("kpro", "idattachment");
+
 	#endregion
 
 
@@ -562,6 +579,7 @@ private void initClass() {
 	this.defineRelation("proceedstransmissionproceeds","proceedstransmission","proceeds","kproceedstransmission");
 	this.defineRelation("FK_stamphandling_proceeds","stamphandling","proceeds","idstamphandling");
 	this.defineRelation("incomelastview_incomelastestimatedetail","incomelastview","incomelastestimatedetail","idinc");
+	this.defineRelation("proceeds_proceedsattachment","proceeds","proceedsattachment","kpro");
 	#endregion
 
 }

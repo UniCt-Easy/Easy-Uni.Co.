@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -106,6 +106,7 @@ namespace paydispositiondetail_single {
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.cmbChargeHandling = new System.Windows.Forms.ComboBox();
 			this.grpModalitaPag = new System.Windows.Forms.GroupBox();
+			this.rdbGirofondoiban = new System.Windows.Forms.RadioButton();
 			this.rdbGirofondoTabB = new System.Windows.Forms.RadioButton();
 			this.rdbGirofondoTabA = new System.Windows.Forms.RadioButton();
 			this.rdbAssegnoQuietanza = new System.Windows.Forms.RadioButton();
@@ -849,7 +850,7 @@ namespace paydispositiondetail_single {
 			this.cmbChargeHandling.DataSource = this.DS.chargehandling;
 			this.cmbChargeHandling.DisplayMember = "description";
 			this.cmbChargeHandling.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbChargeHandling.Location = new System.Drawing.Point(102, 380);
+			this.cmbChargeHandling.Location = new System.Drawing.Point(102, 422);
 			this.cmbChargeHandling.Name = "cmbChargeHandling";
 			this.cmbChargeHandling.Size = new System.Drawing.Size(290, 21);
 			this.cmbChargeHandling.TabIndex = 67;
@@ -858,6 +859,7 @@ namespace paydispositiondetail_single {
 			// 
 			// grpModalitaPag
 			// 
+			this.grpModalitaPag.Controls.Add(this.rdbGirofondoiban);
 			this.grpModalitaPag.Controls.Add(this.rdbGirofondoTabB);
 			this.grpModalitaPag.Controls.Add(this.rdbGirofondoTabA);
 			this.grpModalitaPag.Controls.Add(this.rdbAssegnoQuietanza);
@@ -867,41 +869,54 @@ namespace paydispositiondetail_single {
 			this.grpModalitaPag.Controls.Add(this.rdbBonifico);
 			this.grpModalitaPag.Location = new System.Drawing.Point(6, 10);
 			this.grpModalitaPag.Name = "grpModalitaPag";
-			this.grpModalitaPag.Size = new System.Drawing.Size(572, 78);
+			this.grpModalitaPag.Size = new System.Drawing.Size(572, 95);
 			this.grpModalitaPag.TabIndex = 18;
 			this.grpModalitaPag.TabStop = false;
 			this.grpModalitaPag.Text = "Modalità di Pagamento";
 			// 
+			// rdbGirofondoiban
+			// 
+			this.rdbGirofondoiban.AutoSize = true;
+			this.rdbGirofondoiban.Location = new System.Drawing.Point(177, 43);
+			this.rdbGirofondoiban.Name = "rdbGirofondoiban";
+			this.rdbGirofondoiban.Size = new System.Drawing.Size(71, 17);
+			this.rdbGirofondoiban.TabIndex = 9;
+			this.rdbGirofondoiban.TabStop = true;
+			this.rdbGirofondoiban.Tag = "paydispositiondetail.paymethodcode:8";
+			this.rdbGirofondoiban.Text = "Girofondo";
+			this.rdbGirofondoiban.UseVisualStyleBackColor = true;
+			this.rdbGirofondoiban.CheckedChanged += new System.EventHandler(this.rdbGirofondoiban_CheckedChanged);
+			// 
 			// rdbGirofondoTabB
 			// 
 			this.rdbGirofondoTabB.AutoSize = true;
-			this.rdbGirofondoTabB.Location = new System.Drawing.Point(327, 45);
+			this.rdbGirofondoTabB.Location = new System.Drawing.Point(178, 67);
 			this.rdbGirofondoTabB.Name = "rdbGirofondoTabB";
-			this.rdbGirofondoTabB.Size = new System.Drawing.Size(103, 17);
+			this.rdbGirofondoTabB.Size = new System.Drawing.Size(139, 17);
 			this.rdbGirofondoTabB.TabIndex = 8;
 			this.rdbGirofondoTabB.TabStop = true;
 			this.rdbGirofondoTabB.Tag = "paydispositiondetail.paymethodcode:7";
-			this.rdbGirofondoTabB.Text = "Girofondo Tab B";
+			this.rdbGirofondoTabB.Text = "Girofondo Tab B(disuso)";
 			this.rdbGirofondoTabB.UseVisualStyleBackColor = true;
 			this.rdbGirofondoTabB.CheckedChanged += new System.EventHandler(this.rdbBonifico_CheckedChanged);
 			// 
 			// rdbGirofondoTabA
 			// 
 			this.rdbGirofondoTabA.AutoSize = true;
-			this.rdbGirofondoTabA.Location = new System.Drawing.Point(192, 45);
+			this.rdbGirofondoTabA.Location = new System.Drawing.Point(22, 67);
 			this.rdbGirofondoTabA.Name = "rdbGirofondoTabA";
-			this.rdbGirofondoTabA.Size = new System.Drawing.Size(103, 17);
+			this.rdbGirofondoTabA.Size = new System.Drawing.Size(139, 17);
 			this.rdbGirofondoTabA.TabIndex = 7;
 			this.rdbGirofondoTabA.TabStop = true;
 			this.rdbGirofondoTabA.Tag = "paydispositiondetail.paymethodcode:6";
-			this.rdbGirofondoTabA.Text = "Girofondo Tab A";
+			this.rdbGirofondoTabA.Text = "Girofondo Tab A(disuso)";
 			this.rdbGirofondoTabA.UseVisualStyleBackColor = true;
 			this.rdbGirofondoTabA.CheckedChanged += new System.EventHandler(this.rdbGirofondoTabA_CheckedChanged);
 			// 
 			// rdbAssegnoQuietanza
 			// 
 			this.rdbAssegnoQuietanza.AutoSize = true;
-			this.rdbAssegnoQuietanza.Location = new System.Drawing.Point(25, 45);
+			this.rdbAssegnoQuietanza.Location = new System.Drawing.Point(22, 44);
 			this.rdbAssegnoQuietanza.Name = "rdbAssegnoQuietanza";
 			this.rdbAssegnoQuietanza.Size = new System.Drawing.Size(128, 17);
 			this.rdbAssegnoQuietanza.TabIndex = 6;
@@ -914,7 +929,7 @@ namespace paydispositiondetail_single {
 			// rdbAssegnoCircolare
 			// 
 			this.rdbAssegnoCircolare.AutoSize = true;
-			this.rdbAssegnoCircolare.Location = new System.Drawing.Point(326, 22);
+			this.rdbAssegnoCircolare.Location = new System.Drawing.Point(375, 22);
 			this.rdbAssegnoCircolare.Name = "rdbAssegnoCircolare";
 			this.rdbAssegnoCircolare.Size = new System.Drawing.Size(187, 17);
 			this.rdbAssegnoCircolare.TabIndex = 5;
@@ -927,7 +942,7 @@ namespace paydispositiondetail_single {
 			// rdbAssegno
 			// 
 			this.rdbAssegno.AutoSize = true;
-			this.rdbAssegno.Location = new System.Drawing.Point(192, 22);
+			this.rdbAssegno.Location = new System.Drawing.Point(257, 22);
 			this.rdbAssegno.Name = "rdbAssegno";
 			this.rdbAssegno.Size = new System.Drawing.Size(110, 17);
 			this.rdbAssegno.TabIndex = 4;
@@ -940,7 +955,7 @@ namespace paydispositiondetail_single {
 			// rdbCassa
 			// 
 			this.rdbCassa.AutoSize = true;
-			this.rdbCassa.Location = new System.Drawing.Point(114, 22);
+			this.rdbCassa.Location = new System.Drawing.Point(177, 22);
 			this.rdbCassa.Name = "rdbCassa";
 			this.rdbCassa.Size = new System.Drawing.Size(54, 17);
 			this.rdbCassa.TabIndex = 3;
@@ -965,7 +980,7 @@ namespace paydispositiondetail_single {
 			// 
 			// btnChargeHandling
 			// 
-			this.btnChargeHandling.Location = new System.Drawing.Point(16, 378);
+			this.btnChargeHandling.Location = new System.Drawing.Point(16, 420);
 			this.btnChargeHandling.Name = "btnChargeHandling";
 			this.btnChargeHandling.Size = new System.Drawing.Size(80, 23);
 			this.btnChargeHandling.TabIndex = 66;
@@ -977,7 +992,7 @@ namespace paydispositiondetail_single {
 			// 
 			this.groupBox2.Controls.Add(this.label18);
 			this.groupBox2.Controls.Add(this.textBox2);
-			this.groupBox2.Location = new System.Drawing.Point(6, 303);
+			this.groupBox2.Location = new System.Drawing.Point(6, 345);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(572, 69);
 			this.groupBox2.TabIndex = 17;
@@ -1002,7 +1017,7 @@ namespace paydispositiondetail_single {
 			// chk_bank_charges_exempt
 			// 
 			this.chk_bank_charges_exempt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.chk_bank_charges_exempt.Location = new System.Drawing.Point(408, 378);
+			this.chk_bank_charges_exempt.Location = new System.Drawing.Point(408, 420);
 			this.chk_bank_charges_exempt.Name = "chk_bank_charges_exempt";
 			this.chk_bank_charges_exempt.Size = new System.Drawing.Size(170, 24);
 			this.chk_bank_charges_exempt.TabIndex = 65;
@@ -1024,7 +1039,7 @@ namespace paydispositiondetail_single {
 			this.grpCoordinateBancarie.Controls.Add(this.label11);
 			this.grpCoordinateBancarie.Controls.Add(this.txtABI);
 			this.grpCoordinateBancarie.Controls.Add(this.txtCAB);
-			this.grpCoordinateBancarie.Location = new System.Drawing.Point(6, 94);
+			this.grpCoordinateBancarie.Location = new System.Drawing.Point(6, 136);
 			this.grpCoordinateBancarie.Name = "grpCoordinateBancarie";
 			this.grpCoordinateBancarie.Size = new System.Drawing.Size(572, 203);
 			this.grpCoordinateBancarie.TabIndex = 16;
@@ -1558,5 +1573,6 @@ namespace paydispositiondetail_single {
 		private System.Windows.Forms.CheckBox chk_bank_charges_exempt;
 		private System.Windows.Forms.RadioButton rdbGirofondoTabB;
 		private System.Windows.Forms.RadioButton rdbGirofondoTabA;
+		private System.Windows.Forms.RadioButton rdbGirofondoiban;
 	}
 }

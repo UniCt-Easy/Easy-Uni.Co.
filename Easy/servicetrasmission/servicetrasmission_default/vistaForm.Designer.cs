@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,27 +29,15 @@ namespace servicetrasmission_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Assegnazione Automatica del Pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable servicepayment 		=> Tables["servicepayment"];
 
-	///<summary>
-	///Banca dati degli Incarichi - Anagrafe Prestazioni e Pubblicazione sito web istituzionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable serviceregistry 		=> Tables["serviceregistry"];
 
-	///<summary>
-	///Trasmissione Anagrafe delle Prestazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable servicetrasmission 		=> Tables["servicetrasmission"];
 
-	///<summary>
-	///Tipo trasmissione anagrafe prestazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable servicetrasmissionkind 		=> Tables["servicetrasmissionkind"];
 
@@ -67,6 +55,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting05 		=> Tables["sorting05"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable servicetrasmissionattachment 		=> Tables["servicetrasmissionattachment"];
 
 	#endregion
 
@@ -582,6 +573,25 @@ private void initClass() {
 	tsorting05.PrimaryKey =  new DataColumn[]{tsorting05.Columns["idsor"]};
 
 
+	//////////////////// SERVICETRASMISSIONATTACHMENT /////////////////////////////////
+	var tservicetrasmissionattachment= new DataTable("servicetrasmissionattachment");
+	C= new DataColumn("idtrasmission", typeof(int));
+	C.AllowDBNull=false;
+	tservicetrasmissionattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tservicetrasmissionattachment.Columns.Add(C);
+	tservicetrasmissionattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tservicetrasmissionattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tservicetrasmissionattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tservicetrasmissionattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tservicetrasmissionattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tservicetrasmissionattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tservicetrasmissionattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tservicetrasmissionattachment);
+	tservicetrasmissionattachment.PrimaryKey =  new DataColumn[]{tservicetrasmissionattachment.Columns["idtrasmission"], tservicetrasmissionattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -613,6 +623,10 @@ private void initClass() {
 	cPar = new []{serviceregistry.Columns["yservreg"], serviceregistry.Columns["nservreg"]};
 	cChild = new []{servicepayment.Columns["yservreg"], servicepayment.Columns["nservreg"]};
 	Relations.Add(new DataRelation("serviceregistry_servicepayment",cPar,cChild,false));
+
+	cPar = new []{servicetrasmission.Columns["idtrasmission"]};
+	cChild = new []{servicetrasmissionattachment.Columns["idtrasmission"]};
+	Relations.Add(new DataRelation("servicetrasmission_servicetrasmissionattachment",cPar,cChild,false));
 
 	#endregion
 

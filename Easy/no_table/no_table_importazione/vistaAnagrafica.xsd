@@ -41,6 +41,7 @@
               <xs:element name="idexternal" type="xs:int" minOccurs="0" />
               <xs:element name="flag_pa" type="xs:string" minOccurs="0" />
               <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

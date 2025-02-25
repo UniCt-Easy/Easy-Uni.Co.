@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -91,7 +91,7 @@ namespace taxpay_ritenutedapagare//liquidazioneritenuta_dapagare//
 			// lblTitolo
 			// 
 			this.lblTitolo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblTitolo.Location = new System.Drawing.Point(16, 16);
 			this.lblTitolo.Name = "lblTitolo";
 			this.lblTitolo.Size = new System.Drawing.Size(376, 32);
@@ -103,14 +103,15 @@ namespace taxpay_ritenutedapagare//liquidazioneritenuta_dapagare//
 			this.btnChiudi.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnChiudi.Location = new System.Drawing.Point(168, 288);
 			this.btnChiudi.Name = "btnChiudi";
+			this.btnChiudi.Size = new System.Drawing.Size(75, 23);
 			this.btnChiudi.TabIndex = 2;
 			this.btnChiudi.Text = "Chiudi";
 			// 
 			// gridRitenuta
 			// 
 			this.gridRitenuta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gridRitenuta.CaptionVisible = false;
 			this.gridRitenuta.DataMember = "";
 			this.gridRitenuta.HeaderForeColor = System.Drawing.SystemColors.ControlText;
@@ -118,10 +119,12 @@ namespace taxpay_ritenutedapagare//liquidazioneritenuta_dapagare//
 			this.gridRitenuta.Name = "gridRitenuta";
 			this.gridRitenuta.Size = new System.Drawing.Size(376, 192);
 			this.gridRitenuta.TabIndex = 3;
+			this.gridRitenuta.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gridRitenuta_MouseUp);
 			// 
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
 			// label1
@@ -139,7 +142,6 @@ namespace taxpay_ritenutedapagare//liquidazioneritenuta_dapagare//
 			this.txtEsercizio.ReadOnly = true;
 			this.txtEsercizio.Size = new System.Drawing.Size(40, 20);
 			this.txtEsercizio.TabIndex = 5;
-			this.txtEsercizio.Text = "";
 			this.txtEsercizio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtData
@@ -149,7 +151,6 @@ namespace taxpay_ritenutedapagare//liquidazioneritenuta_dapagare//
 			this.txtData.ReadOnly = true;
 			this.txtData.Size = new System.Drawing.Size(72, 20);
 			this.txtData.TabIndex = 7;
-			this.txtData.Text = "";
 			this.txtData.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label2
@@ -177,6 +178,7 @@ namespace taxpay_ritenutedapagare//liquidazioneritenuta_dapagare//
 			((System.ComponentModel.ISupportInitialize)(this.gridRitenuta)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		#endregion
@@ -309,6 +311,11 @@ namespace taxpay_ritenutedapagare//liquidazioneritenuta_dapagare//
 				return;
 			}
 			HelpForm.SetDataGrid(gridRitenuta,T);
+		}
+
+
+		private void gridRitenuta_MouseUp(object sender, MouseEventArgs e) {
+			HelpForm.HelpForm_MouseUp(sender, e);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,13 +31,13 @@ using System.Collections;
 namespace bankdispositionsetup_cbi {
 	public class EsportazioneDistintePagamento {
         DataAccess Conn;
-        bool isbonificoEstero;
+        bool thereIsbonificoEstero;
         QueryHelper QHS;
         CQueryHelper QHC;
 
         public EsportazioneDistintePagamento(DataAccess Conn, bool bonificoEstero) {
             this.Conn = Conn;
-            this.isbonificoEstero = bonificoEstero;
+            this.thereIsbonificoEstero = bonificoEstero;
             QHS = Conn.GetQueryHelper();
             QHC = new CQueryHelper();
         }
@@ -81,6 +81,7 @@ namespace bankdispositionsetup_cbi {
             _PmtId.InstrId= R["InstrId"].ToString().Replace("_", "-");
             _PmtId.EndToEndId = R["Credit_EndToEndId"].ToString();
             _CdtTrfTxInf.PmtId = _PmtId;
+            bool isbonificoEstero = R["isbonificoEstero"].ToString() =="S";
             if (!isbonificoEstero) {
                 //2.12.2   	PmtTpInf - Payment Type Information	 - Informazioni sul tipo di transazione
                 CBIPaymentTypeInformation2 _PmtTpInf = new CBIPaymentTypeInformation2();
@@ -116,8 +117,13 @@ namespace bankdispositionsetup_cbi {
             //2.12.8	Cdtr	Creditor 	Titolare c/c accredito / Beneficiario	CBIPartyIdentification3
             CBIPartyIdentification3 Cdtr = new CBIPartyIdentification3();
             Cdtr.Nm = R["Creditor_Nm"].ToString();
+
+            AddressType3Choice _AdrTp = new AddressType3Choice();
+            _AdrTp.Cd = AddressType2Code.ADDR;
+
             //2.12.8.2	PstlAdr	Postal Address	Indirizzo Postale	CBIPostalAddress6
-            CBIPostalAddress6 _PstlAdr = new CBIPostalAddress6();
+            CBIPostalAddress24 _PstlAdr = new CBIPostalAddress24();
+            _PstlAdr.AdrTp = _AdrTp;
             _PstlAdr.StrtNm = R["Creditor_StrtNm"].ToString();
             if (R["Creditor_PstCd"].ToString() != "") {
                 _PstlAdr.PstCd = R["Creditor_PstCd"].ToString();
@@ -178,7 +184,7 @@ namespace bankdispositionsetup_cbi {
                 if (R["UltimateCreditor_Nm"] != DBNull.Value) {
                     _UltimateCreditor.Nm = R["UltimateCreditor_Nm"].ToString();
 
-                    CBIPostalAddress6 _UltmtPstlAdr = new CBIPostalAddress6();
+                    CBIPostalAddress24 _UltmtPstlAdr = new CBIPostalAddress24();
                     _UltmtPstlAdr.StrtNm = R["UltimateCreditor_StrtNm"].ToString();
                     if (R["UltimateCreditor_PstCd"].ToString() != "") {
                         _UltmtPstlAdr.PstCd = R["UltimateCreditor_PstCd"].ToString();
@@ -353,13 +359,13 @@ namespace bankdispositionsetup_cbi {
 
             removeAttributes(xmlDoc, xmlDoc.ChildNodes);
             setPrefix(xmlDoc.ChildNodes);
-            if (isbonificoEstero) {
+            if (thereIsbonificoEstero) {
                 setNameSpaces_pagamentoestero(xmlDoc, xmlDoc.ChildNodes);
             }
             else {
                 setNameSpaces_pagamento(xmlDoc, xmlDoc.ChildNodes);
             }
-            if (isbonificoEstero) {
+            if (thereIsbonificoEstero) {
                 xmlDoc.InnerXml = xmlDoc.InnerXml
                     .Replace("CBIBdyPaymentRequest", "CBIBdyCrossBorderPaymentRequest");
 
@@ -558,7 +564,7 @@ namespace bankdispositionsetup_cbi {
                 MetaFactory.factory.getSingleton<IMessageShower>().Show("Salta" + Rflusso["PmtInfId"].ToString() + " per errore di dati");
                 return null;
             }
-            if (!isbonificoEstero) {
+            if (!thereIsbonificoEstero) {
                 //2.4 PmtTpInf    Informazioni tipo di pagamento  CBIPaymentTypeInformation1
                 CBIPaymentTypeInformation1 _PmtTpInf = new CBIPaymentTypeInformation1();
                 _PmtTpInf.InstrPrty = Priority2Code.NORM;
@@ -598,13 +604,15 @@ namespace bankdispositionsetup_cbi {
             //2.6.2.1	AdrTp	AddressType	Tipo Indirizzo	AddressType2Code
             AddressType3Choice _AdrTp = new AddressType3Choice();
             _AdrTp.Cd = AddressType2Code.ADDR;
-            _PstlAdr.adrTp = _AdrTp;
+            _PstlAdr.AdrTp = _AdrTp;
             //2.6.2.4	StrtNm	StreetName
 
-            _PstlAdr.strtNm = Rflusso["Debtor_StrtNm"].ToString();
+            _PstlAdr.StrtNm = Rflusso["Debtor_StrtNm"].ToString();
+            _PstlAdr.TwnNm = Rflusso["Debtor_TwnNm"].ToString();
+            _PstlAdr.Ctry = Rflusso["Debtor_Ctry"].ToString();
             //2.6.2.10	PstCd	PostalCode	Codice postale
             if (Rflusso["Debtor_PstCd"].ToString() != "") {
-                _PstlAdr.pstCd = Rflusso["Debtor_PstCd"].ToString();
+                _PstlAdr.PstCd = Rflusso["Debtor_PstCd"].ToString();
             }
         
             RPaymentInfo.Dbtr = _Dbtr;
@@ -630,13 +638,16 @@ namespace bankdispositionsetup_cbi {
             //2.8.1.2	ClrSysMmbId	Clearing System Member Identification	ID Istituto nel Sistema di Clearing	CBIClearingSystemMemberIdentification1
             CBIClearingSystemMemberIdentification1 _ClrSysMmbId = new CBIClearingSystemMemberIdentification1();
             _ClrSysMmbId.MmbId = Rflusso["Debtor_MmbId"].ToString();
-
+            if(Rflusso["Debtor_BIC"].ToString() != ""){
+                _FinInstnId.BIC = Rflusso["Debtor_BIC"].ToString();
+            }
             _FinInstnId.ClrSysMmbId = _ClrSysMmbId;
+            
             _DbtrAgt.FinInstnId = _FinInstnId;
             RPaymentInfo.DbtrAgt = _DbtrAgt;
 
 			//2.10    ChrgBr Charge Bearer Tipologia Commissioni CBIChargeBearerTypeCode
-			if (isbonificoEstero) {
+			if (thereIsbonificoEstero) {
                 CBIChargeBearerTypeCode _ChrgBr = CBIChargeBearerTypeCode.SHAR;
                 RPaymentInfo.ChrgBr = _ChrgBr;
             }

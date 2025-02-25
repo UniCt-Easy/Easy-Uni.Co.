@@ -75,8 +75,8 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				appMeta.metaModel.getTemporaryValues(this.getDataTable('perfvalutazionepersonalestatuschanges'));
 				this.calculateRisultatoPerc();
+								appMeta.metaModel.getTemporaryValues(this.getDataTable('perfvalutazionepersonalestatuschanges'));
 				this.manageperfvalutazionepersonale_default_percperfuo();
 				this.manageperfvalutazionepersonale_default_perccomportamenti();
 				this.manageperfvalutazionepersonale_default_percobiettivi();
@@ -127,6 +127,14 @@
 			
 			afterLink: function () {
 				var self = this;
+
+				//solo se NON sono amministratore
+				if (appMeta.security.usrEnv.progetti_performance != '\'S\'') {
+					this.canInsert = false;
+					this.canInsertCopy = false;
+					this.canCancel = false;
+				}
+
 				this.state.DS.tables.perfvalutazionepersonale.defaults({ 'year': new Date().getFullYear() });
 				$("#XXperfinterazioni").prop("disabled", true);
 				this.state.DS.tables.year.staticFilter(window.jsDataQuery.and(this.q.gt('year',2020),this.q.lt('year', (new Date().getFullYear()) +1 )));
@@ -470,9 +478,7 @@
 				var goi = $('#grid_perfvalutazionepersonaleobiettivo_default').data("customController")
 				if (goi) {
 					if (this.valuta_ind !== true && this.aggiorna_ind !== true) {
-						$(goi.el).css("pointer-events", "none")
-					} else {
-						$(goi.el).css("pointer-events", "unset")
+						goi.removeEvents();
 					}
 				}
 
@@ -480,9 +486,7 @@
 				var gc = $('#grid_perfvalutazionepersonalecomportamento_default').data("customController")
 				if (gc) {
 					if (this.valuta_co !== true && this.aggiorna_co !== true) {
-						$(gc.el).css("pointer-events", "none")
-					} else {
-						$(gc.el).css("pointer-events", "unset")
+						gc.removeEvents();
 					}
 				}
 
@@ -495,9 +499,9 @@
 							if (dtRes.rows.length) {
 								self.allowedStateChanges = dtRes.rows;
 								self.canSave = self.canSaveOriginal;
-								self.canInsert = self.canInsertOriginal;
-								self.canInsertCopy = self.canInsertCopylseOriginal;
-								self.canCancel = self.canCancelOriginal;
+								self.canInsert = self.crea ? self.canInsertOriginal : false;
+								self.canInsertCopy = self.crea ? self.canInsertCopylseOriginal : false;
+								self.canCancel = self.crea ? self.canCancelOriginal : false;
 							}
 							return true;
 						})

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,18 +26,12 @@ using System.Runtime.Serialization;
 namespace entrydetailaccrual_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Rateo dettaglio scrittura, Ã¨ un collegamento  tra una scrittura ed una precedentemente salvata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable entrydetailaccrual 		=> Tables["entrydetailaccrual"];
 
-	///<summary>
-	///Tipo scrittura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable entrykind 		=> Tables["entrykind"];
 
@@ -306,12 +300,17 @@ private void initClass() {
 	tentrydetailaccrualview.Columns.Add( new DataColumn("idreg", typeof(int)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("idupb", typeof(string)));
 	C= new DataColumn("amount", typeof(decimal));
-	C.AllowDBNull=false;
+	C.ReadOnly=true;
 	tentrydetailaccrualview.Columns.Add(C);
 	C= new DataColumn("rateamount", typeof(decimal));
-	C.AllowDBNull=false;
+	C.ReadOnly=true;
 	tentrydetailaccrualview.Columns.Add(C);
-	tentrydetailaccrualview.Columns.Add( new DataColumn("available", typeof(decimal)));
+	C= new DataColumn("available", typeof(decimal));
+	C.ReadOnly=true;
+	tentrydetailaccrualview.Columns.Add(C);
+	C= new DataColumn("flagap", typeof(string));
+	C.ReadOnly=true;
+	tentrydetailaccrualview.Columns.Add(C);
 	tentrydetailaccrualview.Columns.Add( new DataColumn("idsor1", typeof(int)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("idsor2", typeof(int)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("idsor3", typeof(int)));
@@ -321,10 +320,10 @@ private void initClass() {
 	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
 	tentrydetailaccrualview.Columns.Add(C);
-	C= new DataColumn("lt", typeof(DateTime));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
 	tentrydetailaccrualview.Columns.Add(C);
-	tentrydetailaccrualview.Columns.Add( new DataColumn("lu", typeof(string)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("codeupb", typeof(string)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("codeacc", typeof(string)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("account", typeof(string)));
@@ -334,21 +333,21 @@ private void initClass() {
 	tentrydetailaccrualview.Columns.Add( new DataColumn("flagregistry", typeof(string)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("flagupb", typeof(string)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("idrelated", typeof(string)));
-	tentrydetailaccrualview.Columns.Add( new DataColumn("description", typeof(string)));
-	C= new DataColumn("adate", typeof(string));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
 	tentrydetailaccrualview.Columns.Add(C);
-	C= new DataColumn("doc", typeof(DateTime));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
 	tentrydetailaccrualview.Columns.Add(C);
-	tentrydetailaccrualview.Columns.Add( new DataColumn("docdate", typeof(string)));
-	tentrydetailaccrualview.Columns.Add( new DataColumn("idaccmotive", typeof(DateTime)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("doc", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("accmotive", typeof(string)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("codemotive", typeof(string)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("identrykind", typeof(int)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
-	tentrydetailaccrualview.Columns.Add( new DataColumn("flagap", typeof(string)));
+	tentrydetailaccrualview.Columns.Add( new DataColumn("flagaccountusage", typeof(int)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("idepexp", typeof(int)));
 	tentrydetailaccrualview.Columns.Add( new DataColumn("idepacc", typeof(int)));
 	Tables.Add(tentrydetailaccrualview);

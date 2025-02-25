@@ -33,8 +33,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-afferenza_stru");
-				$('#afferenza_stru_idreg').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#afferenza_stru_idreg').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#afferenza_stru_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#afferenza_stru_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
 				//afterRowSelectin
 				return def.resolve();
 			},

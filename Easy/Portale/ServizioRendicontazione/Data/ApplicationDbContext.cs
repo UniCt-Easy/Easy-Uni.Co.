@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,10 +25,18 @@ namespace ServizioRendicontazione.Data
 	{
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-		// ===========================================================================
-		// REGISTRY
-		// ===========================================================================
-		public virtual DbSet<registry> registries { get; set; }
+
+        // ===========================================================================
+        // RENDICONTAALTRO
+        // ===========================================================================
+        public virtual DbSet<rendicontaltro> rendicontaltros { get; set; }
+        public virtual DbSet<rendicontaltrokind> rendicontaltrokinds { get; set; }
+
+
+        // ===========================================================================
+        // REGISTRY
+        // ===========================================================================
+        public virtual DbSet<registry> registries { get; set; }
 
 
 		// ===========================================================================
@@ -54,16 +62,27 @@ namespace ServizioRendicontazione.Data
 		public virtual DbSet<GeoCityview> GeoCityviews { get; set; }
 		public virtual DbSet<insegn> insegns { get; set; }
 		public virtual DbSet<struttura> strutturas { get; set; }
+		public virtual DbSet<progettoresponsabiliview> progettoresponsabiliviews { get; set; }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 
-			// ===========================================================================
-			// REGISTRY
-			// ===========================================================================
-			modelBuilder.Entity<registry>().ToTable("registry", common.schemaDbo);
+            // ===========================================================================
+            // RENDICONTAALTRO
+            // ===========================================================================
+            modelBuilder.Entity<rendicontaltro>().ToTable("rendicontaltro", common.schemaDbo);
+            modelBuilder.Entity<rendicontaltro>().HasKey(k => new { k.idrendicontaltro, k.aa, k.idreg_docenti });
+
+            modelBuilder.Entity<rendicontaltrokind>().ToTable("rendicontaltrokind", common.schemaDbo);
+            modelBuilder.Entity<rendicontaltrokind>().HasKey(k => k.idrendicontaltrokind);
+
+
+            // ===========================================================================
+            // REGISTRY
+            // ===========================================================================
+            modelBuilder.Entity<registry>().ToTable("registry", common.schemaDbo);
 			modelBuilder.Entity<registry>().HasKey(k => k.Idreg);
 
 
@@ -201,6 +220,14 @@ namespace ServizioRendicontazione.Data
 
 			modelBuilder.Entity<struttura>().ToTable("struttura", common.schemaDbo);
 			modelBuilder.Entity<struttura>().HasKey(e => e.idstruttura);
+
+			modelBuilder.Entity<progettoresponsabiliview>().ToView("progettoresponsabiliview", common.schemaAmm);
+			modelBuilder.Entity<progettoresponsabiliview>().HasKey(e => new {
+				e.idreg,
+				e.idprogetto,
+				e.idstruttura,
+				e.year,
+				e.idreg_membro });			
 		}
 	}
 }

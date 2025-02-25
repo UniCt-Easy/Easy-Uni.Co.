@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -114,6 +114,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expenselastmandatedetail 		=> (MetaTable)Tables["expenselastmandatedetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable paymentattachment 		=> (MetaTable)Tables["paymentattachment"];
 
 	#endregion
 
@@ -573,6 +576,20 @@ private void initClass() {
 	Tables.Add(texpenselastmandatedetail);
 	texpenselastmandatedetail.defineKey("idexp", "idmankind", "yman", "nman", "rownum");
 
+	//////////////////// PAYMENTATTACHMENT /////////////////////////////////
+	var tpaymentattachment= new MetaTable("paymentattachment");
+	tpaymentattachment.defineColumn("kpay", typeof(int),false);
+	tpaymentattachment.defineColumn("idattachment", typeof(int),false);
+	tpaymentattachment.defineColumn("attachment", typeof(Byte[]));
+	tpaymentattachment.defineColumn("filename", typeof(string));
+	tpaymentattachment.defineColumn("cu", typeof(string));
+	tpaymentattachment.defineColumn("ct", typeof(DateTime));
+	tpaymentattachment.defineColumn("lu", typeof(string));
+	tpaymentattachment.defineColumn("lt", typeof(DateTime));
+	tpaymentattachment.defineColumn("idattachmentkind", typeof(int));
+	Tables.Add(tpaymentattachment);
+	tpaymentattachment.defineKey("kpay", "idattachment");
+
 	#endregion
 
 
@@ -611,6 +628,7 @@ private void initClass() {
 	this.defineRelation("managerpayment","manager","payment","idman");
 	this.defineRelation("paymenttransmissionpayment","paymenttransmission","payment","kpaymenttransmission");
 	this.defineRelation("fin_payment","fin","payment","idfin");
+	this.defineRelation("payment_paymentattachment","payment","paymentattachment","kpay");
 	#endregion
 
 }

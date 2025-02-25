@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -66,6 +66,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable costpartition 		=> (MetaTable)Tables["costpartition"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable assetloadattachment 		=> (MetaTable)Tables["assetloadattachment"];
 
 	#endregion
 
@@ -312,6 +315,20 @@ private void initClass() {
 	Tables.Add(tcostpartition);
 	tcostpartition.defineKey("idcostpartition");
 
+	//////////////////// ASSETLOADATTACHMENT /////////////////////////////////
+	var tassetloadattachment= new MetaTable("assetloadattachment");
+	tassetloadattachment.defineColumn("idassetload", typeof(int),false);
+	tassetloadattachment.defineColumn("idattachment", typeof(int),false);
+	tassetloadattachment.defineColumn("attachment", typeof(Byte[]));
+	tassetloadattachment.defineColumn("filename", typeof(string));
+	tassetloadattachment.defineColumn("cu", typeof(string));
+	tassetloadattachment.defineColumn("ct", typeof(DateTime));
+	tassetloadattachment.defineColumn("lu", typeof(string));
+	tassetloadattachment.defineColumn("lt", typeof(DateTime));
+	tassetloadattachment.defineColumn("idattachmentkind", typeof(int));
+	Tables.Add(tassetloadattachment);
+	tassetloadattachment.defineKey("idassetload", "idattachment");
+
 	#endregion
 
 
@@ -324,6 +341,7 @@ private void initClass() {
 	this.defineRelation("assetloadkindassetload","assetloadkind","assetload","idassetloadkind");
 	this.defineRelation("registryassetload","registry","assetload","idreg");
 	this.defineRelation("costpartition_assetload","costpartition","assetload","idcostpartition");
+	this.defineRelation("assetload_assetloadattachment","assetload","assetloadattachment","idassetload");
 	#endregion
 
 }

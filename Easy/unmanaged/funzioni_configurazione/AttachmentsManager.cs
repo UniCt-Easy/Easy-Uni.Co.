@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,6 +25,9 @@ using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using System.Xml;
 using System.Xml.Xsl;
+using System.Threading;
+using ReportGenClient;
+using HubConnector;
 
 namespace funzioni_configurazione {
     public class AttachmentsManager {
@@ -96,6 +99,12 @@ namespace funzioni_configurazione {
 
             attachmentsTable = new DataTable();
         }
+
+        private bool isBlazor()
+		{
+            return Thread.CurrentThread.Name == "Main Form Blazor Thread";
+        }
+
         private void fillFilteredView() {
             filteredView = Conn.RUN_SELECT(viewName, "*", null, viewFilter, null, false);
         }
@@ -141,6 +150,8 @@ namespace funzioni_configurazione {
                 fileStream.Write(fileContents, 0, fileContents.Length);
                 fileStream.Flush();
                 fileStream.Close();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
             }
             catch (Exception e)
             {
@@ -211,6 +222,7 @@ namespace funzioni_configurazione {
                 rd.Export();
                 bool existfile = File.Exists(tempfilename);
                 if (!existfile) error = "export fallito";
+
                 return existfile;
             }
             catch (Exception e) {
@@ -223,6 +235,10 @@ namespace funzioni_configurazione {
                 error = e.Message;
                 return false;
             }
+			finally {
+                rd.Dispose();
+
+			}
         }
 
         public bool stampaFatturaFEvendita(DataAccess Conn, string FilePath, DataRow Rsdi_venditaext, out string errmess) {
@@ -271,6 +287,8 @@ namespace funzioni_configurazione {
 
                     File.Move(AppDomain.CurrentDomain.BaseDirectory + tempFileName, FilePath + tempFileName);
                 }
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(FilePath + tempFileName, false);
             }
             catch (Exception ee) {
                 errmess = "Errore nella creazione del file FE " + ee;
@@ -282,6 +300,8 @@ namespace funzioni_configurazione {
         public void writeToFile(string fileName, XmlDocument doc) {
             if (doc != null) {
                 doc.Save(fileName);
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
             }
         }
         public bool stampaXML_FEacquisto(DataAccess Conn, string FilePath, DataRow Rsdi_acquisto, out string errmess) {
@@ -365,6 +385,8 @@ namespace funzioni_configurazione {
                     File.Delete(FilePath + tempFileName);
                 }
                 File.Move(AppDomain.CurrentDomain.BaseDirectory + tempFileName, FilePath+ tempFileName);
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(FilePath + tempFileName, false);
             }
             catch (Exception ee) {
                 errmess= "Errore nella creazione del file FE " + ee;
@@ -402,6 +424,53 @@ namespace funzioni_configurazione {
             var rep = Report._First();
             var par = myPrymaryTable.Rows[0];
 
+            string tempfilename = "stampamandato_" + curr["ypay"].ToString() + "_" + curr["npay"].ToString() + ".pdf";
+
+            bool retExp = false;
+
+            if (isBlazor())
+			{
+                bool done = false;
+
+                // Leggo la configurazione del servizio da chiamare da DB reportgenclient
+
+                // se web client
+                DataTable dt = Conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'webclient'");
+
+                string tempFilePath = Path.Combine(FilePath, tempfilename);
+
+                if (dt != null)
+				{
+                    if (dt.Rows.Count > 0)
+					{
+                        string ServiceUrl = dt.Rows[0][0].ToString();
+                        string ServiceParam = dt.Rows[0][1].ToString();
+
+                        retExp = CallReportGenClient(par, rep, ServiceUrl, ServiceParam, tempFilePath, out errmess);
+
+                        done = true;
+					}
+				}
+
+                if (!done)
+				{
+                    // altrimenti cerco SignalR
+                    dt = Conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'signalr'");
+                    if (dt != null)
+					{
+                        if (dt.Rows.Count > 0)
+						{
+                            string ServiceUrl = dt.Rows[0][0].ToString();
+                            string ServiceParam = dt.Rows[0][1].ToString();
+
+                            retExp = CallReportGenSignal(par, rep, ServiceUrl, ServiceParam, tempFilePath, out errmess);
+						}
+					}
+				}
+
+                return retExp;
+			}
+
             ReportDocument myRptDoc = Easy_DataAccess.GetReport(Conn as Easy_DataAccess, rep, par, out errmess);
             if (myRptDoc == null) {
                 if (errmess == null || errmess == "") errmess = "Impossibile trovare il report";
@@ -409,11 +478,10 @@ namespace funzioni_configurazione {
             }
 
             if (!FilePath.EndsWith("\\")) FilePath += "\\";
-
-            var tempfilename = "stampamandato_" + curr["ypay"].ToString() + "_" + curr["npay"].ToString() + ".pdf";
+            
             //pdfFileName = @"ReportPDF/" + tempfilename;
             string error;
-            bool retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);
+            retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);
             if (!retExp) errmess = "Impossibile esportare in pdf: " + tempfilename + " in " + FilePath + " (" + error + ")";
             return retExp;
         }
@@ -447,6 +515,53 @@ namespace funzioni_configurazione {
             var rep = Report._First();
             var par = myPrymaryTable.Rows[0];
 
+            string tempfilename = "stampareversale_" + curr["ypro"].ToString() + "_" + curr["npro"].ToString() + ".pdf";
+
+            bool retExp = false;
+
+            if (isBlazor())
+			{
+                bool done = false;
+
+                // Leggo la configurazione del servizio da chiamare da DB reportgenclient
+
+                // se web client
+                DataTable dt = Conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'webclient'");
+
+                string tempFilePath = Path.Combine(FilePath, tempfilename);
+
+                if (dt != null)
+				{
+                    if (dt.Rows.Count > 0)
+					{
+                        string ServiceUrl = dt.Rows[0][0].ToString();
+                        string ServiceParam = dt.Rows[0][1].ToString();
+
+                        retExp = CallReportGenClient(par, rep, ServiceUrl, ServiceParam, tempFilePath, out errmess);
+
+                        done = true;
+					}
+				}
+
+                if (!done)
+				{
+                    // altrimenti cerco SignalR
+                    dt = Conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'signalr'");
+                    if (dt != null)
+                    {
+                        if (dt.Rows.Count > 0)
+                        {
+                            string ServiceUrl = dt.Rows[0][0].ToString();
+                            string ServiceParam = dt.Rows[0][1].ToString();
+
+                            retExp = CallReportGenSignal(par, rep, ServiceUrl, ServiceParam, tempFilePath, out errmess);
+                        }
+                    }
+                }
+
+                return retExp;
+            }
+
             ReportDocument myRptDoc = Easy_DataAccess.GetReport(Conn as Easy_DataAccess, rep, par, out errmess);
             if (myRptDoc == null) {
                 if (errmess == null || errmess == "") errmess = "Impossibile trovare il report";
@@ -454,19 +569,134 @@ namespace funzioni_configurazione {
             }
 
             if (!FilePath.EndsWith("\\")) FilePath += "\\";
-
-            var tempfilename = "stampareversale_" + curr["ypro"].ToString() + "_" + curr["npro"].ToString() + ".pdf";
+            
             //pdfFileName = @"ReportPDF/" + tempfilename;
             string error;
-            bool retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);
+            retExp = exportToPdf(myRptDoc, tempfilename, FilePath, out error);
             if (!retExp) errmess = "Impossibile esportare in pdf: " + tempfilename + " in " + FilePath + " (" + error + ")";
             return retExp;
+        }
+
+        // =====================================================================================
+        //									 WEB CLIENT
+        // =====================================================================================
+        private bool CallReportGenClient(DataRow Params, DataRow moduleReport, string ServiceUrl, string ServiceParam, string filePath, out string errmess)
+		{
+            errmess = "";
+
+            byte[] reportContents;
+
+            // Timeout di default 120
+            int timeout = 120;
+
+            // Provo a leggerlo dalla configurazione
+            int.TryParse(ServiceParam, out timeout);
+
+            try
+            {
+                WebClient client = new WebClient(ServiceUrl, timeout); // mettere in configurazione
+                reportContents = client.Generate(moduleReport, Params);
+            }
+            catch (Exception ex)
+            {
+                errmess = string.Join(": ", "errore durante la chiamata al server dei report", ex.Message);
+                return false;
+            }
+
+            try
+            {
+                File.WriteAllBytes(filePath, reportContents);
+
+                MetaFactory.factory.getSingleton<IProcessRunner>().start(filePath, false);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errmess = string.Join(": ", "impossibile ottenere il contenuto del file del report", ex.Message);
+                return false;
+            }
+        }
+
+        // =====================================================================================
+        //										SIGNALR
+        // =====================================================================================
+        private bool CallReportGenSignal(DataRow Params, DataRow moduleReport, string ServiceUrl, string ServiceParam, string filePath, out string errmess)
+        {
+            errmess = "";
+
+            byte[] reportContentsSignalR = { };
+
+            string[] HubParams = ServiceParam.Split(',');
+
+            string HubServiceUrl = ServiceUrl;          // https://localhost:44396/
+            string HubName = HubParams[0];              // HubReport
+            string HubMethod = HubParams[1];            // Send
+            string FunctionCaller = HubParams[2];       // ReceivePdf
+            string FunctionError = HubParams[3];        // ReceiveError
+
+            // Controllo Url del servizio
+            if (string.IsNullOrEmpty(HubServiceUrl) || string.IsNullOrEmpty(HubName) || string.IsNullOrEmpty(HubMethod) || string.IsNullOrEmpty(FunctionCaller) || string.IsNullOrEmpty(FunctionError))
+            {
+                errmess = "Servizio non configurato";
+                return false;
+            }
+
+            try
+            {
+                // =====================================================================================
+                // Delegate, Metodo chiamato da HubConnection ricevuto il pdf
+                // =====================================================================================
+                ActionCaller actionCaller = (byte[] pdfByte) => {
+                    
+                    File.WriteAllBytes(filePath, pdfByte);
+
+                    MetaFactory.factory.getSingleton<IProcessRunner>().start(filePath, false);
+                };
+
+                // =====================================================================================
+                // Delegate, Metodo chiamato da HubConnection in caso di errore
+                // =====================================================================================
+                ActionError actionError = (string msg) => {
+                    ShowMsg(string.Join(": ", "impossibile ottenere il contenuto del file del report", msg));
+                };
+
+                // Istanza di HubConnection
+                HubConn hubConn = HubConn.GetInstance(actionCaller, actionError, HubServiceUrl, HubName, FunctionCaller, FunctionError);
+
+                // Se connesso Genero
+                if (hubConn.isConnected())
+                {
+                    hubConn.Generate(HubMethod, moduleReport, Params);
+                    return true;
+                }
+                else
+                {
+                    errmess = "Non è possibile stabilire la connessione con " + HubServiceUrl;
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                errmess = string.Join(": ", "impossibile ottenere il contenuto del file del report", ex.Message);
+                return false;
+            }
+        }
+
+        private void ShowMsg(string shortmsg)
+        {
+            ShowMsg(shortmsg, null);
+        }
+
+        private void ShowMsg(string shortmsg, string longmsg)
+        {
+            QueryCreator.ShowError(null, shortmsg, longmsg);
         }
 
         public int saveAttachments() {
             int filesCount = 0;
 
-            if (attachmentsTable.Rows.Count == 0) return filesCount;            
+            if (attachmentsTable.Rows.Count == 0) return filesCount;
 
             if (!Directory.Exists(dstDir)) {
                 Directory.CreateDirectory(dstDir);

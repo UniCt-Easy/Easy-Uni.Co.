@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,6 +36,12 @@ using System.Linq;
 using System.Globalization;
 using AskCurrencyExchange;
 using CurrencyManager;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
+using System.Text;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Converters;
 
 namespace mandate_default { //ordinegenerico//
     /// <summary>
@@ -130,7 +136,7 @@ namespace mandate_default { //ordinegenerico//
         private Label label33;
         private DataGrid gridStock;
 
-
+        private bool DoCreaGara;
         private bool DoSendMail;
         private int CurrentStatus;
         private Button btnAccetta;
@@ -280,23 +286,27 @@ namespace mandate_default { //ordinegenerico//
         private GroupBox grpDettagliAnnullati;
         private DataGrid dataGridDettAnn;
         private Button btnAnnullaDettaglio;
-		private CheckBox chkVerificaAnac;
-		private CheckBox chkRegolaritaFiscale;
-		private CheckBox chkOttempLegge;
-		private CheckBox chkCasellarioAmm;
-		private CheckBox chkCasellarioGiud;
-		private Button button10;
-		private Button button9;
-		private Button button8;
-		private Button button1;
-		private Button btnImportaGara;
+        private CheckBox chkVerificaAnac;
+        private CheckBox chkRegolaritaFiscale;
+        private CheckBox chkOttempLegge;
+        private CheckBox chkCasellarioAmm;
+        private CheckBox chkCasellarioGiud;
+        private Button button10;
+        private Button button9;
+        private Button button8;
+        private Button button1;
+        private Button btnImportaGara;
         private Button btnCurrencyExchange;
         string ConnectionString;
-		private CheckBox chkPattoIntegrita;
+        private CheckBox chkPattoIntegrita;
+		private Button btnInvioRichiestaGara;
+		private Label lblIdTemporanoGara;
+		private TextBox txtIdTemporaneoGara;
 		private Manager currencyManager;
 
         public Frm_mandate_default() {
             InitializeComponent();
+            MyOpenFile = createOpenFileDialog(_MyOpenFile);
 
             HelpForm.SetDenyNull(DS.mandate.Columns["active"], true);
             HelpForm.SetDenyNull(DS.mandate.Columns["flagdanger"], true);
@@ -354,20 +364,20 @@ namespace mandate_default { //ordinegenerico//
             if (txtDataContabile.Text != "") {
                 object t = HelpForm.GetObjectFromString(typeof(DateTime), txtDataContabile.Text,
                     txtDataContabile.Tag.ToString());
-                if (t != DBNull.Value && t != null) dataRegistrazione = (DateTime) t;
+                if (t != DBNull.Value && t != null) dataRegistrazione = (DateTime)t;
             }
 
             DateTime dataDocumento = DateTime.MinValue;
             if (txtDataDoc.Text != "") {
                 object t = HelpForm.GetObjectFromString(typeof(DateTime), txtDataDoc.Text, txtDataDoc.Tag.ToString());
-                if (t != DBNull.Value && t != null) dataDocumento = (DateTime) t;
+                if (t != DBNull.Value && t != null) dataDocumento = (DateTime)t;
             }
 
             DateTime dataRicezione = DateTime.MinValue;
             if (txDataRicezioneRU.Text != "") {
                 object t = HelpForm.GetObjectFromString(typeof(DateTime), txDataRicezioneRU.Text,
                     txDataRicezioneRU.Tag.ToString());
-                if (t != DBNull.Value && t != null) dataRicezione = (DateTime) t;
+                if (t != DBNull.Value && t != null) dataRicezione = (DateTime)t;
             }
 
             DateTime dataScadenza = DateTime.MinValue;
@@ -719,7 +729,7 @@ namespace mandate_default { //ordinegenerico//
             //FillConsipKindComboTab(DS.consipkind_ext);
             initConsipLabel();
             if (DS.config.Rows.Count > 0) {
-                int flag  =CfgFn.GetNoNullInt32(DS.config.First().flag);
+                int flag = CfgFn.GetNoNullInt32(DS.config.First().flag);
                 if ((flag & 1) != 0) recuperoIntraUEAttivo = true;
             }
         }
@@ -819,6 +829,8 @@ namespace mandate_default { //ordinegenerico//
 			this.label13 = new System.Windows.Forms.Label();
 			this.gridLotti = new System.Windows.Forms.DataGrid();
 			this.tabEsito = new System.Windows.Forms.TabPage();
+			this.lblIdTemporanoGara = new System.Windows.Forms.Label();
+			this.txtIdTemporaneoGara = new System.Windows.Forms.TextBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
 			this.radioButton11 = new System.Windows.Forms.RadioButton();
@@ -943,6 +955,7 @@ namespace mandate_default { //ordinegenerico//
 			this.chkDurc = new System.Windows.Forms.CheckBox();
 			this.chkVisura = new System.Windows.Forms.CheckBox();
 			this.chkCCdedicato = new System.Windows.Forms.CheckBox();
+			this.btnInvioRichiestaGara = new System.Windows.Forms.Button();
 			this.label43 = new System.Windows.Forms.Label();
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.gBoxCausaleDebitoAggiornata = new System.Windows.Forms.GroupBox();
@@ -964,7 +977,6 @@ namespace mandate_default { //ordinegenerico//
 			this.consipkindBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.mandatedetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this._MyOpenFile = new System.Windows.Forms.OpenFileDialog();
-			this.MyOpenFile = createOpenFileDialog(this._MyOpenFile);
 			this.progressBarImport = new System.Windows.Forms.ProgressBar();
 			this.CMenu = new System.Windows.Forms.ContextMenu();
 			this.MenuEnterPwd = new System.Windows.Forms.MenuItem();
@@ -1075,7 +1087,7 @@ namespace mandate_default { //ordinegenerico//
 			this.cmbTipoScadenza.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbTipoScadenza.Location = new System.Drawing.Point(51, 15);
 			this.cmbTipoScadenza.Name = "cmbTipoScadenza";
-			this.cmbTipoScadenza.Size = new System.Drawing.Size(346, 21);
+			this.cmbTipoScadenza.Size = new System.Drawing.Size(345, 21);
 			this.cmbTipoScadenza.TabIndex = 9;
 			this.cmbTipoScadenza.Tag = "mandate.idexpirationkind?mandateview.idexpirationkind";
 			this.cmbTipoScadenza.ValueMember = "idexpirationkind";
@@ -1092,7 +1104,7 @@ namespace mandate_default { //ordinegenerico//
 			// txtScadenza
 			// 
 			this.txtScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtScadenza.Location = new System.Drawing.Point(477, 16);
+			this.txtScadenza.Location = new System.Drawing.Point(476, 16);
 			this.txtScadenza.Name = "txtScadenza";
 			this.txtScadenza.Size = new System.Drawing.Size(88, 20);
 			this.txtScadenza.TabIndex = 10;
@@ -1102,7 +1114,7 @@ namespace mandate_default { //ordinegenerico//
 			// label12
 			// 
 			this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label12.Location = new System.Drawing.Point(412, 17);
+			this.label12.Location = new System.Drawing.Point(411, 17);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(64, 16);
 			this.label12.TabIndex = 20;
@@ -1125,7 +1137,7 @@ namespace mandate_default { //ordinegenerico//
 			this.txtRiferminento.Location = new System.Drawing.Point(425, 59);
 			this.txtRiferminento.Multiline = true;
 			this.txtRiferminento.Name = "txtRiferminento";
-			this.txtRiferminento.Size = new System.Drawing.Size(605, 37);
+			this.txtRiferminento.Size = new System.Drawing.Size(582, 37);
 			this.txtRiferminento.TabIndex = 3;
 			this.txtRiferminento.Tag = "mandate.registryreference?mandateview.registryreference";
 			// 
@@ -1146,14 +1158,14 @@ namespace mandate_default { //ordinegenerico//
 			this.txtIndirizzoConsegna.Multiline = true;
 			this.txtIndirizzoConsegna.Name = "txtIndirizzoConsegna";
 			this.txtIndirizzoConsegna.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtIndirizzoConsegna.Size = new System.Drawing.Size(556, 45);
+			this.txtIndirizzoConsegna.Size = new System.Drawing.Size(555, 45);
 			this.txtIndirizzoConsegna.TabIndex = 14;
 			this.txtIndirizzoConsegna.Tag = "mandate.deliveryaddress";
 			// 
 			// TxtTermConsegna
 			// 
 			this.TxtTermConsegna.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.TxtTermConsegna.Location = new System.Drawing.Point(415, 12);
+			this.TxtTermConsegna.Location = new System.Drawing.Point(414, 12);
 			this.TxtTermConsegna.Name = "TxtTermConsegna";
 			this.TxtTermConsegna.Size = new System.Drawing.Size(152, 20);
 			this.TxtTermConsegna.TabIndex = 13;
@@ -1162,7 +1174,7 @@ namespace mandate_default { //ordinegenerico//
 			// label8
 			// 
 			this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label8.Location = new System.Drawing.Point(357, 13);
+			this.label8.Location = new System.Drawing.Point(356, 13);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(56, 16);
 			this.label8.TabIndex = 14;
@@ -1297,7 +1309,7 @@ namespace mandate_default { //ordinegenerico//
 			// txtTotale
 			// 
 			this.txtTotale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTotale.Location = new System.Drawing.Point(894, 331);
+			this.txtTotale.Location = new System.Drawing.Point(893, 323);
 			this.txtTotale.Name = "txtTotale";
 			this.txtTotale.ReadOnly = true;
 			this.txtTotale.Size = new System.Drawing.Size(104, 20);
@@ -1308,7 +1320,7 @@ namespace mandate_default { //ordinegenerico//
 			// txtIva
 			// 
 			this.txtIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtIva.Location = new System.Drawing.Point(754, 331);
+			this.txtIva.Location = new System.Drawing.Point(753, 323);
 			this.txtIva.Name = "txtIva";
 			this.txtIva.ReadOnly = true;
 			this.txtIva.Size = new System.Drawing.Size(88, 20);
@@ -1319,7 +1331,7 @@ namespace mandate_default { //ordinegenerico//
 			// txtImponibile
 			// 
 			this.txtImponibile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtImponibile.Location = new System.Drawing.Point(592, 331);
+			this.txtImponibile.Location = new System.Drawing.Point(591, 323);
 			this.txtImponibile.Name = "txtImponibile";
 			this.txtImponibile.ReadOnly = true;
 			this.txtImponibile.Size = new System.Drawing.Size(112, 20);
@@ -1330,7 +1342,7 @@ namespace mandate_default { //ordinegenerico//
 			// label16
 			// 
 			this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.label16.Location = new System.Drawing.Point(853, 331);
+			this.label16.Location = new System.Drawing.Point(852, 323);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(40, 17);
 			this.label16.TabIndex = 30;
@@ -1340,7 +1352,7 @@ namespace mandate_default { //ordinegenerico//
 			// label17
 			// 
 			this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.label17.Location = new System.Drawing.Point(715, 331);
+			this.label17.Location = new System.Drawing.Point(714, 323);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(38, 17);
 			this.label17.TabIndex = 29;
@@ -1350,7 +1362,7 @@ namespace mandate_default { //ordinegenerico//
 			// label18
 			// 
 			this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.label18.Location = new System.Drawing.Point(527, 331);
+			this.label18.Location = new System.Drawing.Point(526, 323);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(64, 17);
 			this.label18.TabIndex = 28;
@@ -1398,7 +1410,7 @@ namespace mandate_default { //ordinegenerico//
 			this.detailgrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.detailgrid.Location = new System.Drawing.Point(118, 3);
 			this.detailgrid.Name = "detailgrid";
-			this.detailgrid.Size = new System.Drawing.Size(880, 182);
+			this.detailgrid.Size = new System.Drawing.Size(879, 174);
 			this.detailgrid.TabIndex = 14;
 			this.detailgrid.Tag = "mandatedetail.lista.single";
 			// 
@@ -1412,7 +1424,7 @@ namespace mandate_default { //ordinegenerico//
 			this.groupBox3.Controls.Add(this.label8);
 			this.groupBox3.Location = new System.Drawing.Point(427, 139);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(575, 88);
+			this.groupBox3.Size = new System.Drawing.Size(574, 88);
 			this.groupBox3.TabIndex = 8;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Consegna";
@@ -1442,7 +1454,7 @@ namespace mandate_default { //ordinegenerico//
 			this.groupBox5.Controls.Add(this.cmbTipoScadenza);
 			this.groupBox5.Location = new System.Drawing.Point(427, 8);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(575, 70);
+			this.groupBox5.Size = new System.Drawing.Size(574, 70);
 			this.groupBox5.TabIndex = 6;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Scadenza";
@@ -1450,7 +1462,7 @@ namespace mandate_default { //ordinegenerico//
 			// label42
 			// 
 			this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label42.Location = new System.Drawing.Point(420, 42);
+			this.label42.Location = new System.Drawing.Point(419, 42);
 			this.label42.Name = "label42";
 			this.label42.Size = new System.Drawing.Size(56, 16);
 			this.label42.TabIndex = 24;
@@ -1460,7 +1472,7 @@ namespace mandate_default { //ordinegenerico//
 			// txtDataScadenza
 			// 
 			this.txtDataScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDataScadenza.Location = new System.Drawing.Point(477, 42);
+			this.txtDataScadenza.Location = new System.Drawing.Point(476, 42);
 			this.txtDataScadenza.Name = "txtDataScadenza";
 			this.txtDataScadenza.ReadOnly = true;
 			this.txtDataScadenza.Size = new System.Drawing.Size(88, 20);
@@ -1489,14 +1501,14 @@ namespace mandate_default { //ordinegenerico//
 			this.gboxValuta.Controls.Add(this.label14);
 			this.gboxValuta.Location = new System.Drawing.Point(427, 84);
 			this.gboxValuta.Name = "gboxValuta";
-			this.gboxValuta.Size = new System.Drawing.Size(575, 49);
+			this.gboxValuta.Size = new System.Drawing.Size(574, 49);
 			this.gboxValuta.TabIndex = 7;
 			this.gboxValuta.TabStop = false;
 			this.gboxValuta.Tag = "AutoChoose.txtValuta.default";
 			// 
 			// btnCurrencyExchange
 			// 
-			this.btnCurrencyExchange.Location = new System.Drawing.Point(427, 19);
+			this.btnCurrencyExchange.Location = new System.Drawing.Point(490, 19);
 			this.btnCurrencyExchange.Name = "btnCurrencyExchange";
 			this.btnCurrencyExchange.Size = new System.Drawing.Size(75, 23);
 			this.btnCurrencyExchange.TabIndex = 32;
@@ -1511,7 +1523,7 @@ namespace mandate_default { //ordinegenerico//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtValuta.Location = new System.Drawing.Point(85, 20);
 			this.txtValuta.Name = "txtValuta";
-			this.txtValuta.Size = new System.Drawing.Size(212, 20);
+			this.txtValuta.Size = new System.Drawing.Size(211, 20);
 			this.txtValuta.TabIndex = 1;
 			this.txtValuta.Tag = "currency.description?x";
 			// 
@@ -1529,7 +1541,7 @@ namespace mandate_default { //ordinegenerico//
 			// txtCambio
 			// 
 			this.txtCambio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCambio.Location = new System.Drawing.Point(389, 20);
+			this.txtCambio.Location = new System.Drawing.Point(388, 20);
 			this.txtCambio.Name = "txtCambio";
 			this.txtCambio.Size = new System.Drawing.Size(96, 20);
 			this.txtCambio.TabIndex = 2;
@@ -1539,7 +1551,7 @@ namespace mandate_default { //ordinegenerico//
 			// label14
 			// 
 			this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label14.Location = new System.Drawing.Point(302, 22);
+			this.label14.Location = new System.Drawing.Point(301, 22);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(95, 16);
 			this.label14.TabIndex = 30;
@@ -1548,7 +1560,7 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			// label15
 			// 
-			this.label15.Location = new System.Drawing.Point(639, 283);
+			this.label15.Location = new System.Drawing.Point(820, 258);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(84, 19);
 			this.label15.TabIndex = 36;
@@ -1557,9 +1569,11 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			// txtDataContabile
 			// 
-			this.txtDataContabile.Location = new System.Drawing.Point(721, 282);
+			this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDataContabile.Location = new System.Drawing.Point(906, 257);
 			this.txtDataContabile.Name = "txtDataContabile";
-			this.txtDataContabile.Size = new System.Drawing.Size(88, 20);
+			this.txtDataContabile.Size = new System.Drawing.Size(95, 20);
 			this.txtDataContabile.TabIndex = 10;
 			this.txtDataContabile.Tag = "mandate.adate?mandateview.adate";
 			this.txtDataContabile.Leave += new System.EventHandler(this.txtDataContabile_Leave);
@@ -1583,7 +1597,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabControl1.Location = new System.Drawing.Point(4, 198);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(1020, 390);
+			this.tabControl1.Size = new System.Drawing.Size(1019, 382);
 			this.tabControl1.TabIndex = 9;
 			// 
 			// Principale
@@ -1605,14 +1619,14 @@ namespace mandate_default { //ordinegenerico//
 			this.Principale.Controls.Add(this.label15);
 			this.Principale.Location = new System.Drawing.Point(4, 22);
 			this.Principale.Name = "Principale";
-			this.Principale.Size = new System.Drawing.Size(1012, 364);
+			this.Principale.Size = new System.Drawing.Size(1011, 356);
 			this.Principale.TabIndex = 0;
 			this.Principale.Text = "Principale";
 			this.Principale.UseVisualStyleBackColor = true;
 			// 
 			// btnImportaGara
 			// 
-			this.btnImportaGara.Location = new System.Drawing.Point(283, 280);
+			this.btnImportaGara.Location = new System.Drawing.Point(277, 283);
 			this.btnImportaGara.Name = "btnImportaGara";
 			this.btnImportaGara.Size = new System.Drawing.Size(131, 23);
 			this.btnImportaGara.TabIndex = 99;
@@ -1623,7 +1637,7 @@ namespace mandate_default { //ordinegenerico//
 			// chkRecuperoIvaIntraExtra
 			// 
 			this.chkRecuperoIvaIntraExtra.AutoSize = true;
-			this.chkRecuperoIvaIntraExtra.Location = new System.Drawing.Point(427, 286);
+			this.chkRecuperoIvaIntraExtra.Location = new System.Drawing.Point(825, 233);
 			this.chkRecuperoIvaIntraExtra.Name = "chkRecuperoIvaIntraExtra";
 			this.chkRecuperoIvaIntraExtra.Size = new System.Drawing.Size(177, 17);
 			this.chkRecuperoIvaIntraExtra.TabIndex = 98;
@@ -1654,7 +1668,7 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			// lblcig
 			// 
-			this.lblcig.Location = new System.Drawing.Point(1, 281);
+			this.lblcig.Location = new System.Drawing.Point(1, 284);
 			this.lblcig.Name = "lblcig";
 			this.lblcig.Size = new System.Drawing.Size(173, 23);
 			this.lblcig.TabIndex = 57;
@@ -1664,7 +1678,7 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			// txtcig
 			// 
-			this.txtcig.Location = new System.Drawing.Point(175, 282);
+			this.txtcig.Location = new System.Drawing.Point(175, 285);
 			this.txtcig.Name = "txtcig";
 			this.txtcig.Size = new System.Drawing.Size(94, 20);
 			this.txtcig.TabIndex = 5;
@@ -1680,18 +1694,18 @@ namespace mandate_default { //ordinegenerico//
 			this.gboxtipofattura.Size = new System.Drawing.Size(382, 44);
 			this.gboxtipofattura.TabIndex = 9;
 			this.gboxtipofattura.TabStop = false;
-			this.gboxtipofattura.Text = "Tipo Contratto";
+			this.gboxtipofattura.Text = "Territorialità";
 			// 
 			// rdbextracom
 			// 
 			this.rdbextracom.AutoSize = true;
 			this.rdbextracom.Location = new System.Drawing.Point(130, 18);
 			this.rdbextracom.Name = "rdbextracom";
-			this.rdbextracom.Size = new System.Drawing.Size(113, 17);
+			this.rdbextracom.Size = new System.Drawing.Size(67, 17);
 			this.rdbextracom.TabIndex = 25;
 			this.rdbextracom.TabStop = true;
 			this.rdbextracom.Tag = "mandate.flagintracom:X";
-			this.rdbextracom.Text = "Contratto Extra-UE";
+			this.rdbextracom.Text = "Extra-UE";
 			this.rdbextracom.UseVisualStyleBackColor = true;
 			this.rdbextracom.CheckedChanged += new System.EventHandler(this.rdbextracom_CheckedChanged);
 			// 
@@ -1700,24 +1714,24 @@ namespace mandate_default { //ordinegenerico//
 			this.rdbintracom.AutoSize = true;
 			this.rdbintracom.Location = new System.Drawing.Point(8, 18);
 			this.rdbintracom.Name = "rdbintracom";
-			this.rdbintracom.Size = new System.Drawing.Size(115, 17);
+			this.rdbintracom.Size = new System.Drawing.Size(40, 17);
 			this.rdbintracom.TabIndex = 24;
 			this.rdbintracom.TabStop = true;
 			this.rdbintracom.Tag = "mandate.flagintracom:S";
-			this.rdbintracom.Text = "Contratto Intracom.";
+			this.rdbintracom.Text = "UE";
 			this.rdbintracom.UseVisualStyleBackColor = true;
 			this.rdbintracom.CheckedChanged += new System.EventHandler(this.rdbintracom_CheckedChanged);
 			// 
 			// rdbitalia
 			// 
 			this.rdbitalia.AutoSize = true;
-			this.rdbitalia.Location = new System.Drawing.Point(252, 18);
+			this.rdbitalia.Location = new System.Drawing.Point(259, 18);
 			this.rdbitalia.Name = "rdbitalia";
-			this.rdbitalia.Size = new System.Drawing.Size(104, 17);
+			this.rdbitalia.Size = new System.Drawing.Size(47, 17);
 			this.rdbitalia.TabIndex = 23;
 			this.rdbitalia.TabStop = true;
 			this.rdbitalia.Tag = "mandate.flagintracom:N";
-			this.rdbitalia.Text = "Contratto in Italia";
+			this.rdbitalia.Text = "Italia";
 			this.rdbitalia.UseVisualStyleBackColor = true;
 			this.rdbitalia.CheckedChanged += new System.EventHandler(this.rdbitalia_CheckedChanged);
 			// 
@@ -1726,7 +1740,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabAnac.Controls.Add(this.tabControlAnac);
 			this.tabAnac.Location = new System.Drawing.Point(4, 22);
 			this.tabAnac.Name = "tabAnac";
-			this.tabAnac.Size = new System.Drawing.Size(1012, 364);
+			this.tabAnac.Size = new System.Drawing.Size(1011, 356);
 			this.tabAnac.TabIndex = 10;
 			this.tabAnac.Text = "ANAC";
 			this.tabAnac.UseVisualStyleBackColor = true;
@@ -1742,7 +1756,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabControlAnac.Location = new System.Drawing.Point(3, 3);
 			this.tabControlAnac.Name = "tabControlAnac";
 			this.tabControlAnac.SelectedIndex = 0;
-			this.tabControlAnac.Size = new System.Drawing.Size(1001, 357);
+			this.tabControlAnac.Size = new System.Drawing.Size(1000, 349);
 			this.tabControlAnac.TabIndex = 52;
 			// 
 			// tabPartecipanti
@@ -1758,7 +1772,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabPartecipanti.Location = new System.Drawing.Point(4, 22);
 			this.tabPartecipanti.Name = "tabPartecipanti";
 			this.tabPartecipanti.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPartecipanti.Size = new System.Drawing.Size(993, 331);
+			this.tabPartecipanti.Size = new System.Drawing.Size(992, 323);
 			this.tabPartecipanti.TabIndex = 1;
 			this.tabPartecipanti.Text = "Partecipanti al bando";
 			this.tabPartecipanti.UseVisualStyleBackColor = true;
@@ -1792,7 +1806,7 @@ namespace mandate_default { //ordinegenerico//
 			this.gridAVCP.Location = new System.Drawing.Point(111, 32);
 			this.gridAVCP.Name = "gridAVCP";
 			this.gridAVCP.ReadOnly = true;
-			this.gridAVCP.Size = new System.Drawing.Size(876, 293);
+			this.gridAVCP.Size = new System.Drawing.Size(875, 285);
 			this.gridAVCP.TabIndex = 28;
 			this.gridAVCP.Tag = "mandateavcp.lista.single";
 			// 
@@ -1857,7 +1871,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabLotti.Location = new System.Drawing.Point(4, 22);
 			this.tabLotti.Name = "tabLotti";
 			this.tabLotti.Padding = new System.Windows.Forms.Padding(3);
-			this.tabLotti.Size = new System.Drawing.Size(993, 331);
+			this.tabLotti.Size = new System.Drawing.Size(992, 314);
 			this.tabLotti.TabIndex = 0;
 			this.tabLotti.Text = "Lotti del bando";
 			this.tabLotti.UseVisualStyleBackColor = true;
@@ -1874,7 +1888,7 @@ namespace mandate_default { //ordinegenerico//
 			// btnPartecipantiNonAssociati
 			// 
 			this.btnPartecipantiNonAssociati.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnPartecipantiNonAssociati.Location = new System.Drawing.Point(804, 9);
+			this.btnPartecipantiNonAssociati.Location = new System.Drawing.Point(803, 9);
 			this.btnPartecipantiNonAssociati.Name = "btnPartecipantiNonAssociati";
 			this.btnPartecipantiNonAssociati.Size = new System.Drawing.Size(183, 23);
 			this.btnPartecipantiNonAssociati.TabIndex = 51;
@@ -1885,7 +1899,7 @@ namespace mandate_default { //ordinegenerico//
 			// btnPartecipantiAlLotto
 			// 
 			this.btnPartecipantiAlLotto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnPartecipantiAlLotto.Location = new System.Drawing.Point(6, 237);
+			this.btnPartecipantiAlLotto.Location = new System.Drawing.Point(6, 220);
 			this.btnPartecipantiAlLotto.Name = "btnPartecipantiAlLotto";
 			this.btnPartecipantiAlLotto.Size = new System.Drawing.Size(100, 38);
 			this.btnPartecipantiAlLotto.TabIndex = 43;
@@ -1896,7 +1910,7 @@ namespace mandate_default { //ordinegenerico//
 			// btnOrdiniNoPartecipanti
 			// 
 			this.btnOrdiniNoPartecipanti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnOrdiniNoPartecipanti.Location = new System.Drawing.Point(649, 9);
+			this.btnOrdiniNoPartecipanti.Location = new System.Drawing.Point(648, 9);
 			this.btnOrdiniNoPartecipanti.Name = "btnOrdiniNoPartecipanti";
 			this.btnOrdiniNoPartecipanti.Size = new System.Drawing.Size(149, 23);
 			this.btnOrdiniNoPartecipanti.TabIndex = 50;
@@ -1916,7 +1930,7 @@ namespace mandate_default { //ordinegenerico//
 			// btnOrdiniNoLotti
 			// 
 			this.btnOrdiniNoLotti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnOrdiniNoLotti.Location = new System.Drawing.Point(535, 9);
+			this.btnOrdiniNoLotti.Location = new System.Drawing.Point(534, 9);
 			this.btnOrdiniNoLotti.Name = "btnOrdiniNoLotti";
 			this.btnOrdiniNoLotti.Size = new System.Drawing.Size(108, 23);
 			this.btnOrdiniNoLotti.TabIndex = 49;
@@ -1952,12 +1966,14 @@ namespace mandate_default { //ordinegenerico//
 			this.gridLotti.Location = new System.Drawing.Point(114, 35);
 			this.gridLotti.Name = "gridLotti";
 			this.gridLotti.ReadOnly = true;
-			this.gridLotti.Size = new System.Drawing.Size(873, 291);
+			this.gridLotti.Size = new System.Drawing.Size(872, 274);
 			this.gridLotti.TabIndex = 47;
 			this.gridLotti.Tag = "mandatecig.lista.detail";
 			// 
 			// tabEsito
 			// 
+			this.tabEsito.Controls.Add(this.lblIdTemporanoGara);
+			this.tabEsito.Controls.Add(this.txtIdTemporaneoGara);
 			this.tabEsito.Controls.Add(this.groupBox7);
 			this.tabEsito.Controls.Add(this.groupBox6);
 			this.tabEsito.Controls.Add(this.grpRUP);
@@ -1965,10 +1981,29 @@ namespace mandate_default { //ordinegenerico//
 			this.tabEsito.Location = new System.Drawing.Point(4, 22);
 			this.tabEsito.Name = "tabEsito";
 			this.tabEsito.Padding = new System.Windows.Forms.Padding(3);
-			this.tabEsito.Size = new System.Drawing.Size(993, 331);
+			this.tabEsito.Size = new System.Drawing.Size(992, 314);
 			this.tabEsito.TabIndex = 2;
 			this.tabEsito.Text = "Gestione gara";
 			this.tabEsito.UseVisualStyleBackColor = true;
+			// 
+			// lblIdTemporanoGara
+			// 
+			this.lblIdTemporanoGara.Location = new System.Drawing.Point(6, 247);
+			this.lblIdTemporanoGara.Name = "lblIdTemporanoGara";
+			this.lblIdTemporanoGara.Size = new System.Drawing.Size(156, 23);
+			this.lblIdTemporanoGara.TabIndex = 107;
+			this.lblIdTemporanoGara.Tag = "";
+			this.lblIdTemporanoGara.Text = "Codice temporaneo di Gara";
+			this.lblIdTemporanoGara.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtIdTemporaneoGara
+			// 
+			this.txtIdTemporaneoGara.Location = new System.Drawing.Point(173, 247);
+			this.txtIdTemporaneoGara.Name = "txtIdTemporaneoGara";
+			this.txtIdTemporaneoGara.ReadOnly = true;
+			this.txtIdTemporaneoGara.Size = new System.Drawing.Size(88, 20);
+			this.txtIdTemporaneoGara.TabIndex = 106;
+			this.txtIdTemporaneoGara.Tag = "mandate.idtemporaneogara";
 			// 
 			// groupBox7
 			// 
@@ -2145,7 +2180,7 @@ namespace mandate_default { //ordinegenerico//
 			this.grpEsitoGara.Controls.Add(this.radioButton3);
 			this.grpEsitoGara.Location = new System.Drawing.Point(7, 141);
 			this.grpEsitoGara.Name = "grpEsitoGara";
-			this.grpEsitoGara.Size = new System.Drawing.Size(977, 100);
+			this.grpEsitoGara.Size = new System.Drawing.Size(976, 100);
 			this.grpEsitoGara.TabIndex = 3;
 			this.grpEsitoGara.TabStop = false;
 			this.grpEsitoGara.Text = "Esito della Gara";
@@ -2153,7 +2188,7 @@ namespace mandate_default { //ordinegenerico//
 			// txtRibasso
 			// 
 			this.txtRibasso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtRibasso.Location = new System.Drawing.Point(886, 24);
+			this.txtRibasso.Location = new System.Drawing.Point(885, 24);
 			this.txtRibasso.Name = "txtRibasso";
 			this.txtRibasso.Size = new System.Drawing.Size(83, 20);
 			this.txtRibasso.TabIndex = 37;
@@ -2162,7 +2197,7 @@ namespace mandate_default { //ordinegenerico//
 			// label24
 			// 
 			this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label24.Location = new System.Drawing.Point(883, 8);
+			this.label24.Location = new System.Drawing.Point(882, 8);
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(56, 16);
 			this.label24.TabIndex = 38;
@@ -2177,7 +2212,7 @@ namespace mandate_default { //ordinegenerico//
 			this.textBox8.Multiline = true;
 			this.textBox8.Name = "textBox8";
 			this.textBox8.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox8.Size = new System.Drawing.Size(662, 62);
+			this.textBox8.Size = new System.Drawing.Size(661, 62);
 			this.textBox8.TabIndex = 27;
 			this.textBox8.Tag = "mandate.motiveassignment";
 			// 
@@ -2249,7 +2284,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabDettagli.Controls.Add(this.txtTotale);
 			this.tabDettagli.Location = new System.Drawing.Point(4, 22);
 			this.tabDettagli.Name = "tabDettagli";
-			this.tabDettagli.Size = new System.Drawing.Size(1012, 364);
+			this.tabDettagli.Size = new System.Drawing.Size(1011, 356);
 			this.tabDettagli.TabIndex = 8;
 			this.tabDettagli.Text = "Dettagli";
 			this.tabDettagli.UseVisualStyleBackColor = true;
@@ -2270,9 +2305,9 @@ namespace mandate_default { //ordinegenerico//
 			this.grpDettagliAnnullati.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpDettagliAnnullati.Controls.Add(this.dataGridDettAnn);
-			this.grpDettagliAnnullati.Location = new System.Drawing.Point(118, 185);
+			this.grpDettagliAnnullati.Location = new System.Drawing.Point(118, 177);
 			this.grpDettagliAnnullati.Name = "grpDettagliAnnullati";
-			this.grpDettagliAnnullati.Size = new System.Drawing.Size(880, 140);
+			this.grpDettagliAnnullati.Size = new System.Drawing.Size(879, 140);
 			this.grpDettagliAnnullati.TabIndex = 48;
 			this.grpDettagliAnnullati.TabStop = false;
 			this.grpDettagliAnnullati.Text = "Dettagli annullati";
@@ -2287,14 +2322,14 @@ namespace mandate_default { //ordinegenerico//
 			this.dataGridDettAnn.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGridDettAnn.Location = new System.Drawing.Point(6, 19);
 			this.dataGridDettAnn.Name = "dataGridDettAnn";
-			this.dataGridDettAnn.Size = new System.Drawing.Size(869, 117);
+			this.dataGridDettAnn.Size = new System.Drawing.Size(868, 117);
 			this.dataGridDettAnn.TabIndex = 45;
 			this.dataGridDettAnn.Tag = "mandatedetail.annullati.single";
 			// 
 			// btnRimpiazzaPerNuovoProrata
 			// 
 			this.btnRimpiazzaPerNuovoProrata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnRimpiazzaPerNuovoProrata.Location = new System.Drawing.Point(118, 331);
+			this.btnRimpiazzaPerNuovoProrata.Location = new System.Drawing.Point(118, 323);
 			this.btnRimpiazzaPerNuovoProrata.Name = "btnRimpiazzaPerNuovoProrata";
 			this.btnRimpiazzaPerNuovoProrata.Size = new System.Drawing.Size(111, 22);
 			this.btnRimpiazzaPerNuovoProrata.TabIndex = 45;
@@ -2364,7 +2399,7 @@ namespace mandate_default { //ordinegenerico//
 			this.Classificazioni.Controls.Add(this.btnIndInserisci);
 			this.Classificazioni.Location = new System.Drawing.Point(4, 22);
 			this.Classificazioni.Name = "Classificazioni";
-			this.Classificazioni.Size = new System.Drawing.Size(1012, 364);
+			this.Classificazioni.Size = new System.Drawing.Size(1011, 356);
 			this.Classificazioni.TabIndex = 1;
 			this.Classificazioni.Text = "Classificazioni";
 			this.Classificazioni.UseVisualStyleBackColor = true;
@@ -2379,7 +2414,7 @@ namespace mandate_default { //ordinegenerico//
 			this.dgrClassificazioni.Location = new System.Drawing.Point(16, 46);
 			this.dgrClassificazioni.Name = "dgrClassificazioni";
 			this.dgrClassificazioni.ReadOnly = true;
-			this.dgrClassificazioni.Size = new System.Drawing.Size(980, 314);
+			this.dgrClassificazioni.Size = new System.Drawing.Size(979, 306);
 			this.dgrClassificazioni.TabIndex = 15;
 			this.dgrClassificazioni.Tag = "mandatesorting.default.default";
 			// 
@@ -2423,7 +2458,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabEP.Controls.Add(this.labEP);
 			this.tabEP.Location = new System.Drawing.Point(4, 22);
 			this.tabEP.Name = "tabEP";
-			this.tabEP.Size = new System.Drawing.Size(1012, 364);
+			this.tabEP.Size = new System.Drawing.Size(1011, 356);
 			this.tabEP.TabIndex = 2;
 			this.tabEP.Text = "E/P";
 			this.tabEP.UseVisualStyleBackColor = true;
@@ -2549,7 +2584,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabMagazzino.Controls.Add(this.gBoxMagazzino);
 			this.tabMagazzino.Location = new System.Drawing.Point(4, 22);
 			this.tabMagazzino.Name = "tabMagazzino";
-			this.tabMagazzino.Size = new System.Drawing.Size(1012, 364);
+			this.tabMagazzino.Size = new System.Drawing.Size(1011, 356);
 			this.tabMagazzino.TabIndex = 4;
 			this.tabMagazzino.Text = "Magazzino";
 			this.tabMagazzino.UseVisualStyleBackColor = true;
@@ -2573,7 +2608,7 @@ namespace mandate_default { //ordinegenerico//
 			this.gridStock.Location = new System.Drawing.Point(15, 69);
 			this.gridStock.Name = "gridStock";
 			this.gridStock.ReadOnly = true;
-			this.gridStock.Size = new System.Drawing.Size(982, 291);
+			this.gridStock.Size = new System.Drawing.Size(981, 271);
 			this.gridStock.TabIndex = 3;
 			this.gridStock.Tag = "stockview.default";
 			// 
@@ -2616,7 +2651,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabAttributi.Location = new System.Drawing.Point(4, 22);
 			this.tabAttributi.Name = "tabAttributi";
 			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAttributi.Size = new System.Drawing.Size(1012, 364);
+			this.tabAttributi.Size = new System.Drawing.Size(1011, 356);
 			this.tabAttributi.TabIndex = 6;
 			this.tabAttributi.Text = "Attributi";
 			this.tabAttributi.UseVisualStyleBackColor = true;
@@ -2630,7 +2665,7 @@ namespace mandate_default { //ordinegenerico//
 			this.gboxclass05.Controls.Add(this.txtDenom05);
 			this.gboxclass05.Location = new System.Drawing.Point(480, 76);
 			this.gboxclass05.Name = "gboxclass05";
-			this.gboxclass05.Size = new System.Drawing.Size(529, 64);
+			this.gboxclass05.Size = new System.Drawing.Size(474, 64);
 			this.gboxclass05.TabIndex = 23;
 			this.gboxclass05.TabStop = false;
 			this.gboxclass05.Tag = "";
@@ -2662,7 +2697,7 @@ namespace mandate_default { //ordinegenerico//
 			this.txtDenom05.Multiline = true;
 			this.txtDenom05.Name = "txtDenom05";
 			this.txtDenom05.ReadOnly = true;
-			this.txtDenom05.Size = new System.Drawing.Size(287, 52);
+			this.txtDenom05.Size = new System.Drawing.Size(232, 52);
 			this.txtDenom05.TabIndex = 3;
 			this.txtDenom05.TabStop = false;
 			this.txtDenom05.Tag = "sorting05.description";
@@ -2676,7 +2711,7 @@ namespace mandate_default { //ordinegenerico//
 			this.gboxclass04.Controls.Add(this.txtDenom04);
 			this.gboxclass04.Location = new System.Drawing.Point(480, 6);
 			this.gboxclass04.Name = "gboxclass04";
-			this.gboxclass04.Size = new System.Drawing.Size(529, 64);
+			this.gboxclass04.Size = new System.Drawing.Size(474, 64);
 			this.gboxclass04.TabIndex = 22;
 			this.gboxclass04.TabStop = false;
 			this.gboxclass04.Tag = "";
@@ -2704,11 +2739,11 @@ namespace mandate_default { //ordinegenerico//
 			this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom04.Location = new System.Drawing.Point(234, 12);
+			this.txtDenom04.Location = new System.Drawing.Point(234, 8);
 			this.txtDenom04.Multiline = true;
 			this.txtDenom04.Name = "txtDenom04";
 			this.txtDenom04.ReadOnly = true;
-			this.txtDenom04.Size = new System.Drawing.Size(287, 46);
+			this.txtDenom04.Size = new System.Drawing.Size(232, 50);
 			this.txtDenom04.TabIndex = 3;
 			this.txtDenom04.TabStop = false;
 			this.txtDenom04.Tag = "sorting04.description";
@@ -2854,7 +2889,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
 			this.tabAllegati.Name = "tabAllegati";
 			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(1012, 364);
+			this.tabAllegati.Size = new System.Drawing.Size(1011, 356);
 			this.tabAllegati.TabIndex = 5;
 			this.tabAllegati.Text = "Allegati";
 			this.tabAllegati.UseVisualStyleBackColor = true;
@@ -2869,7 +2904,7 @@ namespace mandate_default { //ordinegenerico//
 			this.dataGrid1.Location = new System.Drawing.Point(15, 48);
 			this.dataGrid1.Name = "dataGrid1";
 			this.dataGrid1.ReadOnly = true;
-			this.dataGrid1.Size = new System.Drawing.Size(980, 310);
+			this.dataGrid1.Size = new System.Drawing.Size(979, 289);
 			this.dataGrid1.TabIndex = 19;
 			this.dataGrid1.Tag = "mandateattachment.lista.default";
 			// 
@@ -2910,7 +2945,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabConsip.Controls.Add(this.txtConsipMotive1);
 			this.tabConsip.Location = new System.Drawing.Point(4, 22);
 			this.tabConsip.Name = "tabConsip";
-			this.tabConsip.Size = new System.Drawing.Size(1012, 364);
+			this.tabConsip.Size = new System.Drawing.Size(1011, 356);
 			this.tabConsip.TabIndex = 7;
 			this.tabConsip.Text = "CONSIP";
 			this.tabConsip.UseVisualStyleBackColor = true;
@@ -2918,7 +2953,7 @@ namespace mandate_default { //ordinegenerico//
 			// labelConsipExt
 			// 
 			this.labelConsipExt.AutoSize = true;
-			this.labelConsipExt.Location = new System.Drawing.Point(8, 163);
+			this.labelConsipExt.Location = new System.Drawing.Point(23, 163);
 			this.labelConsipExt.Name = "labelConsipExt";
 			this.labelConsipExt.Size = new System.Drawing.Size(10, 13);
 			this.labelConsipExt.TabIndex = 19;
@@ -2927,7 +2962,7 @@ namespace mandate_default { //ordinegenerico//
 			// mainLabelConsip
 			// 
 			this.mainLabelConsip.AutoSize = true;
-			this.mainLabelConsip.Location = new System.Drawing.Point(10, 22);
+			this.mainLabelConsip.Location = new System.Drawing.Point(25, 22);
 			this.mainLabelConsip.Name = "mainLabelConsip";
 			this.mainLabelConsip.Size = new System.Drawing.Size(10, 13);
 			this.mainLabelConsip.TabIndex = 18;
@@ -2940,9 +2975,9 @@ namespace mandate_default { //ordinegenerico//
 			this.cmbConsip2.DataSource = this.DS.consipkind_ext;
 			this.cmbConsip2.DisplayMember = "shortdescription";
 			this.cmbConsip2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbConsip2.Location = new System.Drawing.Point(7, 183);
+			this.cmbConsip2.Location = new System.Drawing.Point(19, 183);
 			this.cmbConsip2.Name = "cmbConsip2";
-			this.cmbConsip2.Size = new System.Drawing.Size(989, 21);
+			this.cmbConsip2.Size = new System.Drawing.Size(976, 21);
 			this.cmbConsip2.TabIndex = 15;
 			this.cmbConsip2.Tag = "mandate.idconsipkind_ext?mandateview.idconsipkind_ext";
 			this.cmbConsip2.ValueMember = "idconsipkind";
@@ -2951,7 +2986,7 @@ namespace mandate_default { //ordinegenerico//
 			// btnConsipkind
 			// 
 			this.btnConsipkind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnConsipkind.Location = new System.Drawing.Point(921, 82);
+			this.btnConsipkind.Location = new System.Drawing.Point(920, 82);
 			this.btnConsipkind.Name = "btnConsipkind";
 			this.btnConsipkind.Size = new System.Drawing.Size(75, 23);
 			this.btnConsipkind.TabIndex = 17;
@@ -2966,9 +3001,9 @@ namespace mandate_default { //ordinegenerico//
 			this.cmbConsip1.DataSource = this.DS.consipkind;
 			this.cmbConsip1.DisplayMember = "shortdescription";
 			this.cmbConsip1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbConsip1.Location = new System.Drawing.Point(7, 43);
+			this.cmbConsip1.Location = new System.Drawing.Point(19, 43);
 			this.cmbConsip1.Name = "cmbConsip1";
-			this.cmbConsip1.Size = new System.Drawing.Size(989, 21);
+			this.cmbConsip1.Size = new System.Drawing.Size(976, 21);
 			this.cmbConsip1.TabIndex = 15;
 			this.cmbConsip1.Tag = "mandate.idconsipkind?mandateview.idconsipkind";
 			this.cmbConsip1.ValueMember = "idconsipkind";
@@ -2978,12 +3013,12 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			this.txtConsipMotive1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtConsipMotive1.Location = new System.Drawing.Point(7, 84);
+			this.txtConsipMotive1.Location = new System.Drawing.Point(19, 84);
 			this.txtConsipMotive1.Multiline = true;
 			this.txtConsipMotive1.Name = "txtConsipMotive1";
 			this.txtConsipMotive1.ReadOnly = true;
 			this.txtConsipMotive1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtConsipMotive1.Size = new System.Drawing.Size(885, 56);
+			this.txtConsipMotive1.Size = new System.Drawing.Size(872, 56);
 			this.txtConsipMotive1.TabIndex = 16;
 			this.txtConsipMotive1.Tag = "mandate.consipmotive";
 			// 
@@ -2995,7 +3030,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabRegistroUnico.Controls.Add(this.grpRegistroUnico);
 			this.tabRegistroUnico.Location = new System.Drawing.Point(4, 22);
 			this.tabRegistroUnico.Name = "tabRegistroUnico";
-			this.tabRegistroUnico.Size = new System.Drawing.Size(1012, 364);
+			this.tabRegistroUnico.Size = new System.Drawing.Size(1011, 356);
 			this.tabRegistroUnico.TabIndex = 12;
 			this.tabRegistroUnico.Text = "Registro Unico";
 			this.tabRegistroUnico.UseVisualStyleBackColor = true;
@@ -3018,7 +3053,7 @@ namespace mandate_default { //ordinegenerico//
 			this.dgrPCC.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrPCC.Location = new System.Drawing.Point(8, 173);
 			this.dgrPCC.Name = "dgrPCC";
-			this.dgrPCC.Size = new System.Drawing.Size(995, 180);
+			this.dgrPCC.Size = new System.Drawing.Size(994, 172);
 			this.dgrPCC.TabIndex = 52;
 			this.dgrPCC.Tag = "pccview.mandate";
 			// 
@@ -3048,14 +3083,14 @@ namespace mandate_default { //ordinegenerico//
 			this.grpRegistroUnico.Controls.Add(this.label84);
 			this.grpRegistroUnico.Location = new System.Drawing.Point(8, 3);
 			this.grpRegistroUnico.Name = "grpRegistroUnico";
-			this.grpRegistroUnico.Size = new System.Drawing.Size(995, 108);
+			this.grpRegistroUnico.Size = new System.Drawing.Size(994, 108);
 			this.grpRegistroUnico.TabIndex = 50;
 			this.grpRegistroUnico.TabStop = false;
 			// 
 			// btnCreaRegistroUnico
 			// 
 			this.btnCreaRegistroUnico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCreaRegistroUnico.Location = new System.Drawing.Point(75, 79);
+			this.btnCreaRegistroUnico.Location = new System.Drawing.Point(74, 79);
 			this.btnCreaRegistroUnico.Name = "btnCreaRegistroUnico";
 			this.btnCreaRegistroUnico.Size = new System.Drawing.Size(190, 23);
 			this.btnCreaRegistroUnico.TabIndex = 18;
@@ -3123,7 +3158,7 @@ namespace mandate_default { //ordinegenerico//
 			this.txtAnnotazioniRU.Location = new System.Drawing.Point(541, 35);
 			this.txtAnnotazioniRU.Multiline = true;
 			this.txtAnnotazioniRU.Name = "txtAnnotazioniRU";
-			this.txtAnnotazioniRU.Size = new System.Drawing.Size(448, 67);
+			this.txtAnnotazioniRU.Size = new System.Drawing.Size(447, 67);
 			this.txtAnnotazioniRU.TabIndex = 4;
 			this.txtAnnotazioniRU.Tag = "mandate.annotations";
 			// 
@@ -3144,7 +3179,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabAltro.Controls.Add(this.grpCertificatiNecessari);
 			this.tabAltro.Location = new System.Drawing.Point(4, 22);
 			this.tabAltro.Name = "tabAltro";
-			this.tabAltro.Size = new System.Drawing.Size(1012, 364);
+			this.tabAltro.Size = new System.Drawing.Size(1011, 356);
 			this.tabAltro.TabIndex = 11;
 			this.tabAltro.Text = "Altro";
 			this.tabAltro.UseVisualStyleBackColor = true;
@@ -3254,7 +3289,7 @@ namespace mandate_default { //ordinegenerico//
 			this.grpCertificatiNecessari.Controls.Add(this.chkDurc);
 			this.grpCertificatiNecessari.Controls.Add(this.chkVisura);
 			this.grpCertificatiNecessari.Controls.Add(this.chkCCdedicato);
-			this.grpCertificatiNecessari.Location = new System.Drawing.Point(521, 15);
+			this.grpCertificatiNecessari.Location = new System.Drawing.Point(520, 15);
 			this.grpCertificatiNecessari.Name = "grpCertificatiNecessari";
 			this.grpCertificatiNecessari.Size = new System.Drawing.Size(482, 136);
 			this.grpCertificatiNecessari.TabIndex = 97;
@@ -3359,6 +3394,16 @@ namespace mandate_default { //ordinegenerico//
 			this.chkCCdedicato.Tag = "mandate.requested_doc:0";
 			this.chkCCdedicato.Text = "CC dedicato";
 			// 
+			// btnInvioRichiestaGara
+			// 
+			this.btnInvioRichiestaGara.Location = new System.Drawing.Point(441, 11);
+			this.btnInvioRichiestaGara.Name = "btnInvioRichiestaGara";
+			this.btnInvioRichiestaGara.Size = new System.Drawing.Size(121, 23);
+			this.btnInvioRichiestaGara.TabIndex = 100;
+			this.btnInvioRichiestaGara.Text = "Crea Gara";
+			this.btnInvioRichiestaGara.UseVisualStyleBackColor = true;
+			this.btnInvioRichiestaGara.Click += new System.EventHandler(this.btnInvioRichiestaGara_Click);
+			// 
 			// label43
 			// 
 			this.label43.Location = new System.Drawing.Point(631, 184);
@@ -3438,7 +3483,7 @@ namespace mandate_default { //ordinegenerico//
 			this.txtApplierAnnotations.Multiline = true;
 			this.txtApplierAnnotations.Name = "txtApplierAnnotations";
 			this.txtApplierAnnotations.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtApplierAnnotations.Size = new System.Drawing.Size(605, 48);
+			this.txtApplierAnnotations.Size = new System.Drawing.Size(582, 48);
 			this.txtApplierAnnotations.TabIndex = 5;
 			this.txtApplierAnnotations.Tag = "mandate.applierannotations";
 			// 
@@ -3489,7 +3534,7 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			// btnintegra
 			// 
-			this.btnintegra.Location = new System.Drawing.Point(113, 10);
+			this.btnintegra.Location = new System.Drawing.Point(131, 10);
 			this.btnintegra.Name = "btnintegra";
 			this.btnintegra.Size = new System.Drawing.Size(132, 24);
 			this.btnintegra.TabIndex = 42;
@@ -3501,7 +3546,7 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			// btnApprova
 			// 
-			this.btnApprova.Location = new System.Drawing.Point(252, 10);
+			this.btnApprova.Location = new System.Drawing.Point(293, 10);
 			this.btnApprova.Name = "btnApprova";
 			this.btnApprova.Size = new System.Drawing.Size(137, 24);
 			this.btnApprova.TabIndex = 43;
@@ -3513,9 +3558,9 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			// btnAnnullaApprova
 			// 
-			this.btnAnnullaApprova.Location = new System.Drawing.Point(563, 10);
+			this.btnAnnullaApprova.Location = new System.Drawing.Point(882, 10);
 			this.btnAnnullaApprova.Name = "btnAnnullaApprova";
-			this.btnAnnullaApprova.Size = new System.Drawing.Size(97, 24);
+			this.btnAnnullaApprova.Size = new System.Drawing.Size(106, 24);
 			this.btnAnnullaApprova.TabIndex = 44;
 			this.btnAnnullaApprova.TabStop = false;
 			this.btnAnnullaApprova.Tag = "";
@@ -3525,6 +3570,7 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			// gboxAction
 			// 
+			this.gboxAction.Controls.Add(this.btnInvioRichiestaGara);
 			this.gboxAction.Controls.Add(this.btnAnnulla);
 			this.gboxAction.Controls.Add(this.btnAccetta);
 			this.gboxAction.Controls.Add(this.btnAnnullaApprova);
@@ -3532,15 +3578,15 @@ namespace mandate_default { //ordinegenerico//
 			this.gboxAction.Controls.Add(this.btnApprova);
 			this.gboxAction.Location = new System.Drawing.Point(8, 0);
 			this.gboxAction.Name = "gboxAction";
-			this.gboxAction.Size = new System.Drawing.Size(671, 40);
+			this.gboxAction.Size = new System.Drawing.Size(999, 40);
 			this.gboxAction.TabIndex = 1;
 			this.gboxAction.TabStop = false;
 			// 
 			// btnAnnulla
 			// 
-			this.btnAnnulla.Location = new System.Drawing.Point(457, 10);
+			this.btnAnnulla.Location = new System.Drawing.Point(754, 10);
 			this.btnAnnulla.Name = "btnAnnulla";
-			this.btnAnnulla.Size = new System.Drawing.Size(97, 24);
+			this.btnAnnulla.Size = new System.Drawing.Size(114, 24);
 			this.btnAnnulla.TabIndex = 45;
 			this.btnAnnulla.TabStop = false;
 			this.btnAnnulla.Tag = "";
@@ -3611,7 +3657,7 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(1038, 593);
+			this.ClientSize = new System.Drawing.Size(1023, 583);
 			this.Controls.Add(this.checkBox1);
 			this.Controls.Add(this.gboxAction);
 			this.Controls.Add(this.gboxStato);
@@ -3655,6 +3701,7 @@ namespace mandate_default { //ordinegenerico//
 			this.tabLotti.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridLotti)).EndInit();
 			this.tabEsito.ResumeLayout(false);
+			this.tabEsito.PerformLayout();
 			this.groupBox7.ResumeLayout(false);
 			this.groupBox7.PerformLayout();
 			this.groupBox8.ResumeLayout(false);
@@ -3734,11 +3781,11 @@ namespace mandate_default { //ordinegenerico//
 
                 DateTime originalDate = (rDetail["stop", DataRowVersion.Original] == DBNull.Value)
                     ? QueryCreator.EmptyDate()
-                    : (DateTime) rDetail["stop", DataRowVersion.Original];
+                    : (DateTime)rDetail["stop", DataRowVersion.Original];
 
                 DateTime currentDate = (rDetail["stop", DataRowVersion.Current] == DBNull.Value)
                     ? QueryCreator.EmptyDate()
-                    : (DateTime) rDetail["stop", DataRowVersion.Current];
+                    : (DateTime)rDetail["stop", DataRowVersion.Current];
 
                 int yearOriginalSTOP = originalDate.Year;
                 int yearCurrentSTOP = currentDate.Year;
@@ -3747,7 +3794,7 @@ namespace mandate_default { //ordinegenerico//
                 if ((rDetail["stop", DataRowVersion.Original] == DBNull.Value) &&
                     (rDetail["stop", DataRowVersion.Current] != DBNull.Value)) {
                     string filtroBrother = QHC.MCmp(rDetail,
-                        new string[] {"idmankind", "yman", "nman", "idgroup"});
+                        new string[] { "idmankind", "yman", "nman", "idgroup" });
 
                     foreach (DataRow rBrother in DS.mandatedetail.Select(filtroBrother)) {
                         object brtDate = rBrother["stop"];
@@ -3770,7 +3817,7 @@ namespace mandate_default { //ordinegenerico//
                 if ((rDetail["stop", DataRowVersion.Original] != DBNull.Value) &&
                     (rDetail["stop", DataRowVersion.Current] == DBNull.Value)) {
                     string filtroBrother = QHC.MCmp(rDetail,
-                        new string[] {"idmankind", "yman", "nman", "idgroup"});
+                        new string[] { "idmankind", "yman", "nman", "idgroup" });
 
                     foreach (DataRow rBrother in DS.mandatedetail.Select(filtroBrother)) {
                         object brtDate = rBrother["stop"];
@@ -3785,7 +3832,7 @@ namespace mandate_default { //ordinegenerico//
 
                             rBrother["stop"] = DBNull.Value;
                             doSetDatagrid = true;
-                            }
+                        }
 
                     }
                 }
@@ -3794,8 +3841,8 @@ namespace mandate_default { //ordinegenerico//
                 //L'ho condizionato per farlo agire solo quando serve
                 HelpForm.SetDataGrid(detailgrid, DS.mandatedetail);
                 HelpForm.SetDataGrid(dataGridDettAnn, DS.mandatedetail);
-                }
             }
+        }
 
         bool abilitaLotti(object idmankind) {
             DataRow[] r = DS.mandatekind.Select(QHC.CmpEq("idmankind", idmankind));
@@ -3939,8 +3986,8 @@ namespace mandate_default { //ordinegenerico//
                 DS.mandatedetail._Filter(q.isNotNull("rownum_main")).Length > 0) {
                 foreach (var r in DS.mandatedetail._Filter(q.isNotNull("rownum_main"))) {
                     if (r.RowState == DataRowState.Added) r.Delete();
-                    }
                 }
+            }
             DataRow Curr = DS.mandate.Rows[0];
             //if (Meta.FirstFillForThisRow) {
             //    VisualizzaNascondiLotti( abilitaLotti(Curr["idmankind"]));
@@ -4214,6 +4261,7 @@ namespace mandate_default { //ordinegenerico//
                 // Metodo che annulla tutti i fratelli di un dettaglio ove lo stesso sia splittato.
                 // Lo richiamo solo in EditMode, in InsertMode non ha davvero senso
                 allineaFratelli();
+                AbilitaDisabilitaInvioRichiestaGara(row_mandatekind);
             }
 
             CalcolaImporto();
@@ -4221,7 +4269,7 @@ namespace mandate_default { //ordinegenerico//
             txtEsercOrdine.ReadOnly = true;
             if (Meta.InsertMode) {
                 btnSituazione.Enabled = false;
-                
+
                 // Solo in inserimento,
                 // se non sono stati inseriti nè partecipanti nè lotti è possibile importare una gara
                 if (DS.mandateavcp.Count() == 0 && DS.mandatecig.Count() == 0)
@@ -4273,7 +4321,7 @@ namespace mandate_default { //ordinegenerico//
 
                 if (DS.mandatedetail.Rows.Count == 0) {
                     AzzeraDefaultDettagli(true);
-                    
+
                     object idupb_selected = (row_mandatekind == null ? DBNull.Value : row_mandatekind["idupb"]);
                     MetaData.SetDefault(DS.mandatedetail, "idupb", idupb_selected);
                 }
@@ -4331,17 +4379,17 @@ namespace mandate_default { //ordinegenerico//
                 object idivakind_forced = (row_mandatekind == null ? DBNull.Value : row_mandatekind["idivakind_forced"]);
 
                 if (idivakind_forced != DBNull.Value) {
-	                MetaData.SetDefault(DS.mandatedetail, "idivakind", idivakind_forced);
+                    MetaData.SetDefault(DS.mandatedetail, "idivakind", idivakind_forced);
 
-	                DataTable tivakind = Conn.RUN_SELECT("ivakind", "*", null,
-		                QHC.CmpEq("idivakind", idivakind_forced), null, null, true);//5ms
+                    DataTable tivakind = Conn.RUN_SELECT("ivakind", "*", null,
+                        QHC.CmpEq("idivakind", idivakind_forced), null, null, true);//5ms
 
-	                if (tivakind.Rows.Count > 0) {
-		                DataRow RIvaKind = tivakind.Rows[0];
-		                object taxrate_forced = RIvaKind["rate"];
-		                MetaData.SetDefault(DS.mandatedetail, "taxrate", taxrate_forced);
-	                }
-	                    
+                    if (tivakind.Rows.Count > 0) {
+                        DataRow RIvaKind = tivakind.Rows[0];
+                        object taxrate_forced = RIvaKind["rate"];
+                        MetaData.SetDefault(DS.mandatedetail, "taxrate", taxrate_forced);
+                    }
+
                 }
             }
 
@@ -4387,7 +4435,7 @@ namespace mandate_default { //ordinegenerico//
                 //        HelpForm.SetDataGrid(dataGridDettAnn, DS.mandatedetail);
                 //        }
                 //    }
-                }
+            }
             if (Meta.InsertMode) {
                 if (Current["idmankind_origin"] != DBNull.Value) {
                     cmbTipoOrdine.Enabled = false;
@@ -4482,9 +4530,9 @@ namespace mandate_default { //ordinegenerico//
             object curridmankind = curr["idmankind"];
             DataRow row_mandatekind = null;
             if (curridmankind.ToString() != "") {
-                row_mandatekind = DS.mandatekind.get(Conn,q.eq("idmankind",curridmankind))._First();
+                row_mandatekind = DS.mandatekind.get(Conn, q.eq("idmankind", curridmankind))._First();
 
-                    //.Select(QHC.CmpEq("idmankind", curridmankind))[0];
+                //.Select(QHC.CmpEq("idmankind", curridmankind))[0];
             }
 
             string flagmultireg_selected = (row_mandatekind == null
@@ -4499,8 +4547,8 @@ namespace mandate_default { //ordinegenerico//
             mAvcp.SetDefaults(DS.mandateavcp);
             DataRow ravcp = mAvcp.Get_New_Row(curr, DS.mandateavcp);
             DataRow R = DS.registrymainview.get(Conn, q.eq("idreg", idreg))._First();
-            if (R==null)return;
-                //QHC.CmpEq("idreg", idreg)))[0];
+            if (R == null) return;
+            //QHC.CmpEq("idreg", idreg)))[0];
             ravcp["idreg"] = idreg;
 
             if (R["cf"] != DBNull.Value) {
@@ -4789,6 +4837,7 @@ namespace mandate_default { //ordinegenerico//
             // Add - Invio Mail al cambio stato
             DataRow CurrRow = DS.mandate.Rows[0];
             DoSendMail = false;
+            //DoCreaGara = true;// false;
             if (CurrRow.RowState != DataRowState.Deleted) {
                 CurrentStatus = CfgFn.GetNoNullInt32(CurrRow["idmandatestatus"]);
                 int OriginalStatus;
@@ -4805,7 +4854,7 @@ namespace mandate_default { //ordinegenerico//
             }
             else {
                 ScollegaGaraTraspare();
-			}
+            }
 
 
             if (Meta.InsertMode) {
@@ -4857,12 +4906,12 @@ namespace mandate_default { //ordinegenerico//
 
                 if (rDettaglio.RowState == DataRowState.Modified) {
                     int yearOriginalStart = rDettaglio["start", DataRowVersion.Original] == DBNull.Value
-                        ? 0: ((DateTime) rDettaglio["start", DataRowVersion.Original]).Year;
-                    int yearCurrentStart = rDettaglio["start"] == DBNull.Value? 0
-                        : ((DateTime) rDettaglio["start"]).Year;
+                        ? 0 : ((DateTime)rDettaglio["start", DataRowVersion.Original]).Year;
+                    int yearCurrentStart = rDettaglio["start"] == DBNull.Value ? 0
+                        : ((DateTime)rDettaglio["start"]).Year;
                     int yearOriginalStop = rDettaglio["stop", DataRowVersion.Original] == DBNull.Value
-                        ? 0: ((DateTime) rDettaglio["stop", DataRowVersion.Original]).Year;
-                    int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime) rDettaglio["stop"]).Year;
+                        ? 0 : ((DateTime)rDettaglio["stop", DataRowVersion.Original]).Year;
+                    int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime)rDettaglio["stop"]).Year;
                     bool todo = true;
                     if (todo && yearOriginalStop == 0 && yearCurrentStop > 0 && yearCurrentStop == esercizio) {
                         //stiamo annullando un dettaglio contabilizzato. La sostituzione di norma non segue questo metodo
@@ -4894,7 +4943,7 @@ namespace mandate_default { //ordinegenerico//
                 }
                 else {
                     //Se il dettaglio è in stato di inserimento, crea una variazione su esso
-                    int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime) rDettaglio["stop"]).Year;
+                    int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime)rDettaglio["stop"]).Year;
 
                     if (yearCurrentStop != 0 && yearCurrentStop == esercizio) {
                         generaVariazione("-", rDettaglio);
@@ -4902,10 +4951,10 @@ namespace mandate_default { //ordinegenerico//
                 }
 
                 if (rDettaglio.RowState == DataRowState.Added) {
-                    int yearCurrentStart = rDettaglio["start"] == DBNull.Value ? 0 : ((DateTime) rDettaglio["start"]).Year;
-                    int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime) rDettaglio["stop"]).Year;
+                    int yearCurrentStart = rDettaglio["start"] == DBNull.Value ? 0 : ((DateTime)rDettaglio["start"]).Year;
+                    int yearCurrentStop = rDettaglio["stop"] == DBNull.Value ? 0 : ((DateTime)rDettaglio["stop"]).Year;
 
-                    if (yearCurrentStop ==0 && yearCurrentStart > 0 && yearCurrentStart == esercizio) {
+                    if (yearCurrentStop == 0 && yearCurrentStart > 0 && yearCurrentStart == esercizio) {
                         //Questo è un dettaglio creato con il rimpiazzo, è nuovo e acquisisce l'idexp del dettaglio annullato
                         generaVariazione("+", rDettaglio);
                     }
@@ -5174,6 +5223,14 @@ namespace mandate_default { //ordinegenerico//
                 }
             }
 
+            //if (DoCreaGara)
+            //{
+            //    string authtoken = GetTokenGara();
+
+            //    CreaGara(authtoken);
+            //    DoCreaGara = false;
+            //}
+
 
             //if (Meta.edit_type == "default") {
             EPM.afterPost();
@@ -5183,6 +5240,224 @@ namespace mandate_default { //ordinegenerico//
             VisualizzaNumeroRegistroUnico();
         }
 
+        // =========================================
+        // TRASPARE WS AUTH
+        // =========================================
+        private string GetTokenGara()
+        {
+            string token = "";
+            string responseBody = string.Empty;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            string urlAuth = ""; //"https://demo.traspare-test.com/api/v1/auth?email=api@temposrl.com&password=Aa123456";
+
+            string filterWS = QHS.CmpEq("code", "TRASPARE_Token");
+            DataTable app_config = Conn.RUN_SELECT("app_config", "param", null, filterWS, null, true);
+
+            // Se non ci sono righe il servizio ricezione token Gare a Traspare non è configurato
+            if (app_config.Rows.Count <= 0)
+                return null;
+
+            string api_param = app_config.Rows[0]["param"].ToString();
+            if (string.IsNullOrEmpty(api_param))
+                return null;
+
+            string[] par = api_param.Split('|');
+            if (par.Length > 0) {
+                // https://demo.traspare-test.com/api/v1/tempo_tender_pending_creations
+                // https://demo.traspare-test.com/api/v1/auth?email=api@temposrl.com&password=Aa123456
+                urlAuth = par[0];
+            }
+
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(urlAuth);
+            webRequest.ContentType = "text/xml;charset=\"utf-8\"";
+            webRequest.Method = "POST";
+
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    responseBody = reader.ReadToEnd();
+
+                    AuthResponse resp = JsonConvert.DeserializeObject<AuthResponse>(responseBody);
+
+                    token = resp.authentication_token;
+                }
+            }
+            catch (Exception Ex){
+                string s = Ex.Message;
+                show(this, "Errore nell'autenticazione a Traspare:\n" + s);
+            }
+
+            return token;
+        }
+
+        // =========================================
+        // TRASPARE WS AUTH
+        // =========================================
+        private int? CreaGara(string token){
+
+			string responseBody = string.Empty;
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            string urlAuth = ""; 
+
+            string filterWS = QHS.CmpEq("code", "TRASPARE_Auth");
+            DataTable app_config = Conn.RUN_SELECT("app_config", "param", null, filterWS, null, true);
+
+            // Se non ci sono righe il servizio invio Gare a Traspare non è configurato
+            if (app_config.Rows.Count <= 0)
+                return null;
+
+            string api_param = app_config.Rows[0]["param"].ToString();
+            if (string.IsNullOrEmpty(api_param))
+                return null ;
+
+            string[] par = api_param.Split('|');
+            if (par.Length > 0) {
+                // https://demo.traspare-test.com/api/v1/tempo_tender_pending_creations
+                // https://demo.traspare-test.com/api/v1/auth?email=api@temposrl.com&password=Aa123456
+                urlAuth = par[0];
+            }
+
+            urlAuth = urlAuth + "/?authentication_token="+token;
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(urlAuth);
+			webRequest.ContentType = "text/xml;charset=\"utf-8\"";
+			webRequest.Method = "POST";
+			//Aggiunge Header con Authorization token
+			webRequest.Headers["Authorization"] = token;
+            webRequest.ContentType= "application/json; Charset=utf-8";
+            //Aggiunge body con richiesta
+            //Crea i dati di post da inviare ... 
+            //Carica i dati nella List
+            DataRow M = DS.mandate.Rows[0];
+
+            DataRow Registry = null;
+            if (DS.registrymainview.Rows.Count > 0)
+                Registry = DS.registrymainview.Rows[0];
+
+            string valutaStr = "";
+            if (DS.currency != null && DS.currency.Rows.Count > 0) {
+                DataRow CurrValuta = DS.currency.Select(QHC.CmpEq("idcurrency", M["idcurrency"]))[0];
+                valutaStr = (CurrValuta == null ? "" : CurrValuta["description"].ToString());
+            }
+            string richiedenteStr = "";
+            //if (DS.sorting01 != null && DS.sorting01.Rows.Count > 0) {
+            //    DataRow Sorting1 = DS.sorting01.Rows[0];
+            //    richiedenteStr=(Sorting1 == null ? "" : Sorting1["description"].ToString());
+            //}
+            richiedenteStr = M["cu"].ToString();// Come persona che ha inserito la Rochiesta, per il momento scriviamo il 'cu'
+            object idreg_rupanac = M["idreg_rupanac"];
+            string cf_rupStr = "";
+            if (idreg_rupanac!=DBNull.Value && idreg_rupanac != null) {
+                cf_rupStr = Conn.DO_READ_VALUE("registry", qhs.CmpEq("idreg", idreg_rupanac), "cf").ToString();
+            }
+
+            //   {
+            //   "line_number": 2,
+            //   "description": "Descrizione linea 2",
+            //   "amount": 2,
+            //   "unit_amount": 100,
+            //   "tax_rate": 44,
+            //   "total_amount": 244,
+            //   "vat": 22,
+            //   "cup": "QWERTY11"
+            //}
+            string Mandkey = QHC.CmpKey(M);
+            DataTable mandatedetail_rowt = Conn.RUN_SELECT("mandatedetailview", "idmankind, yman, nman, rownum, rowtotal", null, Mandkey, null, null, false);
+            Hashtable Totamount_dett = new Hashtable();
+            foreach (DataRow R in mandatedetail_rowt.Select()) {
+                Totamount_dett[R["rownum"]] = R["rowtotal"];
+            }
+            List<DettaglioRichiestaOrdine> ListDettaglioRichiestaOrdine = new List<DettaglioRichiestaOrdine>();
+            foreach (DataRow dett in DS.mandatedetail.Select()) {
+                int i = CfgFn.GetNoNullInt32(dett["rownum"]) ;
+                decimal curr_total_amount = CfgFn.GetNoNullDecimal(Totamount_dett[i]);
+                DettaglioRichiestaOrdine dettRichiesta = new DettaglioRichiestaOrdine {
+                    line_number = CfgFn.GetNoNullInt32(dett["rownum"]),
+                    description = dett["detaildescription"].ToString(),
+                    amount = CfgFn.GetNoNullInt32(dett["number"]), // quantita
+                    unit_amount = CfgFn.GetNoNullDecimal(dett["taxable"]),
+                    tax_rate = CfgFn.GetNoNullDecimal(dett["tax"]),// iva_euro iva totale
+                    total_amount= curr_total_amount, //row_total importo totale
+                    vat = CfgFn.GetNoNullDecimal(dett["taxrate"])*100,// aliquota iva
+                    cup = dett["cupcode"].ToString()
+                };
+                ListDettaglioRichiestaOrdine.Add(dettRichiesta);
+            }
+            RichiestaOrdine CurrRichiestaOrdine = new RichiestaOrdine {
+                order_request_type = M["idmankind"].ToString(),
+                order_request_year = CfgFn.GetNoNullInt32(M["yman"]),
+                order_request_number = CfgFn.GetNoNullInt32(M["nman"]),
+                order_request_date = (DateTime)M["adate"],
+                description = M["description"].ToString(),
+                supplier_name = (Registry == null ? "" : Registry["title"].ToString()),
+                supplier_taxcode = (Registry == null ? "" : Registry["cf"].ToString()),
+                supplier_piva = (Registry == null ? "" : Registry["p_iva"].ToString()),
+                applicant = richiedenteStr,
+                currency = valutaStr,
+                accounting_date = (DateTime)M["adate"],
+                rup_taxcode = cf_rupStr,
+                order_lines = ListDettaglioRichiestaOrdine
+            };
+            
+            IsoDateTimeConverter converter = new IsoDateTimeConverter {
+                DateTimeStyles = DateTimeStyles.AdjustToUniversal,
+                DateTimeFormat = "yyyy-MM-dd"
+        };
+            string json = JsonConvert.SerializeObject(CurrRichiestaOrdine, converter);
+            // ... e li decodifica in una array di byte
+            byte[] byteArray = Encoding.UTF8.GetBytes(json);
+
+
+            // Imposta la ContentLength property della WebRequest.
+            webRequest.ContentLength = byteArray.Length;
+
+            // Acquisisce lo stream della richiesta 
+            Stream dataStream = webRequest.GetRequestStream();
+
+            // Scrive i dati nella request stream.
+            dataStream.Write(byteArray, 0, byteArray.Length);
+
+            // Chiude l'oggetto
+            dataStream.Close();
+
+
+            try {
+                using (HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    responseBody = reader.ReadToEnd();
+
+                    JObject sel = JObject.Parse(responseBody);
+                    int id_ricevuto = CfgFn.GetNoNullInt32(sel["tempo_tender_pending_creation_id"]);
+                    return id_ricevuto;
+                }
+            }
+            catch (Exception Ex)
+            {
+                string s = Ex.Message;
+                show(this, "Errore nell'invio a Traspare:\n" + s);
+                return null;
+            }
+        }
+
+        private HttpWebRequest getSoapRequest(String method)
+        {
+            //Making Web Request    
+            HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(@"https://webservices.smartedu.unict.it/service2/didattica/didatticaservice2.asmx");
+            //SOAPAction    
+            Req.Headers.Add("email:api@temposrl.com");
+            Req.Headers.Add("password:api@temposrl.com");
+            //Content_type    
+            Req.ContentType = "text /xml;charset=\"utf-8\"";
+            Req.Accept = "text/xml";
+            //HTTP method    
+            Req.Method = "POST";
+
+            return Req;
+        }
 
         private string GetDetailDescription(DataRow Main, DataRow R) {
             double tassocambio = CfgFn.GetNoNullDouble(Main["exchangerate"]);
@@ -5303,7 +5578,7 @@ namespace mandate_default { //ordinegenerico//
             VisualizzaBottoneConsip(0, true);
             AbilitaDisabilitaConsip_Ext(0, true);
             abilitaDisabilitaCertificatiRichiesti(null);
-
+            AbilitaDisabilitaInvioRichiestaGara(null);
             VisualizzaNascondiLotti(true);
             VisualizzaNascondiConsip(true);
             VisualizzaNascondiMagazzino(true);
@@ -5311,9 +5586,6 @@ namespace mandate_default { //ordinegenerico//
             RiposizionaTabAltro();
 
             VisualizzaBottoneImportaGara(false);
-
-            btnImportaGara.Visible = false;
-
             btnOrdiniNoLotti.Visible = true;
             btnOrdiniNoPartecipanti.Visible = true;
             btnPartecipantiNonAssociati.Visible = true;
@@ -5323,7 +5595,6 @@ namespace mandate_default { //ordinegenerico//
             txtEsercOrdine.ReadOnly = false;
             txtCredDeb.ReadOnly = false;
             btnSituazione.Enabled = false;
-            // Se la tabella wsgara è vuota significa che il cliente non usa il servizio
             btnImportaGara.Enabled = false;
             txtcig.ReadOnly = false;
 
@@ -5352,6 +5623,7 @@ namespace mandate_default { //ordinegenerico//
             txtTotale.Text = "";
             txtImponibile.Text = "";
             txtIva.Text = "";
+            txtDataScadenza.Text = "";
             VisualizzaNumeroRegistroUnico();
             AbilitaDisabilitaRegistroUnico();
             txtProgressivoRU.ReadOnly = false;
@@ -5695,7 +5967,7 @@ namespace mandate_default { //ordinegenerico//
                 }
 
             if (T.TableName == "mandatekind" && R != null) {
-
+                AbilitaDisabilitaInvioRichiestaGara(R);
                 VisualizzaNascondiLotti(abilitaLotti(R["idmankind"]));
                 VisualizzaNascondiConsip(abilitaConsip(R["idmankind"]));
                 VisualizzaNascondiMagazzino(abilitaMagazzino(R["idmankind"]));
@@ -6832,11 +7104,32 @@ namespace mandate_default { //ordinegenerico//
             curr["resendingpcc"] = "N";
             chkSendPCC.CheckState = CheckState.Unchecked;
             if (!Meta.GetFormData(false)) return;
-            curr["idmandatestatus"] = 5;
+
+            DataTable t = Conn.RUN_SELECT("mandate", "*", null,
+               QHS.AppAnd(QHS.CmpEq("idmankind_origin", curr["idmankind"]),
+                   QHS.CmpEq("nman_origin", curr["nman"]),
+                   QHS.CmpEq("yman_origin", curr["yman"])
+               ), null, false);
+            if (t != null && t.Rows.Count > 0) {
+                show(
+                    "La richiesta è già confluita in un contratto passivo, non è possibile ripetere l'operazione",
+                    "Avviso");
+                return;
+            }
+
+
+            if (curr["idtemporaneogara"] != DBNull.Value) {
+                show("Questa richiesta è stata inviata al servizio di gestione delle Gare.\n" +
+                                "Non può essere creato qui il contratto passivo \n" +
+                                "ma si consiglia di importare i dati della Gara dopo la sua aggiudicazione.", "Avviso");
+                return;
+            }
+
+            curr["idmandatestatus"] = 5; //effettuo il cambio di stato in Approvato
             Meta.FreshForm();
             Meta.DoMainCommand("mainsave");
 
-
+          
             show("Sarà ora creato e visualizzato l'ordine a partire da questa richiesta\n" +
                             "Sarà quindi necessario scegliere il nuovo tipo contratto ed eventualmente\n" +
                             "il numero qualora la numerazione sia manuale", "Avviso");
@@ -7576,6 +7869,8 @@ namespace mandate_default { //ordinegenerico//
             int len = Convert.ToInt32(ff[3]);
             string ftype = ff[2].ToLower().Trim(); //(intero/numero/stringa/codificato/data)
             int rownum = 0;
+            DateTime? inizioCompetenza = null;
+            DateTime? fineCompetenza = null;
             foreach (DataRow riga in mData.Select()) {
                 string val = riga[fieldname].ToString().Trim();
                 rownum++;
@@ -7604,9 +7899,7 @@ namespace mandate_default { //ordinegenerico//
                         break;
 
                     case "iniziocompetenza":
-                    case "finecompetenza":
-                        // controllo della data 
-                        if (!controllaData(val) && (val != "")) {
+                        if (!controllaData(val, out inizioCompetenza) && (val != "")) {
                             string err = "Valore non previsto nella decodifica della data " + fieldname + " di tipo " +
                                          ftype + " e di valore " +
                                          val.Trim() + " alla riga " + rownum;
@@ -7615,7 +7908,39 @@ namespace mandate_default { //ordinegenerico//
                             T.Rows.Add(row);
                             ok = false;
                         }
+                        break;
+                    case "finecompetenza":
+                        // controllo della data 
+                        if (!controllaData(val, out fineCompetenza) && (val != "")) {
+                            string err = "Valore non previsto nella decodifica della data " + fieldname + " di tipo " +
+                                         ftype + " e di valore " +
+                                         val.Trim() + " alla riga " + rownum;
 
+                            DataRow row = T.NewRow();
+                            row["errors"] = err;
+                            T.Rows.Add(row);
+                            ok = false;
+                        }
+                        else {
+                            object valiniziocObj = riga["iniziocompetenza"];
+                            string valinizioc = "";
+                            if (valiniziocObj!=DBNull.Value) {
+                                valinizioc = valiniziocObj.ToString().Trim();
+                                if (controllaData(valinizioc, out inizioCompetenza)
+                                    && (valinizioc != ""))
+                                    if (inizioCompetenza != null && fineCompetenza != null
+                                          && inizioCompetenza > fineCompetenza) {
+                                          string err = "Data inizio competenza " + valinizioc.ToString() + " non può essere successiva a Data fine competenza " +
+                                                       val.ToString() +  " alla riga " + rownum;
+                                          DataRow row = T.NewRow();
+                                          row["errors"] = err;
+                                          T.Rows.Add(row);
+                                          ok = false;
+                                    }
+                           }
+                        }
+                        inizioCompetenza = null;
+                        fineCompetenza = null;
                         break;
 
 
@@ -7643,22 +7968,25 @@ namespace mandate_default { //ordinegenerico//
                             T.Rows.Add(row);
                             ok = false;
                         }
-
                         break;
+
                 }
+
             }
 
             return ok;
         }
 
 
-        private bool controllaData(string txtData) {
+        private bool controllaData(string txtData, out DateTime? date) {
             try {
                 DateTime TT = (DateTime) HelpForm.GetObjectFromString(typeof(DateTime),
                     txtData, "x.y");
+                date = TT;
                 return true;
             }
             catch {
+                date = null;
                 return false;
             }
         }
@@ -8368,14 +8696,14 @@ namespace mandate_default { //ordinegenerico//
             {
                 DataRow drMandate = DS.mandate.Rows[0];
 
-                // Scegleire il tipo Ordine prima di importare la Gara
+                // Scegliere il tipo Ordine prima di importare la Gara
                 if (drMandate["idmankind"].ToString() == "")
                 {
                     show("E' necessario scegliere il tipo contratto");
                     return;
                 }
             }
-
+            
             MetaData GaraTraspareView = Meta.Dispatcher.Get("garatraspareview");
             GaraTraspareView.FilterLocked = true;
             DataRow garaTraspare = GaraTraspareView.SelectOne("default", "", "garatraspareview", null);
@@ -8388,6 +8716,7 @@ namespace mandate_default { //ordinegenerico//
 
         private const string CAPOGRUPPO = "04";
 
+        //sara
         private void riempiContrattoDaGaraTraspare(DataRow garaTraspare)
         {
             // ==========================================================================================
@@ -8397,8 +8726,10 @@ namespace mandate_default { //ordinegenerico//
             // mandatecig
             // mandateavcp
             // ==========================================================================================
-            MetaData MetaMandate = MetaData.GetMetaData(this, "mandate");                
-            DataTable Mandate = DS.Tables["mandate"];                
+            MetaData MetaMandate = MetaData.GetMetaData(this, "mandate");
+            MetaData MetaMandatedetail = MetaMandate.Dispatcher.Get("mandatedetail");
+            DataTable Mandate = DS.Tables["mandate"];
+            DataTable mandatedet = DS.Tables["mandatedetail"];
             if (MetaMandate == null || MetaMandate.destroyed) return;
 
             if (Meta.InsertMode && DS.mandate.Rows.Count > 0)
@@ -8445,13 +8776,26 @@ namespace mandate_default { //ordinegenerico//
                 int idRegFornitore = CfgFn.GetNoNullInt32(IndividuaAnagrafica(FornitoreCFPIva, Fornitore));
                 if (idRegFornitore == 0)
                     show($"Non è stata individuata nessuna anagrafica per il fornitore con codice fiscale '{FornitoreCFPIva}' o Ragione Sociale '{Fornitore}'. Selezionarlo manualmente.");
-                drMandate["idreg"] = idRegFornitore;
+                else {
+                    drMandate["idreg"] = idRegFornitore;
+                   
+                    string VistaScelta = "registrymainview";
+                    MetaData MRegistry = MetaData.GetMetaData(this, VistaScelta);
+                    MRegistry.FilterLocked = true;
+                    MRegistry.DS = DS;
+                    DataRow MyDR = MRegistry.SelectOne("default", qhs.CmpEq("idreg", idRegFornitore), null, null);
+                    if (MyDR != null) {
+                         MetaData_AfterRowSelect(DS.registrymainview, MyDR);
+                    }
+
+                }
 
 
                 // ==========================================================================================
                 //                                          GARA
                 // ==========================================================================================
                 int idGara = 0;
+                int tempo_tender_pending_creation_id = 0;
                 DataTable dtGara = Conn.RUN_SELECT("wsgara", null, null, QHC.CmpEq("idGaraTraspare", idGaraTraspare), null, null, false);
                 if (dtGara != null)
                 {
@@ -8465,7 +8809,7 @@ namespace mandate_default { //ordinegenerico//
                             //                                        GARA
                             // ==========================================================================================
                             idGara = CfgFn.GetNoNullInt32(gara["idGara"]);
-
+                            tempo_tender_pending_creation_id = CfgFn.GetNoNullInt32(gara["tempo_tender_pending_creation_id"]);
                             // ==========================================================================================
                             //                              STRUTTURA, ANNO AGGIUDICAZIONE
                             // ==========================================================================================
@@ -8508,12 +8852,45 @@ namespace mandate_default { //ordinegenerico//
                         }
                     }
                 }
-                
+                // ==========================================================================================
+                //Crea Mandatedetail
+                if (DS.mandatedetail.Rows.Count == 0) {
+                    string filtroRichiestaOrdine = QHS.AppAnd(QHC.CmpEq("idtemporaneogara", tempo_tender_pending_creation_id));
+                    DataTable RichiestaOrdine = Conn.RUN_SELECT("mandate", null, null, filtroRichiestaOrdine, null, null, false);
+                        // Si assume l'univocità dell'Id Temporaneo Gara che deve essere presente su una singola richiesta
+                        // quindi questa funzione va a clonare la richiesta nel contratto passivo corrente
+                        // valorizzandone il collegamento in modo univoco
+                        if (RichiestaOrdine.Rows.Count > 0) {
+                        foreach (DataRow Richiesta in RichiestaOrdine.Select()) {
+                            string kFilter = QHC.CmpKey(Richiesta);
+                            DataTable dettRichiestaOrdine = Conn.RUN_SELECT("mandatedetail", null, null, kFilter, null, null, false);
 
-                // ==========================================================================================
-                // LOTTI
-                // ==========================================================================================
-                string cigFilter = "'" + cigsAggiudicatario.ToString().Replace(",", "','") + "'";
+                            if (dettRichiestaOrdine.Rows.Count > 0) {
+                                drMandate["idmankind_origin"] = Richiesta["idmankind"];
+                                drMandate["yman_origin"] = Richiesta["yman"];
+                                drMandate["nman_origin"] = Richiesta["nman"];
+                            }
+
+                            foreach (DataRow detRic in dettRichiestaOrdine.Select()) {
+                                DataRow detCP = MetaMandatedetail.Get_New_Row(drMandate, DS.mandatedetail);
+                                foreach (DataColumn C in DS.mandatedetail.Columns) {
+                                    string field = C.ColumnName;
+                                    if (QueryCreator.IsPrimaryKey(DS.mandatedetail, field)) continue;
+                                    if (field == "idtemporaneogara") continue;
+                                    if (C.ColumnName.StartsWith("!")) continue;
+                                    detCP[field] = detRic[field];
+                                }
+                                detCP["rownum_origin"] = detRic["rownum"];
+                            }
+                        }
+                    }
+
+                }
+				// ==========================================================================================
+
+				// LOTTI
+				// ==========================================================================================
+				string cigFilter = "'" + cigsAggiudicatario.ToString().Replace(",", "','") + "'";
                 string filtroLotti = QHS.AppAnd(QHC.CmpEq("idgara", idGara), QHC.FieldInList("cig", cigFilter));
                 DataTable dtLotto = Conn.RUN_SELECT("wslotto", null, null, filtroLotti, null, null, false);
                 List<object> idLotti = new List<object>();
@@ -8728,7 +9105,7 @@ namespace mandate_default { //ordinegenerico//
             {
                 DataRow rRegistry = tAnag.Rows[0];
                 idreg = rRegistry["idreg"];
-                return idreg;
+                return idreg; 
             }
 
             //Ne ha trovate più di una con quella p.iva
@@ -8832,5 +9209,133 @@ namespace mandate_default { //ordinegenerico//
         private void txtDataContabile_Leave(object sender, EventArgs e) {
             UiHelper.UpdateControls(currencyManager, txtCambio, currentRow, txtDataContabile.Text);
         }
+
+        private void AbilitaDisabilitaInvioRichiestaGara(DataRow rMandatekind) {
+            if (Meta.IsEmpty) {
+                btnInvioRichiestaGara.Enabled = false;
+                return;
+            }
+            if (Meta.InsertMode) {
+                btnInvioRichiestaGara.Enabled = false;
+                return;
+            }
+            if ((rMandatekind == null) && (DS.mandate.Rows.Count == 0)){ 
+                btnInvioRichiestaGara.Enabled = false;
+                return;
+            }
+
+            // Disabilito se tipo è "Contratto Passivo"
+            if ((rMandatekind!= null) && rMandatekind["isrequest"].ToString().ToUpper() != "S") {
+                btnInvioRichiestaGara.Enabled = false;
+                return;
+            }
+            if (DS.mandate.Rows.Count <= 0) {
+                return;
+			}
+            DataRow CurrMandate = DS.mandate.Rows[0];
+        
+            // Se la richiesta d'ordine ha già l'id valorizzato, disattiva il button
+            object idtemporaneogara = CurrMandate["idtemporaneogara"];
+			if (idtemporaneogara != DBNull.Value) {
+                btnInvioRichiestaGara.Enabled = false;
+                return;
+            }
+            // Controlla se è configurato il servizio Traspare
+            DataTable GaraTraspare = Conn.RUN_SELECT("app_config", "param", null, QHS.CmpEq("code","TRASPARE_Auth"), null, true);
+
+            // Se non ci sono righe il servizio non è configurato
+            if ((GaraTraspare== null) || (GaraTraspare.Rows.Count <= 0)) {
+                btnInvioRichiestaGara.Enabled = false;
+                return;
+            }
+ 
+            //Abilita il button Trasmetti Gara se la Richiesta d'ordine è nello stato di Inserta
+            int idmanstatus = CfgFn.GetNoNullInt32(CurrMandate["idmandatestatus"]);
+			if (idmanstatus == 4) {
+                btnInvioRichiestaGara.Enabled = true;
+            }
+            else {
+                btnInvioRichiestaGara.Enabled = false;
+            }
+
+
+        }
+
+        private void btnInvioRichiestaGara_Click(object sender, EventArgs e) {
+            PostData.RemoveFalseUpdates(DS);
+            if (DS.HasChanges()) {
+                show(this,
+                           "E' necessario salvare prima di inviare la Richiesta Gara",
+                           "Avviso", MessageBoxButtons.OK);
+                return;
+            }
+
+            string authtoken = GetTokenGara();
+            int? idtemporaneogara = CreaGara(authtoken);
+            DataRow Curr = DS.mandate.Rows[0];
+
+            // Scrive l'id temporaneo gara ricevuto da Traspare 
+            if (idtemporaneogara!=null) {
+                if (!Meta.GetFormData(false)) return;
+                Curr["idtemporaneogara"] = idtemporaneogara;
+                Curr["idmandatestatus"]  = 5; //effettua il cambio di stato in Approvato sulla richiesta
+                Meta.FreshForm();
+                Meta.DoMainCommand("mainsave");
+                btnInvioRichiestaGara.Enabled = false;
+            }
+
+  
+            //DoCreaGara = false;
+        }
+	}
+
+	//public class RichiestaCompleta {
+	//    public RichiestaOrdine RICHIESTA_ORDINE { get; set; }
+	//    public List<DettaglioRichiestaOrdine> DETTAGLIO_RICHIESTA_ORDINE { get; set; }
+	//}
+	public class RichiestaOrdine {
+        public string order_request_type { get; set; }
+        public int order_request_year { get; set; }
+        public int order_request_number { get; set; }
+        public DateTime order_request_date { get; set; }
+        public string description { get; set; }
+        public string supplier_name { get; set; }// Fornitore
+        public string supplier_taxcode{ get; set; }//Fornitore CF 
+        public string supplier_piva { get; set; } // Fornitore piva
+        public string applicant { get; set; } //Richiedente
+        public string currency { get; set; }
+        public DateTime accounting_date { get; set; } //Data_Contabile
+        public string rup_taxcode { get; set; }      //CF del rup
+
+        public List<DettaglioRichiestaOrdine> order_lines { get; set; }
+    }
+
+    public class DettaglioRichiestaOrdine {
+        //public string order_request_type { get; set; }
+        //public int Anno_Richiesta_Ordine { get; set; }
+        //public int Numero_Richiesta_Ordine { get; set; }
+        public int line_number { get; set; }
+                     
+        public string description { get; set; }
+        public int  amount { get; set; }// quantità
+        public decimal unit_amount { get; set; }// importo unitario
+        public decimal tax_rate { get; set; }// importo iva
+        public decimal total_amount{ get; set; }// importo totale
+
+        public decimal vat { get; set; } // Aliquoata iva
+        
+        public string cup { get; set; }
+
+    }
+
+
+    class AuthResponse
+    {
+        public string authentication_token { get; set; }
+    }
+
+    class TraspareResponse
+    {
+        public int tender_pending_creation_id { get; set; }
     }
 }

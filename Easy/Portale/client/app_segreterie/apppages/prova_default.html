@@ -24,45 +24,35 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="prova_default_title">Denominazione</label>
-					<input id="prova_default_title" type="text" class="form-control" data-tag="prova.title?provadefaultview.title" data-subentity  data-mandatory />
+					<input id="prova_default_title" type="text" class="form-control" data-tag="prova.title?provadefaultview.title"  data-mandatory />
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#prova_default_start").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="prova_default_start">Data e ora inizio</label>
-					<input id="prova_default_start" type="text" class="form-control" data-tag="prova.start.g?provadefaultview.prova_start.g" data-subentity  data-mandatory />
+					<input id="prova_default_start" type="text" class="form-control" data-tag="prova.start.g?provadefaultview.prova_start.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#prova_default_stop").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="prova_default_stop">Data e ora fine</label>
-					<input id="prova_default_stop" type="text" class="form-control" data-tag="prova.stop.g?provadefaultview.prova_stop.g" data-subentity  data-mandatory />
+					<input id="prova_default_stop" type="text" class="form-control" data-tag="prova.stop.g?provadefaultview.prova_stop.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="prova_default_idquestionario">Questionario</label>
 					<div>
-						<input id="prova_default_idquestionario" name="prova_default_idquestionario" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="questionariodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="prova_default_idquestionario" name="prova_default_idquestionario" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="questionariodefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="prova_default_idvalutazionekind">Tipologia di valutazione</label>
-					<select id="prova_default_idvalutazionekind" class="custom-select d-block w-100"  data-source-name="valutazionekind" data-value-member="idvalutazionekind" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="prova.idvalutazionekind?provadefaultview.prova_idvalutazionekind" data-subentity   > </select>
+					<select id="prova_default_idvalutazionekind" class="custom-select d-block w-100"  data-source-name="valutazionekind" data-value-member="idvalutazionekind" data-display-member="title" data-custom-control="combo" data-tag="prova.idvalutazionekind?provadefaultview.prova_idvalutazionekind"   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="prova_default_programma">Programma</label>
-					<textarea class="textarea form-control" id="prova_default_programma" type="text"  rows="4" data-tag="prova.programma?provadefaultview.prova_programma" data-subentity  ></textarea>
+					<textarea class="textarea form-control" id="prova_default_programma" type="text"  rows="4" data-tag="prova.programma?provadefaultview.prova_programma"  ></textarea>
 				</div>
 			</div>
 	</div>

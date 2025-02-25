@@ -21,11 +21,11 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettotimesheet_default_year">Anno</label>
-					<select id="progettotimesheet_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-sort-member="" data-custom-control="combo" data-tag="progettotimesheet.year"   > </select>
+					<select id="progettotimesheet_default_year" class="custom-select d-block w-100"  data-source-name="year" data-value-member="year" data-display-member="year" data-custom-control="combo" data-tag="progettotimesheet.year"   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettotimesheet_default_idtimesheettemplate">Template</label>
-					<select id="progettotimesheet_default_idtimesheettemplate" class="custom-select d-block w-100"  data-source-name="timesheettemplate" data-value-member="idtimesheettemplate" data-display-member="idtimesheettemplate" data-sort-member="" data-custom-control="combo" data-tag="progettotimesheet.idtimesheettemplate"   > </select>
+					<select id="progettotimesheet_default_idtimesheettemplate" class="custom-select d-block w-100"  data-source-name="timesheettemplate" data-value-member="idtimesheettemplate" data-display-member="idtimesheettemplate" data-custom-control="combo" data-tag="progettotimesheet.idtimesheettemplate"   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -46,7 +46,7 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<div class="custom_lng_div" data-langkey="fieldlabelprogettotimesheet_default_showotheractivitiesrow" >Da utilizzare solo in caso di presenza parziale dei dati sul sistema. Se attivato simula l'attività quotidiana per un massimo di ore al giorno impostato nella figura contrattuale che il membro del personale possiede, a prescindere da quanto abbia realmente rendicontato.</div>
+					<div class="custom_lng_div" data-langkey="fieldlabelprogettotimesheet_default_showotheractivitiesrow" >Da utilizzare solo in caso di presenza parziale dei dati sul sistema o di timbrature per il personale tecnico amministrativo. Se attivato restituisce l'attività quotidiana, per un massimo di ore al giorno impostato nella figura contrattuale che il membro del personale possiede a prescindere da quanto abbia realmente rendicontato, oppure per le timbrature che ha effettuato.</div>
 					<label class="col-form-label col-md-12" for="progettotimesheet_default_showotheractivitiesrow">Visualizza la riga con la differenza con il totale giornaliero</label>
 					<div class="custom-control custom-radio">
 						<input id="progettotimesheet_default_showotheractivitiesrowSi" type="radio" name="progettotimesheet_default_showotheractivitiesrow" class="custom-control-input" data-tag="progettotimesheet.showotheractivitiesrow:S"  ><label for="progettotimesheet_default_showotheractivitiesrowSi"> Si</label>
@@ -106,13 +106,17 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettotimesheet_default_idmese">Mese</label>
-					<div>
-						<input id="progettotimesheet_default_idmese" name="progettotimesheet_default_idmese" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="mese.title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
-					</div>
+					<select id="progettotimesheet_default_idmese" class="custom-select d-block w-100"  data-source-name="mese" data-value-member="idmese" data-display-member="title" data-sort-member="idmese" data-custom-control="combo" data-tag="progettotimesheet.idmese"   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettotimesheet_default_idsal">SAL</label>
-					<select id="progettotimesheet_default_idsal" class="custom-select d-block w-100"  data-source-name="salelenchiview" data-value-member="idsal" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="progettotimesheet.idsal"   data-master="progettoelenchiview"> </select>
+					<select id="progettotimesheet_default_idsal" class="custom-select d-block w-100"  data-source-name="salelenchiview" data-value-member="idsal" data-display-member="dropdown_title" data-sort-member="start" data-custom-control="combo" data-tag="progettotimesheet.idsal"   data-master="progettoelenchiview"> </select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="progettotimesheet_default_sede">Sede di svolgimento delle attività</label>
+					<input id="progettotimesheet_default_sede" type="text" class="form-control" data-tag="progettotimesheet.sede"  />
 				</div>
 			</div>
 		<button id="timesheetReport" type="button" class="btn btn-primary p-2 mt-2" >

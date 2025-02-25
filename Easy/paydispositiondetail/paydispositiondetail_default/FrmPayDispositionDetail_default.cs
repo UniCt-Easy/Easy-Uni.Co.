@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -207,7 +207,7 @@ namespace paydispositiondetail_default {
                 if (DS.paydispositiondetail.Rows.Count == 0) return;
                 DataRow Curr = DS.paydispositiondetail.Rows[0];
                 int paymethodcode = CfgFn.GetNoNullInt32(Curr["paymethodcode"]);
-                if (paymethodcode == 1) {
+                if ((paymethodcode == 1) || (paymethodcode == 8)){
                     grpCoordinateBancarie.Enabled = true;
                 }
                 else {
@@ -443,7 +443,7 @@ namespace paydispositiondetail_default {
         }
 
         private void rdbBonifico_CheckedChanged(object sender, EventArgs e) {
-            if (rdbBonifico.Checked) {
+            if (rdbBonifico.Checked || rdbGirofondoiban.Checked) {
                 grpCoordinateBancarie.Enabled = true;
             }
             else {

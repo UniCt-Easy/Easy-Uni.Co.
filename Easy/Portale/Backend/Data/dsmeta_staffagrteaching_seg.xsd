@@ -38,6 +38,14 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="eqf" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ideqf" type="xs:int" />
+              <xs:element name="level" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="isced2013" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -53,9 +61,9 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idbandomi" type="xs:int" />
+              <xs:element name="ideqf" type="xs:int" />
               <xs:element name="idisced2013" type="xs:int" />
               <xs:element name="idiscrizionebmi" type="xs:int" />
-              <xs:element name="idlivelloeqf" type="xs:int" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idreg_docenti" type="xs:int" />
@@ -91,6 +99,10 @@
       <xs:selector xpath=".//mstns:geo_nation" />
       <xs:field xpath="mstns:idnation" />
     </xs:unique>
+    <xs:unique name="eqf_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:eqf" />
+      <xs:field xpath="mstns:ideqf" />
+    </xs:unique>
     <xs:unique name="isced2013_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:isced2013" />
       <xs:field xpath="mstns:idisced2013" />
@@ -109,6 +121,7 @@
       <msdata:Relationship name="FK_staffagrteaching_registrydefaultview_idreg_resp" msdata:parent="registrydefaultview" msdata:child="staffagrteaching" msdata:parentkey="idreg" msdata:childkey="idreg_resp" />
       <msdata:Relationship name="FK_staffagrteaching_registrydocentiview_idreg_docenti" msdata:parent="registrydocentiview" msdata:child="staffagrteaching" msdata:parentkey="idreg" msdata:childkey="idreg_docenti" />
       <msdata:Relationship name="FK_staffagrteaching_geo_nation_idnation" msdata:parent="geo_nation" msdata:child="staffagrteaching" msdata:parentkey="idnation" msdata:childkey="idnation" />
+      <msdata:Relationship name="FK_staffagrteaching_eqf_ideqf" msdata:parent="eqf" msdata:child="staffagrteaching" msdata:parentkey="ideqf" msdata:childkey="ideqf" />
       <msdata:Relationship name="FK_staffagrteaching_isced2013_idisced2013" msdata:parent="isced2013" msdata:child="staffagrteaching" msdata:parentkey="idisced2013" msdata:childkey="idisced2013" />
     </xs:appinfo>
   </xs:annotation>

@@ -14,9 +14,15 @@
               <xs:element name="getdocentiamministrativiresponsabili_istituto" type="xs:string" minOccurs="0" />
               <xs:element name="getdocentiamministrativiresponsabili_resplevel" type="xs:int" minOccurs="0" />
               <xs:element name="getdocentiamministrativiresponsabili_ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_struttura" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
+              <xs:element name="struttura_idstrutturakind" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
               <xs:element name="surname" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -26,8 +32,8 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -36,8 +42,8 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -182,6 +188,7 @@
               <xs:element name="indicatori" type="xs:decimal" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="motivazione" type="xs:string" minOccurs="0" />
               <xs:element name="obiettiviindividuali" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoindicatori" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoobiettivi" type="xs:decimal" minOccurs="0" />
@@ -197,20 +204,20 @@
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilidefaultview_alias2" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="getdocentiamministrativiresponsabilidefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilidefaultview_alias1" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="getdocentiamministrativiresponsabilidefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilidefaultview" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="perfobiettiviuosoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfobiettiviuosoglia" />
@@ -265,7 +272,7 @@
       <msdata:Relationship name="FK_perfobiettiviuo_perfvalutazioneuo_idperfvalutazioneuo" msdata:parent="perfvalutazioneuo" msdata:child="perfobiettiviuo" msdata:parentkey="idperfvalutazioneuo" msdata:childkey="idperfvalutazioneuo" />
       <msdata:Relationship name="FK_perfobiettiviuosoglia_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo" msdata:parent="perfobiettiviuo" msdata:child="perfobiettiviuosoglia" msdata:parentkey="idperfobiettiviuo idperfvalutazioneuo" msdata:childkey="idperfobiettiviuo idperfvalutazioneuo" />
       <msdata:Relationship name="FK_perfobiettiviuoattach_perfobiettiviuo_idperfobiettiviuo-idperfvalutazioneuo" msdata:parent="perfobiettiviuo" msdata:child="perfobiettiviuoattach" msdata:parentkey="idperfobiettiviuo idperfvalutazioneuo" msdata:childkey="idperfobiettiviuo idperfvalutazioneuo" />
-      <msdata:Relationship name="FK_perfvalutazioneuoufficiview_perfvalutazioneuo_idperfvalutazioneuo-idstruttura-year" msdata:parent="perfvalutazioneuo" msdata:child="perfvalutazioneuoufficiview" msdata:parentkey="idperfvalutazioneuo idstruttura year" msdata:childkey="idperfvalutazioneuo idstruttura year" />
+      <msdata:Relationship name="FK_perfvalutazioneuo_perfvalutazioneuoufficiview_idperfvalutazioneuo-idstruttura-year" msdata:parent="perfvalutazioneuoufficiview" msdata:child="perfvalutazioneuo" msdata:parentkey="idperfvalutazioneuo idstruttura year" msdata:childkey="idperfvalutazioneuo idstruttura year" />
       <msdata:Relationship name="FK_perfvalutazioneuo_perfschedastatusdefaultview_idperfschedastatus" msdata:parent="perfschedastatusdefaultview" msdata:child="perfvalutazioneuo" msdata:parentkey="idperfschedastatus" msdata:childkey="idperfschedastatus" />
       <msdata:Relationship name="FK_perfvalutazioneuo_strutturaperfelenchiview_idstruttura" msdata:parent="strutturaperfelenchiview" msdata:child="perfvalutazioneuo" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
       <msdata:Relationship name="FK_perfvalutazioneuo_year_year" msdata:parent="year" msdata:child="perfvalutazioneuo" msdata:parentkey="year" msdata:childkey="year" />

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -104,14 +104,16 @@ namespace sdi_acquisto_default {
 			this.gboxStato = new System.Windows.Forms.GroupBox();
 			this.cmbStatus = new System.Windows.Forms.ComboBox();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.grpTipoDocumento = new System.Windows.Forms.GroupBox();
+			this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
+			this.labelCod_tipodoc = new System.Windows.Forms.Label();
+			this.txtCod_tipodoc = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.btnXMLMT = new System.Windows.Forms.Button();
 			this.btnXMLEC = new System.Windows.Forms.Button();
-			this.label19 = new System.Windows.Forms.Label();
 			this.btnXMLSE = new System.Windows.Forms.Button();
 			this.txtIdentificativoSdI = new System.Windows.Forms.TextBox();
 			this.btnXMLDT = new System.Windows.Forms.Button();
-			this.txtTipoDocumento = new System.Windows.Forms.TextBox();
 			this.grpMessaggi = new System.Windows.Forms.GroupBox();
 			this.textBox11 = new System.Windows.Forms.TextBox();
 			this.textBox10 = new System.Windows.Forms.TextBox();
@@ -127,8 +129,6 @@ namespace sdi_acquisto_default {
 			this.chkSE_scartoesitocommittente = new System.Windows.Forms.CheckBox();
 			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
 			this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-			this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
-			this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
@@ -139,6 +139,7 @@ namespace sdi_acquisto_default {
 			this.groupBox1.SuspendLayout();
 			this.gboxStato.SuspendLayout();
 			this.tabPage1.SuspendLayout();
+			this.grpTipoDocumento.SuspendLayout();
 			this.grpMessaggi.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -157,7 +158,7 @@ namespace sdi_acquisto_default {
 			this.tabControl1.Location = new System.Drawing.Point(3, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(885, 520);
+			this.tabControl1.Size = new System.Drawing.Size(885, 521);
 			this.tabControl1.TabIndex = 34;
 			// 
 			// tabPrincipale
@@ -190,7 +191,7 @@ namespace sdi_acquisto_default {
 			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
 			this.tabPrincipale.Name = "tabPrincipale";
 			this.tabPrincipale.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPrincipale.Size = new System.Drawing.Size(877, 494);
+			this.tabPrincipale.Size = new System.Drawing.Size(877, 495);
 			this.tabPrincipale.TabIndex = 0;
 			this.tabPrincipale.Text = "Principale";
 			this.tabPrincipale.UseVisualStyleBackColor = true;
@@ -520,7 +521,7 @@ namespace sdi_acquisto_default {
 			this.grpDatiFattura.Controls.Add(this.txtFornitoreFE);
 			this.grpDatiFattura.Location = new System.Drawing.Point(13, 186);
 			this.grpDatiFattura.Name = "grpDatiFattura";
-			this.grpDatiFattura.Size = new System.Drawing.Size(621, 206);
+			this.grpDatiFattura.Size = new System.Drawing.Size(621, 217);
 			this.grpDatiFattura.TabIndex = 43;
 			this.grpDatiFattura.TabStop = false;
 			this.grpDatiFattura.Text = "Dati Fattura Elettronica";
@@ -528,8 +529,7 @@ namespace sdi_acquisto_default {
 			// chk_enable_split_payment
 			// 
 			this.chk_enable_split_payment.AutoSize = true;
-			this.chk_enable_split_payment.Enabled = false;
-			this.chk_enable_split_payment.Location = new System.Drawing.Point(78, 183);
+			this.chk_enable_split_payment.Location = new System.Drawing.Point(78, 188);
 			this.chk_enable_split_payment.Name = "chk_enable_split_payment";
 			this.chk_enable_split_payment.Size = new System.Drawing.Size(128, 17);
 			this.chk_enable_split_payment.TabIndex = 34;
@@ -540,7 +540,7 @@ namespace sdi_acquisto_default {
 			// txtDataRicezioneSdI
 			// 
 			this.txtDataRicezioneSdI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDataRicezioneSdI.Location = new System.Drawing.Point(109, 85);
+			this.txtDataRicezioneSdI.Location = new System.Drawing.Point(109, 90);
 			this.txtDataRicezioneSdI.Name = "txtDataRicezioneSdI";
 			this.txtDataRicezioneSdI.Size = new System.Drawing.Size(113, 20);
 			this.txtDataRicezioneSdI.TabIndex = 32;
@@ -550,7 +550,7 @@ namespace sdi_acquisto_default {
 			// 
 			this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label25.Location = new System.Drawing.Point(5, 88);
+			this.label25.Location = new System.Drawing.Point(5, 93);
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(96, 18);
 			this.label25.TabIndex = 33;
@@ -559,7 +559,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label14
 			// 
-			this.label14.Location = new System.Drawing.Point(229, 66);
+			this.label14.Location = new System.Drawing.Point(231, 68);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(150, 20);
 			this.label14.TabIndex = 31;
@@ -570,7 +570,7 @@ namespace sdi_acquisto_default {
 			// 
 			this.txtProtocolloEntrataRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtProtocolloEntrataRU.Location = new System.Drawing.Point(391, 65);
+			this.txtProtocolloEntrataRU.Location = new System.Drawing.Point(391, 70);
 			this.txtProtocolloEntrataRU.Name = "txtProtocolloEntrataRU";
 			this.txtProtocolloEntrataRU.Size = new System.Drawing.Size(224, 20);
 			this.txtProtocolloEntrataRU.TabIndex = 30;
@@ -579,7 +579,7 @@ namespace sdi_acquisto_default {
 			// txtDataRicezioneFE
 			// 
 			this.txtDataRicezioneFE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDataRicezioneFE.Location = new System.Drawing.Point(109, 62);
+			this.txtDataRicezioneFE.Location = new System.Drawing.Point(109, 67);
 			this.txtDataRicezioneFE.Name = "txtDataRicezioneFE";
 			this.txtDataRicezioneFE.Size = new System.Drawing.Size(113, 20);
 			this.txtDataRicezioneFE.TabIndex = 28;
@@ -589,7 +589,7 @@ namespace sdi_acquisto_default {
 			// 
 			this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label13.Location = new System.Drawing.Point(3, 67);
+			this.label13.Location = new System.Drawing.Point(6, 69);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(82, 18);
 			this.label13.TabIndex = 29;
@@ -598,7 +598,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label12
 			// 
-			this.label12.Location = new System.Drawing.Point(429, 136);
+			this.label12.Location = new System.Drawing.Point(429, 141);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(161, 18);
 			this.label12.TabIndex = 27;
@@ -608,7 +608,7 @@ namespace sdi_acquisto_default {
 			// txtTotaleFE
 			// 
 			this.txtTotaleFE.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtTotaleFE.Location = new System.Drawing.Point(432, 157);
+			this.txtTotaleFE.Location = new System.Drawing.Point(432, 162);
 			this.txtTotaleFE.Name = "txtTotaleFE";
 			this.txtTotaleFE.Size = new System.Drawing.Size(153, 20);
 			this.txtTotaleFE.TabIndex = 26;
@@ -616,7 +616,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label10
 			// 
-			this.label10.Location = new System.Drawing.Point(435, 88);
+			this.label10.Location = new System.Drawing.Point(435, 93);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(150, 18);
 			this.label10.TabIndex = 23;
@@ -626,7 +626,7 @@ namespace sdi_acquisto_default {
 			// txtRifAmm
 			// 
 			this.txtRifAmm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtRifAmm.Location = new System.Drawing.Point(433, 106);
+			this.txtRifAmm.Location = new System.Drawing.Point(433, 111);
 			this.txtRifAmm.Name = "txtRifAmm";
 			this.txtRifAmm.Size = new System.Drawing.Size(153, 20);
 			this.txtRifAmm.TabIndex = 22;
@@ -635,7 +635,7 @@ namespace sdi_acquisto_default {
 			// txtDataContabile
 			// 
 			this.txtDataContabile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDataContabile.Location = new System.Drawing.Point(514, 12);
+			this.txtDataContabile.Location = new System.Drawing.Point(514, 17);
 			this.txtDataContabile.Name = "txtDataContabile";
 			this.txtDataContabile.Size = new System.Drawing.Size(101, 20);
 			this.txtDataContabile.TabIndex = 19;
@@ -643,7 +643,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label9
 			// 
-			this.label9.Location = new System.Drawing.Point(29, 16);
+			this.label9.Location = new System.Drawing.Point(41, 21);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(50, 18);
 			this.label9.TabIndex = 21;
@@ -654,7 +654,7 @@ namespace sdi_acquisto_default {
 			// 
 			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(404, 14);
+			this.label5.Location = new System.Drawing.Point(404, 19);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(101, 16);
 			this.label5.TabIndex = 20;
@@ -664,7 +664,7 @@ namespace sdi_acquisto_default {
 			// txtNumeroFE
 			// 
 			this.txtNumeroFE.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNumeroFE.Location = new System.Drawing.Point(87, 15);
+			this.txtNumeroFE.Location = new System.Drawing.Point(109, 21);
 			this.txtNumeroFE.Name = "txtNumeroFE";
 			this.txtNumeroFE.Size = new System.Drawing.Size(161, 20);
 			this.txtNumeroFE.TabIndex = 20;
@@ -672,7 +672,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label8
 			// 
-			this.label8.Location = new System.Drawing.Point(6, 125);
+			this.label8.Location = new System.Drawing.Point(6, 130);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(71, 18);
 			this.label8.TabIndex = 19;
@@ -682,7 +682,7 @@ namespace sdi_acquisto_default {
 			// txtDescrizione
 			// 
 			this.txtDescrizione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtDescrizione.Location = new System.Drawing.Point(78, 129);
+			this.txtDescrizione.Location = new System.Drawing.Point(78, 134);
 			this.txtDescrizione.Multiline = true;
 			this.txtDescrizione.Name = "txtDescrizione";
 			this.txtDescrizione.Size = new System.Drawing.Size(335, 48);
@@ -692,7 +692,7 @@ namespace sdi_acquisto_default {
 			// label7
 			// 
 			this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.label7.Location = new System.Drawing.Point(7, 103);
+			this.label7.Location = new System.Drawing.Point(7, 108);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(323, 22);
 			this.label7.TabIndex = 17;
@@ -702,7 +702,7 @@ namespace sdi_acquisto_default {
 			// txtIpa
 			// 
 			this.txtIpa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtIpa.Location = new System.Drawing.Point(333, 105);
+			this.txtIpa.Location = new System.Drawing.Point(333, 110);
 			this.txtIpa.Name = "txtIpa";
 			this.txtIpa.Size = new System.Drawing.Size(79, 20);
 			this.txtIpa.TabIndex = 16;
@@ -710,7 +710,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label6
 			// 
-			this.label6.Location = new System.Drawing.Point(12, 40);
+			this.label6.Location = new System.Drawing.Point(18, 45);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(65, 18);
 			this.label6.TabIndex = 15;
@@ -720,9 +720,9 @@ namespace sdi_acquisto_default {
 			// txtFornitoreFE
 			// 
 			this.txtFornitoreFE.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtFornitoreFE.Location = new System.Drawing.Point(86, 40);
+			this.txtFornitoreFE.Location = new System.Drawing.Point(109, 45);
 			this.txtFornitoreFE.Name = "txtFornitoreFE";
-			this.txtFornitoreFE.Size = new System.Drawing.Size(529, 20);
+			this.txtFornitoreFE.Size = new System.Drawing.Size(506, 20);
 			this.txtFornitoreFE.TabIndex = 14;
 			this.txtFornitoreFE.Tag = "sdi_acquisto.title";
 			// 
@@ -756,7 +756,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(13, 438);
+			this.label3.Location = new System.Drawing.Point(13, 451);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(120, 21);
 			this.label3.TabIndex = 38;
@@ -766,7 +766,7 @@ namespace sdi_acquisto_default {
 			// txtNomeFilecompresso
 			// 
 			this.txtNomeFilecompresso.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNomeFilecompresso.Location = new System.Drawing.Point(13, 459);
+			this.txtNomeFilecompresso.Location = new System.Drawing.Point(13, 472);
 			this.txtNomeFilecompresso.Name = "txtNomeFilecompresso";
 			this.txtNomeFilecompresso.Size = new System.Drawing.Size(621, 20);
 			this.txtNomeFilecompresso.TabIndex = 37;
@@ -774,7 +774,7 @@ namespace sdi_acquisto_default {
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(16, 395);
+			this.label2.Location = new System.Drawing.Point(16, 408);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(70, 17);
 			this.label2.TabIndex = 36;
@@ -784,7 +784,7 @@ namespace sdi_acquisto_default {
 			// txtNomeFile
 			// 
 			this.txtNomeFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNomeFile.Location = new System.Drawing.Point(13, 415);
+			this.txtNomeFile.Location = new System.Drawing.Point(13, 428);
 			this.txtNomeFile.Name = "txtNomeFile";
 			this.txtNomeFile.Size = new System.Drawing.Size(621, 20);
 			this.txtNomeFile.TabIndex = 35;
@@ -818,22 +818,62 @@ namespace sdi_acquisto_default {
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.grpTipoDocumento);
+			this.tabPage1.Controls.Add(this.labelCod_tipodoc);
+			this.tabPage1.Controls.Add(this.txtCod_tipodoc);
 			this.tabPage1.Controls.Add(this.label4);
 			this.tabPage1.Controls.Add(this.btnXMLMT);
 			this.tabPage1.Controls.Add(this.btnXMLEC);
-			this.tabPage1.Controls.Add(this.label19);
 			this.tabPage1.Controls.Add(this.btnXMLSE);
 			this.tabPage1.Controls.Add(this.txtIdentificativoSdI);
 			this.tabPage1.Controls.Add(this.btnXMLDT);
-			this.tabPage1.Controls.Add(this.txtTipoDocumento);
 			this.tabPage1.Controls.Add(this.grpMessaggi);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(877, 494);
+			this.tabPage1.Size = new System.Drawing.Size(877, 495);
 			this.tabPage1.TabIndex = 1;
 			this.tabPage1.Text = "Dati SDI";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// grpTipoDocumento
+			// 
+			this.grpTipoDocumento.Controls.Add(this.cmbTipoDocumento);
+			this.grpTipoDocumento.Location = new System.Drawing.Point(6, 70);
+			this.grpTipoDocumento.Name = "grpTipoDocumento";
+			this.grpTipoDocumento.Size = new System.Drawing.Size(624, 47);
+			this.grpTipoDocumento.TabIndex = 68;
+			this.grpTipoDocumento.TabStop = false;
+			this.grpTipoDocumento.Text = "Tipo Documento";
+			// 
+			// cmbTipoDocumento
+			// 
+			this.cmbTipoDocumento.DataSource = this.DS.tipodocumento_sdi;
+			this.cmbTipoDocumento.DisplayMember = "description";
+			this.cmbTipoDocumento.FormattingEnabled = true;
+			this.cmbTipoDocumento.Location = new System.Drawing.Point(7, 18);
+			this.cmbTipoDocumento.Name = "cmbTipoDocumento";
+			this.cmbTipoDocumento.Size = new System.Drawing.Size(605, 21);
+			this.cmbTipoDocumento.TabIndex = 0;
+			this.cmbTipoDocumento.Tag = "sdi_acquisto.tipodocumento?sdi_acquistoview.tipodocumento";
+			this.cmbTipoDocumento.ValueMember = "cod_tipodoc";
+			// 
+			// labelCod_tipodoc
+			// 
+			this.labelCod_tipodoc.AutoSize = true;
+			this.labelCod_tipodoc.Location = new System.Drawing.Point(302, 28);
+			this.labelCod_tipodoc.Name = "labelCod_tipodoc";
+			this.labelCod_tipodoc.Size = new System.Drawing.Size(111, 13);
+			this.labelCod_tipodoc.TabIndex = 66;
+			this.labelCod_tipodoc.Text = "Cod. Tipo Documento";
+			// 
+			// txtCod_tipodoc
+			// 
+			this.txtCod_tipodoc.Location = new System.Drawing.Point(305, 44);
+			this.txtCod_tipodoc.Name = "txtCod_tipodoc";
+			this.txtCod_tipodoc.Size = new System.Drawing.Size(87, 20);
+			this.txtCod_tipodoc.TabIndex = 64;
+			this.txtCod_tipodoc.Tag = "sdi_acquisto.tipodocumento";
 			// 
 			// label4
 			// 
@@ -847,7 +887,7 @@ namespace sdi_acquisto_default {
 			// btnXMLMT
 			// 
 			this.btnXMLMT.AutoSize = true;
-			this.btnXMLMT.Location = new System.Drawing.Point(636, 78);
+			this.btnXMLMT.Location = new System.Drawing.Point(636, 138);
 			this.btnXMLMT.Name = "btnXMLMT";
 			this.btnXMLMT.Size = new System.Drawing.Size(94, 23);
 			this.btnXMLMT.TabIndex = 57;
@@ -858,7 +898,7 @@ namespace sdi_acquisto_default {
 			// btnXMLEC
 			// 
 			this.btnXMLEC.AutoSize = true;
-			this.btnXMLEC.Location = new System.Drawing.Point(636, 106);
+			this.btnXMLEC.Location = new System.Drawing.Point(636, 166);
 			this.btnXMLEC.Name = "btnXMLEC";
 			this.btnXMLEC.Size = new System.Drawing.Size(94, 23);
 			this.btnXMLEC.TabIndex = 58;
@@ -866,19 +906,10 @@ namespace sdi_acquisto_default {
 			this.btnXMLEC.UseVisualStyleBackColor = true;
 			this.btnXMLEC.Click += new System.EventHandler(this.btnXMLNEC_Click);
 			// 
-			// label19
-			// 
-			this.label19.Location = new System.Drawing.Point(287, 23);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(129, 18);
-			this.label19.TabIndex = 63;
-			this.label19.Text = "Tipo Documento SdI";
-			this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
 			// btnXMLSE
 			// 
 			this.btnXMLSE.AutoSize = true;
-			this.btnXMLSE.Location = new System.Drawing.Point(636, 131);
+			this.btnXMLSE.Location = new System.Drawing.Point(636, 191);
 			this.btnXMLSE.Name = "btnXMLSE";
 			this.btnXMLSE.Size = new System.Drawing.Size(94, 23);
 			this.btnXMLSE.TabIndex = 59;
@@ -898,22 +929,13 @@ namespace sdi_acquisto_default {
 			// btnXMLDT
 			// 
 			this.btnXMLDT.AutoSize = true;
-			this.btnXMLDT.Location = new System.Drawing.Point(636, 156);
+			this.btnXMLDT.Location = new System.Drawing.Point(636, 216);
 			this.btnXMLDT.Name = "btnXMLDT";
 			this.btnXMLDT.Size = new System.Drawing.Size(94, 23);
 			this.btnXMLDT.TabIndex = 60;
 			this.btnXMLDT.Text = "Visualizza File";
 			this.btnXMLDT.UseVisualStyleBackColor = true;
 			this.btnXMLDT.Click += new System.EventHandler(this.btnXMLDC_Click);
-			// 
-			// txtTipoDocumento
-			// 
-			this.txtTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtTipoDocumento.Location = new System.Drawing.Point(290, 44);
-			this.txtTipoDocumento.Name = "txtTipoDocumento";
-			this.txtTipoDocumento.Size = new System.Drawing.Size(131, 20);
-			this.txtTipoDocumento.TabIndex = 62;
-			this.txtTipoDocumento.Tag = "sdi_acquisto.tipodocumento";
 			// 
 			// grpMessaggi
 			// 
@@ -929,7 +951,7 @@ namespace sdi_acquisto_default {
 			this.grpMessaggi.Controls.Add(this.chkDT_decorrenzatermini);
 			this.grpMessaggi.Controls.Add(this.textBox3);
 			this.grpMessaggi.Controls.Add(this.chkSE_scartoesitocommittente);
-			this.grpMessaggi.Location = new System.Drawing.Point(6, 70);
+			this.grpMessaggi.Location = new System.Drawing.Point(6, 130);
 			this.grpMessaggi.Name = "grpMessaggi";
 			this.grpMessaggi.Size = new System.Drawing.Size(624, 115);
 			this.grpMessaggi.TabIndex = 42;
@@ -1052,15 +1074,11 @@ namespace sdi_acquisto_default {
 			this.chkSE_scartoesitocommittente.Text = "Notifica di scarto esito committente";
 			this.chkSE_scartoesitocommittente.UseVisualStyleBackColor = true;
 			// 
-			// saveFileDialog1
-			// 
-			//this.saveFileDialog1.SupportMultiDottedExtensions = true;
-			// 
 			// Frm_sdi_acquisto_default
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(891, 533);
+			this.ClientSize = new System.Drawing.Size(891, 534);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_sdi_acquisto_default";
 			this.Text = "Frm_sdi_acquisto_default";
@@ -1080,6 +1098,7 @@ namespace sdi_acquisto_default {
 			this.gboxStato.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
+			this.grpTipoDocumento.ResumeLayout(false);
 			this.grpMessaggi.ResumeLayout(false);
 			this.grpMessaggi.PerformLayout();
 			this.ResumeLayout(false);
@@ -1090,50 +1109,12 @@ namespace sdi_acquisto_default {
 
         public VistaForm DS;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPrincipale;
-        private System.Windows.Forms.Button btnImporta;
-        private System.Windows.Forms.GroupBox grpImportazioni;
-        private System.Windows.Forms.Button btnImporta_ipa_rif;
-        private System.Windows.Forms.Button btnImporta_all;
-        private System.Windows.Forms.Button btnImporta_ipa;
-        private System.Windows.Forms.GroupBox grpDatiFattura;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtRifAmm;
-        private System.Windows.Forms.TextBox txtDataContabile;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtNumeroFE;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtDescrizione;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtIpa;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtFornitoreFE;
         private System.Windows.Forms.GroupBox grpMessaggi;
         private System.Windows.Forms.CheckBox chkMT_filemetadati;
         private System.Windows.Forms.CheckBox chkDT_decorrenzatermini;
         private System.Windows.Forms.CheckBox chkSE_scartoesitocommittente;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtNumFile;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtIdentificativoSdI;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtNomeFilecompresso;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtNomeFile;
-        private System.Windows.Forms.GroupBox gboxStato;
-        private System.Windows.Forms.ComboBox cmbStatus;
-        private System.Windows.Forms.Button btnVisualizza;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtTotaleFE;
-        private System.Windows.Forms.TextBox txtDataRicezioneFE;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox txtProtocolloEntrataRU;
-        private System.Windows.Forms.Button btnRifiuta;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox txtRifiuto;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label16;
@@ -1143,39 +1124,79 @@ namespace sdi_acquisto_default {
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.GroupBox grpOperazionisuFE;
-        private System.Windows.Forms.Button btnAccetta;
-        private System.Windows.Forms.CheckBox chkEsisteFattura;
-        private System.Windows.Forms.Button btnToProtocol;
-        private System.Windows.Forms.Button btnGeneraFile;
         private System.Windows.Forms.SaveFileDialog _saveFileDialog1;
-        private System.Windows.Forms.Button btnSalvaAllegati;
         private System.Windows.Forms.FolderBrowserDialog _folderBrowserDialog1;
         private System.Windows.Forms.Button btnXMLDT;
         private System.Windows.Forms.Button btnXMLSE;
         private System.Windows.Forms.Button btnXMLEC;
         private System.Windows.Forms.Button btnXMLMT;
-        private System.Windows.Forms.Button btnCorreggiTotaleFattura;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox txtTipoDocumento;
-        private System.Windows.Forms.TextBox txtDataAccettata;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox txtUserAccettata;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox txtDataRifiutata;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox txtUserRifiutata;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.CheckBox SubEntity_chkNoncreareincontabilita;
-        private System.Windows.Forms.GroupBox grpboxFattDanoncreareincontabilita;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox SubEntity_txtFattDanoncreareincontabilita;
-        private System.Windows.Forms.Button btnVisualizzaSempl;
-        private System.Windows.Forms.TextBox txtDataRicezioneSdI;
-        private System.Windows.Forms.Label label25;
-		private System.Windows.Forms.CheckBox chk_enable_split_payment;
 		private metadatalibrary.ISaveFileDialog saveFileDialog1;
 		private metadatalibrary.IFolderBrowserDialog folderBrowserDialog1;
+		private System.Windows.Forms.TabPage tabPrincipale;
+		private System.Windows.Forms.Button btnVisualizzaSempl;
+		private System.Windows.Forms.GroupBox grpboxFattDanoncreareincontabilita;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.TextBox SubEntity_txtFattDanoncreareincontabilita;
+		private System.Windows.Forms.CheckBox SubEntity_chkNoncreareincontabilita;
+		private System.Windows.Forms.Button btnVisualizza;
+		private System.Windows.Forms.TextBox txtDataRifiutata;
+		private System.Windows.Forms.Label label22;
+		private System.Windows.Forms.TextBox txtUserRifiutata;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.TextBox txtDataAccettata;
+		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.TextBox txtUserAccettata;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.Button btnCorreggiTotaleFattura;
+		private System.Windows.Forms.Button btnSalvaAllegati;
+		private System.Windows.Forms.Button btnGeneraFile;
+		private System.Windows.Forms.Button btnToProtocol;
+		private System.Windows.Forms.CheckBox chkEsisteFattura;
+		private System.Windows.Forms.GroupBox grpOperazionisuFE;
+		private System.Windows.Forms.Button btnAccetta;
+		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.Button btnImporta;
+		private System.Windows.Forms.TextBox txtRifiuto;
+		private System.Windows.Forms.Button btnRifiuta;
+		private System.Windows.Forms.GroupBox grpImportazioni;
+		private System.Windows.Forms.Button btnImporta_ipa_rif;
+		private System.Windows.Forms.Button btnImporta_all;
+		private System.Windows.Forms.Button btnImporta_ipa;
+		private System.Windows.Forms.GroupBox grpDatiFattura;
+		private System.Windows.Forms.CheckBox chk_enable_split_payment;
+		private System.Windows.Forms.TextBox txtDataRicezioneSdI;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.TextBox txtProtocolloEntrataRU;
+		private System.Windows.Forms.TextBox txtDataRicezioneFE;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Label label12;
+		private System.Windows.Forms.TextBox txtTotaleFE;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.TextBox txtRifAmm;
+		private System.Windows.Forms.TextBox txtDataContabile;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.TextBox txtNumeroFE;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.TextBox txtDescrizione;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.TextBox txtIpa;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.TextBox txtFornitoreFE;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox txtNumFile;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TextBox txtNomeFilecompresso;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox txtNomeFile;
+		private System.Windows.Forms.GroupBox gboxStato;
+		private System.Windows.Forms.ComboBox cmbStatus;
+		private System.Windows.Forms.Label labelCod_tipodoc;
+		private System.Windows.Forms.TextBox txtCod_tipodoc;
+		private System.Windows.Forms.GroupBox grpTipoDocumento;
+		private System.Windows.Forms.ComboBox cmbTipoDocumento;
 	}
 }

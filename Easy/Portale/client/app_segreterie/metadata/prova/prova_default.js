@@ -71,8 +71,11 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#commiss_default_idreg_docenti'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
@@ -83,11 +86,12 @@
 				this.helpForm.addExtraEntity("commiss");
 				$("#btn_add_provaaula_idaula").on("click", _.partial(this.searchAndAssignaula, self));
 				$("#btn_add_provaaula_idaula").prop("disabled", true);
-				$("#btn_add_commissregistry_docenti_idreg_docenti").on("click", _.partial(this.searchAndAssignregistry_docenti, self));
+				$("#btn_add_commissregistry_docenti_idreg_docenti").on("click", _.partial(this.searchAndAssignregistry, self));
 				$("#btn_add_commissregistry_docenti_idreg_docenti").prop("disabled", true);
 				this.setDenyNull("prova","title");
 				this.setDenyNull("prova","start");
 				this.setDenyNull("prova","stop");
+				appMeta.metaModel.insertFilter(this.getDataTable("valutazionekind"), this.q.eq('active', 'S'));
 				$('#grid_sostenimento_default').data('mdlconditionallookup', 'livello,A,A ;livello,B,B ;livello,C,C ;livello,D,D ;votolode,S,Si;votolode,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
@@ -137,7 +141,7 @@
 				});
 			},
 
-			searchAndAssignregistry_docenti: function (that) {
+			searchAndAssignregistry: function (that) {
 				return that.searchAndAssign({
 					tableName: "registry",
 					listType: "docenti",

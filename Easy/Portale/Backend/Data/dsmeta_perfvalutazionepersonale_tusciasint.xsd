@@ -77,8 +77,8 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -169,8 +169,8 @@
     <xs:unique name="getdocentiamministrativiresponsabilinomcognview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="getregistrydocentiamministratividefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getregistrydocentiamministratividefaultview" />

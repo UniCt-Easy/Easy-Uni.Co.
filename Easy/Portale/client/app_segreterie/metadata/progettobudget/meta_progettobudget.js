@@ -24,8 +24,8 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'idworkpackage', 'Workpackage', null, 10, null);
-						this.describeAColumn(table, 'idprogettotipocosto', 'Voce di costo', null, 20, null);
+						//this.describeAColumn(table, 'idworkpackage', 'Workpackage', null, 10, null);
+						//this.describeAColumn(table, 'idprogettotipocosto', 'Voce di costo', null, 20, null);
 						this.describeAColumn(table, 'budget', 'Budget iniziale', 'fixed.2', 30, null);
 						this.describeAColumn(table, '!budgetvariazione', 'Budget corrente', 'fixed.2', 40, null);
 						this.describeAColumn(table, '!spese', 'Costi', 'fixed.2', 50, null);
@@ -88,7 +88,7 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "seg": {
-						return "idworkpackage asc , sortcode asc , idprogettotipocosto asc ";
+						return "!idworkpackage_workpackage_raggruppamento asc , !idworkpackage_workpackage_title asc , !idprogettotipocosto_progettotipocosto_title asc ";
 					}
 					case "seg": {
 						return "sortcode";

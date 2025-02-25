@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,6 +34,11 @@ namespace assetacquire_default { //caricobeneinventario//
     /// </summary>
     public class Frm_assetacquire_default : MetaDataForm {
         private System.Windows.Forms.TabControl tabCaricoBeni;
+		private System.Windows.Forms.TabPage tabAllegati;
+		private System.Windows.Forms.DataGrid dataGridAllegati;
+		private System.Windows.Forms.Button btnDelAtt;
+		private System.Windows.Forms.Button btnEditAtt;
+		private System.Windows.Forms.Button btnInsAtt;
         private System.Windows.Forms.TabPage tabPageOperazioni;
         private System.Windows.Forms.TabPage tabPageInventario;
         private System.Windows.Forms.TabPage tabPageUtilizzo;
@@ -158,6 +163,7 @@ namespace assetacquire_default { //caricobeneinventario//
 		public TextBox txtCostpartitionTitle;
 		public TextBox txtCostpartitionCode;
 		private Button btnRipartizione;
+		private CheckBox chkAccessoriSuStessoCespite;
 		private System.Windows.Forms.Button btnNumInventario;
         //private string TagDetail="assetpiece.dettaglio";
         public Frm_assetacquire_default() {
@@ -341,6 +347,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.txtImponibile = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.grpInventario = new System.Windows.Forms.GroupBox();
+			this.chkAccessoriSuStessoCespite = new System.Windows.Forms.CheckBox();
 			this.btnNumInventario = new System.Windows.Forms.Button();
 			this.txtNumIniz = new System.Windows.Forms.TextBox();
 			this.cboInventario = new System.Windows.Forms.ComboBox();
@@ -374,6 +381,11 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.btnCodice1 = new System.Windows.Forms.Button();
 			this.txtDenom1 = new System.Windows.Forms.TextBox();
 			this.txtCodice1 = new System.Windows.Forms.TextBox();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.tabCaricoBeni.SuspendLayout();
 			this.tabPageOperazioni.SuspendLayout();
 			this.gboxListino.SuspendLayout();
@@ -401,6 +413,8 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.gboxclass3.SuspendLayout();
 			this.gboxclass2.SuspendLayout();
 			this.gboxclass1.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabCaricoBeni
@@ -412,8 +426,9 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.tabCaricoBeni.Controls.Add(this.tabPageInventario);
 			this.tabCaricoBeni.Controls.Add(this.tabPageUtilizzo);
 			this.tabCaricoBeni.Controls.Add(this.tabPageEP);
+			this.tabCaricoBeni.Controls.Add(this.tabAllegati);
 			this.tabCaricoBeni.HotTrack = true;
-			this.tabCaricoBeni.Location = new System.Drawing.Point(0, 0);
+			this.tabCaricoBeni.Location = new System.Drawing.Point(5, -2);
 			this.tabCaricoBeni.Name = "tabCaricoBeni";
 			this.tabCaricoBeni.SelectedIndex = 0;
 			this.tabCaricoBeni.Size = new System.Drawing.Size(899, 554);
@@ -1038,7 +1053,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.textBox2.Multiline = true;
 			this.textBox2.Name = "textBox2";
 			this.textBox2.ReadOnly = true;
-			this.textBox2.Size = new System.Drawing.Size(699, 39);
+			this.textBox2.Size = new System.Drawing.Size(649, 39);
 			this.textBox2.TabIndex = 2;
 			this.textBox2.Text = resources.GetString("textBox2.Text");
 			// 
@@ -1047,7 +1062,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox3.Controls.Add(this.textBox1);
-			this.groupBox3.Location = new System.Drawing.Point(8, 149);
+			this.groupBox3.Location = new System.Drawing.Point(8, 154);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(871, 55);
 			this.groupBox3.TabIndex = 3;
@@ -1183,7 +1198,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			// 
 			// btnModificaBene
 			// 
-			this.btnModificaBene.Location = new System.Drawing.Point(104, 20);
+			this.btnModificaBene.Location = new System.Drawing.Point(102, 20);
 			this.btnModificaBene.Name = "btnModificaBene";
 			this.btnModificaBene.Size = new System.Drawing.Size(75, 23);
 			this.btnModificaBene.TabIndex = 15;
@@ -1193,7 +1208,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			// 
 			// btnCopiaBene
 			// 
-			this.btnCopiaBene.Location = new System.Drawing.Point(16, 20);
+			this.btnCopiaBene.Location = new System.Drawing.Point(14, 20);
 			this.btnCopiaBene.Name = "btnCopiaBene";
 			this.btnCopiaBene.Size = new System.Drawing.Size(75, 23);
 			this.btnCopiaBene.TabIndex = 14;
@@ -1228,7 +1243,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.grpValore.Controls.Add(this.label8);
 			this.grpValore.Controls.Add(this.txtImponibile);
 			this.grpValore.Controls.Add(this.label7);
-			this.grpValore.Location = new System.Drawing.Point(8, 80);
+			this.grpValore.Location = new System.Drawing.Point(8, 84);
 			this.grpValore.Name = "grpValore";
 			this.grpValore.Size = new System.Drawing.Size(871, 63);
 			this.grpValore.TabIndex = 2;
@@ -1242,7 +1257,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.textBox3.Multiline = true;
 			this.textBox3.Name = "textBox3";
 			this.textBox3.ReadOnly = true;
-			this.textBox3.Size = new System.Drawing.Size(699, 40);
+			this.textBox3.Size = new System.Drawing.Size(456, 40);
 			this.textBox3.TabIndex = 6;
 			this.textBox3.Text = "In caso di cespiti provenienti da altri inventari, inserire il valore residuo al " +
     "momento del trasferimento, comprensivo di iva, tutto nella casella imponibile.";
@@ -1324,17 +1339,27 @@ namespace assetacquire_default { //caricobeneinventario//
 			// 
 			this.grpInventario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.grpInventario.Controls.Add(this.chkAccessoriSuStessoCespite);
 			this.grpInventario.Controls.Add(this.btnNumInventario);
 			this.grpInventario.Controls.Add(this.txtNumIniz);
 			this.grpInventario.Controls.Add(this.cboInventario);
 			this.grpInventario.Controls.Add(this.label13);
 			this.grpInventario.Controls.Add(this.chkAuto);
-			this.grpInventario.Location = new System.Drawing.Point(8, 0);
+			this.grpInventario.Location = new System.Drawing.Point(8, 6);
 			this.grpInventario.Name = "grpInventario";
 			this.grpInventario.Size = new System.Drawing.Size(871, 75);
 			this.grpInventario.TabIndex = 1;
 			this.grpInventario.TabStop = false;
 			this.grpInventario.Text = "Inventario";
+			// 
+			// chkAccessoriSuStessoCespite
+			// 
+			this.chkAccessoriSuStessoCespite.Location = new System.Drawing.Point(531, 45);
+			this.chkAccessoriSuStessoCespite.Name = "chkAccessoriSuStessoCespite";
+			this.chkAccessoriSuStessoCespite.Size = new System.Drawing.Size(242, 22);
+			this.chkAccessoriSuStessoCespite.TabIndex = 5;
+			this.chkAccessoriSuStessoCespite.Tag = "assetacquire.flag:3";
+			this.chkAccessoriSuStessoCespite.Text = "Carico accessori su uno stesso Cespite";
 			// 
 			// btnNumInventario
 			// 
@@ -1708,6 +1733,61 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.txtCodice1.TabIndex = 2;
 			this.txtCodice1.Tag = "sorting1.sortcode?x";
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(192, 74);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(8, 51);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(178, 2);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "assetacquireattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// Frm_assetacquire_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -1761,6 +1841,8 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.gboxclass2.PerformLayout();
 			this.gboxclass1.ResumeLayout(false);
 			this.gboxclass1.PerformLayout();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -1916,6 +1998,7 @@ namespace assetacquire_default { //caricobeneinventario//
             AbilitaTipoCarico(true);
             AbilitaBenePosseduto(true);
             AbilitaRigaOrdine(true);
+            AbilitaFattura(true);
             AbilitaBuonoInventario(true);
             AbilitaAutoNumerazione(false);
             //tabPageUtilizzo.Visible=true;
@@ -1928,11 +2011,11 @@ namespace assetacquire_default { //caricobeneinventario//
             txtImpConIVA.Text = "";
             grpInventario.Enabled = true;
             chkIspieceAcquire.Enabled = true;
+            chkAccessoriSuStessoCespite.Enabled = true;
             btnNumInventario.Enabled = false;
             txtCredDeb.ReadOnly = false;
             HelpForm.SetDenyNull(DS.assetacquire.Columns["startnumber"], false);
             riempiOggetti(null);
-            DisabilitaFattura(true);
             radioPosseduto.Enabled = true;
         }
 
@@ -2152,6 +2235,7 @@ namespace assetacquire_default { //caricobeneinventario//
 
             if (Meta.InsertMode) {
                 AbilitaRigaOrdine(radioNuovo.Checked);
+                AbilitaFattura(radioNuovo.Checked && AbilitaCaricodaFattura());
                 AbilitaTipoCarico(true);
             }
             else {
@@ -2160,14 +2244,17 @@ namespace assetacquire_default { //caricobeneinventario//
                 bool loadkind_R = ((flag & 2) != 0);
                 if (loadkind_R) {
                     AbilitaRigaOrdine(false);
+                    AbilitaFattura(false);
                     AbilitaTipoCarico(true);
                 }
                 if (loadkind_N && (Curr["idassetload"] == DBNull.Value)) {
                     AbilitaRigaOrdine(true);
+                    AbilitaFattura(AbilitaCaricodaFattura());
                     AbilitaTipoCarico(true);
                 }
                 if (loadkind_N && (Curr["idassetload"] != DBNull.Value)) {
                     AbilitaRigaOrdine(true);
+                    AbilitaFattura(AbilitaCaricodaFattura());
                     AbilitaTipoCarico(false);
                 }
 
@@ -2242,7 +2329,8 @@ namespace assetacquire_default { //caricobeneinventario//
                     DoAutoCheck();
                 }
             }
-            DisabilitaFattura(false);
+            
+            //AbilitaFattura(AbilitaCaricodaFattura());
             if (Curr["idmankind"] != DBNull.Value) {
                 radioPosseduto.Enabled = false;
             }
@@ -2251,6 +2339,19 @@ namespace assetacquire_default { //caricobeneinventario//
             }
         }
 
+        public bool AbilitaCaricodaFattura() {
+            bool flag_caricacespitedafattura = false;
+        
+            DataTable tUniConfig = Conn.RUN_SELECT("uniconfig", "*", null,  null, null, null, true);
+            if ((tUniConfig != null) && (tUniConfig.Rows.Count > 0)) {
+                DataRow R = tUniConfig.Rows[0];
+                int flag = CfgFn.GetNoNullInt32(R["flag"]);
+                flag_caricacespitedafattura = ((flag & 128) != 0);
+            }
+            
+            return flag_caricacespitedafattura;
+
+        }
 
         public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
             if (Meta == null) return;
@@ -2344,8 +2445,12 @@ namespace assetacquire_default { //caricobeneinventario//
         QueryHelper QHS;
         private DataAccess Conn;
 
-        public void DisabilitaFattura(bool enable) {
-            grpRigaFattura.Enabled = enable;
+        public void AbilitaFattura(bool enable) {
+            // Viene chiamata con true nell'AfterClear => lo abilita perchè stiamo consentendo la ricerca
+            // Mentre nell'AfterFill viene chiamata con true se il flag di uniconfig è checkato, altrimenti con false.
+
+             grpRigaFattura.Enabled = enable;
+
         }
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
@@ -3306,7 +3411,10 @@ namespace assetacquire_default { //caricobeneinventario//
         /// <returns></returns>
         private DataTable GetBeneInvRows(object codiceinventario, int numiniziale, int quantita) {
             int min = numiniziale;
-            int max = numiniziale + quantita - 1;
+            int max = numiniziale;
+            if  ((!chkIspieceAcquire.Checked)||(!chkAccessoriSuStessoCespite.Checked)) {
+                 max+=quantita - 1;
+            }
             string filter = QHS.AppAnd(QHS.CmpEq("idinventory", codiceinventario),
                 QHS.CmpGe("ninventory", min), QHS.CmpLe("ninventory", max),
                 QHS.CmpEq("idpiece", 1));
@@ -3329,7 +3437,10 @@ namespace assetacquire_default { //caricobeneinventario//
                     DataRow Rbene = BeneInvView.Rows[n];
                     ImpostaRigaParteNonInv(R, CfgFn.GetNoNullInt32(Rbene["idasset"]), R["!numeroriga"],
                         Rbene["ninventory"].ToString(), codiceinventario, Rbene["description"].ToString());
-                    n++;
+                    if (!chkAccessoriSuStessoCespite.Checked) {
+                        n++;
+                    }
+
                 }
             }
         }
@@ -3413,6 +3524,7 @@ namespace assetacquire_default { //caricobeneinventario//
             if (!radioPosseduto.Checked) return;
             AbilitaBenePosseduto(false);
             AbilitaRigaOrdine(false);
+            AbilitaFattura(false);
             PulisciRigaOrdine();
             if (Meta.InsertMode) {
                 AbilitaAutoNumerazione(false);
@@ -3427,6 +3539,7 @@ namespace assetacquire_default { //caricobeneinventario//
             if (!radioNuovo.Checked) return;
             AbilitaBenePosseduto(false);
             AbilitaRigaOrdine(true);
+            AbilitaFattura(AbilitaCaricodaFattura());
             //PulisciBenePosseduto();
             if (Meta.InsertMode) {
                 AbilitaAutoNumerazione(true);
@@ -3502,6 +3615,7 @@ namespace assetacquire_default { //caricobeneinventario//
         private void btnCopiaBene_Click(object sender, System.EventArgs e) {
 
             if (MetaData.Empty(this)) return;
+            //if (chkIspieceAcquire.Checked) return; // non utile per i carichi accessori
             btnCopiaBene.Focus();
             MetaData.GetFormData(this, true);
             if (DS.asset.Rows.Count < 1) return;
@@ -3683,8 +3797,37 @@ namespace assetacquire_default { //caricobeneinventario//
             Meta.FreshForm();
         }
 
+        void AggiornaUbicazioneDaFattura(Object idlocation) {
 
-            bool WarningDaVisualizzare = false;
+            if (chkIspieceAcquire.Checked) { return; }
+            if (MetaData.Empty(this)) return;
+            MetaData.GetFormData(this, true);
+            if (DS.assetlocation.Rows.Count == 0) {
+
+                foreach (DataRow Curr in DS.asset.Select()) {
+                    MetaData Meta_AssetLocation = Meta.Dispatcher.Get("assetlocation");
+                    Meta_AssetLocation.SetDefaults(DS.assetlocation);
+                    DataRow RAssetLoc;
+                    RAssetLoc = Meta_AssetLocation.Get_New_Row(Curr, DS.assetlocation);
+                    RAssetLoc["idlocation"] = idlocation;
+
+                }
+            }
+            else {
+                string msg = "Si desidera aggiornare le ubicazioni specifiche del cespite in base a quelle del dettaglio fattura." +
+                             "Confermi?";
+                DialogResult res = show(msg, "Conferma",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes) {
+                    foreach (DataRow Curr in DS.assetlocation.Select()) {
+                        Curr["idlocation"] = idlocation;
+                    }
+                }
+            }
+            Meta.FreshForm();
+        }
+
+        bool WarningDaVisualizzare = false;
 
         private void txtNumIniz_LostFocus(object sender, System.EventArgs e) {
             if (InChiusura) return;
@@ -3720,7 +3863,7 @@ namespace assetacquire_default { //caricobeneinventario//
                     WarningDaVisualizzare = false;                    
                     return;
                 }
-
+                //togliere
                 if (m_LastNumIniz == sNumIniziale) {
                     return;
                 }
@@ -3741,9 +3884,9 @@ namespace assetacquire_default { //caricobeneinventario//
                     txtNumIniz.Text = m_LastNumIniz;
                     return;
                 }
-                string msg = "Questa operazione associa gli aumenti valore " +
-                             "a beni numerati progressivamente sostituendo l'associazione " +
-                             "eventualmente assegnata precedentemente. Confermi?";
+                string msg = "Questa operazione associa gli accessori " +
+                             "ai cespiti principali e sostituisce l'associazione " +
+                             "precedente. Confermi?";
                 DialogResult res = DialogResult.Yes;
                 if (WarningDaVisualizzare)
                     res = show(msg, "Conferma",
@@ -3811,6 +3954,7 @@ namespace assetacquire_default { //caricobeneinventario//
 
         private bool EseguiCheckInv(object codiceinventario, object numiniziale, object quantita) {
             if ((numiniziale.ToString() == "") || (codiceinventario.ToString() == "")) return false;
+            if (chkAccessoriSuStessoCespite.Checked) return true;
             if (!CheckInventario(codiceinventario, numiniziale, quantita)) {
                 string msg = "L'insieme di numeri di inventario indicato è in tutto o in parte " +
                              "inesistente oppure uno o più cespiti appartenenti all'insieme sono stati scaricati";
@@ -3919,12 +4063,11 @@ namespace assetacquire_default { //caricobeneinventario//
 
         }
 
-
-        private void btnCollegaRiga_Click(object sender, System.EventArgs e) {
-            if (!Meta.IsEmpty) Meta.GetFormData(true);
+        private void CollegaRigaCP_Fatturadaricevere(object sender) {
+            //Collega riga CP prendendo solo le righe marcate come Fatture da ricevere,  il bit 7 del flag di uniconfig vale 1
             DataRow Curr = null;
-
             DataAccess Conn = MetaData.GetConnection(this);
+
             MetaData MRiga;
             if ((Meta.InsertMode) || (Meta.EditMode))
                 MRiga = MetaData.GetMetaData(this, "mandatedetailavailable");
@@ -3940,6 +4083,324 @@ namespace assetacquire_default { //caricobeneinventario//
             string filter = CalcolaFiltro();
             filter = QHS.AppAnd(filter, QHS.CmpEq("linktoasset", "S"), QHS.IsNull("stop"));
 
+            filter = QHS.AppAnd(filter, QHS.CmpEq("epkind", "F"));// IMPORTANTISSIMO: prende i dettagli marcati come fatture da ricevere
+
+            bool inseritoInBuonoCarico = false;
+
+            //filtro per quegli ordini che hanno caricato beni inventariabili e il cui ordine
+            //ha un residuo diverso da zero
+            string staticfilter;
+            // Rusciano G. 09.03.2005 - La ricerca sulla disponibilità dei dettagli dell'ordine 
+            // deve essere fatta sia in Insert che in Edit Mode
+            // il dettaglio dell'ordine deve avere residuo > 0 e non <> 0
+            if ((Meta.InsertMode) || (Meta.EditMode)) {
+                Curr = DS.assetacquire.Rows[0];
+                inseritoInBuonoCarico = (Curr["idassetload"] != DBNull.Value);
+                //sara, il residuo è calcolato su idgroup di mandatedetail non più su rownum
+
+                if (inseritoInBuonoCarico) {
+                    staticfilter = QHS.CmpGe("residual", Curr["number"]);
+                }
+                else {
+                    staticfilter = QHS.CmpGt("residual", 0);
+                }
+
+                // QHS.AppAnd(QHS.CmpGt("residual", 0), QHS.IsNotNull("codeinv"));          
+                if (chkIspieceAcquire.Checked) {
+                    staticfilter = QHS.AppAnd(staticfilter, QHS.CmpEq("assetkind", "P"));
+                }
+                else {
+                    staticfilter = QHS.AppAnd(staticfilter, QHS.CmpEq("assetkind", "A"));
+                }
+            }
+            else {
+                // siamo in ricerca
+                staticfilter = QHS.IsNotNull("codeinv");
+            }
+            string qold = "";
+            if (Meta.EditMode) {
+                if (Curr["idmankind", DataRowVersion.Original] != DBNull.Value) {
+                    qold = QHS.AppAnd(QHS.CmpEq("idmankind", Curr["idmankind", DataRowVersion.Original]),
+                        QHS.CmpEq("yman", Curr["yman", DataRowVersion.Original]),
+                        QHS.CmpEq("nman", Curr["nman", DataRowVersion.Original]),
+                        QHS.CmpEq("idgroup", Curr["rownum", DataRowVersion.Original]));
+                    staticfilter = QHS.DoPar(QHS.AppOr(staticfilter, qold));
+                }
+            }
+
+
+            string filterToUse = QHS.AppAnd(staticfilter, filter);
+            if (inseritoInBuonoCarico) {
+                filterToUse = QHS.AppAnd(filterToUse,
+                    QHS.CmpEq("taxable", Curr["taxable"]),
+                    QHS.CmpEq("idreg", Curr["idreg"]),
+                    QHS.CmpEq("idinv", Curr["idinv"]),
+                    QHS.CmpEq("taxrate", Curr["taxrate"]),
+                    QHS.CmpEq("discount", Curr["discount"]),
+                    QHS.CmpEq("idlist", Curr["idlist"])
+                    );
+            }
+
+            DataRow selRow = MRiga.SelectOne("dettaglio", filterToUse, null, null);
+
+            if (selRow == null) {
+                if (Meta.InsertMode) {
+                    if (typeof(TextBox).IsAssignableFrom(sender.GetType())) {
+                        if (((TextBox)sender).Text.Trim() != "") {
+                            HelpForm.FocusControl((TextBox)sender);//.Focus();
+                        }
+                    }
+                }
+                return;
+            }
+
+            if (Meta.EditMode) {
+                string qnew = QHS.AppAnd(QHS.CmpEq("idmankind", selRow["idmankind"]),
+                    QHS.CmpEq("yman", selRow["yman"]),
+                    QHS.CmpEq("nman", selRow["nman"]),
+                    QHS.CmpEq("idgroup", selRow["idgroup"]));
+                if (qnew == qold) {
+                    PostData.RemoveFalseUpdates(DS);
+                    if (DS.HasChanges()) {
+                        show("Poiché è stata riselezionata la riga dell'ordine originariamente collegata " +
+                                        "a questo carico, le altre modifiche effettute sono state annullate.", "Avviso");
+                        DS.RejectChanges();
+                    }
+                    Meta.FreshForm(true);
+                    return;
+                }
+            }
+
+            if ((Meta.InsertMode) || (Meta.EditMode)) {
+                int oldquantita = CfgFn.GetNoNullInt32(Curr["number"]);
+                var rAssetacquireCurr = DS.assetacquire.First();
+                Curr["idmankind"] = selRow["idmankind"];   
+                Curr["yman"] = selRow["yman"];
+                Curr["nman"] = selRow["nman"];
+                Curr["rownum"] = selRow["idgroup"];
+
+                AbilitaCredDeb(false);
+                string filtroGroup = QHS.MCmp(selRow, "idmankind", "yman", "nman", "idgroup");
+                string filtroRow = QHS.AppAnd(QHS.MCmp(selRow, "idmankind", "yman", "nman"),
+                    QHS.CmpEq("rownum", selRow["idgroup"]));
+
+                DataTable ordineGroup = Conn.RUN_SELECT("mandatedetailgroupview", "*", null, filtroGroup, null, false);
+                var rOrdineGroup = ordineGroup.First();
+                if (rOrdineGroup == null) {
+                    show(@"Il dettaglio ordine non è stato trovato", @"Errore");
+                    return;
+                }
+                DataTable ordUpb = Conn.SQLRunner("select * from mandatedetail where " + filtroGroup, true);
+                object iddupb = DBNull.Value;
+
+                if (ordUpb != null && ordUpb.Rows.Count == 1) {
+                    if (inseritoInBuonoCarico && Curr["idupb"].ToString() != ordUpb.Rows[0]["idupb"].ToString()) {
+                        show(@"La riga selezionata ha un upb diverso da quello precedente", @"Errore");
+                        DS.RejectChanges();
+                        Meta.FreshForm(true);
+                        return;
+                    }
+                    Curr["idupb"] = ordUpb.Rows[0]["idupb"];
+                    Curr["idsor1"] = ordUpb.Rows[0]["idsor1"];
+                    Curr["idsor2"] = ordUpb.Rows[0]["idsor2"];
+                    Curr["idsor3"] = ordUpb.Rows[0]["idsor3"];
+
+                    //Copia la ripartizione presente sul dettaglio CP
+                    object idcostpartition = ordUpb.Rows[0]["idcostpartition"];
+                    if (idcostpartition != DBNull.Value) {
+                        DataTable costpartition = Conn.RUN_SELECT("costpartition", "*", null, qhs.AppAnd(qhs.CmpEq("idcostpartition", idcostpartition), qhs.CmpEq("active", "S")), null, false);
+                        if (costpartition != null && costpartition.Rows.Count == 1) {
+                            Curr["idcostpartition"] = idcostpartition;
+                        }
+                    }
+
+                }
+
+                if (inseritoInBuonoCarico) {
+                    //non opera nessun altro tipo di modifica
+                    Meta.FreshForm(true);
+                    return;
+                }
+
+                if (selRow["detaildescription"] == DBNull.Value) {
+                    rAssetacquireCurr.description = ""; // Curr["description"] = "";
+                }
+                else {
+                    Curr["description"] = selRow["detaildescription"];
+                }
+
+                string filtroOrdine = QHS.MCmp(selRow, "idmankind", "yman", "nman");
+
+                object tassoCambio = Meta.Conn.DO_READ_VALUE("mandate", filtroOrdine, "exchangerate");
+                Curr["idreg"] = rOrdineGroup["idreg"];
+                if (rOrdineGroup["idinv"] != DBNull.Value) {
+                    Curr["idinv"] = rOrdineGroup["idinv"];
+                }
+                if (rOrdineGroup["idlist"] != DBNull.Value) {
+                    Curr["idlist"] = rOrdineGroup["idlist"];
+                }
+
+
+                decimal impostacaricata = 0;
+                decimal detraibilecaricato = 0;
+
+				//Cerca di associare la Riga Fattura
+				DataRow Rinv = SelezionaRigaFattura(selRow);
+				if (Rinv == null) {
+					Curr["idinvkind"] = DBNull.Value;
+                    Curr["yinv"] = DBNull.Value;
+                    Curr["ninv"] = DBNull.Value;
+                    Curr["invrownum"] = DBNull.Value;
+                    Curr["taxable"] = CfgFn.Round(CfgFn.GetNoNullDecimal(rOrdineGroup["taxable"])
+                                                                     * CfgFn.GetNoNullDecimal(tassoCambio), 2);
+
+                    Curr["taxrate"] = rOrdineGroup["taxrate"];
+                    Curr["discount"] = rOrdineGroup["discount"];
+
+                    TotIvaGenerale = CfgFn.Round(CfgFn.GetNoNullDecimal(rOrdineGroup["tax"]), 2);
+                    residuo = CfgFn.GetNoNullInt32(selRow["residual"]);
+                    impostacaricata = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("assetacquire",
+                        filtroRow, "SUM(tax)"));
+                    detraibilecaricato = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("assetacquire",
+                        filtroRow, "SUM(abatable)"));
+			}
+			else {
+				Curr["idinvkind"] = Rinv["idinvkind"];
+				Curr["yinv"] = Rinv["yinv"];
+				Curr["ninv"] = Rinv["ninv"];
+				Curr["invrownum"] = Rinv["invidgroup"];
+				Curr["taxable"] = CfgFn.Round(CfgFn.GetNoNullDecimal(Rinv["taxable"])
+																 * CfgFn.GetNoNullDecimal(tassoCambio), 2);
+
+				Curr["taxrate"] = Rinv["taxrate"];
+				Curr["discount"] = Rinv["discount"];
+				string filtro_groupinv = QHS.MCmp(Rinv, "idinvkind", "yinv", "ninv", "invidgroup");
+				object otax = Conn.DO_READ_VALUE("invoicedetailgroupview", filtro_groupinv, "tax", null);
+				decimal ivafattura = CfgFn.GetNoNullDecimal(otax);
+				int quantitafattura = CfgFn.GetNoNullInt32(Rinv["invoiced"]); //q.tà della fattura
+				int quantitacarico = CfgFn.GetNoNullInt32(Rinv["residual"]);// disponibile della fattura da caricare
+				residuo = CfgFn.GetNoNullInt32(Rinv["residual"]);
+				TotIvaGenerale = ivafattura;
+				//CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(
+				//    Decimal.Truncate(ivafattura * 100 / quantitafattura) / 100) * quantitacarico);
+				string filtro_inv = QHS.MCmp(Rinv, "idinvkind", "yinv", "ninv");
+				filtro_inv = QHS.AppAnd(filtro_inv, QHS.CmpEq("invrownum", Rinv["invidgroup"]));
+				impostacaricata = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("assetacquire",
+					filtro_inv, "SUM(tax)"));
+				detraibilecaricato = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("assetacquire",
+					filtro_inv, "SUM(abatable)"));
+
+				Curr["idsor1"] = Rinv["idsor1"];
+				Curr["idsor2"] = Rinv["idsor2"];
+				Curr["idsor3"] = Rinv["idsor3"];
+
+				//Copia la ripartizione presente sul dettaglio Fattura
+				object idcostpartition = Rinv["idcostpartition"];
+				if (idcostpartition != DBNull.Value) {
+					DataTable costpartition = Conn.RUN_SELECT("costpartition", "*", null, qhs.AppAnd(qhs.CmpEq("idcostpartition", idcostpartition), qhs.CmpEq("active", "S")), null, false);
+					if (costpartition != null && costpartition.Rows.Count == 1) {
+						Curr["idcostpartition"] = idcostpartition;
+					}
+				}
+			}
+
+			totquantita = CfgFn.GetNoNullInt32(rOrdineGroup["number"]);
+                if (inseritoInBuonoCarico) {
+                    totquantita = oldquantita;
+                }
+
+
+                IvaGenResiduo = TotIvaGenerale - impostacaricata;
+
+                DS.assetacquire.Rows[0]["tax"] = IvaGenResiduo;
+
+                Meta.FreshForm();
+                DS.assetacquire.Rows[0]["number"] = residuo;
+                txtQuantita.Text = residuo.ToString();
+
+
+				if (Rinv != null) {
+					DataTable FatturaGroup = Conn.CreateTableByName("invoicedetailgroupview", "*");
+					GetData.MarkSkipSecurity(FatturaGroup);
+					Conn.RUN_SELECT_INTO_TABLE(FatturaGroup, null, QHS.MCmp(Rinv, "idinvkind", "yinv", "ninv", "invidgroup"), null, false);
+					TotIvaDetraibile = calcolaIvaDetraibile(rOrdineGroup, FatturaGroup.Rows[0], residuo);
+
+				}
+				else {
+					TotIvaDetraibile = calcolaIvaDetraibile(rOrdineGroup, null, residuo);
+				}
+
+				IvaDetResiduo = TotIvaDetraibile - detraibilecaricato;
+                DS.assetacquire.Rows[0]["abatable"] = IvaDetResiduo;
+                txtAbatable.Text = IvaDetResiduo.ToString("c");
+                MandateLinked = true;
+
+                if (CheckShowHint(IvaGenResiduo, IvaDetResiduo, residuo))
+                    ShowHint(IvaGenResiduo, IvaDetResiduo, residuo);
+
+                if (chkIspieceAcquire.Checked) {
+                    if (AggiornaRigheParteNonInv(residuo, oldquantita, true))
+                        CalcolaTotali(false, false);
+                }
+                else {
+                    if (AggiornaRigheBeneInv(residuo, oldquantita))
+                        CalcolaTotali(false, false);
+                }
+
+                Object idlocation = rOrdineGroup["idlocation"];
+                if (idlocation != DBNull.Value) {
+
+                    MetaData.SetDefault(DS.assetlocation, "idlocation", idlocation);
+                    AggiornaUbicazioneDaContrattoPassivo(idlocation);
+                }
+
+            }
+            else {
+                HelpForm.SetComboBoxValue(cmbTipoOrdine, selRow["idmankind"]);
+                txtEsercordine.Text = selRow["yman"].ToString();
+                txtNumordine.Text = selRow["nman"].ToString();
+                txtNumriga.Text = selRow["idgroup"].ToString();
+                MandateLinked = false;
+
+                //Dopo aver scelto il CP, disabilita la scelta della fattura
+                AbilitaFattura(false);
+            }
+        }
+        private void btnCollegaRiga_Click(object sender, System.EventArgs e) {
+            if (!Meta.IsEmpty) Meta.GetFormData(true);
+            DataRow Curr = null;
+
+            DataAccess Conn = MetaData.GetConnection(this);
+
+
+            MetaData MRiga;
+            if ((Meta.InsertMode) || (Meta.EditMode)) {
+                if (AbilitaCaricodaFattura()) {
+                    //Stiamo scegliendo la fattura per creare il carico
+                    if (cmbTipoFattura.SelectedIndex > 0) {
+                        show("Poiché è stata associata la riga della Fattura, non è possibile selezionare anche il Contratto Passivo.", "Avviso");
+                        return;
+                    }
+                }
+                MRiga = MetaData.GetMetaData(this, "mandatedetailavailable");
+            }
+            else {
+                //MRiga= MetaData.GetMetaData(this,"mandatedetailview");
+                //ho creato il nuovo MRiga xkè quando andrà a selezionare la riga di mandatedetailview tramite idgroup 
+                //non avrà 1 riga ma n, xkè ci sono nrighe per ogni gruppo in mandatedetailview
+                MRiga = MetaData.GetMetaData(this, "mandatedetailgroupview");
+            }
+            MRiga.FilterLocked = true;
+            MRiga.DS = DS;
+
+            string filter = CalcolaFiltro();
+            filter = QHS.AppAnd(filter, QHS.CmpEq("linktoasset", "S"), QHS.IsNull("stop"));
+
+            if (AbilitaCaricodaFattura()) {
+                //Se il bit 7 di uniconfig vale 1, dobbiamo selezionare solo i CP marcati come Fatture da ricevere
+                filter = QHS.AppAnd(filter, QHS.CmpEq("epkind", "F"));// IMPORTANTISSIMO: prende i dettagli marcati come fatture da ricevere
+
+            }
             bool inseritoInBuonoCarico = false;
 
             //filtro per quegli ordini che hanno caricato beni inventariabili e il cui ordine
@@ -4056,9 +4517,19 @@ namespace assetacquire_default { //caricobeneinventario//
                         return;
                     }
                     Curr["idupb"] = ordUpb.Rows[0]["idupb"];
-                    Curr["idsor1"] = ordUpb.Rows[0]["idsor1"];
-                    Curr["idsor2"] = ordUpb.Rows[0]["idsor2"];
-                    Curr["idsor3"] = ordUpb.Rows[0]["idsor3"];
+					Curr["idsor1"] = ordUpb.Rows[0]["idsor1"];
+					Curr["idsor2"] = ordUpb.Rows[0]["idsor2"];
+					Curr["idsor3"] = ordUpb.Rows[0]["idsor3"];
+
+                    //Copia la ripartizione presente sul dettaglio CP
+                    object idcostpartition = ordUpb.Rows[0]["idcostpartition"];
+                    if (idcostpartition != DBNull.Value) {
+                        DataTable costpartition = Conn.RUN_SELECT("costpartition", "*", null, qhs.AppAnd(qhs.CmpEq("idcostpartition", idcostpartition), qhs.CmpEq("active","S")), null, false);
+                        if(costpartition != null && costpartition.Rows.Count == 1) {
+                            Curr["idcostpartition"] = idcostpartition;
+                        }
+                    }
+
                 }
 
                 if (inseritoInBuonoCarico) {
@@ -4089,7 +4560,10 @@ namespace assetacquire_default { //caricobeneinventario//
                 decimal impostacaricata = 0;
                 decimal detraibilecaricato = 0;
                 //Cerca di associare la Riga Fattura
-                DataRow Rinv = SelezionaRigaFattura(selRow);
+                DataRow Rinv = null;
+                if (!AbilitaCaricodaFattura()) {
+                    Rinv = SelezionaRigaFattura(selRow);
+                }
                 if (Rinv == null) {
                     Curr["idinvkind"] = DBNull.Value;
                     Curr["yinv"] = DBNull.Value;
@@ -4133,6 +4607,19 @@ namespace assetacquire_default { //caricobeneinventario//
                         filtro_inv, "SUM(tax)"));
                     detraibilecaricato = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("assetacquire",
                         filtro_inv, "SUM(abatable)"));
+
+                    Curr["idsor1"] = Rinv["idsor1"];
+                    Curr["idsor2"] = Rinv["idsor2"];
+                    Curr["idsor3"] = Rinv["idsor3"];
+
+                    //Copia la ripartizione presente sul dettaglio Fattura
+                    object idcostpartition = Rinv["idcostpartition"];
+                    if (idcostpartition != DBNull.Value) {
+                        DataTable costpartition = Conn.RUN_SELECT("costpartition", "*", null, qhs.AppAnd(qhs.CmpEq("idcostpartition", idcostpartition), qhs.CmpEq("active", "S")), null, false);
+                        if (costpartition != null && costpartition.Rows.Count == 1) {
+                            Curr["idcostpartition"] = idcostpartition;
+                        }
+                    }
                 }
                 
                 totquantita = CfgFn.GetNoNullInt32(rOrdineGroup["number"]);
@@ -4284,30 +4771,12 @@ namespace assetacquire_default { //caricobeneinventario//
         }
 
         decimal calcolaIvaDetraibileDaFattura(DataRow rDettOrdine, DataRow rDettIva,int residuo) {
-            decimal quantitaDettOrdine = CfgFn.GetNoNullDecimal(rDettOrdine["number"]);
-            // Se la quantità assegnata al carico è differente dalla quantità del dettaglio ordine
-            // assegna come IVA detraibile ZERO
-            //if (quantitaAssegnata != quantitaDettOrdine) return 0;
-
-            // Se il dettaglio dell'ordine non è collegato a dettagli fattura 
-            // assegna come IVA detraibile ZERO
-            string filtro = QHS.AppAnd(QHS.MCmp(rDettOrdine, "idmankind", "yman", "nman"),
-                QHS.CmpEq("manidgroup", rDettOrdine["idgroup"]));
-            string elencoCampiDettFattura = "idinvkind, yinv, ninv, number, tax, unabatable, adate, exchangerate";
 
             if (rDettIva == null) return calcolaIvaDetraibileDaOrdine(rDettOrdine);//  10673
-            //decimal quantitaDettFattura = CfgFn.GetNoNullDecimal(rDettIva["number"]);
             // Se le quantità sono differenti prende i campi dall'ORDINE
             decimal unabatable = 0;
             decimal tax = 0;
-            //if (quantitaDettOrdine != quantitaDettFattura) {
-            //    unabatable = CfgFn.GetNoNullDecimal(rDettOrdine["unabatable"]);
-            //    tax = CfgFn.GetNoNullDecimal(rDettOrdine["tax"]);
-            //}
-            //else {
-            //    unabatable = CfgFn.GetNoNullDecimal(rDettIva["unabatable"]);
-            //    tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(rDettIva["tax"]));
-            //}
+
             unabatable = CfgFn.GetNoNullDecimal(rDettIva["unabatable"]);
             tax = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(rDettIva["tax"]));
             //Vanno entrambe proporzionate alla q.tà del carico, ossia alla q.tà della fattura disponibile per il carico
@@ -4319,7 +4788,6 @@ namespace assetacquire_default { //caricobeneinventario//
 
             unabatable = (unabatable/ CfgFn.GetNoNullDecimal(rDettIva["number"])) * CfgFn.GetNoNullDecimal(residuo);
             tax = (tax / CfgFn.GetNoNullDecimal(rDettIva["number"])) * CfgFn.GetNoNullDecimal(residuo);
-
 
             string filtroTipoFattura = QHS.AppAnd(QHS.MCmp(rDettIva, "idinvkind"), QHS.CmpEq("ayear", rDettIva["yinv"]));
             object OabatableRate = Meta.Conn.DO_READ_VALUE("invoicekindyearview", filtroTipoFattura, "abatablerate");
@@ -4379,10 +4847,11 @@ namespace assetacquire_default { //caricobeneinventario//
                     btnModificaQuota.Enabled = false;
                     btnEliminaQuota.Enabled = false;
                 }
-
+                chkAccessoriSuStessoCespite.Enabled = true;
             }
             else {
                 chkAuto.Visible = true;
+                chkAccessoriSuStessoCespite.Enabled = false;
                 btnNumInventario.Enabled = false;
                 gridBene.Tag = "asset.dettaglio.dettaglio";
                 btnModificaBene.Tag = "edit.dettaglio";
@@ -4667,21 +5136,300 @@ namespace assetacquire_default { //caricobeneinventario//
         }
 
         private void btnCollegaRigaFattura_Click(object sender, EventArgs e) {
-            DataAccess Conn = MetaData.GetConnection(this);
-            MetaData MRiga;
-            MRiga = MetaData.GetMetaData(this, "invoicedetailgroupview");
+            //Dobbiamo discriminare il comportamento a seconda che il button venga cliccato nell'Aftefill, 
+            //oppure in Insert/Edit per creare il carico cespite tramite fattura (quando il bit 7 del flag di uniconfig vale 1)
 
+            if (Meta.IsEmpty) {
+            //Stiamo scegliendo la fattura in fase di ricerca
+                DataAccess Conn = MetaData.GetConnection(this);
+                MetaData MRiga;
+                MRiga = MetaData.GetMetaData(this, "invoicedetailgroupview");
+
+                MRiga.FilterLocked = true;
+                MRiga.DS = DS;
+                string filter = CalcolaFiltroRigaFattura();
+                DataRow selRow = MRiga.SelectOne("dettaglio", filter, null, null);
+                if (selRow == null) {
+                    return;
+                }
+
+                HelpForm.SetComboBoxValue(cmbTipoFattura, selRow["idinvkind"]);
+                txtEsercFattura.Text = selRow["yinv"].ToString();
+                txtNumFattura.Text = selRow["ninv"].ToString();
+                txtNumRigaFattura.Text = selRow["invidgroup"].ToString();
+            }
+			else {
+                if (AbilitaCaricodaFattura()){
+					//Stiamo scegliendo la fattura per creare il carico
+					if (cmbTipoOrdine.SelectedIndex > 0) {
+                        show("Poiché è stata associata la riga del Contratto Passivo, non è possibile selezionare anche la Fattura.", "Avviso");
+                        return;
+					}
+
+                    CollegaRigaFattura(sender);
+                }
+
+            }
+        }
+        private void CollegaRigaFattura(object sender) {
+            if (!Meta.IsEmpty) Meta.GetFormData(true);
+            DataRow Curr = null;
+
+            DataAccess Conn = MetaData.GetConnection(this);
+            
+            MetaData MRiga;
+            if ((Meta.InsertMode) || (Meta.EditMode))
+                MRiga = MetaData.GetMetaData(this, "invoicedetailavailable");
+            else {
+
+                MRiga = MetaData.GetMetaData(this, "invoicedetailgroupview");
+            }
             MRiga.FilterLocked = true;
             MRiga.DS = DS;
-            string filter = CalcolaFiltroRigaFattura();
-            DataRow selRow = MRiga.SelectOne("dettaglio", filter, null, null);
-            if (selRow == null) {
-                return;
-            }
 
-            HelpForm.SetComboBoxValue(cmbTipoFattura, selRow["idinvkind"]);
-            txtEsercFattura.Text = selRow["yinv"].ToString();
-            txtNumFattura.Text = selRow["ninv"].ToString();
+            string filter = CalcolaFiltroRigaFattura();
+
+            bool inseritoInBuonoCarico = false;
+
+            string staticfilter;
+
+            if ((Meta.InsertMode) || (Meta.EditMode)) {
+                Curr = DS.assetacquire.Rows[0];
+                inseritoInBuonoCarico = (Curr["idassetload"] != DBNull.Value);
+                //sara, il residuo è calcolato su idgroup di mandatedetail non più su rownum
+
+                if (inseritoInBuonoCarico) {
+                    staticfilter = QHS.CmpGe("residual", Curr["number"]);
+                }
+                else {
+                    staticfilter = QHS.CmpGt("residual", 0);
+				}
+
+				// se carichiamo direttamente da fattura, dobbiamo escludere i dett fattura associati a dett cp
+				staticfilter = QHS.AppAnd(staticfilter, QHS.IsNull("idmankind"), QHS.BitClear("flag", 0));
+            }
+            else {
+                // siamo in ricerca
+                staticfilter = QHS.IsNotNull("codeinv");
+            }
+            string qold = "";
+			if (Meta.EditMode) {
+				if (Curr["idinvkind", DataRowVersion.Original] != DBNull.Value) {
+					qold = QHS.AppAnd(QHS.CmpEq("idinvkind", Curr["idinvkind", DataRowVersion.Original]),
+						QHS.CmpEq("yinv", Curr["yinv", DataRowVersion.Original]),
+						QHS.CmpEq("ninv", Curr["ninv", DataRowVersion.Original]),
+						QHS.CmpEq("invidgroup", Curr["invrownum", DataRowVersion.Original]));
+					staticfilter = QHS.DoPar(QHS.AppOr(staticfilter, qold));
+				}
+			}
+
+
+			string filterToUse = QHS.AppAnd(staticfilter, filter);
+			if (inseritoInBuonoCarico) {
+				filterToUse = QHS.AppAnd(filterToUse,
+					QHS.CmpEq("taxable", Curr["taxable"]),
+					QHS.CmpEq("idreg", Curr["idreg"]),
+					QHS.CmpEq("idinv", Curr["idinv"]),
+					QHS.CmpEq("taxrate", Curr["taxrate"]),
+					QHS.CmpEq("discount", Curr["discount"]),
+					QHS.CmpEq("idlist", Curr["idlist"])
+					);
+			}
+
+			DataRow selRow = MRiga.SelectOne("dettaglio", filterToUse, null, null);
+
+			if (selRow == null) {
+				if (Meta.InsertMode) {
+					if (typeof(TextBox).IsAssignableFrom(sender.GetType())) {
+						if (((TextBox)sender).Text.Trim() != "") {
+							HelpForm.FocusControl((TextBox)sender);
+						}
+					}
+				}
+				return;
+			}
+
+			if (Meta.EditMode) {
+				string qnew = QHS.AppAnd(QHS.CmpEq("idinvkind", selRow["idinvkind"]),
+					QHS.CmpEq("yinv", selRow["yinv"]),
+					QHS.CmpEq("ninv", selRow["ninv"]),
+					QHS.CmpEq("idgroup", selRow["idgroup"]));
+				if (qnew == qold) {
+					PostData.RemoveFalseUpdates(DS);
+					if (DS.HasChanges()) {
+						show("Poiché è stata riselezionata la riga della Fattura originariamente collegata " +
+										"a questo carico, le altre modifiche effettute sono state annullate.", "Avviso");
+						DS.RejectChanges();
+					}
+					Meta.FreshForm(true);
+					return;
+				}
+			}
+
+			if ((Meta.InsertMode) || (Meta.EditMode)) {
+                int oldquantita = CfgFn.GetNoNullInt32(Curr["number"]);
+                var rAssetacquireCurr = DS.assetacquire.First();
+                Curr["idinvkind"] = selRow["idinvkind"];   
+                Curr["yinv"] = selRow["yinv"];
+                Curr["ninv"] = selRow["ninv"];
+                Curr["invrownum"] = selRow["invidgroup"];
+                
+                AbilitaCredDeb(false);
+                string filtroGroup = QHS.MCmp(selRow, "idinvkind", "yinv", "ninv", "invidgroup");
+                string filtroRow = QHS.AppAnd(QHS.MCmp(selRow, "idinvkind", "yinv", "ninv"),
+                    QHS.CmpEq("idgroup", selRow["invidgroup"]));
+
+                DataTable FatturaGroup = Conn.RUN_SELECT("invoicedetailgroupview", "*", null, filtroGroup, null, false);
+                var rFatturaGroup = FatturaGroup.First();
+                if (rFatturaGroup == null) {
+                    show(@"Il dettaglio fattura non è stato trovato", @"Errore");
+                    return;
+                }
+                DataTable ordUpb = Conn.SQLRunner("select * from invoicedetail where " + filtroRow, true);
+                object iddupb = DBNull.Value;
+                object idcostpartition;
+                if (ordUpb != null && ordUpb.Rows.Count == 1) {
+                    if (inseritoInBuonoCarico && Curr["idupb"].ToString() != ordUpb.Rows[0]["idupb"].ToString()) {
+                        show(@"La riga selezionata ha un upb diverso da quello precedente", @"Errore");
+                        DS.RejectChanges();
+                        Meta.FreshForm(true);
+                        return;
+                    }
+                    Curr["idupb"] = ordUpb.Rows[0]["idupb"];
+                    Curr["idsor1"] = ordUpb.Rows[0]["idsor1"];
+                    Curr["idsor2"] = ordUpb.Rows[0]["idsor2"];
+                    Curr["idsor3"] = ordUpb.Rows[0]["idsor3"];
+
+                    //Copia la ripartizione presente sul dettaglio CP
+                    idcostpartition = ordUpb.Rows[0]["idcostpartition"];
+                    if (idcostpartition != DBNull.Value) {
+                        DataTable costpartition = Conn.RUN_SELECT("costpartition", "*", null, qhs.AppAnd(qhs.CmpEq("idcostpartition", idcostpartition), qhs.CmpEq("active", "S")), null, false);
+                        if (costpartition != null && costpartition.Rows.Count == 1) {
+                            Curr["idcostpartition"] = idcostpartition;
+                        }
+                    }
+                }
+
+                if (inseritoInBuonoCarico) {
+                    //non opera nessun altro tipo di modifica
+                    Meta.FreshForm(true);
+                    return;
+                }
+
+                if (selRow["detaildescription"] == DBNull.Value) {
+                    rAssetacquireCurr.description = ""; 
+                }
+                else {
+                    Curr["description"] = selRow["detaildescription"];
+                }
+
+                string filtroOrdine = QHS.MCmp(selRow, "idinvkind", "yinv", "ninv");
+
+                object tassoCambio = Meta.Conn.DO_READ_VALUE("invoice", filtroOrdine, "exchangerate");
+                Curr["idreg"] = selRow["idreg"];       
+                //if (rOrdineGroup["idinv"] != DBNull.Value) {
+                //    Curr["idinv"] = rOrdineGroup["idinv"];
+                //}
+                if (rFatturaGroup["idlist"] != DBNull.Value) {
+                    Curr["idlist"] = rFatturaGroup["idlist"];
+                }
+
+
+                decimal impostacaricata = 0;
+                decimal detraibilecaricato = 0;
+                DataRow Rinv = selRow;
+
+                    Curr["taxable"] = CfgFn.Round(CfgFn.GetNoNullDecimal(Rinv["taxable"])
+                                                                     * CfgFn.GetNoNullDecimal(tassoCambio), 2);
+
+                    Curr["taxrate"] = Rinv["taxrate"];
+                    Curr["discount"] = Rinv["discount"];
+                    string filtro_groupinv = QHS.MCmp(Rinv, "idinvkind", "yinv", "ninv", "invidgroup");
+                    object otax = Conn.DO_READ_VALUE("invoicedetailgroupview", filtro_groupinv, "tax", null);
+                    decimal ivafattura = CfgFn.GetNoNullDecimal(otax);
+                    int quantitafattura = CfgFn.GetNoNullInt32(Rinv["invoiced"]); //q.tà della fattura
+                    int quantitacarico = CfgFn.GetNoNullInt32(Rinv["residual"]);// disponibile della fattura da caricare
+                    residuo = CfgFn.GetNoNullInt32(Rinv["residual"]);
+                    TotIvaGenerale = ivafattura;
+                    //CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(
+                    //    Decimal.Truncate(ivafattura * 100 / quantitafattura) / 100) * quantitacarico);
+                    string filtro_inv = QHS.MCmp(Rinv, "idinvkind", "yinv", "ninv");
+                    filtro_inv = QHS.AppAnd(filtro_inv, QHS.CmpEq("invrownum", Rinv["invidgroup"]));
+                    impostacaricata = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("assetacquire",
+                        filtro_inv, "SUM(tax)"));
+                    detraibilecaricato = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("assetacquire",
+                        filtro_inv, "SUM(abatable)"));
+
+                    //Curr["idsor1"] = FatturaGroup["idsor1"];
+                    //Curr["idsor2"] = FatturaGroup["idsor2"];
+                    //Curr["idsor3"] = FatturaGroup["idsor3"];
+
+                    ////Copia la ripartizione presente sul dettaglio Fattura
+                    //idcostpartition = FatturaGroup["idcostpartition"];
+                    //if (idcostpartition != DBNull.Value) {
+                    //    DataTable costpartition = Conn.RUN_SELECT("costpartition", "*", null, qhs.AppAnd(qhs.CmpEq("idcostpartition", idcostpartition), qhs.CmpEq("active", "S")), null, false);
+                    //    if (costpartition != null && costpartition.Rows.Count == 1) {
+                    //        Curr["idcostpartition"] = idcostpartition;
+                    //    }
+                    //}
+                //}
+
+                totquantita = CfgFn.GetNoNullInt32(rFatturaGroup["number"]);
+                if (inseritoInBuonoCarico) {
+                    totquantita = oldquantita;
+                }
+
+
+                IvaGenResiduo = TotIvaGenerale - impostacaricata;
+
+                DS.assetacquire.Rows[0]["tax"] = IvaGenResiduo;
+
+                Meta.FreshForm();
+                DS.assetacquire.Rows[0]["number"] = residuo;
+                txtQuantita.Text = residuo.ToString();
+
+
+         
+                    //DataTable FatturaGroup = Conn.CreateTableByName("invoicedetailgroupview", "*");
+                    //GetData.MarkSkipSecurity(FatturaGroup);
+                    //Conn.RUN_SELECT_INTO_TABLE(FatturaGroup, null, QHS.MCmp(Rinv, "idinvkind", "yinv", "ninv", "invidgroup"), null, false);
+                    TotIvaDetraibile = calcolaIvaDetraibileDaFattura(null, rFatturaGroup, residuo);
+
+            
+        
+
+                IvaDetResiduo = TotIvaDetraibile - detraibilecaricato;
+                DS.assetacquire.Rows[0]["abatable"] = IvaDetResiduo;
+                txtAbatable.Text = IvaDetResiduo.ToString("c");
+                MandateLinked = true;
+
+                if (CheckShowHint(IvaGenResiduo, IvaDetResiduo, residuo))
+                    ShowHint(IvaGenResiduo, IvaDetResiduo, residuo);
+
+                if (chkIspieceAcquire.Checked) {
+                    if (AggiornaRigheParteNonInv(residuo, oldquantita, true))
+                        CalcolaTotali(false, false);
+                }
+                else {
+                    if (AggiornaRigheBeneInv(residuo, oldquantita))
+                        CalcolaTotali(false, false);
+                }
+
+                //Object idlocation = Rinv["idlocation"];
+                //if (idlocation != DBNull.Value) {
+
+                //    MetaData.SetDefault(DS.assetlocation, "idlocation", idlocation);
+                //    AggiornaUbicazioneDaFattura(idlocation);
+                //}
+
+            }
+            else {
+                HelpForm.SetComboBoxValue(cmbTipoOrdine, selRow["idmankind"]);
+                txtEsercordine.Text = selRow["yman"].ToString();
+                txtNumordine.Text = selRow["nman"].ToString();
+                txtNumriga.Text = selRow["idgroup"].ToString();
+                MandateLinked = false;
+            }
         }
         private string CalcolaFiltroRigaFattura() {
             string filter = "";

@@ -23,9 +23,41 @@
 
 			//afterGetFormData
 			
-			//beforeFill
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#aula_default_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#aula_default_idstruttura'), this.q.eq('struttura_active', 'Si'));
+				}
+				//beforeFillFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("beforeFill-aula_default");
+				var arraydef = [];
+				
+				//beforeFillInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return self.superClass.beforeFill.call(self)
+							.then(function () {
+								return def.resolve();
+							});
+					});
+				return def.promise();
+			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#aula_default_idstruttura'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -38,6 +70,7 @@
 					$('#calendar22').fullCalendar('rerenderEvents');
 				});
 				this.state.DS.tables.sededefaultview.staticFilter(window.jsDataQuery.eq("sede_idreg", self.idreg_istituto));
+				appMeta.metaModel.insertFilter(this.getDataTable("aulakinddefaultview"), this.q.eq('aulakind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -48,10 +81,12 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-aula_default");
-				$('#aula_default_idsede').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#aula_default_idsede').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#aula_default_idedificio').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#aula_default_idedificio').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#aula_default_idsede').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idsede);
+				$('#aula_default_idsede').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idsede);
+				$('#aula_default_idedificio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
+				$('#aula_default_idedificio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
+				$('#aula_default_idsede').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
+				$('#aula_default_idsede').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
 				//afterRowSelectin
 				return def.resolve();
 			},

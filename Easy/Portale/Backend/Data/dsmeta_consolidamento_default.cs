@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -49,6 +49,9 @@ public partial class dsmeta_consolidamento_default: DataSet {
 	public MetaTable consolidamentorendicontattivitaprogettoora 		=> (MetaTable)Tables["consolidamentorendicontattivitaprogettoora"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable consolidamentoora 		=> (MetaTable)Tables["consolidamentoora"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -93,6 +96,7 @@ private void initClass() {
 	tsal.defineColumn("datablocco", typeof(DateTime));
 	tsal.defineColumn("idprogetto", typeof(int),false);
 	tsal.defineColumn("idsal", typeof(int),false);
+	tsal.defineColumn("numerosal", typeof(int));
 	tsal.defineColumn("start", typeof(DateTime));
 	tsal.defineColumn("stop", typeof(DateTime));
 	Tables.Add(tsal);
@@ -152,11 +156,27 @@ private void initClass() {
 	tconsolidamentorendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogettoora_rendicontattivitaprogetto_description", typeof(string));
 	tconsolidamentorendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogettoora_rendicontattivitaprogettoora_data", typeof(DateTime));
 	tconsolidamentorendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogettoora_rendicontattivitaprogettoora_ore", typeof(int));
+	tconsolidamentorendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogettoora_sal_numerosal", typeof(int));
 	tconsolidamentorendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogettoora_sal_start", typeof(DateTime));
 	tconsolidamentorendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogettoora_sal_stop", typeof(DateTime));
 	tconsolidamentorendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogettoora_sal_datablocco", typeof(DateTime));
 	Tables.Add(tconsolidamentorendicontattivitaprogettoora);
 	tconsolidamentorendicontattivitaprogettoora.defineKey("idconsolidamento", "idrendicontattivitaprogettoora");
+
+	//////////////////// CONSOLIDAMENTOORA /////////////////////////////////
+	var tconsolidamentoora= new MetaTable("consolidamentoora");
+	tconsolidamentoora.defineColumn("convalida", typeof(string));
+	tconsolidamentoora.defineColumn("ct", typeof(DateTime),false);
+	tconsolidamentoora.defineColumn("cu", typeof(string),false);
+	tconsolidamentoora.defineColumn("data", typeof(DateTime));
+	tconsolidamentoora.defineColumn("idconsolidamentoora", typeof(int),false);
+	tconsolidamentoora.defineColumn("idreg", typeof(int),false);
+	tconsolidamentoora.defineColumn("lt", typeof(DateTime),false);
+	tconsolidamentoora.defineColumn("lu", typeof(string),false);
+	tconsolidamentoora.defineColumn("minuti", typeof(int));
+	tconsolidamentoora.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tconsolidamentoora);
+	tconsolidamentoora.defineKey("idconsolidamentoora", "idreg");
 
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
@@ -206,6 +226,10 @@ private void initClass() {
 	cPar = new []{progetto.Columns["idprogetto"]};
 	cChild = new []{rendicontattivitaprogettoora.Columns["idprogetto"]};
 	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoora_progetto_idprogetto",cPar,cChild,false));
+
+	cPar = new []{consolidamento.Columns["idreg"]};
+	cChild = new []{consolidamentoora.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_consolidamentoora_consolidamento_idreg",cPar,cChild,false));
 
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{consolidamento.Columns["idreg"]};

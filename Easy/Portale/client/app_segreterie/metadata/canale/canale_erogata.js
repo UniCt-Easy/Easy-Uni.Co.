@@ -66,16 +66,9 @@
 				return def.promise();
 			},
 
-			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('getdocentiperssd'));
-				//afterClearin
-			},
+			//afterClear
 
-			afterFill: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('getdocentiperssd'));
-				//afterFillin
-				return this.superClass.afterFill.call(this);
-			},
+			//afterFill
 
 			afterLink: function () {
 				var self = this;

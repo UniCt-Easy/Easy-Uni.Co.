@@ -88,6 +88,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
+    <Reference Include="HubConnector">
+      <HintPath>..\..\HubConnector\bin\Debug\HubConnector.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -103,6 +106,9 @@
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\dll\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="ReportGenClient">
+      <HintPath>..\..\ReportGenClient\bin\Debug\ReportGenClient.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

@@ -48,13 +48,7 @@
               <xs:element name="iban" type="xs:string" minOccurs="0" />
               <xs:element name="cc" type="xs:string" minOccurs="0" />
               <xs:element name="cin" type="xs:string" minOccurs="0" />
-              <xs:element name="flaghuman" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:length value="1" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="flaghuman" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="paymentcode" type="xs:string" minOccurs="0" />
@@ -728,6 +722,23 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="expenselastmandatedetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idexp" type="xs:int" />
+              <xs:element name="idmankind" type="xs:string" />
+              <xs:element name="yman" type="xs:short" />
+              <xs:element name="nman" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -840,6 +851,14 @@
       <xs:selector xpath=".//mstns:treasurer" />
       <xs:field xpath="mstns:idtreasurer" />
     </xs:unique>
+    <xs:unique name="expenselastmandatedetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:expenselastmandatedetail" />
+      <xs:field xpath="mstns:idexp" />
+      <xs:field xpath="mstns:idmankind" />
+      <xs:field xpath="mstns:yman" />
+      <xs:field xpath="mstns:nman" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -865,6 +884,7 @@
       <msdata:Relationship name="expense_paydispositiondetail" msdata:parent="expense" msdata:child="paydispositiondetail" msdata:parentkey="idexp" msdata:childkey="idexp" />
       <msdata:Relationship name="expensephase_expense" msdata:parent="expensephase" msdata:child="expense" msdata:parentkey="nphase" msdata:childkey="nphase" />
       <msdata:Relationship name="chargehandling_paydispositiondetail" msdata:parent="chargehandling" msdata:child="paydispositiondetail" msdata:parentkey="idchargehandling" msdata:childkey="idchargehandling" />
+      <msdata:Relationship name="expense_expenselastmandatedetail" msdata:parent="expense" msdata:child="expenselastmandatedetail" msdata:parentkey="idexp" msdata:childkey="idexp" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

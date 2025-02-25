@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,7 +43,17 @@ namespace no_table_invoicecomunicate {
         
         public Frm_no_table_invoicecomunicate() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             saveFileDialog1.DefaultExt = "xml";
+
+            if (isBlazor())
+			{
+                txtPercorso.Visible = false;
+                label1.Visible = false;
+                txtNomeFile.Visible = false;
+                label5.Visible = false;
+			}
         }
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
@@ -417,17 +427,25 @@ namespace no_table_invoicecomunicate {
                 stw.Close();
                 if (!ValidaFile_conXSD(nomeCompletoFileXml)) return ;
                 NomiFile += nomeFile + '-';
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(nomeCompletoFileXml, false);
             }
             //var xmlString = sw.ToString();
             //var xml = new UTF8Encoding().GetBytes(xmlString);
 
 
             Meta.SaveFormData();
-            show("File creati:\n\r " + NomiFile, "Avviso");
-            
 
-            show("Salvataggio eseguito.");
-         
+            if (isBlazor())
+            {
+                show("Download effettuato");
+            }
+            else
+            {
+                show("File creati:\n\r " + NomiFile, "Avviso");
+
+                show("Salvataggio eseguito.");
+            }
 
         }
 

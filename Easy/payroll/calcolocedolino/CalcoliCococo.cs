@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -124,7 +124,7 @@ namespace calcolocedolino { //calcolocedolino//
             foreach (DataTable t in DS.Tables) {
                 if ((t.TableName != "tax") && (t.TableName != "taxablekind")) {
                     foreach (DataRow rSorg in ds.Tables[t.TableName].Rows) {
-                        if (rSorg.RowState != DataRowState.Deleted) {
+                        if (rSorg.RowState != DataRowState.Deleted && rSorg.RowState != DataRowState.Detached) {
                             DataRow r = t.NewRow();
                             foreach (DataColumn c in t.Columns) {
                                 if (c.ColumnName.Substring(0, 1) == "!") continue;

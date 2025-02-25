@@ -26,8 +26,11 @@
 			//beforeFill
 
 			afterClear: function () {
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('classescuola'), this.getDataTable('classescuolacaratteristica'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -36,7 +39,16 @@
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$('#grid_classescuolacaratteristica_classe').data('mdlconditionallookup', 'obblig,S,Si;obblig,N,No;profess,S,Si;profess,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

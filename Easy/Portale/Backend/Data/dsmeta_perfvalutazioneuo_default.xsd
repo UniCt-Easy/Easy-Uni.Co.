@@ -8,8 +8,8 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -24,9 +24,15 @@
               <xs:element name="getdocentiamministrativiresponsabili_istituto" type="xs:string" minOccurs="0" />
               <xs:element name="getdocentiamministrativiresponsabili_resplevel" type="xs:int" minOccurs="0" />
               <xs:element name="getdocentiamministrativiresponsabili_ssd" type="xs:string" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="getdocentiamministrativiresponsabili_struttura" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
+              <xs:element name="struttura_idstrutturakind" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
               <xs:element name="surname" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -36,8 +42,8 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -46,8 +52,8 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -134,8 +140,8 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -144,8 +150,8 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="ruolo" type="xs:string" />
-              <xs:element name="struttura" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -380,6 +386,7 @@
               <xs:element name="indicatori" type="xs:decimal" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="motivazione" type="xs:string" minOccurs="0" />
               <xs:element name="obiettiviindividuali" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoindicatori" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoobiettivi" type="xs:decimal" minOccurs="0" />
@@ -395,26 +402,26 @@
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias5" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="getdocentiamministrativiresponsabilinomcognview_alias4_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias4" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="getdocentiamministrativiresponsabilinomcognview_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias3" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="getdocentiamministrativiresponsabilinomcognview_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias2" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="perfobiettiviuoattach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfobiettiviuoattach" />
@@ -446,14 +453,14 @@
     <xs:unique name="getdocentiamministrativiresponsabilinomcognview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview_alias1" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="getdocentiamministrativiresponsabilinomcognview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:getdocentiamministrativiresponsabilinomcognview" />
       <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idstruttura" />
       <xs:field xpath="mstns:ruolo" />
-      <xs:field xpath="mstns:struttura" />
     </xs:unique>
     <xs:unique name="perfvalutazioneuoindicatorisoglia_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:perfvalutazioneuoindicatorisoglia" />

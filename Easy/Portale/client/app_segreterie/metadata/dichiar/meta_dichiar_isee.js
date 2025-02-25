@@ -41,24 +41,37 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'isee_seg':
+						table.columns["anno"].caption = "Anno";
+						table.columns["conforme"].caption = "Conformità";
+						table.columns["dataauthdiff"].caption = "Data autorizzazione";
+						table.columns["datasottoscriz"].caption = "Data di sottoscrizione";
+						table.columns["enterilascio"].caption = "Ente del rilascio";
+						table.columns["isee"].caption = "Valore ISEE";
+						table.columns["numeroprot"].caption = "Numero protocollo dell'ente di rilascio";
+//$innerSetCaptionConfig_isee_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_dichiar_isee");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_dichiar_isee");
 
 				//$getNewRowInside$
 
 
 				// metto i default
-				var objRow = dt.newRow({
-					idreg : 0,
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

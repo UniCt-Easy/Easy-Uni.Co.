@@ -96,12 +96,16 @@
     <Reference Include="meta_dalia_funzionale">
       <HintPath>..\..\dalia_funzionale\meta_dalia_funzionale\bin\Debug\meta_dalia_funzionale.dll</HintPath>
     </Reference>
+    <Reference Include="meta_itineration, Version=1.0.58.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\meta_itineration\bin\Debug\meta_itineration.dll</HintPath>
+    </Reference>
     <Reference Include="meta_itinerationrefund, Version=1.0.32.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\itinerationrefund\meta_itinerationrefund\bin\Debug\meta_itinerationrefund.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="meta_registry, Version=1.2.80.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="meta_registry, Version=1.2.85.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
     </Reference>
@@ -167,12 +171,6 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_manager</Name>
       <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="meta_itineration">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_itineration</Name>
-      <HintPath>..\meta_itineration\bin\Debug\meta_itineration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">

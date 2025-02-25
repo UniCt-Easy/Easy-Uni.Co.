@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -395,6 +395,26 @@ private void initClass() {
 	tinvoicesorting.defineColumn("lt", typeof(DateTime),false);
 	tinvoicesorting.defineColumn("quota", typeof(double),false);
 	tinvoicesorting.defineColumn("!codiceclass", typeof(string));
+	tinvoicesorting.defineColumn("valuen1", typeof(decimal));
+	tinvoicesorting.defineColumn("valuen2", typeof(decimal));
+	tinvoicesorting.defineColumn("valuen3", typeof(decimal));
+	tinvoicesorting.defineColumn("valuen4", typeof(decimal));
+	tinvoicesorting.defineColumn("valuen5", typeof(decimal));
+	tinvoicesorting.defineColumn("values1", typeof(string));
+	tinvoicesorting.defineColumn("values2", typeof(string));
+	tinvoicesorting.defineColumn("valuev1", typeof(decimal));
+	tinvoicesorting.defineColumn("valuev2", typeof(decimal));
+	tinvoicesorting.defineColumn("valuev3", typeof(decimal));
+	tinvoicesorting.defineColumn("valued1", typeof(DateTime));
+	tinvoicesorting.defineColumn("valued2", typeof(DateTime));
+	tinvoicesorting.defineColumn("valued3", typeof(DateTime));
+	tinvoicesorting.defineColumn("valued4", typeof(DateTime));
+	tinvoicesorting.defineColumn("valued5", typeof(DateTime));
+	tinvoicesorting.defineColumn("valuev4", typeof(decimal));
+	tinvoicesorting.defineColumn("valuev5", typeof(decimal));
+	tinvoicesorting.defineColumn("values3", typeof(string));
+	tinvoicesorting.defineColumn("values4", typeof(string));
+	tinvoicesorting.defineColumn("values5", typeof(string));
 	tinvoicesorting.defineColumn("!descrizione", typeof(string));
 	Tables.Add(tinvoicesorting);
 	tinvoicesorting.defineKey("idinvkind", "idsor", "ninv", "yinv");

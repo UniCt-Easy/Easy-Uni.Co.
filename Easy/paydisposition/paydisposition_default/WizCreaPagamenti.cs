@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,6 +47,7 @@ namespace paydisposition_default {
 		QueryHelper QHS;
 		DataRow[] RowGridSelected;
 		DataRow ParentExpense;
+		bool monofase = false;
 		public WizCreaPagamenti(DataRow[] RowSelected,object motive, MetaData Meta, DataAccess Conn, DSFinancial DS1) {
 			InitializeComponent();
 			this.RowGridSelected = RowSelected;
@@ -88,6 +89,7 @@ namespace paydisposition_default {
 			this.Conn.RUN_SELECT_INTO_TABLE(DS.paymethod, null, null, null, false);
 			tabController.HideTabsMode =
 			Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
+			monofase = Conn.RUN_SELECT_COUNT("expensephase", null, true) == 1 ? true : false;
 		}
 
 		 
@@ -215,6 +217,7 @@ namespace paydisposition_default {
 			DS.expenseyear.Clear();
 			DS.expenselast.Clear();
 			DS.expensesorted.Clear();
+			DS.expenselastmandatedetail.Clear();
 			return;
 		}
 		bool GetMovimentoSelezionato() {
@@ -238,11 +241,82 @@ namespace paydisposition_default {
 			AddVociCollegate(MyDR);
 			ParentExpense = MyDR;
 			generaMovPrincipali(ParentExpense);
+
 			return doSave();
 			
 		}
+		
 
-	 
+		bool check_createRowExpenselastMandatedetail(DataRow rImpegno) {
+			if (monofase) return false;
+
+			DataTable Rdett = Conn.SQLRunner(
+				" select distinct dett.idmankind, dett.yman, dett.nman, dett.rownum from mandatedetailview dett " +
+				" join mandatekind K on dett.idmankind = k.idmankind " +
+				" join expenselink EL on dett.idexp_taxable = EL.idparent " +
+				"	WHERE " + QHS.AppAnd(
+								QHS.IsNull("dett.stop"),
+								QHS.CmpEq("k.linktoinvoice", "N"), QHS.CmpEq("dett.idexp_taxable", rImpegno["idexp"])), true);
+			if ((Rdett == null)||(Rdett.Rows.Count==0)) return false;
+			if (Rdett.Rows.Count > 1) return false;// Il CP deve avere un solo dettaglio.
+
+			//calcola la somma dei pagamenti
+			decimal sumPagamenti = 0;
+			for (int ii = 0; ii < RowGridSelected.Length; ii++) {
+				DataRow RDisp = RowGridSelected[ii];
+				sumPagamenti +=CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(RDisp["amount"]));
+    		}
+			
+			//Calcola il residuo 
+			DataTable Tcashout = Conn.SQLRunner(
+							" select distinct P.idmankind, P.yman, P.nman, P.rownum, P.residual, P.cashed from mandatedetailview dett " +
+							" join mandatekind K on dett.idmankind = k.idmankind " +
+							" join mandatedetailtocashout P " +
+							" on dett.idmankind = P.idmankind and dett.yman = P.yman and " +
+							" dett.nman = P.nman and " +
+							" dett.rownum = P.rownum " +
+							" join expenselink EL on dett.idexp_taxable = EL.idparent " +
+							"	WHERE " + QHS.AppAnd(QHS.CmpEq("k.linktoinvoice", "N"),
+									QHS.IsNull("dett.stop"),
+									QHS.CmpGt("P.residual",0),
+									QHS.CmpEq("dett.idexp_taxable", rImpegno["idexp"])), true);
+		
+			if ((Tcashout == null)|| (Tcashout.Rows.Count==0))
+				return false;
+
+			decimal totresidual = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Tcashout.Rows[0]["residual"]));
+
+			if (sumPagamenti > totresidual) {
+				return false;
+			}
+			return true; ;
+		}
+		void GeneraExpenselastmandatedetail(DataRow rImpegno, DataRow rPagamento, DataRow RDisp) {
+
+			//Genera le righe in Incomelastestimatedetai per l'automatismo di entrata/spesa se l'accertamento/impegno collegato al recupero generato contabilizza un CA/CP non collegabile a fattura
+			MetaData Metaexpenselastmandatedetail = Meta.Dispatcher.Get("expenselastmandatedetail");
+			Metaexpenselastmandatedetail.SetDefaults(DS.Tables["expenselastmandatedetail"]);
+
+			DataTable dettMan = Conn.SQLRunner(
+					" select distinct dett.idmankind, dett.yman, dett.nman, dett.rownum from mandatedetailview dett " +
+					" join expenselink EL on dett.idexp_taxable = EL.idparent " +
+					"WHERE " + QHS.AppAnd(QHS.IsNull("stop"), QHS.CmpEq("dett.idexp_taxable", rImpegno["idexp"])), true);
+			if ((dettMan == null) || (dettMan.Rows.Count==0)) return; 
+			DataRow rdettMan = dettMan.Rows[0];
+
+				//Genera una riga...
+				MetaData.SetDefault(DS.Tables["expenselastmandatedetail"], "idmankind", rdettMan["idmankind"]);
+				MetaData.SetDefault(DS.Tables["expenselastmandatedetail"], "yman", rdettMan["yman"]);
+				MetaData.SetDefault(DS.Tables["expenselastmandatedetail"], "nman", rdettMan["nman"]);
+				MetaData.SetDefault(DS.Tables["expenselastmandatedetail"], "rownum", rdettMan["rownum"]);
+				MetaData.SetDefault(DS.Tables["expenselastmandatedetail"], "amount", CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(RDisp["amount"])));
+				DataRow NewRow = Metaexpenselastmandatedetail.Get_New_Row(rPagamento, DS.Tables["expenselastmandatedetail"]);
+
+				DataRow[] RDet = DS.paydispositiondetail.Select(QHC.CmpEq("iddetail", RDisp["iddetail"]));
+				if (RDet.Length > 0) NewRow["idexp"] = RDet[0]["idexp"];
+		}
+
+
 
 		string GetFasePrecFilter(bool FiltraNumMovimento) {
 			string MyFilter ="";
@@ -258,6 +332,13 @@ namespace paydisposition_default {
 			if ((FiltraNumMovimento) && (txtNumeroMovimento.Text.Trim() != ""))
 				MyFilter = QHS.AppAnd(MyFilter, QHS.CmpEq("nmov", txtNumeroMovimento.Text.Trim()));
 
+			//calcola la somma dei pagamenti
+			decimal sumPagamenti = 0;
+			for (int ii = 0; ii < RowGridSelected.Length; ii++) {
+				DataRow RDisp = RowGridSelected[ii];
+				sumPagamenti += CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(RDisp["amount"]));
+			}
+			MyFilter = QHS.AppAnd(MyFilter, QHS.CmpGe("available", sumPagamenti));
 			return MyFilter;
 		}
  
@@ -341,7 +422,8 @@ namespace paydisposition_default {
 			else {
 				description = "Disposizione a favore di " + Auto["title"];
 			}
-			if (motive != DBNull.Value) description = motive.ToString() +  " "  + description;
+			object causale = Auto["motive"] != DBNull.Value ? Auto["motive"]: motive;
+			if (causale != DBNull.Value) description = causale.ToString() +  " "  + description;
 			E_S["description"] = maxLen(description, 150);
 			E_S["doc"] = "Disp. " + Auto["idpaydisposition"] + "/" + esercizio.ToString() + " - "+ Auto["iddetail"];
 			E_S.EndEdit();
@@ -432,9 +514,12 @@ namespace paydisposition_default {
 
 			if (PD["iban"] != DBNull.Value) {
 				abi_label = "SEPACREDITTRANSFER";
-				if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 7) {
-					abi_label = "ACCREDITOTESORERIAPROVINCIALESTATOPERTABB";
+				if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 8) {
+					abi_label = "ACCREDITOTESORERIAPROVINCIALE";
 				}
+				//if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 7) {
+				//	abi_label = "ACCREDITOTESORERIAPROVINCIALESTATOPERTABB";
+				//}
 			} else {
 				if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 2) {
 					abi_label = "CASSA";
@@ -448,10 +533,9 @@ namespace paydisposition_default {
 				if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 5) {
 					abi_label = "ASSEGNOBANCARIOEPOSTALE";
 				}
-				if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 6) {
-					abi_label = "ACCREDITOTESORERIAPROVINCIALESTATOPERTABA";
-				}
-				
+				//if (CfgFn.GetNoNullInt32(PD["paymethodcode"]) == 6) {
+				//	abi_label = "ACCREDITOTESORERIAPROVINCIALESTATOPERTABA";
+				//}
 			}
 			DataRow RID = hashTipoModPagamento[abi_label] as DataRow;
 			if (RID != null) {
@@ -553,10 +637,17 @@ namespace paydisposition_default {
 			RowChange.ClearMaxCache(Mov);
 			RowChange.SetOptimized(ImpMov, true);
 			RowChange.ClearMaxCache(ImpMov);
+			RowChange.SetOptimized(DS.expenselastmandatedetail, true);
+			RowChange.ClearMaxCache(DS.expenselastmandatedetail);
 			object idacc = DBNull.Value;
 			EP_functions EP = new EP_functions(Meta.Dispatcher);
 			if (EP.attivo)  idacc = EP.GetSupplierAccountForRegistry(null,  Parent["idreg"]);
 
+			// Controlla che l'impegno selezionato abbia solo 1 dettaglio
+			// e che
+			// la somma dei dettagli selezionati (futuri pagamenti) sia <= importo dettaglio CP
+			// in questo caso crea i dettagli Expenselastmandatedetail con l'importo della disposizione e chiave dett CP
+			bool createRowExpenselastMandatedetail = check_createRowExpenselastMandatedetail(Parent);
 			for (int ii = 0; ii < RowGridSelected.Length; ii++) {
 				DataRow R = RowGridSelected[ii];
 				DataRow ParentR = Parent;
@@ -584,6 +675,9 @@ namespace paydisposition_default {
 
 				DataRow[] RDet = DS.paydispositiondetail.Select(QHC.CmpEq("iddetail",R["iddetail"]));
 				if (RDet.Length > 0) RDet[0]["idexp"] = NewMovRow[idMovField];
+				if (createRowExpenselastMandatedetail) {
+					GeneraExpenselastmandatedetail(Parent, NewMovRow, R);//Passiamo la riga impegno, la riga del pagamento e la riga della disposizione
+				}
 			}
 
 			return true;

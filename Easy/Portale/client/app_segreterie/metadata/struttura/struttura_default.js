@@ -30,7 +30,6 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				appMeta.metaModel.getTemporaryValues(this.getDataTable('afferenza'));
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#struttura_default_idupb'), null);
 				} else {
@@ -55,8 +54,11 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#struttura_default_idupb'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
@@ -65,6 +67,7 @@
 				var self = this;
 				this.state.DS.tables.struttura.defaults({ 'active': 'S' });
 				this.state.DS.tables.struttura.defaults({ 'idreg': this.idreg_istituto });
+				appMeta.metaModel.insertFilter(this.getDataTable("strutturakinddefaultview"), this.q.eq('strutturakind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

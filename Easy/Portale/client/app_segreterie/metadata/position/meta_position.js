@@ -37,7 +37,7 @@
 						this.describeAColumn(table, 'costolordoannuooneri', 'Costo lordo annuo e oneri', 'fixed.2', 210, null);
 						this.describeAColumn(table, 'puntiorganico', 'Punti organico', 'fixed.2', 230, null);
 						this.describeAColumn(table, 'tipopersonale', 'Categoria di personale', null, 260, null);
-						this.describeAColumn(table, 'codeposition', 'Codice qualifica', null, 270, 20);
+						this.describeAColumn(table, 'codeposition', 'Codice', null, 270, 20);
 //$objCalcFieldConfig_default$
 						break;
 					case 'perf':
@@ -45,6 +45,17 @@
 						this.describeAColumn(table, 'active', 'Attivo', null, 30, null);
 						this.describeAColumn(table, 'codeposition', 'Codice', null, 40, 20);
 //$objCalcFieldConfig_perf$
+						break;
+					case 'obsoleto':
+						this.describeAColumn(table, 'active', 'attivo', null, 10, null);
+						this.describeAColumn(table, 'title', 'Title', null, 20, 50);
+						this.describeAColumn(table, 'oremaxgg', 'Ore di lavoro al giorno massime', null, 30, null);
+						this.describeAColumn(table, 'costolordoannuo', 'Costo lordo annuo', 'fixed.2', 200, null);
+						this.describeAColumn(table, 'costolordoannuooneri', 'Costo lordo annuo e oneri', 'fixed.2', 210, null);
+						this.describeAColumn(table, 'puntiorganico', 'Punti organico', 'fixed.2', 230, null);
+						this.describeAColumn(table, 'tipopersonale', 'Categoria di personale', null, 260, null);
+						this.describeAColumn(table, 'codeposition', 'Codice qualifica', null, 270, 20);
+//$objCalcFieldConfig_obsoleto$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -77,7 +88,6 @@
 						break;
 					case 'default':
 						table.columns["assegnoaggiuntivo"].caption = "Abilita assegno aggiuntivo";
-						table.columns["codeposition"].caption = "Codice qualifica";
 						table.columns["costolordoannuo"].caption = "Costo lordo annuo";
 						table.columns["costolordoannuooneri"].caption = "Costo lordo annuo e oneri";
 						table.columns["elementoperequativo"].caption = "Abilita elemento perequativo";
@@ -101,14 +111,20 @@
 						table.columns["oremintempopieno"].caption = "Ore minime a tempo pieno";
 						table.columns["orestraordinariemax"].caption = "Ore massime di straordinario rendicontabili";
 						table.columns["parttime"].caption = "Abilita part-time";
+						table.columns["printingorder"].caption = "Ordinamento";
 						table.columns["puntiorganico"].caption = "Punti organico";
 						table.columns["siglaesportazione"].caption = "Sigla esportazione";
 						table.columns["siglaimportazione"].caption = "Sigla importazione";
 						table.columns["tempdef"].caption = "Abilita tempo definito o parziale";
 						table.columns["tipopersonale"].caption = "Categoria di personale";
+						table.columns["title"].caption = "Titolo";
 						table.columns["totaletredicesima"].caption = "Abilita totale tredicesima";
 						table.columns["tredicesimaindennitaintegrativaspeciale"].caption = "Abilita tredicesima indennità integrativa speciale";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'obsoleto':
+						table.columns["codeposition"].caption = "Codice qualifica";
+//$innerSetCaptionConfig_obsoleto$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -138,6 +154,9 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "active desc, title asc ";
+					}
+					case "obsoleto": {
 						return "active desc, title asc ";
 					}
 					//$getSortingin$

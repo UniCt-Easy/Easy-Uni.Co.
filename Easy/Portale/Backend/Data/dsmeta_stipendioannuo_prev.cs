@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -127,8 +127,8 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{registrylegalstatusprevview.Columns["idregistrylegalstatus"]};
-	var cChild = new []{stipendioannuo.Columns["idregistrylegalstatus"]};
+	var cPar = new []{registrylegalstatusprevview.Columns["idregistrylegalstatus"], registrylegalstatusprevview.Columns["idreg"] };
+	var cChild = new []{stipendioannuo.Columns["idregistrylegalstatus"], stipendioannuo.Columns["idreg"] };
 	Relations.Add(new DataRelation("FK_stipendioannuo_registrylegalstatusprevview_idregistrylegalstatus",cPar,cChild,false));
 
 	cPar = new []{registrypersoneview.Columns["idreg"]};

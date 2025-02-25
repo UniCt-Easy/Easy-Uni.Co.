@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -203,6 +203,7 @@ private void initClass() {
 	tupb.Columns.Add( new DataColumn("idepupbkind", typeof(int)));
 	tupb.Columns.Add( new DataColumn("cofogmpcode", typeof(string)));
 	tupb.Columns.Add( new DataColumn("uesiopecode", typeof(string)));
+	tupb.Columns.Add( new DataColumn("flag", typeof(int)));
 	Tables.Add(tupb);
 	tupb.PrimaryKey =  new DataColumn[]{tupb.Columns["idupb"]};
 

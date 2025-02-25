@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -136,6 +136,7 @@ private void initClass() {
 	tappfielddetaildefaultview.defineColumn("appfielddetail_specialcontrol", typeof(string));
 	tappfielddetaildefaultview.defineColumn("appfielddetail_sqltype", typeof(string));
 	tappfielddetaildefaultview.defineColumn("appfielddetail_tablefilter", typeof(string));
+	tappfielddetaildefaultview.defineColumn("appfielddetail_testexclude", typeof(string));
 	tappfielddetaildefaultview.defineColumn("appfielddetail_testvalue", typeof(string));
 	tappfielddetaildefaultview.defineColumn("appfielddetail_text", typeof(string));
 	tappfielddetaildefaultview.defineColumn("appfielddetail_textarea", typeof(string));
@@ -195,6 +196,8 @@ private void initClass() {
 	tapppagesdefaultview.defineColumn("apppages_isvalid", typeof(string));
 	tapppagesdefaultview.defineColumn("apppages_othersapp", typeof(string));
 	tapppagesdefaultview.defineColumn("apppages_principale", typeof(string));
+	tapppagesdefaultview.defineColumn("apppages_report", typeof(string));
+	tapppagesdefaultview.defineColumn("apppages_reportstored", typeof(string));
 	tapppagesdefaultview.defineColumn("apppages_staticfilter", typeof(string));
 	tapppagesdefaultview.defineColumn("apppages_tablename", typeof(string));
 	tapppagesdefaultview.defineColumn("apppages_testcustom", typeof(string));
@@ -224,6 +227,7 @@ private void initClass() {
 	tapprelation.defineColumn("idapppages_parent", typeof(int));
 	tapprelation.defineColumn("idapprelation", typeof(int),false);
 	tapprelation.defineColumn("idapptab", typeof(int));
+	tapprelation.defineColumn("norelation", typeof(string));
 	tapprelation.defineColumn("numrowsmandatory", typeof(int));
 	tapprelation.defineColumn("position", typeof(int));
 	tapprelation.defineColumn("savebeforetest", typeof(string));

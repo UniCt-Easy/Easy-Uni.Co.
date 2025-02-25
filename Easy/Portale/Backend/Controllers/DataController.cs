@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -49,6 +49,7 @@ using MimeKit;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using System.Web.Http.Filters;
+using System.Runtime.InteropServices;
 
 namespace Backend.Controllers {
 
@@ -430,28 +431,6 @@ namespace Backend.Controllers {
 
 		}
 
-        public string GetAndLogErrorMessage(DataSet ds, IEasyDataAccess conn, string error, string methodInfo, string metadata)
-        {
-            BEError bEError = new BEError();
-            bEError.conn = conn;
-            bEError.error = error + " " + GetDSErrors(ds);
-            bEError.methodInfo = methodInfo;
-            bEError.metadata = metadata;
-            DBLogger.log(bEError);
-            return bEError.error;
-        }
-
-        public void LogOperationAndData(DataSet ds, IEasyDataAccess conn, string operation, string methodInfo, string metadata)
-        {
-            BEError bEError = new BEError();
-            bEError.conn = conn;
-            bEError.error = operation;
-            bEError.methodInfo = methodInfo;
-            bEError.metadata = metadata;
-            DBLogger.log(bEError);
-        }
-
-
         /// <summary>
         /// Parameters for method getDataSet
         /// </summary>
@@ -546,7 +525,7 @@ namespace Backend.Controllers {
 			if (!isAnonymousPermitted(tableName, editType, null)) {
 				return Content(HttpStatusCode.BadRequest,
 					GetAndLogErrorMessage(null, HttpContext.Current.getDataDispatcher().conn,
-						LoginFailedStatus.AnonymousNotPermitted, "getDataSet", tableName + " " + editType));
+						LoginFailedStatus.AnonymousNotPermitted, "fillDataSet", tableName + " " + editType));
 			}
 
 			var outDs = DataUtils.createEmptyDataSet(tableName, editType);
@@ -616,7 +595,7 @@ namespace Backend.Controllers {
 			if (!isAnonymousPermitted(tableName, editType, null)) {
 				return Content(HttpStatusCode.BadRequest,
 					GetAndLogErrorMessage(null, HttpContext.Current.getDataDispatcher().conn,
-						LoginFailedStatus.AnonymousNotPermitted, "getDataSet", tableName + " " + editType));
+						LoginFailedStatus.AnonymousNotPermitted, "prefillDataSet", tableName + " " + editType));
 			}
 
 			// 1. ottengo Ds
@@ -2000,7 +1979,21 @@ namespace Backend.Controllers {
 				    success = false;
 				    canIgnore = myMessages.CanIgnore;
 				    AttachmentUtils.sanatizeDsForAttachUnsuccess(dataRowAttachModified);
-			    }
+
+					var errorMessages = "";
+
+                    foreach (var m in myMessages)
+                    {
+                        errorMessages += "Tipo di errore: " + ((EasyProcedureMessage)m).ErrorType + "; ";
+                        errorMessages += "Regola: " + ((EasyProcedureMessage)m).AuditID + "; ";
+                        errorMessages += "Ignorabile: " + ((EasyProcedureMessage)m).CanIgnore + "; ";
+                        errorMessages += "Tabella: " + ((EasyProcedureMessage)m).TableName + "; ";
+                        errorMessages += "Errore: " + ((EasyProcedureMessage)m).LongMess + "; ";
+                    }
+
+                    GetAndLogErrorMessage(myds, dispatcher.conn, errorMessages, "saveDatSet",
+                        "tablename:" + tableName + ", editType:" + editType + " DATASET " + ds);
+                }
 			    else {
 				    // Rieseguo la sanitazzione del ds, non inviando i campi di tipo byte[]
 				    // Se li trovo rimpiazzo con -1
@@ -2455,6 +2448,9 @@ namespace Backend.Controllers {
             }
 
             if (DSout == null) {
+                LogOperationAndData(null, dispatcher.conn, "Ok", "callSP", "Procedure: " + spName + " Parameters: " + JsonConvert.SerializeObject(prms, Formatting.Indented));
+
+
                 return Content(HttpStatusCode.OK, "Ok");
             } else {
                 // recupero stringa di messaggio calcolata dalla SP.
@@ -2464,6 +2460,9 @@ namespace Backend.Controllers {
                     DataRow dtrow = dtErr.Rows[0];
                     msg = (String)dtrow[0];
                 }
+
+                LogOperationAndData(DSout, dispatcher.conn, msg, "callSP", "Procedure: " + spName + " Parameters: " + JsonConvert.SerializeObject(prms, Formatting.Indented));
+
                 return Content(HttpStatusCode.OK, "La procedura ha restituito: " + msg);
             }
 
@@ -2798,8 +2797,55 @@ namespace Backend.Controllers {
 			return Content(HttpStatusCode.OK, "ok myCustomEvent");
 		}
 
-		#endregion
+        #endregion
 
+        #region Logging
 
-	}
+        public string GetAndLogErrorMessage(DataSet ds, IEasyDataAccess conn, string error, string methodInfo, string metadata)
+        {
+            BEError bEError = new BEError();
+            bEError.conn = conn;
+            bEError.error = "Error: " + error + " " + GetDSErrors(ds);
+            bEError.methodInfo = methodInfo;
+            bEError.metadata = metadata;
+            DBLogger.log(bEError);
+            return bEError.error;
+        }
+
+        public void LogOperationAndData(DataSet ds, IEasyDataAccess conn, string operation, string methodInfo, string metadata)
+        {
+            BEError bEError = new BEError();
+            bEError.conn = conn;
+            bEError.error = operation;
+            bEError.methodInfo = methodInfo;
+            bEError.metadata = metadata;
+            DBLogger.log(bEError);
+        }
+
+        public class logErrorParameters
+        {
+            public string error { get; set; }
+
+            public string parameters { get; set; }
+
+        }
+
+        [HttpPost, Route("logError") /*, AllowAnonymous*/]
+        public IHttpActionResult logError([FromBody] logErrorParameters prms)
+        {
+            try
+            {
+                GetAndLogErrorMessage(null, HttpContext.Current.getDataDispatcher().conn, prms.error, "logError", prms.parameters);
+                return Content(HttpStatusCode.OK, "");
+            }
+            catch (Exception e)
+            {
+                var error = "Errore: " + e.Message + " scrivendo il log dell'errore " + prms.error;
+                return Content(HttpStatusCode.OK, error);
+            }
+        }
+
+        #endregion
+
+    }
 }

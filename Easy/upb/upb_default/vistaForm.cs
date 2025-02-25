@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1755,10 +1755,6 @@ private void initClass() {
 	cChild = new []{autoexpensesorting.Columns["idsor"]};
 	Relations.Add(new DataRelation("sorting_autoexpensesorting",cPar,cChild,false));
 
-	cPar = new []{treasurer.Columns["idtreasurer"]};
-	cChild = new []{upb.Columns["idtreasurer"]};
-	Relations.Add(new DataRelation("FK_treasurer_upb",cPar,cChild,false));
-
 	cPar = new []{manager.Columns["idman"]};
 	cChild = new []{upb.Columns["idman"]};
 	Relations.Add(new DataRelation("managerupb",cPar,cChild,false));
@@ -1810,6 +1806,10 @@ private void initClass() {
 	cPar = new []{upb_capofila.Columns["idupb"]};
 	cChild = new []{upb.Columns["idupb_capofila"]};
 	Relations.Add(new DataRelation("upb_capofila_upb",cPar,cChild,false));
+
+	cPar = new []{treasurer.Columns["idtreasurer"]};
+	cChild = new []{upb.Columns["idtreasurer"]};
+	Relations.Add(new DataRelation("FK_treasurer_upb",cPar,cChild,false));
 
 	#endregion
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -62,6 +62,7 @@ namespace estimatedetail_default {
             DataAccess.SetTableForReading(DS.income_iva, "income");
             DataAccess.SetTableForReading(DS.accmotiveannulment, "accmotive");
             DataAccess.SetTableForReading(DS.upb_iva, "upb");
+            DataAccess.SetTableForReading(DS.epacc_pre, "epacc");
             //string filterEpOperation = QHS.CmpEq("idepoperation", "fatven");
             //DS.accmotiveapplied.ExtendedProperties[MetaData.ExtraParams] = filterEpOperation;
             //GetData.SetStaticFilter(DS.accmotiveapplied, filterEpOperation);
@@ -165,11 +166,14 @@ namespace estimatedetail_default {
             grpRipartizioneRicavi.Enabled = abilita;
             txtEsercIxBudget.ReadOnly = readOnly;
             txtNumIxBudget.ReadOnly = readOnly;
+            txtNumPreAccertamento.ReadOnly = readOnly;
+            txtEsercPreAccertamento.ReadOnly = readOnly;
             gboxListino.Enabled = abilita;
             txtCodiceBollettino.ReadOnly = readOnly;
             txtNumBollettino.ReadOnly = readOnly;
             txtScadenza.ReadOnly = readOnly;
             gboxCausaleBilancioEntrata.Enabled = abilita;
+
         }
 
         void SetGBoxClass(int num, object sortingkind)

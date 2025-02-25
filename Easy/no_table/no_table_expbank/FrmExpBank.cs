@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,6 +38,14 @@ namespace no_table_expbank {
         public FrmExpBank() {
             InitializeComponent();
             folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+
+            if (isBlazor())
+			{
+                txtCartella.Visible = false;
+                btnPercorso.Visible = false;
+                txtFile.Visible = false;
+                labelUltimoFileSalvato.Visible = false;
+			}
         }
 
         public void MetaData_AfterLink() {
@@ -308,6 +316,8 @@ namespace no_table_expbank {
                 sw.Flush();
                 sw.Close();
                 sw.Dispose();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtFile.Text, false);
             }
             catch (Exception e1) {
                 QueryCreator.ShowException("Errore nel salvataggio del file " + txtFile.Text, e1);
@@ -444,6 +454,8 @@ namespace no_table_expbank {
                 sw.Flush();
                 sw.Close();
                 sw.Dispose();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtFile.Text, false);
             }
             catch (Exception e1) {
                 QueryCreator.ShowException("Errore nel salvataggio del file " + txtFile.Text, e1);

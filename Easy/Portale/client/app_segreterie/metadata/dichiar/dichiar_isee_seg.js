@@ -32,10 +32,12 @@
 				
 				if (self.isNullOrMinDate(parentRow.date))
 					parentRow.date = new Date();
-				if (!parentRow.extension)
-					parentRow.extension = "isee";
-				if (!parentRow.iddichiarkind)
-					parentRow.iddichiarkind = 3;
+				parentRow.extension = "isee";
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#dichiar_isee_seg_idreg'), null);
+				} else {
+					this.helpForm.filter($('#dichiar_isee_seg_idreg'), this.q.eq('registry_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -48,8 +50,6 @@
 					meta.setDefaults(dt);
 					var defdichiar_isee = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
 						function (currentRowisee) {
-				if (!parentRow.iddichiarkind)
-					parentRow.iddichiarkind = 3;
 							currentRowisee.current.datasottoscriz =  new Date();
 							//defaultExtendingObject
 							return true;
@@ -70,7 +70,15 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#dichiar_isee_seg_idreg'), null);
+				this.enableControl($('#dichiar_isee_seg_protanno'), true);
+				this.enableControl($('#dichiar_isee_seg_protnumero'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#dichiar_isee_seg_protanno'), false);
@@ -81,6 +89,8 @@
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.dichiar.defaults({ 'extension': "isee" });
+				this.state.DS.tables.dichiar.defaults({ 'iddichiarkind': 3 });
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
 				//indico al framework che la tabella dichiarkind è cached
@@ -97,8 +107,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-dichiar_isee_isee_seg");
-				$('#dichiar_isee_seg_idreg').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#dichiar_isee_seg_idreg').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#dichiar_isee_seg_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#dichiar_isee_seg_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
 				if (t.name === 'registrystudentiview' && r !== null)
 					if (this.state.DS.tables['dichiar_isee'].rows.length)
 						this.state.DS.tables['dichiar_isee'].rows[0].idreg = r.idreg;
@@ -133,6 +143,8 @@
 				return this.superClass.insertClick(that, grid);
 			},
 
+			//beforePost
+
 			firebtnProtocol: function (that) {
 				var idreg_origine = that.state.currentRow.idreg;
 				var idreg_destinazione = that.idreg_istituto;
@@ -141,7 +153,8 @@
 				var oggetto = (rowsDichiarkind.length ? ' ' + rowsDichiarkind[0].title : '') + ' del ' + that.stringFromDate_ddmmyyyy(that.state.currentRow.date);
 				var idprotocollodockind = 1;
 				var arrayTablesToProtocol = ['dichiar', 'dichiar_isee'];
-				var codiceregistro = that.state.currentRow.getRow().table.name + that.state.currentRow.iddichiar;				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
+				var codiceregistro = that.state.currentRow.getRow().table.name + that.state.currentRow.iddichiar;
+				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
 			},
 
 			children: [''],

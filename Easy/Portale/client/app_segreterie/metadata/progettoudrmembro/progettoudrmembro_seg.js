@@ -49,6 +49,11 @@
 				var parentRow = self.state.currentRow;
 				
 				this.manageprogettoudrmembro_seg_giornipreventivati();
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#progettoudrmembro_seg_idreg'), null);
+				} else {
+					this.helpForm.filter($('#progettoudrmembro_seg_idreg'), this.q.eq('getregistrydocentiamministrativi_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -70,6 +75,7 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.helpForm.filter($('#progettoudrmembro_seg_idreg'), null);
 				this.enableControl($('#progettoudrmembro_seg_orerendicontate'), true);
 				this.enableControl($('#progettoudrmembro_seg_giornipreventivati'), true);
 				//afterClearin
@@ -127,7 +133,7 @@
 			manageprogettoudrmembro_seg_orerendicontate: function () {
 				if (this.getDataTable("rendicontattivitaprogettourdmemboview").rows.length) {
 					this.state.currentRow['!orerendicontate'] = _.sumBy(this.getDataTable("rendicontattivitaprogettourdmemboview").rows, function (r) {
-						if (r.oreattivita) return r.ore;
+						if (r.oreattivita) return r.oreattivita;
 						return 0;
 					});
 				}

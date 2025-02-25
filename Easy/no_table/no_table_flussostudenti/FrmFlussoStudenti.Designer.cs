@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,11 +40,9 @@ namespace no_table_flussostudenti {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-			this.DS = new no_table_flussostudenti.dsmeta();
 			this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
 			this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
-			this.saveOutputFileDlg = createSaveFileDialog(_saveOutputFileDlg);
 			this.tabGrid = new System.Windows.Forms.TabControl();
 			this.tabPageCreditiImportati = new System.Windows.Forms.TabPage();
 			this.dgrCrediti = new System.Windows.Forms.DataGrid();
@@ -68,6 +66,7 @@ namespace no_table_flussostudenti {
 			this.btnImportaFlussoCrediti = new System.Windows.Forms.Button();
 			this.tabPageElaboraCrediti = new System.Windows.Forms.TabPage();
 			this.grpElaborazioneCrediti = new System.Windows.Forms.GroupBox();
+			this.label7 = new System.Windows.Forms.Label();
 			this.txtStopFlusso = new System.Windows.Forms.TextBox();
 			this.txtStartFlusso = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
@@ -93,7 +92,7 @@ namespace no_table_flussostudenti {
 			this.btnAnnullaCrediti = new System.Windows.Forms.Button();
 			this.pBar = new System.Windows.Forms.ProgressBar();
 			this.labPBar = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.DS = new no_table_flussostudenti.dsmeta();
 			this.tabGrid.SuspendLayout();
 			this.tabPageCreditiImportati.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrCrediti)).BeginInit();
@@ -113,17 +112,8 @@ namespace no_table_flussostudenti {
 			this.tabPageElaboraIncassi.SuspendLayout();
 			this.grpElaborazioneIncassi.SuspendLayout();
 			this.tabPageAnnullaCrediti.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// DS
-			// 
-			this.DS.DataSetName = "vistaForm";
-			this.DS.EnforceConstraints = false;
-			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-			// 
-			// saveOutputFileDlg
-			// 
-			//this.saveOutputFileDlg.DefaultExt = "T24";
 			// 
 			// tabGrid
 			// 
@@ -138,7 +128,7 @@ namespace no_table_flussostudenti {
 			this.tabGrid.Location = new System.Drawing.Point(12, 245);
 			this.tabGrid.Name = "tabGrid";
 			this.tabGrid.SelectedIndex = 0;
-			this.tabGrid.Size = new System.Drawing.Size(921, 328);
+			this.tabGrid.Size = new System.Drawing.Size(716, 277);
 			this.tabGrid.TabIndex = 11;
 			this.tabGrid.DoubleClick += new System.EventHandler(this.datagrid_DoubleClick);
 			// 
@@ -148,7 +138,7 @@ namespace no_table_flussostudenti {
 			this.tabPageCreditiImportati.Location = new System.Drawing.Point(4, 22);
 			this.tabPageCreditiImportati.Name = "tabPageCreditiImportati";
 			this.tabPageCreditiImportati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageCreditiImportati.Size = new System.Drawing.Size(913, 302);
+			this.tabPageCreditiImportati.Size = new System.Drawing.Size(708, 251);
 			this.tabPageCreditiImportati.TabIndex = 1;
 			this.tabPageCreditiImportati.Text = "Crediti importati";
 			this.tabPageCreditiImportati.UseVisualStyleBackColor = true;
@@ -162,9 +152,8 @@ namespace no_table_flussostudenti {
 			this.dgrCrediti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrCrediti.Location = new System.Drawing.Point(6, 6);
 			this.dgrCrediti.Name = "dgrCrediti";
-			this.dgrCrediti.Size = new System.Drawing.Size(901, 290);
+			this.dgrCrediti.Size = new System.Drawing.Size(696, 239);
 			this.dgrCrediti.TabIndex = 6;
-			this.dgrCrediti.DoubleClick += new System.EventHandler(this.dgrCrediti_DoubleClick);
 			// 
 			// tabPageIncassiImportati
 			// 
@@ -172,7 +161,7 @@ namespace no_table_flussostudenti {
 			this.tabPageIncassiImportati.Location = new System.Drawing.Point(4, 22);
 			this.tabPageIncassiImportati.Name = "tabPageIncassiImportati";
 			this.tabPageIncassiImportati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageIncassiImportati.Size = new System.Drawing.Size(913, 302);
+			this.tabPageIncassiImportati.Size = new System.Drawing.Size(708, 251);
 			this.tabPageIncassiImportati.TabIndex = 3;
 			this.tabPageIncassiImportati.Text = "Incassi importati";
 			this.tabPageIncassiImportati.UseVisualStyleBackColor = true;
@@ -186,7 +175,7 @@ namespace no_table_flussostudenti {
 			this.dgrIncassi.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrIncassi.Location = new System.Drawing.Point(6, 6);
 			this.dgrIncassi.Name = "dgrIncassi";
-			this.dgrIncassi.Size = new System.Drawing.Size(897, 290);
+			this.dgrIncassi.Size = new System.Drawing.Size(692, 239);
 			this.dgrIncassi.TabIndex = 6;
 			// 
 			// tabPageDettContratti
@@ -195,7 +184,7 @@ namespace no_table_flussostudenti {
 			this.tabPageDettContratti.Location = new System.Drawing.Point(4, 22);
 			this.tabPageDettContratti.Name = "tabPageDettContratti";
 			this.tabPageDettContratti.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageDettContratti.Size = new System.Drawing.Size(913, 302);
+			this.tabPageDettContratti.Size = new System.Drawing.Size(708, 251);
 			this.tabPageDettContratti.TabIndex = 4;
 			this.tabPageDettContratti.Text = "Dett. Contratti Attivi da Contabilizzare";
 			this.tabPageDettContratti.UseVisualStyleBackColor = true;
@@ -209,7 +198,7 @@ namespace no_table_flussostudenti {
 			this.dgrDettContrattiAttivi.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrDettContrattiAttivi.Location = new System.Drawing.Point(6, 6);
 			this.dgrDettContrattiAttivi.Name = "dgrDettContrattiAttivi";
-			this.dgrDettContrattiAttivi.Size = new System.Drawing.Size(901, 293);
+			this.dgrDettContrattiAttivi.Size = new System.Drawing.Size(696, 242);
 			this.dgrDettContrattiAttivi.TabIndex = 7;
 			this.dgrDettContrattiAttivi.Tag = "estimatedetail.contabilizza";
 			this.dgrDettContrattiAttivi.DoubleClick += new System.EventHandler(this.datagrid_DoubleClick);
@@ -220,7 +209,7 @@ namespace no_table_flussostudenti {
 			this.tabPageFattureCreate.Location = new System.Drawing.Point(4, 22);
 			this.tabPageFattureCreate.Name = "tabPageFattureCreate";
 			this.tabPageFattureCreate.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageFattureCreate.Size = new System.Drawing.Size(913, 302);
+			this.tabPageFattureCreate.Size = new System.Drawing.Size(708, 251);
 			this.tabPageFattureCreate.TabIndex = 5;
 			this.tabPageFattureCreate.Text = "Fatture Elaborate";
 			this.tabPageFattureCreate.UseVisualStyleBackColor = true;
@@ -234,7 +223,7 @@ namespace no_table_flussostudenti {
 			this.dgrFattureElaborate.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrFattureElaborate.Location = new System.Drawing.Point(6, 6);
 			this.dgrFattureElaborate.Name = "dgrFattureElaborate";
-			this.dgrFattureElaborate.Size = new System.Drawing.Size(901, 290);
+			this.dgrFattureElaborate.Size = new System.Drawing.Size(696, 239);
 			this.dgrFattureElaborate.TabIndex = 8;
 			this.dgrFattureElaborate.Tag = "invoice.elaboraincassi";
 			this.dgrFattureElaborate.DoubleClick += new System.EventHandler(this.datagrid_DoubleClick);
@@ -245,7 +234,7 @@ namespace no_table_flussostudenti {
 			this.tabPageCreditiAnnullati.Location = new System.Drawing.Point(4, 22);
 			this.tabPageCreditiAnnullati.Name = "tabPageCreditiAnnullati";
 			this.tabPageCreditiAnnullati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageCreditiAnnullati.Size = new System.Drawing.Size(913, 302);
+			this.tabPageCreditiAnnullati.Size = new System.Drawing.Size(708, 251);
 			this.tabPageCreditiAnnullati.TabIndex = 6;
 			this.tabPageCreditiAnnullati.Text = "Crediti Annullati";
 			this.tabPageCreditiAnnullati.UseVisualStyleBackColor = true;
@@ -259,7 +248,7 @@ namespace no_table_flussostudenti {
 			this.dgrCreditiAnnullati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrCreditiAnnullati.Location = new System.Drawing.Point(6, 6);
 			this.dgrCreditiAnnullati.Name = "dgrCreditiAnnullati";
-			this.dgrCreditiAnnullati.Size = new System.Drawing.Size(901, 290);
+			this.dgrCreditiAnnullati.Size = new System.Drawing.Size(696, 239);
 			this.dgrCreditiAnnullati.TabIndex = 9;
 			this.dgrCreditiAnnullati.Tag = "flussocreditidetail.default_annullati";
 			this.dgrCreditiAnnullati.DoubleClick += new System.EventHandler(this.datagrid_DoubleClick);
@@ -290,10 +279,10 @@ namespace no_table_flussostudenti {
 			this.tabFunzioni.Controls.Add(this.tabPageElaboraCrediti);
 			this.tabFunzioni.Controls.Add(this.tabPageElaboraIncassi);
 			this.tabFunzioni.Controls.Add(this.tabPageAnnullaCrediti);
-			this.tabFunzioni.Location = new System.Drawing.Point(12, 12);
+			this.tabFunzioni.Location = new System.Drawing.Point(12, 10);
 			this.tabFunzioni.Name = "tabFunzioni";
 			this.tabFunzioni.SelectedIndex = 0;
-			this.tabFunzioni.Size = new System.Drawing.Size(911, 171);
+			this.tabFunzioni.Size = new System.Drawing.Size(706, 171);
 			this.tabFunzioni.TabIndex = 131;
 			// 
 			// tabPageImportaFlussi
@@ -304,16 +293,16 @@ namespace no_table_flussostudenti {
 			this.tabPageImportaFlussi.Location = new System.Drawing.Point(4, 22);
 			this.tabPageImportaFlussi.Name = "tabPageImportaFlussi";
 			this.tabPageImportaFlussi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageImportaFlussi.Size = new System.Drawing.Size(903, 145);
+			this.tabPageImportaFlussi.Size = new System.Drawing.Size(698, 145);
 			this.tabPageImportaFlussi.TabIndex = 0;
 			this.tabPageImportaFlussi.Text = "Importa Flusso crediti e incassi da File Excel";
 			this.tabPageImportaFlussi.UseVisualStyleBackColor = true;
 			// 
 			// btnSospesiRFSRFB
 			// 
-			this.btnSospesiRFSRFB.Location = new System.Drawing.Point(632, 36);
+			this.btnSospesiRFSRFB.Location = new System.Drawing.Point(493, 36);
 			this.btnSospesiRFSRFB.Name = "btnSospesiRFSRFB";
-			this.btnSospesiRFSRFB.Size = new System.Drawing.Size(223, 23);
+			this.btnSospesiRFSRFB.Size = new System.Drawing.Size(187, 23);
 			this.btnSospesiRFSRFB.TabIndex = 3;
 			this.btnSospesiRFSRFB.Text = "3 - Importa Flusso Incassi da sospesi ";
 			this.btnSospesiRFSRFB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -326,16 +315,16 @@ namespace no_table_flussostudenti {
 			this.groupBox2.Controls.Add(this.btnImportaFlussoCrediti);
 			this.groupBox2.Location = new System.Drawing.Point(10, 19);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(605, 81);
+			this.groupBox2.Size = new System.Drawing.Size(473, 81);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Input";
 			// 
 			// btnImportaFlussoIncassi
 			// 
-			this.btnImportaFlussoIncassi.Location = new System.Drawing.Point(310, 17);
+			this.btnImportaFlussoIncassi.Location = new System.Drawing.Point(260, 17);
 			this.btnImportaFlussoIncassi.Name = "btnImportaFlussoIncassi";
-			this.btnImportaFlussoIncassi.Size = new System.Drawing.Size(223, 23);
+			this.btnImportaFlussoIncassi.Size = new System.Drawing.Size(203, 23);
 			this.btnImportaFlussoIncassi.TabIndex = 2;
 			this.btnImportaFlussoIncassi.Text = "2 - Importa Flusso Incassi da File Excel";
 			this.btnImportaFlussoIncassi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -349,14 +338,14 @@ namespace no_table_flussostudenti {
 			this.txtInputFile.Name = "txtInputFile";
 			this.txtInputFile.ReadOnly = true;
 			this.txtInputFile.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-			this.txtInputFile.Size = new System.Drawing.Size(589, 20);
+			this.txtInputFile.Size = new System.Drawing.Size(457, 20);
 			this.txtInputFile.TabIndex = 0;
 			// 
 			// btnImportaFlussoCrediti
 			// 
 			this.btnImportaFlussoCrediti.Location = new System.Drawing.Point(6, 17);
 			this.btnImportaFlussoCrediti.Name = "btnImportaFlussoCrediti";
-			this.btnImportaFlussoCrediti.Size = new System.Drawing.Size(221, 23);
+			this.btnImportaFlussoCrediti.Size = new System.Drawing.Size(205, 23);
 			this.btnImportaFlussoCrediti.TabIndex = 1;
 			this.btnImportaFlussoCrediti.Text = "1 - Importa Flusso Crediti da File Excel";
 			this.btnImportaFlussoCrediti.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -368,13 +357,14 @@ namespace no_table_flussostudenti {
 			this.tabPageElaboraCrediti.Location = new System.Drawing.Point(4, 22);
 			this.tabPageElaboraCrediti.Name = "tabPageElaboraCrediti";
 			this.tabPageElaboraCrediti.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageElaboraCrediti.Size = new System.Drawing.Size(903, 145);
+			this.tabPageElaboraCrediti.Size = new System.Drawing.Size(698, 145);
 			this.tabPageElaboraCrediti.TabIndex = 1;
 			this.tabPageElaboraCrediti.Text = "Elaborazione Crediti ";
 			this.tabPageElaboraCrediti.UseVisualStyleBackColor = true;
 			// 
 			// grpElaborazioneCrediti
 			// 
+			this.grpElaborazioneCrediti.Controls.Add(this.label7);
 			this.grpElaborazioneCrediti.Controls.Add(this.txtStopFlusso);
 			this.grpElaborazioneCrediti.Controls.Add(this.txtStartFlusso);
 			this.grpElaborazioneCrediti.Controls.Add(this.label3);
@@ -382,22 +372,30 @@ namespace no_table_flussostudenti {
 			this.grpElaborazioneCrediti.Controls.Add(this.btnelaboraFlussoCrediti);
 			this.grpElaborazioneCrediti.Controls.Add(this.btnElaboraContabilizzazioni);
 			this.grpElaborazioneCrediti.Controls.Add(this.btnCercaContrattiDaContabilizzare);
-			this.grpElaborazioneCrediti.Location = new System.Drawing.Point(16, 6);
+			this.grpElaborazioneCrediti.Location = new System.Drawing.Point(6, 6);
 			this.grpElaborazioneCrediti.Name = "grpElaborazioneCrediti";
-			this.grpElaborazioneCrediti.Size = new System.Drawing.Size(869, 126);
+			this.grpElaborazioneCrediti.Size = new System.Drawing.Size(686, 126);
 			this.grpElaborazioneCrediti.TabIndex = 134;
 			this.grpElaborazioneCrediti.TabStop = false;
 			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(384, 19);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(276, 26);
+			this.label7.TabIndex = 138;
+			this.label7.Text = "N. Flusso crediti - se specificati l\'elaborazione è limitata a questi flussi";
+			// 
 			// txtStopFlusso
 			// 
-			this.txtStopFlusso.Location = new System.Drawing.Point(747, 20);
+			this.txtStopFlusso.Location = new System.Drawing.Point(482, 89);
 			this.txtStopFlusso.Name = "txtStopFlusso";
 			this.txtStopFlusso.Size = new System.Drawing.Size(96, 20);
 			this.txtStopFlusso.TabIndex = 136;
 			// 
 			// txtStartFlusso
 			// 
-			this.txtStartFlusso.Location = new System.Drawing.Point(573, 20);
+			this.txtStartFlusso.Location = new System.Drawing.Point(380, 89);
 			this.txtStartFlusso.Name = "txtStartFlusso";
 			this.txtStartFlusso.Size = new System.Drawing.Size(96, 20);
 			this.txtStartFlusso.TabIndex = 135;
@@ -405,26 +403,26 @@ namespace no_table_flussostudenti {
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(675, 24);
+			this.label3.Location = new System.Drawing.Point(484, 73);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(55, 13);
+			this.label3.Size = new System.Drawing.Size(57, 13);
 			this.label3.TabIndex = 134;
-			this.label3.Text = "a n. flusso";
+			this.label3.Text = "A n° flusso";
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(499, 24);
+			this.label1.Location = new System.Drawing.Point(380, 73);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(58, 13);
+			this.label1.Size = new System.Drawing.Size(64, 13);
 			this.label1.TabIndex = 133;
-			this.label1.Text = "da n.flusso";
+			this.label1.Text = "Da n° flusso";
 			// 
 			// btnelaboraFlussoCrediti
 			// 
-			this.btnelaboraFlussoCrediti.Location = new System.Drawing.Point(112, 19);
+			this.btnelaboraFlussoCrediti.Location = new System.Drawing.Point(7, 19);
 			this.btnelaboraFlussoCrediti.Name = "btnelaboraFlussoCrediti";
-			this.btnelaboraFlussoCrediti.Size = new System.Drawing.Size(364, 23);
+			this.btnelaboraFlussoCrediti.Size = new System.Drawing.Size(354, 23);
 			this.btnelaboraFlussoCrediti.TabIndex = 130;
 			this.btnelaboraFlussoCrediti.Text = "1 - Crea/Annulla Contratto Attivo da Flusso Crediti";
 			this.btnelaboraFlussoCrediti.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -432,9 +430,9 @@ namespace no_table_flussostudenti {
 			// 
 			// btnElaboraContabilizzazioni
 			// 
-			this.btnElaboraContabilizzazioni.Location = new System.Drawing.Point(112, 87);
+			this.btnElaboraContabilizzazioni.Location = new System.Drawing.Point(7, 87);
 			this.btnElaboraContabilizzazioni.Name = "btnElaboraContabilizzazioni";
-			this.btnElaboraContabilizzazioni.Size = new System.Drawing.Size(364, 23);
+			this.btnElaboraContabilizzazioni.Size = new System.Drawing.Size(354, 23);
 			this.btnElaboraContabilizzazioni.TabIndex = 131;
 			this.btnElaboraContabilizzazioni.Text = "3 - Crea accertamenti contratti attivi";
 			this.btnElaboraContabilizzazioni.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -442,9 +440,9 @@ namespace no_table_flussostudenti {
 			// 
 			// btnCercaContrattiDaContabilizzare
 			// 
-			this.btnCercaContrattiDaContabilizzare.Location = new System.Drawing.Point(112, 53);
+			this.btnCercaContrattiDaContabilizzare.Location = new System.Drawing.Point(7, 53);
 			this.btnCercaContrattiDaContabilizzare.Name = "btnCercaContrattiDaContabilizzare";
-			this.btnCercaContrattiDaContabilizzare.Size = new System.Drawing.Size(364, 23);
+			this.btnCercaContrattiDaContabilizzare.Size = new System.Drawing.Size(354, 23);
 			this.btnCercaContrattiDaContabilizzare.TabIndex = 132;
 			this.btnCercaContrattiDaContabilizzare.Text = "2 - Cerca Contratti Attivi da Flusso Crediti non collegati a Mov. Finanziari";
 			this.btnCercaContrattiDaContabilizzare.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -456,7 +454,7 @@ namespace no_table_flussostudenti {
 			this.tabPageElaboraIncassi.Location = new System.Drawing.Point(4, 22);
 			this.tabPageElaboraIncassi.Name = "tabPageElaboraIncassi";
 			this.tabPageElaboraIncassi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageElaboraIncassi.Size = new System.Drawing.Size(903, 145);
+			this.tabPageElaboraIncassi.Size = new System.Drawing.Size(698, 145);
 			this.tabPageElaboraIncassi.TabIndex = 2;
 			this.tabPageElaboraIncassi.Text = "Elaborazione Incassi ";
 			this.tabPageElaboraIncassi.UseVisualStyleBackColor = true;
@@ -473,16 +471,16 @@ namespace no_table_flussostudenti {
 			this.grpElaborazioneIncassi.Controls.Add(this.chkAncheSenzaSospesi);
 			this.grpElaborazioneIncassi.Controls.Add(this.btnIncassiContrattiAttivi);
 			this.grpElaborazioneIncassi.Controls.Add(this.btnElaboraIncassi);
-			this.grpElaborazioneIncassi.Location = new System.Drawing.Point(16, 6);
+			this.grpElaborazioneIncassi.Location = new System.Drawing.Point(6, 6);
 			this.grpElaborazioneIncassi.Name = "grpElaborazioneIncassi";
-			this.grpElaborazioneIncassi.Size = new System.Drawing.Size(718, 126);
+			this.grpElaborazioneIncassi.Size = new System.Drawing.Size(686, 133);
 			this.grpElaborazioneIncassi.TabIndex = 133;
 			this.grpElaborazioneIncassi.TabStop = false;
 			// 
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(396, 82);
+			this.label6.Location = new System.Drawing.Point(375, 82);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(111, 13);
 			this.label6.TabIndex = 140;
@@ -491,7 +489,7 @@ namespace no_table_flussostudenti {
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(264, 82);
+			this.label4.Location = new System.Drawing.Point(243, 82);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(64, 13);
 			this.label4.TabIndex = 139;
@@ -499,7 +497,7 @@ namespace no_table_flussostudenti {
 			// 
 			// txtANumFlussoIncassi
 			// 
-			this.txtANumFlussoIncassi.Location = new System.Drawing.Point(399, 100);
+			this.txtANumFlussoIncassi.Location = new System.Drawing.Point(378, 100);
 			this.txtANumFlussoIncassi.Name = "txtANumFlussoIncassi";
 			this.txtANumFlussoIncassi.Size = new System.Drawing.Size(100, 20);
 			this.txtANumFlussoIncassi.TabIndex = 138;
@@ -507,7 +505,7 @@ namespace no_table_flussostudenti {
 			// labNFlussoIncassi
 			// 
 			this.labNFlussoIncassi.AutoSize = true;
-			this.labNFlussoIncassi.Location = new System.Drawing.Point(264, 64);
+			this.labNFlussoIncassi.Location = new System.Drawing.Point(243, 64);
 			this.labNFlussoIncassi.Name = "labNFlussoIncassi";
 			this.labNFlussoIncassi.Size = new System.Drawing.Size(333, 13);
 			this.labNFlussoIncassi.TabIndex = 137;
@@ -515,7 +513,7 @@ namespace no_table_flussostudenti {
 			// 
 			// txtDaNumFlussoIncassi
 			// 
-			this.txtDaNumFlussoIncassi.Location = new System.Drawing.Point(267, 100);
+			this.txtDaNumFlussoIncassi.Location = new System.Drawing.Point(246, 100);
 			this.txtDaNumFlussoIncassi.Name = "txtDaNumFlussoIncassi";
 			this.txtDaNumFlussoIncassi.Size = new System.Drawing.Size(100, 20);
 			this.txtDaNumFlussoIncassi.TabIndex = 136;
@@ -523,7 +521,7 @@ namespace no_table_flussostudenti {
 			// label2
 			// 
 			this.label2.Enabled = false;
-			this.label2.Location = new System.Drawing.Point(434, 16);
+			this.label2.Location = new System.Drawing.Point(410, 16);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(272, 39);
 			this.label2.TabIndex = 135;
@@ -532,7 +530,7 @@ namespace no_table_flussostudenti {
 			// 
 			// btnCreaIncassiFatture
 			// 
-			this.btnCreaIncassiFatture.Location = new System.Drawing.Point(28, 77);
+			this.btnCreaIncassiFatture.Location = new System.Drawing.Point(9, 77);
 			this.btnCreaIncassiFatture.Name = "btnCreaIncassiFatture";
 			this.btnCreaIncassiFatture.Size = new System.Drawing.Size(221, 23);
 			this.btnCreaIncassiFatture.TabIndex = 134;
@@ -544,7 +542,7 @@ namespace no_table_flussostudenti {
 			// 
 			this.chkAncheSenzaSospesi.AutoSize = true;
 			this.chkAncheSenzaSospesi.Enabled = false;
-			this.chkAncheSenzaSospesi.Location = new System.Drawing.Point(267, 23);
+			this.chkAncheSenzaSospesi.Location = new System.Drawing.Point(246, 23);
 			this.chkAncheSenzaSospesi.Name = "chkAncheSenzaSospesi";
 			this.chkAncheSenzaSospesi.Size = new System.Drawing.Size(161, 17);
 			this.chkAncheSenzaSospesi.TabIndex = 133;
@@ -553,7 +551,7 @@ namespace no_table_flussostudenti {
 			// 
 			// btnIncassiContrattiAttivi
 			// 
-			this.btnIncassiContrattiAttivi.Location = new System.Drawing.Point(28, 19);
+			this.btnIncassiContrattiAttivi.Location = new System.Drawing.Point(9, 19);
 			this.btnIncassiContrattiAttivi.Name = "btnIncassiContrattiAttivi";
 			this.btnIncassiContrattiAttivi.Size = new System.Drawing.Size(221, 23);
 			this.btnIncassiContrattiAttivi.TabIndex = 132;
@@ -563,7 +561,7 @@ namespace no_table_flussostudenti {
 			// 
 			// btnElaboraIncassi
 			// 
-			this.btnElaboraIncassi.Location = new System.Drawing.Point(28, 48);
+			this.btnElaboraIncassi.Location = new System.Drawing.Point(9, 48);
 			this.btnElaboraIncassi.Name = "btnElaboraIncassi";
 			this.btnElaboraIncassi.Size = new System.Drawing.Size(221, 23);
 			this.btnElaboraIncassi.TabIndex = 131;
@@ -579,22 +577,22 @@ namespace no_table_flussostudenti {
 			this.tabPageAnnullaCrediti.Location = new System.Drawing.Point(4, 22);
 			this.tabPageAnnullaCrediti.Name = "tabPageAnnullaCrediti";
 			this.tabPageAnnullaCrediti.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageAnnullaCrediti.Size = new System.Drawing.Size(903, 145);
+			this.tabPageAnnullaCrediti.Size = new System.Drawing.Size(698, 145);
 			this.tabPageAnnullaCrediti.TabIndex = 3;
 			this.tabPageAnnullaCrediti.Text = "Annulla Crediti";
 			this.tabPageAnnullaCrediti.UseVisualStyleBackColor = true;
 			// 
 			// txtCodiceBollettinoUnivoco
 			// 
-			this.txtCodiceBollettinoUnivoco.Location = new System.Drawing.Point(570, 30);
+			this.txtCodiceBollettinoUnivoco.Location = new System.Drawing.Point(315, 32);
 			this.txtCodiceBollettinoUnivoco.Name = "txtCodiceBollettinoUnivoco";
-			this.txtCodiceBollettinoUnivoco.Size = new System.Drawing.Size(279, 20);
+			this.txtCodiceBollettinoUnivoco.Size = new System.Drawing.Size(260, 20);
 			this.txtCodiceBollettinoUnivoco.TabIndex = 140;
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(415, 35);
+			this.label5.Location = new System.Drawing.Point(312, 16);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(141, 13);
 			this.label5.TabIndex = 138;
@@ -602,7 +600,7 @@ namespace no_table_flussostudenti {
 			// 
 			// btnAnnullaCrediti
 			// 
-			this.btnAnnullaCrediti.Location = new System.Drawing.Point(103, 30);
+			this.btnAnnullaCrediti.Location = new System.Drawing.Point(10, 30);
 			this.btnAnnullaCrediti.Name = "btnAnnullaCrediti";
 			this.btnAnnullaCrediti.Size = new System.Drawing.Size(289, 23);
 			this.btnAnnullaCrediti.TabIndex = 137;
@@ -612,32 +610,39 @@ namespace no_table_flussostudenti {
 			// 
 			// pBar
 			// 
-			this.pBar.Location = new System.Drawing.Point(16, 216);
+			this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.pBar.Location = new System.Drawing.Point(16, 211);
 			this.pBar.Name = "pBar";
-			this.pBar.Size = new System.Drawing.Size(903, 23);
+			this.pBar.Size = new System.Drawing.Size(702, 23);
 			this.pBar.TabIndex = 132;
 			this.pBar.Visible = false;
 			// 
 			// labPBar
 			// 
 			this.labPBar.AutoSize = true;
-			this.labPBar.Location = new System.Drawing.Point(19, 200);
+			this.labPBar.Location = new System.Drawing.Point(19, 190);
 			this.labPBar.Name = "labPBar";
 			this.labPBar.Size = new System.Drawing.Size(0, 13);
 			this.labPBar.TabIndex = 133;
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
 			// Frmflussostudenti
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(942, 576);
+			this.ClientSize = new System.Drawing.Size(737, 525);
 			this.Controls.Add(this.labPBar);
 			this.Controls.Add(this.pBar);
 			this.Controls.Add(this.tabFunzioni);
 			this.Controls.Add(this.tabGrid);
 			this.Name = "Frmflussostudenti";
 			this.Text = "Frmflussostudenti";
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.tabGrid.ResumeLayout(false);
 			this.tabPageCreditiImportati.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgrCrediti)).EndInit();
@@ -661,6 +666,7 @@ namespace no_table_flussostudenti {
 			this.grpElaborazioneIncassi.PerformLayout();
 			this.tabPageAnnullaCrediti.ResumeLayout(false);
 			this.tabPageAnnullaCrediti.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -725,5 +731,6 @@ namespace no_table_flussostudenti {
 		private System.Windows.Forms.TextBox txtANumFlussoIncassi;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label label7;
 	}
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -140,6 +140,7 @@ private void initClass() {
 	tlezione.defineColumn("stage", typeof(string));
 	tlezione.defineColumn("start", typeof(DateTime),false);
 	tlezione.defineColumn("stop", typeof(DateTime),false);
+	tlezione.defineColumn("titolo", typeof(string));
 	tlezione.defineColumn("visita", typeof(string));
 	Tables.Add(tlezione);
 	tlezione.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idsede");
@@ -316,7 +317,6 @@ private void initClass() {
 	tregistrydocentiview.defineColumn("accmotive_registry_codemotive", typeof(string));
 	tregistrydocentiview.defineColumn("accmotive_registry_title", typeof(string));
 	tregistrydocentiview.defineColumn("accmotive_title", typeof(string));
-	tregistrydocentiview.defineColumn("classconsorsuale_title", typeof(string));
 	tregistrydocentiview.defineColumn("dropdown_title", typeof(string),false);
 	tregistrydocentiview.defineColumn("fonteindicebibliometrico_title", typeof(string));
 	tregistrydocentiview.defineColumn("geo_city_title", typeof(string));
@@ -324,7 +324,6 @@ private void initClass() {
 	tregistrydocentiview.defineColumn("idaccmotivecredit", typeof(string));
 	tregistrydocentiview.defineColumn("idaccmotivedebit", typeof(string));
 	tregistrydocentiview.defineColumn("idcity", typeof(int));
-	tregistrydocentiview.defineColumn("idclassconsorsuale", typeof(int));
 	tregistrydocentiview.defineColumn("idnation", typeof(int));
 	tregistrydocentiview.defineColumn("idreg", typeof(int),false);
 	tregistrydocentiview.defineColumn("idreg_istituti", typeof(int));
@@ -340,17 +339,6 @@ private void initClass() {
 	tregistrydocentiview.defineColumn("registry_cf", typeof(string));
 	tregistrydocentiview.defineColumn("registry_ct", typeof(DateTime),false);
 	tregistrydocentiview.defineColumn("registry_cu", typeof(string),false);
-	tregistrydocentiview.defineColumn("registry_docenti_ct", typeof(DateTime),false);
-	tregistrydocentiview.defineColumn("registry_docenti_cu", typeof(string),false);
-	tregistrydocentiview.defineColumn("registry_docenti_cv", typeof(string));
-	tregistrydocentiview.defineColumn("registry_docenti_idfonteindicebibliometrico", typeof(int));
-	tregistrydocentiview.defineColumn("registry_docenti_idreg", typeof(int),false);
-	tregistrydocentiview.defineColumn("registry_docenti_indicebibliometrico", typeof(int));
-	tregistrydocentiview.defineColumn("registry_docenti_lt", typeof(DateTime),false);
-	tregistrydocentiview.defineColumn("registry_docenti_lu", typeof(string),false);
-	tregistrydocentiview.defineColumn("registry_docenti_matricola", typeof(string));
-	tregistrydocentiview.defineColumn("registry_docenti_ricevimento", typeof(string));
-	tregistrydocentiview.defineColumn("registry_docenti_soggiorno", typeof(string));
 	tregistrydocentiview.defineColumn("registry_email_fe", typeof(string));
 	tregistrydocentiview.defineColumn("registry_extension", typeof(string));
 	tregistrydocentiview.defineColumn("registry_extmatricula", typeof(string));
@@ -359,13 +347,20 @@ private void initClass() {
 	tregistrydocentiview.defineColumn("registry_foreigncf", typeof(string));
 	tregistrydocentiview.defineColumn("registry_forename", typeof(string));
 	tregistrydocentiview.defineColumn("registry_gender", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idanpr", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idateco", typeof(int));
 	tregistrydocentiview.defineColumn("registry_idcategory", typeof(string));
 	tregistrydocentiview.defineColumn("registry_idcentralizedcategory", typeof(string));
 	tregistrydocentiview.defineColumn("registry_idexternal", typeof(int));
+	tregistrydocentiview.defineColumn("registry_idfonteindicebibliometrico", typeof(int));
 	tregistrydocentiview.defineColumn("registry_idmaritalstatus", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idnace", typeof(string));
+	tregistrydocentiview.defineColumn("registry_idnaturagiur", typeof(int));
+	tregistrydocentiview.defineColumn("registry_idnumerodip", typeof(int));
 	tregistrydocentiview.defineColumn("registry_idregistryclass", typeof(string));
 	tregistrydocentiview.defineColumn("registry_idregistrykind", typeof(int));
 	tregistrydocentiview.defineColumn("registry_idtitle", typeof(string));
+	tregistrydocentiview.defineColumn("registry_indicebibliometrico", typeof(int));
 	tregistrydocentiview.defineColumn("registry_ipa_fe", typeof(string));
 	tregistrydocentiview.defineColumn("registry_ipa_perlapa", typeof(string));
 	tregistrydocentiview.defineColumn("registry_location", typeof(string));
@@ -375,11 +370,15 @@ private void initClass() {
 	tregistrydocentiview.defineColumn("registry_multi_cf", typeof(string));
 	tregistrydocentiview.defineColumn("registry_p_iva", typeof(string));
 	tregistrydocentiview.defineColumn("registry_pec_fe", typeof(string));
+	tregistrydocentiview.defineColumn("registry_pic", typeof(string));
 	tregistrydocentiview.defineColumn("registry_residence", typeof(int),false);
+	tregistrydocentiview.defineColumn("registry_ricevimento", typeof(string));
 	tregistrydocentiview.defineColumn("registry_rtf", typeof(Byte[]));
 	tregistrydocentiview.defineColumn("registry_sdi_defrifamm", typeof(string));
 	tregistrydocentiview.defineColumn("registry_sdi_norifamm", typeof(string));
+	tregistrydocentiview.defineColumn("registry_soggiorno", typeof(string));
 	tregistrydocentiview.defineColumn("registry_surname", typeof(string));
+	tregistrydocentiview.defineColumn("registry_title_en", typeof(string));
 	tregistrydocentiview.defineColumn("registry_toredirect", typeof(int));
 	tregistrydocentiview.defineColumn("registry_txt", typeof(string));
 	tregistrydocentiview.defineColumn("registryclass_description", typeof(string));

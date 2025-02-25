@@ -21,7 +21,29 @@
                return this.name;
 			},
 
-			//isValidFunction
+			manageValidResult: function (rowToCheck) {
+				var loc = appMeta.localResource;
+				var def = appMeta.Deferred("isValid-sal_default");
+				var firstErrorObj;
+
+				if (rowToCheck.current.datablocco) {
+					if (rowToCheck.current.datablocco > rowToCheck.current.stop || rowToCheck.current.datablocco < rowToCheck.current.start) {
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'Occorre indicare una data di blocco allinterno del periodo del SAL',
+							outCaption: 'Data blocco',
+							errField: 'datablocco',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj);
+					}
+				}
+				def.resolve();
+
+				//$isValid$
+
+				return MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+			},
 
 			afterGetFormData: function () {
 				//parte sincrona
@@ -89,6 +111,7 @@
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.sal.defaults({ 'autoassociazione': 'S' });
 				$("#btn_add_salassetdiaryora_idassetdiaryora").on("click", _.partial(this.searchAndAssignassetdiaryora, self));
 				$("#btn_add_salassetdiaryora_idassetdiaryora").prop("disabled", true);
 				$("#btn_add_salrendicontattivitaprogettoora_idrendicontattivitaprogettoora").on("click", _.partial(this.searchAndAssignrendicontattivitaprogettoora, self));

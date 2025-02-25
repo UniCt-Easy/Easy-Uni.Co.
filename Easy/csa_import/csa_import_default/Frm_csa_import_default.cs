@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -161,6 +161,7 @@ namespace csa_import_default {
         Dictionary<object, bool> entiCsa = new Dictionary<object, bool>();
 
 		public IOpenFileDialog openInputFileDlg;
+		private Button btnLordiPosticipati;
 		public ISaveFileDialog saveOutputFileDlg;
 
 		public Frm_csa_import_default() {
@@ -208,7 +209,7 @@ namespace csa_import_default {
 			DS.bill_netti.setStaticFilter(QHS.CmpEq("billkind", "D"));
 			DS.bill_versamenti.setStaticFilter(QHS.CmpEq("billkind", "D"));
 			DS.bill_ripartizione.setStaticFilter(QHS.AppAnd(QHS.CmpEq("billkind", "D"),
-				QHS.CmpEq("ybill", Meta.GetSys("esercizio"))));
+				QHS.CmpGe("ybill", Meta.GetSys("esercizio"))));
 
 			//string filterbill_netti = QHS.AppAnd(QHS.CmpEq("bill", Meta.GetSys("esercizio")), QHS.CmpEq("billkind","D"));
 			//string filterbill_versamenti = QHS.AppAnd(QHS.CmpEq("bill", Meta.GetSys("esercizio")), QHS.CmpEq("billkind", "D"));
@@ -238,6 +239,8 @@ namespace csa_import_default {
 			BitArray flags = new BitArray(fieldValue);
 			btnImportEmisti.Visible = flags[6];
 			grpImportEmisti.Visible = flags[6];
+
+			Meta.CanInsertCopy = true; // da togliere alla fine del test
 		}
 
 		private void InitializeAllList() {
@@ -540,6 +543,7 @@ namespace csa_import_default {
 			this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
 			this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.btnLordiPosticipati = new System.Windows.Forms.Button();
 			this.btnVersamenti = new System.Windows.Forms.Button();
 			this.btnLordi = new System.Windows.Forms.Button();
 			this.lblTask = new System.Windows.Forms.Label();
@@ -893,18 +897,29 @@ namespace csa_import_default {
 			// groupBox2
 			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.groupBox2.Controls.Add(this.btnLordiPosticipati);
 			this.groupBox2.Controls.Add(this.btnVersamenti);
 			this.groupBox2.Controls.Add(this.btnLordi);
 			this.groupBox2.Location = new System.Drawing.Point(226, 400);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(188, 50);
+			this.groupBox2.Size = new System.Drawing.Size(398, 50);
 			this.groupBox2.TabIndex = 9;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Crea";
 			// 
+			// btnLordiPosticipati
+			// 
+			this.btnLordiPosticipati.Location = new System.Drawing.Point(101, 19);
+			this.btnLordiPosticipati.Name = "btnLordiPosticipati";
+			this.btnLordiPosticipati.Size = new System.Drawing.Size(166, 23);
+			this.btnLordiPosticipati.TabIndex = 3;
+			this.btnLordiPosticipati.Text = "Lordi posticipati";
+			this.btnLordiPosticipati.UseVisualStyleBackColor = true;
+			this.btnLordiPosticipati.Click += new System.EventHandler(this.btnLordi_Click);
+			// 
 			// btnVersamenti
 			// 
-			this.btnVersamenti.Location = new System.Drawing.Point(96, 19);
+			this.btnVersamenti.Location = new System.Drawing.Point(296, 19);
 			this.btnVersamenti.Name = "btnVersamenti";
 			this.btnVersamenti.Size = new System.Drawing.Size(86, 23);
 			this.btnVersamenti.TabIndex = 2;
@@ -939,7 +954,7 @@ namespace csa_import_default {
 			this.grpVerifiche.Controls.Add(this.dgrVerificheFin);
 			this.grpVerifiche.Location = new System.Drawing.Point(6, 8);
 			this.grpVerifiche.Name = "grpVerifiche";
-			this.grpVerifiche.Size = new System.Drawing.Size(798, 184);
+			this.grpVerifiche.Size = new System.Drawing.Size(798, 167);
 			this.grpVerifiche.TabIndex = 7;
 			this.grpVerifiche.TabStop = false;
 			this.grpVerifiche.Text = "Verifiche";
@@ -953,7 +968,7 @@ namespace csa_import_default {
 			this.dgrVerificheFin.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrVerificheFin.Location = new System.Drawing.Point(10, 19);
 			this.dgrVerificheFin.Name = "dgrVerificheFin";
-			this.dgrVerificheFin.Size = new System.Drawing.Size(780, 154);
+			this.dgrVerificheFin.Size = new System.Drawing.Size(780, 137);
 			this.dgrVerificheFin.TabIndex = 4;
 			this.dgrVerificheFin.DoubleClick += new System.EventHandler(this.dgrVerifiche_DoubleClick);
 			// 
@@ -963,7 +978,7 @@ namespace csa_import_default {
 			this.groupBox3.Controls.Add(this.rdbExpToListing);
 			this.groupBox3.Controls.Add(this.rdbExpToCsv);
 			this.groupBox3.Controls.Add(this.rdbExpToExcel);
-			this.groupBox3.Location = new System.Drawing.Point(833, 139);
+			this.groupBox3.Location = new System.Drawing.Point(810, 126);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(135, 107);
 			this.groupBox3.TabIndex = 11;
@@ -1006,7 +1021,7 @@ namespace csa_import_default {
 			// btnVerificaIndividuazione
 			// 
 			this.btnVerificaIndividuazione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnVerificaIndividuazione.Location = new System.Drawing.Point(833, 44);
+			this.btnVerificaIndividuazione.Location = new System.Drawing.Point(806, 55);
 			this.btnVerificaIndividuazione.Name = "btnVerificaIndividuazione";
 			this.btnVerificaIndividuazione.Size = new System.Drawing.Size(137, 23);
 			this.btnVerificaIndividuazione.TabIndex = 16;
@@ -1051,7 +1066,7 @@ namespace csa_import_default {
 			// label9
 			// 
 			this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label9.Location = new System.Drawing.Point(460, 390);
+			this.label9.Location = new System.Drawing.Point(630, 390);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(336, 16);
 			this.label9.TabIndex = 19;
@@ -1061,7 +1076,7 @@ namespace csa_import_default {
 			// txtRefExternalDoc
 			// 
 			this.txtRefExternalDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.txtRefExternalDoc.Location = new System.Drawing.Point(463, 409);
+			this.txtRefExternalDoc.Location = new System.Drawing.Point(633, 409);
 			this.txtRefExternalDoc.Multiline = true;
 			this.txtRefExternalDoc.Name = "txtRefExternalDoc";
 			this.txtRefExternalDoc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -1072,7 +1087,7 @@ namespace csa_import_default {
 			// btnVerificaIndividuazioneEP
 			// 
 			this.btnVerificaIndividuazioneEP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnVerificaIndividuazioneEP.Location = new System.Drawing.Point(833, 323);
+			this.btnVerificaIndividuazioneEP.Location = new System.Drawing.Point(806, 275);
 			this.btnVerificaIndividuazioneEP.Name = "btnVerificaIndividuazioneEP";
 			this.btnVerificaIndividuazioneEP.Size = new System.Drawing.Size(137, 23);
 			this.btnVerificaIndividuazioneEP.TabIndex = 18;
@@ -1086,9 +1101,9 @@ namespace csa_import_default {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox5.Controls.Add(this.dgrVerificheEP);
-			this.groupBox5.Location = new System.Drawing.Point(6, 198);
+			this.groupBox5.Location = new System.Drawing.Point(6, 179);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(798, 190);
+			this.groupBox5.Size = new System.Drawing.Size(798, 176);
 			this.groupBox5.TabIndex = 17;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Verifiche EP";
@@ -1102,7 +1117,7 @@ namespace csa_import_default {
 			this.dgrVerificheEP.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrVerificheEP.Location = new System.Drawing.Point(10, 19);
 			this.dgrVerificheEP.Name = "dgrVerificheEP";
-			this.dgrVerificheEP.Size = new System.Drawing.Size(780, 165);
+			this.dgrVerificheEP.Size = new System.Drawing.Size(780, 151);
 			this.dgrVerificheEP.TabIndex = 4;
 			this.dgrVerificheEP.DoubleClick += new System.EventHandler(this.dgrVerifiche_DoubleClick);
 			// 
@@ -2107,7 +2122,8 @@ namespace csa_import_default {
 				return;
 			}
 
-			OpenFileDialog FD = new OpenFileDialog();
+			OpenFileDialog _FD = new OpenFileDialog();
+			IOpenFileDialog FD = createOpenFileDialog(_FD);
 			FD.Title = "Seleziona il file CSV da creare";
 			FD.AddExtension = true;
 			FD.DefaultExt = "CSV";
@@ -2123,7 +2139,8 @@ namespace csa_import_default {
 
 			try {
 				exportclass.dataTableToCommaSeparatedValues(T, true, FD.FileName);
-				Process.Start(FD.FileName);
+				//Process.Start(FD.FileName);
+				MetaFactory.factory.getSingleton<IProcessRunner>().start(FD.FileName, true);
 			}
 			catch (Exception E) {
 				QueryCreator.ShowException(E);
@@ -4232,8 +4249,22 @@ namespace csa_import_default {
 					QHS.CmpEq("idcsa_import", curr["idcsa_import"]), null, false);
 				listaSospesi = getElencoSospesi(csaBill);
 
+				bool azzeraUltimaFaseLordi = false;
 
-				if (!generaMovPrincipali("E", LiquidazioneDicembre, listaSospesi, kind == "L")) {
+				Button button = (Button)sender;
+
+				if ((kind == "L") && (button.Name == "btnLordiPosticipati")) {
+					if (show(this, "Si desidera generare i Lordi escludendo le ultime fasi per poterle creare in modo posticipato?",
+						"Conferma esclusione Pagamenti e Incassi", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+						show(this,
+						"Non saranno generate le ultime fasi di Entrata e Spesa."
+							, "Conferma", MessageBoxButtons.OK);
+						azzeraUltimaFaseLordi = true;
+					}
+					else return;// non si desidera generare i Lordi posticipati, si deve cliccare altro bottone per generare i Lordi
+				}
+
+				if (!generaMovPrincipali(azzeraUltimaFaseLordi, "E", LiquidazioneDicembre, listaSospesi, kind == "L")) {
 					show(this, "Errore nella generazione dei movimenti finanziari di spesa");
 					clearHashTabelleCollegate();
 					dsFinancial.Clear();
@@ -4242,7 +4273,7 @@ namespace csa_import_default {
 				}
 
 				listaSospesi = new Dictionary<int, Dictionary<int, decimal>>();
-				if (!generaMovPrincipali("I", false, listaSospesi, kind == "L")) {
+				if (!generaMovPrincipali(azzeraUltimaFaseLordi, "I", false, listaSospesi, kind == "L")) {
 					show(this, "Errore nella generazione dei movimenti finanziari di entrata");
 					clearHashTabelleCollegate();
 					dsFinancial.Clear();
@@ -4260,8 +4291,32 @@ namespace csa_import_default {
 					scollegaEntratedaSpese();
 				}
 
-				doSave(kind);
+				doSave(azzeraUltimaFaseLordi,kind);
 			}
+		}
+
+		
+
+		private bool azzeraClassificazioniAutomatiche(bool azzeraUltimaFaseLordi, DataSet DSP, string IoE) {
+			bool azzera = azzeraUltimaFaseLordi;
+			if (!azzera) return true;
+			string idMovField = (IoE == "I") ? "idinc" : "idexp";
+			string tMainSorted = (IoE == "I") ? "incomesorted" : "expensesorted";
+			string tMainLast = (IoE == "I") ? "incomelast" : "expenselast";
+			foreach (DataRow SortedMovRow in DSP.Tables[tMainSorted].Select()) {
+				int key = CfgFn.GetNoNullInt32(SortedMovRow[idMovField]);
+				// se ultima fase azzera la classificazione nel Dataset degli automatismi, qualora non lo abbia già fatto nel ciclo
+				if (DSP.Tables[tMainLast].Select(QHC.CmpEq(idMovField, key)).Length > 0) {
+					decimal amount = CfgFn.GetNoNullDecimal(SortedMovRow["amount"]);
+					if ((amount) > 0) {
+						SortedMovRow["amount"] = 0;
+						SortedMovRow["originalamount"] = amount;
+					}
+				}
+			}
+
+			//dsFinancial.Tables[tMainSorted].AcceptChanges();
+			return true;
 		}
 
 		Hashtable hashFin = new Hashtable();
@@ -4373,6 +4428,40 @@ namespace csa_import_default {
 			}
 		}
 
+		private void FillImportMov(bool azzera, DataRow ImportMovRow, DataRow Auto, object idcsa_import) {
+			ImportMovRow["idcsa_import"] = idcsa_import;
+			ImportMovRow["movkind"] = Auto["movkind"];
+			ImportMovRow["cu"] = "import";
+			ImportMovRow["ct"] = DateTime.Now;
+			ImportMovRow["lu"] = "import";
+			ImportMovRow["lt"] = DateTime.Now;
+			if (ImportMovRow.Table.Columns.Contains("idriep")) {
+				ImportMovRow["idriep"] = Auto["idriep"];
+			}
+
+			if (ImportMovRow.Table.Columns.Contains("ndetail")) {
+				ImportMovRow["ndetail"] = Auto["ndetail"];
+			}
+
+			if (ImportMovRow.Table.Columns.Contains("idver")) {
+				ImportMovRow["idver"] = Auto["idver"];
+			}
+
+			if (ImportMovRow.Table.Columns.Contains("amount")) {
+				if (azzera)
+					ImportMovRow["amount"] = 0;
+				else
+					ImportMovRow["amount"] = Auto["amount"];
+			}
+
+			if (ImportMovRow.Table.Columns.Contains("originalamount")) {
+				if (azzera)
+					ImportMovRow["originalamount"] = Auto["amount"];
+				else
+					ImportMovRow["originalamount"] = 0;
+			}
+		}
+
 		Dictionary<int, int> __kind_of_sorting = new Dictionary<int, int>();
 		Dictionary<int, int> __e_phase_sorkind = new Dictionary<int, int>();
 		Dictionary<int, int> __i_phase_sorkind = new Dictionary<int, int>();
@@ -4417,14 +4506,14 @@ namespace csa_import_default {
 		}
 
 		private void FillMovSortedFaseParent(int index, string IoE, DataRow NewMovRow) {
-			FillMovSorted(index, IoE, NewMovRow, "parentidsor");
+			FillMovSorted(false, index, IoE, NewMovRow, "parentidsor");
 		}
 
-		private void FillMovSortedFaseMAX(int index, string IoE, DataRow NewMovRow) {
-			FillMovSorted(index, IoE, NewMovRow, "idsor");
+		private void FillMovSortedFaseMAX(bool azzera,int index, string IoE, DataRow NewMovRow) {
+			FillMovSorted(azzera, index, IoE, NewMovRow, "idsor");
 		}
 
-		private void FillMovSorted(int index, string IoE, DataRow NewMovRow, string field_for_idsor) {
+		private void FillMovSorted(bool azzera,int index, string IoE, DataRow NewMovRow, string field_for_idsor) {
 			string tMainSorted = (IoE == "I") ? "incomesorted" : "expensesorted";
 			string idMovField = (IoE == "I") ? "idinc" : "idexp";
 			string kind = (IoE == "I") ? "Entrata" : "Spesa";
@@ -4448,7 +4537,16 @@ namespace csa_import_default {
 				dsFinancial.Tables[tMainSorted].Columns["idsor"].DefaultValue = R[field_for_idsor];
 				DataRow SortedMovRow = MetaSortedMov.Get_New_Row(NewMovRow, dsFinancial.Tables[tMainSorted]);
 				SortedMovRow["idsor"] = R[field_for_idsor];
-				SortedMovRow["amount"] = R["amount"];
+				
+				if (!azzera) {
+					SortedMovRow["amount"] = R["amount"];
+					SortedMovRow["originalamount"] = 0;
+				}
+				else {
+					SortedMovRow["amount"] = 0;
+					SortedMovRow["originalamount"] = R["amount"];
+				}
+
 				SortedMovRow[idMovField] = NewMovRow[idMovField];
 				SortedMovRow["ayear"] = esercizio;
 				SortedMovRow["cu"] = "import";
@@ -5747,23 +5845,28 @@ namespace csa_import_default {
 		/// </summary>
 		/// <param name="IoE"></param>
 		/// <returns></returns>
-		private bool generaMovPrincipali(string IoE, bool nonPagareNettiPositivi,
+		private bool generaMovPrincipali(bool azzeraUltimaFaseLordi, string IoE, bool nonPagareNettiPositivi,
 			Dictionary<int, Dictionary<int, decimal>> sospesi, bool lordi) {
 
-			//for (int i = 0; i < SP_Result.Rows.Count; i++)
-			//{
-			//    DataRow R = SP_Result.Rows[i];
-			//    if (i != CfgFn.GetNoNullInt32(R["nriga"]))
-			//        show("Errore", R["kind"].ToString() + " indice:" + i.ToString() + 
-			//                   " nriga: " + R["nriga"].ToString());
+			// Su richiesta, saranno generate contestualmente delle speciali variazioni di azzeramento
+			// su tutti pagamenti e gli incassi della fase Lordi
+			// al fine di poterle ricreare posticipate nel nuovo esercizio. Di fatto funziona
+			// generando normalmente le ultime fasi finanziarie e azzerandole contestualmente.
+			// Si rende necessario per poterle clonare, riattualizzate, nel nuovo esercizio, comprese le classificazioni ecc.
 
-			//}
-			//if (Meta.IsEmpty) return false;
+			// Per effettuare l'analoga procedura nella Fase dei Versamenti (Versamenti posticipati), invece,
+			// è stato creato un apposito wizard, essendo la modalità operativa più complicata
+			// perchè i versamenti posticipati possono essere relativi solo ad alcune voci CSA e non a tutte quelle
+			// presenti nell'importazione.
+
+		
+
 			string tMain = (IoE == "I") ? "income" : "expense";
 			string tMainYear = (IoE == "I") ? "incomeyear" : "expenseyear";
 			string tMainLast = (IoE == "I") ? "incomelast" : "expenselast";
 			string tMainBill = (IoE == "I") ? "incomebill" : "expensebill";
 			string tMainSorted = (IoE == "I") ? "incomesorted" : "expensesorted";
+			string tMainVar = (IoE == "I") ? "incomevar" : "expensevar";
 			string tImportMain = (IoE == "I") ? "csa_import_income" : "csa_import_expense";
 			string tImportMainVerPlus =
 				(IoE == "I") ? "csa_importver_partition_income" : "csa_importver_partition_expense";
@@ -5781,6 +5884,9 @@ namespace csa_import_default {
 
 			MetaData MetaImputazioneMov = Meta.Dispatcher.Get(tMainYear);
 			MetaImputazioneMov.SetDefaults(dsFinancial.Tables[tMainYear]);
+
+			MetaData MetaVarUltimaFase = Meta.Dispatcher.Get(tMainVar);
+			MetaVarUltimaFase.SetDefaults(dsFinancial.Tables[tMainVar]);
 
 			string maxPhaseName = (IoE == "I") ? "maxincomephase" : "maxexpensephase";
 			int fasemax = getIntSys(maxPhaseName);
@@ -5806,6 +5912,9 @@ namespace csa_import_default {
 			DataTable ImportMov = dsFinancial.Tables[tImportMain];
 			DataTable ImportMovRiepPlus = dsFinancial.Tables[tImportMainRiepPlus];
 			DataTable ImportMovVerPlus = dsFinancial.Tables[tImportMainVerPlus];
+
+			// 33,'AZZERACSA','Azzeramento Riepiloghi CSA'
+			MetaData.SetDefault(dsFinancial.Tables[tMainVar], "autokind", 33);
 
 			if (IoE == "E") {
 				RowChange.SetOptimized(Mov, true);
@@ -6068,7 +6177,7 @@ namespace csa_import_default {
 											var newBill = MetaMBill.Get_New_Row(NewMovRow,
 												dsFinancial.Tables[tMainBill]);
 											newBill["nbill"] = nBill;
-											newBill["ybill"] = esercizio;
+											newBill["ybill"] = (azzeraUltimaFaseLordi)? esercizio+1:esercizio;   // potrebbe essere anche l'esercizio successivo
 											newBill["amount"] = bill[nBill];
 											NewLastRow["flag"] = CfgFn.GetNoNullInt32(NewLastRow["flag"]) | 1;
 											regolarizzazioneEffettuata = true;
@@ -6163,7 +6272,7 @@ namespace csa_import_default {
 
 						NewLastRow[idAcc] = R["idacc"];
 
-						FillMovSortedFaseMAX(NRIGA, IoE, NewMovRow); // inserisce le classificazioni 
+						FillMovSortedFaseMAX(azzeraUltimaFaseLordi,NRIGA, IoE, NewMovRow); // inserisce le classificazioni 
 
 						if ((IoE == "E") && _vecchiaGestione) {
 							if (R["parentidexp"] == DBNull.Value) {
@@ -6183,6 +6292,20 @@ namespace csa_import_default {
 
 							}
 						}
+						if (azzeraUltimaFaseLordi) {
+							decimal valore_da_azzerare = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(R["amount"]));
+
+							DataRow DRVarUltimaFase;
+							if (valore_da_azzerare > 0) {
+								DRVarUltimaFase =
+									MetaVarUltimaFase.Get_New_Row(NewMovRow, dsFinancial.Tables[tMainVar]);
+								DRVarUltimaFase["nvar"] = 1;
+								DRVarUltimaFase["amount"] = -valore_da_azzerare;
+								DRVarUltimaFase[idMovField] = NewMovRow[idMovField];
+								DRVarUltimaFase["description"] = "Variazione di Azzeramento del Lordo CSA";
+							}
+						}
+
 					}
 
 					DataRow NewImpMov = ImpMov.NewRow();
@@ -6210,7 +6333,7 @@ namespace csa_import_default {
 						if (movimentiRaggruppati == null) {
 							if (R["idver"] != DBNull.Value) {
 								DataRow NewImportMovPlusRow = ImportMovVerPlus.NewRow();
-								FillImportMov(NewImportMovPlusRow, R, idcsa_import);
+								FillImportMov((azzeraUltimaFaseLordi && (faseCorrente == fasemax)),NewImportMovPlusRow, R, idcsa_import);
 								NewImportMovPlusRow[idMovField] =
 									currIdMov; //R["idmovimento"];//R è la stessa della riga di spesa collegata alla riga della sp in oggetto
 								ImportMovVerPlus.Rows.Add(NewImportMovPlusRow);
@@ -6218,7 +6341,7 @@ namespace csa_import_default {
 							}
 							else { // Riepiloghi, solo fase Lordi
 								DataRow NewImportMovPlusRow = ImportMovRiepPlus.NewRow();
-								FillImportMov(NewImportMovPlusRow, R, idcsa_import);
+								FillImportMov((azzeraUltimaFaseLordi && (faseCorrente == fasemax)),NewImportMovPlusRow, R, idcsa_import);
 								NewImportMovPlusRow[idMovField] = currIdMov; // R["idmovimento"];
 								ImportMovRiepPlus.Rows.Add(NewImportMovPlusRow);
 							}
@@ -6231,7 +6354,7 @@ namespace csa_import_default {
 									////show(rQuota.ToString(), "quota");
 									DataRow NewImportMovPlusRow = ImportMovVerPlus.NewRow();
 									rQuota.mov["amount"] = rQuota.quota;
-									FillImportMov(NewImportMovPlusRow, rQuota.mov, idcsa_import);
+									FillImportMov((azzeraUltimaFaseLordi && (faseCorrente == fasemax)),NewImportMovPlusRow, rQuota.mov, idcsa_import);
 									NewImportMovPlusRow[idMovField] =
 										currIdMov; //R["idmovimento"];//R è la stessa della riga di spesa collegata alla riga della sp in oggetto
 									//NewImportMovPlusRow["idver"] = R["idver"];
@@ -6240,19 +6363,9 @@ namespace csa_import_default {
 								else { // Riepiloghi, solo fase Lordi
 									DataRow NewImportMovPlusRow = ImportMovRiepPlus.NewRow();
 									rQuota.mov["amount"] = rQuota.quota;
-									//show(/*"idriep" + rQuota.mov["idriep"].ToString() +*/ "idriep " + rQuota.mov["idriep"].ToString() + " curridmov " + currIdMov + " ndetail " +
-									//			 rQuota.mov["ndetail"].ToString() + "amount " + rQuota.mov["amount"].ToString());
-									//if ((rQuota.mov["idriep"]==DBNull.Value)&& (rQuota.mov["idver"] != DBNull.Value)) {
-
-									//	 show( "curridmov " + currIdMov);
-									//	show("idver " + rQuota.mov["idver"].ToString());
-									//	show("movkind " + rQuota.mov["movkind"].ToString() );
-									//}
-									FillImportMov(NewImportMovPlusRow, rQuota.mov, idcsa_import);
-
+									FillImportMov((azzeraUltimaFaseLordi && (faseCorrente == fasemax)),NewImportMovPlusRow, rQuota.mov, idcsa_import);
 									NewImportMovPlusRow[idMovField] = currIdMov; // R["idmovimento"];
-
-									//NewImportMovPlusRow["idriep"] = R["idriep"];
+ 
 									ImportMovRiepPlus.Rows.Add(NewImportMovPlusRow);
 								}
 							}
@@ -6314,7 +6427,7 @@ namespace csa_import_default {
 
 
 
-		private void doSave(string kind) {
+		private void doSave(bool azzeraUltimaFaseLordi,string kind) {
 			int faseMax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
 
 			GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher, dsFinancial,
@@ -6331,7 +6444,7 @@ namespace csa_import_default {
 			else {
 				if (kind == "V") {
 					//Verifica, se ci sono riepiloghi, che siano stati generati i movimenti finanziari dei riepiloghi
-					int countRiep = CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("csa_importriep",QHS.CmpEq("idcsa_import", DS.csa_import.Rows[0]["idcsa_import"]), "count(*)"));
+					int countRiep = CfgFn.GetNoNullInt32(Meta.Conn.DO_READ_VALUE("csa_importriep", QHS.CmpEq("idcsa_import", DS.csa_import.Rows[0]["idcsa_import"]), "count(*)"));
 					if (countRiep > 0) {
 						if (!esistonoMovFinanziari("L")) {
 							show(this,
@@ -6350,6 +6463,13 @@ namespace csa_import_default {
 						"Errore");
 					return;
 				}
+				if (azzeraUltimaFaseLordi)  {
+					azzeraClassificazioniAutomatiche(azzeraUltimaFaseLordi, ga.DSP, "I");
+					azzeraClassificazioniAutomatiche(azzeraUltimaFaseLordi, ga.DSP, "E");
+				}
+				//formtest frm = new formtest(ga.DSP.Tables["expense"], ga.DSP.Tables["expenseyear"]);
+
+			 //   DialogResult dr = frm.ShowDialog();
 
 				res = ga.doPost(Meta.Dispatcher);
 				if (res) {
@@ -6397,6 +6517,7 @@ namespace csa_import_default {
 		private void btnLordi_Click(object sender, EventArgs e) {
 			if (executing) return;
 			btnLordi.Visible = false;
+			btnLordiPosticipati.Visible = false;
 			executing = true;
 			try {
 				btnGeneraMovFin_Click(sender, e, "L");
@@ -6408,6 +6529,7 @@ namespace csa_import_default {
 			}
 
 			btnLordi.Visible = true;
+			btnLordiPosticipati.Visible = true;
 			executing = false; // Consente di rieseguire la procedura
 		}
 
@@ -9962,14 +10084,6 @@ namespace csa_import_default {
 			}
 		}
 
-		private void dataGrid2_Navigate(object sender, NavigateEventArgs ne) {
-
-		}
-
-		private void btnVerificaIndividuazioneEP_Click(object sender, EventArgs e) {
-
-		}
-
 		private void button1_Click(object sender, EventArgs e) {
 			btnEP15_Click(sender, e);
 		}
@@ -9983,7 +10097,8 @@ namespace csa_import_default {
 			DataRow curr = DS.csa_import.Rows[0];
 			MetaData.GetFormData(this, true);
 
-			string filter = QHS.CmpEq("ybill", Meta.GetSys("esercizio"));
+			// consento di selezionare un sospeso per il netto nell'esercizio corrente oppure nell'esercizio successivo
+			string filter = QHS.CmpGe("ybill", Meta.GetSys("esercizio"));
 			filter = QHS.AppAnd(filter, QHS.CmpEq("billkind", "D"), QHS.CmpGt("toregularize", 0));
 
 			string VistaScelta = "billview";
@@ -9998,7 +10113,7 @@ namespace csa_import_default {
 				curr["nbill_netti"] = myDr["nbill"];
 				DS.bill_netti.Clear();
 				Meta.Conn.RUN_SELECT_INTO_TABLE(DS.bill_netti, null,
-					QHS.AppAnd(QHS.CmpEq("ybill", myDr["ybill"]),
+					QHS.AppAnd(QHS.CmpEq("ybill", myDr["ybill"]), 
 						QHS.CmpEq("nbill", myDr["nbill"]),
 						QHS.CmpEq("billkind", "D")),
 					null, true);
@@ -10555,10 +10670,10 @@ namespace csa_import_default {
 
 			btnImportEmisti.Enabled = false;
 		}
-    }
+	}
 
 
-    class Fake_EpPoster : ep_poster {
+	class Fake_EpPoster : ep_poster {
 		private DataSet d = null;
 
 		private EP_Manager epm;

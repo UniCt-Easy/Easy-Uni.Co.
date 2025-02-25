@@ -19,6 +19,7 @@
 		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		this.localResource = appMeta.localization;
 		this.idreg_istituto = appMeta.security.usr("idreg_istituto");
+		this.tipoente = appMeta.security.usr("tipoente");
 		this.manageButtonsPrivileges();
 	}
 
@@ -102,6 +103,15 @@
 				_.forEach(pt.key(), function (key) {
 					metaModel.allowZero(pt.columns[key], false);
 				});
+
+				//fisso l'altezza del contenuto dei TAB ovvero il contenitore di griglie, ecc. uguale per tutti
+				var screenH = $(window).height();
+				var offset = 190;
+				var navtabHeight = $('.nav-tabs').height();
+				var htabContainerVal = screenH - offset - navtabHeight;
+				var htabContainer = (htabContainerVal).toString() + 'px';
+				$(".tab-content").css("height", htabContainer); 
+
 				// calcolo giorni sospensioni
 				return this.getSospensioni()
 					.then(function () {
@@ -113,47 +123,44 @@
 
 			afterFill: function () {
 				// PARTE SYNC
-				// calcola la giusta height delle grid, serve 
+				// calcola la giusta height delle grid, serve
 				// per far apparire la scrollbar orizzontale visibile e non in fondo
+
+				//fisso l'altezza del contenuto dei TAB ovvero il contenitore di griglie, ecc. uguale per tutti
+				var screenH = $(window).height();
+				var offset = 175;
+				var navtabHeight = $('.nav-tabs').height();
+				var htabContainerVal = screenH - offset - navtabHeight;
+				var htabContainer = (htabContainerVal).toString() + 'px';
+				$(".tab-content").css("height", htabContainer); 
+
+				//pagine di dettaglio
+				var offsetDetail = 230;
+				var hdetail = (screenH - offsetDetail).toString() + 'px';
+				var htabdetail = (screenH - offsetDetail + 8).toString() + 'px';
+				$(".detailPage ").css("min-height", htabdetail);
+				$(".detailPage").find(this).css("max-height", hdetail);
+
 				$('[data-custom-control = "gridx"]').each(function () {
-					// recupero il controllere delg rid specifico
-					var screenH = $(window).height();
-					var offset = 200;
-					var offsetDetail = 230;
-					var h = (screenH - offset).toString() + 'px';
-					var htab = (screenH - offset + 20).toString() + 'px';
-					var hdetail = (screenH - offsetDetail).toString() + 'px';
-					var htabdetail = (screenH - offsetDetail + 20).toString() + 'px';
-					$(".tab-content").css("min-height", htab);
+					var h = (htabContainerVal - 40).toString() + 'px';
 					$(this).css("max-height", h);
-					$(".detailPage .tab-content").css("min-height", htabdetail);
-					$(".detailPage").find(this).css("max-height", hdetail);
 				});
 
 				$('[data-custom-control = "checklist"]').each(function () {
-					var screenH = $(window).height();
-					var offset = 200;
-					var offsetDetail = 230;
-					var h = (screenH - offset).toString() + 'px';
-					var htab = (screenH - offset + 8).toString() + 'px';
-					var hdetail = (screenH - offsetDetail).toString() + 'px';
-					var htabdetail = (screenH - offsetDetail + 8).toString() + 'px';
-					$(".tab-content").css("min-height", htab);
+					var h = (htabContainerVal - 40).toString() + 'px';
 					$(this).find(".table").css("max-height", h);
-					$(".detailPage .tab-content").css("min-height", htabdetail);
-					$(".detailPage").find(this).css("max-height", hdetail);
 				});
 
 				// appare una scroll veticale se il tree viene espanso oltre la finestra.
 				// utile nel master - detail duante navigazione tree
 				$('[data-custom-control = "tree"]').each(function () {
-					var screenH = $(window).height();
-					var offset = 150;
-					var htab = (screenH - offset).toString() + 'px';
+					var offsetTree = 150;
+					var htab = (screenH - offsetTree).toString() + 'px';
 					$(this).css("max-height", htab);
 					$(this).css("overflow-y", "auto");
 					$(this).css("overflow-x", "hidden");
 				});
+
 
 				// ASYNC
 				// se esiste beforeFill sulla classe base MetaEasyPage lo invoco
@@ -483,14 +490,33 @@
 			 * abilita e disabilita un controllo sulla pagina
 			 */
 			enableControl: function (el, bool) {
-				this.enableEl(el, bool);
-				this.readOnlyEl(el, !bool);
-				if (el.css)
-					if (bool) {
-						el.css("pointer-events", "unset")
+				if (el) {
+					//gestione del controllo upload
+					if (el[0] && el[0].attributes && el[0].attributes['data-custom-control'] && el[0].attributes['data-custom-control'].nodeValue == 'upload') {
+						//se devo disabilitare agisco (altrimenti lascio com'è)
+						if (!bool) {
+							//nascondo il bottone "rimuovi allegato"
+							if (el[0].children.length >= 4) {
+								var delButton = el[0].children[4];
+								delButton.hidden = true;
+							}
+							//nascondo il bottone "carica allegato"
+							if (el[0].children.length >= 0) {
+								var uploadButton = el[0].children[0];
+								uploadButton.hidden = true;
+							}
+						}
 					} else {
-						el.css("pointer-events", "none")
+						this.enableEl(el, bool);
+						this.readOnlyEl(el, !bool);
+						if (el.css)
+							if (bool) {
+								el.css("pointer-events", "unset")
+							} else {
+								el.css("pointer-events", "none")
+							}
 					}
+				}
 			},
 
 			/**
@@ -1299,12 +1325,17 @@
 
 			getComportamentiAndAteneo: function (listType, listTypeComportamenti) {
 				var def = appMeta.Deferred("getCompotamenti");
+				var self = this;
 
-				if (!this.comportamentiGiaCalcolati) {
+				let idAfferenza = !self.state.currentRow.idafferenza ? $('#perfvalutazionepersonale_' + listType + '_idafferenza').val() : self.state.currentRow.idafferenza;
+				let year = !self.state.currentRow.year ? $('#perfvalutazionepersonale_' + listType + '_year').val() : self.state.currentRow.year;
+
+				if (!this.comportamentiGiaCalcolati && idAfferenza && year) {
+
+
 					var grid = $('#grid_perfvalutazionepersonalecomportamento_' + listTypeComportamenti).data("customController");
 					var gridAteneo = $('#grid_perfvalutazionepersonaleateneo_default').data("customController");
 
-					var self = this;
 					var IsIn = false;
 					var chain = $.when(); //inizializzo la chain
 
@@ -1312,8 +1343,8 @@
 
 					appMeta.callWebService("calcolaComportamenti",
 						{
-							idAfferenza: !self.state.currentRow.idafferenza ? $('#perfvalutazionepersonale_' + listType + '_idafferenza').val() : self.state.currentRow.idafferenza,
-							year: !self.state.currentRow.year ? $('#perfvalutazionepersonale_' + listType + '_year').val() : self.state.currentRow.year
+							idAfferenza: idAfferenza,
+							year: year
 						}).then(function (resDS) {
 
 							//per assicurarsi di farlo una volta sola
@@ -1334,12 +1365,12 @@
 									self.state.currentRow.pesoperfuo = mansionekindDt.rows[0].pesouo;
 									$('#perfvalutazionepersonale_' + listType + '_pesoperfuo').val(mansionekindDt.rows[0].pesouo)
 									//solo la prima volta perchè il valutatore li può azzerare!!!!!
-									if (!self.state.currentRow.pesocomportamenti) {
+									if (self.isNullOrNotANumber(self.state.currentRow.pesocomportamenti)) {
 										self.state.currentRow.pesocomportamenti = mansionekindDt.rows[0].pesocomp;
 										$('#perfvalutazionepersonale_' + listType + '_pesocomportamenti').val(mansionekindDt.rows[0].pesocomp);
 									}
 									//solo la prima volta perchè il valutatore li può azzerare!!!!!
-									if (!self.state.currentRow.pesoobiettivi) {
+									if (self.isNullOrNotANumber(self.state.currentRow.pesoobiettivi)) {
 										self.state.currentRow.pesoobiettivi = mansionekindDt.rows[0].pesoindividuale;
 										$('#perfvalutazionepersonale_' + listType + '_pesoobiettivi').val(mansionekindDt.rows[0].pesoindividuale)
 									}
@@ -2362,14 +2393,14 @@
 
 																subject = "Modifica stato " + description + (self.state.currentRow.year ? ' ' + self.state.currentRow.year + ' ' : '');
 
-																body = "Buongiorno,";// "Gentile " + recapito;
+																body = "Buongiorno";// "Gentile " + recapito;
 
 																if (destinatario[0] != self.state.currentRow.idreg) {
 
-																	body += ", <br> l'/il " + ruoloLoggato + " " + loggato + " ha modificato lo stato " + description + " di " + valutato + ", in  \"" + dsStato.rows[0].title + "\"<br />";
+																	body += ", <br /> l'/il " + ruoloLoggato + " " + loggato + " ha modificato lo stato " + description + " di " + valutato + ", in  \"" + dsStato.rows[0].title + "\"<br />";
 																	subject += " di " + valutato;
 																}
-																else body += ", lo stato " + description + " è stato modificato in \"" + dsStato.rows[0].title + "\"<br />";
+																else body += ", <br /> lo stato " + description + " è stato modificato in \"" + dsStato.rows[0].title + "\"<br />";
 
 																if (withMotivazioni == true && (self.valuta_ind == true || self.valuta_co == true)) {
 																	body += "<br />Motivazioni della Valutazione:<br />" + $('#perfvalutazionepersonale_' + listType + '_motivazione').val() + "<br />";
@@ -2748,6 +2779,7 @@
 
 			getExternalEventForCalendar: function (filter, calendarCtrl) {
 				var def = Deferred('getExternalEventForCalendar');
+				let self = this;
 				var filterComplete = this.q.or(filter, this.q.eq('idreg', this.idreg_istituto));
 				return appMeta.getData.runSelect("getcalendareventview",
 					"color, title, start, stop, ore, idlezione, idassetdiary, idrendicontattivitaprogetto", filterComplete, null)
@@ -2761,6 +2793,8 @@
 								color: 'color'
 							}
 						}]);
+						//memorizzo il dataset in una variabile di pagina
+						self[calendar.tag] = dt;
 						def.resolve();
 					});
 			},
@@ -2773,19 +2807,29 @@
 			 * @param {any} membroStop
 			 * @param {any} prorogaRow
 			 */
-			setRealStartStop: function (wpStart, wpStop, membroStart, membroStop, prorogaRow) {
+			setRealStartStop: function (wpStart, wpStop, membroStart, membroStop, prorogaRow, progettoStart, progettoStop) {
 
-				//va verificata la più grande tra il membro e il wp 
-				if (wpStart && ((membroStart && wpStart > membroStart) || (!membroStart))) {
+				if (!progettoStart) progettoStart = new Date(1900, 0, 1);
+				if (!wpStart) wpStart = new Date(1900, 0, 1);
+				if (!membroStart) membroStart = new Date(1900, 0, 1);
+
+				this.start = progettoStart;
+				this.startMessage = 'a quella dell\'inizio del progetto (' + this.stringFromDate_ddmmyyyy(progettoStart) + ')';
+				if (wpStart > this.start) {
 					this.start = wpStart;
 					this.startMessage = 'a quella dell\'inizio del workpackage (' + this.stringFromDate_ddmmyyyy(wpStart) + ')';
-				} else {
-					if (membroStart) {
-						this.start = membroStart;
-						this.startMessage = 'all\'inizio della partecipazione del membro (' + this.stringFromDate_ddmmyyyy(membroStart) + ')';
-					}
+				} 
+				if (membroStart > this.start) {
+					this.start = membroStart;
+					this.startMessage = 'all\'inizio della partecipazione del membro (' + this.stringFromDate_ddmmyyyy(membroStart) + ')';
 				}
 
+				if (!progettoStop) progettoStop = new Date(2100, 0, 1);
+				if (!wpStop) wpStop = new Date(2100, 0, 1);
+				if (!membroStop) membroStop = new Date(2100, 0, 1);
+
+				this.stop = progettoStop;
+				this.stopMessage = 'a quella finale del progetto (' + this.stringFromDate_ddmmyyyy(progettoStop) + ')';
 				//se c'è una proroga allora la data di fine è della proroga
 				if (prorogaRow) {
 					this.stop = prorogaRow.proroga;
@@ -2793,14 +2837,31 @@
 				}
 				else {
 					//altrimenti è la più piccola tra il membro e il wp
-					if ((wpStop && membroStop && wpStop < membroStop) || (wpStop && !membroStop)) {
+					if (wpStop < this.stop) {
 						this.stop = wpStop;
 						this.stopMessage = 'a quella finale del workpackage (' + this.stringFromDate_ddmmyyyy(wpStop) + ')';
-					} else {
-						if (membroStop) {
-							this.stop = membroStop;
-							this.stopMessage = 'alla fine della partecipazione del membro (' + this.stringFromDate_ddmmyyyy(membroStop) + ')';
-						}
+					} 
+					if (membroStop < this.stop) {
+						this.stop = membroStop;
+						this.stopMessage = 'alla fine della partecipazione del membro (' + this.stringFromDate_ddmmyyyy(membroStop) + ')';
+					}
+				}
+
+				if (this.state.DS.tables.rendicontattivitaprogettoora.rows.length) {
+					let oreNonCancellate = this.state.DS.tables.rendicontattivitaprogettoora.rows.filter(function (row) {
+						return row.getRow().state !== jsDataSet.dataRowState.deleted;
+					});
+					if (oreNonCancellate.length) {
+						this.oraStart = _.orderBy(oreNonCancellate, 'data', 'asc')[0].data;
+						this.oraStop = _.orderBy(oreNonCancellate, 'data', 'desc')[0].data;
+						//La data di inizio della attività deve essere precedente 
+						this.oraStartMessage = 'alla prima ora già rendicontata (' + this.stringFromDate_ddmmyyyy(this.oraStart) + ')';
+						//La data di fine della attività deve essere successiva 
+						this.oraStopMessage = 'all\'ultima ora già rendicontata (' + this.stringFromDate_ddmmyyyy(this.oraStop) + ')';
+					}
+					else {
+						this.oraStart = null;
+						this.oraStop = null;
 					}
 				}
 			},
@@ -2846,7 +2907,18 @@
 				var checkListCtrl = $("[data-tag='itineration.seg.seg']");
 				var ctrl = checkListCtrl.data("customController");
 				if (ctrl) {
-					return ctrl.loadCheckBoxList();
+					//return ctrl.loadCheckBoxList();
+					var selBuilderArray = [];
+					selBuilderArray.push({ filter: filter, top: null, tableName: 'itineration', table: self.getDataTable('itineration') });
+					return appMeta.getData.multiRunSelect(selBuilderArray)
+						.then(function () {
+							//ripulisco la checkbox 
+							return ctrl.clearControl()
+						})
+						.then(function () {
+							//faccio il fill control della checkbox 
+							return ctrl.fillControl(checkListCtrl);
+						});
 				} else
 					return true;
 			},
@@ -2945,20 +3017,37 @@
 					selBuilderArrayFK.push({ filter: page.filterRendicontattivitaprogettoIds, top: null, tableName: 'rendicontattivitaprogetto', table: page.getDataTable('rendicontattivitaprogetto') });
 				}
 
-				//ricavo tutte le foreignkey verso la tabella sal che sono in rendicontattivitaprogettoora
-				var salIds = _.filter(page.getDataTable('rendicontattivitaprogettoora').rows, function (r) { return !!r.idsal });
+				////ricavo tutte le foreignkey verso la tabella sal che sono in rendicontattivitaprogettoora
+				//var salIds = _.filter(page.getDataTable('rendicontattivitaprogettoora').rows, function (r) { return !!r.idsal });
+				////se anche solo uno non c'è sulla tabella sal allora faccio la query
+				//if (!salIds.some(function (id) {
+				//	return _.map(page.getDataTable('sal').rows, function (r) {
+				//		return r.idsal;
+				//	}).includes(id);
+				//})) {
+				//	page.filtersalIds = page.q.isIn('idsal',
+				//		_.map(salIds, function (r) {
+				//			return r.idsal;
+				//		}));
+
+				//	selBuilderArrayFK.push({ filter: page.filtersalIds, top: null, tableName: 'sal', table: page.getDataTable('sal') });
+				//}
+
+
+				//ricavo tutti i sal dei progetti relativi a rendicontattivitaprogettoora
+				var progIds = _.filter(page.getDataTable('rendicontattivitaprogettoora').rows, function (r) { return !!r.idprogetto });
 				//se anche solo uno non c'è sulla tabella sal allora faccio la query
-				if (!salIds.some(function (id) {
+				if (!progIds.some(function (id) {
 					return _.map(page.getDataTable('sal').rows, function (r) {
-						return r.idsal;
+						return r.idpogetto;
 					}).includes(id);
 				})) {
-					page.filtersalIds = page.q.isIn('idsal',
-						_.map(salIds, function (r) {
-							return r.idsal;
+					page.filterprogIds = page.q.isIn('idprogetto',
+						_.map(progIds, function (r) {
+							return r.idprogetto;
 						}));
 
-					selBuilderArrayFK.push({ filter: page.filtersalIds, top: null, tableName: 'sal', table: page.getDataTable('sal') });
+					selBuilderArrayFK.push({ filter: page.filterprogIds, top: null, tableName: 'sal', table: page.getDataTable('sal') });
 				}
 
 				//se c'è da fare una query la faccio se no no
@@ -3086,7 +3175,7 @@
 								let self = this;
 								//3 - controllo che non ci siano stops all'interno del periodo e quindi anzianità da sottrarre
 								stops.forEach(function (stopWork) {
-									if (stopWork.start > start && stopWork.stop < stop) {
+									if (stopWork.start >= start && stopWork.stop < stop) {
 										let anzianitaDaTogliere = self.getDaysAndMonthByDates(stopWork.start, stopWork.stop);
 										output = self.anzianitaDiff(output, anzianitaDaTogliere);
 									}
@@ -3132,10 +3221,21 @@
 						return { gg: dateDiffDays - anzianitaDiRitardo.gg, mm: dateDiffMonth - anzianitaDiRitardo.mm, aa: - anzianitaDiRitardo.aa };
 					}
 					else {
-						return { gg: stop.getDate() - start.getDate() + 1 - anzianitaDiRitardo.gg, mm: 0 - anzianitaDiRitardo.mm, aa: - anzianitaDiRitardo.aa };
+						//caso dei giorni dello stesso mese ...
+						//...se è dal primo all'ultimo giorno vale un mese intero a prescindere dalla durata
+						if (start.getDate() == 1 && stop.getDate() == new Date(stop.getFullYear(), stop.getMonth() + 1, 0).getDate()) 
+							return { gg: 0, mm: 1, aa: 0 };
+						else
+							return { gg: stop.getDate() - start.getDate() + 1 - anzianitaDiRitardo.gg, mm: 0 - anzianitaDiRitardo.mm, aa: - anzianitaDiRitardo.aa };
 					}
 				}
-				return { gg: 0, mm: 0, aa:0 };
+
+				if (start && stop && (
+					start.getFullYear() == stop.getFullYear() || start.getMonth() == stop.getMonth() || start.getDate() == stop.getDate()
+				))
+					return { gg: 1, mm: 0, aa: 0 };
+
+				return { gg: 0, mm: 0, aa: 0 };
 			},
 
 			/**
@@ -3180,7 +3280,7 @@
 										anninonvalidi: [],
 										scrutinio: servizioRow.cedolini,
 										start: servizioRow.start,
-										maxStart: new Date(parseInt(annoCoinvolto.substring(5, 9)), 1, 1),
+										maxStart: new Date(parseInt(annoCoinvolto.substring(5, 9)), 0, 1),
 										begin: begin,
 										end: end
 									};
@@ -3189,10 +3289,13 @@
 									anno.servizi.push({
 										inizio: self.stringFromDate_ddmmyyyy(servizioRow.start),
 										fine: self.stringFromDate_ddmmyyyy(servizioRow.stop),
+										start: servizioRow.start,
+										stop: servizioRow.stop,
 										anni: servizioRow.anni,
 										mesi: servizioRow.mesi,
 										giorni: servizioRow.giorni,
-										istituzione: servizioRow.istituzione
+										istituzione: servizioRow.istituzione,
+										figura: (servizioRow['!idposition_position_title'] ? servizioRow['!idposition_position_title'] : '')
 									});
 									anniAccademici.push(anno);
 								}
@@ -3250,10 +3353,15 @@
 									anno.servizi.push({
 										inizio: self.stringFromDate_ddmmyyyy(servizioRow.start),
 										fine: self.stringFromDate_ddmmyyyy(servizioRow.stop),
+										start: servizioRow.start,
+										stop: servizioRow.stop,
 										anni: servizioRow.anni,
 										mesi: servizioRow.mesi,
 										giorni: servizioRow.giorni,
-										istituzione: servizioRow.istituzione
+										istituzione: servizioRow.istituzione,
+										figura: (servizioRow['!idposition_position_title'] ? servizioRow['!idposition_position_title'] : ''),
+										classe: (servizioRow['!idclassconsorsuale_classconsorsuale_description'] ? servizioRow['!idclassconsorsuale_classconsorsuale_title'] + ' ' + servizioRow['!idclassconsorsuale_classconsorsuale_description'] : ''),
+										nomina: (servizioRow['!idtiponomina_tiponomina_title'] ? servizioRow['!idtiponomina_tiponomina_title'] : ''),
 									});
 
 									//aggiunge al contatore il proprio apporto ai giorni
@@ -3282,12 +3390,14 @@
 					var invalidYear = false;
 
 					//tolgo tutti i giorni di intersezione tra il periodo ottenuto e i periodi di non validità
-					_.forEach(self.getDataTable('ricostruzioneperiodonv').rows, function (nvRows) {
-						if (nvRows.aa_start <= annoAccademico.annoAccademico && nvRows.aa_stop >= annoAccademico.annoAccademico) {
-							invalidYear = true;
-							annoAccademico.anninonvalidi.push({ Anno_accademico_inizio: nvRows.aa_start, Anno_accademico_fine: nvRows.aa_stop })
-						}
-					});
+					if (self.state.DS.tables.ricostruzioneperiodonv) {
+						_.forEach(self.getDataTable('ricostruzioneperiodonv').rows, function (nvRows) {
+							if (nvRows.aa_start <= annoAccademico.annoAccademico && nvRows.aa_stop >= annoAccademico.annoAccademico) {
+								invalidYear = true;
+								annoAccademico.anninonvalidi.push({ Anno_accademico_inizio: nvRows.aa_start, Anno_accademico_fine: nvRows.aa_stop })
+							}
+						});
+					}
 
 					//togliamo sempre a tutti un periodo di non validità con start = 1/1/2012 e stop = 31/12/2014
 					//perchè in quei tre anni non valgono i servizi
@@ -3530,37 +3640,13 @@
 				var diffA = anniTo - anniFrom;
 				var diffM = mesiTo - mesiFrom;
 				var diffG = giorniTo - giorniFrom;
+				//NOTA MOLTO BENE!! devo togliere gli eventuali negativi perchè andado a sottrarre i giorni dai mesi di lunghezze differenti ottengo risultati diversi mentre aggiungendo al primo del mese no
+				let diff = this.reevaluateDaysAndMonth({ aa: diffA, mm: diffM, gg: diffG });
 				if (start) {
 					dataCorrente = new Date(start);
 					if (stops) {
 						let self = this;
-					//	let anzianitaCorrente = { gg: giorniFrom, mm: mesiFrom, aa: anniFrom };
 						let anzianitaFinale = { gg: giorniTo, mm: mesiTo, aa: anniTo };
-					//	let ggSlittamento = 0;
-					//	while (this.anzianitaLessThan(anzianitaCorrente, anzianitaFinale)) {
-					//		//incremento la data
-					//		dataCorrente.setDate(dataCorrente.getDate() + 1);
-					//		if (!stops.some(function (stop) { return stop.start.getTime() <= dataCorrente.getTime() && stop.stop.getTime() > dataCorrente.getTime() })) {
-					//			//se la data cade in un momento in cui lavorava l'anzianità viene incrementata
-					//			anzianitaCorrente.gg++;
-					//			anzianitaCorrente = this.reevaluateDaysAndMonth(anzianitaCorrente);
-					//		}
-					//		else {
-					//			//altrimenti accumulo giorni di slittamento della data
-					//			ggSlittamento++;
-					//		}
-					//	}
-					//	//calcolo l'anzianità SENZA contare le interruzioni e ...
-					//	dataCorrente = new Date(start);
-					//	dataCorrente.setFullYear(dataCorrente.getFullYear() + diffA);
-					//	dataCorrente.setMonth(dataCorrente.getMonth() + diffM);
-					//	dataCorrente.setDate(dataCorrente.getDate() + diffG);
-					//	//...aggiungo i giorni in cui non ha lavorato perchè l'anzianità era ferma (ma in formato aammgg perchè se no si guadagnano 5 o 6 gg l'anno)
-					//	let anzianitaDiRitardo = { gg: ggSlittamento, mm: 0, aa: 0 };
-					//	anzianitaDiRitardo = this.reevaluateDaysAndMonth(anzianitaDiRitardo);
-					//	dataCorrente.setFullYear(dataCorrente.getFullYear() + anzianitaDiRitardo.aa);
-					//	dataCorrente.setMonth(dataCorrente.getMonth() + anzianitaDiRitardo.mm);
-					//	dataCorrente.setDate(dataCorrente.getDate() + anzianitaDiRitardo.gg);
 						let lastStop = null;
 						stops.forEach(function (stop) {
 							if (self.anzianitaLessThan(stop.anzianita, anzianitaFinale))
@@ -3579,10 +3665,46 @@
 							dataCorrente.setMonth(dataCorrente.getMonth() + diffM);
 							dataCorrente.setDate(dataCorrente.getDate() + diffG);
 						}
-					} else { 
-						dataCorrente.setFullYear(dataCorrente.getFullYear() + diffA);
-						dataCorrente.setMonth(dataCorrente.getMonth() + diffM);
-						dataCorrente.setDate(dataCorrente.getDate() + diffG);
+					} else {
+						//se non è inferiore al mese e ci sono dei giorni di differenza
+						if (diff.aa + diff.mm > 0 && diff.gg > 0) {
+							//se si tratta di una differenza di mesi o anni ...
+							let isBisestile = (dataCorrente.getFullYear() % 4) == 0;
+
+							//se è il primo del mese DI PARTENZA vale il mese intero a prescindere oppure se è un mese di 30 gg
+							if (dataCorrente.getDate() == 1 || [3, 5, 8, 10].contains(dataCorrente.getMonth())) {
+								dataCorrente.setDate(dataCorrente.getDate() + diff.gg);
+							}
+							else {
+								//se il mese DI PARTENZA  dura 31
+								//e parto in mezzo al mese
+								//e la somma supera il 31
+								//avrò in giorno in più alla fine e quindi raggiungo l'anziantià finale il giorno prima
+								if ([0, 2, 4, 6, 7, 9, 11].contains(dataCorrente.getMonth())) {
+									if ((dataCorrente.getDate() + diff.gg) > 31)
+										dataCorrente.setDate(dataCorrente.getDate() + diff.gg - 1);
+									else
+										dataCorrente.setDate(dataCorrente.getDate() + diff.gg);
+								}
+								else {
+									//se febbraio
+									//e parto in mezzo al mese
+									//e la somma supera il 28 o 29
+									//due o un giorno più tardi
+									if ((dataCorrente.getDate() + diff.gg) > (isBisestile ? 29 : 28))
+										dataCorrente.setDate(dataCorrente.getDate() + diff.gg + (isBisestile ? 1 : 2));
+									else
+										dataCorrente.setDate(dataCorrente.getDate() + diff.gg);
+								}
+							}
+						} else {
+							//... ma se la differenza è inferiore al mese è una somma semplice
+							dataCorrente.setDate(dataCorrente.getDate() + diff.gg);
+						}
+
+						dataCorrente.setFullYear(dataCorrente.getFullYear() + diff.aa);
+						dataCorrente.setMonth(dataCorrente.getMonth() + diff.mm);
+
 					}
 				}
 				if (stop) {
@@ -3595,7 +3717,166 @@
 				return dataCorrente;
 			},
 
-			getLineaByFasce: function (stipendioOrd, tipoParagrafo, metaPage, dataPresaServizio, virtualDataPresaServizio, dataConfluimento, anniConfluimento, anzianitaStartA, anzianitaStartM, anzianitaStartG/*, dtRicostruzione*/, stops) {
+			getLineaByFasceServizi: function (stipendioOrd, tipoParagrafo, metaPage, dataPresaServizio, virtualDataPresaServizio, dataConfluimento, anniConfluimento,
+				anzianitaStartA, anzianitaStartM, anzianitaStartG, stops, firstIdposition, services, dataStopDecreto) {
+
+				//si suppone che al più tardi l'ultimo articolo dopo la data del decreto sia relativo ad un evento entro i 7 anni perchiè le fasce al massimo sono di 6 anni
+				let dataStopArticoli = new Date(dataStopDecreto);
+				dataStopArticoli.setFullYear(dataStopDecreto.getFullYear() + 7);
+				var lineaStipendio = [];
+				//anzianità di partenza
+				var currentAnzianita = { aa: anzianitaStartA, mm: anzianitaStartM, gg: anzianitaStartG };
+
+				var self = this;
+				//Ciclo sui servizi che hanno già i buchi delle interruzioni, quindi non le devo più considerare
+				_.forEach(services, function (serviceCurr) {
+
+					//per ogni servizio memorizzo l'anzianità a cui sono arrivato come la sua anziantià di partenza per calcolare poi tutte le anzianità delle inee temporali in cui viene spezzato
+					//lo devo fare altrimenti linee diverse con durate diverse producono necessariamente cambi di facia per anzianità in giorni diversi
+					//così facendo se un'anziantà di fascia viene raggiunta, sarà raggiunta sempre lo stesso giorno a prescindere da quanti spezzoni di linea temporale ho generato 
+					let currentAnzianitaServizio = currentAnzianita;
+
+					let anzianitaAcquisita = self.getDaysAndMonthByDates(serviceCurr.start, (serviceCurr.stop ? serviceCurr.stop : dataStopArticoli));
+					let currentAnzianitaFinale = self.anzianitaSum(currentAnzianita, anzianitaAcquisita);
+					//la fascia iniza con il servizio
+					let currentDate = new Date(serviceCurr.start);
+
+					//fitro i soli stipendi convolti  per figura, validità e anzianità ---------------------------------------
+					let stipendiCurr = _.filter(stipendioOrd, function (stipendioFascia) {
+							//solo stipendi pertinenti alla figura contrattuale
+						return stipendioFascia.idposition == (serviceCurr.idposition ? serviceCurr.idposition : firstIdposition) 
+							//inizio validità stipendo successivo alla fine fascia
+							&& (serviceCurr.stop ? serviceCurr.stop : dataStopArticoli) > (stipendioFascia.start ? stipendioFascia.start : new Date(1970, 0, 1))
+							//fine validità stipendio precedente all'inizio fascia
+							&& serviceCurr.start < (stipendioFascia.stop ? stipendioFascia.stop : dataStopArticoli)
+							//escludo stipendi che non raggiungono l'anzialità corrente
+							&& (stipendioFascia.anzianitamax ? stipendioFascia.anzianitamax : 100) >= currentAnzianita.aa
+							//escludo stipendi che sono di anzianità superiori a quella finale
+							&& (stipendioFascia.anzianitamin ? stipendioFascia.anzianitamin : 0) <= currentAnzianitaFinale.aa
+					});
+
+					if (stipendiCurr.length) {
+						_.forEach(stipendiCurr, function (stipendioCurr) {
+							let tipo = tipoParagrafo;
+							let currentAnzianitaPrimoGiornoServizioCorrente = self.reevaluateDaysAndMonth({ aa: currentAnzianita.aa, mm: currentAnzianita.mm, gg: currentAnzianita.gg + 1 })
+							//procedo solo se l'anzianità e la validità dello stipendio sono ancora compatibili con quella corrente
+							if ((stipendioCurr.stop ? stipendioCurr.stop : dataStopArticoli) > currentDate
+								&& (stipendioCurr.start ? stipendioCurr.start : new Date(1900, 0, 1)) <= currentDate
+								&& (stipendioCurr.anzianitamin ? stipendioCurr.anzianitamin : 0) <= currentAnzianitaPrimoGiornoServizioCorrente.aa
+								&& (stipendioCurr.anzianitamax ? stipendioCurr.anzianitamax : 100) >= currentAnzianita.aa) {
+
+								let isChangeFasciaForAnzianta = false;
+								//se l'inizio della fascia corrente corrisponde a quello calcolato in base alla anzianità di partenza è un cambio fascia
+								if (currentAnzianitaPrimoGiornoServizioCorrente.aa == (stipendioCurr.anzianitamin ? stipendioCurr.anzianitamin : 0)
+									&& currentAnzianitaPrimoGiornoServizioCorrente.mm == 0 && currentAnzianitaPrimoGiornoServizioCorrente.gg == 0
+									&& tipo == 1)
+									isChangeFasciaForAnzianta = true;
+
+								//faccio partire la fascia dalla data a cui sono arrivato a calcolare
+								//che in partenza è quella del servizio
+								//e la currentAnzianita è quella di partenza del servizio
+								let dataInizioFasciaCorrente = new Date(currentDate);
+
+								//OPZIONE 0 faccio finire la fascia con il servizio ...
+								//e la currentAnzianitaFinale è quella di fine del servizio + 1 giorno
+								let dataFineFasciaCorrente = (serviceCurr.stop ? serviceCurr.stop : dataStopArticoli); 
+								let dataInizioFasciaSuccessiva =  new Date(dataFineFasciaCorrente);
+								if (dataInizioFasciaSuccessiva)
+									dataInizioFasciaSuccessiva.setDate(dataInizioFasciaSuccessiva.getDate() + 1);
+
+								//calcolo quando scatta l'anzianità successiva
+								//(partendo dal primo giorno del servizio e non dall'ultimo del precedente aggiungo un giorno all'anzianità per allineare l'anzianità al giorno in più da cui parto con il calcolo)
+								let dataScattoSuccessivo = self.getDateByStartAndAnzianita(dataInizioFasciaCorrente,
+									currentAnzianitaPrimoGiornoServizioCorrente.aa, currentAnzianitaPrimoGiornoServizioCorrente.mm, currentAnzianitaPrimoGiornoServizioCorrente.gg,
+									(stipendioCurr.anzianitamax ? stipendioCurr.anzianitamax : 100) + 1, 0, 0, null, null);
+
+								let currentAnzianitaFinaleAlreadyCalc = false;
+
+								//se matura o scade la validità dello stipendio prima del servizio ...
+								if (dataScattoSuccessivo < dataFineFasciaCorrente || (stipendioCurr.stop ? stipendioCurr.stop : dataStopArticoli) < dataFineFasciaCorrente) {
+									//verifico se finisce prima la validità dello stipendio o se il soggetto matura una anziantià superiore
+									if (dataScattoSuccessivo > (stipendioCurr.stop ? stipendioCurr.stop : dataStopArticoli)) {
+										//OPZIONE 1...ma se lo stipendio finisce la sua validità prima ...
+										if ((stipendioCurr.stop ? stipendioCurr.stop : dataStopArticoli) < dataFineFasciaCorrente) {
+											//faccio finire la fascia con lo stipendio ...
+											//e la currentAnzianitaFinale è quella di fine dello stipendio + 1 giorno
+											dataFineFasciaCorrente = stipendioCurr.stop;
+											dataInizioFasciaSuccessiva = (stipendioCurr.stop ? new Date(stipendioCurr.stop) : null);
+											if (dataInizioFasciaSuccessiva)
+												dataInizioFasciaSuccessiva.setDate(dataInizioFasciaSuccessiva.getDate() + 1);
+										}
+									} else {
+										//OPZIONE 2 ... ma se l'anzianità viene raggiunta prima
+										//faccio finire la fascia il giorno prima che aumenti l'anzianità ...
+										//e la currentAnzianitaFinale è quella che maturerà il giorno dopo
+										dataInizioFasciaSuccessiva = new Date(dataScattoSuccessivo);
+										dataFineFasciaCorrente = new Date(dataScattoSuccessivo.setDate(dataScattoSuccessivo.getDate() - 1));
+										//l'anzianità è quella di inizio fascia successiva - un giorno
+										currentAnzianitaFinale = self.reevaluateDaysAndMonth({ aa: (stipendioCurr.anzianitamax ? stipendioCurr.anzianitamax : 100) + 1, mm: 0, gg: -1 });
+										currentAnzianitaFinaleAlreadyCalc = true;
+									}
+								}
+								//altrimenti OPZIONE 0 lascio tutto com'è
+
+								if (!currentAnzianitaFinaleAlreadyCalc)
+									//calcolo l'anzianità finale si parte sempre dall'anzianità iniziale del servizio per non avere difformità su linee diverse con suddivisioni temporali un numero o durata diversi
+									currentAnzianitaFinale = (dataFineFasciaCorrente ?
+										//self.anzianitaSum({ aa: currentAnzianita.aa, mm: currentAnzianita.mm, gg: currentAnzianita.gg }, self.getDaysAndMonthByDates(dataInizioFasciaCorrente, dataFineFasciaCorrente))
+										self.anzianitaSum(currentAnzianitaServizio, self.getDaysAndMonthByDates(serviceCurr.start, dataFineFasciaCorrente))
+										: currentAnzianita);
+
+								//se la fascia comincia alla presa sevizio
+								if (dataInizioFasciaCorrente.getTime() == dataPresaServizio.getTime() && tipo == 1)
+									//il paragrafo è quello iniziale
+									tipo = 0;
+
+
+								lineaStipendio.push({
+									start: stipendioCurr.start,
+									stop: stipendioCurr.stop,
+									anzianitaMin: stipendioCurr.anzianitamin,
+									anzianitaMax: stipendioCurr.anzianitamax,
+									stipendio: stipendioCurr.stipendio,
+									iis: stipendioCurr.iis,
+									lordonotredicesima: stipendioCurr.lordonotredicesima,
+									complementomensile: stipendioCurr.complementomensile,
+									rifnormativo: stipendioCurr.rifnormativo,
+
+									figura: serviceCurr["!idposition_position_title"],
+									stipendioFascia: stipendioCurr,
+									startFascia: new Date(dataInizioFasciaCorrente),
+									stopFascia: (dataFineFasciaCorrente ? new Date(dataFineFasciaCorrente) : null),
+									anzianita: currentAnzianita,
+									tipo: tipo,
+									isChangeFasciaForAnzianta: isChangeFasciaForAnzianta
+								});
+
+								//riparto dalla anziantà finale + 1 giorno
+								currentAnzianita = currentAnzianitaFinale;
+								//riparto dal giorno dopo
+								currentDate = dataInizioFasciaSuccessiva
+							}
+						});
+					}
+					else {
+						//se non ci sono stipendi compatibili deve avanzare comunque l'anzianità corrente
+						let dataInizioFasciaCorrente = new Date(currentDate);
+						let dataFineFasciaCorrente = (serviceCurr.stop ? serviceCurr.stop : dataStopArticoli);
+						let dataInizioFasciaSuccessiva = new Date(dataFineFasciaCorrente);
+						if (dataInizioFasciaSuccessiva)
+							dataInizioFasciaSuccessiva.setDate(dataInizioFasciaSuccessiva.getDate() + 1);
+
+						currentAnzianita = (dataFineFasciaCorrente ?
+							self.anzianitaSum({ aa: currentAnzianita.aa, mm: currentAnzianita.mm, gg: currentAnzianita.gg }, self.getDaysAndMonthByDates(dataInizioFasciaCorrente, dataFineFasciaCorrente))
+							: currentAnzianita);
+						currentDate = dataInizioFasciaSuccessiva
+
+					}
+				});
+				return lineaStipendio;
+			},
+			getLineaByFasce: function (stipendioOrd, tipoParagrafo, metaPage, dataPresaServizio, virtualDataPresaServizio, dataConfluimento, anniConfluimento,
+				anzianitaStartA, anzianitaStartM, anzianitaStartG, stops) {
 				var lineaStipendio = [];
 				var currentAnzianita = { aa: anzianitaStartA, mm: anzianitaStartM, gg: anzianitaStartG };
 				var currentDataPresaServizio = new Date(dataPresaServizio);
@@ -3606,7 +3887,7 @@
 				_.forEach(stipendioOrd, function (stipendioCurr) {
 					var tipo = tipoParagrafo;
 					var tempCurrentAnzianita = currentAnzianita;
-					let stipendioCurrStart = (stipendioCurr.start ? stipendioCurr.start : new Date(1970, 1, 1));
+					let stipendioCurrStart = (stipendioCurr.start ? stipendioCurr.start : new Date(1970, 0, 1));
 					let stipendioCurrAnzianitamax = (stipendioCurr.anzianitamax ? stipendioCurr.anzianitamax : 100);
 					// - calcolo le dataInizioFasciaCorrente e dataFineFasciaCorrente (escludendo così quelle con start e stop di validità incompatibili) in base alla data di presa servizio
 
@@ -3766,9 +4047,9 @@
 						if (stipendioCurr.anzianitamin <= tempCurrentAnzianita.aa && stipendioCurrAnzianitamax >= tempCurrentAnzianita.aa
 							&& !(
 								//inizio validità stipendo successivo alla fine fascia
-								(dataFineFasciaCorrente ? dataFineFasciaCorrente : new Date(2150, 1, 1)) < stipendioCurrStart 
+								(dataFineFasciaCorrente ? dataFineFasciaCorrente : new Date(2150, 0, 1)) < stipendioCurrStart 
 								 //fine validità stipendio precedente all'inizio fascia
-								|| dataInizioFasciaCorrente > (stipendioCurr.stop ? stipendioCurr.stop : new Date(2150, 1, 1))
+								|| dataInizioFasciaCorrente > (stipendioCurr.stop ? stipendioCurr.stop : new Date(2150, 0, 1))
 							)) {
 							lineaStipendio.push({
 								start: stipendioCurr.start,
@@ -3808,7 +4089,7 @@
 				linee.forEach(function (linea) {
 					let fascia = _.find(linea.fasce, function (f) {
 						return (f.anzianitamin <= (scadenza.anzianita ? scadenza.anzianita.aa : 0) && (f.anzianitamax ? f.anzianitamax : 100) >= (scadenza.anzianita ? scadenza.anzianita.aa : 0)) &&
-							((f.start ? f.start.getTime() : new Date(1900, 1, 1)) <= scadenza.data.getTime() && (f.stop ? f.stop.getTime() : new Date(2160, 1, 1)) >= scadenza.data.getTime());
+							((f.start ? f.start.getTime() : new Date(1900, 0, 1)) <= scadenza.data.getTime() && (f.stop ? f.stop.getTime() : new Date(2160, 0, 1)) >= scadenza.data.getTime());
 					});
 					if (fascia) {
 						scadenza.fasce.push({
@@ -3828,6 +4109,54 @@
 						});
 					}
 				});
+			},
+
+			getAmountsByScadenza: function (scadenza) {
+				var stipendio = _.find(scadenza.fasce, function (f) {
+					return f.tipo == 0 || f.tipo == 1 || f.tipo == 4;
+				});
+
+				if (!stipendio)
+					stipendio = {
+						rifnormativo: "",
+						stipendio: 0,
+						iis: 0,
+						lordonotredicesima: 0
+					};
+
+				if (!stipendio.rifnormativo)
+					stipendio.rifnormativo = "";
+				if (!stipendio.stipendio)
+					stipendio.stipendio = 0;
+				if (!stipendio.iis)
+					stipendio.iis = 0;
+				if (!stipendio.lordonotredicesima)
+					stipendio.lordonotredicesima = 0;
+
+				var ivc = _.find(scadenza.fasce, function (f) {
+					return f.tipo == 2;
+				});
+				if (!ivc)
+					ivc = { complementomensile: 0 };
+
+				var rpd = _.find(scadenza.fasce, function (f) {
+					return f.tipo == 3;
+				});
+				if (!rpd)
+					rpd = { complementomensile: 0 };
+				var cia = _.find(scadenza.fasce, function (f) {
+					return f.tipo == 5;
+				});
+				if (!cia)
+					cia = { complementomensile: 0 };
+
+				var ia = _.find(scadenza.fasce, function (f) {
+					return f.tipo == 6;
+				});
+				if (!ia)
+					ia = { complementomensile: 0 };
+
+				return { stipendio: stipendio, ivc: ivc, rpd: rpd, cia: cia, ia: ia };
 			}
 		});
 

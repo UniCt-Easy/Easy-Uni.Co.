@@ -22,12 +22,8 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
-              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
-              <xs:element name="residence" type="xs:int" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -104,7 +100,7 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_dichiar_registrystudentiview_idreg" msdata:parent="registrystudentiview" msdata:child="dichiar" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_dichiar_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="dichiar" msdata:parentkey="aa" msdata:childkey="aa" />
-      <msdata:Relationship name="FK_dichiar_isee_dichiar_iddichiar-idreg-" msdata:parent="dichiar" msdata:child="dichiar_isee" msdata:parentkey="iddichiar idreg" msdata:childkey="iddichiar idreg" />
+      <msdata:Relationship name="FK_dichiar_isee_dichiar_iddichiar-idreg" msdata:parent="dichiar" msdata:child="dichiar_isee" msdata:parentkey="iddichiar idreg" msdata:childkey="iddichiar idreg" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -51,7 +51,17 @@ namespace no_table_ivapay {
         
         public Frm_ivapay() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             saveFileDialog1.DefaultExt = "xml";
+
+            if (isBlazor())
+			{
+                txtPercorso.Visible = false;
+                label1.Visible = false;
+                txtNomeFile.Visible = false;
+                label5.Visible = false;
+			}
         }
 
         public void MetaData_AfterLink() {
@@ -500,13 +510,22 @@ namespace no_table_ivapay {
 
             string xmlString = sw.ToString();
             byte[] xml = new UTF8Encoding().GetBytes(xmlString);
-         
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(NomeCompletoFileXML, false);
 
             Meta.SaveFormData();
-            show("Creato il file " + NomeCompletoFileXML, "Avviso");
-            //ValidaFile_conXSD();
 
-            show("Salvataggio eseguito.");
+            if (isBlazor())
+            {
+                show("Download effettuato");
+            }
+            else
+            {
+                show("Creato il file " + NomeCompletoFileXML, "Avviso");
+                //ValidaFile_conXSD();
+
+                show("Salvataggio eseguito.");
+            }
         }
 
        
@@ -530,24 +549,24 @@ namespace no_table_ivapay {
         }
 
        private void generaModelloPdf () {
-         if (!DatiValidi()) return;
+            if (!DatiValidi()) return;
             int esercizio = (int)HelpForm.GetObjectFromString(typeof(int),
                 txtEsercizio.Text.ToString(), "x.y.year");
-        object trimestre = cmbTrimestre.SelectedValue;
+            object trimestre = cmbTrimestre.SelectedValue;
 
-        DataSet Out = Conn.CallSP("exp_mod_liquidazioneperiva", new object[] { esercizio, trimestre }, false, 6000);
+            DataSet Out = Conn.CallSP("exp_mod_liquidazioneperiva", new object[] { esercizio, trimestre }, false, 6000);
             if (Out == null) return;
             DataTable LiquidazioniIva = Out.Tables[0];
-        HelpForm.SetDataGrid(gridLiquidazioni, LiquidazioniIva);
+            HelpForm.SetDataGrid(gridLiquidazioni, LiquidazioniIva);
             if (LiquidazioniIva.Columns.Contains("message")) {
                 show("Il file non è stato generato");
                 return;
             }
-    string filterIntestazione = QHC.CmpEq("kind", "I");
-    string filterFrontespizio = QHC.CmpEq("kind", "F");
-    string filterModulo = QHC.CmpEq("kind", "VP");
-    DataRow RIntestazione = LiquidazioniIva.First(filterIntestazione);
-    DataRow RFrontespizio = LiquidazioniIva.First(filterFrontespizio);
+            string filterIntestazione = QHC.CmpEq("kind", "I");
+            string filterFrontespizio = QHC.CmpEq("kind", "F");
+            string filterModulo = QHC.CmpEq("kind", "VP");
+            DataRow RIntestazione = LiquidazioniIva.First(filterIntestazione);
+            DataRow RFrontespizio = LiquidazioniIva.First(filterFrontespizio);
             if (RIntestazione == null) {
                 show("Dati Intestazione Mancanti. La dichiarazione non sarà stampata");
                 return;
@@ -577,15 +596,15 @@ namespace no_table_ivapay {
             Cursor.Current = Cursors.WaitCursor;
 
             string NomeFile = BuildNomeFile();
-txtNomeFile.Text = NomeFile;
+            txtNomeFile.Text = NomeFile;
            
 
             try {
 
                 Application.DoEvents();
                 Cursor.Current = Cursors.WaitCursor;
-                string nomeModello = "IVA_period_2018_mod_istr.pdf";
-string[] fnames = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, nomeModello);
+                string nomeModello = "IVA_period_2024_mod_istr.pdf";
+                string[] fnames = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, nomeModello);
                 if (fnames.Length == 0) {
                     show(
                         "File " + nomeModello + " non trovato nella cartella " + AppDomain.CurrentDomain.BaseDirectory,
@@ -593,7 +612,7 @@ string[] fnames = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, nome
                 }
                 try {
                     string path = AppDomain.CurrentDomain.BaseDirectory + nomeModello;
-PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
+                    PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
                     
                     if (document.AcroForm != null) {
                         var form = document.AcroForm;
@@ -727,7 +746,13 @@ PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
 
             try {
                 doc.Save(NomeCompletoFilePDF);
-                show("Salvataggio effettuato");
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(NomeCompletoFilePDF, false);
+
+                if (isBlazor())
+                    show("Download effettuato");
+                else
+                    show("Salvataggio effettuato");
             }
             catch (Exception e) {
                 QueryCreator.ShowError(this, "Errore salvando il file, probabilmente il file è già aperto.", e.ToString());

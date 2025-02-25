@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -865,7 +865,8 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                         join incomelink IL on IL.idchild=I.idinc and {QHS.CmpEq("nlevel", Conn.GetSys("incomephase"))} 
                         join incomeestimate IE on IE.idinc=IL.idparent
                         join estimatekind EK on IE.idestimkind=EK.idestimkind
-                    where {QHS.AppAnd(QHS.IsNull("I.kpro"), QHS.CmpEq("ayear", Conn.GetEsercizio()), QHS.BitSet("EK.flag", 2)),0}
+                    where {QHS.AppAnd(QHS.IsNull("I.kpro"), QHS.CmpEq("ayear", Conn.GetEsercizio())
+                    ,QHS.BitSet("EK.flag", 2)),0}
                 ",false,120);
                 if (incassi != null) {
                     incassiCrediti= new Dictionary<int, bool>();
@@ -887,9 +888,9 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             GroupByClause = " GROUP BY ";
             OrderByClause = " ORDER BY ";
             HavingClause = " HAVING ";
-            ParteSelect = "idtreasurer_main"; //"flageuro";
-            ParteGroupBy = "idtreasurer_main"; //"flageuro";
-            ParteOrderBy = "idtreasurer_main ASC"; //"flageuro ASC";
+            ParteSelect =  "idtreasurer_main,idtreasurer_bill";  
+            ParteGroupBy = "idtreasurer_main,idtreasurer_bill";  
+            ParteOrderBy = "idtreasurer_main ASC,idtreasurer_bill ASC";  
             //togliere flageuro da tutte le parti
             if (flagcreddeb) {
                 ParteSelect = MyAppend(ParteSelect, MainTable + "." + "idreg");
@@ -1100,8 +1101,8 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             if (IstCassierePredef.Length == 1) {
                 codiceistituto = IstCassierePredef[0]["idtreasurer"];
             }
-            if (DS.treasurer.Select(QHC.CmpNe("idtreasurer", 0)).Length == 1) {
-                codiceistituto = DS.treasurer.Select(QHC.CmpNe("idtreasurer", 0))[0]["idtreasurer"];
+            if (DS.treasurer.Select(QHC.AppAnd(QHC.CmpNe("idtreasurer", 0), QHC.CmpEq("active", "S"))).Length == 1) {
+                codiceistituto = DS.treasurer.Select(QHC.AppAnd(QHC.CmpNe("idtreasurer", 0), QHC.CmpEq("active", "S")))[0]["idtreasurer"];
             }
 
 
@@ -1121,7 +1122,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                 condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive,
                     QHS.IsNull("idtreasurer_main"));
                 MetaData.SetDefault(DS.proceeds, "idtreasurer", codiceistituto);
-                //Settare il combo dell'istituto cassiere con il valore predefinito e abilitarlo
+                //Settare il combo dell'istituto cassiere con il valore selezionato e abilitarlo
                 HelpForm.SetComboBoxValue(cmbCodiceIstituto, codiceistituto);
                 cmbCodiceIstituto.Enabled = true;
             }
@@ -1194,7 +1195,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             //    DetailGrid.Select(i);
             //}
             //CalcolaImporto();
-
+ 
         }
 
         private void CollegaRigheADocumento(bool quiet) {
@@ -1302,14 +1303,15 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                     codiceistituto = IstCassierePredef[0]["idtreasurer"];
                 }
 
-                if (DS.treasurer.Select(QHC.CmpNe("idtreasurer", 0)).Length == 1) {
-                    codiceistituto = DS.treasurer.Select(QHC.CmpNe("idtreasurer", 0))[0]["idtreasurer"];
+                if (DS.treasurer.Select(qhc.AppAnd(QHC.CmpNe("idtreasurer", 0), QHC.CmpEq("active","S"))).Length == 1) {
+                    codiceistituto = DS.treasurer.Select(QHC.AppAnd(QHC.CmpNe("idtreasurer", 0), QHC.CmpEq("active", "S")))[0]["idtreasurer"];
                 }
 
-
+      
 
                 object cassiereSelezionato = cmbCodiceIstituto.SelectedValue;
                 object cassiereMandatoPrincipale = CurrRow["idtreasurer_main"];
+                object cassiereBolletta = CurrRow["idtreasurer_bill"];
 
                 if (cassiereMandatoPrincipale != DBNull.Value) {
                     condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive,
@@ -1321,12 +1323,35 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                 }
                 else {
                     condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive,
-                        QHS.IsNull("idtreasurer_main"));
-                    MetaData.SetDefault(DS.proceeds, "idtreasurer", codiceistituto);
-                    //Settare il combo dell'istituto cassiere con il valore predefinito e abilitarlo
-                    HelpForm.SetComboBoxValue(cmbCodiceIstituto, codiceistituto);
-                    cmbCodiceIstituto.Enabled = true;
+                    QHS.IsNull("idtreasurer_main"));
+                    //MetaData.SetDefault(DS.proceeds, "idtreasurer", codiceistituto);
+                    ////Settare il combo dell'istituto cassiere con il valore predefinito e abilitarlo
+                    //HelpForm.SetComboBoxValue(cmbCodiceIstituto, codiceistituto);
+                    //cmbCodiceIstituto.Enabled = true;
+
+                    if (cassiereBolletta != DBNull.Value) {
+                        condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive,
+                            QHS.CmpEq("idtreasurer_bill", cassiereBolletta));
+                        MetaData.SetDefault(DS.proceeds, "idtreasurer", cassiereBolletta);
+                        //Settare il combo dell'istituto cassiere con il valore selezionato
+                        HelpForm.SetComboBoxValue(cmbCodiceIstituto, cassiereBolletta);
+                        cmbCodiceIstituto.Enabled = false;
+                    }
+                    else {
+                        condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive,
+                        QHS.IsNull("idtreasurer_bill"));
+                        MetaData.SetDefault(DS.proceeds, "idtreasurer", codiceistituto);
+                        //Settare il combo dell'istituto cassiere con il valore predefinito e abilitarlo
+                        HelpForm.SetComboBoxValue(cmbCodiceIstituto, codiceistituto);
+                        cmbCodiceIstituto.Enabled = true;
+                    }
+
                 }
+
+                
+               
+
+
 
                 //Trattamento bollo predefinito
                 DataRow[] TrattBolloPredef = DS.stamphandling.Select(QHC.CmpEq("flagdefault", "S"));

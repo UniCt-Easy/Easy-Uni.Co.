@@ -100,6 +100,7 @@
               <xs:element name="idsor" type="xs:int" />
               <xs:element name="idsubclass" type="xs:short" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="ayear" type="xs:short" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
@@ -226,6 +227,7 @@
               <xs:element name="idsor" type="xs:int" />
               <xs:element name="idsubclass" type="xs:short" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="ayear" type="xs:short" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
@@ -699,6 +701,7 @@
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="movkind" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -714,6 +717,7 @@
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="movkind" type="xs:int" minOccurs="0" />
               <xs:element name="idinc" type="xs:int" />
             </xs:sequence>
@@ -727,6 +731,7 @@
               <xs:element name="ndetail" type="xs:int" />
               <xs:element name="idexp" type="xs:int" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
@@ -742,6 +747,7 @@
               <xs:element name="idriep" type="xs:int" />
               <xs:element name="ndetail" type="xs:int" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
@@ -776,6 +782,57 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="expensevar">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="idexp" type="xs:int" />
+              <xs:element name="yvar" type="xs:short" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="idpayment" type="xs:int" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="autokind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="autocode" type="xs:int" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
+              <xs:element name="yinv" type="xs:short" minOccurs="0" />
+              <xs:element name="ninv" type="xs:int" minOccurs="0" />
+              <xs:element name="kpaymenttransmission" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="incomevar">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinc" type="xs:int" />
+              <xs:element name="nvar" type="xs:int" />
+              <xs:element name="yvar" type="xs:short" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="autokind" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="idinvkind" type="xs:int" minOccurs="0" />
+              <xs:element name="ninv" type="xs:int" minOccurs="0" />
+              <xs:element name="yinv" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -937,6 +994,16 @@
       <xs:field xpath="mstns:ybill" />
       <xs:field xpath="mstns:nbill" />
     </xs:unique>
+    <xs:unique name="expensevar_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:expensevar" />
+      <xs:field xpath="mstns:nvar" />
+      <xs:field xpath="mstns:idexp" />
+    </xs:unique>
+    <xs:unique name="incomevar_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:incomevar" />
+      <xs:field xpath="mstns:idinc" />
+      <xs:field xpath="mstns:nvar" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -965,6 +1032,8 @@
       <msdata:Relationship name="expense_csa_importriep_partition_expense" msdata:parent="expense" msdata:child="csa_importriep_partition_expense" msdata:parentkey="idexp" msdata:childkey="idexp" />
       <msdata:Relationship name="expense_expensebill" msdata:parent="expense" msdata:child="expensebill" msdata:parentkey="idexp" msdata:childkey="idexp" />
       <msdata:Relationship name="income_incomebill" msdata:parent="income" msdata:child="incomebill" msdata:parentkey="idinc" msdata:childkey="idinc" />
+      <msdata:Relationship name="expense_expensevar" msdata:parent="expense" msdata:child="expensevar" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="income_incomevar" msdata:parent="income" msdata:child="incomevar" msdata:parentkey="idinc" msdata:childkey="idinc" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

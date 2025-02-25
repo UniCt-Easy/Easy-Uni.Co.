@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,6 +38,8 @@ namespace bankdispositionsetup_cbi {
         
         public Frmbankdispositionsetup_cbi() {
 			InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             saveFileDialog1.DefaultExt = "xml";
         }
         DataAccess Conn;
@@ -45,21 +47,21 @@ namespace bankdispositionsetup_cbi {
         QueryHelper QHS;
         CQueryHelper QHC;
 
-        public  bool isBonificoEstero(int ytransmission, int ntransmission) {
-            var query = "select * "
-                + " from paymentcommunicated "
-                + " JOIN paymethod  ON paymentcommunicated.idpaymethod = paymethod.idpaymethod "
-                + " WHERE paymentcommunicated.ypaymenttransmission = "+ ytransmission + " AND paymentcommunicated.npaymenttransmission = "+ ntransmission
-                + " AND paymethod.methodbankcode IN ('BONIFICOESTERO') ";
+		public bool thereIsbonificoEstero(int ytransmission, int ntransmission) {
+			var query = "select * "
+				+ " from paymentcommunicated "
+				+ " JOIN paymethod  ON paymentcommunicated.idpaymethod = paymethod.idpaymethod "
+				+ " WHERE paymentcommunicated.ypaymenttransmission = " + ytransmission + " AND paymentcommunicated.npaymenttransmission = " + ntransmission
+				+ " AND paymethod.methodbankcode IN ('BONIFICOESTERO') ";
 
-            var Estero = Conn.SQLRunner(query);
-            if ((Estero == null) || (Estero.Rows.Count == 0))
-                return false;
-            else
-                return true;
+			var Estero = Conn.SQLRunner(query);
+			if ((Estero == null) || (Estero.Rows.Count == 0))
+				return false;
+			else
+				return true;
 
-        }
-        public void MetaData_AfterLink() {
+		}
+		public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
 
             Meta.CanSave = false;
@@ -100,7 +102,7 @@ namespace bankdispositionsetup_cbi {
                 return null;
             }
             DataRow R = TT.Rows[0];
-            bool BonificoEstero = isBonificoEstero(ytransmission,ntransmission);
+            bool BonificoEstero = thereIsbonificoEstero(ytransmission,ntransmission);
             object spexport = "trasmele_expense_cbi";
             DataSet D = Conn.CallSP(spexport.ToString(), new object[] { ytransmission, ntransmission }, false, 300);
             if (D == null || D.Tables.Count == 0) return null;
@@ -180,6 +182,8 @@ namespace bankdispositionsetup_cbi {
 
         bool salvaFile(XmlDocument document, string fname, int ntrasmission, object idtreasurer, string kind) {
             document.writeXmlToFile(fname, Encoding.GetEncoding("ISO-8859-1"));
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fname, false);
 
             // Al file XML vengono aggiunti i Prefissi (BODY, PMRQ), il file XSD non li ha, quindi
             // la validazione xml/xsd restituisce errore

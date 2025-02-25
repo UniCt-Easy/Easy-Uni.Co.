@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -171,7 +171,7 @@ namespace progettocosto_functions {
 
             string query = @"select ( ore * 
 	            CASE 
-				WHEN isnull(costoorario, 0) <> 0 THEN costoorario
+				WHEN costoorario is not null THEN costoorario -- se metto zero deve uscire zero
 				WHEN isnull(costostandard, 0) <> 0 THEN costostandard
 				WHEN isnull(totale_costoorario, 0) <> 0 THEN totale_costoorario
 				WHEN isnull(costoorario_stipendio, 0) <> 0 THEN costoorario_stipendio
@@ -183,7 +183,7 @@ namespace progettocosto_functions {
 	            ) as amount, 
 				
 	            --CASE 
-				--WHEN isnull(costoorario, 0) <> 0 THEN 'Costo del membro nel progetto'
+				--WHEN costoorario is not null THEN 'Costo del membro nel progetto'
 				--WHEN isnull(costostandard, 0) <> 0 THEN 'Costo standard'
 				--WHEN isnull(totale_costoorario, 0) <> 0 THEN 'Costo orario importato'
 				--WHEN isnull(costoorario_stipendio, 0) <> 0 THEN 'Costo stipendio importato'
@@ -215,7 +215,7 @@ namespace progettocosto_functions {
                     rProgettoCosto["yoperation"] =  DBNull.Value;
                     rProgettoCosto["noperation"] =  DBNull.Value;
                     rProgettoCosto["amount"] = R["amount"];
-                    rProgettoCosto["idcontrattokind"] = R["idcontrattokind"];
+                    rProgettoCosto["idposition"] = R["idposition"];
                     rProgettoCosto["idrendicontattivitaprogetto"] = R["idrendicontattivitaprogetto"];
                     rProgettoCosto["idsal"] = DBNull.Value;
                     rProgettoCosto["doc"] = DBNull.Value;
@@ -264,7 +264,7 @@ namespace progettocosto_functions {
                     rProgettoCosto["yoperation"] = DBNull.Value;
                     rProgettoCosto["noperation"] = DBNull.Value;
                     rProgettoCosto["amount"] = R["amount"];
-                    rProgettoCosto["idcontrattokind"] = DBNull.Value;
+                    rProgettoCosto["idposition"] = DBNull.Value;
                     rProgettoCosto["idrendicontattivitaprogetto"] = DBNull.Value;
                     rProgettoCosto["idsal"] = DBNull.Value;
                     rProgettoCosto["doc"] = DBNull.Value;

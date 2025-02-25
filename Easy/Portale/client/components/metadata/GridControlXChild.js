@@ -196,7 +196,7 @@
                 // aggiungo data-mdlcolumnname, serve per individuare la colonna da invertire quando le sposto con drag n drop
                 var $td = $('<td style="user-select: none" nowrap data-mdlcolumnname="' + calcChildObj.columncalc.replace("!", "") + '" >');
 
-                // aggiungo tasto "+" e bind alal funzione che si occupwerà di aprire la machera opportuna
+                // aggiungo tasto "+" e bind alla funzione che si occupwerà di aprire la maschera opportuna
                 var $addIcon = $('<i class="far fa-plus-square">');
                 var $span = $('<div class="grid-child-add-button">');
 
@@ -227,7 +227,7 @@
 
                     // inserisco tasto delete
                     var $deleteIcon = $('<i class="fa fa-trash">');
-                    var div = '<div style="padding-left: 5px; display: inline-block; cursor: pointer;">';
+                    var div = '<div class="mdlw_tdclickable_inside" style="padding-left: 5px; display: inline-block; cursor: pointer;">';
                     var $spanDeleteIcon = $(div);
                     var $spanEditIcon = $(div);
                     var $iconEdit = $('<i class="fa fa-edit">');
@@ -242,14 +242,14 @@
                     var addRowToInternalGrid = function(index, $currTable, caption, value, field, tname, that) {
                         var $tr1 = $('<tr class="table-in-cell-tr">');
 
-                        var $tdDelete =  $('<td>');
+                        var $tdDelete = $('<td>');
                         if (that.isDeleteToShow) {
                             $tdDelete.width(widthEditcolumns);
                             $tr1.append($tdDelete);
                             if (index === 0) $tdDelete.append($spanDeleteIcon);
                         }
 
-                        var $tdEdit =  $('<td>');
+                        var $tdEdit = $('<td>');
                         if (that.isEditToShow) {
                             $tdEdit.width(widthEditcolumns);
                             $tr1.append($tdEdit);
@@ -532,6 +532,50 @@
                 }
 
                 return "<span style='font-weight:bold;'>" + key + "</span>";
+            },
+
+            /**
+             * @method removeEvents
+             * @private
+             * @description SYNC
+             * Removes all the events from grid rows
+             */
+            removeEvents: function () {
+                if (this.mytable) {
+                    // questo selettore evita di agganciare glie venti sull'header
+                    this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr)").off("click");
+                    this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr)").off("dblclick");
+                    if (this.editInPlaceColumns) {
+                        this.mytable.find("tr:not(:has(>th)):not([data-mdlgrouped]):not(.table-in-cell-tr) > td:not(.mdlw_tdclickable)").off("click");
+                    }
+
+                    let self = this;
+
+                    // rimuove eventi per bottoni recursiveCollapse e recursiveExpand in caso di grouping
+
+                    this.mytable.find(".fa-plus-square")
+                        .each(function () {
+                            $(this).parent().off("click");
+                        });
+
+                    this.mytable.find(".fa-minus-square")
+                        .each(function () {
+                            $(this).parent().off("click");
+                        });
+
+                    // rimuove eventi bottoni di editing di riga
+
+                    this.mytable.find("[data-mdleditbtn]").off("click");
+
+                    this.mytable.find("[data-mdldeletebtn]").off("click");
+
+                    this.mytable.find("[data-mdlunlinkbtn]").off("click");
+
+                    //disabilita i bottoni delle colonne nipoti
+                    this.mytable.find('.mdlw_tdclickable_inside').off("click");
+                    this.mytable.find('.grid-child-add-button').off("click");
+
+                }
             }
         });
 

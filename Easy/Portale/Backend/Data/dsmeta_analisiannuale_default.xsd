@@ -26,29 +26,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="importcontrattistipendiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="anno" type="xs:int" />
-              <xs:element name="cognome" type="xs:string" minOccurs="0" />
-              <xs:element name="datafine" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="datainizio" type="xs:dateTime" />
-              <xs:element name="datarivalutazione" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
-              <xs:element name="idposition" type="xs:int" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idregistrylegalstatus" type="xs:int" />
-              <xs:element name="idstipendio" type="xs:int" minOccurs="0" />
-              <xs:element name="idstipendioannuo" type="xs:int" />
-              <xs:element name="inquadramento" type="xs:string" minOccurs="0" />
-              <xs:element name="lordo" type="xs:decimal" minOccurs="0" />
-              <xs:element name="matricola" type="xs:string" minOccurs="0" />
-              <xs:element name="nome" type="xs:string" minOccurs="0" />
-              <xs:element name="oneri" type="xs:decimal" minOccurs="0" />
-              <xs:element name="ruolo" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="pcsbilancio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -459,13 +436,6 @@
       <xs:selector xpath=".//mstns:getcontrattikindview" />
       <xs:field xpath="mstns:idposition" />
     </xs:unique>
-    <xs:unique name="importcontrattistipendiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:importcontrattistipendiview" />
-      <xs:field xpath="mstns:anno" />
-      <xs:field xpath="mstns:idreg" />
-      <xs:field xpath="mstns:idregistrylegalstatus" />
-      <xs:field xpath="mstns:idstipendioannuo" />
-    </xs:unique>
     <xs:unique name="pcsbilancio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pcsbilancio" />
       <xs:field xpath="mstns:idanalisiannuale" />
@@ -567,7 +537,6 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_analisiannuale_importcontrattistipendiview_year" msdata:parent="importcontrattistipendiview" msdata:child="analisiannuale" msdata:parentkey="anno" msdata:childkey="year" />
       <msdata:Relationship name="FK_pcsbilancio_analisiannuale_idanalisiannuale-year" msdata:parent="analisiannuale" msdata:child="pcsbilancio" msdata:parentkey="idanalisiannuale year" msdata:childkey="idanalisiannuale year" />
       <msdata:Relationship name="FK_analisiannuale_pcspuntiorganicoview_idanalisiannuale-year" msdata:parent="pcspuntiorganicoview" msdata:child="analisiannuale" msdata:parentkey="idanalisiannuale year" msdata:childkey="idanalisiannuale year" />
       <msdata:Relationship name="FK_analisiannuale_pcspeoview_year" msdata:parent="pcspeoview" msdata:child="analisiannuale" msdata:parentkey="year" msdata:childkey="year" />
@@ -578,7 +547,7 @@
       <msdata:Relationship name="FK_pcsassunzioni_position_alias4_idposition_start" msdata:parent="position_alias4" msdata:child="pcsassunzioni" msdata:parentkey="idposition" msdata:childkey="idposition_start" />
       <msdata:Relationship name="FK_pcsassunzioni_position_alias3_idposition" msdata:parent="position_alias3" msdata:child="pcsassunzioni" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_stipendioannuo_analisiannuale_year" msdata:parent="analisiannuale" msdata:child="stipendioannuo" msdata:parentkey="year" msdata:childkey="year" />
-      <msdata:Relationship name="FK_stipendioannuo_registrylegalstatus_idregistrylegalstatus" msdata:parent="registrylegalstatus" msdata:child="stipendioannuo" msdata:parentkey="idregistrylegalstatus" msdata:childkey="idregistrylegalstatus" />
+      <msdata:Relationship name="FK_stipendioannuo_registrylegalstatus_idregistrylegalstatus" msdata:parent="registrylegalstatus" msdata:child="stipendioannuo" msdata:parentkey="idregistrylegalstatus idreg" msdata:childkey="idregistrylegalstatus idreg" />
       <msdata:Relationship name="FK_registrylegalstatus_inquadramento_idinquadramento" msdata:parent="inquadramento" msdata:child="registrylegalstatus" msdata:parentkey="idinquadramento" msdata:childkey="idinquadramento" />
       <msdata:Relationship name="FK_registrylegalstatus_position_alias2_idposition" msdata:parent="position_alias2" msdata:child="registrylegalstatus" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_stipendioannuo_registry_idreg" msdata:parent="registry" msdata:child="stipendioannuo" msdata:parentkey="idreg" msdata:childkey="idreg" />

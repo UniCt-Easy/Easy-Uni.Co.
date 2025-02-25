@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,6 +43,8 @@ namespace sdi_acquisto_default {
                 
         public Frm_sdi_acquisto_default() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             saveFileDialog1.SupportMultiDottedExtensions = true;
             HelpForm.SetDenyNull(DS.sdi_acquisto.Columns["ec_sent"], true);
             HelpForm.SetDenyNull(DS.sdi_acquisto.Columns["notcreacontabilita"], true);
@@ -148,7 +150,7 @@ namespace sdi_acquisto_default {
             txtIpa.ReadOnly = !enable;
             txtDescrizione.ReadOnly = !enable;
             txtTotaleFE.ReadOnly = !enable;
-
+            chk_enable_split_payment.Enabled = enable;
         }
 
         public bool AbilitaDisabilitaSalvaAllegati() {
@@ -184,7 +186,8 @@ namespace sdi_acquisto_default {
             txtNomeFile.Enabled = false;
             txtNomeFilecompresso.Enabled = false;
             txtIdentificativoSdI.Enabled = false;
-            txtTipoDocumento.Enabled = false;
+            txtCod_tipodoc.Enabled = false;
+            grpTipoDocumento.Enabled = false;
             txtDataAccettata.ReadOnly = true;
             txtDataRifiutata.ReadOnly = true;
             txtUserAccettata.ReadOnly = true;
@@ -436,7 +439,8 @@ namespace sdi_acquisto_default {
             txtNomeFile.Enabled = true;
             txtNomeFilecompresso.Enabled = true;
             txtIdentificativoSdI.Enabled = true;
-            txtTipoDocumento.Enabled = true;
+            txtCod_tipodoc.Enabled = true;
+            grpTipoDocumento.Enabled = true;
             chkEsisteFattura.Enabled = true;
             AbilitaDisabilitaBtnImportazioni();
             txtRifAmm.ReadOnly = false;
@@ -717,7 +721,13 @@ namespace sdi_acquisto_default {
                     idinvkind = rInvkind["idinvkind"];
                 }
                 else {
-                    return;
+                    show("Non è stato trovato alcun Tipo Documento configurato per le FE di acquisto con IPA e Riferimento Amministrativo indicati in Fattura.\r\nScegliere quello più appropriato tra quelli disponiibli.", "Errore");
+                    // Se non riesce a trovare un tipo documento con IPA e/o Rif.Amm. specificato in fattura FE, ne fa scegliere uno all'utente.[task 19709]
+                    filterIdinvkind = QHC.AppAnd(QHC.CmpEq("active", "S"), QHC.CmpEq("enable_fe", "S"));
+                    rInvkind = SelezionaTipoDocumento(filterIdinvkind);
+                    if (rInvkind != null) {
+                        idinvkind = rInvkind["idinvkind"];
+                    }
                 }
             }
 
@@ -1331,7 +1341,13 @@ namespace sdi_acquisto_default {
                 doc.WriteTo(xW);
                 xW.Flush();
                 xW.Close();
-                show("Salvataggio del file " + fname + " effettuato");
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fname, false);
+
+                if (isBlazor())
+                    show("Download effettuato");
+                else
+                    show("Salvataggio del file " + fname + " effettuato");
             }
             catch (System.IO.IOException e1) {
                 show(e1.Message, "Errore nel salvataggio del file " + fname);
@@ -1400,6 +1416,8 @@ namespace sdi_acquisto_default {
                 FS.Write(documento, offset, n);
                 FS.Flush();
                 FS.Close();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(sw, false);
             }
             catch {
             }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -79,6 +79,10 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable proceedstransmission 		=> Tables["proceedstransmission"];
+
+	
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomevarattachment 		=> Tables["incomevarattachment"]; 
 
 	#endregion
 
@@ -1080,6 +1084,29 @@ private void initClass() {
 	tproceedstransmission.PrimaryKey =  new DataColumn[]{tproceedstransmission.Columns["kproceedstransmission"]};
 
 
+	
+	//////////////////// INCOMEVARATTACHMENT /////////////////////////////////
+	var tincomevarattachment= new DataTable("incomevarattachment");
+	C= new DataColumn("idinc", typeof(Int32));
+	C.AllowDBNull=true;
+	tincomevarattachment.Columns.Add(C);
+	C= new DataColumn("nvar", typeof(Int32));
+	C.AllowDBNull=true;
+	tincomevarattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tincomevarattachment.Columns.Add(C);
+	tincomevarattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tincomevarattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tincomevarattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tincomevarattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tincomevarattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tincomevarattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tincomevarattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tincomevarattachment);
+	tincomevarattachment.PrimaryKey =  new DataColumn[]{tincomevarattachment.Columns["idinc"],tincomevarattachment.Columns["nvar"], tincomevarattachment.Columns["idattachment"]};
+	
+	
 	#endregion
 
 
@@ -1156,6 +1183,10 @@ private void initClass() {
 	cChild = new []{incomevar.Columns["kproceedstransmission"]};
 	Relations.Add(new DataRelation("proceedstransmission_incomevar",cPar,cChild,false));
 
+	cPar = new []{tincomevar.Columns["idinc"],tincomevar.Columns["nvar"]};
+	cChild = new []{incomevarattachment.Columns["idinc"],incomevarattachment.Columns["nvar"]};
+	Relations.Add(new DataRelation("incomevar_incomevarattachment",cPar,cChild,false));
+	
 	#endregion
 
 }

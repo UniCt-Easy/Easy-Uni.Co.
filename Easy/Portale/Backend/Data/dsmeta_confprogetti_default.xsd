@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_confprogetti_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_confprogetti_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="progettoelenchiview_alias1" msprop:TableForReading="progettoelenchiview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idprogetto" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="progettoelenchiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idprogetto" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="confprogetti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="calcolomassimale" type="xs:string" minOccurs="0" />
+              <xs:element name="consolidamento" type="xs:string" minOccurs="0" />
+              <xs:element name="didaobligatoriaconsolidamento" type="xs:string" minOccurs="0" />
+              <xs:element name="enablecalcprogetti" type="xs:string" minOccurs="0" />
+              <xs:element name="excel" type="xs:string" minOccurs="0" />
+              <xs:element name="filigranapdf" type="xs:string" minOccurs="0" />
+              <xs:element name="getstipendibyeasy" type="xs:string" minOccurs="0" />
+              <xs:element name="idconfprogetti" type="xs:int" />
+              <xs:element name="idprogetto_otheractivities" type="xs:int" minOccurs="0" />
+              <xs:element name="idprogetto_otherresearchactivities" type="xs:int" minOccurs="0" />
+              <xs:element name="pdf" type="xs:string" minOccurs="0" />
+              <xs:element name="pdffirmato" type="xs:string" minOccurs="0" />
+              <xs:element name="starttimecalcprogetti" type="xs:string" minOccurs="0" />
+              <xs:element name="timbratura" type="xs:string" minOccurs="0" />
+              <xs:element name="viscostoorario" type="xs:string" minOccurs="0" />
+              <xs:element name="visimporterexcel" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettoelenchiview_alias1" />
+      <xs:field xpath="mstns:idprogetto" />
+    </xs:unique>
+    <xs:unique name="progettoelenchiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:progettoelenchiview" />
+      <xs:field xpath="mstns:idprogetto" />
+    </xs:unique>
+    <xs:unique name="confprogetti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:confprogetti" />
+      <xs:field xpath="mstns:idconfprogetti" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_confprogetti_progettoelenchiview_alias1_idprogetto_otherresearchactivities" msdata:parent="progettoelenchiview_alias1" msdata:child="confprogetti" msdata:parentkey="idprogetto" msdata:childkey="idprogetto_otherresearchactivities" />
+      <msdata:Relationship name="FK_confprogetti_progettoelenchiview_idprogetto_otheractivities" msdata:parent="progettoelenchiview" msdata:child="confprogetti" msdata:parentkey="idprogetto" msdata:childkey="idprogetto_otheractivities" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

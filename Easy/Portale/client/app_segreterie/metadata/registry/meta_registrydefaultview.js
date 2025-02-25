@@ -51,7 +51,7 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
-						return "title asc ";
+						return "registry_surname asc , registry_forename asc ";
 					}
 					//$getSortingin$
 				}

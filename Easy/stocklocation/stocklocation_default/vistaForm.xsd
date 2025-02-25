@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaubicazione.xsd" xmlns:mstns="http://tempuri.org/vistaubicazione.xsd" xmlns="http://tempuri.org/vistaubicazione.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
@@ -256,6 +256,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="stocklocationattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idstocklocation" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -290,6 +305,11 @@
       <xs:selector xpath=".//mstns:sorting04" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
+    <xs:unique name="stocklocationattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:stocklocationattachment" />
+      <xs:field xpath="mstns:idstocklocation" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -300,6 +320,7 @@
       <msdata:Relationship name="FK_sorting05_stocklocation" msdata:parent="sorting05" msdata:child="stocklocation" msdata:parentkey="idsor" msdata:childkey="idsor05" />
       <msdata:Relationship name="stocklocationlevelstocklocation" msdata:parent="stocklocationlevel" msdata:child="stocklocation" msdata:parentkey="nlevel" msdata:childkey="nlevel" />
       <msdata:Relationship name="stocklocationstocklocation" msdata:parent="stocklocation" msdata:child="stocklocation" msdata:parentkey="idstocklocation" msdata:childkey="paridstocklocation" />
+      <msdata:Relationship name="stocklocation_stocklocationattachment" msdata:parent="stocklocation" msdata:child="stocklocationattachment" msdata:parentkey="idstocklocation" msdata:childkey="idstocklocation" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

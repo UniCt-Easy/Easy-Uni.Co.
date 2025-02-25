@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,57 +26,33 @@ using System.Runtime.Serialization;
 namespace entry_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Scrittura in partita doppia
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable entry 		=> Tables["entry"];
 
-	///<summary>
-	///Dettaglio scrittura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable entrydetail 		=> Tables["entrydetail"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable entrydetailview 		=> Tables["entrydetailview"];
 
-	///<summary>
-	///Tipo scrittura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable entrykind 		=> Tables["entrykind"];
 
-	///<summary>
-	///Rateo dettaglio scrittura, Ã¨ un collegamento  tra una scrittura ed una precedentemente salvata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable entrydetailaccrual 		=> Tables["entrydetailaccrual"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
@@ -94,6 +70,9 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting04 		=> Tables["sorting04"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable entryattachment 		=> Tables["entryattachment"];
 
 	#endregion
 
@@ -753,6 +732,28 @@ private void initClass() {
 	tsorting04.PrimaryKey =  new DataColumn[]{tsorting04.Columns["idsor"]};
 
 
+	//////////////////// ENTRYATTACHMENT /////////////////////////////////
+	var tentryattachment= new DataTable("entryattachment");
+	C= new DataColumn("nentry", typeof(int));
+	C.AllowDBNull=false;
+	tentryattachment.Columns.Add(C);
+	C= new DataColumn("yentry", typeof(short));
+	C.AllowDBNull=false;
+	tentryattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tentryattachment.Columns.Add(C);
+	tentryattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tentryattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tentryattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tentryattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tentryattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tentryattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tentryattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tentryattachment);
+	tentryattachment.PrimaryKey =  new DataColumn[]{tentryattachment.Columns["nentry"], tentryattachment.Columns["yentry"], tentryattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -804,6 +805,10 @@ private void initClass() {
 	cPar = new []{sorting05.Columns["idsor"]};
 	cChild = new []{entry.Columns["idsor05"]};
 	Relations.Add(new DataRelation("FK_sorting05_entry",cPar,cChild,false));
+
+	cPar = new []{entry.Columns["nentry"], entry.Columns["yentry"]};
+	cChild = new []{entryattachment.Columns["nentry"], entryattachment.Columns["yentry"]};
+	Relations.Add(new DataRelation("entry_entryattachment",cPar,cChild,false));
 
 	#endregion
 

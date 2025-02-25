@@ -1,0 +1,277 @@
+﻿@page "/diario"
+
+<PageTitle>Rendicontazione</PageTitle>
+
+@using ServizioRendicontazione
+@using ServizioRendicontazione.Models
+@inject NavigationManager Navigation
+@inject ServizioRendicontazione.Rendicontazione rendicontazioneSrv
+@inject IJSRuntime JS
+
+<h1>Esse3</h1>
+<p>Possiamo vedere i dati presenti sul Web Service di Esse3 e su database di Easy</p>
+<p>@conn</p>
+<div class="row mb-2">
+    <div class="col-1">CF: </div>
+    <div class="col-2"><input id="cf" @bind=@cf @onclick="() => resetErrorMsg()" /></div>
+</div>
+<div class="row mb-2">
+    <div class="col-1">idReg: </div>
+    <div class="col-2"><input id="idreg" @bind=@idReg @onclick="() => resetErrorMsg()" /></div>
+</div>
+@if (errorMsg != "")
+{
+    <div class="row mb-2">
+        <div class="col-3">
+            <p class="alert alert-danger">@errorMsg</p>
+        </div>
+    </div>
+}
+<div class="row mb-2 mt-2">
+    <div class="col-3">
+        <button class="btn btn-primary" @onclick="GetRendicont">Leggi da Esse3</button>
+    </div>
+</div>
+@if (isLoading)
+{
+    <p>Loading data...</p>
+}
+else if (isDownloading)
+{
+    <p>Download data from Esse3...</p>
+}
+else
+{
+    <hr />
+    @if (diariDb != null)
+    {
+        <h3>Diari Docente</h3>
+        <p>Diari Docente dell'anno accademico @(DateTime.Now.Year) - @(DateTime.Now.Year - common.yearToConsider + 1)</p>
+        <div class="row">
+            <div class="col-12">            
+                <table id="diari" class="table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Web Service</th>
+                            <th>Database</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (diariDb.Any())
+                        {
+                            foreach (var diarioDb in diariDb.OrderBy(o => o.data))
+                            {
+                                <tr style="@(diarioDb.valws != diarioDb.valdb ? "background-color:orange" : "")">
+                                    <td>@(diarioDb.data.ToString("yyyy/MM/dd"))</td>
+                                    <td>@(diarioDb.idrendicontaltrokind)</td>
+                                    <td>@(diarioDb.valws)</td>
+                                    <td>@(diarioDb.valdb)</td>
+                                    <td><label class="btn btn-danger" @onclick="() => RemoveDiario(diarioDb.id)">x</label></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" align="center">Nessun Diario presente nel servizio</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @if (diariDb.Any())
+        {
+            <div class="row mb-5">
+                <div class="col-12">
+                    <button class="btn btn-primary" onclick="downloadCSV('diari')">Download CSV</button>
+                    <button class="btn btn-warning" @onclick="UpdateDbDiari">Aggiorna Database</button>
+                </div>
+            </div>
+        }
+        <div class="row mb-5">
+            <div class="col-12">
+                @msgDiari
+            </div>
+        </div>
+    }
+}
+
+@code {
+    private string cf = "";
+    private string idReg = "";
+    private string msgDiari = "";
+    private bool successDiari = true;
+    private string conn = "";
+    private string errorMsg = "";
+
+    List<diadb> diariDb;
+
+    private bool isLoading = false;
+
+    private bool isDownloading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Navigation.LocationChanged += OnLocationChanged;
+
+        ParseQueryString();
+    }
+
+    private void OnLocationChanged(object sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        ParseQueryString();
+
+        StateHasChanged();
+    }
+
+    private void ParseQueryString()
+    {
+        Uri uri = new Uri(Navigation.Uri);
+        string settingsFile = $"appsettingsRendicontazione{uri.Query.Replace("?", ".")}.json";
+        conn = rendicontazioneSrv.DoInit(settingsFile);
+    }
+
+    public void resetErrorMsg()
+    {
+        errorMsg = "";
+    }
+
+    private async Task GetRendicont()
+    {
+        errorMsg = "";
+
+        if (idReg == "" && cf == "")
+        {
+            errorMsg = "Inserire un idReg o un codice fiscale!";
+            return;
+        }
+
+        int _idreg = 0;
+        if (idReg != "")
+        {
+            int.TryParse(idReg, out _idreg);
+            if (_idreg == 0)
+            {
+                errorMsg = "Inserire un idReg valido!";
+                return;                
+            }
+        }
+
+        // Clear the current table data
+        diariDb = null;
+
+        isLoading = true;
+
+        StateHasChanged();
+
+        await Task.Delay(1);
+
+        // ============================================================================================================================
+        //                                                      DIARI 
+        // ============================================================================================================================
+        List<diaws> diari = await rendicontazioneSrv.GetDiari(cf, _idreg);
+        diariDb = await rendicontazioneSrv.GetDiariDb(cf, _idreg);
+
+        foreach (diaws diario in diari)
+        {
+            if (diariDb.Any(w => w.data == diario.data && w.idrendicontaltrokind == diario.idrendicontaltrokind && w.valdb == diario.valws))
+                diariDb.FirstOrDefault(w => w.data == diario.data && w.idrendicontaltrokind == diario.idrendicontaltrokind && w.valdb == diario.valws).valws = diario.valws;
+            else if (diariDb.Any(w => w.data == diario.data && w.idrendicontaltrokind == diario.idrendicontaltrokind))
+                diariDb.FirstOrDefault(w => w.data == diario.data && w.idrendicontaltrokind == diario.idrendicontaltrokind).valws = diario.valws;
+            else
+                diariDb.Add(new diadb() { data = diario.data, idrendicontaltrokind = diario.idrendicontaltrokind, valws = diario.valws });
+        }
+
+        isLoading = false;
+
+        StateHasChanged();
+    }
+
+    private async Task UpdateDbDiari()
+    {
+        errorMsg = "";
+
+        if (idReg == "" && cf == "")
+        {
+            errorMsg = "Inserire un idReg o un codice fiscale!";
+            return;
+        }
+
+        int _idreg = 0;
+        if (idReg != "")
+        {
+            int.TryParse(idReg, out _idreg);
+            if (_idreg == 0)
+            {
+                errorMsg = "Inserire un idReg valido!";
+                return;
+            }
+        }
+
+        // Clear the current table data
+        diariDb = null;
+
+        isDownloading = true;
+
+        StateHasChanged();
+
+        await Task.Delay(1);
+
+        rendicontazioneSrv.InsDiari(cf, _idreg);
+
+        isDownloading = false;
+        isLoading = true;
+
+        StateHasChanged();
+
+        await Task.Delay(1);
+
+        GetRendicont();
+    }
+
+    private async Task RemoveDiario(int idDiario)
+    {
+        await rendicontazioneSrv.DelDia(idDiario);
+
+        diadb dia = diariDb.FirstOrDefault(w => w.id == idDiario);
+        diariDb.Remove(dia);
+    }
+}
+
+<script type="text/javascript">
+    function downloadCSV(tableName) {
+        let table = document.getElementById(tableName);
+        let rows = Array.from(table.querySelectorAll("tr"));
+    
+        let csvContent = "";
+        rows.forEach(row => {
+            let cols = Array.from(row.querySelectorAll("th, td"))
+                            .map(col => col.innerText.replace(/,/g, '')); // Remove commas if needed
+            csvContent += cols.join(";") + "\n";
+        });
+
+        // Create a Blob with the CSV data
+        let csvFile = new Blob([csvContent], { type: "text/csv" });
+    
+        // Create a temporary link element to trigger the download
+        let tempLink = document.createElement("a");
+        tempLink.href = URL.createObjectURL(csvFile);
+
+        var utente = document.getElementById("cf").value;
+        if (utente == "")
+            utente = document.getElementById("idreg").value;
+        
+        tempLink.download = tableName + "_" + utente + ".csv"; // The downloaded filename
+        tempLink.style.display = "none";
+    
+        document.body.appendChild(tempLink);
+        tempLink.click();
+    
+        // Clean up
+        document.body.removeChild(tempLink);
+    }
+</script>

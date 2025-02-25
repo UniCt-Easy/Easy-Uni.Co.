@@ -1,1 +1,0 @@
-Unknown Table tipomovimento in : D:\easy\expensevar\expensevar_default\vistaForm.xsd

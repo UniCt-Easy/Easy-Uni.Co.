@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -51,15 +51,18 @@ namespace itinerationattachment_default {
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.DS = new itinerationattachment_default.vistaForm();
 			this.chkWebDefault = new System.Windows.Forms.CheckBox();
+			this.grpTipoallegato = new System.Windows.Forms.GroupBox();
+			this.cmbCodiceAllegato = new System.Windows.Forms.ComboBox();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.grpTipoallegato.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(467, 177);
+			this.btnCancel.Location = new System.Drawing.Point(467, 250);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(73, 28);
 			this.btnCancel.TabIndex = 88;
@@ -71,7 +74,7 @@ namespace itinerationattachment_default {
 			// 
 			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOk.Location = new System.Drawing.Point(366, 177);
+			this.btnOk.Location = new System.Drawing.Point(366, 250);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(73, 28);
 			this.btnOk.TabIndex = 87;
@@ -84,7 +87,7 @@ namespace itinerationattachment_default {
 			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox1.Controls.Add(this.labAutocertFileName);
-			this.groupBox1.Location = new System.Drawing.Point(12, 61);
+			this.groupBox1.Location = new System.Drawing.Point(20, 121);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(528, 53);
 			this.groupBox1.TabIndex = 86;
@@ -101,7 +104,7 @@ namespace itinerationattachment_default {
 			// 
 			// btnVisualizza
 			// 
-			this.btnVisualizza.Location = new System.Drawing.Point(124, 120);
+			this.btnVisualizza.Location = new System.Drawing.Point(132, 181);
 			this.btnVisualizza.Name = "btnVisualizza";
 			this.btnVisualizza.Size = new System.Drawing.Size(79, 24);
 			this.btnVisualizza.TabIndex = 85;
@@ -111,7 +114,7 @@ namespace itinerationattachment_default {
 			// 
 			// btnAllega
 			// 
-			this.btnAllega.Location = new System.Drawing.Point(12, 120);
+			this.btnAllega.Location = new System.Drawing.Point(20, 181);
 			this.btnAllega.Name = "btnAllega";
 			this.btnAllega.Size = new System.Drawing.Size(79, 24);
 			this.btnAllega.TabIndex = 84;
@@ -119,14 +122,14 @@ namespace itinerationattachment_default {
 			this.btnAllega.UseVisualStyleBackColor = true;
 			this.btnAllega.Click += new System.EventHandler(this.btnAllega_Click);
 			// 
-			// openFileDialog1
+			// _openFileDialog1
 			// 
 			this._openFileDialog1.Title = "Selezione documento";
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(12, 20);
+			this.label1.Location = new System.Drawing.Point(20, 80);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(62, 13);
 			this.label1.TabIndex = 89;
@@ -134,7 +137,7 @@ namespace itinerationattachment_default {
 			// 
 			// textBox1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(80, 16);
+			this.textBox1.Location = new System.Drawing.Point(88, 76);
 			this.textBox1.Multiline = true;
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(460, 39);
@@ -149,7 +152,7 @@ namespace itinerationattachment_default {
 			// chkWebDefault
 			// 
 			this.chkWebDefault.AutoSize = true;
-			this.chkWebDefault.Location = new System.Drawing.Point(460, 127);
+			this.chkWebDefault.Location = new System.Drawing.Point(468, 187);
 			this.chkWebDefault.Name = "chkWebDefault";
 			this.chkWebDefault.Size = new System.Drawing.Size(53, 17);
 			this.chkWebDefault.TabIndex = 91;
@@ -157,11 +160,35 @@ namespace itinerationattachment_default {
 			this.chkWebDefault.Text = "Attivo";
 			this.chkWebDefault.UseVisualStyleBackColor = true;
 			// 
+			// grpTipoallegato
+			// 
+			this.grpTipoallegato.Controls.Add(this.cmbCodiceAllegato);
+			this.grpTipoallegato.Location = new System.Drawing.Point(13, 12);
+			this.grpTipoallegato.Name = "grpTipoallegato";
+			this.grpTipoallegato.Size = new System.Drawing.Size(535, 50);
+			this.grpTipoallegato.TabIndex = 92;
+			this.grpTipoallegato.TabStop = false;
+			this.grpTipoallegato.Text = "Tipo di documento allegato";
+			// 
+			// cmbCodiceAllegato
+			// 
+			this.cmbCodiceAllegato.DataSource = this.DS.itinerationattachmentkind;
+			this.cmbCodiceAllegato.DisplayMember = "title";
+			this.cmbCodiceAllegato.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbCodiceAllegato.FormattingEnabled = true;
+			this.cmbCodiceAllegato.Location = new System.Drawing.Point(5, 19);
+			this.cmbCodiceAllegato.Name = "cmbCodiceAllegato";
+			this.cmbCodiceAllegato.Size = new System.Drawing.Size(515, 21);
+			this.cmbCodiceAllegato.TabIndex = 0;
+			this.cmbCodiceAllegato.Tag = "itinerationattachment.idattachmentkind";
+			this.cmbCodiceAllegato.ValueMember = "idattachmentkind";
+			// 
 			// FrmItinerationattachment_default
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(561, 217);
+			this.ClientSize = new System.Drawing.Size(567, 290);
+			this.Controls.Add(this.grpTipoallegato);
 			this.Controls.Add(this.chkWebDefault);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.label1);
@@ -174,6 +201,7 @@ namespace itinerationattachment_default {
 			this.Text = "FrmItinerationattachment_default";
 			this.groupBox1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.grpTipoallegato.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -192,5 +220,7 @@ namespace itinerationattachment_default {
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.CheckBox chkWebDefault;
+		private System.Windows.Forms.GroupBox grpTipoallegato;
+		private System.Windows.Forms.ComboBox cmbCodiceAllegato;
 	}
 }

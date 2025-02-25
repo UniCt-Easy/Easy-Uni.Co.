@@ -1,0 +1,2356 @@
+MIME-Version: 1.0
+Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
+X-Unsent: 1
+Content-Type: Multipart/related;
+  boundary="---------blocknote.net--16MYTBGJTTQQ8Y40EBV2M1Y2M"
+
+
+-----------blocknote.net--16MYTBGJTTQQ8Y40EBV2M1Y2M
+Content-Type: Text/HTML;
+  charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<HTML>
+  <HEAD>
+    <META http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8">
+    <META name=3D"GENERATOR" content=3D"BLOCKNOTE.NET">
+    <META name=3D"source" content=3D"file:///Z:\00Sviluppo_Assistenza\MAN=
+UALI e GUIDE\EASY\Organigramma\Gestione della Sicurezza - Organigramma.do=
+c">
+    <META name=3D"source" content=3D"file:///Z:\00Sviluppo_Assistenza\MAN=
+UALI e GUIDE\EASY\Organigramma\Gestione della Sicurezza - Organigramma.do=
+c">
+    <META name=3D"source" content=3D"file:///Z:\00Sviluppo_Assistenza\MAN=
+UALI e GUIDE\EASY\Organigramma\Gestione della Sicurezza - Organigramma.do=
+c">
+    <META name=3D"source" content=3D"file:///Z:\00Sviluppo_Assistenza\MAN=
+UALI e GUIDE\EASY\Organigramma\Gestione della Sicurezza - Organigramma.do=
+c">
+    <META name=3D"source" content=3D"file:///Z:\00Sviluppo_Assistenza\MAN=
+UALI e GUIDE\EASY\Organigramma\Gestione della Sicurezza - Organigramma.do=
+c">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source">
+    <BASEFONT face=3D"Times New Roman" size=3D"3">
+    <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
+2pt }
+P { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+DIV { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
+</STYLE>
+  </HEAD>
+<BODY><DIV align=3D"left">
+<TABLE border=3D"1" cellspacing=3D"1" width=3D"30%">
+  <TR>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">v. 1.0</FONT></STRONG>=
+</TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Creazione</FONT></STRO=
+NG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">03/09/2015</FONT></STR=
+ONG></TD>
+  </TR>
+  <TR>
+    <TD><STRONG><FONT size=3D"2">v. 1.1</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Revisione</FONT></STRO=
+NG></TD>
+    <TD><STRONG><FONT size=3D"2">21/04/2023</FONT></STRONG></TD>
+  </TR>
+  <TR>
+    <TD><STRONG><FONT size=3D"2">v. 1.2</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Manage_prestazioni</FO=
+NT></STRONG></TD>
+    <TD><STRONG><FONT size=3D"2">14/06/2023</FONT></STRONG></TD>
+  </TR>
+  <TR>
+    <TD><STRONG><FONT size=3D"2">v. 1.2</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Gestione del piano del=
+le ubicazioni</FONT></STRONG></TD>
+    <TD><STRONG><FONT size=3D"2">23/11/2023</FONT></STRONG></TD>
+  </TR>
+  <TR>
+    <TD><STRONG><FONT size=3D"2">v. 1.3</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Gestione split payment=
+</FONT></STRONG></TD>
+    <TD><STRONG><FONT size=3D"2">03/05/2024</FONT></STRONG></TD>
+  </TR>
+  <TR>
+    <TD><STRONG><FONT size=3D"2">v. 1.4</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Gestione chiave EP sul=
+le scritture</FONT></STRONG></TD>
+    <TD><STRONG><FONT size=3D"2">24/05/2024</FONT></STRONG></TD>
+  </TR>
+</TABLE>
+</DIV>
+<P align=3D"left">&nbsp;</P>
+<P align=3D"center"><STRONG><FONT size=3D"5">Associazione degli utenti ai=
+ profili di organigramma</FONT></STRONG></P>
+<P align=3D"justify"><FONT size=3D"4">La scheda Utenti del profilo di Org=
+anigramma contiene le associazioni degli utenti al profilo stesso. Un med=
+esimo utente pu=C3=B2 appartenere anche contemporanemante a pi=C3=B9 prof=
+ili di organigramma, la carattestiche di ciascun profilo tuttavia non si =
+sommeranno ma resteranno distinte. Tutto ci=C3=B2 =C3=A8 possibile grazie=
+ alla funzionalit=C3=A0 cambio ruolo.</FONT></P>
+<P>&nbsp;</P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:1R2NIBMI91MTBLA0ZAE1=
+GJJSRQ" align=3D"middle"></FONT></P>
+<P>&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">La figura precedente mostra un esem=
+pio abbastanza completo di scheda di associazione di un utente ad un prof=
+ilo di Organigramma.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">L=E2=80=99utente da associare viene=
+ caricato da un elenco che riporta gli utenti associati all=E2=80=99Organ=
+igramma tramite la funzionalit=C3=A0 illustrata precedentemente nella fig=
+ura 5. Il campo <STRONG>Descrizione Ruolo</STRONG>, facoltativo, =C3=A8 m=
+olto importante per quegli utenti che saranno caratterizzati dall=E2=80=99=
+appartenenza a pi=C3=B9 profili, =C3=A8 proprio questo il nome che appari=
+r=C3=A0 nell=E2=80=99elenco dei ruoli disponibili.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">I campi <STRONG>Data Inizio</STRONG=
+> e <STRONG>Data Fine</STRONG> determinano il periodo di validit=C3=A0 de=
+ll=E2=80=99associazione al profilo. Per indicare un periodo illimitato =C3=
+=A8 possibile indicare una data di inizio remota ed omettere la data di f=
+ine. In caso un utente tenti di entrare nel programma non avendo ruoli =E2=
+=80=9Cattivi=E2=80=9D nel periodo il programma respinger=C3=A0 automatica=
+mente la richiesta di accesso.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">L=E2=80=99opzione <STRONG>Nodo di D=
+efault</STRONG> permette di definire quale dei possibili ruoli debba esse=
+re caricato sistematicamente all=E2=80=99accesso al programma. Non posson=
+o esistere naturalmente due profili marcati con il default ma =C3=A8 poss=
+ibile che non ve ne sia nessuno, in tal caso sar=C3=A0 il primo ruolo in =
+ordine di associazione ad assumere questa funzione. Per facilitare la man=
+utenzione =C3=A8 vivamente consigliata l=E2=80=99indicazione esplicita di=
+ un profilo di default.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">La parte inferiore della scheda pre=
+senta, a seconda della configurazione impostata, da uno a cinque campi ag=
+giuntivi che corrispondono ad altrettante classificazioni denominate <A h=
+ref=3D"uniconfig_default.mht"><STRONG>attributi</STRONG></A> destinate al=
+la definizione di filtri per la sicurezza.</FONT></P>
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><STRONG><FONT size=3D"5">Funzioni dell=E2=80=99organ=
+igramma</FONT></STRONG></P>
+<P align=3D"justify"><FONT size=3D"4">La scheda Funzioni dell=E2=80=99Org=
+anigramma, nella figura successiva, consente di caratterizzare i profili =
+mediante semplici segni di spunta su funzioni precaricate nel programma. =
+Le funzioni sono state create sulla base delle richieste di personalizzaz=
+ione pi=C3=B9 comuni.</FONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:1IG5PLJIWO9TCWT7TF41=
+UAA5BY" align=3D"middle"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 24 Funzioni dell'Organigramma=
+</FONT></P>
+<P>&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Ogni funzione per la gestione della=
+ sicurezza ha il proprio significato, di seguito un elenco delle funzioni=
+ attualmente disponibili.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">Le prime tre funzioni influiscono s=
+ulla porzione di menu al di sotto della voce <EM>File</FONT></EM></P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Abilitazione a=
+i live update on demand</STRONG>:</U> </EM>abilita l=E2=80=99uso della fu=
+nzione che permette il download degli aggiornamenti a richiesta come l=E2=
+=80=99elenco delle banche.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Abilitazione a=
+l backup</U></EM></STRONG>: abilita l=E2=80=99accesso alle funzioni per i=
+l backup e il restore del database, =C3=A8 naturalmente una funzione da c=
+oncedere con cautela.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Abilitazione a=
+ll'aggiornamento del menu</U></EM></STRONG>: abilita l=E2=80=99accesso al=
+la funzione di menu per forzare il ricalcolo del menu, utile per ripristi=
+nare il menu quando qualcosa ha interrotto il normale aggiornamento, gene=
+ralmente conviene lasciare questa funzione agli utenti che dispongono di =
+un connessione al db di qualit=C3=A0 maggiore.</FONT></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Abilitazione a=
+lle scritture di Inizio e Fine Anno</U></EM></STRONG>: &nbsp;Abilita le v=
+oci di menu che consentono di eseguire le operazioni di scrittura di iniz=
+io e di fine anno per l'economico patrimoniale , le voci sono attualmente=
+ presenti in <EM>Opzione &gt; Chiusura.</FONT></EM></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Le seguenti funzioni <STRONG>=E2=80=
+=9CAccesso a tutti=E2=80=A6=E2=80=9D</STRONG> consentono di =E2=80=9Cigno=
+rare&quot; le eventuali restrizioni presenti nelle rispettive schede del =
+profilo dell=E2=80=99Organigramma. Quando la gestione della sicurezza si =
+avvale del filtro tramite attributi di sicurezza queste funzioni devono e=
+ssere sempre abilitate.</FONT></P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accesso a tutt=
+e le Voci di Bilancio</U></STRONG>: </EM>consente l=E2=80=99accesso a tut=
+ta quanta la struttura di bilancio parte entrate e parte spese senza rest=
+rizioni.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accesso a tutt=
+i gli UPB</U></STRONG>: </EM>consente di accedere a tutte quante le UPB, =
+anche questa funzione si combina con la gestione della sicurezza fatta tr=
+amite gli attributi e in tal caso va lasciata abilitata. Se la gestione n=
+on viene attuata tramite gli attributi ma tramite il filtro sul responsab=
+ile delle UPB, allora la si deve lasciare disabilitata, verranno infatti =
+attivate in automatico le UPB dei responsabili associati al profilo.</FON=
+T></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accesso a tutt=
+i i Modelli Autorizzativi</U></STRONG>: &nbsp;</EM>questa funzione costit=
+uisce una scorciatoia per l=E2=80=99abilitazione all=E2=80=99accesso a tu=
+tti quanti i modelli autorizzativi, =C3=A8 utile per i profili degli uten=
+ti destinati alla valutazione delle richieste di missione.</FONT></DIV></=
+LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accesso a tutt=
+i i Responsabili</U></STRONG>: &nbsp;</EM>questa funzione abilita l=E2=80=
+=99accesso a tutti quanti i responsabili della struttura. Questa funzione=
+ si combina con il filtro per attributi, quindi anche in presenza di essa=
+ non sar=C3=A0 possibile accedere ai responsabili con attributi di sicure=
+zza contrastanti.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accesso a tutt=
+i i Tipi di Contratto Attivo</U></STRONG>:</EM> questa funzione abilita l=
+=E2=80=99accesso a tutti quanti i tipi di contratto attivo, sempre in com=
+binazione con la eventuale gestione degli attributi di sicurezza e con le=
+ altre funzioni dell=E2=80=99organigramma specifiche.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accesso a tutt=
+i i Tipi di Contratto Passivo</U></STRONG>:</EM> questa funzione abilita =
+l=E2=80=99accesso a tutti quanti i tipi di contratto passivo, sempre in c=
+ombinazione con la eventuale gestione degli attributi di sicurezza e con =
+le altre funzioni dell=E2=80=99organigramma specifiche.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accesso a tutt=
+i i Tipi di Documento IVA</U></STRONG>:</EM> questa funzione abilita l=E2=
+=80=99accesso a tutti quanti i tipi di documento IVA, sempre in combinazi=
+one con la eventuale gestione degli attributi di sicurezza e con le altre=
+ funzioni dell=E2=80=99organigramma specifiche</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accesso a tutt=
+i i Tipi di Fondo Economale</U></STRONG>:</EM> questa funziona abilita l=E2=
+=80=99accesso a tutti quanti i tipi di fondo economale in combinazione co=
+n attributi e con le funzioni specifiche per la gestione del fondo econom=
+ale.</FONT></DIV></LI></UL>
+
+<DIV align=3D"justify">&nbsp;</DIV>
+<UL>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accetta Fe</U>=
+: </EM></STRONG>abilita la possibilit=C3=A0 di poter accettare le fatture=
+ elettroniche di acquisto visualizzabili da IVA &gt; Flussi Fattura elett=
+ronica &gt; Fatture acquisto.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Accetta NSO ve=
+ndita:</U></EM></STRONG> abilita la possibilit=C3=A0 di poter accettare g=
+li ordini che derivano dal SDI visualizzabili da Entrate &gt; NSO Vendita=
+=2E</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Anagrafe delle=
+ Prestazioni</U></EM></STRONG>: abilita l=E2=80=99accesso alle funzioni d=
+el modulo Banca dati incarichi e si combina con le funzioni per la gestio=
+ne dei compensi.</FONT></DIV></LI>
+<DIV align=3D"justify">&nbsp;</DIV></UL>
+
+<P align=3D"justify"><FONT size=3D"4">Le seguenti tre funzioni hanno a ch=
+e fare con la gestione delle anagrafiche, conferiscono all=E2=80=99utente=
+ la possibilit=C3=A0 di utilizzare le anagrafiche ma anche di apportarvi =
+integrazioni, in questo differiscono dalla funzione per l=E2=80=99accesso=
+ alle anagriche in modalit=C3=A0 sola lettura che vedremo pi=C3=B9 avanti=
+=2E</FONT></P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Anagrafica Ban=
+ca</U></EM></STRONG>: abilita alla gestione dell=E2=80=99elenco dei codic=
+i ABI e CAB presenti nel programma. Sebbene gli aggiornamenti periodici a=
+ richiesta di questi elenchi soddisfino questa esigenza pu=C3=B2 capitare=
+ che un utente debba agirvi manualmente per inserire ad esempio un nuovo =
+CAB.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Anagrafiche Ce=
+ntralizzate</U></EM></STRONG> , <STRONG><EM><U>Anagrafiche Dipartimentali=
+</U></EM></STRONG>: queste due funzioni di fatto consentono l=E2=80=99acc=
+esso a tutte quante le anagrafiche presenti nel programma, la distinzione=
+ tra anagrifiche dipartimentali e centralizzate di fatto viene annullata =
+dall=E2=80=99esistenza di un unico elenco di anagrafiche centralizzate va=
+lido per tutti i dipartimenti.</FONT></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Annullamento d=
+i Mandati e Reversali</STRONG>:</U></EM> Abilita la possibilit=C3=A0 di a=
+nnullare i mandati e le reversali. Per questioni logiche ed operative que=
+sta funzione va abbinata alle funzioni <EM><U>Gestione movimentazione fin=
+anziaria di spesa/entrata</U>, <U>Classificazioni</U></EM>, <EM><U>Emissi=
+one di &nbsp;mandati/reversali</U></EM> e <EM><U>Variazione dei movimenti=
+ di entrata/spesa </U></EM>descritte pi=C3=B9 avanti.</FONT></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Applicazione rec=
+uperi e ritenute/contributi</U></STRONG>: </EM>Aggiunge la possibilit=C3=A0=
+ di generare gli automatismi di entrata e di spesa legati ai recuperi, al=
+le ritenute ed ai contributi. Occorre abbinarla alle funzioni per la gest=
+ione delle movimentazioni di entrata e di spesa che si suppone gi=C3=A0 a=
+ttivata ed alle funzioni per l'emissione delle reversali e dei mandati a =
+seconda della configurazione relativa agli automatismi (generazione autom=
+atica dei mandati e delle reversali).</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Approvazione s=
+torni (var. non ufficiale su UNA sola voce di bilancio)</STRONG>:</U></EM=
+> questa funzione conferisce il diritto di modificare lo stato delle vari=
+azioni finanziarie individuate come storni su un unica voce di bilancio a=
+pprovandole e rendendole quindi operative. Va sempre abilitata se nella C=
+onfigurazione Annuale scheda Bilancio c=E2=80=99=C3=A8 la spunta su =E2=80=
+=9CAssumi le nuove variazioni gi=C3=A0 approvate=E2=80=9D.</FONT></DIV></=
+LI></UL>
+
+<UL>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Approvazione sto=
+rni di budget</U></EM></STRONG>: questa funzione conferisce il diritto di=
+ modificare lo stato delle variazioni di budget individuate come storni a=
+pprovandole e rendendole quindi operative.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Approvazione sto=
+rni (var. non ufficiali sul medesimo primo livello operativo)</U></EM></S=
+TRONG>: questa funzione conferisce il diritto di modificare lo stato dell=
+e variazioni finanziarie individuate come storni su voci di bilancio che =
+appartengono allo stesso primo livello operativo approvandole e rendendol=
+e quindi operative.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Approvazione Var=
+iazione Crediti</U></EM></STRONG>: per chi utilizza lo strumento della do=
+tazione dei crediti questa funzione conferisce il diritto di modificare l=
+o stato delle variazioni finanziarie di sola assegnazione crediti.</FONT>=
+</P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Approvazione var=
+iazioni di budget</U></EM> (no storni): </STRONG>questa funzione conferis=
+ce il diritto di modificare lo stato di tutte le variazioni di budget che=
+ non siano indivituate come storni approvandole e rendendole quindi opera=
+tive.</FONT></P></LI></UL>
+
+<UL type=3D"disc">
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Approvazione var=
+iazioni di bilancio</U></STRONG>: </EM>questa funzione conferisce il diri=
+tto di modificare lo stato delle variazioni finanziarie approvandole e re=
+ndendole quindi operative. Va sempre abilitata se nella Configurazione An=
+nuale scheda Bilancio c=E2=80=99=C3=A8 la spunta su =E2=80=9CAssumi le nu=
+ove variazioni gi=C3=A0 approvate=E2=80=9D.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Assegnazione Cre=
+diti, Assegnazione Incassi</STRONG>:</U></EM> per chi utilizza lo strumen=
+to della dotazione dei crediti/cassa aggiunge la gestione delle assegnazi=
+oni di credito/cassa alla gestione della movimentazione finanziaria di en=
+trata.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Attribuisce cass=
+iere a partite pendenti</STRONG>:</U></EM> Questa funzione conferisce all=
+=E2=80=99utente la possibilit=C3=A0 di impostare l=E2=80=99istituto cassi=
+ere sulla partite pendenti. Questa funzione =C3=A8 particolarmente import=
+ante nella gestione del bilancio unico e va sempre abbinata alla spunta n=
+ella configurazione pluriennale sulla casella =E2=80=9CNon consentire l=E2=
+=80=99associazione a bollette non associate a cassiere=E2=80=9D. In alter=
+nativa potendo associare i movimenti a partite pendenti prive di cassiere=
+, le situazioni dei cassieri =E2=80=9Cdipartimentali=E2=80=9D pu=C3=B2 av=
+ere delle incongruenze.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Bilancio di Asse=
+stamento</U></EM></STRONG>: Aggiunge alla funzionalit=C3=A0 di <EM><U>Ges=
+tione del bilancio</U></EM> la possibilit=C3=A0 di utilizzare le procedur=
+e legate all'assestamento.</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Bilancio di Pr=
+evisione</U></EM></STRONG>: Aggiunge alla funzionalit=C3=A0 di <EM><U>Ges=
+tione del bilancio</U></EM> la possibilit=C3=A0 di redigere agire il bila=
+ncio di previsione.</FONT></DIV></LI>
+<DIV align=3D"justify">&nbsp;</DIV>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Business Rule =
+e Transazione</U></EM></STRONG>: Consente di gestire la parte del program=
+ma legata alle regole ed al monitoraggio delle modifiche apportate al db,=
+ se abilitata diverrano disponibili le voci <EM>Configurazione -&gt; Rego=
+le</EM> e <EM>Configurazione -&gt; Transazioni</EM> consentendo la modifi=
+ca della gravit=C3=A0 delle regole non di sistema (resta sempre attiva la=
+ necessit=C3=A0 di attivare l=E2=80=99admin per la modifica delle regole =
+di sistema).</FONT></DIV></LI></UL>
+
+<UL>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Cambia il riferi=
+mento amministrazione in fattura di acquisto:</U></EM></STRONG> qualora a=
+bilitata permette di modificare il riferimento amministrazione delle fatt=
+ure elettroncihe di acquisto per gli enti che lo utilizzano per smistare =
+le fatture ai vari uffici e configurati da Opzioni &gt;Configurazione.</F=
+ONT></P></LI></UL>
+
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Cancellazione =
+Fatture</U></EM></STRONG>: Abilita la possibilit=C3=A0 di effettuare la c=
+ancellazione delle fatture, va abbinata alla funzione di <EM><U>Gestione =
+delle fatture</U></EM>.</FONT></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Certificazione d=
+ei crediti</U></EM></STRONG>: abilita il modulo per la certificazione dei=
+ crediti IVA &gt; Area RGS (ex PCC).</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Chiusura Eserc=
+izio</U></EM></STRONG>: Abilita la possibilit=C3=A0 di effettuare le oper=
+azioni per la chiusura dell'esercizio e l'apertura del nuovo. Va abbinata=
+ alla <EM><U>Gestione del bilancio</U></EM> per la chiusura del finanziar=
+io, alla <EM><U>Gestione Patrimoniale</U></EM> per la chiusura dell=E2=80=
+=99esercizio patrimoniale.</FONT></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Classificazioni<=
+/U></EM></STRONG>: Abilita la possibilit=C3=A0 di effettuare la classific=
+azione degli oggetti classificabili all=E2=80=99interno del programma. Pe=
+r agire sulla configurazione delle classificazioni, la validit=C3=A0, l'a=
+pplicabilit=C3=A0, l'obbligatoriet=C3=A0 e la dipendenza da altre classif=
+icazioni occorre invece utilizzare la funzionalit=C3=A0 <EM><U>Gestione C=
+lassificazione</U></EM>.</FONT></P></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Le seguenti funzioni, insieme alla =
+funzione <EM><U>Missioni</U></EM>, possono essere utilizzate per abilitar=
+e l=E2=80=99uso dei singoli tipi di compensi ai quali si riferiscono, in =
+questa maniera sostituiscono la funzione <EM><U>Gestione Compensi</U></EM=
+> illustrata pi=C3=B9 avanti</FONT></P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Compensi a co.=
+co.co</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Compensi a Dip=
+endenti</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Compensi a Occ=
+asionali</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Compensi a Pro=
+fessionali</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Compensi da Uf=
+ficio Stipendi</FONT></U></EM></STRONG></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Le tre funzioni successive abilitan=
+o l=E2=80=99utente alla modifica delle opzioni di configurazione, la prim=
+a va intesa a livello pi=C3=B9 generale e andrebbe attivata con cautela. =
+Le altre due costituiscono un =E2=80=9Cdettaglio=E2=80=9D della prima e r=
+iguardano quelle configurazioni di uso pi=C3=B9 comune.</FONT></P>
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Configurazione=
+</U></EM></STRONG>: Abilita la possibilit=C3=A0 di gestire le configurazi=
+oni dei vari moduli del programma e le procedure per la chiusura dell'ese=
+rcizio corrente e l'apertura del nuovo. Questa funzione abilita anche la =
+voce di menu <STRONG>Opzioni &gt; Spese &gt; Trasmissione AVCP.</FONT></S=
+TRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Configurazione=
+ classificazioni automatiche:</U></EM></STRONG> Abilita la possibilit=C3=A0=
+ di gestire le classificazioni automatiche presenti nel menu Analitica.</=
+FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Configurazione=
+ Anagrafiche</U></EM></STRONG>: Permette di accedere al menu di configura=
+zione delle anagrafiche per consentire la modifica delle opzioni comuni.<=
+/FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Configurazione=
+ magazzino</U></EM></STRONG>: Abilita la visualizzazione e la modifica de=
+lle opzioni presenti in <EM>Opzioni &gt; Magazzino</EM> e delle prime tre=
+ voci del menu della voce magazzino nella barra degli strumenti.</FONT></=
+DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Configurazione=
+ Piano dei conti:</U></EM></STRONG> abilita la visualizzazione e la modif=
+ica delle opzioni presenti in <EM>Opzioni &gt;</EM> Economico patrimonial=
+e e la voce EP &gt; Piano dei conti.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Configurazione=
+ Procedura Stipendi:</U></EM></STRONG> abilita la visualizzazione e la mo=
+difica delle opzioni presenti in <EM>Opzioni &gt;Compensi&gt;Configurazio=
+ne procedura stipendi.</FONT></EM></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Configurazione=
+ Utilizzo delle voci di bilancio nei sottosezionali</FONT></U></EM></STRO=
+NG></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Consenti duplica=
+zione di CF o P. IVA per Anagrafiche</U></EM></STRONG>: &nbsp;consente di=
+ impostare la casella =E2=80=9CConsenti duplicazione CF/P.Iva=E2=80=9D su=
+lla scheda anagrafica al fine di scavalcare il controllo sulla duplicazio=
+ne. &nbsp;In presenza di un unico archivio di anagrafiche comune a pi=C3=B9=
+ dipartimenti questa funzione andrebbe abilitata ad un gruppo di lavoro c=
+he possa valutare la correttezza di eventuali duplicazioni.</FONT></P></L=
+I>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Contabilit=C3=A0=
+ Analitica e movimenti di budget</U></EM></STRONG>: Abilita la possibilit=
+=C3=A0 di agire sul moduli del programma per la gestione della contabilit=
+=C3=A0 analitica e l'inserimento degli impegni/accertamenti di budget.</F=
+ONT></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">La contabilizzazione =C3=A8 l=E2=80=
+=99operazione che permette di legare un compenso, un contratto o una fatt=
+ura al rispettivo movimento finanziario. Le tre funzioni seguenti aggiung=
+ono questa possibilit=C3=A0 alle altre funzioni coinvolte, pi=C3=B9 in de=
+ttaglio:</FONT></P>
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Contabilizzazi=
+one dei compensi</U></EM></STRONG>: da aggiungere alla <EM><U>Gestione Mo=
+vimentazione Finanziaria di Spesa</U> </EM>alla <EM><U>Gestione dei Compe=
+nsi</U></EM> o a una delle funzioni pi=C3=B9 specifiche e, a seconda dell=
+a fase di contabilizzazione, a <EM><U>Gestione degli Impegni</U></EM> o p=
+i=C3=B9 a <EM><U>Gestione delle fasi Pre-Impegno e Post-Impegno.</FONT></=
+U></EM></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Contabilizzazi=
+one delle fatture IVA</U></EM></STRONG>: da aggiungere alla funzione <EM>=
+<U>Gestione Fatture</U></EM>, a <EM><U>Gestione della Movimentazione di E=
+ntrata/Spesa</U></EM> a <EM><U>Gestione delle fasi Post-Impegno e Post-Ac=
+certamento</U></EM> e ai fini della contabilizzazione delle note di credi=
+to/debito a <EM><U>Variazione movimenti di Spesa</U></EM> e <EM><U>Variaz=
+ioni movimenti di Entrata</U></EM>.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Contabilizzazi=
+one delli contratti attivi / passivi</U></EM></STRONG>: da aggiungere a t=
+utte le funzioni <EM><U>Contratto Attivo e Passivo</U></EM> inferiore e s=
+uperiori ai 5000 euro, &nbsp;a <EM><U>Visualizza Contratto Attivo e Contr=
+atto Passivo </U></EM>alla gestione della movimentazione di Entrata e di =
+Spesa a seconda del tipo di contratto ed alle fasi a seconda della fase d=
+i contabilizzazione.</FONT></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Le funzioni legate ai contratti att=
+ivi e passivi elencate di seguito abilitano l=E2=80=99utente alla possibi=
+lit=C3=A0 di gestire i Contratti veri e propri e le richieste di ordine c=
+he provengono dall=E2=80=99interfaccia web. Vanno abbinate alle funzioni =
+<EM><U>Visualizza Contratto Attivo</U></EM> e <EM><U>Visualizza Contratto=
+ Passivo</U></EM> , i tipi di contratto utilizzabili dipendono dalle funz=
+ioni <EM><U>Accesso a tutti i tipi di Contratto Attivo/Passivo</U></EM>, =
+dalle schede <STRONG><EM>Contr. Att.</EM></STRONG> e<EM> <STRONG>Contr. P=
+ass</STRONG>. </EM>o dagli eventuali attributi di sicurezza associati all=
+=E2=80=99utente.</FONT></P>
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Contratto Atti=
+vo</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Contratto Atti=
+vo superiore a 5.000 euro</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Contratto Pass=
+ivo</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Contratto Pass=
+ivo superiore a 5.000 euro</FONT></U></EM></STRONG></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Controllo Operat=
+ivit=C3=A0 su UPB</U></EM></STRONG>: abilita la possibilit=C3=A0 di poter=
+ limitare l'utilizzo dell'upb ai fini del controllo della contabilit=C3=A0=
+ finanziaria o di budget mediante appositi flag presenti nella scheda <EM=
+>Altro</EM> sull'upb.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Crea NSO vendita=
+ in contabilit=C3=A0:</U></EM></STRONG> abilita la possibilit=C3=A0 di po=
+ter creare gli ordini in contabilit=C3=A0, ovvero trasfrormarli in contra=
+tti attivi, che derivano dal SDI visualizzabili da Entrate &gt; NSO Vendi=
+ta.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Creazione Card M=
+agazzino</U></EM></STRONG>: questa funzione permette all=E2=80=99utente d=
+i creare gli oggetti card di magazzino ricaricabili utilizzabili dai doce=
+nti e dai loro collaboratori per le richieste di magazzino.</FONT></P></L=
+I>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Diagnostica scri=
+tture</U></EM></STRONG>: questa funzione permette di accedere al menu <EM=
+>Opzioni &gt; Diagnostica scritture </EM>relativo ai controlli sull'EP. L=
+a funzione deve essere assegnata solo agli utenti che si occupano dei con=
+trolli sul bilancio.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Disabilita Anagr=
+afiche</U></EM></STRONG>: abilita l=E2=80=99utente alla disattivazione de=
+lle anagrafiche dell=E2=80=99archivio unico che per qualche motivo ritien=
+e non debbano essere pi=C3=B9 utilizzate. Le anagrafiche disabilitate fin=
+iscono nell=E2=80=99archivio storico. Questa funzione andrebbe utilizzate=
+ in coppia con la funzione <EM><U>Consenti duplicazione di CF o P. IVA pe=
+r Anagrafiche</U></EM> &nbsp;e disabilitata a tutti gli altri utenti.</FO=
+NT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Emissione dei Ma=
+ndati</U></EM></STRONG>: abilita la possibilit=C3=A0 di generare i mandat=
+i di pagamento con tutti gli strumenti previsti dal programma per lo scop=
+o. Se nella Configurazione Annuale del programma =C3=A8 presente la spunt=
+a per gli automatismi di Spesa sull=E2=80=99opzione =E2=80=9CAssumi inizi=
+almente la data di stampa uguale alla data contabile=E2=80=9D allora va a=
+bbinata alla funzione <EM><U>Mandati Stampati Ufficialmente</U></EM>.</FO=
+NT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Emissione delle =
+Dichiarazioni (E-Mens, CUD, 770 ...)</U></EM></STRONG>: consente all=E2=80=
+=99utente di generare le dichiarazioni Emens, CUD , 770 &nbsp;e pi=C3=B9 =
+in generale le funzioni presenti nella voce di menu <EM>Versamento Impost=
+e</EM>.</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Emissione dell=
+e Reversali</U></EM></STRONG>: abilita la possibilit=C3=A0 di generare le=
+ reversali di incasso con tutti gli strumenti previsti dal programma per =
+lo scopo. Se nella Configurazione Annuale del programma =C3=A8 presente l=
+a spunta per gli automatismi di Entrata sull=E2=80=99opzione =E2=80=9CAss=
+umi inizialmente la data di stampa uguale alla data contabile=E2=80=9D al=
+lora va abbinata alla funzione <EM><U>Reversali Stampate Ufficialmente</U=
+></EM>.</FONT></DIV></LI>
+<DIV align=3D"justify">&nbsp;</DIV>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Esitazione di =
+Mandati e Reversali</U></EM></STRONG>: consente all=E2=80=99utente di esi=
+tare i mandati e le reversali di incasso sia manualmente sia mediante lo =
+strumento di importazione automatico dei giornali di cassa della banca.</=
+FONT></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">F.E. (tutte)</U>=
+</EM></STRONG>: abilita alla visualizzazione di tutte le fatture di acqui=
+sto elettroniche, con IPA e con IPa e rif amministrazione. In base agli a=
+ttributi di sicurezza saranno sempre visualizzabili le fatture con gli at=
+tributi corrispondenti a quelli del ruolo.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">F.E. con IPA</U>=
+</EM></STRONG>: abilita alla visualizzazione di tutte le fatture di acqui=
+sto elettroniche per chi utilizzza differenti codici IPA per lo smistamen=
+to tra i vari uffici e configurabili da Opzioni &gt; Configurazione &gt; =
+Codice IPA. In base agli attributi di sicurezza saranno sempre visualizza=
+bili le fatture con gli attributi corrispondenti a quelli del codice IPA.=
+</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">F.E. con IPA e R=
+iferimento amministrazione:</U></EM></STRONG> abilita alla visualizzazion=
+e di tutte le fatture di acquisto elettroniche per chi utilizzza un unico=
+ codice IPA e pi=C3=B9 riferimenti amministrzione per lo smistamento tra =
+i vari uffici. In base agli attributi di sicurezza saranno sempre visuali=
+zzabili le fatture con gli attributi corrispondenti a quelli del Riferime=
+nto amministrazione.</FONT></P></LI></UL>
+
+<UL>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Flusso movimenti=
+ UNICT:</U></EM></STRONG> funzione creata per apposito cliente e che abil=
+ita la corrispondente voce sotto il menu <EM>Compensi &gt; Flusso movimen=
+ti UNICT</EM> in cui gestiscono i tracciati stipendiali.</FONT></P></LI><=
+/UL>
+
+<UL type=3D"disc">
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Fondo Economale<=
+/U></EM></STRONG>: abilita la gestione del modulo Fondo Economale e delle=
+ funzioni ad esso collegate. Le procedure guidate per l=E2=80=99apertura =
+e la chiusura del fondo richiedono la presenza delle funzioni per la gest=
+ione completa della movimentazione di entrata e di spesa.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Anagraf=
+ica</EM></STRONG>:</U> abilita la gestione delle funzioni presenti sono l=
+a voce di menu Anagrafica. Va abbinata di norma alle funzioni <EM><U>Anag=
+rafica Banca, Anagrafiche Centralizzate, Anagrafiche Dipartimentali</U></=
+EM> e a <EM><U>Gestione Responsabili</U></EM> per la gestione dell=E2=80=99=
+anagrafica dei responsabili.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Card Ma=
+gazzino</U></EM></STRONG>: abilita la gestione delle card di magazzino pe=
+r il normale utilizzo, l=E2=80=99assegnazione ad un collaboratore del doc=
+ente titolare la ricarica.</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Class=
+ificazione</U></EM></STRONG>: permette di modificare la configurazione de=
+lle classificazioni presenti e di crearne delle nuove personalizzate, la =
+mancata spunta su questa funzione non pregiudica l'uso delle classificazi=
+oni che invece viene abilitato dalla funzione <EM><U>Classificazioni</U><=
+/EM>.</FONT></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione degli A=
+ccertamenti</U></EM></STRONG>: aggiunge alla gestione finanziaria di entr=
+ata la possibilit=C3=A0 di gestire la fase equivalente all'accertamento g=
+iuridico cos=C3=AC come impostato nella Configurazione Annuale.</FONT></P=
+></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione degli I=
+mpegni</U></EM></STRONG>: aggiunge alla gestione finanziaria di spesa la =
+possibilit=C3=A0 di gestire la fase equivalente all'impegno giuridico cos=
+=C3=AC come impostato nella Configurazione Annuale.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione dei Com=
+pensi</U></EM></STRONG>: abilita la possibilit=C3=A0 di inserire e modifi=
+care i vari tipi di compensi previsti dal programma, equivale alla somma =
+delle funzioni <EM><U>=E2=80=9CCompensi=E2=80=A6=E2=80=9D</U></EM> viste =
+in precedenza e della funzione <EM><U>Missioni</FONT></U></EM></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione dei Tip=
+i di documento IVA</U></EM></STRONG>: fornisce all=E2=80=99utente la poss=
+ibilit=C3=A0 di agire sulla configurazione dei tipi di documento IVA ai q=
+uali =C3=A8 autorizzato ad accedere (scheda Doc. IVA)</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione del Bil=
+ancio</U></EM>: </STRONG>abilita l=E2=80=99utente alla gestione delle fun=
+zioni presenti sotto il menu <EM>Bilancio</EM> ed alla consultazione ed a=
+lla modifica della struttura di bilancio. A seconda del ruolo che si desi=
+dera configurare va abbinata alle funzioni per l=E2=80=99approvazione deg=
+li storni e delle variazioni di bilancio descritte precedentemente ed eve=
+ntualmente alla funzione <EM><U>Operazioni su Voci Bilancio Protette.</FO=
+NT></U></EM></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione del pia=
+no delle ubicazioni:</U></EM></STRONG> abilita l'utente all'inserimento e=
+ alla modifica della voce di menu Cespiti &gt; Piano delle ubicazioni. No=
+n =C3=A8 visibile senza la funzione Gestione Patrimoniale.</FONT></P></LI=
+>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione della c=
+onfig.locale del client</U></EM></STRONG>: abilita l=E2=80=99utente alla =
+modifica della configurazione del client relativa alla cartella dei repor=
+t e agli indirizzi per l=E2=80=99aggiornamento del programma (<EM>File-&g=
+t; Configurazione locale</EM>)</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione delle f=
+asi Post-Accertamento</U></EM></STRONG>: permette all=E2=80=99utente l=E2=
+=80=99inserimento delle fasi di entrata successive a quella di accertamen=
+to giuridico indicata nella Configurazione Annuale.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione delle f=
+asi Post-Impegno</U></EM></STRONG>: permette all=E2=80=99utente l=E2=80=99=
+inserimento delle fasi di spesa successive a quella di impegno giuridico =
+indicata nella Configurazione Annuale.</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione delle=
+ fasi Pre-Accertamento</U></EM></STRONG>: permette all=E2=80=99utente l=E2=
+=80=99inserimento delle fasi di entrata precedenti a quella di accertamen=
+to giuridico indicata nella Configurazione Annuale.</FONT></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione delle f=
+asi Pre-Impegno</U></EM></STRONG>: permette all=E2=80=99utente l=E2=80=99=
+inserimento delle fasi di spesa precedenti a quella di accertamento giuri=
+dico indicata nella Configurazione Annuale.</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione delle=
+ U.P.B.</U></EM></STRONG>: Consente di accedere alle funzioni del program=
+ma relative alle UPB, deve essere abbinata alla funzione <EM><U>Gestione =
+del Bilancio</U></EM> descritta in precedenza. L'elenco delle UPB alle qu=
+ali =C3=A8 possibile accedere =C3=A8 influenzato dalla presenza di filtri=
+ nella scheda Finanziaria dell'organigramma, dalla selezione di responsab=
+ili associati alle UPB e dalle funzioni <EM><U>Accesso a tutte le UPB</U>=
+</EM> ed <EM><U>Accesso a tutti i responsabili</U></EM>, e dalla eventual=
+e presenza di attributi di sicurezza . Si consiglia di attivare sempre qu=
+esta funzione anche in presenza di un filtro molto ristretto sulle UPB.</=
+FONT></DIV></LI>
+<DIV align=3D"justify">&nbsp;</DIV>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Fattu=
+re</U></EM></STRONG>: abilita la possibilit=C3=A0 di operare sulle fattur=
+e di acquisto e di vendita e sulle note di credito e di debito. Abilita a=
+nche l'operabilit=C3=A0 e la visualizzazione sulle voci di menu FE vendit=
+a e FE acquisto estere.</FONT></DIV></LI></UL>
+
+<UL>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Flusso =
+movimenti (import Flow):</U></EM></STRONG> funzione creata per apposito c=
+liente che abilita la voce Opzione &gt; <EM>Compensi &gt; Da Ufficio Stip=
+endi.</EM>.</FONT></P></LI></UL>
+
+<UL type=3D"disc">
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Imposte=
+</U></EM></STRONG>: aggiunge la funzionalit=C3=A0 per la gestione delle r=
+itenute e dei contributi, va ovviamente abbinata alle opportune funzioni =
+relative alla gestione della movimentazione finanziaria. Per completezza =
+va abbinata alla funzione <EM><U>Liquidazione Imposte</U></EM> descritta =
+di seguito che conferisce il diritto di effettuare la liquidazione period=
+ica.</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione IVA</=
+U></EM></STRONG>: abilita i moduli del programma che permettono di effett=
+uare la gestione e la configurazione dell'IVA, va utilizzata in abbinamen=
+to alle funzioni per la gestione della movimentazione finanziaria. Permet=
+te inoltre di visualizzare i menu per l'invio delle fatture di vendita el=
+ettroniche.</FONT></DIV></LI>
+<DIV align=3D"justify">&nbsp;</DIV>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione magaz=
+zino</U></EM></STRONG>: abilita l'utente alla possibilit=C3=A0 di utilizz=
+are il magazzino, tale spunta consente di visualizzare in sola lettura le=
+ prime tre voci del menu magazzino nella barra degli strumenti, queste tr=
+e voci costituiscono voci di configurazione ma la loro consultazione pu=C3=
+=B2 interessare il semplice utilizzatore, per completare l=E2=80=99operat=
+ivit=C3=A0 su queste voci va abbinata alla funzione <EM><U>Configurazione=
+ Magazzino</U></EM> descritta in precedenza.</FONT></DIV></LI>
+<DIV align=3D"justify">&nbsp;</DIV>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Menu<=
+/U></EM></STRONG>: aggiunge la possibilit=C3=A0 di modificare le impostaz=
+ioni predefinite del menu, va abbinata alle funzioni di configurazione ed=
+ alla funzione che consente di effettuare l'aggiornamento del menu.</FONT=
+></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Movimen=
+tazione Finanziaria di Entrata</U></EM></STRONG>: abilita la possibilit=C3=
+=A0 di gestire tutta la movimentazione finanziaria di entrata, va abbinat=
+a alla funzione relativa alla classificazione ed eventualmente integrata =
+con le funzioni per la gestione delle fasi precedenti, equivalenti e succ=
+essive all=E2=80=99accertamento giuridico. A parte, se necessarie andrebb=
+ero, aggiunte le funzioni legate alle reversali.</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Movim=
+entazione Finanziaria di Spesa</U></EM></STRONG>: abilita la possibilit=C3=
+=A0 di gestire tutta la movimentazione finanziaria di spesa va abbinata a=
+lla funzione relativa alla classificazione ed eventualmente integrata con=
+ le funzioni per la gestione delle fasi precedenti, equivalenti e success=
+ive all=E2=80=99impegno giuridico. A parte se necessarie andrebbero aggiu=
+nte le funzioni relative alle funzioni legate ai mandati, alle contabiliz=
+zazioni ed alla applicazione delle ritenute e dei contributi e, conseguen=
+temente, le funzioni per la parte delle entrate.</FONT></DIV></LI></UL>
+
+<UL>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione PagoPA<=
+/U></EM></STRONG>: abilita la voce di menu Entrate &gt; PagoPa. Per poter=
+ gestire tutta la movimentazione finanziaria di entrata occorre anche att=
+ivare le funzioni di <U>Gestione della movimentazione finanziaria di entr=
+ata</U> e <U>Gestione Accertamento, Pre e Post accertamento.</U> Inoltre =
+in abbinamento alla funzione <U>Configurazione</U> abilita alla voce di m=
+enu <EM>Opzioni &gt; Entrate &gt; Flusso Studenti</EM> che permette la co=
+nfigurazione delle tasse studenti.</FONT></P></LI></UL>
+
+<UL type=3D"disc">
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Patrimo=
+niale</U></EM></STRONG>: abilita la parte del programma relativa ai cespi=
+ti, per la configurazione del patrimonio va abbinata alla funzione Config=
+urazione. Occorre abbinarla alle funzionalit=C3=A0 relative alla visione =
+delle anagrafiche ed alla lista dei responsabili ed eventualmente alle fu=
+nzioni relative alla visualizzazione delle movimentazioni finanziarie di =
+spesa e dei contratti passivi, per consentire la ratifica da riga di mand=
+ato ed il carico da buono d=E2=80=99ordine. Per il menu Cespisti &gt; Pia=
+no delle ubicazioni, abilita alla sola visualizzazione in qunto per le mo=
+difiche occorre abilitare con la funzione ad hoc Gestione del piano delle=
+ ubicazioni.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Respons=
+abili</U></EM></STRONG>: abilita la possibilit=C3=A0 di creare nuove sezi=
+oni e nuovi responsabili e di apportare modifiche ai responsabili esisten=
+ti per i quai si ha l'accesso, andrebbe abbinata alla funzione <EM><U>Acc=
+esso a tutti i Responsabili</U></EM>, la combinazione delle due funzioni =
+viene comunque influenzata dalll=E2=80=99eventuale presenza di attributi =
+della sicurezza.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione saldi d=
+i cassa</U></EM></STRONG>: questa funzione conferisce all=E2=80=99utente =
+la possibilit=C3=A0 di apportare modifiche ai saldi dei cassiere configur=
+ati nel programma (<EM>Tesoriere -&gt;Istituto Cassiere</EM>). Riveste pa=
+rticolare importanza in ambito di Bilancio Unico per la gestione dei cass=
+ieri fittizzi dipartimentali.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione split p=
+ayment</U></EM>: </STRONG>abilita la possibilit=C3=A0 di modificare nella=
+ scheda principale delle fatture il flag 'Abilita modifica manuale' e suc=
+cessivamente il flag &nbsp;'Applica split payment'.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Stampe<=
+/U></EM></STRONG>: abilita la possibilit=C3=A0 di gestire le stampe e le =
+esportazioni apportando modifiche ai parametri generali, alle descrizioni=
+ ed alla possibilit=C3=A0 o meno di disporre di una stampa da programma o=
+ da servizi web (<EM><U>Configurazione-&gt;Stampe ed Esportazioni</U></EM=
+>). Questa funzione va abbinata a quella pi=C3=B9 generale di <EM><U>Conf=
+igurazione</U></EM> per estenderne le funzionalit=C3=A0.</FONT></P></LI><=
+/UL>
+
+<UL>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Tipi di=
+ contratto attivo</U></EM></STRONG>: questa funzione abilita l=E2=80=99ut=
+ente alla modifica dei tipi di contratto attivo (voce di menu <EM>Opzioni=
+&gt;Entrate&gt;Tipo di contratto attivo</EM>) a lui associati, le modific=
+he interessano le impostazioni predefinite per il tipo di contratto e l=E2=
+=80=99aspetto della stampa.</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Gestione Tipi =
+di contratto passivo</U></EM></STRONG>: questa funzione abilita l=E2=80=99=
+utente alla modifica dei tipi di contratto passivo a lui associati (voce =
+di menu <EM>Opzioni&gt;Spese&gt;Tipo di contratto passivo </EM>oppure<EM>=
+ Spese&gt;Tipo di contratto passivo</EM>), le modifiche interessano le im=
+postazioni predefinite per il tipo di contratto e l=E2=80=99aspetto della=
+ stampa.</FONT></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Importazioni:</U=
+></EM></STRONG> questa funzione abilita alla voce di menu <EM>Opzioni &gt=
+; Importazioni</EM>. Si sconsiglia di attivare la funzione e l'utilizzo s=
+e non interfacciandosi con l'assistenza.</FONT></P></LI></UL>
+
+<UL type=3D"disc">
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Liquidazione Imp=
+oste</U></EM></STRONG>: aggiunge la funzionalit=C3=A0 per la liquidazione=
+ periodica delle imposte (voce menu <EM>Vers. imposte</EM>), va ovviament=
+e abbinata alle opportune funzioni relative alla gestione della movimenta=
+zione finanziaria e dei compensi descritte in precedenza.</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Liquidazione I=
+VA</U></EM></STRONG>: aggiunge la funzionalit=C3=A0 per la liquidazione p=
+eriodica dell'IVA (voce menu <EM>IVA&gt;Liquidazione e adempimenti</EM>),=
+ va ovviamente abbinata alle opportune funzioni relative alla gestione de=
+lla movimentazione finanziaria ed alla gestione dell=E2=80=99IVA descritt=
+e in precedenza.</FONT></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Le funzioni lista, elencate di segu=
+ito, verranno probabilmente rimosse nelle versioni future del modulo orga=
+nigramma. La loro funzione =C3=A8 quella elencare gli oggetti ai quali si=
+ riferiscono consentendone la comparsa nei menu a tendina. Questa funzion=
+alit=C3=A0 viene integrata man mano negli aggiornamenti relativi alle fun=
+zioni affini e nei filtri implementati mediante la gestione della sicurez=
+za con attributi. Consigliamo di spuntare comunque queste funzioni, quand=
+o non saranno pi=C3=B9 necessarie semplicemente non saranno pi=C3=B9 disp=
+onibili nel sistema.</FONT></P>
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Lista dei Mode=
+lli Autorizzativi</U></EM></STRONG>: permette di elencare i modelli autor=
+izzativi abilitati.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Lista dei Resp=
+onsabili</U></EM></STRONG>: permette di elencare i responsabili abilitati=
+ per il profilo.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Lista dei Tipi=
+ di Contratto Attivo</U></EM></STRONG>: permette di elencare i tipi di co=
+ntratto attivo abilitati.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Lista dei Tipi=
+ di Contratto Passivo</U></EM></STRONG>: permette di elencare il tipo di =
+contratto passivo.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Lista dei Tipi=
+ di Documento IVA</U></EM>: </STRONG>permette di elencare i tipi di docum=
+ento IVA abilitati.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Lista dei Tipi=
+ di Fondo Economale</U></EM></STRONG>: permette di elencare i tipi di fon=
+do economale abilitati.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Lista delle U.=
+P.B.</U></EM>: </STRONG>permette di elencare le UPB abilitate</FONT></DIV=
+></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Lista delle vo=
+ci di Bilancio</U></EM></STRONG>: permette di elencare le voci di bilanci=
+o abilitate.</FONT></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Mandati Stampati=
+ Ufficialmente</U></EM>: </STRONG>consente la stampa ufficiale dei mandat=
+i, in assenza di questa, un utente abilitato dalla funzione <EM><U>Emissi=
+one dei Mandati</U></EM> sar=C3=A0 comunque in grado di generarli e stamp=
+arli, ma non ufficialmente.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Menu portale...<=
+/U></EM></STRONG>: <EM>omiss</EM>. Tali funzioni non abilitano alcuna fun=
+zione in Easy e sono illustrate nella guida del portale di gestione delle=
+ segreterie, rendicontazione progetti e performance.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Missioni</U></EM=
+></STRONG>: questa funzione abilitata l=E2=80=99utente all=E2=80=99inseri=
+mento delle missioni. E=E2=80=99 concettaulmente analoga alla altre funzi=
+oni =E2=80=9C<EM><U>Compensi=E2=80=A6</U></EM>=E2=80=9D e viene implicita=
+mente abilitata dalla funzione <EM><U>Gestione dei Compensi</U></EM>. In =
+ambito web questa funzione abilita all=E2=80=99inserimento delle richiest=
+e di missione, in tal caso va necessariamente abbinata ai modelli autoriz=
+zativi.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Modifica 'Esclud=
+i da CU dei Redditi'</U></EM></STRONG>: abilita il flag corrispondente pr=
+esente nella maschera principale sui vari form dei compensi e quindi in p=
+articolare poter escludere dalla certificazione determinati compensi. Dev=
+e essere abbinata alla funzione <U>Gestione dei compensi</U>.</FONT></P><=
+/LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Modifica 'Esente=
+ ai fini dell'Autorizzazione dell'Agente di Riscossione'</U></EM></STRONG=
+>: abilita il flag corrispondente presente nella scheda <EM>Altri Dati</E=
+M> del form <EM>Anagrafiche &gt; Cliente/Fornitore</EM>.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Modifica 'Utiliz=
+zabile per la contabilizzazoine' Fatt.Acq</U></EM></STRONG>: abilita il f=
+lag corrispondente presente nella maschera principale nella maschera prin=
+cipale nelle fatture di acquisto e quindi inibire o meno la possibilit=C3=
+=A0 di poter legare a pagamento una determinata fattura.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Modifica Accerta=
+menti di Budget(Residui)</U></EM></STRONG>: <EM>funzione in revisione tas=
+k 18466</FONT></EM></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Modifica Bollett=
+ino</U></EM></STRONG>: qualora abilitata permette di poter modificare il =
+campo Codice Bollettino Univoco nel dettaglio flussi incassi. In caso con=
+trario scatter=C3=A0 la MOVIM178.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Modifica compete=
+nza ai fini della Liquidazione IVA</U></EM></STRONG>: permette di poter m=
+odificare nella scheda <EM>Liquidazione IVA </EM>presente sul dettaglio f=
+attura la data per la quale considerare il dettaglio in liquidazione IVA,=
+ rispetto a quella che considera 'in automatico' il programma. NB: Il cam=
+po deve essere valorizzato manualmente solo ai fini di sanatorie e quindi=
+ la funzione dovr=C3=A0 essere attribuita al responsabile dell'ufficio IV=
+A che potr=C3=A0 effettuare le opportune valutazioni.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Modifica del Lim=
+ite Previsione Bilancio</U></EM></STRONG>: abilita la modifica del limite=
+ della previsione finanziaria su ciascuna coppia UPB/capitolo.</FONT></P>=
+</LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Modifica Impegni=
+ di budget(Residui)</U></EM></STRONG>: <EM>funzione in revisione task 184=
+66</FONT></EM></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Modificare &quot=
+;Fatture da non creare in contabilit=C3=A0&quot;</U></EM></STRONG>: abili=
+ta il flag corrispondente presente nel form della fattura elettronica di =
+acquisto inibendo quindi la possibilit=C3=A0 di registrare la fattura in =
+contabilit=C3=A0. NB: la funzione deve essere attribuita solo ai responsa=
+bili che si occupano anche delle comunicazioni in Area RGS (ex PCC).</FON=
+T></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Movimentazione V=
+oci protette c/competenza</U></EM></STRONG>: abilita alle operazioni sull=
+e voci di bilancio finanziarie protette in conto competenza, ovvero nell'=
+esercizio corrente, che nella scheda <EM>Principale</EM> del form di bila=
+ncio presentano il flag 'Movim. Protetta'. Diversamente l'utente viene bl=
+occato dalla regola SICUR030.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Operazioni su Vo=
+ci Bilancio Protette</U></EM></STRONG>: abilita alle operazioni sulle voc=
+i di bilancio protette. Le voci di bilancio operative nella scheda <EM>Pr=
+incipale</EM> del form di bilancio presentano il flag 'Movim. Protetta'. =
+La funzione abilita alle operazioni su di esse <U>ed anche alla modifica =
+dell=E2=80=99opzione di protezione</U>, diversamente l=E2=80=99utente vie=
+ne bloccato dalla regola SICUR012. Se abiltiata questa funzione la preced=
+ente =C3=A8 ininfluente e quindi la SICUR030 non deve essere attiva.</FON=
+T></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Organigramma</=
+EM></STRONG>:</U> questa funzione consente l=E2=80=99accesso al modulo Or=
+ganigramma. Se l=E2=80=99utente abilitato a questo tipo di funzione appar=
+tiene ad un profilo di organigramma allora sar=C3=A0 in grado di apportar=
+e modifiche a tutti i profili tranne che al proprio. Si tratta naturalmen=
+te di una funzione da concedere in casi particolari.</FONT></DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">P.A.T.</U></EM><=
+/STRONG>: questa funzione permette di poter configurare la tabella delle =
+Posizioni Territoriali Assicurative presente nel form del contratto paras=
+uborinato nella scheda Principale.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Partita</STRONG>=
+ <STRONG>Doppia</EM></STRONG>:</U> Se abilitata conferisce al profilo la =
+possibilit=C3=A0 di utilizzare i moduli del programma per la partita dopp=
+ia presenti nella voce di menu E/P.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Politiche riguar=
+danti le credenziali</U></EM></STRONG>: abilita la voce di menu <EM>Opzio=
+ni&gt;Gestione Criteri Password</EM> per le impostazioni relative alle po=
+litiche di complessit=C3=A0 e lunghezza della password di accesso ad Easy=
+=2E</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Procedure</STRON=
+G> <STRONG>di</STRONG> <STRONG>Consolidamento</U></EM></STRONG>: sui data=
+base multidipartimentali (unico database ma uno schema per ogni dipartime=
+nto) questa funzione conferisce all=E2=80=99utente la possibilit=C3=A0 di=
+ utilizzare le procedure per il consolidamento dei dati previste per l=E2=
+=80=99amministrazione, ad esempio per la raccolta delle ritenute e per l=E2=
+=80=99IVA. Non va naturalmente abilitata sui dipartimenti dove non avrebb=
+e utilit=C3=A0.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Procedure</STRON=
+G> <STRONG>su</STRONG> <STRONG>Anagrafiche</U></EM></STRONG>: abilita l=E2=
+=80=99accesso alle procedure predisposte per le operazioni automatiche di=
+ unificazione e correzione delle anagrafiche, come per la funzione che co=
+nsente la duplicazione del codice fiscale e della partita IVA, andrebbe a=
+ttivita solo per gli appartenenti ad un gruppo di lavoro, si tratta infat=
+ti di procedure molto delicate.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Reversali</STRON=
+G> <STRONG>Stampate</STRONG> <STRONG>Ufficialmente</U></EM></STRONG>: con=
+sente la stampa ufficiale delle reversali, in assenza di questa, un utent=
+e abilitato dalla funzione <EM><U>Emissione delle Reversali</U></EM> sar=C3=
+=A0 comunque in grado di generarle e stamparle, ma non ufficialmente.</FO=
+NT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Richieste</STRON=
+G> <STRONG>di</STRONG> <STRONG>magazzino</U></EM></STRONG>: abilita l'ute=
+nte ad effettuare le richieste di magazzino tramite interfaccia web. Ques=
+ta funzione, specifica per gli utenti web, non ha effetto sull'interfacci=
+a Windows.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Rifiuta F.E</U><=
+/EM></STRONG>.: abilita la possibilit=C3=A0 di poter Rifiutare le fatture=
+ elettroniche di acquisto visualizzabili da <EM>IVA &gt; Flussi Fattura e=
+lettronica &gt; Fatture acquisto</EM>.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Rifiuta NSO vend=
+ita</U></EM></STRONG>: abilita la possibilit=C3=A0 di poter acceRifiutare=
+ttare gli ordini che derivano dal SDI visualizzabili da <EM>Entrate &gt; =
+NSO Vendita</EM>.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Ristampa</STRONG=
+> <STRONG>di</STRONG> <STRONG>documenti</STRONG> <STRONG>Ufficiali</U></E=
+M></STRONG>: questa funzione consente la ristampa dei documenti ufficiali=
+=2E La stampa ufficiale dei mandati e delle reversali ad esempio influisc=
+e sulla data di stampa riportata sul documento, l=E2=80=99assenza di ques=
+ta funzione contribuisce, insieme ad una spunta presente sul form di stam=
+pa, ad evitare ristampe accidentali.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Scritture</STRON=
+G> <STRONG>in</STRONG> <STRONG>Partita</STRONG> <STRONG>Doppia</U></EM></=
+STRONG>: la funzione abilita l=E2=80=99utente alla generazione delle scri=
+tture in partita doppia, rispetto alla funzione <EM><U>Partita Doppia</U>=
+</EM> non consente di agire sulle impostazioni dell=E2=80=99Economico Pat=
+rimoniale.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Storni di budget=
+</U></EM></STRONG>: questa funzione permette l'inserimento di variazioni =
+di budget di tipo storno. Per l'approvazione occorre la funzione <U>Appro=
+vazione storni di budget</U>.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Storno Impegno d=
+i Competenza, classificato Provenienza:</FONT></U></EM></STRONG></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Tipologia Incari=
+chi - Banca dati Incarichi</U></EM></STRONG>: questa funzione abilita la =
+voce di menu <EM>Compensi&gt;Banca dati incarichi&gt;Gestione Incarichi</=
+EM> che permette la configurazione delle tipologie incarichi da trasmette=
+re a PerlaPA e/o soggette a plubblicit=C3=A0.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Tramissione</STR=
+ONG> <STRONG>di Mandati e</STRONG> <STRONG>Reversali</U></EM></STRONG>: C=
+onsente di gestire la trasmissione dei mandati e delle reversali, occorre=
+ abilitare questa funzione se si desidera che l'utente possa agire sulle =
+distinte di trasmissione per la loro creazione, modifica, cancellazione.<=
+/FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Valorizzazione m=
+anuale Idrelated EP</U></EM></STRONG>: Permette di iscrivere manualmente =
+nei dettagli scrittura il campo ChiaveEP (chiave dettaglio documento).</F=
+ONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Variazione</STRO=
+NG> <STRONG>dei movimenti di</STRONG> <STRONG>entrata</U></EM></STRONG>: =
+Consente di gestire le variazioni sui movimenti di entrata, va abbinata a=
+lle funzioni per la <EM><U>Gestione della movimentazione finanziaria di e=
+ntrata</U></EM>, inoltre la funzione <EM><U>Annullamento di Mandati e Rev=
+ersali</U></EM>, operazione che genera variazioni di annullamento, la ric=
+hiede obbligatoriamente.</FONT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Variazione</STRO=
+NG> <STRONG>dei movimenti di spesa</U></EM></STRONG>: Consente di gestire=
+ le variazioni sui movimenti di spesa, va abbinata alle funzioni per la <=
+EM><U>Gestione della movimentazione finanziaria di spesa</U></EM>, inoltr=
+e la funzione <EM><U>Annullamento di Mandati e Reversali</U></EM>, operaz=
+ione che genera variazioni di annullamento, la richiede obbligatoriamente=
+=2E</FONT></P></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Variazioni</ST=
+RONG> <STRONG>bilancio</U></EM></STRONG>: questa funzione consente all=E2=
+=80=99utente di inserire variazioni di bilancio. Le potenzialit=C3=A0 del=
+la funzione dipendono dall=E2=80=99ambito e dalla configurazione. In ambi=
+to web all=E2=80=99utente sar=C3=A0 concesso di inserire richieste di var=
+iazione di bilancio o richieste di variazioni iniziale. In ambito Windows=
+, a seconda del ruolo, potrebbe essere necessario affiancare, oltre alla =
+funzione <EM><U>Gestione del Bilancio</U></EM> anche le funzioni.</FONT><=
+/DIV></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Variazioni budge=
+t (no storni)</U></EM></STRONG>: questa funzione permette l'inserimento d=
+i variazioni di budget di tipo non storno. Per l'approvazione occorre la =
+funzione <U>Approvazione variazione di budget</U> <U>(no storni)</U>.</FO=
+NT></P></LI>
+<LI><P align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Verifica e abili=
+ta la Trasmissione di Mandati e Reversali</U></EM></STRONG>: consente di =
+essere abilitati alla trasmissione delle distinte di pagamento/incassi.</=
+FONT></P></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Le funzioni =E2=80=9C<EM><U>Visione=
+=E2=80=A6</U></EM>=E2=80=9Dconsentono di implementare nell=E2=80=99organi=
+gramma la sola lettura per determinati moduli del programma. &nbsp;Queste=
+ funzioni vanno utilizzate in sostituzione delle funzioni equivalenti des=
+critte in precedenza e non in combinazione, altrimenti le autorizzazioni =
+delle funzioni equivalenti meno restrittive le sovrasterebbero.</FONT></P=
+>
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visione Anagra=
+fica</U></EM>: </STRONG>versione in sola lettura della funzione <EM><U>Ge=
+stione Anagrafica</U></EM>, le schede dei responsabili non sono comprese =
+in questa funzione cos=C3=AC come non sono comprese nella versione comple=
+ta.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visione del Bi=
+lancio</U></EM>: </STRONG>versione in sola lettura della funzione <EM><U>=
+Gestione del Bilancio</U></EM>.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visione Movime=
+ntazione Finanziaria di Entrata</U></EM>: </STRONG>versione in sola lettu=
+ra della <EM><U>Gestione della Movimentazione Finanziaria di Entrata</U><=
+/EM> , abilita la visione di tutte le fasi finanziarie di entrata, revers=
+ale compresa.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visione Movime=
+ntazione Finanziaria di Spesa</U></EM>: </STRONG>versione in sola lettura=
+ della <EM><U>Gestione della Movimentazione Finanziaria di Spesa</U></EM>=
+, abilita la visione di tutte le fasi finanziarie di spesa, mandato di pa=
+gamento compreso.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visione Operaz=
+ioni Fondo Economale</U></EM>: </STRONG>consente di visualizzare in sola =
+letture le operazione del fondo ecomale comprese le operazioni di apertua=
+ e di chiusura.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visione Patrim=
+onio</U></EM>: </STRONG>abilita la sola visione di tutto il modulo del pa=
+trimonio.</FONT></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visione Tramis=
+sione di Mandati e Reversali</U></EM>: </STRONG>abilita<STRONG> </STRONG>=
+la sola lettura dei documenti di trasmissione.</FONT></DIV></LI></UL>
+
+<P align=3D"justify">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Le due funzioni =E2=80=9C<EM><U>Vis=
+ualizza=E2=80=A6</U></EM>=E2=80=9D riportate di seguito consento di visua=
+lizzare rispettivamente i contratti attivi e i contratti passivi. Non van=
+no confuse con le funzioni =E2=80=9C<EM><U>Visione=E2=80=A6</U></EM>=E2=80=
+=9D perch=C3=A9 forniscono la completa operativit=C3=A0 sui contratti att=
+ivi e passivi qualora vengano associate con le funzioni relative ai contr=
+atti attivi e passivi inferiori e superiori ai 5000 euro. Tuttavia la sol=
+a presenza della funzione &quot;Visualizza...&quot; permette la sola visu=
+alizzazione. Infatti la presenza del tasto Inserisci, non ha importanza, =
+perch=C3=A8 l'eventuale salvataggio di un nuovo inserimento, verr=C3=A0 i=
+mpedito da apposite regole di sicurezza regole di sicurezza qualora siano=
+ attivate.</FONT></P>
+<P align=3D"justify">&nbsp;</P>
+<UL type=3D"disc">
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visualizza Con=
+tratto Attivo</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visualizza Con=
+tratto Passivo</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visualizza Fat=
+ture</FONT></U></EM></STRONG></DIV></LI>
+<LI><DIV align=3D"justify"><STRONG><EM><U><FONT size=3D"4">Visualizza Mis=
+sione</FONT></U></EM></STRONG></DIV></LI></UL>
+
+<DIV align=3D"left">&nbsp;</DIV>
+<DIV align=3D"left"><STRONG><FONT size=3D"4">NB: </STRONG>La funzione che=
+ permette di modificare compensi collegati a banche dati incarichi ovvero=
+, <STRONG>manage_prestazioni</STRONG>, non =C3=A8 una funzione di organig=
+ramma ma =C3=A8 una tipologia di gruppo funzioni attribuite all'utente.<S=
+TRONG> </STRONG>Se il gruppo non esiste contattare l'assistenza.</FONT></=
+DIV>
+<DIV align=3D"left">&nbsp;</DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1OEFYBDJZHJBTE49AWY18YVMB7"></DIV>
+<DIV align=3D"left">&nbsp;</DIV>
+<DIV align=3D"left">&nbsp;</DIV><HR><HR>
+<DIV>&nbsp;</DIV>
+<DIV><FONT size=3D"4">Argomenti correlati:</FONT></DIV>
+<DIV><A href=3D"GESTIONE_SICUREZZA.mht"><FONT size=3D"4">Gestione della s=
+icurezza</FONT></A></FONT></DIV>
+<DIV>&nbsp;</DIV>
+</BODY>
+</HTML>
+
+-----------blocknote.net--16MYTBGJTTQQ8Y40EBV2M1Y2M
+Content-Type: image/x-png
+Content-Id: <1R2NIBMI91MTBLA0ZAE1GJJSRQ>
+Content-Transfer-Encoding: base64
+Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine22.png
+
+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
+
+-----------blocknote.net--16MYTBGJTTQQ8Y40EBV2M1Y2M
+Content-Type: image/x-png
+Content-Id: <1IG5PLJIWO9TCWT7TF41UAA5BY>
+Content-Transfer-Encoding: base64
+Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine23.png
+
+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
+/u3044+fv/xD0v/420+f/varz1Vm+kfgbn3bZRBu3egjzyzYl00b+rMvVDiCZ9PU
+vygkJUqvEx20PWP51/ef395PP/3yGx/mBa2a/OttZqy33ESodmuvLmbWxE2bvvV5
+3WHcwJOyaUN/9oUKR/BsmvoXhaRE6XWig7ZjLP/ty6fT19+/v+k6ni1or3+0RX+3
+/qwZnKtz67N7tNkEj8OmDf3ZFyocwbNp6l8UkhKl14kO2n6xnFbw+3eJ6PKYnRf0
+6e3Tzz/+SFCMr0u8/dZcWfd0Ty+WzNs3rtBpTl+1lFZiylrnl2qpBZ1NfeBfia1Y
+tYoe2q//9wJNc2JUsxbxaf7tT1+zauujs6aha1nTtrqs+SAMjCc1c/HS1Z9++a59
+0Icrw+Gaj3atH4BA2tCzv8eFNF+WA1rZNdsCHOGOpKk/ICQlSq8THbTdYvmvv3zW
+NU0JdgBZ2ab5kcK8OECLlPYbquqVXVm+UEh1el8qNjX4DetXNCsY9EpyYPXk0tZC
+zf7QKqkx2BWvXf12it5upYp+4SzWDMLAuDaaaubiovGJrhJvmUd7flIAKAsb+mwh
+8WI7tywLazwCjrATC1N/GEhKlF4nOmh7xXJeyuWaVC9LvRvw0q/31vm32aSrWlam
+e3rLmmmsHqa6q9lYViiuuV5ZEtXnfVnG1ezrCZWoxk7f25SsWqEv5fXMlrYsHQ7N
+ONT8rdqYsU+YpZZVva8taDQNgCdv6OuXVk4EFsoua6wDDBzhNuSpPx4kJUqvEx20
+nWI5LV++9dRDCX7mGJpryz3/ss33NwtXTekudaP9okbD/4DUii8+UPYnslCzrydW
+Mtcs9IcSH2lL0+HQjEPNZhMTi8M102gaAE/a0DcsrZwILJRd1sAR7kCa+gNCUqL0
+OtFB2yeW/6rP1f3h+8lcpT34skUfHYC8pfpVfUJVSqmyWLbo3tU5sWFN566pFV+c
+0EOn5Fbav9JtrLlq6on0necmFvqz0NaaQZgYc1aq2YrExOJwlXSuX3IB8KQNPfl7
+WkjTZdkqqazxCDjCTqSpPyAkJUqvEx20fWJ5u25VaH3bIyl9KqVKc4PiAOQkZMB+
+wg7Q2bNvVE24OTYbc6TaaElrtVLQ9yq34osTehjq7CpZUfOnz7WSz11XCa7N2QzO
+ug3IQluuHqk5dNjSpinGpdFYsxVJiaXh8sbFwOoHoCdt6Gnlp4XkF1hIZFrZZOmL
++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
+
+-----------blocknote.net--16MYTBGJTTQQ8Y40EBV2M1Y2M
+Content-Type: image/x-png
+Content-Id: <1OEFYBDJZHJBTE49AWY18YVMB7>
+Content-Transfer-Encoding: base64
+Content-Location: file://C:/Users/cinzia.vino/Downloads/manage.png
+
+iVBORw0KGgoAAAANSUhEUgAAApAAAAFRCAIAAABMiwqLAAAAAXNSR0IArs4c6QAA
+AARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAD8eSURBVHhe7Z15
+kCZHeafbfzhi/cdGeHe9EXQYH+tDsGG0EUawu6EIryPwiJExxsZeYzBhLoN25V7D
+tDm83Bh2LY8QI+GFEQgEokGYy3gMRlg9SCBLAiSuVo/Q3UhC1+hE6DBesHf2zcyq
+rLzq6OrsrqOfN57oqXrrzTezsrLy91V931QtPOUpT7n99tvf/bdXAQAAwKi45IFH
+H/tfn/vgsWPCwoUXXvjuz1wFAAAAI+STdz/ymMc8Rgn2bbfdds4F6wAAADBCPnb3
+o4997GOVYH/ve997z2ePAAAAwAj58F2PPOlJT1KCfezYsXP/7moAAAAYIR+40xHs
+9114NQAAAIyQ997hCPb7V68BAACAEXL27Y8i2AAAsL28/WOX/Y83vfv3X/bn2ZG0
+knwnaznvw5/7/V/69V/5sZ/JjqSV5KaWGE+wP3D42i48/uTPL/zMZy0veuOVQQAA
+AIDLS1511oWXrt189KHsSFpJvpO1/MZxT1495z2PHPlqdiStJDe1xPzFt51b4iuf
+u64Bif7pJ6++7ewNV60t7/rUNUE8AACA4fn79ovsXXr1XdmRtJJ8J2uRS+GHr7ry
+7o++NzuSVpKbWmLedmtnwf7h4y/64f9w8d33ff9HHn/h1dc9JPFiCz/26UKzf+e9
+b/vkWlAEAABAeMHy6d+666FLjtyVHUkryXeyFtHUh77+5bs+/O6jf6mRBY3xyF+1
+YNCrNuDoh88RioKybMo6SSRtV8H+0MXX1/GUU7/yL/7jpT/yny697zvfN1It9r1/
+/Cej1k94yacXfut9P3Tg60EpAAAA4YWFlN6ZHUkrybvU8mdnfeC3n3VKHbI1iHdx
+axFNffArl9258k6PDxYLZ7/mdTbn2a95rfh9z+tsZMAdK++UtJLc1BJz2i1KsM87
+7zwl2Od//oY6fuSXrxBuu/v/Gqk2tvCvPyVq/dgnX6yW335k4eA3f/p91wQFz//8
+e5+y8Iu//6G61b586LU/n8pzYOkXF57+Xl1LZU/5c721pkgWXvX0hZ9fOhw4AQDA
+8MI/fuvGXQ99/shd2ZG0krxLLaKX/1RvsjWId3FrEU39zpcvuf19Z91+ruK29ynM
+siB5jESKyfLBP3l14JGCt0mpMl7lMZx7lqSV5KaWmLd8Swn2qaeeqgT7L79wU5KX
+nPHNf/nUry2ceIWpz9g//uM/q8vrn7ygWD927Ifec/0PffzOoOxffuHcX1l44vPO
+j1cDfxfaipz/uuN+4XVnqmUncv+zFxae/Sc2Zru46Hm/sNndAQDYLbzo5WeI5l18
+5K7s3HTXw5K8Sy0ilkabkyZbg3gXSWtrEU29/7KLvv2ut976bs27zlCoBbX6zlf+
+iaT659KCZdkqMd/WBc3fW98tZc8wy5JWkptaYl6/4dwS/8glG0ke8zvrP/qb6x88
+/IARZmPm8voHP/h/svyJWx5Rno/eIYIdlP3IJefuWXji8z8crwb+LrQUefsfPfG4
+P7pYL7uRPSrqxenPWfj1c0MnAABcsqGl9OGLjxzNjhFsW8tN6gr7aBLRS6vNLtYZ
+xLu4tRjBvvmdp938jtPk7y0as6D+vuO0d7zilZLt+76JR/yqlIl8RxFvkYJGsE0t
+Ma++yRHsj166keTfPPsa4eHv/bMSam2P/IP69vqxz7r8qRfdU7iOHfvhj955/Gfv
+PfeSm/3iWi8/EqzK39Keca7yf+T1xxXrz3m1DXvpc4zruJderD2lqSJBWuHi5z/B
+epytb33OwhNe//bAqYKLZHveqj2pBux5xhPL1TD+1c8oVov2mwxFRQAA4PEHr3jb
+l795+7v+5qtJXv6n7zTamUS2BvEuklaSd6lFUt2tTRaanTFuLaKp159z4O9+5QkN
+vPnXf81mFpNl8QQxMZJWkptaYl5+48OVYH/8spuT/NsXbAg33VX93EzsXz35c8VS
+aU+99MFnXfHQxy79ll/8/SctPPEFH4lXXb+zfMZzjnvpF7RHtPD9xiOq+ZogzFu2
+HhNmlkszSQqnKfKFFzxBPgRILcbvbvIaUMbE8RanoFq2DQAAgIpWKS2EJGVdpLRj
+Ld/WJgsu1hnEu7i1tAq2UWuT1pp4WjXbCLapJealNziC/YnLb0ny1D+75TGn3nrq
+ufeZvqsziRGCsp+4XEnaCz8arzr+j77hcYW6anvG+/1SqSLesvX83murZb1VZW52
+apobEMcLb/u9IrhqxiUvfELQJAAAUIjaXXHN7ed86mtJRMxuqjfZGsS7SFpJ7tXy
+6a8laa8lKmK54po7bC1GsA//6gmrTzvh8NPUX7Nw+GlPOvyrT3rLM5/hVhQsy1aJ
+UWU1usgJFiPYppaYU693BPuTX7o1yccvv+XHl+/88eU7jDAn7aNXPKpj7gzKfvJL
+l7zo+BNe9LFy9WNvFPF7nVo+76kLpb9yWpyt1XLSaRGPTVJtfee+Ex637xLPGVfX
+3ICmeHfv3AYAAEDFi1/5tiuvveO9n/lGElGya+tNtgbxLpJWkru1nPuZbyRprSWI
+d7ny2jttLaKpN5z79s//9n+J+CX569Yiy//7d3478PhFPCStJDe1xLz4WkewD335
+23X8xGvu/cnX3PuEt9ReZP/Ua1XA/7nwtqCg8IZnLiwc/6az7fIzP6D9HxBF/INP
+mBhZXnjc8t+b+NRWs5x0Wv7+D45Pbo2LS2RcXUMDovgzn1vs0Sfe9DgbJsvlbgIA
+gMtLXnXg6zfd86GLr0vy6tPeI0pWh2wN4l0krSTfyVpEUzc++K7Lnve0S5/3a8Jl
+z3+a4nkFp/3ec2xOWb7seb8WexSmiPqrV3VZSSvJTS0xz/+mI9h/c8XtDfzUW74j
+/MSfSrBnX771B//uf6lNjz/tgaBIyWUvPr64fSw6967S/0YRb7FnflCt/tWbHq/X
+lCnPB/cunPDivzKR1bJTxA0oeNfyCY9fvkwve1vFr+sNcha29yztaWpAHF/u0fHP
+3Xt8GXbWc4t9AQAAn1Nedeb6LQ984vKbsyNpJflO1iKaesvHz7viD3/3ij98toNZ
+VX+vPDVwPvsK5XHjbfDvXnGqRvslrSQ3tcQ81xXsT33ljgY+fPmdP3v6o4Yf/dNH
+fvmcf/jZtz760/sLz8+99dG/ufL2oMhO89dvevzxb3p34NwhLn+xKPdfB04AAFD8
+t/951jW3fTdwZkHSSnKzvDO1iKbe/rcf//orX5yJl2jUsqSV5LbSgGdd/VAl2J/+
+6p2tHH/w+8e94wcBb/zs/UHYUJzz8ict/NaHAucO8KbfWhikXgCASfDfX/326+58
++LNrd2dH0krynaxFNPXoRZ9Zf+PL1t/wsiNvfNkR+fsGtax440uVX216qXCkWFXL
+xYJZNlt1Ebe4pJXkppaY3zriCPbffu3Ojpz3xbtff+F3Trvo/sAPAAAQs/zm91x8
+5XXX3/VIdiStJN/JWn7z3//nz53znvu++IXsSFpJbmqJeca6I9if+fpdAAAA2fng
+6pHlN59z6mv+IjuSVpLvZC3vef9nfuO4J8ulcHYkrSQ3tcQ87SrnO+zPfuMoAAAA
+jJC9a84V9t+t3Q0AAAAjZM83HMG+8Kp7AAAAYIQ8pVmwZQMAAADsMIEcC7/89YcW
+FhZkE4INAAAwFgI5FhBsAACA0RHIsYBgAwAAjI5AjgUEGwAAYHQEciwg2AAAAKMj
+kGMBwQYAABgdgRwLCDYAAMDoCORY6CvY2qTIhMy02dsLAACAURLIsdBfsCX+tknZ
+qaeeimADAMAkCORY6CnYRq0D58g577zzRLN12wc29bmBjw4AAFBPIMfCrhNsfbE9
+sHGtDwAAzQRyLOw6wQ6cgzCelgAAwDgJ5FhAsAcAwQYAgGYCORZ2rWAfPbB339Lh
+auuDG6t79q6u2dWO1JVqzIZgAwBAM4EcC1kFW1Rqcd9iwX5PDreDTUpsIJNrB/fv
+OXi0bjWkuzAbj/vX3apBsAEAoJlAjoXcgm31KdCqGulKsB2RmlAmveJywb3/wEa5
+qTt1bWhsG4INAADNBHIsbJtgH1tfWlw5ZDdtB1sUbFekbarDK+VNAn2HQPlXlpb3
+K097gN5fk8r9q+ryQLABAKCZQI6F7RLsNRG2QrEcwdOrB8yqvWe+sb6010rgUUfw
+Vgq/EUIhIZa6uo1VG9lwlRzLpL0NnrgfbpuxuP+AbVVNgGq2TrK4vF757V+3lAbB
+BgCAZgI5FrbtO2yjnVrPKsHTq0belPoqMdM//jJiKcqtgm1kob6FENpaVKQrh6kL
+5RQJmUxlWNprPk/YTxg6obOQDrAx8V+z1QHBBgCAZgI5FrbvlrjviQUs9tT57XJS
+LOWv8RTUfhWdkkkj1bYu84nBfHrwm1Es1AcEnnirA4INAADNBHIsTEiwa8RS/nb7
+sjwpk+pm+F57P1x9715e1q+krrBTAcGdANsqt7gPgg0AAM0EciwMLdibuCVep6Zu
+Bid/RFomVUXVRblkNtfrouIpwU4FLIrk64t7N9L9aypyQLABAKCZQI4FT7BXr7rH
+RTa7hV3yCbYs1P3obH/5U7KiSL2alhk2+aOzoUCwAQCgGZHgQJSzCnZGXGnPxOgE
+G8MwDNs9FmlBM22CvX6PC4K9TSDYGIZhu84iLWhGCbYvymMV7G1gPDKJYGMYhu06
+i1SpGQQbwcYwDMOGsEiVmkGwT9VtxzAMw7CdM3WRFqlSMy2CfXj9HpeZCbZBmo1h
+GIZhO2bFXdVIj5oRCQ5EORDse13aBbvXZT4AAMCuQNvWBLsSZQQbAABge9C2BcH2
+RNkX7CP3uiDYAAAA/dHWX7B9UfYE+3NH7rXINgQbAACgP9p6C7YrykKtYAsINgAA
+QH+0IdgAAADjRtu2CPZFR+51QbABAAD6o623YAei7Av21fe6INgAAAD90dZfsH1R
+RrABAAC2B23bItgXX32vC4INAADQH229BTsQ5UCw73NBsAEAAPqjbQuC7YmyJ9if
+/+Z9wsUlCDYAAEB/tPUWbKPIRpqFhGBbEGwAAID+aNuKYLt4gv2Fb97ngmADAAD0
+R1tvwQ5E2Rfsa+5zQbABAAD6o62/YPuiHAr2JQ4INgAAQH+09RZsV5EFT7CDbQj2
+qHgNhm3BguEEADuBtm0R7L+/9n4XBHtUyJyrOx7DNm0INsAwaOst2IEoI9iTAcHG
+ehuCDTAM2rZFsC+99n4XBHtUINhYb0OwAYZBW2/BDkTZF+zr7ncZiWCvnb1y0uK+
+ReHk05dWjwZbQzZWTzp5dS1wzgIEG+ttCDbAMGjrL9i+KHuCfdl197uMQbDXzj59
+8eTVQxt6dWN9afH0M81yHUaws8j2ppJs/wcFBBvrbQg2wDBo6y3YgSh7gn359fe7
+jECwj555cptCB2QUTgQbm4sh2ADDoK23YAeiHAj2Ay7DC3adCm6sLp1sbpKvHPI9
+J52srsirK2y5KDeRi+XtdKes91HArUstr5RhJo9fSgecuXy6zXxmQ7DKub60WDa1
+Lwg21tsQbIBh0LYFwfZE2RPsL17/gMtYBVupo1FfdcN8ed3zrK44gq39ZxudNrfT
+nUv2ILm7apYrT1RK/tpPAKsrLcHKmQEEG+ttCDbAMGjrLdiBKHuC/aUbHnAZqWC7
+TrNc53H9dqu6JrY499vrkiRLrW4m2FaxNRBsrLch2ADDoK23YAeiPG7Bdq9WLVYa
+7XKdx/XbrXW3puuSmNWg1KaCM4FgY70NwQYYBm3bIthfvvE7LiMQ7OSvxPWN7rpb
+4jq+lE/tD2+JW48jugr1NbP5cLCWuMvtl3LLhp6GKrYEgo31NgQbYBi09RbsQJQ9
+wb7ixu+4jEGwher/YSd+OOaopo45afl0Tz4TPzorPcGPzozYm8hlLdjH1kV6F83l
+clDKVeJiuT5YhfGjM2xIQ7ABhkFbb8EORNkT7Ctv+o7LSAQbDAg21tsQbIBh0NZb
+sANR9gT7KxvfcUGwRwWCjfU2BBtgGLT1FuxAlAPBftAFwR4VCDbW2xBsgGHQtgXB
+9kTZE+yvfutBFwR7VCDYWG9DsAGGQVtvwQ5E2RPsr33rQRcEe1Qg2FhvQ7ABhkFb
+b8EORNkT7K/f/KALgj0qEGystyHYAMOgrbdgB6LsCfY3bv6uC4I9KmTOxbDeFgwn
+ANgJtPUW7ECUPcFeu+W7Lgg2AABAf7T1FuxAlBFsAACA7UHbtgj2Vbd+1wXBBgAA
+6I+23oIdiLIn2Ou3ftcFwQYAAOiPtt6CHYiyJ9hHvv2QC4INAADQH229BTsQZU+w
+r/72Qy4INgAAQH+09RbsQJR9wb7tIRcEGwAAoD/a+gu2L8qeYH/z9odcEGwAAID+
+aOst2EaLr7n9YbPgCbZ4XRBsAACA/mjrLdiBKHuCfe3tDyvu0H8RbAAAgK2grbdg
+F6Jc4gu2SLUDgg0AANAfbf0F2xdlT7Cvu+NhFwQbAACgP9p6C3Ygyp5gX3/nw8J1
+JQj2qCje4YBhvSwYTgCwE2jrLdhWlM1CINiPuCDYo0LmXN3xGLZpQ7ABhkHbFgTb
+E2VPsG+465Eb7qxAsEcFgo31NgQbYBi09RZspcWOLkeC7YBgjwoEG+ttCDbAMGjr
+L9i+KHuCfeNdj7iMUbA3Vk9aPP3MDWf15NU1u3XWINhYb0OwAYZBW2/BDkR5ioK9
+b9GK9LYK9qaSb/9HBwQb620INsAwaNsWwb7p6CMuIxXsk1fPXD59abVaRbAxrNkQ
+bIBh0NZbsANRnqRgr1l1dBaWTt63qC6+Vw4V/pWl5dPFc9LZ6yLwi4ui8UdNBhtZ
+3VovipSKa4oXYWF+VUoH6LTiVJnPbAhWOdeXFnXDtgCCjfU2BBtgGLTtbsE+duyQ
+ucguVpVeGj1eO/v0xeV15TdfdbsLRWT5FXiZKshcLVeeqJT8tZ8AVldagpUzAwg2
+1tsQbIBh0LZNgv2oRjaohTELtrpmtTLp6mLgCRbkr7omtpTK6ka6wbZsUGp1M8G2
+iq2BYGO9DcEGGAZtWxBsI8oFE/zRWamUcjF90nJwdZuST3dB/tbdmraRdtktG5Ta
+VHAmEGystyHYAMOgbVt+dBa8yWvkgq2/GDZfG6duiVv59BZ05NnFl9lOKpOt+Mp5
+LXGX2y/llg09DVVsCQQb620INsAwaOst2IEoe4L9xRsesHzphgdGL9hans1q9Tuv
+YrUISyysp390ZrLpm9hL5sL92LpI76K5XA5Kuc0oluuDVRg/OsOGNAQbYBi09Rbs
+QJQ9wV696p7V9YoxCvYuBsHGehuCDTAM2noLdiDKCPZkQLCx3oZgAwyDNgR714Fg
+Y70NwQYYBm0I9q4DwcZ6G4INMAzaEOxdB4KN9TYEG2AYtCHYuw4EG+ttCDbAMGhD
+sHcdMudiWG8LhhMA7ATaEGwAAIBxow3BBgAAGDfaEGwAAIBxow3BBgAAGDfaEGwA
+AIBxow3BBgAAGDfaEGwAAIBxow3BBgAAGDfaEGwAAIBxow3BBgAAGDfaEGwAAIBx
+ow3BBgAAGDfaEGwAAIBxow3BBgAAGDfadp1gX/DafYuLJa+9Otjan0vOX3zmRVcH
+zhKp9BWXtMQUdImZOrn6wcaUC1efd8bTz6sdbAAAU0Xb7hJspdaOSMv8nlOz6ykE
+O/JDyK0XPb3755Xugr2ptJsKBgDYAbTtJsEebiJGsLuyNcGWhXQ/I9gAMGm07SbB
+lmm97npazfhnPN3cJHfCnFvZeqtQKUTsCWd5dUFvYhbrbolf/Qo3QDxOjLoBYLaa
+9simuoZpfxWvM7i1Ly6ecfatCY/KYD1B2xKbotYmPFGzkztiEoZV3HP2M8tlG2OJ
+2+PmcYNl1esoJ23US7rs+a+oAhqD1f6ef4GpBQBgx9A2Q8GWdgRm/DL5VvdL7exv
+Z207EYfTvdmq5U17VJKkp5jTSyqP0oBSX72Yqkn2qs7GOMFVFYmGJZrt7akOtpvq
+PMZpRTfAbIpb29R+Xapodr3HUtSeyhNTBNuYIFhWg45y0wa9JB7nULYE6+VmijGH
+YRhWYyuX3BjMG+1om6dg//HKFS7FJmf+LUjKgxMWCoPd2uzRuFN8Io9BPPpzg9pq
+PTpGioQKYSrSy3FC8RQfQQxlpDQjbpjrcQtWzUhuSrbW93jN1g32PNafarZK0ijY
+ifYkg3W9toib1s2g8A9ce7Ctop5g7AEABCDYFUawA6fCikHscWf8eLqPtzZ7NEVZ
+dzmKKTG3YfW1chkjRTYr2GF8B7VWq0HO9k1OayOP1wzd4ETDymYnqqgX7ESwjQmC
+db1epKPBzZ8eWoIBALYMgl1RK9h6CrZTefH9azzjV7quAjxhsJN4o6eg8iTyGBxJ
+KL8ctTFxFY0NU8uliBba5ngKIo9Elg0o79vXb4pb29T+Dn2VqL1RsMNgGxMExx3l
+po17qSwrzWsJ1ssAAFsBwa5oEGxBzbzlTc6nn3fRK+zUXM7a5fWiumR8hb2SK4sU
+s3bSU2UoEAHQMWc8veY7bKMoJk+hRk5M1dRCKlINcxJW8cppgwuq315VHq8BpccS
+b4pam/DEzY48VbPrqjj/gsa+KoJtTBgcdZRNG/aSV7YQ7IZgtamQcACAfiDYFc2C
+3YdYPBJyAgAA0A6CXYFgAwDAaEGwK/ILNgAAQCYQ7AoEGwAARguCXYFgAwDAaEGw
+KxBsAAAYLQh2BYINAACjBcGuQLABAGC0INgVCDYAAIwWBLsCwQYAgNGCYFcg2AAA
+MFoQ7AoEGwAARguCXYFgAwDAaEGwKzYr2G8+7SwAAIDsBHJjQLAregh24AEAANgi
+CHY7/QQbm6XdcccdxRKW1ehYLLvNbFBZcYlBsCsQbMwaurJNRsdi2Q3BbkIbgo1g
+z9nQlW0yOhbLbgh2E9oQbAR7zoaubJPRsVh2Q7Cb0IZgI9hzNnRlm4yOxbIbgt2E
+NgQbwZ6zoSvbZHQslt0Q7Ca0IdgI9pwNXdkmo2Ox7IZgN6ENwW4S7BvPOuVESSd2
+4omnXHBj4a2zG8868cSz2oKwHbX0FCBHasE5VBy4zVt9x1rrcMpgmGMIdhPaEOxa
+wTazejHn3HjBKe4UnzQz7zP7j8madMUeJg7Z5q22Y6tevcD/WNTLkoeG4zVTQ7Cb
+0IZg1wr2pmcF5pHxWYOunHWKXAJWqxy4TVm7YIvRsdhmDMFuQhuCXSvY6bnG3iUv
+Z3vrOfFEfUFhJym5KC/vpxf3Bp2yYepqk01yyilF3jLWZDabyjyqDbFHO0PPrrQm
+XTF/7apeSHSsdp141gV6G4eysE6CfeyCUxaK/bK7YDZLoL/unyymH4xLJ5REpcn2
+spbU8Qo7q+FIYSMzBLsJbQj2pgRbzTNmyjZLnsfcNS9mE+03CfwN2lMtaquSFJuU
+Q9+OdyOrTc6sJ22IPcW/ylV6dqk164qoRNFbajXqNPWPjnMXiki96qQqTYXuhkPZ
+TbDNuuMtFishj3ZbnyzmbnrQaW64cpo1p2fUP1rvxeTQFjFB1dh4DcFuQhuCvRnB
+ds95s1zncf3GxCMtq8zZXJekedOmPGZ591mbrsi8XnZX3GnWEyzI3+IgGrPF/N62
+wW7Z5KZNeczy0NZNsLUwi7PoKGNmr+Rfuea94EaJjvfLetxNqlAp8yaHu6nOU1Rq
+zG7GxmgIdhPaEOxawXbO/tI6zhGB35h4zHQTW12S5k2b8pjl3WetuqIWT9FXY3Gn
+WU+wIH93/aHsJNh2F5LddaP5lkErerBf1lNtcrIYp1uqwVN3pLDxGYLdhLa8gi3i
+Ox/BVie7vi2nV+xtbTXBFFvVVOB7qllD+4upxilrJx8VY01vcm/lVQHqGsWmsXOQ
+TaPaEHuchKVnl1oHXZEeNpdeUafZsHBBbzcJ7KbC9KZdcCjbO1b/Sly3198rFWDO
+CLvuBuhNUtTdXqQo971wGl8RpbaWwWGM8blbsVEagt2EtryCLY2cj2CL2R+syIxe
+zMLVb1icqcE4ZBIWp50X1KysN1RlS0/8+5cyifNLpSKkSl9dCEpVxmcqijzaGXp2
+pXW5EFQ9XPZk1LF1C7v9UNZ2rG6ptnLYK3/YXeE+BSeL7bRiwc3rybmXxZZylxuO
+FDYyQ7Cb0MYt8SbB3nmT6aXlKsqdlYzFHqy0AaeAeR/Kmc2t2BgMwW5CG4I9CsG2
+1xft1wEI9mZs56eAXXIoEWwsuyHYTWhDsMd1hY3lNXRlm4yOxbIbgt2ENgQbwZ6z
+oSvbZHQslt0Q7Ca0IdgI9pwNXdkmo2Ox7IZgN6ENwUaw52zoyjYZHYtlNwS7CW0I
+NoI9Z0NXtsnoWCy7IdhNaEOwEew5G7qyTUbHYtkNwW5CG4Jd26cwE/INLfCgYyE7
+8xpUCHY7CDZ45Bta4EHHQnbmNagQ7Ha2LtgndLOgFIyUfEMLPOhYyM68BhWC3U4W
+wdZNazIEezLkG1rgQcdCduY1qBDsdgYT7I3VPYv7Fgv2Lx0+Wvn3rq4FMXv3Hzjs
+lD28IkUObJSrbqq9K4Xf5nETGkrPoeWylGV5vYgJqqgj0RJ/1a06yrl2eMW2fM9y
+tNcF0jlVkaZ9lyQHj7qVrh0s8+91eriZeGh5VXTOYwh6wFLnr6Pj4ejLoeX9snde
+P7tstrVJWjrW9K0f0IUsbctI9/bM4JgOTjyopgyC3c6Qgm1PmI31A3u12Hj+9SV7
+PotzceWQCdan4tLyShEfbD1cFrd53IoMoUcqqpIbwipqSLVE1LFM7lcUBota7105
+VE5YIq7FxwW/lBL1hiT1e7d2cL+0pMi/4XRmM/HQcquwRyquN0ld8+K/bkxEx8PR
+l3IA1LWkQwvbae7Y6EB3pbVt3RtvI+OF7nQuModjOjjxoJoyCHY7oxBsdzVeCDl6
+QHROTki7VSIrxY1O1DhP6IkFO6oiTaole1cPyExkPtd7FQXBslqjoE3NS9foBFtP
+ff5m4qEVVBHX2EBdsOtvTxjtdV5aG7CpXa6jtWO9A92ZLG0z2FRbydm17CyO6eDE
+g2rKINjtjEWw7WxV+eWU3rd0cH0tUB0JUFeijiCJx850Wa6w4yqSxGEms83vVhQE
+u5sC/E3ehVeQJAquPA35m4mHVphKd1fpVNfx5nauuVSqbvLrTy0qbGVJ35xcVBO0
+3zyzda+ON1UExU2NEhZ23Yp8KvLC4oIbq2VmdaehqEuVWjnkBcvumOVqp9QNCVNW
+BZjbCVGNVf7yW5hm2jq2OtBB5sba95i9i0uVaYtakkm8fpDuLYqXeewoki5yxps5
+WZqrawgwSNgMjungxINqyoxcsCUbgm09KSXbWLdnlD1/RCHM2SULxf00KaJiDNW5
+ZycOv6LYEwp2oooU6ZbozOp2n2xyKgqD3TaoL/PMNKE9sqnaHTV3OLfNUzVWwZEi
+6lKbIx5aYSp9pIoPRmXXqWZ4fVg1w8yPus3qnr/1B3/dsra4Xk50XZlTzelB2aKg
+kp8ixtYio8h4guCiiF+26F6tVbKzYY3lcK1KOWmTJDu2Onb2QEeZVVhce7F3IvN6
+2NS3pzZJGeDGGH+0cGi5+MaqOIit1bX1z0yO6eDEg2rKjFywJRWCbT3O1B+dKuWs
+JMvqxHPmOO2UIlYt7LLNEycMPYFgp6pIUNOSIl7f66tWo+CGVrmb1HfGxdTWVmOJ
+8cT+jsRDK0ylu6tw6iZJC+2NEHWNYj5jRbvpNiz+W8Z4xZWzsevscsd6S086OI4s
+492yRYwpXlBO9A00d6w90HFme9PIFvEKtrWnroheaOqHxIIcC51ZVqu6aqqrC1DM
+5ZgOTjyopszIBVs2IdjH7n/szwHALkRPBfpDQPyhRH0uLK+eraAGMZWnPjiMLHE9
+Nsb74D4F8gnBGECw28ki2MF5CACwrfgyrO76mAti9b8t3E3FgrqmD2+JF2WTMc7W
+MZNPCMYAgt1OR8EOzhYAgDHjC7bW6eI+vP7q2pXkOIYfnQ0Bgt1Og2AHJwAAwBQJ
+Zrb5kE8IxgCC3U5SsIPhDgAwdYJZbg7kE4IxgGC3Ewt2MMq3G7dqGJ58Qws86Fif
+YB7YGYI2TJ55DSoEu50sgl00CcMwbKcsmIW6UJTERmgIdhc6CrbdWtenMBPyDS3w
+oGN3kGD6sgRhk2degwrBbqdVsN1NAoI9c/INLfCgY4egeTabPPMaVAh2O1sX7BO6
+WVAKRkq+oQUedOwQNM9mk2degwrBbieLYOumNRmCPRnyDS3woGOHoHk2mzzzGlQI
+djuDCfaGfnKvepGA8ejHC0/i6ULzJh5aHKks0LFD0DybTZ54UE0ZBLudIQV7737v
+YUPqAUPTma1U+7u1djsit494aHGkYnocKTo2cCbp0bGNNM9mkyceVFMGwW5nUMFe
+PbBcvhLn8Mqe5ei1emMm98wyFuKhxZHKAh07BM2z2eSJB9WUQbDbGVaw1Uv79dP2
+D8m0ZR/HL0651FCULxzs8XJ7z1PzZGCd2caUL+UsX4kfFVcvAzY1HlxXdy/VplSD
+9fuD9argvkK/Smjr8vbLRg5IPLRMqzhSWzxSdKxOnr9jG2mezSZPPKimDILdzsCC
+XZyfwdujoxh1Muu36Mi8kIwxb9px36+nPOW1S5zZoDI7M9HyuvaY9/TFxfV7oMtS
+1Rzk4jurnEV7iha6dXn7lcy5w8RDy7SqaBtHqu+RomO3qWMbaZ7NJk88qKYMgt3O
+wIKtzuGVQ3KuVme12tTy4vouMfLXbC0opx6XZCnjSRRX041cu8i1xZqk8st6jbEJ
+7ezmZu7oGYp4aBWt4kjVeDpCx/rx7Z4cNM9mkyceVFMGwW5naMFWn7X3yBRQ3Q0z
+b6t1LhTcc7h7jPw1k0UDyVLGU1d8Y13fwXMvL6LGKKea2uyNSi9zR89QxEOrbBVH
+Ku3pCB1bbermyUHzbDZ54kE1ZRDsdgYXbLVg5oXCIye/vUfnv4u+IaaYHfSUUdwz
+1J7m19Hrqss87r078cTF9aykgmWTTE82Mm5Mmc3WopxVC6O6yhjXMxTx0LKtkgWO
+lFl2PR2hY7epYxtpns0mTzyopgyC3c7wgh155Jw39+LksqNmtopizKbijpz1tL2O
+XmXbX8aUSaq6wuJVpWoWMz+6UfNs1Bg1MamCCmdeU7cNtTNRl152PUMRD624VaWH
+I1U0rwt0rE6ev2MbaZ7NJk88qKYMgt3OYIK9bawdXqk+2jeTe3aYA/mGViu760jR
+sUPQPJtNnh0cVDsAgt1Oq2BbzNakYHexoFR2DhX/OaT+YkLduLOf+ksQ7IB8Q6uO
+XXqk6NgdJJi7LEHY5Nn+QbWTINjtdBfsVtwkMFXyDS3woGPzEcw83QnyTJ55DSoE
+u52Mgp2LYgcxDJuRBaf5zlO0AxunIdhdiAVbCAY6AMDUCWa5OZBPCMYAgt1OUrAN
+wXAHAJgiwcw2H/IJwRhAsNtpEOyA4BwAABgnwdw1W/IJwRhAsNvpLtiGuE9PKP9b
+V3DOAABkJ5h/Rs3GUfUM18CZkXxCMAYQ7HYyCnaDJf5b18aqeseAHc3O/wcNzk8A
+mAHb+x++u/yHcjXneP+lzTw51T71RT0m3TwqTv9f9tLp/B85L4N+mqzxC4dX9OPW
+K4/+X3b7JV49JV7VUv6nuwL1wJnyf+L5qbqTTwjGAILdzqCC7fwfUHu+qXG/csiM
+exXjnQMetoiDOiv2rpbFyycp1uV0M/jZ5ERaWi7ee+hv1Q9lDJokW+WclFpMjKpX
+P2lyisRDS/UYR2rLJM7ZoHa96u9dCzZ4U6WSdMzQEFa3yfi33sJmuuRPxUx7HCYG
+1YRBsNsZUrD12/u91wPEg1vGdN0zm/wTRpM6Nxpyehncc0aKyPK6euOh8TjNOLRc
+fDC3yLnqV5psxkSIhxZHKguJczaYpvVqoq/q2VRwM1tPVZfB+DM2NUmX/ImYiY/D
+xKCaMAh2O8MKdnUa21VvCtP+wGOxZRs8xlmX04lXd8BsWfGrk606i+RjuP3s7C4r
+4krjGidEPLTMDtrdtKscqU2ROGdjwd6/x3/Utvcob9X+Ff2mLHMTVfa6DE7tWvQY
+8LKg6RO5qjMB5o3UJoObp1z2CtZXVD3S3N5MNnd6g8zBVieP7N2S2jv1qSVovK3F
+eUx6FeONkLr8bkyDxzinMg4Tg2rCINjtDCzY+sNm4qyuCCY1BzXKzZlpqLk6acjp
+ZnC+qZITzJzq9kxrOP1ssF2VbN75OS3ioVV2IEdqSyTO2aDH9GrVCc5Vl3GqTpBd
+0A02amGDq1KGqKzXk7KgxL5S7sXy/RxunmRBN0Ch85gXcMk1pbepzOD+jbe6q6oZ
+kipufFVL7FHHUcSyNb/x2FGkmP44TAyqCYNgtzO4YKuTQRbMqjof3CnMnCG+x1Jl
+qPcYZ13OZLyeC8pTWk5LFVB/+knj4+aZ2SRwToR4aFW9xJHaAolztpQBd9Xuqdp3
+Z++spppgE+YG201mNSi7oftqr1wlr6vfLQfxpoib0HpMJ9cVTMSrhSW5DjZVi8f4
+67aasn7xTex47KnLbyObPcY5lXGYGFQTBsFuZwSCrQf0sn2Db/nh2uB8FRSSOHmi
+4kln+hupEnFWNZZla76R8k/Fijr/BIiHFkcqC4lz1t9fs492T2Uhlg3bCXGw3WRW
+g7KGjXV9Rz11ZRkktJ5iuaZgIt5cr+suNR73b7zVlHVXZaH7joee+vxJz9THYWJQ
+TRgEu50xCLa+tig/DstAV/OC8q/JJ2t1cVAWCUidPDLuJU/Dbz69nDUZ3DOnWK0i
+3ZPZO7FV1cvrZcxOXbdlJx5aHKkspM5ZPZUXu6BuKcsU77Xf3rXWTrcTAo+7SRGV
+NUqmesB0hRugNxVXsbJcfuddfEfrFyzCTC3GWeyCOaBehoP6JrnX1GirTVXtQtz4
+qhYZIYHHHE1nN2vyV9kcT9nsqY7D1KCaLgh2O+MQ7OK0MatqpihuLlXfEiWQDCas
+xJw21f+qtF/41eVMnH7eGaUoYw6pK4zqf1XqTesHDtpP1sJRHaPrdU7giREPLY5U
+FtLn7FG5ct2zV7NsdnBd5m6lFrIs+mHutZqucDuhWC6D4/4Jyjq9XaiLDTCdX2ZQ
+x9c4i1spfsFERcXB3aN2xI83PxAzRar8/lY3j12NGm9rSf3orFhtyW9iTJKSyY/D
+9KCaKgh2O4MJ9hTZ7ucWjYF8Q2tIRnik5tGxQyM6qq6nI/9I4UlnmwHBbieLYHex
+oNQmWY9evJ/6ig62zlaHFkeqhnzn7C6kvBL1r3dhXoMKwW5n64INsyLf0AIPOhay
+M69BhWC301OwMQzDMCyXIdhd4AobPPINLfCgYyE78xpUCHY7CDZ45Bta4EHHQnbm
+NagQ7Ha2LtjFj8raLCgFIyXf0AIPOhayM69BhWC3k0WwddOaDMGeDPmGFnjQsZCd
+eQ0qBLudwQRbPcTAeeCA80SC2kcWGGfJ0mH1oCjXo6ieeaRT2UciOK+mhybiocWR
+ykLqnK06UD1eo+iK0eEd0G5HJywSBfTDGTCgSA2q6YJgtzOoYMvsXJ5+9lR0Hgqo
+Y0qpaDpX1fMIq//sW0aaZ3KFDx20YZAkHlocqSzEHStqvbfsQP2RZaSPBHEP6IZ6
+tlrxrLQGvCIN42GTmFQZE06deFBNGQS7nSEFe+/qAfPGxnK16ZUSTWdpUgaiVNCF
+eGhxpLIQdexk9jo4oE3Ht8SL8Q/6VuhS9a4iPlunDILdzrCCXX1YtqvBuW09NjJB
+Sgaa4qGeeGgF/WlXOVKbIurY9F6r3lhZMg/2sgFVR63Yh2yXXe17tDP0lP7mYPXp
+oao9Okx21R7EoGwV4BVRt/3NcnX/v/jwVz23PPl487iISVsmD4vvQuKzdcog2O0M
+LNj6oYPxqehEVrOD862Y4E5GCHY+4qFV9iRHaktEHVvttfpyQfeV6Y1F/YJIt1ts
+R1WvoipfURV41O0K/zVWJoNJkggur/KrKsrXU7oFbUsUplRUtgowdZUDoFbO3QEj
+C7rlVrmDr0VMEfdvWNwJ3j3EZ+uUQbDbGVyw1STunorBuWc9VXzMLpaB7MRDq+pJ
+jtQWiDo23OugN9xuiTuqu8csB6s22MqqIn57ZlRQoQ9iXDbWV7taOpf22keCy1al
+0Oo3hgfX1RsyuhQxMUWkXzwouEuIz9Ypg2C3MwLBVp/39xTv8nM+thv4ZnSHiYcW
+RyoLUceGe216w/ae243Bpk15zHKwaoPdw2H9rid21pV1SeSRQ19eu7tbN9YPmDvw
+XYq4f02MLV4U2WXEZ+uUQbDbGYNg6zPTfOg2tweLn862vjq+JCkD+r4fvxLfLPHQ
+4khlIe5Y91fiaq+di0gVoPrK9EPxNbBsyn9L3N6F1vVWtTu4Tv0rcf0NdFTWBBRh
+cR5ndw6u6CFkD7T5xOYmNJuiIl4jg+IqbNcRD6opg2C3Mw7B1jNIudrxf/c6/7dE
+ndixDMhy9b977c9YoJl4aHGkspA6Z70ONLejvT4pf1Rl7mqoTfvL33npmNijnaGn
+9KeCy995mSPo1O4VlIAC5+gEZW282pTIYw+xNMM0oPJYnTYJy1rCIiZtmTwsvgtJ
+DarpgmC3M5hgwzjJN7TAY+sdG6tgShdr2VQwTIJ5na0IdjtZBLuLBaVgpOQbWuCx
+9Y5FsCFgXmcrgt3O1gUbZkW+oQUedCxkZ16DCsFup6dgYxiGYVguQ7C7wBU2eOQb
+WuBBx0J25jWoEOx2EGzwyDe0wIOOhezMa1Ah2O1sXbCLH5W1WVAKRkq+oQUedCxk
+Z16DCsFuJ4tg66Y1GYI9GfINLfCgYyE78xpUCHY7Awp2t8du6BdOBPGL0dv+1VO3
+nKcdqST+qvkPLc7/bElnq69dkahln/MwKfWopuKRFA2bDEGq8ZAaWukjBZuCjoXs
+pAbVdEGw2xlMsJ0HW2p5K9XL0VRBzWhmVS2U8eL33/avXiS1vFI98Mjopc1jc9qF
+umx1tWsStezdXwW4lTZs0oSpxkM8tOqO1FZQ/VP1xq6AjoXsxINqyiDY7Qwl2J1f
+HWEeZtn8uGDZKjH6XVLGo5McMK+DLFfVpmKhPlu6drNcW0uRStS9eDFG4yZFlGo8
+REOr9kjBpqBjITvRoJo0CHY7Qwl24jVBxuNLZnGNG+qoj2xVM50jwybelgoW7GqM
+v8m7wpZNyVokRl8oy0Vz9XbChk3JVOMhGlrpI6V2cGWpfM9S+Uzp8jHjsuOyqtCf
+mXSwfquS6yk6yivrpk0l0Zv27Tlo3tEkfvPe6JQ/boZp/1DQsZCdaFBNGgS7ncEE
+20wrFeW1rEwTxVygMTeu7TQkqBuJZlPhWTtYzBqyUNxkLuPVnWd/FlMLDdlkk1kt
+nLp2HVlbS5FNXy7bzA2bkqnGQzS0bLNL9JGS3Vk0rz6Ujx3F66GqfrbYfnDn+qo3
+orI6snijosXdZAaDXWjwxxlcz85Dx0J2okE1aRDsdkZ9ha3e5ecrrqXyqLnJkVjt
+rLY26Ggqm7vJ1q5WG2qRTfqqRS6awzypTclU4yEaWvUXgu6elptK55Jc2NkdjGPc
+v7G/9KSTBAt1/jiDeAaEjoXsRINq0iDY7Qwl2OHd4LrvsAu/iJwf704ipqCiDHOS
+qKtY/6vlxHfYbrayoMJtVX0tqorgg0XzpjhVsToCoqEVttD0SbSnalOxLFeK5cWc
+8cQxzX7lqU8SLNT54wyyMCB0LGQnGlSTBsFuZyjBVtOTup5Qy2uHy3tu4g+nAJkd
+9IWIuuNXxKv35pYf7YO7ysWql6QKrvw12epqb6lFFkwjXU/NpnSqcnV44qGVPFJ2
+B9VnjvLuq7krqzvNHE3183vxVMFlwcITla0i65MEC3X+OINKOxx0LGQnHlRTBsFu
+ZzDBVpNU+dOV4P9he1NAdQ3qxRe/4aq2FgRzjUZEsZhWHH8qW13tnWqp/O5CuKkm
+lV0dnNTQShwpt9myXGwt+lnmcePZYzxBsOsJyjqRtUmChTp/nEGnHQw6FrKTGlTT
+BcFuZ0DBhjGyhaEl8lN8g7B5tlJ2GtCxkJ0tDKoRgmC3k0Wwu1hQCkbK5ofWIf0/
+f/TFnHOnpBtbKTsx6FjIzuYH1ZhBsNvZumDDrMg3tMCDjoXszGtQIdjt9BRsDMMw
+DMtlCHYXuMIGj3xDCzzoWMjOvAYVgt0Ogg0e+YYWeNCxkJ15DSoEu52tC3bxo7I2
+C0rBSMk3tMCDjoXszGtQIdjtZBFs3bQmQ7AnQ76hBR50LGRnXoMKwW5nMMHeKB/s
+UFA+tTv07yuf5m2eDOU8dcSLlOLV88ISz6Mo4v3iwXMhCo4eOuj/T5jDq0sH13fL
+0yHioRUeEY5UL+hYyE48qKYMgt3OkILtzBFqfknPHRXq1VvLxQsrFW6kelHHvmKT
+mtTsY0edGUoty/xli9TNVibSvphhXT052Z285k08tPz+4Uj1hI6F7MSDasog2O2M
+RLDNI469x3GHHFVvvpKweLrxVqNnf8rkZZ70pAMOmBduVvHpGtXTTFUpyVZOgruE
+eGiF/cOR6gUdC9mJB9WUQbDbmcwVtviL6cO5XPAi9XwnzurKQGM9Jt6Wihc89Dy1
+vN95s9buIB5afv9wpHpCx0J24kE1ZRDsdoYUbPMdm6F6d5bvL6ce+bxvLgtkofi8
+H84yeiKzr/GoCC9c1H1FSWWLh3lKVEv8iW83EA8t1Q/OEeFI9YOOhezEg2rKINjt
+jOIKW339VkxGNXOH+rBfTWHpWabb5YVy6puKdjXMU1Lnnzfx0HL7gSPVGzoWshMP
+qimDYLczCsEW/K/ZwjlCnNV9OX0ZIdciQWSxWm61/lRmdY2y3OEOZNI/b+KhFfQD
+R6ofdCxkJx5UUwbBbmcsgm0uDhJ+RXUP0F11I/VPZIsLFJme1HWGjjws1xbl5OVl
+lurqLlNK6vzzJh5aYT9wpHpBx0J24kE1ZRDsdkYj2M5Fg7npV7LnoLpb6F0xmLJe
+5P5O/wnVqVGmvGq2qvLsK65FovjdQjy0wn7gSPWCjoXsxINqyiDY7Qwm2DBO8g0t
+8KBjITvzGlQIdjtZBLuLBaVgpOQbWuBBx0J25jWoEOx2ti7YMCvyDS3woGMhO/Ma
+VAh2Oz0FG8MwDMNy2egFW8SXK2wYGfmGFnjQsZCdeQ2qkQu26C+CDSMj39ACDzoW
+sjOvQTVywZZNcxDs4kdlbRaUgpGSb2iBBx0L2ZnXoEKw28ki2LppTYZgT4Z8Qws8
+6FjIzrwGFYLdzmCCHTyroe3t/dWDIBb37Vl2Hv7Q4QERhacsbiiqg4B4aHGkskDH
+QnbiQTVlEOx2hhRsZ0JRk45ZjScaQW0tHrUorB0sn43sPIJRz0fl06CSs1WcFmLi
+ocWRygIdC9mJB9WUQbDbGYlgNz5IOXqZQZ1fJi8zizFb9SYeWhypLNCxkJ14UE0Z
+BLudCVxh10004jcTXOzpngQC4qHldx1Hqid0LGQnHlRTBsFuZ0jBdr9Ra3h7vzvR
+qBuAJt55m29F/TVKnNbdCpZ4aAVdx5HqBx0L2YkH1ZRBsNsZxRV289v76zxqAvIn
+HevpkgSSxEPL7TqOVG/oWMhOPKimDILdzigEW2j47i3+oq6I4Qu8bSAeWhypLNCx
+kJ14UE0ZBLudsQh20y9u1DRU/UR2QyL1/UDt1zcMlb/+Rf01HkgSDy2OVBboWMhO
+PKimDILdzmgEu7xWEH/xHVvBnoPqtfzqJznGs3flgExMZVnPb6YqIUgi1xw1aSEk
+HlocqSzQsZCdeFBNGQS7ncEEG8ZJvqEFHnQsZGdegwrBbieLYHexoBSMlHxDCzzo
+WMjOvAYVgt3O1gUbZkW+oQUedCxkZ16DCsFup6dgYxiGYVguQ7C7wBU2eOQbWuBB
+x0J25jWoEOx2EGzwyDe0wIOOhezMa1Ah2O1sXbCLH5W1WVAKRkq+oQUedCxkZ16D
+CsFuJ4tg66Y1GYI9GfINLfCgYyE78xpUCHY7Qwq2fZLD3v0Hynfp1z4FwnvEhKLD
+8yL2Lx0uHw3hZojrDUsV2dJVzJvk0Ip7jCO1WTp3rIfbG61sKnhAptLO8ZMcVJMF
+wW5nOMFeX3Ifo2geyug8Z1E765+z2CVSvVChfJxT5U/V65Uql+uqmDeJocWRykHH
+jg1w97cVE7ypIg0k83RP3hCZt50ZGWGTmkkMqgmDYLczmGAnzo3ubzLoHGlX4wUX
+zynTqEyd9VXMm3hoJXqMI7V5OnVsRJcYy6aCB2S07ZxKB1riQTVlEOx2hrvClnl2
+39LB9TU71crZElxkWE9wInWPLOZ01x/V623VN1dluaGKeZMYWhypHHTpWGFjdWlv
+cW/f643A71Ju2rN3v/uS7LWD+1X84v6lg0d1npUwQ5QzKqLyHFrWMYqV6s3ciXau
+HFguix82nuJINbfTbk200H7TYb/+qOrVSeIYk0e3ZM/Bdd2k8gsXp83qE17YZnU4
+9NbUDo6TxKCaMAh2O8MJtpwS5nRSZ0t5/vhneGIS13SPVHNilDyoV3lkitcnpz4/
+Wxozb5JDiyO1dbp0rJFwrS5KO5f1GzvU3kX+Komz6fCKI4ROP8uC/mv6sMwQ54yK
+OB3b0h5VpNRF+0HKKV7fzjJAZQhaWG4yW/16S08Uo/KUA8kbrlLWGUVlZE2b485x
+KhoPyUE1WRDsdoYU7JLqBA7mWeupTiTfH3uCyFp5UBT1Jrc2VDFvGocWR6o/HTvW
+7p1Zdv+6frMcrHrBSnLkMrS4gq8Nc5M0FnGPTly22WOdmwrQC0tyJV18Pku2uT4m
+WJC/JqZgv/vGsyomKBssj43GQTU5EOx2xiDY5WTtfAQ2yCxmPtuG50znyOQZWNEg
+EvVVzJuWocWR6kuXjnX3ziy7f12/WQ5WE8HmCr4+s+spluMi0sNyudlYttljnZsK
+UH0isupcT28qJliQv2YIWWyAXQ6KxGFjo2VQTQwEu52hBFvfaCpOg+r6SRbUTGGc
+coKVE3F8znSJlKknmGjq6k2ek3VVzJtoaHGk8tCpY400Ondii/2N/FUef5MEF0W0
+kql+0B9oVLd0uSXuF9Fd7dVY1x73uJhl16Ooa2cZIKthC9WHmNIT9o8cdF08irFp
+wwVd1v2fCDYg4Yl20ISNjWhQTRoEu53hrrCPHiq+vVNfRprZVpCZq7hzZb6hNMFy
+IhmnQZ8/HSLLL6iMvzwVE/VWWz3SVcybxNDiSOWgY8dWv3XSu2n3N/C7lD25Z3m/
+Ci6LiIAV/uIXZPvDDFHOqIj4lXSpGIVzG7munXbZ9Vi/Se63s9oatbBqj/2JWZnE
+/ugsjLFpEwvrZX49SKy/ilEfHNWHP+0Ju2uEJAbVhEGw2xlOsGGU5Bta4DFsx7ri
+NE422UL5iDbeC98dY15nK4LdThbB7mJBKRgp+YYWeAzbsXMRbPeexG656dXAvM5W
+BLudrQs2zIp8Qws86FjIzrwGFYLdTk/BxjAMw7BchmB3gSts8Mg3tMCDjoXszGtQ
+IdjtINjgkW9ogQcdC9mZ16BCsNtBsMEj39ACDzoWsjOvQYVgt4Ngg0e+oQUedCxk
+Z16DCsFuB8EGj3xDCzzoWMjOvAYVgt0Ogg0e+YYWeNCxkJ15DSoEux0EGzzyDS3w
+oGMhO/MaVAh2Owg2eOQbWuBBx0J25jWoEOx2EGzwyDe0wIOOhezMa1Ah2O0g2OCR
+b2iBBx0L2ZnXoEKw20GwwSPf0AIPOhayM69BhWC3g2CDR76hBR50LGRnXoMKwW4H
+wQaPfEMLPOhYyM68BtXYBfvYsf8PClHCLlWTtp0AAAAASUVORK5CYII==
+
+-----------blocknote.net--16MYTBGJTTQQ8Y40EBV2M1Y2M--

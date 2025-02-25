@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -127,6 +127,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetgrant 		=> Tables["assetgrant"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetattachment 		=> Tables["assetattachment"];
 
 	#endregion
 
@@ -1747,6 +1750,28 @@ private void initClass() {
 	tassetgrant.PrimaryKey =  new DataColumn[]{tassetgrant.Columns["idasset"], tassetgrant.Columns["idgrant"], tassetgrant.Columns["idpiece"]};
 
 
+	//////////////////// ASSETATTACHMENT /////////////////////////////////
+	var tassetattachment= new DataTable("assetattachment");
+	C= new DataColumn("idasset", typeof(int));
+	C.AllowDBNull=false;
+	tassetattachment.Columns.Add(C);
+	C= new DataColumn("idpiece", typeof(int));
+	C.AllowDBNull=false;
+	tassetattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tassetattachment.Columns.Add(C);
+	tassetattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tassetattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tassetattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tassetattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tassetattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tassetattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tassetattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tassetattachment);
+	tassetattachment.PrimaryKey =  new DataColumn[]{tassetattachment.Columns["idasset"], tassetattachment.Columns["idpiece"], tassetattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -1874,6 +1899,10 @@ private void initClass() {
 	cPar = new []{assetgrant.Columns["idasset"], assetgrant.Columns["idpiece"], assetgrant.Columns["idgrant"]};
 	cChild = new []{assetgrantdetail.Columns["idasset"], assetgrantdetail.Columns["idpiece"], assetgrantdetail.Columns["idgrant"]};
 	Relations.Add(new DataRelation("assetgrantdetail_assetgrant",cPar,cChild,false));
+
+	cPar = new []{asset.Columns["idasset"], asset.Columns["idpiece"]};
+	cChild = new []{assetattachment.Columns["idasset"], assetattachment.Columns["idpiece"]};
+	Relations.Add(new DataRelation("asset_assetattachment",cPar,cChild,false));
 
 	#endregion
 

@@ -699,6 +699,7 @@
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="movkind" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -714,6 +715,7 @@
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="movkind" type="xs:int" minOccurs="0" />
               <xs:element name="idinc" type="xs:int" />
             </xs:sequence>
@@ -727,6 +729,7 @@
               <xs:element name="ndetail" type="xs:int" />
               <xs:element name="idexp" type="xs:int" />
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />

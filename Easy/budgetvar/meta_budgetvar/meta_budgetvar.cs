@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,12 +34,20 @@ namespace meta_budgetvar {
             EditTypes.Add("default");
             ListingTypes.Add("default");
             ListingTypes.Add("documentocollegato");
+            EditTypes.Add("relation");
         }
         protected override Form GetForm(string FormName) {
-            if (FormName == "default") {
+            if (FormName == "default" || FormName == "relation") {
                 DefaultListType = "default";
                 Name = "Variazione";
-                return GetFormByDllName("budgetvar_default");
+                if (FormName == "relation") {
+                    // Classificazione Budget Schema Ufficiale
+                    object default_idsorkind = Conn.DO_READ_VALUE("sortingkind",
+                    QHS.AppAnd(QHS.BitSet("flag", 2),QHS.CmpEq("active","S")), "idsorkind");
+                    if ((default_idsorkind != DBNull.Value)&& (default_idsorkind !=null))
+                        this.ExtraParameter = default_idsorkind.ToString();
+                }
+                return GetFormByDllName("budgetvar_default"); 
             }
             return null;
         }

@@ -17,6 +17,21 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:string" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="iditinerationrefundattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundattachmentkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundattachmentkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -28,5 +43,14 @@
       <xs:field xpath="mstns:iditineration" />
       <xs:field xpath="mstns:nrefund" />
     </xs:unique>
+    <xs:unique name="itinerationrefundattachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundattachmentkind" />
+      <xs:field xpath="mstns:iditinerationrefundattachmentkind" />
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="itinerationrefundattachmentkind_itinerationrefundattachment" msdata:parent="itinerationrefundattachmentkind" msdata:child="itinerationrefundattachment" msdata:parentkey="iditinerationrefundattachmentkind" msdata:childkey="iditinerationrefundattachmentkind" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

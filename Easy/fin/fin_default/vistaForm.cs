@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,39 +29,21 @@ namespace fin_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
-	///<summary>
-	///Classificazione bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finsorting 		=> Tables["finsorting"];
 
-	///<summary>
-	///Livelli del bilancio annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finlevel 		=> Tables["finlevel"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///Informazioni su voce bilancio foglia
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finlast 		=> Tables["finlast"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
@@ -74,39 +56,21 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finyearview 		=> Tables["finyearview"];
 
-	///<summary>
-	///Configurazione classificazioni automatiche movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable autoexpensesorting 		=> Tables["autoexpensesorting"];
 
-	///<summary>
-	///Configurazione classificazioni automatiche movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable autoincomesorting 		=> Tables["autoincomesorting"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingkind 		=> Tables["sortingkind"];
 
-	///<summary>
-	///Configurazione filtro classificazione spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingexpensefilter 		=> Tables["sortingexpensefilter"];
 
-	///<summary>
-	///Configurazione filtro classificazione entrate
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingincomefilter 		=> Tables["sortingincomefilter"];
 
@@ -116,14 +80,14 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finview 		=> Tables["finview"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotiveapplied 		=> Tables["accmotiveapplied"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable finattachment 		=> Tables["finattachment"];
 
 	#endregion
 
@@ -1131,6 +1095,25 @@ private void initClass() {
 	taccmotiveapplied.PrimaryKey =  new DataColumn[]{taccmotiveapplied.Columns["idaccmotive"]};
 
 
+	//////////////////// FINATTACHMENT /////////////////////////////////
+	var tfinattachment= new DataTable("finattachment");
+	C= new DataColumn("idfin", typeof(int));
+	C.AllowDBNull=false;
+	tfinattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tfinattachment.Columns.Add(C);
+	tfinattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tfinattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tfinattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tfinattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tfinattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tfinattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tfinattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tfinattachment);
+	tfinattachment.PrimaryKey =  new DataColumn[]{tfinattachment.Columns["idfin"], tfinattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -1226,6 +1209,10 @@ private void initClass() {
 	cPar = new []{accmotiveapplied.Columns["idaccmotive"]};
 	cChild = new []{finlast.Columns["idaccmotive"]};
 	Relations.Add(new DataRelation("accmotiveapplied_finlast",cPar,cChild,false));
+
+	cPar = new []{fin.Columns["idfin"]};
+	cChild = new []{finattachment.Columns["idfin"]};
+	Relations.Add(new DataRelation("fin_finattachment",cPar,cChild,false));
 
 	#endregion
 

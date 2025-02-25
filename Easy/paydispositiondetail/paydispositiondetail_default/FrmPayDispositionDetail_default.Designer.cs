@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -105,6 +105,15 @@ namespace paydispositiondetail_default {
 			this.label3 = new System.Windows.Forms.Label();
 			this.txtCausale = new System.Windows.Forms.TextBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.grpModalitaPag = new System.Windows.Forms.GroupBox();
+			this.rdbGirofondoiban = new System.Windows.Forms.RadioButton();
+			this.rdbGirofondoTabB = new System.Windows.Forms.RadioButton();
+			this.rdbGirofondoTabA = new System.Windows.Forms.RadioButton();
+			this.rdbAssegnoQuietanza = new System.Windows.Forms.RadioButton();
+			this.rdbAssegnoCircolare = new System.Windows.Forms.RadioButton();
+			this.rdbAssegno = new System.Windows.Forms.RadioButton();
+			this.rdbCassa = new System.Windows.Forms.RadioButton();
+			this.rdbBonifico = new System.Windows.Forms.RadioButton();
 			this.cmbChargeHandling = new System.Windows.Forms.ComboBox();
 			this.btnChargeHandling = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -153,14 +162,6 @@ namespace paydispositiondetail_default {
 			this.txtAnnoAccademico1 = new System.Windows.Forms.TextBox();
 			this.label31 = new System.Windows.Forms.Label();
 			this.chkRimborsotasse = new System.Windows.Forms.CheckBox();
-			this.grpModalitaPag = new System.Windows.Forms.GroupBox();
-			this.rdbGirofondoTabB = new System.Windows.Forms.RadioButton();
-			this.rdbGirofondoTabA = new System.Windows.Forms.RadioButton();
-			this.rdbAssegnoQuietanza = new System.Windows.Forms.RadioButton();
-			this.rdbAssegnoCircolare = new System.Windows.Forms.RadioButton();
-			this.rdbAssegno = new System.Windows.Forms.RadioButton();
-			this.rdbCassa = new System.Windows.Forms.RadioButton();
-			this.rdbBonifico = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -173,6 +174,7 @@ namespace paydispositiondetail_default {
 			this.grpItaliano.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.grpModalitaPag.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.grpCoordinateBancarie.SuspendLayout();
 			this.tabDispPag.SuspendLayout();
@@ -180,7 +182,6 @@ namespace paydispositiondetail_default {
 			this.tabPage3.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			this.groupBox7.SuspendLayout();
-			this.grpModalitaPag.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DS
@@ -851,6 +852,119 @@ namespace paydispositiondetail_default {
 			this.tabPage2.Text = "Coordinate Bancarie";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
+			// grpModalitaPag
+			// 
+			this.grpModalitaPag.Controls.Add(this.rdbGirofondoiban);
+			this.grpModalitaPag.Controls.Add(this.rdbGirofondoTabB);
+			this.grpModalitaPag.Controls.Add(this.rdbGirofondoTabA);
+			this.grpModalitaPag.Controls.Add(this.rdbAssegnoQuietanza);
+			this.grpModalitaPag.Controls.Add(this.rdbAssegnoCircolare);
+			this.grpModalitaPag.Controls.Add(this.rdbAssegno);
+			this.grpModalitaPag.Controls.Add(this.rdbCassa);
+			this.grpModalitaPag.Controls.Add(this.rdbBonifico);
+			this.grpModalitaPag.Location = new System.Drawing.Point(6, 10);
+			this.grpModalitaPag.Name = "grpModalitaPag";
+			this.grpModalitaPag.Size = new System.Drawing.Size(572, 99);
+			this.grpModalitaPag.TabIndex = 71;
+			this.grpModalitaPag.TabStop = false;
+			this.grpModalitaPag.Text = "Modalità di Pagamento";
+			// 
+			// rdbGirofondoiban
+			// 
+			this.rdbGirofondoiban.AutoSize = true;
+			this.rdbGirofondoiban.Location = new System.Drawing.Point(173, 45);
+			this.rdbGirofondoiban.Name = "rdbGirofondoiban";
+			this.rdbGirofondoiban.Size = new System.Drawing.Size(71, 17);
+			this.rdbGirofondoiban.TabIndex = 9;
+			this.rdbGirofondoiban.TabStop = true;
+			this.rdbGirofondoiban.Tag = "paydispositiondetail.paymethodcode:8";
+			this.rdbGirofondoiban.Text = "Girofondo";
+			this.rdbGirofondoiban.UseVisualStyleBackColor = true;
+			// 
+			// rdbGirofondoTabB
+			// 
+			this.rdbGirofondoTabB.AutoSize = true;
+			this.rdbGirofondoTabB.Location = new System.Drawing.Point(173, 68);
+			this.rdbGirofondoTabB.Name = "rdbGirofondoTabB";
+			this.rdbGirofondoTabB.Size = new System.Drawing.Size(139, 17);
+			this.rdbGirofondoTabB.TabIndex = 8;
+			this.rdbGirofondoTabB.TabStop = true;
+			this.rdbGirofondoTabB.Tag = "paydispositiondetail.paymethodcode:7";
+			this.rdbGirofondoTabB.Text = "Girofondo Tab B(disuso)";
+			this.rdbGirofondoTabB.UseVisualStyleBackColor = true;
+			// 
+			// rdbGirofondoTabA
+			// 
+			this.rdbGirofondoTabA.AutoSize = true;
+			this.rdbGirofondoTabA.Location = new System.Drawing.Point(24, 68);
+			this.rdbGirofondoTabA.Name = "rdbGirofondoTabA";
+			this.rdbGirofondoTabA.Size = new System.Drawing.Size(139, 17);
+			this.rdbGirofondoTabA.TabIndex = 7;
+			this.rdbGirofondoTabA.TabStop = true;
+			this.rdbGirofondoTabA.Tag = "paydispositiondetail.paymethodcode:6";
+			this.rdbGirofondoTabA.Text = "Girofondo Tab A(disuso)";
+			this.rdbGirofondoTabA.UseVisualStyleBackColor = true;
+			// 
+			// rdbAssegnoQuietanza
+			// 
+			this.rdbAssegnoQuietanza.AutoSize = true;
+			this.rdbAssegnoQuietanza.Location = new System.Drawing.Point(24, 45);
+			this.rdbAssegnoQuietanza.Name = "rdbAssegnoQuietanza";
+			this.rdbAssegnoQuietanza.Size = new System.Drawing.Size(128, 17);
+			this.rdbAssegnoQuietanza.TabIndex = 6;
+			this.rdbAssegnoQuietanza.TabStop = true;
+			this.rdbAssegnoQuietanza.Tag = "paydispositiondetail.paymethodcode:5";
+			this.rdbAssegnoQuietanza.Text = "Assegno di Quietanza";
+			this.rdbAssegnoQuietanza.UseVisualStyleBackColor = true;
+			// 
+			// rdbAssegnoCircolare
+			// 
+			this.rdbAssegnoCircolare.AutoSize = true;
+			this.rdbAssegnoCircolare.Location = new System.Drawing.Point(375, 22);
+			this.rdbAssegnoCircolare.Name = "rdbAssegnoCircolare";
+			this.rdbAssegnoCircolare.Size = new System.Drawing.Size(187, 17);
+			this.rdbAssegnoCircolare.TabIndex = 5;
+			this.rdbAssegnoCircolare.TabStop = true;
+			this.rdbAssegnoCircolare.Tag = "paydispositiondetail.paymethodcode:4";
+			this.rdbAssegnoCircolare.Text = "Assegno Circolare Non Trasferibile";
+			this.rdbAssegnoCircolare.UseVisualStyleBackColor = true;
+			// 
+			// rdbAssegno
+			// 
+			this.rdbAssegno.AutoSize = true;
+			this.rdbAssegno.Location = new System.Drawing.Point(260, 22);
+			this.rdbAssegno.Name = "rdbAssegno";
+			this.rdbAssegno.Size = new System.Drawing.Size(110, 17);
+			this.rdbAssegno.TabIndex = 4;
+			this.rdbAssegno.TabStop = true;
+			this.rdbAssegno.Tag = "paydispositiondetail.paymethodcode:3";
+			this.rdbAssegno.Text = "Assegno Circolare";
+			this.rdbAssegno.UseVisualStyleBackColor = true;
+			// 
+			// rdbCassa
+			// 
+			this.rdbCassa.AutoSize = true;
+			this.rdbCassa.Location = new System.Drawing.Point(174, 22);
+			this.rdbCassa.Name = "rdbCassa";
+			this.rdbCassa.Size = new System.Drawing.Size(54, 17);
+			this.rdbCassa.TabIndex = 3;
+			this.rdbCassa.TabStop = true;
+			this.rdbCassa.Tag = "paydispositiondetail.paymethodcode:2";
+			this.rdbCassa.Text = "Cassa";
+			this.rdbCassa.UseVisualStyleBackColor = true;
+			// 
+			// rdbBonifico
+			// 
+			this.rdbBonifico.AutoSize = true;
+			this.rdbBonifico.Location = new System.Drawing.Point(25, 21);
+			this.rdbBonifico.Name = "rdbBonifico";
+			this.rdbBonifico.Size = new System.Drawing.Size(63, 17);
+			this.rdbBonifico.TabIndex = 2;
+			this.rdbBonifico.TabStop = true;
+			this.rdbBonifico.Tag = "paydispositiondetail.paymethodcode:1";
+			this.rdbBonifico.Text = "Bonifico";
+			this.rdbBonifico.UseVisualStyleBackColor = true;
+			// 
 			// cmbChargeHandling
 			// 
 			this.cmbChargeHandling.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -858,7 +972,7 @@ namespace paydispositiondetail_default {
 			this.cmbChargeHandling.DataSource = this.DS.chargehandling;
 			this.cmbChargeHandling.DisplayMember = "description";
 			this.cmbChargeHandling.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbChargeHandling.Location = new System.Drawing.Point(96, 321);
+			this.cmbChargeHandling.Location = new System.Drawing.Point(96, 360);
 			this.cmbChargeHandling.Name = "cmbChargeHandling";
 			this.cmbChargeHandling.Size = new System.Drawing.Size(290, 21);
 			this.cmbChargeHandling.TabIndex = 70;
@@ -879,7 +993,7 @@ namespace paydispositiondetail_default {
 			// 
 			this.groupBox2.Controls.Add(this.label18);
 			this.groupBox2.Controls.Add(this.textBox2);
-			this.groupBox2.Location = new System.Drawing.Point(6, 349);
+			this.groupBox2.Location = new System.Drawing.Point(6, 388);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(572, 69);
 			this.groupBox2.TabIndex = 17;
@@ -926,7 +1040,7 @@ namespace paydispositiondetail_default {
 			this.grpCoordinateBancarie.Controls.Add(this.label11);
 			this.grpCoordinateBancarie.Controls.Add(this.txtABI);
 			this.grpCoordinateBancarie.Controls.Add(this.txtCAB);
-			this.grpCoordinateBancarie.Location = new System.Drawing.Point(6, 94);
+			this.grpCoordinateBancarie.Location = new System.Drawing.Point(6, 133);
 			this.grpCoordinateBancarie.Name = "grpCoordinateBancarie";
 			this.grpCoordinateBancarie.Size = new System.Drawing.Size(572, 210);
 			this.grpCoordinateBancarie.TabIndex = 16;
@@ -1356,106 +1470,6 @@ namespace paydispositiondetail_default {
 			this.chkRimborsotasse.Text = "Rimborso Tasse";
 			this.chkRimborsotasse.UseVisualStyleBackColor = true;
 			// 
-			// grpModalitaPag
-			// 
-			this.grpModalitaPag.Controls.Add(this.rdbGirofondoTabB);
-			this.grpModalitaPag.Controls.Add(this.rdbGirofondoTabA);
-			this.grpModalitaPag.Controls.Add(this.rdbAssegnoQuietanza);
-			this.grpModalitaPag.Controls.Add(this.rdbAssegnoCircolare);
-			this.grpModalitaPag.Controls.Add(this.rdbAssegno);
-			this.grpModalitaPag.Controls.Add(this.rdbCassa);
-			this.grpModalitaPag.Controls.Add(this.rdbBonifico);
-			this.grpModalitaPag.Location = new System.Drawing.Point(6, 10);
-			this.grpModalitaPag.Name = "grpModalitaPag";
-			this.grpModalitaPag.Size = new System.Drawing.Size(572, 78);
-			this.grpModalitaPag.TabIndex = 71;
-			this.grpModalitaPag.TabStop = false;
-			this.grpModalitaPag.Text = "Modalità di Pagamento";
-			// 
-			// rdbGirofondoTabB
-			// 
-			this.rdbGirofondoTabB.AutoSize = true;
-			this.rdbGirofondoTabB.Location = new System.Drawing.Point(327, 45);
-			this.rdbGirofondoTabB.Name = "rdbGirofondoTabB";
-			this.rdbGirofondoTabB.Size = new System.Drawing.Size(103, 17);
-			this.rdbGirofondoTabB.TabIndex = 8;
-			this.rdbGirofondoTabB.TabStop = true;
-			this.rdbGirofondoTabB.Tag = "paydispositiondetail.paymethodcode:7";
-			this.rdbGirofondoTabB.Text = "Girofondo Tab B";
-			this.rdbGirofondoTabB.UseVisualStyleBackColor = true;
-			// 
-			// rdbGirofondoTabA
-			// 
-			this.rdbGirofondoTabA.AutoSize = true;
-			this.rdbGirofondoTabA.Location = new System.Drawing.Point(192, 45);
-			this.rdbGirofondoTabA.Name = "rdbGirofondoTabA";
-			this.rdbGirofondoTabA.Size = new System.Drawing.Size(103, 17);
-			this.rdbGirofondoTabA.TabIndex = 7;
-			this.rdbGirofondoTabA.TabStop = true;
-			this.rdbGirofondoTabA.Tag = "paydispositiondetail.paymethodcode:6";
-			this.rdbGirofondoTabA.Text = "Girofondo Tab A";
-			this.rdbGirofondoTabA.UseVisualStyleBackColor = true;
-			// 
-			// rdbAssegnoQuietanza
-			// 
-			this.rdbAssegnoQuietanza.AutoSize = true;
-			this.rdbAssegnoQuietanza.Location = new System.Drawing.Point(25, 45);
-			this.rdbAssegnoQuietanza.Name = "rdbAssegnoQuietanza";
-			this.rdbAssegnoQuietanza.Size = new System.Drawing.Size(128, 17);
-			this.rdbAssegnoQuietanza.TabIndex = 6;
-			this.rdbAssegnoQuietanza.TabStop = true;
-			this.rdbAssegnoQuietanza.Tag = "paydispositiondetail.paymethodcode:5";
-			this.rdbAssegnoQuietanza.Text = "Assegno di Quietanza";
-			this.rdbAssegnoQuietanza.UseVisualStyleBackColor = true;
-			// 
-			// rdbAssegnoCircolare
-			// 
-			this.rdbAssegnoCircolare.AutoSize = true;
-			this.rdbAssegnoCircolare.Location = new System.Drawing.Point(326, 22);
-			this.rdbAssegnoCircolare.Name = "rdbAssegnoCircolare";
-			this.rdbAssegnoCircolare.Size = new System.Drawing.Size(187, 17);
-			this.rdbAssegnoCircolare.TabIndex = 5;
-			this.rdbAssegnoCircolare.TabStop = true;
-			this.rdbAssegnoCircolare.Tag = "paydispositiondetail.paymethodcode:4";
-			this.rdbAssegnoCircolare.Text = "Assegno Circolare Non Trasferibile";
-			this.rdbAssegnoCircolare.UseVisualStyleBackColor = true;
-			// 
-			// rdbAssegno
-			// 
-			this.rdbAssegno.AutoSize = true;
-			this.rdbAssegno.Location = new System.Drawing.Point(192, 22);
-			this.rdbAssegno.Name = "rdbAssegno";
-			this.rdbAssegno.Size = new System.Drawing.Size(110, 17);
-			this.rdbAssegno.TabIndex = 4;
-			this.rdbAssegno.TabStop = true;
-			this.rdbAssegno.Tag = "paydispositiondetail.paymethodcode:3";
-			this.rdbAssegno.Text = "Assegno Circolare";
-			this.rdbAssegno.UseVisualStyleBackColor = true;
-			// 
-			// rdbCassa
-			// 
-			this.rdbCassa.AutoSize = true;
-			this.rdbCassa.Location = new System.Drawing.Point(114, 22);
-			this.rdbCassa.Name = "rdbCassa";
-			this.rdbCassa.Size = new System.Drawing.Size(54, 17);
-			this.rdbCassa.TabIndex = 3;
-			this.rdbCassa.TabStop = true;
-			this.rdbCassa.Tag = "paydispositiondetail.paymethodcode:2";
-			this.rdbCassa.Text = "Cassa";
-			this.rdbCassa.UseVisualStyleBackColor = true;
-			// 
-			// rdbBonifico
-			// 
-			this.rdbBonifico.AutoSize = true;
-			this.rdbBonifico.Location = new System.Drawing.Point(25, 21);
-			this.rdbBonifico.Name = "rdbBonifico";
-			this.rdbBonifico.Size = new System.Drawing.Size(63, 17);
-			this.rdbBonifico.TabIndex = 2;
-			this.rdbBonifico.TabStop = true;
-			this.rdbBonifico.Tag = "paydispositiondetail.paymethodcode:1";
-			this.rdbBonifico.Text = "Bonifico";
-			this.rdbBonifico.UseVisualStyleBackColor = true;
-			// 
 			// FrmPayDispositionDetail_default
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1485,6 +1499,8 @@ namespace paydispositiondetail_default {
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
+			this.grpModalitaPag.ResumeLayout(false);
+			this.grpModalitaPag.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.grpCoordinateBancarie.ResumeLayout(false);
@@ -1498,8 +1514,6 @@ namespace paydispositiondetail_default {
 			this.groupBox5.PerformLayout();
 			this.groupBox7.ResumeLayout(false);
 			this.groupBox7.PerformLayout();
-			this.grpModalitaPag.ResumeLayout(false);
-			this.grpModalitaPag.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -1627,5 +1641,6 @@ namespace paydispositiondetail_default {
 		private System.Windows.Forms.RadioButton rdbAssegno;
 		private System.Windows.Forms.RadioButton rdbCassa;
 		private System.Windows.Forms.RadioButton rdbBonifico;
+		private System.Windows.Forms.RadioButton rdbGirofondoiban;
 	}
 }

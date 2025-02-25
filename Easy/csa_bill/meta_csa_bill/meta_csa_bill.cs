@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -75,6 +75,7 @@ namespace meta_csa_bill
                 DescribeAColumn(T, "idcsa_bill", ".#Dett.", nPos++);
                 DescribeAColumn(T, "amount", "Importo", nPos++);
                 DescribeAColumn(T, "!registry", "Anagrafica", "registry_sospesi.title", nPos++);
+                DescribeAColumn(T, "ybill", "Eserc. sospeso", nPos++);
                 DescribeAColumn(T, "nbill", "Numero sospeso", nPos++);
                 DescribeAColumn(T, "!motive", "Causale", "bill_ripartizione.motive", nPos++);
                 DescribeAColumn(T, "!datasospeso", "Data cont.", "bill_ripartizione.adate", nPos++);

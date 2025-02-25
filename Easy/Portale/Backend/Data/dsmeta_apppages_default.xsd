@@ -79,6 +79,7 @@
               <xs:element name="idapppages_parent" type="xs:int" minOccurs="0" />
               <xs:element name="idapprelation" type="xs:int" />
               <xs:element name="idapptab" type="xs:int" minOccurs="0" />
+              <xs:element name="norelation" type="xs:string" minOccurs="0" />
               <xs:element name="numrowsmandatory" type="xs:int" minOccurs="0" />
               <xs:element name="position" type="xs:int" minOccurs="0" />
               <xs:element name="savebeforetest" type="xs:string" minOccurs="0" />
@@ -187,6 +188,7 @@
               <xs:element name="specialcontrol" type="xs:string" minOccurs="0" />
               <xs:element name="sqltype" type="xs:string" minOccurs="0" />
               <xs:element name="tablefilter" type="xs:string" minOccurs="0" />
+              <xs:element name="testexclude" type="xs:string" minOccurs="0" />
               <xs:element name="testvalue" type="xs:string" minOccurs="0" />
               <xs:element name="text" type="xs:string" minOccurs="0" />
               <xs:element name="textarea" type="xs:string" />

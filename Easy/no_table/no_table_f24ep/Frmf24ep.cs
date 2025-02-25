@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -43,12 +43,20 @@ namespace no_table_f24ep {
         
         public Frmf24ep() {
             InitializeComponent();
+            saveOutputFileDlg = createSaveFileDialog(_saveOutputFileDlg);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+            openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
             saveOutputFileDlg.DefaultExt = "T24";
             string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "f24ep/prog/temp");
             if (Directory.Exists(dir))
             {
                 saveOutputFileDlg.InitialDirectory = dir;
             }
+
+            if (isBlazor())
+			{
+                txtPercorso.Visible = false;
+			}
         }
 
         public void MetaData_AfterLink() {
@@ -84,7 +92,7 @@ namespace no_table_f24ep {
         }
 
 
-          private void addColumnDati (DataTable tExcel) {
+        private void addColumnDati (DataTable tExcel) {
             tExcel.Columns.Add("tiporiga", typeof(string));
             tExcel.Columns.Add("estremi", typeof(string));
             tExcel.Columns.Add("codicetributo", typeof(string));
@@ -565,7 +573,7 @@ namespace no_table_f24ep {
         }
       
 
-       private void MenuEnterPwd_Click(object sender, EventArgs e) {
+        private void MenuEnterPwd_Click(object sender, EventArgs e) {
 			if (sender == null) return;
 			if (!(typeof(MenuItem).IsAssignableFrom(sender.GetType()))) return;
 			object mysender = ((MenuItem) sender).Parent.GetContextMenu().SourceControl;
@@ -956,7 +964,7 @@ namespace no_table_f24ep {
             }
         }
 
-       private bool CheckRegione(string regione, out string errori, string codice_regione, out object codice)
+        private bool CheckRegione(string regione, out string errori, string codice_regione, out object codice)
         {
             regione = regione.ToUpper();
             int count = 0;
@@ -1113,6 +1121,8 @@ namespace no_table_f24ep {
             }
             generaRecordZ(sw, numeroDiRecordV);
             sw.Close();
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtPercorso.Text, false);
 
             txtDataGenerazione.Text = HelpForm.StringValue(Meta.GetSys("datacontabile"),
                 txtDataGenerazione.Tag.ToString());

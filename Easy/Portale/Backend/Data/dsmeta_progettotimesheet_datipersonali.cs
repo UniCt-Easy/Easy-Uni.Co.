@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -220,6 +220,7 @@ private void initClass() {
 	tprogetto.defineColumn("durata", typeof(int));
 	tprogetto.defineColumn("finanziamento", typeof(string));
 	tprogetto.defineColumn("finanziatoretxt", typeof(string));
+	tprogetto.defineColumn("idattach", typeof(int));
 	tprogetto.defineColumn("idcorsostudio", typeof(int));
 	tprogetto.defineColumn("idcurrency", typeof(int));
 	tprogetto.defineColumn("idduratakind", typeof(int));
@@ -275,6 +276,7 @@ private void initClass() {
 	tprogettotimesheetprogetto.defineColumn("idprogettotimesheet", typeof(int),false);
 	tprogettotimesheetprogetto.defineColumn("lt", typeof(DateTime));
 	tprogettotimesheetprogetto.defineColumn("lu", typeof(string));
+	tprogettotimesheetprogetto.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tprogettotimesheetprogetto);
 	tprogettotimesheetprogetto.defineKey("idprogetto", "idprogettotimesheet");
 
@@ -283,6 +285,12 @@ private void initClass() {
 	tsalelenchiview.defineColumn("dropdown_title", typeof(string),false);
 	tsalelenchiview.defineColumn("idprogetto", typeof(int),false);
 	tsalelenchiview.defineColumn("idsal", typeof(int),false);
+	tsalelenchiview.defineColumn("numerosal", typeof(int));
+	tsalelenchiview.defineColumn("sal_autoassociazione", typeof(string));
+	tsalelenchiview.defineColumn("sal_budget", typeof(decimal));
+	tsalelenchiview.defineColumn("sal_datablocco", typeof(DateTime));
+	tsalelenchiview.defineColumn("sal_start", typeof(DateTime));
+	tsalelenchiview.defineColumn("sal_stop", typeof(DateTime));
 	Tables.Add(tsalelenchiview);
 	tsalelenchiview.defineKey("idprogetto", "idsal");
 
@@ -295,11 +303,13 @@ private void initClass() {
 
 	//////////////////// PROGETTOELENCHIVIEW /////////////////////////////////
 	var tprogettoelenchiview= new MetaTable("progettoelenchiview");
+	tprogettoelenchiview.defineColumn("attach_filename", typeof(string));
 	tprogettoelenchiview.defineColumn("corsostudio_annoistituz", typeof(int));
 	tprogettoelenchiview.defineColumn("corsostudio_title", typeof(string));
 	tprogettoelenchiview.defineColumn("currency_codecurrency", typeof(string));
 	tprogettoelenchiview.defineColumn("dropdown_title", typeof(string),false);
 	tprogettoelenchiview.defineColumn("duratakind_title", typeof(string));
+	tprogettoelenchiview.defineColumn("idattach", typeof(int));
 	tprogettoelenchiview.defineColumn("idcorsostudio", typeof(int));
 	tprogettoelenchiview.defineColumn("idcurrency", typeof(int));
 	tprogettoelenchiview.defineColumn("idprogetto", typeof(int),false);
@@ -402,6 +412,7 @@ private void initClass() {
 	tprogettotimesheet.defineColumn("multilinetype", typeof(string));
 	tprogettotimesheet.defineColumn("output", typeof(string));
 	tprogettotimesheet.defineColumn("riepilogoanno", typeof(string));
+	tprogettotimesheet.defineColumn("sede", typeof(string));
 	tprogettotimesheet.defineColumn("showactivitiesrow", typeof(string));
 	tprogettotimesheet.defineColumn("showotheractivitiesrow", typeof(string));
 	tprogettotimesheet.defineColumn("title", typeof(string));

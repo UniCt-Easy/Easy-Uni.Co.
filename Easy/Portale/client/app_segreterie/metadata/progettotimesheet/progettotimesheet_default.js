@@ -54,7 +54,9 @@
 				var def = appMeta.Deferred("beforeFill-progettotimesheet_default");
 				var arraydef = [];
 				
-				arraydef.push(this.projectGridfilter());				//beforeFillInside
+				arraydef.push(this.projectGridfilter());
+				//.getDataTable("salelenchiview") per farla inserire nel dataset full
+				//beforeFillInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
@@ -153,6 +155,31 @@
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
+					arraydef.push(
+						appMeta.getData.runSelect("confprogetti", "*")
+							.then(function (dt) {
+								self.canExcel = (dt.rows[0].excel == 'S');
+								self.canPdf = (dt.rows[0].pdf == 'S');
+								self.filigranaPdf = (dt.rows[0].filigranapdf == 'S');
+								self.canPdfFirmato = (dt.rows[0].pdffirmato == 'S');
+
+								var inputElementX = document.getElementById('progettotimesheet_default_outputX');
+								var labelElementX = document.querySelector('label[for="progettotimesheet_default_outputX"]');
+								inputElementX.style.display = self.canExcel ? 'inline-block' : 'none';
+								labelElementX.style.display = self.canExcel ? 'inline-block' : 'none';
+
+								var inputElementX = document.getElementById('progettotimesheet_default_outputP');
+								var labelElementX = document.querySelector('label[for="progettotimesheet_default_outputP"]');
+								inputElementX.style.display = self.canPdf ? 'inline-block' : 'none';
+								labelElementX.style.display = self.canPdf ? 'inline-block' : 'none';
+
+								var inputElementX = document.getElementById('progettotimesheet_default_outputF');
+								var labelElementX = document.querySelector('label[for="progettotimesheet_default_outputF"]');
+								inputElementX.style.display = self.canPdfFirmato ? 'inline-block' : 'none';
+								labelElementX.style.display = self.canPdfFirmato ? 'inline-block' : 'none';
+
+							})
+					);
 					arraydef.push(self.filterProgettiIniziale());
 					//fireAfterLinkAsinc
 					return $.when.apply($, arraydef);
@@ -199,6 +226,8 @@
 						var filterProgetti = that.q.isIn('idprogetto', _.map(rows, function (r) {
 							return r.idprogetto;
 						}));
+
+						let progettoPrincipale = row.idprogetto;
 						var showactivitiesrow = (row.showactivitiesrow === 'S');
 						var showotheractivitiesrow = (row.showotheractivitiesrow=== 'S');
 						var riepilogoanno = (row.riepilogoanno === 'S');
@@ -222,7 +251,9 @@
 							idsal: row.idsal,
 							metaPage: that,
 							multilineType: multilineType,
-							collapseteachingother: collapseteachingother
+							collapseteachingother: collapseteachingother,
+							watermark: that.filigranaPdf,
+							sede: row.sede
 						});
 					});
 			},

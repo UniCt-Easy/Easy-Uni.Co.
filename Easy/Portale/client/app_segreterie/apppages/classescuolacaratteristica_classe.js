@@ -28,9 +28,9 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.obblig)
+				if (this.isNull(parentRow.obblig) || parentRow.obblig == '')
 					parentRow.obblig = "N";
-				if (!parentRow.profess)
+				if (this.isNull(parentRow.profess) || parentRow.profess == '')
 					parentRow.profess = "N";
 				//beforeFillFilter
 				
@@ -71,7 +71,7 @@
 				var arraydef = [];
 				var self = this;
 				if (t.name === "tipoattform" && r !== null) {
-					var filter = this.q.and(this.q.eq('idclassescuola', this.state.currentRow.idclassescuola), this.q.eq('idtipoattform', r.idtipoattform));
+					var filter = this.q.and(this.q.eq('idclassescuola', this.state.currentRow.idclassescuola), this.q.eq('ambitoareadisc_idtipoattform', r.idtipoattform));
 					appMeta.metaModel.cachedTable(self.getDataTable("ambitoareadiscdefaultview"), false);
 					var classescuolacaratteristica_classe_idambitoareadiscCtrl = $('#classescuolacaratteristica_classe_idambitoareadisc').data("customController");
 					arraydef.push(classescuolacaratteristica_classe_idambitoareadiscCtrl.filteredPreFillCombo(filter, null, true));
@@ -86,7 +86,7 @@
 				//afterActivationin
 				var arraydef = [];
 				if (parentRow.idtipoattform) {
-					var filter = this.q.and(this.q.eq('idclassescuola', parentRow.idclassescuola), this.q.eq('idtipoattform', parentRow.idtipoattform));
+					var filter = this.q.and(this.q.eq('idclassescuola', parentRow.idclassescuola), this.q.eq('ambitoareadisc_idtipoattform', parentRow.idtipoattform));
 					appMeta.metaModel.cachedTable(this.getDataTable("ambitoareadiscdefaultview"), false);
 					var classescuolacaratteristica_classe_idambitoareadiscCtrl = $('#classescuolacaratteristica_classe_idambitoareadisc').data("customController");
 					arraydef.push(classescuolacaratteristica_classe_idambitoareadiscCtrl.filteredPreFillCombo(filter, null, true));

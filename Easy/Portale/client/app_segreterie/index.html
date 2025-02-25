@@ -19,14 +19,11 @@
 	<link rel="stylesheet" href="../bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.css" />
 	<link rel="stylesheet" href="../bower_components/fullcalendar/dist/fullcalendar.min.css" />
 	<link rel="stylesheet" href="../bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print" />
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet" />
-
+	<link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
 	<!-- icone bandiere del mondo, utilizzate nel menù localizzazione -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
-
+	<link rel="stylesheet" href="../node_modules/flag-icon-css/css/flag-icons.min.css" />
 	<!-- Stili per jsTree -->
 	<link rel="stylesheet" href="../bower_components/jstree/dist/themes/default/style.min.css">
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/themes/default/style.min.css" />
 	<!-- FINE Stili per jsTree -->
 	<!-- FINE stili librerie terze parti -->
 	<!-- INIZIO stili framework-->
@@ -42,7 +39,7 @@
 
 	<link rel="stylesheet" href="../components/styles/app.css">
 	<link rel="stylesheet" href="styles/custom.css">
-
+	<link rel="icon" href="../app_segreterie/assets/tempo.ico">
 
 	<link rel="stylesheet" href="../components/styles/jquery.toast.css">
 	<link rel="stylesheet" href="../components/styles/select2.min.css">
@@ -50,7 +47,7 @@
 
 	<!-- FINE Stili della applicazione -->
 	<!-- INIZIO librerie terze parti-->
-	<script src="../bower_components/font-awesome/js/all.min.js"></script>
+	<script src="../node_modules/@fortawesome/fontawesome-free/js/all.min.js" data-auto-add-css="false"></script>
 	<script src="../bower_components/jquery/dist/jquery.js"></script>
 	<script src="../bower_components/lodash/lodash.js"></script>
 	<script src="../bower_components/observe-js/src/observe.js"></script>
@@ -70,31 +67,31 @@
 	<script src="../components/metadata/thirdpart/jspdf.plugin.autotable.js"></script>
 
 	<!-- read excel -->
-	<script src="https://unpkg.com/xlsx/dist/shim.min.js"></script>
-	<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+	<script src="../node_modules/xlsx/dist/shim.min.js"></script>
+	<script src="../node_modules/xlsx/dist/xlsx.full.min.js"></script>
 
 	<!-- External files for exporting -->
-	<script src="https://www.igniteui.com/js/external/FileSaver.js"></script>
-	<script src="https://www.igniteui.com/js/external/Blob.js"></script>
+	<script src="../node_modules/file-saver/dist/FileSaver.min.js"></script>
+	<script src="assets/Blob.js"></script>
 
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/infragistics.core.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.ext_core.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.ext_collections.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.ext_text.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.ext_io.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.ext_ui.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.documents.core_core.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.ext_collectionsextended.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.excel_core.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.ext_threading.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.ext_web.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.xml.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.documents.core_openxml.js"></script>
-	<script type="text/javascript" src="https://cdn-na.infragistics.com/igniteui/2020.1/latest/js/modules/infragistics.excel_serialization_openxml.js"></script>
+	<script src="../node_modules/ignite-ui/js/infragistics.core.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.ext_core.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.ext_collections.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.ext_text.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.ext_io.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.ext_ui.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.documents.core_core.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.ext_collectionsextended.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.excel_core.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.ext_threading.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.ext_web.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.xml.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.documents.core_openxml.js"></script>
+	<script src="../node_modules/ignite-ui/js/modules/infragistics.excel_serialization_openxml.js"></script>
 
 
 	<!-- APP Seg + fmw mdlw -->
-	<script src="../dist/mdlw_bundle_Segreterie_2024_2_28.js"></script> <!--mdlw-bundle-file-->
+	<script src="../dist/mdlw_bundle_Segreterie_2025_2_14.js"></script> <!--mdlw-bundle-file-->
 
 	<script src="../config/app_segreterie/appMainConfig.js"></script>
 	<script src="../app_segreterie/appMain.js"></script>
@@ -322,27 +319,6 @@
 		<!-- FINE footer -->
 		<!-- INIZIO script per i datepicker-->
 		<script>
-			//$(document).on('DOMNodeInserted', function (event) {
-			//	// Rileva quando viene aggiunta una nuova porzione di HTML alla pagina
-
-			//	// Trova tutti gli elementi con l'attributo datePickerFormat nella porzione aggiunta
-			//	let newElementsWithDatePicker = $(event.target).find('[data-datePickerFormat]');
-
-			//	// Applica il datepicker a ciascun elemento trovato
-			//	newElementsWithDatePicker.each(function () {
-			//		let datePickerFormat = $(this).data().datepickerformat;
-			//		$(this).datepicker({ dateFormat: datePickerFormat });
-			//	});
-
-			//	// Trova tutti gli elementi con l'attributo dateTimePickerFormat nella porzione aggiunta
-			//	let newElementsWithDateTimePicker = $(event.target).find('[data-dateTimePickerFormat]');
-
-			//	// Applica il datepicker a ciascun elemento trovato
-			//	newElementsWithDateTimePicker.each(function () {
-			//		let dateTimePickerFormat = $(this).data().datetimepickerformat
-			//		$(this).datetimepicker({ dateFormat: dateTimePickerFormat });
-			//	});
-			//});
             var observer = new MutationObserver(handleMutations);
             var observerConfig = { childList: true, attributes: false, subtree: true };
             var targetNode = document;

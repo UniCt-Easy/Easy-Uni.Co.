@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -135,6 +135,7 @@ private void initClass() {
 	tregistry.Columns.Add( new DataColumn("idexternal", typeof(int)));
 	tregistry.Columns.Add( new DataColumn("flag_pa", typeof(string)));
 	tregistry.Columns.Add( new DataColumn("flagbankitaliaproceeds", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("sdi_norifamm", typeof(string)));
 	Tables.Add(tregistry);
 	tregistry.PrimaryKey =  new DataColumn[]{tregistry.Columns["idreg"]};
 

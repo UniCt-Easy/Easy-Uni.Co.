@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -105,13 +105,23 @@ namespace meta_upb {
 				SetDefault(T,"codeupb", codprefix);
 				//RowChange.ClearAutoIncrement(T.Columns["codefin"]);
 				SetDefault(T,"printingorder", ordinestampaprefix);
-			}		
-			DataRow R = base.Get_New_Row(ParentRow, T);
+			}
+
+            DataTable cassiere = Conn.RUN_SELECT("treasurer", "*", null, QHS.CmpEq("flagdefault", "S"), null, false);
+            if (cassiere.Rows.Count == 1) {
+                MetaData.SetDefault(T, "idtreasurer", cassiere.Rows[0]["idtreasurer"]);
+            }
+            else
+                if (cassiere.Select(QHS.CmpNe("idtreasurer", 0)).Length == 1) {
+                    object codiceistituto = cassiere.Select(QHS.CmpNe("idtreasurer", 0))[0]["idtreasurer"];
+                    MetaData.SetDefault(T, "idtreasurer", codiceistituto);
+                }
+
+            DataRow R = base.Get_New_Row(ParentRow, T);
 			return R;
 		}
 
-
-		public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude)	{
+        public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude)	{
             switch (ListingType) {
                 case "default": {
                         return base.SelectOne(ListingType, filter, "upbview", Exclude);

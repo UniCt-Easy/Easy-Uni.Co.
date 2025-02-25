@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+using Microsoft.EntityFrameworkCore;
 using ServizioRendicontazione.Models;
 
 namespace ServizioRendicontazione.Repositories
@@ -26,23 +27,31 @@ namespace ServizioRendicontazione.Repositories
 		// ==============================================================
 		public List<classescuolakind> AllTipoClasseScuola()
 		{
-			return _context.classescuolakinds.ToList();
+			return _context.classescuolakinds.AsNoTracking().ToList();
 		}
 
 		public classescuolakind AddTipoClasseScuola(string cod, string title, int idcorsostudiokind)
 		{
-			classescuolakind csk = new classescuolakind()
+			try
 			{
-				idclassescuolakind = cod,
-				idcorsostudiokind = idcorsostudiokind,
-				idcorsostudiolivello = null,
-				title = title
-			};
-		
-			_context.Add(csk);
-			_context.SaveChanges();
+				classescuolakind csk = new classescuolakind()
+				{
+					idclassescuolakind = cod,
+					idcorsostudiokind = idcorsostudiokind,
+					idcorsostudiolivello = null,
+					title = title
+				};
 
-			return csk;
+				_context.Add(csk);
+				_context.SaveChanges();
+
+				return csk;
+			}
+			catch (Exception Ex)
+			{
+				common.logInfo($"AddTipoClasseScuola({cod}, {title}, {idcorsostudiokind}): \r\n" + Ex.Message + "\r\n" + Ex.InnerException?.Message + "\r\n" + Ex.StackTrace);
+				return null;
+			}
 		}
 	}
 }

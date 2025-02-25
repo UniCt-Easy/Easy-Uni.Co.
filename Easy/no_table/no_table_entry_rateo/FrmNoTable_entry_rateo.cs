@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -84,14 +84,15 @@ namespace no_table_entry_rateo {
 
         bool AnnoCommerciale = false;
         private List<DataRow> currDetails = new List<DataRow>();
-        DataRow getExistentEntry(string idrelatedMain, object identrykind, DataTable tEntry, DataTable tEntryDetail) {
+    
+        DataRow getExistentEntry(string idrelatedMain,   object identrykind, DataTable tEntry, DataTable tEntryDetail) {
             currDetails = new List<DataRow>();
             Conn.RUN_SELECT_INTO_TABLE(tEntry, null, QHS.AppAnd(
                                         QHS.CmpEq("identrykind", identrykind),
                                         QHS.CmpEq("yentry", Conn.GetEsercizio()),
                                         QHS.CmpEq("idrelated", idrelatedMain)
                                         ), null, false);
-            DataRow  []currEntries = tEntry.Select(QHC.AppAnd(
+            DataRow[] currEntries = tEntry.Select(QHC.AppAnd(
                 QHC.CmpEq("identrykind", identrykind),
                 QHC.CmpEq("yentry", Conn.GetEsercizio()),
                 QHC.CmpEq("idrelated", idrelatedMain)
@@ -448,13 +449,14 @@ namespace no_table_entry_rateo {
             //Genera le scritture relative alle fatture a ricevere
             last_mankey = "";
             CurrEntry = null;
-            identrykind = 1; // scrittura NORMALE per le fatt.  a ricevere
+            identrykind = 16;  // 'Fatture da Ricevere/ da Emettere'
             if (idacc_invoicetoreceive == DBNull.Value) {
                 show("Conto fatture da ricevere non valorizzato", "Avviso");
             }
             else {
                 tDettOrdineFattRicevere.Columns.Add("amount", typeof(decimal));
                 #region fatture da ricevere - contratti passivi
+ 
                 foreach (DataRow r in tDettOrdineFattRicevere.Select(null, "idmankind asc, yman asc, nman asc, rownum asc")) {
                     string descrDett =   RifAOrdine(r)+ " dett ." + r["rownum"];
 					//"ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable,2)- ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable*isnull(d.discount,0),2) + " +
@@ -492,7 +494,7 @@ namespace no_table_entry_rateo {
                         last_mankey = currkey;
 
                         if (H[idrelated] == null) {
-                            CurrEntry = getExistentEntry(idrelated, identrykind, tEntry, tEntryDetail);
+                            CurrEntry = getExistentEntry(idrelated,identrykind, tEntry, tEntryDetail);
                             if (CurrEntry == null) {
                                 CurrEntry = MEntry.Get_New_Row(null, ds.Tables["entry"]);
                                 CurrEntry["identrykind"] = identrykind;
@@ -536,7 +538,7 @@ namespace no_table_entry_rateo {
                 }
                 #endregion
 
-
+       
                 #region fatture da ricevere - parcelle
                 foreach (DataRow r in tParcellaRicevere.Select(null, "ycon asc, ncon asc")) {
                     decimal importoDettaglio = CfgFn.GetNoNullDecimal(r["amount"]);
@@ -696,7 +698,7 @@ namespace no_table_entry_rateo {
             last_mankey = "";
             CurrEntry = null;
             descr = "Fatture da emettere";
-            identrykind = 1; // scrittura NORMALE per le fatt.   da emettere
+            identrykind = 16; //  'Fatture da Ricevere/ da Emettere'
             if (idacc_invoicetoemit == DBNull.Value) {
                 show("Conto fatture da emettere non valorizzato", "Avviso");
             }
@@ -1180,7 +1182,7 @@ namespace no_table_entry_rateo {
             if (t.Rows.Count > 0) {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
-                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Passivi Rateo senza Casuale di costo", t);
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Passivi Rateo senza Causale di costo", t);
                 createForm(f, this);
                 f.Show(this);
                 return null;
@@ -1239,7 +1241,7 @@ namespace no_table_entry_rateo {
             if (t.Rows.Count > 0) {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
-                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Ordine Fatture a Ricevere senza Casuale di costo", t);
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Ordine Fatture a Ricevere senza Causale di costo", t);
                 createForm(f, this);
                 f.Show(this);
                 return null;
@@ -1304,7 +1306,7 @@ namespace no_table_entry_rateo {
             if (t.Rows.Count > 0) {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
-                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Attivi Rateo senza Casuale di Ricavo", t);
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Attivi Rateo senza Causale di Ricavo", t);
                 createForm(f, this);
                 f.Show(this);
                 return null;
@@ -1364,7 +1366,7 @@ namespace no_table_entry_rateo {
             if (t.Rows.Count > 0) {
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
-                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Attivi Fatture da Emettere senza Casuale di Ricavo", t);
+                frmErrorView f = new frmErrorView(Meta.myHelpForm, "Dettagli Contratti Attivi Fatture da Emettere senza Causale di Ricavo", t);
                 createForm(f, this);
                 f.Show(this);
                 return null;

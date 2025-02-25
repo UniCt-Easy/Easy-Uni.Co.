@@ -65,26 +65,33 @@
         <xs:element name="registrylegalstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="_x0021_anni" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_giorni" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_mesi" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="annokind" type="xs:string" minOccurs="0" />
+              <xs:element name="cedolini" type="xs:string" minOccurs="0" />
               <xs:element name="csa_class" type="xs:string" minOccurs="0" />
               <xs:element name="csa_compartment" type="xs:string" minOccurs="0" />
               <xs:element name="csa_role" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="datarivalutazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flagdefault" type="xs:string" minOccurs="0" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
               <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
               <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
               <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="idtipologiaruolo" type="xs:int" minOccurs="0" />
+              <xs:element name="idtiponomina" type="xs:int" minOccurs="0" />
               <xs:element name="incomeclass" type="xs:int" minOccurs="0" />
               <xs:element name="incomeclassvalidity" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="istituzione" type="xs:string" minOccurs="0" />
               <xs:element name="livello" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
               <xs:element name="parttime" type="xs:decimal" minOccurs="0" />
               <xs:element name="percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
               <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />

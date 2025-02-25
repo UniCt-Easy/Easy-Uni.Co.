@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,8 @@ namespace ServizioRendicontazione.ApiModels
 		public string getField();
 	}
 
-	public abstract class ApiModel<T> : IApiModel<T>
+    // https://studenti.unisalento.it/e3rest/docs/
+    public abstract class ApiModel<T> : IApiModel<T>
 	{
 		public const string service_Struttura = "/e3rest/api/struttura-service-v1/";
 

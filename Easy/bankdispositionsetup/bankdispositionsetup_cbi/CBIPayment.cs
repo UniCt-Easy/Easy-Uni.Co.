@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -456,13 +456,13 @@ namespace bankdispositionsetup_cbi
     [XmlTypeAttribute(Namespace = "urn:CBI:xsd:CBIPaymentRequest.00.04.01")]
     public partial class CBIPostalAddress24 {
 
-        public AddressType3Choice adrTp { get; set; }
+        public AddressType3Choice AdrTp { get; set; }
 
         public string dept { get; set; }
 
         public string subDept { get; set; }
 
-        public string strtNm { get; set; }
+        public string StrtNm { get; set; }
 
         public string bldgNb { get; set; }
 
@@ -474,9 +474,9 @@ namespace bankdispositionsetup_cbi
 
         public string room { get; set; }
 
-        public string pstCd { get; set; }
+        public string PstCd { get; set; }
 
-        public string twnNm { get; set; }
+        public string TwnNm { get; set; }
 
         public string twnLctnNm { get; set; }
 
@@ -484,7 +484,7 @@ namespace bankdispositionsetup_cbi
 
         public string ctrySubDvsn { get; set; }
 
-        public string ctry { get; set; }
+        public string Ctry { get; set; }
 
         public string[] adrLine { get; set; }
     }
@@ -1125,7 +1125,7 @@ namespace bankdispositionsetup_cbi
         public string Nm { get; set; }
 
         /// <remarks/>
-        public CBIPostalAddress6 PstlAdr { get; set; }
+        public CBIPostalAddress24 PstlAdr { get; set; }
 
         /// <remarks/>
         public CBIParty1Choice Id { get; set; }

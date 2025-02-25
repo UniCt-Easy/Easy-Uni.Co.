@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,211 +15,217 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-namespace division_default {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable division{get { return this.Tables["division"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable divisionsorting{get { return this.Tables["divisionsorting"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable sortingview{get { return this.Tables["sortingview"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace division_default {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable division 		=> Tables["division"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable divisionsorting 		=> Tables["divisionsorting"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortingview 		=> Tables["sortingview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable divisionattachment 		=> Tables["divisionattachment"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaForm";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaForm.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("division");
-	C= new DataColumn("iddivision", typeof(System.Int32), "");
+	//////////////////// DIVISION /////////////////////////////////
+	var tdivision= new DataTable("division");
+	C= new DataColumn("iddivision", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tdivision.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("address", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cap", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("city", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("country", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("phoneprefix", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("phonenumber", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("faxprefix", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("faxnumber", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tdivision.Columns.Add(C);
+	tdivision.Columns.Add( new DataColumn("address", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("cap", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("city", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("country", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("phoneprefix", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("phonenumber", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("faxprefix", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("faxnumber", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("txt", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tdivision.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tdivision.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tdivision.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tdivision.Columns.Add(C);
+	tdivision.Columns.Add( new DataColumn("codedivision", typeof(string)));
+	Tables.Add(tdivision);
+	tdivision.PrimaryKey =  new DataColumn[]{tdivision.Columns["iddivision"]};
 
-	T.Columns.Add(new DataColumn("codedivision", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["iddivision"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("divisionsorting");
-	C= new DataColumn("idsor", typeof(System.Int32), "");
+	//////////////////// DIVISIONSORTING /////////////////////////////////
+	var tdivisionsorting= new DataTable("divisionsorting");
+	C= new DataColumn("idsor", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iddivision", typeof(System.Int32), "");
+	tdivisionsorting.Columns.Add(C);
+	C= new DataColumn("iddivision", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("!codiceclass", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("!descrizione", typeof(System.String), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tdivisionsorting.Columns.Add(C);
+	tdivisionsorting.Columns.Add( new DataColumn("!codiceclass", typeof(string)));
+	tdivisionsorting.Columns.Add( new DataColumn("!descrizione", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tdivisionsorting.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tdivisionsorting.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tdivisionsorting.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tdivisionsorting.Columns.Add(C);
+	tdivisionsorting.Columns.Add( new DataColumn("quota", typeof(double)));
+	tdivisionsorting.Columns.Add( new DataColumn("!sortingkind", typeof(string)));
+	Tables.Add(tdivisionsorting);
+	tdivisionsorting.PrimaryKey =  new DataColumn[]{tdivisionsorting.Columns["idsor"], tdivisionsorting.Columns["iddivision"]};
 
-	T.Columns.Add(new DataColumn("quota", typeof(System.Double), ""));
-	T.Columns.Add(new DataColumn("!sortingkind", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idsor"], 	T.Columns["iddivision"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("sortingview");
-	C= new DataColumn("codesorkind", typeof(System.String), "");
+	//////////////////// SORTINGVIEW /////////////////////////////////
+	var tsortingview= new DataTable("sortingview");
+	C= new DataColumn("codesorkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idsorkind", typeof(System.Int32), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("idsorkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("sortingkind", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("sortingkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idsor", typeof(System.Int32), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("idsor", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("sortcode", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("sortcode", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nlevel", typeof(System.Byte), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("leveldescr", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("leveldescr", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paridsor", typeof(System.Int32), ""));
-	C= new DataColumn("description", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	tsortingview.Columns.Add( new DataColumn("paridsor", typeof(int)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ayear", typeof(System.Int16), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("incomeprevision", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("expenseprevision", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("start", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("stop", typeof(System.Int16), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	tsortingview.Columns.Add( new DataColumn("incomeprevision", typeof(decimal)));
+	tsortingview.Columns.Add( new DataColumn("expenseprevision", typeof(decimal)));
+	tsortingview.Columns.Add( new DataColumn("start", typeof(short)));
+	tsortingview.Columns.Add( new DataColumn("stop", typeof(short)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tsortingview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tsortingview.Columns.Add(C);
+	tsortingview.Columns.Add( new DataColumn("defaultn1", typeof(decimal)));
+	tsortingview.Columns.Add( new DataColumn("defaultn2", typeof(decimal)));
+	tsortingview.Columns.Add( new DataColumn("defaultn3", typeof(decimal)));
+	tsortingview.Columns.Add( new DataColumn("defaultn4", typeof(decimal)));
+	tsortingview.Columns.Add( new DataColumn("defaultn5", typeof(decimal)));
+	tsortingview.Columns.Add( new DataColumn("defaults1", typeof(string)));
+	tsortingview.Columns.Add( new DataColumn("defaults2", typeof(string)));
+	tsortingview.Columns.Add( new DataColumn("defaults3", typeof(string)));
+	tsortingview.Columns.Add( new DataColumn("defaults4", typeof(string)));
+	tsortingview.Columns.Add( new DataColumn("defaults5", typeof(string)));
+	tsortingview.Columns.Add( new DataColumn("flagnodate", typeof(string)));
+	tsortingview.Columns.Add( new DataColumn("movkind", typeof(string)));
+	Tables.Add(tsortingview);
 
-	T.Columns.Add(new DataColumn("defaultn1", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("defaultn2", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("defaultn3", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("defaultn4", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("defaultn5", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("defaults1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("defaults2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("defaults3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("defaults4", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("defaults5", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagnodate", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("movkind", typeof(System.String), ""));
-	Tables.Add(T);
+	//////////////////// DIVISIONATTACHMENT /////////////////////////////////
+	var tdivisionattachment= new DataTable("divisionattachment");
+	C= new DataColumn("iddivision", typeof(int));
+	C.AllowDBNull=false;
+	tdivisionattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tdivisionattachment.Columns.Add(C);
+	tdivisionattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tdivisionattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tdivisionattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tdivisionattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tdivisionattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tdivisionattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tdivisionattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tdivisionattachment);
+	tdivisionattachment.PrimaryKey =  new DataColumn[]{tdivisionattachment.Columns["iddivision"], tdivisionattachment.Columns["idattachment"]};
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["sortingview"];
-TChild= Tables["divisionsorting"];
-CPar = new DataColumn[1]{TPar.Columns["idsor"]};
-CChild = new DataColumn[1]{TChild.Columns["idsor"]};
-Relations.Add(new DataRelation("FK_sortingview_divisionsorting",CPar,CChild));
 
-TPar= Tables["division"];
-TChild= Tables["divisionsorting"];
-CPar = new DataColumn[1]{TPar.Columns["iddivision"]};
-CChild = new DataColumn[1]{TChild.Columns["iddivision"]};
-Relations.Add(new DataRelation("divisiondivisionsorting",CPar,CChild));
+	#endregion
+
+
+	#region DataRelation creation
+	var cPar = new []{division.Columns["iddivision"]};
+	var cChild = new []{divisionsorting.Columns["iddivision"]};
+	Relations.Add(new DataRelation("divisiondivisionsorting",cPar,cChild,false));
+
+	cPar = new []{sortingview.Columns["idsor"]};
+	cChild = new []{divisionsorting.Columns["idsor"]};
+	Relations.Add(new DataRelation("FK_sortingview_divisionsorting",cPar,cChild,false));
+
+	cPar = new []{division.Columns["iddivision"]};
+	cChild = new []{divisionattachment.Columns["iddivision"]};
+	Relations.Add(new DataRelation("division_divisionattachment",cPar,cChild,false));
+
+	#endregion
 
 }
 }

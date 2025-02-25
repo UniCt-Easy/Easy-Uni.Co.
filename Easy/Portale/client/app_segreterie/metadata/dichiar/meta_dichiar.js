@@ -67,6 +67,16 @@
 						table.columns["aa"].caption = "Anno accademico della dichiarazione";
 //$innerSetCaptionConfig_titolo_seg$
 						break;
+					case 'isee_seg':
+						table.columns["aa"].caption = "Anno Accademico";
+						table.columns["date"].caption = "Data";
+						table.columns["extension"].caption = "Tabella che estende il record";
+						table.columns["iddichiarkind"].caption = "Tipologia";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["protanno"].caption = "Anno Protocollo";
+						table.columns["protnumero"].caption = "Numero Protocollo";
+//$innerSetCaptionConfig_isee_seg$
+						break;
 //$innerSetCaptionConfig$
 				}
 			},

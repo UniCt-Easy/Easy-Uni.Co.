@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -165,19 +165,31 @@ namespace Backend.Controllers {
 		[HttpPost, Route("GetToken")]
 		public IHttpActionResult GetToken(LoginFormData data)
 		{
-			if (data?.userName == null)
+            if (data == null)
+            {
+                common.logInfo("request", $"Auth > GetToken > No Data");
+                return Content(HttpStatusCode.OK, "No Data");
+            }
+
+            // REQUEST LOG
+            common.logInfo("request", $"Auth > GetToken > data: {JsonConvert.SerializeObject(data)}");
+
+            if (data?.userName == null)
 			{
-				return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.NoCredential);
+                common.logInfo("response", $"Auth > GetToken > Missing userName");
+                return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.NoCredential);
 			}
 
 			if (data.password == null)
 			{
-				return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.NoCredential);
+                common.logInfo("response", $"Auth > GetToken > Missing password");
+                return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.NoCredential);
 			}
 
 			if (data.datacontabile == null || data.datacontabile == DateTime.MinValue)
 			{
-				return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.DataContabileMissing);
+                common.logInfo("response", $"Auth > GetToken > Missing datacontabile");
+                return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.DataContabileMissing);
 			}
 
 			int userkind = Convert.ToInt32(WebConfigurationManager.AppSettings["userkindUserPassw"]);
@@ -192,10 +204,12 @@ namespace Backend.Controllers {
 				JObject content = ((System.Web.Http.Results.NegotiatedContentResult<Newtonsoft.Json.Linq.JObject>)loginResult).Content;
 
                 string token = ((Newtonsoft.Json.Linq.JValue)content.Properties().Where(w => w.Name == "token").Select(s => s.Value).FirstOrDefault()).Value.ToString();
-				memCache._authCache.Set(token, token, DateTimeOffset.Now.AddHours(2));
+				memCache._authCache.Set(token, token, DateTimeOffset.Now.AddDays(1));
 
-				return Ok(token);
+                common.logInfo("response", $"Auth > GetToken > token ok: {token}");
+                return Ok(token);
 			}
+
 
 			return loginResult;
 		}
@@ -569,6 +583,9 @@ namespace Backend.Controllers {
 
 			// 4. eseguo l'autenticazione sul sistema LDAP
 			if (!ldpauth.Authenticate(data?.userName, data?.password)) {
+                //attivare solo per il debug
+				//ldpauth.user_decoded = "p9999999";
+                
 				if (!string.IsNullOrWhiteSpace(ldpauth.ErrorMsg))
 				{
 					BEError bEError = new BEError();
@@ -578,12 +595,21 @@ namespace Backend.Controllers {
 					bEError.metadata = "esercizio: " + data.datacontabile.Year + ", sys_user: " + data?.userName + ", userName: " + data?.userName;
 					DBLogger.log(bEError);
 				}
-				return base.Content(HttpStatusCode.BadRequest, "Errore LDAP.Authenticate: " + ldpauth.ErrorMsg);
+
+                if (ldpauth.ErrorMsg.Contains("Server LDAP non disponibile") || ldpauth.ErrorMsg.Contains("The LDAP server is unavailable"))
+                    return Content(HttpStatusCode.Unauthorized, LoginFailedStatus.LDAPServerUnavailable);
+
+                if (ldpauth.ErrorMsg.Contains("Le credenziali specificate non sono valide") || ldpauth.ErrorMsg.Contains("The supplied credential is invalid"))
+                    return Content(HttpStatusCode.Unauthorized, LoginFailedStatus.BadCredential);
+
+				//a questo punto se l'errore NON DIPENDE DAL FATTO CHE NON è REGISTRATO (AUTENTICAZIONE NOSTRA FALLITA MENTRE LDAP RUSCITA) lo restituisco com'è, altrimenti proseguo per farlo registrare (nel metodo successivo)
+                if (!(ldpauth.ErrorMsg.Contains("Il nome distinto contiene sintassi non valida") || ldpauth.ErrorMsg.Contains("The distinguished name contains invalid syntax")))
+					return base.Content(HttpStatusCode.BadRequest, "Errore LDAP.Authenticate: " + ldpauth.ErrorMsg);
 			}
 
-			// 5. eseguo l'autenticazione sul sistema
-			// costruisco un sessionInfo così esegue stessi passi di sso, quindi no check password
-			int userkind = Convert.ToInt32(WebConfigurationManager.AppSettings["userkindLDAP"]);
+            // 5. eseguo l'autenticazione sul sistema
+            // costruisco un sessionInfo così esegue stessi passi di sso, quindi no check password
+            int userkind = Convert.ToInt32(WebConfigurationManager.AppSettings["userkindLDAP"]);
 			SessionInfoSSO sessionInfoSSO = new SessionInfoSSO(data.userName, "", "", data.userName, "", "");
 			return _doLogin(ldpauth.user_decoded, "", data.datacontabile, sessionInfoSSO, userkind);
 
@@ -867,11 +893,13 @@ namespace Backend.Controllers {
 			// inserisco la username
 			sec.SetUsr("userweb", userName);
 
-			// inserisce tra le var di sistema di segreterie idreg_istituto
-			var idreg_istituto = dispatcher.conn.DO_READ_VALUE("istitutoprinc", null, "idreg", null);
-			sec.SetUsr("idreg_istituto", idreg_istituto);
+            // inserisce tra le var di sistema di segreterie idreg_istituto
+            var idreg_istituto = dispatcher.conn.DO_READ_VALUE("istitutoprinc", null, "idreg", null);
+            sec.SetUsr("idreg_istituto", idreg_istituto);
+            var tipoente = dispatcher.conn.DO_READ_VALUE("istitutoprinc", null, "tipoente", null);
+            sec.SetUsr("tipoente", tipoente);
 
-			sec.SetUsr("idreg", idreg);
+            sec.SetUsr("idreg", idreg);
 
             //inserisco l'eventuale idman corrispondente alle variabili di ambiente
             int? idman = (int?)usrConn.DO_READ_VALUE("manager", filterByUsername, "idman");

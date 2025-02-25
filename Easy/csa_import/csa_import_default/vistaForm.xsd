@@ -717,6 +717,7 @@
               <xs:element name="_x0021_registry" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_motive" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_datasospeso" type="xs:string" minOccurs="0" />
+              <xs:element name="ybill" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -961,6 +962,7 @@
               <xs:element name="progressivo_rec_01" type="xs:int" minOccurs="0" />
               <xs:element name="flagriduzimpon" type="xs:string" minOccurs="0" />
               <xs:element name="progressivodebito" type="xs:int" minOccurs="0" />
+              <xs:element name="datascadritextra" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1274,7 +1276,6 @@
       <msdata:Relationship name="bill_versamenti_csa_import" msdata:parent="bill_versamenti" msdata:child="csa_import" msdata:parentkey="ybill nbill" msdata:childkey="ybill_versamenti nbill_versamenti" />
       <msdata:Relationship name="csa_import_csa_bill" msdata:parent="csa_import" msdata:child="csa_bill" msdata:parentkey="idcsa_import" msdata:childkey="idcsa_import" />
       <msdata:Relationship name="registry_sospesi_csa_bill" msdata:parent="registry_sospesi" msdata:child="csa_bill" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="bill_csa_bill" msdata:parent="bill_ripartizione" msdata:child="csa_bill" msdata:parentkey="nbill" msdata:childkey="nbill" />
       <msdata:Relationship name="emisti_import_emisti_rec_01" msdata:parent="emisti_import" msdata:child="emisti_rec_01" msdata:parentkey="idemisti_import" msdata:childkey="idemisti_import" />
       <msdata:Relationship name="emisti_import_emisti_rec_02" msdata:parent="emisti_import" msdata:child="emisti_rec_02" msdata:parentkey="idemisti_import" msdata:childkey="idemisti_import" />
       <msdata:Relationship name="emisti_import_emisti_rec_03" msdata:parent="emisti_import" msdata:child="emisti_rec_03" msdata:parentkey="idemisti_import" msdata:childkey="idemisti_import" />
@@ -1287,6 +1288,7 @@
       <msdata:Relationship name="emisti_import_emisti_rec_10" msdata:parent="emisti_import" msdata:child="emisti_rec_10" msdata:parentkey="idemisti_import" msdata:childkey="idemisti_import" />
       <msdata:Relationship name="csa_import_emisti_import" msdata:parent="csa_import" msdata:child="emisti_import" msdata:parentkey="idcsa_import" msdata:childkey="idcsa_import" />
       <msdata:Relationship name="csa_import_csa_importver" msdata:parent="csa_import" msdata:child="csa_importver" msdata:parentkey="idcsa_import" msdata:childkey="idcsa_import" />
+      <msdata:Relationship name="bill_csa_bill" msdata:parent="bill_ripartizione" msdata:child="csa_bill" msdata:parentkey="nbill ybill" msdata:childkey="nbill ybill" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

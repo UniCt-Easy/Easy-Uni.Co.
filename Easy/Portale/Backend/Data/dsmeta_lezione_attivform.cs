@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_lezione_attivform"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_lezione_attivform: DataSet {
+public partial class dsmeta_lezione_attivform: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -40,7 +40,7 @@ public class dsmeta_lezione_attivform: DataSet {
 	public MetaTable sededefaultview 		=> (MetaTable)Tables["sededefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry_docenti 		=> (MetaTable)Tables["registry_docenti"];
+	public MetaTable registry 		=> (MetaTable)Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable affidamento 		=> (MetaTable)Tables["affidamento"];
@@ -77,23 +77,18 @@ private void initClass() {
 	var tauladefaultview= new MetaTable("auladefaultview");
 	tauladefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tauladefaultview.defineColumn("idaula", typeof(int),false);
-	tauladefaultview.defineColumn("idcity", typeof(int));
 	tauladefaultview.defineColumn("idedificio", typeof(int),false);
-	tauladefaultview.defineColumn("idnation", typeof(int));
 	tauladefaultview.defineColumn("idsede", typeof(int),false);
-	tauladefaultview.defineColumn("idstruttura", typeof(int));
 	Tables.Add(tauladefaultview);
-	tauladefaultview.defineKey("idaula");
+	tauladefaultview.defineKey("idaula", "idedificio", "idsede");
 
 	//////////////////// EDIFICIODEFAULTVIEW /////////////////////////////////
 	var tedificiodefaultview= new MetaTable("edificiodefaultview");
 	tedificiodefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tedificiodefaultview.defineColumn("idcity", typeof(int));
 	tedificiodefaultview.defineColumn("idedificio", typeof(int),false);
-	tedificiodefaultview.defineColumn("idnation", typeof(int));
 	tedificiodefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tedificiodefaultview);
-	tedificiodefaultview.defineKey("idedificio");
+	tedificiodefaultview.defineKey("idedificio", "idsede");
 
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");
@@ -118,26 +113,13 @@ private void initClass() {
 	Tables.Add(tsededefaultview);
 	tsededefaultview.defineKey("idsede");
 
-	//////////////////// REGISTRY_DOCENTI /////////////////////////////////
-	var tregistry_docenti= new MetaTable("registry_docenti");
-	tregistry_docenti.defineColumn("ct", typeof(DateTime),false);
-	tregistry_docenti.defineColumn("cu", typeof(string),false);
-	tregistry_docenti.defineColumn("cv", typeof(string));
-	tregistry_docenti.defineColumn("idclassconsorsuale", typeof(int));
-	tregistry_docenti.defineColumn("idcontrattokind", typeof(int));
-	tregistry_docenti.defineColumn("idfonteindicebibliometrico", typeof(int));
-	tregistry_docenti.defineColumn("idreg", typeof(int),false);
-	tregistry_docenti.defineColumn("idreg_istituti", typeof(int));
-	tregistry_docenti.defineColumn("idsasd", typeof(int));
-	tregistry_docenti.defineColumn("idstruttura", typeof(int));
-	tregistry_docenti.defineColumn("indicebibliometrico", typeof(int));
-	tregistry_docenti.defineColumn("lt", typeof(DateTime),false);
-	tregistry_docenti.defineColumn("lu", typeof(string),false);
-	tregistry_docenti.defineColumn("matricola", typeof(string));
-	tregistry_docenti.defineColumn("ricevimento", typeof(string));
-	tregistry_docenti.defineColumn("soggiorno", typeof(string));
-	Tables.Add(tregistry_docenti);
-	tregistry_docenti.defineKey("idreg");
+	//////////////////// REGISTRY /////////////////////////////////
+	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("active", typeof(string),false);
+	tregistry.defineColumn("idreg", typeof(int),false);
+	tregistry.defineColumn("title", typeof(string),false);
+	Tables.Add(tregistry);
+	tregistry.defineKey("idreg");
 
 	//////////////////// AFFIDAMENTO /////////////////////////////////
 	var taffidamento= new MetaTable("affidamento");
@@ -206,6 +188,7 @@ private void initClass() {
 	tlezione.defineColumn("stage", typeof(string));
 	tlezione.defineColumn("start", typeof(DateTime),false);
 	tlezione.defineColumn("stop", typeof(DateTime),false);
+	tlezione.defineColumn("titolo", typeof(string));
 	tlezione.defineColumn("visita", typeof(string));
 	Tables.Add(tlezione);
 	tlezione.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idsede");
@@ -234,9 +217,9 @@ private void initClass() {
 	cChild = new []{lezione.Columns["idsede"]};
 	Relations.Add(new DataRelation("FK_lezione_sededefaultview_idsede",cPar,cChild,false));
 
-	cPar = new []{registry_docenti.Columns["idreg"]};
+	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{lezione.Columns["idreg_docenti"]};
-	Relations.Add(new DataRelation("FK_lezione_registry_docenti_idreg_docenti",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_lezione_registry_idreg_docenti",cPar,cChild,false));
 
 	cPar = new []{affidamento.Columns["idaffidamento"]};
 	cChild = new []{lezione.Columns["idaffidamento"]};

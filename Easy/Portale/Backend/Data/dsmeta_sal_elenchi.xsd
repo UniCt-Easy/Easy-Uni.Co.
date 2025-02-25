@@ -11,7 +11,6 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="datainizioprevista" type="xs:dateTime" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="iditineration" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />

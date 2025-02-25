@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,10 +31,10 @@ namespace ServizioRendicontazione.Models
 		public override bool needAuthorize() { return true; }
 		public override string getOrder() { return "+regId,+aaOffId,+docenteId"; }
 		public override string getField() { return
-				"codFis," +
+				"codFis,aaOffId," +
 				"logistica.cdsId,logistica.cdsCod,logistica.cdsDes," +
-				"logistica.adId,logistica.adCod,logistica.adDes," +
-				"attivita.data,attivita.oraInizio,attivita.oraFine,attivita.oreAccademiche," +
+                "logistica.adId,logistica.udCod,logistica.adCod,logistica.adDes," +
+                "attivita.data,attivita.udCod,attivita.oraInizio,attivita.oraFine,attivita.oreAccademiche," +
 				"attivita.tipoAttDes,attivita.titolo"; }
 		
 		//example: MRORSS55F12H456F
@@ -42,6 +42,8 @@ namespace ServizioRendicontazione.Models
 		//maxLength: 16
 		//cognome del docente a cui apprtiene il registro
 		public string codFis { get; set; }
+
+		public int aaOffId { get; set; }
 
 		public RegistroDocenteLog[] logistica { get; set; }
 
@@ -86,7 +88,11 @@ namespace ServizioRendicontazione.Models
 		//example: Attività didattica 1
 		//descrizione dell'attività didattica
 		public string adDes { get; set; }
-	}
+
+        //example: UD_COD1
+        //id del dell'attività didattica
+        public string udCod { get; set; }
+    }
 
 	public class RegistroDocenteDett
 	{
@@ -114,11 +120,22 @@ namespace ServizioRendicontazione.Models
 
 		//example: 12.5
 		//Durata in ore accademiche dell'attività inserita dal docente (non necessariamente coincide con la differenza tra ORA_FINE e ORA_INIZIO).
-		public float oreAccademiche { get; set; }
+		public float? oreAccademiche { get; set; }
 
 		//example: titolo lezione
 		//maxLength: 255
 		//titolo dell'attività rendicontata
 		public string titolo { get; set; }
+
+        //example: UD_COD1
+        //id del dell'attività didattica
+        public string udCod { get; set; }
+    }
+
+	public class LogisticaPerAnno
+	{
+		public int aaOffId { get; set; }
+
+		public RegistroDocenteLog[] logistica { get; set; }
 	}
 }

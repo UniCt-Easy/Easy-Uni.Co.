@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,30 +26,18 @@ using System.Runtime.Serialization;
 namespace sorting_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Livello Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortinglevel 		=> Tables["sortinglevel"];
 
-	///<summary>
-	///previsione sulla classificazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingprev 		=> Tables["sortingprev"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingkind 		=> Tables["sortingkind"];
 
@@ -59,15 +47,9 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingyearview 		=> Tables["sortingyearview"];
 
-	///<summary>
-	///Classificazione responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable managersorting 		=> Tables["managersorting"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
@@ -94,6 +76,9 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingall 		=> Tables["sortingall"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortingattachment 		=> Tables["sortingattachment"];
 
 	#endregion
 
@@ -857,6 +842,25 @@ private void initClass() {
 	tsortingall.PrimaryKey =  new DataColumn[]{tsortingall.Columns["idsor"]};
 
 
+	//////////////////// SORTINGATTACHMENT /////////////////////////////////
+	var tsortingattachment= new DataTable("sortingattachment");
+	C= new DataColumn("idsor", typeof(int));
+	C.AllowDBNull=false;
+	tsortingattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tsortingattachment.Columns.Add(C);
+	tsortingattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tsortingattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tsortingattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tsortingattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tsortingattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tsortingattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tsortingattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tsortingattachment);
+	tsortingattachment.PrimaryKey =  new DataColumn[]{tsortingattachment.Columns["idsor"], tsortingattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -916,6 +920,10 @@ private void initClass() {
 	cPar = new []{sorting01.Columns["idsor"]};
 	cChild = new []{sorting.Columns["idsor01"]};
 	Relations.Add(new DataRelation("sorting01_sorting",cPar,cChild,false));
+
+	cPar = new []{sorting.Columns["idsor"]};
+	cChild = new []{sortingattachment.Columns["idsor"]};
+	Relations.Add(new DataRelation("sorting_sortingattachment",cPar,cChild,false));
 
 	#endregion
 

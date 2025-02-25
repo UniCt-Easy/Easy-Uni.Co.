@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,6 +31,9 @@ public partial class DataSet1: DataSet {
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable itinerationrefundattachment 		=> Tables["itinerationrefundattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable itinerationrefundattachmentkind 		=> Tables["itinerationrefundattachmentkind"];
 
 	#endregion
 
@@ -85,9 +88,34 @@ private void initClass() {
 	C.AllowDBNull=false;
 	titinerationrefundattachment.Columns.Add(C);
 	titinerationrefundattachment.Columns.Add( new DataColumn("active", typeof(string)));
+	titinerationrefundattachment.Columns.Add( new DataColumn("iditinerationrefundattachmentkind", typeof(int)));
 	Tables.Add(titinerationrefundattachment);
 	titinerationrefundattachment.PrimaryKey =  new DataColumn[]{titinerationrefundattachment.Columns["idattachment"], titinerationrefundattachment.Columns["iditineration"], titinerationrefundattachment.Columns["nrefund"]};
 
+
+	//////////////////// ITINERATIONREFUNDATTACHMENTKIND /////////////////////////////////
+	var titinerationrefundattachmentkind= new DataTable("itinerationrefundattachmentkind");
+	C= new DataColumn("iditinerationrefundattachmentkind", typeof(int));
+	C.AllowDBNull=false;
+	titinerationrefundattachmentkind.Columns.Add(C);
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("active", typeof(string)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("cu", typeof(string)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("lu", typeof(string)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("title", typeof(string)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("flag", typeof(int)));
+	Tables.Add(titinerationrefundattachmentkind);
+	titinerationrefundattachmentkind.PrimaryKey =  new DataColumn[]{titinerationrefundattachmentkind.Columns["iditinerationrefundattachmentkind"]};
+
+
+	#endregion
+
+
+	#region DataRelation creation
+	var cPar = new []{itinerationrefundattachmentkind.Columns["iditinerationrefundattachmentkind"]};
+	var cChild = new []{itinerationrefundattachment.Columns["iditinerationrefundattachmentkind"]};
+	Relations.Add(new DataRelation("itinerationrefundattachmentkind_itinerationrefundattachment",cPar,cChild,false));
 
 	#endregion
 

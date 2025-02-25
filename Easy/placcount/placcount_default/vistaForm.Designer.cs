@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,20 +26,17 @@ using System.Runtime.Serialization;
 namespace placcount_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Conto Economico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable placcount 		=> Tables["placcount"];
 
-	///<summary>
-	///Livelli gerarchici Conto Economico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable placcountlevel 		=> Tables["placcountlevel"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable placcountattachment 		=> Tables["placcountattachment"];
 
 	#endregion
 
@@ -139,6 +136,25 @@ private void initClass() {
 	tplaccountlevel.PrimaryKey =  new DataColumn[]{tplaccountlevel.Columns["ayear"], tplaccountlevel.Columns["nlevel"]};
 
 
+	//////////////////// PLACCOUNTATTACHMENT /////////////////////////////////
+	var tplaccountattachment= new DataTable("placcountattachment");
+	C= new DataColumn("idplaccount", typeof(string));
+	C.AllowDBNull=false;
+	tplaccountattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tplaccountattachment.Columns.Add(C);
+	tplaccountattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tplaccountattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tplaccountattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tplaccountattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tplaccountattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tplaccountattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tplaccountattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tplaccountattachment);
+	tplaccountattachment.PrimaryKey =  new DataColumn[]{tplaccountattachment.Columns["idplaccount"], tplaccountattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -150,6 +166,10 @@ private void initClass() {
 	cPar = new []{placcount.Columns["idplaccount"]};
 	cChild = new []{placcount.Columns["paridplaccount"]};
 	Relations.Add(new DataRelation("placcountplaccount",cPar,cChild,false));
+
+	cPar = new []{placcount.Columns["idplaccount"]};
+	cChild = new []{placcountattachment.Columns["idplaccount"]};
+	Relations.Add(new DataRelation("placcount_placcountattachment",cPar,cChild,false));
 
 	#endregion
 

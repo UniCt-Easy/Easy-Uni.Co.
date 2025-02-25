@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,6 +37,9 @@ namespace no_table_splitemens{
 
         public FrmSplitEmens() {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
 
             dsEmens.Emens.Columns["AnnoMeseDenuncia"].Caption = "Mese denuncia";
             dsEmens.Emens.Columns["CFAzienda"].Caption = "C.F. Azienda";
@@ -58,6 +61,12 @@ namespace no_table_splitemens{
             saveFileDialog1.DefaultExt = "xml";
             saveFileDialog1.Title = "Specificare il nome del file da produrre:";
             folderBrowserDialog1.Description = "Indicare la cartella dove sono presenti i file Emens da consolidare:";
+
+            if (isBlazor())
+			{
+                txtDirectory.Visible = false;
+                btnDirectory.Visible = false;
+			}
         }
 
         public void MetaData_AfterLink(){
@@ -228,6 +237,8 @@ namespace no_table_splitemens{
                 }
                 writer.WriteEndElement();//"DenunceRetributiveMensili"
                 writer.Close();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(NameNewFile, false);
             }
             visualizzaXml();
         }

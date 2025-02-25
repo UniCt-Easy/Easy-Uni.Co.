@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_nettuno_matricolaafam_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_nettuno_matricolaafam_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="nettuno_matricolaafam" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aannoaccademico" type="xs:string" minOccurs="0" />
+              <xs:element name="annoaccademico" type="xs:string" />
+              <xs:element name="annocorso" type="xs:int" />
+              <xs:element name="codfisc" type="xs:string" minOccurs="0" />
+              <xs:element name="cognome" type="xs:string" minOccurs="0" />
+              <xs:element name="daannoaccademico" type="xs:string" minOccurs="0" />
+              <xs:element name="dataimmatricolazione" type="xs:string" />
+              <xs:element name="datastato" type="xs:string" minOccurs="0" />
+              <xs:element name="desccorso" type="xs:string" minOccurs="0" />
+              <xs:element name="desclivello" type="xs:string" minOccurs="0" />
+              <xs:element name="descstatomatricola" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="emailistituzionale" type="xs:string" minOccurs="0" />
+              <xs:element name="flagfuoricorso" type="xs:int" />
+              <xs:element name="flagparttime" type="xs:int" />
+              <xs:element name="flagripetente" type="xs:int" />
+              <xs:element name="idcorso" type="xs:int" />
+              <xs:element name="idlivello" type="xs:string" minOccurs="0" />
+              <xs:element name="idsc" type="xs:int" />
+              <xs:element name="idu" type="xs:string" />
+              <xs:element name="iseedichiarato" type="xs:string" minOccurs="0" />
+              <xs:element name="matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="nome" type="xs:string" minOccurs="0" />
+              <xs:element name="statomatricola" type="xs:int" minOccurs="0" />
+              <xs:element name="tipomatricola" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nettuno_matricolaafam" />
+      <xs:field xpath="mstns:annoaccademico" />
+      <xs:field xpath="mstns:idcorso" />
+      <xs:field xpath="mstns:idsc" />
+      <xs:field xpath="mstns:idu" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

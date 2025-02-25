@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -102,6 +102,7 @@ namespace meta_no_table {
             EditTypes.Add("trasfdocreversale");
             EditTypes.Add("trasfdocmandato");
             EditTypes.Add("emisti");
+            EditTypes.Add("imp_prontoperloscarico");
         }
         public override void DescribeColumns(System.Data.DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
@@ -418,6 +419,11 @@ namespace meta_no_table {
                         Name = "Importazione Emisti";
                         return GetFormByDllName("no_table_emisti");
                     }
+                case "imp_prontoperloscarico": {
+                        Name = "Impostazione massiva 'Pronto per lo scarico'";
+                        return GetFormByDllName("no_table_imp_prontoperloscarico");
+                    }
+                    
 
             }
 			return null;

@@ -49,15 +49,15 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.nonsvolta)
+				if (this.isNull(parentRow.nonsvolta) || parentRow.nonsvolta == '')
 					parentRow.nonsvolta = "N";
-				if (!parentRow.stage)
+				if (this.isNull(parentRow.stage) || parentRow.stage == '')
 					parentRow.stage = "N";
 				if (self.isNullOrMinDate(parentRow.start))
 					parentRow.start = new Date();
 				if (self.isNullOrMinDate(parentRow.stop))
 					parentRow.stop = new Date();
-				if (!parentRow.visita)
+				if (this.isNull(parentRow.visita) || parentRow.visita == '')
 					parentRow.visita = "N";
 				//beforeFillFilter
 				
@@ -97,12 +97,16 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-lezione_attivform");
-				$('#lezione_attivform_idsede').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_attivform_idsede').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#lezione_attivform_idedificio').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_attivform_idedificio').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#lezione_attivform_idaula').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_attivform_idaula').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_attivform_idsede').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idsede);
+				$('#lezione_attivform_idsede').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idsede);
+				$('#lezione_attivform_idedificio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
+				$('#lezione_attivform_idedificio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
+				$('#lezione_attivform_idsede').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
+				$('#lezione_attivform_idsede').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
+				$('#lezione_attivform_idaula').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaula);
+				$('#lezione_attivform_idaula').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaula);
+				$('#lezione_attivform_idedificio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaula);
+				$('#lezione_attivform_idedificio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaula);
 				//afterRowSelectin
 				return def.resolve();
 			},

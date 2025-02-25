@@ -112,9 +112,6 @@
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto_alias1'), this.getDataTable('rendicontattivitaprogettoyear'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto_alias1'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('workpackage'), this.getDataTable('assetdiary'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettocosto'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettobudgetvariazione'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettoricavo'));
 				//afterClearin
 				
 				//afterClearInAsyncBase
@@ -127,9 +124,6 @@
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto_alias1'), this.getDataTable('rendicontattivitaprogettoyear'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto_alias1'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('workpackage'), this.getDataTable('assetdiary'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettocosto'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettobudgetvariazione'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettobudget'), this.getDataTable('progettoricavo'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -606,9 +606,19 @@ namespace exportfunction_default//expstoredprocedure//
                 StreamWriter sw = new StreamWriter(fileName, true);
                 sw.Write(GeneraSQL.scriptOneSP(Conn, procedurename));
                 sw.Flush();
-                sw.Close();
+                sw.Close();                                
             }
-            show(this, "File salvato in " + fileName, "Avviso");
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
+
+            string message;
+
+            if (isBlazor())
+                message = "Download del file effettuato";
+            else
+                message = "File salvato in " + fileName;
+
+            show(this, message, "Avviso");
         }
 
         private void btnAnalisiSp_Click(object sender, EventArgs e) {

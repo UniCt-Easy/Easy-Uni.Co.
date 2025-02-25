@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,6 +45,8 @@ namespace bankdispositionsetup_siopeplus {
                 
         public FrmBankdispositionsetup_siopeplus() {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             saveFileDialog1.DefaultExt = "xml";
         }
 
@@ -145,11 +147,12 @@ namespace bankdispositionsetup_siopeplus {
         bool salvaFile(XmlDocument document, string fname, int ntrasmission,object idtreasurer,string kind) {
             document.writeXmlToFile(fname,Encoding.GetEncoding("ISO-8859-1"));
 
-            
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fname, false);
+
             // Cerca di Validare il file
             try {
                 bool res = XML_XSD_Validator.Validate(fname,
-                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OPI_FLUSSO_ORDINATIVI_V_1_6_1.XSD"));
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OPI_FLUSSO_ORDINATIVI_V_1_7_1.XSD"));
                 if (!res) {
                     QueryCreator.ShowError(this, "Errore nella validazione dell'xml", XML_XSD_Validator.GetError());
                     return false;

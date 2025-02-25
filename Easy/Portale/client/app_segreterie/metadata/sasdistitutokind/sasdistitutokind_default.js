@@ -33,8 +33,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-sasdistitutokind_default");
-				$('#sasdistitutokind_default_idistitutokind').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#sasdistitutokind_default_idistitutokind').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#sasdistitutokind_default_idistitutokind').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idistitutokind);
+				$('#sasdistitutokind_default_idistitutokind').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idistitutokind);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -47,11 +47,13 @@
 
 			insertClick: function (that, grid) {
 				if (!$('#sasdistitutokind_default_idistitutokind').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Codice');
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Identificativo');
 				}
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
 			},
+
+			//beforePost
 
 			children: [''],
 			haveChildren: function () {

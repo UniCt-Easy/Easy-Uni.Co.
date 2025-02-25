@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,161 +32,89 @@ public partial class AutomatismiGenerati: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable automatismitable 		=> Tables["automatismitable"];
 
-	///<summary>
-	///Movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expense 		=> Tables["expense"];
 
-	///<summary>
-	///Informazioni annuali su movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseyear 		=> Tables["expenseyear"];
 
-	///<summary>
-	///Informazioni annuali su mov. di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeyear 		=> Tables["incomeyear"];
 
-	///<summary>
-	///Variazione movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomevar 		=> Tables["incomevar"];
 
-	///<summary>
-	///Movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable income 		=> Tables["income"];
 
-	///<summary>
-	///Variazione movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensevar 		=> Tables["expensevar"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
-	///<summary>
-	///Documento di incasso
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable proceeds 		=> Tables["proceeds"];
 
-	///<summary>
-	///Documento di pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payment 		=> Tables["payment"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Classificazione Movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensesorted 		=> Tables["expensesorted"];
 
-	///<summary>
-	///Classificazione Movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomesorted 		=> Tables["incomesorted"];
 
-	///<summary>
-	///Dettaglio Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensetax 		=> Tables["expensetax"];
 
-	///<summary>
-	///Dettaglio Recuperi
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseclawback 		=> Tables["expenseclawback"];
 
-	///<summary>
-	///Tipi di ritenuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
-	///<summary>
-	///Movimento di spesa - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenselast 		=> Tables["expenselast"];
 
-	///<summary>
-	///Movimento di entrata - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomelast 		=> Tables["incomelast"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
-	///<summary>
-	///Dettaglio Riepilogo Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensetaxofficial 		=> Tables["expensetaxofficial"];
 
-	///<summary>
-	///Dettaglio Correzioni Ritenute
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensetaxcorrige 		=> Tables["expensetaxcorrige"];
 
-	///<summary>
-	///Finanziamento fase Prenotazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwritingappropriation 		=> Tables["underwritingappropriation"];
 
-	///<summary>
-	///Finanziamento fase Liquidazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwritingpayment 		=> Tables["underwritingpayment"];
 
-	///<summary>
-	///Sospeso passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensebill 		=> Tables["expensebill"];
 
-	///<summary>
-	///Sospeso attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomebill 		=> Tables["incomebill"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable incomelastestimatedetail 		=> Tables["incomelastestimatedetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expenselastmandatedetail 		=> Tables["expenselastmandatedetail"];
 
 	#endregion
 
@@ -1124,6 +1052,80 @@ private void initClass() {
 	tincomebill.PrimaryKey =  new DataColumn[]{tincomebill.Columns["idinc"], tincomebill.Columns["ybill"], tincomebill.Columns["nbill"]};
 
 
+	//////////////////// INCOMELASTESTIMATEDETAIL /////////////////////////////////
+	var tincomelastestimatedetail= new DataTable("incomelastestimatedetail");
+	C= new DataColumn("idinc", typeof(int));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	C= new DataColumn("idestimkind", typeof(string));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	C= new DataColumn("yestim", typeof(short));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	C= new DataColumn("nestim", typeof(int));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	C= new DataColumn("rownum", typeof(int));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	C= new DataColumn("amount", typeof(decimal));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tincomelastestimatedetail.Columns.Add(C);
+	tincomelastestimatedetail.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
+	Tables.Add(tincomelastestimatedetail);
+	tincomelastestimatedetail.PrimaryKey =  new DataColumn[]{tincomelastestimatedetail.Columns["idinc"], tincomelastestimatedetail.Columns["idestimkind"], tincomelastestimatedetail.Columns["yestim"], tincomelastestimatedetail.Columns["nestim"], tincomelastestimatedetail.Columns["rownum"]};
+
+
+	//////////////////// EXPENSELASTMANDATEDETAIL /////////////////////////////////
+	var texpenselastmandatedetail= new DataTable("expenselastmandatedetail");
+	C= new DataColumn("idexp", typeof(int));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("idmankind", typeof(string));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("yman", typeof(short));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("nman", typeof(int));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("rownum", typeof(int));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("amount", typeof(decimal));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	texpenselastmandatedetail.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
+	Tables.Add(texpenselastmandatedetail);
+	texpenselastmandatedetail.PrimaryKey =  new DataColumn[]{texpenselastmandatedetail.Columns["idexp"], texpenselastmandatedetail.Columns["idmankind"], texpenselastmandatedetail.Columns["yman"], texpenselastmandatedetail.Columns["nman"], texpenselastmandatedetail.Columns["rownum"]};
+
+
 	#endregion
 
 
@@ -1263,6 +1265,14 @@ private void initClass() {
 	cPar = new []{expense.Columns["idexp"]};
 	cChild = new []{expense.Columns["idpayment"]};
 	Relations.Add(new DataRelation("expenseexpense1",cPar,cChild,false));
+
+	cPar = new []{income.Columns["idinc"]};
+	cChild = new []{incomelastestimatedetail.Columns["idinc"]};
+	Relations.Add(new DataRelation("income_incomelastestimatedetail",cPar,cChild,false));
+
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expenselastmandatedetail.Columns["idexp"]};
+	Relations.Add(new DataRelation("expense_expenselastmandatedetail",cPar,cChild,false));
 
 	#endregion
 

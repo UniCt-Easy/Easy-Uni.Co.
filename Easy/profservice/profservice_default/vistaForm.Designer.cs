@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,33 +29,63 @@ namespace profservice_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
+	///<summary>
+	///Tipo Prestazione
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable service 		=> Tables["service"];
 
+	///<summary>
+	///Ritenuta su parcella professionale
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservicetax 		=> Tables["profservicetax"];
 
+	///<summary>
+	///Tipi di ritenuta
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
+	///<summary>
+	///Parcella Professionale
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservice 		=> Tables["profservice"];
 
+	///<summary>
+	///Anagrafica
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
+	///<summary>
+	///Tipo Spesa Professionale
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profrefund 		=> Tables["profrefund"];
 
+	///<summary>
+	///Spese Documentate
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservicerefund 		=> Tables["profservicerefund"];
 
+	///<summary>
+	///Classificazione Movimenti
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
+	///<summary>
+	///Classificazione contratto professionale
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservicesorting 		=> Tables["profservicesorting"];
 
+	///<summary>
+	///Tipo di documento
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
 
@@ -68,15 +98,24 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting3 		=> Tables["sorting3"];
 
+	///<summary>
+	///U.P.B.
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotiveapplied 		=> Tables["accmotiveapplied"];
 
+	///<summary>
+	///Elenco aliquote
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ivakind 		=> Tables["ivakind"];
 
+	///<summary>
+	///Configurazione Annuale
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
@@ -101,21 +140,36 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting05 		=> Tables["sorting05"];
 
+	///<summary>
+	///Posizione Dalia
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable dalia_position 		=> Tables["dalia_position"];
 
+	///<summary>
+	///Partecipante a gara
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profserviceavcp 		=> Tables["profserviceavcp"];
 
+	///<summary>
+	///Partecipante a gara, associazione a lotti
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profserviceavcpdetail 		=> Tables["profserviceavcpdetail"];
 
+	///<summary>
+	///Lotto parcella
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable profservicecig 		=> Tables["profservicecig"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingview1 		=> Tables["sortingview1"];
 
+	///<summary>
+	///Dettaglio documento IVA
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicedetail 		=> Tables["invoicedetail"];
 
@@ -560,6 +614,26 @@ private void initClass() {
 	tprofservicesorting.Columns.Add(C);
 	tprofservicesorting.Columns.Add( new DataColumn("quota", typeof(double)));
 	tprofservicesorting.Columns.Add( new DataColumn("!codiceclass", typeof(string)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuen1", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuen2", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuen3", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuen4", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuen5", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("values1", typeof(string)));
+	tprofservicesorting.Columns.Add( new DataColumn("values2", typeof(string)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuev1", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuev2", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuev3", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("valued1", typeof(DateTime)));
+	tprofservicesorting.Columns.Add( new DataColumn("valued2", typeof(DateTime)));
+	tprofservicesorting.Columns.Add( new DataColumn("valued3", typeof(DateTime)));
+	tprofservicesorting.Columns.Add( new DataColumn("valued4", typeof(DateTime)));
+	tprofservicesorting.Columns.Add( new DataColumn("valued5", typeof(DateTime)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuev4", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("valuev5", typeof(decimal)));
+	tprofservicesorting.Columns.Add( new DataColumn("values3", typeof(string)));
+	tprofservicesorting.Columns.Add( new DataColumn("values4", typeof(string)));
+	tprofservicesorting.Columns.Add( new DataColumn("values5", typeof(string)));
 	tprofservicesorting.Columns.Add( new DataColumn("!descrizione", typeof(string)));
 	Tables.Add(tprofservicesorting);
 	tprofservicesorting.PrimaryKey =  new DataColumn[]{tprofservicesorting.Columns["idsor"], tprofservicesorting.Columns["ycon"], tprofservicesorting.Columns["ncon"]};

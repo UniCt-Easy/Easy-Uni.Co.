@@ -73,6 +73,23 @@
 						this.describeAColumn(table, 'registry_toredirect', 'E\' stato usato in qualche migrazione', null, 40000, null);
 						this.describeAColumn(table, 'registry_txt', 'note testuali', null, 41000, null);
 						this.describeAColumn(table, 'registry_ipa_perlapa', 'Ipa_perlapa', null, 46000, 100);
+						this.describeAColumn(table, 'ateco_codice', 'Codice Idateco', null, 47200, 50);
+						this.describeAColumn(table, 'ateco_title', 'Titolo Idateco', null, 47300, 255);
+						this.describeAColumn(table, 'fonteindicebibliometrico_title', 'Idfonteindicebibliometrico', null, 49200, 1024);
+						this.describeAColumn(table, 'nace_idnace', 'Identificativo Idnace', null, 50100, 50);
+						this.describeAColumn(table, 'nace_activity', 'Activity Idnace', null, 50200, -1);
+						this.describeAColumn(table, 'naturagiur_title', 'Idnaturagiur', null, 51200, 200);
+						this.describeAColumn(table, 'numerodip_title', 'Idnumerodip', null, 52200, 50);
+						this.describeAColumn(table, 'registryistituti_title', 'Idreg_istituti', null, 53100, 101);
+						this.describeAColumn(table, 'sasd_codice', 'Codice Idsasd', null, 54200, 50);
+						this.describeAColumn(table, 'sasd_title', 'Denominazione Idsasd', null, 54300, 255);
+						this.describeAColumn(table, 'struttura_title', 'Denominazione Idstruttura', null, 55100, 1024);
+						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo Idstruttura', null, 55220, 50);
+						this.describeAColumn(table, 'registry_indicebibliometrico', 'Indicebibliometrico', null, 56000, null);
+						this.describeAColumn(table, 'registry_pic', 'Pic', null, 57000, 10);
+						this.describeAColumn(table, 'registry_ricevimento', 'Ricevimento', null, 58000, -1);
+						this.describeAColumn(table, 'registry_soggiorno', 'Soggiorno', null, 59000, 255);
+						this.describeAColumn(table, 'registry_title_en', 'Title_en', null, 60000, 150);
 //$objCalcFieldConfig_istituti_princ$
 						break;
 //$objCalcFieldConfig$

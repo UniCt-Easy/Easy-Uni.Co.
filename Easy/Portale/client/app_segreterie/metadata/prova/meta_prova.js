@@ -77,7 +77,6 @@
 //$innerSetCaptionConfig_ingresso$
 						break;
 					case 'default':
-						table.columns["idappello"].caption = "Appello";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$
@@ -88,31 +87,18 @@
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_prova");
 
-				var realParentObjectRow = parentRow;
-				if (editType === "ingresso") {
-					var realParentTableName = "didprog";
-					var realParentTable = dt.dataset.tables["didprog"];
-					if (!realParentTable) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non esiste nel dataset");
-						return def.resolve(null);
-					}
-					if (!realParentTable.rows.length) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non ha righe");
-						return def.resolve(null);
-					}
-					realParentObjectRow = realParentTable.rows[0].getRow();
-				}
 				//$getNewRowInside$
 
 				dt.autoIncrement('idprova', { minimum: 99990001 });
 
 				// metto i default
-				return this.superClass.getNewRow(realParentObjectRow, dt, editType)
+				return this.superClass.getNewRow(parentRow, dt, editType)
 					.then(function (dtRow) {
 						//$getNewRowDefault$
 						return def.resolve(dtRow);
 					});
 			},
+
 
 
 

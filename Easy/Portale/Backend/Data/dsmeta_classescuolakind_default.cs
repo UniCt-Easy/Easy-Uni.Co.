@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,9 +27,12 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_classescuolakind_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_classescuolakind_default: DataSet {
+public partial class dsmeta_classescuolakind_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable eqf 		=> (MetaTable)Tables["eqf"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable corsostudiolivellodefaultview 		=> (MetaTable)Tables["corsostudiolivellodefaultview"];
 
@@ -64,6 +67,13 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_classescuolakind_default.xsd";
 
 	#region create DataTables
+	//////////////////// EQF /////////////////////////////////
+	var teqf= new MetaTable("eqf");
+	teqf.defineColumn("ideqf", typeof(int),false);
+	teqf.defineColumn("level", typeof(int));
+	Tables.Add(teqf);
+	teqf.defineKey("ideqf");
+
 	//////////////////// CORSOSTUDIOLIVELLODEFAULTVIEW /////////////////////////////////
 	var tcorsostudiolivellodefaultview= new MetaTable("corsostudiolivellodefaultview");
 	tcorsostudiolivellodefaultview.defineColumn("dropdown_title", typeof(string),false);
@@ -74,8 +84,15 @@ private void initClass() {
 	//////////////////// CORSOSTUDIOKINDDEFAULTVIEW /////////////////////////////////
 	var tcorsostudiokinddefaultview= new MetaTable("corsostudiokinddefaultview");
 	tcorsostudiokinddefaultview.defineColumn("corsostudiokind_active", typeof(string));
+	tcorsostudiokinddefaultview.defineColumn("corsostudiokind_ct", typeof(DateTime),false);
+	tcorsostudiokinddefaultview.defineColumn("corsostudiokind_cu", typeof(string),false);
+	tcorsostudiokinddefaultview.defineColumn("corsostudiokind_description", typeof(string));
+	tcorsostudiokinddefaultview.defineColumn("corsostudiokind_lt", typeof(DateTime),false);
+	tcorsostudiokinddefaultview.defineColumn("corsostudiokind_lu", typeof(string),false);
+	tcorsostudiokinddefaultview.defineColumn("corsostudiokind_sortcode", typeof(int),false);
 	tcorsostudiokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tcorsostudiokinddefaultview.defineColumn("idcorsostudiokind", typeof(int),false);
+	tcorsostudiokinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tcorsostudiokinddefaultview);
 	tcorsostudiokinddefaultview.defineKey("idcorsostudiokind");
 
@@ -84,6 +101,7 @@ private void initClass() {
 	tclassescuolakind.defineColumn("idclassescuolakind", typeof(string),false);
 	tclassescuolakind.defineColumn("idcorsostudiokind", typeof(int),false);
 	tclassescuolakind.defineColumn("idcorsostudiolivello", typeof(int));
+	tclassescuolakind.defineColumn("ideqf", typeof(int));
 	tclassescuolakind.defineColumn("title", typeof(string),false);
 	Tables.Add(tclassescuolakind);
 	tclassescuolakind.defineKey("idclassescuolakind");
@@ -92,8 +110,12 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{corsostudiolivellodefaultview.Columns["idcorsostudiolivello"]};
-	var cChild = new []{classescuolakind.Columns["idcorsostudiolivello"]};
+	var cPar = new []{eqf.Columns["ideqf"]};
+	var cChild = new []{classescuolakind.Columns["ideqf"]};
+	Relations.Add(new DataRelation("FK_classescuolakind_eqf_ideqf",cPar,cChild,false));
+
+	cPar = new []{corsostudiolivellodefaultview.Columns["idcorsostudiolivello"]};
+	cChild = new []{classescuolakind.Columns["idcorsostudiolivello"]};
 	Relations.Add(new DataRelation("FK_classescuolakind_corsostudiolivellodefaultview_idcorsostudiolivello",cPar,cChild,false));
 
 	cPar = new []{corsostudiokinddefaultview.Columns["idcorsostudiokind"]};

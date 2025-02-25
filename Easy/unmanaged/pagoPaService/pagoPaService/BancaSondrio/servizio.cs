@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -209,55 +209,56 @@ namespace BancaSondrio {
         private static readonly string URL = "https://wsdev.popso.it:18003/IUVOnlineService_v1/scrittura/IUVOnlineService.ws";
         private static readonly string THUMBPRINT = "46 7f 06 bb f8 18 b4 6b 2f 48 bf e8 41 fc 12 e9 8d 81 f9 a2";
 
-        public static IServizio1_1 Create(string url,string thumb) {
+        public static IServizio1_1 Create(string url,string thumb,
+            X509Certificate2 clientcert = null, X509Certificate2 servicecert = null, X509Certificate2 clientcerttest = null, X509Certificate2 servicecerttest = null) {
             //ServicePointManager.SecurityProtocol =SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             ServicePointManager.CheckCertificateRevocationList = false;                      
             String rootCAThumbprint =
-                "67BC2F778867F73D887A69018FF3CC108AD5C465"; // write your code to get your CA's thumbprint
+                "67BC2F778867F73D887A69018FF3CC108AD5C465";    /* newtable po2018_root_bsondrio.cer*/    // write your code to get your CA's thumbprint
 
-              //ServicePointManager.ServerCertificateValidationCallback +=
-              //  (sender, certificate, myChain, sslPolicyErrors) => {
-                    
-              //          // CN=[DESARROLLO] Global Chambersign Root - 2008, O=AC Camerfirma S.A.,...
-              //      // remove this line if commercial CAs are not allowed to issue certificate for your service.
-              //      if ((sslPolicyErrors & (SslPolicyErrors.None)) > 0) {
-              //          return true;
-              //      }
+            //ServicePointManager.ServerCertificateValidationCallback +=
+            //  (sender, certificate, myChain, sslPolicyErrors) => {
 
-              //      if (
-              //          (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNameMismatch)) > 0 ||
-              //          (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNotAvailable)) > 0
-              //      ) {
-              //          return false;
-              //      }
+            //          // CN=[DESARROLLO] Global Chambersign Root - 2008, O=AC Camerfirma S.A.,...
+            //      // remove this line if commercial CAs are not allowed to issue certificate for your service.
+            //      if ((sslPolicyErrors & (SslPolicyErrors.None)) > 0) {
+            //          return true;
+            //      }
 
-              //      return true;
-              //      // get last chain element that should contain root CA certificate
-              //      // but this may not be the case in partial chains
-              //      //X509Certificate2 projectedRootCert = myChain.ChainElements[myChain.ChainElements.Count - 1].Certificate;
-              //      //if (projectedRootCert.Thumbprint != rootCAThumbprint) {
-              //      //    return false;
-              //      //}
+            //      if (
+            //          (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNameMismatch)) > 0 ||
+            //          (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNotAvailable)) > 0
+            //      ) {
+            //          return false;
+            //      }
 
-              //      //X509Certificate2 firstRootCert = chain.ChainElements[0].Certificate;
-              //      //if (firstRootCert.Thumbprint != "3ED8765D55F336BC43F08E0DECD9573C64866049") {//"CN=solutionpa-coll.intesasanpaolo.com, O=Intesa Sanpaolo S.p.A. - Test SSL, S=Italia, C=IT"
-              //      //    return false;
-              //      //}
+            //      return true;
+            //      // get last chain element that should contain root CA certificate
+            //      // but this may not be the case in partial chains
+            //      //X509Certificate2 projectedRootCert = myChain.ChainElements[myChain.ChainElements.Count - 1].Certificate;
+            //      //if (projectedRootCert.Thumbprint != rootCAThumbprint) {
+            //      //    return false;
+            //      //}
 
-              //      // execute certificate chaining engine and ignore only "UntrustedRoot" error
-              //      //X509Chain customChain = new X509Chain {
-              //      //    ChainPolicy = {
-              //      //        VerificationFlags = X509VerificationFlags.AllFlags
-              //      //    }
-              //      //};
-              //      //Boolean retValue = customChain.Build(chain.ChainElements[0].Certificate);
-              //      //// RELEASE unmanaged resources behind X509Chain class.
-              //      //customChain.Reset();
-              //      //return true;
+            //      //X509Certificate2 firstRootCert = chain.ChainElements[0].Certificate;
+            //      //if (firstRootCert.Thumbprint != "3ED8765D55F336BC43F08E0DECD9573C64866049") {//"CN=solutionpa-coll.intesasanpaolo.com, O=Intesa Sanpaolo S.p.A. - Test SSL, S=Italia, C=IT"
+            //      //    return false;
+            //      //}
 
-              //      //return sslPolicyErrors == SslPolicyErrors.None;
-              //  };
+            //      // execute certificate chaining engine and ignore only "UntrustedRoot" error
+            //      //X509Chain customChain = new X509Chain {
+            //      //    ChainPolicy = {
+            //      //        VerificationFlags = X509VerificationFlags.AllFlags
+            //      //    }
+            //      //};
+            //      //Boolean retValue = customChain.Build(chain.ChainElements[0].Certificate);
+            //      //// RELEASE unmanaged resources behind X509Chain class.
+            //      //customChain.Reset();
+            //      //return true;
+
+            //      //return sslPolicyErrors == SslPolicyErrors.None;
+            //  };
 
             url = url ?? URL;
             thumb = thumb ?? THUMBPRINT;
@@ -280,22 +281,22 @@ namespace BancaSondrio {
 
                 //2019 "f158cb0b33b0ea1d219d192862086ff6730b2c9b".ToUpperInvariant()
 
-                factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "d34e1f8c01a911110145142dbb8fb32358b8a725");
-                factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
-                    "C36663D47D8C70B2B9D40BA9174529DDD23A952A");
+                factory.Credentials.ServiceCertificate.DefaultCertificate = servicecerttest ?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "d34e1f8c01a911110145142dbb8fb32358b8a725"); /*newtable popso_chain.pfx*/
+                factory.Credentials.ClientCertificate.Certificate = clientcerttest ?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,
+                    "C36663D47D8C70B2B9D40BA9174529DDD23A952A");/*newtable popso_chain.pfx*/
             }
             else {
                 // po2018_intermedio_bsondrio; 1fb86b1168ec743154062e8c9cc5b171a4b7ccb4
                 string currCert;
-                if (DateTime.Now.CompareTo(new DateTime(2019, 1, 14,11,0,0)) >= 0) {
-	                currCert = "1fb86b1168ec743154062e8c9cc5b171a4b7ccb4".ToUpperInvariant();
-                }
-                else {
-	                currCert = "1FB86B1168EC743154062E8C9CC5B171A4B7CCB4";
-                }
+				//////if (DateTime.Now.CompareTo(new DateTime(2019, 1, 14,11,0,0)) >= 0) {
+				currCert = "1fb86b1168ec743154062e8c9cc5b171a4b7ccb4".ToUpperInvariant();/* newtable po2019_bsondrio.cer */
+                //////}
+                //////else {
+	               ////// currCert = "1FB86B1168EC743154062E8C9CC5B171A4B7CCB4";/* newtable po2018_intermedio_bsondrio.cer */
+                //////}
 
-                factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, currCert);
-                factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,thumb);
+                factory.Credentials.ServiceCertificate.DefaultCertificate = servicecert?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, currCert);
+                factory.Credentials.ClientCertificate.Certificate = clientcert?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,thumb);
             }
             // C36663D47D8C70B2B9D40BA9174529DDD23A952A certificato fpx;   3EB5D4157096C386F9F9EBB90F0B166EE38849D6
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -126,11 +126,12 @@ private void initClass() {
 	tgetdocentiamministrativiresponsabili.defineColumn("extmatricula", typeof(string));
 	tgetdocentiamministrativiresponsabili.defineColumn("forename", typeof(string));
 	tgetdocentiamministrativiresponsabili.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabili.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabili.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabili.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabili.defineColumn("struttura", typeof(string));
 	tgetdocentiamministrativiresponsabili.defineColumn("surname", typeof(string));
 	Tables.Add(tgetdocentiamministrativiresponsabili);
-	tgetdocentiamministrativiresponsabili.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabili.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// PERFMISSION /////////////////////////////////
 	var tperfmission= new MetaTable("perfmission");

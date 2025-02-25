@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -74,15 +74,15 @@ public partial class upb_tree : MetaPage
         Meta.CanInsert = false;
         Meta.SearchEnabled = false;
         if (Meta.edit_type == "treenosec") {
-            GetData.MarkSkipSecurity(DS.upb);
+            DS.upb.setSkipSecurity();
         }
 
         upbtree.Tag = "upb.tree";// + Meta.edit_type;
         if (Meta.edit_type != "treenosec") {
-            GetData.SetStaticFilter(DS.upb, Meta.GetFilterForSearch(DS.upb));
+            DS.upb.setStaticFilter(Meta.GetFilterForSearch(DS.upb));
         }    
         else {
-            GetData.SetStaticFilter(DS.upb, QHS.CmpEq("active","S"));
+            DS.upb.setStaticFilter(QHS.CmpEq("active", "S"));
         }
 
     }

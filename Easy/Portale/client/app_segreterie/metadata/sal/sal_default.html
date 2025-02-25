@@ -22,44 +22,43 @@
 <div class="tab-content mt-2">
 	<div class="tab-pane fade active show" id="tabsal_default_0" role="tabpanel">
 			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="sal_default_numerosal">Numero</label>
+					<input id="sal_default_numerosal" type="text" class="form-control" data-tag="sal.numerosal?saldefaultview.numerosal"  />
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
-					<script>
-						$( function () {
-						$("#sal_default_start").datepicker({ dateFormat: 'dd/mm/yy' });
-						} );
-					</script>
 					<label class="col-form-label col-md-12" for="sal_default_start">Data di inizio</label>
-					<input id="sal_default_start" type="text" class="form-control" data-tag="sal.start?saldefaultview.start" data-subentity  />
+					<input id="sal_default_start" type="text" class="form-control" data-tag="sal.start?saldefaultview.sal_start"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-					<script>
-						$( function () {
-						$("#sal_default_stop").datepicker({ dateFormat: 'dd/mm/yy' });
-						} );
-					</script>
 					<label class="col-form-label col-md-12" for="sal_default_stop">Data di fine</label>
-					<input id="sal_default_stop" type="text" class="form-control" data-tag="sal.stop?saldefaultview.sal_stop" data-subentity  />
+					<input id="sal_default_stop" type="text" class="form-control" data-tag="sal.stop?saldefaultview.sal_stop"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="sal_default_budget">Budget preventivato</label>
-					<input id="sal_default_budget" type="text" class="form-control" data-tag="sal.budget.fixed.2?saldefaultview.sal_budget" data-subentity  />
+					<input id="sal_default_budget" type="text" class="form-control" data-tag="sal.budget.fixed.2?saldefaultview.sal_budget"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="sal_default_budgetcalcolato">Budget calcolato</label>
-					<input id="sal_default_budgetcalcolato" type="text" class="form-control" data-tag="sal.!budgetcalcolato.fixed.2?saldefaultview.!budgetcalcolato" data-subentity  />
+					<input id="sal_default_budgetcalcolato" type="text" class="form-control" data-tag="sal.!budgetcalcolato.fixed.2?saldefaultview.!budgetcalcolato"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<script>
-						$( function () {
-						$("#sal_default_datablocco").datepicker({ dateFormat: 'dd/mm/yy' });
-						} );
-					</script>
 					<label class="col-form-label col-md-12" for="sal_default_datablocco">Data di Blocco</label>
-					<input id="sal_default_datablocco" type="text" class="form-control" data-tag="sal.datablocco?saldefaultview.sal_datablocco" data-subentity  />
+					<input id="sal_default_datablocco" type="text" class="form-control" data-tag="sal.datablocco?saldefaultview.sal_datablocco"   data-datePickerFormat="dd/mm/yy"/>
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelsal_default_autoassociazione" >Se impostato a Si indica che tutte le rendicontazioni di ore e i costi la cui data è compresa nel SAL sono considerati associati ad esso automaticamente, anche se non sono stati associati manualmente.</div>
+					<label class="col-form-label col-md-12" for="sal_default_autoassociazione">Associazione automatica dei dati</label>
+					<div class="custom-control custom-radio">
+						<input id="sal_default_autoassociazioneSi" type="radio" name="sal_default_autoassociazione" class="custom-control-input" data-tag="sal.autoassociazione:S?saldefaultview.sal_autoassociazione:Si"  ><label for="sal_default_autoassociazioneSi"> Si</label>
+						<input id="sal_default_autoassociazioneNo" type="radio" name="sal_default_autoassociazione" class="custom-control-input" data-tag="sal.autoassociazione:N?saldefaultview.sal_autoassociazione:No"  ><label for="sal_default_autoassociazioneNo"> No</label>
+					</div>
 				</div>
 			</div>
 	</div>

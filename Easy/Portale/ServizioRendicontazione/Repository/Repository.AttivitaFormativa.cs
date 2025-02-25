@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+using Microsoft.EntityFrameworkCore;
 using ServizioRendicontazione.Models;
 
 namespace ServizioRendicontazione.Repositories
@@ -26,12 +27,10 @@ namespace ServizioRendicontazione.Repositories
         // ==============================================================
         public List<attivform> AllAttivitaFormativa(List<int> iddidprogporzannoList)
         {
-            return _context.attivforms.Where(
-                w => iddidprogporzannoList.Contains(w.iddidprogporzanno)
-            ).ToList();
+            return _context.attivforms.AsNoTracking().Where(w => iddidprogporzannoList.Contains(w.iddidprogporzanno)).ToList();
         }
 
-        public attivform AddAttivitaFormativa(int idcorsostudio,
+		public attivform AddAttivitaFormativa(int idcorsostudio,
 											  int iddidprog,
 											  int iddidprogcurr,
 											  int iddidprogori,
@@ -42,45 +41,59 @@ namespace ServizioRendicontazione.Repositories
 										   string aa,
 										   string title)
 		{
-			int idattivform = 0;
-			if (_context.attivforms.Any())
-				idattivform = _context.attivforms.Max(m => m.idattivform);
-
-			int sortcode = 0;
-			if (_context.areadidatticas.Any())
-				sortcode = _context.areadidatticas.Max(m => m.sortcode);
-
-			idattivform++;
-			sortcode++;
-
-			attivform at = new attivform()
+			try
 			{
-				idattivform = idattivform,
-				iddidprogporzanno = iddidprogporzanno,
-				iddidproganno = iddidproganno,
-				iddidprogori = iddidprogori,
-				iddidprogcurr = iddidprogcurr,
-				iddidprog = iddidprog,
-				idcorsostudio = idcorsostudio,
-				aa = aa,
-				idsede = idsede,
-				idinsegn = idinsegn,
-				title = title,
-                sortcode = sortcode,
+				int idattivform = 0;
+				if (_context.attivforms.Any())
+					idattivform = _context.attivforms.AsNoTracking().Max(m => m.idattivform);
 
-                start = null,
-				stop = null,
-				iddidproggrupp = null,
-				idinsegninteg = null,
-				obbform = null,
-				obbform_en = null,
-				tipovalutaz = null
-			};
+				int sortcode = 0;
+				if (_context.areadidatticas.Any())
+					sortcode = _context.areadidatticas.AsNoTracking().Max(m => m.sortcode);
 
-			_context.Add(at);
-			_context.SaveChanges();
+				idattivform++;
+				sortcode++;
 
-			return at;
-		}		
+				attivform at = new attivform()
+				{
+					idattivform = idattivform,
+					iddidprogporzanno = iddidprogporzanno,
+					iddidproganno = iddidproganno,
+					iddidprogori = iddidprogori,
+					iddidprogcurr = iddidprogcurr,
+					iddidprog = iddidprog,
+					idcorsostudio = idcorsostudio,
+					aa = aa,
+					idsede = idsede,
+					idinsegn = idinsegn,
+					title = title,
+					sortcode = sortcode,
+
+					start = null,
+					stop = null,
+					iddidproggrupp = null,
+					idinsegninteg = null,
+					obbform = null,
+					obbform_en = null,
+					tipovalutaz = null,
+
+					Ct = DateTime.Now,
+					Cu = common.cu,
+
+					Lt = DateTime.Now,
+					Lu = common.cu
+				};
+
+				_context.Add(at);
+				_context.SaveChanges();
+
+				return at;
+			}
+			catch (Exception Ex)
+			{
+				common.logInfo($"AddAttivitaFormativa({idcorsostudio}, {iddidprog}, {aa}, {title}): \r\n" + Ex.Message + "\r\n" + Ex.InnerException?.Message + "\r\n" + Ex.StackTrace);
+				return null;
+			}
+		}	
 	}
 }

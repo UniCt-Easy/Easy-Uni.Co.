@@ -4,8 +4,7 @@
 	"description": "MyKode frontend",
 	"main": "app/main.js",
 	"scripts": {
-		"build_CredBack": "webpack --config webpack.config.js --mode production --env appName=CredBack",
-		"build_Coan_UniCampania": "webpack --config webpack.config.js --mode production --env appName=Coan_UniCampania",
+		"build_ThirdPart": "webpack --config webpack.config.js --mode production --env appName=ThirdPart",
 		"build_VisualMDLW": "webpack --config webpack.config.js --mode production --env appName=VisualMDLW",
 		"build_Segreterie": "webpack --config webpack.config.js --mode production --env appName=Segreterie",
 		"test": "grunt test",
@@ -17,11 +16,17 @@
 		"test": "test"
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome-free": "^6.7.2",
 		"async-exec-cmd": "^2.0.2",
+		"file-saver": "^2.0.5",
+		"flag-icon-css": "^4.1.7",
+		"font-awesome": "^4.4.0",
+		"ignite-ui": "^23.1.27",
 		"JQDeferred": "^2.1.0",
 		"lodash": "^4.17.13",
 		"observe-js": "^0.5.7",
-		"string.prototype.endswith": "^0.2.0"
+		"string.prototype.endswith": "^0.2.0",
+		"xlsx": "^0.18.5"
 	},
 	"author": "Gaetano Lazzo",
 	"license": "ISC",

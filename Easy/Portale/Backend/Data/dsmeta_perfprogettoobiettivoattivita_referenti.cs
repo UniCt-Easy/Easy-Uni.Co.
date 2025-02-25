@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_perfprogettoobiettivoattivita_referenti"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_perfprogettoobiettivoattivita_referenti: DataSet {
+public partial class dsmeta_perfprogettoobiettivoattivita_referenti: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -139,8 +139,10 @@ private void initClass() {
 
 	//////////////////// PERFPROGETTODEFAULTVIEW /////////////////////////////////
 	var tperfprogettodefaultview= new MetaTable("perfprogettodefaultview");
+	tperfprogettodefaultview.defineColumn("attach_filename", typeof(string));
 	tperfprogettodefaultview.defineColumn("didprogsuddannokind_title", typeof(string));
 	tperfprogettodefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tperfprogettodefaultview.defineColumn("idattach", typeof(int));
 	tperfprogettodefaultview.defineColumn("idperfprogetto", typeof(int),false);
 	tperfprogettodefaultview.defineColumn("idreg_respprogetto", typeof(int));
 	tperfprogettodefaultview.defineColumn("idstruttura", typeof(int));

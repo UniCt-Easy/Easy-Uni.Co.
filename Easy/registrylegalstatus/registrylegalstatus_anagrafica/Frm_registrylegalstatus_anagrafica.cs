@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -60,6 +60,17 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 		private Label label8;
 		private TextBox textBox5;
 		private CheckBox checkBox2;
+		private GroupBox groupBox2;
+		private DataGrid dataGridAllegati;
+		private Button btnDelAtt;
+		private Button btnEditAtt;
+		private Button btnInsAtt;
+		private GroupBox gboxConcorsuale;
+		private TextBox txtClasseconcorsuale;
+		private Button BancaButton;
+		private TextBox txtDescrConcorsuale;
+		private Label label9;
+		private ComboBox cmbTipologiaRuolo;
 		MetaData Meta;
 
 		public Frm_registrylegalstatus_anagrafica() {
@@ -115,10 +126,24 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			this.label8 = new System.Windows.Forms.Label();
 			this.textBox5 = new System.Windows.Forms.TextBox();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
+			this.gboxConcorsuale = new System.Windows.Forms.GroupBox();
+			this.txtClasseconcorsuale = new System.Windows.Forms.TextBox();
+			this.BancaButton = new System.Windows.Forms.Button();
+			this.txtDescrConcorsuale = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.cmbTipologiaRuolo = new System.Windows.Forms.ComboBox();
 			this.groupCredDeb.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox6.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
+			this.gboxConcorsuale.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupCredDeb
@@ -256,9 +281,9 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			this.groupBox6.Controls.Add(this.label13);
 			this.groupBox6.Controls.Add(this.lblRuoloCSA);
 			this.groupBox6.Controls.Add(this.txtRuoloCSA);
-			this.groupBox6.Location = new System.Drawing.Point(16, 250);
+			this.groupBox6.Location = new System.Drawing.Point(16, 213);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(614, 53);
+			this.groupBox6.Size = new System.Drawing.Size(614, 42);
 			this.groupBox6.TabIndex = 105;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Dati CSA";
@@ -341,9 +366,9 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			this.groupBox1.Controls.Add(this.label6);
 			this.groupBox1.Controls.Add(this.textBox4);
 			this.groupBox1.Controls.Add(this.cmb_dalia_position);
-			this.groupBox1.Location = new System.Drawing.Point(18, 309);
+			this.groupBox1.Location = new System.Drawing.Point(18, 347);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(616, 80);
+			this.groupBox1.Size = new System.Drawing.Size(616, 69);
 			this.groupBox1.TabIndex = 108;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Banca Dati DALIA";
@@ -387,7 +412,7 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			this.cmbInquadramento.DataSource = this.DS.inquadramento;
 			this.cmbInquadramento.DisplayMember = "title";
 			this.cmbInquadramento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbInquadramento.Location = new System.Drawing.Point(105, 207);
+			this.cmbInquadramento.Location = new System.Drawing.Point(105, 187);
 			this.cmbInquadramento.Name = "cmbInquadramento";
 			this.cmbInquadramento.Size = new System.Drawing.Size(525, 21);
 			this.cmbInquadramento.TabIndex = 116;
@@ -397,7 +422,7 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(20, 210);
+			this.label7.Location = new System.Drawing.Point(20, 190);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(81, 13);
 			this.label7.TabIndex = 115;
@@ -424,7 +449,7 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			// checkBox2
 			// 
 			this.checkBox2.AutoSize = true;
-			this.checkBox2.Location = new System.Drawing.Point(14, 413);
+			this.checkBox2.Location = new System.Drawing.Point(15, 421);
 			this.checkBox2.Name = "checkBox2";
 			this.checkBox2.Size = new System.Drawing.Size(306, 17);
 			this.checkBox2.TabIndex = 119;
@@ -432,11 +457,136 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			this.checkBox2.Text = "Predefinito (ai fini del calcolo dei costi nei progetti di ricerca)";
 			this.checkBox2.UseVisualStyleBackColor = true;
 			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Controls.Add(this.dataGridAllegati);
+			this.groupBox2.Controls.Add(this.btnDelAtt);
+			this.groupBox2.Controls.Add(this.btnEditAtt);
+			this.groupBox2.Controls.Add(this.btnInsAtt);
+			this.groupBox2.Location = new System.Drawing.Point(16, 448);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(618, 203);
+			this.groupBox2.TabIndex = 120;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Allegati";
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(11, 63);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(595, 126);
+			this.dataGridAllegati.TabIndex = 27;
+			this.dataGridAllegati.Tag = "registrylegalstatusattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(202, 28);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 26;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(106, 28);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 25;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(11, 28);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 24;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
+			// gboxConcorsuale
+			// 
+			this.gboxConcorsuale.Controls.Add(this.txtClasseconcorsuale);
+			this.gboxConcorsuale.Controls.Add(this.BancaButton);
+			this.gboxConcorsuale.Controls.Add(this.txtDescrConcorsuale);
+			this.gboxConcorsuale.Location = new System.Drawing.Point(16, 261);
+			this.gboxConcorsuale.Name = "gboxConcorsuale";
+			this.gboxConcorsuale.Size = new System.Drawing.Size(304, 64);
+			this.gboxConcorsuale.TabIndex = 121;
+			this.gboxConcorsuale.TabStop = false;
+			this.gboxConcorsuale.Tag = "AutoChoose.txtClasseconcorsuale.default.(active=\'S\')";
+			this.gboxConcorsuale.Text = "Classi di concorso MIUR";
+			// 
+			// txtClasseconcorsuale
+			// 
+			this.txtClasseconcorsuale.Location = new System.Drawing.Point(9, 38);
+			this.txtClasseconcorsuale.Name = "txtClasseconcorsuale";
+			this.txtClasseconcorsuale.Size = new System.Drawing.Size(123, 20);
+			this.txtClasseconcorsuale.TabIndex = 3;
+			this.txtClasseconcorsuale.Tag = "classconsorsuale.title?registrylegalstatusview.classconsorsualetitle";
+			// 
+			// BancaButton
+			// 
+			this.BancaButton.Location = new System.Drawing.Point(8, 14);
+			this.BancaButton.Name = "BancaButton";
+			this.BancaButton.Size = new System.Drawing.Size(124, 23);
+			this.BancaButton.TabIndex = 2;
+			this.BancaButton.Tag = "choose.classconsorsuale.default.(active=\'S\')";
+			this.BancaButton.Text = "Classe";
+			// 
+			// txtDescrConcorsuale
+			// 
+			this.txtDescrConcorsuale.Location = new System.Drawing.Point(142, 9);
+			this.txtDescrConcorsuale.Multiline = true;
+			this.txtDescrConcorsuale.Name = "txtDescrConcorsuale";
+			this.txtDescrConcorsuale.ReadOnly = true;
+			this.txtDescrConcorsuale.Size = new System.Drawing.Size(156, 49);
+			this.txtDescrConcorsuale.TabIndex = 2;
+			this.txtDescrConcorsuale.TabStop = false;
+			this.txtDescrConcorsuale.Tag = "classconsorsuale.description";
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(323, 269);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(100, 21);
+			this.label9.TabIndex = 123;
+			this.label9.Text = "Tipologia Servizio";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbTipologiaRuolo
+			// 
+			this.cmbTipologiaRuolo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbTipologiaRuolo.DataSource = DS.tipologiaruolo;
+			this.cmbTipologiaRuolo.DisplayMember = "description";
+			this.cmbTipologiaRuolo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbTipologiaRuolo.Location = new System.Drawing.Point(429, 270);
+			this.cmbTipologiaRuolo.Name = "cmbTipologiaRuolo";
+			this.cmbTipologiaRuolo.Size = new System.Drawing.Size(201, 21);
+			this.cmbTipologiaRuolo.TabIndex = 122;
+			this.cmbTipologiaRuolo.Tag = "registrylegalstatus.idtipologiaruolo";
+			this.cmbTipologiaRuolo.ValueMember = "idtipologiaruolo";
+			// 
 			// Frm_registrylegalstatus_anagrafica
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(646, 451);
+			this.ClientSize = new System.Drawing.Size(646, 665);
+			this.Controls.Add(this.label9);
+			this.Controls.Add(this.cmbTipologiaRuolo);
+			this.Controls.Add(this.gboxConcorsuale);
+			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.checkBox2);
 			this.Controls.Add(this.label8);
 			this.Controls.Add(this.textBox5);
@@ -466,6 +616,10 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			this.groupBox6.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
+			this.gboxConcorsuale.ResumeLayout(false);
+			this.gboxConcorsuale.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

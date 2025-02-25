@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,21 +26,15 @@ using System.Runtime.Serialization;
 namespace itinerationrefundkind_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Rimborso Spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable itinerationrefundkind 		=> Tables["itinerationrefundkind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotiveapplied 		=> Tables["accmotiveapplied"];
 
-	///<summary>
-	///Elenco dei Tipi Rimborsi spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable itinerationrefundkindgroup 		=> Tables["itinerationrefundkindgroup"];
 
@@ -95,12 +89,12 @@ private void initClass() {
 	titinerationrefundkind.Columns.Add(C);
 	titinerationrefundkind.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
 	titinerationrefundkind.Columns.Add( new DataColumn("iditinerationrefundkindgroup", typeof(int)));
-	titinerationrefundkind.Columns.Add( new DataColumn("!itinerationrefundkindgroup", typeof(string)));
 	titinerationrefundkind.Columns.Add( new DataColumn("active", typeof(string)));
 	titinerationrefundkind.Columns.Add( new DataColumn("flagbalance", typeof(string)));
 	titinerationrefundkind.Columns.Add( new DataColumn("flagadvance", typeof(string)));
 	titinerationrefundkind.Columns.Add( new DataColumn("flagmedia", typeof(byte)));
 	titinerationrefundkind.Columns.Add( new DataColumn("flagvisible", typeof(int)));
+	titinerationrefundkind.Columns.Add( new DataColumn("flagtraceability", typeof(int)));
 	Tables.Add(titinerationrefundkind);
 	titinerationrefundkind.PrimaryKey =  new DataColumn[]{titinerationrefundkind.Columns["iditinerationrefundkind"]};
 

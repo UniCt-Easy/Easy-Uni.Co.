@@ -24,12 +24,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'idupb', 'Unità previsionale di base', null, 20, 36);
 						this.describeAColumn(table, '!idupb_upbelenchiview_codeupb', 'Codice', null, 22, null);
 						this.describeAColumn(table, '!idupb_upbelenchiview_title', 'Denominazione', null, 24, null);
-						this.describeAColumn(table, '!idupb_upbelenchiview_active', 'attivo', null, 23, null);
 						objCalcFieldConfig['!idupb_upbelenchiview_codeupb'] = { tableNameLookup:'upbelenchiview', columnNameLookup:'codeupb', columnNamekey:'idupb' };
 						objCalcFieldConfig['!idupb_upbelenchiview_title'] = { tableNameLookup:'upbelenchiview', columnNameLookup:'title', columnNamekey:'idupb' };
+						this.describeAColumn(table, '!idupb_upbelenchiview_active', 'attivo', null, 23, null);
 						objCalcFieldConfig['!idupb_upbelenchiview_active'] = { tableNameLookup:'upbelenchiview', columnNameLookup:'active', columnNamekey:'idupb' };
 //$objCalcFieldConfig_seg$
 						break;

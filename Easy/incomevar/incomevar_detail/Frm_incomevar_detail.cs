@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -75,6 +75,7 @@ namespace incomevar_detail//variazioneentratadettaglio//
         private TextBox textBox3;
         private bool maxphase = false;
 		private RadioButton radCsa;
+		private RadioButton radLCsa;
 
 		/// <summary>
 		/// Required designer variable.
@@ -139,6 +140,7 @@ namespace incomevar_detail//variazioneentratadettaglio//
 			this.radioButton3 = new System.Windows.Forms.RadioButton();
 			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.radCsa = new System.Windows.Forms.RadioButton();
 			this.radEdit = new System.Windows.Forms.RadioButton();
 			this.radAnnPar = new System.Windows.Forms.RadioButton();
 			this.radAnnullo = new System.Windows.Forms.RadioButton();
@@ -148,7 +150,7 @@ namespace incomevar_detail//variazioneentratadettaglio//
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.label15 = new System.Windows.Forms.Label();
 			this.textBox3 = new System.Windows.Forms.TextBox();
-			this.radCsa = new System.Windows.Forms.RadioButton();
+			this.radLCsa = new System.Windows.Forms.RadioButton();
 			this.grpImporto.SuspendLayout();
 			this.grpVariazione.SuspendLayout();
 			this.grpMovimento.SuspendLayout();
@@ -161,7 +163,7 @@ namespace incomevar_detail//variazioneentratadettaglio//
 			// btnOk
 			// 
 			this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOk.Location = new System.Drawing.Point(429, 380);
+			this.btnOk.Location = new System.Drawing.Point(429, 395);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(75, 23);
 			this.btnOk.TabIndex = 12;
@@ -171,7 +173,7 @@ namespace incomevar_detail//variazioneentratadettaglio//
 			// btnCancel
 			// 
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(301, 380);
+			this.btnCancel.Location = new System.Drawing.Point(301, 395);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 11;
@@ -425,7 +427,7 @@ namespace incomevar_detail//variazioneentratadettaglio//
 			// 
 			this.groupBox1.Controls.Add(this.radioButton3);
 			this.groupBox1.Controls.Add(this.radioButton1);
-			this.groupBox1.Location = new System.Drawing.Point(8, 329);
+			this.groupBox1.Location = new System.Drawing.Point(8, 344);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(207, 43);
 			this.groupBox1.TabIndex = 9;
@@ -453,6 +455,7 @@ namespace incomevar_detail//variazioneentratadettaglio//
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.radLCsa);
 			this.groupBox2.Controls.Add(this.radCsa);
 			this.groupBox2.Controls.Add(this.radEdit);
 			this.groupBox2.Controls.Add(this.radAnnPar);
@@ -460,10 +463,19 @@ namespace incomevar_detail//variazioneentratadettaglio//
 			this.groupBox2.Controls.Add(this.radNormale);
 			this.groupBox2.Location = new System.Drawing.Point(8, 187);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(211, 126);
+			this.groupBox2.Size = new System.Drawing.Size(211, 151);
 			this.groupBox2.TabIndex = 4;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Tipo variazione";
+			// 
+			// radCsa
+			// 
+			this.radCsa.Enabled = false;
+			this.radCsa.Location = new System.Drawing.Point(15, 101);
+			this.radCsa.Name = "radCsa";
+			this.radCsa.Size = new System.Drawing.Size(190, 19);
+			this.radCsa.TabIndex = 9;
+			this.radCsa.Text = "Azzeramento Versamenti CSA";
 			// 
 			// radEdit
 			// 
@@ -505,7 +517,7 @@ namespace incomevar_detail//variazioneentratadettaglio//
 			this.groupBox6.Controls.Add(this.textBox2);
 			this.groupBox6.Controls.Add(this.label15);
 			this.groupBox6.Controls.Add(this.textBox3);
-			this.groupBox6.Location = new System.Drawing.Point(235, 330);
+			this.groupBox6.Location = new System.Drawing.Point(235, 345);
 			this.groupBox6.Name = "groupBox6";
 			this.groupBox6.Size = new System.Drawing.Size(427, 44);
 			this.groupBox6.TabIndex = 10;
@@ -550,14 +562,14 @@ namespace incomevar_detail//variazioneentratadettaglio//
 			this.textBox3.TabStop = false;
 			this.textBox3.Tag = "proceedstransmission.nproceedstransmission";
 			// 
-			// radCsa
+			// radLCsa
 			// 
-			this.radCsa.Enabled = false;
-			this.radCsa.Location = new System.Drawing.Point(15, 101);
-			this.radCsa.Name = "radCsa";
-			this.radCsa.Size = new System.Drawing.Size(190, 19);
-			this.radCsa.TabIndex = 9;
-			this.radCsa.Text = "Azzeramento Versamenti CSA";
+			this.radLCsa.Enabled = false;
+			this.radLCsa.Location = new System.Drawing.Point(15, 126);
+			this.radLCsa.Name = "radLCsa";
+			this.radLCsa.Size = new System.Drawing.Size(190, 19);
+			this.radLCsa.TabIndex = 10;
+			this.radLCsa.Text = "Azzeramento Lordi CSA";
 			// 
 			// Frm_incomevar_detail
 			// 
@@ -684,6 +696,10 @@ namespace incomevar_detail//variazioneentratadettaglio//
 				radCsa.Checked = true;
 			else
 				radCsa.Checked = false;
+			if (currauto == 33)  //AZZERALCSA
+				radLCsa.Checked = true;
+			else
+				radCsa.Checked = false;
 			if (currauto == 0)
                 radNormale.Checked = true;
             else
@@ -709,6 +725,9 @@ namespace incomevar_detail//variazioneentratadettaglio//
             }
 			if (radCsa.Checked) {
 				if (currauto != 32) R["autokind"] = 32;  //AZZERACSA
+			}
+			if (radLCsa.Checked) {
+				if (currauto != 33) R["autokind"] = 33;  //AZZERALCSA
 			}
 		}
 

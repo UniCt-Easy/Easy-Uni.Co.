@@ -82,8 +82,19 @@
                         else {
                             // lancia l'evento così eventualmente la metapage può effettuare operazioni.
                             appMeta.globalEventManager.trigger(appMeta.EventEnum.ERROR_SERVER);
-                            let winModal = new appMeta.BootstrapModal(localResource.error, params[0], [appMeta.localResource.ok],
-                                appMeta.localResource.cancel, time + ": " + JSON.stringify(params));
+
+                            var envs = [appMeta.config.envEnum.DEV, appMeta.config.envEnum.QA];
+                            var showInfo = envs.includes(appMeta.config.env) || appMeta.config.forceShowErrorInfo;
+
+                            let winModal = new appMeta.BootstrapModal(localResource.error, params[0], [appMeta.localResource.ok], appMeta.localResource.cancel, time + (showInfo? ": " + JSON.stringify(params):""));
+                            //se l'utente è loggato scrivo sul db l'errore
+                            if (appMeta.security.usrEnv.userweb && params.length > 1 && !params[1].includes('Unauthorized') && !params[1].includes('TokenEmpty') && params[1] != ' errors: {"status":"error"}') { 
+                                appMeta.callWebService("logError",
+                                    {
+                                        error: params[1],
+                                        parameters: JSON.stringify(params)
+                                    })
+                            }
                             return winModal.show();
                         }
                     break;

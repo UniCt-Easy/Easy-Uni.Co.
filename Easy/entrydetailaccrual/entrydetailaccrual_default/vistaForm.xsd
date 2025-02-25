@@ -142,16 +142,17 @@
               <xs:element name="idacc" type="xs:string" />
               <xs:element name="idreg" type="xs:int" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
-              <xs:element name="amount" type="xs:decimal" />
-              <xs:element name="rateamount" type="xs:decimal" />
-              <xs:element name="available" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rateamount" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="available" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagap" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
               <xs:element name="idsor1" type="xs:int" minOccurs="0" />
               <xs:element name="idsor2" type="xs:int" minOccurs="0" />
               <xs:element name="idsor3" type="xs:int" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" />
               <xs:element name="codeupb" type="xs:string" minOccurs="0" />
               <xs:element name="codeacc" type="xs:string" minOccurs="0" />
               <xs:element name="account" type="xs:string" minOccurs="0" />
@@ -161,17 +162,17 @@
               <xs:element name="flagregistry" type="xs:string" minOccurs="0" />
               <xs:element name="flagupb" type="xs:string" minOccurs="0" />
               <xs:element name="idrelated" type="xs:string" minOccurs="0" />
-              <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="adate" type="xs:string" />
-              <xs:element name="doc" type="xs:dateTime" />
-              <xs:element name="docdate" type="xs:string" minOccurs="0" />
-              <xs:element name="idaccmotive" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
               <xs:element name="accmotive" type="xs:string" minOccurs="0" />
               <xs:element name="codemotive" type="xs:string" minOccurs="0" />
               <xs:element name="identrykind" type="xs:int" minOccurs="0" />
               <xs:element name="competencystart" type="xs:dateTime" minOccurs="0" />
               <xs:element name="competencystop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="flagap" type="xs:string" minOccurs="0" />
+              <xs:element name="flagaccountusage" type="xs:int" minOccurs="0" />
               <xs:element name="idepexp" type="xs:int" minOccurs="0" />
               <xs:element name="idepacc" type="xs:int" minOccurs="0" />
             </xs:sequence>

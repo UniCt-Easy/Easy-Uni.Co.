@@ -28,111 +28,110 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				var gridParentRelsiscrizione57 = self.state.DS.getParentChildRelation("registry", "iscrizione");
-				var fatherfilteriscrizione57 = gridParentRelsiscrizione57[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio57 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows,  					function (row) {  						if (row.idcorsostudiokind !== 12 && row.idcorsostudiokind !== 13 && row.idcorsostudiokind !== 2  /*Corsi di studio*/) {  							return row.idcorsostudio;  						}  					}));
+				var gridParentRelsiscrizione62 = self.state.DS.getParentChildRelation("registry", "iscrizione");
+				var fatherfilteriscrizione62 = gridParentRelsiscrizione62[0].getChildFilter(parentRow);
+				var filterGrididcorsostudio62 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows,  					function (row) {  						if (row.idcorsostudiokind !== 12 && row.idcorsostudiokind !== 13 && row.idcorsostudiokind !== 2  /*Corsi di studio*/) {  							return row.idcorsostudio;  						}  					}));
 				var iscrizione = this.getDataTable("iscrizione");
-				var finalfilteriscrizione57 = window.jsDataQuery.and([fatherfilteriscrizione57, filterGrididcorsostudio57]);
-				iscrizione.rows =  _.filter(iscrizione.rows, function(r) {return finalfilteriscrizione57(r)});
-				$("#grid_iscrizione_seganagstu").data("customParentRelation", finalfilteriscrizione57);
-				var gridParentRelsiscrizione_alias158 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias1");
-				var fatherfilteriscrizione_alias158 = gridParentRelsiscrizione_alias158[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio58 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows, 					function (row) { 						if (row.idcorsostudiokind === 12 /*test di ingresso*/) { 							return row.idcorsostudio; 						} 					}));
+				var finalfilteriscrizione62 = window.jsDataQuery.and([fatherfilteriscrizione62, filterGrididcorsostudio62]);
+				iscrizione.rows =  _.filter(iscrizione.rows, function(r) {return finalfilteriscrizione62(r)});
+				$("#grid_iscrizione_seganagstu").data("customParentRelation", finalfilteriscrizione62);
+				var gridParentRelsiscrizione_alias163 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias1");
+				var fatherfilteriscrizione_alias163 = gridParentRelsiscrizione_alias163[0].getChildFilter(parentRow);
+				var filterGrididcorsostudio63 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows, 					function (row) { 						if (row.idcorsostudiokind === 12 /*test di ingresso*/) { 							return row.idcorsostudio; 						} 					}));
 				var iscrizione_alias1 = this.getDataTable("iscrizione_alias1");
-				var finalfilteriscrizione_alias158 = window.jsDataQuery.and([fatherfilteriscrizione_alias158, filterGrididcorsostudio58]);
-				iscrizione_alias1.rows =  _.filter(iscrizione_alias1.rows, function(r) {return finalfilteriscrizione_alias158(r)});
-				$("#grid_iscrizione_alias1_seganagstuacc").data("customParentRelation", finalfilteriscrizione_alias158);
-				var gridParentRelsiscrizione_alias259 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias2");
-				var fatherfilteriscrizione_alias259 = gridParentRelsiscrizione_alias259[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio59 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows, 					function (row) { 						if (row.idcorsostudiokind === 2 /*master*/) { 							return row.idcorsostudio; 						} 					}));
+				var finalfilteriscrizione_alias163 = window.jsDataQuery.and([fatherfilteriscrizione_alias163, filterGrididcorsostudio63]);
+				iscrizione_alias1.rows =  _.filter(iscrizione_alias1.rows, function(r) {return finalfilteriscrizione_alias163(r)});
+				$("#grid_iscrizione_alias1_seganagstuacc").data("customParentRelation", finalfilteriscrizione_alias163);
+				var gridParentRelsiscrizione_alias264 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias2");
+				var fatherfilteriscrizione_alias264 = gridParentRelsiscrizione_alias264[0].getChildFilter(parentRow);
+				var filterGrididcorsostudio64 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows, 					function (row) { 						if (row.idcorsostudiokind === 2 /*master*/) { 							return row.idcorsostudio; 						} 					}));
 				var iscrizione_alias2 = this.getDataTable("iscrizione_alias2");
-				var finalfilteriscrizione_alias259 = window.jsDataQuery.and([fatherfilteriscrizione_alias259, filterGrididcorsostudio59]);
-				iscrizione_alias2.rows =  _.filter(iscrizione_alias2.rows, function(r) {return finalfilteriscrizione_alias259(r)});
-				$("#grid_iscrizione_alias2_seganagstumast").data("customParentRelation", finalfilteriscrizione_alias259);
-				var gridParentRelsiscrizione_alias360 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias3");
-				var fatherfilteriscrizione_alias360 = gridParentRelsiscrizione_alias360[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio60 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows, 					function (row) { 						if (row.idcorsostudiokind === 13 /*esami di stato*/) { 							return row.idcorsostudio; 						} 					}));
+				var finalfilteriscrizione_alias264 = window.jsDataQuery.and([fatherfilteriscrizione_alias264, filterGrididcorsostudio64]);
+				iscrizione_alias2.rows =  _.filter(iscrizione_alias2.rows, function(r) {return finalfilteriscrizione_alias264(r)});
+				$("#grid_iscrizione_alias2_seganagstumast").data("customParentRelation", finalfilteriscrizione_alias264);
+				var gridParentRelsiscrizione_alias365 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias3");
+				var fatherfilteriscrizione_alias365 = gridParentRelsiscrizione_alias365[0].getChildFilter(parentRow);
+				var filterGrididcorsostudio65 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows, 					function (row) { 						if (row.idcorsostudiokind === 13 /*esami di stato*/) { 							return row.idcorsostudio; 						} 					}));
 				var iscrizione_alias3 = this.getDataTable("iscrizione_alias3");
-				var finalfilteriscrizione_alias360 = window.jsDataQuery.and([fatherfilteriscrizione_alias360, filterGrididcorsostudio60]);
-				iscrizione_alias3.rows =  _.filter(iscrizione_alias3.rows, function(r) {return finalfilteriscrizione_alias360(r)});
-				$("#grid_iscrizione_alias3_seganagstustato").data("customParentRelation", finalfilteriscrizione_alias360);
-				var gridParentRelsiscrizione_alias461 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias4");
-				var fatherfilteriscrizione_alias461 = gridParentRelsiscrizione_alias461[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio61 = window.jsDataQuery.isNull("idcorsostudio");
+				var finalfilteriscrizione_alias365 = window.jsDataQuery.and([fatherfilteriscrizione_alias365, filterGrididcorsostudio65]);
+				iscrizione_alias3.rows =  _.filter(iscrizione_alias3.rows, function(r) {return finalfilteriscrizione_alias365(r)});
+				$("#grid_iscrizione_alias3_seganagstustato").data("customParentRelation", finalfilteriscrizione_alias365);
+				var gridParentRelsiscrizione_alias466 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias4");
+				var fatherfilteriscrizione_alias466 = gridParentRelsiscrizione_alias466[0].getChildFilter(parentRow);
+				var filterGrididcorsostudio66 = window.jsDataQuery.isNull("idcorsostudio");
 				var iscrizione_alias4 = this.getDataTable("iscrizione_alias4");
-				var finalfilteriscrizione_alias461 = window.jsDataQuery.and([fatherfilteriscrizione_alias461, filterGrididcorsostudio61]);
-				iscrizione_alias4.rows =  _.filter(iscrizione_alias4.rows, function(r) {return finalfilteriscrizione_alias461(r)});
-				$("#grid_iscrizione_alias4_seganagstusing").data("customParentRelation", finalfilteriscrizione_alias461);
-				var gridParentRelsistanza62 = self.state.DS.getParentChildRelation("registry", "istanza");
-				var fatherfilteristanza62 = gridParentRelsistanza62[0].getChildFilter(parentRow);
-				var filterGrididistanzakind62 = window.jsDataQuery.eq("idistanzakind", 13);
-				var filterGrididstatuskind62 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanze === 'S') {  							return row.idstatuskind;  						}  					}));
+				var finalfilteriscrizione_alias466 = window.jsDataQuery.and([fatherfilteriscrizione_alias466, filterGrididcorsostudio66]);
+				iscrizione_alias4.rows =  _.filter(iscrizione_alias4.rows, function(r) {return finalfilteriscrizione_alias466(r)});
+				$("#grid_iscrizione_alias4_seganagstusing").data("customParentRelation", finalfilteriscrizione_alias466);
+				var gridParentRelsistanza67 = self.state.DS.getParentChildRelation("registry", "istanza");
+				var fatherfilteristanza67 = gridParentRelsistanza67[0].getChildFilter(parentRow);
+				var filterGrididistanzakind67 = window.jsDataQuery.eq("idistanzakind", 13);
+				var filterGrididstatuskind67 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanze === 'S') {  							return row.idstatuskind;  						}  					}));
 				var istanza = this.getDataTable("istanza");
-				var finalfilteristanza62 = window.jsDataQuery.and([fatherfilteristanza62, filterGrididistanzakind62,filterGrididstatuskind62]);
-				istanza.rows =  _.filter(istanza.rows, function(r) {return finalfilteristanza62(r)});
-				$("#grid_istanza_seganagstupre").data("customParentRelation", finalfilteristanza62);
-				var gridParentRelsistanza_alias163 = self.state.DS.getParentChildRelation("registry", "istanza_alias1");
-				var fatherfilteristanza_alias163 = gridParentRelsistanza_alias163[0].getChildFilter(parentRow);
-				var filterGrididistanzakind63 = window.jsDataQuery.eq("idistanzakind", 14);
-				var filterGrididstatuskind63 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanze === 'S') {  							return row.idstatuskind;  						}  					}));
+				var finalfilteristanza67 = window.jsDataQuery.and([fatherfilteristanza67, filterGrididistanzakind67,filterGrididstatuskind67]);
+				istanza.rows =  _.filter(istanza.rows, function(r) {return finalfilteristanza67(r)});
+				$("#grid_istanza_seganagstupre").data("customParentRelation", finalfilteristanza67);
+				var gridParentRelsistanza_alias168 = self.state.DS.getParentChildRelation("registry", "istanza_alias1");
+				var fatherfilteristanza_alias168 = gridParentRelsistanza_alias168[0].getChildFilter(parentRow);
+				var filterGrididistanzakind68 = window.jsDataQuery.eq("idistanzakind", 14);
+				var filterGrididstatuskind68 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanze === 'S') {  							return row.idstatuskind;  						}  					}));
 				var istanza_alias1 = this.getDataTable("istanza_alias1");
-				var finalfilteristanza_alias163 = window.jsDataQuery.and([fatherfilteristanza_alias163, filterGrididistanzakind63,filterGrididstatuskind63]);
-				istanza_alias1.rows =  _.filter(istanza_alias1.rows, function(r) {return finalfilteristanza_alias163(r)});
-				$("#grid_istanza_alias1_seganagstu").data("customParentRelation", finalfilteristanza_alias163);
-				var gridParentRelsistanza_alias264 = self.state.DS.getParentChildRelation("registry", "istanza_alias2");
-				var fatherfilteristanza_alias264 = gridParentRelsistanza_alias264[0].getChildFilter(parentRow);
-				var filterGrididistanzakind64 = window.jsDataQuery.eq("idistanzakind", 15);
-				var filterGrididstatuskind64 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanze === 'S') {  							return row.idstatuskind;  						}  					}));
+				var finalfilteristanza_alias168 = window.jsDataQuery.and([fatherfilteristanza_alias168, filterGrididistanzakind68,filterGrididstatuskind68]);
+				istanza_alias1.rows =  _.filter(istanza_alias1.rows, function(r) {return finalfilteristanza_alias168(r)});
+				$("#grid_istanza_alias1_seganagstu").data("customParentRelation", finalfilteristanza_alias168);
+				var gridParentRelsistanza_alias269 = self.state.DS.getParentChildRelation("registry", "istanza_alias2");
+				var fatherfilteristanza_alias269 = gridParentRelsistanza_alias269[0].getChildFilter(parentRow);
+				var filterGrididistanzakind69 = window.jsDataQuery.eq("idistanzakind", 15);
+				var filterGrididstatuskind69 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanze === 'S') {  							return row.idstatuskind;  						}  					}));
 				var istanza_alias2 = this.getDataTable("istanza_alias2");
-				var finalfilteristanza_alias264 = window.jsDataQuery.and([fatherfilteristanza_alias264, filterGrididistanzakind64,filterGrididstatuskind64]);
-				istanza_alias2.rows =  _.filter(istanza_alias2.rows, function(r) {return finalfilteristanza_alias264(r)});
-				$("#grid_istanza_alias2_seganagsturin").data("customParentRelation", finalfilteristanza_alias264);
-				var gridParentRelsistanza_alias365 = self.state.DS.getParentChildRelation("registry", "istanza_alias3");
-				var fatherfilteristanza_alias365 = gridParentRelsistanza_alias365[0].getChildFilter(parentRow);
-				var filterGrididistanzakind65 = window.jsDataQuery.eq("idistanzakind", 3);
-				var filterGrididstatuskind65 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanzedelibera === 'S') {  							return row.idstatuskind;  						}  					}));
+				var finalfilteristanza_alias269 = window.jsDataQuery.and([fatherfilteristanza_alias269, filterGrididistanzakind69,filterGrididstatuskind69]);
+				istanza_alias2.rows =  _.filter(istanza_alias2.rows, function(r) {return finalfilteristanza_alias269(r)});
+				$("#grid_istanza_alias2_seganagsturin").data("customParentRelation", finalfilteristanza_alias269);
+				var gridParentRelsistanza_alias370 = self.state.DS.getParentChildRelation("registry", "istanza_alias3");
+				var fatherfilteristanza_alias370 = gridParentRelsistanza_alias370[0].getChildFilter(parentRow);
+				var filterGrididistanzakind70 = window.jsDataQuery.eq("idistanzakind", 3);
+				var filterGrididstatuskind70 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanzedelibera === 'S') {  							return row.idstatuskind;  						}  					}));
 				var istanza_alias3 = this.getDataTable("istanza_alias3");
-				var finalfilteristanza_alias365 = window.jsDataQuery.and([fatherfilteristanza_alias365, filterGrididistanzakind65,filterGrididstatuskind65]);
-				istanza_alias3.rows =  _.filter(istanza_alias3.rows, function(r) {return finalfilteristanza_alias365(r)});
-				$("#grid_istanza_alias3_seganagstu").data("customParentRelation", finalfilteristanza_alias365);
+				var finalfilteristanza_alias370 = window.jsDataQuery.and([fatherfilteristanza_alias370, filterGrididistanzakind70,filterGrididstatuskind70]);
+				istanza_alias3.rows =  _.filter(istanza_alias3.rows, function(r) {return finalfilteristanza_alias370(r)});
+				$("#grid_istanza_alias3_seganagstu").data("customParentRelation", finalfilteristanza_alias370);
 				if (self.isNullOrMinDate(parentRow.birthdate))
 					parentRow.birthdate = new Date();
-				parentRow.extension = "studenti";
 				
-				//tolgo i sostenimenti che non sono figli di iscrizione a corsi normali
-				this.deleteNotDescendants('sostenimento', 0, 'iscrizione', 0);
-				//tolgo i piano studio alias 1 che non sono figli di iscrizione corsi singoli
-				this.deleteNotDescendants('pianostudio', 1, 'iscrizione', 4);
-				//tolgo le attività formative che non sono figlie dei piano studio figli di iscrizione corsi singoli
-				this.deleteNotDescendants('pianostudioattivform', 1, 'iscrizione', 4);
-				//tolgo i sostenimenti che non sono figli di iscrizione corsi singoli
-				this.deleteNotDescendants('sostenimento', 1, 'iscrizione', 4);
-				//tolgo i sostenimenti che non sono figli di iscrizione accesso
-				this.deleteNotDescendants('sostenimento', 2, 'iscrizione', 1);
-				//tolgo i sostenimenti che non sono figli di iscrizione a master
-				this.deleteNotDescendants('sostenimento', 3, 'iscrizione', 2);
-				//tolgo i sostenimenti che non sono figli di iscrizione a esami di stato
-				this.deleteNotDescendants('sostenimento', 4, 'iscrizione', 3);
+				////tolgo i sostenimenti che non sono figli di iscrizione a corsi normali
+				//this.deleteNotDescendants('sostenimento', 0, 'iscrizione', 0);
+				////tolgo i piano studio alias 1 che non sono figli di iscrizione corsi singoli
+				//this.deleteNotDescendants('pianostudio', 1, 'iscrizione', 4);
+				////tolgo le attività formative che non sono figlie dei piano studio figli di iscrizione corsi singoli
+				//this.deleteNotDescendants('pianostudioattivform', 1, 'iscrizione', 4);
+				////tolgo i sostenimenti che non sono figli di iscrizione corsi singoli
+				//this.deleteNotDescendants('sostenimento', 1, 'iscrizione', 4);
+				////tolgo i sostenimenti che non sono figli di iscrizione accesso
+				//this.deleteNotDescendants('sostenimento', 2, 'iscrizione', 1);
+				////tolgo i sostenimenti che non sono figli di iscrizione a master
+				//this.deleteNotDescendants('sostenimento', 3, 'iscrizione', 2);
+				////tolgo i sostenimenti che non sono figli di iscrizione a esami di stato
+				//this.deleteNotDescendants('sostenimento', 4, 'iscrizione', 3);
 
-				//tolgo i nullaosta e diniego che non sono figli di istanze di preimmatricolazione
-				this.deleteNotDescendants('istanza_imm', 0, 'istanza', 0);
-				this.deleteNotDescendants('nullaosta', 0, 'istanza', 0);
-				this.deleteNotDescendants('nullaosta_imm', 0, 'istanza', 0);
-				this.deleteNotDescendants('diniego', 0, 'istanza', 0);
-				//tolgo i nullaosta e diniego che non sono figli di istanze di immatricolazione
-				this.deleteNotDescendants('istanza_imm', 1, 'istanza', 1);
-				this.deleteNotDescendants('nullaosta', 1, 'istanza', 1);
-				this.deleteNotDescendants('nullaosta_imm', 1, 'istanza', 1);
-				this.deleteNotDescendants('diniego', 1, 'istanza', 1);
-				//tolgo i nullaosta e diniego che non sono figli di istanze di rinnovo di iscrizione
-				this.deleteNotDescendants('istanza_imm', 2, 'istanza', 2);
-				this.deleteNotDescendants('nullaosta', 3, 'istanza', 2);
-				this.deleteNotDescendants('nullaosta_imm', 3, 'istanza', 2);
-				this.deleteNotDescendants('diniego', 2, 'istanza', 2);
-				//tolgo i nipoti che non sono nipoti di istanze di passaggio
-				this.deleteNotDescendants('nullaosta', 4, 'istanza', 3);
-				this.deleteNotDescendants('diniego', 3, 'istanza', 3);
-				this.deleteNotDescendants('pratica', 0, 'istanza', 3);
+				////tolgo i nullaosta e diniego che non sono figli di istanze di preimmatricolazione
+				//this.deleteNotDescendants('istanza_imm', 0, 'istanza', 0);
+				//this.deleteNotDescendants('nullaosta', 0, 'istanza', 0);
+				//this.deleteNotDescendants('nullaosta_imm', 0, 'istanza', 0);
+				//this.deleteNotDescendants('diniego', 0, 'istanza', 0);
+				////tolgo i nullaosta e diniego che non sono figli di istanze di immatricolazione
+				//this.deleteNotDescendants('istanza_imm', 1, 'istanza', 1);
+				//this.deleteNotDescendants('nullaosta', 1, 'istanza', 1);
+				//this.deleteNotDescendants('nullaosta_imm', 1, 'istanza', 1);
+				//this.deleteNotDescendants('diniego', 1, 'istanza', 1);
+				////tolgo i nullaosta e diniego che non sono figli di istanze di rinnovo di iscrizione
+				//this.deleteNotDescendants('istanza_imm', 2, 'istanza', 2);
+				//this.deleteNotDescendants('nullaosta', 3, 'istanza', 2);
+				//this.deleteNotDescendants('nullaosta_imm', 3, 'istanza', 2);
+				//this.deleteNotDescendants('diniego', 2, 'istanza', 2);
+				////tolgo i nipoti che non sono nipoti di istanze di passaggio
+				//this.deleteNotDescendants('nullaosta', 4, 'istanza', 3);
+				//this.deleteNotDescendants('diniego', 3, 'istanza', 3);
+				//this.deleteNotDescendants('pratica', 0, 'istanza', 3);
 
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_studenti_idregistryclass'), null);
@@ -152,25 +151,9 @@
 				//beforeFillFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-registry_studenti_studenti");
+				var def = appMeta.Deferred("beforeFill-registry_studenti");
 				var arraydef = [];
 				
-				var dt = this.state.DS.tables["registry_studenti"];
-				if (dt.rows.length === 0) {
-					var meta = appMeta.getMeta("registry_studenti");
-					meta.setDefaults(dt);
-					var defregistry_studenti = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
-						function (currentRowstudenti) {
-							currentRowstudenti.current.authinps = "N";
-							currentRowstudenti.current.idstuddirittokind = 1;
-							currentRowstudenti.current.idstudprenotkind = 1;
-							//defaultExtendingObject
-							return true;
-						}
-					);
-					arraydef.push(defregistry_studenti);
-				}
-
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -184,6 +167,7 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#registry_studenti_idregistryclass'), null);
 				this.helpForm.filter($('#registry_studenti_idtitle'), null);
 				this.helpForm.filter($('#registry_studenti_residence'), null);
@@ -195,6 +179,8 @@
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('diniego_alias4'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('nullaosta_alias3'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -216,12 +202,12 @@
 				this.state.DS.tables.registry.defaults({ 'idregistryclass': '22' });
 				this.state.DS.tables.registry.defaults({ 'idregistrykind': '21' });
 				this.state.DS.tables.registry.defaults({ 'residence': 1 });
-				this.setDenyNull("registry","gender");
 				this.setDenyNull("registry","surname");
 				this.setDenyNull("registry","forename");
+				this.setDenyNull("registry","gender");
 				this.setDenyNull("registry","idnation");
-				this.setDenyNull("registry","idcity");
 				this.setDenyNull("registry","birthdate");
+				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
 				$('#grid_registryaddress_seg').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;');
 				$('#grid_registryreference_persone').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;');
 				$('#grid_titolostudio_docenti').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');

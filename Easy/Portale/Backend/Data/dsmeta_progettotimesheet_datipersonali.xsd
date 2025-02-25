@@ -122,6 +122,7 @@
               <xs:element name="durata" type="xs:int" minOccurs="0" />
               <xs:element name="finanziamento" type="xs:string" minOccurs="0" />
               <xs:element name="finanziatoretxt" type="xs:string" minOccurs="0" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
               <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
               <xs:element name="idcurrency" type="xs:int" minOccurs="0" />
               <xs:element name="idduratakind" type="xs:int" minOccurs="0" />
@@ -169,7 +170,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="progettotimesheetprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="progettotimesheetprogetto" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
@@ -187,6 +188,12 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="numerosal" type="xs:int" minOccurs="0" />
+              <xs:element name="sal_autoassociazione" type="xs:string" minOccurs="0" />
+              <xs:element name="sal_budget" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sal_datablocco" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sal_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sal_stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -201,11 +208,13 @@
         <xs:element name="progettoelenchiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="attach_filename" type="xs:string" minOccurs="0" />
               <xs:element name="corsostudio_annoistituz" type="xs:int" minOccurs="0" />
               <xs:element name="corsostudio_title" type="xs:string" minOccurs="0" />
               <xs:element name="currency_codecurrency" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="duratakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
               <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
               <xs:element name="idcurrency" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
@@ -311,6 +320,7 @@
               <xs:element name="multilinetype" type="xs:string" minOccurs="0" />
               <xs:element name="output" type="xs:string" minOccurs="0" />
               <xs:element name="riepilogoanno" type="xs:string" minOccurs="0" />
+              <xs:element name="sede" type="xs:string" minOccurs="0" />
               <xs:element name="showactivitiesrow" type="xs:string" minOccurs="0" />
               <xs:element name="showotheractivitiesrow" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />

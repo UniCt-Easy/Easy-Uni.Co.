@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -44,7 +44,6 @@ namespace notable_scriptcomuni {
 		private void InitializeComponent() {
 			this.btnFileVariazioneComuniAE = new System.Windows.Forms.Button();
 			this._askFileName = new System.Windows.Forms.OpenFileDialog();
-			this.askFileName = createOpenFileDialog(this._askFileName);
 			this.txtFileVarComuniAE = new System.Windows.Forms.TextBox();
 			this.txtListaComuni = new System.Windows.Forms.TextBox();
 			this.btnFileListaComuni = new System.Windows.Forms.Button();

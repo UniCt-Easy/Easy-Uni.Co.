@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,6 +42,8 @@ namespace grantload_default {
         private void InitializeComponent() {
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.tabDefinizioneScarico = new System.Windows.Forms.TabControl();
 			this.tabPageContributi = new System.Windows.Forms.TabPage();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -68,8 +70,6 @@ namespace grantload_default {
 			this.btnGeneraEP = new System.Windows.Forms.Button();
 			this.btnVisualizzaEP = new System.Windows.Forms.Button();
 			this.DS = new grantload_default.dsmeta();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabDefinizioneScarico.SuspendLayout();
@@ -112,6 +112,24 @@ namespace grantload_default {
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Principale";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(355, 14);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(88, 20);
+			this.textBox1.TabIndex = 94;
+			this.textBox1.Tag = "grantload.idgrantload";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(277, 12);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(72, 22);
+			this.label1.TabIndex = 93;
+			this.label1.Tag = "";
+			this.label1.Text = "#";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// tabDefinizioneScarico
 			// 
@@ -274,7 +292,7 @@ namespace grantload_default {
 			this.txtAnno.Name = "txtAnno";
 			this.txtAnno.Size = new System.Drawing.Size(88, 20);
 			this.txtAnno.TabIndex = 92;
-			this.txtAnno.Tag = "grantload.yload";
+			this.txtAnno.Tag = "grantload.yload.year";
 			// 
 			// lbAnno
 			// 
@@ -301,7 +319,7 @@ namespace grantload_default {
 			this.chkDefinizione.AutoSize = true;
 			this.chkDefinizione.Location = new System.Drawing.Point(16, 13);
 			this.chkDefinizione.Name = "chkDefinizione";
-			this.chkDefinizione.Size = new System.Drawing.Size(218, 17);
+			this.chkDefinizione.Size = new System.Drawing.Size(164, 17);
 			this.chkDefinizione.TabIndex = 82;
 			this.chkDefinizione.Tag = "grantload.kind:D:U";
 			this.chkDefinizione.Text = "Costituzione risconto/Riserva";
@@ -392,24 +410,6 @@ namespace grantload_default {
 			// 
 			this.DS.DataSetName = "dsmeta";
 			this.DS.EnforceConstraints = false;
-			// 
-			// textBox1
-			// 
-			this.textBox1.Location = new System.Drawing.Point(355, 14);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(88, 20);
-			this.textBox1.TabIndex = 94;
-			this.textBox1.Tag = "grantload.idgrantload";
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(277, 12);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(72, 22);
-			this.label1.TabIndex = 93;
-			this.label1.Tag = "";
-			this.label1.Text = "#";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// Frm_grantload_default
 			// 

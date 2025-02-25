@@ -76,7 +76,6 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="datainizioprevista" type="xs:dateTime" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="iditineration" type="xs:int" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
@@ -391,9 +390,9 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_rendicontattivitaprogetto_alias1_workpackage_idprogetto-idworkpackage" msdata:parent="workpackage" msdata:child="rendicontattivitaprogetto_alias1" msdata:parentkey="idprogetto idworkpackage" msdata:childkey="idprogetto idworkpackage" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_alias1_idprogetto-idworkpackage-idrendicontattivitaprogetto-iditineration" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoitineration" msdata:parentkey="idprogetto idworkpackage idrendicontattivitaprogetto iditineration" msdata:childkey="idprogetto idworkpackage idrendicontattivitaprogetto iditineration" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoyear_rendicontattivitaprogetto_alias1_idprogetto-idworkpackage-idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoyear" msdata:parentkey="idprogetto idworkpackage idrendicontattivitaprogetto" msdata:childkey="idprogetto idworkpackage idrendicontattivitaprogetto" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_alias1_idprogetto-idworkpackage-idrendicontattivitaprogetto-idreg" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idprogetto idworkpackage idrendicontattivitaprogetto idreg" msdata:childkey="idprogetto idworkpackage idrendicontattivitaprogetto idreg" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto-idworkpackage-idprogetto" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoitineration" msdata:parentkey="idrendicontattivitaprogetto idworkpackage idprogetto" msdata:childkey="idrendicontattivitaprogetto idworkpackage idprogetto" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoyear_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto-idworkpackage-idprogetto" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoyear" msdata:parentkey="idrendicontattivitaprogetto idworkpackage idprogetto" msdata:childkey="idrendicontattivitaprogetto idworkpackage idprogetto" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_alias1_idrendicontattivitaprogetto-idworkpackage-idprogetto-idreg" msdata:parent="rendicontattivitaprogetto_alias1" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogetto idworkpackage idprogetto idreg" msdata:childkey="idrendicontattivitaprogetto idworkpackage idprogetto idreg" />
       <msdata:Relationship name="FK_rendicontattivitaprogetto_alias1_rendicontattivitaprogettokind_idrendicontattivitaprogettokind" msdata:parent="rendicontattivitaprogettokind" msdata:child="rendicontattivitaprogetto_alias1" msdata:parentkey="idrendicontattivitaprogettokind" msdata:childkey="idrendicontattivitaprogettokind" />
       <msdata:Relationship name="FK_rendicontattivitaprogetto_alias1_getregistrydocentiamministrativi_alias1_idreg" msdata:parent="getregistrydocentiamministrativi_alias1" msdata:child="rendicontattivitaprogetto_alias1" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_assetdiary_workpackage_idprogetto-idworkpackage" msdata:parent="workpackage" msdata:child="assetdiary" msdata:parentkey="idprogetto idworkpackage" msdata:childkey="idprogetto idworkpackage" />

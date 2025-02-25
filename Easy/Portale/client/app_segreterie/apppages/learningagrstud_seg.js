@@ -32,6 +32,11 @@
 					parentRow.start = new Date();
 				if (self.isNullOrMinDate(parentRow.stop))
 					parentRow.stop = new Date();
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#learningagrstud_seg_idreg_istitutiesteri'), null);
+				} else {
+					this.helpForm.filter($('#learningagrstud_seg_idreg_istitutiesteri'), this.q.eq('registry_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -52,8 +57,6 @@
 				}
 
 				//beforeFillInside
-
-				//beforeFillInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
@@ -66,22 +69,33 @@
 			},
 
 			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('convalida'));
+				//parte sincrona
+				this.helpForm.filter($('#learningagrstud_seg_idreg_istitutiesteri'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('cefrlanglevel'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('convalida'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('convalida'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('cefrlanglevel'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('convalida'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
 			afterLink: function () {
 				var self = this;
-				appMeta.metaModel.computeRowsAs(this.state.DS.tables.cefrlanglevel, "default", this.superClass.calculateFields);
+				appMeta.metaModel.computeRowsAs(this.state.DS.tables.cefrlanglevel, "las", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("cefrlanglevel");
+				this.setDenyNull("learningagrstud","idlearningagrstud");
+				this.setDenyNull("learningagrstud","idbandomi");
+				this.setDenyNull("learningagrstud","idiscrizionebmi");
+				appMeta.metaModel.insertFilter(this.getDataTable("learningagrkinddefaultview"), this.q.eq('learningagrkind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("strutturadefaultview"), this.q.eq('struttura_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("cefrdefaultview"), this.q.eq('cefr_active', 'Si'));
+				$('#grid_convalida_segmi').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

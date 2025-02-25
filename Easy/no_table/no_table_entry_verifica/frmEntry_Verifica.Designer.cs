@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -304,6 +304,10 @@ namespace no_table_entry_verifica {
 			this.txtCurrent = new System.Windows.Forms.TextBox();
 			this.btnCopy = new System.Windows.Forms.Button();
 			this.toolTipBtnCopiaAppunti = new System.Windows.Forms.ToolTip(this.components);
+			this.textBox16 = new System.Windows.Forms.TextBox();
+			this.btnDettagliCPassiviPagati = new System.Windows.Forms.Button();
+			this.textBox17 = new System.Windows.Forms.TextBox();
+			this.btnDettagliCAttiviIncassati = new System.Windows.Forms.Button();
 			this.tabMovBudget.SuspendLayout();
 			this.tabFatture.SuspendLayout();
 			this.txtGene9.SuspendLayout();
@@ -692,7 +696,7 @@ namespace no_table_entry_verifica {
 			this.txtGene9.Location = new System.Drawing.Point(4, 22);
 			this.txtGene9.Name = "txtGene9";
 			this.txtGene9.Padding = new System.Windows.Forms.Padding(3);
-			this.txtGene9.Size = new System.Drawing.Size(916, 420);
+			this.txtGene9.Size = new System.Drawing.Size(916, 421);
 			this.txtGene9.TabIndex = 2;
 			this.txtGene9.Text = "Generici";
 			this.txtGene9.UseVisualStyleBackColor = true;
@@ -1001,7 +1005,7 @@ namespace no_table_entry_verifica {
 			this.tabRigenerazione.Location = new System.Drawing.Point(4, 22);
 			this.tabRigenerazione.Name = "tabRigenerazione";
 			this.tabRigenerazione.Padding = new System.Windows.Forms.Padding(3);
-			this.tabRigenerazione.Size = new System.Drawing.Size(916, 420);
+			this.tabRigenerazione.Size = new System.Drawing.Size(916, 421);
 			this.tabRigenerazione.TabIndex = 1;
 			this.tabRigenerazione.Text = "Rigenerazione";
 			this.tabRigenerazione.UseVisualStyleBackColor = true;
@@ -1269,7 +1273,7 @@ namespace no_table_entry_verifica {
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(916, 420);
+			this.tabPage1.Size = new System.Drawing.Size(916, 421);
 			this.tabPage1.TabIndex = 3;
 			this.tabPage1.Text = "Compensi";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -1528,7 +1532,7 @@ namespace no_table_entry_verifica {
 			this.tabContratti.Location = new System.Drawing.Point(4, 22);
 			this.tabContratti.Name = "tabContratti";
 			this.tabContratti.Padding = new System.Windows.Forms.Padding(3);
-			this.tabContratti.Size = new System.Drawing.Size(916, 420);
+			this.tabContratti.Size = new System.Drawing.Size(916, 421);
 			this.tabContratti.TabIndex = 4;
 			this.tabContratti.Text = "Contratti";
 			this.tabContratti.UseVisualStyleBackColor = true;
@@ -1690,7 +1694,7 @@ namespace no_table_entry_verifica {
 			this.tabPageBudget.Location = new System.Drawing.Point(4, 22);
 			this.tabPageBudget.Name = "tabPageBudget";
 			this.tabPageBudget.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageBudget.Size = new System.Drawing.Size(916, 420);
+			this.tabPageBudget.Size = new System.Drawing.Size(916, 421);
 			this.tabPageBudget.TabIndex = 5;
 			this.tabPageBudget.Text = "Budget";
 			this.tabPageBudget.UseVisualStyleBackColor = true;
@@ -1971,6 +1975,10 @@ namespace no_table_entry_verifica {
 			// 
 			// tabPageMovFin
 			// 
+			this.tabPageMovFin.Controls.Add(this.textBox17);
+			this.tabPageMovFin.Controls.Add(this.btnDettagliCAttiviIncassati);
+			this.tabPageMovFin.Controls.Add(this.textBox16);
+			this.tabPageMovFin.Controls.Add(this.btnDettagliCPassiviPagati);
 			this.tabPageMovFin.Controls.Add(this.textBox11);
 			this.tabPageMovFin.Controls.Add(this.btnDettFattureCompetenza);
 			this.tabPageMovFin.Controls.Add(this.textBox10);
@@ -1982,7 +1990,7 @@ namespace no_table_entry_verifica {
 			this.tabPageMovFin.Location = new System.Drawing.Point(4, 22);
 			this.tabPageMovFin.Name = "tabPageMovFin";
 			this.tabPageMovFin.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageMovFin.Size = new System.Drawing.Size(916, 420);
+			this.tabPageMovFin.Size = new System.Drawing.Size(916, 421);
 			this.tabPageMovFin.TabIndex = 6;
 			this.tabPageMovFin.Text = "MovimentiFinanziari";
 			this.tabPageMovFin.UseVisualStyleBackColor = true;
@@ -2097,7 +2105,7 @@ namespace no_table_entry_verifica {
 			this.tabPageMovBudget.Location = new System.Drawing.Point(4, 22);
 			this.tabPageMovBudget.Name = "tabPageMovBudget";
 			this.tabPageMovBudget.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageMovBudget.Size = new System.Drawing.Size(916, 420);
+			this.tabPageMovBudget.Size = new System.Drawing.Size(916, 421);
 			this.tabPageMovBudget.TabIndex = 7;
 			this.tabPageMovBudget.Text = "Movimenti di Budget";
 			this.tabPageMovBudget.UseVisualStyleBackColor = true;
@@ -2361,7 +2369,7 @@ namespace no_table_entry_verifica {
 			this.tabMovBudget2.Location = new System.Drawing.Point(4, 22);
 			this.tabMovBudget2.Name = "tabMovBudget2";
 			this.tabMovBudget2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMovBudget2.Size = new System.Drawing.Size(916, 420);
+			this.tabMovBudget2.Size = new System.Drawing.Size(916, 421);
 			this.tabMovBudget2.TabIndex = 8;
 			this.tabMovBudget2.Text = "Movimenti  di Budget";
 			this.tabMovBudget2.UseVisualStyleBackColor = true;
@@ -2682,7 +2690,7 @@ namespace no_table_entry_verifica {
 			this.tabScrittureErrate.Location = new System.Drawing.Point(4, 22);
 			this.tabScrittureErrate.Name = "tabScrittureErrate";
 			this.tabScrittureErrate.Padding = new System.Windows.Forms.Padding(3);
-			this.tabScrittureErrate.Size = new System.Drawing.Size(916, 420);
+			this.tabScrittureErrate.Size = new System.Drawing.Size(916, 421);
 			this.tabScrittureErrate.TabIndex = 9;
 			this.tabScrittureErrate.Text = "Scritture errate";
 			this.tabScrittureErrate.UseVisualStyleBackColor = true;
@@ -3071,7 +3079,7 @@ namespace no_table_entry_verifica {
 			this.tabScrittureErrate2.Location = new System.Drawing.Point(4, 22);
 			this.tabScrittureErrate2.Name = "tabScrittureErrate2";
 			this.tabScrittureErrate2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabScrittureErrate2.Size = new System.Drawing.Size(916, 420);
+			this.tabScrittureErrate2.Size = new System.Drawing.Size(916, 421);
 			this.tabScrittureErrate2.TabIndex = 10;
 			this.tabScrittureErrate2.Text = "Scritture errate";
 			this.tabScrittureErrate2.UseVisualStyleBackColor = true;
@@ -3341,6 +3349,48 @@ namespace no_table_entry_verifica {
 			this.btnCopy.Text = "Copia negli Appunti";
 			this.btnCopy.UseVisualStyleBackColor = true;
 			this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+			// 
+			// textBox16
+			// 
+			this.textBox16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox16.Location = new System.Drawing.Point(198, 130);
+			this.textBox16.Name = "textBox16";
+			this.textBox16.ReadOnly = true;
+			this.textBox16.Size = new System.Drawing.Size(594, 20);
+			this.textBox16.TabIndex = 18;
+			this.textBox16.Text = "CP non collegati a Fattura senza expenselastmandatedetail";
+			// 
+			// btnDettagliCPassiviPagati
+			// 
+			this.btnDettagliCPassiviPagati.Location = new System.Drawing.Point(26, 127);
+			this.btnDettagliCPassiviPagati.Name = "btnDettagliCPassiviPagati";
+			this.btnDettagliCPassiviPagati.Size = new System.Drawing.Size(141, 23);
+			this.btnDettagliCPassiviPagati.TabIndex = 17;
+			this.btnDettagliCPassiviPagati.Text = "Verifica";
+			this.btnDettagliCPassiviPagati.UseVisualStyleBackColor = true;
+			this.btnDettagliCPassiviPagati.Click += new System.EventHandler(this.btnDettagliCPassiviPagati_Click);
+			// 
+			// textBox17
+			// 
+			this.textBox17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox17.Location = new System.Drawing.Point(198, 156);
+			this.textBox17.Name = "textBox17";
+			this.textBox17.ReadOnly = true;
+			this.textBox17.Size = new System.Drawing.Size(594, 20);
+			this.textBox17.TabIndex = 20;
+			this.textBox17.Text = "CA non collegati a Fattura senza incomelastestimatedetail";
+			// 
+			// btnDettagliCAttiviIncassati
+			// 
+			this.btnDettagliCAttiviIncassati.Location = new System.Drawing.Point(26, 153);
+			this.btnDettagliCAttiviIncassati.Name = "btnDettagliCAttiviIncassati";
+			this.btnDettagliCAttiviIncassati.Size = new System.Drawing.Size(141, 23);
+			this.btnDettagliCAttiviIncassati.TabIndex = 19;
+			this.btnDettagliCAttiviIncassati.Text = "Verifica";
+			this.btnDettagliCAttiviIncassati.UseVisualStyleBackColor = true;
+			this.btnDettagliCAttiviIncassati.Click += new System.EventHandler(this.btnDettagliCAttiviIncassati_Click);
 			// 
 			// frmEntry_Verifica
 			// 
@@ -3649,5 +3699,9 @@ namespace no_table_entry_verifica {
 		private System.Windows.Forms.Button btnGen13;
 		private System.Windows.Forms.Button btnCopy;
 		private System.Windows.Forms.ToolTip toolTipBtnCopiaAppunti;
+		private System.Windows.Forms.TextBox textBox17;
+		private System.Windows.Forms.Button btnDettagliCAttiviIncassati;
+		private System.Windows.Forms.TextBox textBox16;
+		private System.Windows.Forms.Button btnDettagliCPassiviPagati;
 	}
 }

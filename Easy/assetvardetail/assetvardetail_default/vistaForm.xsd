@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vista_dettvarpatrimonio.xsd" xmlns:mstns="http://tempuri.org/Vista_dettvarpatrimonio.xsd" xmlns="http://tempuri.org/Vista_dettvarpatrimonio.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vista_dettvarpatrimonio.xsd" xmlns:mstns="http://tempuri.org/Vista_dettvarpatrimonio.xsd" xmlns="http://tempuri.org/Vista_dettvarpatrimonio.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -157,6 +157,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="assetvardetailattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idassetvar" type="xs:int" />
+              <xs:element name="idassetvardetail" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -172,10 +188,6 @@
       <xs:selector xpath=".//mstns:assetvar" />
       <xs:field xpath="mstns:idassetvar" />
     </xs:unique>
-    <xs:unique name="inventorytreeview_Constraint1" msdata:ConstraintName="Constraint1">
-      <xs:selector xpath=".//mstns:inventorytreeview" />
-      <xs:field xpath="mstns:idinv" />
-    </xs:unique>
     <xs:unique name="assetvardetailview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:assetvardetailview" />
       <xs:field xpath="mstns:idassetvar" />
@@ -189,25 +201,21 @@
       <xs:selector xpath=".//mstns:assetloadmotive" />
       <xs:field xpath="mstns:idmot" />
     </xs:unique>
-    <xs:keyref name="inventoryagencyassetvar" refer="Constraint1">
-      <xs:selector xpath=".//mstns:assetvar" />
-      <xs:field xpath="mstns:idinventoryagency" />
-    </xs:keyref>
-    <xs:keyref name="assetloadmotive_assetvardetail" refer="assetloadmotive_Constraint1">
-      <xs:selector xpath=".//mstns:assetvardetail" />
-      <xs:field xpath="mstns:idmot" />
-    </xs:keyref>
-    <xs:keyref name="inventoryassetvardetail" refer="inventory_Constraint1">
-      <xs:selector xpath=".//mstns:assetvardetail" />
-      <xs:field xpath="mstns:idinventory" />
-    </xs:keyref>
-    <xs:keyref name="inventorytreeviewassetvardetail" refer="inventorytreeview_Constraint1">
-      <xs:selector xpath=".//mstns:assetvardetail" />
-      <xs:field xpath="mstns:idinv" />
-    </xs:keyref>
-    <xs:keyref name="assetvarassetvardetail" refer="assetvar_Constraint1">
-      <xs:selector xpath=".//mstns:assetvardetail" />
+    <xs:unique name="assetvardetailattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetvardetailattachment" />
       <xs:field xpath="mstns:idassetvar" />
-    </xs:keyref>
+      <xs:field xpath="mstns:idassetvardetail" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="inventoryagencyassetvar" msdata:parent="inventoryagency" msdata:child="assetvar" msdata:parentkey="idinventoryagency" msdata:childkey="idinventoryagency" />
+      <msdata:Relationship name="assetloadmotive_assetvardetail" msdata:parent="assetloadmotive" msdata:child="assetvardetail" msdata:parentkey="idmot" msdata:childkey="idmot" />
+      <msdata:Relationship name="inventoryassetvardetail" msdata:parent="inventory" msdata:child="assetvardetail" msdata:parentkey="idinventory" msdata:childkey="idinventory" />
+      <msdata:Relationship name="inventorytreeviewassetvardetail" msdata:parent="inventorytreeview" msdata:child="assetvardetail" msdata:parentkey="idinv" msdata:childkey="idinv" />
+      <msdata:Relationship name="assetvarassetvardetail" msdata:parent="assetvar" msdata:child="assetvardetail" msdata:parentkey="idassetvar" msdata:childkey="idassetvar" />
+      <msdata:Relationship name="assetvardetail_assetvardetailattachment" msdata:parent="assetvardetail" msdata:child="assetvardetailattachment" msdata:parentkey="idassetvar idassetvardetail" msdata:childkey="idassetvar idassetvardetail" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

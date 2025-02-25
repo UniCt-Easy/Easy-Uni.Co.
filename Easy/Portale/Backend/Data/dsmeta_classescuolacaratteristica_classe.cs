@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_classescuolacaratteristica_classe"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_classescuolacaratteristica_classe: DataSet {
+public partial class dsmeta_classescuolacaratteristica_classe: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -76,7 +76,6 @@ private void initClass() {
 	//////////////////// SASDDEFAULTVIEW /////////////////////////////////
 	var tsasddefaultview= new MetaTable("sasddefaultview");
 	tsasddefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tsasddefaultview.defineColumn("idareadidattica", typeof(int));
 	tsasddefaultview.defineColumn("idsasd", typeof(int),false);
 	Tables.Add(tsasddefaultview);
 	tsasddefaultview.defineKey("idsasd");
@@ -87,7 +86,7 @@ private void initClass() {
 	tsasdgruppodefaultview.defineColumn("idsasdgruppo", typeof(int),false);
 	tsasdgruppodefaultview.defineColumn("idtipoattform", typeof(int),false);
 	Tables.Add(tsasdgruppodefaultview);
-	tsasdgruppodefaultview.defineKey("idsasdgruppo");
+	tsasdgruppodefaultview.defineKey("idsasdgruppo", "idtipoattform");
 
 	//////////////////// AMBITOAREADISCDEFAULTVIEW /////////////////////////////////
 	var tambitoareadiscdefaultview= new MetaTable("ambitoareadiscdefaultview");

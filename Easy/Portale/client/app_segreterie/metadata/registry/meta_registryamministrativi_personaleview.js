@@ -29,6 +29,7 @@
 						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 4000, 16);
 						this.describeAColumn(table, 'registry_badgecode', 'Codice bedge', null, 5000, 20);
 						this.describeAColumn(table, 'registry_active', 'Attivo', null, 10000, null);
+						this.describeAColumn(table, 'registry_idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 54000, 9);
 //$objCalcFieldConfig_amministrativi_personale$
 						break;
 //$objCalcFieldConfig$

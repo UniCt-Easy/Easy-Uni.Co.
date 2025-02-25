@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,39 +29,21 @@ namespace account_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
 
-	///<summary>
-	///Livelli del piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountlevel 		=> Tables["accountlevel"];
 
-	///<summary>
-	///Tipo conto, determina il modo in cui Ã¨ movimentato nelle varie situazioni.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountkind 		=> Tables["accountkind"];
 
-	///<summary>
-	///Classificazione conto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountsorting 		=> Tables["accountsorting"];
 
-	///<summary>
-	///Stato Patrimoniale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable patrimony 		=> Tables["patrimony"];
 
-	///<summary>
-	///Conto Economico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable placcount 		=> Tables["placcount"];
 
@@ -71,9 +53,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountspecial 		=> Tables["accountspecial"];
 
-	///<summary>
-	///Previsione di budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accountyear 		=> Tables["accountyear"];
 
@@ -88,6 +67,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting_investimenti 		=> Tables["sorting_investimenti"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable accountattachment 		=> Tables["accountattachment"];
 
 	#endregion
 
@@ -723,6 +705,25 @@ private void initClass() {
 	tsorting_investimenti.PrimaryKey =  new DataColumn[]{tsorting_investimenti.Columns["idsor"]};
 
 
+	//////////////////// ACCOUNTATTACHMENT /////////////////////////////////
+	var taccountattachment= new DataTable("accountattachment");
+	C= new DataColumn("idacc", typeof(string));
+	C.AllowDBNull=false;
+	taccountattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	taccountattachment.Columns.Add(C);
+	taccountattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	taccountattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	taccountattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	taccountattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	taccountattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	taccountattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	taccountattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(taccountattachment);
+	taccountattachment.PrimaryKey =  new DataColumn[]{taccountattachment.Columns["idacc"], taccountattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -778,6 +779,10 @@ private void initClass() {
 	cPar = new []{account.Columns["idacc"]};
 	cChild = new []{accountyear.Columns["idacc"]};
 	Relations.Add(new DataRelation("account_accountyear",cPar,cChild,false));
+
+	cPar = new []{account.Columns["idacc"]};
+	cChild = new []{accountattachment.Columns["idacc"]};
+	Relations.Add(new DataRelation("account_accountattachment",cPar,cChild,false));
 
 	#endregion
 

@@ -56,6 +56,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ybill" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -128,7 +129,7 @@
     <xs:appinfo>
       <msdata:Relationship name="csa_import_csa_bill" msdata:parent="csa_import" msdata:child="csa_bill" msdata:parentkey="idcsa_import" msdata:childkey="idcsa_import" />
       <msdata:Relationship name="registry_csa_bill" msdata:parent="registry" msdata:child="csa_bill" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="bill_csa_bill" msdata:parent="bill" msdata:child="csa_bill" msdata:parentkey="nbill" msdata:childkey="nbill" />
+      <msdata:Relationship name="bill_csa_bill" msdata:parent="bill" msdata:child="csa_bill" msdata:parentkey="nbill ybill" msdata:childkey="nbill ybill" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -29,12 +29,6 @@
 						this.describeAColumn(table, 'caricoente', 'Totale a carico ente', 'fixed.2', 30, null);
 						this.describeAColumn(table, 'irap', 'IRAP', 'fixed.2', 40, null);
 						this.describeAColumn(table, 'totale', 'Totale costo annuo', 'fixed.2', 50, null);
-						this.describeAColumn(table, '!idcontratto_contratto_start', 'Inizio Idcontratto', null, 32, null);
-						this.describeAColumn(table, '!idcontratto_contratto_stop', 'Fine Idcontratto', null, 33, null);
-						this.describeAColumn(table, '!idcontratto_contratto_idcontrattokind_title', 'Tipologia di contratto Idcontratto', null, 30, null);
-						objCalcFieldConfig['!idcontratto_contratto_start'] = { tableNameLookup:'contratto_alias2', columnNameLookup:'start', columnNamekey:'idcontratto' };
-						objCalcFieldConfig['!idcontratto_contratto_stop'] = { tableNameLookup:'contratto_alias2', columnNameLookup:'stop', columnNamekey:'idcontratto' };
-						objCalcFieldConfig['!idcontratto_contratto_idcontrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idcontratto' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'prev':

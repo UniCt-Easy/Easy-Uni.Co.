@@ -120,14 +120,15 @@
   <metadata name="dsFinancial.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>168, 17</value>
   </metadata>
-  <data name="label4.Text" xml:space="preserve">
+  <data name="labelIntro.Text" xml:space="preserve">
     <value>Questo wizard serve ad effettuare i pagamenti e gli incassi posticipati dei versamenti annuali delle voci CSA che sono escluse dai versamenti mensili (come ad esempio la ritenuta INAIL). Per contrassegnare queste voci, è necessario inserire una spunta "Versamenti Annuali",  in corrispondenza del relativo Ente di Versamento CSA.</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>Nel corso dell'anno precedente, quindi, sono stati già generati i movimenti finanziari relativi a queste voci CSA ma fermandosi fino alla fase Residui. La procedura raccoglie i dati di tutte le importazioni dell'esercizio corrente, elaborandole una alla volta.</value>
+    <value> Nel corso dell'anno precedente, quindi, sono stati già generati i movimenti finanziari relativi ma fermandosi fino alla fase Residui. 
+ La procedura raccoglie i dati di tutte le importazioni dell'esercizio precedente che saranno ricreati nell'esercizio corrente.</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>IMPORTANTE: Prima di eseguire la presente procedura di versamento annuale, è obbligatorio verificare che per tutte le importazioni effettuate nell'anno precedente, non siano segnalati errori nella configurazione finanziaria, visibili eseguendo il tasto "Verifica" su ciascuna importazione. In presenza di errori bloccanti, devono essere risolte tutte le situazioni segnalate, prima di procedere.</value>
+    <value>IMPORTANTE: Prima di eseguire la presente procedura, è obbligatorio verificare che per tutte le importazioni effettuate nell'anno precedente, non siano segnalati errori nella configurazione finanziaria, visibili eseguendo il tasto "Verifica" su ciascuna importazione. In presenza di errori bloccanti, devono essere risolte tutte le situazioni segnalate, prima di procedere.</value>
   </data>
   <metadata name="DS.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>279, 17</value>
@@ -137,5 +138,8 @@
   </metadata>
   <metadata name="CMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>346, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>79</value>
   </metadata>
 </root>

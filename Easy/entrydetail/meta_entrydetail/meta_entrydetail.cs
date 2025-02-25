@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -93,6 +93,7 @@ namespace meta_entrydetail {//meta_dettvarbilancio//
 				foreach(DataColumn C in T.Columns) 
 					DescribeAColumn(T,C.ColumnName,"",-1);
 				int pos=1;
+				DescribeAColumn(T, "ndetail", "#", pos++);
 				DescribeAColumn(T, "!codiceconto", "Codice conto", "account.codeacc",pos++);
 				DescribeAColumn(T, "!dare", "Dare",pos++);
 				DescribeAColumn(T, "!avere", "Avere",pos++);
@@ -103,6 +104,7 @@ namespace meta_entrydetail {//meta_dettvarbilancio//
                 DescribeAColumn(T, "!doc", "Descrizione", "entry.doc", pos++);
                 DescribeAColumn(T, "!docdate", "data", "entry.docdate", pos++);
                 DescribeAColumn(T, "description", "Descrizione dettaglio", pos++);
+				DescribeAColumn(T, "idrelated", "Chiave EP", pos++);
 				ComputeRowsAs(T, listtype);
 			}
             if (listtype == "importflow") {

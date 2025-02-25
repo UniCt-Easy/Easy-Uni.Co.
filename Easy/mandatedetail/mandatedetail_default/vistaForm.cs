@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -119,6 +119,9 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting_siope 		=> Tables["sorting_siope"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable epexp_pre 		=> Tables["epexp_pre"];
+
 	#endregion
 
 
@@ -223,6 +226,7 @@ private void initClass() {
 	tmandatedetail.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
 	tmandatedetail.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	tmandatedetail.Columns.Add( new DataColumn("rownum_main", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idepexp_pre", typeof(int)));
 	Tables.Add(tmandatedetail);
 	tmandatedetail.PrimaryKey =  new DataColumn[]{tmandatedetail.Columns["idmankind"], tmandatedetail.Columns["yman"], tmandatedetail.Columns["nman"], tmandatedetail.Columns["rownum"]};
 
@@ -1417,6 +1421,52 @@ private void initClass() {
 	tsorting_siope.PrimaryKey =  new DataColumn[]{tsorting_siope.Columns["idsor"]};
 
 
+	//////////////////// EPEXP_PRE /////////////////////////////////
+	var tepexp_pre= new DataTable("epexp_pre");
+	C= new DataColumn("idepexp", typeof(int));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	C= new DataColumn("adate", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	tepexp_pre.Columns.Add( new DataColumn("doc", typeof(string)));
+	tepexp_pre.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tepexp_pre.Columns.Add( new DataColumn("idman", typeof(int)));
+	tepexp_pre.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tepexp_pre.Columns.Add( new DataColumn("idrelated", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	C= new DataColumn("nepexp", typeof(int));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	C= new DataColumn("nphase", typeof(short));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	tepexp_pre.Columns.Add( new DataColumn("paridepexp", typeof(int)));
+	tepexp_pre.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tepexp_pre.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tepexp_pre.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tepexp_pre.Columns.Add( new DataColumn("txt", typeof(string)));
+	C= new DataColumn("yepexp", typeof(short));
+	C.AllowDBNull=false;
+	tepexp_pre.Columns.Add(C);
+	Tables.Add(tepexp_pre);
+	tepexp_pre.PrimaryKey =  new DataColumn[]{tepexp_pre.Columns["idepexp"]};
+
+
 	#endregion
 
 
@@ -1528,6 +1578,10 @@ private void initClass() {
 	cPar = new []{sorting_siope.Columns["idsor"]};
 	cChild = new []{mandatedetail.Columns["idsor_siope"]};
 	Relations.Add(new DataRelation("sorting_siope_mandatedetail",cPar,cChild,false));
+
+	cPar = new []{epexp_pre.Columns["idepexp"]};
+	cChild = new []{mandatedetail.Columns["idepexp_pre"]};
+	Relations.Add(new DataRelation("epexp_pre_mandatedetail",cPar,cChild,false));
 
 	#endregion
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,66 +26,39 @@ using System.Runtime.Serialization;
 namespace paydispositiondetail_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Disposizione di Pagamento - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable paydispositiondetail 		=> Tables["paydispositiondetail"];
 
-	///<summary>
-	///Nazioni
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable geo_nation 		=> Tables["geo_nation"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable geo_cityview 		=> Tables["geo_cityview"];
 
-	///<summary>
-	///Causale CBI
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable cbimotive 		=> Tables["cbimotive"];
 
-	///<summary>
-	///Disposizione di Pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable paydisposition 		=> Tables["paydisposition"];
 
-	///<summary>
-	///Documento di pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payment 		=> Tables["payment"];
 
-	///<summary>
-	///Movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expense 		=> Tables["expense"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable payment1 		=> Tables["payment1"];
 
-	///<summary>
-	///Movimento di spesa - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenselast 		=> Tables["expenselast"];
 
-	///<summary>
-	///Trattamento delle spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable chargehandling 		=> Tables["chargehandling"];
 
@@ -155,7 +128,7 @@ private void initClass() {
 	tpaydispositiondetail.Columns.Add( new DataColumn("cc", typeof(string)));
 	tpaydispositiondetail.Columns.Add( new DataColumn("iban", typeof(string)));
 	tpaydispositiondetail.Columns.Add( new DataColumn("cin", typeof(string)));
-	tpaydispositiondetail.Columns.Add( new DataColumn("flaghuman", typeof(Char)));
+	tpaydispositiondetail.Columns.Add( new DataColumn("flaghuman", typeof(string)));
 	tpaydispositiondetail.Columns.Add( new DataColumn("title", typeof(string)));
 	tpaydispositiondetail.Columns.Add( new DataColumn("p_iva", typeof(string)));
 	tpaydispositiondetail.Columns.Add( new DataColumn("paymentcode", typeof(string)));

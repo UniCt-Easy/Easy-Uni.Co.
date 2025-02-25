@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,6 +42,8 @@ namespace nso_vendita_default {
         
         public Frm_nso_vendita_default() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             saveFileDialog1.SupportMultiDottedExtensions = true;
             HelpForm.SetDenyNull(DS.nso_vendita.Columns["ec_sent"], true);
         }
@@ -147,6 +149,10 @@ namespace nso_vendita_default {
             txtRifAmm.ReadOnly = !canChangeRifAmm;
 
             txtDescrizione.ReadOnly = !enable;
+
+            txtCodiceIdentificativoGara.ReadOnly = !enable;
+            txtCodEsclusioneGara.ReadOnly = !enable;
+            txtCdEsclusioneGara.ReadOnly = !enable;
         }
 
         public bool AbilitaDisabilitaSalvaAllegati() {
@@ -598,8 +604,11 @@ namespace nso_vendita_default {
                 // Estimate.cigcode
                 MetaData.SetDefault(Estimate, "cigcode", OriginDocRef);
             } else if (OriginDocRef.Length == 4) {
+                object idnoCigMotive = DBNull.Value;
+                DataRow[] noCigMotive = DS.nocigmotive.Select(QHC.CmpEq("idnocigmotiveNSO", OriginDocRef));
+                if (noCigMotive.Length > 0) idnoCigMotive = noCigMotive[0]["idnocigmotive"];
                 // Estimate.cigcode
-                MetaData.SetDefault(Estimate, "idnocigmotive", OriginDocRef);
+                MetaData.SetDefault(Estimate, "idnocigmotive", idnoCigMotive);
             }
 
             // Estimate.doc
@@ -1083,7 +1092,14 @@ namespace nso_vendita_default {
                 doc.WriteTo(xW);
                 xW.Flush();
                 xW.Close();
-                show("Salvataggio del file " + fname + " effettuato");
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fname, false);
+
+                if (isBlazor())
+                    show("File scaricato");
+                else
+                    show("Salvataggio del file " + fname + " effettuato");
+
             } catch (System.IO.IOException e1) {
                 show(e1.Message, "Errore nel salvataggio del file " + fname);
             }
@@ -1157,6 +1173,8 @@ namespace nso_vendita_default {
                 FS.Write(documento, offset, n);
                 FS.Flush();
                 FS.Close();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(sw, false);
             } catch {
             }
         }

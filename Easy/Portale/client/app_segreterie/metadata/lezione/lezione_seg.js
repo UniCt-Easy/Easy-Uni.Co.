@@ -48,17 +48,17 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.idsede || parentRow.idsede == 0)
+				if (this.isNull(parentRow.idsede) || parentRow.idsede == 0)
 					parentRow.idsede = this.state.callerState.currentRow.idsede;
-				if (!parentRow.nonsvolta)
+				if (this.isNull(parentRow.nonsvolta) || parentRow.nonsvolta == '')
 					parentRow.nonsvolta = "N";
-				if (!parentRow.stage)
+				if (this.isNull(parentRow.stage) || parentRow.stage == '')
 					parentRow.stage = "N";
 				if (self.isNullOrMinDate(parentRow.start))
 					parentRow.start = new Date();
 				if (self.isNullOrMinDate(parentRow.stop))
 					parentRow.stop = new Date();
-				if (!parentRow.visita)
+				if (this.isNull(parentRow.visita) || parentRow.visita == '')
 					parentRow.visita = "N";
 				//beforeFillFilter
 				
@@ -88,10 +88,12 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-lezione_seg");
-				$('#lezione_seg_idedificio').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_seg_idedificio').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#lezione_seg_idaula').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_seg_idaula').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_seg_idedificio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
+				$('#lezione_seg_idedificio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idedificio);
+				$('#lezione_seg_idaula').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaula);
+				$('#lezione_seg_idaula').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaula);
+				$('#lezione_seg_idedificio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaula);
+				$('#lezione_seg_idedificio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaula);
 				//afterRowSelectin
 				return def.resolve();
 			},

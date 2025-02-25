@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistacontattomain.xsd" xmlns:mstns="http://tempuri.org/vistacontattomain.xsd" xmlns="http://tempuri.org/vistacontattomain.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
@@ -122,6 +122,22 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="registryreferenceattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistryreference" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -142,10 +158,17 @@
       <xs:selector xpath=".//mstns:registrymainview" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
+    <xs:unique name="registryreferenceattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registryreferenceattachment" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistryreference" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="registryregistryreference" msdata:parent="registry" msdata:child="registryreference" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registryreference_registryreferenceattachment" msdata:parent="registryreference" msdata:child="registryreferenceattachment" msdata:parentkey="idreg idregistryreference" msdata:childkey="idreg idregistryreference" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

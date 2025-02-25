@@ -18,8 +18,11 @@
               <xs:element name="oreannoimpegnate" type="xs:int" minOccurs="0" />
               <xs:element name="oreannorendicontate" type="xs:int" minOccurs="0" />
               <xs:element name="oremaxanno" type="xs:int" />
+              <xs:element name="oremincompitidida" type="xs:int" minOccurs="0" />
+              <xs:element name="residuoanno" type="xs:int" minOccurs="0" />
               <xs:element name="stipendioannuo" type="xs:decimal" minOccurs="0" />
               <xs:element name="stipendiorendicontato" type="xs:decimal" minOccurs="0" />
+              <xs:element name="stipendioresiduo" type="xs:decimal" minOccurs="0" />
               <xs:element name="year" type="xs:int" />
             </xs:sequence>
           </xs:complexType>

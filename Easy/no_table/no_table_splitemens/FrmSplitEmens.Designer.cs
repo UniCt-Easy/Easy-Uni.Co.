@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -69,9 +69,6 @@ namespace no_table_splitemens
             this.txtSedeINPS = new System.Windows.Forms.TextBox();
             this.btnAnnulla = new System.Windows.Forms.Button();
             this.btnUniEmens = new System.Windows.Forms.Button();
-            this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
-            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
-            this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridFile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();

@@ -34,6 +34,7 @@
 						this.describeAColumn(table, 'progetto_codiceidentificativo', 'Codice attribuito dall\'ente finanziatore', null, 22000, 2048);
 						this.describeAColumn(table, 'title_description', 'Descrizione Titolo Responsabile amministrativo', null, 23120, 50);
 						this.describeAColumn(table, 'registryamm_surname', 'Cognome Responsabile amministrativo', null, 23200, 50);
+						this.describeAColumn(table, 'attach_filename', 'Logo progetto', null, 23300, 512);
 						this.describeAColumn(table, 'registryamm_forename', 'Nome Responsabile amministrativo', null, 23300, 50);
 						this.describeAColumn(table, 'registryamm_cf', 'Codice fiscale Responsabile amministrativo', null, 23400, 16);
 						this.describeAColumn(table, 'registry_title', 'Principal investigator / Responsabile scientifico', null, 24300, 101);
@@ -42,7 +43,7 @@
 						this.describeAColumn(table, 'partnerkind_title', 'Ruolo dell\'ateneo', null, 27200, 2048);
 						this.describeAColumn(table, 'progetto_start', 'Data di inizio', null, 30000, null);
 						this.describeAColumn(table, 'progetto_stop', 'Data di fine', null, 31000, null);
-						this.describeAColumn(table, 'progetto_datacontabile', 'Data chiusura contablile', null, 33000, null);
+						this.describeAColumn(table, 'progetto_datacontabile', 'Data chiusura contabile', null, 33000, null);
 						this.describeAColumn(table, 'progetto_budget', 'Costo totale per l\'ateneo', 'fixed.2', 41000, null);
 						this.describeAColumn(table, 'progetto_contributoente', 'Contributo totale ottenuto per l\'ateneo dall’ente finanziatore', 'fixed.2', 42000, null);
 						this.describeAColumn(table, 'progetto_contributo', 'Cofinanziamento ottenuto dall\'ateneo', 'fixed.2', 43000, null);

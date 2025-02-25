@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,18 +27,9 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_struttura_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_struttura_default: DataSet {
+public partial class dsmeta_struttura_default: DataSet {
 
 	#region Table members declaration
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable getregistrydocentiamministrativi 		=> (MetaTable)Tables["getregistrydocentiamministrativi"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable mansionekind 		=> (MetaTable)Tables["mansionekind"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable afferenza 		=> (MetaTable)Tables["afferenza"];
-
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable upbdefaultview 		=> (MetaTable)Tables["upbdefaultview"];
 
@@ -79,43 +70,6 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_struttura_default.xsd";
 
 	#region create DataTables
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVI /////////////////////////////////
-	var tgetregistrydocentiamministrativi= new MetaTable("getregistrydocentiamministrativi");
-	tgetregistrydocentiamministrativi.defineColumn("contratto", typeof(string));
-	tgetregistrydocentiamministrativi.defineColumn("extmatricula", typeof(string));
-	tgetregistrydocentiamministrativi.defineColumn("forename", typeof(string));
-	tgetregistrydocentiamministrativi.defineColumn("idreg", typeof(int),false);
-	tgetregistrydocentiamministrativi.defineColumn("surname", typeof(string));
-	Tables.Add(tgetregistrydocentiamministrativi);
-	tgetregistrydocentiamministrativi.defineKey("idreg");
-
-	//////////////////// MANSIONEKIND /////////////////////////////////
-	var tmansionekind= new MetaTable("mansionekind");
-	tmansionekind.defineColumn("idmansionekind", typeof(int),false);
-	tmansionekind.defineColumn("title", typeof(string),false);
-	Tables.Add(tmansionekind);
-	tmansionekind.defineKey("idmansionekind");
-
-	//////////////////// AFFERENZA /////////////////////////////////
-	var tafferenza= new MetaTable("afferenza");
-	tafferenza.defineColumn("ct", typeof(DateTime),false);
-	tafferenza.defineColumn("cu", typeof(string),false);
-	tafferenza.defineColumn("idafferenza", typeof(int),false);
-	tafferenza.defineColumn("idmansionekind", typeof(int));
-	tafferenza.defineColumn("idreg", typeof(int),false);
-	tafferenza.defineColumn("idstruttura", typeof(int),false);
-	tafferenza.defineColumn("lt", typeof(DateTime),false);
-	tafferenza.defineColumn("lu", typeof(string),false);
-	tafferenza.defineColumn("start", typeof(DateTime));
-	tafferenza.defineColumn("stop", typeof(DateTime));
-	tafferenza.defineColumn("!idmansionekind_mansionekind_title", typeof(string));
-	tafferenza.defineColumn("!idreg_getregistrydocentiamministrativi_surname", typeof(string));
-	tafferenza.defineColumn("!idreg_getregistrydocentiamministrativi_forename", typeof(string));
-	tafferenza.defineColumn("!idreg_getregistrydocentiamministrativi_extmatricula", typeof(string));
-	tafferenza.defineColumn("!idreg_getregistrydocentiamministrativi_contratto", typeof(string));
-	Tables.Add(tafferenza);
-	tafferenza.defineKey("idafferenza", "idreg", "idstruttura");
-
 	//////////////////// UPBDEFAULTVIEW /////////////////////////////////
 	var tupbdefaultview= new MetaTable("upbdefaultview");
 	tupbdefaultview.defineColumn("dropdown_title", typeof(string),false);
@@ -136,6 +90,11 @@ private void initClass() {
 	tstrutturakinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturakinddefaultview.defineColumn("idstrutturakind", typeof(int),false);
 	tstrutturakinddefaultview.defineColumn("strutturakind_active", typeof(string));
+	tstrutturakinddefaultview.defineColumn("strutturakind_description", typeof(string));
+	tstrutturakinddefaultview.defineColumn("strutturakind_lt", typeof(DateTime));
+	tstrutturakinddefaultview.defineColumn("strutturakind_lu", typeof(string));
+	tstrutturakinddefaultview.defineColumn("strutturakind_sortCode", typeof(int),false);
+	tstrutturakinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tstrutturakinddefaultview);
 	tstrutturakinddefaultview.defineKey("idstrutturakind");
 
@@ -178,20 +137,8 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{struttura.Columns["idstruttura"]};
-	var cChild = new []{afferenza.Columns["idstruttura"]};
-	Relations.Add(new DataRelation("FK_afferenza_struttura_idstruttura",cPar,cChild,false));
-
-	cPar = new []{getregistrydocentiamministrativi.Columns["idreg"]};
-	cChild = new []{afferenza.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_afferenza_getregistrydocentiamministrativi_idreg",cPar,cChild,false));
-
-	cPar = new []{mansionekind.Columns["idmansionekind"]};
-	cChild = new []{afferenza.Columns["idmansionekind"]};
-	Relations.Add(new DataRelation("FK_afferenza_mansionekind_idmansionekind",cPar,cChild,false));
-
-	cPar = new []{upbdefaultview.Columns["idupb"]};
-	cChild = new []{struttura.Columns["idupb"]};
+	var cPar = new []{upbdefaultview.Columns["idupb"]};
+	var cChild = new []{struttura.Columns["idupb"]};
 	Relations.Add(new DataRelation("FK_struttura_upbdefaultview_idupb",cPar,cChild,false));
 
 	cPar = new []{aoodefaultview.Columns["idaoo"]};

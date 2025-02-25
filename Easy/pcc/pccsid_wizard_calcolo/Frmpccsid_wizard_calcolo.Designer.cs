@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -93,7 +93,7 @@ namespace pccsid_wizard_calcolo {
 			// btnNext
 			// 
 			this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnNext.Location = new System.Drawing.Point(862, 745);
+			this.btnNext.Location = new System.Drawing.Point(531, 453);
 			this.btnNext.Name = "btnNext";
 			this.btnNext.Size = new System.Drawing.Size(72, 23);
 			this.btnNext.TabIndex = 21;
@@ -103,7 +103,7 @@ namespace pccsid_wizard_calcolo {
 			// btnBack
 			// 
 			this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnBack.Location = new System.Drawing.Point(782, 745);
+			this.btnBack.Location = new System.Drawing.Point(451, 453);
 			this.btnBack.Name = "btnBack";
 			this.btnBack.Size = new System.Drawing.Size(72, 23);
 			this.btnBack.TabIndex = 20;
@@ -114,7 +114,7 @@ namespace pccsid_wizard_calcolo {
 			// 
 			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnAnnulla.Location = new System.Drawing.Point(972, 745);
+			this.btnAnnulla.Location = new System.Drawing.Point(641, 453);
 			this.btnAnnulla.Name = "btnAnnulla";
 			this.btnAnnulla.Size = new System.Drawing.Size(72, 23);
 			this.btnAnnulla.TabIndex = 26;
@@ -130,7 +130,7 @@ namespace pccsid_wizard_calcolo {
 			this.tabController.Name = "tabController";
 			this.tabController.SelectedIndex = 0;
 			this.tabController.SelectedTab = this.tabPage1;
-			this.tabController.Size = new System.Drawing.Size(1028, 692);
+			this.tabController.Size = new System.Drawing.Size(697, 386);
 			this.tabController.TabIndex = 25;
 			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabPage1,
@@ -146,7 +146,7 @@ namespace pccsid_wizard_calcolo {
 			this.tabPage1.Controls.Add(this.groupBox2);
 			this.tabPage1.Location = new System.Drawing.Point(0, 0);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(1028, 667);
+			this.tabPage1.Size = new System.Drawing.Size(697, 361);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Title = "Pagina 1 di 3";
 			// 
@@ -166,46 +166,48 @@ namespace pccsid_wizard_calcolo {
 			this.groupBox2.Controls.Add(this.label4);
 			this.groupBox2.Controls.Add(this.txtAl);
 			this.groupBox2.Controls.Add(this.txtDal);
-			this.groupBox2.Location = new System.Drawing.Point(15, 17);
+			this.groupBox2.Location = new System.Drawing.Point(9, 3);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(996, 636);
+			this.groupBox2.Size = new System.Drawing.Size(679, 351);
 			this.groupBox2.TabIndex = 29;
 			this.groupBox2.TabStop = false;
 			// 
 			// grpPagamenti
 			// 
+			this.grpPagamenti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpPagamenti.Controls.Add(this.label3);
 			this.grpPagamenti.Controls.Add(this.label2);
 			this.grpPagamenti.Controls.Add(this.txtEsercizio);
 			this.grpPagamenti.Controls.Add(this.chkIP);
-			this.grpPagamenti.Location = new System.Drawing.Point(20, 342);
+			this.grpPagamenti.Location = new System.Drawing.Point(283, 83);
 			this.grpPagamenti.Name = "grpPagamenti";
-			this.grpPagamenti.Size = new System.Drawing.Size(609, 104);
+			this.grpPagamenti.Size = new System.Drawing.Size(383, 104);
 			this.grpPagamenti.TabIndex = 55;
 			this.grpPagamenti.TabStop = false;
 			this.grpPagamenti.Text = "GESTIONE PAGAMENTI (solo per Enti NO Siope+)";
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(391, 43);
+			this.label3.Location = new System.Drawing.Point(103, 50);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(178, 21);
 			this.label3.TabIndex = 48;
 			this.label3.Text = "Non compilare per vederli tutti.";
-			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(94, 46);
+			this.label2.Location = new System.Drawing.Point(80, 35);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(218, 15);
+			this.label2.Size = new System.Drawing.Size(220, 15);
 			this.label2.TabIndex = 47;
-			this.label2.Text = "Considera Mandati fatture dall\'esercizio:";
+			this.label2.Text = "Considera Mandati Fatture dall\'esercizio:";
 			// 
 			// txtEsercizio
 			// 
-			this.txtEsercizio.Location = new System.Drawing.Point(318, 42);
+			this.txtEsercizio.Location = new System.Drawing.Point(303, 42);
 			this.txtEsercizio.Name = "txtEsercizio";
 			this.txtEsercizio.Size = new System.Drawing.Size(67, 23);
 			this.txtEsercizio.TabIndex = 46;
@@ -215,7 +217,7 @@ namespace pccsid_wizard_calcolo {
 			// chkIP
 			// 
 			this.chkIP.AutoSize = true;
-			this.chkIP.Location = new System.Drawing.Point(7, 42);
+			this.chkIP.Location = new System.Drawing.Point(18, 42);
 			this.chkIP.Name = "chkIP";
 			this.chkIP.Size = new System.Drawing.Size(36, 19);
 			this.chkIP.TabIndex = 45;
@@ -228,12 +230,12 @@ namespace pccsid_wizard_calcolo {
 			this.grpGestioneimporti.Controls.Add(this.chkMI);
 			this.grpGestioneimporti.Controls.Add(this.chkScadenza);
 			this.grpGestioneimporti.Controls.Add(this.chkSID);
-			this.grpGestioneimporti.Location = new System.Drawing.Point(20, 213);
+			this.grpGestioneimporti.Location = new System.Drawing.Point(134, 77);
 			this.grpGestioneimporti.Name = "grpGestioneimporti";
-			this.grpGestioneimporti.Size = new System.Drawing.Size(237, 110);
+			this.grpGestioneimporti.Size = new System.Drawing.Size(139, 110);
 			this.grpGestioneimporti.TabIndex = 54;
 			this.grpGestioneimporti.TabStop = false;
-			this.grpGestioneimporti.Text = "GESTIONE IMPORTI DOCUMENTI";
+			this.grpGestioneimporti.Text = "IMPORTI DOCUMENTI";
 			// 
 			// chkMI
 			// 
@@ -271,9 +273,9 @@ namespace pccsid_wizard_calcolo {
 			// grpInvio
 			// 
 			this.grpInvio.Controls.Add(this.chkInvio);
-			this.grpInvio.Location = new System.Drawing.Point(20, 118);
+			this.grpInvio.Location = new System.Drawing.Point(11, 77);
 			this.grpInvio.Name = "grpInvio";
-			this.grpInvio.Size = new System.Drawing.Size(237, 68);
+			this.grpInvio.Size = new System.Drawing.Size(114, 110);
 			this.grpInvio.TabIndex = 53;
 			this.grpInvio.TabStop = false;
 			this.grpInvio.Text = "INVIO Fatture non elettroniche";
@@ -281,7 +283,7 @@ namespace pccsid_wizard_calcolo {
 			// chkInvio
 			// 
 			this.chkInvio.AutoSize = true;
-			this.chkInvio.Location = new System.Drawing.Point(16, 31);
+			this.chkInvio.Location = new System.Drawing.Point(16, 56);
 			this.chkInvio.Name = "chkInvio";
 			this.chkInvio.Size = new System.Drawing.Size(57, 19);
 			this.chkInvio.TabIndex = 51;
@@ -303,9 +305,9 @@ namespace pccsid_wizard_calcolo {
 			this.grpAnagrafica.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpAnagrafica.Controls.Add(this.txtAnagrafica);
-			this.grpAnagrafica.Location = new System.Drawing.Point(20, 479);
+			this.grpAnagrafica.Location = new System.Drawing.Point(11, 209);
 			this.grpAnagrafica.Name = "grpAnagrafica";
-			this.grpAnagrafica.Size = new System.Drawing.Size(956, 48);
+			this.grpAnagrafica.Size = new System.Drawing.Size(655, 48);
 			this.grpAnagrafica.TabIndex = 40;
 			this.grpAnagrafica.TabStop = false;
 			this.grpAnagrafica.Tag = "AutoChoose.txtAnagrafica.default.(active=\'S\')";
@@ -317,17 +319,17 @@ namespace pccsid_wizard_calcolo {
 			this.txtAnagrafica.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtAnagrafica.Location = new System.Drawing.Point(16, 16);
+			this.txtAnagrafica.Location = new System.Drawing.Point(9, 17);
 			this.txtAnagrafica.Name = "txtAnagrafica";
-			this.txtAnagrafica.Size = new System.Drawing.Size(924, 23);
+			this.txtAnagrafica.Size = new System.Drawing.Size(640, 23);
 			this.txtAnagrafica.TabIndex = 1;
 			this.txtAnagrafica.Tag = "registry.title?x";
 			// 
 			// label5
 			// 
-			this.label5.Location = new System.Drawing.Point(17, 533);
+			this.label5.Location = new System.Drawing.Point(12, 272);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(470, 21);
+			this.label5.Size = new System.Drawing.Size(456, 21);
 			this.label5.TabIndex = 39;
 			this.label5.Text = "Indicare la cartella in cui salvare il file";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -336,16 +338,16 @@ namespace pccsid_wizard_calcolo {
 			// 
 			this.txtPercorso.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtPercorso.Location = new System.Drawing.Point(89, 559);
+			this.txtPercorso.Location = new System.Drawing.Point(83, 296);
 			this.txtPercorso.Name = "txtPercorso";
 			this.txtPercorso.ReadOnly = true;
-			this.txtPercorso.Size = new System.Drawing.Size(887, 23);
+			this.txtPercorso.Size = new System.Drawing.Size(583, 23);
 			this.txtPercorso.TabIndex = 38;
 			// 
 			// btnCartella
 			// 
 			this.btnCartella.AutoSize = true;
-			this.btnCartella.Location = new System.Drawing.Point(20, 558);
+			this.btnCartella.Location = new System.Drawing.Point(15, 295);
 			this.btnCartella.Name = "btnCartella";
 			this.btnCartella.Size = new System.Drawing.Size(63, 25);
 			this.btnCartella.TabIndex = 37;
@@ -355,7 +357,7 @@ namespace pccsid_wizard_calcolo {
 			// 
 			// label63
 			// 
-			this.label63.Location = new System.Drawing.Point(344, 22);
+			this.label63.Location = new System.Drawing.Point(348, 22);
 			this.label63.Name = "label63";
 			this.label63.Size = new System.Drawing.Size(24, 16);
 			this.label63.TabIndex = 31;
@@ -365,11 +367,11 @@ namespace pccsid_wizard_calcolo {
 			// 
 			this.label4.AutoSize = true;
 			this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.label4.Location = new System.Drawing.Point(23, 78);
+			this.label4.Location = new System.Drawing.Point(22, 57);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(210, 15);
 			this.label4.TabIndex = 1;
-			this.label4.Text = "Selezionate il tipo di file da generare";
+			this.label4.Text = "Selezionare il tipo di file da generare";
 			// 
 			// txtAl
 			// 
@@ -395,13 +397,13 @@ namespace pccsid_wizard_calcolo {
 			this.tabPage2.Location = new System.Drawing.Point(0, 0);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Selected = false;
-			this.tabPage2.Size = new System.Drawing.Size(1028, 667);
+			this.tabPage2.Size = new System.Drawing.Size(697, 361);
 			this.tabPage2.TabIndex = 0;
 			this.tabPage2.Title = "Pagina 2 di 3";
 			// 
 			// btnSelezionaTutto
 			// 
-			this.btnSelezionaTutto.Location = new System.Drawing.Point(10, 18);
+			this.btnSelezionaTutto.Location = new System.Drawing.Point(19, 18);
 			this.btnSelezionaTutto.Name = "btnSelezionaTutto";
 			this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
 			this.btnSelezionaTutto.TabIndex = 31;
@@ -410,9 +412,9 @@ namespace pccsid_wizard_calcolo {
 			// 
 			// label8
 			// 
-			this.label8.Location = new System.Drawing.Point(102, 21);
+			this.label8.Location = new System.Drawing.Point(114, 8);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(701, 23);
+			this.label8.Size = new System.Drawing.Size(571, 44);
 			this.label8.TabIndex = 30;
 			this.label8.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
     "per selezionare più operazioni da inviare";
@@ -426,9 +428,9 @@ namespace pccsid_wizard_calcolo {
 			this.gridDettagli.DataMember = "";
 			this.gridDettagli.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.gridDettagli.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.gridDettagli.Location = new System.Drawing.Point(10, 47);
+			this.gridDettagli.Location = new System.Drawing.Point(17, 57);
 			this.gridDettagli.Name = "gridDettagli";
-			this.gridDettagli.Size = new System.Drawing.Size(1003, 606);
+			this.gridDettagli.Size = new System.Drawing.Size(663, 290);
 			this.gridDettagli.TabIndex = 28;
 			this.gridDettagli.Paint += new System.Windows.Forms.PaintEventHandler(this.gridDettagli_Paint);
 			// 
@@ -441,7 +443,7 @@ namespace pccsid_wizard_calcolo {
 			this.tabPage3.Location = new System.Drawing.Point(0, 0);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Selected = false;
-			this.tabPage3.Size = new System.Drawing.Size(1028, 667);
+			this.tabPage3.Size = new System.Drawing.Size(697, 361);
 			this.tabPage3.TabIndex = 3;
 			this.tabPage3.Title = "Pagina 3 di 3";
 			// 
@@ -462,7 +464,7 @@ namespace pccsid_wizard_calcolo {
 			this.groupBox1.Controls.Add(this.tabController);
 			this.groupBox1.Location = new System.Drawing.Point(10, 12);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(1034, 711);
+			this.groupBox1.Size = new System.Drawing.Size(703, 405);
 			this.groupBox1.TabIndex = 27;
 			this.groupBox1.TabStop = false;
 			// 
@@ -474,7 +476,7 @@ namespace pccsid_wizard_calcolo {
 			// Frm_pccsid_wizard_calcolo
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-			this.ClientSize = new System.Drawing.Size(1056, 795);
+			this.ClientSize = new System.Drawing.Size(725, 489);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnAnnulla);
 			this.Controls.Add(this.btnNext);

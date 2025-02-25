@@ -31,7 +31,7 @@
 
 			afterLink: function () {
 				var self = this;
-				$('#grid_stipendiocomplemento_default').data('mdlconditionallookup', 'idstipendiocomplementokind,2,Tipologia: Retribuzione personale docente (RPD) ;idstipendiocomplementokind,3,Tipologia: Compenso individuale accessorio (CIA) ;');
+				$('#grid_stipendiocomplemento_default').data('mdlconditionallookup', 'idstipendiocomplementokind,1,Tipologia: Indice di vacanza contrattuale (IVC) ;idstipendiocomplementokind,2,Tipologia: Retribuzione personale docente (RPD) ;idstipendiocomplementokind,3,Tipologia: Compenso individuale accessorio (CIA) ;idstipendiocomplementokind,4,Tipologia: Indennità di Amministrazione ;idstipendiocomplementokind,5,Tipologia: Indennità di Funzione ;idstipendiocomplementokind,6,Tipologia: Indennità art. 7 l. 438,92 ;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,11 +36,14 @@ namespace csa_import_inail_maxphase {
 	
 	public partial class frmcsa_import_inail_maxphase : MetaDataForm {
 		MetaData Meta;
+		IMetaData _meta;
 		DataAccess Conn;
 		CQueryHelper QHC = new CQueryHelper();
 		QueryHelper QHS;
 		EntityDispatcher Dispatcher;
-		System.EventHandler[] AllList = new System.EventHandler[100];
+		string LoV;
+		public delegate void MyCustomEventHandler(object sender, EventArgs e, string additionalData);
+		MyCustomEventHandler[] AllList = new MyCustomEventHandler[100];
 		int esercizio;
 		private DataTable OutTable;
 		private DataTable SP_Result;
@@ -48,6 +51,7 @@ namespace csa_import_inail_maxphase {
 		private System.Data.DataTable mData = new System.Data.DataTable();
 		private System.Data.DataTable csa_bill_global = new System.Data.DataTable();
 		public IOpenFileDialog openInputFileDlg;
+
 
 		public frmcsa_import_inail_maxphase() {
 			InitializeComponent();
@@ -58,6 +62,7 @@ namespace csa_import_inail_maxphase {
 
 		public void MetaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
+			_meta = this.getInstance<IMetaData>();
 			Dispatcher = Meta.Dispatcher as EntityDispatcher;
 			Conn = Meta.Conn;
 			esercizio = Conn.GetEsercizio();
@@ -75,7 +80,7 @@ namespace csa_import_inail_maxphase {
 			InitializeAllList();
 			Meta.SearchEnabled = false;
 			Meta.canInsert = false;
-
+			GestisciEditType();
 		}
 		private void InitializeAllList() {
 			// 25) Movimenti padre con disponibile insufficiente
@@ -84,10 +89,14 @@ namespace csa_import_inail_maxphase {
 			AllList[1] = this.btn26_Click;
 		}
 
-		private void btn25_Click(object sender, EventArgs e) {
+		private void btn25_Click(object sender, EventArgs e,string LoV) {
+
+
 			//25) Movimenti padre con disponibile insufficiente
 			//SELECT COUNT(*) FROM csa_importver_deferred_parentview where parentayear = @ayear AND available<0 ) > 0
 			string filter = QHS.AppAnd(QHS.CmpEq("parentayear", esercizio-1),QHS.CmpLt("available",0));
+			string filterLoV = (LoV == "L") ? QHS.CmpEq("var_autokind", 33) : QHS.CmpEq("var_autokind", 32);
+			filter = QHS.AppAnd(filter, filterLoV);
 
 			//kind,parentidinc, parentidexp,ymov, nmov, nphase,phase, parentayear, 
 			//parentavailable,parentayear_new, parentavailable_new, tot_amount, available
@@ -98,7 +107,7 @@ namespace csa_import_inail_maxphase {
 							" parentayear_new as 'Eserc. Creazione Pagamenti', " +
 							" tot_amount as 'Tot. Pagamenti', " +
 							" available as 'Nuovo Importo disp.' " +
-							" FROM csa_importver_deferred_parentview " +
+							" FROM [csa_movfin_deferred_parentview] " +
 							" WHERE  " + filter;
 
 
@@ -127,11 +136,11 @@ namespace csa_import_inail_maxphase {
 			exportclass.DataTableToExcel(T, true);
 		}
 
-		private void btn26_Click(object sender, EventArgs e) {
+		private void btn26_Click(object sender, EventArgs e, string LoV) {
 			//26) Coppie Bilancio - UPB con previsione disponibile insufficiente 
 			string errMess;
 			DataSet ds = Conn.CallSP("exp_csa_deferred_fin_upb_available",
-				new object[] {esercizio-1}, 600, out errMess);
+				new object[] {esercizio-1, LoV}, 600, out errMess);
 			if (errMess != null) {
 				show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
 			}
@@ -173,6 +182,7 @@ namespace csa_import_inail_maxphase {
 			dsFinancial.Clear();
 			DS.Clear();
 			dgrVersamentiAnnuali.DataSource = null;
+			dgrLordiPosticipati.DataSource = null;
 			dgrSospesi.DataSource = null;
 			mData.Clear();
 		}
@@ -206,7 +216,8 @@ namespace csa_import_inail_maxphase {
 
 		bool CustomChangeTab(int oldTab, int newTab) {
 			if ((oldTab == 1) && (newTab == 0)) return true; //1->0:nothing to do!
-			if (/*(oldTab == 0) && */(newTab == 1)) return getElencoVociCSA();
+			if ((oldTab == 0) && (newTab == 1)) return getElencoVariazioniCSA(LoV);
+			if ((oldTab == 1) && (newTab > 1)) return true; //:nothing to do!
 			return true;
 		}
 
@@ -230,18 +241,20 @@ namespace csa_import_inail_maxphase {
 			fg.AutosizeColumnWidth();
 		}
 
-		private bool getElencoVociCSA() {
+		private bool getElencoVariazioniCSA( string LoV) {
 			DataSet DataSource = new DataSet();
+			string tableName = (LoV == "L") ? "csa_importriep_varresidualview" : "csa_importver_varresidualview";
+			string description = (LoV == "L") ? " Lordi Posticipati " : " Versamenti Posticipati ";
+			DataGrid dataGrid = (LoV == "L") ? dgrLordiPosticipati: dgrVersamentiAnnuali ;
 
 			string filter =  QHS.CmpEq("ayear", getIntSys("esercizio") -1);
 
-			DataTable Variazioni = Meta.Conn.RUN_SELECT("csa_importver_varresidualview", "*", null, filter, null, false);
+			DataTable Variazioni = Meta.Conn.RUN_SELECT(tableName, "*", null, filter, null, false);
 
 			if ((Variazioni == null) || (Variazioni.Rows.Count == 0)) {
-				show(this, "Non ci sono variazioni da elaborare");
+				show(this, "Non ci sono variazioni" + description +"da elaborare");
 				return false;
 			}
-
 
 			DataSource.Tables.Add(Variazioni);
 			// Visualizzazione del grid
@@ -267,13 +280,13 @@ namespace csa_import_inail_maxphase {
 			Variazioni.Columns["description"].Caption = "Descrizione";
 
 			//	kind, idinc, idexp,parentidinc, parentidexp,ymov, nmov, nphase,  ayear, idfin, idupb, idman, amount,idreg,registry, description
-			FormatDataGrid(dgrVersamentiAnnuali, Variazioni);
-			HelpForm.SetDataGrid(dgrVersamentiAnnuali, Variazioni);
+			FormatDataGrid(dataGrid, Variazioni);
+			HelpForm.SetDataGrid(dataGrid, Variazioni);
 	 
 
 			if (Variazioni.Rows.Count > 0) {
 				for (int i = 0; i < Variazioni.Rows.Count; i++) {
-					dgrVersamentiAnnuali.Select(i); // seleziona tutto
+					dataGrid.Select(i); // seleziona tutto
 				}
 			}
 			Meta.FreshForm();
@@ -390,6 +403,9 @@ namespace csa_import_inail_maxphase {
 
         Dictionary<int, Dictionary<int, decimal>> listaSospesi = new Dictionary<int, Dictionary<int, decimal>>();
 		private void ValorizzaSospeso(DataTable T) {
+			// Solo per i Versamenti posticipati valorizziamo i sospesi importanti
+			// Mentre per i Lordi posticipati è stato fatto già nella fase azzeramento
+			// andando a selezionare i sospesi dell'esercizio successivo 
 			object nBill = getSospeso();
             //if (nBill == null || nBill == DBNull.Value || CfgFn.GetNoNullInt32(nBill) == 0) return;
 			DataTable csaBill =  csa_bill_global;
@@ -421,17 +437,21 @@ namespace csa_import_inail_maxphase {
 
 	 
 
-		private void fillImportMov(string IoE, DataTable TMain, DataTable TPartition) {
+		private void fillImportMov(string IoE, DataTable TMain, DataTable TPartitionVer, DataTable TPartitionRiep) {
 			string tableNameMain = (IoE == "E") ? "csa_import_expense": "csa_import_income";
-			string tableName = (IoE == "E") ? "csa_importver_partition_expense": "csa_importver_partition_income";
+			string tableNameVer = (IoE == "E") ? "csa_importver_partition_expense": "csa_importver_partition_income";
+			string tableNameRiep = (IoE == "E") ? "csa_importriep_partition_expense" : "csa_importriep_partition_income";
 			string fieldName = (IoE == "E") ? "idexp": "idinc";
 			MetaData MetaPartition = Meta.Dispatcher.Get(tableNameMain);
 			MetaPartition.SetDefaults(dsFinancial.Tables[tableNameMain]);
 
-			MetaData MetaPartitionVer = Meta.Dispatcher.Get(tableName);
-			MetaPartitionVer.SetDefaults(dsFinancial.Tables[tableName]);
+			MetaData MetaPartitionVer = Meta.Dispatcher.Get(tableNameVer);
+			MetaPartitionVer.SetDefaults(dsFinancial.Tables[tableNameVer]);
 
-            if ((TMain != null) && (TMain.Rows.Count > 0)) {
+			MetaData MetaPartitionRiep = Meta.Dispatcher.Get(tableNameRiep);
+			MetaPartitionRiep.SetDefaults(dsFinancial.Tables[tableNameRiep]);
+
+			if ((TMain != null) && (TMain.Rows.Count > 0)) {
                 var movLinked = new Dictionary<string, bool>();
                 foreach (DataRow RRipart in TMain.Rows) {
                     object idmov=(IoE == "E") ? getNewIdExp(RRipart[fieldName]) : getNewIdInc(RRipart[fieldName]);
@@ -452,25 +472,25 @@ namespace csa_import_inail_maxphase {
                 }
             }
 
-            if ((TPartition != null) && (TPartition.Rows.Count > 0)) {
+            if ((TPartitionVer != null) && (TPartitionVer.Rows.Count > 0)) {
                 var movLinked = new Dictionary<string, bool>();
-                foreach (DataRow RRipart in TPartition.Rows) {
+                foreach (DataRow RRipart in TPartitionVer.Rows) {
 
                     object idmov = (IoE == "E") ? getNewIdExp(RRipart[fieldName]) : getNewIdInc(RRipart[fieldName]);
                     if (idmov == DBNull.Value) continue;
 
                     string hash = $"{RRipart["idcsa_import"]}*{RRipart["movkind"]}*{idmov}";
-                    if (dsFinancial.Tables[tableName].Columns.Contains("ndetail")) {
+                    if (dsFinancial.Tables[tableNameVer].Columns.Contains("ndetail")) {
                         hash += "*" + RRipart["ndetail"];
                     }
 
-                    if (dsFinancial.Tables[tableName].Columns.Contains("idver")) {
+                    if (dsFinancial.Tables[tableNameVer].Columns.Contains("idver")) {
                         hash += "*" + RRipart["idver"];
                     }
 
                     if (movLinked.ContainsKey(hash)) continue;
                     movLinked[hash] = true;
-                    DataRow ImportMovRow = MetaPartitionVer.Get_New_Row(null, dsFinancial.Tables[tableName]);
+                    DataRow ImportMovRow = MetaPartitionVer.Get_New_Row(null, dsFinancial.Tables[tableNameVer]);
 
                     ImportMovRow["idcsa_import"] = RRipart["idcsa_import"];
                     ImportMovRow["movkind"] = RRipart["movkind"];
@@ -493,7 +513,51 @@ namespace csa_import_inail_maxphase {
                     }
                 }
             }
-        }
+
+			if ((TPartitionRiep != null) && (TPartitionRiep.Rows.Count > 0)) {
+				var movLinked = new Dictionary<string, bool>();
+				foreach (DataRow RRipart in TPartitionRiep.Rows) {
+
+					object idmov = (IoE == "E") ? getNewIdExp(RRipart[fieldName]) : getNewIdInc(RRipart[fieldName]);
+					if (idmov == DBNull.Value) continue;
+
+					string hash = $"{RRipart["idcsa_import"]}*{RRipart["movkind"]}*{idmov}";
+					if (dsFinancial.Tables[tableNameRiep].Columns.Contains("ndetail")) {
+						hash += "*" + RRipart["ndetail"];
+					}
+
+					if (dsFinancial.Tables[tableNameRiep].Columns.Contains("idriep")) {
+						hash += "*" + RRipart["idriep"];
+					}
+
+					if (movLinked.ContainsKey(hash)) continue;
+					movLinked[hash] = true;
+					DataRow ImportMovRow = MetaPartitionRiep.Get_New_Row(null, dsFinancial.Tables[tableNameRiep]);
+
+					ImportMovRow["idcsa_import"] = RRipart["idcsa_import"];
+					ImportMovRow["movkind"] = RRipart["movkind"];
+					ImportMovRow[fieldName] = idmov;
+					ImportMovRow["cu"] = "import";
+					ImportMovRow["ct"] = DateTime.Now;
+					ImportMovRow["lu"] = "import";
+					ImportMovRow["lt"] = DateTime.Now;
+
+					if (ImportMovRow.Table.Columns.Contains("ndetail")) {
+						ImportMovRow["ndetail"] = RRipart["ndetail"];
+					}
+
+					if (ImportMovRow.Table.Columns.Contains("idriep")) {
+						ImportMovRow["idriep"] = RRipart["idriep"];
+					}
+
+					if (ImportMovRow.Table.Columns.Contains("amount")) {
+						ImportMovRow["amount"] = RRipart["originalamount"];
+					}
+				}
+			}
+
+
+		}
 
 		// Dictionary associazione tra idspesa originale e ente 
 		Dictionary<object, object> _spesaEnte = new Dictionary<object, object>();
@@ -599,7 +663,7 @@ namespace csa_import_inail_maxphase {
 			}
 		}
 
-		private void fillLastMovimento(string IoE, DataRow R, DataRow NewLastMov) {
+		private void fillLastMovimento(string IoE, string L_Or_V, DataRow R, DataRow NewLastMov) {
 			string idMovField = (IoE == "E") ? "idexp": "idinc";
 			string filterMov =  QHS.CmpEq(idMovField,R[idMovField]);
 			string tableName = (IoE == "E") ? "expenselast": "incomelast";
@@ -607,72 +671,115 @@ namespace csa_import_inail_maxphase {
 			string accountFieldName = (IoE == "I") ? "idacccredit": "idaccdebit";
 			MetaData MetaMBill = Meta.Dispatcher.Get(tMainBill);
 			MetaMBill.SetDefaults(dsFinancial.Tables[tMainBill]);
-		
-			string tableBillName="";
-
+		 
 			if (IoE == "E") {
 				int idreg = CfgFn.GetNoNullInt32(R["idreg"]);
 				accountFieldName = "idaccdebit";
                 bool regolarizzazioneEffettuata = false;
-				// Se il movimento è a regolarizzazione mette la bolletta
-				// Verifico l'esistenza di sospesi multipli
-				decimal netto = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(R["netto"]));
-				// Singolo sospeso
-				var bill = getSospesiPerAnagrafica(CfgFn.GetNoNullInt32( R["idreg"]), listaSospesi, netto);
-				if ((bill.Keys.Count == 1) && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
-					var Bill = bill.First();
-					NewLastMov["nbill"] = Bill.Key;
-					regolarizzazioneEffettuata = true;
-					if (listaSospesi.ContainsKey(idreg)) {
-						var listaSospesiMov = listaSospesi[idreg];
-						listaSospesiMov[Bill.Key] -= Bill.Value;
-					}
-				}
-				// Ripartizione 
-				if ((bill.Keys.Count > 1) && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
-					foreach (int nBill in bill.Keys) {
-                        if (netto == 0) continue;
-                        if (bill[nBill] == 0) continue;
-						var newBill = MetaMBill.Get_New_Row(NewLastMov, dsFinancial.Tables[tMainBill]);
-						newBill[idMovField] = NewLastMov[idMovField];
-						newBill["nbill"] = nBill;
-						newBill["ybill"] = esercizio;
-                        if (netto >= bill[nBill]) {
-                            //svuota questo sospeso nel dictionary, non sarà più considerato
-                            newBill["amount"] = bill[nBill];
-							netto -= bill[nBill];
-                        }
-                        else {
-                            //prende dal sospeso solo la parte che serve
-                            newBill["amount"] = netto;
 
-							//bill[nBill] -= netto;
-							netto = 0;
-                        }
-
-						if (listaSospesi.ContainsKey(idreg)) {
-							var listaSospesiMov = listaSospesi[idreg];
-							listaSospesiMov[nBill] -= bill[nBill];
+				//  Versamenti Posticipati. Il Pagamento rientra in uno dei seguenti casi
+				//  ° a regolarizzazione su singolo sospeso anno corrente
+				//  ° a regolarizzazione ma importo ripartito tra più sospesi -->,
+				//  -->in base a una tabella di ripartizione importata riferita all'anno corrente
+				//  ° non a regolarizzazione
+				if (L_Or_V == "V") {
+					// Se il movimento è a regolarizzazione mette la bolletta
+					// Verifico l'esistenza di sospesi multipli
+					decimal netto = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(R["netto"]));
+						// Singolo sospeso
+						var bill = getSospesiPerAnagrafica(CfgFn.GetNoNullInt32( R["idreg"]), listaSospesi, netto);
+						if ((bill.Keys.Count == 1) && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
+							var Bill = bill.First();
+							NewLastMov["nbill"] = Bill.Key;
+							regolarizzazioneEffettuata = true;
+							if (listaSospesi.ContainsKey(idreg)) {
+								var listaSospesiMov = listaSospesi[idreg];
+								listaSospesiMov[Bill.Key] -= Bill.Value;
+							}
 						}
-					}
-					regolarizzazioneEffettuata = true;
+						// Ripartizione tra più sospesi
+						if ((bill.Keys.Count > 1) && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
+							foreach (int nBill in bill.Keys) {
+								if (netto == 0) continue;
+								if (bill[nBill] == 0) continue;
+								var newBill = MetaMBill.Get_New_Row(NewLastMov, dsFinancial.Tables[tMainBill]);
+								newBill[idMovField] = NewLastMov[idMovField];
+								newBill["nbill"] = nBill;
+								newBill["ybill"] = esercizio;
+								if (netto >= bill[nBill]) {
+									//svuota questo sospeso nel dictionary, non sarà più considerato
+									newBill["amount"] = bill[nBill];
+									netto -= bill[nBill];
+								}
+								else {
+									//prende dal sospeso solo la parte che serve
+									newBill["amount"] = netto;
+
+									//bill[nBill] -= netto;
+									netto = 0;
+								}
+
+								if (listaSospesi.ContainsKey(idreg)) {
+									var listaSospesiMov = listaSospesi[idreg];
+									listaSospesiMov[nBill] -= bill[nBill];
+								}
+							}
+							regolarizzazioneEffettuata = true;
+						}
+
+						if ((bill.Keys.Count == 0) && (R["nbill"] != DBNull.Value)  && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
+							NewLastMov["nbill"] = R["nbill"];
+							NewLastMov["flag"] = CfgFn.GetNoNullInt32(NewLastMov["flag"]) | 1;
+							regolarizzazioneEffettuata = true;
+						}
 				}
 
-				if ((bill.Keys.Count == 0) && (R["nbill"] != DBNull.Value)  && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
-					NewLastMov["nbill"] = R["nbill"];
-					NewLastMov["flag"] = CfgFn.GetNoNullInt32(NewLastMov["flag"]) | 1;
-					regolarizzazioneEffettuata = true;
+				// Lordi Posticipati. Il Pagamento rientra in uno dei seguenti casi
+				//  ° a regolarizzazione su singolo sospeso aperto nell'anno corrente, ma già impostato nel pagamento originale nella fase precedente di azzeramento dei Lordi
+				//  ° a regolarizzazione con importo ripartito tra più sospesi dell'anno corrente, già selezionati nella fase precedente di azzeramento dei Lordi
+				//  ° non a regolarizzazione 
+				//  In tutti questi casi, nei Lordi Posticipti, a differenza dei Versamenti posticipati,
+				//  si tratta di replicare o il numero di sospeso o la ripartizione o la modalità di pagamento
+				//  clonandola dal pagamento originale. 
+
+				else {
+					// Se il movimento è a netto diverso da zero e a regolarizzazione
+					// copia il numero bolletta singola dal pagamento originale
+		
+					decimal netto = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(R["netto"]));
+					// ° Singolo sospeso
+					if ((R["nbill"] != DBNull.Value) && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
+						NewLastMov["nbill"] = R["nbill"];
+						regolarizzazioneEffettuata = true;
+					}
+
+					// ° Ripartizione tra sospesi multipli, li clono esattamente dal movimento originale perchè i sospesi erano stati scelti
+					// tra quelli dell'esercizio corrente
+					var bill = DataAccess.RUN_SELECT(Meta.Conn, tMainBill, "*", null, QHS.CmpEq("idexp", R["idexp"]), null, true); ;
+
+					if ((bill.Rows.Count >= 1) && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
+						foreach (DataRow rBill in bill.Rows) {
+							var newBill = MetaMBill.Get_New_Row(NewLastMov, dsFinancial.Tables[tMainBill]);
+							newBill[idMovField] = NewLastMov[idMovField];
+							newBill["nbill"] = rBill["nbill"];
+							newBill["ybill"] = esercizio;
+						}
+						regolarizzazioneEffettuata = true;
+					}
+
 				}
-				if (regolarizzazioneEffettuata) { 
-					// Imposto un trattamento spese predefinito per il CSA
-					// in caso di regolarizzazione
+				if (regolarizzazioneEffettuata) {
+					// PAGAMENTI Sia per Lordi Posticipati che per Versamenti Posticipati
+					// Imposto un trattamento spese predefinito per il CSA letto dalla configurazione ANNUALE di esercizio corrente
+					// e il relativo flag a regolarizzazione in caso di regolarizzazione
 					object idchargehandling = DBNull.Value;
 					idchargehandling = get_idchargehandling_CSA();
 					NewLastMov["idchargehandling"] = idchargehandling;
 					NewLastMov["flag"] = CfgFn.GetNoNullInt32(NewLastMov["flag"]) | 1;
 				}
 				else {
-					// Se non è a regolrizzazione, copia la modalità di pagamento dalla riga vecchia
+					// PAGAMENTI Sia per Lordi Posticipati che per Versamenti Posticipati
+					// ° Se non è a regolarizzazione, copia la modalità di pagamento dalla riga vecchia
 					string[] fields_to_copy = new string[] {
 						"cc", "cin", "flag","iban","idbank","idcab","iddeputy","idregistrypaymethod",
 						"paymentdescr","refexternaldoc","idpaymethod","biccode","extracode","paymethod_allowdeputy",
@@ -686,6 +793,7 @@ namespace csa_import_inail_maxphase {
 					
 				}
 			}
+			// INCASSI, Sia per Lordi Posticipati che per Versamenti Posticipati
 			else {
 					string[] fields_to_copy = new string[] {
 					"flag", "nbill"};
@@ -782,7 +890,7 @@ namespace csa_import_inail_maxphase {
 		/// <param name="IoE"></param>
 		/// <returns></returns>
 		Dictionary<int, int> NewIdPayment = new Dictionary<int, int>();
-		private bool generaMovPrincipali(string IoE) {
+		private bool generaMovPrincipali(string IoE,string L_Or_V) {
           
             string tMain = (IoE == "I") ? "income" : "expense";
 			string tMainVar = (IoE == "I") ? "incomevar" : "expensevar";
@@ -793,9 +901,10 @@ namespace csa_import_inail_maxphase {
             string tImportMain = (IoE == "I") ? "csa_import_income" : "csa_import_expense";
             string tImportMainVerPlus = (IoE == "I") ? "csa_importver_partition_income" : "csa_importver_partition_expense";
             string tImportMainRiepPlus = (IoE == "I") ? "csa_importriep_partition_income" : "csa_importriep_partition_expense";
+			string tVarResidual = (L_Or_V == "L") ? "csa_importriep_varresidualview" : "csa_importver_varresidualview";
 
-			
-            MetaData MetaM = Meta.Dispatcher.Get(tMain);
+
+			MetaData MetaM = Meta.Dispatcher.Get(tMain);
             MetaM.SetDefaults(dsFinancial.Tables[tMain]);
 
             MetaData MetaL = Meta.Dispatcher.Get(tMainLast);
@@ -852,11 +961,13 @@ namespace csa_import_inail_maxphase {
 			string filterAutoYear =  QHS.AppAnd( QHS.CmpEq("kind", kind),QHS.CmpEq("ayear",esercizio-1));
 			string filterAutoS =   QHS.CmpEq("kind", kind);
 			string filterEsercizioPrecS = QHS.CmpEq("ayear", esercizio - 1);
-			string filterOriginal = QHS.AppAnd(filterAutoS,filterEsercizioPrecS);
+			string filterL_Or_V = (L_Or_V== "L")?QHS.CmpEq("var_autokind", 33): QHS.CmpEq("var_autokind", 32);
+			string filterOriginal = QHS.AppAnd(filterAutoS, filterEsercizioPrecS);
+			string filterOriginalL_Or_V = QHS.AppAnd(filterAutoS, filterEsercizioPrecS, filterL_Or_V);
 			List<DataRow> Auto = new List<DataRow>();
 
 
-			SP_Result = DataAccess.RUN_SELECT(Meta.Conn, "csa_importver_varresidualview", "*", null, filterAutoYear, null, true);
+			SP_Result = DataAccess.RUN_SELECT(Meta.Conn, tVarResidual, "*", null, filterAutoYear, null, true);
 			SP_Result.Columns.Add("idmovimento", typeof(int));
 			SP_Result.Columns.Add("netto", typeof(decimal));
 			if (IoE == "I") {
@@ -870,7 +981,7 @@ namespace csa_import_inail_maxphase {
 					r["netto"] = -CfgFn.GetNoNullDecimal(r["amount"]);
 					RigheSpesaPerIdExp[CfgFn.GetNoNullInt32(r["idexp"])] = r;
 				}
-				var incomeResult = DataAccess.RUN_SELECT(Meta.Conn, "csa_importver_varresidualview", "*", null,   
+				var incomeResult = DataAccess.RUN_SELECT(Meta.Conn, tVarResidual, "*", null,   
 							QHS.AppAnd( QHS.CmpEq("kind", "Entrata"),QHS.CmpEq("ayear",esercizio-1)), null, true);
 				foreach (DataRow r in incomeResult.Rows) {
 					int idexp = CfgFn.GetNoNullInt32(r["idpayment"]);
@@ -882,12 +993,19 @@ namespace csa_import_inail_maxphase {
 					                CfgFn.GetNoNullDecimal(r["amount"]);
 				}
 			}
-			DataTable OriginalImpPartition  = DataAccess.RUN_SELECT(Meta.Conn, "csa_import_originalpartitionview","*", null, filterOriginal, null, true);
-			DataTable OriginalVerPartition = DataAccess.RUN_SELECT(Meta.Conn, "csa_importver_originalpartitionview","*", null, filterOriginal, null, true);
-			DataTable OriginalSorting = DataAccess.RUN_SELECT(Meta.Conn, "csa_originalsortingview","*", null, filterOriginal, null, true);
+			DataTable OriginalImpPartition  = DataAccess.RUN_SELECT(Meta.Conn, "csa_import_originalpartitionview","*", null, filterOriginalL_Or_V, null, true);
+			DataTable OriginalVerPartition = DataAccess.RUN_SELECT(Meta.Conn, "csa_importver_originalpartitionview","*", null, filterOriginalL_Or_V, null, true);
+			DataTable OriginalRiepPartition = DataAccess.RUN_SELECT(Meta.Conn, "csa_importriep_originalpartitionview", "*", null, filterOriginalL_Or_V, null, true);
+
+			DataTable OriginalSorting = DataAccess.RUN_SELECT(Meta.Conn, "csa_originalsortingview","*", null, filterOriginalL_Or_V, null, true);
 			getEnteVersamento(OriginalVerPartition);
 			
-			ValorizzaSospeso(SP_Result);
+			// Solo per i Versamenti posticipati valorizziamo i sospesi sugli automatismi da trasformare in movimenti finanziari
+			// Mentre per i Lordi posticipati è stato fatto già nella fase azzeramento e gli automatsmi già contengono l'eventuale
+			// indicazione del sospeso
+			// andando a selezionare i sospesi dell'esercizio successivo 
+			if (L_Or_V == "V") ValorizzaSospeso(SP_Result);
+
 			for (int ii = 0; ii < SP_Result.Rows.Count; ii++) {
 				DataRow R = SP_Result.Rows[ii];
 				if (R["kind"].ToString() != kind) continue;
@@ -904,7 +1022,8 @@ namespace csa_import_inail_maxphase {
 				fillMovimento(NewMovRow, R);
 				R["idmovimento"] = NewMovRow[idMovField];
 				NewMovRow["nphase"] = faseCorrente;
-				NewMovRow["autokind"] = 31;
+				NewMovRow["autocode"] = R[idMovField];
+				NewMovRow["autokind"] = R["autokind"];
 				
 			
 				if (kind == "Spesa") {
@@ -932,7 +1051,7 @@ namespace csa_import_inail_maxphase {
 
 				DataRow NewLastRow = MetaL.Get_New_Row(NewMovRow, dsFinancial.Tables[tMainLast]);
                 
-                fillLastMovimento(IoE, R, NewLastRow);
+                fillLastMovimento(IoE, L_Or_V, R, NewLastRow);
                 
                 
                 DataRow NewImpMov = ImpMov.NewRow();
@@ -945,7 +1064,7 @@ namespace csa_import_inail_maxphase {
             }
 
 			fillMovSortedFaseMAX(IoE, OriginalSorting); // ricrea  le classificazioni 
-			fillImportMov(IoE, OriginalImpPartition, OriginalVerPartition); // ricrea le ripartizioni 
+			fillImportMov(IoE, OriginalImpPartition, OriginalVerPartition, OriginalRiepPartition); // ricrea le ripartizioni 
 			updateIdPayment();
 
 			return true;
@@ -989,14 +1108,14 @@ namespace csa_import_inail_maxphase {
 			NewIdPayment.Clear();
 
 			// Verificare l'esistenza di movimenti finanziari precedentemente generati
-			if (!generaMovPrincipali("E")) {
+			if (!generaMovPrincipali("E",kind)) {
 				show(this, "Errore nella generazione dei movimenti finanziari di spesa");
                 dsFinancial.Clear();
                 dsFinancial.AcceptChanges();
                 return;
             }
 
-			if (!generaMovPrincipali("I")) {
+			if (!generaMovPrincipali("I", kind)) {
 				show(this, "Errore nella generazione dei movimenti finanziari di spesa");
                 dsFinancial.Clear();
                 dsFinancial.AcceptChanges();
@@ -1018,7 +1137,7 @@ namespace csa_import_inail_maxphase {
 
 		private void btnVersamenti_Click(object sender, EventArgs e) {
 			if (executing) return;
-			if (!VerificaIndividuazione()) {
+			if (!VerificaDisponibileMovimentiPadre("V")) {
 				show(this, "Errori bloccanti nella chiamata della procedura di verifica:", "Errore");
 				return;
 			}
@@ -1404,17 +1523,16 @@ namespace csa_import_inail_maxphase {
 			dgrSospesi.TableStyles.Clear();
 		}
 
-		private bool VerificaIndividuazione() {
+		private bool VerificaDisponibileMovimentiPadre(string LoV) {
 			 
 			string sp_name = "check_csa_available_deferred";
-			 
-			DataGrid dgr = dgrVerificheFin;
+			DataGrid dgr = (LoV == "V")? dgrVerificheFin: dgrVerificheLordi;
 
 			int esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
 			string errMess;
 
 			DataSet ds = Conn.CallSP(sp_name,
-				new object[] {esercizio -1}, 600, out errMess);
+				new object[] {esercizio -1, LoV }, 600, out errMess);
 			if (errMess != null) {
 				show(this, "Errore nella chiamata della procedura di verifica: " + errMess, "Errore");
 				return false;
@@ -1437,7 +1555,7 @@ namespace csa_import_inail_maxphase {
 			} else return true;
 		}
 		private void btnVerifica_Click(object sender, EventArgs e) {
-			if (!VerificaIndividuazione()) show(this, "Errori bloccanti nella chiamata della procedura di verifica:" ,"Errore"); 
+			if (!VerificaDisponibileMovimentiPadre("V")) show(this, "Errori bloccanti nella chiamata della procedura di verifica Versamenti:" ,"Errore"); 
 			else show(this, "La procedura di verifica non ha restituito errori:", "Avviso");
 		}
 
@@ -1462,7 +1580,7 @@ namespace csa_import_inail_maxphase {
 					"Errore");
 				return;
 			}
-			AllList[errorcode - 1](null, null);
+			AllList[errorcode - 1](null, null, null);
 			 
 		}
 
@@ -1484,6 +1602,72 @@ namespace csa_import_inail_maxphase {
 			DataRow R = DV.Row;
 			return R;
 		}
+
+		private void btnLordi_Click(object sender, EventArgs e) {
+			if (executing) return;
+			if (!VerificaDisponibileMovimentiPadre("L")) {
+				show(this, "Errori bloccanti nella chiamata della procedura di verifica:", "Errore");
+				return;
+			}
+			btnLordi.Visible = false;
+			executing = true;
+			tabController.SelectedTab = tabRisultati;
+			//sia entrate che spese
+			string message = "";
+			btnGeneraMovFin_Click(sender, e, "L");
+			btnVersamenti.Visible = true;
+			executing = false; // Consente di rieseguire la procedura
+		}
+
+		private void btnVerificaLordi_Click(object sender, EventArgs e) {
+			if (!VerificaDisponibileMovimentiPadre("L")) show(this, "Errori bloccanti nella chiamata della procedura di verifica Lordi:", "Errore");
+			else show(this, "La procedura di verifica non ha restituito errori:", "Avviso");
+
+		}
+
+		void mostraTab(Crownwood.Magic.Controls.TabControl Tab, Crownwood.Magic.Controls.TabPage TPage, Crownwood.Magic.Controls.TabPage TPage2, Crownwood.Magic.Controls.TabPage TPag3) {
+			//  Mostra solo i TabPage indicati 
+			foreach (Crownwood.Magic.Controls.TabPage page in Tab.TabPages) {
+				if (!((page == TPage) || (page == TPage2) || (page == TPag3))) Tab.TabPages.Remove(page);
+			}
+
+			if (Tab.TabPages.Count == 0) Tab.Visible = false;
+			// ho impostato la proprietà autosize a true sul form, per permettere il ridimensionamento automatico
+		}
+
+		void removeTab(Crownwood.Magic.Controls.TabControl Tab, Crownwood.Magic.Controls.TabPage TPage) {
+			//  Rimuove i TabPage indicati 
+			if(Tab.TabPages.Contains(TPage))  Tab.TabPages.Remove(TPage);
+
+			if (Tab.TabPages.Count == 0) Tab.Visible = false;
+			// ho impostato la proprietà autosize a true sul form, per permettere il ridimensionamento automatico
+		}
+
+		public string txtHelpLordiPosticipati = "Questo wizard serve ad effettuare i pagamenti e gli incassi posticipati dei Lordi CSA. ";
+		public string txtHelpVersamentiPosticipati = "Questo wizard serve ad effettuare i pagamenti e gli incassi posticipati dei versamenti annuali delle voci CSA che sono escluse dai versamenti mensili (come ad esempio la ritenuta INAIL). Per contrassegnare queste voci, è necessario inserire una spunta Versamenti Annuali," +
+		" in corrispondenza del relativo Ente di Versamento CSA.";
+
+		void GestisciEditType() {
+			switch (_meta.editType) {
+				case "lordiposticipati": {
+						removeTab(tabController,tabSelectVersamenti);
+						labelIntro.Text = txtHelpLordiPosticipati;
+						LoV = "L";
+						break;
+					}
+
+				case "postponedpayment": {
+						removeTab(tabController, tabLordi);
+						labelIntro.Text = txtHelpVersamentiPosticipati;
+						LoV = "V";
+						break;
+					}
+
+
+			}
+
+		}
+
 	}
 
 	class Fake_EpPoster : ep_poster {
@@ -1518,6 +1702,8 @@ namespace csa_import_inail_maxphase {
 		public DataSet getDataSet() {
 			return d;
 		}
+	
+
 	}
 
 

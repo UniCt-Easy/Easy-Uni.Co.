@@ -24,10 +24,10 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'idsasd', 'Codice Istituto', null, 10, null);
 						this.describeAColumn(table, 'codice', 'Codice', null, 20, 50);
 						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 255);
 						this.describeAColumn(table, 'codice_old', 'Codice legge precedente', null, 50, 4);
+						this.describeAColumn(table, 'tipoente', 'Tipologia di ente', null, 60, null);
 //$objCalcFieldConfig_default$
 						break;
 					case 'integrandi':
@@ -51,6 +51,7 @@
 						table.columns["codice_old"].caption = "Codice legge precedente";
 						table.columns["idareadidattica"].caption = "Area o ambito disciplinare";
 						table.columns["idsasd"].caption = "Codice Istituto";
+						table.columns["tipoente"].caption = "Tipologia di ente";
 						table.columns["title"].caption = "Denominazione";
 //$innerSetCaptionConfig_default$
 						break;

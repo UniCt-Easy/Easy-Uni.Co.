@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,36 +31,21 @@ namespace inventorytree_default {
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Classificazione inventariale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public inventorytreeTable inventorytree 		=> (inventorytreeTable)Tables["inventorytree"];
 
-	///<summary>
-	///Classificazione gerarchica inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventorytreesorting 		=> (MetaTable)Tables["inventorytreesorting"];
 
-	///<summary>
-	///Livelli della classificazione inventariale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventorysortinglevel 		=> (MetaTable)Tables["inventorysortinglevel"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventorytreeview 		=> (MetaTable)Tables["inventorytreeview"];
 
-	///<summary>
-	///Tipo Ammortamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventoryamortization 		=> (MetaTable)Tables["inventoryamortization"];
 
-	///<summary>
-	///Quota ammortamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventorysortingamortizationyear 		=> (MetaTable)Tables["inventorysortingamortizationyear"];
 
@@ -70,15 +55,9 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable accmotiveapplied_unload 		=> (MetaTable)Tables["accmotiveapplied_unload"];
 
-	///<summary>
-	///Configurazione multicampo per classificazione inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable inventorytreemultifieldkind 		=> (MetaTable)Tables["inventorytreemultifieldkind"];
 
-	///<summary>
-	///Campi aggiuntivi per cespiti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable multifieldkind 		=> (MetaTable)Tables["multifieldkind"];
 
@@ -96,6 +75,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable accmotiveapplied_transfer 		=> (MetaTable)Tables["accmotiveapplied_transfer"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable inventorytreeattachment 		=> (MetaTable)Tables["inventorytreeattachment"];
 
 	#endregion
 
@@ -355,6 +337,20 @@ private void initClass() {
 	Tables.Add(taccmotiveapplied_transfer);
 	taccmotiveapplied_transfer.defineKey("idaccmotive");
 
+	//////////////////// INVENTORYTREEATTACHMENT /////////////////////////////////
+	var tinventorytreeattachment= new MetaTable("inventorytreeattachment");
+	tinventorytreeattachment.defineColumn("idinv", typeof(int),false);
+	tinventorytreeattachment.defineColumn("idattachment", typeof(int),false);
+	tinventorytreeattachment.defineColumn("attachment", typeof(Byte[]));
+	tinventorytreeattachment.defineColumn("filename", typeof(string));
+	tinventorytreeattachment.defineColumn("cu", typeof(string));
+	tinventorytreeattachment.defineColumn("ct", typeof(DateTime));
+	tinventorytreeattachment.defineColumn("lu", typeof(string));
+	tinventorytreeattachment.defineColumn("lt", typeof(DateTime));
+	tinventorytreeattachment.defineColumn("idattachmentkind", typeof(int));
+	Tables.Add(tinventorytreeattachment);
+	tinventorytreeattachment.defineKey("idinv", "idattachment");
+
 	#endregion
 
 
@@ -391,6 +387,7 @@ private void initClass() {
 	cChild = new []{inventorytree.Columns["idaccmotivetransfer"]};
 	Relations.Add(new DataRelation("accmotiveapplied_transfer_inventorytree",cPar,cChild,false));
 
+	this.defineRelation("inventorytree_inventorytreeattachment","inventorytree","inventorytreeattachment","idinv");
 	#endregion
 
 }
